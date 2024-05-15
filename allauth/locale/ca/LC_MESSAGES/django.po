@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-20 14:01-0500\n"
+"POT-Creation-Date: 2024-05-14 11:32-0500\n"
 "PO-Revision-Date: 2024-04-20 21:54+0200\n"
 "Last-Translator: ctrl_alt_d\n"
 "Language-Team: Català\n"
@@ -20,67 +20,82 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.4.2\n"
 
-#: account/adapter.py:57
+#: account/adapter.py:58
 msgid "This account is currently inactive."
 msgstr "Ara mateix aquest compte està inactiu."
 
-#: account/adapter.py:59
+#: account/adapter.py:60
+#, fuzzy
+#| msgid "You cannot remove your primary email address (%(email)s)."
+msgid "You cannot remove your primary email address."
+msgstr "No podeu eliminar el vostre correu electrònic principal (%(email)s)."
+
+#: account/adapter.py:63
 msgid "This email address is already associated with this account."
 msgstr "Aquest correu electrònic ja està associat amb aquest compte."
 
-#: account/adapter.py:62
+#: account/adapter.py:66
 msgid "The email address and/or password you specified are not correct."
 msgstr ""
 "El correu electrònic i/o la contrasenya que heu especificat no són correctes."
 
-#: account/adapter.py:64
+#: account/adapter.py:68
 msgid "A user is already registered with this email address."
 msgstr ""
 "Un usuari ja ha estat registrat amb aquesta direcció de correu electrònic."
 
-#: account/adapter.py:65
+#: account/adapter.py:69
 msgid "Please type your current password."
 msgstr "Si us plau, escriviu la vostra contrasenya actual."
 
-#: account/adapter.py:66 mfa/adapter.py:29
+#: account/adapter.py:70 mfa/adapter.py:30
 msgid "Incorrect code."
 msgstr "Codi incorrecte."
 
-#: account/adapter.py:67
+#: account/adapter.py:71
 msgid "Incorrect password."
 msgstr "Contrasenya actual."
 
-#: account/adapter.py:68
+#: account/adapter.py:72
+msgid "Invalid or expired key."
+msgstr ""
+
+#: account/adapter.py:73
 msgid "The password reset token was invalid."
 msgstr "El token per reiniciar la contrasenya no és vàlid."
 
-#: account/adapter.py:69
+#: account/adapter.py:74
 #, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "No es poden afegit més de %d adreces de correu electrònic."
 
-#: account/adapter.py:71
+#: account/adapter.py:76
 msgid "Too many failed login attempts. Try again later."
 msgstr "Massa intents fallits. Intenteu-ho de nou més tard."
 
-#: account/adapter.py:73
+#: account/adapter.py:78
 msgid "The email address is not assigned to any user account"
 msgstr "El correu electrònic no està assignat a cap compte d'usuari"
 
-#: account/adapter.py:75
+#: account/adapter.py:79
+#: templates/account/messages/unverified_primary_email.txt:2
+msgid "Your primary email address must be verified."
+msgstr "La vostra adreça de correu electrònic principal ha de ser verificada."
+
+#: account/adapter.py:81
 msgid "Username can not be used. Please use other username."
 msgstr ""
 "Aquest nom d'usuari no pot ser emprat. Si us plau utilitzeu-ne un altre."
 
-#: account/adapter.py:78
+#: account/adapter.py:84
 msgid "The username and/or password you specified are not correct."
 msgstr "L'usuari i/o la contrasenya que heu especificat no són correctes."
 
-#: account/adapter.py:714
+#: account/adapter.py:736
 msgid "Use your password"
 msgstr "Utilitzeu la vostra paraula de pas"
 
-#: account/adapter.py:724
+#: account/adapter.py:747
 msgid "Use your authenticator app"
 msgstr "Utilitzeu la vostra aplicació d’autenticar"
 
@@ -92,12 +107,12 @@ msgstr "Marqueu l’adreça de correu seleccionada com a verificada"
 msgid "Accounts"
 msgstr "Comptes"
 
-#: account/forms.py:59 account/forms.py:443
+#: account/forms.py:56 account/forms.py:477
 msgid "You must type the same password each time."
 msgstr "Heu d'escriure la mateixa contrasenya cada cop."
 
-#: account/forms.py:91 account/forms.py:406 account/forms.py:528
-#: account/forms.py:653
+#: account/forms.py:91 account/forms.py:407 account/forms.py:558
+#: account/forms.py:673
 msgid "Password"
 msgstr "Contrasenya"
 
@@ -105,13 +120,13 @@ msgstr "Contrasenya"
 msgid "Remember Me"
 msgstr "Recordar-me"
 
-#: account/forms.py:102 account/forms.py:269 account/forms.py:459
-#: account/forms.py:548 account/forms.py:670
+#: account/forms.py:102 account/forms.py:269 account/forms.py:493
+#: account/forms.py:576 account/forms.py:690
 msgid "Email address"
 msgstr "Correu electrònic"
 
-#: account/forms.py:106 account/forms.py:307 account/forms.py:456
-#: account/forms.py:543
+#: account/forms.py:106 account/forms.py:307 account/forms.py:490
+#: account/forms.py:571
 msgid "Email"
 msgstr "Correu electrònic"
 
@@ -149,32 +164,32 @@ msgstr "Correu electrònic (opcional)"
 msgid "You must type the same email each time."
 msgstr "Heu d'escriure el mateix correu electrònic cada cop."
 
-#: account/forms.py:412 account/forms.py:531
+#: account/forms.py:413 account/forms.py:559
 msgid "Password (again)"
 msgstr "Contrasenya (de nou)"
 
-#: account/forms.py:505
+#: account/forms.py:539
 msgid "Current Password"
 msgstr "Contrasenya actual"
 
-#: account/forms.py:508 account/forms.py:606
+#: account/forms.py:541 account/forms.py:626
 msgid "New Password"
 msgstr "Nova contrasenya"
 
-#: account/forms.py:511 account/forms.py:607
+#: account/forms.py:542 account/forms.py:627
 msgid "New Password (again)"
 msgstr "Nova contrasenya (de nou)"
 
-#: account/forms.py:693 account/forms.py:695 mfa/forms.py:15 mfa/forms.py:17
+#: account/forms.py:713 account/forms.py:715 mfa/forms.py:15 mfa/forms.py:17
 #: mfa/forms.py:60
 msgid "Code"
 msgstr "Codi"
 
-#: account/models.py:21
+#: account/models.py:20
 msgid "user"
 msgstr "usuari"
 
-#: account/models.py:26 account/models.py:34 account/models.py:140
+#: account/models.py:26 account/models.py:34 account/models.py:146
 msgid "email address"
 msgstr "correu electrònic"
 
@@ -190,27 +205,31 @@ msgstr "principal"
 msgid "email addresses"
 msgstr "correus electrònics"
 
-#: account/models.py:143
+#: account/models.py:149
 msgid "created"
 msgstr "creat"
 
-#: account/models.py:144
+#: account/models.py:150
 msgid "sent"
 msgstr "enviat"
 
-#: account/models.py:145 socialaccount/models.py:62
+#: account/models.py:151 socialaccount/models.py:69
 msgid "key"
 msgstr "clau"
 
-#: account/models.py:150
+#: account/models.py:156
 msgid "email confirmation"
 msgstr "confirmació de correu electrònic"
 
-#: account/models.py:151
+#: account/models.py:157
 msgid "email confirmations"
 msgstr "confirmacions de correu electrònic"
 
-#: mfa/adapter.py:21
+#: headless/apps.py:7
+msgid "Headless"
+msgstr ""
+
+#: mfa/adapter.py:22
 msgid ""
 "You cannot add an email address to an account protected by two-factor "
 "authentication."
@@ -218,11 +237,11 @@ msgstr ""
 "No podeu afegir una adreça de correu electrònic a un compte protegit per "
 "l'autenticació de dos factors."
 
-#: mfa/adapter.py:24
+#: mfa/adapter.py:25
 msgid "You cannot deactivate two-factor authentication."
 msgstr "No podeu desactivar el doble factor d’autenticació."
 
-#: mfa/adapter.py:27
+#: mfa/adapter.py:28
 #, fuzzy
 #| msgid "You cannot deactivate two-factor authentication."
 msgid ""
@@ -230,7 +249,7 @@ msgid ""
 "enabled."
 msgstr "No podeu desactivar el doble factor d’autenticació."
 
-#: mfa/adapter.py:31
+#: mfa/adapter.py:32
 msgid ""
 "You cannot activate two-factor authentication until you have verified your "
 "email address."
@@ -246,11 +265,11 @@ msgstr "MFA"
 msgid "Authenticator code"
 msgstr "Codi de l’autenticador"
 
-#: mfa/models.py:19
+#: mfa/models.py:28
 msgid "Recovery codes"
 msgstr "Codis de recuperació"
 
-#: mfa/models.py:20
+#: mfa/models.py:29
 msgid "TOTP Authenticator"
 msgstr "Autenticador TOTP"
 
@@ -288,96 +307,96 @@ msgstr "Podeu iniciar sessió amb algun dels següents comptes de tercers:"
 msgid "Social Accounts"
 msgstr "Comptes de xarxes socials"
 
-#: socialaccount/models.py:37 socialaccount/models.py:90
+#: socialaccount/models.py:44 socialaccount/models.py:97
 msgid "provider"
 msgstr "proveïdor"
 
-#: socialaccount/models.py:45
+#: socialaccount/models.py:52
 msgid "provider ID"
 msgstr "ID de proveïdor"
 
-#: socialaccount/models.py:49
+#: socialaccount/models.py:56
 msgid "name"
 msgstr "nom"
 
-#: socialaccount/models.py:51
+#: socialaccount/models.py:58
 msgid "client id"
 msgstr "identificador client"
 
-#: socialaccount/models.py:53
+#: socialaccount/models.py:60
 msgid "App ID, or consumer key"
 msgstr "Identificador de App o clau de consumidor"
 
-#: socialaccount/models.py:56
+#: socialaccount/models.py:63
 msgid "secret key"
 msgstr "clau secreta"
 
-#: socialaccount/models.py:59
+#: socialaccount/models.py:66
 msgid "API secret, client secret, or consumer secret"
 msgstr ""
 "frase secrete de API, frase secreta client o frase secreta de consumidor"
 
-#: socialaccount/models.py:62
+#: socialaccount/models.py:69
 msgid "Key"
 msgstr "Clau"
 
-#: socialaccount/models.py:74
+#: socialaccount/models.py:81
 msgid "social application"
 msgstr "aplicació de xarxa social"
 
-#: socialaccount/models.py:75
+#: socialaccount/models.py:82
 msgid "social applications"
 msgstr "aplicacions de xarxes socials"
 
-#: socialaccount/models.py:110
+#: socialaccount/models.py:117
 msgid "uid"
 msgstr "uid"
 
-#: socialaccount/models.py:112
+#: socialaccount/models.py:119
 msgid "last login"
 msgstr "darrer inici de sessió"
 
-#: socialaccount/models.py:113
+#: socialaccount/models.py:120
 msgid "date joined"
 msgstr "data d'incorporació"
 
-#: socialaccount/models.py:114
+#: socialaccount/models.py:121
 msgid "extra data"
 msgstr "dades extra"
 
-#: socialaccount/models.py:118
+#: socialaccount/models.py:125
 msgid "social account"
 msgstr "compte de xarxa social"
 
-#: socialaccount/models.py:119
+#: socialaccount/models.py:126
 msgid "social accounts"
 msgstr "comptes de xarxes socials"
 
-#: socialaccount/models.py:153
+#: socialaccount/models.py:160
 msgid "token"
 msgstr "token"
 
-#: socialaccount/models.py:154
+#: socialaccount/models.py:161
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr "\"oauth_token\" (OAuth1) o token d'accés (OAuth2)"
 
-#: socialaccount/models.py:158
+#: socialaccount/models.py:165
 msgid "token secret"
 msgstr "frase secreta de token"
 
-#: socialaccount/models.py:159
+#: socialaccount/models.py:166
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr "\"oauth_token_secret\" (OAuth1) o token de refrescament (OAuth2)"
 
-#: socialaccount/models.py:162
+#: socialaccount/models.py:169
 msgid "expires at"
 msgstr "expira el"
 
-#: socialaccount/models.py:167
+#: socialaccount/models.py:174
 msgid "social application token"
 msgstr "token d'aplicació de xarxa social"
 
-#: socialaccount/models.py:168
+#: socialaccount/models.py:175
 msgid "social application tokens"
 msgstr "tokens d'aplicació de xarxa social"
 
@@ -436,7 +455,7 @@ msgstr "Resposta invàlida a l'hora d'obtenir token de sol·licitud de \"%s\"."
 msgid "Account Inactive"
 msgstr "Compte inactiu"
 
-#: templates/account/account_inactive.html:11
+#: templates/account/account_inactive.html:12
 msgid "This account is inactive."
 msgstr "Aquest compte està inactiu."
 
@@ -445,12 +464,12 @@ msgstr "Aquest compte està inactiu."
 msgid "Confirm Access"
 msgstr "Confirmeu l’accés"
 
-#: templates/account/base_reauthenticate.html:11
+#: templates/account/base_reauthenticate.html:12
 msgid "Please reauthenticate to safeguard your account."
 msgstr ""
 "Sisplau, torneu-vos a autenticar per tal de mantenir el vostre compte segur."
 
-#: templates/account/base_reauthenticate.html:17
+#: templates/account/base_reauthenticate.html:19
 msgid "Alternative options"
 msgstr "Opcions alternatives"
 
@@ -458,10 +477,11 @@ msgstr "Opcions alternatives"
 #: templates/account/confirm_login_code.html:27 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
 #: templates/account/request_login_code.html:5
-#: templates/allauth/layouts/base.html:36 templates/mfa/authenticate.html:5
+#: templates/allauth/layouts/base.html:62 templates/mfa/authenticate.html:5
 #: templates/mfa/authenticate.html:23 templates/openid/login.html:5
 #: templates/openid/login.html:9 templates/openid/login.html:20
 #: templates/socialaccount/login.html:5
+#: templates/socialaccount/login_redirect.html:5
 msgid "Sign In"
 msgstr "Iniciar sessió"
 
@@ -487,44 +507,44 @@ msgstr "Opcions alternatives"
 msgid "Email Addresses"
 msgstr "Adreces de correu electrònic"
 
-#: templates/account/email.html:11
+#: templates/account/email.html:12
 msgid "The following email addresses are associated with your account:"
 msgstr ""
 "Les següents adreces de correu electrònic estan associades al vostre compte:"
 
-#: templates/account/email.html:23
+#: templates/account/email.html:25
 msgid "Verified"
 msgstr "Verificat"
 
-#: templates/account/email.html:27
+#: templates/account/email.html:29
 msgid "Unverified"
 msgstr "Sense verificar"
 
-#: templates/account/email.html:32
+#: templates/account/email.html:34
 msgid "Primary"
 msgstr "Principal"
 
-#: templates/account/email.html:42
+#: templates/account/email.html:44
 msgid "Make Primary"
 msgstr "Definir com a principal"
 
-#: templates/account/email.html:45 templates/account/email_change.html:37
+#: templates/account/email.html:47 templates/account/email_change.html:37
 msgid "Re-send Verification"
 msgstr "Reenviar Verificació"
 
-#: templates/account/email.html:48 templates/socialaccount/connections.html:40
+#: templates/account/email.html:50 templates/socialaccount/connections.html:40
 msgid "Remove"
 msgstr "Eliminar"
 
-#: templates/account/email.html:57
+#: templates/account/email.html:59
 msgid "Add Email Address"
 msgstr "Afegir adreça de correu electrònic"
 
-#: templates/account/email.html:69
+#: templates/account/email.html:70
 msgid "Add Email"
 msgstr "Afegir correu electrònic"
 
-#: templates/account/email.html:78
+#: templates/account/email.html:79
 msgid "Do you really want to remove the selected email address?"
 msgstr ""
 "Esteu segurs de voler eliminar l'adreça de correu electrònic seleccionada?"
@@ -746,7 +766,7 @@ msgid "Change to"
 msgstr "Canviar a"
 
 #: templates/account/email_change.html:55
-#: templates/allauth/layouts/base.html:29
+#: templates/allauth/layouts/base.html:31
 msgid "Change Email"
 msgstr "Canviar correu electrònic"
 
@@ -765,8 +785,8 @@ msgstr ""
 "adreça de correu electrònic de l'usuari %(user_display)s."
 
 #: templates/account/email_confirm.html:24
-#: templates/account/reauthenticate.html:16
-#: templates/mfa/reauthenticate.html:16
+#: templates/account/reauthenticate.html:18
+#: templates/mfa/reauthenticate.html:18
 msgid "Confirm"
 msgstr "Confirmar"
 
@@ -794,19 +814,21 @@ msgstr ""
 msgid ""
 "If you have not created an account yet, then please %(link)ssign "
 "up%(end_link)s first."
-msgstr "Si encara no heu creat un compte, llavors si us plau %(link)sregistreu-vos%(end_link)s primer."
+msgstr ""
+"Si encara no heu creat un compte, llavors si us plau %(link)sregistreu-"
+"vos%(end_link)s primer."
 
 #: templates/account/login.html:41 templates/account/request_login_code.html:9
 msgid "Mail me a sign-in code"
 msgstr ""
 
 #: templates/account/logout.html:4 templates/account/logout.html:8
-#: templates/account/logout.html:19 templates/allauth/layouts/base.html:32
+#: templates/account/logout.html:21 templates/allauth/layouts/base.html:55
 #: templates/usersessions/usersession_list.html:64
 msgid "Sign Out"
 msgstr "Tancar sessió"
 
-#: templates/account/logout.html:10
+#: templates/account/logout.html:11
 msgid "Are you sure you want to sign out?"
 msgstr "Esteu segurs de voler tancar sessió?"
 
@@ -856,10 +878,6 @@ msgstr "Contrasenya establerta amb èxit."
 msgid "Primary email address set."
 msgstr "Adreça de correu electrònic principal establerta"
 
-#: templates/account/messages/unverified_primary_email.txt:2
-msgid "Your primary email address must be verified."
-msgstr "La vostra adreça de correu electrònic principal ha de ser verificada."
-
 #: templates/account/password_change.html:4
 #: templates/account/password_change.html:8
 #: templates/account/password_change.html:20
@@ -868,6 +886,7 @@ msgstr "La vostra adreça de correu electrònic principal ha de ser verificada."
 #: templates/account/password_reset_from_key.html:30
 #: templates/account/password_reset_from_key_done.html:5
 #: templates/account/password_reset_from_key_done.html:9
+#: templates/allauth/layouts/base.html:37
 msgid "Change Password"
 msgstr "Canviar Contrasenya"
 
@@ -887,7 +906,7 @@ msgstr ""
 msgid "Reset My Password"
 msgstr "Restablir la meva contrasenya"
 
-#: templates/account/password_reset.html:29
+#: templates/account/password_reset.html:30
 msgid "Please contact us if you have any trouble resetting your password."
 msgstr ""
 "Si us plau contacteu-nis si teniu algun problema per restablir la vostra "
@@ -916,7 +935,7 @@ msgstr ""
 "estat utilitzat. Si us plau soliciteu <a "
 "href=\"%(passwd_reset_url)s\">restablir la contrasenya novament</a>."
 
-#: templates/account/password_reset_from_key_done.html:11
+#: templates/account/password_reset_from_key_done.html:12
 msgid "Your password is now changed."
 msgstr "La vostra contrasenya ha canviat."
 
@@ -925,7 +944,7 @@ msgstr "La vostra contrasenya ha canviat."
 msgid "Set Password"
 msgstr "Establir contrasenya"
 
-#: templates/account/reauthenticate.html:5
+#: templates/account/reauthenticate.html:6
 msgid "Enter your password:"
 msgstr "Introduïu la vostra paraula de pas:"
 
@@ -945,13 +964,13 @@ msgstr "Codis de recuperació"
 msgid "Signup"
 msgstr "Registrar-se"
 
-#: templates/account/signup.html:8 templates/account/signup.html:28
-#: templates/allauth/layouts/base.html:39 templates/socialaccount/signup.html:9
+#: templates/account/signup.html:8 templates/account/signup.html:30
+#: templates/allauth/layouts/base.html:68 templates/socialaccount/signup.html:9
 #: templates/socialaccount/signup.html:25
 msgid "Sign Up"
 msgstr "Registrar-se"
 
-#: templates/account/signup.html:16
+#: templates/account/signup.html:17
 #, python-format
 msgid "Already have an account? Then please %(link)ssign in%(end_link)s."
 msgstr "Ja teniu un compte? Si us plau %(link)sinicieu sessió%(end_link)s."
@@ -961,7 +980,7 @@ msgstr "Ja teniu un compte? Si us plau %(link)sinicieu sessió%(end_link)s."
 msgid "Sign Up Closed"
 msgstr "Registre tancat"
 
-#: templates/account/signup_closed.html:11
+#: templates/account/signup_closed.html:12
 msgid "We are sorry, but the sign up is currently closed."
 msgstr "Ho sentim, en aquest moment el registre está tancat."
 
@@ -1045,10 +1064,16 @@ msgstr "Missatges:"
 msgid "Menu:"
 msgstr "Menú:"
 
-#: templates/mfa/authenticate.html:9 templates/mfa/index.html:5
-#: templates/mfa/index.html:9
+#: templates/allauth/layouts/base.html:43 templates/mfa/authenticate.html:9
+#: templates/mfa/index.html:5 templates/mfa/index.html:9
 msgid "Two-Factor Authentication"
 msgstr "Autenticació de doble factor (TFA)"
+
+#: templates/allauth/layouts/base.html:49
+#: templates/usersessions/usersession_list.html:6
+#: templates/usersessions/usersession_list.html:10
+msgid "Sessions"
+msgstr "Sessions"
 
 #: templates/mfa/authenticate.html:12
 msgid ""
@@ -1091,29 +1116,29 @@ msgstr "App d’autenticació desactivada."
 msgid "Authenticator App"
 msgstr "App d’autenticació"
 
-#: templates/mfa/index.html:18
+#: templates/mfa/index.html:19
 msgid "Authentication using an authenticator app is active."
 msgstr "L’autenticació està fent servir una app d’autenticació activa."
 
-#: templates/mfa/index.html:20
+#: templates/mfa/index.html:23
 msgid "An authenticator app is not active."
 msgstr "L’app d’autenticació no està activa."
 
-#: templates/mfa/index.html:28 templates/mfa/totp/deactivate_form.html:24
+#: templates/mfa/index.html:32 templates/mfa/totp/deactivate_form.html:24
 msgid "Deactivate"
 msgstr "Desactivat"
 
-#: templates/mfa/index.html:32 templates/mfa/totp/activate_form.html:32
+#: templates/mfa/index.html:36 templates/mfa/totp/activate_form.html:32
 msgid "Activate"
 msgstr "Activat"
 
-#: templates/mfa/index.html:42 templates/mfa/recovery_codes/base.html:4
+#: templates/mfa/index.html:46 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:6
 #: templates/mfa/recovery_codes/index.html:6
 msgid "Recovery Codes"
 msgstr "Codis de recuperació"
 
-#: templates/mfa/index.html:47 templates/mfa/recovery_codes/index.html:9
+#: templates/mfa/index.html:51 templates/mfa/recovery_codes/index.html:9
 #, python-format
 msgid ""
 "There is %(unused_count)s out of %(total_count)s recovery codes available."
@@ -1126,19 +1151,19 @@ msgstr[1] ""
 "Hi ha un %(unused_count)s d’un total de  %(total_count)s codis de "
 "recuperació disponibles."
 
-#: templates/mfa/index.html:50
+#: templates/mfa/index.html:55
 msgid "No recovery codes set up."
 msgstr "No heu definit codis de recuperació."
 
-#: templates/mfa/index.html:59
+#: templates/mfa/index.html:65
 msgid "View"
 msgstr "Vista"
 
-#: templates/mfa/index.html:65
+#: templates/mfa/index.html:71
 msgid "Download"
 msgstr "Descarrega"
 
-#: templates/mfa/index.html:73 templates/mfa/recovery_codes/generate.html:29
+#: templates/mfa/index.html:79 templates/mfa/recovery_codes/generate.html:29
 msgid "Generate"
 msgstr "Generar"
 
@@ -1146,7 +1171,7 @@ msgstr "Generar"
 msgid "A new set of recovery codes has been generated."
 msgstr "Un nou conjunt de codis de recuperació ha estat generat."
 
-#: templates/mfa/reauthenticate.html:5
+#: templates/mfa/reauthenticate.html:6
 msgid "Enter an authenticator code:"
 msgstr "Entreu un codi d’autenticació:"
 
@@ -1221,7 +1246,7 @@ msgstr ""
 msgid "Third-Party Login Failure"
 msgstr "Ha fallat l’autenticació de tercers"
 
-#: templates/socialaccount/authentication_error.html:11
+#: templates/socialaccount/authentication_error.html:12
 msgid ""
 "An error occurred while attempting to login via your third-party account."
 msgstr ""
@@ -1239,11 +1264,11 @@ msgid ""
 "accounts:"
 msgstr "Podeu iniciar sessió amb algun dels següents comptes de tercers:"
 
-#: templates/socialaccount/connections.html:45
+#: templates/socialaccount/connections.html:46
 msgid "You currently have no third-party accounts connected to this account."
 msgstr "Actualment no tens cap compte de tercers associat a aquest compte."
 
-#: templates/socialaccount/connections.html:48
+#: templates/socialaccount/connections.html:50
 msgid "Add a Third-Party Account"
 msgstr "Afegir un compte de tercers"
 
@@ -1293,6 +1318,7 @@ msgstr ""
 "%(provider)s."
 
 #: templates/socialaccount/login.html:27
+#: templates/socialaccount/login_redirect.html:10
 msgid "Continue"
 msgstr "Continuar"
 
@@ -1342,11 +1368,6 @@ msgstr "O utilitzeu un compte de tercers"
 msgid "Signed out of all other sessions."
 msgstr "Sortiu de totes les altres sessions."
 
-#: templates/usersessions/usersession_list.html:6
-#: templates/usersessions/usersession_list.html:10
-msgid "Sessions"
-msgstr "Sessions"
-
 #: templates/usersessions/usersession_list.html:23
 msgid "Started At"
 msgstr "Ha començat a les"
@@ -1375,7 +1396,7 @@ msgstr "Tanca les altres sessions"
 msgid "User Sessions"
 msgstr "Sessions de l’usuari"
 
-#: usersessions/models.py:48
+#: usersessions/models.py:58
 msgid "session key"
 msgstr "clau de sessió"
 
@@ -1426,8 +1447,7 @@ msgstr "clau de sessió"
 #~ "for a %(site_name)s account and sign in below:"
 #~ msgstr ""
 #~ "Si us plau, inicieu sessió amb un\n"
-#~ "compte d'una altra xarxa social. O %(link)sregistreu-"
-#~ "vos</a> \n"
+#~ "compte d'una altra xarxa social. O %(link)sregistreu-vos</a> \n"
 #~ "com a usuari de %(site_name)s i inicieu sessió a continuació:"
 
 #~ msgid "or"

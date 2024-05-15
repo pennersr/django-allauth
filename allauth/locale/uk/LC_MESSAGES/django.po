@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-20 14:01-0500\n"
+"POT-Creation-Date: 2024-05-14 11:32-0500\n"
 "PO-Revision-Date: 2024-04-20 22:11+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,68 +20,85 @@ msgstr ""
 "100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
-#: account/adapter.py:57
+#: account/adapter.py:58
 msgid "This account is currently inactive."
 msgstr "Даний акаунт є неактивним."
 
-#: account/adapter.py:59
+#: account/adapter.py:60
+#, fuzzy
+#| msgid "You cannot remove your primary email address (%(email)s)."
+msgid "You cannot remove your primary email address."
+msgstr "Ви можете видалити Вашу основну e-mail адресу (%(email)s)."
+
+#: account/adapter.py:63
 msgid "This email address is already associated with this account."
 msgstr "Вказаний e-mail уже прикріплений до цього акаунту."
 
-#: account/adapter.py:62
+#: account/adapter.py:66
 msgid "The email address and/or password you specified are not correct."
 msgstr "Введена e-mail адреса і/або пароль є некоректними."
 
-#: account/adapter.py:64
+#: account/adapter.py:68
 msgid "A user is already registered with this email address."
 msgstr "Користувач з такою e-mail адресою уже зареєстрований."
 
-#: account/adapter.py:65
+#: account/adapter.py:69
 msgid "Please type your current password."
 msgstr "Будь ласка, вкажіть Ваш поточний пароль."
 
-#: account/adapter.py:66 mfa/adapter.py:29
+#: account/adapter.py:70 mfa/adapter.py:30
 msgid "Incorrect code."
 msgstr ""
 
-#: account/adapter.py:67
+#: account/adapter.py:71
 msgid "Incorrect password."
 msgstr "Неправильний пароль."
 
-#: account/adapter.py:68
+#: account/adapter.py:72
+#, fuzzy
+#| msgid "Bad Token"
+msgid "Invalid or expired key."
+msgstr "Поганий токен"
+
+#: account/adapter.py:73
 msgid "The password reset token was invalid."
 msgstr "Токен відновлення паролю був невірним."
 
-#: account/adapter.py:69
+#: account/adapter.py:74
 #, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "Ви не можете додати більше %d адрес електронної пошти."
 
-#: account/adapter.py:71
+#: account/adapter.py:76
 msgid "Too many failed login attempts. Try again later."
 msgstr "Занадто багато спроб входу в систему, спробуйте пізніше."
 
-#: account/adapter.py:73
+#: account/adapter.py:78
 msgid "The email address is not assigned to any user account"
 msgstr "Немає користувача з такою e-mail адресою."
 
-#: account/adapter.py:75
+#: account/adapter.py:79
+#: templates/account/messages/unverified_primary_email.txt:2
+msgid "Your primary email address must be verified."
+msgstr "Ваша основна e-mail адреса повинна бути підтверджена."
+
+#: account/adapter.py:81
 msgid "Username can not be used. Please use other username."
 msgstr ""
 "Ім'я користувача не може бути використаним. Будь ласка, оберіть інше ім'я "
 "користувача."
 
-#: account/adapter.py:78
+#: account/adapter.py:84
 msgid "The username and/or password you specified are not correct."
 msgstr "Введене ім'я користувача і/або пароль є некоректними."
 
-#: account/adapter.py:714
+#: account/adapter.py:736
 #, fuzzy
 #| msgid "Forgot Password?"
 msgid "Use your password"
 msgstr "Забули пароль?"
 
-#: account/adapter.py:724
+#: account/adapter.py:747
 msgid "Use your authenticator app"
 msgstr ""
 
@@ -95,12 +112,12 @@ msgstr "Ваша основна e-mail адреса повинна бути пі
 msgid "Accounts"
 msgstr "Акаунти"
 
-#: account/forms.py:59 account/forms.py:443
+#: account/forms.py:56 account/forms.py:477
 msgid "You must type the same password each time."
 msgstr "Ви повинні вводити однаковий пароль кожного разу."
 
-#: account/forms.py:91 account/forms.py:406 account/forms.py:528
-#: account/forms.py:653
+#: account/forms.py:91 account/forms.py:407 account/forms.py:558
+#: account/forms.py:673
 msgid "Password"
 msgstr "Пароль"
 
@@ -108,13 +125,13 @@ msgstr "Пароль"
 msgid "Remember Me"
 msgstr "Запам'ятати мене"
 
-#: account/forms.py:102 account/forms.py:269 account/forms.py:459
-#: account/forms.py:548 account/forms.py:670
+#: account/forms.py:102 account/forms.py:269 account/forms.py:493
+#: account/forms.py:576 account/forms.py:690
 msgid "Email address"
 msgstr "E-mail адреса"
 
-#: account/forms.py:106 account/forms.py:307 account/forms.py:456
-#: account/forms.py:543
+#: account/forms.py:106 account/forms.py:307 account/forms.py:490
+#: account/forms.py:571
 msgid "Email"
 msgstr "E-mail"
 
@@ -154,32 +171,32 @@ msgstr "E-mail (необов'язковий)"
 msgid "You must type the same email each time."
 msgstr "Ви повинні вводити однакову e-mail адресу кожного разу."
 
-#: account/forms.py:412 account/forms.py:531
+#: account/forms.py:413 account/forms.py:559
 msgid "Password (again)"
 msgstr "Пароль (ще раз)"
 
-#: account/forms.py:505
+#: account/forms.py:539
 msgid "Current Password"
 msgstr "Поточний пароль"
 
-#: account/forms.py:508 account/forms.py:606
+#: account/forms.py:541 account/forms.py:626
 msgid "New Password"
 msgstr "Новий пароль"
 
-#: account/forms.py:511 account/forms.py:607
+#: account/forms.py:542 account/forms.py:627
 msgid "New Password (again)"
 msgstr "Новий пароль (ще раз)"
 
-#: account/forms.py:693 account/forms.py:695 mfa/forms.py:15 mfa/forms.py:17
+#: account/forms.py:713 account/forms.py:715 mfa/forms.py:15 mfa/forms.py:17
 #: mfa/forms.py:60
 msgid "Code"
 msgstr ""
 
-#: account/models.py:21
+#: account/models.py:20
 msgid "user"
 msgstr "користувач"
 
-#: account/models.py:26 account/models.py:34 account/models.py:140
+#: account/models.py:26 account/models.py:34 account/models.py:146
 msgid "email address"
 msgstr "e-mail адреса"
 
@@ -195,43 +212,47 @@ msgstr "основний"
 msgid "email addresses"
 msgstr "e-mail адреса"
 
-#: account/models.py:143
+#: account/models.py:149
 msgid "created"
 msgstr "створено"
 
-#: account/models.py:144
+#: account/models.py:150
 msgid "sent"
 msgstr "відправлено"
 
-#: account/models.py:145 socialaccount/models.py:62
+#: account/models.py:151 socialaccount/models.py:69
 msgid "key"
 msgstr "ключ"
 
-#: account/models.py:150
+#: account/models.py:156
 msgid "email confirmation"
 msgstr "e-mail підтвердження"
 
-#: account/models.py:151
+#: account/models.py:157
 msgid "email confirmations"
 msgstr "e-mail підтвердження"
 
-#: mfa/adapter.py:21
+#: headless/apps.py:7
+msgid "Headless"
+msgstr ""
+
+#: mfa/adapter.py:22
 msgid ""
 "You cannot add an email address to an account protected by two-factor "
 "authentication."
 msgstr ""
 
-#: mfa/adapter.py:24
+#: mfa/adapter.py:25
 msgid "You cannot deactivate two-factor authentication."
 msgstr ""
 
-#: mfa/adapter.py:27
+#: mfa/adapter.py:28
 msgid ""
 "You cannot generate recovery codes without having two-factor authentication "
 "enabled."
 msgstr ""
 
-#: mfa/adapter.py:31
+#: mfa/adapter.py:32
 msgid ""
 "You cannot activate two-factor authentication until you have verified your "
 "email address."
@@ -245,11 +266,11 @@ msgstr ""
 msgid "Authenticator code"
 msgstr ""
 
-#: mfa/models.py:19
+#: mfa/models.py:28
 msgid "Recovery codes"
 msgstr ""
 
-#: mfa/models.py:20
+#: mfa/models.py:29
 msgid "TOTP Authenticator"
 msgstr ""
 
@@ -288,96 +309,96 @@ msgstr "Ви можете увійти використовуючи будь-я�
 msgid "Social Accounts"
 msgstr "Соціальні акаунти"
 
-#: socialaccount/models.py:37 socialaccount/models.py:90
+#: socialaccount/models.py:44 socialaccount/models.py:97
 msgid "provider"
 msgstr "постачальник"
 
-#: socialaccount/models.py:45
+#: socialaccount/models.py:52
 msgid "provider ID"
 msgstr "постачальник ID"
 
-#: socialaccount/models.py:49
+#: socialaccount/models.py:56
 msgid "name"
 msgstr "Ім'я"
 
-#: socialaccount/models.py:51
+#: socialaccount/models.py:58
 msgid "client id"
 msgstr "ідентифікатор клієнта"
 
-#: socialaccount/models.py:53
+#: socialaccount/models.py:60
 msgid "App ID, or consumer key"
 msgstr "ідентифікатор додатку або ключ користувача"
 
-#: socialaccount/models.py:56
+#: socialaccount/models.py:63
 msgid "secret key"
 msgstr "секретний ключ"
 
-#: socialaccount/models.py:59
+#: socialaccount/models.py:66
 msgid "API secret, client secret, or consumer secret"
 msgstr ""
 "секретний ключ додатку, секретний ключ клієнта або секретний ключ користувача"
 
-#: socialaccount/models.py:62
+#: socialaccount/models.py:69
 msgid "Key"
 msgstr "Ключ"
 
-#: socialaccount/models.py:74
+#: socialaccount/models.py:81
 msgid "social application"
 msgstr "соціальний додаток"
 
-#: socialaccount/models.py:75
+#: socialaccount/models.py:82
 msgid "social applications"
 msgstr "соціальні додатки"
 
-#: socialaccount/models.py:110
+#: socialaccount/models.py:117
 msgid "uid"
 msgstr "ID користувача"
 
-#: socialaccount/models.py:112
+#: socialaccount/models.py:119
 msgid "last login"
 msgstr "дата останнього входу"
 
-#: socialaccount/models.py:113
+#: socialaccount/models.py:120
 msgid "date joined"
 msgstr "дата реєстрації"
 
-#: socialaccount/models.py:114
+#: socialaccount/models.py:121
 msgid "extra data"
 msgstr "додаткові дані"
 
-#: socialaccount/models.py:118
+#: socialaccount/models.py:125
 msgid "social account"
 msgstr "аккаунт соціальної мережі"
 
-#: socialaccount/models.py:119
+#: socialaccount/models.py:126
 msgid "social accounts"
 msgstr "акаунти соціальних мереж"
 
-#: socialaccount/models.py:153
+#: socialaccount/models.py:160
 msgid "token"
 msgstr "токен"
 
-#: socialaccount/models.py:154
+#: socialaccount/models.py:161
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr "\"oauth_token\" (OAuth1) або access token (OAuth2)"
 
-#: socialaccount/models.py:158
+#: socialaccount/models.py:165
 msgid "token secret"
 msgstr "секретний токен"
 
-#: socialaccount/models.py:159
+#: socialaccount/models.py:166
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr "\"oauth_token_secret\" (OAuth1) або refresh token (OAuth2)"
 
-#: socialaccount/models.py:162
+#: socialaccount/models.py:169
 msgid "expires at"
 msgstr "закінчується"
 
-#: socialaccount/models.py:167
+#: socialaccount/models.py:174
 msgid "social application token"
 msgstr "токен соціального додатку"
 
-#: socialaccount/models.py:168
+#: socialaccount/models.py:175
 msgid "social application tokens"
 msgstr "токени соціальних додатків"
 
@@ -435,7 +456,7 @@ msgstr "Невірна відповідь під час отримання за�
 msgid "Account Inactive"
 msgstr "Акаунт неактивний"
 
-#: templates/account/account_inactive.html:11
+#: templates/account/account_inactive.html:12
 msgid "This account is inactive."
 msgstr "Даний акаунт неактивний"
 
@@ -444,11 +465,11 @@ msgstr "Даний акаунт неактивний"
 msgid "Confirm Access"
 msgstr "Підтвердіть доступ"
 
-#: templates/account/base_reauthenticate.html:11
+#: templates/account/base_reauthenticate.html:12
 msgid "Please reauthenticate to safeguard your account."
 msgstr ""
 
-#: templates/account/base_reauthenticate.html:17
+#: templates/account/base_reauthenticate.html:19
 msgid "Alternative options"
 msgstr ""
 
@@ -456,10 +477,11 @@ msgstr ""
 #: templates/account/confirm_login_code.html:27 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
 #: templates/account/request_login_code.html:5
-#: templates/allauth/layouts/base.html:36 templates/mfa/authenticate.html:5
+#: templates/allauth/layouts/base.html:62 templates/mfa/authenticate.html:5
 #: templates/mfa/authenticate.html:23 templates/openid/login.html:5
 #: templates/openid/login.html:9 templates/openid/login.html:20
 #: templates/socialaccount/login.html:5
+#: templates/socialaccount/login_redirect.html:5
 msgid "Sign In"
 msgstr "Увійти"
 
@@ -483,43 +505,43 @@ msgstr ""
 msgid "Email Addresses"
 msgstr "E-mail адреса"
 
-#: templates/account/email.html:11
+#: templates/account/email.html:12
 msgid "The following email addresses are associated with your account:"
 msgstr "Вказаний e-mail уже прикріплений до цього акаунту"
 
-#: templates/account/email.html:23
+#: templates/account/email.html:25
 msgid "Verified"
 msgstr "Підтверджено"
 
-#: templates/account/email.html:27
+#: templates/account/email.html:29
 msgid "Unverified"
 msgstr "Непідтверджено"
 
-#: templates/account/email.html:32
+#: templates/account/email.html:34
 msgid "Primary"
 msgstr "Основний"
 
-#: templates/account/email.html:42
+#: templates/account/email.html:44
 msgid "Make Primary"
 msgstr "Зробити основним"
 
-#: templates/account/email.html:45 templates/account/email_change.html:37
+#: templates/account/email.html:47 templates/account/email_change.html:37
 msgid "Re-send Verification"
 msgstr "Надіслати підтвердження ще раз"
 
-#: templates/account/email.html:48 templates/socialaccount/connections.html:40
+#: templates/account/email.html:50 templates/socialaccount/connections.html:40
 msgid "Remove"
 msgstr "Видалити"
 
-#: templates/account/email.html:57
+#: templates/account/email.html:59
 msgid "Add Email Address"
 msgstr "Додати e-mail адресу"
 
-#: templates/account/email.html:69
+#: templates/account/email.html:70
 msgid "Add Email"
 msgstr "Додати e-mail"
 
-#: templates/account/email.html:78
+#: templates/account/email.html:79
 msgid "Do you really want to remove the selected email address?"
 msgstr "Ви дійсно бажаєте видалити дану e-mail адресу?"
 
@@ -754,7 +776,7 @@ msgid "Change to"
 msgstr "Змінити e-mail"
 
 #: templates/account/email_change.html:55
-#: templates/allauth/layouts/base.html:29
+#: templates/allauth/layouts/base.html:31
 msgid "Change Email"
 msgstr "Змінити e-mail"
 
@@ -773,8 +795,8 @@ msgstr ""
 "mail адреса для користувача %(user_display)s."
 
 #: templates/account/email_confirm.html:24
-#: templates/account/reauthenticate.html:16
-#: templates/mfa/reauthenticate.html:16
+#: templates/account/reauthenticate.html:18
+#: templates/mfa/reauthenticate.html:18
 msgid "Confirm"
 msgstr "Підтвердити"
 
@@ -803,19 +825,20 @@ msgstr ""
 msgid ""
 "If you have not created an account yet, then please %(link)ssign "
 "up%(end_link)s first."
-msgstr "Якщо Ви ще не зареєструвались, будь ласка %(link)sзареєструйтесь%(end_link)s."
+msgstr ""
+"Якщо Ви ще не зареєструвались, будь ласка %(link)sзареєструйтесь%(end_link)s."
 
 #: templates/account/login.html:41 templates/account/request_login_code.html:9
 msgid "Mail me a sign-in code"
 msgstr ""
 
 #: templates/account/logout.html:4 templates/account/logout.html:8
-#: templates/account/logout.html:19 templates/allauth/layouts/base.html:32
+#: templates/account/logout.html:21 templates/allauth/layouts/base.html:55
 #: templates/usersessions/usersession_list.html:64
 msgid "Sign Out"
 msgstr "Вийти"
 
-#: templates/account/logout.html:10
+#: templates/account/logout.html:11
 msgid "Are you sure you want to sign out?"
 msgstr "Ви впевнені, що бажаєте вийти?"
 
@@ -865,10 +888,6 @@ msgstr "Пароль успішно введено."
 msgid "Primary email address set."
 msgstr "Основну e-mail адресу введено."
 
-#: templates/account/messages/unverified_primary_email.txt:2
-msgid "Your primary email address must be verified."
-msgstr "Ваша основна e-mail адреса повинна бути підтверджена."
-
 #: templates/account/password_change.html:4
 #: templates/account/password_change.html:8
 #: templates/account/password_change.html:20
@@ -877,6 +896,7 @@ msgstr "Ваша основна e-mail адреса повинна бути пі
 #: templates/account/password_reset_from_key.html:30
 #: templates/account/password_reset_from_key_done.html:5
 #: templates/account/password_reset_from_key_done.html:9
+#: templates/allauth/layouts/base.html:37
 msgid "Change Password"
 msgstr "Змінити пароль"
 
@@ -896,7 +916,7 @@ msgstr ""
 msgid "Reset My Password"
 msgstr "Відновити мій пароль"
 
-#: templates/account/password_reset.html:29
+#: templates/account/password_reset.html:30
 msgid "Please contact us if you have any trouble resetting your password."
 msgstr ""
 "Будь ласка, зв'яжіться з нами, якщо у Вас виникли проблеми по відновленню "
@@ -926,7 +946,7 @@ msgstr ""
 "уже використане.  Будь ласка, зробіть запит на <a "
 "href=\"%(passwd_reset_url)s\">нове відновлення паролю</a>."
 
-#: templates/account/password_reset_from_key_done.html:11
+#: templates/account/password_reset_from_key_done.html:12
 msgid "Your password is now changed."
 msgstr "Ваш пароль змінено."
 
@@ -935,7 +955,7 @@ msgstr "Ваш пароль змінено."
 msgid "Set Password"
 msgstr "Введіть пароль"
 
-#: templates/account/reauthenticate.html:5
+#: templates/account/reauthenticate.html:6
 #, fuzzy
 #| msgid "Forgot Password?"
 msgid "Enter your password:"
@@ -955,13 +975,13 @@ msgstr ""
 msgid "Signup"
 msgstr "Зареєструватись"
 
-#: templates/account/signup.html:8 templates/account/signup.html:28
-#: templates/allauth/layouts/base.html:39 templates/socialaccount/signup.html:9
+#: templates/account/signup.html:8 templates/account/signup.html:30
+#: templates/allauth/layouts/base.html:68 templates/socialaccount/signup.html:9
 #: templates/socialaccount/signup.html:25
 msgid "Sign Up"
 msgstr "Зареєструватись"
 
-#: templates/account/signup.html:16
+#: templates/account/signup.html:17
 #, python-format
 msgid "Already have an account? Then please %(link)ssign in%(end_link)s."
 msgstr "Уже зареєстрованні? Будь ласка, %(link)sувійдіть%(end_link)s."
@@ -971,7 +991,7 @@ msgstr "Уже зареєстрованні? Будь ласка, %(link)sуві
 msgid "Sign Up Closed"
 msgstr "Реєстрація закрита"
 
-#: templates/account/signup_closed.html:11
+#: templates/account/signup_closed.html:12
 msgid "We are sorry, but the sign up is currently closed."
 msgstr "Перепрошуємо, але реєстрацію закрито."
 
@@ -1057,9 +1077,15 @@ msgstr ""
 msgid "Menu:"
 msgstr ""
 
-#: templates/mfa/authenticate.html:9 templates/mfa/index.html:5
-#: templates/mfa/index.html:9
+#: templates/allauth/layouts/base.html:43 templates/mfa/authenticate.html:9
+#: templates/mfa/index.html:5 templates/mfa/index.html:9
 msgid "Two-Factor Authentication"
+msgstr ""
+
+#: templates/allauth/layouts/base.html:49
+#: templates/usersessions/usersession_list.html:6
+#: templates/usersessions/usersession_list.html:10
+msgid "Sessions"
 msgstr ""
 
 #: templates/mfa/authenticate.html:12
@@ -1103,29 +1129,29 @@ msgstr "Секрет аутентифікатора"
 msgid "Authenticator App"
 msgstr ""
 
-#: templates/mfa/index.html:18
+#: templates/mfa/index.html:19
 msgid "Authentication using an authenticator app is active."
 msgstr ""
 
-#: templates/mfa/index.html:20
+#: templates/mfa/index.html:23
 msgid "An authenticator app is not active."
 msgstr ""
 
-#: templates/mfa/index.html:28 templates/mfa/totp/deactivate_form.html:24
+#: templates/mfa/index.html:32 templates/mfa/totp/deactivate_form.html:24
 msgid "Deactivate"
 msgstr ""
 
-#: templates/mfa/index.html:32 templates/mfa/totp/activate_form.html:32
+#: templates/mfa/index.html:36 templates/mfa/totp/activate_form.html:32
 msgid "Activate"
 msgstr ""
 
-#: templates/mfa/index.html:42 templates/mfa/recovery_codes/base.html:4
+#: templates/mfa/index.html:46 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:6
 #: templates/mfa/recovery_codes/index.html:6
 msgid "Recovery Codes"
 msgstr ""
 
-#: templates/mfa/index.html:47 templates/mfa/recovery_codes/index.html:9
+#: templates/mfa/index.html:51 templates/mfa/recovery_codes/index.html:9
 #, python-format
 msgid ""
 "There is %(unused_count)s out of %(total_count)s recovery codes available."
@@ -1136,19 +1162,19 @@ msgstr[1] ""
 msgstr[2] ""
 msgstr[3] ""
 
-#: templates/mfa/index.html:50
+#: templates/mfa/index.html:55
 msgid "No recovery codes set up."
 msgstr ""
 
-#: templates/mfa/index.html:59
+#: templates/mfa/index.html:65
 msgid "View"
 msgstr ""
 
-#: templates/mfa/index.html:65
+#: templates/mfa/index.html:71
 msgid "Download"
 msgstr ""
 
-#: templates/mfa/index.html:73 templates/mfa/recovery_codes/generate.html:29
+#: templates/mfa/index.html:79 templates/mfa/recovery_codes/generate.html:29
 msgid "Generate"
 msgstr ""
 
@@ -1156,7 +1182,7 @@ msgstr ""
 msgid "A new set of recovery codes has been generated."
 msgstr ""
 
-#: templates/mfa/reauthenticate.html:5
+#: templates/mfa/reauthenticate.html:6
 #, fuzzy
 #| msgid "Authenticator secret"
 msgid "Enter an authenticator code:"
@@ -1226,7 +1252,7 @@ msgstr ""
 msgid "Third-Party Login Failure"
 msgstr "Вхід за допомогою соціальних мереж неуспішний."
 
-#: templates/socialaccount/authentication_error.html:11
+#: templates/socialaccount/authentication_error.html:12
 #, fuzzy
 #| msgid ""
 #| "An error occurred while attempting to login via your social network "
@@ -1251,7 +1277,7 @@ msgid ""
 "accounts:"
 msgstr "Ви можете увійти використовуючи будь-який із зовнішніх акаунтів:"
 
-#: templates/socialaccount/connections.html:45
+#: templates/socialaccount/connections.html:46
 #, fuzzy
 #| msgid ""
 #| "You currently have no social network accounts connected to this account."
@@ -1260,7 +1286,7 @@ msgstr ""
 "На даний момент Ви не маєте жодного акаунту із соц. мереж приєднаного до "
 "даного акаунту."
 
-#: templates/socialaccount/connections.html:48
+#: templates/socialaccount/connections.html:50
 #, fuzzy
 #| msgid "Add a 3rd Party Account"
 msgid "Add a Third-Party Account"
@@ -1312,6 +1338,7 @@ msgid "You are about to sign in using a third-party account from %(provider)s."
 msgstr ""
 
 #: templates/socialaccount/login.html:27
+#: templates/socialaccount/login_redirect.html:10
 msgid "Continue"
 msgstr ""
 
@@ -1366,11 +1393,6 @@ msgstr ""
 msgid "Signed out of all other sessions."
 msgstr ""
 
-#: templates/usersessions/usersession_list.html:6
-#: templates/usersessions/usersession_list.html:10
-msgid "Sessions"
-msgstr ""
-
 #: templates/usersessions/usersession_list.html:23
 msgid "Started At"
 msgstr ""
@@ -1403,7 +1425,7 @@ msgstr ""
 msgid "User Sessions"
 msgstr ""
 
-#: usersessions/models.py:48
+#: usersessions/models.py:58
 msgid "session key"
 msgstr ""
 

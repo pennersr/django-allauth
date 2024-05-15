@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-20 14:01-0500\n"
+"POT-Creation-Date: 2024-05-14 11:32-0500\n"
 "PO-Revision-Date: 2024-04-20 22:08+0200\n"
 "Last-Translator: Jannis \n"
 "Language-Team: Swedish (http://www.transifex.com/projects/p/django-allauth/"
@@ -18,69 +18,86 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: account/adapter.py:57
+#: account/adapter.py:58
 msgid "This account is currently inactive."
 msgstr "Detta konto är inaktivt."
 
-#: account/adapter.py:59
+#: account/adapter.py:60
+#, fuzzy
+#| msgid "You cannot remove your primary email address (%(email)s)."
+msgid "You cannot remove your primary email address."
+msgstr "Du kan inte ta bort din primära epost-adress (%(email)s)."
+
+#: account/adapter.py:63
 msgid "This email address is already associated with this account."
 msgstr "Denna epost-adress är redan knuten till detta konto"
 
-#: account/adapter.py:62
+#: account/adapter.py:66
 msgid "The email address and/or password you specified are not correct."
 msgstr "Epost-adressen och/eller lösenordet är felaktigt."
 
-#: account/adapter.py:64
+#: account/adapter.py:68
 msgid "A user is already registered with this email address."
 msgstr "En användare är redan registrerad med den här epost-adressen"
 
-#: account/adapter.py:65
+#: account/adapter.py:69
 msgid "Please type your current password."
 msgstr "Skriv in ditt nuvarande lösenord."
 
-#: account/adapter.py:66 mfa/adapter.py:29
+#: account/adapter.py:70 mfa/adapter.py:30
 msgid "Incorrect code."
 msgstr ""
 
-#: account/adapter.py:67
+#: account/adapter.py:71
 #, fuzzy
 #| msgid "Current Password"
 msgid "Incorrect password."
 msgstr "Nuvarande lösenord"
 
-#: account/adapter.py:68
+#: account/adapter.py:72
+#, fuzzy
+#| msgid "Bad Token"
+msgid "Invalid or expired key."
+msgstr "Felaktig nyckel"
+
+#: account/adapter.py:73
 msgid "The password reset token was invalid."
 msgstr ""
 
-#: account/adapter.py:69
+#: account/adapter.py:74
 #, fuzzy, python-format
 #| msgid "Your account has no verified email address."
 msgid "You cannot add more than %d email addresses."
 msgstr "Ditt konto har ingen verifierad epost-adress."
 
-#: account/adapter.py:71
+#: account/adapter.py:76
 msgid "Too many failed login attempts. Try again later."
 msgstr ""
 
-#: account/adapter.py:73
+#: account/adapter.py:78
 msgid "The email address is not assigned to any user account"
 msgstr "Epost-adressen är inte knuten till något konto"
 
-#: account/adapter.py:75
+#: account/adapter.py:79
+#: templates/account/messages/unverified_primary_email.txt:2
+msgid "Your primary email address must be verified."
+msgstr "Din primära epost-adress måste verifieras."
+
+#: account/adapter.py:81
 msgid "Username can not be used. Please use other username."
 msgstr "Användarnamnet kan ej användas. Välj ett annat användarnamn."
 
-#: account/adapter.py:78
+#: account/adapter.py:84
 msgid "The username and/or password you specified are not correct."
 msgstr "Användarnamnet och/eller lösenordet är felaktigt."
 
-#: account/adapter.py:714
+#: account/adapter.py:736
 #, fuzzy
 #| msgid "Forgot Password?"
 msgid "Use your password"
 msgstr "Glömt lösenordet?"
 
-#: account/adapter.py:724
+#: account/adapter.py:747
 msgid "Use your authenticator app"
 msgstr ""
 
@@ -95,12 +112,12 @@ msgstr "Din primära epost-adress måste verifieras."
 msgid "Accounts"
 msgstr "Konto"
 
-#: account/forms.py:59 account/forms.py:443
+#: account/forms.py:56 account/forms.py:477
 msgid "You must type the same password each time."
 msgstr "Du måste ange samma lösenord"
 
-#: account/forms.py:91 account/forms.py:406 account/forms.py:528
-#: account/forms.py:653
+#: account/forms.py:91 account/forms.py:407 account/forms.py:558
+#: account/forms.py:673
 msgid "Password"
 msgstr "Lösenord"
 
@@ -108,13 +125,13 @@ msgstr "Lösenord"
 msgid "Remember Me"
 msgstr "Kom ihåg mig"
 
-#: account/forms.py:102 account/forms.py:269 account/forms.py:459
-#: account/forms.py:548 account/forms.py:670
+#: account/forms.py:102 account/forms.py:269 account/forms.py:493
+#: account/forms.py:576 account/forms.py:690
 msgid "Email address"
 msgstr "Epost-adress"
 
-#: account/forms.py:106 account/forms.py:307 account/forms.py:456
-#: account/forms.py:543
+#: account/forms.py:106 account/forms.py:307 account/forms.py:490
+#: account/forms.py:571
 msgid "Email"
 msgstr "Epost"
 
@@ -160,32 +177,32 @@ msgstr "Epost (valfritt)"
 msgid "You must type the same email each time."
 msgstr "Du måste ange samma lösenord"
 
-#: account/forms.py:412 account/forms.py:531
+#: account/forms.py:413 account/forms.py:559
 msgid "Password (again)"
 msgstr "Lösenord (igen)"
 
-#: account/forms.py:505
+#: account/forms.py:539
 msgid "Current Password"
 msgstr "Nuvarande lösenord"
 
-#: account/forms.py:508 account/forms.py:606
+#: account/forms.py:541 account/forms.py:626
 msgid "New Password"
 msgstr "Nytt lösenord"
 
-#: account/forms.py:511 account/forms.py:607
+#: account/forms.py:542 account/forms.py:627
 msgid "New Password (again)"
 msgstr "Nytt lösenord (igen)"
 
-#: account/forms.py:693 account/forms.py:695 mfa/forms.py:15 mfa/forms.py:17
+#: account/forms.py:713 account/forms.py:715 mfa/forms.py:15 mfa/forms.py:17
 #: mfa/forms.py:60
 msgid "Code"
 msgstr ""
 
-#: account/models.py:21
+#: account/models.py:20
 msgid "user"
 msgstr ""
 
-#: account/models.py:26 account/models.py:34 account/models.py:140
+#: account/models.py:26 account/models.py:34 account/models.py:146
 msgid "email address"
 msgstr "epost-adress"
 
@@ -203,43 +220,47 @@ msgstr "Primär"
 msgid "email addresses"
 msgstr "epost-adresser"
 
-#: account/models.py:143
+#: account/models.py:149
 msgid "created"
 msgstr ""
 
-#: account/models.py:144
+#: account/models.py:150
 msgid "sent"
 msgstr ""
 
-#: account/models.py:145 socialaccount/models.py:62
+#: account/models.py:151 socialaccount/models.py:69
 msgid "key"
 msgstr ""
 
-#: account/models.py:150
+#: account/models.py:156
 msgid "email confirmation"
 msgstr "epost-bekräftelse"
 
-#: account/models.py:151
+#: account/models.py:157
 msgid "email confirmations"
 msgstr "epost-bekräftelser"
 
-#: mfa/adapter.py:21
+#: headless/apps.py:7
+msgid "Headless"
+msgstr ""
+
+#: mfa/adapter.py:22
 msgid ""
 "You cannot add an email address to an account protected by two-factor "
 "authentication."
 msgstr ""
 
-#: mfa/adapter.py:24
+#: mfa/adapter.py:25
 msgid "You cannot deactivate two-factor authentication."
 msgstr ""
 
-#: mfa/adapter.py:27
+#: mfa/adapter.py:28
 msgid ""
 "You cannot generate recovery codes without having two-factor authentication "
 "enabled."
 msgstr ""
 
-#: mfa/adapter.py:31
+#: mfa/adapter.py:32
 msgid ""
 "You cannot activate two-factor authentication until you have verified your "
 "email address."
@@ -253,11 +274,11 @@ msgstr ""
 msgid "Authenticator code"
 msgstr ""
 
-#: mfa/models.py:19
+#: mfa/models.py:28
 msgid "Recovery codes"
 msgstr ""
 
-#: mfa/models.py:20
+#: mfa/models.py:29
 msgid "TOTP Authenticator"
 msgstr ""
 
@@ -296,96 +317,96 @@ msgstr ""
 msgid "Social Accounts"
 msgstr "Konto"
 
-#: socialaccount/models.py:37 socialaccount/models.py:90
+#: socialaccount/models.py:44 socialaccount/models.py:97
 msgid "provider"
 msgstr ""
 
-#: socialaccount/models.py:45
+#: socialaccount/models.py:52
 msgid "provider ID"
 msgstr ""
 
-#: socialaccount/models.py:49
+#: socialaccount/models.py:56
 #, fuzzy
 msgid "name"
 msgstr "Användarnamn"
 
-#: socialaccount/models.py:51
+#: socialaccount/models.py:58
 msgid "client id"
 msgstr ""
 
-#: socialaccount/models.py:53
+#: socialaccount/models.py:60
 msgid "App ID, or consumer key"
 msgstr ""
 
-#: socialaccount/models.py:56
+#: socialaccount/models.py:63
 msgid "secret key"
 msgstr ""
 
-#: socialaccount/models.py:59
+#: socialaccount/models.py:66
 msgid "API secret, client secret, or consumer secret"
 msgstr ""
 
-#: socialaccount/models.py:62
+#: socialaccount/models.py:69
 msgid "Key"
 msgstr ""
 
-#: socialaccount/models.py:74
+#: socialaccount/models.py:81
 msgid "social application"
 msgstr ""
 
-#: socialaccount/models.py:75
+#: socialaccount/models.py:82
 msgid "social applications"
 msgstr ""
 
-#: socialaccount/models.py:110
+#: socialaccount/models.py:117
 msgid "uid"
 msgstr ""
 
-#: socialaccount/models.py:112
+#: socialaccount/models.py:119
 msgid "last login"
 msgstr ""
 
-#: socialaccount/models.py:113
+#: socialaccount/models.py:120
 msgid "date joined"
 msgstr ""
 
-#: socialaccount/models.py:114
+#: socialaccount/models.py:121
 msgid "extra data"
 msgstr ""
 
-#: socialaccount/models.py:118
+#: socialaccount/models.py:125
 msgid "social account"
 msgstr ""
 
-#: socialaccount/models.py:119
+#: socialaccount/models.py:126
 msgid "social accounts"
 msgstr ""
 
-#: socialaccount/models.py:153
+#: socialaccount/models.py:160
 msgid "token"
 msgstr ""
 
-#: socialaccount/models.py:154
+#: socialaccount/models.py:161
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr ""
 
-#: socialaccount/models.py:158
+#: socialaccount/models.py:165
 msgid "token secret"
 msgstr ""
 
-#: socialaccount/models.py:159
+#: socialaccount/models.py:166
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr ""
 
-#: socialaccount/models.py:162
+#: socialaccount/models.py:169
 msgid "expires at"
 msgstr ""
 
-#: socialaccount/models.py:167
+#: socialaccount/models.py:174
 msgid "social application token"
 msgstr ""
 
-#: socialaccount/models.py:168
+#: socialaccount/models.py:175
 msgid "social application tokens"
 msgstr ""
 
@@ -443,7 +464,7 @@ msgstr "Felaktigt svar vid hämtning av fråge-nyckel från \"%s\"."
 msgid "Account Inactive"
 msgstr "Kontot inaktivt"
 
-#: templates/account/account_inactive.html:11
+#: templates/account/account_inactive.html:12
 msgid "This account is inactive."
 msgstr "Detta konto är inaktivt."
 
@@ -454,11 +475,11 @@ msgstr "Detta konto är inaktivt."
 msgid "Confirm Access"
 msgstr "Verifiera epost-adress"
 
-#: templates/account/base_reauthenticate.html:11
+#: templates/account/base_reauthenticate.html:12
 msgid "Please reauthenticate to safeguard your account."
 msgstr ""
 
-#: templates/account/base_reauthenticate.html:17
+#: templates/account/base_reauthenticate.html:19
 msgid "Alternative options"
 msgstr ""
 
@@ -466,10 +487,11 @@ msgstr ""
 #: templates/account/confirm_login_code.html:27 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
 #: templates/account/request_login_code.html:5
-#: templates/allauth/layouts/base.html:36 templates/mfa/authenticate.html:5
+#: templates/allauth/layouts/base.html:62 templates/mfa/authenticate.html:5
 #: templates/mfa/authenticate.html:23 templates/openid/login.html:5
 #: templates/openid/login.html:9 templates/openid/login.html:20
 #: templates/socialaccount/login.html:5
+#: templates/socialaccount/login_redirect.html:5
 msgid "Sign In"
 msgstr "Logga in"
 
@@ -493,43 +515,43 @@ msgstr ""
 msgid "Email Addresses"
 msgstr "Epost-adresser"
 
-#: templates/account/email.html:11
+#: templates/account/email.html:12
 msgid "The following email addresses are associated with your account:"
 msgstr "Följande epost-adresser är knutna till ditt konto:"
 
-#: templates/account/email.html:23
+#: templates/account/email.html:25
 msgid "Verified"
 msgstr "Verifierad"
 
-#: templates/account/email.html:27
+#: templates/account/email.html:29
 msgid "Unverified"
 msgstr "Ej verifierad"
 
-#: templates/account/email.html:32
+#: templates/account/email.html:34
 msgid "Primary"
 msgstr "Primär"
 
-#: templates/account/email.html:42
+#: templates/account/email.html:44
 msgid "Make Primary"
 msgstr "Gör primär"
 
-#: templates/account/email.html:45 templates/account/email_change.html:37
+#: templates/account/email.html:47 templates/account/email_change.html:37
 msgid "Re-send Verification"
 msgstr "Sänd verifiering igen"
 
-#: templates/account/email.html:48 templates/socialaccount/connections.html:40
+#: templates/account/email.html:50 templates/socialaccount/connections.html:40
 msgid "Remove"
 msgstr "Ta bort"
 
-#: templates/account/email.html:57
+#: templates/account/email.html:59
 msgid "Add Email Address"
 msgstr "Lägg till epost-adress"
 
-#: templates/account/email.html:69
+#: templates/account/email.html:70
 msgid "Add Email"
 msgstr "Lägg till epost"
 
-#: templates/account/email.html:78
+#: templates/account/email.html:79
 msgid "Do you really want to remove the selected email address?"
 msgstr "Vill du verkligen ta bort den valda epost-adressen?"
 
@@ -777,7 +799,7 @@ msgid "Change to"
 msgstr "Epost"
 
 #: templates/account/email_change.html:55
-#: templates/allauth/layouts/base.html:29
+#: templates/allauth/layouts/base.html:31
 #, fuzzy
 #| msgid "Email"
 msgid "Change Email"
@@ -801,8 +823,8 @@ msgstr ""
 "för %(user_display)s."
 
 #: templates/account/email_confirm.html:24
-#: templates/account/reauthenticate.html:16
-#: templates/mfa/reauthenticate.html:16
+#: templates/account/reauthenticate.html:18
+#: templates/mfa/reauthenticate.html:18
 msgid "Confirm"
 msgstr "Verifiera"
 
@@ -839,12 +861,12 @@ msgid "Mail me a sign-in code"
 msgstr ""
 
 #: templates/account/logout.html:4 templates/account/logout.html:8
-#: templates/account/logout.html:19 templates/allauth/layouts/base.html:32
+#: templates/account/logout.html:21 templates/allauth/layouts/base.html:55
 #: templates/usersessions/usersession_list.html:64
 msgid "Sign Out"
 msgstr "Logga ut"
 
-#: templates/account/logout.html:10
+#: templates/account/logout.html:11
 msgid "Are you sure you want to sign out?"
 msgstr "Är du säker att du vill logga ut?"
 
@@ -894,10 +916,6 @@ msgstr "Lösenord skapat."
 msgid "Primary email address set."
 msgstr "Primär epost-adress satt."
 
-#: templates/account/messages/unverified_primary_email.txt:2
-msgid "Your primary email address must be verified."
-msgstr "Din primära epost-adress måste verifieras."
-
 #: templates/account/password_change.html:4
 #: templates/account/password_change.html:8
 #: templates/account/password_change.html:20
@@ -906,6 +924,7 @@ msgstr "Din primära epost-adress måste verifieras."
 #: templates/account/password_reset_from_key.html:30
 #: templates/account/password_reset_from_key_done.html:5
 #: templates/account/password_reset_from_key_done.html:9
+#: templates/allauth/layouts/base.html:37
 msgid "Change Password"
 msgstr "Ändra lösenord"
 
@@ -929,7 +948,7 @@ msgstr ""
 msgid "Reset My Password"
 msgstr "Återställ mitt lösenord"
 
-#: templates/account/password_reset.html:29
+#: templates/account/password_reset.html:30
 msgid "Please contact us if you have any trouble resetting your password."
 msgstr ""
 "Vänligen kontakta oss om du har problem med att återställa ditt lösenord."
@@ -963,7 +982,7 @@ msgstr ""
 "redan har använts. Begär en <a href=\"%(passwd_reset_url)s\">ny lösenords-"
 "återställning</a>."
 
-#: templates/account/password_reset_from_key_done.html:11
+#: templates/account/password_reset_from_key_done.html:12
 msgid "Your password is now changed."
 msgstr "Ditt lösenord är nu ändrat."
 
@@ -972,7 +991,7 @@ msgstr "Ditt lösenord är nu ändrat."
 msgid "Set Password"
 msgstr "Skapa lösenord"
 
-#: templates/account/reauthenticate.html:5
+#: templates/account/reauthenticate.html:6
 #, fuzzy
 #| msgid "Forgot Password?"
 msgid "Enter your password:"
@@ -992,13 +1011,13 @@ msgstr ""
 msgid "Signup"
 msgstr "Skapa konto"
 
-#: templates/account/signup.html:8 templates/account/signup.html:28
-#: templates/allauth/layouts/base.html:39 templates/socialaccount/signup.html:9
+#: templates/account/signup.html:8 templates/account/signup.html:30
+#: templates/allauth/layouts/base.html:68 templates/socialaccount/signup.html:9
 #: templates/socialaccount/signup.html:25
 msgid "Sign Up"
 msgstr "Skapa konto"
 
-#: templates/account/signup.html:16
+#: templates/account/signup.html:17
 #, python-format
 msgid "Already have an account? Then please %(link)ssign in%(end_link)s."
 msgstr "Har du redan ett konto? Då kan du %(link)slogga in%(end_link)s."
@@ -1008,7 +1027,7 @@ msgstr "Har du redan ett konto? Då kan du %(link)slogga in%(end_link)s."
 msgid "Sign Up Closed"
 msgstr "Anmälan stängd"
 
-#: templates/account/signup_closed.html:11
+#: templates/account/signup_closed.html:12
 msgid "We are sorry, but the sign up is currently closed."
 msgstr "Tyvärr är anmälan stängd för närvarande."
 
@@ -1110,9 +1129,15 @@ msgstr ""
 msgid "Menu:"
 msgstr ""
 
-#: templates/mfa/authenticate.html:9 templates/mfa/index.html:5
-#: templates/mfa/index.html:9
+#: templates/allauth/layouts/base.html:43 templates/mfa/authenticate.html:9
+#: templates/mfa/index.html:5 templates/mfa/index.html:9
 msgid "Two-Factor Authentication"
+msgstr ""
+
+#: templates/allauth/layouts/base.html:49
+#: templates/usersessions/usersession_list.html:6
+#: templates/usersessions/usersession_list.html:10
+msgid "Sessions"
 msgstr ""
 
 #: templates/mfa/authenticate.html:12
@@ -1152,29 +1177,29 @@ msgstr ""
 msgid "Authenticator App"
 msgstr ""
 
-#: templates/mfa/index.html:18
+#: templates/mfa/index.html:19
 msgid "Authentication using an authenticator app is active."
 msgstr ""
 
-#: templates/mfa/index.html:20
+#: templates/mfa/index.html:23
 msgid "An authenticator app is not active."
 msgstr ""
 
-#: templates/mfa/index.html:28 templates/mfa/totp/deactivate_form.html:24
+#: templates/mfa/index.html:32 templates/mfa/totp/deactivate_form.html:24
 msgid "Deactivate"
 msgstr ""
 
-#: templates/mfa/index.html:32 templates/mfa/totp/activate_form.html:32
+#: templates/mfa/index.html:36 templates/mfa/totp/activate_form.html:32
 msgid "Activate"
 msgstr ""
 
-#: templates/mfa/index.html:42 templates/mfa/recovery_codes/base.html:4
+#: templates/mfa/index.html:46 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:6
 #: templates/mfa/recovery_codes/index.html:6
 msgid "Recovery Codes"
 msgstr ""
 
-#: templates/mfa/index.html:47 templates/mfa/recovery_codes/index.html:9
+#: templates/mfa/index.html:51 templates/mfa/recovery_codes/index.html:9
 #, python-format
 msgid ""
 "There is %(unused_count)s out of %(total_count)s recovery codes available."
@@ -1183,19 +1208,19 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/mfa/index.html:50
+#: templates/mfa/index.html:55
 msgid "No recovery codes set up."
 msgstr ""
 
-#: templates/mfa/index.html:59
+#: templates/mfa/index.html:65
 msgid "View"
 msgstr ""
 
-#: templates/mfa/index.html:65
+#: templates/mfa/index.html:71
 msgid "Download"
 msgstr ""
 
-#: templates/mfa/index.html:73 templates/mfa/recovery_codes/generate.html:29
+#: templates/mfa/index.html:79 templates/mfa/recovery_codes/generate.html:29
 msgid "Generate"
 msgstr ""
 
@@ -1203,7 +1228,7 @@ msgstr ""
 msgid "A new set of recovery codes has been generated."
 msgstr ""
 
-#: templates/mfa/reauthenticate.html:5
+#: templates/mfa/reauthenticate.html:6
 msgid "Enter an authenticator code:"
 msgstr ""
 
@@ -1271,7 +1296,7 @@ msgstr ""
 msgid "Third-Party Login Failure"
 msgstr "Fel vid tredjeparts-inloggning"
 
-#: templates/socialaccount/authentication_error.html:11
+#: templates/socialaccount/authentication_error.html:12
 #, fuzzy
 #| msgid ""
 #| "An error occurred while attempting to login via your social network "
@@ -1296,14 +1321,14 @@ msgid ""
 msgstr ""
 "Du kan logga in på ditt konto via något av följande tredjeparts-konton:"
 
-#: templates/socialaccount/connections.html:45
+#: templates/socialaccount/connections.html:46
 #, fuzzy
 #| msgid ""
 #| "You currently have no social network accounts connected to this account."
 msgid "You currently have no third-party accounts connected to this account."
 msgstr "Du har för närvarande inga tredjeparts-konton knutna till ditt konto."
 
-#: templates/socialaccount/connections.html:48
+#: templates/socialaccount/connections.html:50
 #, fuzzy
 #| msgid "Add a 3rd Party Account"
 msgid "Add a Third-Party Account"
@@ -1355,6 +1380,7 @@ msgid "You are about to sign in using a third-party account from %(provider)s."
 msgstr ""
 
 #: templates/socialaccount/login.html:27
+#: templates/socialaccount/login_redirect.html:10
 msgid "Continue"
 msgstr ""
 
@@ -1408,11 +1434,6 @@ msgstr ""
 msgid "Signed out of all other sessions."
 msgstr ""
 
-#: templates/usersessions/usersession_list.html:6
-#: templates/usersessions/usersession_list.html:10
-msgid "Sessions"
-msgstr ""
-
 #: templates/usersessions/usersession_list.html:23
 msgid "Started At"
 msgstr ""
@@ -1445,7 +1466,7 @@ msgstr ""
 msgid "User Sessions"
 msgstr ""
 
-#: usersessions/models.py:48
+#: usersessions/models.py:58
 msgid "session key"
 msgstr ""
 

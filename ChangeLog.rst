@@ -1,5 +1,8 @@
-0.63.0 (unreleased)
+0.63.0 (2024-05-14)
 *******************
+
+Note worthy changes
+-------------------
 
 - New providers: TikTok, Lichess.
 

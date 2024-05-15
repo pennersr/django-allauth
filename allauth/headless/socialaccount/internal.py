@@ -1,10 +1,14 @@
 from django.http import HttpResponseRedirect
 
+from allauth import app_settings as allauth_settings
 from allauth.core.exceptions import ImmediateHttpResponse
 from allauth.core.internal import httpkit
 from allauth.headless.internal.authkit import AuthenticationStatus
 from allauth.socialaccount.internal import flows, statekit
-from allauth.socialaccount.providers.base.constants import AuthError
+from allauth.socialaccount.providers.base.constants import (
+    AuthError,
+    AuthProcess,
+)
 
 
 def on_authentication_error(
@@ -25,15 +29,20 @@ def on_authentication_error(
             state_id = extra_context.get("state_id")
             if state_id:
                 state = statekit.unstash_state(request, state_id)
-    if state is None:
-        return
-    headless = state.get("headless")
+    params = {"error": error}
+    if state is not None:
+        headless = state.get("headless")
+        next_url = state.get("next")
+        params["error_process"] = state["process"]
+    else:
+        headless = allauth_settings.HEADLESS_ONLY
+        next_url = None
+        params["error_process"] = AuthProcess.LOGIN
     if not headless:
         return
-    next_url = state["next"]
-    next_url = httpkit.add_query_params(
-        next_url, {"error": error, "error_process": state["process"]}
-    )
+    if not next_url:
+        next_url = httpkit.get_frontend_url(request, "socialaccount_login_error") or "/"
+    next_url = httpkit.add_query_params(next_url, params)
     raise ImmediateHttpResponse(HttpResponseRedirect(next_url))
 
 

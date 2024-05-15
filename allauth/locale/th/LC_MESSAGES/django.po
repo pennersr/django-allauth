@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-20 14:01-0500\n"
+"POT-Creation-Date: 2024-05-14 11:32-0500\n"
 "PO-Revision-Date: 2024-04-20 22:14+0200\n"
 "Last-Translator: Nattaphoom Chaipreecha <attomos@gmail.com>\n"
 "Language-Team: Thai <LL@li.org>\n"
@@ -20,69 +20,86 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: account/adapter.py:57
+#: account/adapter.py:58
 msgid "This account is currently inactive."
 msgstr "บัญชีนี้อยู่ในสถานะที่ใช้งานไม่ได้่"
 
-#: account/adapter.py:59
+#: account/adapter.py:60
+#, fuzzy
+#| msgid "You cannot remove your primary email address (%(email)s)."
+msgid "You cannot remove your primary email address."
+msgstr "คุณไม่สามารถลบอีเมลของคุณได้ (%(email)s)."
+
+#: account/adapter.py:63
 msgid "This email address is already associated with this account."
 msgstr "อีเมลนี้ได้ถูกเชื่อมกับบัญชีนี้แล้ว"
 
-#: account/adapter.py:62
+#: account/adapter.py:66
 msgid "The email address and/or password you specified are not correct."
 msgstr "อีเมลและ/หรือรหัสผ่านที่ระบุมาไม่ถูกต้อง"
 
-#: account/adapter.py:64
+#: account/adapter.py:68
 msgid "A user is already registered with this email address."
 msgstr "ชื่อผู้ใช้ได้ถูกลงทะเบียนด้วยอีเมลนี้แล้ว"
 
-#: account/adapter.py:65
+#: account/adapter.py:69
 msgid "Please type your current password."
 msgstr "โปรดใส่รหัสผ่านปัจจุบัน"
 
-#: account/adapter.py:66 mfa/adapter.py:29
+#: account/adapter.py:70 mfa/adapter.py:30
 msgid "Incorrect code."
 msgstr ""
 
-#: account/adapter.py:67
+#: account/adapter.py:71
 #, fuzzy
 #| msgid "Current Password"
 msgid "Incorrect password."
 msgstr "รหัสผ่านปัจจุบัน"
 
-#: account/adapter.py:68
+#: account/adapter.py:72
+#, fuzzy
+#| msgid "Bad Token"
+msgid "Invalid or expired key."
+msgstr "Token เสีย"
+
+#: account/adapter.py:73
 msgid "The password reset token was invalid."
 msgstr "token ที่ใช้รีเซ็ทรหัสผ่านไม่ถูกต้อง"
 
-#: account/adapter.py:69
+#: account/adapter.py:74
 #, fuzzy, python-format
 #| msgid "Your account has no verified email address."
 msgid "You cannot add more than %d email addresses."
 msgstr "บัญชีของคุณไม่มีอีเมลที่ยืนยันแล้ว"
 
-#: account/adapter.py:71
+#: account/adapter.py:76
 msgid "Too many failed login attempts. Try again later."
 msgstr ""
 
-#: account/adapter.py:73
+#: account/adapter.py:78
 msgid "The email address is not assigned to any user account"
 msgstr "อีเมลนี้ไม่ได้เชื่อมกับบัญชีใดเลย"
 
-#: account/adapter.py:75
+#: account/adapter.py:79
+#: templates/account/messages/unverified_primary_email.txt:2
+msgid "Your primary email address must be verified."
+msgstr "อีเมลหลักของคุณต้องได้การยืนยัน"
+
+#: account/adapter.py:81
 msgid "Username can not be used. Please use other username."
 msgstr "ไม่สามารถใช้ชื่อผู้ใช้นี้ได้ กรุณาใช้ชื่อผู้ใช้อื่น"
 
-#: account/adapter.py:78
+#: account/adapter.py:84
 msgid "The username and/or password you specified are not correct."
 msgstr "ชื่อผู้ใช้และ/หรือรหัสผ่านที่ระบุมาไม่ถูกต้อง"
 
-#: account/adapter.py:714
+#: account/adapter.py:736
 #, fuzzy
 #| msgid "Forgot Password?"
 msgid "Use your password"
 msgstr "ลืมรหัสผ่าน?"
 
-#: account/adapter.py:724
+#: account/adapter.py:747
 msgid "Use your authenticator app"
 msgstr ""
 
@@ -96,12 +113,12 @@ msgstr "อีเมลหลักของคุณต้องได้กา
 msgid "Accounts"
 msgstr "บัญชี"
 
-#: account/forms.py:59 account/forms.py:443
+#: account/forms.py:56 account/forms.py:477
 msgid "You must type the same password each time."
 msgstr "ต้องพิมพ์รหัสผ่านเดิมซ้ำอีกครั้ง"
 
-#: account/forms.py:91 account/forms.py:406 account/forms.py:528
-#: account/forms.py:653
+#: account/forms.py:91 account/forms.py:407 account/forms.py:558
+#: account/forms.py:673
 msgid "Password"
 msgstr "รหัสผ่าน"
 
@@ -109,13 +126,13 @@ msgstr "รหัสผ่าน"
 msgid "Remember Me"
 msgstr "จดจำการเข้าใช้"
 
-#: account/forms.py:102 account/forms.py:269 account/forms.py:459
-#: account/forms.py:548 account/forms.py:670
+#: account/forms.py:102 account/forms.py:269 account/forms.py:493
+#: account/forms.py:576 account/forms.py:690
 msgid "Email address"
 msgstr "อีเมล"
 
-#: account/forms.py:106 account/forms.py:307 account/forms.py:456
-#: account/forms.py:543
+#: account/forms.py:106 account/forms.py:307 account/forms.py:490
+#: account/forms.py:571
 msgid "Email"
 msgstr "อีเมล"
 
@@ -161,32 +178,32 @@ msgstr "อีเมล (ไม่จำเป็น)"
 msgid "You must type the same email each time."
 msgstr "ต้องพิมพ์รหัสผ่านเดิมซ้ำอีกครั้ง"
 
-#: account/forms.py:412 account/forms.py:531
+#: account/forms.py:413 account/forms.py:559
 msgid "Password (again)"
 msgstr "รหัสผ่าน (อีกครั้ง)"
 
-#: account/forms.py:505
+#: account/forms.py:539
 msgid "Current Password"
 msgstr "รหัสผ่านปัจจุบัน"
 
-#: account/forms.py:508 account/forms.py:606
+#: account/forms.py:541 account/forms.py:626
 msgid "New Password"
 msgstr "รหัสผ่านใหม่"
 
-#: account/forms.py:511 account/forms.py:607
+#: account/forms.py:542 account/forms.py:627
 msgid "New Password (again)"
 msgstr "รหัสผ่านใหม่ (อีกครั้ง)"
 
-#: account/forms.py:693 account/forms.py:695 mfa/forms.py:15 mfa/forms.py:17
+#: account/forms.py:713 account/forms.py:715 mfa/forms.py:15 mfa/forms.py:17
 #: mfa/forms.py:60
 msgid "Code"
 msgstr ""
 
-#: account/models.py:21
+#: account/models.py:20
 msgid "user"
 msgstr "ผู้ใช้"
 
-#: account/models.py:26 account/models.py:34 account/models.py:140
+#: account/models.py:26 account/models.py:34 account/models.py:146
 msgid "email address"
 msgstr "อีเมล"
 
@@ -202,43 +219,47 @@ msgstr "หลัก"
 msgid "email addresses"
 msgstr "อีเมล"
 
-#: account/models.py:143
+#: account/models.py:149
 msgid "created"
 msgstr "สร้างแล้ว"
 
-#: account/models.py:144
+#: account/models.py:150
 msgid "sent"
 msgstr "ส่งแล้ว"
 
-#: account/models.py:145 socialaccount/models.py:62
+#: account/models.py:151 socialaccount/models.py:69
 msgid "key"
 msgstr "คีย์"
 
-#: account/models.py:150
+#: account/models.py:156
 msgid "email confirmation"
 msgstr "การยืนยันอีเมล"
 
-#: account/models.py:151
+#: account/models.py:157
 msgid "email confirmations"
 msgstr "การยืนยันอีเมล"
 
-#: mfa/adapter.py:21
+#: headless/apps.py:7
+msgid "Headless"
+msgstr ""
+
+#: mfa/adapter.py:22
 msgid ""
 "You cannot add an email address to an account protected by two-factor "
 "authentication."
 msgstr ""
 
-#: mfa/adapter.py:24
+#: mfa/adapter.py:25
 msgid "You cannot deactivate two-factor authentication."
 msgstr ""
 
-#: mfa/adapter.py:27
+#: mfa/adapter.py:28
 msgid ""
 "You cannot generate recovery codes without having two-factor authentication "
 "enabled."
 msgstr ""
 
-#: mfa/adapter.py:31
+#: mfa/adapter.py:32
 msgid ""
 "You cannot activate two-factor authentication until you have verified your "
 "email address."
@@ -252,11 +273,11 @@ msgstr ""
 msgid "Authenticator code"
 msgstr ""
 
-#: mfa/models.py:19
+#: mfa/models.py:28
 msgid "Recovery codes"
 msgstr ""
 
-#: mfa/models.py:20
+#: mfa/models.py:29
 msgid "TOTP Authenticator"
 msgstr ""
 
@@ -296,97 +317,97 @@ msgstr "คุณสามารถลงชื่อเข้าสู่ระ
 msgid "Social Accounts"
 msgstr "บัญชีโซเชียล"
 
-#: socialaccount/models.py:37 socialaccount/models.py:90
+#: socialaccount/models.py:44 socialaccount/models.py:97
 msgid "provider"
 msgstr "ผู้ให้บริการ"
 
-#: socialaccount/models.py:45
+#: socialaccount/models.py:52
 #, fuzzy
 #| msgid "provider"
 msgid "provider ID"
 msgstr "ผู้ให้บริการ"
 
-#: socialaccount/models.py:49
+#: socialaccount/models.py:56
 msgid "name"
 msgstr "ชื่อ"
 
-#: socialaccount/models.py:51
+#: socialaccount/models.py:58
 msgid "client id"
 msgstr ""
 
-#: socialaccount/models.py:53
+#: socialaccount/models.py:60
 msgid "App ID, or consumer key"
 msgstr ""
 
-#: socialaccount/models.py:56
+#: socialaccount/models.py:63
 msgid "secret key"
 msgstr ""
 
-#: socialaccount/models.py:59
+#: socialaccount/models.py:66
 msgid "API secret, client secret, or consumer secret"
 msgstr ""
 
-#: socialaccount/models.py:62
+#: socialaccount/models.py:69
 msgid "Key"
 msgstr "คีย์"
 
-#: socialaccount/models.py:74
+#: socialaccount/models.py:81
 msgid "social application"
 msgstr ""
 
-#: socialaccount/models.py:75
+#: socialaccount/models.py:82
 msgid "social applications"
 msgstr ""
 
-#: socialaccount/models.py:110
+#: socialaccount/models.py:117
 msgid "uid"
 msgstr ""
 
-#: socialaccount/models.py:112
+#: socialaccount/models.py:119
 msgid "last login"
 msgstr ""
 
-#: socialaccount/models.py:113
+#: socialaccount/models.py:120
 msgid "date joined"
 msgstr ""
 
-#: socialaccount/models.py:114
+#: socialaccount/models.py:121
 msgid "extra data"
 msgstr ""
 
-#: socialaccount/models.py:118
+#: socialaccount/models.py:125
 msgid "social account"
 msgstr ""
 
-#: socialaccount/models.py:119
+#: socialaccount/models.py:126
 msgid "social accounts"
 msgstr ""
 
-#: socialaccount/models.py:153
+#: socialaccount/models.py:160
 msgid "token"
 msgstr "token"
 
-#: socialaccount/models.py:154
+#: socialaccount/models.py:161
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr ""
 
-#: socialaccount/models.py:158
+#: socialaccount/models.py:165
 msgid "token secret"
 msgstr ""
 
-#: socialaccount/models.py:159
+#: socialaccount/models.py:166
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr ""
 
-#: socialaccount/models.py:162
+#: socialaccount/models.py:169
 msgid "expires at"
 msgstr ""
 
-#: socialaccount/models.py:167
+#: socialaccount/models.py:174
 msgid "social application token"
 msgstr ""
 
-#: socialaccount/models.py:168
+#: socialaccount/models.py:175
 msgid "social application tokens"
 msgstr ""
 
@@ -444,7 +465,7 @@ msgstr "การตอบสนองผิดพลาดขณะที่ก
 msgid "Account Inactive"
 msgstr "บัญชีไม่มีการใช้งาน"
 
-#: templates/account/account_inactive.html:11
+#: templates/account/account_inactive.html:12
 msgid "This account is inactive."
 msgstr "บัญชีนี้ไม่มีการใช้งาน"
 
@@ -455,11 +476,11 @@ msgstr "บัญชีนี้ไม่มีการใช้งาน"
 msgid "Confirm Access"
 msgstr "ยืนยันอีเมล"
 
-#: templates/account/base_reauthenticate.html:11
+#: templates/account/base_reauthenticate.html:12
 msgid "Please reauthenticate to safeguard your account."
 msgstr ""
 
-#: templates/account/base_reauthenticate.html:17
+#: templates/account/base_reauthenticate.html:19
 msgid "Alternative options"
 msgstr ""
 
@@ -467,10 +488,11 @@ msgstr ""
 #: templates/account/confirm_login_code.html:27 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
 #: templates/account/request_login_code.html:5
-#: templates/allauth/layouts/base.html:36 templates/mfa/authenticate.html:5
+#: templates/allauth/layouts/base.html:62 templates/mfa/authenticate.html:5
 #: templates/mfa/authenticate.html:23 templates/openid/login.html:5
 #: templates/openid/login.html:9 templates/openid/login.html:20
 #: templates/socialaccount/login.html:5
+#: templates/socialaccount/login_redirect.html:5
 msgid "Sign In"
 msgstr "ลงชื่อเข้าใช้"
 
@@ -494,43 +516,43 @@ msgstr ""
 msgid "Email Addresses"
 msgstr "อีเมล"
 
-#: templates/account/email.html:11
+#: templates/account/email.html:12
 msgid "The following email addresses are associated with your account:"
 msgstr "อีเมลต่อไปนี้ได้เชื่อมกับบัญชีของคุณ"
 
-#: templates/account/email.html:23
+#: templates/account/email.html:25
 msgid "Verified"
 msgstr "ยืนยันแล้ว"
 
-#: templates/account/email.html:27
+#: templates/account/email.html:29
 msgid "Unverified"
 msgstr "ยังไม่ได้ยืนยัน"
 
-#: templates/account/email.html:32
+#: templates/account/email.html:34
 msgid "Primary"
 msgstr "หลัก"
 
-#: templates/account/email.html:42
+#: templates/account/email.html:44
 msgid "Make Primary"
 msgstr "ทำให้เป็นอันหลัก"
 
-#: templates/account/email.html:45 templates/account/email_change.html:37
+#: templates/account/email.html:47 templates/account/email_change.html:37
 msgid "Re-send Verification"
 msgstr "ส่งการยืนยันอีกครั้ง"
 
-#: templates/account/email.html:48 templates/socialaccount/connections.html:40
+#: templates/account/email.html:50 templates/socialaccount/connections.html:40
 msgid "Remove"
 msgstr "ลบ"
 
-#: templates/account/email.html:57
+#: templates/account/email.html:59
 msgid "Add Email Address"
 msgstr "เพิ่มอีเมล"
 
-#: templates/account/email.html:69
+#: templates/account/email.html:70
 msgid "Add Email"
 msgstr "เพิ่มอีเมล"
 
-#: templates/account/email.html:78
+#: templates/account/email.html:79
 msgid "Do you really want to remove the selected email address?"
 msgstr "คุณต้องการที่จะลบอีเมลนี้จริงหรอ"
 
@@ -791,7 +813,7 @@ msgid "Change to"
 msgstr "อีเมล"
 
 #: templates/account/email_change.html:55
-#: templates/allauth/layouts/base.html:29
+#: templates/allauth/layouts/base.html:31
 #, fuzzy
 #| msgid "Email"
 msgid "Change Email"
@@ -815,8 +837,8 @@ msgstr ""
 "%(user_display)s."
 
 #: templates/account/email_confirm.html:24
-#: templates/account/reauthenticate.html:16
-#: templates/mfa/reauthenticate.html:16
+#: templates/account/reauthenticate.html:18
+#: templates/mfa/reauthenticate.html:18
 msgid "Confirm"
 msgstr "ยืนยัน"
 
@@ -853,12 +875,12 @@ msgid "Mail me a sign-in code"
 msgstr ""
 
 #: templates/account/logout.html:4 templates/account/logout.html:8
-#: templates/account/logout.html:19 templates/allauth/layouts/base.html:32
+#: templates/account/logout.html:21 templates/allauth/layouts/base.html:55
 #: templates/usersessions/usersession_list.html:64
 msgid "Sign Out"
 msgstr "ลงชื่อออก"
 
-#: templates/account/logout.html:10
+#: templates/account/logout.html:11
 msgid "Are you sure you want to sign out?"
 msgstr "คุณแน่ใจหรือว่าต้องการจะลงชื่อออก"
 
@@ -908,10 +930,6 @@ msgstr "ตั้งรหัสผ่านสำเร็จ"
 msgid "Primary email address set."
 msgstr "ตั้งอีเมลหลักสำเร็จ"
 
-#: templates/account/messages/unverified_primary_email.txt:2
-msgid "Your primary email address must be verified."
-msgstr "อีเมลหลักของคุณต้องได้การยืนยัน"
-
 #: templates/account/password_change.html:4
 #: templates/account/password_change.html:8
 #: templates/account/password_change.html:20
@@ -920,6 +938,7 @@ msgstr "อีเมลหลักของคุณต้องได้กา
 #: templates/account/password_reset_from_key.html:30
 #: templates/account/password_reset_from_key_done.html:5
 #: templates/account/password_reset_from_key_done.html:9
+#: templates/allauth/layouts/base.html:37
 msgid "Change Password"
 msgstr "เปลี่ยนรหัสผ่าน"
 
@@ -942,7 +961,7 @@ msgstr ""
 msgid "Reset My Password"
 msgstr "รีเซ็ทรหัสผ่านของฉัน"
 
-#: templates/account/password_reset.html:29
+#: templates/account/password_reset.html:30
 msgid "Please contact us if you have any trouble resetting your password."
 msgstr "กรุณาติดต่อเราหากคุณพบปัญหาในการรีเซ็ทรหัสผ่าน"
 
@@ -974,7 +993,7 @@ msgstr ""
 "ลิงค์ที่ใช้ในการรีเซ็ทรหัสผ่านไม่ถูกต้อง อาจเป็นไปได้ว่ามันได้ถูกใช้ไปแล้วกรุณาร้องขอ <a "
 "href=\"%(passwd_reset_url)s\">การรีเซ็ทรหัสผ่านใหม่</a>"
 
-#: templates/account/password_reset_from_key_done.html:11
+#: templates/account/password_reset_from_key_done.html:12
 msgid "Your password is now changed."
 msgstr "รหัสผ่านของคุณได้เปลี่ยนแล้ว"
 
@@ -983,7 +1002,7 @@ msgstr "รหัสผ่านของคุณได้เปลี่ยน
 msgid "Set Password"
 msgstr "ตั้งรหัสผ่าน"
 
-#: templates/account/reauthenticate.html:5
+#: templates/account/reauthenticate.html:6
 #, fuzzy
 #| msgid "Forgot Password?"
 msgid "Enter your password:"
@@ -1003,13 +1022,13 @@ msgstr ""
 msgid "Signup"
 msgstr "ลงทะเบียน"
 
-#: templates/account/signup.html:8 templates/account/signup.html:28
-#: templates/allauth/layouts/base.html:39 templates/socialaccount/signup.html:9
+#: templates/account/signup.html:8 templates/account/signup.html:30
+#: templates/allauth/layouts/base.html:68 templates/socialaccount/signup.html:9
 #: templates/socialaccount/signup.html:25
 msgid "Sign Up"
 msgstr "ลงทะเบียน"
 
-#: templates/account/signup.html:16
+#: templates/account/signup.html:17
 #, python-format
 msgid "Already have an account? Then please %(link)ssign in%(end_link)s."
 msgstr "มีบัญชีอยู่แล้ว? กรุณา%(link)sลงชื่อเข้าใช้%(end_link)s"
@@ -1019,7 +1038,7 @@ msgstr "มีบัญชีอยู่แล้ว? กรุณา%(link)s�
 msgid "Sign Up Closed"
 msgstr "การลงทะเบียนปิดอยู่"
 
-#: templates/account/signup_closed.html:11
+#: templates/account/signup_closed.html:12
 msgid "We are sorry, but the sign up is currently closed."
 msgstr "เราขอโทษด้วย การลงทะเบียนได้ปิดชั่วคราว"
 
@@ -1122,9 +1141,15 @@ msgstr ""
 msgid "Menu:"
 msgstr ""
 
-#: templates/mfa/authenticate.html:9 templates/mfa/index.html:5
-#: templates/mfa/index.html:9
+#: templates/allauth/layouts/base.html:43 templates/mfa/authenticate.html:9
+#: templates/mfa/index.html:5 templates/mfa/index.html:9
 msgid "Two-Factor Authentication"
+msgstr ""
+
+#: templates/allauth/layouts/base.html:49
+#: templates/usersessions/usersession_list.html:6
+#: templates/usersessions/usersession_list.html:10
+msgid "Sessions"
 msgstr ""
 
 #: templates/mfa/authenticate.html:12
@@ -1164,29 +1189,29 @@ msgstr ""
 msgid "Authenticator App"
 msgstr ""
 
-#: templates/mfa/index.html:18
+#: templates/mfa/index.html:19
 msgid "Authentication using an authenticator app is active."
 msgstr ""
 
-#: templates/mfa/index.html:20
+#: templates/mfa/index.html:23
 msgid "An authenticator app is not active."
 msgstr ""
 
-#: templates/mfa/index.html:28 templates/mfa/totp/deactivate_form.html:24
+#: templates/mfa/index.html:32 templates/mfa/totp/deactivate_form.html:24
 msgid "Deactivate"
 msgstr ""
 
-#: templates/mfa/index.html:32 templates/mfa/totp/activate_form.html:32
+#: templates/mfa/index.html:36 templates/mfa/totp/activate_form.html:32
 msgid "Activate"
 msgstr ""
 
-#: templates/mfa/index.html:42 templates/mfa/recovery_codes/base.html:4
+#: templates/mfa/index.html:46 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:6
 #: templates/mfa/recovery_codes/index.html:6
 msgid "Recovery Codes"
 msgstr ""
 
-#: templates/mfa/index.html:47 templates/mfa/recovery_codes/index.html:9
+#: templates/mfa/index.html:51 templates/mfa/recovery_codes/index.html:9
 #, python-format
 msgid ""
 "There is %(unused_count)s out of %(total_count)s recovery codes available."
@@ -1194,19 +1219,19 @@ msgid_plural ""
 "There are %(unused_count)s out of %(total_count)s recovery codes available."
 msgstr[0] ""
 
-#: templates/mfa/index.html:50
+#: templates/mfa/index.html:55
 msgid "No recovery codes set up."
 msgstr ""
 
-#: templates/mfa/index.html:59
+#: templates/mfa/index.html:65
 msgid "View"
 msgstr ""
 
-#: templates/mfa/index.html:65
+#: templates/mfa/index.html:71
 msgid "Download"
 msgstr ""
 
-#: templates/mfa/index.html:73 templates/mfa/recovery_codes/generate.html:29
+#: templates/mfa/index.html:79 templates/mfa/recovery_codes/generate.html:29
 msgid "Generate"
 msgstr ""
 
@@ -1214,7 +1239,7 @@ msgstr ""
 msgid "A new set of recovery codes has been generated."
 msgstr ""
 
-#: templates/mfa/reauthenticate.html:5
+#: templates/mfa/reauthenticate.html:6
 msgid "Enter an authenticator code:"
 msgstr ""
 
@@ -1282,7 +1307,7 @@ msgstr ""
 msgid "Third-Party Login Failure"
 msgstr "ลงชื่อเข้าใช้ด้วยระบบโซเชีลไม่สำเร็จ"
 
-#: templates/socialaccount/authentication_error.html:11
+#: templates/socialaccount/authentication_error.html:12
 #, fuzzy
 #| msgid ""
 #| "An error occurred while attempting to login via your social network "
@@ -1306,14 +1331,14 @@ msgid ""
 "accounts:"
 msgstr "คุณสามารถลงชื่อเข้าสู่ระบบด้วยบัญชีภายนอกเหล่านี้ได้:"
 
-#: templates/socialaccount/connections.html:45
+#: templates/socialaccount/connections.html:46
 #, fuzzy
 #| msgid ""
 #| "You currently have no social network accounts connected to this account."
 msgid "You currently have no third-party accounts connected to this account."
 msgstr "คุณไม่มีบัญชีโซเชียลใดๆที่เชื่อมกับบัญชีนี้"
 
-#: templates/socialaccount/connections.html:48
+#: templates/socialaccount/connections.html:50
 #, fuzzy
 #| msgid "Add a 3rd Party Account"
 msgid "Add a Third-Party Account"
@@ -1365,6 +1390,7 @@ msgid "You are about to sign in using a third-party account from %(provider)s."
 msgstr ""
 
 #: templates/socialaccount/login.html:27
+#: templates/socialaccount/login_redirect.html:10
 msgid "Continue"
 msgstr ""
 
@@ -1418,11 +1444,6 @@ msgstr ""
 msgid "Signed out of all other sessions."
 msgstr ""
 
-#: templates/usersessions/usersession_list.html:6
-#: templates/usersessions/usersession_list.html:10
-msgid "Sessions"
-msgstr ""
-
 #: templates/usersessions/usersession_list.html:23
 msgid "Started At"
 msgstr ""
@@ -1455,7 +1476,7 @@ msgstr ""
 msgid "User Sessions"
 msgstr ""
 
-#: usersessions/models.py:48
+#: usersessions/models.py:58
 msgid "session key"
 msgstr ""
 

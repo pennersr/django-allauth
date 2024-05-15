@@ -1,13 +1,20 @@
 from functools import wraps
 
+from django.conf import settings
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.core.exceptions import PermissionDenied
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, resolve_url
 
 from allauth.account import reauthentication
 from allauth.account.models import EmailAddress
-from allauth.account.utils import send_email_confirmation
+from allauth.account.utils import (
+    get_next_redirect_url,
+    send_email_confirmation,
+)
 from allauth.core.exceptions import ReauthenticationRequired
+from allauth.core.internal import httpkit
 
 
 def verified_email_required(
@@ -62,6 +69,31 @@ def reauthentication_required(
                 ):
                     raise ReauthenticationRequired()
             return view_func(request, *args, **kwargs)
+
+        return _wrapper_view
+
+    if function:
+        return decorator(function)
+    return decorator
+
+
+def secure_admin_login(function=None):
+    def decorator(view_func):
+        @wraps(view_func)
+        def _wrapper_view(request, *args, **kwargs):
+            if request.user.is_authenticated:
+                if not request.user.is_staff or not request.user.is_active:
+                    raise PermissionDenied()
+                return view_func(request, *args, **kwargs)
+            else:
+                next_url = get_next_redirect_url(request)
+                if not next_url:
+                    next_url = request.get_full_path()
+                login_url = resolve_url(settings.LOGIN_URL)
+                login_url = httpkit.add_query_params(
+                    login_url, {REDIRECT_FIELD_NAME: next_url}
+                )
+                return HttpResponseRedirect(login_url)
 
         return _wrapper_view
 

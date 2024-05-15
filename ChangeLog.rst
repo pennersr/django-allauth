@@ -1,11 +1,20 @@
 0.63.1 (unreleased)
 *******************
 
+Note worthy changes
+-------------------
+
 - Subpackages from the ``tests`` package were packaged, fixed.
 
 - When ``SOCIALACCOUNT_EMAIL_AUTHENTICATION`` was turned on, and a user would
   connect a third-party account for which email authentication would kick in,
   the connect was implicitly skipped. Fixed.
+
+- The recommendation from the documentation to protect the Django admin login
+  could cause an infinite redirect loop in case of
+  ``AUTHENTICATED_LOGIN_REDIRECTS``. A decorator ``secure_admin_login()`` is now
+  offered out of the box ensure that the Django admin is properly secured by
+  allauth (e.g. rate limits, 2FA).
 
 
 0.63.0 (2024-05-14)

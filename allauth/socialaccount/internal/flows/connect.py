@@ -96,11 +96,14 @@ def connect(request, sociallogin):
             # that may render the account unusable.
             level = messages.ERROR
             message = "socialaccount/messages/account_connected_other.txt"
-        else:
+        elif not sociallogin.account._state.adding:
             # This account is already connected -- we give the opportunity
             # for customized behaviour through use of a signal.
             action = "updated"
             message = "socialaccount/messages/account_connected_updated.txt"
+        else:
+            action = "added"
+            sociallogin.connect(request, request.user)
     else:
         # New account, let's connect
         action = "added"

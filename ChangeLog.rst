@@ -4,7 +4,9 @@
 Note worthy changes
 -------------------
 
-- Subpackages from the ``tests`` package were packaged, fixed.
+- When only ``allauth.account`` was installed, you could run into an exception
+  stating "allauth.socialaccount not installed, yet its models are
+  imported.". This has been fixed.
 
 - When ``SOCIALACCOUNT_EMAIL_AUTHENTICATION`` was turned on, and a user would
   connect a third-party account for which email authentication would kick in,
@@ -15,6 +17,8 @@ Note worthy changes
   ``AUTHENTICATED_LOGIN_REDIRECTS``. A decorator ``secure_admin_login()`` is now
   offered out of the box ensure that the Django admin is properly secured by
   allauth (e.g. rate limits, 2FA).
+
+- Subpackages from the ``tests`` package were packaged, fixed.
 
 
 0.63.0 (2024-05-14)

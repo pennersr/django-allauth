@@ -93,7 +93,7 @@ def test_activate_totp_success(
 
 
 def test_activate_totp_success_with_unverified_secondary_email(
-        auth_client, user, totp_validation_bypass, reauthentication_bypass
+    auth_client, user, totp_validation_bypass, reauthentication_bypass
 ):
     EmailAddress.objects.create(
         user=user, primary=False, verified=False, email='secondary@example.com'

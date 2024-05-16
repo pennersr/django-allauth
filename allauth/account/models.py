@@ -275,7 +275,6 @@ class Login:
     @classmethod
     def deserialize(cls, data):
         from allauth.account.utils import url_str_to_user_pk
-        from allauth.socialaccount.models import SocialLogin
 
         user = (
             get_user_model()
@@ -290,6 +289,8 @@ class Login:
             if signal_kwargs is not None:
                 sociallogin = signal_kwargs.get("sociallogin")
                 if sociallogin is not None:
+                    from allauth.socialaccount.models import SocialLogin
+
                     signal_kwargs = signal_kwargs.copy()
                     signal_kwargs["sociallogin"] = SocialLogin.deserialize(sociallogin)
 

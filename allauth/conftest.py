@@ -53,8 +53,6 @@ def user_password(password_factory):
 
 @pytest.fixture
 def user_factory(email_factory, db, user_password):
-    from allauth.mfa import totp
-
     def factory(
         email=None,
         username=None,
@@ -89,6 +87,8 @@ def user_factory(email_factory, db, user_password):
                     primary=True,
                 )
         if with_totp:
+            from allauth.mfa import totp
+
             totp.TOTP.activate(user, totp.generate_totp_secret())
         return user
 

@@ -289,7 +289,7 @@ class SocialLogin(object):
         """When `False`, this social login represents a temporary account, not
         yet backed by a database record.
         """
-        return bool(self.state.get("is_existing"))
+        return not self.user._state.adding
 
     def lookup(self):
         """Look up the existing local user account to which this social login
@@ -314,7 +314,6 @@ class SocialLogin(object):
                 sender=SocialLogin, request=context.request, sociallogin=self
             )
             self._store_token()
-            self.state["is_existing"] = True
             return True
         except SocialAccount.DoesNotExist:
             pass
@@ -352,7 +351,6 @@ class SocialLogin(object):
             if users:
                 self.user = users[0]
                 self._did_authenticate_by_email = True
-                self.state["is_existing"] = True
                 return
 
     def _accept_login(self):

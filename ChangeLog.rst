@@ -1,4 +1,4 @@
-0.63.1 (unreleased)
+0.63.1 (2024-05-17)
 *******************
 
 Note worthy changes
@@ -15,7 +15,7 @@ Note worthy changes
 - The recommendation from the documentation to protect the Django admin login
   could cause an infinite redirect loop in case of
   ``AUTHENTICATED_LOGIN_REDIRECTS``. A decorator ``secure_admin_login()`` is now
-  offered out of the box ensure that the Django admin is properly secured by
+  offered out of the box to ensure that the Django admin is properly secured by
   allauth (e.g. rate limits, 2FA).
 
 - Subpackages from the ``tests`` package were packaged, fixed.

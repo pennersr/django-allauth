@@ -278,3 +278,18 @@ def test_signup_closed(client, headless_reverse, db, settings):
             content_type="application/json",
         )
     assert resp.status_code == 403
+
+
+def test_connect(user, auth_client, sociallogin_setup_state, headless_reverse, db):
+    state = sociallogin_setup_state(
+        auth_client, process="connect", next="/foo", headless=True
+    )
+    resp = auth_client.post(
+        reverse("dummy_authenticate") + f"?state={state}",
+        data={
+            "id": 123,
+        },
+    )
+    assert resp.status_code == 302
+    assert resp["location"] == "/foo"
+    assert SocialAccount.objects.filter(user=user, provider="dummy", uid="123").exists()

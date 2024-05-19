@@ -10,7 +10,7 @@ from allauth.core.exceptions import (
 )
 from allauth.socialaccount import app_settings, signals
 from allauth.socialaccount.adapter import get_adapter
-from allauth.socialaccount.internal.flows.connect import connect
+from allauth.socialaccount.internal.flows.connect import connect, do_connect
 from allauth.socialaccount.internal.flows.signup import (
     clear_pending_signup,
     process_signup,
@@ -31,20 +31,27 @@ def _login(request, sociallogin):
     )
 
 
-def complete_login(request, sociallogin, raises=False):
+def pre_social_login(request, sociallogin):
     clear_pending_signup(request)
     assert not sociallogin.is_existing
     sociallogin.lookup()
+    get_adapter().pre_social_login(request, sociallogin)
+    signals.pre_social_login.send(
+        sender=SocialLogin, request=request, sociallogin=sociallogin
+    )
+
+
+def complete_login(request, sociallogin, raises=False):
     try:
-        get_adapter().pre_social_login(request, sociallogin)
-        signals.pre_social_login.send(
-            sender=SocialLogin, request=request, sociallogin=sociallogin
-        )
+        pre_social_login(request, sociallogin)
         process = sociallogin.state.get("process")
         if process == AuthProcess.REDIRECT:
             return _redirect(request, sociallogin)
         elif process == AuthProcess.CONNECT:
-            return connect(request, sociallogin)
+            if raises:
+                do_connect(request, sociallogin)
+            else:
+                return connect(request, sociallogin)
         else:
             return _authenticate(request, sociallogin)
     except SignupClosedException:

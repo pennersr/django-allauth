@@ -2,21 +2,22 @@ import time
 
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.http import HttpResponseRedirect
-from django.urls import resolve, reverse
+from django.urls import resolve
 from django.utils.http import urlencode
 
 from allauth.account import app_settings
 from allauth.account.adapter import get_adapter
 from allauth.account.authentication import get_authentication_records
+from allauth.account.internal.flows.reauthentication import (
+    STATE_SESSION_KEY,
+    stash_and_reauthenticate,
+)
 from allauth.core.exceptions import ReauthenticationRequired
 from allauth.core.internal.httpkit import (
     deserialize_request,
     serialize_request,
 )
 from allauth.utils import import_callable
-
-
-STATE_SESSION_KEY = "account_reauthentication_state"
 
 
 def suspend_request(request, redirect_to):
@@ -52,11 +53,7 @@ def reauthenticate_then_callback(request, serialize_state, callback):
     # XHR.
     if did_recently_authenticate(request):
         return None
-    request.session[STATE_SESSION_KEY] = {
-        "state": serialize_state(request),
-        "callback": callback,
-    }
-    return HttpResponseRedirect(reverse("account_reauthenticate"))
+    return stash_and_reauthenticate(request, serialize_state(request), callback)
 
 
 def raise_if_reauthentication_required(request):

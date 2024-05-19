@@ -59,7 +59,7 @@ def complete_login(request, sociallogin):
     """
     error = None
     try:
-        flows.login.complete_login(request, sociallogin)
+        flows.login.complete_login(request, sociallogin, raises=True)
     except SignupClosedException:
         error = "signup_closed"
     else:
@@ -80,7 +80,7 @@ def complete_login(request, sociallogin):
             ]
         ):
             error = AuthError.UNKNOWN
-    next_url = sociallogin.state.get("next")
+    next_url = sociallogin.state["next"]
     if error:
         next_url = httpkit.add_query_params(
             next_url,

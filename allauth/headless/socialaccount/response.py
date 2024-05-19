@@ -25,7 +25,7 @@ def provider_flows(request):
     if providers:
         redirect_providers = [p.id for p in providers if p.supports_redirect]
         token_providers = [p.id for p in providers if p.supports_token_authentication]
-        if redirect_providers:
+        if redirect_providers and request.allauth.headless.client == Client.BROWSER:
             flows.append(
                 {
                     "id": Flow.PROVIDER_REDIRECT,

@@ -1,7 +1,10 @@
+import json
+
 from django.urls import reverse
 
 from pytest_django.asserts import assertTemplateUsed
 
+from allauth.account.models import EmailAddress
 from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount.providers.base.constants import AuthProcess
 
@@ -80,6 +83,29 @@ def test_disconnect_bad_request(auth_client, user, headless_reverse, provider_id
         "status": 400,
         "errors": [{"code": "account_not_found", "message": "Unknown account."}],
     }
+
+
+def test_valid_token(client, headless_reverse, db):
+    id_token = json.dumps(
+        {
+            "id": 123,
+            "email": "a@b.com",
+            "email_verified": True,
+        }
+    )
+    resp = client.post(
+        headless_reverse("headless:socialaccount:provider_token"),
+        data={
+            "provider": "dummy",
+            "token": {
+                "id_token": id_token,
+            },
+            "process": AuthProcess.LOGIN,
+        },
+        content_type="application/json",
+    )
+    assert resp.status_code == 200
+    assert EmailAddress.objects.filter(email="a@b.com", verified=True).exists()
 
 
 def test_invalid_token(client, headless_reverse, db, google_provider_settings):

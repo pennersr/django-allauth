@@ -15,3 +15,11 @@ class ReauthenticationRequired(Exception):
     """
 
     pass
+
+
+class SignupClosedException(Exception):
+    """
+    Throws when attemtping to signup while signup is closed.
+    """
+
+    pass

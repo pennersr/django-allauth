@@ -26,7 +26,11 @@ from allauth.headless.account.inputs import (
     SignupInput,
     VerifyEmailInput,
 )
-from allauth.headless.base.response import APIResponse, AuthenticationResponse
+from allauth.headless.base.response import (
+    APIResponse,
+    AuthenticationResponse,
+    ForbiddenResponse,
+)
 from allauth.headless.base.views import APIView, AuthenticatedAPIView
 from allauth.headless.internal.restkit.response import ErrorResponse
 
@@ -80,6 +84,8 @@ class SignupView(APIView):
     input_class = SignupInput
 
     def post(self, request, *args, **kwargs):
+        if not get_account_adapter().is_open_for_signup(request):
+            return ForbiddenResponse(request)
         user, resp = self.input.try_save(request)
         if not resp:
             try:

@@ -1,6 +1,10 @@
 from django.core.exceptions import ValidationError
 
-from allauth.headless.base.response import AuthenticationResponse
+from allauth.core.exceptions import SignupClosedException
+from allauth.headless.base.response import (
+    AuthenticationResponse,
+    ForbiddenResponse,
+)
 from allauth.headless.base.views import APIView, AuthenticatedAPIView
 from allauth.headless.socialaccount.forms import RedirectToProviderForm
 from allauth.headless.socialaccount.inputs import (
@@ -8,8 +12,11 @@ from allauth.headless.socialaccount.inputs import (
     ProviderTokenInput,
     SignupInput,
 )
-from allauth.headless.socialaccount.internal import complete_login
+from allauth.headless.socialaccount.internal import complete_token_login
 from allauth.headless.socialaccount.response import SocialAccountsResponse
+from allauth.socialaccount.adapter import (
+    get_adapter as get_socialaccount_adapter,
+)
 from allauth.socialaccount.helpers import render_authentication_error
 from allauth.socialaccount.internal import flows
 from allauth.socialaccount.models import SocialAccount
@@ -19,6 +26,10 @@ class ProviderSignupView(APIView):
     input_class = SignupInput
 
     def post(self, request, *args, **kwargs):
+        if not get_socialaccount_adapter().is_open_for_signup(
+            request, self.sociallogin
+        ):
+            return ForbiddenResponse(request)
         flows.signup.signup_by_form(self.request, self.sociallogin, self.input)
         return AuthenticationResponse(request)
 
@@ -75,5 +86,8 @@ class ProviderTokenView(APIView):
 
     def post(self, request, *args, **kwargs):
         sociallogin = self.input.cleaned_data["sociallogin"]
-        complete_login(request, sociallogin)
+        try:
+            complete_token_login(request, sociallogin)
+        except SignupClosedException:
+            return ForbiddenResponse(self.request)
         return AuthenticationResponse(self.request)

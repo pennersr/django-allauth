@@ -1,3 +1,5 @@
+from unittest.mock import patch
+
 import django
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
@@ -446,3 +448,22 @@ def test_email_address_conflict_removes_conflicting_email(
     assert mailoutbox[0].subject == "[example.com] Please Confirm Your Email Address"
     assert resp["location"] == settings.LOGIN_REDIRECT_URL
     assert EmailAddress.objects.filter(email=user.email).count() == 1
+
+
+def test_signup_closed(
+    settings,
+    db,
+    client,
+    setup_sociallogin_flow,
+    sociallogin_factory,
+):
+    sociallogin = sociallogin_factory(
+        email="test@example.com", email_verified=False, username="test"
+    )
+    with patch(
+        "allauth.socialaccount.adapter.DefaultSocialAccountAdapter.is_open_for_signup"
+    ) as iofs:
+        iofs.return_value = False
+        resp = setup_sociallogin_flow(client, sociallogin)
+    assert b"Sign Up Closed" in resp.content
+    assert not get_user_model().objects.exists()

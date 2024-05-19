@@ -1,7 +1,10 @@
 from django.http import HttpResponseRedirect
 
 from allauth import app_settings as allauth_settings
-from allauth.core.exceptions import ImmediateHttpResponse
+from allauth.core.exceptions import (
+    ImmediateHttpResponse,
+    SignupClosedException,
+)
 from allauth.core.internal import httpkit
 from allauth.headless.internal.authkit import AuthenticationStatus
 from allauth.socialaccount.internal import flows, statekit
@@ -46,30 +49,41 @@ def on_authentication_error(
     raise ImmediateHttpResponse(HttpResponseRedirect(next_url))
 
 
+def complete_token_login(request, sociallogin):
+    flows.login.complete_login(request, sociallogin, raises=True)
+
+
 def complete_login(request, sociallogin):
     """
     Called when `sociallogin.is_headless`.
     """
-    flows.login.complete_login(request, sociallogin)
-    # At this stage, we're either:
-    # 1) logged in (or in of the login pipeline stages, such as email verification)
-    # 2) auto signed up -- a pipeline stage, so see 1)
-    # 3) performing a social signup
-    # 4) Stopped, due to not being open-for-signup
-    # It would be good to refactor the above into a more generic social login
-    # pipeline with clear stages, but for now the /auth endpoint properly responds
-    # for cases 1-3.
+    error = None
+    try:
+        flows.login.complete_login(request, sociallogin)
+    except SignupClosedException:
+        error = "signup_closed"
+    else:
+        # At this stage, we're either:
+        # 1) logged in (or in of the login pipeline stages, such as email verification)
+        # 2) auto signed up -- a pipeline stage, so see 1)
+        # 3) performing a social signup
+
+        # 4) Stopped, due to not being open-for-signup
+        # It would be good to refactor the above into a more generic social login
+        # pipeline with clear stages, but for now the /auth endpoint properly responds
+        status = AuthenticationStatus(request)
+        if all(
+            [
+                not status.is_authenticated,
+                not status.has_pending_signup,
+                not status.get_pending_stage(),
+            ]
+        ):
+            error = AuthError.UNKNOWN
     next_url = sociallogin.state.get("next")
-    status = AuthenticationStatus(request)
-    if all(
-        [
-            not status.is_authenticated,
-            not status.has_pending_signup,
-            not status.get_pending_stage(),
-        ]
-    ):
+    if error:
         next_url = httpkit.add_query_params(
             next_url,
-            {"error": AuthError.UNKNOWN, "error_process": sociallogin.state["process"]},
+            {"error": error, "error_process": sociallogin.state["process"]},
         )
     return HttpResponseRedirect(next_url)

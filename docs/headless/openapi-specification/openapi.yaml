@@ -159,6 +159,13 @@ paths:
               examples:
                 pending_email:
                   $ref: "#/components/examples/UnauthenticatedPendingEmailVerification"
+        "403":
+          description: |
+            Forbidden. For example, when signup is closed.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ForbiddenResponse"
   /_allauth/{client}/v1/auth/email/verify:
     get:
       tags:
@@ -369,6 +376,13 @@ paths:
                   $ref: "#/components/examples/UnauthenticatedPending2FA"
                 unauthenticated_pending_email_verification:
                   $ref: "#/components/examples/UnauthenticatedPendingEmailVerification"
+        "403":
+          description: |
+            Forbidden. For example, when signup is closed.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ForbiddenResponse"
   /_allauth/{client}/v1/auth/provider/signup:
     post:
       tags:
@@ -404,6 +418,13 @@ paths:
               examples:
                 unauthenticated_pending_email_verification:
                   $ref: "#/components/examples/UnauthenticatedPendingEmailVerification"
+        "403":
+          description: |
+            Forbidden. For example, when signup is closed.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ForbiddenResponse"
   ######################################################################
   # Authentication: 2FA
   ######################################################################
@@ -1367,8 +1388,11 @@ components:
             - email
             - username
             - username_email
+        is_open_for_signup:
+          type: boolean
       required:
         - authentication_method
+        - is_open_for_signup
     AuthenticationResponse:
       type: object
       description: |

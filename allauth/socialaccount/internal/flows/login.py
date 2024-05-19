@@ -1,9 +1,13 @@
 from django.http import HttpResponseRedirect
+from django.shortcuts import render
 
-from allauth.account import authentication
+from allauth.account import app_settings as account_settings, authentication
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.utils import perform_login
-from allauth.core.exceptions import ImmediateHttpResponse
+from allauth.core.exceptions import (
+    ImmediateHttpResponse,
+    SignupClosedException,
+)
 from allauth.socialaccount import app_settings, signals
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.internal.flows.connect import connect
@@ -27,7 +31,7 @@ def _login(request, sociallogin):
     )
 
 
-def complete_login(request, sociallogin):
+def complete_login(request, sociallogin, raises=False):
     clear_pending_signup(request)
     assert not sociallogin.is_existing
     sociallogin.lookup()
@@ -43,7 +47,16 @@ def complete_login(request, sociallogin):
             return connect(request, sociallogin)
         else:
             return _authenticate(request, sociallogin)
+    except SignupClosedException:
+        if raises:
+            raise
+        return render(
+            request,
+            "account/signup_closed." + account_settings.TEMPLATE_EXTENSION,
+        )
     except ImmediateHttpResponse as e:
+        if raises:
+            raise
         return e.response
 
 

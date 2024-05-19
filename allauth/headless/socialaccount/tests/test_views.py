@@ -1,4 +1,5 @@
 import json
+from unittest.mock import patch
 
 from django.urls import reverse
 
@@ -177,3 +178,103 @@ def test_auth_error_headless_state_request_headless_only(
     settings.HEADLESS_FRONTEND_URLS = {"socialaccount_login_error": "/3rdparty/failure"}
     resp = client.get(reverse("google_callback") + f"?state={state}")
     assert resp["location"] == "/foo?error=unknown&error_process=login"
+
+
+def test_token_signup_closed(client, headless_reverse, db):
+    id_token = json.dumps(
+        {
+            "id": 123,
+            "email": "a@b.com",
+            "email_verified": True,
+        }
+    )
+    with patch(
+        "allauth.socialaccount.adapter.DefaultSocialAccountAdapter.is_open_for_signup"
+    ) as iofs:
+        iofs.return_value = False
+        resp = client.post(
+            headless_reverse("headless:socialaccount:provider_token"),
+            data={
+                "provider": "dummy",
+                "token": {
+                    "id_token": id_token,
+                },
+                "process": AuthProcess.LOGIN,
+            },
+            content_type="application/json",
+        )
+        assert resp.status_code == 403
+    assert not EmailAddress.objects.filter(email="a@b.com", verified=True).exists()
+
+
+def test_provider_signup(client, headless_reverse, db, settings):
+    settings.ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+    settings.ACCOUNT_EMAIL_REQUIRED = True
+    settings.ACCOUNT_USERNAME_REQUIRED = False
+    id_token = json.dumps(
+        {
+            "id": 123,
+        }
+    )
+    resp = client.post(
+        headless_reverse("headless:socialaccount:provider_token"),
+        data={
+            "provider": "dummy",
+            "token": {
+                "id_token": id_token,
+            },
+            "process": AuthProcess.LOGIN,
+        },
+        content_type="application/json",
+    )
+    assert resp.status_code == 401
+    pending_flow = [f for f in resp.json()["data"]["flows"] if f.get("is_pending")][0]
+    assert pending_flow["id"] == "provider_signup"
+    resp = client.post(
+        headless_reverse("headless:socialaccount:provider_signup"),
+        data={
+            "email": "a@b.com",
+        },
+        content_type="application/json",
+    )
+    assert resp.status_code == 401
+    pending_flow = [f for f in resp.json()["data"]["flows"] if f.get("is_pending")][0]
+    assert pending_flow["id"] == "verify_email"
+    assert EmailAddress.objects.filter(email="a@b.com").exists()
+
+
+def test_signup_closed(client, headless_reverse, db, settings):
+    settings.ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+    settings.ACCOUNT_EMAIL_REQUIRED = True
+    settings.ACCOUNT_USERNAME_REQUIRED = False
+    id_token = json.dumps(
+        {
+            "id": 123,
+        }
+    )
+    resp = client.post(
+        headless_reverse("headless:socialaccount:provider_token"),
+        data={
+            "provider": "dummy",
+            "token": {
+                "id_token": id_token,
+            },
+            "process": AuthProcess.LOGIN,
+        },
+        content_type="application/json",
+    )
+    assert resp.status_code == 401
+    pending_flow = [f for f in resp.json()["data"]["flows"] if f.get("is_pending")][0]
+    assert pending_flow["id"] == "provider_signup"
+    with patch(
+        "allauth.socialaccount.adapter.DefaultSocialAccountAdapter.is_open_for_signup"
+    ) as iofs:
+        iofs.return_value = False
+        resp = client.post(
+            headless_reverse("headless:socialaccount:provider_signup"),
+            data={
+                "email": "a@b.com",
+            },
+            content_type="application/json",
+        )
+    assert resp.status_code == 403

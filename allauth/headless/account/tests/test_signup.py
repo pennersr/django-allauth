@@ -1,4 +1,4 @@
-from unittest.mock import ANY
+from unittest.mock import ANY, patch
 
 from django.contrib.auth.models import User
 
@@ -140,3 +140,29 @@ def test_signup_rate_limit(
         expected_status = 429 if attempt else 200
         assert resp.status_code == expected_status
         assert resp.json()["status"] == expected_status
+
+
+def test_signup_closed(
+    db,
+    client,
+    email_factory,
+    password_factory,
+    settings,
+    headless_reverse,
+    headless_client,
+):
+    with patch(
+        "allauth.account.adapter.DefaultAccountAdapter.is_open_for_signup"
+    ) as iofs:
+        iofs.return_value = False
+        resp = client.post(
+            headless_reverse("headless:account:signup"),
+            data={
+                "username": "wizard",
+                "email": email_factory(),
+                "password": password_factory(),
+            },
+            content_type="application/json",
+        )
+    assert resp.status_code == 403
+    assert not User.objects.filter(username="wizard").exists()

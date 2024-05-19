@@ -94,6 +94,11 @@ class UnauthorizedResponse(BaseAuthenticationResponse):
         super().__init__(request, user=None, status=status)
 
 
+class ForbiddenResponse(APIResponse):
+    def __init__(self, request):
+        super().__init__(request, status=403)
+
+
 def user_data(user):
     """Basic user data, also exposed in partly authenticated scenario's
     (e.g. password reset, email verification).
@@ -112,23 +117,35 @@ def user_data(user):
     return ret
 
 
+def get_config_data(request):
+    data = {
+        "authentication_method": account_settings.AUTHENTICATION_METHOD,
+        "is_open_for_signup": get_account_adapter().is_open_for_signup(request),
+    }
+    return {"account": data}
+
+
 class ConfigResponse(APIResponse):
     def __init__(self, request):
-        data = {
-            "account": {"authentication_method": account_settings.AUTHENTICATION_METHOD}
-        }
+        data = get_config_data(request)
         if allauth_settings.SOCIALACCOUNT_ENABLED:
-            from allauth.headless.socialaccount.response import get_config_data
+            from allauth.headless.socialaccount.response import (
+                get_config_data as get_socialaccount_config_data,
+            )
 
-            data.update(get_config_data(request))
+            data.update(get_socialaccount_config_data(request))
         if allauth_settings.MFA_ENABLED:
-            from allauth.headless.mfa.response import get_config_data
+            from allauth.headless.mfa.response import (
+                get_config_data as get_mfa_config_data,
+            )
 
-            data.update(get_config_data(request))
+            data.update(get_mfa_config_data(request))
         if allauth_settings.USERSESSIONS_ENABLED:
-            from allauth.headless.usersessions.response import get_config_data
+            from allauth.headless.usersessions.response import (
+                get_config_data as get_usersessions_config_data,
+            )
 
-            data.update(get_config_data(request))
+            data.update(get_usersessions_config_data(request))
         return super().__init__(request, data=data)
 
 

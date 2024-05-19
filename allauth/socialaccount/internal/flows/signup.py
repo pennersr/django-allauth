@@ -1,6 +1,5 @@
 from django.forms import ValidationError
 from django.http import HttpResponseRedirect, HttpResponseServerError
-from django.shortcuts import render
 from django.urls import reverse
 
 from allauth import app_settings as allauth_settings
@@ -11,6 +10,7 @@ from allauth.account.utils import (
     complete_signup,
     user_username,
 )
+from allauth.core.exceptions import SignupClosedException
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.models import SocialLogin
@@ -87,10 +87,7 @@ def process_auto_signup(request, sociallogin):
 
 def process_signup(request, sociallogin):
     if not get_adapter().is_open_for_signup(request, sociallogin):
-        return render(
-            request,
-            "account/signup_closed." + account_settings.TEMPLATE_EXTENSION,
-        )
+        raise SignupClosedException()
     auto_signup, resp = process_auto_signup(request, sociallogin)
     if resp:
         return resp

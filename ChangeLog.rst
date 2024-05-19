@@ -7,6 +7,9 @@
 - Connecting a third-party account in ``HEADLESS_ONLY`` mode failed if the
   connections view could not be reversed, fixed.
 
+- In case a headless attempt was made to connect a third-party account that was already
+  connected to a different account, no error was communicated to the frontend. Fixed.
+
 
 0.63.1 (2024-05-17)
 *******************

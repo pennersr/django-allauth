@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.core.exceptions import PermissionDenied
+from django.core.exceptions import PermissionDenied, ValidationError
 from django.http import HttpResponseRedirect
 
 from allauth import app_settings as allauth_settings
@@ -82,8 +82,14 @@ def connect(request, sociallogin):
     except ReauthenticationRequired:
         return flows.reauthentication.stash_and_reauthenticate(
             request,
-            sociallogin.serialize(request),
+            sociallogin.serialize(),
             "allauth.socialaccount.internal.flows.connect.resume_connect",
+        )
+    except ValidationError:
+        ok, action, message = (
+            False,
+            None,
+            "socialaccount/messages/account_connected_other.txt",
         )
     level = messages.INFO if ok else messages.ERROR
     default_next = get_adapter().get_connect_redirect_url(request, sociallogin.account)
@@ -111,8 +117,7 @@ def do_connect(request, sociallogin):
             # is not supported. Issue is that one cannot simply
             # remove the social account from the other user, as
             # that may render the account unusable.
-            message = "socialaccount/messages/account_connected_other.txt"
-            ok = False
+            raise get_adapter().validation_error("connected_other")
         elif not sociallogin.account._state.adding:
             action = "updated"
             message = "socialaccount/messages/account_connected_updated.txt"

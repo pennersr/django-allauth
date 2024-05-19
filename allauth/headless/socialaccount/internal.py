@@ -1,3 +1,4 @@
+from django.core.exceptions import PermissionDenied, ValidationError
 from django.http import HttpResponseRedirect
 
 from allauth import app_settings as allauth_settings
@@ -62,6 +63,10 @@ def complete_login(request, sociallogin):
         flows.login.complete_login(request, sociallogin, raises=True)
     except SignupClosedException:
         error = "signup_closed"
+    except PermissionDenied:
+        error = "permission_denied"
+    except ValidationError as e:
+        error = e.code
     else:
         # At this stage, we're either:
         # 1) logged in (or in of the login pipeline stages, such as email verification)

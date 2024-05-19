@@ -43,6 +43,9 @@ class DefaultSocialAccountAdapter(BaseAdapter):
         "disconnect_last": _(
             "You cannot disconnect your last remaining third-party account."
         ),
+        "connected_other": _(
+            "The third-party account is already connected to a different account."
+        ),
     }
 
     def pre_social_login(self, request, sociallogin):

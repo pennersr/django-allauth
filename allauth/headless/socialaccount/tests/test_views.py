@@ -293,3 +293,27 @@ def test_connect(user, auth_client, sociallogin_setup_state, headless_reverse, d
     assert resp.status_code == 302
     assert resp["location"] == "/foo"
     assert SocialAccount.objects.filter(user=user, provider="dummy", uid="123").exists()
+
+
+def test_connect_already_connected(
+    user, user_factory, auth_client, sociallogin_setup_state, headless_reverse, db
+):
+    # The other user already connected the account.
+    other_user = user_factory()
+    SocialAccount.objects.create(user=other_user, uid="123", provider="dummy")
+    # Then, this user tries to connect...
+    state = sociallogin_setup_state(
+        auth_client, process="connect", next="/foo", headless=True
+    )
+    resp = auth_client.post(
+        reverse("dummy_authenticate") + f"?state={state}",
+        data={
+            "id": 123,
+        },
+    )
+    # We're redirected, and an error code is shown.
+    assert resp.status_code == 302
+    assert resp["location"] == "/foo?error=connected_other&error_process=connect"
+    assert not SocialAccount.objects.filter(
+        user=user, provider="dummy", uid="123"
+    ).exists()

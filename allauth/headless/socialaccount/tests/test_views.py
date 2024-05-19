@@ -303,7 +303,7 @@ def test_connect_already_connected(
     SocialAccount.objects.create(user=other_user, uid="123", provider="dummy")
     # Then, this user tries to connect...
     state = sociallogin_setup_state(
-        auth_client, process="connect", next="/foo", headless=True
+        auth_client, process=AuthProcess.CONNECT, next="/foo", headless=True
     )
     resp = auth_client.post(
         reverse("dummy_authenticate") + f"?state={state}",
@@ -317,3 +317,63 @@ def test_connect_already_connected(
     assert not SocialAccount.objects.filter(
         user=user, provider="dummy", uid="123"
     ).exists()
+
+
+def test_token_connect(user, auth_client, headless_reverse, db):
+    id_token = json.dumps(
+        {
+            "id": 123,
+            "email": "a@b.com",
+            "email_verified": True,
+        }
+    )
+    resp = auth_client.post(
+        headless_reverse("headless:socialaccount:provider_token"),
+        data={
+            "provider": "dummy",
+            "token": {
+                "id_token": id_token,
+            },
+            "process": AuthProcess.CONNECT,
+        },
+        content_type="application/json",
+    )
+    assert resp.status_code == 200
+    assert SocialAccount.objects.filter(uid="123", user=user).exists()
+
+
+def test_token_connect_already_connected(
+    user, auth_client, headless_reverse, db, user_factory
+):
+    # The other user already connected the account.
+    other_user = user_factory()
+    SocialAccount.objects.create(user=other_user, uid="123", provider="dummy")
+    id_token = json.dumps(
+        {
+            "id": 123,
+            "email": "a@b.com",
+            "email_verified": True,
+        }
+    )
+    resp = auth_client.post(
+        headless_reverse("headless:socialaccount:provider_token"),
+        data={
+            "provider": "dummy",
+            "token": {
+                "id_token": id_token,
+            },
+            "process": AuthProcess.CONNECT,
+        },
+        content_type="application/json",
+    )
+    assert not SocialAccount.objects.filter(uid="123", user=user).exists()
+    assert resp.status_code == 400
+    assert resp.json() == {
+        "status": 400,
+        "errors": [
+            {
+                "code": "connected_other",
+                "message": "The third-party account is already connected to a different account.",
+            }
+        ],
+    }

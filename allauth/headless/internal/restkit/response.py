@@ -1,3 +1,4 @@
+from django.forms.utils import ErrorList
 from django.http import JsonResponse
 from django.utils.cache import add_never_cache_headers
 
@@ -16,8 +17,11 @@ class APIResponse(JsonResponse):
 
 
 class ErrorResponse(APIResponse):
-    def __init__(self, request, input=None, status=400):
+    def __init__(self, request, exception=None, input=None, status=400):
         errors = []
+        if exception is not None:
+            error_datas = ErrorList(exception.error_list).get_json_data()
+            errors.extend(error_datas)
         if input is not None:
             for field, error_list in input.errors.items():
                 error_datas = error_list.get_json_data()

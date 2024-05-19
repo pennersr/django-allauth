@@ -6,6 +6,7 @@ from allauth.headless.base.response import (
     ForbiddenResponse,
 )
 from allauth.headless.base.views import APIView, AuthenticatedAPIView
+from allauth.headless.internal.restkit.response import ErrorResponse
 from allauth.headless.socialaccount.forms import RedirectToProviderForm
 from allauth.headless.socialaccount.inputs import (
     DeleteProviderAccountInput,
@@ -88,6 +89,8 @@ class ProviderTokenView(APIView):
         sociallogin = self.input.cleaned_data["sociallogin"]
         try:
             complete_token_login(request, sociallogin)
+        except ValidationError as e:
+            return ErrorResponse(self.request, exception=e)
         except SignupClosedException:
             return ForbiddenResponse(self.request)
         return AuthenticationResponse(self.request)

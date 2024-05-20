@@ -33,9 +33,10 @@ example React project created using =create-react-app=, extended with
 =react-(router-)dom= for implementing routing within the single-page
 application.
 
-The sole purpose of this project is to demonstrate the use of headless
-allauth. Note that having a pretty look & feel is a non-goal, minimal effort has
-been spent to make this project visually appealign.
+The sole purpose of this project is to demonstrate the technical integration of
+headless allauth within a Javascript single-page application. A pretty look and
+feel is not a goal, and hence, minimal effort has been spent on making the
+frontend visually appealing.
 
 Points of interest of this project:
 

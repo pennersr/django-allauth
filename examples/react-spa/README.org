@@ -1,11 +1,95 @@
 * React Single-Page Application
 
-An example React application demonstrating the use of the headless functionality
-of django-allauth.
+This directory contains an example React application demonstrating the use of
+the headless functionality of django-allauth. The example consists of two parts,
+a backend running allauth in =HEADLESS_ONLY= mode, and a frontend containing the
+React application itself.
+
+This example can be found up and running over at [[https://react.demo.allauth.org/][react.demo.allauth.org]]. You can
+run it locally as well, as is documented below.
+
+
+** Backend
+
+The example backend Django project can be found in the =backend/= directory.  It
+is running in =HEADLESS_ONLY= mode, meaning, no frontend facing functionality of
+allauth is used. Hence, there are no templates or additional apps/views to be
+found in this example Django project. The only points of interest of this
+project are:
+
+- The configuration of =HEADLESS_ONLY = True= over at =settings.py=.
+
+- Configuring =HEADLESS_FRONTEND_URLS= so that allauth can construct links pointing
+  to the single-page React application.
+
+- The inclusion of =path("_allauth/", include("allauth.headless.urls"))= over at
+  =urls.py=.
+
+
+** Frontend
+
+The frontend can be found in the =frontend/= directory. It is a fairly minimal
+example React project created using =create-react-app=, extended with
+=react-(router-)dom= for implementing routing within the single-page
+application.
+
+The sole purpose of this project is to demonstrate the use of headless
+allauth. Note that having a pretty look & feel is a non-goal, minimal effort has
+been spent to make this project visually appealign.
+
+Points of interest of this project:
+
+- [[file:frontend/src/lib/allauth.js][frontend/src/lib/allauth.js]]: This is a (React independent) file offering
+  wrapper methods for the various allauth endpoints.
+
+- [[file:frontend/src/auth/AuthContext.js][frontend/src/auth/AuthContext.js]]: This file offers a React context provider
+  that is able to expose the authentication state to other React components.
+
+- [[file:frontend/src/auth/hooks.js][frontend/src/auth/hooks.js]]: Offers various hooks that use the context provider above to make
+  the current user (=useUser()=), allauth configuration (=useConfig()=) and authentication state (=useAuth()=)
+  easily consumable in components.
+
+- [[file:frontend/src/auth/routing.js][frontend/src/auth/routing.js]]: When the authentication state changes, the user
+  typically needs to be redirected to a different page. That logic is contained
+  within this file.
+
+- [[file:frontend/src/account/][frontend/src/account/]]: This directory contains all components related towards
+  the regular account functionality (e.g. login and signup using a local
+  account, as well as changing your password and email verification). This functionality corresponds
+  with the functionality of the =allauth.account= Django app.
+
+- [[file:frontend/src/socialaccount/][frontend/src/socialaccount/]]: This directory contains all components related
+  towards the logging in with third-party accounts. This functionality corresponds
+  with the functionality of the =allauth.socialaccount= Django app.
+
+- [[file:frontend/src/mfa/][frontend/src/mfa/]]: This directory contains all components related towards
+  Two-Factor Authentication. This functionality corresponds with the
+  functionality of the =allauth.mfa= Django app.
+
+- [[file:frontend/src/usersessions/][frontend/src/usersessions/]]: This directory contains user session management
+  component. This functionality corresponds with the functionality of the
+  =allauth.usersessions= Django app.
+
+- [[file:frontend/src/Router.js][frontend/src/Router.js]]: All routing is containing within this file.
+
 
 ** Running
 
-First, start by running the containers:
+A =docker-compose.yml= file is offered using which you can easily run the
+example project locally. It consists of the following services:
+
+- =backend=: The Django backend application running =allauth.headless=.
+  The backend runs on port 8000.
+
+- =frontend=:  The frontend (React) project, running on port 3000.
+
+- =proxy=: A proxy service (Traefik), running on port 10000, that depending on the URL
+  forwards either to the backend or frontend service.
+
+- =mail=: A dummy email (SMTP) service (MailCatcher) that you can use to test
+  e.g. email verification and password reset flows.
+
+To spin up these services, run:
 
 #+begin_src bash
   docker-compose up

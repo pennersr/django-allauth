@@ -208,6 +208,13 @@ Available settings:
   In order to be secure out of the box various rate limits are in place.
   See :doc:`Rate Limits <./rate_limits>` for details.
 
+``ACCOUNT_READONLY_EMAIL_FIELD`` (default: ``False``)
+  When ``True``, the email field in the signup form will be set as readonly if 
+  there is a stashed verified email (in request.session). For example, if the 
+  signup form has been loaded by following an invitation link. This means users 
+  who sign up via an invitation link cannot edit their email address when they 
+  sign up.
+
 ``ACCOUNT_REAUTHENTICATION_TIMEOUT`` (default: ``300``)
   Before asking the user to reauthenticate, we check if a successful
   (re)authentication happened within the amount of seconds specified here, and

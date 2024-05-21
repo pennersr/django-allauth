@@ -6,15 +6,19 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 class KakaoAccount(ProviderAccount):
     @property
+    def properties(self):
+        return self.account.extra_data.get("properties", {})
+
+    @property
     def profile(self):
-        return self.account.extra_data.get("kakao_account", {}).get("profile")
+        return self.account.extra_data.get("kakao_account", {}).get("profile", {})
 
     def get_avatar_url(self):
-        return self.profile.get("profile_image_url")
+        return self.profile.get("profile_image_url", self.properties.get("profile_image"))
 
     def to_str(self):
         dflt = super(KakaoAccount, self).to_str()
-        return self.profile.get("nickname", dflt)
+        return self.profile.get("nickname", self.properties.get("nickname", dflt))
 
 
 class KakaoProvider(OAuth2Provider):

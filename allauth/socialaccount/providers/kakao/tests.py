@@ -11,7 +11,7 @@ class KakaoTests(OAuth2TestsMixin, TestCase):
         {
             "id": 123456789,
             "connected_at": "2022-04-11T01:45:28Z",
-            "kakao_account": { 
+            "kakao_account": {
                 "profile_nickname_needs_agreement": false,
                 "profile_image_needs_agreement": false,
                 "profile": {
@@ -21,10 +21,10 @@ class KakaoTests(OAuth2TestsMixin, TestCase):
                     "is_default_image":false,
                     "is_default_nickname": false
                 },
-                "name_needs_agreement":false, 
+                "name_needs_agreement":false,
                 "name":"홍길동",
-                "email_needs_agreement":false, 
-                "is_email_valid": true,   
+                "email_needs_agreement":false,
+                "is_email_valid": true,
                 "is_email_verified": true,
                 "email": "sample@sample.com",
                 "age_range_needs_agreement":false,
@@ -37,7 +37,7 @@ class KakaoTests(OAuth2TestsMixin, TestCase):
                 "gender_needs_agreement":false,
                 "gender":"female",
                 "phone_number_needs_agreement": false,
-                "phone_number": "+82 010-1234-5678",   
+                "phone_number": "+82 010-1234-5678",
                 "ci_needs_agreement": false,
                 "ci": "CI",
                 "ci_authenticated_at": "2019-03-11T11:25:22Z"

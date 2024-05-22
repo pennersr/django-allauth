@@ -20,6 +20,9 @@ for the login. To restrict it, change the ``tenant`` setting as shown below.
                   "secret": "<insert-secret>",
                   "settings": {
                       "tenant": "organizations",
+                      # Optional: override URLs (use base URLs without path)
+                      "login_url": "https://login.microsoftonline.com",
+                      "graph_url": "https://graph.microsoft.com",
                   }
               }
           ]

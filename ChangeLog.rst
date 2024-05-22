@@ -13,6 +13,9 @@
 - When the headless provider signup endpoint was called while that flow was not pending,
   a crash would occur. This has been fixed to return a 409 (conflict).
 
+- Microsoft provider: the URLs pointing to the login and graph API are now
+  configurable via the app settings.
+
 
 0.63.1 (2024-05-17)
 *******************

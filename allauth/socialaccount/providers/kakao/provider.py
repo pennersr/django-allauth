@@ -14,7 +14,9 @@ class KakaoAccount(ProviderAccount):
         return self.account.extra_data.get("kakao_account", {}).get("profile", {})
 
     def get_avatar_url(self):
-        return self.profile.get("profile_image_url", self.properties.get("profile_image"))
+        return self.profile.get(
+            "profile_image_url", self.properties.get("profile_image")
+        )
 
     def to_str(self):
         dflt = super(KakaoAccount, self).to_str()

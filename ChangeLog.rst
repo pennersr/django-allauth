@@ -10,6 +10,9 @@
 - In case a headless attempt was made to connect a third-party account that was already
   connected to a different account, no error was communicated to the frontend. Fixed.
 
+- When the headless provider signup endpoint was called while that flow was not pending,
+  a crash would occur. This has been fixed to return a 409 (conflict).
+
 
 0.63.1 (2024-05-17)
 *******************

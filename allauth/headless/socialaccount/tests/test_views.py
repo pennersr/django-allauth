@@ -377,3 +377,14 @@ def test_token_connect_already_connected(
             }
         ],
     }
+
+
+def test_provider_signup_not_pending(client, headless_reverse, db, settings):
+    resp = client.post(
+        headless_reverse("headless:socialaccount:provider_signup"),
+        data={
+            "email": "a@b.com",
+        },
+        content_type="application/json",
+    )
+    assert resp.status_code == 409

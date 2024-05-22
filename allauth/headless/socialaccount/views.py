@@ -3,6 +3,7 @@ from django.core.exceptions import ValidationError
 from allauth.core.exceptions import SignupClosedException
 from allauth.headless.base.response import (
     AuthenticationResponse,
+    ConflictResponse,
     ForbiddenResponse,
 )
 from allauth.headless.base.views import APIView, AuthenticatedAPIView
@@ -26,16 +27,21 @@ from allauth.socialaccount.models import SocialAccount
 class ProviderSignupView(APIView):
     input_class = SignupInput
 
-    def post(self, request, *args, **kwargs):
+    def handle(self, request, *args, **kwargs):
+        self.sociallogin = flows.signup.get_pending_signup(self.request)
+        if not self.sociallogin:
+            return ConflictResponse(request)
         if not get_socialaccount_adapter().is_open_for_signup(
             request, self.sociallogin
         ):
             return ForbiddenResponse(request)
+        return super().handle(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
         flows.signup.signup_by_form(self.request, self.sociallogin, self.input)
         return AuthenticationResponse(request)
 
     def get_input_kwargs(self):
-        self.sociallogin = flows.signup.get_pending_signup(self.request)
         return {"sociallogin": self.sociallogin}
 
 

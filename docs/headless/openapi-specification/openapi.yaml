@@ -425,6 +425,13 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ForbiddenResponse"
+        "409":
+          description: |
+            Conflict. The provider signup flow is not pending.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConflictResponse"
   ######################################################################
   # Authentication: 2FA
   ######################################################################
@@ -1424,6 +1431,15 @@ components:
           type: integer
           enum:
             - 403
+      required:
+        - status
+    ConflictResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          enum:
+            - 409
       required:
         - status
     ReauthenticationResponse:

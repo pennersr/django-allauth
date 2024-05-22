@@ -99,6 +99,11 @@ class ForbiddenResponse(APIResponse):
         super().__init__(request, status=403)
 
 
+class ConflictResponse(APIResponse):
+    def __init__(self, request):
+        super().__init__(request, status=409)
+
+
 def user_data(user):
     """Basic user data, also exposed in partly authenticated scenario's
     (e.g. password reset, email verification).

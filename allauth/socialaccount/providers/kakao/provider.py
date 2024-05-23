@@ -7,14 +7,20 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 class KakaoAccount(ProviderAccount):
     @property
     def properties(self):
-        return self.account.extra_data.get("properties")
+        return self.account.extra_data.get("properties", {})
+
+    @property
+    def profile(self):
+        return self.account.extra_data.get("kakao_account", {}).get("profile", {})
 
     def get_avatar_url(self):
-        return self.properties.get("profile_image")
+        return self.profile.get(
+            "profile_image_url", self.properties.get("profile_image")
+        )
 
     def to_str(self):
         dflt = super(KakaoAccount, self).to_str()
-        return self.properties.get("nickname", dflt)
+        return self.profile.get("nickname", self.properties.get("nickname", dflt))
 
 
 class KakaoProvider(OAuth2Provider):
@@ -28,7 +34,7 @@ class KakaoProvider(OAuth2Provider):
 
     def extract_common_fields(self, data):
         email = data.get("kakao_account", {}).get("email")
-        nickname = data.get("properties", {}).get("nickname")
+        nickname = data.get("kakao_account", {}).get("profile", {}).get("nickname")
 
         return dict(email=email, username=nickname)
 

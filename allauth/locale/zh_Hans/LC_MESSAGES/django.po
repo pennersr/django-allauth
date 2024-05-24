@@ -3,30 +3,29 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-14 11:32-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2024-05-15 05:21+0000\n"
+"Last-Translator: Unintended <Unintendedz@outlook.com>\n"
+"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
+"allauth/django-allauth/zh_Hans/>\n"
+"Language: zh_Hans\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.6-dev\n"
 
 #: account/adapter.py:58
 msgid "This account is currently inactive."
 msgstr "此账号当前未激活。"
 
 #: account/adapter.py:60
-#, fuzzy
-#| msgid "You cannot remove your primary email address (%(email)s)."
 msgid "You cannot remove your primary email address."
-msgstr "您不能删除您的主Email地址 (%(email)s) "
+msgstr "您不能删除您的主Email地址 (%(email)s)"
 
 #: account/adapter.py:63
 msgid "This email address is already associated with this account."
@@ -224,7 +223,7 @@ msgstr "Email确认"
 
 #: headless/apps.py:7
 msgid "Headless"
-msgstr ""
+msgstr "无头"
 
 #: mfa/adapter.py:22
 msgid ""
@@ -250,7 +249,7 @@ msgstr "在验证您的Email地址之前，您不能激活两步验证。"
 
 #: mfa/apps.py:9
 msgid "MFA"
-msgstr ""
+msgstr "多因素认证"
 
 #: mfa/forms.py:58
 msgid "Authenticator code"
@@ -301,7 +300,7 @@ msgstr "提供者ID"
 
 #: socialaccount/models.py:56
 msgid "name"
-msgstr ""
+msgstr "名字"
 
 #: socialaccount/models.py:58
 msgid "client id"
@@ -563,12 +562,14 @@ msgid ""
 "Thank you for using %(site_name)s!\n"
 "%(site_domain)s"
 msgstr ""
+"感谢您使用 %(site_name)s！\n"
+"%(site_domain)s"
 
 #: templates/account/email/base_notification.txt:5
 msgid ""
 "You are receiving this mail because the following change was made to your "
 "account:"
-msgstr ""
+msgstr "您收到这封邮件是因为您的账户产生了以下变动："
 
 #: templates/account/email/base_notification.txt:10
 #, python-format
@@ -580,11 +581,16 @@ msgid ""
 "- Browser: %(user_agent)s\n"
 "- Date: %(timestamp)s"
 msgstr ""
+"如果这不是您做出的更改，请立即采取适当的安全措施。对您的账户的更改来自：\n"
+"\n"
+"- IP地址: %(ip)s\n"
+"- 浏览器: %(user_agent)s\n"
+"- 日期: %(timestamp)s"
 
 #: templates/account/email/email_changed_message.txt:4
 #, python-format
 msgid "Your email has been changed from %(from_email)s to %(to_email)s."
-msgstr ""
+msgstr "您的电子邮件已从 %(from_email)s 更改为 %(to_email)s。"
 
 #: templates/account/email/email_changed_subject.txt:3
 msgid "Email Changed"
@@ -1185,7 +1191,7 @@ msgstr "第三方登录失败"
 #: templates/socialaccount/authentication_error.html:12
 msgid ""
 "An error occurred while attempting to login via your third-party account."
-msgstr ""
+msgstr "尝试通过您的第三方账户登录时发生错误。"
 
 #: templates/socialaccount/connections.html:5
 #: templates/socialaccount/connections.html:9

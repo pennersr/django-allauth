@@ -1,5 +1,8 @@
-0.63.2 (unreleased)
+0.63.2 (2024-05-24)
 *******************
+
+Note worthy changes
+-------------------
 
 - ``allauth.headless`` now supports the ``is_open_for_signup()`` adapter method.
   In case signup is closed, a 403 is returned during signup.

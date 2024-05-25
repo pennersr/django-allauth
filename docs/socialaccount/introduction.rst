@@ -15,4 +15,4 @@ managing social accounts. It supports:
 Note that in order to use this functionality you need to install the ``socialaccount``
 extras of the ``django-allauth`` package::
 
-  pip install django-allauth[socialaccount]
+  pip install "django-allauth[socialaccount]"

@@ -4,7 +4,7 @@ OpenID
 The OpenID provider requires dependencies that are not installed by
 default. Install using::
 
-    $ pip install django-allauth[socialaccount,openid]
+    $ pip install "django-allauth[socialaccount,openid]"
 
 The provider does not require any settings per se. However, a typical OpenID
 login page presents the user with a predefined list of OpenID providers and

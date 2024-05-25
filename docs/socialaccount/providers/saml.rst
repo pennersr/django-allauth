@@ -5,7 +5,7 @@ SAML 2.0 is supported out of the box. However, the required dependencies are not
 installed by default. Therefore, you will need to specifcy the ``saml`` extra when
 installing the package::
 
-    $ pip install django-allauth[saml]
+    $ pip install "django-allauth[saml]"
 
 When you need to support SAML based authentication, often you need to support
 multiple organizations, each having their own SAML based Identity Provider

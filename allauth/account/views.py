@@ -42,7 +42,6 @@ from allauth.account.models import (
     EmailConfirmation,
     get_emailconfirmation_model,
 )
-from allauth.account.reauthentication import resume_request
 from allauth.account.utils import (
     complete_signup,
     perform_login,
@@ -781,7 +780,7 @@ class BaseReauthenticateView(NextRedirectMixin, FormView):
         return url
 
     def form_valid(self, form):
-        response = resume_request(self.request)
+        response = flows.reauthentication.resume_request(self.request)
         if response:
             return response
         return super().form_valid(form)

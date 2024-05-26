@@ -7,7 +7,6 @@ from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.internal import flows
 from allauth.account.models import EmailAddress
-from allauth.account.reauthentication import raise_if_reauthentication_required
 from allauth.core.exceptions import ReauthenticationRequired
 from allauth.socialaccount import signals
 from allauth.socialaccount.adapter import get_adapter
@@ -42,7 +41,7 @@ def validate_disconnect(request, account):
 
 def disconnect(request, account):
     if account_settings.REAUTHENTICATION_REQUIRED:
-        raise_if_reauthentication_required(request)
+        flows.reauthentication.raise_if_reauthentication_required(request)
 
     get_account_adapter().add_message(
         request,
@@ -107,7 +106,7 @@ def do_connect(request, sociallogin):
     if request.user.is_anonymous:
         raise PermissionDenied()
     if account_settings.REAUTHENTICATION_REQUIRED:
-        raise_if_reauthentication_required(request)
+        flows.reauthentication.raise_if_reauthentication_required(request)
     message = "socialaccount/messages/account_connected.txt"
     action = None
     ok = True

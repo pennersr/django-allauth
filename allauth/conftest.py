@@ -115,7 +115,9 @@ def email_factory():
 def reauthentication_bypass():
     @contextmanager
     def f():
-        with patch("allauth.account.reauthentication.did_recently_authenticate") as m:
+        with patch(
+            "allauth.account.internal.flows.reauthentication.did_recently_authenticate"
+        ) as m:
             m.return_value = True
             yield
 

@@ -7,7 +7,7 @@ from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, resolve_url
 
-from allauth.account import reauthentication
+from allauth.account.internal.flows import reauthentication
 from allauth.account.models import EmailAddress
 from allauth.account.utils import (
     get_next_redirect_url,

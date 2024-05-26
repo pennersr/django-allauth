@@ -10,7 +10,6 @@ from asgiref.sync import iscoroutinefunction, sync_to_async
 
 from allauth.account.adapter import get_adapter
 from allauth.account.internal import flows
-from allauth.account.reauthentication import suspend_request
 from allauth.core import context
 from allauth.core.exceptions import (
     ImmediateHttpResponse,
@@ -48,7 +47,7 @@ def AccountMiddleware(get_response):
             methods = get_adapter().get_reauthentication_methods(request.user)
             if methods:
                 redirect_url = methods[0]["url"]
-            return suspend_request(request, redirect_url)
+            return flows.reauthentication.suspend_request(request, redirect_url)
 
     middleware.process_exception = process_exception
     return middleware

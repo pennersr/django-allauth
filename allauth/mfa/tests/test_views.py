@@ -267,18 +267,22 @@ def test_totp_login_rate_limit(
             assertFormError(
                 resp.context["form"],
                 "code",
-                "Too many failed login attempts. Try again later."
-                if is_locked
-                else "Incorrect code.",
+                (
+                    "Too many failed login attempts. Try again later."
+                    if is_locked
+                    else "Incorrect code."
+                ),
             )
         else:
             assertFormError(
                 resp,
                 "form",
                 "code",
-                "Too many failed login attempts. Try again later."
-                if is_locked
-                else "Incorrect code.",
+                (
+                    "Too many failed login attempts. Try again later."
+                    if is_locked
+                    else "Incorrect code."
+                ),
             )
 
 

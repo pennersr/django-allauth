@@ -134,16 +134,18 @@ def test_login_failed_rate_limit(
         )
         assert resp.status_code == 400
         assert resp.json()["errors"] == [
-            {
-                "code": "email_password_mismatch",
-                "message": "The email address and/or password you specified are not correct.",
-                "param": "password",
-            }
-            if attempt == 0
-            else {
-                "message": "Too many failed login attempts. Try again later.",
-                "code": "too_many_login_attempts",
-            }
+            (
+                {
+                    "code": "email_password_mismatch",
+                    "message": "The email address and/or password you specified are not correct.",
+                    "param": "password",
+                }
+                if attempt == 0
+                else {
+                    "message": "Too many failed login attempts. Try again later.",
+                    "code": "too_many_login_attempts",
+                }
+            )
         ]
 
 

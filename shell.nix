@@ -20,6 +20,7 @@ stdenv.mkDerivation {
         python310Packages.python-lsp-server
         python310Packages.python3-openid
         python310Packages.python3-saml
+        python310Packages.pyjwt
         python310Packages.qrcode
         python310Packages.sphinx-rtd-theme
         python310Packages.requests-oauthlib

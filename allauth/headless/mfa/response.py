@@ -11,9 +11,11 @@ def _authenticator_data(authenticator, sensitive=False):
     data = {
         "type": authenticator.type,
         "created_at": authenticator.created_at.timestamp(),
-        "last_used_at": authenticator.last_used_at.timestamp()
-        if authenticator.last_used_at
-        else None,
+        "last_used_at": (
+            authenticator.last_used_at.timestamp()
+            if authenticator.last_used_at
+            else None
+        ),
     }
     if authenticator.type == authenticator.Type.TOTP:
         pass

@@ -125,13 +125,15 @@ class NextRedirectMixin:
             {
                 "redirect_field_name": self.redirect_field_name,
                 "redirect_field_value": redirect_field_value,
-                "redirect_field": format_html(
-                    '<input type="hidden" name="{}" value="{}">',
-                    self.redirect_field_name,
-                    redirect_field_value,
-                )
-                if redirect_field_value
-                else "",
+                "redirect_field": (
+                    format_html(
+                        '<input type="hidden" name="{}" value="{}">',
+                        self.redirect_field_name,
+                        redirect_field_value,
+                    )
+                    if redirect_field_value
+                    else ""
+                ),
             }
         )
         return ret

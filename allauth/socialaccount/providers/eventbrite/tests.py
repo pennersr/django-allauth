@@ -1,4 +1,5 @@
 """Test Eventbrite OAuth2 v3 Flow."""
+
 from allauth.socialaccount.tests import OAuth2TestsMixin
 from allauth.tests import MockedResponse, TestCase
 
@@ -6,7 +7,6 @@ from .provider import EventbriteProvider
 
 
 class EventbriteTests(OAuth2TestsMixin, TestCase):
-
     """Test Class for Eventbrite OAuth2 v3."""
 
     provider_id = EventbriteProvider.id

@@ -12,6 +12,7 @@ Resources:
 * The Battle.net API forum:
     https://us.battle.net/en/forum/15051532/
 """
+
 from django.conf import settings
 
 from allauth.socialaccount.adapter import get_adapter

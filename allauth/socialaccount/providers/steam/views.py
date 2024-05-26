@@ -12,6 +12,7 @@ Resources:
 * Steam Partner API documentation
     https://partner.steamgames.com/doc/features/auth#website
 """
+
 from django.urls import reverse
 
 from allauth.socialaccount.providers.openid.views import (

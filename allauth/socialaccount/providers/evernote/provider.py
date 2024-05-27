@@ -1,4 +1,5 @@
 from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.evernote.views import EvernoteOAuthAdapter
 from allauth.socialaccount.providers.oauth.provider import OAuthProvider
 
 
@@ -14,6 +15,7 @@ class EvernoteProvider(OAuthProvider):
     id = "evernote"
     name = "Evernote"
     account_class = EvernoteAccount
+    oauth_adapter_class = EvernoteOAuthAdapter
 
     def extract_uid(self, data):
         return str(data["edam_userId"])

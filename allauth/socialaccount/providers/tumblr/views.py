@@ -7,8 +7,6 @@ from allauth.socialaccount.providers.oauth.views import (
     OAuthLoginView,
 )
 
-from .provider import TumblrProvider
-
 
 class TumblrAPI(OAuth):
     url = "http://api.tumblr.com/v2/user/info"
@@ -19,7 +17,7 @@ class TumblrAPI(OAuth):
 
 
 class TumblrOAuthAdapter(OAuthAdapter):
-    provider_id = TumblrProvider.id
+    provider_id = "tumblr"
     request_token_url = "https://www.tumblr.com/oauth/request_token"
     access_token_url = "https://www.tumblr.com/oauth/access_token"
     authorize_url = "https://www.tumblr.com/oauth/authorize"

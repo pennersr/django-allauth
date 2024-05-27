@@ -1,5 +1,6 @@
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth.provider import OAuthProvider
+from allauth.socialaccount.providers.trello.views import TrelloOAuthAdapter
 
 
 class TrelloAccount(ProviderAccount):
@@ -14,6 +15,7 @@ class TrelloProvider(OAuthProvider):
     id = "trello"
     name = "Trello"
     account_class = TrelloAccount
+    oauth_adapter_class = TrelloOAuthAdapter
 
     def get_default_scope(self):
         return ["read"]

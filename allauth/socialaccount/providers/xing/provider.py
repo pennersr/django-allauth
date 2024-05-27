@@ -1,5 +1,6 @@
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth.provider import OAuthProvider
+from allauth.socialaccount.providers.xing.views import XingOAuthAdapter
 
 
 class XingAccount(ProviderAccount):
@@ -21,6 +22,7 @@ class XingProvider(OAuthProvider):
     id = "xing"
     name = "Xing"
     account_class = XingAccount
+    oauth_adapter_class = XingOAuthAdapter
 
     def extract_uid(self, data):
         return data["id"]

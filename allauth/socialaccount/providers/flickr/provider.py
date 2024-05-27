@@ -1,4 +1,5 @@
 from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.flickr.views import FlickrOAuthAdapter
 from allauth.socialaccount.providers.oauth.provider import OAuthProvider
 
 
@@ -30,6 +31,7 @@ class FlickrProvider(OAuthProvider):
     id = "flickr"
     name = "Flickr"
     account_class = FlickrAccount
+    oauth_adapter_class = FlickrOAuthAdapter
 
     def get_default_scope(self):
         scope = []

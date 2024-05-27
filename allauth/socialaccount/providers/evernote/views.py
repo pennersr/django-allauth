@@ -7,11 +7,9 @@ from allauth.socialaccount.providers.oauth.views import (
     OAuthLoginView,
 )
 
-from .provider import EvernoteProvider
-
 
 class EvernoteOAuthAdapter(OAuthAdapter):
-    provider_id = EvernoteProvider.id
+    provider_id = "evernote"
     settings = app_settings.PROVIDERS.get(provider_id, {})
     request_token_url = "https://%s/oauth" % (
         settings.get("EVERNOTE_HOSTNAME", "sandbox.evernote.com")

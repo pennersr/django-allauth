@@ -1,4 +1,7 @@
 from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.fivehundredpx.views import (
+    FiveHundredPxOAuthAdapter,
+)
 from allauth.socialaccount.providers.oauth.provider import OAuthProvider
 
 
@@ -20,6 +23,7 @@ class FiveHundredPxProvider(OAuthProvider):
     name = "500px"
     package = "allauth.socialaccount.providers.fivehundredpx"
     account_class = FiveHundredPxAccount
+    oauth_adapter_class = FiveHundredPxOAuthAdapter
 
     def get_default_scope(self):
         return []

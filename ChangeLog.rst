@@ -7,6 +7,9 @@ Note worthy changes
 - In ``HEADLESS_ONLY`` mode, the ``/accounts/<provider>/login/`` URLs were still
   available, fixed.
 
+- The few remaining OAuth 1.0 providers were not compatible with headless mode,
+  fixed.
+
 
 0.63.2 (2024-05-24)
 *******************

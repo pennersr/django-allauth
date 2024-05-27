@@ -8,11 +8,8 @@ from allauth.socialaccount.helpers import (
     render_authentication_error,
 )
 from allauth.socialaccount.models import SocialLogin, SocialToken
-from allauth.socialaccount.providers.base.constants import (
-    AuthAction,
-    AuthError,
-)
-from allauth.socialaccount.providers.base.mixins import OAuthLoginMixin
+from allauth.socialaccount.providers.base.constants import AuthError
+from allauth.socialaccount.providers.base.views import BaseLoginView
 from allauth.socialaccount.providers.oauth.client import (
     OAuthClient,
     OAuthError,
@@ -23,6 +20,8 @@ logger = logging.getLogger(__name__)
 
 
 class OAuthAdapter(object):
+    client_class = OAuthClient
+
     def __init__(self, request):
         self.request = request
 
@@ -37,8 +36,27 @@ class OAuthAdapter(object):
         app = adapter.get_app(self.request, provider=self.provider_id)
         return app.get_provider(self.request)
 
+    def _get_client(self, request, callback_url, scope=None):
+        provider = self.get_provider()
+        app = provider.app
+        parameters = {}
+        if scope:
+            parameters["scope"] = " ".join(scope)
+        client = self.client_class(
+            request,
+            app.client_id,
+            app.secret,
+            self.request_token_url,
+            self.access_token_url,
+            callback_url,
+            parameters=parameters,
+            provider=provider,
+        )
+        return client
+
 
 class OAuthView(object):
+
     @classmethod
     def adapter_view(cls, adapter):
         def view(request, *args, **kwargs):
@@ -49,40 +67,11 @@ class OAuthView(object):
 
         return view
 
-    def _get_client(self, request, callback_url):
-        provider = self.adapter.get_provider()
-        app = provider.app
-        scope = " ".join(provider.get_scope_from_request(request))
-        parameters = {}
-        if scope:
-            parameters["scope"] = scope
-        client = OAuthClient(
-            request,
-            app.client_id,
-            app.secret,
-            self.adapter.request_token_url,
-            self.adapter.access_token_url,
-            callback_url,
-            parameters=parameters,
-            provider=provider,
-        )
-        return client
 
-
-class OAuthLoginView(OAuthLoginMixin, OAuthView):
-    def login(self, request, *args, **kwargs):
-        callback_url = reverse(self.adapter.provider_id + "_callback")
-        SocialLogin.stash_state(request)
-        action = request.GET.get("action", AuthAction.AUTHENTICATE)
+class OAuthLoginView(OAuthView, BaseLoginView):
+    def get_provider(self):
         provider = self.adapter.get_provider()
-        auth_url = provider.get_auth_url(request, action) or self.adapter.authorize_url
-        auth_params = provider.get_auth_params_from_request(request, action)
-        client = self._get_client(request, callback_url)
-        try:
-            return client.get_redirect(auth_url, auth_params)
-        except OAuthError as e:
-            logger.error("OAuth authentication error", exc_info=True)
-            return render_authentication_error(request, provider, exception=e)
+        return provider
 
 
 class OAuthCallbackView(OAuthView):
@@ -93,7 +82,7 @@ class OAuthCallbackView(OAuthView):
         """
         provider = self.adapter.get_provider()
         login_done_url = reverse(self.adapter.provider_id + "_callback")
-        client = self._get_client(request, login_done_url)
+        client = self.adapter._get_client(request, login_done_url)
         if not client.is_valid():
             if "denied" in request.GET:
                 error = AuthError.CANCELLED

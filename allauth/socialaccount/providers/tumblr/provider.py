@@ -1,5 +1,6 @@
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth.provider import OAuthProvider
+from allauth.socialaccount.providers.tumblr.views import TumblrOAuthAdapter
 
 
 class TumblrAccount(ProviderAccount):
@@ -16,6 +17,7 @@ class TumblrProvider(OAuthProvider):
     id = "tumblr"
     name = "Tumblr"
     account_class = TumblrAccount
+    oauth_adapter_class = TumblrOAuthAdapter
 
     def extract_uid(self, data):
         return data["name"]

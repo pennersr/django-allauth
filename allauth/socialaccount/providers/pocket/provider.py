@@ -1,6 +1,7 @@
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth.provider import OAuthProvider
+from allauth.socialaccount.providers.pocket.views import PocketOAuthAdapter
 
 
 class PocketAccount(ProviderAccount):
@@ -13,6 +14,7 @@ class PocketProvider(OAuthProvider):
     id = "pocket"
     name = "Pocket"
     account_class = PocketAccount
+    oauth_adapter_class = PocketOAuthAdapter
 
     def extract_uid(self, data):
         return data["username"]

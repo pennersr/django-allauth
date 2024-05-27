@@ -4,7 +4,8 @@
 Note worthy changes
 -------------------
 
-- ...
+- In ``HEADLESS_ONLY`` mode, the ``/accounts/<provider>/login/`` URLs were still
+  available, fixed.
 
 
 0.63.2 (2024-05-24)

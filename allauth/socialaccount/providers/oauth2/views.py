@@ -20,7 +20,7 @@ from allauth.socialaccount.internal import statekit
 from allauth.socialaccount.models import SocialToken
 from allauth.socialaccount.providers.base import ProviderException
 from allauth.socialaccount.providers.base.constants import AuthError
-from allauth.socialaccount.providers.base.mixins import OAuthLoginMixin
+from allauth.socialaccount.providers.base.views import BaseLoginView
 from allauth.socialaccount.providers.oauth2.client import (
     OAuth2Client,
     OAuth2Error,
@@ -107,10 +107,9 @@ class OAuth2View(object):
         return view
 
 
-class OAuth2LoginView(OAuthLoginMixin, OAuth2View):
-    def login(self, request, *args, **kwargs):
-        provider = self.adapter.get_provider()
-        return provider.redirect_from_request(request)
+class OAuth2LoginView(OAuth2View, BaseLoginView):
+    def get_provider(self):
+        return self.adapter.get_provider()
 
 
 class OAuth2CallbackView(OAuth2View):

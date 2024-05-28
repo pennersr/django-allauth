@@ -10,6 +10,9 @@ Note worthy changes
 - The few remaining OAuth 1.0 providers were not compatible with headless mode,
   fixed.
 
+- Depending on where you placed the ``secure_admin_login(admin.site.login)``
+  protection you could run into circular import errors, fixed.
+
 
 0.63.2 (2024-05-24)
 *******************

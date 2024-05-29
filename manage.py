@@ -2,7 +2,7 @@
 import os
 
 
-os.environ["DJANGO_SETTINGS_MODULE"] = "tests.regular.settings"
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "tests.regular.settings")
 from django.core import management  # noqa: E402
 
 

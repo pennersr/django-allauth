@@ -285,5 +285,5 @@ def setup(app):
     import django
 
     app.connect("build-finished", copy_custom_files)
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "tests.regular.settings")
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "tests.account_only.settings")
     django.setup()

@@ -37,11 +37,11 @@ class ProviderRegistry(object):
         if not self.loaded:
             for app_config in apps.get_app_configs():
                 try:
-                    provider_module = importlib.import_module(
-                        app_config.name + ".provider"
-                    )
-                except ImportError:
-                    pass
+                    module_name = app_config.name + ".provider"
+                    provider_module = importlib.import_module(module_name)
+                except ImportError as e:
+                    if e.name != module_name:
+                        raise
                 else:
                     provider_settings = getattr(settings, "SOCIALACCOUNT_PROVIDERS", {})
                     for cls in getattr(provider_module, "provider_classes", []):

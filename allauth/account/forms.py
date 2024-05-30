@@ -361,7 +361,7 @@ class BaseSignupForm(_base_signup_form_class()):
         if app_settings.SIGNUP_EMAIL_ENTER_TWICE:
             email = cleaned_data.get("email")
             email2 = cleaned_data.get("email2")
-            if (email and email2) and email != email2:
+            if (email and email2) and email != email2.lower():
                 self.add_error("email2", _("You must type the same email each time."))
         return cleaned_data
 

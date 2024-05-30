@@ -112,28 +112,28 @@ class BaseSignupFormTests(TestCase):
         widget = field.widget
         self.assertEqual(widget.attrs.get("maxlength"), str(max_length))
 
-    @override_settings(
-        ACCOUNT_USERNAME_REQUIRED=True, ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE=True
-    )
-    def test_signup_email_verification(self):
-        data = {
-            "username": "username",
-            "email": "user@example.com",
-        }
-        form = BaseSignupForm(data, email_required=True)
-        self.assertFalse(form.is_valid())
 
-        data = {
-            "username": "username",
-            "email": "user@example.com",
-            "email2": "user@example.com",
-        }
-        form = BaseSignupForm(data, email_required=True)
-        self.assertTrue(form.is_valid())
+def test_signup_email_verification(settings, db):
+    settings.ACCOUNT_USERNAME_REQUIRED = True
+    settings.ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
+    data = {
+        "username": "username",
+        "email": "user@example.com",
+    }
+    form = BaseSignupForm(data, email_required=True)
+    assert not form.is_valid()
 
-        data["email2"] = "anotheruser@example.com"
-        form = BaseSignupForm(data, email_required=True)
-        self.assertFalse(form.is_valid())
+    data = {
+        "username": "username",
+        "email": "user@example.com",
+        "email2": "USER@example.COM",
+    }
+    form = BaseSignupForm(data, email_required=True)
+    assert form.is_valid()
+
+    data["email2"] = "anotheruser@example.com"
+    form = BaseSignupForm(data, email_required=True)
+    assert not form.is_valid()
 
 
 @override_settings(

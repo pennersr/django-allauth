@@ -342,6 +342,10 @@ class BaseSignupForm(_base_signup_form_class()):
             value = self.validate_unique_email(value)
         return value
 
+    def clean_email2(self):
+        value = self.cleaned_data["email2"].lower()
+        return value
+
     def validate_unique_email(self, value):
         adapter = get_adapter()
         assessment = assess_unique_email(value)
@@ -361,7 +365,7 @@ class BaseSignupForm(_base_signup_form_class()):
         if app_settings.SIGNUP_EMAIL_ENTER_TWICE:
             email = cleaned_data.get("email")
             email2 = cleaned_data.get("email2")
-            if (email and email2) and email != email2.lower():
+            if (email and email2) and email != email2:
                 self.add_error("email2", _("You must type the same email each time."))
         return cleaned_data
 

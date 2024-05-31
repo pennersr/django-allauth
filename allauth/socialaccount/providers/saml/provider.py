@@ -117,17 +117,20 @@ class SAMLProvider(Provider):
         return attributes
 
     def redirect(self, request, process, next_url=None, data=None, **kwargs):
-        from allauth.socialaccount.providers.saml.utils import (
-            build_auth,
-            encode_relay_state,
-        )
+        from allauth.socialaccount.providers.saml.utils import build_auth
 
-        state = self.stash_redirect_state(request, process, next_url, data, **kwargs)
         auth = build_auth(request, self)
-        relay_state = encode_relay_state(state)
         # If we pass `return_to=None` `auth.login` will use the URL of the
-        # current view, which will then end up being used as a redirect URL.
-        redirect = auth.login(return_to=relay_state)
+        # current view.
+        redirect = auth.login(return_to="")
+        self.stash_redirect_state(
+            request,
+            process,
+            next_url,
+            data,
+            state_id=auth.get_last_request_id(),
+            **kwargs
+        )
         return HttpResponseRedirect(redirect)
 
 

@@ -101,6 +101,28 @@ via the Django admin as well:
                             # Optional entity ID of the SP. If not set, defaults to the `saml_metadata` urlpattern
                             "entity_id": "https://serviceprovider.com/sso/sp/metadata.xml",
                         },
+
+                        # Advanced settings.
+                        "advanced": {
+                            "allow_repeat_attribute_name": True,
+                            "allow_single_label_domains": False,
+                            "authn_request_signed": False,
+                            "digest_algorithm": "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256",
+                            "logout_request_signed": False,
+                            "logout_response_signed": False,
+                            "metadata_signed": False,
+                            "name_id_encrypted": False,
+                            "reject_deprecated_algorithm": True,
+                            # Due to security concerns, IdP initiated SSO is rejected by default.
+                            "reject_idp_initiated_sso": True,
+                            "signature_algorithm": "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256",
+                            "want_assertion_encrypted": False,
+                            "want_assertion_signed": False,
+                            "want_attribute_statement": True,
+                            "want_message_signed": False,
+                            "want_name_id": False,
+                            "want_name_id_encrypted": False,
+                        },
                     },
                 },
 

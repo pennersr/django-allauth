@@ -14,6 +14,26 @@ Note worthy changes
   protection you could run into circular import errors, fixed.
 
 
+Backwards incompatible changes
+------------------------------
+
+- SAML: IdP initiated SSO is disabled by default, see security notice below.
+
+
+Security notice
+---------------
+
+- SAML: ``RelayState`` was used to keep track of whether or not the login flow
+  was IdP or SP initiated. As ``RelayState`` is a separate field, not part of
+  the ``SAMLResponse`` payload, it is not signed and thereby making the SAML
+  login flow vulnerable to CSRF/replay attacks. Now, ``InResponseTo`` is used
+  instead, addressing the issue for SP initiated SSO flows. IdP initiated SSO
+  remains inherently insecure, by design. For that reason, it is now disabled by
+  default. If you need to support IdP initiated SSO, you will need to opt-in to
+  that by adding ``"reject_idp_initiated_sso": False`` to your advanced SAML
+  provider settings.
+
+
 0.63.2 (2024-05-24)
 *******************
 

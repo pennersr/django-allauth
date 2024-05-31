@@ -198,7 +198,7 @@ class Provider:
         return pkg
 
     def stash_redirect_state(
-        self, request, process, next_url=None, data=None, **kwargs
+        self, request, process, next_url=None, data=None, state_id=None, **kwargs
     ):
         """
         Stashes state, returning a (random) state ID using which the state
@@ -208,7 +208,7 @@ class Provider:
         state = {"process": process, "data": data, **kwargs}
         if next_url:
             state["next"] = next_url
-        return statekit.stash_state(request, state)
+        return statekit.stash_state(request, state, state_id=state_id)
 
     def unstash_redirect_state(self, request, state_id):
         state = statekit.unstash_state(request, state_id)

@@ -37,10 +37,11 @@ def get_states(request):
     return states
 
 
-def stash_state(request, state):
+def stash_state(request, state, state_id=None):
     states = get_states(request)
     gc_states(states)
-    state_id = get_adapter().generate_state_param(state)
+    if state_id is None:
+        state_id = get_adapter().generate_state_param(state)
     states[state_id] = (state, time.time())
     request.session[STATES_SESSION_KEY] = states
     return state_id

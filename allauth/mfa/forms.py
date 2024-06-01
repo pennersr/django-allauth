@@ -10,7 +10,6 @@ from allauth.mfa import totp
 from allauth.mfa.adapter import get_adapter
 from allauth.mfa.internal import flows
 from allauth.mfa.models import Authenticator
-from allauth.mfa.utils import post_authentication
 from allauth.mfa.webauthn import (
     begin_authentication,
     begin_registration,

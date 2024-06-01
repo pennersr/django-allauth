@@ -1,5 +1,6 @@
 import base64
 
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
@@ -10,10 +11,11 @@ from django.views.generic.edit import DeleteView, FormView
 from django.views.generic.list import ListView
 
 from allauth.account import app_settings as account_settings
+from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.decorators import reauthentication_required
 from allauth.account.stages import LoginStageController
 from allauth.account.views import BaseReauthenticateView
-from allauth.mfa import app_settings, signals, totp, webauthn
+from allauth.mfa import app_settings, totp, webauthn
 from allauth.mfa.adapter import get_adapter
 from allauth.mfa.forms import (
     ActivateTOTPForm,
@@ -26,6 +28,7 @@ from allauth.mfa.forms import (
 )
 from allauth.mfa.internal import flows
 from allauth.mfa.models import Authenticator
+from allauth.mfa.recovery_codes import RecoveryCodes
 from allauth.mfa.stages import AuthenticateStage
 from allauth.mfa.utils import is_mfa_enabled
 from allauth.utils import get_form_class

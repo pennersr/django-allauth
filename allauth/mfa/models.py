@@ -47,6 +47,6 @@ class Authenticator(models.Model):
             self.type
         ](self)
 
-    def record_usage(self):
+    def record_usage(self) -> None:
         self.last_used_at = timezone.now()
         self.save(update_fields=["last_used_at"])

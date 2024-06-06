@@ -5,7 +5,7 @@ from django.urls import reverse
 import pytest
 
 from allauth.socialaccount.internal import statekit
-from allauth.socialaccount.providers.base.constants import AuthProcess
+from allauth.socialaccount.providers.base_provider.constants import AuthProcess
 from allauth.tests import MockedResponse, mocked_response
 
 

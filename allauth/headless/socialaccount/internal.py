@@ -9,7 +9,7 @@ from allauth.core.exceptions import (
 from allauth.core.internal import httpkit
 from allauth.headless.internal.authkit import AuthenticationStatus
 from allauth.socialaccount.internal import flows, statekit
-from allauth.socialaccount.providers.base.constants import (
+from allauth.socialaccount.providers.base_provider.constants import (
     AuthError,
     AuthProcess,
 )

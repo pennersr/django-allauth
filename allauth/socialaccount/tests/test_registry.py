@@ -25,14 +25,14 @@ class ProviderRegistryTests(TestCase):
         self.assertTrue(
             issubclass(
                 provider_list[0],
-                providers.facebook.provider.FacebookProvider,
+                providers.facebook_provider.provider.FacebookProvider,
             )
         )
 
         app_config_list = list(apps.get_app_configs())
         self.assertEqual(1, len(app_config_list))
         app_config = app_config_list[0]
-        self.assertEqual("allauth.socialaccount.providers.facebook", app_config.name)
+        self.assertEqual("allauth.socialaccount.providers.facebook", app_config_provider.name)
         self.assertEqual("facebook", app_config.label)
 
     @override_settings(
@@ -49,12 +49,12 @@ class ProviderRegistryTests(TestCase):
         self.assertTrue(
             issubclass(
                 provider_list[0],
-                providers.facebook.provider.FacebookProvider,
+                providers.facebook_provider.provider.FacebookProvider,
             )
         )
 
         app_config_list = list(apps.get_app_configs())
         self.assertEqual(1, len(app_config_list))
         app_config = app_config_list[0]
-        self.assertEqual("allauth.socialaccount.providers.facebook", app_config.name)
+        self.assertEqual("allauth.socialaccount.providers.facebook", app_config_provider.name)
         self.assertEqual("allauth_facebook", app_config.label)

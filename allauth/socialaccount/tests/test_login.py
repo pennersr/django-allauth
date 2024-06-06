@@ -12,7 +12,7 @@ from allauth.account.authentication import AUTHENTICATION_METHODS_SESSION_KEY
 from allauth.core import context
 from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount.models import SocialAccount, SocialToken
-from allauth.socialaccount.providers.base import AuthProcess
+from allauth.socialaccount.providers.base_provider import AuthProcess
 
 
 @pytest.mark.parametrize("with_emailaddress", [False, True])

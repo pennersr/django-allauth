@@ -4,7 +4,7 @@ from allauth.socialaccount.adapter import (
     get_adapter as get_socialaccount_adapter,
 )
 from allauth.socialaccount.internal.flows import signup
-from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
+from allauth.socialaccount.providers.oauth2_provider.provider import OAuth2Provider
 
 
 def _provider_data(request, provider):

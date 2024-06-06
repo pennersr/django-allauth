@@ -16,7 +16,7 @@ from allauth.socialaccount.internal.flows.signup import (
     process_signup,
 )
 from allauth.socialaccount.models import SocialLogin
-from allauth.socialaccount.providers.base import AuthProcess
+from allauth.socialaccount.providers.base_provider import AuthProcess
 
 
 def _login(request, sociallogin):

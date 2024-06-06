@@ -9,7 +9,7 @@ from allauth.socialaccount.adapter import (
 from allauth.socialaccount.forms import SignupForm
 from allauth.socialaccount.models import SocialAccount, SocialApp
 from allauth.socialaccount.providers import registry
-from allauth.socialaccount.providers.base.constants import AuthProcess
+from allauth.socialaccount.providers.base_provider.constants import AuthProcess
 
 
 class SignupInput(SignupForm, inputs.Input):

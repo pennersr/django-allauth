@@ -9,7 +9,7 @@ from allauth.core.exceptions import ImmediateHttpResponse
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.internal import flows
-from allauth.socialaccount.providers.base import AuthError
+from allauth.socialaccount.providers.base_provider import AuthError
 
 
 def render_authentication_error(

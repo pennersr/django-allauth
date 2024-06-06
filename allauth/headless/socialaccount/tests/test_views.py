@@ -7,7 +7,7 @@ from pytest_django.asserts import assertTemplateUsed
 
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.models import SocialAccount
-from allauth.socialaccount.providers.base.constants import AuthProcess
+from allauth.socialaccount.providers.base_provider.constants import AuthProcess
 
 
 def test_bad_redirect(client, headless_reverse, db, settings):

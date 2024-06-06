@@ -5,7 +5,7 @@ from cryptography.hazmat.backends import default_backend
 from cryptography.x509 import load_pem_x509_certificate
 
 from allauth.socialaccount.adapter import get_adapter
-from allauth.socialaccount.providers.oauth2.client import OAuth2Error
+from allauth.socialaccount.providers.oauth2_provider.client import OAuth2Error
 
 
 def lookup_kid_pem_x509_certificate(keys_data, kid):

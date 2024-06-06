@@ -7,7 +7,7 @@ from pytest_django.asserts import assertTemplateUsed
 
 from allauth.socialaccount.internal import flows
 from allauth.socialaccount.models import SocialAccount
-from allauth.socialaccount.providers.base.constants import AuthProcess
+from allauth.socialaccount.providers.base_provider.constants import AuthProcess
 
 
 @pytest.mark.parametrize("reauthentication_required", [False, True])

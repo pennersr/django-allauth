@@ -14,6 +14,10 @@ Note that in order to use this functionality you need to install the ``mfa`` ext
 
   pip install "django-allauth[mfa]"
 
+If you also wish to render QR codes using the `python-qrcode` library, add the `qrcode` extra:
+
+  pip install "django-allauth[mfa,qrcode]"
+
 Remember to add the app to
 the ``settings.py`` of your project::
 

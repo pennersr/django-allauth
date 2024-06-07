@@ -1,3 +1,12 @@
+Unreleased
+**********
+
+Note worthy changes
+-------------------
+
+- MFA functionality no longer has a hard dependency on `qrcode`;
+  install with the `qrcode` extra if you need QR code generation.
+
 0.63.3 (2024-05-31)
 *******************
 

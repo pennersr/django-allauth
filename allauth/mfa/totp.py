@@ -10,9 +10,6 @@ from urllib.parse import quote
 from django.core.cache import cache
 from django.utils.http import urlencode
 
-import qrcode
-from qrcode.image.svg import SvgPathImage
-
 from allauth.core import context
 from allauth.mfa import app_settings
 from allauth.mfa.models import Authenticator
@@ -74,6 +71,11 @@ def build_totp_url(label, issuer, secret):
 
 
 def build_totp_svg(url):
+    try:
+        import qrcode
+        from qrcode.image.svg import SvgPathImage
+    except ImportError as ie:
+        raise ImportError("The qrcode library is required to generate QR codes") from ie
     img = qrcode.make(url, image_factory=SvgPathImage)
     buf = BytesIO()
     img.save(buf)

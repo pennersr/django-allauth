@@ -1,6 +1,8 @@
 * Webauthn roadmap
 ** Webauthn as a 2nd factor (U2F)
+*** TODO Check names: "credential" vs "authentication_data"
 *** DONE Proof of concept
+*** TODO Redirect to recovery codes (just like TOTP)
 *** TODO Properly populate =PublicKeyCredentialRpEntity=
 *** TODO Properly populate =user= at =begin_registration()=
 *** DONE Setting to turn webauthn on/off
@@ -9,8 +11,12 @@
 *** DONE Prevent replay attacks
 Read: https://github.com/w3c/webauthn/issues/1856
 https://github.com/w3c/webauthn/issues/1848#issuecomment-1436235885
-*** TODO Investigate different way of POST'ing data
+*** DONE Investigate different way of POST'ing data
 https://github.com/w3c/webauthn/issues/1255#issuecomment-1848386610
+https://github.com/github/webauthn-json/tree/main?tab=readme-ov-file
+https://w3c.github.io/webauthn/#sctn-parseCreationOptionsFromJSON
+*** TODO "Sigin with Passkey" button padding
+*** TODO Add =[webauthn]= extra for fido2
 
 *** DONE Drop unique constraint on Authenticator.type?
 Or, put all WebAuthn authenticators in one Authenticator?

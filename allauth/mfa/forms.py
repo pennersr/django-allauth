@@ -15,8 +15,7 @@ from allauth.mfa.webauthn import (
     begin_registration,
     complete_authentication,
     complete_registration,
-    parse_authentication_credential,
-    parse_registration_credential,
+    serialize_authenticator_data,
 )
 
 
@@ -43,6 +42,7 @@ class BaseAuthenticateForm(forms.Form):
 
         code = self.cleaned_data["code"]
         for auth in Authenticator.objects.filter(user=self.user).exclude(
+            # FIXME: exclude, not nice.
             type=Authenticator.Type.WEBAUTHN
         ):
             if auth.wrap().validate_code(code):
@@ -75,10 +75,11 @@ class AuthenticateWebAuthnForm(forms.Form):
 
     def clean_credential(self):
         credential = self.cleaned_data["credential"]
-        user, credential = parse_authentication_credential(json.loads(credential))
+        authenticator = complete_authentication(self.user, credential)
         # FIXME: Raise form error
-        assert user is None or self.user.pk == user.pk
-        return complete_authentication(self.user, credential)
+        if not authenticator or authenticator.user_id != self.user.pk:
+            raise forms.ValidationError("FIXME")
+        return authenticator
 
     def save(self):
         authenticator = self.cleaned_data["credential"]
@@ -156,20 +157,36 @@ class AddWebAuthnForm(forms.Form):
 
     def clean_credential(self):
         credential = self.cleaned_data["credential"]
-        return parse_registration_credential(json.loads(credential))
+        # FIXME: Validation error
+        return json.loads(credential)
 
     def clean(self):
         cleaned_data = super().clean()
         credential = cleaned_data.get("credential")
         passwordless = cleaned_data.get("passwordless")
         if credential:
-            if (
-                passwordless
-                and not credential["attestation_object"].auth_data.is_user_verified()
-            ):
+            authenticator_data = complete_registration(credential)
+            if passwordless and not authenticator_data.is_user_verified():
                 self.add_error(
                     None, _("This key does not support passwordless operation.")
                 )
             else:
-                cleaned_data["authenticator_data"] = complete_registration(credential)
+                cleaned_data["authenticator_data"] = serialize_authenticator_data(
+                    authenticator_data
+                )
         return cleaned_data
+
+
+class WebAuthnLoginForm(forms.Form):
+    credential = forms.CharField(required=True, widget=forms.HiddenInput)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.authentication_data = begin_authentication()
+
+    def clean_credential(self):
+        credential = self.cleaned_data["credential"]
+        authenticator = complete_authentication(user=None, response=credential)
+        if not authenticator:
+            raise forms.ValidationError("FIXME")
+        return authenticator

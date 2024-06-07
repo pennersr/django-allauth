@@ -1,4 +1,6 @@
 from allauth.account.authentication import record_authentication
+from allauth.account.internal import flows
+from allauth.account.models import Login
 from allauth.mfa.models import Authenticator
 
 
@@ -15,3 +17,8 @@ def post_authentication(
     if reauthenticated:
         extra_data["reauthenticated"] = True
     record_authentication(request, "mfa", **extra_data)
+
+
+def perform_passwordless_login(request, authenticator: Authenticator, login: Login):
+    post_authentication(request, authenticator)
+    return flows.login.perform_login(request, login)

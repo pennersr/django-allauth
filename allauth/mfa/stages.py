@@ -3,6 +3,7 @@ from django.urls import NoReverseMatch, reverse
 
 from allauth import app_settings as allauth_settings
 from allauth.account.stages import LoginStage
+from allauth.mfa.models import Authenticator
 from allauth.mfa.utils import is_mfa_enabled
 
 
@@ -11,7 +12,9 @@ class AuthenticateStage(LoginStage):
 
     def handle(self):
         response, cont = None, True
-        if is_mfa_enabled(self.login.user):
+        if is_mfa_enabled(
+            self.login.user, [Authenticator.Type.TOTP, Authenticator.Type.WEBAUTHN]
+        ):
             try:
                 response = HttpResponseRedirect(reverse("mfa_authenticate"))
             except NoReverseMatch:

@@ -19,8 +19,7 @@
             {% endelement %}
         {% endslot %}
     {% endelement %}
-    <noscript>{% translate "This functionality requires JavaScript." %}"</noscript>
-    <script type="text/javascript" src="{% static 'mfa/js/webauthn.js' %}"></script>
+    {% include "mfa/webauthn/snippets/scripts.html" %}
     {{ js_data|json_script:"js_data" }}
     <script>
         allauth.webauthn.forms.addForm({

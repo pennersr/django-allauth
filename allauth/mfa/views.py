@@ -2,7 +2,7 @@ import base64
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
@@ -13,6 +13,7 @@ from django.views.generic.list import ListView
 from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.decorators import reauthentication_required
+from allauth.account.models import Login
 from allauth.account.stages import LoginStageController
 from allauth.account.views import BaseReauthenticateView
 from allauth.mfa import app_settings, totp, webauthn
@@ -25,6 +26,7 @@ from allauth.mfa.forms import (
     DeactivateTOTPForm,
     GenerateRecoveryCodesForm,
     ReauthenticateForm,
+    WebAuthnLoginForm,
 )
 from allauth.mfa.internal import flows
 from allauth.mfa.models import Authenticator
@@ -373,11 +375,42 @@ class RemoveWebAuthnView(DeleteView):
             user=self.request.user, type=Authenticator.Type.WEBAUTHN
         )
 
-    def delete(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        success_url = self.get_success_url()
-        Authenticator.objects.delete_and_cleanup(self.object)
-        return HttpResponseRedirect(success_url)
+    def form_valid(self, form):
+        authenticator = self.get_object()
+        ret = super().form_valid(form)
+        Authenticator.objects.delete_and_cleanup(authenticator)
+        return ret
 
 
 remove_webauthn = RemoveWebAuthnView.as_view()
+
+
+# FIXME: rate limits
+class LoginView(FormView):
+    form_class = WebAuthnLoginForm
+
+    def get(self, request, *args, **kwargs):
+        if get_account_adapter().is_ajax(request):
+            form = self.get_form()
+            data = {"credentials": form.authentication_data}
+            return JsonResponse(data)
+        return HttpResponseRedirect(reverse("account_login"))
+
+    def form_invalid(self, form):
+        for message in form.errors.get("credential", []):
+            get_account_adapter().add_message(
+                self.request, messages.ERROR, message=message
+            )
+        return HttpResponseRedirect(reverse("account_login"))
+
+    def form_valid(self, form):
+        authenticator = form.cleaned_data["credential"]
+        # FIXME: mark as used
+        redirect_url = None
+        login = Login(user=authenticator.user, redirect_url=redirect_url)
+        return flows.authentication.perform_passwordless_login(
+            self.request, authenticator, login
+        )
+
+
+login = LoginView.as_view()

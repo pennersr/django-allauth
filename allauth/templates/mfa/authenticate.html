@@ -48,7 +48,7 @@
             {% endslot %}
         {% endelement %}
         {{ js_data|json_script:"js_data" }}
-        <script type="text/javascript" src="{% static 'mfa/js/webauthn.js' %}"></script>
+        {% include "mfa/webauthn/snippets/scripts.html" %}
         <script type="text/javascript">
         allauth.webauthn.forms.authenticateForm({
         ids: {

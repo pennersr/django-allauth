@@ -4,10 +4,8 @@ import hmac
 import secrets
 import struct
 import time
-from urllib.parse import quote
 
 from django.core.cache import cache
-from django.utils.http import urlencode
 
 from allauth.core import context
 from allauth.mfa import app_settings
@@ -53,20 +51,6 @@ def hotp_value(secret: str, counter: int) -> int:
     # Apply modulo to get a value within the specified number of digits
     value %= 10**app_settings.TOTP_DIGITS
     return value
-
-
-def build_totp_url(label: str, issuer: str, secret: str) -> str:
-    params = {
-        "secret": secret,
-        # This is the default
-        # "algorithm": "SHA1",
-        "issuer": issuer,
-    }
-    if app_settings.TOTP_DIGITS != 6:
-        params["digits"] = app_settings.TOTP_DIGITS
-    if app_settings.TOTP_PERIOD != 30:
-        params["period"] = app_settings.TOTP_PERIOD
-    return f"otpauth://totp/{quote(label)}?{urlencode(params)}"
 
 
 def format_hotp_value(value: int) -> str:

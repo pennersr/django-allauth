@@ -12,8 +12,8 @@ from allauth.account import app_settings as account_settings
 from allauth.account.decorators import reauthentication_required
 from allauth.account.stages import LoginStageController
 from allauth.account.views import BaseReauthenticateView
-from allauth.mfa import app_settings, totp
-from allauth.mfa.adapter import get_adapter
+from allauth.mfa import app_settings
+from allauth.mfa.adapter import DefaultMFAAdapter, get_adapter
 from allauth.mfa.forms import (
     ActivateTOTPForm,
     AuthenticateForm,
@@ -108,12 +108,8 @@ class ActivateTOTPView(FormView):
 
     def get_context_data(self, **kwargs):
         ret = super().get_context_data(**kwargs)
-        adapter = get_adapter()
-        totp_url = totp.build_totp_url(
-            adapter.get_totp_label(self.request.user),
-            adapter.get_totp_issuer(),
-            ret["form"].secret,
-        )
+        adapter: DefaultMFAAdapter = get_adapter()
+        totp_url = adapter.build_totp_url(self.request.user, ret["form"].secret)
         totp_svg = adapter.build_totp_svg(totp_url)
         base64_data = base64.b64encode(totp_svg.encode("utf8")).decode("utf-8")
         totp_data_uri = f"data:image/svg+xml;base64,{base64_data}"

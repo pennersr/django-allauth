@@ -10,6 +10,7 @@ from allauth.headless.mfa.inputs import (
     GenerateRecoveryCodesInput,
 )
 from allauth.mfa import totp
+from allauth.mfa.adapter import DefaultMFAAdapter, get_adapter
 from allauth.mfa.internal import flows
 from allauth.mfa.models import Authenticator
 from allauth.mfa.stages import AuthenticateStage
@@ -44,14 +45,17 @@ class AuthenticatorsView(AuthenticatedAPIView):
         return response.AuthenticatorsResponse(request, authenticators)
 
 
+# TODO: Enforce reauthentication
 class ManageTOTPView(AuthenticatedAPIView):
     input_class = {"POST": ActivateTOTPInput}
 
     def get(self, request, *args, **kwargs):
         authenticator = self._get_authenticator()
         if not authenticator:
+            adapter: DefaultMFAAdapter = get_adapter()
             secret = totp.get_totp_secret(regenerate=True)
-            return response.TOTPNotFoundResponse(request, secret)
+            totp_url: str = adapter.build_totp_url(request.user, secret)
+            return response.TOTPNotFoundResponse(request, secret, totp_url)
         return response.TOTPResponse(request, authenticator)
 
     def _get_authenticator(self):

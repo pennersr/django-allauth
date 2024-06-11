@@ -173,11 +173,15 @@ class WebAuthn:
         self.instance = instance
 
     @classmethod
-    def add(cls, user, name: str, authenticator_data: str):
+    def add(cls, user, name: str, authenticator_data: str, passwordless: bool):
         instance = Authenticator(
             user=user,
             type=Authenticator.Type.WEBAUTHN,
-            data={"name": name, "authenticator_data": authenticator_data},
+            data={
+                "name": name,
+                "authenticator_data": authenticator_data,
+                "passwordless": passwordless,
+            },
         )
         instance.save()
         return cls(instance)
@@ -194,5 +198,11 @@ class WebAuthn:
 
     @property
     def is_passwordless(self) -> bool:
-        # FIXME: Also reports true when passwordless was not ticked.
-        return self.authenticator_data.is_user_verified()
+        """Whether or not a key is resident is not stored in the authenticator
+        data. There is the `credProps` extension that is supposed to offer this
+        info, but that extension is not guaranteed to be working either. So, we
+        just store whether or not the key is passwordless at creation time. Do
+        note that this cannot be fully trusted as it is posted by the frontend
+        and stored as is.
+        """
+        return self.instance.data["passwordless"]

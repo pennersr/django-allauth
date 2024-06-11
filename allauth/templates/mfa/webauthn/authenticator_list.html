@@ -18,9 +18,6 @@
                     Last used
                 {% endelement %}
                 {% element th %}
-                    Passkey
-                {% endelement %}
-                {% element th %}
                 {% endelement %}
             {% endelement %}
             {% element tbody %}
@@ -28,12 +25,14 @@
                     {% element tr %}
                         {% element td %}
                             {{ authenticator }}
+                            {% if authenticator.wrap.is_passwordless %}
+                                {% element badge %}
+                                    {% translate "Passkey" %}
+                                {% endelement %}
+                            {% endif %}
                         {% endelement %}
                         {% element td %}
                             {{ authenticator.last_used_at|default_if_none:_("Unused") }}
-                        {% endelement %}
-                        {% element td %}
-                            {{ authenticator.wrap.is_passwordless }}
                         {% endelement %}
                         {% element td %}
                             {% url 'mfa_remove_webauthn' pk=authenticator.pk as remove_url %}

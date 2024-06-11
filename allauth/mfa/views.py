@@ -339,6 +339,7 @@ class AddWebAuthnView(FormView):
             self.request.user,
             form.cleaned_data["name"],
             form.cleaned_data["authenticator_data"],
+            form.cleaned_data["passwordless"],
         )
         RecoveryCodes.activate(self.request.user)
         adapter = get_account_adapter(self.request)

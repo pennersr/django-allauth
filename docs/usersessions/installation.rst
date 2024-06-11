@@ -16,3 +16,5 @@ On top of the standard installation, add the following::
         'allauth.usersessions.middleware.UserSessionsMiddleware',
         ...
     ]
+
+Keep in mind that ``allauth.usersessions.middleware.UserSessionsMiddleware`` needs to be before ``django.contrib.auth.middleware.AuthenticationMiddleware``.

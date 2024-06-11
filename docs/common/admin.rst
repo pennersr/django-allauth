@@ -16,8 +16,9 @@ the normal Django allauth workflow.
       login method will not be applied.
 
 An easy workaround for this is to require users to login before going to the
-Django admin site's login page (note that the following would need to be applied to
+Django admin site's login page, by adding this to urls.py (note that the following would need to be applied to
 every instance of ``AdminSite``):
+
 
 .. code-block:: python
 

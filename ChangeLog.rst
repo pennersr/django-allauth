@@ -1,3 +1,18 @@
+64.0.0 (unreleased)
+*******************
+
+Note worthy changes
+-------------------
+
+- The 0.x.y version numbers really did not do justice to the state of the
+  project, and we are way past the point where a version 1.0 would be
+  applicable. Additionally, 64 is a nice round number. Therefore, the version
+  numbering is changed from 0.x.y to x.y.z. We will use a loose form of semantic
+  versioning. However, please be aware that feature releases may occasionally
+  include minor documented backwards incompatibilities. Always read the release
+  notes before upgrading.
+
+
 0.63.3 (2024-05-31)
 *******************
 

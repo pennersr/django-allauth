@@ -8,6 +8,9 @@ stdenv.mkDerivation {
         isort
         djlint
         python310
+        python310Packages.mypy
+        python310Packages.django-stubs
+        python310Packages.types-requests
         python310Packages.django
         python310Packages.flake8
         python310Packages.debugpy

@@ -177,7 +177,7 @@ class EmailConfirmation(EmailConfirmationMixin, models.Model):
         )
         return expiration_date <= timezone.now()
 
-    key_expired.boolean = True
+    key_expired.boolean = True  # type: ignore[attr-defined]
 
     def confirm(self, request):
         if not self.key_expired():

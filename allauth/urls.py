@@ -1,6 +1,7 @@
 from importlib import import_module
+from typing import List, Union
 
-from django.urls import include, path
+from django.urls import URLPattern, URLResolver, include, path
 from django.views.generic.base import RedirectView
 
 from allauth.socialaccount import providers
@@ -8,9 +9,9 @@ from allauth.socialaccount import providers
 from . import app_settings
 
 
-def build_provider_urlpatterns():
+def build_provider_urlpatterns() -> List[Union[URLPattern, URLResolver]]:
     # Provider urlpatterns, as separate attribute (for reusability).
-    provider_urlpatterns = []
+    provider_urlpatterns: List[Union[URLPattern, URLResolver]] = []
     provider_classes = providers.registry.get_class_list()
 
     # We need to move the OpenID Connect provider to the end. The reason is that
@@ -28,7 +29,7 @@ def build_provider_urlpatterns():
     return provider_urlpatterns
 
 
-urlpatterns = []
+urlpatterns: List[Union[URLPattern, URLResolver]] = []
 if not app_settings.HEADLESS_ONLY:
     urlpatterns += [path("", include("allauth.account.urls"))]
     if app_settings.MFA_ENABLED:

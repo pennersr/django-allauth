@@ -254,7 +254,7 @@ def _base_signup_form_class():
     return fc_class
 
 
-class BaseSignupForm(_base_signup_form_class()):
+class BaseSignupForm(_base_signup_form_class()):  # type: ignore[misc]
     username = forms.CharField(
         label=_("Username"),
         min_length=app_settings.USERNAME_MIN_LENGTH,

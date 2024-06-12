@@ -22,4 +22,4 @@ class Flow(str, Enum):
     if allauth_settings.MFA_ENABLED:
         from allauth.mfa.stages import AuthenticateStage
 
-        MFA_AUTHENTICATE = AuthenticateStage.key
+        MFA_AUTHENTICATE = AuthenticateStage.key  # type: ignore[has-type]

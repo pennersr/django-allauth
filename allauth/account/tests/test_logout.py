@@ -10,7 +10,7 @@ from allauth.tests import Mock, TestCase
 
 
 test_username_validators = [
-    validators.RegexValidator(regex=r"^[a-c]+$", message="not abc", flags=0)
+    validators.RegexValidator(regex=r"^[a-c]+$", message="not abc")
 ]
 
 

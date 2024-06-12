@@ -9,7 +9,7 @@ from allauth.account.models import EmailAddress
 class UUIDUser(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
-    class Meta(AbstractUser.Meta):
+    class Meta(AbstractUser.Meta):  # type: ignore[name-defined]
         swappable = "AUTH_USER_MODEL"
 
 

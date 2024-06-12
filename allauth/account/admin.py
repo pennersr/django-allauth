@@ -20,7 +20,7 @@ class EmailAddressAdmin(admin.ModelAdmin):
     def make_verified(self, request, queryset):
         queryset.update(verified=True)
 
-    make_verified.short_description = _("Mark selected email addresses as verified")
+    make_verified.short_description = _("Mark selected email addresses as verified")  # type: ignore[attr-defined]
 
 
 class EmailConfirmationAdmin(admin.ModelAdmin):

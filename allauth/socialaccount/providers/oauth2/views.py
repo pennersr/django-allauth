@@ -8,6 +8,8 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.utils import timezone
 
+from requests_oauthlib import OAuth2Session
+
 from allauth.account import app_settings as account_settings
 from allauth.core.exceptions import ImmediateHttpResponse
 from allauth.core.internal.httpkit import add_query_params
@@ -21,10 +23,7 @@ from allauth.socialaccount.models import SocialToken
 from allauth.socialaccount.providers.base import ProviderException
 from allauth.socialaccount.providers.base.constants import AuthError
 from allauth.socialaccount.providers.base.views import BaseLoginView
-from allauth.socialaccount.providers.oauth2.client import (
-    OAuth2Client,
-    OAuth2Error,
-)
+from allauth.socialaccount.providers.oauth2.client import OAuth2Client, OAuth2Error
 from allauth.utils import build_absolute_uri, get_request_param
 
 
@@ -72,6 +71,33 @@ class OAuth2Adapter(object):
         data = client.get_access_token(code, pkce_code_verifier=pkce_code_verifier)
         self.did_fetch_access_token = True
         return data
+
+    def refresh_access_token(self):
+        user = self.request.user
+        provider = self.get_provider()
+        token = SocialToken.objects.get(
+            account__user=user, account__provider=provider.id
+        )
+        if timezone.now() > token.expires_at:
+            session = OAuth2Session(
+                client_id=provider.app.client_id,
+                token={
+                    "access_token": token.token,
+                    "refresh_token": token.token_secret,
+                    "token_type": "Bearer",
+                },
+            )
+            data = session.refresh_token(
+                token_url=self.access_token_url,
+                client_id=provider.app.client_id,
+                client_secret=provider.app.secret,
+            )
+            new_social_token = self.parse_token(data)
+            token.token = new_social_token.token
+            token.token_secret = new_social_token.token_secret
+            token.expires_at = new_social_token.expires_at
+            token.save()
+        return token
 
     def get_client(self, request, app):
         callback_url = self.get_callback_url(request, app)

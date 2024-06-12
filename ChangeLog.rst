@@ -12,6 +12,8 @@ Note worthy changes
   include minor documented backwards incompatibilities. Always read the release
   notes before upgrading.
 
+- OAuth2 adapter: Added a method to handle the process of refreshing an access token intended
+  to be used in custom workflows or future attempts to create a common middleware
 
 0.63.3 (2024-05-31)
 *******************

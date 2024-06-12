@@ -8,12 +8,16 @@ from allauth.socialaccount.providers.oauth2.views import (
 )
 
 
-settings = getattr(settings, "SOCIALACCOUNT_PROVIDERS", {}).get("mediawiki", {})
+provider_settings: dict = getattr(settings, "SOCIALACCOUNT_PROVIDERS", {}).get(
+    "mediawiki", {}
+)
 
 
 class MediaWikiOAuth2Adapter(OAuth2Adapter):
     provider_id = "mediawiki"
-    REST_API = settings.get("REST_API", "https://meta.wikimedia.org/w/rest.php")
+    REST_API = provider_settings.get(
+        "REST_API", "https://meta.wikimedia.org/w/rest.php"
+    )
     access_token_url = REST_API + "/oauth2/access_token"
     authorize_url = REST_API + "/oauth2/authorize"
     profile_url = REST_API + "/oauth2/resource/profile"

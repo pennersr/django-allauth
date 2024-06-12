@@ -1,9 +1,11 @@
-from django.urls import include, path
+from typing import List, Union
+
+from django.urls import URLPattern, URLResolver, include, path
 
 from allauth.mfa import app_settings, views
 
 
-urlpatterns = [
+urlpatterns: List[Union[URLPattern, URLResolver]] = [
     path("authenticate/", views.authenticate, name="mfa_authenticate"),
     path("reauthenticate/", views.reauthenticate, name="mfa_reauthenticate"),
 ]

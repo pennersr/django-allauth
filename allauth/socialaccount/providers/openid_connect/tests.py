@@ -2,7 +2,7 @@ from allauth.socialaccount.tests import OpenIDConnectTests
 from allauth.tests import TestCase
 
 
-class OpenIDConnectTests(OpenIDConnectTests, TestCase):
+class MainOpenIDConnectTests(OpenIDConnectTests, TestCase):
     provider_id = "oidc-server"
 
 

@@ -77,11 +77,11 @@ def expose_access_token(request) -> typing.Optional[str]:
     Determines if a new access token needs to be exposed.
     """
     if request.allauth.headless.client != Client.APP:
-        return
+        return None
     if not request.user.is_authenticated:
-        return
+        return None
     pre_user = request.allauth.headless._pre_user
     if pre_user.is_authenticated and pre_user.pk == request.user.pk:
-        return
+        return None
     strategy = app_settings.TOKEN_STRATEGY
     return strategy.create_access_token(request)

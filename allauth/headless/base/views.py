@@ -1,6 +1,8 @@
+from typing import Optional, Type
+
 from django.utils.decorators import classonlymethod
 
-from allauth.account.stages import LoginStageController
+from allauth.account.stages import LoginStage, LoginStageController
 from allauth.core.exceptions import ReauthenticationRequired
 from allauth.headless.base import response
 from allauth.headless.constants import Client
@@ -28,7 +30,7 @@ class APIView(RESTView):
 
 
 class AuthenticationStageAPIView(APIView):
-    stage_class = None
+    stage_class: Optional[Type[LoginStage]] = None
 
     def handle(self, request, *args, **kwargs):
         self.stage = LoginStageController.enter(request, self.stage_class.key)

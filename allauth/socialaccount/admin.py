@@ -1,3 +1,5 @@
+from typing import List
+
 from django import forms
 from django.contrib import admin
 
@@ -10,7 +12,7 @@ from allauth.socialaccount.models import SocialAccount, SocialApp, SocialToken
 class SocialAppForm(forms.ModelForm):
     class Meta:
         model = SocialApp
-        exclude = []
+        exclude: List[str] = []
         widgets = {
             "client_id": forms.TextInput(attrs={"size": "100"}),
             "key": forms.TextInput(attrs={"size": "100"}),
@@ -59,7 +61,7 @@ class SocialTokenAdmin(admin.ModelAdmin):
             ret = ret[0:max_chars] + "...(truncated)"
         return ret
 
-    truncated_token.short_description = "Token"
+    truncated_token.short_description = "Token"  # type: ignore[attr-defined]
 
 
 admin.site.register(SocialApp, SocialAppAdmin)

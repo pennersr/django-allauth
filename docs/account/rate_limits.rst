@@ -57,3 +57,13 @@ The following actions are available for configuration:
   Users can request email confirmation mails via the email management view, and,
   implicitly, when logging in with an unverified account. This rate limit
   prevents users from sending too many of these mails.
+
+
+Additional notes:
+
+Unless the rate limit is disabled or the default limits are increased, you might
+run intro problems if you're running unit tests that are dependant on
+funcionalities covered by the rate limits. For example, if you're testing the
+`confirm_email` functionality in your unit tests and you're testing if the
+verification email is sent twice after requesting it twice, only one of the
+emails will be sent.

@@ -37,10 +37,6 @@ client:
 Django configuration
 ********************
 
-The Google provider requires this additional dependency to be installed::
-
-    pip install pyjwt[crypto]
-
 Don't forget to add the Google provider to your ``INSTALLED_APPS`` setting:
 
 .. code-block:: python

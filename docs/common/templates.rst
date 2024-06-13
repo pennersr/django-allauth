@@ -89,8 +89,8 @@ You can alter these layouts by providing these templates in your own project:
 Template file                               Description
 ==========================================  ===========
 allauth/layouts/base.html                   The overall base template.
-allauth/layouts/manage.html                 The entrance template, extending the base template.
-allauth/layouts/entrance.html               The account management template, extending the base template.
+allauth/layouts/entrance.html               The entrance template, extending the base template.
+allauth/layouts/manage.html                 The account management template, extending the base template.
 ==========================================  ===========
 
 

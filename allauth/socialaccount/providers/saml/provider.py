@@ -110,6 +110,7 @@ class SAMLProvider(Provider):
             not attributes.get("email")
             and data.get_nameid_format()
             == "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
+            or provider_config.get("use_nameid_for_email", False)
         ):
             attributes["email"] = data.get_nameid()
 

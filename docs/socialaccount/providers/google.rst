@@ -14,24 +14,38 @@ Create a google app to obtain a key and secret through the developer console.
 Google Developer Console
     https://console.developers.google.com/
 
-After you create a project you will have to create a "Client ID" and fill in
-some project details for the consent form that will be presented to the client.
+After you create a project, you will have to create an OAuth client ID and fill
+in some project details for the consent form that will be presented to the
+client:
 
-Under "APIs & auth" go to "Credentials" and create a new Client ID. Probably
-you will want a "Web application" Client ID. Provide your domain name or test
-domain name in "Authorized JavaScript origins". Finally fill in
-``http://127.0.0.1:8000/accounts/google/login/callback/`` in the
-"Authorized redirect URI" field. You can fill multiple URLs, one for each test
-domain. After creating the Client ID you will find all details for the Django
-configuration on this page.
+#. Under "APIs & Services", go to "Credentials", click "Create credentials" and
+   create a new "OAuth client ID". Probably you will want to choose "Web
+   application" as the application type. Provide your domain name or test
+   domain name in "Authorized JavaScript origins". Finally, fill in the
+   "Authorized redirect URIs" field with URLs like
+   ``http://example.com/accounts/google/login/callback/`` , replacing the
+   domain name with your domain name, or with ``127.0.0.1:8000`` for testing.
+   After creating the OAuth client ID, make a note of the client ID and the
+   client secret, as you will need it later.
 
-Users that login using the app will be presented a consent form. For this to
-work additional information is required. Under "APIs & auth" go to
-"Consent screen" and at least provide an email and product name.
+#. Users that log in using the app will be presented a consent form. For this
+   to work, additional information is required. Under "APIs & Services", go to
+   "OAuth consent screen" and at least provide an email address and a product
+   name.
 
 
 Django configuration
 ********************
+
+Don't forget to add the Google provider to your ``INSTALLED_APPS`` setting:
+
+.. code-block:: python
+
+    INSTALLED_APPS = [
+        ...
+        'allauth.socialaccount.providers.google',
+    ]
+
 The app credentials are configured for your Django installation via the admin
 interface. Create a new socialapp through ``/admin/socialaccount/socialapp/``.
 
@@ -70,10 +84,10 @@ receive a refresh token on first login and on reauthentication requests
 without involving the user's browser). When unspecified, Google defaults
 to ``online``.
 
-By default, the userinfo endpoint will not be fetched. In most cases, 
+By default, the userinfo endpoint will not be fetched. In most cases,
 this will be fine, as most in scope user data is gained via decoding
 the JWT. However if users have a private style of avatar_url
-then this will not ordinarily be returned in the JWT and 
+then this will not ordinarily be returned in the JWT and
 as such, subsequent calls to get_avatar_url will return None.
 
 You can optionally specify the following setting so that the userinfo

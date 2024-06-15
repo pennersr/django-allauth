@@ -3,6 +3,7 @@ import hashlib
 import json
 import random
 import requests
+import uuid
 import warnings
 from urllib.parse import parse_qs, urlparse
 
@@ -149,17 +150,20 @@ class OAuth2TestsMixin(object):
     def get_mocked_response(self):
         pass
 
+    def get_access_token(self) -> str:
+        return "testac"
+
+    def get_refresh_token(self) -> str:
+        return "testrf"
+
     def get_login_response_json(self, with_refresh_token=True):
-        rt = ""
+        response = {
+            "uid": uuid.uuid4().hex,
+            "access_token": self.get_access_token(),
+        }
         if with_refresh_token:
-            rt = ',"refresh_token": "testrf"'
-        return (
-            """{
-            "uid":"weibo",
-            "access_token":"testac"
-            %s }"""
-            % rt
-        )
+            response["refresh_token"] = self.get_refresh_token()
+        return json.dumps(response)
 
     def mocked_response(self, *responses):
         return mocked_response(*responses)
@@ -290,7 +294,7 @@ class OAuth2TestsMixin(object):
         if self.app:
             t = sa.socialtoken_set.get()
             # verify access_token and refresh_token
-            self.assertEqual("testac", t.token)
+            self.assertEqual(self.get_access_token(), t.token)
             resp = json.loads(self.get_login_response_json(with_refresh_token=True))
             if "refresh_token" in resp:
                 refresh_token = resp.get("refresh_token")

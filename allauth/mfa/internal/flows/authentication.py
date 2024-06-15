@@ -1,7 +1,10 @@
 from allauth.account.authentication import record_authentication
+from allauth.mfa.models import Authenticator
 
 
-def post_authentication(request, authenticator, reauthenticated=False):
+def post_authentication(
+    request, authenticator: Authenticator, reauthenticated: bool = False
+):
     authenticator.record_usage()
     extra_data = {
         "id": authenticator.pk,

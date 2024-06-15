@@ -135,12 +135,13 @@ class ActivateTOTPView(FormView):
         return get_form_class(app_settings.FORMS, "activate_totp", self.form_class)
 
     def get_success_url(self):
-        if Authenticator.Type.RECOVERY_CODES in app_settings.SUPPORTED_TYPES:
+        if self.did_generate_recovery_codes:
             return reverse("mfa_view_recovery_codes")
         return reverse("mfa_index")
 
     def form_valid(self, form):
-        flows.totp.activate_totp(self.request, form)
+        totp_auth, rc_auth = flows.totp.activate_totp(self.request, form)
+        self.did_generate_recovery_codes = bool(rc_auth)
         return super().form_valid(form)
 
 

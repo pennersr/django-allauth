@@ -107,9 +107,6 @@ class TOTP:
         instance.save()
         return cls(instance)
 
-    def deactivate(self):
-        self.instance.delete()
-
     def validate_code(self, code):
         if _is_insecure_bypass(code):
             return True

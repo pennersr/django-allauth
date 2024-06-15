@@ -63,7 +63,7 @@ class ManageTOTPView(AuthenticatedAPIView):
         return {"user": self.request.user}
 
     def post(self, request, *args, **kwargs):
-        authenticator = flows.totp.activate_totp(request, self.input).instance
+        authenticator = flows.totp.activate_totp(request, self.input)[0]
         return response.TOTPResponse(request, authenticator)
 
     def delete(self, request, *args, **kwargs):

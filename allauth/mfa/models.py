@@ -14,13 +14,7 @@ if not allauth_settings.MFA_ENABLED:
 
 
 class AuthenticatorManager(models.Manager):
-    def delete_dangling_recovery_codes(self, user):
-        deleted_authenticator = None
-        qs = Authenticator.objects.filter(user=user)
-        if not qs.exclude(type=Authenticator.Type.RECOVERY_CODES).exists():
-            deleted_authenticator = qs.first()
-            qs.delete()
-        return deleted_authenticator
+    pass
 
 
 class Authenticator(models.Model):

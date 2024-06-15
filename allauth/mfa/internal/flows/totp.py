@@ -1,47 +1,38 @@
+from typing import Optional, Tuple
+
 from django.contrib import messages
 
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.internal.flows.reauthentication import (
     raise_if_reauthentication_required,
 )
-from allauth.mfa import app_settings, signals, totp
+from allauth.mfa import signals, totp
+from allauth.mfa.internal.flows.base import delete_and_cleanup
+from allauth.mfa.internal.flows.recovery_codes import (
+    auto_generate_recovery_codes,
+)
 from allauth.mfa.models import Authenticator
-from allauth.mfa.recovery_codes import RecoveryCodes
 
 
-def activate_totp(request, form):
+def activate_totp(request, form) -> Tuple[Authenticator, Optional[Authenticator]]:
     raise_if_reauthentication_required(request)
-    totp_auth = totp.TOTP.activate(request.user, form.secret)
-    if Authenticator.Type.RECOVERY_CODES in app_settings.SUPPORTED_TYPES:
-        rc_auth = RecoveryCodes.activate(request.user)
-    else:
-        rc_auth = None
-    for auth in [totp_auth, rc_auth]:
-        if auth:
-            signals.authenticator_added.send(
-                sender=Authenticator,
-                request=request,
-                user=request.user,
-                authenticator=auth.instance,
-            )
+    totp_auth = totp.TOTP.activate(request.user, form.secret).instance
+    signals.authenticator_added.send(
+        sender=Authenticator,
+        request=request,
+        user=request.user,
+        authenticator=totp_auth,
+    )
     adapter = get_account_adapter(request)
     adapter.add_message(request, messages.SUCCESS, "mfa/messages/totp_activated.txt")
     adapter.send_notification_mail("mfa/email/totp_activated", request.user)
-    return totp_auth
+    rc_auth = auto_generate_recovery_codes(request)
+    return totp_auth, rc_auth
 
 
-def deactivate_totp(request, authenticator):
+def deactivate_totp(request, authenticator: Authenticator):
     raise_if_reauthentication_required(request)
-    authenticator.wrap().deactivate()
-    rc_auth = Authenticator.objects.delete_dangling_recovery_codes(authenticator.user)
-    for auth in [authenticator, rc_auth]:
-        if auth:
-            signals.authenticator_removed.send(
-                sender=Authenticator,
-                request=request,
-                user=request.user,
-                authenticator=auth,
-            )
+    delete_and_cleanup(request, authenticator)
     adapter = get_account_adapter(request)
     adapter.add_message(request, messages.SUCCESS, "mfa/messages/totp_deactivated.txt")
     adapter.send_notification_mail("mfa/email/totp_deactivated", request.user)

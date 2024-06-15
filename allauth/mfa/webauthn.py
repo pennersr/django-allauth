@@ -14,6 +14,7 @@ from fido2.webauthn import (
     PublicKeyCredentialRpEntity,
     PublicKeyCredentialUserEntity,
     RegistrationResponse,
+    UserVerificationRequirement,
 )
 
 from allauth.account.utils import url_str_to_user_pk
@@ -23,7 +24,8 @@ from allauth.mfa.adapter import get_adapter
 from allauth.mfa.models import Authenticator
 
 
-fido2.features.webauthn_json_mapping.enabled = True
+if not fido2.features.webauthn_json_mapping.enabled:
+    fido2.features.webauthn_json_mapping.enabled = True
 
 
 CHALLENGE_SESSION_KEY = "mfa.webauthn.challenge"
@@ -83,7 +85,7 @@ def begin_registration(user) -> Dict:
     registration_data, state = server.register_begin(
         user=build_user_payload(user),
         credentials=credentials,
-        user_verification="discouraged",
+        user_verification=UserVerificationRequirement.DISCOURAGED,
         challenge=generate_challenge(),
     )
     set_state(state)
@@ -141,7 +143,7 @@ def begin_authentication(user=None) -> Dict:
     server = get_server()
     request_options, state = server.authenticate_begin(
         credentials=get_credentials(user) if user else [],
-        user_verification="preferred",
+        user_verification=UserVerificationRequirement.PREFERRED,
         challenge=generate_challenge(),
     )
     set_state(state)
@@ -182,7 +184,9 @@ class WebAuthn:
         self.instance = instance
 
     @classmethod
-    def add(cls, user, name: str, authenticator_data: str, passwordless: bool):
+    def add(
+        cls, user, name: str, authenticator_data: str, passwordless: bool
+    ) -> "WebAuthn":
         instance = Authenticator(
             user=user,
             type=Authenticator.Type.WEBAUTHN,

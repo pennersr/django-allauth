@@ -2,9 +2,8 @@
 ** Webauthn as a 2nd factor (U2F)
 *** TODO Check names: "credential" vs "authentication_data"
 *** DONE Proof of concept
-*** TODO Redirect to recovery codes (just like TOTP)
+*** DONE Redirect to recovery codes (just like TOTP)
 *** DONE Properly populate =PublicKeyCredentialRpEntity=
-*** TODO Properly populate =user= at =begin_registration()=
 *** DONE Setting to turn webauthn on/off
 *** DONE Proper WebAuthn list view
 *** DONE Key names
@@ -17,6 +16,7 @@ https://github.com/github/webauthn-json/tree/main?tab=readme-ov-file
 https://w3c.github.io/webauthn/#sctn-parseCreationOptionsFromJSON
 *** TODO "Sigin with Passkey" button padding
 *** TODO Add =[webauthn]= extra for fido2
+*** TODO Email notifications
 
 *** DONE Drop unique constraint on Authenticator.type?
 Or, put all WebAuthn authenticators in one Authenticator?

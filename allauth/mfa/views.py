@@ -16,7 +16,7 @@ from allauth.account.decorators import reauthentication_required
 from allauth.account.models import Login
 from allauth.account.stages import LoginStageController
 from allauth.account.views import BaseReauthenticateView
-from allauth.mfa import app_settings, totp, webauthn
+from allauth.mfa import app_settings, totp
 from allauth.mfa.adapter import get_adapter
 from allauth.mfa.forms import (
     ActivateTOTPForm,
@@ -30,7 +30,6 @@ from allauth.mfa.forms import (
 )
 from allauth.mfa.internal import flows
 from allauth.mfa.models import Authenticator
-from allauth.mfa.recovery_codes import RecoveryCodes
 from allauth.mfa.stages import AuthenticateStage
 from allauth.mfa.utils import is_mfa_enabled
 from allauth.utils import get_form_class
@@ -322,7 +321,6 @@ view_recovery_codes = ViewRecoveryCodesView.as_view()
 class AddWebAuthnView(FormView):
     form_class = AddWebAuthnForm
     template_name = "mfa/webauthn/add_form." + account_settings.TEMPLATE_EXTENSION
-    success_url = reverse_lazy("mfa_index")
 
     def get_context_data(self, **kwargs):
         ret = super().get_context_data()
@@ -334,18 +332,19 @@ class AddWebAuthnView(FormView):
         ret["user"] = self.request.user
         return ret
 
+    def get_success_url(self):
+        if self.did_generate_recovery_codes:
+            return reverse("mfa_view_recovery_codes")
+        return reverse("mfa_index")
+
     def form_valid(self, form):
-        webauthn.WebAuthn.add(
-            self.request.user,
-            form.cleaned_data["name"],
-            form.cleaned_data["authenticator_data"],
-            form.cleaned_data["passwordless"],
+        auth, rc_auth = flows.webauthn.add_authenticator(
+            self.request,
+            name=form.cleaned_data["name"],
+            authenticator_data=form.cleaned_data["authenticator_data"],
+            passwordless=form.cleaned_data["passwordless"],
         )
-        RecoveryCodes.activate(self.request.user)
-        adapter = get_account_adapter(self.request)
-        adapter.add_message(
-            self.request, messages.SUCCESS, "mfa/messages/webauthn_added.txt"
-        )
+        self.did_generate_recovery_codes = bool(rc_auth)
         return super().form_valid(form)
 
 
@@ -378,9 +377,8 @@ class RemoveWebAuthnView(DeleteView):
 
     def form_valid(self, form):
         authenticator = self.get_object()
-        ret = super().form_valid(form)
-        Authenticator.objects.delete_and_cleanup(authenticator)
-        return ret
+        flows.webauthn.remove_authenticator(self.request, authenticator)
+        return HttpResponseRedirect(reverse("mfa_list_webauthn"))
 
 
 remove_webauthn = RemoveWebAuthnView.as_view()

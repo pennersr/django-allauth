@@ -5,9 +5,8 @@
                name="{{ attrs.name }}"
                class="form-check-input"
                id="{{ attrs.id }}"
-               value="{{ attrs.value|default_if_none:"" }}"
+               {% if attrs.value is True or attrs.checked is True %}checked{% endif %}
                {% if attrs.disabled %}disabled{% endif %}
-               {% if attrs.checked %}checked{% endif %}
                type="{{ attrs.type }}">
         <label class="form-check-label" for="{{ attrs.id }}">
             {% slot label %}

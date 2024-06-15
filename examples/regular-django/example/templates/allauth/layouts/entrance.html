@@ -1,12 +1,18 @@
 {% extends "allauth/layouts/base.html" %}
-{% load i18n %}
+{% load i18n allauth %}
 {% block body %}
     <div class="flex-grow-1 bg-body-secondary d-flex flex-column justify-content-center">
         <div class="flex-grow-0 flex-shrink-0 container">
             <div class="row justify-content-md-center">
                 <div class="col col-lg-4">
                     {% if messages %}
-                        {% for message in messages %}<div class="alert alert-info">{{ message }}</div>{% endfor %}
+                        {% for message in messages %}
+                            {% element alert level=message.tags %}
+                                {% slot message %}
+                                    {{ message }}
+                                {% endslot %}
+                            {% endelement %}
+                        {% endfor %}
                     {% endif %}
                     <div class="bg-white shadow rounded-4">
                         <div class="p-5">

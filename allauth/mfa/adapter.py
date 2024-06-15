@@ -1,6 +1,6 @@
 from io import BytesIO
 
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext, gettext_lazy as _
 
 from allauth import app_settings as allauth_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
@@ -109,10 +109,10 @@ class DefaultMFAAdapter(BaseAdapter):
         """
         n = Authenticator.objects.filter(user=user, type=type).count()
         if n == 0:
-            return _("Master key")
+            return gettext("Master key")
         elif n == 1:
-            return _("Backup key")
-        return _(f"Key nr. {n+1}")
+            return gettext("Backup key")
+        return gettext("Key nr. {number}").format(number=n + 1)
 
 
 def get_adapter() -> DefaultMFAAdapter:

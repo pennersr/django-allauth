@@ -1,5 +1,3 @@
-import json
-
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
@@ -15,6 +13,8 @@ from allauth.mfa.webauthn import (
     begin_registration,
     complete_authentication,
     complete_registration,
+    parse_authentication_response,
+    parse_registration_response,
     serialize_authenticator_data,
 )
 
@@ -66,7 +66,7 @@ class ReauthenticateForm(BaseAuthenticateForm):
 
 
 class AuthenticateWebAuthnForm(forms.Form):
-    credential = forms.CharField(required=True, widget=forms.HiddenInput)
+    credential = forms.JSONField(required=True, widget=forms.HiddenInput)
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop("user")
@@ -75,6 +75,10 @@ class AuthenticateWebAuthnForm(forms.Form):
 
     def clean_credential(self):
         credential = self.cleaned_data["credential"]
+        # Explicitly parse JSON payload -- otherwise, authenticate_complete()
+        # crashes with some random TypeError and we don't want to do
+        # Pokemon-style exception handling.
+        parse_authentication_response(credential)
         authenticator = complete_authentication(self.user, credential)
         # FIXME: Raise form error
         if not authenticator or authenticator.user_id != self.user.pk:
@@ -148,7 +152,7 @@ class AddWebAuthnForm(forms.Form):
             "Enabling passwordless operation allows you to sign in using just this key/device, but imposes additional requirements such as biometrics or PIN protection."
         ),
     )
-    credential = forms.CharField(required=True, widget=forms.HiddenInput)
+    credential = forms.JSONField(required=True, widget=forms.HiddenInput)
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop("user")
@@ -162,16 +166,15 @@ class AddWebAuthnForm(forms.Form):
         )
         super().__init__(*args, **kwargs)
 
-    def clean_credential(self):
-        credential = self.cleaned_data["credential"]
-        # FIXME: Validation error
-        return json.loads(credential)
-
     def clean(self):
         cleaned_data = super().clean()
         credential = cleaned_data.get("credential")
         passwordless = cleaned_data.get("passwordless")
         if credential:
+            # Explicitly parse JSON payload -- otherwise, register_complete()
+            # crashes with some random TypeError and we don't want to do
+            # Pokemon-style exception handling.
+            parse_registration_response(credential)
             authenticator_data = complete_registration(credential)
             if passwordless and not authenticator_data.is_user_verified():
                 self.add_error(

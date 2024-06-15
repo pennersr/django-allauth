@@ -1,7 +1,6 @@
 import base64
-import json
 import os
-from typing import Optional
+from typing import Any, Dict, List, Optional
 
 from django.contrib.auth import get_user_model
 
@@ -10,9 +9,11 @@ from fido2.server import Fido2Server
 from fido2.utils import websafe_decode, websafe_encode
 from fido2.webauthn import (
     AttestedCredentialData,
+    AuthenticationResponse,
     AuthenticatorData,
     PublicKeyCredentialRpEntity,
     PublicKeyCredentialUserEntity,
+    RegistrationResponse,
 )
 
 from allauth.account.utils import url_str_to_user_pk, user_pk_to_url_str
@@ -21,8 +22,6 @@ from allauth.mfa import app_settings
 from allauth.mfa.adapter import get_adapter
 from allauth.mfa.models import Authenticator
 
-
-User = get_user_model()
 
 fido2.features.webauthn_json_mapping.enabled = True
 
@@ -52,11 +51,11 @@ def consume_challenge() -> None:
     context.request.session.pop(CHALLENGE_SESSION_KEY, None)
 
 
-def get_state() -> Optional[dict]:
+def get_state() -> Optional[Dict]:
     return context.request.session.get(STATE_SESSION_KEY)
 
 
-def set_state(state: dict) -> None:
+def set_state(state: Dict) -> None:
     context.request.session[STATE_SESSION_KEY] = state
 
 
@@ -74,7 +73,14 @@ def get_server() -> Fido2Server:
     return server
 
 
-def begin_registration(user: User) -> dict:
+def parse_registration_response(response: Any) -> RegistrationResponse:
+    try:
+        return RegistrationResponse.from_dict(response)
+    except TypeError:
+        raise get_adapter().validation_error("incorrect_code")
+
+
+def begin_registration(user) -> Dict:
     server = get_server()
     credentials = get_credentials(user)
     registration_data, state = server.register_begin(
@@ -91,7 +97,7 @@ def serialize_authenticator_data(authenticator_data: AuthenticatorData) -> str:
     return base64.b64encode(bytes(authenticator_data)).decode("ascii")
 
 
-def complete_registration(credential: dict) -> AuthenticatorData:
+def complete_registration(credential: Dict) -> AuthenticatorData:
     server = get_server()
     state = get_state()
     # FIXME: handle invalid/absent state
@@ -101,8 +107,8 @@ def complete_registration(credential: dict) -> AuthenticatorData:
     return binding
 
 
-def get_credentials(user: User) -> list[AttestedCredentialData]:
-    credentials = []
+def get_credentials(user) -> list[AttestedCredentialData]:
+    credentials: List[AttestedCredentialData] = []
     authenticators = Authenticator.objects.filter(
         user=user, type=Authenticator.Type.WEBAUTHN
     )
@@ -115,7 +121,7 @@ def get_credentials(user: User) -> list[AttestedCredentialData]:
 
 # FIXME: Why user?
 def get_authenticator_by_credential_id(
-    user: User, credential_id: bytes
+    user, credential_id: bytes
 ) -> Optional[Authenticator]:
     authenticators = Authenticator.objects.filter(type=Authenticator.Type.WEBAUTHN)
     for authenticator in authenticators:
@@ -127,7 +133,14 @@ def get_authenticator_by_credential_id(
     return None
 
 
-def begin_authentication(user: Optional[User] = None) -> dict:
+def parse_authentication_response(response: Any) -> AuthenticationResponse:
+    try:
+        return AuthenticationResponse.from_dict(response)
+    except TypeError:
+        raise get_adapter().validation_error("incorrect_code")
+
+
+def begin_authentication(user=None) -> Dict:
     server = get_server()
     request_options, state = server.authenticate_begin(
         credentials=get_credentials(user) if user else [],
@@ -138,20 +151,19 @@ def begin_authentication(user: Optional[User] = None) -> dict:
     return dict(request_options)
 
 
-def extract_user_from_response(response: dict) -> User:
+def extract_user_from_response(response: Dict):
     try:
         user_handle = response.get("response", {}).get("userHandle")
         user_pk = url_str_to_user_pk(websafe_decode(user_handle).decode("utf8"))
     except (ValueError, TypeError, KeyError):
         raise get_adapter().validation_error("incorrect_code")
-    user = User.objects.filter(pk=user_pk).first()
+    user = get_user_model().objects.filter(pk=user_pk).first()
     if not user:
         raise get_adapter().validation_error("incorrect_code")
     return user
 
 
-def complete_authentication(user: Optional[User], response: dict):
-    response = json.loads(response)
+def complete_authentication(user, response: Dict):
     if user is None:
         user = extract_user_from_response(response)
     credentials = get_credentials(user)

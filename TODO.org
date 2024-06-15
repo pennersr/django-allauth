@@ -3,7 +3,7 @@
 *** TODO Check names: "credential" vs "authentication_data"
 *** DONE Proof of concept
 *** TODO Redirect to recovery codes (just like TOTP)
-*** TODO Properly populate =PublicKeyCredentialRpEntity=
+*** DONE Properly populate =PublicKeyCredentialRpEntity=
 *** TODO Properly populate =user= at =begin_registration()=
 *** DONE Setting to turn webauthn on/off
 *** DONE Proper WebAuthn list view

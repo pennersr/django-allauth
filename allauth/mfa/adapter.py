@@ -1,10 +1,17 @@
 from io import BytesIO
+from typing import Dict
 
 from django.utils.translation import gettext, gettext_lazy as _
 
 from allauth import app_settings as allauth_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
-from allauth.account.utils import user_email, user_username
+from allauth.account.models import EmailAddress
+from allauth.account.utils import (
+    user_display,
+    user_email,
+    user_pk_to_url_str,
+    user_username,
+)
 from allauth.core import context
 from allauth.core.internal.adapter import BaseAdapter
 from allauth.mfa import app_settings
@@ -113,6 +120,19 @@ class DefaultMFAAdapter(BaseAdapter):
         elif n == 1:
             return gettext("Backup key")
         return gettext("Key nr. {number}").format(number=n + 1)
+
+    def get_public_key_credential_user_entity(self, user) -> Dict[str, str]:
+        display_name = user_display(user)
+        name = user_username(user)
+        if not name:
+            name = EmailAddress.objects.get_primary_email(user)
+        if not name:
+            name = display_name
+        return {
+            "id": user_pk_to_url_str(user).encode("utf8"),
+            "display_name": display_name,
+            "name": name,
+        }
 
 
 def get_adapter() -> DefaultMFAAdapter:

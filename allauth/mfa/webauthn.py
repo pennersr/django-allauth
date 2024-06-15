@@ -16,7 +16,7 @@ from fido2.webauthn import (
     RegistrationResponse,
 )
 
-from allauth.account.utils import url_str_to_user_pk, user_pk_to_url_str
+from allauth.account.utils import url_str_to_user_pk
 from allauth.core import context
 from allauth.mfa import app_settings
 from allauth.mfa.adapter import get_adapter
@@ -31,11 +31,8 @@ STATE_SESSION_KEY = "mfa.webauthn.state"
 
 
 def build_user_payload(user) -> PublicKeyCredentialUserEntity:
-    return PublicKeyCredentialUserEntity(
-        id=user_pk_to_url_str(user).encode("utf8"),
-        name="name",  # FIXME
-        display_name="Displayname",  # FIXME
-    )
+    kwargs = get_adapter().get_public_key_credential_user_entity(user)
+    return PublicKeyCredentialUserEntity(**kwargs)
 
 
 def generate_challenge() -> bytes:

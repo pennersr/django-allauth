@@ -7,6 +7,7 @@ from allauth.account.internal.flows.reauthentication import (
     raise_if_reauthentication_required,
 )
 from allauth.mfa import signals, webauthn
+from allauth.mfa.internal.flows.base import delete_and_cleanup
 from allauth.mfa.internal.flows.recovery_codes import (
     auto_generate_recovery_codes,
 )
@@ -36,14 +37,7 @@ def add_authenticator(
 
 def remove_authenticator(request, authenticator: Authenticator):
     raise_if_reauthentication_required(request)
-    rc_auth = Authenticator.objects.delete_and_cleanup(authenticator)
-    for auth in [authenticator, rc_auth]:
-        signals.authenticator_removed.send(
-            sender=Authenticator,
-            request=request,
-            user=request.user,
-            authenticator=authenticator,
-        )
+    delete_and_cleanup(request, authenticator)
     adapter = get_account_adapter(request)
     adapter.add_message(request, messages.SUCCESS, "mfa/messages/webauthn_removed.txt")
     # FIXME:

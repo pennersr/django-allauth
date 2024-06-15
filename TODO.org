@@ -6,8 +6,8 @@
 *** TODO Properly populate =PublicKeyCredentialRpEntity=
 *** TODO Properly populate =user= at =begin_registration()=
 *** DONE Setting to turn webauthn on/off
-*** TODO Proper WebAuthn list view
-*** TODO Key names
+*** DONE Proper WebAuthn list view
+*** DONE Key names
 *** DONE Prevent replay attacks
 Read: https://github.com/w3c/webauthn/issues/1856
 https://github.com/w3c/webauthn/issues/1848#issuecomment-1436235885
@@ -23,10 +23,10 @@ Or, put all WebAuthn authenticators in one Authenticator?
 *** TODO Handle error flows in =webauthn.js=
 *** TODO Handle error flows in =webauthn.py=
 *** TODO Naming: Add (webauthn) vs activate (totp)
-*** TODO When registring a new key, exclude existing IDs
-*** TODO Delete WebAuthn keys
+*** DONE When registring a new key, exclude existing IDs
+*** DONE Delete WebAuthn keys
 *** TODO Rename WebAuthn keys
-*** TODO Add =Authenticator.last_used_at=
+*** DONE Add =Authenticator.last_used_at=
 *** TODO Rate limitting
 *** TODO Add =django.contrib.messages= where applicable
 *** TODO Check that =reauthentication_required= is applied where needed

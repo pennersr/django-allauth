@@ -153,6 +153,13 @@ class AddWebAuthnForm(forms.Form):
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop("user")
         self.registration_data = begin_registration(self.user)
+        initial = kwargs.setdefault("initial", {})
+        initial.setdefault(
+            "name",
+            get_adapter().generate_authenticator_name(
+                self.user, Authenticator.Type.WEBAUTHN
+            ),
+        )
         super().__init__(*args, **kwargs)
 
     def clean_credential(self):

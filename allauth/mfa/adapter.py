@@ -102,6 +102,18 @@ class DefaultMFAAdapter(BaseAdapter):
             qs = qs.filter(type__in=types)
         return qs.exists()
 
+    def generate_authenticator_name(self, user, type: Authenticator.Type) -> str:
+        """
+        Generate a human friendly name for the key. Used to prefill the "Add
+        key" form.
+        """
+        n = Authenticator.objects.filter(user=user, type=type).count()
+        if n == 0:
+            return _("Master key")
+        elif n == 1:
+            return _("Backup key")
+        return _(f"Key nr. {n+1}")
+
 
 def get_adapter() -> DefaultMFAAdapter:
     return import_attribute(app_settings.ADAPTER)()

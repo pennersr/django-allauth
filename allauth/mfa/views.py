@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
-from django.views.generic.edit import DeleteView, FormView
+from django.views.generic.edit import DeleteView, FormView, UpdateView
 from django.views.generic.list import ListView
 
 from allauth.account import app_settings as account_settings
@@ -24,6 +24,7 @@ from allauth.mfa.forms import (
     AuthenticateForm,
     AuthenticateWebAuthnForm,
     DeactivateTOTPForm,
+    EditWebAuthnForm,
     GenerateRecoveryCodesForm,
     ReauthenticateForm,
     WebAuthnLoginForm,
@@ -413,3 +414,17 @@ class LoginView(FormView):
 
 
 login = LoginView.as_view()
+
+
+class EditWebAuthnView(UpdateView):
+    form_class = EditWebAuthnForm
+    template_name = "mfa/webauthn/edit_form.html"
+    success_url = reverse_lazy("mfa_list_webauthn")
+
+    def get_queryset(self):
+        return Authenticator.objects.filter(
+            user=self.request.user, type=Authenticator.Type.WEBAUTHN
+        )
+
+
+edit_webauthn = EditWebAuthnView.as_view()

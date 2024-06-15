@@ -17,15 +17,13 @@ https://w3c.github.io/webauthn/#sctn-parseCreationOptionsFromJSON
 *** TODO "Sigin with Passkey" button padding
 *** TODO Add =[webauthn]= extra for fido2
 *** TODO Email notifications
-
 *** DONE Drop unique constraint on Authenticator.type?
 Or, put all WebAuthn authenticators in one Authenticator?
 *** TODO Handle error flows in =webauthn.js=
 *** TODO Handle error flows in =webauthn.py=
-*** TODO Naming: Add (webauthn) vs activate (totp)
 *** DONE When registring a new key, exclude existing IDs
 *** DONE Delete WebAuthn keys
-*** TODO Rename WebAuthn keys
+*** DONE Rename WebAuthn keys
 *** DONE Add =Authenticator.last_used_at=
 *** TODO Rate limitting
 *** TODO Add =django.contrib.messages= where applicable

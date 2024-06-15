@@ -203,6 +203,10 @@ class WebAuthn:
     def name(self) -> str:
         return self.instance.data["name"]
 
+    @name.setter
+    def name(self, name: str):
+        self.instance.data["name"] = name
+
     @property
     def authenticator_data(self) -> AuthenticatorData:
         return AuthenticatorData(

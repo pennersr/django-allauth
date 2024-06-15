@@ -60,9 +60,21 @@ if "webauthn" in app_settings.SUPPORTED_TYPES:
                     path("", views.list_webauthn, name="mfa_list_webauthn"),
                     path("add/", views.add_webauthn, name="mfa_add_webauthn"),
                     path(
-                        "<int:pk>/remove/",
-                        views.remove_webauthn,
-                        name="mfa_remove_webauthn",
+                        "<int:pk>/",
+                        include(
+                            [
+                                path(
+                                    "remove/",
+                                    views.remove_webauthn,
+                                    name="mfa_remove_webauthn",
+                                ),
+                                path(
+                                    "edit/",
+                                    views.edit_webauthn,
+                                    name="mfa_edit_webauthn",
+                                ),
+                            ]
+                        ),
                     ),
                 ]
             ),

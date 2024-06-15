@@ -200,3 +200,19 @@ class WebAuthnLoginForm(forms.Form):
         if not authenticator:
             raise forms.ValidationError("FIXME")
         return authenticator
+
+
+class EditWebAuthnForm(forms.Form):
+    name = forms.CharField(required=True)
+
+    def __init__(self, *args, **kwargs):
+        self.instance = kwargs.pop("instance")
+        initial = kwargs.setdefault("initial", {})
+        initial.setdefault("name", self.instance.wrap().name)
+        super().__init__(*args, **kwargs)
+
+    def save(self) -> Authenticator:
+        auth = self.instance.wrap()
+        auth.name = self.cleaned_data["name"]
+        self.instance.save()
+        return self.instance

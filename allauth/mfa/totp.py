@@ -107,7 +107,7 @@ class TOTP:
         instance.save()
         return cls(instance)
 
-    def validate_code(self, code):
+    def validate_code(self, code: str) -> bool:
         if _is_insecure_bypass(code):
             return True
         if self._is_code_used(code):

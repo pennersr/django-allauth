@@ -12,10 +12,16 @@
             {% slot label %}
             {% endslot %}
         </label>
+        {% if slots.help_text %}
+            <div class="form-text">
+                {% slot help_text %}
+                {% endslot %}
+            </div>
+        {% endif %}
     </div>
 {% elif attrs.type == "textarea" %}
-    <div class="form-check mb-3">
-        <label class="form-check-label" for="{{ attrs.id }}">
+    <div class="mb-3">
+        <label class="" for="{{ attrs.id }}">
             {% slot label %}
             {% endslot %}
         </label>

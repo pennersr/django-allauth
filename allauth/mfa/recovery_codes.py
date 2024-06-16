@@ -94,7 +94,7 @@ class RecoveryCodes:
             self.instance.save()
             return True
 
-    def validate_code(self, code):
+    def validate_code(self, code: str) -> bool:
         ret = self._validate_migrated_code(code)
         if ret is not None:
             return ret

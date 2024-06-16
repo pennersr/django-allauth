@@ -51,13 +51,16 @@ class DefaultMFAAdapter(BaseAdapter):
         """
         issuer = app_settings.TOTP_ISSUER
         if not issuer:
-            if allauth_settings.SITES_ENABLED:
-                from django.contrib.sites.models import Site
-
-                issuer = Site.objects.get_current(context.request).name
-            else:
-                issuer = context.request.get_host()
+            issuer = self._get_site_name()
         return issuer
+
+    def _get_site_name(self) -> str:
+        if allauth_settings.SITES_ENABLED:
+            from django.contrib.sites.models import Site
+
+            return Site.objects.get_current(context.request).name
+        else:
+            return context.request.get_host()
 
     def encrypt(self, text: str) -> str:
         """Secrets such as the TOTP key are stored in the database.  This

@@ -15,11 +15,12 @@ https://github.com/w3c/webauthn/issues/1255#issuecomment-1848386610
 https://github.com/github/webauthn-json/tree/main?tab=readme-ov-file
 https://w3c.github.io/webauthn/#sctn-parseCreationOptionsFromJSON
 *** TODO "Sigin with Passkey" button padding
+*** TODO Skip 2FA for Webauthn logins
 *** TODO Add =[webauthn]= extra for fido2
 *** TODO Email notifications
 *** DONE Drop unique constraint on Authenticator.type?
 Or, put all WebAuthn authenticators in one Authenticator?
-*** TODO Handle error flows in =webauthn.js=
+*** DONE Handle error flows in =webauthn.js=
 *** TODO Handle error flows in =webauthn.py=
 *** DONE When registring a new key, exclude existing IDs
 *** DONE Delete WebAuthn keys

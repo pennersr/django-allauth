@@ -121,7 +121,15 @@ class DefaultMFAAdapter(BaseAdapter):
             return gettext("Backup key")
         return gettext("Key nr. {number}").format(number=n + 1)
 
+    def get_public_key_credential_rp_entity(self) -> Dict[str, str]:
+        name = self._get_site_name()
+        return {
+            "id": "localhost",  # FIXME
+            "name": name,
+        }
+
     def get_public_key_credential_user_entity(self, user) -> Dict[str, str]:
+        # FIXME: align with get_totp_label
         display_name = user_display(user)
         name = user_username(user)
         if not name:

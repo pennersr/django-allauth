@@ -42,7 +42,7 @@ class BaseAuthenticateForm(forms.Form):
 
         code = self.cleaned_data["code"]
         for auth in Authenticator.objects.filter(user=self.user).exclude(
-            # FIXME: exclude, not nice.
+            # WebAuthn cannot validate manual codes.
             type=Authenticator.Type.WEBAUTHN
         ):
             if auth.wrap().validate_code(code):
@@ -80,9 +80,6 @@ class AuthenticateWebAuthnForm(forms.Form):
         # Pokemon-style exception handling.
         parse_authentication_response(credential)
         authenticator = complete_authentication(self.user, credential)
-        # FIXME: Raise form error
-        if not authenticator or authenticator.user_id != self.user.pk:
-            raise forms.ValidationError("FIXME")
         return authenticator
 
     def save(self):
@@ -188,7 +185,7 @@ class AddWebAuthnForm(forms.Form):
 
 
 class WebAuthnLoginForm(forms.Form):
-    credential = forms.CharField(required=True, widget=forms.HiddenInput)
+    credential = forms.JSONField(required=True, widget=forms.HiddenInput)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -196,9 +193,8 @@ class WebAuthnLoginForm(forms.Form):
 
     def clean_credential(self):
         credential = self.cleaned_data["credential"]
+        parse_authentication_response(credential)
         authenticator = complete_authentication(user=None, response=credential)
-        if not authenticator:
-            raise forms.ValidationError("FIXME")
         return authenticator
 
 

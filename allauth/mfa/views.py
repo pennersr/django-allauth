@@ -13,6 +13,7 @@ from django.views.generic.list import ListView
 from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.decorators import reauthentication_required
+from allauth.account.mixins import NextRedirectMixin
 from allauth.account.models import Login
 from allauth.account.stages import LoginStageController
 from allauth.account.views import BaseReauthenticateView
@@ -354,7 +355,9 @@ add_webauthn = AddWebAuthnView.as_view()
 
 @method_decorator(reauthentication_required, name="dispatch")
 class ListWebAuthnView(ListView):
-    template_name = "mfa/webauthn/authenticator_list.html"
+    template_name = (
+        "mfa/webauthn/authenticator_list." + account_settings.TEMPLATE_EXTENSION
+    )
     context_object_name = "authenticators"
 
     def get_queryset(self):
@@ -367,8 +370,11 @@ list_webauthn = ListWebAuthnView.as_view()
 
 
 @method_decorator(reauthentication_required, name="dispatch")
-class RemoveWebAuthnView(DeleteView):
-    template_name = "mfa/webauthn/authenticator_confirm_delete.html"
+class RemoveWebAuthnView(NextRedirectMixin, DeleteView):
+    template_name = (
+        "mfa/webauthn/authenticator_confirm_delete."
+        + account_settings.TEMPLATE_EXTENSION
+    )
     success_url = reverse_lazy("mfa_list_webauthn")
 
     def get_queryset(self):
@@ -379,7 +385,7 @@ class RemoveWebAuthnView(DeleteView):
     def form_valid(self, form):
         authenticator = self.get_object()
         flows.webauthn.remove_authenticator(self.request, authenticator)
-        return HttpResponseRedirect(reverse("mfa_list_webauthn"))
+        return HttpResponseRedirect(self.get_success_url())
 
 
 remove_webauthn = RemoveWebAuthnView.as_view()
@@ -405,7 +411,6 @@ class LoginView(FormView):
 
     def form_valid(self, form):
         authenticator = form.cleaned_data["credential"]
-        # FIXME: mark as used
         redirect_url = None
         login = Login(user=authenticator.user, redirect_url=redirect_url)
         return flows.authentication.perform_passwordless_login(
@@ -416,9 +421,9 @@ class LoginView(FormView):
 login = LoginView.as_view()
 
 
-class EditWebAuthnView(UpdateView):
+class EditWebAuthnView(NextRedirectMixin, UpdateView):
     form_class = EditWebAuthnForm
-    template_name = "mfa/webauthn/edit_form.html"
+    template_name = "mfa/webauthn/edit_form." + account_settings.TEMPLATE_EXTENSION
     success_url = reverse_lazy("mfa_list_webauthn")
 
     def get_queryset(self):

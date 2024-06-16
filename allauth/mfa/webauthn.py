@@ -63,8 +63,8 @@ def clear_state() -> None:
 
 
 def get_server() -> Fido2Server:
-    rp_id = "localhost"  # FIXME
-    rp = PublicKeyCredentialRpEntity(name="allauth", id=rp_id)
+    rp_kwargs = get_adapter().get_public_key_credential_rp_entity()
+    rp = PublicKeyCredentialRpEntity(**rp_kwargs)
     verify_origin = None
     if app_settings.WEBAUTHN_ALLOW_INSECURE_ORIGIN:
         verify_origin = lambda o: True  # noqa
@@ -99,7 +99,8 @@ def serialize_authenticator_data(authenticator_data: AuthenticatorData) -> str:
 def complete_registration(credential: Dict) -> AuthenticatorData:
     server = get_server()
     state = get_state()
-    # FIXME: handle invalid/absent state
+    if not state:
+        raise get_adapter().validation_error("incorrect_code")
     binding = server.register_complete(state, credential)
     consume_challenge()
     clear_state()
@@ -118,11 +119,12 @@ def get_credentials(user) -> list[AttestedCredentialData]:
     return credentials
 
 
-# FIXME: Why user?
 def get_authenticator_by_credential_id(
     user, credential_id: bytes
 ) -> Optional[Authenticator]:
-    authenticators = Authenticator.objects.filter(type=Authenticator.Type.WEBAUTHN)
+    authenticators = Authenticator.objects.filter(
+        user=user, type=Authenticator.Type.WEBAUTHN
+    )
     for authenticator in authenticators:
         if (
             credential_id
@@ -162,13 +164,14 @@ def extract_user_from_response(response: Dict):
     return user
 
 
-def complete_authentication(user, response: Dict):
+def complete_authentication(user, response: Dict) -> Authenticator:
     if user is None:
         user = extract_user_from_response(response)
     credentials = get_credentials(user)
     server = get_server()
     state = get_state()
-    # FIXME: handle invalid/absent state
+    if not state:
+        raise get_adapter().validation_error("incorrect_code")
     try:
         binding = server.authenticate_complete(state, credentials, response)
     except ValueError as e:
@@ -176,7 +179,10 @@ def complete_authentication(user, response: Dict):
         raise get_adapter().validation_error("incorrect_code") from e
     consume_challenge()
     clear_state()
-    return get_authenticator_by_credential_id(user, binding.credential_id)
+    authenticator = get_authenticator_by_credential_id(user, binding.credential_id)
+    if not authenticator:
+        raise get_adapter().validation_error("incorrect_code")
+    return authenticator
 
 
 class WebAuthn:

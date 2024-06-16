@@ -1,15 +1,19 @@
 (function () {
   const allauth = window.allauth = window.allauth || {}
 
+  function dispatchError (exception) {
+    const event = new CustomEvent('allauth.error', { detail: { tags: ['mfa', 'webauthn'], exception }, cancelable: true })
+    document.dispatchEvent(event)
+    if (!event.defaultPrevented) {
+      console.error(exception)
+    }
+  }
+
   async function createCredentials (credentials, passwordless) {
     credentials = JSON.parse(JSON.stringify(credentials))
     credentials.publicKey.authenticatorSelection.residentKey = passwordless ? 'required' : 'discouraged'
     credentials.publicKey.authenticatorSelection.userVerification = passwordless ? 'required' : 'discouraged'
     return await webauthnJSON.create(credentials)
-  }
-
-  async function getCredentials (credentials) {
-    return await webauthnJSON.get(credentials)
   }
 
   function addForm (o) {
@@ -24,8 +28,7 @@
         credentialInput.value = JSON.stringify(credential)
         form.submit()
       } catch (e) {
-        // FIXME: Make this configurable
-        window.alert(e.message)
+        dispatchError(e)
       }
     })
   }
@@ -44,15 +47,14 @@
           }
         })
         if (!response.ok) {
-          throw new Error('FIXME')
+          throw new Error('Unable to fetch passkey data from server.')
         }
         const data = await response.json()
-        const credential = await getCredentials(data.credentials)
+        const credential = await webauthnJSON.get(data.credentials)
         credentialInput.value = JSON.stringify(credential)
         form.submit()
       } catch (e) {
-        // FIXME: Make this configurable
-        window.alert(e.message)
+        dispatchError(e)
       }
     })
   }
@@ -63,12 +65,11 @@
     const form = credentialInput.closest('form')
     authenticateBtn.addEventListener('click', async function () {
       try {
-        const credential = await getCredentials(o.data.credentials)
+        const credential = await webauthnJSON.get(o.data.credentials)
         credentialInput.value = JSON.stringify(credential)
         form.submit()
       } catch (e) {
-        // FIXME: Make this configurable
-        window.alert(e.message)
+        dispatchError(e)
       }
     })
   }

@@ -1,3 +1,5 @@
+from io import BytesIO
+
 from django.utils.translation import gettext_lazy as _
 
 from allauth import app_settings as allauth_settings
@@ -53,6 +55,15 @@ class DefaultMFAAdapter(BaseAdapter):
         if not issuer:
             issuer = self._get_site_name()
         return issuer
+
+    def build_totp_svg(self, url: str) -> str:
+        import qrcode
+        from qrcode.image.svg import SvgPathImage
+
+        img = qrcode.make(url, image_factory=SvgPathImage)
+        buf = BytesIO()
+        img.save(buf)
+        return buf.getvalue().decode("utf8")
 
     def _get_site_name(self) -> str:
         if allauth_settings.SITES_ENABLED:

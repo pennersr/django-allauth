@@ -114,7 +114,7 @@ class ActivateTOTPView(FormView):
             adapter.get_totp_issuer(),
             ret["form"].secret,
         )
-        totp_svg = totp.build_totp_svg(totp_url)
+        totp_svg = adapter.build_totp_svg(totp_url)
         base64_data = base64.b64encode(totp_svg.encode("utf8")).decode("utf-8")
         totp_data_uri = f"data:image/svg+xml;base64,{base64_data}"
         ret.update(

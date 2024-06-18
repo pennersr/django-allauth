@@ -56,7 +56,7 @@ via the Django admin as well:
                     # `SocialAccount.provider` value set to this ID. The combination
                     # of this value and the `uid` must be unique. The IdP entity ID is a
                     # good choice for this.
-                    "provider_id": "urn:dev-123.us.auth0.com",
+                    "provider_id": "urn:example.com",
 
                     # The organization slug is configured by setting the
                     # `client_id` value. In this example, the SAML login URL is:
@@ -79,14 +79,14 @@ via the Django admin as well:
                         # The configuration of the IdP.
                         "idp": {
                             # The entity ID of the IdP is required.
-                            "entity_id": "urn:dev-123.us.auth0.com",
+                            "entity_id": "urn:example.com",
 
                             # Then, you can either specify the IdP's metadata URL:
-                            "metadata_url": "https://dev-123.us.auth0.com/samlp/metadata/456",
+                            "metadata_url": "https://example.com/saml2/metadata",
 
                             # Or, you can inline the IdP parameters here as follows:
-                            "sso_url": "https://dev-123.us.auth0.com/samlp/456",
-                            "slo_url": "https://dev-123.us.auth0.com/samlp/456",
+                            "sso_url": "https://example.com/saml2/sso",
+                            "slo_url": "https://example.com/saml2/slo",
                             "x509cert": """
     -----BEGIN CERTIFICATE-----
     MIIDHTCCAgWgAwIBAgIJLogff5x+S0BlMA0GCSqGSIb3DQEBCwUAMCwxKjAoBgNV
@@ -112,6 +112,8 @@ via the Django admin as well:
                             "logout_response_signed": False,
                             "metadata_signed": False,
                             "name_id_encrypted": False,
+                            "name_id_format": "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified",
+                            "private_key": "MIID/zCCAuegAwIBAg...VGgdy+xoA==",
                             "reject_deprecated_algorithm": True,
                             # Due to security concerns, IdP initiated SSO is rejected by default.
                             "reject_idp_initiated_sso": True,
@@ -122,9 +124,23 @@ via the Django admin as well:
                             "want_message_signed": False,
                             "want_name_id": False,
                             "want_name_id_encrypted": False,
+                            "x509cert": "MIIEvQIBADANB...oddbXECo=",
+                        },
+                        "contact_person": {
+                            "technical": {
+                                "givenName": "Alice",
+                                "emailAddress": "alice@example.com",
+                            },
+                            "administrative": {
+                                "givenName": "Bob",
+                                "emailAddress": "bob@example.com",
+                            },
                         },
                     },
                 },
+            ]
+        }
+    }
 
 
 In your templates, you can construct login URLs using the following template tag::

@@ -1,3 +1,5 @@
+from typing import Any, Dict, List, Optional
+
 from django.conf import settings
 from django.contrib.auth import authenticate, get_user_model
 from django.contrib.sites.shortcuts import get_current_site
@@ -14,12 +16,10 @@ from allauth.account.utils import (
     setup_user_email,
 )
 from allauth.core import context
-from allauth.socialaccount import signals
+from allauth.socialaccount import app_settings, providers, signals
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.internal import statekit
-
-from ..utils import get_request_param
-from . import app_settings, providers
-from .adapter import get_adapter
+from allauth.utils import get_request_param
 
 
 if not allauth_settings.SOCIALACCOUNT_ENABLED:
@@ -178,7 +178,7 @@ class SocialToken(models.Model):
         return self.token
 
 
-class SocialLogin(object):
+class SocialLogin:
     """
     Represents a social user that is in the process of being logged
     in. This consists of the following information:
@@ -204,16 +204,28 @@ class SocialLogin(object):
     email addresses retrieved from the provider.
     """
 
-    def __init__(self, user=None, account=None, token=None, email_addresses=[]):
+    account: SocialAccount
+    token: Optional[SocialToken]
+    email_addresses: List[EmailAddress]
+    state: Dict
+
+    def __init__(
+        self,
+        user=None,
+        account: Optional[SocialAccount] = None,
+        token: Optional[SocialToken] = None,
+        email_addresses: List[EmailAddress] = [],
+    ):
         if token:
             assert token.account is None or token.account == account
         self.token = token
         self.user = user
-        self.account = account
+        if account:
+            self.account = account
         self.email_addresses = email_addresses
         self.state = {}
 
-    def connect(self, request, user):
+    def connect(self, request, user) -> None:
         self.user = user
         self.save(request, connect=True)
         signals.social_account_added.send(
@@ -230,10 +242,10 @@ class SocialLogin(object):
         )
 
     @property
-    def is_headless(self):
+    def is_headless(self) -> bool:
         return bool(self.state.get("headless"))
 
-    def serialize(self):
+    def serialize(self) -> Dict[str, Any]:
         serialize_instance = get_adapter().serialize_instance
         ret = dict(
             account=serialize_instance(self.account),
@@ -246,7 +258,7 @@ class SocialLogin(object):
         return ret
 
     @classmethod
-    def deserialize(cls, data):
+    def deserialize(cls, data: Dict[str, Any]) -> "SocialLogin":
         deserialize_instance = get_adapter().deserialize_instance
         account = deserialize_instance(SocialAccount, data["account"])
         user = deserialize_instance(get_user_model(), data["user"])
@@ -266,7 +278,7 @@ class SocialLogin(object):
         ret.state = data["state"]
         return ret
 
-    def save(self, request, connect=False):
+    def save(self, request, connect: bool = False) -> None:
         """
         Saves a new account. Note that while the account is new,
         the user may be an existing one (when connecting accounts)
@@ -294,7 +306,7 @@ class SocialLogin(object):
         self._is_existing = None
 
     @property
-    def is_existing(self):
+    def is_existing(self) -> bool:
         """When `False`, this social login represents a temporary account, not
         yet backed by a database record.
         """
@@ -307,7 +319,7 @@ class SocialLogin(object):
         self._is_existing = ret
         return ret
 
-    def lookup(self):
+    def lookup(self) -> None:
         """Look up the existing local user account to which this social login
         points, if any.
         """
@@ -315,7 +327,7 @@ class SocialLogin(object):
         if not self._lookup_by_socialaccount():
             self._lookup_by_email()
 
-    def _lookup_by_socialaccount(self):
+    def _lookup_by_socialaccount(self) -> bool:
         assert not self.is_existing
         try:
             a = SocialAccount.objects.get(
@@ -332,9 +344,9 @@ class SocialLogin(object):
             self._store_token()
             return True
         except SocialAccount.DoesNotExist:
-            pass
+            return False
 
-    def _store_token(self):
+    def _store_token(self) -> None:
         # Update token
         if not app_settings.STORE_TOKENS or not self.token:
             return
@@ -358,7 +370,7 @@ class SocialLogin(object):
             self.token.app = app
             self.token.save()
 
-    def _lookup_by_email(self):
+    def _lookup_by_email(self) -> None:
         emails = [e.email for e in self.email_addresses if e.verified]
         for email in emails:
             if not get_adapter().can_authenticate_by_email(self, email):
@@ -369,17 +381,17 @@ class SocialLogin(object):
                 self._did_authenticate_by_email = True
                 return
 
-    def _accept_login(self):
+    def _accept_login(self) -> None:
         if self._did_authenticate_by_email:
             if app_settings.EMAIL_AUTHENTICATION_AUTO_CONNECT:
                 self.connect(context.request, self.user)
 
-    def get_redirect_url(self, request):
+    def get_redirect_url(self, request) -> Optional[str]:
         url = self.state.get("next")
         return url
 
     @classmethod
-    def state_from_request(cls, request):
+    def state_from_request(cls, request) -> Dict[str, Any]:
         """
         TODO: Deprecated! To be integrated with provider.redirect()
         """
@@ -393,21 +405,21 @@ class SocialLogin(object):
         return state
 
     @classmethod
-    def stash_state(cls, request, state=None):
+    def stash_state(cls, request, state: Optional[Dict[str, Any]] = None) -> str:
         if state is None:
             # Only for providers that don't support redirect() yet.
             state = cls.state_from_request(request)
         return statekit.stash_state(request, state)
 
     @classmethod
-    def unstash_state(cls, request):
+    def unstash_state(cls, request) -> Optional[Dict[str, Any]]:
         state = statekit.unstash_last_state(request)
         if state is None:
             raise PermissionDenied()
         return state
 
     @classmethod
-    def verify_and_unstash_state(cls, request, verifier):
+    def verify_and_unstash_state(cls, request, verifier: str) -> Dict[str, Any]:
         state = statekit.unstash_state(request, verifier)
         if state is None:
             raise PermissionDenied()

@@ -14,7 +14,7 @@ from allauth.account.models import Login
 LOGIN_CODE_SESSION_KEY = "account_login_code"
 
 
-def request_login_code(request, email):
+def request_login_code(request, email: str) -> None:
     from allauth.account.utils import filter_users_by_email
 
     adapter = get_adapter()
@@ -65,7 +65,7 @@ def get_pending_login(request, peek=False):
     return user, data
 
 
-def record_invalid_attempt(request, pending_login):
+def record_invalid_attempt(request, pending_login) -> bool:
     n = pending_login["failed_attempts"]
     n += 1
     pending_login["failed_attempts"] = n

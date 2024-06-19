@@ -80,7 +80,7 @@ class LoginInput(inputs.Input):
                 context.request, **credentials
             )
             if not self.user:
-                error_code = "%s_password_mismatch" % auth_method
+                error_code = "%s_password_mismatch" % auth_method.value
                 self.add_error(
                     "password", get_account_adapter().validation_error(error_code)
                 )

@@ -23,7 +23,7 @@ from allauth.utils import (
 )
 
 
-def _unicode_ci_compare(s1, s2):
+def _unicode_ci_compare(s1, s2) -> bool:
     """
     Perform case-insensitive comparison of two identifiers, using the
     recommended algorithm from Unicode Technical Report 36, section
@@ -34,7 +34,9 @@ def _unicode_ci_compare(s1, s2):
     return norm_s1 == norm_s2
 
 
-def get_next_redirect_url(request, redirect_field_name=REDIRECT_FIELD_NAME):
+def get_next_redirect_url(
+    request, redirect_field_name=REDIRECT_FIELD_NAME
+) -> Optional[str]:
     """
     Returns the next URL to redirect to, if it was explicitly passed
     via the request.
@@ -47,7 +49,7 @@ def get_next_redirect_url(request, redirect_field_name=REDIRECT_FIELD_NAME):
 
 def get_login_redirect_url(
     request, url=None, redirect_field_name=REDIRECT_FIELD_NAME, signup=False
-):
+) -> str:
     ret = url
     if url and callable(url):
         # In order to be able to pass url getters around that depend
@@ -66,14 +68,14 @@ def get_login_redirect_url(
 _user_display_callable = None
 
 
-def default_user_display(user):
+def default_user_display(user) -> str:
     if app_settings.USER_MODEL_USERNAME_FIELD:
         return getattr(user, app_settings.USER_MODEL_USERNAME_FIELD)
     else:
         return force_str(user)
 
 
-def user_display(user):
+def user_display(user) -> str:
     global _user_display_callable
     if not _user_display_callable:
         f = getattr(settings, "ACCOUNT_USER_DISPLAY", default_user_display)
@@ -123,7 +125,7 @@ def user_email(user, *args, commit=False):
     return ret
 
 
-def has_verified_email(user, email=None):
+def has_verified_email(user, email=None) -> bool:
     from .models import EmailAddress
 
     emailaddress = None
@@ -412,7 +414,9 @@ def filter_users_by_username(*username):
     return ret
 
 
-def filter_users_by_email(email, is_active=None, prefer_verified=False):
+def filter_users_by_email(
+    email: str, is_active: Optional[bool] = None, prefer_verified: bool = False
+):
     """Return list of users by email address
 
     Typically one, at most just a few in length.  First we look through
@@ -429,8 +433,7 @@ def filter_users_by_email(email, is_active=None, prefer_verified=False):
 
     User = get_user_model()
     email = email.lower()
-    mails = EmailAddress.objects.filter(email=email).select_related("user")
-    mails = list(mails)
+    mails = list(EmailAddress.objects.filter(email=email).select_related("user"))
     is_verified = False
     if prefer_verified:
         verified_mails = list(filter(lambda e: e.verified, mails))
@@ -460,7 +463,7 @@ def passthrough_next_redirect_url(request, url, redirect_field_name):
     return url
 
 
-def user_pk_to_url_str(user):
+def user_pk_to_url_str(user) -> str:
     """
     This should return a string.
     """
@@ -529,7 +532,7 @@ def assess_unique_email(email) -> Optional[bool]:
         return False
 
 
-def emit_email_changed(request, from_email_address, to_email_address):
+def emit_email_changed(request, from_email_address, to_email_address) -> None:
     user = to_email_address.user
     signals.email_changed.send(
         sender=user.__class__,

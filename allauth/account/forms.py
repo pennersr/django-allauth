@@ -185,7 +185,7 @@ class LoginForm(forms.Form):
                     auth_method = app_settings.AuthenticationMethod.EMAIL
                 else:
                     auth_method = app_settings.AuthenticationMethod.USERNAME
-            raise adapter.validation_error("%s_password_mismatch" % auth_method)
+            raise adapter.validation_error("%s_password_mismatch" % auth_method.value)
         return self.cleaned_data
 
     def login(self, request, redirect_url=None):

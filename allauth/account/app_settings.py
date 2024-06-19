@@ -1,15 +1,16 @@
 import warnings
+from enum import Enum
 
 from django.core.exceptions import ImproperlyConfigured
 
 
 class AppSettings(object):
-    class AuthenticationMethod:
+    class AuthenticationMethod(str, Enum):
         USERNAME = "username"
         EMAIL = "email"
         USERNAME_EMAIL = "username_email"
 
-    class EmailVerificationMethod:
+    class EmailVerificationMethod(str, Enum):
         # After signing up, keep the user account inactive until the email
         # address is verified
         MANDATORY = "mandatory"

@@ -1,4 +1,5 @@
 import datetime
+from typing import Dict, Optional
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -9,9 +10,12 @@ from django.db.models.constraints import UniqueConstraint
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-from . import app_settings, signals
-from .adapter import get_adapter
-from .managers import EmailAddressManager, EmailConfirmationManager
+from allauth.account import app_settings, signals
+from allauth.account.adapter import get_adapter
+from allauth.account.managers import (
+    EmailAddressManager,
+    EmailConfirmationManager,
+)
 
 
 class EmailAddress(models.Model):
@@ -230,15 +234,21 @@ class Login:
     case email verification is optional and we are only logging in).
     """
 
+    email_verification: app_settings.EmailVerificationMethod
+    signal_kwargs: Optional[Dict]
+    signup: bool
+    email: Optional[str]
+    state: Dict
+
     def __init__(
         self,
         user,
-        email_verification=None,
-        redirect_url=None,
-        signal_kwargs=None,
-        signup=False,
-        email=None,
-        state=None,
+        email_verification: Optional[app_settings.EmailVerificationMethod] = None,
+        redirect_url: Optional[str] = None,
+        signal_kwargs: Optional[Dict] = None,
+        signup: bool = False,
+        email: Optional[str] = None,
+        state: Optional[Dict] = None,
     ):
         self.user = user
         if not email_verification:

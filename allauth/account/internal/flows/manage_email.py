@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.http import HttpRequest
 from django.urls import reverse
 
 from allauth.account import app_settings, signals
@@ -11,12 +12,12 @@ from allauth.core.internal.httpkit import get_frontend_url
 from allauth.utils import build_absolute_uri
 
 
-def can_delete_email(email_address):
+def can_delete_email(email_address: EmailAddress) -> bool:
     adapter = get_adapter()
     return adapter.can_delete_email(email_address)
 
 
-def delete_email(request, email_address):
+def delete_email(request: HttpRequest, email_address: EmailAddress) -> bool:
     if app_settings.REAUTHENTICATION_REQUIRED:
         raise_if_reauthentication_required(request)
 
@@ -52,7 +53,7 @@ def delete_email(request, email_address):
     return success
 
 
-def add_email(request, form):
+def add_email(request: HttpRequest, form):
     if app_settings.REAUTHENTICATION_REQUIRED:
         raise_if_reauthentication_required(request)
 
@@ -72,7 +73,7 @@ def add_email(request, form):
     )
 
 
-def can_mark_as_primary(email_address):
+def can_mark_as_primary(email_address: EmailAddress):
     return (
         email_address.verified
         or not EmailAddress.objects.filter(
@@ -81,7 +82,7 @@ def can_mark_as_primary(email_address):
     )
 
 
-def mark_as_primary(request, email_address):
+def mark_as_primary(request: HttpRequest, email_address: EmailAddress):
     from allauth.account.utils import emit_email_changed
 
     if app_settings.REAUTHENTICATION_REQUIRED:
@@ -99,6 +100,7 @@ def mark_as_primary(request, email_address):
             "account/messages/unverified_primary_email.txt",
         )
     else:
+        assert request.user.is_authenticated
         from_email_address = EmailAddress.objects.filter(
             user=request.user, primary=True
         ).first()
@@ -114,7 +116,7 @@ def mark_as_primary(request, email_address):
     return success
 
 
-def verify_email(request, email_address):
+def verify_email(request: HttpRequest, email_address: EmailAddress) -> bool:
     """
     Marks the email address as confirmed on the db
     """
@@ -139,7 +141,7 @@ def verify_email(request, email_address):
     return True
 
 
-def get_email_verification_url(request, emailconfirmation):
+def get_email_verification_url(request: HttpRequest, emailconfirmation) -> str:
     """Constructs the email confirmation (activation) url.
 
     Note that if you have architected your system such that email

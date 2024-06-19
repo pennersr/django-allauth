@@ -1,7 +1,8 @@
 import time
+from typing import Optional
 
 from django.contrib.auth import REDIRECT_FIELD_NAME
-from django.http import HttpResponseRedirect
+from django.http import HttpRequest, HttpResponseRedirect
 from django.urls import resolve, reverse
 from django.utils.http import urlencode
 
@@ -22,11 +23,13 @@ from allauth.utils import import_callable
 STATE_SESSION_KEY = "account_reauthentication_state"
 
 
-def reauthenticate_by_password(request):
+def reauthenticate_by_password(request: HttpRequest) -> None:
     record_authentication(request, method="password", reauthenticated=True)
 
 
-def stash_and_reauthenticate(request, state, callback):
+def stash_and_reauthenticate(
+    request: HttpRequest, state: dict, callback: str
+) -> HttpResponseRedirect:
     request.session[STATE_SESSION_KEY] = {
         "state": state,
         "callback": callback,
@@ -34,7 +37,7 @@ def stash_and_reauthenticate(request, state, callback):
     return HttpResponseRedirect(reverse("account_reauthenticate"))
 
 
-def suspend_request(request, redirect_to):
+def suspend_request(request: HttpRequest, redirect_to: str) -> HttpResponseRedirect:
     path = request.get_full_path()
     if request.method == "POST":
         request.session[STATE_SESSION_KEY] = {"request": serialize_request(request)}
@@ -43,7 +46,7 @@ def suspend_request(request, redirect_to):
     )
 
 
-def resume_request(request):
+def resume_request(request: HttpRequest) -> Optional[HttpResponseRedirect]:
     from allauth.account.utils import get_next_redirect_url
 
     state = request.session.pop(STATE_SESSION_KEY, None)
@@ -62,20 +65,12 @@ def resume_request(request):
     return HttpResponseRedirect(url)
 
 
-def reauthenticate_then_callback(request, serialize_state, callback):
-    # TODO: Currently, ACCOUNT_REAUTHENTICATION_REQUIRED does not play well with
-    # XHR.
-    if did_recently_authenticate(request):
-        return None
-    return stash_and_reauthenticate(request, serialize_state(request), callback)
-
-
-def raise_if_reauthentication_required(request):
+def raise_if_reauthentication_required(request: HttpRequest) -> None:
     if not did_recently_authenticate(request):
         raise ReauthenticationRequired()
 
 
-def did_recently_authenticate(request):
+def did_recently_authenticate(request: HttpRequest) -> bool:
     if request.user.is_anonymous:
         return False
     if not get_adapter().get_reauthentication_methods(request.user):

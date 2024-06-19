@@ -417,10 +417,3 @@ class SocialLogin:
         if state is None:
             raise PermissionDenied()
         return state
-
-    @classmethod
-    def verify_and_unstash_state(cls, request, verifier: str) -> Dict[str, Any]:
-        state = statekit.unstash_state(request, verifier)
-        if state is None:
-            raise PermissionDenied()
-        return state

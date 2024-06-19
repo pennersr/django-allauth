@@ -1,16 +1,18 @@
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.models import AbstractBaseUser
+from django.http import HttpRequest
 
 from allauth.account import app_settings, signals
 from allauth.account.adapter import get_adapter
 from allauth.account.internal.flows.logout import logout
 
 
-def change_password(user, password):
+def change_password(user: AbstractBaseUser, password: str) -> None:
     get_adapter().set_password(user, password)
 
 
-def finalize_password_change(request, user):
+def finalize_password_change(request: HttpRequest, user: AbstractBaseUser) -> bool:
     logged_out = logout_on_password_change(request, user)
     adapter = get_adapter(request)
     adapter.add_message(
@@ -27,7 +29,7 @@ def finalize_password_change(request, user):
     return logged_out
 
 
-def finalize_password_set(request, user):
+def finalize_password_set(request: HttpRequest, user: AbstractBaseUser) -> bool:
     logged_out = logout_on_password_change(request, user)
     adapter = get_adapter(request)
     adapter.add_message(request, messages.SUCCESS, "account/messages/password_set.txt")
@@ -40,7 +42,7 @@ def finalize_password_set(request, user):
     return logged_out
 
 
-def logout_on_password_change(request, user):
+def logout_on_password_change(request: HttpRequest, user: AbstractBaseUser) -> bool:
     # Since it is the default behavior of Django to invalidate all sessions on
     # password change, this function actually has to preserve the session when
     # logout isn't desired.

@@ -1,7 +1,10 @@
 import time
+from typing import Any, Dict, Optional, Tuple
 
 from django.contrib import messages
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import AbstractBaseUser
+from django.http import HttpRequest
 
 from allauth.account import app_settings
 from allauth.account.adapter import get_adapter
@@ -14,7 +17,7 @@ from allauth.account.models import Login
 LOGIN_CODE_SESSION_KEY = "account_login_code"
 
 
-def request_login_code(request, email: str) -> None:
+def request_login_code(request: HttpRequest, email: str) -> None:
     from allauth.account.utils import filter_users_by_email
 
     adapter = get_adapter()
@@ -47,7 +50,9 @@ def request_login_code(request, email: str) -> None:
     )
 
 
-def get_pending_login(request, peek=False):
+def get_pending_login(
+    request: HttpRequest, peek: bool = False
+) -> Tuple[Optional[AbstractBaseUser], Optional[Dict[str, Any]]]:
     if peek:
         data = request.session.get(LOGIN_CODE_SESSION_KEY)
     else:
@@ -60,12 +65,12 @@ def get_pending_login(request, peek=False):
     user_id_str = data.get("user_id")
     user = None
     if user_id_str:
-        user_id = get_user_model()._meta.pk.to_python(user_id_str)
+        user_id = get_user_model()._meta.pk.to_python(user_id_str)  # type: ignore[union-attr]
         user = get_user_model().objects.get(pk=user_id)
     return user, data
 
 
-def record_invalid_attempt(request, pending_login) -> bool:
+def record_invalid_attempt(request: HttpRequest, pending_login: Dict[str, Any]) -> bool:
     n = pending_login["failed_attempts"]
     n += 1
     pending_login["failed_attempts"] = n
@@ -77,7 +82,12 @@ def record_invalid_attempt(request, pending_login) -> bool:
         return True
 
 
-def perform_login_by_code(request, user, redirect_url, pending_login):
+def perform_login_by_code(
+    request: HttpRequest,
+    user: AbstractBaseUser,
+    redirect_url: Optional[str],
+    pending_login: Dict[str, Any],
+):
     request.session.pop(LOGIN_CODE_SESSION_KEY, None)
     record_authentication(request, method="code", email=pending_login["email"])
     login = Login(

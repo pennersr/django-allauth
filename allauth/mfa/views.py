@@ -371,6 +371,7 @@ list_webauthn = ListWebAuthnView.as_view()
 
 @method_decorator(reauthentication_required, name="dispatch")
 class RemoveWebAuthnView(NextRedirectMixin, DeleteView):
+    object: Authenticator  # https://github.com/typeddjango/django-stubs/issues/1227
     template_name = (
         "mfa/webauthn/authenticator_confirm_delete."
         + account_settings.TEMPLATE_EXTENSION

@@ -128,7 +128,7 @@ class DefaultMFAAdapter(BaseAdapter):
             "name": name,
         }
 
-    def get_public_key_credential_user_entity(self, user) -> Dict[str, str]:
+    def get_public_key_credential_user_entity(self, user) -> dict:
         # FIXME: align with get_totp_label
         display_name = user_display(user)
         name = user_username(user)

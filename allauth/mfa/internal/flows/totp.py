@@ -30,7 +30,7 @@ def activate_totp(request, form) -> Tuple[Authenticator, Optional[Authenticator]
     return totp_auth, rc_auth
 
 
-def deactivate_totp(request, authenticator: Authenticator):
+def deactivate_totp(request, authenticator: Authenticator) -> None:
     raise_if_reauthentication_required(request)
     delete_and_cleanup(request, authenticator)
     adapter = get_account_adapter(request)

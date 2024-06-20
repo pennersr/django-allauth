@@ -11,7 +11,7 @@ from allauth.mfa.models import Authenticator
 from allauth.mfa.recovery_codes import RecoveryCodes
 
 
-def can_generate_recovery_codes(user):
+def can_generate_recovery_codes(user) -> bool:
     return (
         Authenticator.objects.filter(user=user)
         .exclude(type=Authenticator.Type.RECOVERY_CODES)
@@ -19,12 +19,13 @@ def can_generate_recovery_codes(user):
     )
 
 
-def generate_recovery_codes(request):
+def generate_recovery_codes(request) -> Authenticator:
     raise_if_reauthentication_required(request)
     Authenticator.objects.filter(
         user=request.user, type=Authenticator.Type.RECOVERY_CODES
     ).delete()
     rc_auth = RecoveryCodes.activate(request.user)
+    authenticator = rc_auth.instance
     adapter = get_account_adapter(request)
     adapter.add_message(
         request, messages.SUCCESS, "mfa/messages/recovery_codes_generated.txt"
@@ -33,13 +34,13 @@ def generate_recovery_codes(request):
         sender=Authenticator,
         request=request,
         user=request.user,
-        authenticator=rc_auth.instance,
+        authenticator=authenticator,
     )
     adapter.send_notification_mail("mfa/email/recovery_codes_generated", request.user)
-    return rc_auth.instance
+    return authenticator
 
 
-def view_recovery_codes(request):
+def view_recovery_codes(request) -> Optional[Authenticator]:
     authenticator = Authenticator.objects.filter(
         user=request.user,
         type=Authenticator.Type.RECOVERY_CODES,

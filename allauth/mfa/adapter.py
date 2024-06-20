@@ -85,7 +85,7 @@ class DefaultMFAAdapter(BaseAdapter):
         text = encrypted_text
         return text
 
-    def can_delete_authenticator(self, authenticator) -> bool:
+    def can_delete_authenticator(self, authenticator: Authenticator) -> bool:
         return True
 
     def send_notification_mail(self, *args, **kwargs):
@@ -103,5 +103,5 @@ class DefaultMFAAdapter(BaseAdapter):
         return qs.exists()
 
 
-def get_adapter():
+def get_adapter() -> DefaultMFAAdapter:
     return import_attribute(app_settings.ADAPTER)()

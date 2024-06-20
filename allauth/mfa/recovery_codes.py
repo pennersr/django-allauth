@@ -3,6 +3,7 @@ import hmac
 import os
 import struct
 from hashlib import sha1
+from typing import List, Optional
 
 from allauth.mfa import app_settings
 from allauth.mfa.models import Authenticator
@@ -10,11 +11,11 @@ from allauth.mfa.utils import decrypt, encrypt
 
 
 class RecoveryCodes:
-    def __init__(self, instance):
+    def __init__(self, instance: Authenticator) -> None:
         self.instance = instance
 
     @classmethod
-    def activate(cls, user):
+    def activate(cls, user) -> "RecoveryCodes":
         instance = Authenticator.objects.filter(
             user=user, type=Authenticator.Type.RECOVERY_CODES
         ).first()
@@ -32,16 +33,17 @@ class RecoveryCodes:
         return cls(instance)
 
     @classmethod
-    def generate_seed(self):
+    def generate_seed(self) -> str:
         key = binascii.hexlify(os.urandom(20)).decode("ascii")
         return key
 
-    def _get_migrated_codes(self):
+    def _get_migrated_codes(self) -> Optional[List[str]]:
         codes = self.instance.data.get("migrated_codes")
         if codes is not None:
             return [decrypt(code) for code in codes]
+        return None
 
-    def generate_codes(self):
+    def generate_codes(self) -> List[str]:
         migrated_codes = self._get_migrated_codes()
         if migrated_codes is not None:
             return migrated_codes
@@ -57,17 +59,17 @@ class RecoveryCodes:
             ret.append(fmt_value)
         return ret
 
-    def _is_code_used(self, i):
+    def _is_code_used(self, i: int) -> bool:
         used_mask = self.instance.data["used_mask"]
         return bool(used_mask & (1 << i))
 
-    def _mark_code_used(self, i):
+    def _mark_code_used(self, i: int) -> None:
         used_mask = self.instance.data["used_mask"]
         used_mask |= 1 << i
         self.instance.data["used_mask"] = used_mask
         self.instance.save()
 
-    def get_unused_codes(self):
+    def get_unused_codes(self) -> List[str]:
         migrated_codes = self._get_migrated_codes()
         if migrated_codes is not None:
             return migrated_codes
@@ -79,7 +81,7 @@ class RecoveryCodes:
             ret.append(code)
         return ret
 
-    def _validate_migrated_code(self, code):
+    def _validate_migrated_code(self, code: str) -> Optional[bool]:
         migrated_codes = self._get_migrated_codes()
         if migrated_codes is None:
             return None
@@ -89,6 +91,7 @@ class RecoveryCodes:
             return False
         else:
             migrated_codes = self.instance.data["migrated_codes"]
+            assert isinstance(migrated_codes, list)
             migrated_codes.pop(idx)
             self.instance.data["migrated_codes"] = migrated_codes
             self.instance.save()

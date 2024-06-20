@@ -18,7 +18,7 @@ class FeedlyAccount(ProviderAccount):
 
 
 class FeedlyProvider(OAuth2Provider):
-    id = str("feedly")
+    id = "feedly"
     name = "Feedly"
     account_class = FeedlyAccount
     oauth2_adapter_class = FeedlyOAuth2Adapter

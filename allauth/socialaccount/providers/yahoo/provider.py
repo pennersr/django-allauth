@@ -16,7 +16,7 @@ class YahooAccount(ProviderAccount):
 
 
 class YahooProvider(OAuth2Provider):
-    id = str("yahoo")
+    id = "yahoo"
     name = "Yahoo"
     account_class = YahooAccount
     oauth2_adapter_class = YahooOAuth2Adapter

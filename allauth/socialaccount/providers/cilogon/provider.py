@@ -5,7 +5,7 @@ from allauth.socialaccount.providers.cilogon.views import CILogonOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
-class Scope(object):
+class Scope:
     OPENID = "openid"
     EMAIL = "email"
     PROFILE = "profile"

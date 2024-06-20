@@ -193,7 +193,7 @@ class EmailConfirmation(EmailConfirmationMixin, models.Model):
         self.save()
 
 
-class EmailConfirmationHMAC(EmailConfirmationMixin, object):
+class EmailConfirmationHMAC(EmailConfirmationMixin):
     def __init__(self, email_address):
         self.email_address = email_address
 

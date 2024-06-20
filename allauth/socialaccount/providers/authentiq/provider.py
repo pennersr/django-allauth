@@ -7,7 +7,7 @@ from allauth.socialaccount.providers.base import AuthAction, ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
-class Scope(object):
+class Scope:
     NAME = "aq:name"
     EMAIL = "email"
     PHONE = "phone"

@@ -4,7 +4,7 @@ from enum import Enum
 from django.core.exceptions import ImproperlyConfigured
 
 
-class AppSettings(object):
+class AppSettings:
     class AuthenticationMethod(str, Enum):
         USERNAME = "username"
         EMAIL = "email"

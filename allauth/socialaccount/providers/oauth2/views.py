@@ -28,7 +28,7 @@ from allauth.socialaccount.providers.oauth2.client import (
 from allauth.utils import build_absolute_uri, get_request_param
 
 
-class OAuth2Adapter(object):
+class OAuth2Adapter:
     expires_in_key = "expires_in"
     client_class = OAuth2Client
     supports_state = True
@@ -89,7 +89,7 @@ class OAuth2Adapter(object):
         return client
 
 
-class OAuth2View(object):
+class OAuth2View:
     @classmethod
     def adapter_view(cls, adapter):
         def view(request, *args, **kwargs):

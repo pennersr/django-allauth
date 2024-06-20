@@ -74,7 +74,7 @@ def format_hotp_value(value: int) -> str:
 
 
 def _is_insecure_bypass(code: str) -> bool:
-    return code and app_settings.TOTP_INSECURE_BYPASS_CODE == code
+    return bool(code and app_settings.TOTP_INSECURE_BYPASS_CODE == code)
 
 
 def validate_totp_code(secret: str, code: str) -> bool:

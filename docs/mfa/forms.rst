@@ -41,7 +41,7 @@ Example override::
 ``settings.py``::
 
     MFA_FORMS = {
-        'activatetotp': 'mysite.forms.MyCustomActivateTOTPForm',
+        'activate_totp': 'mysite.forms.MyCustomActivateTOTPForm',
     }
 
 DeactivateTOTP
@@ -62,5 +62,5 @@ Example override::
 ``settings.py``::
 
     MFA_FORMS = {
-        'deactivatetotp': 'mysite.forms.MyCustomDeactivateTOTPForm',
+        'deactivate_totp': 'mysite.forms.MyCustomDeactivateTOTPForm',
     }

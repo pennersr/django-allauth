@@ -3,7 +3,7 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 from allauth.socialaccount.providers.orcid.views import OrcidOAuth2Adapter
 
 
-class Scope(object):
+class Scope:
     USERINFO_PROFILE = "/authenticate"
 
 

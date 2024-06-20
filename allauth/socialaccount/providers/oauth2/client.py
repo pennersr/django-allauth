@@ -10,7 +10,7 @@ class OAuth2Error(Exception):
     pass
 
 
-class OAuth2Client(object):
+class OAuth2Client:
     client_id_parameter = "client_id"
 
     def __init__(

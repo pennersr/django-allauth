@@ -43,7 +43,7 @@ def setup_app(provider_id):
     return app
 
 
-class OAuthTestsMixin(object):
+class OAuthTestsMixin:
     provider_id: str
 
     def get_mocked_response(self):
@@ -144,7 +144,7 @@ def create_oauth_tests(provider):
     return Class
 
 
-class OAuth2TestsMixin(object):
+class OAuth2TestsMixin:
     provider_id: str
 
     def get_mocked_response(self):

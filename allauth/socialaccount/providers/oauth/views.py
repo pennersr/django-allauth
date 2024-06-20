@@ -19,7 +19,7 @@ from allauth.socialaccount.providers.oauth.client import (
 logger = logging.getLogger(__name__)
 
 
-class OAuthAdapter(object):
+class OAuthAdapter:
     client_class = OAuthClient
 
     def __init__(self, request):
@@ -55,8 +55,7 @@ class OAuthAdapter(object):
         return client
 
 
-class OAuthView(object):
-
+class OAuthView:
     @classmethod
     def adapter_view(cls, adapter):
         def view(request, *args, **kwargs):

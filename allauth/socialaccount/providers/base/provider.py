@@ -223,7 +223,7 @@ class Provider:
         )
 
 
-class ProviderAccount(object):
+class ProviderAccount:
     def __init__(self, social_account):
         self.account = social_account
 

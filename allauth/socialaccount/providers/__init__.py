@@ -7,7 +7,7 @@ from django.conf import settings
 from allauth.utils import import_attribute
 
 
-class ProviderRegistry(object):
+class ProviderRegistry:
     def __init__(self):
         self.provider_map = OrderedDict()
         self.loaded = False

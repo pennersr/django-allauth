@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from json import loads
 
 from django.test.utils import override_settings

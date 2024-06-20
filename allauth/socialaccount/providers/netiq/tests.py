@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from allauth.socialaccount.providers.netiq.provider import NetIQProvider
 from allauth.socialaccount.tests import OAuth2TestsMixin
 from allauth.tests import MockedResponse, TestCase

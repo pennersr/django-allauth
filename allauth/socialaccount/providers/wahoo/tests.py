@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from allauth.socialaccount.providers.wahoo.provider import WahooProvider
 from allauth.socialaccount.tests import OAuth2TestsMixin
 from allauth.tests import MockedResponse, TestCase

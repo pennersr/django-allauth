@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from allauth.socialaccount.providers.lemonldap.provider import (
     LemonLDAPProvider,
 )

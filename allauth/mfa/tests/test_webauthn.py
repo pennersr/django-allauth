@@ -29,7 +29,7 @@ def test_get_passkey_login_challenge(client, db):
         "credentials": {
             "publicKey": {
                 "challenge": ANY,
-                "rpId": "localhost",
+                "rpId": "testserver",
                 "allowCredentials": [],
                 "userVerification": "preferred",
             }

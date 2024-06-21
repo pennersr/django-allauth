@@ -157,21 +157,12 @@ class AddWebAuthnForm(forms.Form):
     def clean(self):
         cleaned_data = super().clean()
         credential = cleaned_data.get("credential")
-        passwordless = cleaned_data.get("passwordless")
         if credential:
             # Explicitly parse JSON payload -- otherwise, register_complete()
             # crashes with some random TypeError and we don't want to do
             # Pokemon-style exception handling.
             webauthn.parse_registration_response(credential)
-            authenticator_data = webauthn.complete_registration(credential)
-            if passwordless and not authenticator_data.is_user_verified():
-                self.add_error(
-                    None, _("This key does not support passwordless operation.")
-                )
-            else:
-                cleaned_data["authenticator_data"] = (
-                    webauthn.serialize_authenticator_data(authenticator_data)
-                )
+            webauthn.complete_registration(credential)
         return cleaned_data
 
 

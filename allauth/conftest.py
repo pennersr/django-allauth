@@ -160,15 +160,8 @@ def webauthn_authentication_bypass():
 def webauthn_registration_bypass():
     @contextmanager
     def f(user, passwordless):
-        from fido2.utils import websafe_encode
-
-        from allauth.mfa.adapter import get_adapter
-
         with patch("fido2.server.Fido2Server.register_complete") as rc_m:
             with patch("allauth.mfa.webauthn.parse_registration_response") as m:
-                user_handle = get_adapter().get_public_key_credential_user_entity(user)[
-                    "id"
-                ]
                 m.return_value = Mock()
 
                 class FakeAuthenticatorData(bytes):
@@ -178,7 +171,18 @@ def webauthn_registration_bypass():
                 binding = FakeAuthenticatorData(b"binding")
                 rc_m.return_value = binding
                 yield json.dumps(
-                    {"response": {"userHandle": websafe_encode(user_handle)}}
+                    {
+                        "authenticatorAttachment": "cross-platform",
+                        "clientExtensionResults": {"credProps": {"rk": passwordless}},
+                        "id": "123",
+                        "rawId": "456",
+                        "response": {
+                            "attestationObject": "ao",
+                            "clientDataJSON": "cdj",
+                            "transports": ["usb"],
+                        },
+                        "type": "public-key",
+                    }
                 )
 
     return f

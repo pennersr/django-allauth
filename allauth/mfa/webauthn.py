@@ -1,4 +1,3 @@
-import base64
 import os
 from typing import Any, Dict, List, Optional
 
@@ -30,6 +29,7 @@ if not fido2.features.webauthn_json_mapping.enabled:
 
 CHALLENGE_SESSION_KEY = "mfa.webauthn.challenge"
 STATE_SESSION_KEY = "mfa.webauthn.state"
+EXTENSIONS = {"credProps": True}
 
 
 def build_user_payload(user) -> PublicKeyCredentialUserEntity:
@@ -87,13 +87,10 @@ def begin_registration(user) -> Dict:
         credentials=credentials,
         user_verification=UserVerificationRequirement.DISCOURAGED,
         challenge=generate_challenge(),
+        extensions=EXTENSIONS,
     )
     set_state(state)
     return dict(registration_data)
-
-
-def serialize_authenticator_data(authenticator_data: AuthenticatorData) -> str:
-    return base64.b64encode(bytes(authenticator_data)).decode("ascii")
 
 
 def complete_registration(credential: Dict) -> AuthenticatorData:
@@ -190,16 +187,13 @@ class WebAuthn:
         self.instance = instance
 
     @classmethod
-    def add(
-        cls, user, name: str, authenticator_data: str, passwordless: bool
-    ) -> "WebAuthn":
+    def add(cls, user, name: str, credential: dict) -> "WebAuthn":
         instance = Authenticator(
             user=user,
             type=Authenticator.Type.WEBAUTHN,
             data={
                 "name": name,
-                "authenticator_data": authenticator_data,
-                "passwordless": passwordless,
+                "credential": credential,
             },
         )
         instance.save()
@@ -215,17 +209,15 @@ class WebAuthn:
 
     @property
     def authenticator_data(self) -> AuthenticatorData:
-        return AuthenticatorData(
-            base64.b64decode(self.instance.data["authenticator_data"])
-        )
+        return parse_registration_response(
+            self.instance.data["credential"]
+        ).response.attestation_object.auth_data
 
     @property
     def is_passwordless(self) -> bool:
-        """Whether or not a key is resident is not stored in the authenticator
-        data. There is the `credProps` extension that is supposed to offer this
-        info, but that extension is not guaranteed to be working either. So, we
-        just store whether or not the key is passwordless at creation time. Do
-        note that this cannot be fully trusted as it is posted by the frontend
-        and stored as is.
-        """
-        return self.instance.data["passwordless"]
+        return (
+            self.instance.data.get("credential", {})
+            .get("clientExtensionResults", {})
+            .get("credProps", {})
+            .get("rk", False)
+        )

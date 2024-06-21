@@ -11,8 +11,10 @@
 
   async function createCredentials (credentials, passwordless) {
     credentials = JSON.parse(JSON.stringify(credentials))
-    credentials.publicKey.authenticatorSelection.residentKey = passwordless ? 'required' : 'discouraged'
-    credentials.publicKey.authenticatorSelection.userVerification = passwordless ? 'required' : 'discouraged'
+    const sel = credentials.publicKey.authenticatorSelection
+    sel.residentKey = passwordless ? 'required' : 'discouraged'
+    sel.requireResidentKey = passwordless
+    sel.userVerification = passwordless ? 'required' : 'discouraged'
     return await webauthnJSON.create(credentials)
   }
 

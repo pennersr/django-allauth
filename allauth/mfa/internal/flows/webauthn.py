@@ -15,13 +15,12 @@ from allauth.mfa.models import Authenticator
 
 
 def add_authenticator(
-    request, name: str, authenticator_data: str, passwordless: bool
+    request, name: str, credential: dict
 ) -> Tuple[Authenticator, Optional[Authenticator]]:
     auth = webauthn.WebAuthn.add(
         request.user,
         name,
-        authenticator_data,
-        passwordless,
+        credential,
     ).instance
     signals.authenticator_added.send(
         sender=Authenticator,

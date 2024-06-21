@@ -343,8 +343,7 @@ class AddWebAuthnView(FormView):
         auth, rc_auth = flows.webauthn.add_authenticator(
             self.request,
             name=form.cleaned_data["name"],
-            authenticator_data=form.cleaned_data["authenticator_data"],
-            passwordless=form.cleaned_data["passwordless"],
+            credential=form.cleaned_data["credential"],
         )
         self.did_generate_recovery_codes = bool(rc_auth)
         return super().form_valid(form)

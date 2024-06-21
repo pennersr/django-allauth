@@ -353,7 +353,6 @@ class AddWebAuthnView(FormView):
 add_webauthn = AddWebAuthnView.as_view()
 
 
-@method_decorator(reauthentication_required, name="dispatch")
 class ListWebAuthnView(ListView):
     template_name = (
         "mfa/webauthn/authenticator_list." + account_settings.TEMPLATE_EXTENSION
@@ -422,6 +421,7 @@ class LoginView(FormView):
 login = LoginView.as_view()
 
 
+@method_decorator(reauthentication_required, name="dispatch")
 class EditWebAuthnView(NextRedirectMixin, UpdateView):
     form_class = EditWebAuthnForm
     template_name = "mfa/webauthn/edit_form." + account_settings.TEMPLATE_EXTENSION

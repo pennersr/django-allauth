@@ -251,3 +251,5 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 ACCOUNT_LOGIN_BY_CODE_ENABLED = True
+
+MFA_SUPPORTED_TYPES = ["totp", "webauthn", "recovery_codes"]

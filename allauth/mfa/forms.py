@@ -4,19 +4,10 @@ from django.utils.translation import gettext_lazy as _
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.models import EmailAddress
 from allauth.core import context, ratelimit
-from allauth.mfa import totp
+from allauth.mfa import totp, webauthn
 from allauth.mfa.adapter import get_adapter
 from allauth.mfa.internal import flows
 from allauth.mfa.models import Authenticator
-from allauth.mfa.webauthn import (
-    begin_authentication,
-    begin_registration,
-    complete_authentication,
-    complete_registration,
-    parse_authentication_response,
-    parse_registration_response,
-    serialize_authenticator_data,
-)
 
 
 class BaseAuthenticateForm(forms.Form):
@@ -70,7 +61,7 @@ class AuthenticateWebAuthnForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop("user")
-        self.authentication_data = begin_authentication(self.user)
+        self.authentication_data = webauthn.begin_authentication(self.user)
         super().__init__(*args, **kwargs)
 
     def clean_credential(self):
@@ -78,8 +69,8 @@ class AuthenticateWebAuthnForm(forms.Form):
         # Explicitly parse JSON payload -- otherwise, authenticate_complete()
         # crashes with some random TypeError and we don't want to do
         # Pokemon-style exception handling.
-        parse_authentication_response(credential)
-        authenticator = complete_authentication(self.user, credential)
+        webauthn.parse_authentication_response(credential)
+        authenticator = webauthn.complete_authentication(self.user, credential)
         return authenticator
 
     def save(self):
@@ -153,7 +144,7 @@ class AddWebAuthnForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop("user")
-        self.registration_data = begin_registration(self.user)
+        self.registration_data = webauthn.begin_registration(self.user)
         initial = kwargs.setdefault("initial", {})
         initial.setdefault(
             "name",
@@ -171,15 +162,15 @@ class AddWebAuthnForm(forms.Form):
             # Explicitly parse JSON payload -- otherwise, register_complete()
             # crashes with some random TypeError and we don't want to do
             # Pokemon-style exception handling.
-            parse_registration_response(credential)
-            authenticator_data = complete_registration(credential)
+            webauthn.parse_registration_response(credential)
+            authenticator_data = webauthn.complete_registration(credential)
             if passwordless and not authenticator_data.is_user_verified():
                 self.add_error(
                     None, _("This key does not support passwordless operation.")
                 )
             else:
-                cleaned_data["authenticator_data"] = serialize_authenticator_data(
-                    authenticator_data
+                cleaned_data["authenticator_data"] = (
+                    webauthn.serialize_authenticator_data(authenticator_data)
                 )
         return cleaned_data
 
@@ -189,12 +180,12 @@ class WebAuthnLoginForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.authentication_data = begin_authentication()
+        self.authentication_data = webauthn.begin_authentication()
 
     def clean_credential(self):
         credential = self.cleaned_data["credential"]
-        parse_authentication_response(credential)
-        authenticator = complete_authentication(user=None, response=credential)
+        webauthn.parse_authentication_response(credential)
+        authenticator = webauthn.complete_authentication(user=None, response=credential)
         return authenticator
 
 

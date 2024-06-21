@@ -27,9 +27,10 @@ Or, put all WebAuthn authenticators in one Authenticator?
 *** DONE Add =Authenticator.last_used_at=
 *** TODO Rate limitting
 *** TODO Add =django.contrib.messages= where applicable
-*** TODO Check that =reauthentication_required= is applied where needed
-*** TODO Test suite
+*** DONE Check that =reauthentication_required= is applied where needed
+*** DONE Test suite
 *** TODO Documentation
+*** TODO Headless
 ** Passkeys
-*** TODO Add WebAuthn to login
+*** DONE Add WebAuthn to login
 *** TODO Add WebAuthn to signup

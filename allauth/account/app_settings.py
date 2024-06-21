@@ -124,7 +124,7 @@ class AppSettings:
             ret = self.EmailVerificationMethod.MANDATORY
         elif ret is False:
             ret = self.EmailVerificationMethod.OPTIONAL
-        return ret
+        return self.EmailVerificationMethod(ret)
 
     @property
     def MAX_EMAIL_ADDRESSES(self):
@@ -137,7 +137,7 @@ class AppSettings:
     @property
     def AUTHENTICATION_METHOD(self):
         ret = self._setting("AUTHENTICATION_METHOD", self.AuthenticationMethod.USERNAME)
-        return ret
+        return self.AuthenticationMethod(ret)
 
     @property
     def EMAIL_MAX_LENGTH(self):

@@ -124,7 +124,7 @@ class DefaultMFAAdapter(BaseAdapter):
     def get_public_key_credential_rp_entity(self) -> Dict[str, str]:
         name = self._get_site_name()
         return {
-            "id": "localhost",  # FIXME
+            "id": context.request.get_host().partition(":")[0],
             "name": name,
         }
 

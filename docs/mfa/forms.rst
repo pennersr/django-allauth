@@ -23,7 +23,7 @@ Example override::
         'reauthenticate': 'mysite.forms.MyCustomAuthenticateForm',
     }
 
-ActivateTOTP
+Activate TOTP
 ************
 
 *Path*
@@ -44,7 +44,7 @@ Example override::
         'activatetotp': 'mysite.forms.MyCustomActivateTOTPForm',
     }
 
-DeactivateTOTP
+Deactivate TOTP
 **************
 
 *Path*
@@ -63,4 +63,25 @@ Example override::
 
     MFA_FORMS = {
         'deactivatetotp': 'mysite.forms.MyCustomDeactivateTOTPForm',
+    }
+
+Generate Recovery Codes
+**************
+
+*Path*
+  ``allauth.mfa.forms.GenerateRecoveryCodesForm``
+
+*Used on*:
+  GenerateRecoveryCodesView used when a user generates recovery codes.
+
+Example override::
+
+    from allauth.mfa.forms import GenerateRecoveryCodesForm
+    class MyCustomGenerateRecoveryCodesForm(GenerateRecoveryCodesForm):
+      pass
+
+``settings.py``::
+
+    MFA_FORMS = {
+        'generate_recovery_codes': 'mysite.forms.MyCustomGenerateRecoveryCodesForm',
     }

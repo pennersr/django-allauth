@@ -219,6 +219,11 @@ class GenerateRecoveryCodesView(FormView):
         ret["user"] = self.request.user
         return ret
 
+    def get_form_class(self):
+        return get_form_class(
+            app_settings.FORMS, "generate_recovery_codes", self.form_class
+        )
+
 
 generate_recovery_codes = GenerateRecoveryCodesView.as_view()
 

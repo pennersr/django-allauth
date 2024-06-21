@@ -15,6 +15,7 @@ Available settings:
         'reauthenticate': 'allauth.mfa.forms.AuthenticateForm',
         'activate_totp': 'allauth.mfa.forms.ActivateTOTPForm',
         'deactivate_totp': 'allauth.mfa.forms.DeactivateTOTPForm',
+        'generate_recovery_codes': 'allauth.mfa.forms.GenerateRecoveryCodesForm',
     }
 
 ``MFA_RECOVERY_CODE_COUNT`` (default: ``10``)

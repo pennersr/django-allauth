@@ -14,7 +14,7 @@ https://github.com/w3c/webauthn/issues/1848#issuecomment-1436235885
 https://github.com/w3c/webauthn/issues/1255#issuecomment-1848386610
 https://github.com/github/webauthn-json/tree/main?tab=readme-ov-file
 https://w3c.github.io/webauthn/#sctn-parseCreationOptionsFromJSON
-*** TODO "Sigin with Passkey" button padding
+*** DONE "Sigin with Passkey" button padding
 *** DONE Skip 2FA for Webauthn logins
 *** TODO Email notifications
 *** DONE Drop unique constraint on Authenticator.type?

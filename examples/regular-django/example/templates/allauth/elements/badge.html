@@ -12,7 +12,8 @@
         primary
     {% endif %}
 {% endsetvar %}
-<span class="badge text-bg-{{ variant }}">
+<span {% if attrs.title %}title="{{ attrs.title }}"{% endif %}
+      class="badge text-bg-{{ variant }}">
     {% slot %}
     {% endslot %}
 </span>

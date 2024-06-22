@@ -755,7 +755,7 @@ class DefaultAccountAdapter(BaseAdapter):
             if is_mfa_enabled(user, types=[Authenticator.Type.WEBAUTHN]):
                 entry = {
                     "id": "mfa_reauthenticate_webauthn",
-                    "description": _("Use security key/device"),
+                    "description": _("Use security key or device"),
                 }
                 if not allauth_app_settings.HEADLESS_ONLY:
                     entry["url"] = reverse("mfa_reauthenticate_webauthn")

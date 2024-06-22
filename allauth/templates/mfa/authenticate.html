@@ -23,27 +23,29 @@
             {% element button type="submit" tags="primary,mfa,login" %}
                 {% trans "Sign In" %}
             {% endelement %}
-            {% url "account_login" as login_url %}
-            {% element button href=login_url tags="link,secondary,mfa,cancel" %}
-                {% trans "Cancel" %}
-            {% endelement %}
         {% endslot %}
     {% endelement %}
+    {% element hr %}
+    {% endelement %}
+    {% element h2 %}
+        {% translate "Alternative options" %}
+    {% endelement %}
+    {% element button_group vertical=True %}
+        {% if "webauthn" in MFA_SUPPORTED_TYPES %}
+            {% element button form="webauthn_form" id="mfa_webauthn_authenticate" type="button" tags="outline,primary" %}
+                {% trans "Use security key or device" %}
+            {% endelement %}
+        {% endif %}
+        {% url "account_login" as login_url %}
+        {% element button href=login_url tags="outline,primary,mfa,cancel" %}
+            {% trans "Cancel" %}
+        {% endelement %}
+    {% endelement %}
     {% if "webauthn" in MFA_SUPPORTED_TYPES %}
-        {% element hr %}
-        {% endelement %}
-        {% element h2 %}
-            Security Keys &amp; Devices
-        {% endelement %}
-        {% element form form=webauthn_form method="post" action=action_url no_visible_fields=True %}
+        {% element form id="webauthn_form" form=webauthn_form method="post" action=action_url no_visible_fields=True %}
             {% slot body %}
                 {% csrf_token %}
                 {% element fields form=webauthn_form %}
-                {% endelement %}
-            {% endslot %}
-            {% slot actions %}
-                {% element button id="mfa_webauthn_authenticate" type="button" tags="secondary" %}
-                    {% trans "Use security key or device" %}
                 {% endelement %}
             {% endslot %}
         {% endelement %}

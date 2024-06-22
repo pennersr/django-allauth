@@ -35,8 +35,8 @@
                                     {% translate "Security key" %}
                                 {% endelement %}
                             {% else %}
-                                {% element badge tags="mfa,key,warning" %}
-                                    {% translate "Type unknown" %}
+                                {% element badge title=_("This key does not specify whether is a passkey.") tags="mfa,key,warning" %}
+                                    {% translate "Unspecified" %}
                                 {% endelement %}
                             {% endif %}
                         {% endelement %}

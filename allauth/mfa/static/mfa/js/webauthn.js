@@ -65,7 +65,8 @@
     const authenticateBtn = document.getElementById(o.ids.authenticate)
     const credentialInput = document.getElementById(o.ids.credential)
     const form = credentialInput.closest('form')
-    authenticateBtn.addEventListener('click', async function () {
+    authenticateBtn.addEventListener('click', async function (e) {
+      e.preventDefault()
       try {
         const credential = await webauthnJSON.get(o.data.credentials)
         credentialInput.value = JSON.stringify(credential)

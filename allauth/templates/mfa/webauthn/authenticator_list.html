@@ -2,6 +2,7 @@
 {% load i18n %}
 {% load static %}
 {% load allauth %}
+{% load humanize %}
 {% block content %}
     {% element h1 %}
         {% trans "Security Keys and Devices" %}
@@ -12,10 +13,10 @@
         {% element table %}
             {% element thead %}
                 {% element th %}
-                    Device
+                    {% translate "Key" %}
                 {% endelement %}
                 {% element th %}
-                    Last used
+                    {% translate "Usage" %}
                 {% endelement %}
                 {% element th %}
                 {% endelement %}
@@ -25,14 +26,27 @@
                     {% element tr %}
                         {% element td %}
                             {{ authenticator }}
-                            {% if authenticator.wrap.is_passwordless %}
-                                {% element badge %}
+                            {% if authenticator.wrap.is_passwordless is True %}
+                                {% element badge tags="mfa,key,primary" %}
                                     {% translate "Passkey" %}
+                                {% endelement %}
+                            {% elif authenticator.wrap.is_passwordless is False %}
+                                {% element badge tags="mfa,key,secondary" %}
+                                    {% translate "Security key" %}
+                                {% endelement %}
+                            {% else %}
+                                {% element badge tags="mfa,key,warning" %}
+                                    {% translate "Type unknown" %}
                                 {% endelement %}
                             {% endif %}
                         {% endelement %}
                         {% element td %}
-                            {{ authenticator.last_used_at|default_if_none:_("Unused") }}
+                            {% blocktranslate with created_at=authenticator.created_at|date:"SHORT_DATE_FORMAT" %}Added on {{ created_at }}{% endblocktranslate %}.
+                            {% if authenticator.last_used_at %}
+                                {% blocktranslate with last_used=authenticator.last_used_at|naturaltime %}Last used {{ last_used }}{% endblocktranslate %}
+                            {% else %}
+                                Not used.
+                            {% endif %}
                         {% endelement %}
                         {% element td %}
                             {% url 'mfa_edit_webauthn' pk=authenticator.pk as edit_url %}

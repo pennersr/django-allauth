@@ -214,10 +214,10 @@ class WebAuthn:
         ).response.attestation_object.auth_data
 
     @property
-    def is_passwordless(self) -> bool:
+    def is_passwordless(self) -> Optional[bool]:
         return (
             self.instance.data.get("credential", {})
             .get("clientExtensionResults", {})
             .get("credProps", {})
-            .get("rk", False)
+            .get("rk")
         )

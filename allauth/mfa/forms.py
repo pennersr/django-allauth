@@ -56,28 +56,6 @@ class ReauthenticateForm(BaseAuthenticateForm):
         )
 
 
-class AuthenticateWebAuthnForm(forms.Form):
-    credential = forms.JSONField(required=True, widget=forms.HiddenInput)
-
-    def __init__(self, *args, **kwargs):
-        self.user = kwargs.pop("user")
-        self.authentication_data = webauthn.begin_authentication(self.user)
-        super().__init__(*args, **kwargs)
-
-    def clean_credential(self):
-        credential = self.cleaned_data["credential"]
-        # Explicitly parse JSON payload -- otherwise, authenticate_complete()
-        # crashes with some random TypeError and we don't want to do
-        # Pokemon-style exception handling.
-        webauthn.parse_authentication_response(credential)
-        authenticator = webauthn.complete_authentication(self.user, credential)
-        return authenticator
-
-    def save(self):
-        authenticator = self.cleaned_data["credential"]
-        authenticator.record_usage()
-
-
 class ActivateTOTPForm(forms.Form):
     code = forms.CharField(
         label=_("Authenticator code"),
@@ -166,18 +144,35 @@ class AddWebAuthnForm(forms.Form):
         return cleaned_data
 
 
-class WebAuthnLoginForm(forms.Form):
+class AuthenticateWebAuthnForm(forms.Form):
     credential = forms.JSONField(required=True, widget=forms.HiddenInput)
 
     def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop("user")
+        self.authentication_data = webauthn.begin_authentication(self.user)
         super().__init__(*args, **kwargs)
-        self.authentication_data = webauthn.begin_authentication()
 
     def clean_credential(self):
         credential = self.cleaned_data["credential"]
+        # Explicitly parse JSON payload -- otherwise, authenticate_complete()
+        # crashes with some random TypeError and we don't want to do
+        # Pokemon-style exception handling.
         webauthn.parse_authentication_response(credential)
-        authenticator = webauthn.complete_authentication(user=None, response=credential)
+        authenticator = webauthn.complete_authentication(self.user, credential)
         return authenticator
+
+    def save(self):
+        authenticator = self.cleaned_data["credential"]
+        authenticator.record_usage()
+
+
+class LoginWebAuthnForm(AuthenticateWebAuthnForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, user=None, **kwargs)
+
+
+class ReauthenticateWebAuthnForm(AuthenticateWebAuthnForm):
+    pass
 
 
 class EditWebAuthnForm(forms.Form):

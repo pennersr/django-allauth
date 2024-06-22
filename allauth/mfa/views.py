@@ -27,8 +27,9 @@ from allauth.mfa.forms import (
     DeactivateTOTPForm,
     EditWebAuthnForm,
     GenerateRecoveryCodesForm,
+    LoginWebAuthnForm,
     ReauthenticateForm,
-    WebAuthnLoginForm,
+    ReauthenticateWebAuthnForm,
 )
 from allauth.mfa.internal import flows
 from allauth.mfa.models import Authenticator
@@ -392,7 +393,7 @@ remove_webauthn = RemoveWebAuthnView.as_view()
 
 # FIXME: rate limits
 class LoginView(FormView):
-    form_class = WebAuthnLoginForm
+    form_class = LoginWebAuthnForm
 
     def get(self, request, *args, **kwargs):
         if get_account_adapter().is_ajax(request):
@@ -418,6 +419,39 @@ class LoginView(FormView):
 
 
 login = LoginView.as_view()
+
+
+class ReauthenticateWebAuthnView(BaseReauthenticateView):
+    form_class = ReauthenticateWebAuthnForm
+    template_name = "mfa/webauthn/reauthenticate." + account_settings.TEMPLATE_EXTENSION
+
+    def get_form_kwargs(self):
+        ret = super().get_form_kwargs()
+        ret["user"] = self.request.user
+        return ret
+
+    def form_invalid(self, form):
+        for message in form.errors.get("credential", []):
+            get_account_adapter().add_message(
+                self.request, messages.ERROR, message=message
+            )
+        return HttpResponseRedirect(reverse("account_login"))
+
+    def form_valid(self, form):
+        authenticator = form.cleaned_data["credential"]
+        redirect_url = None
+        login = Login(user=authenticator.user, redirect_url=redirect_url)
+        return flows.authentication.perform_passwordless_login(
+            self.request, authenticator, login
+        )
+
+    def get_context_data(self, **kwargs):
+        ret = super().get_context_data()
+        ret["js_data"] = {"credentials": ret["form"].authentication_data}
+        return ret
+
+
+reauthenticate_webauthn = ReauthenticateWebAuthnView.as_view()
 
 
 @method_decorator(reauthentication_required, name="dispatch")

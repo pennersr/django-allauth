@@ -48,13 +48,13 @@
                                 Not used.
                             {% endif %}
                         {% endelement %}
-                        {% element td %}
+                        {% element td align="right" %}
                             {% url 'mfa_edit_webauthn' pk=authenticator.pk as edit_url %}
-                            {% element button tags="edit,tool" href=edit_url %}
+                            {% element button tags="mfa,authenticator,edit,tool" href=edit_url %}
                                 {% translate "Edit" %}
                             {% endelement %}
                             {% url 'mfa_remove_webauthn' pk=authenticator.pk as remove_url %}
-                            {% element button tags="danger,delete,tool" href=remove_url %}
+                            {% element button tags="mfa,authenticator,danger,delete,tool" href=remove_url %}
                                 {% translate "Remove" %}
                             {% endelement %}
                         {% endelement %}

@@ -1,5 +1,5 @@
 {% load allauth %}
-<td>
+<td {% if attrs.align %}align="{{ attrs.align }}"{% endif %}>
     {% slot %}
     {% endslot %}
 </td>

@@ -439,11 +439,10 @@ class ReauthenticateWebAuthnView(BaseReauthenticateView):
 
     def form_valid(self, form):
         authenticator = form.cleaned_data["credential"]
-        redirect_url = None
-        login = Login(user=authenticator.user, redirect_url=redirect_url)
-        return flows.authentication.perform_passwordless_login(
-            self.request, authenticator, login
+        flows.authentication.post_authentication(
+            self.request, authenticator, reauthenticated=True
         )
+        return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
         ret = super().get_context_data()

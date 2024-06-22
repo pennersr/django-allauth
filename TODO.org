@@ -1,6 +1,6 @@
 * Webauthn roadmap
 ** Webauthn as a 2nd factor (U2F)
-*** TODO Check names: "credential" vs "authentication_data"
+*** DONE Check names: "credential" vs "authentication_data"
 *** DONE Proof of concept
 *** DONE Redirect to recovery codes (just like TOTP)
 *** DONE Properly populate =PublicKeyCredentialRpEntity=
@@ -16,11 +16,11 @@ https://github.com/github/webauthn-json/tree/main?tab=readme-ov-file
 https://w3c.github.io/webauthn/#sctn-parseCreationOptionsFromJSON
 *** DONE "Sigin with Passkey" button padding
 *** DONE Skip 2FA for Webauthn logins
-*** TODO Email notifications
+*** DONE Email notifications
 *** DONE Drop unique constraint on Authenticator.type?
 Or, put all WebAuthn authenticators in one Authenticator?
 *** DONE Handle error flows in =webauthn.js=
-*** TODO Handle error flows in =webauthn.py=
+*** DONE Handle error flows in =webauthn.py=
 *** DONE When registring a new key, exclude existing IDs
 *** DONE Delete WebAuthn keys
 *** DONE Rename WebAuthn keys

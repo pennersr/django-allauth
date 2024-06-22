@@ -30,6 +30,7 @@ def add_authenticator(
     )
     adapter = get_account_adapter(request)
     adapter.add_message(request, messages.SUCCESS, "mfa/messages/webauthn_added.txt")
+    adapter.send_notification_mail("mfa/email/webauthn_added", request.user)
     rc_auth = auto_generate_recovery_codes(request)
     return auth, rc_auth
 
@@ -39,5 +40,4 @@ def remove_authenticator(request, authenticator: Authenticator):
     delete_and_cleanup(request, authenticator)
     adapter = get_account_adapter(request)
     adapter.add_message(request, messages.SUCCESS, "mfa/messages/webauthn_removed.txt")
-    # FIXME:
-    # adapter.send_notification_mail("mfa/email/totp_deactivated", request.user)
+    adapter.send_notification_mail("mfa/email/webauthn_removed", request.user)

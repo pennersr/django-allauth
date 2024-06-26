@@ -311,7 +311,7 @@ class SocialLogin:
         yet backed by a database record.
         """
         if self._is_existing is not None:
-            return self._is_existing
+            ret = self._is_existing
         if self.user.pk is None:
             ret = False
         else:

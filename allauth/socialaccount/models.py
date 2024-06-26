@@ -310,8 +310,8 @@ class SocialLogin:
         """When `False`, this social login represents a temporary account, not
         yet backed by a database record.
         """
-        if self._is_existing is not None:
-            ret = self._is_existing
+        if self._is_existing:
+            return self._is_existing
         if self.user.pk is None:
             ret = False
         else:

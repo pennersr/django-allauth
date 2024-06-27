@@ -167,7 +167,7 @@ class DeactivateTOTPView(FormView):
     @method_decorator(reauthentication_required)
     def _dispatch(self, request, *args, **kwargs):
         """There's no point to reauthenticate when MFA is not enabled, so the
-        `is_mfa_enabled` chheck needs to go first, which is why we cannot slap a
+        `is_mfa_enabled` check needs to go first, which is why we cannot slap a
         `reauthentication_required` decorator on the `dispatch` directly.
         """
         return super().dispatch(request, *args, **kwargs)

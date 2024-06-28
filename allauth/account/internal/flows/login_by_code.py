@@ -28,8 +28,7 @@ def request_login_code(request: HttpRequest, email: str) -> None:
         "failed_attempts": 0,
     }
     if not users:
-        if app_settings.EMAIL_UNKNOWN_ACCOUNTS:
-            send_unknown_account_mail(request, email)
+        send_unknown_account_mail(request, email)
     else:
         user = users[0]
         code = adapter.generate_login_code()

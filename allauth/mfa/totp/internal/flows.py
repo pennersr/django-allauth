@@ -6,17 +6,18 @@ from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.internal.flows.reauthentication import (
     raise_if_reauthentication_required,
 )
-from allauth.mfa import signals, totp
-from allauth.mfa.internal.flows.base import delete_and_cleanup
-from allauth.mfa.internal.flows.recovery_codes import (
+from allauth.mfa import signals
+from allauth.mfa.base.internal.flows import delete_and_cleanup
+from allauth.mfa.models import Authenticator
+from allauth.mfa.recovery_codes.internal.flows import (
     auto_generate_recovery_codes,
 )
-from allauth.mfa.models import Authenticator
+from allauth.mfa.totp.internal.auth import TOTP
 
 
 def activate_totp(request, form) -> Tuple[Authenticator, Optional[Authenticator]]:
     raise_if_reauthentication_required(request)
-    totp_auth = totp.TOTP.activate(request.user, form.secret).instance
+    totp_auth = TOTP.activate(request.user, form.secret).instance
     signals.authenticator_added.send(
         sender=Authenticator,
         request=request,

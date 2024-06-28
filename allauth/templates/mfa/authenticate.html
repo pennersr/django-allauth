@@ -1,6 +1,7 @@
 {% extends "mfa/base_entrance.html" %}
 {% load i18n %}
 {% load allauth %}
+{% load allauth static %}
 {% block head_title %}
     {% trans "Sign In" %}
 {% endblock head_title %}
@@ -22,10 +23,42 @@
             {% element button type="submit" tags="primary,mfa,login" %}
                 {% trans "Sign In" %}
             {% endelement %}
-            {% url "account_login" as login_url %}
-            {% element button href=login_url tags="link,secondary,mfa,cancel" %}
-                {% trans "Cancel" %}
-            {% endelement %}
         {% endslot %}
     {% endelement %}
+    {% element hr %}
+    {% endelement %}
+    {% element h2 %}
+        {% translate "Alternative options" %}
+    {% endelement %}
+    {% element button_group vertical=True %}
+        {% if "webauthn" in MFA_SUPPORTED_TYPES %}
+            {% element button form="webauthn_form" id="mfa_webauthn_authenticate" type="button" tags="outline,primary" %}
+                {% trans "Use security key or device" %}
+            {% endelement %}
+        {% endif %}
+        {% url "account_login" as login_url %}
+        {% element button href=login_url tags="outline,primary,mfa,cancel" %}
+            {% trans "Cancel" %}
+        {% endelement %}
+    {% endelement %}
+    {% if "webauthn" in MFA_SUPPORTED_TYPES %}
+        {% element form id="webauthn_form" form=webauthn_form method="post" action=action_url no_visible_fields=True %}
+            {% slot body %}
+                {% csrf_token %}
+                {% element fields form=webauthn_form %}
+                {% endelement %}
+            {% endslot %}
+        {% endelement %}
+        {{ js_data|json_script:"js_data" }}
+        {% include "mfa/webauthn/snippets/scripts.html" %}
+        <script type="text/javascript">
+        allauth.webauthn.forms.authenticateForm({
+        ids: {
+        authenticate: "mfa_webauthn_authenticate",
+        credential: "{{ webauthn_form.credential.auto_id }}"
+        },
+        data: JSON.parse(document.getElementById('js_data').textContent)
+        })
+        </script>
+    {% endif %}
 {% endblock content %}

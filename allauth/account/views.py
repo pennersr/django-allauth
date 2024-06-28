@@ -99,6 +99,11 @@ class LoginView(
             return e.response
 
     def get_context_data(self, **kwargs):
+        passkey_login_enabled = False
+        if allauth_app_settings.MFA_ENABLED:
+            from allauth.mfa import app_settings as mfa_settings
+
+            passkey_login_enabled = mfa_settings.PASSKEY_LOGIN_ENABLED
         ret = super().get_context_data(**kwargs)
         signup_url = None
         if not allauth_app_settings.SOCIALACCOUNT_ONLY:
@@ -112,6 +117,7 @@ class LoginView(
                 "SOCIALACCOUNT_ENABLED": allauth_app_settings.SOCIALACCOUNT_ENABLED,
                 "SOCIALACCOUNT_ONLY": allauth_app_settings.SOCIALACCOUNT_ONLY,
                 "LOGIN_BY_CODE_ENABLED": app_settings.LOGIN_BY_CODE_ENABLED,
+                "PASSKEY_LOGIN_ENABLED": passkey_login_enabled,
             }
         )
         if app_settings.LOGIN_BY_CODE_ENABLED:

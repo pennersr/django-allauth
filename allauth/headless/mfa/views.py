@@ -9,10 +9,10 @@ from allauth.headless.mfa.inputs import (
     AuthenticateInput,
     GenerateRecoveryCodesInput,
 )
-from allauth.mfa import totp
-from allauth.mfa.internal import flows
 from allauth.mfa.models import Authenticator
+from allauth.mfa.recovery_codes.internal import flows as recovery_codes_flows
 from allauth.mfa.stages import AuthenticateStage
+from allauth.mfa.totp.internal import auth as totp_auth, flows as totp_flows
 
 
 class AuthenticateView(AuthenticationStageAPIView):
@@ -50,7 +50,7 @@ class ManageTOTPView(AuthenticatedAPIView):
     def get(self, request, *args, **kwargs):
         authenticator = self._get_authenticator()
         if not authenticator:
-            secret = totp.get_totp_secret(regenerate=True)
+            secret = totp_auth.get_totp_secret(regenerate=True)
             return response.TOTPNotFoundResponse(request, secret)
         return response.TOTPResponse(request, authenticator)
 
@@ -63,13 +63,13 @@ class ManageTOTPView(AuthenticatedAPIView):
         return {"user": self.request.user}
 
     def post(self, request, *args, **kwargs):
-        authenticator = flows.totp.activate_totp(request, self.input)[0]
+        authenticator = totp_flows.activate_totp(request, self.input)[0]
         return response.TOTPResponse(request, authenticator)
 
     def delete(self, request, *args, **kwargs):
         authenticator = self._get_authenticator()
         if authenticator:
-            authenticator = flows.totp.deactivate_totp(request, authenticator)
+            authenticator = totp_flows.deactivate_totp(request, authenticator)
         return response.AuthenticatorDeletedResponse(request)
 
 
@@ -77,13 +77,13 @@ class ManageRecoveryCodesView(AuthenticatedAPIView):
     input_class = GenerateRecoveryCodesInput
 
     def get(self, request, *args, **kwargs):
-        authenticator = flows.recovery_codes.view_recovery_codes(request)
+        authenticator = recovery_codes_flows.view_recovery_codes(request)
         if not authenticator:
             return response.RecoveryCodesNotFoundResponse(request)
         return response.RecoveryCodesResponse(request, authenticator)
 
     def post(self, request, *args, **kwargs):
-        authenticator = flows.recovery_codes.generate_recovery_codes(request)
+        authenticator = recovery_codes_flows.generate_recovery_codes(request)
         return response.RecoveryCodesResponse(request, authenticator)
 
     def get_input_kwargs(self):

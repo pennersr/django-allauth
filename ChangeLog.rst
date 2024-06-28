@@ -4,6 +4,10 @@
 Note worthy changes
 -------------------
 
+- Added support for WebAuthn based security keys and passkey login. Note that
+  this is currently disabled by default, and headless support is not supported,
+  yet.
+
 - The 0.x.y version numbers really did not do justice to the state of the
   project, and we are way past the point where a version 1.0 would be
   applicable. Additionally, 64 is a nice round number. Therefore, the version
@@ -11,6 +15,16 @@ Note worthy changes
   versioning. However, please be aware that feature releases may occasionally
   include minor documented backwards incompatibilities. Always read the release
   notes before upgrading.
+
+
+Security notice
+---------------
+
+- The ``__str__()`` method of the ``SocialToken`` model returned the access
+  token. As a consequence, logging or printing tokens otherwise would expose the
+  access token. Now, the method no longer returns the token. If you want to
+  log/print tokens, you will now have to explicitly log the ``token`` field of
+  the ``SocialToken`` instance.
 
 
 Backwards incompatible changes

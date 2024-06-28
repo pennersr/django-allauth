@@ -1,6 +1,6 @@
 from allauth.mfa import app_settings
 from allauth.mfa.models import Authenticator
-from allauth.mfa.recovery_codes import RecoveryCodes
+from allauth.mfa.recovery_codes.internal.auth import RecoveryCodes
 
 
 def test_flow(user):

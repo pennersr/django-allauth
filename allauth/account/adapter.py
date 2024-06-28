@@ -739,15 +739,26 @@ class DefaultAccountAdapter(BaseAdapter):
                 entry["url"] = reverse("account_reauthenticate")
             ret.append(entry)
         if allauth_app_settings.MFA_ENABLED:
+            from allauth.mfa.models import Authenticator
             from allauth.mfa.utils import is_mfa_enabled
 
-            if is_mfa_enabled(user):
+            if is_mfa_enabled(
+                user, types=[Authenticator.Type.TOTP, Authenticator.Type.RECOVERY_CODES]
+            ):
                 entry = {
                     "id": "mfa_reauthenticate",
-                    "description": _("Use your authenticator app"),
+                    "description": _("Use authenticator app or code"),
                 }
                 if not allauth_app_settings.HEADLESS_ONLY:
                     entry["url"] = reverse("mfa_reauthenticate")
+                ret.append(entry)
+            if is_mfa_enabled(user, types=[Authenticator.Type.WEBAUTHN]):
+                entry = {
+                    "id": "mfa_reauthenticate_webauthn",
+                    "description": _("Use security key or device"),
+                }
+                if not allauth_app_settings.HEADLESS_ONLY:
+                    entry["url"] = reverse("mfa_reauthenticate_webauthn")
                 ret.append(entry)
         return ret
 

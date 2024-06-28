@@ -228,6 +228,13 @@ ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 ACCOUNT_LOGIN_BY_CODE_ENABLED = True
 
+MFA_SUPPORTED_TYPES = [
+    "webauthn",
+    "totp",
+    "recovery_codes",
+]
+MFA_PASSKEY_LOGIN_ENABLED = True
+
 try:
     from .local_settings import *  # noqa
 except ImportError:

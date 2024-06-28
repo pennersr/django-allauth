@@ -1,3 +1,5 @@
+from typing import Callable
+
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
@@ -8,6 +10,17 @@ from allauth.mfa import totp, webauthn
 from allauth.mfa.adapter import get_adapter
 from allauth.mfa.internal import flows
 from allauth.mfa.models import Authenticator
+
+
+def _check_rate_limit(user) -> Callable:
+    key = f"mfa-auth-user-{str(user.pk)}"
+    if not ratelimit.consume(
+        context.request,
+        action="login_failed",
+        key=key,
+    ):
+        raise get_account_adapter().validation_error("too_many_login_attempts")
+    return lambda: ratelimit.clear(context.request, action="login_failed", key=key)
 
 
 class BaseAuthenticateForm(forms.Form):
@@ -23,14 +36,7 @@ class BaseAuthenticateForm(forms.Form):
         super().__init__(*args, **kwargs)
 
     def clean_code(self):
-        key = f"mfa-auth-user-{str(self.user.pk)}"
-        if not ratelimit.consume(
-            context.request,
-            action="login_failed",
-            key=key,
-        ):
-            raise get_account_adapter().validation_error("too_many_login_attempts")
-
+        clear_rl = _check_rate_limit(self.user)
         code = self.cleaned_data["code"]
         for auth in Authenticator.objects.filter(user=self.user).exclude(
             # WebAuthn cannot validate manual codes.
@@ -38,7 +44,7 @@ class BaseAuthenticateForm(forms.Form):
         ):
             if auth.wrap().validate_code(code):
                 self.authenticator = auth
-                ratelimit.clear(context.request, action="login_failed", key=key)
+                clear_rl()
                 return code
 
         raise get_adapter().validation_error("incorrect_code")
@@ -158,7 +164,12 @@ class AuthenticateWebAuthnForm(forms.Form):
         # crashes with some random TypeError and we don't want to do
         # Pokemon-style exception handling.
         webauthn.parse_authentication_response(credential)
-        authenticator = webauthn.complete_authentication(self.user, credential)
+        user = self.user
+        if user is None:
+            user = webauthn.extract_user_from_response(credential)
+        clear_rl = _check_rate_limit(user)
+        authenticator = webauthn.complete_authentication(user, credential)
+        clear_rl()
         return authenticator
 
     def save(self):

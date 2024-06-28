@@ -391,7 +391,6 @@ class RemoveWebAuthnView(NextRedirectMixin, DeleteView):
 remove_webauthn = RemoveWebAuthnView.as_view()
 
 
-# FIXME: rate limits
 class LoginView(FormView):
     form_class = LoginWebAuthnForm
 

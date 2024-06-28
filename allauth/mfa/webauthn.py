@@ -162,8 +162,6 @@ def extract_user_from_response(response: Dict):
 
 
 def complete_authentication(user, response: Dict) -> Authenticator:
-    if user is None:
-        user = extract_user_from_response(response)
     credentials = get_credentials(user)
     server = get_server()
     state = get_state()

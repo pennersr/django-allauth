@@ -138,6 +138,7 @@ Template file                               Description
 allauth/elements/alert.html                 Display alert messages.
 allauth/elements/badge.html                 Badges for labeling purposes.
 allauth/elements/button.html                A button (``<button>``).
+allauth/elements/button_group.html          A group of related buttons.
 allauth/elements/field.html                 A single form field.
 allauth/elements/fields.html                The form fields, uses ``{{form.as_p}}`` by default, hence, not rendering the ``field.html``.
 allauth/elements/form.html                  The ``<form>`` container tag.
@@ -149,7 +150,12 @@ allauth/elements/panel.html                 A panel (aka card), consisting of a 
 allauth/elements/p.html                     Paragraphs (``<p>``).
 allauth/elements/provider.html              A link to a third-party provider.
 allauth/elements/provider_list.html         The container element for the list of third-party providers.
-allauth/elements/table.html                 Table ``<table>`` container.
+allauth/elements/table.html                 Table (``<table>``).
+allauth/elements/tbody.html                 Table body (``<tbody>``).
+allauth/elements/td.html                    Table data cell (``<td>``).
+allauth/elements/th.html                    Table header cell (``<th>``).
+allauth/elements/thead.html                 Table head (``<thead>``).
+allauth/elements/tr.html                    Table row (``<tr>``).
 ==========================================  ===========
 
 

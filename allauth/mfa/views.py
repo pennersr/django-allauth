@@ -61,20 +61,27 @@ class AuthenticateView(TemplateView):
     def _build_forms(self):
         posted_form = None
         user = self.stage.login.user
+        support_webauthn = "webauthn" in app_settings.SUPPORTED_TYPES
         if self.request.method == "POST":
             if "code" in self.request.POST:
                 posted_form = self.auth_form = AuthenticateForm(
                     user=user, data=self.request.POST
                 )
-                self.webauthn_form = AuthenticateWebAuthnForm(user=user)
+                self.webauthn_form = (
+                    AuthenticateWebAuthnForm(user=user) if support_webauthn else None
+                )
             else:
-                self.auth_form = AuthenticateForm(user=user)
+                self.auth_form = (
+                    AuthenticateForm(user=user) if support_webauthn else None
+                )
                 posted_form = self.webauthn_form = AuthenticateWebAuthnForm(
                     user=user, data=self.request.POST
                 )
         else:
             self.auth_form = AuthenticateForm(user=user)
-            self.webauthn_form = AuthenticateWebAuthnForm(user=user)
+            self.webauthn_form = (
+                AuthenticateWebAuthnForm(user=user) if support_webauthn else None
+            )
         return posted_form
 
     def get_form_class(self):
@@ -92,11 +99,16 @@ class AuthenticateView(TemplateView):
         ret.update(
             {
                 "form": self.auth_form,
-                "webauthn_form": self.webauthn_form,
-                "js_data": {"credentials": self.webauthn_form.authentication_data},
                 "MFA_SUPPORTED_TYPES": app_settings.SUPPORTED_TYPES,
             }
         )
+        if self.webauthn_form:
+            ret.update(
+                {
+                    "webauthn_form": self.webauthn_form,
+                    "js_data": {"credentials": self.webauthn_form.authentication_data},
+                }
+            )
         return ret
 
 

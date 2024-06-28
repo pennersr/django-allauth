@@ -104,7 +104,7 @@ def complete_registration(credential: Dict) -> AuthenticatorData:
     return binding
 
 
-def get_credentials(user) -> list[AttestedCredentialData]:
+def get_credentials(user) -> List[AttestedCredentialData]:
     credentials: List[AttestedCredentialData] = []
     authenticators = Authenticator.objects.filter(
         user=user, type=Authenticator.Type.WEBAUTHN

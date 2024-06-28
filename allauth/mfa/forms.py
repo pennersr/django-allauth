@@ -12,7 +12,7 @@ from allauth.mfa.internal import flows
 from allauth.mfa.models import Authenticator
 
 
-def _check_rate_limit(user) -> Callable:
+def _check_rate_limit(user) -> Callable[[], None]:
     key = f"mfa-auth-user-{str(user.pk)}"
     if not ratelimit.consume(
         context.request,

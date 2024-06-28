@@ -7,9 +7,11 @@ from allauth.mfa import app_settings, views
 
 urlpatterns: List[Union[URLPattern, URLResolver]] = [
     path("authenticate/", views.authenticate, name="mfa_authenticate"),
-    path("login/", views.login, name="mfa_login"),
     path("reauthenticate/", views.reauthenticate, name="mfa_reauthenticate"),
 ]
+if app_settings.PASSKEY_LOGIN_ENABLED:
+    urlpatterns.append(path("login/", views.login, name="mfa_login"))
+
 if app_settings.SUPPORTED_TYPES:
     urlpatterns.append(path("", views.index, name="mfa_index"))
 

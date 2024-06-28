@@ -31,7 +31,7 @@ Or, put all WebAuthn authenticators in one Authenticator?
 *** DONE Test suite
 *** DONE Documentation
 *** TODO Headless
-*** TODO Reauthenticate kicks in add key -> view codes
+*** DONE Reauthenticate kicks in add key -> view codes
 *** DONE Reauthenticate does not have WebAuthn option
 *** DONE Authenticate UX is different to reauthenticate
 ** Passkeys

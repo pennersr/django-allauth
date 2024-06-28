@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.models import EmailAddress
 from allauth.core import context, ratelimit
-from allauth.mfa import totp, webauthn
+from allauth.mfa import app_settings, totp, webauthn
 from allauth.mfa.adapter import get_adapter
 from allauth.mfa.internal import flows
 from allauth.mfa.models import Authenticator
@@ -117,13 +117,14 @@ class GenerateRecoveryCodesForm(forms.Form):
 
 class AddWebAuthnForm(forms.Form):
     name = forms.CharField(required=False)
-    passwordless = forms.BooleanField(
-        label=_("Passwordless"),
-        required=False,
-        help_text=_(
-            "Enabling passwordless operation allows you to sign in using just this key/device, but imposes additional requirements such as biometrics or PIN protection."
-        ),
-    )
+    if app_settings.PASSKEY_LOGIN_ENABLED:
+        passwordless = forms.BooleanField(
+            label=_("Passwordless"),
+            required=False,
+            help_text=_(
+                "Enabling passwordless operation allows you to sign in using just this key/device, but imposes additional requirements such as biometrics or PIN protection."
+            ),
+        )
     credential = forms.JSONField(required=True, widget=forms.HiddenInput)
 
     def __init__(self, *args, **kwargs):

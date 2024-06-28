@@ -20,11 +20,11 @@
 
   function addForm (o) {
     const addBtn = document.getElementById(o.ids.add)
-    const passwordlessCb = document.getElementById(o.ids.passwordless)
+    const passwordlessCb = o.ids.apsswordless ? document.getElementById(o.ids.passwordless) : null
     const credentialInput = document.getElementById(o.ids.credential)
     const form = credentialInput.closest('form')
     addBtn.addEventListener('click', async function () {
-      const passwordless = passwordlessCb.checked
+      const passwordless = passwordlessCb ? passwordlessCb.checked : false
       try {
         const credential = await createCredentials(o.data.credentials, passwordless)
         credentialInput.value = JSON.stringify(credential)

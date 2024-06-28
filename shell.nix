@@ -7,28 +7,28 @@ stdenv.mkDerivation {
         gettext
         isort
         djlint
-        python310
-        python310Packages.mypy
-        python310Packages.django-stubs
-        python310Packages.types-requests
-        python310Packages.django
-        python310Packages.flake8
-        python310Packages.debugpy
-        python310Packages.pycodestyle
-        python310Packages.pyls-flake8
-        python310Packages.pylsp-rope
-        python310Packages.pytest
-        python310Packages.pytest-cov
-        python310Packages.pytest-django
-        python310Packages.python-lsp-server
-        python310Packages.python3-openid
-        python310Packages.python3-saml
-        python310Packages.pyjwt
-        python310Packages.qrcode
-        python310Packages.sphinx-rtd-theme
-        python310Packages.requests-oauthlib
-        python310Packages.tox
-        python310Packages.daphne
+        python311
+        python311Packages.mypy
+        python311Packages.django-stubs
+        python311Packages.types-requests
+        python311Packages.django
+        python311Packages.flake8
+        python311Packages.debugpy
+        python311Packages.pycodestyle
+        python311Packages.pyls-flake8
+        python311Packages.pylsp-rope
+        python311Packages.pytest
+        python311Packages.pytest-cov
+        python311Packages.pytest-django
+        python311Packages.python-lsp-server
+        python311Packages.python3-openid
+        python311Packages.python3-saml
+        python311Packages.pyjwt
+        python311Packages.qrcode
+        python311Packages.sphinx-rtd-theme
+        python311Packages.requests-oauthlib
+        python311Packages.tox
+        python311Packages.daphne
         sphinx
         twine
 

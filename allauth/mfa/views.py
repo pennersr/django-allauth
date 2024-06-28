@@ -273,6 +273,7 @@ class GenerateRecoveryCodesView(FormView):
 generate_recovery_codes = GenerateRecoveryCodesView.as_view()
 
 
+@method_decorator(login_required, name="dispatch")
 class DownloadRecoveryCodesView(TemplateView):
     template_name = "mfa/recovery_codes/download.txt"
     content_type = "text/plain"
@@ -300,6 +301,7 @@ class DownloadRecoveryCodesView(TemplateView):
 download_recovery_codes = DownloadRecoveryCodesView.as_view()
 
 
+@method_decorator(login_required, name="dispatch")
 class ViewRecoveryCodesView(TemplateView):
     template_name = "mfa/recovery_codes/index." + account_settings.TEMPLATE_EXTENSION
 
@@ -353,6 +355,7 @@ class AddWebAuthnView(FormView):
 add_webauthn = AddWebAuthnView.as_view()
 
 
+@method_decorator(login_required, name="dispatch")
 class ListWebAuthnView(ListView):
     template_name = (
         "mfa/webauthn/authenticator_list." + account_settings.TEMPLATE_EXTENSION
@@ -420,6 +423,7 @@ class LoginView(FormView):
 login = LoginView.as_view()
 
 
+@method_decorator(login_required, name="dispatch")
 class ReauthenticateWebAuthnView(BaseReauthenticateView):
     form_class = ReauthenticateWebAuthnForm
     template_name = "mfa/webauthn/reauthenticate." + account_settings.TEMPLATE_EXTENSION

@@ -5,7 +5,6 @@ from django.utils.translation import gettext, gettext_lazy as _
 
 from allauth import app_settings as allauth_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
-from allauth.account.models import EmailAddress
 from allauth.account.utils import (
     user_display,
     user_email,
@@ -46,6 +45,12 @@ class DefaultMFAAdapter(BaseAdapter):
     def get_totp_label(self, user) -> str:
         """Returns the label used for representing the given user in a TOTP QR
         code.
+        """
+        return self._get_user_identifier(user)
+
+    def _get_user_identifier(self, user) -> str:
+        """Human-palatable identifier for a user account. It is intended only
+        for display.
         """
         label = user_email(user)
         if not label:
@@ -129,17 +134,10 @@ class DefaultMFAAdapter(BaseAdapter):
         }
 
     def get_public_key_credential_user_entity(self, user) -> dict:
-        # FIXME: align with get_totp_label
-        display_name = user_display(user)
-        name = user_username(user)
-        if not name:
-            name = EmailAddress.objects.get_primary_email(user)
-        if not name:
-            name = display_name
         return {
             "id": user_pk_to_url_str(user).encode("utf8"),
-            "display_name": display_name,
-            "name": name,
+            "display_name": user_display(user),
+            "name": self._get_user_identifier(user),
         }
 
 

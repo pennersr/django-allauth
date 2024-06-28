@@ -8,7 +8,7 @@ from allauth.account.internal.flows.reauthentication import (
 )
 from allauth.mfa import app_settings, signals
 from allauth.mfa.models import Authenticator
-from allauth.mfa.recovery_codes import RecoveryCodes
+from allauth.mfa.recovery_codes.internal.auth import RecoveryCodes
 
 
 def can_generate_recovery_codes(user) -> bool:

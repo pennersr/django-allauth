@@ -3,9 +3,9 @@ from django.urls import NoReverseMatch, reverse
 
 from allauth import app_settings as allauth_settings
 from allauth.account.stages import LoginStage
-from allauth.mfa.internal import flows
 from allauth.mfa.models import Authenticator
 from allauth.mfa.utils import is_mfa_enabled
+from allauth.mfa.webauthn.internal.flows import did_use_passwordless_login
 
 
 class AuthenticateStage(LoginStage):
@@ -29,6 +29,6 @@ class AuthenticateStage(LoginStage):
             self.login.user, [Authenticator.Type.TOTP, Authenticator.Type.WEBAUTHN]
         ):
             return False
-        if flows.authentication.did_use_passwordless_login(request):
+        if did_use_passwordless_login(request):
             return False
         return True

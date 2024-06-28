@@ -11,17 +11,41 @@ from allauth.mfa.models import Authenticator
 
 def test_passkey_login(client, passkey, webauthn_authentication_bypass):
     with webauthn_authentication_bypass(passkey) as credential:
-        resp = client.post(reverse("mfa_login"), data={"credential": credential})
+        resp = client.post(
+            reverse("mfa_login_webauthn"), data={"credential": credential}
+        )
     assert resp["location"] == settings.LOGIN_REDIRECT_URL
 
 
+def test_reauthenticate(
+    auth_client, passkey, user_with_recovery_codes, webauthn_authentication_bypass
+):
+    resp = auth_client.get(reverse("mfa_view_recovery_codes"))
+    assert resp.status_code == 302
+    assert resp["location"].startswith(reverse("account_reauthenticate"))
+    resp = auth_client.get(reverse("mfa_reauthenticate"))
+    assertTemplateUsed(resp, "mfa/reauthenticate.html")
+
+    with webauthn_authentication_bypass(passkey) as credential:
+        resp = auth_client.get(
+            reverse("mfa_reauthenticate_webauthn"),
+        )
+        resp = auth_client.post(
+            reverse("mfa_reauthenticate_webauthn"),
+            data={"credential": credential, "next": "/redir"},
+        )
+    assert resp["location"] == "/redir"
+
+
 def test_get_passkey_login_challenge_redirects_if_not_ajax(client):
-    resp = client.get(reverse("mfa_login"))
+    resp = client.get(reverse("mfa_login_webauthn"))
     assert resp["location"] == reverse("account_login")
 
 
 def test_get_passkey_login_challenge(client, db):
-    resp = client.get(reverse("mfa_login"), HTTP_X_REQUESTED_WITH="XMLHttpRequest")
+    resp = client.get(
+        reverse("mfa_login_webauthn"), HTTP_X_REQUESTED_WITH="XMLHttpRequest"
+    )
     assert resp.status_code == 200
     assert resp["content-type"] == "application/json"
     data = resp.json()
@@ -38,7 +62,7 @@ def test_get_passkey_login_challenge(client, db):
 
 
 def test_invalid_passkey_login(client, passkey):
-    resp = client.post(reverse("mfa_login"), data={"credential": "{}"})
+    resp = client.post(reverse("mfa_login_webauthn"), data={"credential": "{}"})
     assert resp["location"] == reverse("account_login")
 
 

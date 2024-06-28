@@ -1,23 +1,31 @@
 from typing import Optional, Tuple
 
 from django.contrib import messages
+from django.http import HttpRequest
 
 from allauth.account.adapter import get_adapter as get_account_adapter
+from allauth.account.authentication import get_authentication_records
+from allauth.account.internal import flows
 from allauth.account.internal.flows.reauthentication import (
     raise_if_reauthentication_required,
 )
-from allauth.mfa import signals, webauthn
-from allauth.mfa.internal.flows.base import delete_and_cleanup
-from allauth.mfa.internal.flows.recovery_codes import (
-    auto_generate_recovery_codes,
+from allauth.account.models import Login
+from allauth.mfa import signals
+from allauth.mfa.base.internal.flows import (
+    delete_and_cleanup,
+    post_authentication,
 )
 from allauth.mfa.models import Authenticator
+from allauth.mfa.recovery_codes.internal.flows import (
+    auto_generate_recovery_codes,
+)
+from allauth.mfa.webauthn.internal import auth
 
 
 def add_authenticator(
     request, name: str, credential: dict
 ) -> Tuple[Authenticator, Optional[Authenticator]]:
-    auth = webauthn.WebAuthn.add(
+    authenticator = auth.WebAuthn.add(
         request.user,
         name,
         credential,
@@ -26,13 +34,13 @@ def add_authenticator(
         sender=Authenticator,
         request=request,
         user=request.user,
-        authenticator=auth,
+        authenticator=authenticator,
     )
     adapter = get_account_adapter(request)
     adapter.add_message(request, messages.SUCCESS, "mfa/messages/webauthn_added.txt")
     adapter.send_notification_mail("mfa/email/webauthn_added", request.user)
-    rc_auth = auto_generate_recovery_codes(request)
-    return auth, rc_auth
+    rc_authenticator = auto_generate_recovery_codes(request)
+    return authenticator, rc_authenticator
 
 
 def remove_authenticator(request, authenticator: Authenticator):
@@ -41,3 +49,17 @@ def remove_authenticator(request, authenticator: Authenticator):
     adapter = get_account_adapter(request)
     adapter.add_message(request, messages.SUCCESS, "mfa/messages/webauthn_removed.txt")
     adapter.send_notification_mail("mfa/email/webauthn_removed", request.user)
+
+
+def perform_passwordless_login(request, authenticator: Authenticator, login: Login):
+    post_authentication(request, authenticator, passwordless=True)
+    return flows.login.perform_login(request, login)
+
+
+def did_use_passwordless_login(request: HttpRequest) -> bool:
+    records = get_authentication_records(request)
+    return any(
+        (record.get("method"), record.get("type"), record.get("passwordless"))
+        == ("mfa", "webauthn", True)
+        for record in records
+    )

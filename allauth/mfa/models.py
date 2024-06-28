@@ -53,9 +53,9 @@ class Authenticator(models.Model):
         return self.get_type_display()
 
     def wrap(self):
-        from allauth.mfa.recovery_codes import RecoveryCodes
-        from allauth.mfa.totp import TOTP
-        from allauth.mfa.webauthn import WebAuthn
+        from allauth.mfa.recovery_codes.internal.auth import RecoveryCodes
+        from allauth.mfa.totp.internal.auth import TOTP
+        from allauth.mfa.webauthn.internal.auth import WebAuthn
 
         return {
             self.Type.TOTP: TOTP,

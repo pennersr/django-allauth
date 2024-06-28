@@ -1,5 +1,5 @@
 {% include "mfa/webauthn/snippets/scripts.html" %}
-<form id="mfa_login" action="{% url 'mfa_login' %}" method="post">
+<form id="mfa_login" action="{% url 'mfa_login_webauthn' %}" method="post">
     {% csrf_token %}
     {{ redirect_field }}
     <input type="hidden" name="credential" id="mfa_credential">

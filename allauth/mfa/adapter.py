@@ -1,10 +1,16 @@
 from io import BytesIO
+from typing import Dict
 
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext, gettext_lazy as _
 
 from allauth import app_settings as allauth_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
-from allauth.account.utils import user_email, user_username
+from allauth.account.utils import (
+    user_display,
+    user_email,
+    user_pk_to_url_str,
+    user_username,
+)
 from allauth.core import context
 from allauth.core.internal.adapter import BaseAdapter
 from allauth.mfa import app_settings
@@ -39,6 +45,12 @@ class DefaultMFAAdapter(BaseAdapter):
     def get_totp_label(self, user) -> str:
         """Returns the label used for representing the given user in a TOTP QR
         code.
+        """
+        return self._get_user_identifier(user)
+
+    def _get_user_identifier(self, user) -> str:
+        """Human-palatable identifier for a user account. It is intended only
+        for display.
         """
         label = user_email(user)
         if not label:
@@ -101,6 +113,32 @@ class DefaultMFAAdapter(BaseAdapter):
         if types is not None:
             qs = qs.filter(type__in=types)
         return qs.exists()
+
+    def generate_authenticator_name(self, user, type: Authenticator.Type) -> str:
+        """
+        Generate a human friendly name for the key. Used to prefill the "Add
+        key" form.
+        """
+        n = Authenticator.objects.filter(user=user, type=type).count()
+        if n == 0:
+            return gettext("Master key")
+        elif n == 1:
+            return gettext("Backup key")
+        return gettext("Key nr. {number}").format(number=n + 1)
+
+    def get_public_key_credential_rp_entity(self) -> Dict[str, str]:
+        name = self._get_site_name()
+        return {
+            "id": context.request.get_host().partition(":")[0],
+            "name": name,
+        }
+
+    def get_public_key_credential_user_entity(self, user) -> dict:
+        return {
+            "id": user_pk_to_url_str(user).encode("utf8"),
+            "display_name": user_display(user),
+            "name": self._get_user_identifier(user),
+        }
 
 
 def get_adapter() -> DefaultMFAAdapter:

@@ -110,7 +110,7 @@ class ElementNode(template.Node):
                 attrs[k] = v.resolve(context)
             tags = attrs.get("tags")
             if tags:
-                attrs["tags"] = tags.split(",")
+                attrs["tags"] = [tag.strip() for tag in tags.split(",")]
             return render_to_string(
                 template_names,
                 {

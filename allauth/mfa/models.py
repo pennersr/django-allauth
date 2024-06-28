@@ -1,6 +1,8 @@
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.db import models
+from django.db.models import Q
+from django.db.models.constraints import UniqueConstraint
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
@@ -21,6 +23,7 @@ class Authenticator(models.Model):
     class Type(models.TextChoices):
         RECOVERY_CODES = "recovery_codes", _("Recovery codes")
         TOTP = "totp", _("TOTP Authenticator")
+        WEBAUTHN = "webauthn", _("WebAuthn")
 
     objects = AuthenticatorManager()
 
@@ -31,21 +34,34 @@ class Authenticator(models.Model):
     last_used_at = models.DateTimeField(null=True)
 
     class Meta:
-        unique_together = (("user", "type"),)
+        constraints = [
+            UniqueConstraint(
+                fields=["user", "type"],
+                name="unique_authenticator_type",
+                condition=Q(
+                    type__in=(
+                        "totp",
+                        "recovery_codes",
+                    )
+                ),
+            )
+        ]
 
     def __str__(self):
+        if self.type == self.Type.WEBAUTHN:
+            return self.wrap().name
         return self.get_type_display()
 
     def wrap(self):
         from allauth.mfa.recovery_codes import RecoveryCodes
         from allauth.mfa.totp import TOTP
+        from allauth.mfa.webauthn import WebAuthn
 
         return {
             self.Type.TOTP: TOTP,
             self.Type.RECOVERY_CODES: RecoveryCodes,
-        }[
-            self.type
-        ](self)
+            self.Type.WEBAUTHN: WebAuthn,
+        }[self.type](self)
 
     def record_usage(self) -> None:
         self.last_used_at = timezone.now()

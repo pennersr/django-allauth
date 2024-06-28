@@ -29,6 +29,7 @@ stdenv.mkDerivation {
         python311Packages.requests-oauthlib
         python311Packages.tox
         python311Packages.daphne
+        python311Packages.fido2
         sphinx
         twine
 

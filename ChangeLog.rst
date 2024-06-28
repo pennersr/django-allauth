@@ -4,6 +4,10 @@
 Note worthy changes
 -------------------
 
+- Added support for WebAuthn based security keys and passkey login. Note that
+  this is currently disabled by default, and headless support is not supported,
+  yet.
+
 - The 0.x.y version numbers really did not do justice to the state of the
   project, and we are way past the point where a version 1.0 would be
   applicable. Additionally, 64 is a nice round number. Therefore, the version

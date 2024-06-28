@@ -1,8 +1,9 @@
+import json
 import random
 import time
 import uuid
 from contextlib import contextmanager
-from unittest.mock import patch
+from unittest.mock import Mock, PropertyMock, patch
 
 from django.contrib.auth import get_user_model
 from django.contrib.messages.middleware import MessageMiddleware
@@ -124,6 +125,69 @@ def reauthentication_bypass():
     return f
 
 
+@pytest.fixture
+def webauthn_authentication_bypass():
+    @contextmanager
+    def f(authenticator):
+        from fido2.utils import websafe_encode
+
+        from allauth.mfa.adapter import get_adapter
+
+        with patch(
+            "allauth.mfa.webauthn.WebAuthn.authenticator_data",
+            new_callable=PropertyMock,
+        ) as ad_m:
+            with patch("fido2.server.Fido2Server.authenticate_complete") as ac_m:
+                with patch("allauth.mfa.webauthn.parse_authentication_response") as m:
+                    user_handle = get_adapter().get_public_key_credential_user_entity(
+                        authenticator.user
+                    )["id"]
+                    authenticator_data = Mock()
+                    authenticator_data.credential_data.credential_id = "credential_id"
+                    ad_m.return_value = authenticator_data
+                    m.return_value = Mock()
+                    binding = Mock()
+                    binding.credential_id = "credential_id"
+                    ac_m.return_value = binding
+                    yield json.dumps(
+                        {"response": {"userHandle": websafe_encode(user_handle)}}
+                    )
+
+    return f
+
+
+@pytest.fixture
+def webauthn_registration_bypass():
+    @contextmanager
+    def f(user, passwordless):
+        with patch("fido2.server.Fido2Server.register_complete") as rc_m:
+            with patch("allauth.mfa.webauthn.parse_registration_response") as m:
+                m.return_value = Mock()
+
+                class FakeAuthenticatorData(bytes):
+                    def is_user_verified(self):
+                        return passwordless
+
+                binding = FakeAuthenticatorData(b"binding")
+                rc_m.return_value = binding
+                yield json.dumps(
+                    {
+                        "authenticatorAttachment": "cross-platform",
+                        "clientExtensionResults": {"credProps": {"rk": passwordless}},
+                        "id": "123",
+                        "rawId": "456",
+                        "response": {
+                            "attestationObject": "ao",
+                            "clientDataJSON": "cdj",
+                            "transports": ["usb"],
+                        },
+                        "type": "public-key",
+                    }
+                )
+
+    return f
+
+
 @pytest.fixture(autouse=True)
 def clear_context_request():
     context._request_var.set(None)
@@ -193,6 +257,23 @@ def user_with_recovery_codes(user_with_totp):
 
     recovery_codes.RecoveryCodes.activate(user_with_totp)
     return user_with_totp
+
+
+@pytest.fixture
+def passkey(user):
+    from allauth.mfa.models import Authenticator
+
+    authenticator = Authenticator.objects.create(
+        user=user,
+        type=Authenticator.Type.WEBAUTHN,
+        data={"name": "Test passkey", "passwordless": True},
+    )
+    return authenticator
+
+
+@pytest.fixture
+def user_with_passkey(user, passkey):
+    return user
 
 
 @pytest.fixture

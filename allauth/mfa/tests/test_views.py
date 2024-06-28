@@ -1,13 +1,12 @@
 from unittest.mock import ANY, patch
 
-import django
 from django.conf import settings
 from django.core.cache import cache
 from django.test import Client
 from django.urls import reverse
 
 import pytest
-from pytest_django.asserts import assertFormError, assertTemplateUsed
+from pytest_django.asserts import assertTemplateUsed
 
 from allauth.account.authentication import AUTHENTICATION_METHODS_SESSION_KEY
 from allauth.account.models import EmailAddress
@@ -263,27 +262,15 @@ def test_totp_login_rate_limit(
                 "code": "wrong",
             },
         )
-        if django.VERSION >= (4, 1):
-            assertFormError(
-                resp.context["form"],
-                "code",
+        assert resp.context["form"].errors == {
+            "code": [
                 (
                     "Too many failed login attempts. Try again later."
                     if is_locked
                     else "Incorrect code."
-                ),
-            )
-        else:
-            assertFormError(
-                resp,
-                "form",
-                "code",
-                (
-                    "Too many failed login attempts. Try again later."
-                    if is_locked
-                    else "Incorrect code."
-                ),
-            )
+                )
+            ]
+        }
 
 
 def test_cannot_deactivate_totp(auth_client, user_with_totp, user_password):

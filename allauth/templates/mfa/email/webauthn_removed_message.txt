@@ -1,0 +1,4 @@
+{% extends "account/email/base_notification.txt" %}
+{% load i18n %}
+
+{% block notification_message %}{% blocktrans %}A security key has been removed.{% endblocktrans %}{% endblock notification_message %}

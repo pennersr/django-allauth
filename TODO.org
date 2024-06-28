@@ -25,11 +25,11 @@ Or, put all WebAuthn authenticators in one Authenticator?
 *** DONE Delete WebAuthn keys
 *** DONE Rename WebAuthn keys
 *** DONE Add =Authenticator.last_used_at=
-*** TODO Rate limitting
+*** DONE Rate limitting
 *** TODO Add =django.contrib.messages= where applicable
 *** DONE Check that =reauthentication_required= is applied where needed
 *** DONE Test suite
-*** TODO Documentation
+*** DONE Documentation
 *** TODO Headless
 *** TODO Reauthenticate kicks in add key -> view codes
 *** DONE Reauthenticate does not have WebAuthn option

@@ -1,12 +1,15 @@
 from django.http import HttpRequest
 from django.urls import reverse
 
+from allauth.account import app_settings
 from allauth.account.adapter import get_adapter
 from allauth.core.internal.httpkit import get_frontend_url
 from allauth.utils import build_absolute_uri
 
 
 def send_unknown_account_mail(request: HttpRequest, email: str) -> None:
+    if not app_settings.EMAIL_UNKNOWN_ACCOUNTS:
+        return None
     signup_url = get_signup_url(request)
     context = {
         "request": request,

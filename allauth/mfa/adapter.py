@@ -1,6 +1,8 @@
 from io import BytesIO
 from typing import Dict
+from urllib.parse import quote
 
+from django.utils.http import urlencode
 from django.utils.translation import gettext, gettext_lazy as _
 
 from allauth import app_settings as allauth_settings
@@ -67,6 +69,21 @@ class DefaultMFAAdapter(BaseAdapter):
         if not issuer:
             issuer = self._get_site_name()
         return issuer
+
+    def build_totp_url(self, user, secret: str) -> str:
+        label = self.get_totp_label(user)
+        issuer = self.get_totp_issuer()
+        params = {
+            "secret": secret,
+            # This is the default
+            # "algorithm": "SHA1",
+            "issuer": issuer,
+        }
+        if app_settings.TOTP_DIGITS != 6:
+            params["digits"] = app_settings.TOTP_DIGITS
+        if app_settings.TOTP_PERIOD != 30:
+            params["period"] = app_settings.TOTP_PERIOD
+        return f"otpauth://totp/{quote(label)}?{urlencode(params)}"
 
     def build_totp_svg(self, url: str) -> str:
         import qrcode

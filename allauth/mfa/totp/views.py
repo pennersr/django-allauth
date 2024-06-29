@@ -13,7 +13,7 @@ from allauth.mfa import app_settings
 from allauth.mfa.adapter import get_adapter
 from allauth.mfa.models import Authenticator
 from allauth.mfa.totp.forms import ActivateTOTPForm, DeactivateTOTPForm
-from allauth.mfa.totp.internal import auth, flows
+from allauth.mfa.totp.internal import flows
 from allauth.mfa.utils import is_mfa_enabled
 from allauth.utils import get_form_class
 
@@ -31,9 +31,8 @@ class ActivateTOTPView(FormView):
     def get_context_data(self, **kwargs):
         ret = super().get_context_data(**kwargs)
         adapter = get_adapter()
-        totp_url = auth.build_totp_url(
-            adapter.get_totp_label(self.request.user),
-            adapter.get_totp_issuer(),
+        totp_url = adapter.build_totp_url(
+            self.request.user,
             ret["form"].secret,
         )
         totp_svg = adapter.build_totp_svg(totp_url)

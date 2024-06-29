@@ -16,6 +16,7 @@ Note worthy changes
   include minor documented backwards incompatibilities. Always read the release
   notes before upgrading.
 
+- Headless: the TOTP URI is now available in the MFA activation response.
 
 Security notice
 ---------------

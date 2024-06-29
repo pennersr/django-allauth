@@ -152,6 +152,7 @@ def test_get_totp_not_active(
     assert resp.status_code == 404
     data = resp.json()
     assert len(data["meta"]["secret"]) == 32
+    assert len(data["meta"]["totp_url"]) == 145
 
 
 def test_get_totp(

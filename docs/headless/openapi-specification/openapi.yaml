@@ -2458,8 +2458,14 @@ components:
                     description: |
                       A TOTP secret that can be used to setup a new authenticator.
                     example: J4ZKKXTK7NOVU7EPUVY23LCDV4T2QZYM
+                  totp_url:
+                    type: string
+                    description: |
+                      otpauth URI from which a QR code can be generated and scanned by OTP clients.
+                    example: otpauth://totp/Example:alice@fsf.org?secret=JBSWY3DPEHPK3PXP&issuer=Example
                 required:
                   - secret
+                  - totp_url
             required:
               - status
               - meta

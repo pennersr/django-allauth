@@ -38,11 +38,12 @@ class AuthenticatorDeletedResponse(APIResponse):
 
 
 class TOTPNotFoundResponse(APIResponse):
-    def __init__(self, request, secret):
+    def __init__(self, request, secret, totp_url):
         super().__init__(
             request,
             meta={
                 "secret": secret,
+                "totp_url": totp_url,
             },
             status=404,
         )

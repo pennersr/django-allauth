@@ -16,7 +16,11 @@ Note worthy changes
   include minor documented backwards incompatibilities. Always read the release
   notes before upgrading.
 
-- Headless: the TOTP URI is now available in the MFA activation response.
+- Headless: The TOTP URI is now available in the MFA activation response.
+
+- Headless: When trying to sign up while a user is already logged in, you now get
+  a 409.
+
 
 Security notice
 ---------------

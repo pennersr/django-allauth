@@ -29,6 +29,7 @@ from allauth.headless.account.inputs import (
 from allauth.headless.base.response import (
     APIResponse,
     AuthenticationResponse,
+    ConflictResponse,
     ForbiddenResponse,
 )
 from allauth.headless.base.views import APIView, AuthenticatedAPIView
@@ -84,6 +85,8 @@ class SignupView(APIView):
     input_class = SignupInput
 
     def post(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return ConflictResponse(request)
         if not get_account_adapter().is_open_for_signup(request):
             return ForbiddenResponse(request)
         user, resp = self.input.try_save(request)

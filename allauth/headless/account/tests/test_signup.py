@@ -166,3 +166,25 @@ def test_signup_closed(
         )
     assert resp.status_code == 403
     assert not User.objects.filter(username="wizard").exists()
+
+
+def test_signup_while_logged_in(
+    db,
+    auth_client,
+    email_factory,
+    password_factory,
+    settings,
+    headless_reverse,
+    headless_client,
+):
+    resp = auth_client.post(
+        headless_reverse("headless:account:signup"),
+        data={
+            "username": "wizard",
+            "email": email_factory(),
+            "password": password_factory(),
+        },
+        content_type="application/json",
+    )
+    assert resp.status_code == 409
+    assert resp.json() == {"status": 409}

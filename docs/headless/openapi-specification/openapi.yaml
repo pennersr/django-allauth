@@ -166,6 +166,13 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ForbiddenResponse"
+        "409":
+          description: |
+            Conflict. For example, when signing up while user is logged in.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConflictResponse"
   /_allauth/{client}/v1/auth/email/verify:
     get:
       tags:

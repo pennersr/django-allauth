@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-30 09:26-0500\n"
-"PO-Revision-Date: 2024-06-28 13:09+0000\n"
+"PO-Revision-Date: 2024-06-30 16:36+0200\n"
 "Last-Translator: Ali Amin <aliamin01009007110@gmail.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/allauth/django-"
 "allauth/ar/>\n"
@@ -545,9 +545,7 @@ msgstr "أدخل رمز تسجيل الدخول"
 msgid ""
 "We’ve sent a code to %(email_link)s. The code expires shortly, so please "
 "enter it soon."
-msgstr ""
-"لقد أرسلنا رمزًا إلى بريدك الإلكتروني تنتهي صلاحية الرمز قريبًا، لذا يرجى "
-"إدخاله قريبًا."
+msgstr "لقد أرسلنا رمزًا إلى %(email_link)s. الرمز ينتهي قريبًا، لذا يرجى إدخاله قريبًا."
 
 #: templates/account/confirm_login_code.html:34
 #: templates/account/request_login_code.html:31
@@ -663,11 +661,10 @@ msgid ""
 "- Browser: %(user_agent)s\n"
 "- Date: %(timestamp)s"
 msgstr ""
-"0 إذا لم تتعرف على هذا التغيير، فيرجى اتخاذ الاحتياطات الأمنية المناسبة على "
-"الفور. ينشأ التغيير في حسابك من:.\n"
+"0 إذا لم تتعرف على هذا التغيير، فيرجى اتخاذ الاحتياطات الأمنية المناسبة على الفور. ينشأ التغيير في حسابك من:.\n"
 "- عنوان IP: %(ip)s.\n"
 "- المتصفح: %(user_agent)s.\n"
-"- التاريخ: %(الطابع الزمني)s"
+"- التاريخ: %(timestamp)s"
 
 #: templates/account/email/email_changed_message.txt:4
 #, python-format

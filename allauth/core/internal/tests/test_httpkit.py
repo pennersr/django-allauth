@@ -10,12 +10,12 @@ from allauth.core.internal import httpkit
         (
             "https://fqdn/?replace=this",
             {"replace": "that"},
-            "https:?/fqdn/?replace=that",
+            "https://fqdn/?replace=that",
         ),
     ],
 )
 def test_add_query_params(url, params, expected_url):
-    httpkit.add_query_params(url, params) == expected_url
+    assert httpkit.add_query_params(url, params) == expected_url
 
 
 @pytest.mark.parametrize(

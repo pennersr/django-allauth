@@ -39,9 +39,8 @@ class BitbucketOAuth2Adapter(OAuth2Adapter):
             primary_emails = [e for e in emails if e.get("is_primary", False)]
             email = primary_emails[0].get("email")
         except (IndexError, TypeError, KeyError):
-            return ""
-        finally:
-            return email
+            pass
+        return email
 
 
 oauth_login = OAuth2LoginView.adapter_view(BitbucketOAuth2Adapter)

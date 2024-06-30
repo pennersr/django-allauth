@@ -10,7 +10,7 @@ def test_verified_email_required(user_factory, request_factory):
 
     @verified_email_required
     def view(request):
-        assert False
+        raise AssertionError()
 
     request = request_factory.get("/")
     request.user = user

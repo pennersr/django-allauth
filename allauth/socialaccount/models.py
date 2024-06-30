@@ -214,7 +214,7 @@ class SocialLogin:
         user=None,
         account: Optional[SocialAccount] = None,
         token: Optional[SocialToken] = None,
-        email_addresses: List[EmailAddress] = [],
+        email_addresses: Optional[List[EmailAddress]] = None,
     ):
         if token:
             assert token.account is None or token.account == account
@@ -222,7 +222,7 @@ class SocialLogin:
         self.user = user
         if account:
             self.account = account
-        self.email_addresses = email_addresses
+        self.email_addresses = email_addresses if email_addresses else []
         self.state = {}
 
     def connect(self, request, user) -> None:

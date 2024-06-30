@@ -45,7 +45,6 @@ class AuthenticatorsView(AuthenticatedAPIView):
         return response.AuthenticatorsResponse(request, authenticators)
 
 
-# TODO: Enforce reauthentication
 class ManageTOTPView(AuthenticatedAPIView):
     input_class = {"POST": ActivateTOTPInput}
 

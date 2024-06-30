@@ -300,6 +300,13 @@ paths:
                   $ref: "#/components/examples/InvalidPasswordResetKey"
     post:
       summary: Reset password
+      description: |
+        Perform the password reset, by handing over the password reset key and
+        the new password. After successfully completing the password reset, the
+        user is either logged in (in case `ACCOUNT_LOGIN_ON_PASSWORD_RESET` is
+        `True`), or, the user will need to proceed to the login page.  In case
+        of the former, a `200` status code is returned, in case of the latter a
+        401.
       tags:
         - "Authentication: Password Reset"
       parameters:

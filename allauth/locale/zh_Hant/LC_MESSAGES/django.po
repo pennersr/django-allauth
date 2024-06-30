@@ -3,20 +3,21 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-14 11:32-0500\n"
-"PO-Revision-Date: 2024-04-20 21:34+0200\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2024-06-30 09:26-0500\n"
+"PO-Revision-Date: 2024-06-02 17:11+0000\n"
+"Last-Translator: hugoalh <hugoalh@users.noreply.hosted.weblate.org>\n"
+"Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
+"allauth/django-allauth/zh_Hant/>\n"
+"Language: zh_Hant\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.6-dev\n"
 
 #: account/adapter.py:58
 msgid "This account is currently inactive."
@@ -42,17 +43,15 @@ msgstr "已經有人使用這一個電子郵件註冊了。"
 
 #: account/adapter.py:69
 msgid "Please type your current password."
-msgstr "請輸入您目前的密碼"
+msgstr "請輸入您目前的密碼。"
 
-#: account/adapter.py:70 mfa/adapter.py:30
+#: account/adapter.py:70 mfa/adapter.py:40
 msgid "Incorrect code."
 msgstr ""
 
 #: account/adapter.py:71
-#, fuzzy
-#| msgid "Current Password"
 msgid "Incorrect password."
-msgstr "目前密碼"
+msgstr "不正確的密碼。"
 
 #: account/adapter.py:72
 #, fuzzy
@@ -97,26 +96,29 @@ msgstr "您提供的使用者名稱或密碼不正確。"
 msgid "Use your password"
 msgstr "忘記密碼了？"
 
-#: account/adapter.py:747
-msgid "Use your authenticator app"
+#: account/adapter.py:750
+msgid "Use authenticator app or code"
+msgstr ""
+
+#: account/adapter.py:758 templates/mfa/authenticate.html:36
+#: templates/mfa/webauthn/reauthenticate.html:15
+msgid "Use security key or device"
 msgstr ""
 
 #: account/admin.py:23
-#, fuzzy
-#| msgid "Your primary email address must be verified."
 msgid "Mark selected email addresses as verified"
-msgstr "您的主要電子郵件位址必須被驗證過。"
+msgstr "將選擇的電子郵件地址標記為已驗證"
 
 #: account/apps.py:11
 msgid "Accounts"
 msgstr "帳號"
 
-#: account/forms.py:56 account/forms.py:477
+#: account/forms.py:56 account/forms.py:481
 msgid "You must type the same password each time."
-msgstr "每次輸入的密碼必須相同"
+msgstr "你必須每次輸入相同的密碼。"
 
-#: account/forms.py:91 account/forms.py:407 account/forms.py:558
-#: account/forms.py:673
+#: account/forms.py:91 account/forms.py:411 account/forms.py:562
+#: account/forms.py:676
 msgid "Password"
 msgstr "密碼"
 
@@ -124,13 +126,13 @@ msgstr "密碼"
 msgid "Remember Me"
 msgstr "記住我"
 
-#: account/forms.py:102 account/forms.py:269 account/forms.py:493
-#: account/forms.py:576 account/forms.py:690
+#: account/forms.py:102 account/forms.py:269 account/forms.py:497
+#: account/forms.py:580 account/forms.py:693
 msgid "Email address"
 msgstr "電子郵件地址"
 
-#: account/forms.py:106 account/forms.py:307 account/forms.py:490
-#: account/forms.py:571
+#: account/forms.py:106 account/forms.py:307 account/forms.py:494
+#: account/forms.py:575
 msgid "Email"
 msgstr "E-mail"
 
@@ -170,70 +172,68 @@ msgstr "電子郵件確認"
 msgid "Email (optional)"
 msgstr "E-mail (可不填)"
 
-#: account/forms.py:365
-#, fuzzy
-#| msgid "You must type the same password each time."
+#: account/forms.py:369
 msgid "You must type the same email each time."
-msgstr "每次輸入的密碼必須相同"
+msgstr "你必須每次輸入相同的電子郵件。"
 
-#: account/forms.py:413 account/forms.py:559
+#: account/forms.py:417 account/forms.py:563
 msgid "Password (again)"
 msgstr "密碼 (再一次)"
 
-#: account/forms.py:539
+#: account/forms.py:543
 msgid "Current Password"
 msgstr "目前密碼"
 
-#: account/forms.py:541 account/forms.py:626
+#: account/forms.py:545 account/forms.py:629
 msgid "New Password"
 msgstr "新密碼"
 
-#: account/forms.py:542 account/forms.py:627
+#: account/forms.py:546 account/forms.py:630
 msgid "New Password (again)"
 msgstr "新密碼 (再一次)"
 
-#: account/forms.py:713 account/forms.py:715 mfa/forms.py:15 mfa/forms.py:17
-#: mfa/forms.py:60
+#: account/forms.py:716 account/forms.py:718 mfa/base/forms.py:15
+#: mfa/base/forms.py:17 mfa/totp/forms.py:13
 msgid "Code"
 msgstr ""
 
-#: account/models.py:20
+#: account/models.py:24
 msgid "user"
 msgstr "使用者"
 
-#: account/models.py:26 account/models.py:34 account/models.py:146
+#: account/models.py:30 account/models.py:38 account/models.py:150
 msgid "email address"
 msgstr "電子郵件地址"
 
-#: account/models.py:28
+#: account/models.py:32
 msgid "verified"
 msgstr "已驗證"
 
-#: account/models.py:29
+#: account/models.py:33
 msgid "primary"
 msgstr "主要的"
 
-#: account/models.py:35
+#: account/models.py:39
 msgid "email addresses"
 msgstr "電子郵件地址"
 
-#: account/models.py:149
+#: account/models.py:153
 msgid "created"
 msgstr "以建立"
 
-#: account/models.py:150
+#: account/models.py:154
 msgid "sent"
 msgstr "已送出"
 
-#: account/models.py:151 socialaccount/models.py:69
+#: account/models.py:155 socialaccount/models.py:69
 msgid "key"
 msgstr "key"
 
-#: account/models.py:156
+#: account/models.py:160
 msgid "email confirmation"
 msgstr "電子郵件確認"
 
-#: account/models.py:157
+#: account/models.py:161
 msgid "email confirmations"
 msgstr "電子郵件確認"
 
@@ -241,42 +241,74 @@ msgstr "電子郵件確認"
 msgid "Headless"
 msgstr ""
 
-#: mfa/adapter.py:22
+#: mfa/adapter.py:32
 msgid ""
 "You cannot add an email address to an account protected by two-factor "
 "authentication."
 msgstr ""
 
-#: mfa/adapter.py:25
+#: mfa/adapter.py:35
 msgid "You cannot deactivate two-factor authentication."
 msgstr ""
 
-#: mfa/adapter.py:28
+#: mfa/adapter.py:38
 msgid ""
 "You cannot generate recovery codes without having two-factor authentication "
 "enabled."
 msgstr ""
 
-#: mfa/adapter.py:32
+#: mfa/adapter.py:42
 msgid ""
 "You cannot activate two-factor authentication until you have verified your "
 "email address."
+msgstr ""
+
+#: mfa/adapter.py:141
+#, fuzzy
+#| msgid "secret key"
+msgid "Master key"
+msgstr "secret key"
+
+#: mfa/adapter.py:143
+msgid "Backup key"
+msgstr ""
+
+#: mfa/adapter.py:144
+#, python-brace-format
+msgid "Key nr. {number}"
 msgstr ""
 
 #: mfa/apps.py:9
 msgid "MFA"
 msgstr ""
 
-#: mfa/forms.py:58
-msgid "Authenticator code"
-msgstr ""
-
-#: mfa/models.py:28
+#: mfa/models.py:24
 msgid "Recovery codes"
 msgstr ""
 
-#: mfa/models.py:29
+#: mfa/models.py:25
 msgid "TOTP Authenticator"
+msgstr ""
+
+#: mfa/models.py:26
+msgid "WebAuthn"
+msgstr ""
+
+#: mfa/totp/forms.py:11
+msgid "Authenticator code"
+msgstr ""
+
+#: mfa/webauthn/forms.py:15
+#, fuzzy
+#| msgid "Password"
+msgid "Passwordless"
+msgstr "密碼"
+
+#: mfa/webauthn/forms.py:18
+msgid ""
+"Enabling passwordless operation allows you to sign in using just this key/"
+"device, but imposes additional requirements such as biometrics or PIN "
+"protection."
 msgstr ""
 
 #: socialaccount/adapter.py:36
@@ -305,12 +337,15 @@ msgid "Your account has no verified email address."
 msgstr "您的帳號下沒有驗證過的電子郵件地址。"
 
 #: socialaccount/adapter.py:44
-#, fuzzy
-#| msgid ""
-#| "You can sign in to your account using any of the following third party "
-#| "accounts:"
 msgid "You cannot disconnect your last remaining third-party account."
-msgstr "您可以使用下列任何第三方帳號登入您的帳號："
+msgstr "你無法斷開你最後一個的第三方帳戶。"
+
+#: socialaccount/adapter.py:47
+#: templates/socialaccount/messages/account_connected_other.txt:2
+#, fuzzy
+#| msgid "The social account is already connected to a different account."
+msgid "The third-party account is already connected to a different account."
+msgstr "這個社群網站帳號已經與另一個帳號連結過了。"
 
 #: socialaccount/apps.py:9
 msgid "Social Accounts"
@@ -346,7 +381,7 @@ msgstr "secret key"
 msgid "API secret, client secret, or consumer secret"
 msgstr "API secret, client secret, or consumer secret"
 
-#: socialaccount/models.py:69
+#: socialaccount/models.py:69 templates/mfa/webauthn/authenticator_list.html:16
 msgid "Key"
 msgstr "Key"
 
@@ -422,7 +457,7 @@ msgid "Login"
 msgstr "登入"
 
 #: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:20
-#: templates/mfa/authenticate.html:27
+#: templates/mfa/authenticate.html:41
 msgid "Cancel"
 msgstr ""
 
@@ -466,7 +501,7 @@ msgstr "帳號未啟用"
 
 #: templates/account/account_inactive.html:12
 msgid "This account is inactive."
-msgstr "這個帳號未啟用"
+msgstr "此帳號未啟用。"
 
 #: templates/account/base_reauthenticate.html:5
 #: templates/account/base_reauthenticate.html:9
@@ -480,6 +515,7 @@ msgid "Please reauthenticate to safeguard your account."
 msgstr ""
 
 #: templates/account/base_reauthenticate.html:19
+#: templates/mfa/authenticate.html:31
 msgid "Alternative options"
 msgstr ""
 
@@ -487,8 +523,8 @@ msgstr ""
 #: templates/account/confirm_login_code.html:27 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
 #: templates/account/request_login_code.html:5
-#: templates/allauth/layouts/base.html:62 templates/mfa/authenticate.html:5
-#: templates/mfa/authenticate.html:23 templates/openid/login.html:5
+#: templates/allauth/layouts/base.html:62 templates/mfa/authenticate.html:6
+#: templates/mfa/authenticate.html:24 templates/openid/login.html:5
 #: templates/openid/login.html:9 templates/openid/login.html:20
 #: templates/socialaccount/login.html:5
 #: templates/socialaccount/login_redirect.html:5
@@ -539,7 +575,10 @@ msgstr "設為主要的"
 msgid "Re-send Verification"
 msgstr "重寄驗証信"
 
-#: templates/account/email.html:50 templates/socialaccount/connections.html:40
+#: templates/account/email.html:50
+#: templates/mfa/webauthn/authenticator_confirm_delete.html:14
+#: templates/mfa/webauthn/authenticator_list.html:58
+#: templates/socialaccount/connections.html:40
 msgid "Remove"
 msgstr "移除"
 
@@ -781,10 +820,8 @@ msgid "Changing to"
 msgstr ""
 
 #: templates/account/email_change.html:35
-#, fuzzy
-#| msgid "Your email address has already been verified"
 msgid "Your email address is still pending verification."
-msgstr "Je e-mail adres is al geverifieerd"
+msgstr "你的電子郵件地址仍在等待驗證。"
 
 #: templates/account/email_change.html:41
 msgid "Cancel Change"
@@ -854,7 +891,11 @@ msgid ""
 "up%(end_link)s first."
 msgstr "若你沒有帳號，請先 %(link)s註冊%(end_link)s 。"
 
-#: templates/account/login.html:41 templates/account/request_login_code.html:9
+#: templates/account/login.html:42
+msgid "Sign in with a passkey"
+msgstr ""
+
+#: templates/account/login.html:47 templates/account/request_login_code.html:9
 msgid "Mail me a sign-in code"
 msgstr ""
 
@@ -881,7 +922,7 @@ msgstr "確認信已發至 %(email)s 。"
 #: templates/account/messages/email_confirmed.txt:2
 #, python-format
 msgid "You have confirmed %(email)s."
-msgstr "您以確認電子郵件地址 %(email)s 。 "
+msgstr "你已確認 %(email)s。"
 
 #: templates/account/messages/email_deleted.txt:2
 #, fuzzy, python-format
@@ -1076,18 +1117,14 @@ msgstr ""
 "數分鐘內尚無法收到郵件，請與我們聯絡。"
 
 #: templates/account/verified_email_required.html:13
-#, fuzzy
-#| msgid ""
-#| "This part of the site requires us to verify that\n"
-#| "you are who you claim to be. For this purpose, we require that you\n"
-#| "verify ownership of your e-mail address. "
 msgid ""
 "This part of the site requires us to verify that\n"
 "you are who you claim to be. For this purpose, we require that you\n"
 "verify ownership of your email address. "
 msgstr ""
-"此網站的這部分功能需要驗證您的身份，\n"
-"因此我們需要確認您的電子郵件地址。"
+"此網站的此部分要求我們驗證你的身份。\n"
+"為此，\n"
+"我們要求你驗證你的電子郵件地址的所有權。 "
 
 #: templates/account/verified_email_required.html:18
 #, fuzzy
@@ -1125,7 +1162,7 @@ msgstr ""
 msgid "Menu:"
 msgstr ""
 
-#: templates/allauth/layouts/base.html:43 templates/mfa/authenticate.html:9
+#: templates/allauth/layouts/base.html:43 templates/mfa/authenticate.html:10
 #: templates/mfa/index.html:5 templates/mfa/index.html:9
 msgid "Two-Factor Authentication"
 msgstr ""
@@ -1136,7 +1173,7 @@ msgstr ""
 msgid "Sessions"
 msgstr ""
 
-#: templates/mfa/authenticate.html:12
+#: templates/mfa/authenticate.html:13
 msgid ""
 "Your account is protected by two-factor authentication. Please enter an "
 "authenticator code:"
@@ -1169,6 +1206,24 @@ msgstr ""
 msgid "Authenticator App Deactivated"
 msgstr ""
 
+#: templates/mfa/email/webauthn_added_message.txt:4
+msgid "A new security key has been added."
+msgstr ""
+
+#: templates/mfa/email/webauthn_added_subject.txt:3
+msgid "Security Key Added"
+msgstr ""
+
+#: templates/mfa/email/webauthn_removed_message.txt:4
+#, fuzzy
+#| msgid "Your password has been deleted."
+msgid "A security key has been removed."
+msgstr "您的密码已被删除。"
+
+#: templates/mfa/email/webauthn_removed_subject.txt:3
+msgid "Security Key Removed"
+msgstr ""
+
 #: templates/mfa/index.html:14 templates/mfa/totp/base.html:4
 msgid "Authenticator App"
 msgstr ""
@@ -1189,13 +1244,38 @@ msgstr ""
 msgid "Activate"
 msgstr ""
 
-#: templates/mfa/index.html:46 templates/mfa/recovery_codes/base.html:4
+#: templates/mfa/index.html:45 templates/mfa/webauthn/base.html:4
+msgid "Security Keys"
+msgstr ""
+
+#: templates/mfa/index.html:50
+#, python-format
+msgid "You have added %(count)s security key/device."
+msgid_plural "You have added %(count)s security keys/devices."
+msgstr[0] ""
+
+#: templates/mfa/index.html:53
+msgid "No security keys have been added."
+msgstr ""
+
+#: templates/mfa/index.html:60
+msgid "Manage"
+msgstr ""
+
+#: templates/mfa/index.html:65
+#: templates/mfa/webauthn/authenticator_list.html:68
+#, fuzzy
+#| msgid "add"
+msgid "Add"
+msgstr "Voeg toe"
+
+#: templates/mfa/index.html:75 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:6
 #: templates/mfa/recovery_codes/index.html:6
 msgid "Recovery Codes"
 msgstr ""
 
-#: templates/mfa/index.html:51 templates/mfa/recovery_codes/index.html:9
+#: templates/mfa/index.html:80 templates/mfa/recovery_codes/index.html:9
 #, python-format
 msgid ""
 "There is %(unused_count)s out of %(total_count)s recovery codes available."
@@ -1203,24 +1283,32 @@ msgid_plural ""
 "There are %(unused_count)s out of %(total_count)s recovery codes available."
 msgstr[0] ""
 
-#: templates/mfa/index.html:55
+#: templates/mfa/index.html:84
 msgid "No recovery codes set up."
 msgstr ""
 
-#: templates/mfa/index.html:65
+#: templates/mfa/index.html:94
 msgid "View"
 msgstr ""
 
-#: templates/mfa/index.html:71
+#: templates/mfa/index.html:100
 msgid "Download"
 msgstr ""
 
-#: templates/mfa/index.html:79 templates/mfa/recovery_codes/generate.html:29
+#: templates/mfa/index.html:108 templates/mfa/recovery_codes/generate.html:29
 msgid "Generate"
 msgstr ""
 
 #: templates/mfa/messages/recovery_codes_generated.txt:2
 msgid "A new set of recovery codes has been generated."
+msgstr ""
+
+#: templates/mfa/messages/webauthn_added.txt:2
+msgid "Security key added."
+msgstr ""
+
+#: templates/mfa/messages/webauthn_removed.txt:2
+msgid "Security key removed."
 msgstr ""
 
 #: templates/mfa/reauthenticate.html:6
@@ -1282,6 +1370,82 @@ msgstr ""
 msgid ""
 "You are about to deactivate authenticator app based authentication. Are you "
 "sure?"
+msgstr ""
+
+#: templates/mfa/webauthn/add_form.html:7
+msgid "Add Security Key or Device"
+msgstr ""
+
+#: templates/mfa/webauthn/add_form.html:18
+msgid "Add key or device"
+msgstr ""
+
+#: templates/mfa/webauthn/authenticator_confirm_delete.html:6
+msgid "Remove Security Key or Device"
+msgstr ""
+
+#: templates/mfa/webauthn/authenticator_confirm_delete.html:8
+#, fuzzy
+#| msgid "Are you sure you want to sign out?"
+msgid "Are you sure you want to remove this security key?"
+msgstr "您確定要登出嗎？"
+
+#: templates/mfa/webauthn/authenticator_list.html:8
+msgid "Security Keys and Devices"
+msgstr ""
+
+#: templates/mfa/webauthn/authenticator_list.html:11
+msgid "You have not added any security keys/devices."
+msgstr ""
+
+#: templates/mfa/webauthn/authenticator_list.html:19
+msgid "Usage"
+msgstr ""
+
+#: templates/mfa/webauthn/authenticator_list.html:31
+msgid "Passkey"
+msgstr ""
+
+#: templates/mfa/webauthn/authenticator_list.html:35
+#, fuzzy
+#| msgid "secret key"
+msgid "Security key"
+msgstr "secret key"
+
+#: templates/mfa/webauthn/authenticator_list.html:38
+msgid "This key does not specify whether is a passkey."
+msgstr ""
+
+#: templates/mfa/webauthn/authenticator_list.html:39
+#, fuzzy
+#| msgid "Unverified"
+msgid "Unspecified"
+msgstr "未驗證"
+
+#: templates/mfa/webauthn/authenticator_list.html:44
+#, python-format
+msgid "Added on %(created_at)s"
+msgstr ""
+
+#: templates/mfa/webauthn/authenticator_list.html:46
+#, python-format
+msgid "Last used %(last_used)s"
+msgstr ""
+
+#: templates/mfa/webauthn/authenticator_list.html:54
+msgid "Edit"
+msgstr ""
+
+#: templates/mfa/webauthn/edit_form.html:7
+msgid "Edit Security Key or Device"
+msgstr ""
+
+#: templates/mfa/webauthn/edit_form.html:18
+msgid "Save"
+msgstr ""
+
+#: templates/mfa/webauthn/snippets/scripts.html:2
+msgid "This functionality requires JavaScript."
 msgstr ""
 
 #: templates/socialaccount/authentication_error.html:5
@@ -1397,12 +1561,6 @@ msgstr ""
 #, fuzzy
 msgid "The third-party account has been connected."
 msgstr "社群網站帳號已連結。"
-
-#: templates/socialaccount/messages/account_connected_other.txt:2
-#, fuzzy
-#| msgid "The social account is already connected to a different account."
-msgid "The third-party account is already connected to a different account."
-msgstr "這個社群網站帳號已經與另一個帳號連結過了。"
 
 #: templates/socialaccount/messages/account_disconnected.txt:2
 #, fuzzy
@@ -1630,9 +1788,6 @@ msgstr ""
 
 #~ msgid "None"
 #~ msgstr "Geen"
-
-#~ msgid "add"
-#~ msgstr "Voeg toe"
 
 #~ msgid "Log In"
 #~ msgstr "Inloggen"

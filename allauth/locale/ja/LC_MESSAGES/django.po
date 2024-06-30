@@ -7,17 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-14 11:32-0500\n"
-"PO-Revision-Date: 2024-04-20 21:57+0200\n"
+"POT-Creation-Date: 2024-06-30 09:26-0500\n"
+"PO-Revision-Date: 2024-06-20 03:09+0000\n"
 "Last-Translator: SATOH Fumiyasu <fumiyas@osstech.co.jp>\n"
-"Language-Team: Japanese <https://hosted.weblate.org/projects/django-allauth/"
-"django-allauth/ja/>\n"
+"Language-Team: Japanese <https://hosted.weblate.org/projects/allauth/django-"
+"allauth/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.6-rc\n"
 
 #: account/adapter.py:58
 msgid "This account is currently inactive."
@@ -45,7 +45,7 @@ msgstr "他のユーザーがこのメールアドレスを使用しています
 msgid "Please type your current password."
 msgstr "現在のパスワードを入力してください。"
 
-#: account/adapter.py:70 mfa/adapter.py:30
+#: account/adapter.py:70 mfa/adapter.py:40
 msgid "Incorrect code."
 msgstr "コードが正しくありません。"
 
@@ -93,9 +93,16 @@ msgstr "入力されたユーザー名もしくはパスワードが正しくあ
 msgid "Use your password"
 msgstr "パスワードを使用する"
 
-#: account/adapter.py:747
-msgid "Use your authenticator app"
+#: account/adapter.py:750
+#, fuzzy
+#| msgid "Use your authenticator app"
+msgid "Use authenticator app or code"
 msgstr "認証アプリを利用する"
+
+#: account/adapter.py:758 templates/mfa/authenticate.html:36
+#: templates/mfa/webauthn/reauthenticate.html:15
+msgid "Use security key or device"
+msgstr ""
 
 #: account/admin.py:23
 msgid "Mark selected email addresses as verified"
@@ -105,12 +112,12 @@ msgstr "確認済みにするメールアドレスを選択"
 msgid "Accounts"
 msgstr "アカウント"
 
-#: account/forms.py:56 account/forms.py:477
+#: account/forms.py:56 account/forms.py:481
 msgid "You must type the same password each time."
 msgstr "同じパスワードを入力してください。"
 
-#: account/forms.py:91 account/forms.py:407 account/forms.py:558
-#: account/forms.py:673
+#: account/forms.py:91 account/forms.py:411 account/forms.py:562
+#: account/forms.py:676
 msgid "Password"
 msgstr "パスワード"
 
@@ -118,13 +125,13 @@ msgstr "パスワード"
 msgid "Remember Me"
 msgstr "ログインしたままにする"
 
-#: account/forms.py:102 account/forms.py:269 account/forms.py:493
-#: account/forms.py:576 account/forms.py:690
+#: account/forms.py:102 account/forms.py:269 account/forms.py:497
+#: account/forms.py:580 account/forms.py:693
 msgid "Email address"
 msgstr "メールアドレス"
 
-#: account/forms.py:106 account/forms.py:307 account/forms.py:490
-#: account/forms.py:571
+#: account/forms.py:106 account/forms.py:307 account/forms.py:494
+#: account/forms.py:575
 msgid "Email"
 msgstr "メールアドレス"
 
@@ -158,68 +165,68 @@ msgstr "メールアドレスの確認"
 msgid "Email (optional)"
 msgstr "メールアドレス (オプション)"
 
-#: account/forms.py:365
+#: account/forms.py:369
 msgid "You must type the same email each time."
 msgstr "同じパスワードを入力してください。"
 
-#: account/forms.py:413 account/forms.py:559
+#: account/forms.py:417 account/forms.py:563
 msgid "Password (again)"
 msgstr "パスワード (再入力)"
 
-#: account/forms.py:539
+#: account/forms.py:543
 msgid "Current Password"
 msgstr "現在のパスワード"
 
-#: account/forms.py:541 account/forms.py:626
+#: account/forms.py:545 account/forms.py:629
 msgid "New Password"
 msgstr "新しいパスワード"
 
-#: account/forms.py:542 account/forms.py:627
+#: account/forms.py:546 account/forms.py:630
 msgid "New Password (again)"
 msgstr "新しいパスワード (再入力)"
 
-#: account/forms.py:713 account/forms.py:715 mfa/forms.py:15 mfa/forms.py:17
-#: mfa/forms.py:60
+#: account/forms.py:716 account/forms.py:718 mfa/base/forms.py:15
+#: mfa/base/forms.py:17 mfa/totp/forms.py:13
 msgid "Code"
 msgstr "コード"
 
-#: account/models.py:20
+#: account/models.py:24
 msgid "user"
 msgstr "ユーザー"
 
-#: account/models.py:26 account/models.py:34 account/models.py:146
+#: account/models.py:30 account/models.py:38 account/models.py:150
 msgid "email address"
 msgstr "メールアドレス"
 
-#: account/models.py:28
+#: account/models.py:32
 msgid "verified"
 msgstr "確認済み"
 
-#: account/models.py:29
+#: account/models.py:33
 msgid "primary"
 msgstr "メイン"
 
-#: account/models.py:35
+#: account/models.py:39
 msgid "email addresses"
 msgstr "メールアドレス"
 
-#: account/models.py:149
+#: account/models.py:153
 msgid "created"
 msgstr "作成日時"
 
-#: account/models.py:150
+#: account/models.py:154
 msgid "sent"
 msgstr "送信日時"
 
-#: account/models.py:151 socialaccount/models.py:69
+#: account/models.py:155 socialaccount/models.py:69
 msgid "key"
 msgstr "キー"
 
-#: account/models.py:156
+#: account/models.py:160
 msgid "email confirmation"
 msgstr "メールアドレスの確認"
 
-#: account/models.py:157
+#: account/models.py:161
 msgid "email confirmations"
 msgstr "メールアドレスの確認"
 
@@ -227,18 +234,18 @@ msgstr "メールアドレスの確認"
 msgid "Headless"
 msgstr ""
 
-#: mfa/adapter.py:22
+#: mfa/adapter.py:32
 msgid ""
 "You cannot add an email address to an account protected by two-factor "
 "authentication."
 msgstr ""
 "二要素認証で保護されているアカウントには、メールアドレスを追加できません。"
 
-#: mfa/adapter.py:25
+#: mfa/adapter.py:35
 msgid "You cannot deactivate two-factor authentication."
 msgstr "二要素認証は無効化できません。"
 
-#: mfa/adapter.py:28
+#: mfa/adapter.py:38
 #, fuzzy
 #| msgid "You cannot deactivate two-factor authentication."
 msgid ""
@@ -246,28 +253,60 @@ msgid ""
 "enabled."
 msgstr "二要素認証は無効化できません。"
 
-#: mfa/adapter.py:32
+#: mfa/adapter.py:42
 msgid ""
 "You cannot activate two-factor authentication until you have verified your "
 "email address."
 msgstr ""
 "メールアドレスの確認が完了するまで、二要素認証を有効にすることはできません。"
 
+#: mfa/adapter.py:141
+#, fuzzy
+#| msgid "secret key"
+msgid "Master key"
+msgstr "シークレットキー"
+
+#: mfa/adapter.py:143
+msgid "Backup key"
+msgstr ""
+
+#: mfa/adapter.py:144
+#, python-brace-format
+msgid "Key nr. {number}"
+msgstr ""
+
 #: mfa/apps.py:9
 msgid "MFA"
 msgstr "多要素認証"
 
-#: mfa/forms.py:58
-msgid "Authenticator code"
-msgstr "認証アプリコード"
-
-#: mfa/models.py:28
+#: mfa/models.py:24
 msgid "Recovery codes"
 msgstr "リカバリーコード"
 
-#: mfa/models.py:29
+#: mfa/models.py:25
 msgid "TOTP Authenticator"
 msgstr "TOTP 認証アプリ"
+
+#: mfa/models.py:26
+msgid "WebAuthn"
+msgstr ""
+
+#: mfa/totp/forms.py:11
+msgid "Authenticator code"
+msgstr "認証アプリコード"
+
+#: mfa/webauthn/forms.py:15
+#, fuzzy
+#| msgid "Password"
+msgid "Passwordless"
+msgstr "パスワード"
+
+#: mfa/webauthn/forms.py:18
+msgid ""
+"Enabling passwordless operation allows you to sign in using just this key/"
+"device, but imposes additional requirements such as biometrics or PIN "
+"protection."
+msgstr ""
 
 #: socialaccount/adapter.py:36
 #, python-format
@@ -300,6 +339,11 @@ msgstr "確認済みのメールアドレスの登録が必要です。"
 msgid "You cannot disconnect your last remaining third-party account."
 msgstr "以下の外部アカウントを使ってログインすることができます:"
 
+#: socialaccount/adapter.py:47
+#: templates/socialaccount/messages/account_connected_other.txt:2
+msgid "The third-party account is already connected to a different account."
+msgstr "この外部アカウントは他のアカウントに接続されています。"
+
 #: socialaccount/apps.py:9
 msgid "Social Accounts"
 msgstr "外部アカウント"
@@ -318,7 +362,7 @@ msgstr "ユーザー名"
 
 #: socialaccount/models.py:58
 msgid "client id"
-msgstr "ユーザー ID"
+msgstr "クライアント ID"
 
 #: socialaccount/models.py:60
 msgid "App ID, or consumer key"
@@ -333,7 +377,7 @@ msgid "API secret, client secret, or consumer secret"
 msgstr ""
 "API シークレット、クライアントシークレット、またはコンシューマーシークレット"
 
-#: socialaccount/models.py:69
+#: socialaccount/models.py:69 templates/mfa/webauthn/authenticator_list.html:16
 msgid "Key"
 msgstr "キー"
 
@@ -409,7 +453,7 @@ msgid "Login"
 msgstr "ログイン"
 
 #: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:20
-#: templates/mfa/authenticate.html:27
+#: templates/mfa/authenticate.html:41
 msgid "Cancel"
 msgstr "キャンセル"
 
@@ -469,6 +513,7 @@ msgid "Please reauthenticate to safeguard your account."
 msgstr "アカウントを保護するために再認証してください。"
 
 #: templates/account/base_reauthenticate.html:19
+#: templates/mfa/authenticate.html:31
 msgid "Alternative options"
 msgstr "そのほかの方法"
 
@@ -476,8 +521,8 @@ msgstr "そのほかの方法"
 #: templates/account/confirm_login_code.html:27 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
 #: templates/account/request_login_code.html:5
-#: templates/allauth/layouts/base.html:62 templates/mfa/authenticate.html:5
-#: templates/mfa/authenticate.html:23 templates/openid/login.html:5
+#: templates/allauth/layouts/base.html:62 templates/mfa/authenticate.html:6
+#: templates/mfa/authenticate.html:24 templates/openid/login.html:5
 #: templates/openid/login.html:9 templates/openid/login.html:20
 #: templates/socialaccount/login.html:5
 #: templates/socialaccount/login_redirect.html:5
@@ -499,10 +544,8 @@ msgstr ""
 
 #: templates/account/confirm_login_code.html:34
 #: templates/account/request_login_code.html:31
-#, fuzzy
-#| msgid "Alternative options"
 msgid "Other sign-in options"
-msgstr "そのほかの方法"
+msgstr "そのほかのログイン方法"
 
 #: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
@@ -532,7 +575,10 @@ msgstr "メインにする"
 msgid "Re-send Verification"
 msgstr "確認メールを再送する"
 
-#: templates/account/email.html:50 templates/socialaccount/connections.html:40
+#: templates/account/email.html:50
+#: templates/mfa/webauthn/authenticator_confirm_delete.html:14
+#: templates/mfa/webauthn/authenticator_list.html:58
+#: templates/socialaccount/connections.html:40
 msgid "Remove"
 msgstr "削除"
 
@@ -566,13 +612,13 @@ msgid ""
 "%(password_reset_url)s"
 msgstr ""
 "このメールを受信しているのは、あなたまたは誰かが次のメールアドレスを使用して"
-"アカウントのサインアップを試みたためです：\n"
+"アカウントの登録を試みたためです:\n"
 "\n"
 "%(email)s\n"
 "\n"
-"しかし、そのメールアドレスを使用したアカウントが既に存在しています。もしアカ"
-"ウントの存在を忘れていた場合は、パスワードを忘れた手続きを利用してアカウント"
-"を回復してください：\n"
+"しかし、このメールアドレスを使用したアカウントがすでに存在しています。もしア"
+"カウントの登録を忘れていた場合は、パスワードを忘れたときの手続きを利用してア"
+"カウントを回復してください:\n"
 "\n"
 "%(password_reset_url)s"
 
@@ -622,15 +668,15 @@ msgstr ""
 #, python-format
 msgid "Your email has been changed from %(from_email)s to %(to_email)s."
 msgstr ""
-"あなたのメールアドレスは %(from_email)s から %(to_email)s に変更されました。"
+"あなたのメールアドレスを %(from_email)s から %(to_email)s に変更しました。"
 
 #: templates/account/email/email_changed_subject.txt:3
 msgid "Email Changed"
-msgstr "メールアドレスが変更されました"
+msgstr "メールアドレスを変更しました"
 
 #: templates/account/email/email_confirm_message.txt:4
 msgid "Your email has been confirmed."
-msgstr "あなたのメールアドレスが確認されました。"
+msgstr "あなたのメールアドレスを確認しました。"
 
 #: templates/account/email/email_confirm_subject.txt:3
 msgid "Email Confirmation"
@@ -658,7 +704,7 @@ msgstr "メールアドレスを確認してください"
 #, python-format
 msgid "Email address %(deleted_email)s has been removed from your account."
 msgstr ""
-"メールアドレス %(deleted_email)s があなたのアカウントから削除されました。"
+"メールアドレス %(deleted_email)s をあなたのアカウントから削除しました。"
 
 #: templates/account/email/email_deleted_subject.txt:3
 msgid "Email Removed"
@@ -680,18 +726,16 @@ msgstr ""
 "せん。"
 
 #: templates/account/email/login_code_subject.txt:3
-#, fuzzy
-#| msgid "Sign In"
 msgid "Sign-In Code"
-msgstr "ログイン"
+msgstr "ログインコード"
 
 #: templates/account/email/password_changed_message.txt:4
 msgid "Your password has been changed."
-msgstr "パスワードが変更されました。"
+msgstr "パスワードを変更しました。"
 
 #: templates/account/email/password_changed_subject.txt:3
 msgid "Password Changed"
-msgstr "パスワードが変更されました"
+msgstr "パスワードを変更しました"
 
 #: templates/account/email/password_reset_key_message.txt:4
 msgid ""
@@ -717,7 +761,7 @@ msgstr "パスワード再設定メール"
 
 #: templates/account/email/password_reset_message.txt:4
 msgid "Your password has been reset."
-msgstr "パスワードがリセットされました。"
+msgstr "パスワードをリセットしました。"
 
 #: templates/account/email/password_reset_subject.txt:3
 #: templates/account/password_reset.html:4
@@ -729,7 +773,7 @@ msgstr "パスワード再設定"
 
 #: templates/account/email/password_set_message.txt:4
 msgid "Your password has been set."
-msgstr "パスワードが設定されました。"
+msgstr "パスワードを設定しました。"
 
 #: templates/account/email/password_set_subject.txt:3
 msgid "Password Set"
@@ -833,7 +877,11 @@ msgstr ""
 "アカウントをまだお持ちでなければ、 %(link)sこちらからユーザー登"
 "録%(end_link)s してください。"
 
-#: templates/account/login.html:41 templates/account/request_login_code.html:9
+#: templates/account/login.html:42
+msgid "Sign in with a passkey"
+msgstr ""
+
+#: templates/account/login.html:47 templates/account/request_login_code.html:9
 msgid "Mail me a sign-in code"
 msgstr "ログインコードをメールする"
 
@@ -860,7 +908,7 @@ msgstr "確認メールを %(email)s へ送信しました。"
 #: templates/account/messages/email_confirmed.txt:2
 #, python-format
 msgid "You have confirmed %(email)s."
-msgstr "%(email)s が確認されました。"
+msgstr "%(email)s を確認しました。"
 
 #: templates/account/messages/email_deleted.txt:2
 #, python-format
@@ -883,15 +931,15 @@ msgstr "%(email)s にログインコードを送信しました。"
 
 #: templates/account/messages/password_changed.txt:2
 msgid "Password successfully changed."
-msgstr "パスワードが変更されました。"
+msgstr "パスワードを変更しました。"
 
 #: templates/account/messages/password_set.txt:2
 msgid "Password successfully set."
-msgstr "パスワードが設定されました。"
+msgstr "パスワードを設定しました。"
 
 #: templates/account/messages/primary_email_set.txt:2
 msgid "Primary email address set."
-msgstr "メインのメールアドレスが設定されました。"
+msgstr "メインメールアドレスを設定しました。"
 
 #: templates/account/password_change.html:4
 #: templates/account/password_change.html:8
@@ -950,7 +998,7 @@ msgstr ""
 
 #: templates/account/password_reset_from_key_done.html:12
 msgid "Your password is now changed."
-msgstr "パスワードが変更されました。"
+msgstr "パスワードを変更しました。"
 
 #: templates/account/password_set.html:5 templates/account/password_set.html:9
 #: templates/account/password_set.html:21
@@ -965,8 +1013,7 @@ msgstr "パスワードを入力してください。"
 msgid ""
 "You will receive an email containing a special code for a password-free sign-"
 "in."
-msgstr ""
-"パスワード不要のログイン用特別コードが記載されたEメールをお送りします。"
+msgstr "パスワード不要のログイン用特別コードが記載されたメールをお送りします。"
 
 #: templates/account/request_login_code.html:24
 #, fuzzy
@@ -1080,7 +1127,7 @@ msgstr "メッセージ:"
 msgid "Menu:"
 msgstr "メニュー:"
 
-#: templates/allauth/layouts/base.html:43 templates/mfa/authenticate.html:9
+#: templates/allauth/layouts/base.html:43 templates/mfa/authenticate.html:10
 #: templates/mfa/index.html:5 templates/mfa/index.html:9
 msgid "Two-Factor Authentication"
 msgstr "二要素認証"
@@ -1091,7 +1138,7 @@ msgstr "二要素認証"
 msgid "Sessions"
 msgstr "セッション"
 
-#: templates/mfa/authenticate.html:12
+#: templates/mfa/authenticate.html:13
 msgid ""
 "Your account is protected by two-factor authentication. Please enter an "
 "authenticator code:"
@@ -1111,20 +1158,40 @@ msgstr "二要素認証用のリカバリーコードを生成しました"
 #: templates/mfa/email/totp_activated_message.txt:4
 #: templates/mfa/messages/totp_activated.txt:2
 msgid "Authenticator app activated."
-msgstr "認証アプリが有効化されました。"
+msgstr "認証アプリを有効化しました。"
 
 #: templates/mfa/email/totp_activated_subject.txt:3
 msgid "Authenticator App Activated"
-msgstr "認証アプリが有効化されました"
+msgstr "認証アプリを有効化しました"
 
 #: templates/mfa/email/totp_deactivated_message.txt:4
 #: templates/mfa/messages/totp_deactivated.txt:2
 msgid "Authenticator app deactivated."
-msgstr "認証アプリが無効化されました。"
+msgstr "認証アプリを無効化しました。"
 
 #: templates/mfa/email/totp_deactivated_subject.txt:3
 msgid "Authenticator App Deactivated"
-msgstr "認証アプリが無効化されました"
+msgstr "認証アプリを無効化しました"
+
+#: templates/mfa/email/webauthn_added_message.txt:4
+#, fuzzy
+#| msgid "A new set of recovery codes has been generated."
+msgid "A new security key has been added."
+msgstr "新しいリカバリーコードを生成しました。"
+
+#: templates/mfa/email/webauthn_added_subject.txt:3
+msgid "Security Key Added"
+msgstr ""
+
+#: templates/mfa/email/webauthn_removed_message.txt:4
+#, fuzzy
+#| msgid "Your email has been confirmed."
+msgid "A security key has been removed."
+msgstr "あなたのメールアドレスを確認しました。"
+
+#: templates/mfa/email/webauthn_removed_subject.txt:3
+msgid "Security Key Removed"
+msgstr ""
 
 #: templates/mfa/index.html:14 templates/mfa/totp/base.html:4
 msgid "Authenticator App"
@@ -1146,13 +1213,36 @@ msgstr "無効化する"
 msgid "Activate"
 msgstr "有効化する"
 
-#: templates/mfa/index.html:46 templates/mfa/recovery_codes/base.html:4
+#: templates/mfa/index.html:45 templates/mfa/webauthn/base.html:4
+msgid "Security Keys"
+msgstr ""
+
+#: templates/mfa/index.html:50
+#, python-format
+msgid "You have added %(count)s security key/device."
+msgid_plural "You have added %(count)s security keys/devices."
+msgstr[0] ""
+
+#: templates/mfa/index.html:53
+msgid "No security keys have been added."
+msgstr ""
+
+#: templates/mfa/index.html:60
+msgid "Manage"
+msgstr ""
+
+#: templates/mfa/index.html:65
+#: templates/mfa/webauthn/authenticator_list.html:68
+msgid "Add"
+msgstr ""
+
+#: templates/mfa/index.html:75 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:6
 #: templates/mfa/recovery_codes/index.html:6
 msgid "Recovery Codes"
 msgstr "リカバリーコード"
 
-#: templates/mfa/index.html:51 templates/mfa/recovery_codes/index.html:9
+#: templates/mfa/index.html:80 templates/mfa/recovery_codes/index.html:9
 #, python-format
 msgid ""
 "There is %(unused_count)s out of %(total_count)s recovery codes available."
@@ -1161,25 +1251,33 @@ msgid_plural ""
 msgstr[0] ""
 "利用可能なリカバリーコードは %(total_count)s 個中 %(unused_count)s 個です。"
 
-#: templates/mfa/index.html:55
+#: templates/mfa/index.html:84
 msgid "No recovery codes set up."
 msgstr "リカバリーコードがセットアップされていません。"
 
-#: templates/mfa/index.html:65
+#: templates/mfa/index.html:94
 msgid "View"
 msgstr "表示"
 
-#: templates/mfa/index.html:71
+#: templates/mfa/index.html:100
 msgid "Download"
 msgstr "ダウンロード"
 
-#: templates/mfa/index.html:79 templates/mfa/recovery_codes/generate.html:29
+#: templates/mfa/index.html:108 templates/mfa/recovery_codes/generate.html:29
 msgid "Generate"
 msgstr "生成する"
 
 #: templates/mfa/messages/recovery_codes_generated.txt:2
 msgid "A new set of recovery codes has been generated."
-msgstr "新しいリカバリーコードセットが生成されました。"
+msgstr "新しいリカバリーコードを生成しました。"
+
+#: templates/mfa/messages/webauthn_added.txt:2
+msgid "Security key added."
+msgstr ""
+
+#: templates/mfa/messages/webauthn_removed.txt:2
+msgid "Security key removed."
+msgstr ""
 
 #: templates/mfa/reauthenticate.html:6
 msgid "Enter an authenticator code:"
@@ -1246,6 +1344,82 @@ msgid ""
 "sure?"
 msgstr "認証アプリによる認証を無効化しようとしています。本当によろしいですか?"
 
+#: templates/mfa/webauthn/add_form.html:7
+msgid "Add Security Key or Device"
+msgstr ""
+
+#: templates/mfa/webauthn/add_form.html:18
+msgid "Add key or device"
+msgstr ""
+
+#: templates/mfa/webauthn/authenticator_confirm_delete.html:6
+msgid "Remove Security Key or Device"
+msgstr ""
+
+#: templates/mfa/webauthn/authenticator_confirm_delete.html:8
+#, fuzzy
+#| msgid "Are you sure you want to sign out?"
+msgid "Are you sure you want to remove this security key?"
+msgstr "ログアウトしますか?"
+
+#: templates/mfa/webauthn/authenticator_list.html:8
+msgid "Security Keys and Devices"
+msgstr ""
+
+#: templates/mfa/webauthn/authenticator_list.html:11
+msgid "You have not added any security keys/devices."
+msgstr ""
+
+#: templates/mfa/webauthn/authenticator_list.html:19
+msgid "Usage"
+msgstr ""
+
+#: templates/mfa/webauthn/authenticator_list.html:31
+msgid "Passkey"
+msgstr ""
+
+#: templates/mfa/webauthn/authenticator_list.html:35
+#, fuzzy
+#| msgid "secret key"
+msgid "Security key"
+msgstr "シークレットキー"
+
+#: templates/mfa/webauthn/authenticator_list.html:38
+msgid "This key does not specify whether is a passkey."
+msgstr ""
+
+#: templates/mfa/webauthn/authenticator_list.html:39
+#, fuzzy
+#| msgid "Unverified"
+msgid "Unspecified"
+msgstr "未確認"
+
+#: templates/mfa/webauthn/authenticator_list.html:44
+#, python-format
+msgid "Added on %(created_at)s"
+msgstr ""
+
+#: templates/mfa/webauthn/authenticator_list.html:46
+#, python-format
+msgid "Last used %(last_used)s"
+msgstr ""
+
+#: templates/mfa/webauthn/authenticator_list.html:54
+msgid "Edit"
+msgstr ""
+
+#: templates/mfa/webauthn/edit_form.html:7
+msgid "Edit Security Key or Device"
+msgstr ""
+
+#: templates/mfa/webauthn/edit_form.html:18
+msgid "Save"
+msgstr ""
+
+#: templates/mfa/webauthn/snippets/scripts.html:2
+msgid "This functionality requires JavaScript."
+msgstr ""
+
 #: templates/socialaccount/authentication_error.html:5
 #: templates/socialaccount/authentication_error.html:9
 msgid "Third-Party Login Failure"
@@ -1279,25 +1453,22 @@ msgstr "外部アカウントを追加する"
 #, python-format
 msgid ""
 "A third-party account from %(provider)s has been connected to your account."
-msgstr ""
-"%(provider)s のサードパーティアカウントがあなたのアカウントに接続されました。"
+msgstr "%(provider)s の外部アカウントをあなたのアカウントに接続しました。"
 
 #: templates/socialaccount/email/account_connected_subject.txt:3
 msgid "Third-Party Account Connected"
-msgstr "外部アカウントと接続されました"
+msgstr "外部アカウントを接続しました"
 
 #: templates/socialaccount/email/account_disconnected_message.txt:4
 #, python-format
 msgid ""
 "A third-party account from %(provider)s has been disconnected from your "
 "account."
-msgstr ""
-"%(provider)s のサードパーティアカウントがあなたのアカウントから切断されまし"
-"た。"
+msgstr "%(provider)s の外部アカウントをあなたのアカウントから切断しました。"
 
 #: templates/socialaccount/email/account_disconnected_subject.txt:3
 msgid "Third-Party Account Disconnected"
-msgstr "外部アカウントは接続解除されました"
+msgstr "外部アカウントを接続解除しました"
 
 #: templates/socialaccount/login.html:10
 #, python-format
@@ -1312,7 +1483,7 @@ msgstr "%(provider)sの新しい外部アカウントを接続しようとして
 #: templates/socialaccount/login.html:17
 #, python-format
 msgid "Sign In Via %(provider)s"
-msgstr "%(provider)s でログインする"
+msgstr "%(provider)s でログイン"
 
 #: templates/socialaccount/login.html:20
 #, python-format
@@ -1327,7 +1498,7 @@ msgstr "続ける"
 #: templates/socialaccount/login_cancelled.html:5
 #: templates/socialaccount/login_cancelled.html:9
 msgid "Login Cancelled"
-msgstr "ログインはキャンセルされました"
+msgstr "ログインをキャンセルしました"
 
 #: templates/socialaccount/login_cancelled.html:13
 #, python-format
@@ -1336,20 +1507,16 @@ msgid ""
 "accounts. If this was a mistake, please proceed to <a "
 "href=\"%(login_url)s\">sign in</a>."
 msgstr ""
-"既存の外部アカウントを使ったログインはキャンセルされました。\n"
+"既存の外部アカウントを使ったログインをキャンセルしました。\n"
 "やり直す場合は<a href=\"%(login_url)s\">ログインページ</a>にお進みください。"
 
 #: templates/socialaccount/messages/account_connected.txt:2
 msgid "The third-party account has been connected."
-msgstr "外部アカウントが接続されました。"
-
-#: templates/socialaccount/messages/account_connected_other.txt:2
-msgid "The third-party account is already connected to a different account."
-msgstr "この外部アカウントは他のアカウントに接続されています。"
+msgstr "外部アカウントを接続しました。"
 
 #: templates/socialaccount/messages/account_disconnected.txt:2
 msgid "The third-party account has been disconnected."
-msgstr "外部アカウントの接続が解除されました。"
+msgstr "外部アカウントの接続を解除しました。"
 
 #: templates/socialaccount/signup.html:12
 #, python-format
@@ -1391,7 +1558,7 @@ msgstr "現在の"
 
 #: templates/usersessions/usersession_list.html:60
 msgid "Sign Out Other Sessions"
-msgstr "他のセッションをログアウトする"
+msgstr "他のセッションをログアウト"
 
 #: usersessions/apps.py:9
 msgid "User Sessions"

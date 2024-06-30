@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.55\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-14 11:32-0500\n"
+"POT-Creation-Date: 2024-06-30 09:26-0500\n"
 "PO-Revision-Date: 2024-04-20 22:03+0200\n"
 "Last-Translator: Filip Dobrovolny <dobrovolny.filip@gmail.com>\n"
 "Language-Team: Czech <>\n"
@@ -47,7 +47,7 @@ msgstr "Uživatel s tímto e-mailem je již registrován."
 msgid "Please type your current password."
 msgstr "Prosím, zadejte svoje současné heslo."
 
-#: account/adapter.py:70 mfa/adapter.py:30
+#: account/adapter.py:70 mfa/adapter.py:40
 msgid "Incorrect code."
 msgstr "Nesprávný kód."
 
@@ -97,11 +97,16 @@ msgstr "Zadané uživatelské jméno nebo heslo není správné."
 msgid "Use your password"
 msgstr "Zapomenuté heslo?"
 
-#: account/adapter.py:747
+#: account/adapter.py:750
 #, fuzzy
 #| msgid "Authenticator App"
-msgid "Use your authenticator app"
+msgid "Use authenticator app or code"
 msgstr "Autentifikátor"
+
+#: account/adapter.py:758 templates/mfa/authenticate.html:36
+#: templates/mfa/webauthn/reauthenticate.html:15
+msgid "Use security key or device"
+msgstr ""
 
 #: account/admin.py:23
 #, fuzzy
@@ -113,12 +118,12 @@ msgstr "Vaše primární e-mailová adresa musí být ověřena."
 msgid "Accounts"
 msgstr "Účty"
 
-#: account/forms.py:56 account/forms.py:477
+#: account/forms.py:56 account/forms.py:481
 msgid "You must type the same password each time."
 msgstr "Hesla se musí shodovat."
 
-#: account/forms.py:91 account/forms.py:407 account/forms.py:558
-#: account/forms.py:673
+#: account/forms.py:91 account/forms.py:411 account/forms.py:562
+#: account/forms.py:676
 msgid "Password"
 msgstr "Heslo"
 
@@ -126,13 +131,13 @@ msgstr "Heslo"
 msgid "Remember Me"
 msgstr "Zapamatovat"
 
-#: account/forms.py:102 account/forms.py:269 account/forms.py:493
-#: account/forms.py:576 account/forms.py:690
+#: account/forms.py:102 account/forms.py:269 account/forms.py:497
+#: account/forms.py:580 account/forms.py:693
 msgid "Email address"
 msgstr "E-mailová adresa"
 
-#: account/forms.py:106 account/forms.py:307 account/forms.py:490
-#: account/forms.py:571
+#: account/forms.py:106 account/forms.py:307 account/forms.py:494
+#: account/forms.py:575
 msgid "Email"
 msgstr "E-mail"
 
@@ -168,68 +173,68 @@ msgstr "Potrvzení e-mailové adresy"
 msgid "Email (optional)"
 msgstr "E-mail (nepovinné)"
 
-#: account/forms.py:365
+#: account/forms.py:369
 msgid "You must type the same email each time."
 msgstr "Vložené e-maily se musí shodovat."
 
-#: account/forms.py:413 account/forms.py:559
+#: account/forms.py:417 account/forms.py:563
 msgid "Password (again)"
 msgstr "Heslo (znovu)"
 
-#: account/forms.py:539
+#: account/forms.py:543
 msgid "Current Password"
 msgstr "Současné heslo"
 
-#: account/forms.py:541 account/forms.py:626
+#: account/forms.py:545 account/forms.py:629
 msgid "New Password"
 msgstr "Nové heslo"
 
-#: account/forms.py:542 account/forms.py:627
+#: account/forms.py:546 account/forms.py:630
 msgid "New Password (again)"
 msgstr "Nové heslo (znovu)"
 
-#: account/forms.py:713 account/forms.py:715 mfa/forms.py:15 mfa/forms.py:17
-#: mfa/forms.py:60
+#: account/forms.py:716 account/forms.py:718 mfa/base/forms.py:15
+#: mfa/base/forms.py:17 mfa/totp/forms.py:13
 msgid "Code"
 msgstr "Kód"
 
-#: account/models.py:20
+#: account/models.py:24
 msgid "user"
 msgstr "uživatel"
 
-#: account/models.py:26 account/models.py:34 account/models.py:146
+#: account/models.py:30 account/models.py:38 account/models.py:150
 msgid "email address"
 msgstr "e-mailová adresa"
 
-#: account/models.py:28
+#: account/models.py:32
 msgid "verified"
 msgstr "ověřeno"
 
-#: account/models.py:29
+#: account/models.py:33
 msgid "primary"
 msgstr "primární"
 
-#: account/models.py:35
+#: account/models.py:39
 msgid "email addresses"
 msgstr "e-mailové adresy"
 
-#: account/models.py:149
+#: account/models.py:153
 msgid "created"
 msgstr "vytvořeno"
 
-#: account/models.py:150
+#: account/models.py:154
 msgid "sent"
 msgstr "odeslaný"
 
-#: account/models.py:151 socialaccount/models.py:69
+#: account/models.py:155 socialaccount/models.py:69
 msgid "key"
 msgstr "klíč"
 
-#: account/models.py:156
+#: account/models.py:160
 msgid "email confirmation"
 msgstr "Potvrzovací e-mail"
 
-#: account/models.py:157
+#: account/models.py:161
 msgid "email confirmations"
 msgstr "Ověřovací e-maily"
 
@@ -237,14 +242,14 @@ msgstr "Ověřovací e-maily"
 msgid "Headless"
 msgstr ""
 
-#: mfa/adapter.py:22
+#: mfa/adapter.py:32
 msgid ""
 "You cannot add an email address to an account protected by two-factor "
 "authentication."
 msgstr ""
 "Nelze přidat e-mailovou adresu k účtu chráněnému dvoufaktorovouautentizací."
 
-#: mfa/adapter.py:25
+#: mfa/adapter.py:35
 #, fuzzy
 #| msgid ""
 #| "You cannot add an email address to an account protected by two-factor "
@@ -253,7 +258,7 @@ msgid "You cannot deactivate two-factor authentication."
 msgstr ""
 "Nelze přidat e-mailovou adresu k účtu chráněnému dvoufaktorovouautentizací."
 
-#: mfa/adapter.py:28
+#: mfa/adapter.py:38
 #, fuzzy
 #| msgid ""
 #| "You cannot add an email address to an account protected by two-factor "
@@ -264,7 +269,7 @@ msgid ""
 msgstr ""
 "Nelze přidat e-mailovou adresu k účtu chráněnému dvoufaktorovouautentizací."
 
-#: mfa/adapter.py:32
+#: mfa/adapter.py:42
 msgid ""
 "You cannot activate two-factor authentication until you have verified your "
 "email address."
@@ -272,21 +277,53 @@ msgstr ""
 "Nemůžete aktivovat dvoufaktorovou autentizaci, dokud nepotvrdíte svoue-"
 "mailovou adresu."
 
+#: mfa/adapter.py:141
+#, fuzzy
+#| msgid "secret key"
+msgid "Master key"
+msgstr "tajný klíč"
+
+#: mfa/adapter.py:143
+msgid "Backup key"
+msgstr ""
+
+#: mfa/adapter.py:144
+#, python-brace-format
+msgid "Key nr. {number}"
+msgstr ""
+
 #: mfa/apps.py:9
 msgid "MFA"
 msgstr "2FA"
 
-#: mfa/forms.py:58
-msgid "Authenticator code"
-msgstr "Kód autentifikátoru"
-
-#: mfa/models.py:28
+#: mfa/models.py:24
 msgid "Recovery codes"
 msgstr "Záchranné kódy"
 
-#: mfa/models.py:29
+#: mfa/models.py:25
 msgid "TOTP Authenticator"
 msgstr "TOTP Autentifikátor"
+
+#: mfa/models.py:26
+msgid "WebAuthn"
+msgstr ""
+
+#: mfa/totp/forms.py:11
+msgid "Authenticator code"
+msgstr "Kód autentifikátoru"
+
+#: mfa/webauthn/forms.py:15
+#, fuzzy
+#| msgid "Password"
+msgid "Passwordless"
+msgstr "Heslo"
+
+#: mfa/webauthn/forms.py:18
+msgid ""
+"Enabling passwordless operation allows you to sign in using just this key/"
+"device, but imposes additional requirements such as biometrics or PIN "
+"protection."
+msgstr ""
 
 #: socialaccount/adapter.py:36
 #, python-format
@@ -318,6 +355,13 @@ msgstr "Váš účet nemá žádný ověřený e-mail."
 #| "accounts:"
 msgid "You cannot disconnect your last remaining third-party account."
 msgstr "Můžete se přihlásit pomocí jakéhokoliv následujícího účtu:"
+
+#: socialaccount/adapter.py:47
+#: templates/socialaccount/messages/account_connected_other.txt:2
+#, fuzzy
+#| msgid "The social account is already connected to a different account."
+msgid "The third-party account is already connected to a different account."
+msgstr "Účet sociální sítě je již spojen s jiným účtem."
 
 #: socialaccount/apps.py:9
 msgid "Social Accounts"
@@ -351,7 +395,7 @@ msgstr "tajný klíč"
 msgid "API secret, client secret, or consumer secret"
 msgstr "tajný API klíč, tajný klientský klíč nebo uživatelský tajný klíč"
 
-#: socialaccount/models.py:69
+#: socialaccount/models.py:69 templates/mfa/webauthn/authenticator_list.html:16
 msgid "Key"
 msgstr "Klíč"
 
@@ -427,7 +471,7 @@ msgid "Login"
 msgstr "Přihlášení"
 
 #: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:20
-#: templates/mfa/authenticate.html:27
+#: templates/mfa/authenticate.html:41
 msgid "Cancel"
 msgstr ""
 
@@ -482,6 +526,7 @@ msgid "Please reauthenticate to safeguard your account."
 msgstr ""
 
 #: templates/account/base_reauthenticate.html:19
+#: templates/mfa/authenticate.html:31
 msgid "Alternative options"
 msgstr ""
 
@@ -489,8 +534,8 @@ msgstr ""
 #: templates/account/confirm_login_code.html:27 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
 #: templates/account/request_login_code.html:5
-#: templates/allauth/layouts/base.html:62 templates/mfa/authenticate.html:5
-#: templates/mfa/authenticate.html:23 templates/openid/login.html:5
+#: templates/allauth/layouts/base.html:62 templates/mfa/authenticate.html:6
+#: templates/mfa/authenticate.html:24 templates/openid/login.html:5
 #: templates/openid/login.html:9 templates/openid/login.html:20
 #: templates/socialaccount/login.html:5
 #: templates/socialaccount/login_redirect.html:5
@@ -541,7 +586,10 @@ msgstr "Zvolit jako primární"
 msgid "Re-send Verification"
 msgstr "Znovu zaslat oveřovací e-mail"
 
-#: templates/account/email.html:50 templates/socialaccount/connections.html:40
+#: templates/account/email.html:50
+#: templates/mfa/webauthn/authenticator_confirm_delete.html:14
+#: templates/mfa/webauthn/authenticator_list.html:58
+#: templates/socialaccount/connections.html:40
 msgid "Remove"
 msgstr "Odstranit"
 
@@ -850,7 +898,11 @@ msgstr ""
 "Pokud jste si ještě nevytvořili účet, nejprve se "
 "%(link)szaregistrujte%(end_link)s."
 
-#: templates/account/login.html:41 templates/account/request_login_code.html:9
+#: templates/account/login.html:42
+msgid "Sign in with a passkey"
+msgstr ""
+
+#: templates/account/login.html:47 templates/account/request_login_code.html:9
 msgid "Mail me a sign-in code"
 msgstr ""
 
@@ -1101,7 +1153,7 @@ msgstr "Zprávy:"
 msgid "Menu:"
 msgstr "Menu:"
 
-#: templates/allauth/layouts/base.html:43 templates/mfa/authenticate.html:9
+#: templates/allauth/layouts/base.html:43 templates/mfa/authenticate.html:10
 #: templates/mfa/index.html:5 templates/mfa/index.html:9
 msgid "Two-Factor Authentication"
 msgstr "Dvoufaktorová autentizace"
@@ -1112,7 +1164,7 @@ msgstr "Dvoufaktorová autentizace"
 msgid "Sessions"
 msgstr ""
 
-#: templates/mfa/authenticate.html:12
+#: templates/mfa/authenticate.html:13
 msgid ""
 "Your account is protected by two-factor authentication. Please enter an "
 "authenticator code:"
@@ -1155,6 +1207,26 @@ msgstr "Autentifikátor byl deaktivován."
 msgid "Authenticator App Deactivated"
 msgstr "Autentifikátor byl deaktivován."
 
+#: templates/mfa/email/webauthn_added_message.txt:4
+#, fuzzy
+#| msgid "A new set of recovery codes has been generated."
+msgid "A new security key has been added."
+msgstr "Byla vygenerována nová sada záchranných kódů."
+
+#: templates/mfa/email/webauthn_added_subject.txt:3
+msgid "Security Key Added"
+msgstr ""
+
+#: templates/mfa/email/webauthn_removed_message.txt:4
+#, fuzzy
+#| msgid "Your password has been deleted."
+msgid "A security key has been removed."
+msgstr "Vaše heslo bylo smazáno."
+
+#: templates/mfa/email/webauthn_removed_subject.txt:3
+msgid "Security Key Removed"
+msgstr ""
+
 #: templates/mfa/index.html:14 templates/mfa/totp/base.html:4
 msgid "Authenticator App"
 msgstr "Autentifikátor"
@@ -1175,13 +1247,39 @@ msgstr "Deaktivovat"
 msgid "Activate"
 msgstr "Aktivovat"
 
-#: templates/mfa/index.html:46 templates/mfa/recovery_codes/base.html:4
+#: templates/mfa/index.html:45 templates/mfa/webauthn/base.html:4
+msgid "Security Keys"
+msgstr ""
+
+#: templates/mfa/index.html:50
+#, python-format
+msgid "You have added %(count)s security key/device."
+msgid_plural "You have added %(count)s security keys/devices."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: templates/mfa/index.html:53
+msgid "No security keys have been added."
+msgstr ""
+
+#: templates/mfa/index.html:60
+msgid "Manage"
+msgstr ""
+
+#: templates/mfa/index.html:65
+#: templates/mfa/webauthn/authenticator_list.html:68
+msgid "Add"
+msgstr ""
+
+#: templates/mfa/index.html:75 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:6
 #: templates/mfa/recovery_codes/index.html:6
 msgid "Recovery Codes"
 msgstr "Záchranné kódy"
 
-#: templates/mfa/index.html:51 templates/mfa/recovery_codes/index.html:9
+#: templates/mfa/index.html:80 templates/mfa/recovery_codes/index.html:9
 #, python-format
 msgid ""
 "There is %(unused_count)s out of %(total_count)s recovery codes available."
@@ -1200,27 +1298,35 @@ msgstr[3] ""
 "Z dostupných záchranných kódů je použito %(unused_count)s z celkového počtu "
 "%(total_count)s kódů."
 
-#: templates/mfa/index.html:55
+#: templates/mfa/index.html:84
 msgid "No recovery codes set up."
 msgstr "Nejsou nastaveny žádné záchranné kódy."
 
-#: templates/mfa/index.html:65
+#: templates/mfa/index.html:94
 msgid "View"
 msgstr ""
 
-#: templates/mfa/index.html:71
+#: templates/mfa/index.html:100
 #, fuzzy
 #| msgid "Download codes"
 msgid "Download"
 msgstr "Stáhnout kódy"
 
-#: templates/mfa/index.html:79 templates/mfa/recovery_codes/generate.html:29
+#: templates/mfa/index.html:108 templates/mfa/recovery_codes/generate.html:29
 msgid "Generate"
 msgstr "Generovat"
 
 #: templates/mfa/messages/recovery_codes_generated.txt:2
 msgid "A new set of recovery codes has been generated."
 msgstr "Byla vygenerována nová sada záchranných kódů."
+
+#: templates/mfa/messages/webauthn_added.txt:2
+msgid "Security key added."
+msgstr ""
+
+#: templates/mfa/messages/webauthn_removed.txt:2
+msgid "Security key removed."
+msgstr ""
 
 #: templates/mfa/reauthenticate.html:6
 #, fuzzy
@@ -1293,6 +1399,82 @@ msgid ""
 "sure?"
 msgstr ""
 "Chystáte se deaktivovat autentizaci pomocí autentifikátoru. Jste si jisti?"
+
+#: templates/mfa/webauthn/add_form.html:7
+msgid "Add Security Key or Device"
+msgstr ""
+
+#: templates/mfa/webauthn/add_form.html:18
+msgid "Add key or device"
+msgstr ""
+
+#: templates/mfa/webauthn/authenticator_confirm_delete.html:6
+msgid "Remove Security Key or Device"
+msgstr ""
+
+#: templates/mfa/webauthn/authenticator_confirm_delete.html:8
+#, fuzzy
+#| msgid "Are you sure you want to sign out?"
+msgid "Are you sure you want to remove this security key?"
+msgstr "Jste si jisti, že se chcete odhlásit?"
+
+#: templates/mfa/webauthn/authenticator_list.html:8
+msgid "Security Keys and Devices"
+msgstr ""
+
+#: templates/mfa/webauthn/authenticator_list.html:11
+msgid "You have not added any security keys/devices."
+msgstr ""
+
+#: templates/mfa/webauthn/authenticator_list.html:19
+msgid "Usage"
+msgstr ""
+
+#: templates/mfa/webauthn/authenticator_list.html:31
+msgid "Passkey"
+msgstr ""
+
+#: templates/mfa/webauthn/authenticator_list.html:35
+#, fuzzy
+#| msgid "secret key"
+msgid "Security key"
+msgstr "tajný klíč"
+
+#: templates/mfa/webauthn/authenticator_list.html:38
+msgid "This key does not specify whether is a passkey."
+msgstr ""
+
+#: templates/mfa/webauthn/authenticator_list.html:39
+#, fuzzy
+#| msgid "Unverified"
+msgid "Unspecified"
+msgstr "Neověřeno"
+
+#: templates/mfa/webauthn/authenticator_list.html:44
+#, python-format
+msgid "Added on %(created_at)s"
+msgstr ""
+
+#: templates/mfa/webauthn/authenticator_list.html:46
+#, python-format
+msgid "Last used %(last_used)s"
+msgstr ""
+
+#: templates/mfa/webauthn/authenticator_list.html:54
+msgid "Edit"
+msgstr ""
+
+#: templates/mfa/webauthn/edit_form.html:7
+msgid "Edit Security Key or Device"
+msgstr ""
+
+#: templates/mfa/webauthn/edit_form.html:18
+msgid "Save"
+msgstr ""
+
+#: templates/mfa/webauthn/snippets/scripts.html:2
+msgid "This functionality requires JavaScript."
+msgstr ""
 
 #: templates/socialaccount/authentication_error.html:5
 #: templates/socialaccount/authentication_error.html:9
@@ -1412,12 +1594,6 @@ msgstr ""
 #| msgid "The social account has been connected."
 msgid "The third-party account has been connected."
 msgstr "Účet sociální sítě byl připojen."
-
-#: templates/socialaccount/messages/account_connected_other.txt:2
-#, fuzzy
-#| msgid "The social account is already connected to a different account."
-msgid "The third-party account is already connected to a different account."
-msgstr "Účet sociální sítě je již spojen s jiným účtem."
 
 #: templates/socialaccount/messages/account_disconnected.txt:2
 #, fuzzy

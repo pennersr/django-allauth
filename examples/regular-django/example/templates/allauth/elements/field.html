@@ -5,7 +5,7 @@
                name="{{ attrs.name }}"
                class="form-check-input"
                id="{{ attrs.id }}"
-               {% if attrs.value is True or attrs.checked is True %}checked{% endif %}
+               value="{{ attrs.value|default_if_none:"" }}"
                {% if attrs.disabled %}disabled{% endif %}
                type="{{ attrs.type }}">
         <label class="form-check-label" for="{{ attrs.id }}">

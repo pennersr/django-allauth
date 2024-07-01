@@ -6,6 +6,7 @@ from allauth.headless.base.views import (
 from allauth.headless.mfa import response
 from allauth.headless.mfa.inputs import (
     ActivateTOTPInput,
+    AddWebAuthnInput,
     AuthenticateInput,
     GenerateRecoveryCodesInput,
 )
@@ -14,6 +15,7 @@ from allauth.mfa.models import Authenticator
 from allauth.mfa.recovery_codes.internal import flows as recovery_codes_flows
 from allauth.mfa.stages import AuthenticateStage
 from allauth.mfa.totp.internal import auth as totp_auth, flows as totp_flows
+from allauth.mfa.webauthn.internal import flows as webauthn_flows
 
 
 class AuthenticateView(AuthenticationStageAPIView):
@@ -91,3 +93,32 @@ class ManageRecoveryCodesView(AuthenticatedAPIView):
 
     def get_input_kwargs(self):
         return {"user": self.request.user}
+
+
+class ManageWebAuthnView(AuthenticatedAPIView):
+    input_class = {"POST": AddWebAuthnInput}
+
+    def get(self, request, *args, **kwargs):
+        input = AddWebAuthnInput(user=request.user)
+        # FIXME: ?passwordless -> influence options
+        return response.AddWebAuthnResponse(request, input.registration_data)
+
+    def get_input_kwargs(self):
+        return {"user": self.request.user}
+
+    def post(self, request, *args, **kwargs):
+        auth, rc_auth = webauthn_flows.add_authenticator(
+            request,
+            name=self.input.cleaned_data["name"],
+            credential=self.input.cleaned_data["credential"],
+        )
+        # FIXME: Expose in meta
+        did_generate_recovery_codes = bool(rc_auth)
+        return response.WebAuthnResponse(request, auth)
+
+    def delete(self, request, *args, **kwargs):
+        # FIXME
+        authenticator = self._get_authenticator()
+        if authenticator:
+            authenticator = totp_flows.deactivate_totp(request, authenticator)
+        return response.AuthenticatorDeletedResponse(request)

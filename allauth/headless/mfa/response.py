@@ -70,3 +70,14 @@ class RecoveryCodesResponse(APIResponse):
     def __init__(self, request, authenticator):
         data = _authenticator_data(authenticator, sensitive=True)
         super().__init__(request, data=data)
+
+
+class AddWebAuthnResponse(APIResponse):
+    def __init__(self, request, registration_data):
+        super().__init__(request, data={"creation_options": registration_data})
+
+
+class WebAuthnResponse(APIResponse):
+    def __init__(self, request, authenticator):
+        data = _authenticator_data(authenticator)
+        super().__init__(request, data=data)

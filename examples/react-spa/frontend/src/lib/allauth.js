@@ -42,6 +42,7 @@ export const URLs = Object.freeze({
   AUTHENTICATORS: BASE_URL + '/account/authenticators',
   RECOVERY_CODES: BASE_URL + '/account/authenticators/recovery-codes',
   TOTP_AUTHENTICATOR: BASE_URL + '/account/authenticators/totp',
+  WEBAUTHN_AUTHENTICATOR: BASE_URL + '/account/authenticators/webauthn',
 
   // Auth: Basics
   LOGIN: BASE_URL + '/auth/login',
@@ -69,7 +70,8 @@ export const URLs = Object.freeze({
 
 export const AuthenticatorType = Object.freeze({
   TOTP: 'totp',
-  RECOVERY_CODES: 'recovery_codes'
+  RECOVERY_CODES: 'recovery_codes',
+  WEBAUTHN: 'webauthn'
 })
 
 function postForm (action, data) {
@@ -275,5 +277,16 @@ export function redirectToProvider (providerId, callbackURL, process = AuthProce
     process,
     callback_url: callbackURL,
     csrfmiddlewaretoken: getCSRFToken()
+  })
+}
+
+export async function getWebAuthnCreateOptions (passwordless) {
+  return await request('GET', URLs.WEBAUTHN_AUTHENTICATOR)
+}
+
+export async function addWebAuthnCredential (name, credential) {
+  return await request('POST', URLs.WEBAUTHN_AUTHENTICATOR, {
+    name,
+    credential
   })
 }

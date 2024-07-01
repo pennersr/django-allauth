@@ -1,19 +1,30 @@
+from allauth.account.models import Login
 from allauth.headless.base.response import AuthenticationResponse
 from allauth.headless.base.views import (
+    APIView,
     AuthenticatedAPIView,
     AuthenticationStageAPIView,
 )
 from allauth.headless.mfa import response
 from allauth.headless.mfa.inputs import (
     ActivateTOTPInput,
+    AddWebAuthnInput,
     AuthenticateInput,
+    DeleteWebAuthnInput,
     GenerateRecoveryCodesInput,
+    LoginWebAuthnInput,
+    ReauthenticateWebAuthnInput,
+    UpdateWebAuthnInput,
 )
 from allauth.mfa.adapter import DefaultMFAAdapter, get_adapter
 from allauth.mfa.models import Authenticator
 from allauth.mfa.recovery_codes.internal import flows as recovery_codes_flows
 from allauth.mfa.stages import AuthenticateStage
 from allauth.mfa.totp.internal import auth as totp_auth, flows as totp_flows
+from allauth.mfa.webauthn.internal import (
+    auth as webauthn_auth,
+    flows as webauthn_flows,
+)
 
 
 class AuthenticateView(AuthenticationStageAPIView):
@@ -91,3 +102,81 @@ class ManageRecoveryCodesView(AuthenticatedAPIView):
 
     def get_input_kwargs(self):
         return {"user": self.request.user}
+
+
+class ManageWebAuthnView(AuthenticatedAPIView):
+    input_class = {
+        "POST": AddWebAuthnInput,
+        "PUT": UpdateWebAuthnInput,
+        "DELETE": DeleteWebAuthnInput,
+    }
+
+    def get(self, request, *args, **kwargs):
+        passwordless = "passwordless" in request.GET
+        creation_options = webauthn_flows.begin_registration(
+            request, request.user, passwordless
+        )
+        return response.AddWebAuthnResponse(request, creation_options)
+
+    def get_input_kwargs(self):
+        return {"user": self.request.user}
+
+    def post(self, request, *args, **kwargs):
+        auth, rc_auth = webauthn_flows.add_authenticator(
+            request,
+            name=self.input.cleaned_data["name"],
+            credential=self.input.cleaned_data["credential"],
+        )
+        did_generate_recovery_codes = bool(rc_auth)
+        return response.AuthenticatorResponse(
+            request,
+            auth,
+            meta={"recovery_codes_generated": did_generate_recovery_codes},
+        )
+
+    def put(self, request, *args, **kwargs):
+        authenticator = self.input.cleaned_data["id"]
+        webauthn_flows.rename_authenticator(
+            request, authenticator, self.input.cleaned_data["name"]
+        )
+        return response.AuthenticatorResponse(request, authenticator)
+
+    def delete(self, request, *args, **kwargs):
+        authenticators = self.input.cleaned_data["authenticators"]
+        webauthn_flows.remove_authenticators(request, authenticators)
+        return response.AuthenticatorsDeletedResponse(request)
+
+
+class ReauthenticateWebAuthnView(AuthenticatedAPIView):
+    input_class = {
+        "POST": ReauthenticateWebAuthnInput,
+    }
+
+    def get(self, request, *args, **kwargs):
+        request_options = webauthn_auth.begin_authentication(request.user)
+        return response.WebAuthnRequestOptionsResponse(request, request_options)
+
+    def get_input_kwargs(self):
+        return {"user": self.request.user}
+
+    def post(self, request, *args, **kwargs):
+        authenticator = self.input.cleaned_data["credential"]
+        webauthn_flows.reauthenticate(request, authenticator)
+        return AuthenticationResponse(self.request)
+
+
+class LoginWebAuthnView(APIView):
+    input_class = {
+        "POST": LoginWebAuthnInput,
+    }
+
+    def get(self, request, *args, **kwargs):
+        request_options = webauthn_auth.begin_authentication()
+        return response.WebAuthnRequestOptionsResponse(request, request_options)
+
+    def post(self, request, *args, **kwargs):
+        authenticator = self.input.cleaned_data["credential"]
+        redirect_url = None
+        login = Login(user=authenticator.user, redirect_url=redirect_url)
+        webauthn_flows.perform_passwordless_login(request, authenticator, login)
+        return AuthenticationResponse(request)

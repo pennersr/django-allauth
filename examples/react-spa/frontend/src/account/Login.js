@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { useConfig } from '../auth'
 import ProviderList from '../socialaccount/ProviderList'
 import Button from '../components/Button'
+import WebAuthnLoginButton from '../mfa/WebAuthnLoginButton'
 
 export default function Login () {
   const [email, setEmail] = useState('')
@@ -42,7 +43,8 @@ export default function Login () {
       </div>
       <Button disabled={response.fetching} onClick={() => submit()}>Login</Button>
 
-      <Link className='btn btn-secondary' to='/account/login/code'>Mail me a sign-in code.</Link>
+      <Link className='btn btn-secondary' to='/account/login/code'>Mail me a sign-in code</Link>
+      <WebAuthnLoginButton>Sign in with a passkey</WebAuthnLoginButton>
       {hasProviders
         ? <>
           <h2>Or use a third-party</h2>

@@ -23,3 +23,5 @@ class Flow(str, Enum):
         from allauth.mfa.stages import AuthenticateStage
 
         MFA_AUTHENTICATE = AuthenticateStage.key  # type: ignore[has-type]
+    MFA_LOGIN_WEBAUTHN = "mfa_login_webauthn"
+    MFA_REAUTHENTICATE_WEBAUTHN = "mfa_reauthenticate_webauthn"

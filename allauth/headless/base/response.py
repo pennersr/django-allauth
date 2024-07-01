@@ -8,6 +8,7 @@ from allauth.account.utils import user_display, user_username
 from allauth.headless.constants import Flow
 from allauth.headless.internal import authkit, sessionkit
 from allauth.headless.internal.restkit.response import APIResponse
+from allauth.mfa import app_settings as mfa_settings
 
 
 class BaseAuthenticationResponse(APIResponse):
@@ -66,6 +67,9 @@ class BaseAuthenticationResponse(APIResponse):
                 )
 
                 ret.extend(provider_flows(request))
+            if allauth_settings.MFA_ENABLED:
+                if mfa_settings.PASSKEY_LOGIN_ENABLED:
+                    ret.append({"id": Flow.MFA_LOGIN_WEBAUTHN})
         stage_key = None
         stage = auth_status.get_pending_stage()
         if stage:

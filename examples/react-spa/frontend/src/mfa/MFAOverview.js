@@ -10,6 +10,7 @@ export async function loader ({ params }) {
 export default function MFAOverview (props) {
   const { authenticators } = useLoaderData()
   const totp = authenticators.find(authenticator => authenticator.type === allauth.AuthenticatorType.TOTP)
+  const webauthn = authenticators.filter(authenticator => authenticator.type === allauth.AuthenticatorType.WEBAUTHN)
   const recoveryCodes = authenticators.find(authenticator => authenticator.type === allauth.AuthenticatorType.RECOVERY_CODES)
   return (
     <section>
@@ -25,6 +26,16 @@ export default function MFAOverview (props) {
           </>
         : <><p>An authenticator app is not active..</p>
           <Link to='/account/2fa/totp/activate'>Activate</Link>
+        </>}
+
+      <h2>Security Keys and Devices</h2>
+
+      {webauthn.length
+        ? <><p>You have added {webauthn.length} security keys/devices.</p>
+          <Link to='/account/2fa/webauthn'>Manage</Link>
+        </>
+        : <><p>No security keys have been added.</p>
+          <Link to='/account/2fa/webauthn/add'>Add</Link>
         </>}
 
       <h2>Recovery Codes</h2>

@@ -12,7 +12,6 @@ from allauth.account.decorators import reauthentication_required
 from allauth.account.mixins import NextRedirectMixin
 from allauth.account.models import Login
 from allauth.account.views import BaseReauthenticateView
-from allauth.mfa.base.internal.flows import post_authentication
 from allauth.mfa.models import Authenticator
 from allauth.mfa.webauthn.forms import (
     AddWebAuthnForm,
@@ -141,7 +140,7 @@ class ReauthenticateWebAuthnView(BaseReauthenticateView):
 
     def form_valid(self, form):
         authenticator = form.cleaned_data["credential"]
-        post_authentication(self.request, authenticator, reauthenticated=True)
+        flows.reauthenticate(self.request, authenticator)
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):

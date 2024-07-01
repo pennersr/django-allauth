@@ -5,6 +5,7 @@ from django.forms import (
     EmailField,
     Field,
     Form,
+    ModelChoiceField,
     ModelMultipleChoiceField,
 )
 
@@ -16,6 +17,7 @@ __all__ = [
     "EmailField",
     "BooleanField",
     "ModelMultipleChoiceField",
+    "ModelChoiceField",
 ]
 
 

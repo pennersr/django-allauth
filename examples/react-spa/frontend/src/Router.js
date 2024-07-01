@@ -23,6 +23,9 @@ import MFAOverview, { loader as mfaOverviewLoader } from './mfa/MFAOverview'
 import ActivateTOTP, { loader as activateTOTPLoader } from './mfa/ActivateTOTP'
 import DeactivateTOTP from './mfa/DeactivateTOTP'
 import RecoveryCodes, { loader as recoveryCodesLoader } from './mfa/RecoveryCodes'
+import AddWebAuthn from './mfa/AddWebAuthn'
+import ReauthenticateWebAuthn from './mfa/ReauthenticateWebAuthn'
+import ListWebAuthn, { loader as listWebAuthnLoader } from './mfa/ListWebAuthn'
 import GenerateRecoveryCodes, { loader as generateRecoveryCodesLoader } from './mfa/GenerateRecoveryCodes'
 import ResetPassword, { loader as resetPasswordLoader } from './account/ResetPassword'
 import MFAAuthenticate from './mfa/MFAAuthenticate'
@@ -138,6 +141,19 @@ function createRouter () {
           path: '/account/2fa/recovery-codes/generate',
           element: <AuthenticatedRoute><GenerateRecoveryCodes /></AuthenticatedRoute>,
           loader: generateRecoveryCodesLoader
+        },
+        {
+          path: '/account/2fa/webauthn',
+          element: <AuthenticatedRoute><ListWebAuthn /></AuthenticatedRoute>,
+          loader: listWebAuthnLoader
+        },
+        {
+          path: '/account/2fa/webauthn/add',
+          element: <AuthenticatedRoute><AddWebAuthn /></AuthenticatedRoute>
+        },
+        {
+          path: '/account/2fa/webauthn/reauthenticate',
+          element: <AuthenticatedRoute><ReauthenticateWebAuthn /></AuthenticatedRoute>
         },
         {
           path: '/account/sessions',

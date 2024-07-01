@@ -1,11 +1,12 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
+from allauth.core import context
 from allauth.mfa import app_settings
 from allauth.mfa.adapter import get_adapter
 from allauth.mfa.base.internal.flows import check_rate_limit
 from allauth.mfa.models import Authenticator
-from allauth.mfa.webauthn.internal import auth
+from allauth.mfa.webauthn.internal import auth, flows
 
 
 class AddWebAuthnForm(forms.Form):
@@ -22,8 +23,9 @@ class AddWebAuthnForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop("user")
-        self.registration_data = auth.begin_registration(self.user)
         initial = kwargs.setdefault("initial", {})
+        passwordless = bool(initial.get("passwordless"))
+        self.registration_data = auth.begin_registration(self.user, passwordless)
         initial.setdefault(
             "name",
             get_adapter().generate_authenticator_name(
@@ -31,6 +33,20 @@ class AddWebAuthnForm(forms.Form):
             ),
         )
         super().__init__(*args, **kwargs)
+
+    def clean_name(self):
+        """
+        We don't want to make `name` a required field, as the WebAuthn
+        ceremony happens before posting the resulting credential, and we don't
+        want to reject a valid credential because of a missing name -- it might
+        be resident already. So, gracefully plug in a name.
+        """
+        name = self.cleaned_data["name"]
+        if not name:
+            name = get_adapter().generate_authenticator_name(
+                self.user, Authenticator.Type.WEBAUTHN
+            )
+        return name
 
     def clean(self):
         cleaned_data = super().clean()
@@ -90,7 +106,7 @@ class EditWebAuthnForm(forms.Form):
         super().__init__(*args, **kwargs)
 
     def save(self) -> Authenticator:
-        auth = self.instance.wrap()
-        auth.name = self.cleaned_data["name"]
-        self.instance.save()
+        flows.rename_authenticator(
+            context.request, self.instance, self.cleaned_data["name"]
+        )
         return self.instance

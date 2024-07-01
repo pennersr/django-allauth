@@ -20,6 +20,7 @@ flow2path[Flows.PROVIDER_SIGNUP] = '/account/provider/signup'
 flow2path[Flows.MFA_AUTHENTICATE] = '/account/2fa/authenticate'
 flow2path[Flows.REAUTHENTICATE] = '/account/reauthenticate'
 flow2path[Flows.MFA_REAUTHENTICATE] = '/account/2fa/reauthenticate'
+flow2path[Flows.MFA_REAUTHENTICATE_WEBAUTHN] = '/account/2fa/webauthn/reauthenticate'
 
 export function pathForFlow (flowId) {
   const path = flow2path[flowId]

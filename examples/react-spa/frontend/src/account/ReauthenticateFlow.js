@@ -5,6 +5,7 @@ import { Flows } from '../lib/allauth'
 const flowLabels = {}
 flowLabels[Flows.REAUTHENTICATE] = 'Use your password'
 flowLabels[Flows.MFA_REAUTHENTICATE] = 'Use your authenticator app'
+flowLabels[Flows.MFA_REAUTHENTICATE_WEBAUTHN] = 'Use security key'
 
 export default function ReauthenticateFlow (props) {
   const location = useLocation()

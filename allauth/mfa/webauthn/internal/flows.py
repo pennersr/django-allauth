@@ -1,4 +1,4 @@
-from typing import Optional, Tuple
+from typing import Iterable, Optional, Tuple
 
 from django.contrib import messages
 from django.http import HttpRequest
@@ -22,9 +22,16 @@ from allauth.mfa.recovery_codes.internal.flows import (
 from allauth.mfa.webauthn.internal import auth
 
 
+def begin_registration(request: HttpRequest, user, passwordless: bool) -> dict:
+    raise_if_reauthentication_required(request)
+    creation_options = auth.begin_registration(user, passwordless)
+    return creation_options
+
+
 def add_authenticator(
     request, name: str, credential: dict
 ) -> Tuple[Authenticator, Optional[Authenticator]]:
+    raise_if_reauthentication_required(request)
     authenticator = auth.WebAuthn.add(
         request.user,
         name,
@@ -41,6 +48,12 @@ def add_authenticator(
     adapter.send_notification_mail("mfa/email/webauthn_added", request.user)
     rc_authenticator = auto_generate_recovery_codes(request)
     return authenticator, rc_authenticator
+
+
+def remove_authenticators(request, authenticators: Iterable[Authenticator]) -> None:
+    raise_if_reauthentication_required(request)
+    for authenticator in authenticators:
+        remove_authenticator(request, authenticator)
 
 
 def remove_authenticator(request, authenticator: Authenticator):
@@ -63,3 +76,14 @@ def did_use_passwordless_login(request: HttpRequest) -> bool:
         == ("mfa", "webauthn", True)
         for record in records
     )
+
+
+def reauthenticate(request: HttpRequest, authenticator: Authenticator):
+    post_authentication(request, authenticator, reauthenticated=True)
+
+
+def rename_authenticator(request, authenticator: Authenticator, name: str):
+    raise_if_reauthentication_required(request)
+    wrapper = authenticator.wrap()
+    wrapper.name = name
+    authenticator.save()

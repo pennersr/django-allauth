@@ -50,6 +50,7 @@ def test_auth_unverified_email_and_mfa(
             }
         )
     flows.append({"id": "provider_token", "providers": ["dummy"]})
+    flows.append({"id": "mfa_login_webauthn"})
     flows.append(
         {
             "id": "mfa_authenticate",

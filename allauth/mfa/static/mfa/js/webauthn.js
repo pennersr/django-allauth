@@ -68,6 +68,7 @@
     authenticateBtn.addEventListener('click', async function (e) {
       e.preventDefault()
       try {
+        // FIXME: shouldn't this be named requestOptions
         const credential = await webauthnJSON.get(o.data.credentials)
         credentialInput.value = JSON.stringify(credential)
         form.submit()

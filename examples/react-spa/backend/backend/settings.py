@@ -140,6 +140,9 @@ HEADLESS_FRONTEND_URLS = {
     "socialaccount_login_error": "/account/provider/callback",
 }
 
+MFA_SUPPORTED_TYPES = ["totp", "recovery_codes", "webauthn"]
+MFA_PASSKEY_LOGIN_ENABLED = True
+
 try:
     from .local_settings import *  # noqa
 except ImportError:

@@ -13,6 +13,7 @@ from fido2.webauthn import (
     PublicKeyCredentialRpEntity,
     PublicKeyCredentialUserEntity,
     RegistrationResponse,
+    ResidentKeyRequirement,
     UserVerificationRequirement,
 )
 
@@ -79,13 +80,22 @@ def parse_registration_response(response: Any) -> RegistrationResponse:
         raise get_adapter().validation_error("incorrect_code")
 
 
-def begin_registration(user) -> Dict:
+def begin_registration(user, passwordless: bool) -> Dict:
     server = get_server()
     credentials = get_credentials(user)
     registration_data, state = server.register_begin(
         user=build_user_payload(user),
         credentials=credentials,
-        user_verification=UserVerificationRequirement.DISCOURAGED,
+        resident_key_requirement=(
+            ResidentKeyRequirement.REQUIRED
+            if passwordless
+            else ResidentKeyRequirement.DISCOURAGED
+        ),
+        user_verification=(
+            UserVerificationRequirement.REQUIRED
+            if passwordless
+            else UserVerificationRequirement.DISCOURAGED
+        ),
         challenge=generate_challenge(),
         extensions=EXTENSIONS,
     )

@@ -57,7 +57,10 @@ class AmazonCognitoProvider(OAuth2Provider):
         return {
             "address": data.get("address"),
             "birthdate": data.get("birthdate"),
+            "email": data.get("email"),
+            "family_name": data.get("family_name"),
             "gender": data.get("gender"),
+            "given_name": data.get("given_name"),
             "locale": data.get("locale"),
             "middlename": data.get("middlename"),
             "nickname": data.get("nickname"),

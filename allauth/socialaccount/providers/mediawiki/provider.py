@@ -45,6 +45,8 @@ class MediaWikiProvider(OAuth2Provider):
 
     def extract_extra_data(self, data):
         return dict(
+            email=self._get_email(data),
+            realname=data.get("realname"),
             username=data.get("username"),
         )
 

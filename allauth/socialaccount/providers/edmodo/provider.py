@@ -32,9 +32,13 @@ class EdmodoProvider(OAuth2Provider):
 
     def extract_extra_data(self, data):
         return dict(
-            user_type=data.get("type"),
-            profile_url=data.get("url"),
             avatar_url=data.get("avatars").get("large"),
+            email=data.get("email"),
+            first_name=data.get("first_name"),
+            last_name=data.get("last_name"),
+            profile_url=data.get("url"),
+            user_type=data.get("type"),
+            username=data.get("username"),
         )
 
 

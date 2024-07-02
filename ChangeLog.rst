@@ -21,6 +21,9 @@ Note worthy changes
 - Headless: When trying to sign up while a user is already logged in, you now get
   a 409.
 
+- Ensured that email address, given name and family name fields are stored in
+  the SocialAccount instance. This information was not previously saved in
+  Amazon Cognito, Edmodo, and MediaWiki SocialAccount instances.
 
 Security notice
 ---------------

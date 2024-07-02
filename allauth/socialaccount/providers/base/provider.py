@@ -144,7 +144,8 @@ class Provider:
     def extract_extra_data(self, data):
         """
         Extracts fields from `data` that will be stored in
-        `SocialAccount`'s `extra_data` JSONField.
+        `SocialAccount`'s `extra_data` JSONField, such as email address, first
+        name, last name, and phone number.
 
         :return: any JSON-serializable Python structure.
         """

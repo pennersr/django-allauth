@@ -16,3 +16,6 @@ class TrelloTests(OAuthTestsMixin, TestCase):
         """,
             ),
         ]  # noqa
+
+    def get_expected_to_str(self):
+        return "pennersr"

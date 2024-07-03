@@ -20,3 +20,6 @@ class QuickBooksOAuth2Tests(OAuth2TestsMixin, TestCase):
         "email": "darren@blocklight.io"}
 """,
         )
+
+    def get_expected_to_str(self):
+        return "darren@blocklight.io"

@@ -8,6 +8,9 @@ class EdxAccount(ProviderAccount):
         if self.account.extra_data["profile_image"]["has_image"]:
             return self.account.extra_data["image_url_full"]
 
+    def to_str(self):
+        return self.account.extra_data.get("username") or super().to_str()
+
 
 class EdxProvider(OAuth2Provider):
     id = "edx"

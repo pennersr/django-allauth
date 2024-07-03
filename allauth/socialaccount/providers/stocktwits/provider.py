@@ -11,7 +11,7 @@ class StocktwitsAccount(ProviderAccount):
 
     def to_str(self):
         dflt = super(StocktwitsAccount, self).to_str()
-        return self.account.extra_data.get("user", {}).get("name", dflt)
+        return self.account.extra_data.get("user", {}).get("username", dflt)
 
 
 class StocktwitsProvider(OAuth2Provider):

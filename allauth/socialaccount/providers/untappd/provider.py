@@ -15,7 +15,10 @@ class UntappdAccount(ProviderAccount):
 
     def to_str(self):
         dflt = super(UntappdAccount, self).to_str()
-        return self.account.extra_data.get("user_name", dflt)
+        return (
+            self.account.extra_data.get("response", {}).get("user", {}).get("user_name")
+            or dflt
+        )
 
 
 class UntappdProvider(OAuth2Provider):

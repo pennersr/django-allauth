@@ -14,7 +14,7 @@ class BitbucketOAuth2Account(ProviderAccount):
 
     def to_str(self):
         dflt = super(BitbucketOAuth2Account, self).to_str()
-        return self.account.extra_data.get("display_name", dflt)
+        return self.account.extra_data.get("username", dflt)
 
 
 class BitbucketOAuth2Provider(OAuth2Provider):

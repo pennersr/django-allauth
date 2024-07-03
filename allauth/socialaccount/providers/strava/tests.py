@@ -36,6 +36,9 @@ class StravaTests(OAuth2TestsMixin, TestCase):
             }""",
         )  # noqa
 
+    def get_expected_to_str(self):
+        return "bill@example.com"
+
     def get_mocked_response_avatar_invalid_id(self):
         """Profile including realistic avatar URL
         user ID set to 0 to test edge case where id would be missing"""

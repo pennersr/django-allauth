@@ -9,7 +9,7 @@ class NaverAccount(ProviderAccount):
         return self.account.extra_data.get("profile_image")
 
     def to_str(self):
-        return self.account.extra_data.get("nickname", self.account.uid)
+        return self.account.extra_data.get("email", self.account.uid)
 
 
 class NaverProvider(OAuth2Provider):

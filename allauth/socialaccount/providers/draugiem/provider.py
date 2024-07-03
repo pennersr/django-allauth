@@ -25,7 +25,7 @@ class DraugiemAccount(ProviderAccount):
     def to_str(self):
         default = super(DraugiemAccount, self).to_str()
         name = self.account.extra_data.get("name")
-        surname = self.account.extra_data.get("surnname")
+        surname = self.account.extra_data.get("surname")
 
         if name and surname:
             return "%s %s" % (name, surname)

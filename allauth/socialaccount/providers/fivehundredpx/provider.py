@@ -14,8 +14,7 @@ class FiveHundredPxAccount(ProviderAccount):
 
     def to_str(self):
         dflt = super(FiveHundredPxAccount, self).to_str()
-        name = self.account.extra_data.get("fullname", dflt)
-        return name
+        return self.account.extra_data.get("username", dflt)
 
 
 class FiveHundredPxProvider(OAuthProvider):

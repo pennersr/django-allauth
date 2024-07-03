@@ -12,7 +12,7 @@ class GitLabAccount(ProviderAccount):
 
     def to_str(self):
         dflt = super(GitLabAccount, self).to_str()
-        return self.account.extra_data.get("name", dflt)
+        return self.account.extra_data.get("username", dflt)
 
 
 class GitLabProvider(OAuth2Provider):

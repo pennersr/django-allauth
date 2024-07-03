@@ -6,7 +6,8 @@ from allauth.socialaccount.providers.shopify.views import ShopifyOAuth2Adapter
 
 
 class ShopifyAccount(ProviderAccount):
-    pass
+    def to_str(self):
+        return self.account.extra_data.get("shop", {}).get("email") or super().to_str()
 
 
 class ShopifyProvider(OAuth2Provider):

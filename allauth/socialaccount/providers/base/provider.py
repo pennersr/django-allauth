@@ -252,7 +252,18 @@ class ProviderAccount:
 
     def to_str(self):
         """
-        This did not use to work in the past due to py2 compatibility:
+        Returns string representation of this social account. This is the
+        unique identifier of the account, such as its username or its email
+        address. It should be meaningful to human beings, which means a numeric
+        ID number is rarely the appropriate representation here.
+
+        Subclasses are meant to override this method.
+
+        Users will see the string representation of their social accounts in
+        the page rendered by the allauth.socialaccount.views.connections view.
+
+        The following code did not use to work in the past due to py2
+        compatibility:
 
             class GoogleAccount(ProviderAccount):
                 def __str__(self):
@@ -262,4 +273,10 @@ class ProviderAccount:
         So we have this method `to_str` that can be overridden in a conventional
         fashion, without having to worry about it.
         """
-        return self.get_brand()["name"]
+        ed = self.account.extra_data
+        return (
+            ed.get("email")
+            or ed.get("username")
+            or ed.get("name")
+            or self.get_brand()["name"]
+        )

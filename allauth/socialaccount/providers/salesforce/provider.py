@@ -16,7 +16,7 @@ class SalesforceAccount(ProviderAccount):
 
     def to_str(self):
         dflt = super(SalesforceAccount, self).to_str()
-        return self.account.extra_data.get("name", dflt)
+        return self.account.extra_data.get("email", dflt)
 
 
 class SalesforceProvider(OAuth2Provider):

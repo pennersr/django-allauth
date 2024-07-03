@@ -9,10 +9,23 @@ from allauth.socialaccount.providers.oauth2.client import OAuth2Error
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
+class AppleAccount(ProviderAccount):
+    def to_str(self):
+        dflt = super().to_str()
+        email = self.account.extra_data.get("email")
+        name = self.account.extra_data.get("name", {})
+        if name and (name.get("firstName") or name.get("lastName")):
+            full_name = " ".join([name.get("firstName", ""), name.get("lastName", "")])
+            full_name = full_name.strip()
+            if full_name:
+                return f"{full_name} <{email or dflt}>"
+        return email or dflt
+
+
 class AppleProvider(OAuth2Provider):
     id = "apple"
     name = "Apple"
-    account_class = ProviderAccount
+    account_class = AppleAccount
     oauth2_adapter_class = AppleOAuth2Adapter
     supports_token_authentication = True
 

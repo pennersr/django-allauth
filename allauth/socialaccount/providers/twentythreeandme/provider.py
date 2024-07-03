@@ -6,7 +6,8 @@ from allauth.socialaccount.providers.twentythreeandme.views import (
 
 
 class TwentyThreeAndMeAccount(ProviderAccount):
-    pass
+    def to_str(self):
+        return self.account.extra_data.get("email") or super().to_str()
 
 
 class TwentyThreeAndMeProvider(OAuth2Provider):

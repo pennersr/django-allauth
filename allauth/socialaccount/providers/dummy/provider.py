@@ -15,8 +15,9 @@ class DummyAccount(ProviderAccount):
         dflt = super().to_str()
         first_name = self.account.extra_data.get("first_name") or ""
         last_name = self.account.extra_data.get("last_name") or ""
-        name = " ".join([first_name, last_name]).strip() or dflt
-        return name
+        name = " ".join([first_name, last_name]).strip()
+        email = self.account.extra_data.get("email")
+        return email or name or dflt
 
 
 class DummyProvider(Provider):

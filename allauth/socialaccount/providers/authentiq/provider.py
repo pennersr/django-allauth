@@ -52,7 +52,9 @@ class AuthentiqAccount(ProviderAccount):
 
     def to_str(self):
         dflt = super(AuthentiqAccount, self).to_str()
-        return self.account.extra_data.get("name", dflt)
+        name = self.account.extra_data.get("name")
+        email = self.account.extra_data.get("email")
+        return email or name or dflt
 
 
 class AuthentiqProvider(OAuth2Provider):

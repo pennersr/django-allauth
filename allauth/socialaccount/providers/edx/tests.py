@@ -44,3 +44,6 @@ class EdxTests(OAuth2TestsMixin, TestCase):
 "account_privacy":"private"
 }""",
         )
+
+    def get_expected_to_str(self):
+        return "krzysztof"

@@ -41,3 +41,6 @@ class BasecampTests(OAuth2TestsMixin, TestCase):
             ]
         }""",
         )
+
+    def get_expected_to_str(self):
+        return "jason@example.com"

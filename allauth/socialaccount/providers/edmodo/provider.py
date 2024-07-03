@@ -10,6 +10,9 @@ class EdmodoAccount(ProviderAccount):
     def get_avatar_url(self):
         return self.account.extra_data.get("avatar_url")
 
+    def to_str(self):
+        return self.account.extra_data.get("username") or super().to_str()
+
 
 class EdmodoProvider(OAuth2Provider):
     id = "edmodo"

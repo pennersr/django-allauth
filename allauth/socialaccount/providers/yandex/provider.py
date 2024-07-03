@@ -7,6 +7,9 @@ from allauth.socialaccount.providers.yandex.views import YandexOAuth2Adapter
 
 class YandexAccout(ProviderAccount):
     def to_str(self):
+        default_email = self.account.extra_data.get("default_email")
+        if default_email:
+            return default_email
         first_name = self.account.extra_data.get("first_name", "")
         last_name = self.account.extra_data.get("last_name", "")
         name = " ".join([first_name, last_name]).strip()

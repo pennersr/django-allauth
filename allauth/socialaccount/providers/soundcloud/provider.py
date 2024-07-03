@@ -16,7 +16,7 @@ class SoundCloudAccount(ProviderAccount):
         dflt = super(SoundCloudAccount, self).to_str()
         full_name = self.account.extra_data.get("full_name")
         username = self.account.extra_data.get("username")
-        return full_name or username or dflt
+        return username or full_name or dflt
 
 
 class SoundCloudProvider(OAuth2Provider):

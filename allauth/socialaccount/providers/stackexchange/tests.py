@@ -43,3 +43,6 @@ class StackExchangeTests(OAuth2TestsMixin, TestCase):
            "quota_remaining": 9999
         }""",
         )  # noqa
+
+    def get_expected_to_str(self):
+        return "pennersr"

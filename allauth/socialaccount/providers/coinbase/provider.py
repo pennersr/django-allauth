@@ -10,9 +10,10 @@ class CoinbaseAccount(ProviderAccount):
         return None
 
     def to_str(self):
-        return self.account.extra_data.get(
-            "name", super(CoinbaseAccount, self).to_str()
-        )
+        dflt = super().to_str()
+        email = self.account.extra_data.get("email")
+        name = self.account.extra_data.get("name")
+        return email or name or dflt
 
 
 class CoinbaseProvider(OAuth2Provider):

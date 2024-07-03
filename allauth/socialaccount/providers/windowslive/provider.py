@@ -7,6 +7,9 @@ from allauth.socialaccount.providers.windowslive.views import (
 
 class WindowsLiveAccount(ProviderAccount):
     def to_str(self):
+        email = self.account.extra_data.get("emails", {}).get("preferred")
+        if email:
+            return email
         name = "{0} {1}".format(
             self.account.extra_data.get("first_name", ""),
             self.account.extra_data.get("last_name", ""),

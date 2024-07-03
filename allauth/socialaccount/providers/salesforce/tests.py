@@ -31,6 +31,9 @@ class SalesforceTests(OAuth2TestsMixin, TestCase):
         )
         return MockedResponse(200, userinfo)
 
+    def get_expected_to_str(self):
+        return "raymond.penners@gmail.com"
+
 
 USERINFO_RESPONSE = """
 {{

@@ -9,6 +9,7 @@ class MeetupTests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         return MockedResponse(
+            # TODO: most keys are nested under "photo", verify that this is correct
             200,
             """
         {"id": 1, "lang": "en_US", "city": "Bhubaneswar",
@@ -34,3 +35,6 @@ class MeetupTests(OAuth2TestsMixin, TestCase):
         "hometown": "Kolkata", "lat": 20.270000457763672,
         "visited": 1488829924000, "self": {"common": {}}}}""",
         )
+
+    def get_expected_to_str(self):
+        return "Abhishek Jaiswal"

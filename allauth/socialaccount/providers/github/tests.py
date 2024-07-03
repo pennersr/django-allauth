@@ -58,6 +58,9 @@ class GitHubTests(OAuth2TestsMixin, TestCase):
             ),
         ]
 
+    def get_expected_to_str(self):
+        return "pennersr"
+
     def test_account_name_null(self):
         """String conversion when GitHub responds with empty name"""
         mocks = [

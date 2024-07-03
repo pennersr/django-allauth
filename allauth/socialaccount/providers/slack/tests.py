@@ -19,3 +19,6 @@ class SlackOAuth2Tests(OAuth2TestsMixin, TestCase):
           "user_id": "U12345"
         }""",
         )  # noqa
+
+    def get_expected_to_str(self):
+        return "T0G9PQBBK (My Team)"

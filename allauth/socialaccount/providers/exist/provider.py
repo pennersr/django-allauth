@@ -11,8 +11,8 @@ class ExistAccount(ProviderAccount):
         return self.account.extra_data.get("avatar")
 
     def to_str(self):
-        name = super().to_str()
-        return self.account.extra_data.get("name", name)
+        dflt = super().to_str()
+        return self.account.extra_data.get("username", dflt)
 
 
 class ExistProvider(OAuth2Provider):

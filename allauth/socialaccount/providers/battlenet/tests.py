@@ -18,6 +18,9 @@ class BattleNetTests(OAuth2TestsMixin, TestCase):
         data = {"battletag": self._battletag, "id": self._uid}
         return MockedResponse(200, json.dumps(data))
 
+    def get_expected_to_str(self):
+        return self._battletag
+
     def test_valid_response_no_battletag(self):
         data = {"id": 12345}
         response = MockedResponse(200, json.dumps(data))

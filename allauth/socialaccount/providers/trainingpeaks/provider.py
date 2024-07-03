@@ -13,14 +13,8 @@ class TrainingPeaksAccount(ProviderAccount):
         return None
 
     def to_str(self):
-        name = (
-            self.account.extra_data.get("FirstName")
-            + " "
-            + self.account.extra_data.get("LastName")
-        )
-        if name != " ":
-            return name
-        return super(TrainingPeaksAccount, self).to_str()
+        dflt = super().to_str()
+        return self.account.extra_data.get("Email", dflt)
 
 
 class TrainingPeaksProvider(OAuth2Provider):

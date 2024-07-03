@@ -9,6 +9,9 @@ class WahooAccount(ProviderAccount):
     def get_profile_url(self):
         return "https://api.wahooligan.com/v1/user"
 
+    def to_str(self):
+        return self.account.extra_data.get("email") or super().to_str()
+
 
 class WahooProvider(OAuth2Provider):
     id = "wahoo"

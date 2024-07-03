@@ -14,7 +14,7 @@ class DoximityAccount(ProviderAccount):
 
     def to_str(self):
         dflt = super(DoximityAccount, self).to_str()
-        return self.account.extra_data.get("full_name", dflt)
+        return self.account.extra_data.get("email", dflt)
 
 
 class DoximityProvider(OAuth2Provider):

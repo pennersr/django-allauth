@@ -5,7 +5,8 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
 class DripAccount(ProviderAccount):
-    pass
+    def to_str(self):
+        return self.account.extra_data.get("email") or super().to_str()
 
 
 class DripProvider(OAuth2Provider):

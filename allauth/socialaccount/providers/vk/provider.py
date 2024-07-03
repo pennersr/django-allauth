@@ -20,10 +20,11 @@ class VKAccount(ProviderAccount):
             return ret
 
     def to_str(self):
+        email = self.account.extra_data.get("email")
         first_name = self.account.extra_data.get("first_name", "")
         last_name = self.account.extra_data.get("last_name", "")
         name = " ".join([first_name, last_name]).strip()
-        return name or super(VKAccount, self).to_str()
+        return email or name or super(VKAccount, self).to_str()
 
 
 class VKProvider(OAuth2Provider):

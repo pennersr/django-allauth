@@ -53,6 +53,9 @@ class FacebookTests(OAuth2TestsMixin, TestCase):
             data = self.facebook_data
         return MockedResponse(200, data)
 
+    def get_expected_to_str(self):
+        return "raymond.penners@example.com"
+
     def test_username_conflict(self):
         User = get_user_model()
         User.objects.create(username="raymond.penners")

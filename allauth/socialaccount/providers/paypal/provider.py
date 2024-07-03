@@ -8,7 +8,7 @@ class PaypalAccount(ProviderAccount):
         return self.account.extra_data.get("picture")
 
     def to_str(self):
-        return self.account.extra_data.get("name", super(PaypalAccount, self).to_str())
+        return self.account.extra_data.get("email", super(PaypalAccount, self).to_str())
 
 
 class PaypalProvider(OAuth2Provider):

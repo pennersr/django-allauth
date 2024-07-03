@@ -7,7 +7,7 @@ from allauth.socialaccount.providers.zoho.views import ZohoOAuth2Adapter
 class ZohoAccount(ProviderAccount):
     def to_str(self):
         dflt = super(ZohoAccount, self).to_str()
-        return self.account.extra_data.get("Display_Name", dflt)
+        return self.account.extra_data.get("Email", dflt)
 
 
 class ZohoProvider(OAuth2Provider):

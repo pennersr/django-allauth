@@ -7,7 +7,7 @@ from allauth.socialaccount.providers.pocket.views import PocketOAuthAdapter
 class PocketAccount(ProviderAccount):
     def to_str(self):
         dflt = super(PocketAccount, self).to_str()
-        return self.account.extra_data.get("Display_Name", dflt)
+        return self.account.extra_data.get("username", dflt)
 
 
 class PocketProvider(OAuthProvider):

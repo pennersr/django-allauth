@@ -52,7 +52,7 @@ class GoogleAccount(ProviderAccount):
 
     def to_str(self):
         dflt = super(GoogleAccount, self).to_str()
-        return self.account.extra_data.get("name", dflt)
+        return self.account.extra_data.get("email", dflt)
 
 
 class GoogleProvider(OAuth2Provider):

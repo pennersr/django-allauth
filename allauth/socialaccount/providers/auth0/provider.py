@@ -9,7 +9,10 @@ class Auth0Account(ProviderAccount):
 
     def to_str(self):
         dflt = super(Auth0Account, self).to_str()
-        return self.account.extra_data.get("name", dflt)
+        email = self.account.extra_data.get("email")
+        username = self.account.extra_data.get("username")
+        name = self.account.extra_data.get("name")
+        return email or username or name or dflt
 
 
 class Auth0Provider(OAuth2Provider):

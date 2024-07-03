@@ -15,3 +15,6 @@ class ZohoTests(OAuth2TestsMixin, TestCase):
 "Last_Name":"Doe","Display_Name":"JDoee","ZUID":1234567}
 """,
         )
+
+    def get_expected_to_str(self):
+        return "jdoe@example.com"

@@ -52,7 +52,7 @@ class FacebookAccount(ProviderAccount):
 
     def to_str(self):
         dflt = super(FacebookAccount, self).to_str()
-        return self.account.extra_data.get("name", dflt)
+        return self.account.extra_data.get("email", dflt)
 
 
 class FacebookProvider(OAuth2Provider):

@@ -31,6 +31,9 @@ class TrainingPeaksTests(OAuth2TestsMixin, TestCase):
             }""",
         )  # noqa
 
+    def get_expected_to_str(self):
+        return "user@example.com"
+
     def get_login_response_json(self, with_refresh_token=True):
         rtoken = ""
         if with_refresh_token:

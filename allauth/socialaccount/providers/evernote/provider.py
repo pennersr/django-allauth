@@ -10,6 +10,9 @@ class EvernoteAccount(ProviderAccount):
     def get_avatar_url(self):
         return None
 
+    def to_str(self):
+        return self.account.extra_data.get("edam_userId") or super().to_str()
+
 
 class EvernoteProvider(OAuthProvider):
     id = "evernote"

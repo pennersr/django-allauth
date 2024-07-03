@@ -8,11 +8,14 @@ class SlackAccount(ProviderAccount):
         return self.account.extra_data.get("user").get("image_192", None)
 
     def to_str(self):
-        dflt = super(SlackAccount, self).to_str()
-        return "%s (%s)" % (
-            self.account.extra_data.get("name", ""),
-            dflt,
-        )
+        user = self.account.extra_data.get("user", {})
+        team = self.account.extra_data.get("team", {})
+        username = user.get("email") or user.get("name") or user.get("id")
+        teamname = team.get("name") or team.get("id") or ""
+        if teamname:
+            return "%s (%s)" % (username or super().to_str(), teamname)
+        else:
+            return username or super().to_str()
 
 
 class SlackProvider(OAuth2Provider):

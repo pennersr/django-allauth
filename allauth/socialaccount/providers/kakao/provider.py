@@ -20,7 +20,11 @@ class KakaoAccount(ProviderAccount):
 
     def to_str(self):
         dflt = super(KakaoAccount, self).to_str()
-        return self.profile.get("nickname", self.properties.get("nickname", dflt))
+        account_data = self.account.extra_data.get("kakao_account", {})
+        if account_data.get("email") and account_data.get("is_email_verified"):
+            return account_data["email"]
+        nickname = self.profile.get("nickname", self.properties.get("nickname"))
+        return nickname or dflt
 
 
 class KakaoProvider(OAuth2Provider):

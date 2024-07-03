@@ -12,7 +12,7 @@ class DoubanAccount(ProviderAccount):
 
     def to_str(self):
         dflt = super(DoubanAccount, self).to_str()
-        return self.account.extra_data.get("name", dflt)
+        return self.account.extra_data.get("uid", dflt)
 
 
 class DoubanProvider(OAuth2Provider):

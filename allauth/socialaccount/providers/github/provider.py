@@ -17,8 +17,8 @@ class GitHubAccount(ProviderAccount):
         return next(
             value
             for value in (
-                self.account.extra_data.get("name", None),
                 self.account.extra_data.get("login", None),
+                self.account.extra_data.get("name", None),
                 dflt,
             )
             if value is not None

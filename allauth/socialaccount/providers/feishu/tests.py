@@ -40,5 +40,8 @@ class FeishuTests(OAuth2TestsMixin, TestCase):
             ),
         ]
 
+    def get_expected_to_str(self):
+        return "zhangsan"
+
     def get_login_response_json(self, with_refresh_token=True):
         return """{"app_access_token":"testac"}"""

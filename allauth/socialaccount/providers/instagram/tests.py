@@ -26,3 +26,6 @@ class InstagramTests(OAuth2TestsMixin, TestCase):
             "id": "11428116"
         }""",
         )  # noqa
+
+    def get_expected_to_str(self):
+        return "georgewhewell"

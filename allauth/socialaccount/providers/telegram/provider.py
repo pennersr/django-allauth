@@ -6,7 +6,8 @@ from allauth.socialaccount.providers.base import Provider, ProviderAccount
 
 
 class TelegramAccount(ProviderAccount):
-    pass
+    def to_str(self):
+        return self.account.extra_data.get("username") or super().to_str()
 
 
 class TelegramProvider(Provider):

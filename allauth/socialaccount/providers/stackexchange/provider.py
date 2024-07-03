@@ -14,7 +14,7 @@ class StackExchangeAccount(ProviderAccount):
 
     def to_str(self):
         dflt = super(StackExchangeAccount, self).to_str()
-        return self.account.extra_data.get("name", dflt)
+        return self.account.extra_data.get("display_name", dflt)
 
 
 class StackExchangeProvider(OAuth2Provider):

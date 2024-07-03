@@ -10,7 +10,8 @@ from allauth.socialaccount.providers.vimeo_oauth2.views import (
 
 
 class VimeoOAuth2Account(ProviderAccount):
-    pass
+    def to_str(self):
+        return self.account.extra_data.get("name") or super().to_str()
 
 
 class VimeoOAuth2Provider(OAuth2Provider):

@@ -8,7 +8,7 @@ class DaumAccount(ProviderAccount):
         return self.account.extra_data.get("bigImagePath")
 
     def to_str(self):
-        return self.account.extra_data.get("nickname", self.account.uid)
+        return self.account.extra_data.get("userid", self.account.uid)
 
 
 class DaumProvider(OAuth2Provider):

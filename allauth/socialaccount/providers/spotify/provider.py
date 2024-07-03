@@ -16,7 +16,7 @@ class SpotifyAccount(ProviderAccount):
 
     def to_str(self):
         dflt = super(SpotifyAccount, self).to_str()
-        return self.account.extra_data.get("display_name", dflt)
+        return self.account.extra_data.get("email", dflt)
 
 
 class SpotifyOAuth2Provider(OAuth2Provider):

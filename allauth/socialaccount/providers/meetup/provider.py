@@ -4,7 +4,12 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
 class MeetupAccount(ProviderAccount):
-    pass
+    def to_str(self):
+        email = self.account.extra_data.get("email")
+        name = self.account.extra_data.get("name") or self.account.extra_data.get(
+            "photo", {}
+        ).get("name")
+        return email or name or super().to_str()
 
 
 class MeetupProvider(OAuth2Provider):

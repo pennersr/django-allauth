@@ -6,7 +6,8 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
 class NextCloudAccount(ProviderAccount):
-    pass
+    def to_str(self):
+        return self.account.extra_data.get("id") or super().to_str()
 
 
 class NextCloudProvider(OAuth2Provider):

@@ -18,7 +18,7 @@ class StravaAccount(ProviderAccount):
 
     def to_str(self):
         name = super(StravaAccount, self).to_str()
-        return self.account.extra_data.get("name", name)
+        return self.account.extra_data.get("email", name)
 
 
 class StravaProvider(OAuth2Provider):

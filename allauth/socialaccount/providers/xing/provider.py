@@ -12,10 +12,7 @@ class XingAccount(ProviderAccount):
 
     def to_str(self):
         dflt = super(XingAccount, self).to_str()
-        first_name = self.account.extra_data.get("first_name", "")
-        last_name = self.account.extra_data.get("last_name", "")
-        name = " ".join([first_name, last_name]).strip()
-        return name or dflt
+        return self.account.extra_data.get("active_email") or dflt
 
 
 class XingProvider(OAuthProvider):

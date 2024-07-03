@@ -51,6 +51,9 @@ class KakaoTests(OAuth2TestsMixin, TestCase):
         }
     """
 
+    def get_expected_to_str(self):
+        return "sample@sample.com"
+
     def get_mocked_response(self, data=None):
         if data is None:
             data = self.kakao_data

@@ -16,10 +16,11 @@ class OpenStreetMapAccount(ProviderAccount):
         return self.account.extra_data.get("avatar")
 
     def get_username(self):
+        # TODO: this actually returns the display name, not the unique username
         return self.account.extra_data["display_name"]
 
     def to_str(self):
-        return self.get_username()
+        return self.account.extra_data.get("display_name") or super().to_str()
 
 
 class OpenStreetMapProvider(OAuthProvider):

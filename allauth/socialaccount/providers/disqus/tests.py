@@ -35,6 +35,9 @@ class DisqusTests(OAuth2TestsMixin, TestCase):
             % (name, email),
         )
 
+    def get_expected_to_str(self):
+        return "raymond.penners@example.com"
+
     def test_account_connect(self):
         email = "user@example.com"
         user = User.objects.create(username="user", is_active=True, email=email)

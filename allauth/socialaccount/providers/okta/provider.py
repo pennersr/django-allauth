@@ -7,7 +7,7 @@ from allauth.socialaccount.providers.okta.views import OktaOAuth2Adapter
 class OktaAccount(ProviderAccount):
     def to_str(self):
         dflt = super(OktaAccount, self).to_str()
-        return self.account.extra_data.get("name", dflt)
+        return self.account.extra_data.get("email", dflt)
 
 
 class OktaProvider(OAuth2Provider):

@@ -10,7 +10,7 @@ class AtlassianAccount(ProviderAccount):
 
     def to_str(self):
         dflt = super().to_str()
-        return self.account.extra_data.get("name", dflt)
+        return self.account.extra_data.get("email", dflt)
 
 
 class AtlassianProvider(OAuth2Provider):

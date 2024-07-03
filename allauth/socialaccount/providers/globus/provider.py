@@ -16,7 +16,7 @@ class GlobusAccount(ProviderAccount):
 
     def to_str(self):
         dflt = super(GlobusAccount, self).to_str()
-        return self.account.extra_data.get("name", dflt)
+        return self.account.extra_data.get("email", dflt)
 
 
 class GlobusProvider(OAuth2Provider):

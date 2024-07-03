@@ -19,6 +19,7 @@ class NotionTests(OAuth2TestsMixin, TestCase):
             """
             {
                 "workspace_id": "workspace-abc",
+                "workspace_name": "My Workspace",
                 "owner": {
                     "user": {
                         "id": "test123",
@@ -30,6 +31,9 @@ class NotionTests(OAuth2TestsMixin, TestCase):
             }
             """,
         )  # noqa
+
+    def get_expected_to_str(self):
+        return "John Doe (My Workspace)"
 
     def get_login_response_json(self, with_refresh_token=False):
         """

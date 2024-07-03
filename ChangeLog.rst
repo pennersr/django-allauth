@@ -25,6 +25,10 @@ Note worthy changes
   the SocialAccount instance. This information was not previously saved in
   Amazon Cognito, Edmodo, and MediaWiki SocialAccount instances.
 
+- Changed the behaviour of the ``socialaccount_connections`` page to list
+  social accounts by their unique usernames or email addresses, rather than by
+  their non-unique display names.
+
 Security notice
 ---------------
 

@@ -4,7 +4,8 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
 class BoxOAuth2Account(ProviderAccount):
-    pass
+    def to_str(self):
+        return self.account.extra_data.get("login") or super().to_str()
 
 
 class BoxOAuth2Provider(OAuth2Provider):

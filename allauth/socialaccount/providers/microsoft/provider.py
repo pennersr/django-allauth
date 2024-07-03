@@ -11,7 +11,7 @@ class MicrosoftGraphAccount(ProviderAccount):
 
     def to_str(self):
         dflt = super(MicrosoftGraphAccount, self).to_str()
-        return self.account.extra_data.get("displayName", dflt)
+        return self.account.extra_data.get("mail", dflt)
 
 
 class MicrosoftGraphProvider(OAuth2Provider):

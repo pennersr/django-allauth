@@ -20,8 +20,14 @@ class PinterestAccount(ProviderAccount):
         return self.account.extra_data.get("profile_image")
 
     def to_str(self):
-        dflt = super(PinterestAccount, self).to_str()
-        return self.account.extra_data.get("username", dflt)
+        username = self.account.extra_data.get("username")
+        if username:
+            return username
+        first_name = self.account.extra_data.get("first_name")
+        last_name = self.account.extra_data.get("last_name")
+        if first_name or last_name:
+            return " ".join(x for x in [first_name, last_name] if x)
+        return super().to_str()
 
 
 class PinterestProvider(OAuth2Provider):

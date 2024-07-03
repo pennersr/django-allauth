@@ -40,3 +40,6 @@ class XingTests(OAuthTestsMixin, TestCase):
 """,
             )
         ]
+
+    def get_expected_to_str(self):
+        return "raymond.penners@example.com"

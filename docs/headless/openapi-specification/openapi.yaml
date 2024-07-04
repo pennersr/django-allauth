@@ -917,18 +917,24 @@ paths:
       summary: List sessions
       parameters:
         - $ref: "#/components/parameters/Client"
+        - $ref: "#/components/parameters/SessionToken"
       responses:
         "200":
           $ref: "#/components/responses/Sessions"
     delete:
       tags:
         - "Sessions"
-      summary: Delete a session
+      summary: End one or more sessions
       parameters:
         - $ref: "#/components/parameters/Client"
+        - $ref: "#/components/parameters/SessionToken"
+      requestBody:
+        $ref: "#/components/requestBodies/EndSessions"
       responses:
         "200":
           $ref: "#/components/responses/Sessions"
+        "401":
+          $ref: "#/components/responses/Authentication"
 components:
   ######################################################################
   # Components: Examples
@@ -1240,6 +1246,12 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/ConfirmLoginCode"
+    EndSessions:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/EndSessions"
     ProviderAccount:
       content:
         application/json:
@@ -1456,6 +1468,19 @@ components:
             - 409
       required:
         - status
+    EndSessions:
+      type: object
+      properties:
+        sessions:
+          description: |
+            The IDs of the sessions that are to be ended.
+          type: array
+          items:
+            type: integer
+            example: 123
+      required:
+        - sessions
+
     ReauthenticationResponse:
       type: object
       description: |

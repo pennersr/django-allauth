@@ -63,7 +63,9 @@ class ConfirmLoginCodeView(APIView):
 
     def get_input_kwargs(self):
         kwargs = super().get_input_kwargs()
-        kwargs["code"] = self.pending_login.get("code") if self.pending_login else ""
+        kwargs["code"] = (
+            self.pending_login.get("code", "") if self.pending_login else ""
+        )
         return kwargs
 
 

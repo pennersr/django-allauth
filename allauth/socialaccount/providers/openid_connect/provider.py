@@ -64,9 +64,10 @@ class OpenIDConnectProvider(OAuth2Provider):
         return dict(
             email=data.get("email"),
             username=data.get("preferred_username"),
-            name=data.get("name"),
             user_id=data.get("user_id"),
             picture=data.get("picture"),
+            last_name=data["family_name"],
+            first_name=data["given_name"],
         )
 
     def extract_email_addresses(self, data):

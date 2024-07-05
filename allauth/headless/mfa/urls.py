@@ -45,12 +45,19 @@ def build_urlpatterns(client):
                 ),
             ]
         )
-        auth_patterns.append(
-            path(
-                "webauthn/reauthenticate",
-                views.ReauthenticateWebAuthnView.as_api_view(client=client),
-                name="reauthenticate_webauthn",
-            )
+        auth_patterns.extend(
+            [
+                path(
+                    "webauthn/authenticate",
+                    views.AuthenticateWebAuthnView.as_api_view(client=client),
+                    name="authenticate_webauthn",
+                ),
+                path(
+                    "webauthn/reauthenticate",
+                    views.ReauthenticateWebAuthnView.as_api_view(client=client),
+                    name="reauthenticate_webauthn",
+                ),
+            ]
         )
         if mfa_settings.PASSKEY_LOGIN_ENABLED:
             auth_patterns.append(

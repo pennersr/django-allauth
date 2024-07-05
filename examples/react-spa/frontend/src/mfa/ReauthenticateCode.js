@@ -1,15 +1,16 @@
 import { useState } from 'react'
 import FormErrors from '../components/FormErrors'
-import * as allauth from '../lib/allauth'
+import { mfaReauthenticate, Flows } from '../lib/allauth'
+import ReauthenticateFlow from '../account/ReauthenticateFlow'
 import Button from '../components/Button'
 
-export default function MFAAuthenticate () {
+export default function ReauthenticateCode (props) {
   const [code, setCode] = useState('')
   const [response, setResponse] = useState({ fetching: false, content: null })
 
   function submit () {
     setResponse({ ...response, fetching: true })
-    allauth.mfaAuthenticate(code).then((content) => {
+    mfaReauthenticate(code).then((content) => {
       setResponse((r) => { return { ...r, content } })
     }).catch((e) => {
       console.error(e)
@@ -19,20 +20,15 @@ export default function MFAAuthenticate () {
     })
   }
   return (
-    <section>
-      <h1>Two-Factor Authentication</h1>
-      <p>
-        Your account is protected by two-factor authentication. Please enter an authenticator code:
-      </p>
-      <div>
-        <label>
-          Authenticator code:
-          <input type='text' value={code} onChange={(e) => setCode(e.target.value)} />
-        </label>
+    <ReauthenticateFlow>
+      {props.children}
+
+      <FormErrors errors={response.content?.errors} />
+
+      <div><label>Code: <input value={code} onChange={(e) => setCode(e.target.value)} type='text' required /></label>
         <FormErrors param='code' errors={response.content?.errors} />
       </div>
-      <Button onClick={() => submit()}>Sign In</Button>
-
-    </section>
+      <Button disabled={response.fetching} onClick={() => submit()}>Confirm</Button>
+    </ReauthenticateFlow>
   )
 }

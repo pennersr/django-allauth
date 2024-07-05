@@ -727,38 +727,34 @@ class DefaultAccountAdapter(BaseAdapter):
         """The order of the methods returned matters. The first method is the
         default when using the `@reauthentication_required` decorator.
         """
+        from allauth.account.internal.flows.reauthentication import (
+            get_reauthentication_flows,
+        )
+
+        flow_by_id = {f["id"]: f for f in get_reauthentication_flows(user)}
         ret = []
-        if not user.is_authenticated:
-            return ret
-        if user.has_usable_password():
+        if "reauthenticate" in flow_by_id:
             entry = {
                 "id": "reauthenticate",
                 "description": _("Use your password"),
+                "url": reverse("account_reauthenticate"),
             }
-            if not allauth_app_settings.HEADLESS_ONLY:
-                entry["url"] = reverse("account_reauthenticate")
             ret.append(entry)
-        if allauth_app_settings.MFA_ENABLED:
-            from allauth.mfa.models import Authenticator
-            from allauth.mfa.utils import is_mfa_enabled
-
-            if is_mfa_enabled(
-                user, types=[Authenticator.Type.TOTP, Authenticator.Type.RECOVERY_CODES]
-            ):
+        if "mfa_reauthenticate" in flow_by_id:
+            types = flow_by_id["mfa_reauthenticate"]["types"]
+            if "recovery_codes" in types or "totp" in types:
                 entry = {
                     "id": "mfa_reauthenticate",
                     "description": _("Use authenticator app or code"),
+                    "url": reverse("mfa_reauthenticate"),
                 }
-                if not allauth_app_settings.HEADLESS_ONLY:
-                    entry["url"] = reverse("mfa_reauthenticate")
                 ret.append(entry)
-            if is_mfa_enabled(user, types=[Authenticator.Type.WEBAUTHN]):
+            if "webauthn" in types:
                 entry = {
-                    "id": "mfa_reauthenticate_webauthn",
+                    "id": "mfa_reauthenticate:webauthn",
                     "description": _("Use security key or device"),
+                    "url": reverse("mfa_reauthenticate_webauthn"),
                 }
-                if not allauth_app_settings.HEADLESS_ONLY:
-                    entry["url"] = reverse("mfa_reauthenticate_webauthn")
                 ret.append(entry)
         return ret
 

@@ -3,7 +3,7 @@ import {
   useLocation
 } from 'react-router-dom'
 import { useAuthChange, AuthChangeEvent, useAuthStatus } from './hooks'
-import { Flows } from '../lib/allauth'
+import { Flows, AuthenticatorType } from '../lib/allauth'
 
 export const URLs = Object.freeze({
   LOGIN_URL: '/account/login',
@@ -17,15 +17,23 @@ flow2path[Flows.LOGIN_BY_CODE] = '/account/login/code/confirm'
 flow2path[Flows.SIGNUP] = '/account/signup'
 flow2path[Flows.VERIFY_EMAIL] = '/account/verify-email'
 flow2path[Flows.PROVIDER_SIGNUP] = '/account/provider/signup'
-flow2path[Flows.MFA_AUTHENTICATE] = '/account/2fa/authenticate'
 flow2path[Flows.REAUTHENTICATE] = '/account/reauthenticate'
-flow2path[Flows.MFA_REAUTHENTICATE] = '/account/2fa/reauthenticate'
-flow2path[Flows.MFA_REAUTHENTICATE_WEBAUTHN] = '/account/2fa/webauthn/reauthenticate'
+flow2path[`${Flows.MFA_AUTHENTICATE}:${AuthenticatorType.TOTP}`] = '/account/authenticate/totp'
+flow2path[`${Flows.MFA_AUTHENTICATE}:${AuthenticatorType.RECOVERY_CODES}`] = '/account/authenticate/recovery-codes'
+flow2path[`${Flows.MFA_AUTHENTICATE}:${AuthenticatorType.WEBAUTHN}`] = '/account/authenticate/webauthn'
+flow2path[`${Flows.MFA_REAUTHENTICATE}:${AuthenticatorType.TOTP}`] = '/account/reauthenticate/totp'
+flow2path[`${Flows.MFA_REAUTHENTICATE}:${AuthenticatorType.RECOVERY_CODES}`] = '/account/reauthenticate/recovery-codes'
+flow2path[`${Flows.MFA_REAUTHENTICATE}:${AuthenticatorType.WEBAUTHN}`] = '/account/reauthenticate/webauthn'
 
-export function pathForFlow (flowId) {
-  const path = flow2path[flowId]
+export function pathForFlow (flow, typ) {
+  let key = flow.id
+  if (typeof flow.types !== 'undefined') {
+    typ = typ ?? flow.types[0]
+    key = `${key}:${typ}`
+  }
+  const path = flow2path[key] ?? flow2path[flow.id]
   if (!path) {
-    throw new Error(`Unknown path for flow: ${flowId}`)
+    throw new Error(`Unknown path for flow: ${flow.id}`)
   }
   return path
 }
@@ -33,7 +41,7 @@ export function pathForFlow (flowId) {
 export function pathForPendingFlow (auth) {
   const flow = auth.data.flows.find(flow => flow.is_pending)
   if (flow) {
-    return pathForFlow(flow.id)
+    return pathForFlow(flow)
   }
   return null
 }
@@ -81,7 +89,7 @@ export function AuthChangeRedirector ({ children }) {
     }
     case AuthChangeEvent.REAUTHENTICATION_REQUIRED: {
       const next = `next=${encodeURIComponent(location.pathname + location.search)}`
-      const path = pathForFlow(auth.data.flows[0].id)
+      const path = pathForFlow(auth.data.flows[0])
       return <Navigate to={`${path}?${next}`} state={{ reauth: auth }} />
     }
     case AuthChangeEvent.FLOW_UPDATED:

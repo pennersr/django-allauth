@@ -9,6 +9,7 @@ from allauth.mfa.webauthn.internal.flows import did_use_passwordless_login
 
 
 class AuthenticateStage(LoginStage):
+    # NOTE: Duplicated in `allauth.headless.constants.Flow.MFA_AUTHENTICATE`.
     key = "mfa_authenticate"
 
     def handle(self):

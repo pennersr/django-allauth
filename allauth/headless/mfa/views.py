@@ -1,5 +1,5 @@
 from allauth.account.models import Login
-from allauth.headless.base.response import AuthenticationResponse
+from allauth.headless.base.response import APIResponse, AuthenticationResponse
 from allauth.headless.base.views import (
     APIView,
     AuthenticatedAPIView,
@@ -10,6 +10,7 @@ from allauth.headless.mfa.inputs import (
     ActivateTOTPInput,
     AddWebAuthnInput,
     AuthenticateInput,
+    AuthenticateWebAuthnInput,
     DeleteWebAuthnInput,
     GenerateRecoveryCodesInput,
     LoginWebAuthnInput,
@@ -59,7 +60,7 @@ class AuthenticatorsView(AuthenticatedAPIView):
 class ManageTOTPView(AuthenticatedAPIView):
     input_class = {"POST": ActivateTOTPInput}
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs) -> APIResponse:
         authenticator = self._get_authenticator()
         if not authenticator:
             adapter: DefaultMFAAdapter = get_adapter()
@@ -163,6 +164,24 @@ class ReauthenticateWebAuthnView(AuthenticatedAPIView):
         authenticator = self.input.cleaned_data["credential"]
         webauthn_flows.reauthenticate(request, authenticator)
         return AuthenticationResponse(self.request)
+
+
+class AuthenticateWebAuthnView(AuthenticationStageAPIView):
+    input_class = {
+        "POST": AuthenticateWebAuthnInput,
+    }
+    stage_class = AuthenticateStage
+
+    def get(self, request, *args, **kwargs):
+        request_options = webauthn_auth.begin_authentication(self.stage.login.user)
+        return response.WebAuthnRequestOptionsResponse(request, request_options)
+
+    def get_input_kwargs(self):
+        return {"user": self.stage.login.user}
+
+    def post(self, request, *args, **kwargs):
+        self.input.save()
+        return self.respond_next_stage()
 
 
 class LoginWebAuthnView(APIView):

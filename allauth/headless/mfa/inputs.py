@@ -5,6 +5,7 @@ from allauth.mfa.recovery_codes.forms import GenerateRecoveryCodesForm
 from allauth.mfa.totp.forms import ActivateTOTPForm
 from allauth.mfa.webauthn.forms import (
     AddWebAuthnForm,
+    AuthenticateWebAuthnForm,
     LoginWebAuthnForm,
     ReauthenticateWebAuthnForm,
 )
@@ -52,6 +53,10 @@ class DeleteWebAuthnInput(inputs.Input):
 
 
 class ReauthenticateWebAuthnInput(ReauthenticateWebAuthnForm, inputs.Input):
+    pass
+
+
+class AuthenticateWebAuthnInput(AuthenticateWebAuthnForm, inputs.Input):
     pass
 
 

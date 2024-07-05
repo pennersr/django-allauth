@@ -1,13 +1,13 @@
 import time
-from typing import Optional
+from typing import Dict, List, Optional
 
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.http import HttpRequest, HttpResponseRedirect
 from django.urls import resolve, reverse
 from django.utils.http import urlencode
 
+from allauth import app_settings as allauth_settings
 from allauth.account import app_settings
-from allauth.account.adapter import get_adapter
 from allauth.account.authentication import (
     get_authentication_records,
     record_authentication,
@@ -73,7 +73,7 @@ def raise_if_reauthentication_required(request: HttpRequest) -> None:
 def did_recently_authenticate(request: HttpRequest) -> bool:
     if request.user.is_anonymous:
         return False
-    if not get_adapter().get_reauthentication_methods(request.user):
+    if not get_reauthentication_flows(request.user):
         # TODO: This user only has social accounts attached. Now, ideally, you
         # would want to reauthenticate over at the social account provider. For
         # now, this is not implemented. Although definitely suboptimal, this
@@ -86,3 +86,25 @@ def did_recently_authenticate(request: HttpRequest) -> bool:
         return False
     authenticated_at = methods[-1]["at"]
     return time.time() - authenticated_at < app_settings.REAUTHENTICATION_TIMEOUT
+
+
+def get_reauthentication_flows(user) -> List[Dict]:
+    ret: List[Dict] = []
+    if not user.is_authenticated:
+        return ret
+    if user.has_usable_password():
+        entry = {
+            "id": "reauthenticate",
+        }
+        ret.append(entry)
+    if allauth_settings.MFA_ENABLED:
+        from allauth.mfa.models import Authenticator
+        from allauth.mfa.utils import is_mfa_enabled
+
+        types = []
+        for typ in Authenticator.Type:
+            if is_mfa_enabled(user, types=[typ]):
+                types.append(typ)
+        if types:
+            ret.append({"id": "mfa_reauthenticate", "types": types})
+    return ret

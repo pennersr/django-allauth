@@ -14,6 +14,11 @@ export function useUser () {
   return authInfo(auth).user
 }
 
+export function useAuthInfo () {
+  const auth = useContext(AuthContext)?.auth
+  return authInfo(auth)
+}
+
 function authInfo (auth) {
   const isAuthenticated = auth.status === 200 || (auth.status === 401 && auth.meta.is_authenticated)
   const requiresReauthentication = isAuthenticated && auth.status === 401

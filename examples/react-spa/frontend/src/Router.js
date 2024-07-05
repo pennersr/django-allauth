@@ -28,8 +28,11 @@ import ReauthenticateWebAuthn from './mfa/ReauthenticateWebAuthn'
 import ListWebAuthn, { loader as listWebAuthnLoader } from './mfa/ListWebAuthn'
 import GenerateRecoveryCodes, { loader as generateRecoveryCodesLoader } from './mfa/GenerateRecoveryCodes'
 import ResetPassword, { loader as resetPasswordLoader } from './account/ResetPassword'
-import MFAAuthenticate from './mfa/MFAAuthenticate'
-import MFAReauthenticate from './mfa/MFAReauthenticate'
+import AuthenticateTOTP from './mfa/AuthenticateTOTP'
+import AuthenticateRecoveryCodes from './mfa/AuthenticateRecoveryCodes'
+import AuthenticateWebAuthn from './mfa/AuthenticateWebAuthn'
+import ReauthenticateRecoveryCodes from './mfa/ReauthenticateRecoveryCodes'
+import ReauthenticateTOTP from './mfa/ReauthenticateTOTP'
 import Reauthenticate from './account/Reauthenticate'
 import Sessions from './usersessions/Sessions'
 import Root from './Root'
@@ -116,12 +119,28 @@ function createRouter () {
           element: <AuthenticatedRoute><Reauthenticate /></AuthenticatedRoute>
         },
         {
-          path: '/account/2fa/reauthenticate',
-          element: <AuthenticatedRoute><MFAReauthenticate /></AuthenticatedRoute>
+          path: '/account/reauthenticate/totp',
+          element: <AuthenticatedRoute><ReauthenticateTOTP /></AuthenticatedRoute>
         },
         {
-          path: '/account/2fa/authenticate',
-          element: <AnonymousRoute><MFAAuthenticate /></AnonymousRoute>
+          path: '/account/reauthenticate/recovery-codes',
+          element: <AuthenticatedRoute><ReauthenticateRecoveryCodes /></AuthenticatedRoute>
+        },
+        {
+          path: '/account/reauthenticate/webauthn',
+          element: <AuthenticatedRoute><ReauthenticateWebAuthn /></AuthenticatedRoute>
+        },
+        {
+          path: '/account/authenticate/totp',
+          element: <AnonymousRoute><AuthenticateTOTP /></AnonymousRoute>
+        },
+        {
+          path: '/account/authenticate/recovery-codes',
+          element: <AnonymousRoute><AuthenticateRecoveryCodes /></AnonymousRoute>
+        },
+        {
+          path: '/account/authenticate/webauthn',
+          element: <AnonymousRoute><AuthenticateWebAuthn /></AnonymousRoute>
         },
         {
           path: '/account/2fa/totp/activate',
@@ -150,10 +169,6 @@ function createRouter () {
         {
           path: '/account/2fa/webauthn/add',
           element: <AuthenticatedRoute><AddWebAuthn /></AuthenticatedRoute>
-        },
-        {
-          path: '/account/2fa/webauthn/reauthenticate',
-          element: <AuthenticatedRoute><ReauthenticateWebAuthn /></AuthenticatedRoute>
         },
         {
           path: '/account/sessions',

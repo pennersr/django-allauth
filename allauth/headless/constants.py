@@ -1,6 +1,5 @@
 from enum import Enum
 
-from allauth import app_settings as allauth_settings
 from allauth.account.stages import EmailVerificationStage
 
 
@@ -19,9 +18,5 @@ class Flow(str, Enum):
     PROVIDER_TOKEN = "provider_token"
     REAUTHENTICATE = "reauthenticate"
     MFA_REAUTHENTICATE = "mfa_reauthenticate"
-    if allauth_settings.MFA_ENABLED:
-        from allauth.mfa.stages import AuthenticateStage
-
-        MFA_AUTHENTICATE = AuthenticateStage.key  # type: ignore[has-type]
+    MFA_AUTHENTICATE = "mfa_authenticate"  # NOTE: Equal to `allauth.mfa.stages.AuthenticationStage.key`
     MFA_LOGIN_WEBAUTHN = "mfa_login_webauthn"
-    MFA_REAUTHENTICATE_WEBAUTHN = "mfa_reauthenticate_webauthn"

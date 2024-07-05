@@ -26,8 +26,7 @@ export const Flows = Object.freeze({
   PROVIDER_SIGNUP: 'provider_signup',
   MFA_AUTHENTICATE: 'mfa_authenticate',
   REAUTHENTICATE: 'reauthenticate',
-  MFA_REAUTHENTICATE: 'mfa_reauthenticate',
-  MFA_REAUTHENTICATE_WEBAUTHN: 'mfa_reauthenticate_webauthn'
+  MFA_REAUTHENTICATE: 'mfa_reauthenticate'
 })
 
 export const URLs = Object.freeze({
@@ -69,6 +68,7 @@ export const URLs = Object.freeze({
 
   // Auth: WebAuthn
   REAUTHENTICATE_WEBAUTHN: BASE_URL + '/auth/webauthn/reauthenticate',
+  AUTHENTICATE_WEBAUTHN: BASE_URL + '/auth/webauthn/authenticate',
   LOGIN_WEBAUTHN: BASE_URL + '/auth/webauthn/login',
   WEBAUTHN_AUTHENTICATOR: BASE_URL + '/account/authenticators/webauthn'
 })
@@ -316,10 +316,18 @@ export async function reauthenticateUsingWebAuthn (credential) {
   return await request('POST', URLs.REAUTHENTICATE_WEBAUTHN, { credential })
 }
 
+export async function authenticateUsingWebAuthn (credential) {
+  return await request('POST', URLs.AUTHENTICATE_WEBAUTHN, { credential })
+}
+
 export async function loginUsingWebAuthn (credential) {
   return await request('POST', URLs.LOGIN_WEBAUTHN, { credential })
 }
 
 export async function getWebAuthnRequestOptionsForLogin () {
   return await request('GET', URLs.LOGIN_WEBAUTHN)
+}
+
+export async function getWebAuthnRequestOptionsForAuthentication () {
+  return await request('GET', URLs.AUTHENTICATE_WEBAUTHN)
 }

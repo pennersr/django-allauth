@@ -33,7 +33,7 @@ def test_reauthenticate(
     # View recovery codes, confirm webauthn reauthentication is an option
     resp = auth_client.get(headless_reverse("headless:mfa:manage_recovery_codes"))
     assert resp.status_code == 401
-    assert Flow.MFA_REAUTHENTICATE_WEBAUTHN in [
+    assert Flow.MFA_REAUTHENTICATE in [
         flow["id"] for flow in resp.json()["data"]["flows"]
     ]
 

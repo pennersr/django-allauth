@@ -45,12 +45,7 @@ class BaseAuthenticationResponse(APIResponse):
         auth_status = authkit.AuthenticationStatus(request)
         ret = []
         if user and user.is_authenticated:
-            ret.extend(
-                [
-                    {"id": m["id"]}
-                    for m in get_account_adapter().get_reauthentication_methods(user)
-                ]
-            )
+            ret.extend(flows.reauthentication.get_reauthentication_flows(user))
         else:
             ret.append({"id": Flow.LOGIN})
             if account_settings.LOGIN_BY_CODE_ENABLED:
@@ -79,8 +74,22 @@ class BaseAuthenticationResponse(APIResponse):
             if isinstance(lsk, str):
                 stage_key = lsk
         if stage_key:
-            ret.append({"id": stage_key, "is_pending": True})
+            pending_flow = {"id": stage_key, "is_pending": True}
+            if stage and stage_key == Flow.MFA_AUTHENTICATE:
+                self._enrich_mfa_flow(stage, pending_flow)
+            ret.append(pending_flow)
         return ret
+
+    def _enrich_mfa_flow(self, stage, flow: dict) -> None:
+        from allauth.mfa.adapter import get_adapter as get_mfa_adapter
+        from allauth.mfa.models import Authenticator
+
+        adapter = get_mfa_adapter()
+        types = []
+        for typ in Authenticator.Type:
+            if adapter.is_mfa_enabled(stage.login.user, types=[typ]):
+                types.append(typ)
+        flow["types"] = types
 
 
 class AuthenticationResponse(BaseAuthenticationResponse):

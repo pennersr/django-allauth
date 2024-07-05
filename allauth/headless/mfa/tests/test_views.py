@@ -55,6 +55,7 @@ def test_auth_unverified_email_and_mfa(
         {
             "id": "mfa_authenticate",
             "is_pending": True,
+            "types": ["totp"],
         }
     )
 

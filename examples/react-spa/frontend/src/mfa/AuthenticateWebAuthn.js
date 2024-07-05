@@ -1,23 +1,23 @@
 import { useState } from 'react'
-import { Flows, getWebAuthnRequestOptionsForReauthentication, reauthenticateUsingWebAuthn } from '../lib/allauth'
-import ReauthenticateFlow from '../account/ReauthenticateFlow'
+import { AuthenticatorType, Flows, getWebAuthnRequestOptionsForAuthentication, authenticateUsingWebAuthn } from '../lib/allauth'
 import Button from '../components/Button'
 import {
   parseRequestOptionsFromJSON,
   get
 } from '@github/webauthn-json/browser-ponyfill'
+import AuthenticateFlow from './AuthenticateFlow'
 
-export default function ReauthenticateWebAuthn () {
+export default function AuthenticateWebAuthn (props) {
   const [response, setResponse] = useState({ fetching: false, content: null })
 
   async function submit () {
     setResponse({ ...response, fetching: true })
     try {
-      const optResp = await getWebAuthnRequestOptionsForReauthentication()
+      const optResp = await getWebAuthnRequestOptionsForAuthentication()
       const jsonOptions = optResp.data.request_options
       const options = parseRequestOptionsFromJSON(jsonOptions)
       const credential = await get(options)
-      const reauthResp = await reauthenticateUsingWebAuthn(credential)
+      const reauthResp = await authenticateUsingWebAuthn(credential)
       setResponse((r) => { return { ...r, content: reauthResp } })
     } catch (e) {
       console.error(e)
@@ -27,9 +27,8 @@ export default function ReauthenticateWebAuthn () {
   }
 
   return (
-    <ReauthenticateFlow flow={Flows.MFA_REAUTHENTICATE}>
-
+    <AuthenticateFlow authenticatorType={AuthenticatorType.WEBAUTHN}>
       <Button disabled={response.fetching} onClick={() => submit()}>Use security key</Button>
-    </ReauthenticateFlow>
+    </AuthenticateFlow>
   )
 }

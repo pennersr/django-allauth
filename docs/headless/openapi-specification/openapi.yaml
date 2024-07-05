@@ -510,6 +510,40 @@ paths:
   ######################################################################
   # Authentication: WebAuthn
   ######################################################################
+  /_allauth/{client}/v1/auth/webauthn/authenticate:
+    get:
+      tags:
+        - "Authentication: WebAuthn"
+      summary: Get WebAuthn credential request options for 2FA
+      parameters:
+        - $ref: "#/components/parameters/Client"
+        - $ref: "#/components/parameters/SessionToken"
+      description: |
+        Returns the WebAuthn credential request options, that can be
+        processed using `parseRequestOptionsFromJSON()` on the frontend.
+      responses:
+        "200":
+          $ref: "#/components/responses/WebAuthnRequestOptionsResponse"
+    post:
+      tags:
+        - "Authentication: WebAuthn"
+      summary: Perform 2FA using WebAuthn
+      parameters:
+        - $ref: "#/components/parameters/Client"
+        - $ref: "#/components/parameters/SessionToken"
+      description: |
+        Perform Two-Factor Authentication using a WebAuthn credential.
+      requestBody:
+        $ref: "#/components/requestBodies/AuthenticateWebAuthn"
+      responses:
+        "200":
+          $ref: "#/components/responses/Authenticated"
+        "400":
+          description: An input error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
   /_allauth/{client}/v1/auth/webauthn/reauthenticate:
     get:
       tags:
@@ -1403,6 +1437,18 @@ components:
               - credential
     ReauthenticateWebAuthn:
       description: Reauthenticate using WebAuthn.
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              credential:
+                $ref: "#/components/schemas/WebAuthnCredential"
+            required:
+              - credential
+    AuthenticateWebAuthn:
+      description: Authenticate using WebAuthn.
       required: true
       content:
         application/json:

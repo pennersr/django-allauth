@@ -13,10 +13,9 @@ function flowsToMethods (flows) {
   flows.forEach(flow => {
     if (flow.id === Flows.MFA_REAUTHENTICATE) {
       flow.types.forEach(typ => {
-        const id = `${flow.id}:${typ}`
         methods.push({
-          label: flowLabels[id],
-          id,
+          label: flowLabels[`${flow.id}:${typ}`] || flow.id,
+          id: flow.id,
           path: pathForFlow(flow, typ)
         })
       })

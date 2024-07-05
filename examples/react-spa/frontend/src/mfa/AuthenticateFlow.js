@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import { pathForFlow } from '../auth'
 import { Flows, AuthenticatorType } from '../lib/allauth'
 import { useAuthInfo } from '../auth/hooks'
@@ -30,7 +30,7 @@ export default function AuthenticateFlow (props) {
             {flow.types.map(typ => {
               return (
                 <li key={typ}>
-                  <Link replace state={location.state} to={pathForFlow(flow, typ)}>{labels[typ]}</Link>
+                  <Link replace to={pathForFlow(flow, typ)}>{labels[typ]}</Link>
                 </li>
               )
             })}

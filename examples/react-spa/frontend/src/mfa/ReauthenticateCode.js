@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import FormErrors from '../components/FormErrors'
-import { mfaReauthenticate, Flows } from '../lib/allauth'
+import { mfaReauthenticate } from '../lib/allauth'
 import ReauthenticateFlow from '../account/ReauthenticateFlow'
 import Button from '../components/Button'
 

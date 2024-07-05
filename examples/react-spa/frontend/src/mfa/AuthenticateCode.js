@@ -14,10 +14,6 @@ export default function AuthenticateCode (props) {
   if (authInfo?.pendingFlow?.id !== allauth.Flows.MFA_AUTHENTICATE) {
     return <Navigate to='/' />
   }
-  const authenticatorTypes = authInfo.pendingFlow.types
-  const hasWebAuthn = authenticatorTypes.includes(allauth.AuthenticatorType.WEBAUTHN)
-  const hasTOTP = authenticatorTypes.includes(allauth.AuthenticatorType.TOTP)
-  const hasRecoveryCodes = authenticatorTypes.includes(allauth.AuthenticatorType.RECOVERY_CODES)
 
   function submit () {
     setResponse({ ...response, fetching: true })

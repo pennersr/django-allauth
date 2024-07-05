@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { AuthenticatorType, Flows, getWebAuthnRequestOptionsForAuthentication, authenticateUsingWebAuthn } from '../lib/allauth'
+import { AuthenticatorType, getWebAuthnRequestOptionsForAuthentication, authenticateUsingWebAuthn } from '../lib/allauth'
 import Button from '../components/Button'
 import {
   parseRequestOptionsFromJSON,

@@ -53,12 +53,14 @@ x-tagGroups:
       - "Authentication: Providers"
       - "Authentication: 2FA"
       - "Authentication: Login By Code"
+      - "Authentication: WebAuthn"
   - name: Account
     tags:
       - "Account: Email"
       - "Account: Password"
       - "Account: Providers"
       - "Account: 2FA"
+      - "Account: WebAuthn"
   - name: Sessions
     tags:
       - "Sessions"
@@ -506,6 +508,90 @@ paths:
                 invalid_code:
                   $ref: "#/components/examples/InvalidAuthenticatorCode"
   ######################################################################
+  # Authentication: WebAuthn
+  ######################################################################
+  /_allauth/{client}/v1/auth/webauthn/reauthenticate:
+    get:
+      tags:
+        - "Authentication: WebAuthn"
+      summary: Get WebAuthn credential request options for reauthentication
+      parameters:
+        - $ref: "#/components/parameters/Client"
+        - $ref: "#/components/parameters/SessionToken"
+      description: |
+        Returns the WebAuthn credential request options, that can be
+        processed using `parseRequestOptionsFromJSON()` on the frontend.
+      responses:
+        "200":
+          $ref: "#/components/responses/WebAuthnRequestOptionsResponse"
+    post:
+      tags:
+        - "Authentication: WebAuthn"
+      summary: Reauthenticate using WebAuthn
+      parameters:
+        - $ref: "#/components/parameters/Client"
+        - $ref: "#/components/parameters/SessionToken"
+      description: |
+        Reauthenticate the user using a WebAuthn credential.
+      requestBody:
+        $ref: "#/components/requestBodies/ReauthenticateWebAuthn"
+      responses:
+        "200":
+          $ref: "#/components/responses/Authenticated"
+        "400":
+          description: An input error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /_allauth/{client}/v1/auth/webauthn/login:
+    get:
+      tags:
+        - "Authentication: WebAuthn"
+      summary: Get WebAuthn credential request options for login
+      parameters:
+        - $ref: "#/components/parameters/Client"
+        - $ref: "#/components/parameters/SessionToken"
+      description: |
+        Returns the WebAuthn credential request options, that can be
+        processed using `parseRequestOptionsFromJSON()` on the frontend.
+      responses:
+        "200":
+          $ref: "#/components/responses/WebAuthnRequestOptionsResponse"
+    post:
+      tags:
+        - "Authentication: WebAuthn"
+      summary: Login using WebAuthn
+      parameters:
+        - $ref: "#/components/parameters/Client"
+        - $ref: "#/components/parameters/SessionToken"
+      description: |
+        Login using a WebAuthn credential (Passkey). Both 200 and 401 can be
+        expected after a successful request.  The 401 can, for example, occur
+        when the credential passed was valid, but the email attached to the
+        account still requires verification.
+      requestBody:
+        $ref: "#/components/requestBodies/LoginWebAuthn"
+      responses:
+        "200":
+          $ref: "#/components/responses/Authenticated"
+        "400":
+          description: An input error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: |
+            Not authenticated.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthenticationResponse"
+              examples:
+                pending_email:
+                  $ref: "#/components/examples/UnauthenticatedPendingEmailVerification"
+  ######################################################################
   # Authentication: Login by Code
   ######################################################################
   /_allauth/{client}/v1/auth/code/request:
@@ -848,6 +934,75 @@ paths:
               examples:
                 invalid_code:
                   $ref: "#/components/examples/CannotGenerateRecoveryCodes"
+        "401":
+          $ref: "#/components/responses/ReauthenticationRequired"
+  ######################################################################
+  # Account: WebAuthn
+  ######################################################################
+  /_allauth/{client}/v1/account/webauthn:
+    get:
+      tags:
+        - "Account: WebAuthn"
+      summary: |
+        Get WebAuthn credential creation options
+      parameters:
+        - $ref: "#/components/parameters/Client"
+        - $ref: "#/components/parameters/SessionToken"
+      description: |
+        Returns the WebAuthn credential creation options, that can be
+        processed using `parseCreationOptionsFromJSON()` on the frontend.
+      responses:
+        "200":
+          $ref: "#/components/responses/WebAuthnCreationOptionsResponse"
+        "401":
+          $ref: "#/components/responses/ReauthenticationRequired"
+    put:
+      tags:
+        - "Account: WebAuthn"
+      summary: |
+        Rename a WebAuthn credential
+      description: |
+        You can alter the name of a WebAuthn credential by PUT'ting the ID and
+        name of the authenticator representing that credential. You can obtain
+        the credentials via the "List authenticators" endpoint.
+      parameters:
+        - $ref: "#/components/parameters/Client"
+        - $ref: "#/components/parameters/SessionToken"
+      requestBody:
+        $ref: "#/components/requestBodies/UpdateWebAuthn"
+      responses:
+        "200":
+          $ref: "#/components/responses/WebAuthnAuthenticator"
+        "401":
+          $ref: "#/components/responses/ReauthenticationRequired"
+    delete:
+      tags:
+        - "Account: WebAuthn"
+      summary: |
+        Delete a WebAuthn credential
+      parameters:
+        - $ref: "#/components/parameters/Client"
+        - $ref: "#/components/parameters/SessionToken"
+      requestBody:
+        $ref: "#/components/requestBodies/DeleteWebAuthn"
+      responses:
+        "200":
+          $ref: "#/components/responses/StatusOK"
+        "401":
+          $ref: "#/components/responses/ReauthenticationRequired"
+    post:
+      tags:
+        - "Account: WebAuthn"
+      summary: |
+        Add a WebAuthn credential
+      parameters:
+        - $ref: "#/components/parameters/Client"
+        - $ref: "#/components/parameters/SessionToken"
+      requestBody:
+        $ref: "#/components/requestBodies/AddWebAuthnAuthenticator"
+      responses:
+        "200":
+          $ref: "#/components/responses/AddWebAuthnAuthenticator"
         "401":
           $ref: "#/components/responses/ReauthenticationRequired"
   ######################################################################
@@ -1234,6 +1389,30 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/Login"
+    LoginWebAuthn:
+      description: Login using WebAuthn.
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              credential:
+                $ref: "#/components/schemas/WebAuthnCredential"
+            required:
+              - credential
+    ReauthenticateWebAuthn:
+      description: Reauthenticate using WebAuthn.
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              credential:
+                $ref: "#/components/schemas/WebAuthnCredential"
+            required:
+              - credential
     MFAAuthenticate:
       required: true
       content:
@@ -1382,6 +1561,45 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/VerifyEmail"
+    UpdateWebAuthn:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                $ref: "#/components/schemas/AuthenticatorID"
+              name:
+                type: string
+                example: "Master key"
+    AddWebAuthnAuthenticator:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                example: "Master key"
+              credential:
+                $ref: "#/components/schemas/WebAuthnCredential"
+            required:
+              - credential
+    DeleteWebAuthn:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              authenticators:
+                description: |
+                  The IDs of the authenticator that are to be deleted.
+                type: array
+                items:
+                  $ref: "#/components/schemas/AuthenticatorID"
+            required:
+              - authenticators
+
   ######################################################################
   # Components: Schemas
   ######################################################################
@@ -1815,6 +2033,11 @@ components:
       type: integer
       enum:
         - 200
+    AuthenticatorID:
+      type: integer
+      description: |
+        Authenticator ID.
+      example: 123
     SocialAccountConfiguration:
       type: object
       description: |
@@ -2054,6 +2277,28 @@ components:
                 - totp
           required:
             - type
+    WebAuthnAuthenticator:
+      allOf:
+        - $ref: "#/components/schemas/BaseAuthenticator"
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - webauthn
+            id:
+              $ref: "#/components/schemas/AuthenticatorID"
+            name:
+              type: string
+              example: "Master key"
+            is_passwordless:
+              type: boolean
+              description: |
+                Whether or not this authenticator represents a passkey. Absent if it is not specified.
+          required:
+            - type
+            - id
+            - name
     RecoveryCodesAuthenticator:
       allOf:
         - $ref: "#/components/schemas/BaseAuthenticator"
@@ -2098,6 +2343,7 @@ components:
         oneOf:
           - $ref: "#/components/schemas/TOTPAuthenticator"
           - $ref: "#/components/schemas/RecoveryCodesAuthenticator"
+          - $ref: "#/components/schemas/WebAuthnAuthenticator"
     ProviderList:
       type: array
       items:
@@ -2175,6 +2421,25 @@ components:
         - status
         - data
         - meta
+    WebAuthnCredentialRequestOptions:
+      type: object
+      properties:
+        request_options:
+          type: object
+          example: {"status": 200, "data": {"request_options": {"publicKey": {"challenge": "aOecJJtLA2e-Dj2WU-zbRoJewbQqSUPxoA9EzsUL72o", "rpId": "localhost", "allowCredentials": [], "userVerification": "preferred"}}}}
+      required:
+        - request_options
+    WebAuthnCredentialCreationOptions:
+      type: object
+      properties:
+        creation_options:
+          type: object
+          example: {"status": 200, "data": {"request_options": {"publicKey": {"challenge": "aOecJJtLA2e-Dj2WU-zbRoJewbQqSUPxoA9EzsUL72o", "rpId": "localhost", "allowCredentials": [], "userVerification": "preferred"}}}}
+      required:
+        - creation_options
+    WebAuthnCredential:
+      type: object
+      example: {"credential":{"type":"public-key","id":"-J4JNfPfnLyRSMK4R...","rawId":"-J4JNfPfnLyRSMK4R...","authenticatorAttachment":"cross-platform","response":{"clientDataJSON":"eyJjaGFsbGVuZ2UiOi...","authenticatorData":"SZYN5YgO...","signature":"MEUCIE-7sqILygPqGbrRZ4j2nqeqUU...","userHandle":"Mg..."},"clientExtensionResults":{}}}
   ######################################################################
   # Components: Parameters
   ######################################################################
@@ -2524,3 +2789,67 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/AuthenticatedResponse"
+    WebAuthnRequestOptionsResponse:
+      description: WebAuthn credential request options.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                $ref: "#/components/schemas/StatusOK"
+              data:
+                $ref: "#/components/schemas/WebAuthnCredentialRequestOptions"
+            required:
+              - status
+              - data
+    WebAuthnCreationOptionsResponse:
+      description: WebAuthn credential creation options.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                $ref: "#/components/schemas/StatusOK"
+              data:
+                $ref: "#/components/schemas/WebAuthnCredentialCreationOptions"
+            required:
+              - status
+              - data
+    WebAuthnAuthenticator:
+      description: A WebAuthn authenticator.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                $ref: "#/components/schemas/StatusOK"
+              data:
+                $ref: "#/components/schemas/WebAuthnAuthenticator"
+            required:
+              - status
+              - data
+    AddWebAuthnAuthenticator:
+      description: A WebAuthn authenticator.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                $ref: "#/components/schemas/StatusOK"
+              data:
+                $ref: "#/components/schemas/WebAuthnAuthenticator"
+              meta:
+                type: object
+                properties:
+                  recovery_codes_generated:
+                    type: boolean
+                    description: |
+                      Whether or not recovery codes where generated automatically.
+            required:
+              - status
+              - data
+              - meta

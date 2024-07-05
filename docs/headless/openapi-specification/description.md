@@ -175,6 +175,7 @@ be initiated by means of these flows:
 - Login or signup using the third-party provider redirect flow (`provider_redirect`).
 - Login or signup by handing over a third-party provider retrieved elsewhere (`provider_token`).
 - Login using a special code (`login_by_code`).
+- Login using a passkey (`mfa_login_webauthn`).
 
 Depending on the state of the account, and the configuration of django-allauth, the flows above
 can either lead to becoming directly authenticated, or, to followup flows:
@@ -185,4 +186,5 @@ can either lead to becoming directly authenticated, or, to followup flows:
 While authenticated, re-authentication may be required to safeguard the account when sensitive actions
 are performed. The re-authentication flows are the following:
 - Re-authenticate using password (`reauthenticate`).
-- Re-authenticate using two-factor authentication (`mfa_reauthenticate`).
+- Re-authenticate using a 2FA authenticator or recovery code (`mfa_reauthenticate`).
+- Re-authenticate using a WebAuthn credential (`mfa_reauthenticate_webauthn`).

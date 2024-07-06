@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-30 09:26-0500\n"
-"PO-Revision-Date: 2024-05-15 05:21+0000\n"
-"Last-Translator: Unintended <Unintendedz@outlook.com>\n"
+"POT-Creation-Date: 2024-07-06 06:50-0500\n"
+"PO-Revision-Date: 2024-07-06 07:09+0000\n"
+"Last-Translator: Zhuo Cheng <chengz21@mails.tsinghua.edu.cn>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "allauth/django-allauth/zh_Hans/>\n"
 "Language: zh_Hans\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.6-dev\n"
+"X-Generator: Weblate 5.7-dev\n"
 
 #: account/adapter.py:58
 msgid "This account is currently inactive."
@@ -25,7 +25,7 @@ msgstr "此账号当前未激活。"
 
 #: account/adapter.py:60
 msgid "You cannot remove your primary email address."
-msgstr "您不能删除您的主Email地址 (%(email)s)"
+msgstr "您不能删除您的主Email地址 (%(email)s)。"
 
 #: account/adapter.py:63
 msgid "This email address is already associated with this account."
@@ -37,38 +37,36 @@ msgstr "您提供的Email地址或密码不正确。"
 
 #: account/adapter.py:68
 msgid "A user is already registered with this email address."
-msgstr "此email地址已被其他用户注册."
+msgstr "此email地址已被其他用户注册。"
 
 #: account/adapter.py:69
 msgid "Please type your current password."
-msgstr "请输入您的当前密码."
+msgstr "请输入您的当前密码。"
 
 #: account/adapter.py:70 mfa/adapter.py:40
 msgid "Incorrect code."
-msgstr "错误代码."
+msgstr "错误代码。"
 
 #: account/adapter.py:71
 msgid "Incorrect password."
-msgstr "无效密码."
+msgstr "无效密码。"
 
 #: account/adapter.py:72
-#, fuzzy
-#| msgid "Invalid token."
 msgid "Invalid or expired key."
-msgstr "令牌无效。"
+msgstr "令牌无效或过期。"
 
 #: account/adapter.py:73
 msgid "The password reset token was invalid."
-msgstr "您重置密码的token是无效的."
+msgstr "您重置密码的token是无效的。"
 
 #: account/adapter.py:74
 #, python-format
 msgid "You cannot add more than %d email addresses."
-msgstr "您不能添加超过%d个Email地址."
+msgstr "您不能添加超过%d个Email地址。"
 
 #: account/adapter.py:76
 msgid "Too many failed login attempts. Try again later."
-msgstr "登录失败次数过多，请稍后重试."
+msgstr "登录失败次数过多，请稍后重试。"
 
 #: account/adapter.py:78
 msgid "The email address is not assigned to any user account"
@@ -81,26 +79,24 @@ msgstr "您的主Email地址必须被验证。"
 
 #: account/adapter.py:81
 msgid "Username can not be used. Please use other username."
-msgstr "此用户名不能使用，请改用其他用户名."
+msgstr "此用户名不能使用，请改用其他用户名。"
 
 #: account/adapter.py:84
 msgid "The username and/or password you specified are not correct."
-msgstr "您提供的用户名或密码不正确."
+msgstr "您提供的用户名或密码不正确。"
 
-#: account/adapter.py:736
+#: account/adapter.py:739
 msgid "Use your password"
-msgstr "使用你的密码"
+msgstr "使用您的密码"
 
-#: account/adapter.py:750
-#, fuzzy
-#| msgid "Use your authenticator app"
+#: account/adapter.py:748
 msgid "Use authenticator app or code"
-msgstr "使用你的认证app"
+msgstr "请使用认证APP或代码"
 
-#: account/adapter.py:758 templates/mfa/authenticate.html:36
+#: account/adapter.py:755 templates/mfa/authenticate.html:36
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use security key or device"
-msgstr ""
+msgstr "请使用安全密钥或设备"
 
 #: account/admin.py:23
 msgid "Mark selected email addresses as verified"
@@ -112,7 +108,7 @@ msgstr "账户"
 
 #: account/forms.py:56 account/forms.py:481
 msgid "You must type the same password each time."
-msgstr "每次输入的密码必须相同."
+msgstr "每次输入的密码必须相同。"
 
 #: account/forms.py:91 account/forms.py:411 account/forms.py:562
 #: account/forms.py:676
@@ -149,7 +145,7 @@ msgstr "登录"
 
 #: account/forms.py:136
 msgid "Forgot your password?"
-msgstr "忘记密码了？"
+msgstr "忘记密码？"
 
 #: account/forms.py:298
 msgid "Email (again)"
@@ -165,7 +161,7 @@ msgstr "Email （选填项）"
 
 #: account/forms.py:369
 msgid "You must type the same email each time."
-msgstr "每次输入的Email必须相同"
+msgstr "每次输入的Email必须相同。"
 
 #: account/forms.py:417 account/forms.py:563
 msgid "Password (again)"
@@ -218,7 +214,7 @@ msgstr "已发送"
 
 #: account/models.py:155 socialaccount/models.py:69
 msgid "key"
-msgstr "key"
+msgstr "密钥"
 
 #: account/models.py:160
 msgid "email confirmation"
@@ -255,19 +251,17 @@ msgid ""
 msgstr "在验证您的Email地址之前，您不能激活两步验证。"
 
 #: mfa/adapter.py:141
-#, fuzzy
-#| msgid "secret key"
 msgid "Master key"
-msgstr "密钥"
+msgstr "主密钥"
 
 #: mfa/adapter.py:143
 msgid "Backup key"
-msgstr ""
+msgstr "备份密钥"
 
 #: mfa/adapter.py:144
 #, python-brace-format
 msgid "Key nr. {number}"
-msgstr ""
+msgstr "密钥 {number}"
 
 #: mfa/apps.py:9
 msgid "MFA"
@@ -279,35 +273,35 @@ msgstr "恢复代码"
 
 #: mfa/models.py:25
 msgid "TOTP Authenticator"
-msgstr "TOTP认证器"
+msgstr "TOTP 认证器"
 
 #: mfa/models.py:26
 msgid "WebAuthn"
-msgstr ""
+msgstr "WebAuthn"
 
 #: mfa/totp/forms.py:11
 msgid "Authenticator code"
 msgstr "认证器代码"
 
-#: mfa/webauthn/forms.py:15
-#, fuzzy
-#| msgid "Password"
+#: mfa/webauthn/forms.py:16
 msgid "Passwordless"
-msgstr "密码"
+msgstr "无密码"
 
-#: mfa/webauthn/forms.py:18
+#: mfa/webauthn/forms.py:19
 msgid ""
 "Enabling passwordless operation allows you to sign in using just this key/"
 "device, but imposes additional requirements such as biometrics or PIN "
 "protection."
 msgstr ""
+"启用无密码操作允许您仅使用此密钥/设备登录，但会提出其他要求，例如生物特征或"
+"PIN保护。"
 
 #: socialaccount/adapter.py:36
 #, python-format
 msgid ""
 "An account already exists with this email address. Please sign in to that "
 "account first, then connect your %s account."
-msgstr "已有一个账号与此Email地址关联，请先登录该账号，然后连接你的 %s 账号。"
+msgstr "已有一个账号与此Email地址关联。请先登录该账号，然后连接您的 %s 账号。"
 
 #: socialaccount/adapter.py:40
 msgid "Invalid token."
@@ -319,11 +313,11 @@ msgstr "您的账号未设置密码。"
 
 #: socialaccount/adapter.py:42
 msgid "Your account has no verified email address."
-msgstr "您的账号下无任何验证过的Email地址。"
+msgstr "您的账号下无任何验证过的email地址。"
 
 #: socialaccount/adapter.py:44
 msgid "You cannot disconnect your last remaining third-party account."
-msgstr "您不能断开剩下的唯一的第三方账号"
+msgstr "您不能断开您剩下的唯一的第三方账号。"
 
 #: socialaccount/adapter.py:47
 #: templates/socialaccount/messages/account_connected_other.txt:2
@@ -364,7 +358,7 @@ msgstr "API密钥、客户端密钥或消费者密钥"
 
 #: socialaccount/models.py:69 templates/mfa/webauthn/authenticator_list.html:16
 msgid "Key"
-msgstr "键"
+msgstr "密钥"
 
 #: socialaccount/models.py:81
 msgid "social application"
@@ -380,7 +374,7 @@ msgstr "用户ID"
 
 #: socialaccount/models.py:119
 msgid "last login"
-msgstr "最后登录"
+msgstr "最后一次登录"
 
 #: socialaccount/models.py:120
 msgid "date joined"
@@ -404,7 +398,7 @@ msgstr "令牌"
 
 #: socialaccount/models.py:161
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
-msgstr "\"oauth_token\" (OAuth1)或访问令牌 (OAuth2)"
+msgstr "\"oauth_token\" (OAuth1) 或访问令牌 (OAuth2)"
 
 #: socialaccount/models.py:165
 msgid "token secret"
@@ -412,7 +406,7 @@ msgstr "令牌密钥"
 
 #: socialaccount/models.py:166
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
-msgstr "\"oauth_token_secret\" (OAuth1)或刷新令牌 (OAuth2)"
+msgstr "\"oauth_token_secret\" (OAuth1) 或刷新令牌 (OAuth2)"
 
 #: socialaccount/models.py:169
 msgid "expires at"
@@ -428,7 +422,7 @@ msgstr "社交应用令牌"
 
 #: socialaccount/providers/douban/views.py:36
 msgid "Invalid profile data"
-msgstr "个人资料数据无效"
+msgstr "无效个人资料数据"
 
 #: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:17
 msgid "Login"
@@ -443,7 +437,7 @@ msgstr "取消"
 #, python-format
 msgid ""
 "Invalid response while obtaining request token from \"%s\". Response was: %s."
-msgstr "在请求token时收到无效的响应\"%s\"，响应如下：%s."
+msgstr "在请求token时收到无效的响应\"%s\"。响应如下：%s。"
 
 #: socialaccount/providers/oauth/client.py:119
 #: socialaccount/providers/pocket/client.py:86
@@ -478,7 +472,7 @@ msgstr "账号未激活"
 
 #: templates/account/account_inactive.html:12
 msgid "This account is inactive."
-msgstr "此账号未激活"
+msgstr "此账号未激活。"
 
 #: templates/account/base_reauthenticate.html:5
 #: templates/account/base_reauthenticate.html:9
@@ -544,7 +538,7 @@ msgstr "首选Email"
 
 #: templates/account/email.html:44
 msgid "Make Primary"
-msgstr "设置首选Email"
+msgstr "设置为首选"
 
 #: templates/account/email.html:47 templates/account/email_change.html:37
 msgid "Re-send Verification"
@@ -687,7 +681,7 @@ msgstr "您的登录代码如下所示。请在打开的浏览器窗口中输入
 #: templates/account/email/login_code_message.txt:9
 #: templates/account/email/unknown_account_message.txt:6
 msgid "This mail can be safely ignored if you did not initiate this action."
-msgstr "如果您没有发起这个操作，可以安全地忽略这封邮件。"
+msgstr "如果您没有发起这个操作，您可以安全地忽略这封邮件。"
 
 #: templates/account/email/login_code_subject.txt:3
 msgid "Sign-In Code"
@@ -709,7 +703,8 @@ msgid ""
 "link below to reset your password."
 msgstr ""
 "您收到此电子邮件是因为您或其他人申请了重置您的用户账户密码。\n"
-"如果您没有申请重置密码，可以安全地忽略此邮件。点击下面的链接以重置您的密码。"
+"如果您没有申请重置密码，您可以安全地忽略此邮件。点击下面的链接以重置您的密"
+"码。"
 
 #: templates/account/email/password_reset_key_message.txt:9
 #, python-format
@@ -734,11 +729,11 @@ msgstr "密码重置"
 
 #: templates/account/email/password_set_message.txt:4
 msgid "Your password has been set."
-msgstr "您的密码已被设定。"
+msgstr "您的密码已被设置。"
 
 #: templates/account/email/password_set_subject.txt:3
 msgid "Password Set"
-msgstr "密码重置"
+msgstr "密码设置"
 
 #: templates/account/email/unknown_account_message.txt:4
 #, python-format
@@ -777,7 +772,7 @@ msgstr "您的电子邮件地址仍在等待验证。"
 
 #: templates/account/email_change.html:41
 msgid "Cancel Change"
-msgstr "放弃变更"
+msgstr "取消变更"
 
 #: templates/account/email_change.html:49
 msgid "Change to"
@@ -830,11 +825,11 @@ msgstr ""
 msgid ""
 "If you have not created an account yet, then please %(link)ssign "
 "up%(end_link)s first."
-msgstr "如果没有账号，请先 %(link)s注册%(end_link)s 。"
+msgstr "如果您还没有创建账号，请先 %(link)s注册%(end_link)s 。"
 
 #: templates/account/login.html:42
 msgid "Sign in with a passkey"
-msgstr ""
+msgstr "使用 passkey 登录"
 
 #: templates/account/login.html:47 templates/account/request_login_code.html:9
 msgid "Mail me a sign-in code"
@@ -848,36 +843,36 @@ msgstr "登出"
 
 #: templates/account/logout.html:11
 msgid "Are you sure you want to sign out?"
-msgstr "您确定要注销登录吗？"
+msgstr "您确定要登出吗？"
 
 #: templates/account/messages/cannot_delete_primary_email.txt:2
 #, python-format
 msgid "You cannot remove your primary email address (%(email)s)."
-msgstr "您不能删除您的主Email地址 (%(email)s) "
+msgstr "您不能删除您的主Email地址 (%(email)s) 。"
 
 #: templates/account/messages/email_confirmation_sent.txt:2
 #, python-format
 msgid "Confirmation email sent to %(email)s."
-msgstr "确认Email已发往 %(email)s."
+msgstr "确认邮件已发往 %(email)s。"
 
 #: templates/account/messages/email_confirmed.txt:2
 #, python-format
 msgid "You have confirmed %(email)s."
-msgstr "您已确认Email地址 %(email)s "
+msgstr "您已确认Email地址 %(email)s。"
 
 #: templates/account/messages/email_deleted.txt:2
 #, python-format
 msgid "Removed email address %(email)s."
-msgstr "已移除Email地址 %(email)s."
+msgstr "已移除Email地址 %(email)s。"
 
 #: templates/account/messages/logged_in.txt:4
 #, python-format
 msgid "Successfully signed in as %(name)s."
-msgstr "以 %(name)s..身份成功登录"
+msgstr "以 %(name)s 成功登录。"
 
 #: templates/account/messages/logged_out.txt:2
 msgid "You have signed out."
-msgstr "您已注销登录。"
+msgstr "您已登出。"
 
 #: templates/account/messages/login_code_sent.txt:2
 #, python-format
@@ -894,7 +889,7 @@ msgstr "密码设置成功。"
 
 #: templates/account/messages/primary_email_set.txt:2
 msgid "Primary email address set."
-msgstr "主Email地址已设置"
+msgstr "主Email地址已设置。"
 
 #: templates/account/password_change.html:4
 #: templates/account/password_change.html:8
@@ -910,15 +905,15 @@ msgstr "修改密码"
 
 #: templates/account/password_change.html:22
 msgid "Forgot Password?"
-msgstr "忘记密码了？"
+msgstr "忘记密码？"
 
 #: templates/account/password_reset.html:14
 msgid ""
 "Forgotten your password? Enter your email address below, and we'll send you "
 "an email allowing you to reset it."
 msgstr ""
-"忘记密码了吗？请在下面输入您的电子邮件地址，我们将发送一封电子邮件，让您可以"
-"重置密码。"
+"忘记您的密码了吗？请在下面输入您的电子邮件地址，我们将发送一封电子邮件，让您"
+"可以重置密码。"
 
 #: templates/account/password_reset.html:25
 msgid "Reset My Password"
@@ -938,7 +933,7 @@ msgstr ""
 
 #: templates/account/password_reset_from_key.html:10
 msgid "Bad Token"
-msgstr "Bad Token"
+msgstr "不正确的 token"
 
 #: templates/account/password_reset_from_key.html:18
 #, python-format
@@ -1004,11 +999,11 @@ msgstr "注意"
 #: templates/account/snippets/already_logged_in.html:7
 #, python-format
 msgid "You are already logged in as %(user_display)s."
-msgstr "您已以 %(user_display)s的身份登录"
+msgstr "您已以 %(user_display)s 的身份登录。"
 
 #: templates/account/snippets/warn_no_email.html:3
 msgid "Warning:"
-msgstr "警告: "
+msgstr "警告："
 
 #: templates/account/snippets/warn_no_email.html:3
 msgid ""
@@ -1023,7 +1018,7 @@ msgstr ""
 #: templates/account/verified_email_required.html:5
 #: templates/account/verified_email_required.html:9
 msgid "Verify Your Email Address"
-msgstr "验证您的Email地址。"
+msgstr "验证您的Email地址"
 
 #: templates/account/verification_sent.html:12
 msgid ""
@@ -1077,7 +1072,7 @@ msgstr "菜单："
 #: templates/allauth/layouts/base.html:43 templates/mfa/authenticate.html:10
 #: templates/mfa/index.html:5 templates/mfa/index.html:9
 msgid "Two-Factor Authentication"
-msgstr "双重身份认证"
+msgstr "双因素身份认证"
 
 #: templates/allauth/layouts/base.html:49
 #: templates/usersessions/usersession_list.html:6
@@ -1089,12 +1084,12 @@ msgstr "会话"
 msgid ""
 "Your account is protected by two-factor authentication. Please enter an "
 "authenticator code:"
-msgstr "您的帐户已受到双重身份认证的保护。请输入身份验证器代码："
+msgstr "您的帐户已受到双因素身份认证的保护。请输入身份验证器代码："
 
 #: templates/mfa/email/recovery_codes_generated_message.txt:4
 msgid ""
 "A new set of Two-Factor Authentication recovery codes has been generated."
-msgstr "已生成一组新的双重身份认证恢复代码。"
+msgstr "已生成一组新的双因素身份认证恢复代码。"
 
 #: templates/mfa/email/recovery_codes_generated_subject.txt:3
 msgid "New Recovery Codes Generated"
@@ -1119,24 +1114,20 @@ msgid "Authenticator App Deactivated"
 msgstr "身份验证器应用已停用"
 
 #: templates/mfa/email/webauthn_added_message.txt:4
-#, fuzzy
-#| msgid "A new set of recovery codes has been generated."
 msgid "A new security key has been added."
-msgstr "已生成新的恢复代码集。"
+msgstr "已添加新的安全密钥。"
 
 #: templates/mfa/email/webauthn_added_subject.txt:3
 msgid "Security Key Added"
-msgstr ""
+msgstr "已添加新的密钥"
 
 #: templates/mfa/email/webauthn_removed_message.txt:4
-#, fuzzy
-#| msgid "Your email has been confirmed."
 msgid "A security key has been removed."
-msgstr "您的Email已经被确认。"
+msgstr "一个安全密钥已被移除。"
 
 #: templates/mfa/email/webauthn_removed_subject.txt:3
 msgid "Security Key Removed"
-msgstr ""
+msgstr "密钥已被移除"
 
 #: templates/mfa/index.html:14 templates/mfa/totp/base.html:4
 msgid "Authenticator App"
@@ -1160,26 +1151,26 @@ msgstr "激活"
 
 #: templates/mfa/index.html:45 templates/mfa/webauthn/base.html:4
 msgid "Security Keys"
-msgstr ""
+msgstr "安全密钥"
 
 #: templates/mfa/index.html:50
 #, python-format
 msgid "You have added %(count)s security key/device."
 msgid_plural "You have added %(count)s security keys/devices."
-msgstr[0] ""
+msgstr[0] "您已添加%(count)s个安全密钥/设备。"
 
 #: templates/mfa/index.html:53
 msgid "No security keys have been added."
-msgstr ""
+msgstr "未添加安全密钥。"
 
 #: templates/mfa/index.html:60
 msgid "Manage"
-msgstr ""
+msgstr "管理"
 
 #: templates/mfa/index.html:65
 #: templates/mfa/webauthn/authenticator_list.html:68
 msgid "Add"
-msgstr ""
+msgstr "添加"
 
 #: templates/mfa/index.html:75 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:6
@@ -1217,11 +1208,11 @@ msgstr "已生成新的恢复代码集。"
 
 #: templates/mfa/messages/webauthn_added.txt:2
 msgid "Security key added."
-msgstr ""
+msgstr "已添加安全密钥。"
 
 #: templates/mfa/messages/webauthn_removed.txt:2
 msgid "Security key removed."
-msgstr ""
+msgstr "已移除安全密钥。"
 
 #: templates/mfa/reauthenticate.html:6
 msgid "Enter an authenticator code:"
@@ -1262,8 +1253,8 @@ msgid ""
 "below with your authenticator app. Then, input the verification code "
 "generated by the app below."
 msgstr ""
-"为了保护您的帐户，您需要使用身份验证器应用扫描下方的二维码。然后，在下方输入"
-"应用生成的验证代码。"
+"为使用双因素验证保护您的帐户，您需要使用身份验证器应用扫描下方的二维码。然"
+"后，在下方输入应用生成的验证代码。"
 
 #: templates/mfa/totp/activate_form.html:21
 msgid "Authenticator secret"
@@ -1288,79 +1279,73 @@ msgstr "您即将停用基于身份验证器应用的身份验证。确定要执
 
 #: templates/mfa/webauthn/add_form.html:7
 msgid "Add Security Key or Device"
-msgstr ""
+msgstr "添加安全密钥或设备"
 
 #: templates/mfa/webauthn/add_form.html:18
 msgid "Add key or device"
-msgstr ""
+msgstr "添加密钥或设备"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:6
 msgid "Remove Security Key or Device"
-msgstr ""
+msgstr "移除安全密钥或设备"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:8
-#, fuzzy
-#| msgid "Are you sure you want to sign out?"
 msgid "Are you sure you want to remove this security key?"
-msgstr "您确定要注销登录吗？"
+msgstr "您确定要移除此安全密钥吗？"
 
 #: templates/mfa/webauthn/authenticator_list.html:8
 msgid "Security Keys and Devices"
-msgstr ""
+msgstr "安全密钥和设备"
 
 #: templates/mfa/webauthn/authenticator_list.html:11
 msgid "You have not added any security keys/devices."
-msgstr ""
+msgstr "您尚未添加任何安全密钥/设备。"
 
 #: templates/mfa/webauthn/authenticator_list.html:19
 msgid "Usage"
-msgstr ""
+msgstr "用途"
 
 #: templates/mfa/webauthn/authenticator_list.html:31
 msgid "Passkey"
-msgstr ""
+msgstr "Passkey"
 
 #: templates/mfa/webauthn/authenticator_list.html:35
-#, fuzzy
-#| msgid "secret key"
 msgid "Security key"
-msgstr "密钥"
+msgstr "安全密钥"
 
 #: templates/mfa/webauthn/authenticator_list.html:38
 msgid "This key does not specify whether is a passkey."
-msgstr ""
+msgstr "此密钥未指定是否为 passkey。"
 
 #: templates/mfa/webauthn/authenticator_list.html:39
-#, fuzzy
-#| msgid "Unverified"
 msgid "Unspecified"
-msgstr "未验证"
+msgstr "未指定"
 
 #: templates/mfa/webauthn/authenticator_list.html:44
 #, python-format
 msgid "Added on %(created_at)s"
-msgstr ""
+msgstr "添加于 %(created_at)s"
 
 #: templates/mfa/webauthn/authenticator_list.html:46
 #, python-format
 msgid "Last used %(last_used)s"
-msgstr ""
+msgstr "上次使用：%(last_used)s"
 
 #: templates/mfa/webauthn/authenticator_list.html:54
 msgid "Edit"
-msgstr ""
+msgstr "编辑"
 
 #: templates/mfa/webauthn/edit_form.html:7
 msgid "Edit Security Key or Device"
-msgstr ""
+msgstr "编辑安全密钥或设备"
 
 #: templates/mfa/webauthn/edit_form.html:18
 msgid "Save"
-msgstr ""
+msgstr "保存"
 
 #: templates/mfa/webauthn/snippets/scripts.html:2
 msgid "This functionality requires JavaScript."
-msgstr ""
+msgstr "此功能需要 JavaScript。"
 
 #: templates/socialaccount/authentication_error.html:5
 #: templates/socialaccount/authentication_error.html:9

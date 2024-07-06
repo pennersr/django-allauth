@@ -6,9 +6,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.61.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-30 09:26-0500\n"
-"PO-Revision-Date: 2024-06-01 11:09+0000\n"
-"Last-Translator: Ajordat <alexjortri@gmail.com>\n"
+"POT-Creation-Date: 2024-07-06 06:50-0500\n"
+"PO-Revision-Date: 2024-07-01 15:09+0000\n"
+"Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/allauth/django-"
 "allauth/es/>\n"
 "Language: es\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Weblate 5.6-dev\n"
+"X-Generator: Weblate 5.7-dev\n"
 
 #: account/adapter.py:58
 msgid "This account is currently inactive."
@@ -88,20 +88,18 @@ msgstr "No se puede usar este nombre de usuario. Por favor, utilice otro."
 msgid "The username and/or password you specified are not correct."
 msgstr "El usuario y/o la contraseña que ha indicado no son correctos."
 
-#: account/adapter.py:736
+#: account/adapter.py:739
 msgid "Use your password"
 msgstr "Utilice su contraseña"
 
-#: account/adapter.py:750
-#, fuzzy
-#| msgid "Use your authenticator app"
+#: account/adapter.py:748
 msgid "Use authenticator app or code"
-msgstr "Utilice su aplicación de autenticación"
+msgstr "Utiliza la aplicación o el código de autenticación"
 
-#: account/adapter.py:758 templates/mfa/authenticate.html:36
+#: account/adapter.py:755 templates/mfa/authenticate.html:36
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use security key or device"
-msgstr ""
+msgstr "Usar clave o dispositivo de seguridad"
 
 #: account/admin.py:23
 msgid "Mark selected email addresses as verified"
@@ -263,19 +261,17 @@ msgstr ""
 "su dirección de correo electrónico."
 
 #: mfa/adapter.py:141
-#, fuzzy
-#| msgid "secret key"
 msgid "Master key"
-msgstr "clave secreta"
+msgstr "Llave maestra"
 
 #: mfa/adapter.py:143
 msgid "Backup key"
-msgstr ""
+msgstr "Clave de respaldo"
 
 #: mfa/adapter.py:144
 #, python-brace-format
 msgid "Key nr. {number}"
-msgstr ""
+msgstr "Clave n° {number}"
 
 #: mfa/apps.py:9
 msgid "MFA"
@@ -291,24 +287,25 @@ msgstr "Verificador TOTP"
 
 #: mfa/models.py:26
 msgid "WebAuthn"
-msgstr ""
+msgstr "WebAuthn"
 
 #: mfa/totp/forms.py:11
 msgid "Authenticator code"
 msgstr "Código de del autenticador"
 
-#: mfa/webauthn/forms.py:15
-#, fuzzy
-#| msgid "Password"
+#: mfa/webauthn/forms.py:16
 msgid "Passwordless"
-msgstr "Contraseña"
+msgstr "Passwordless"
 
-#: mfa/webauthn/forms.py:18
+#: mfa/webauthn/forms.py:19
 msgid ""
 "Enabling passwordless operation allows you to sign in using just this key/"
 "device, but imposes additional requirements such as biometrics or PIN "
 "protection."
 msgstr ""
+"Habilitar la operación sin contraseña le permite iniciar sesión usando solo "
+"esta clave/dispositivo, pero impone requisitos adicionales como biometría o "
+"protección con PIN."
 
 #: socialaccount/adapter.py:36
 #, python-format
@@ -875,7 +872,7 @@ msgstr ""
 
 #: templates/account/login.html:42
 msgid "Sign in with a passkey"
-msgstr ""
+msgstr "Iniciar sesión con un passkey"
 
 #: templates/account/login.html:47 templates/account/request_login_code.html:9
 msgid "Mail me a sign-in code"
@@ -1177,24 +1174,20 @@ msgid "Authenticator App Deactivated"
 msgstr "Aplicación de autenticación desactivada"
 
 #: templates/mfa/email/webauthn_added_message.txt:4
-#, fuzzy
-#| msgid "A new set of recovery codes has been generated."
 msgid "A new security key has been added."
-msgstr "Se ha generado un nuevo conjunto de código de recuperación."
+msgstr "Se ha agregado una nueva clave de seguridad."
 
 #: templates/mfa/email/webauthn_added_subject.txt:3
 msgid "Security Key Added"
-msgstr ""
+msgstr "Clave de seguridad añadida"
 
 #: templates/mfa/email/webauthn_removed_message.txt:4
-#, fuzzy
-#| msgid "Your email has been confirmed."
 msgid "A security key has been removed."
-msgstr "Su correo electrónico ha sido verificado."
+msgstr "Se ha eliminado una clave de seguridad."
 
 #: templates/mfa/email/webauthn_removed_subject.txt:3
 msgid "Security Key Removed"
-msgstr ""
+msgstr "Clave de seguridad eliminada"
 
 #: templates/mfa/index.html:14 templates/mfa/totp/base.html:4
 msgid "Authenticator App"
@@ -1218,27 +1211,27 @@ msgstr "Activar"
 
 #: templates/mfa/index.html:45 templates/mfa/webauthn/base.html:4
 msgid "Security Keys"
-msgstr ""
+msgstr "Claves de seguridad"
 
 #: templates/mfa/index.html:50
 #, python-format
 msgid "You have added %(count)s security key/device."
 msgid_plural "You have added %(count)s security keys/devices."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Has añadido %(count)s clave/dispositivo de seguridad."
+msgstr[1] "Has añadido %(count)s claves/dispositivos de seguridad."
 
 #: templates/mfa/index.html:53
 msgid "No security keys have been added."
-msgstr ""
+msgstr "No se han agregado claves de seguridad."
 
 #: templates/mfa/index.html:60
 msgid "Manage"
-msgstr ""
+msgstr "Administrar"
 
 #: templates/mfa/index.html:65
 #: templates/mfa/webauthn/authenticator_list.html:68
 msgid "Add"
-msgstr ""
+msgstr "Añadir"
 
 #: templates/mfa/index.html:75 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:6
@@ -1279,11 +1272,11 @@ msgstr "Se ha generado un nuevo conjunto de código de recuperación."
 
 #: templates/mfa/messages/webauthn_added.txt:2
 msgid "Security key added."
-msgstr ""
+msgstr "Clave de seguridad añadida."
 
 #: templates/mfa/messages/webauthn_removed.txt:2
 msgid "Security key removed."
-msgstr ""
+msgstr "Clave de seguridad eliminada."
 
 #: templates/mfa/reauthenticate.html:6
 msgid "Enter an authenticator code:"
@@ -1357,79 +1350,73 @@ msgstr ""
 
 #: templates/mfa/webauthn/add_form.html:7
 msgid "Add Security Key or Device"
-msgstr ""
+msgstr "Agregar clave de seguridad o dispositivo"
 
 #: templates/mfa/webauthn/add_form.html:18
 msgid "Add key or device"
-msgstr ""
+msgstr "Agregar clave o dispositivo"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:6
 msgid "Remove Security Key or Device"
-msgstr ""
+msgstr "Eliminar clave de seguridad o dispositivo"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:8
-#, fuzzy
-#| msgid "Are you sure you want to sign out?"
 msgid "Are you sure you want to remove this security key?"
-msgstr "¿Seguro que desea cerrar sesión?"
+msgstr "¿Estás seguro de que deseas eliminar esta clave de seguridad?"
 
 #: templates/mfa/webauthn/authenticator_list.html:8
 msgid "Security Keys and Devices"
-msgstr ""
+msgstr "Dispositivos y claves de seguridad"
 
 #: templates/mfa/webauthn/authenticator_list.html:11
 msgid "You have not added any security keys/devices."
-msgstr ""
+msgstr "No ha agregado ninguna clave/dispositivo de seguridad."
 
 #: templates/mfa/webauthn/authenticator_list.html:19
 msgid "Usage"
-msgstr ""
+msgstr "Uso"
 
 #: templates/mfa/webauthn/authenticator_list.html:31
 msgid "Passkey"
-msgstr ""
+msgstr "Passkey"
 
 #: templates/mfa/webauthn/authenticator_list.html:35
-#, fuzzy
-#| msgid "secret key"
 msgid "Security key"
-msgstr "clave secreta"
+msgstr "Clave de seguridad"
 
 #: templates/mfa/webauthn/authenticator_list.html:38
 msgid "This key does not specify whether is a passkey."
-msgstr ""
+msgstr "Esta clave no especifica si es un passkey."
 
 #: templates/mfa/webauthn/authenticator_list.html:39
-#, fuzzy
-#| msgid "Unverified"
 msgid "Unspecified"
-msgstr "Sin verificar"
+msgstr "Sin especificar"
 
 #: templates/mfa/webauthn/authenticator_list.html:44
 #, python-format
 msgid "Added on %(created_at)s"
-msgstr ""
+msgstr "Añadida el %(created_at)s"
 
 #: templates/mfa/webauthn/authenticator_list.html:46
 #, python-format
 msgid "Last used %(last_used)s"
-msgstr ""
+msgstr "Usada por última vez %(last_used)s"
 
 #: templates/mfa/webauthn/authenticator_list.html:54
 msgid "Edit"
-msgstr ""
+msgstr "Editar"
 
 #: templates/mfa/webauthn/edit_form.html:7
 msgid "Edit Security Key or Device"
-msgstr ""
+msgstr "Editar clave o dispositivo de seguridad"
 
 #: templates/mfa/webauthn/edit_form.html:18
 msgid "Save"
-msgstr ""
+msgstr "Guardar"
 
 #: templates/mfa/webauthn/snippets/scripts.html:2
 msgid "This functionality requires JavaScript."
-msgstr ""
+msgstr "Esta funcionalidad requiere JavaScript."
 
 #: templates/socialaccount/authentication_error.html:5
 #: templates/socialaccount/authentication_error.html:9

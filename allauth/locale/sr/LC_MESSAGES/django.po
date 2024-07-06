@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-30 09:26-0500\n"
+"POT-Creation-Date: 2024-07-06 06:50-0500\n"
 "PO-Revision-Date: 2024-06-30 16:28+0200\n"
 "Last-Translator: dex girl <saraciric73@gmail.com>\n"
 "Language-Team: Serbian <https://hosted.weblate.org/projects/allauth/django-"
@@ -87,17 +87,17 @@ msgstr ""
 msgid "The username and/or password you specified are not correct."
 msgstr "Корисничко име и/или лозинка коју сте навели нису тачни."
 
-#: account/adapter.py:736
+#: account/adapter.py:739
 msgid "Use your password"
 msgstr "Koristi vašu lozinku"
 
-#: account/adapter.py:750
+#: account/adapter.py:748
 #, fuzzy
 #| msgid "Use your authenticator app"
 msgid "Use authenticator app or code"
 msgstr "Koristi tvoju autentikatorsku aplikaciju"
 
-#: account/adapter.py:758 templates/mfa/authenticate.html:36
+#: account/adapter.py:755 templates/mfa/authenticate.html:36
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use security key or device"
 msgstr ""
@@ -296,13 +296,13 @@ msgstr ""
 msgid "Authenticator code"
 msgstr "Autentikatorski kod"
 
-#: mfa/webauthn/forms.py:15
+#: mfa/webauthn/forms.py:16
 #, fuzzy
 #| msgid "Password"
 msgid "Passwordless"
 msgstr "Лозинка"
 
-#: mfa/webauthn/forms.py:18
+#: mfa/webauthn/forms.py:19
 msgid ""
 "Enabling passwordless operation allows you to sign in using just this key/"
 "device, but imposes additional requirements such as biometrics or PIN "
@@ -603,11 +603,14 @@ msgid ""
 "\n"
 "%(password_reset_url)s"
 msgstr ""
-"Dobijate ovaj e mail zato što vi ili neko drugi pokušava da se registruje  nalog koristeći e mail adresu.  \n"
+"Dobijate ovaj e mail zato što vi ili neko drugi pokušava da se registruje  "
+"nalog koristeći e mail adresu.  \n"
 "\n"
 "%(email)s\n"
 "\n"
-"Svakako, nalog koji koristi tu e mail adresu već postoji. U slučaju da ste zaboravili na ovo, molim vas koristite šifra zaboravljena proceduru da vratite vaš nalog. \n"
+"Svakako, nalog koji koristi tu e mail adresu već postoji. U slučaju da ste "
+"zaboravili na ovo, molim vas koristite šifra zaboravljena proceduru da "
+"vratite vaš nalog. \n"
 "\n"
 "%(password_reset_url)s"
 
@@ -846,7 +849,9 @@ msgstr "Neuspela potvrda %(email)s zato što je već potvrđen drugim nalogom."
 msgid ""
 "This email confirmation link expired or is invalid. Please <a "
 "href=\"%(email_url)s\">issue a new email confirmation request</a>."
-msgstr "Ovaj email link za potvrdu je istekao ili je nevažeći. Molim vas <a href=\"%(email_url)s\">tražite novu potvrdu e maila</a>."
+msgstr ""
+"Ovaj email link za potvrdu je istekao ili je nevažeći. Molim vas <a "
+"href=\"%(email_url)s\">tražite novu potvrdu e maila</a>."
 
 #: templates/account/login.html:19
 #, python-format

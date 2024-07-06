@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-30 09:26-0500\n"
-"PO-Revision-Date: 2024-06-02 17:11+0000\n"
+"POT-Creation-Date: 2024-07-06 06:50-0500\n"
+"PO-Revision-Date: 2024-07-03 05:09+0000\n"
 "Last-Translator: hugoalh <hugoalh@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "allauth/django-allauth/zh_Hant/>\n"
@@ -17,97 +17,90 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.6-dev\n"
+"X-Generator: Weblate 5.7-dev\n"
 
 #: account/adapter.py:58
 msgid "This account is currently inactive."
 msgstr "此帳號目前沒有啟用。"
 
 #: account/adapter.py:60
-#, fuzzy
-#| msgid "You cannot remove your primary email address (%(email)s)."
 msgid "You cannot remove your primary email address."
-msgstr "您不能移除您的主要的電子郵件地址 (%(email)s) 。"
+msgstr "你不能移除你的主要電子郵件地址。"
 
 #: account/adapter.py:63
 msgid "This email address is already associated with this account."
-msgstr "此電子郵件已與這個帳號連結了。"
+msgstr "此電子郵件地址已經與此帳號連結了。"
 
 #: account/adapter.py:66
 msgid "The email address and/or password you specified are not correct."
-msgstr "您提供的電子郵件地址或密碼不正確。"
+msgstr "你提供的電子郵件地址和／或密碼不正確。"
 
 #: account/adapter.py:68
 msgid "A user is already registered with this email address."
-msgstr "已經有人使用這一個電子郵件註冊了。"
+msgstr "已經有使用者使用此電子郵件地址註冊。"
 
 #: account/adapter.py:69
 msgid "Please type your current password."
-msgstr "請輸入您目前的密碼。"
+msgstr "請輸入你目前的密碼。"
 
 #: account/adapter.py:70 mfa/adapter.py:40
 msgid "Incorrect code."
-msgstr ""
+msgstr "不正確的代碼。"
 
 #: account/adapter.py:71
 msgid "Incorrect password."
 msgstr "不正確的密碼。"
 
 #: account/adapter.py:72
-#, fuzzy
-#| msgid "Invalid confirmation key."
 msgid "Invalid or expired key."
-msgstr "Ongeldige bevestigingssleutel."
+msgstr "無效或已過期的金鑰。"
 
 #: account/adapter.py:73
 msgid "The password reset token was invalid."
-msgstr ""
+msgstr "密碼重置令牌無效。"
 
 #: account/adapter.py:74
-#, fuzzy, python-format
-#| msgid "Your account has no verified email address."
+#, python-format
 msgid "You cannot add more than %d email addresses."
-msgstr "您的帳號下沒有驗證過的電子郵件地址。"
+msgstr "你不能新增超過 %d 個電子郵件地址。"
 
 #: account/adapter.py:76
 msgid "Too many failed login attempts. Try again later."
-msgstr "登錄失敗次數過多，請稍後再試。"
+msgstr "登入嘗試失敗次數過多。請稍後再試。"
 
 #: account/adapter.py:78
 msgid "The email address is not assigned to any user account"
-msgstr "還沒有其他帳號使用這個電子郵件地址"
+msgstr "此電子郵件地址未分配給任何使用者帳號"
 
 #: account/adapter.py:79
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary email address must be verified."
-msgstr "您的主要電子郵件位址必須被驗證過。"
+msgstr "你的主要電子郵件地址必須已驗證。"
 
 #: account/adapter.py:81
 msgid "Username can not be used. Please use other username."
-msgstr "無法使用此使用者名稱，請使用其他名稱。"
+msgstr "無法使用此使用者名稱。請使用其他使用者名稱。"
 
 #: account/adapter.py:84
 msgid "The username and/or password you specified are not correct."
-msgstr "您提供的使用者名稱或密碼不正確。"
+msgstr "你提供的使用者名稱和／或密碼不正確。"
 
-#: account/adapter.py:736
-#, fuzzy
-#| msgid "Forgot Password?"
+#: account/adapter.py:739
 msgid "Use your password"
-msgstr "忘記密碼了？"
+msgstr "使用你的密碼"
 
-#: account/adapter.py:750
+#: account/adapter.py:748
 msgid "Use authenticator app or code"
-msgstr ""
+msgstr "使用驗證器應用程式或代碼"
 
-#: account/adapter.py:758 templates/mfa/authenticate.html:36
+#: account/adapter.py:755 templates/mfa/authenticate.html:36
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use security key or device"
-msgstr ""
+msgstr "使用安全金鑰或裝置"
 
 #: account/admin.py:23
 msgid "Mark selected email addresses as verified"
-msgstr "將選擇的電子郵件地址標記為已驗證"
+msgstr "標記已選取的電子郵件地址為已驗證"
 
 #: account/apps.py:11
 msgid "Accounts"
@@ -134,7 +127,7 @@ msgstr "電子郵件地址"
 #: account/forms.py:106 account/forms.py:307 account/forms.py:494
 #: account/forms.py:575
 msgid "Email"
-msgstr "E-mail"
+msgstr "電子郵件"
 
 #: account/forms.py:109 account/forms.py:112 account/forms.py:259
 #: account/forms.py:262
@@ -151,26 +144,20 @@ msgid "Login"
 msgstr "登入"
 
 #: account/forms.py:136
-#, fuzzy
-#| msgid "Forgot Password?"
 msgid "Forgot your password?"
-msgstr "忘記密碼了？"
+msgstr "忘記你的密碼？"
 
 #: account/forms.py:298
-#, fuzzy
-#| msgid "Email (optional)"
 msgid "Email (again)"
-msgstr "E-mail (可不填)"
+msgstr "電子郵件（再次）"
 
 #: account/forms.py:302
-#, fuzzy
-#| msgid "email confirmation"
 msgid "Email address confirmation"
-msgstr "電子郵件確認"
+msgstr "電子郵件地址確認"
 
 #: account/forms.py:310
 msgid "Email (optional)"
-msgstr "E-mail (可不填)"
+msgstr "電子郵件（選擇性）"
 
 #: account/forms.py:369
 msgid "You must type the same email each time."
@@ -178,7 +165,7 @@ msgstr "你必須每次輸入相同的電子郵件。"
 
 #: account/forms.py:417 account/forms.py:563
 msgid "Password (again)"
-msgstr "密碼 (再一次)"
+msgstr "密碼（再次）"
 
 #: account/forms.py:543
 msgid "Current Password"
@@ -190,12 +177,12 @@ msgstr "新密碼"
 
 #: account/forms.py:546 account/forms.py:630
 msgid "New Password (again)"
-msgstr "新密碼 (再一次)"
+msgstr "新密碼（再次）"
 
 #: account/forms.py:716 account/forms.py:718 mfa/base/forms.py:15
 #: mfa/base/forms.py:17 mfa/totp/forms.py:13
 msgid "Code"
-msgstr ""
+msgstr "代碼"
 
 #: account/models.py:24
 msgid "user"
@@ -211,7 +198,7 @@ msgstr "已驗證"
 
 #: account/models.py:33
 msgid "primary"
-msgstr "主要的"
+msgstr "主要"
 
 #: account/models.py:39
 msgid "email addresses"
@@ -219,15 +206,15 @@ msgstr "電子郵件地址"
 
 #: account/models.py:153
 msgid "created"
-msgstr "以建立"
+msgstr "已建立"
 
 #: account/models.py:154
 msgid "sent"
-msgstr "已送出"
+msgstr "已傳送"
 
 #: account/models.py:155 socialaccount/models.py:69
 msgid "key"
-msgstr "key"
+msgstr "金鑰"
 
 #: account/models.py:160
 msgid "email confirmation"
@@ -239,39 +226,37 @@ msgstr "電子郵件確認"
 
 #: headless/apps.py:7
 msgid "Headless"
-msgstr ""
+msgstr "無頭"
 
 #: mfa/adapter.py:32
 msgid ""
 "You cannot add an email address to an account protected by two-factor "
 "authentication."
-msgstr ""
+msgstr "你不能將電子郵件地址新增至受雙重驗證保護的帳號。"
 
 #: mfa/adapter.py:35
 msgid "You cannot deactivate two-factor authentication."
-msgstr ""
+msgstr "你不能停用雙重驗證。"
 
 #: mfa/adapter.py:38
 msgid ""
 "You cannot generate recovery codes without having two-factor authentication "
 "enabled."
-msgstr ""
+msgstr "你不能在未啟用雙重驗證下產生復原代碼。"
 
 #: mfa/adapter.py:42
 msgid ""
 "You cannot activate two-factor authentication until you have verified your "
 "email address."
-msgstr ""
+msgstr "你不能在驗證你的電子郵件地址之前啟用雙重驗證。"
 
 #: mfa/adapter.py:141
-#, fuzzy
-#| msgid "secret key"
 msgid "Master key"
-msgstr "secret key"
+msgstr "主要金鑰"
 
 #: mfa/adapter.py:143
 msgid "Backup key"
-msgstr ""
+msgstr "備份金鑰"
 
 #: mfa/adapter.py:144
 #, python-brace-format
@@ -280,36 +265,36 @@ msgstr ""
 
 #: mfa/apps.py:9
 msgid "MFA"
-msgstr ""
+msgstr "多重要素驗證"
 
 #: mfa/models.py:24
 msgid "Recovery codes"
-msgstr ""
+msgstr "恢復代碼"
 
 #: mfa/models.py:25
 msgid "TOTP Authenticator"
-msgstr ""
+msgstr "TOTP 驗證器"
 
 #: mfa/models.py:26
 msgid "WebAuthn"
-msgstr ""
+msgstr "WebAuthn"
 
 #: mfa/totp/forms.py:11
 msgid "Authenticator code"
-msgstr ""
+msgstr "驗證器代碼"
 
-#: mfa/webauthn/forms.py:15
-#, fuzzy
-#| msgid "Password"
+#: mfa/webauthn/forms.py:16
 msgid "Passwordless"
-msgstr "密碼"
+msgstr "無密碼"
 
-#: mfa/webauthn/forms.py:18
+#: mfa/webauthn/forms.py:19
 msgid ""
 "Enabling passwordless operation allows you to sign in using just this key/"
 "device, but imposes additional requirements such as biometrics or PIN "
 "protection."
 msgstr ""
+"啟用無密碼操作可以讓你僅使用此金鑰／裝置登入，但會提出其他要求，例如生物辨識"
+"或 PIN 保護。"
 
 #: socialaccount/adapter.py:36
 #, fuzzy, python-format
@@ -323,10 +308,8 @@ msgstr ""
 "已經有一個帳號與此電子郵件連結了，請先登入該帳號，然後連接你的 %s 帳號。"
 
 #: socialaccount/adapter.py:40
-#, fuzzy
-#| msgid "Invalid confirmation key."
 msgid "Invalid token."
-msgstr "Ongeldige bevestigingssleutel."
+msgstr "無效的令牌。"
 
 #: socialaccount/adapter.py:41
 msgid "Your account has no password set up."
@@ -371,19 +354,19 @@ msgstr "client id"
 
 #: socialaccount/models.py:60
 msgid "App ID, or consumer key"
-msgstr "App ID, or consumer key"
+msgstr "應用程式 ID 或消費者金鑰"
 
 #: socialaccount/models.py:63
 msgid "secret key"
-msgstr "secret key"
+msgstr "秘密金鑰"
 
 #: socialaccount/models.py:66
 msgid "API secret, client secret, or consumer secret"
-msgstr "API secret, client secret, or consumer secret"
+msgstr "API 秘密、客戶秘密或消費者秘密"
 
 #: socialaccount/models.py:69 templates/mfa/webauthn/authenticator_list.html:16
 msgid "Key"
-msgstr "Key"
+msgstr "金鑰"
 
 #: socialaccount/models.py:81
 msgid "social application"
@@ -395,7 +378,7 @@ msgstr "社群應用程式"
 
 #: socialaccount/models.py:117
 msgid "uid"
-msgstr "uid"
+msgstr "使用者 ID"
 
 #: socialaccount/models.py:119
 msgid "last login"

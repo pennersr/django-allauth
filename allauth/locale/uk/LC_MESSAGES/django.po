@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-30 09:26-0500\n"
+"POT-Creation-Date: 2024-07-06 06:50-0500\n"
 "PO-Revision-Date: 2024-04-20 22:11+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -92,19 +92,19 @@ msgstr ""
 msgid "The username and/or password you specified are not correct."
 msgstr "Введене ім'я користувача і/або пароль є некоректними."
 
-#: account/adapter.py:736
+#: account/adapter.py:739
 #, fuzzy
 #| msgid "Forgot Password?"
 msgid "Use your password"
 msgstr "Забули пароль?"
 
-#: account/adapter.py:750
+#: account/adapter.py:748
 #, fuzzy
 #| msgid "Authenticator secret"
 msgid "Use authenticator app or code"
 msgstr "Секрет аутентифікатора"
 
-#: account/adapter.py:758 templates/mfa/authenticate.html:36
+#: account/adapter.py:755 templates/mfa/authenticate.html:36
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use security key or device"
 msgstr ""
@@ -300,13 +300,13 @@ msgstr ""
 msgid "Authenticator code"
 msgstr ""
 
-#: mfa/webauthn/forms.py:15
+#: mfa/webauthn/forms.py:16
 #, fuzzy
 #| msgid "Password"
 msgid "Passwordless"
 msgstr "Пароль"
 
-#: mfa/webauthn/forms.py:18
+#: mfa/webauthn/forms.py:19
 msgid ""
 "Enabling passwordless operation allows you to sign in using just this key/"
 "device, but imposes additional requirements such as biometrics or PIN "

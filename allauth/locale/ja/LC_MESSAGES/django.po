@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-30 09:26-0500\n"
-"PO-Revision-Date: 2024-06-20 03:09+0000\n"
+"POT-Creation-Date: 2024-07-06 06:50-0500\n"
+"PO-Revision-Date: 2024-07-01 15:09+0000\n"
 "Last-Translator: SATOH Fumiyasu <fumiyas@osstech.co.jp>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/allauth/django-"
 "allauth/ja/>\n"
@@ -17,17 +17,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.6-rc\n"
+"X-Generator: Weblate 5.7-dev\n"
 
 #: account/adapter.py:58
 msgid "This account is currently inactive."
 msgstr "このアカウントは現在無効です。"
 
 #: account/adapter.py:60
-#, fuzzy
-#| msgid "You cannot remove your primary email address (%(email)s)."
 msgid "You cannot remove your primary email address."
-msgstr "メインのメールアドレス (%(email)s) を削除することはできません。"
+msgstr "メインのメールアドレスを削除することはできません。"
 
 #: account/adapter.py:63
 msgid "This email address is already associated with this account."
@@ -54,10 +52,8 @@ msgid "Incorrect password."
 msgstr "不正なパスワードです。"
 
 #: account/adapter.py:72
-#, fuzzy
-#| msgid "Bad Token"
 msgid "Invalid or expired key."
-msgstr "不正なトークン"
+msgstr "不正または期限切れのキーです。"
 
 #: account/adapter.py:73
 msgid "The password reset token was invalid."
@@ -74,7 +70,7 @@ msgstr "ログイン失敗が連続しています。時間が経ってからや
 
 #: account/adapter.py:78
 msgid "The email address is not assigned to any user account"
-msgstr "このメールアドレスで登録されたユーザーアカウントがありません。"
+msgstr "このメールアドレスで登録されたユーザーアカウントがありません"
 
 #: account/adapter.py:79
 #: templates/account/messages/unverified_primary_email.txt:2
@@ -89,20 +85,18 @@ msgstr "このユーザー名は使用できません。他のユーザー名を
 msgid "The username and/or password you specified are not correct."
 msgstr "入力されたユーザー名もしくはパスワードが正しくありません。"
 
-#: account/adapter.py:736
+#: account/adapter.py:739
 msgid "Use your password"
 msgstr "パスワードを使用する"
 
-#: account/adapter.py:750
-#, fuzzy
-#| msgid "Use your authenticator app"
+#: account/adapter.py:748
 msgid "Use authenticator app or code"
-msgstr "認証アプリを利用する"
+msgstr "認証アプリまたは認証コードを利用する"
 
-#: account/adapter.py:758 templates/mfa/authenticate.html:36
+#: account/adapter.py:755 templates/mfa/authenticate.html:36
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use security key or device"
-msgstr ""
+msgstr "セキュリティキー/デバイスを使用"
 
 #: account/admin.py:23
 msgid "Mark selected email addresses as verified"
@@ -232,48 +226,44 @@ msgstr "メールアドレスの確認"
 
 #: headless/apps.py:7
 msgid "Headless"
-msgstr ""
+msgstr "ヘッドレス"
 
 #: mfa/adapter.py:32
 msgid ""
 "You cannot add an email address to an account protected by two-factor "
 "authentication."
 msgstr ""
-"二要素認証で保護されているアカウントには、メールアドレスを追加できません。"
+"多要素認証で保護されているアカウントには、メールアドレスを追加できません。"
 
 #: mfa/adapter.py:35
 msgid "You cannot deactivate two-factor authentication."
-msgstr "二要素認証は無効化できません。"
+msgstr "多要素認証は無効化できません。"
 
 #: mfa/adapter.py:38
-#, fuzzy
-#| msgid "You cannot deactivate two-factor authentication."
 msgid ""
 "You cannot generate recovery codes without having two-factor authentication "
 "enabled."
-msgstr "二要素認証は無効化できません。"
+msgstr "リカバリーキーを生成するには多要素認証の有効化が必要です。"
 
 #: mfa/adapter.py:42
 msgid ""
 "You cannot activate two-factor authentication until you have verified your "
 "email address."
 msgstr ""
-"メールアドレスの確認が完了するまで、二要素認証を有効にすることはできません。"
+"メールアドレスの確認が完了するまで、多要素認証を有効にすることはできません。"
 
 #: mfa/adapter.py:141
-#, fuzzy
-#| msgid "secret key"
 msgid "Master key"
-msgstr "シークレットキー"
+msgstr "マスターキー"
 
 #: mfa/adapter.py:143
 msgid "Backup key"
-msgstr ""
+msgstr "バックアップキー"
 
 #: mfa/adapter.py:144
 #, python-brace-format
 msgid "Key nr. {number}"
-msgstr ""
+msgstr "キー番号 {number}"
 
 #: mfa/apps.py:9
 msgid "MFA"
@@ -289,24 +279,24 @@ msgstr "TOTP 認証アプリ"
 
 #: mfa/models.py:26
 msgid "WebAuthn"
-msgstr ""
+msgstr "WebAuthn"
 
 #: mfa/totp/forms.py:11
 msgid "Authenticator code"
 msgstr "認証アプリコード"
 
-#: mfa/webauthn/forms.py:15
-#, fuzzy
-#| msgid "Password"
+#: mfa/webauthn/forms.py:16
 msgid "Passwordless"
-msgstr "パスワード"
+msgstr "パスワードレス"
 
-#: mfa/webauthn/forms.py:18
+#: mfa/webauthn/forms.py:19
 msgid ""
 "Enabling passwordless operation allows you to sign in using just this key/"
 "device, but imposes additional requirements such as biometrics or PIN "
 "protection."
 msgstr ""
+"パスワードレス機能を有効化すると、このキー/デバイスを使用してログイン可能にな"
+"ります。その代わりに生態認証や PIN コードなどによる保護が必要になります。"
 
 #: socialaccount/adapter.py:36
 #, python-format
@@ -318,10 +308,8 @@ msgstr ""
 "ンしてから %s アカウントを接続してください。"
 
 #: socialaccount/adapter.py:40
-#, fuzzy
-#| msgid "Bad Token"
 msgid "Invalid token."
-msgstr "不正なトークン"
+msgstr "不正なトークンです。"
 
 #: socialaccount/adapter.py:41
 msgid "Your account has no password set up."
@@ -332,12 +320,8 @@ msgid "Your account has no verified email address."
 msgstr "確認済みのメールアドレスの登録が必要です。"
 
 #: socialaccount/adapter.py:44
-#, fuzzy
-#| msgid ""
-#| "You can sign in to your account using any of the following third-party "
-#| "accounts:"
 msgid "You cannot disconnect your last remaining third-party account."
-msgstr "以下の外部アカウントを使ってログインすることができます:"
+msgstr "唯一残っている外部アカウントとの接続を解除することはできません。"
 
 #: socialaccount/adapter.py:47
 #: templates/socialaccount/messages/account_connected_other.txt:2
@@ -446,9 +430,6 @@ msgid "Invalid profile data"
 msgstr "無効なプロファイルデータ"
 
 #: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:17
-#, fuzzy
-#| msgctxt "field label"
-#| msgid "Login"
 msgid "Login"
 msgstr "ログイン"
 
@@ -462,7 +443,7 @@ msgstr "キャンセル"
 msgid ""
 "Invalid response while obtaining request token from \"%s\". Response was: %s."
 msgstr ""
-"「%s」からのリクエストトークン取得中に不正な応答がありました。レスポンス: %s"
+"リクエストトークン取得中に「%s」から不正な応答がありました。レスポンス: %s"
 
 #: socialaccount/providers/oauth/client.py:119
 #: socialaccount/providers/pocket/client.py:86
@@ -796,10 +777,8 @@ msgstr ""
 "もしそれがあなたなら、以下のリンクからアカウントを登録することができます。"
 
 #: templates/account/email/unknown_account_subject.txt:3
-#, fuzzy
-#| msgid "Accounts"
 msgid "Unknown Account"
-msgstr "アカウント"
+msgstr "不明なアカウント"
 
 #: templates/account/email_change.html:5 templates/account/email_change.html:9
 msgid "Email Address"
@@ -879,7 +858,7 @@ msgstr ""
 
 #: templates/account/login.html:42
 msgid "Sign in with a passkey"
-msgstr ""
+msgstr "パスキーでログイン"
 
 #: templates/account/login.html:47 templates/account/request_login_code.html:9
 msgid "Mail me a sign-in code"
@@ -1016,10 +995,8 @@ msgid ""
 msgstr "パスワード不要のログイン用特別コードが記載されたメールをお送りします。"
 
 #: templates/account/request_login_code.html:24
-#, fuzzy
-#| msgid "Recovery Codes"
 msgid "Request Code"
-msgstr "リカバリーコード"
+msgstr "コードを要求"
 
 #: templates/account/signup.html:4 templates/socialaccount/signup.html:5
 msgid "Signup"
@@ -1130,7 +1107,7 @@ msgstr "メニュー:"
 #: templates/allauth/layouts/base.html:43 templates/mfa/authenticate.html:10
 #: templates/mfa/index.html:5 templates/mfa/index.html:9
 msgid "Two-Factor Authentication"
-msgstr "二要素認証"
+msgstr "多要素認証"
 
 #: templates/allauth/layouts/base.html:49
 #: templates/usersessions/usersession_list.html:6
@@ -1143,17 +1120,17 @@ msgid ""
 "Your account is protected by two-factor authentication. Please enter an "
 "authenticator code:"
 msgstr ""
-"あなたのアカウントは二要素認証で保護されています。認証コードを入力してくださ"
+"あなたのアカウントは多要素認証で保護されています。認証コードを入力してくださ"
 "い:"
 
 #: templates/mfa/email/recovery_codes_generated_message.txt:4
 msgid ""
 "A new set of Two-Factor Authentication recovery codes has been generated."
-msgstr "二要素認証用のリカバリーコードを新たに生成しました。"
+msgstr "多要素認証用のリカバリーコードを新たに生成しました。"
 
 #: templates/mfa/email/recovery_codes_generated_subject.txt:3
 msgid "New Recovery Codes Generated"
-msgstr "二要素認証用のリカバリーコードを生成しました"
+msgstr "新しいリカバリーコードを生成しました"
 
 #: templates/mfa/email/totp_activated_message.txt:4
 #: templates/mfa/messages/totp_activated.txt:2
@@ -1174,24 +1151,20 @@ msgid "Authenticator App Deactivated"
 msgstr "認証アプリを無効化しました"
 
 #: templates/mfa/email/webauthn_added_message.txt:4
-#, fuzzy
-#| msgid "A new set of recovery codes has been generated."
 msgid "A new security key has been added."
-msgstr "新しいリカバリーコードを生成しました。"
+msgstr "新しいセキュリティキーを登録しました。"
 
 #: templates/mfa/email/webauthn_added_subject.txt:3
 msgid "Security Key Added"
-msgstr ""
+msgstr "セキュリティキーを追加しました"
 
 #: templates/mfa/email/webauthn_removed_message.txt:4
-#, fuzzy
-#| msgid "Your email has been confirmed."
 msgid "A security key has been removed."
-msgstr "あなたのメールアドレスを確認しました。"
+msgstr "セキュリティキーを削除しました。"
 
 #: templates/mfa/email/webauthn_removed_subject.txt:3
 msgid "Security Key Removed"
-msgstr ""
+msgstr "セキュリティキーを削除しました"
 
 #: templates/mfa/index.html:14 templates/mfa/totp/base.html:4
 msgid "Authenticator App"
@@ -1215,26 +1188,26 @@ msgstr "有効化する"
 
 #: templates/mfa/index.html:45 templates/mfa/webauthn/base.html:4
 msgid "Security Keys"
-msgstr ""
+msgstr "セキュリティキー"
 
 #: templates/mfa/index.html:50
 #, python-format
 msgid "You have added %(count)s security key/device."
 msgid_plural "You have added %(count)s security keys/devices."
-msgstr[0] ""
+msgstr[0] "%(count)s 個のセキュリティキー/デバイスを登録しました。"
 
 #: templates/mfa/index.html:53
 msgid "No security keys have been added."
-msgstr ""
+msgstr "登録されているセキュリティキーはありません。"
 
 #: templates/mfa/index.html:60
 msgid "Manage"
-msgstr ""
+msgstr "管理"
 
 #: templates/mfa/index.html:65
 #: templates/mfa/webauthn/authenticator_list.html:68
 msgid "Add"
-msgstr ""
+msgstr "登録"
 
 #: templates/mfa/index.html:75 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:6
@@ -1253,7 +1226,7 @@ msgstr[0] ""
 
 #: templates/mfa/index.html:84
 msgid "No recovery codes set up."
-msgstr "リカバリーコードがセットアップされていません。"
+msgstr "リカバリーコードが設定されていません。"
 
 #: templates/mfa/index.html:94
 msgid "View"
@@ -1273,11 +1246,11 @@ msgstr "新しいリカバリーコードを生成しました。"
 
 #: templates/mfa/messages/webauthn_added.txt:2
 msgid "Security key added."
-msgstr ""
+msgstr "セキュリティーキーを登録しました。"
 
 #: templates/mfa/messages/webauthn_removed.txt:2
 msgid "Security key removed."
-msgstr ""
+msgstr "セキュリティキーを削除しました。"
 
 #: templates/mfa/reauthenticate.html:6
 msgid "Enter an authenticator code:"
@@ -1318,7 +1291,7 @@ msgid ""
 "below with your authenticator app. Then, input the verification code "
 "generated by the app below."
 msgstr ""
-"アカウントを二要素認証で保護するために、認証アプリで以下の QR コードをスキャ"
+"アカウントを多要素認証で保護するために、認証アプリで以下の QR コードをスキャ"
 "ンしてください。次に、アプリで生成された確認コードを以下に入力してください。"
 
 #: templates/mfa/totp/activate_form.html:21
@@ -1346,29 +1319,27 @@ msgstr "認証アプリによる認証を無効化しようとしています。
 
 #: templates/mfa/webauthn/add_form.html:7
 msgid "Add Security Key or Device"
-msgstr ""
+msgstr "セキュリティキー/デバイスの登録"
 
 #: templates/mfa/webauthn/add_form.html:18
 msgid "Add key or device"
-msgstr ""
+msgstr "キー/デバイスを登録"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:6
 msgid "Remove Security Key or Device"
-msgstr ""
+msgstr "セキュリティキー/デバイスの解除"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:8
-#, fuzzy
-#| msgid "Are you sure you want to sign out?"
 msgid "Are you sure you want to remove this security key?"
-msgstr "ログアウトしますか?"
+msgstr "セキュリティキーを解除しますか?"
 
 #: templates/mfa/webauthn/authenticator_list.html:8
 msgid "Security Keys and Devices"
-msgstr ""
+msgstr "セキュリティキー/デバイス"
 
 #: templates/mfa/webauthn/authenticator_list.html:11
 msgid "You have not added any security keys/devices."
-msgstr ""
+msgstr "登録されたセキュリティキー/デバイスはありません。"
 
 #: templates/mfa/webauthn/authenticator_list.html:19
 msgid "Usage"
@@ -1376,59 +1347,55 @@ msgstr ""
 
 #: templates/mfa/webauthn/authenticator_list.html:31
 msgid "Passkey"
-msgstr ""
+msgstr "パスキー"
 
 #: templates/mfa/webauthn/authenticator_list.html:35
-#, fuzzy
-#| msgid "secret key"
 msgid "Security key"
-msgstr "シークレットキー"
+msgstr "セキュリティキー"
 
 #: templates/mfa/webauthn/authenticator_list.html:38
 msgid "This key does not specify whether is a passkey."
-msgstr ""
+msgstr "このキーはパスキーかどうか記載されていません。"
 
 #: templates/mfa/webauthn/authenticator_list.html:39
-#, fuzzy
-#| msgid "Unverified"
 msgid "Unspecified"
-msgstr "未確認"
+msgstr "未指定"
 
 #: templates/mfa/webauthn/authenticator_list.html:44
 #, python-format
 msgid "Added on %(created_at)s"
-msgstr ""
+msgstr "登録日: %(created_at)s"
 
 #: templates/mfa/webauthn/authenticator_list.html:46
 #, python-format
 msgid "Last used %(last_used)s"
-msgstr ""
+msgstr "最終使用日: %(last_used)s"
 
 #: templates/mfa/webauthn/authenticator_list.html:54
 msgid "Edit"
-msgstr ""
+msgstr "編集"
 
 #: templates/mfa/webauthn/edit_form.html:7
 msgid "Edit Security Key or Device"
-msgstr ""
+msgstr "セキュリティキー/デバイスの編集"
 
 #: templates/mfa/webauthn/edit_form.html:18
 msgid "Save"
-msgstr ""
+msgstr "保存"
 
 #: templates/mfa/webauthn/snippets/scripts.html:2
 msgid "This functionality requires JavaScript."
-msgstr ""
+msgstr "この機能を利用するには JavaScript が必要です。"
 
 #: templates/socialaccount/authentication_error.html:5
 #: templates/socialaccount/authentication_error.html:9
 msgid "Third-Party Login Failure"
-msgstr "ソーシャルログインに失敗しました"
+msgstr "外部アカウントによるログインに失敗しました"
 
 #: templates/socialaccount/authentication_error.html:12
 msgid ""
 "An error occurred while attempting to login via your third-party account."
-msgstr "ソーシャルアカウントでのログイン時ににエラーが発生しました。"
+msgstr "外部アカウントでのログイン時ににエラーが発生しました。"
 
 #: templates/socialaccount/connections.html:5
 #: templates/socialaccount/connections.html:9
@@ -1464,11 +1431,11 @@ msgstr "外部アカウントを接続しました"
 msgid ""
 "A third-party account from %(provider)s has been disconnected from your "
 "account."
-msgstr "%(provider)s の外部アカウントをあなたのアカウントから切断しました。"
+msgstr "%(provider)s の外部アカウントへの接続を解除しました。"
 
 #: templates/socialaccount/email/account_disconnected_subject.txt:3
 msgid "Third-Party Account Disconnected"
-msgstr "外部アカウントを接続解除しました"
+msgstr "外部アカウントとの接続を解除しました"
 
 #: templates/socialaccount/login.html:10
 #, python-format
@@ -1478,7 +1445,7 @@ msgstr "%(provider)s と接続する"
 #: templates/socialaccount/login.html:13
 #, python-format
 msgid "You are about to connect a new third-party account from %(provider)s."
-msgstr "%(provider)sの新しい外部アカウントを接続しようとしています。"
+msgstr "%(provider)s の新しい外部アカウントを接続しようとしています。"
 
 #: templates/socialaccount/login.html:17
 #, python-format
@@ -1516,7 +1483,7 @@ msgstr "外部アカウントを接続しました。"
 
 #: templates/socialaccount/messages/account_disconnected.txt:2
 msgid "The third-party account has been disconnected."
-msgstr "外部アカウントの接続を解除しました。"
+msgstr "外部アカウントとの接続を解除しました。"
 
 #: templates/socialaccount/signup.html:12
 #, python-format

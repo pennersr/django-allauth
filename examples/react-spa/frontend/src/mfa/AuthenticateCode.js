@@ -30,7 +30,7 @@ export default function AuthenticateCode (props) {
     <AuthenticateFlow authenticatorType={props.authenticatorType}>
       {props.children}
       <label>
-        Authenticator code:
+        Code:
         <input type='text' value={code} onChange={(e) => setCode(e.target.value)} />
       </label>
       <FormErrors param='code' errors={response.content?.errors} />

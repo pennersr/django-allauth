@@ -1,7 +1,6 @@
 import json
 from unittest.mock import ANY, patch
 
-import django
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core import mail
@@ -140,27 +139,15 @@ class LoginTests(TestCase):
                     "password": ("doe" if is_valid_attempt else "wrong"),
                 },
             )
-            if django.VERSION >= (4, 1):
-                self.assertFormError(
-                    resp.context["form"],
-                    None,
-                    (
-                        "Too many failed login attempts. Try again later."
-                        if is_locked
-                        else "The username and/or password you specified are not correct."
-                    ),
-                )
-            else:
-                self.assertFormError(
-                    resp,
-                    "form",
-                    None,
-                    (
-                        "Too many failed login attempts. Try again later."
-                        if is_locked
-                        else "The username and/or password you specified are not correct."
-                    ),
-                )
+            self.assertFormError(
+                resp.context["form"],
+                None,
+                (
+                    "Too many failed login attempts. Try again later."
+                    if is_locked
+                    else "The username and/or password you specified are not correct."
+                ),
+            )
 
     @override_settings(
         ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.EMAIL,
@@ -188,37 +175,19 @@ class LoginTests(TestCase):
         resp = self.client.post(
             reverse("account_login"), {"login": user.email, "password": "bad"}
         )
-        if django.VERSION >= (4, 1):
-            self.assertFormError(
-                resp.context["form"],
-                None,
-                "The email address and/or password you specified are not correct.",
-            )
-        else:
-            self.assertFormError(
-                resp,
-                "form",
-                None,
-                "The email address and/or password you specified are not correct.",
-            )
-
+        self.assertFormError(
+            resp.context["form"],
+            None,
+            "The email address and/or password you specified are not correct.",
+        )
         resp = self.client.post(
             reverse("account_login"), {"login": user.email, "password": "bad"}
         )
-        if django.VERSION >= (4, 1):
-            self.assertFormError(
-                resp.context["form"],
-                None,
-                "Too many failed login attempts. Try again later.",
-            )
-        else:
-            self.assertFormError(
-                resp,
-                "form",
-                None,
-                "Too many failed login attempts. Try again later.",
-            )
-
+        self.assertFormError(
+            resp.context["form"],
+            None,
+            "Too many failed login attempts. Try again later.",
+        )
         self.client.post(reverse("account_reset_password"), data={"email": user.email})
 
         body = mail.outbox[0].body

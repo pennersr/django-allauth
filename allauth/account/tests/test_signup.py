@@ -1,4 +1,3 @@
-import django
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
@@ -215,19 +214,11 @@ class SignupTests(TestCase):
                 "password2": "janedoe",
             },
         )
-        if django.VERSION >= (4, 1):
-            self.assertFormError(
-                resp.context["form"],
-                "password2",
-                "You must type the same password each time.",
-            )
-        else:
-            self.assertFormError(
-                resp,
-                "form",
-                "password2",
-                "You must type the same password each time.",
-            )
+        self.assertFormError(
+            resp.context["form"],
+            "password2",
+            "You must type the same password each time.",
+        )
 
     @override_settings(
         ACCOUNT_USERNAME_REQUIRED=True, ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE=True
@@ -273,21 +264,12 @@ class SignupTests(TestCase):
                 "password2": "johndoe",
             },
         )
-        if django.VERSION >= (4, 1):
-            self.assertFormError(resp.context["form"], None, [])
-            self.assertFormError(
-                resp.context["form"],
-                "password1",
-                ["This password is too short. It must contain at least 9 characters."],
-            )
-        else:
-            self.assertFormError(resp, "form", None, [])
-            self.assertFormError(
-                resp,
-                "form",
-                "password1",
-                ["This password is too short. It must contain at least 9 characters."],
-            )
+        self.assertFormError(resp.context["form"], None, [])
+        self.assertFormError(
+            resp.context["form"],
+            "password1",
+            ["This password is too short. It must contain at least 9 characters."],
+        )
 
 
 def test_prevent_enumeration_with_mandatory_verification(

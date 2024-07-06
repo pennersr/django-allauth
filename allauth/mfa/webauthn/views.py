@@ -29,7 +29,7 @@ class AddWebAuthnView(FormView):
 
     def get_context_data(self, **kwargs):
         ret = super().get_context_data()
-        ret["js_data"] = {"credentials": ret["form"].registration_data}
+        ret["js_data"] = {"creation_options": ret["form"].registration_data}
         return ret
 
     def get_form_kwargs(self):
@@ -100,7 +100,7 @@ class LoginWebAuthnView(FormView):
     def get(self, request, *args, **kwargs):
         if get_account_adapter().is_ajax(request):
             form = self.get_form()
-            data = {"credentials": form.authentication_data}
+            data = {"request_options": form.authentication_data}
             return JsonResponse(data)
         return HttpResponseRedirect(reverse("account_login"))
 
@@ -145,7 +145,7 @@ class ReauthenticateWebAuthnView(BaseReauthenticateView):
 
     def get_context_data(self, **kwargs):
         ret = super().get_context_data()
-        ret["js_data"] = {"credentials": ret["form"].authentication_data}
+        ret["js_data"] = {"request_options": ret["form"].authentication_data}
         return ret
 
 

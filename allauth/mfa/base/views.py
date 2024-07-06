@@ -84,7 +84,9 @@ class AuthenticateView(TemplateView):
             ret.update(
                 {
                     "webauthn_form": self.webauthn_form,
-                    "js_data": {"credentials": self.webauthn_form.authentication_data},
+                    "js_data": {
+                        "request_options": self.webauthn_form.authentication_data
+                    },
                 }
             )
         return ret

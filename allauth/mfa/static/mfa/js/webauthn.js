@@ -26,7 +26,7 @@
     addBtn.addEventListener('click', async function () {
       const passwordless = passwordlessCb ? passwordlessCb.checked : false
       try {
-        const credential = await createCredentials(o.data.credentials, passwordless)
+        const credential = await createCredentials(o.data.creation_options, passwordless)
         credentialInput.value = JSON.stringify(credential)
         form.submit()
       } catch (e) {
@@ -52,7 +52,7 @@
           throw new Error('Unable to fetch passkey data from server.')
         }
         const data = await response.json()
-        const credential = await webauthnJSON.get(data.credentials)
+        const credential = await webauthnJSON.get(data.request_options)
         credentialInput.value = JSON.stringify(credential)
         form.submit()
       } catch (e) {
@@ -68,8 +68,7 @@
     authenticateBtn.addEventListener('click', async function (e) {
       e.preventDefault()
       try {
-        // FIXME: shouldn't this be named requestOptions
-        const credential = await webauthnJSON.get(o.data.credentials)
+        const credential = await webauthnJSON.get(o.data.request_options)
         credentialInput.value = JSON.stringify(credential)
         form.submit()
       } catch (e) {

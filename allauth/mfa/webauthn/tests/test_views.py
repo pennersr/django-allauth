@@ -50,7 +50,7 @@ def test_get_passkey_login_challenge(client, db):
     assert resp["content-type"] == "application/json"
     data = resp.json()
     assert data == {
-        "credentials": {
+        "request_options": {
             "publicKey": {
                 "challenge": ANY,
                 "rpId": "testserver",

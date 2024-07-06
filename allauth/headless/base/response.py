@@ -47,14 +47,18 @@ class BaseAuthenticationResponse(APIResponse):
         if user and user.is_authenticated:
             ret.extend(flows.reauthentication.get_reauthentication_flows(user))
         else:
-            ret.append({"id": Flow.LOGIN})
+            if not allauth_settings.SOCIALACCOUNT_ONLY:
+                ret.append({"id": Flow.LOGIN})
             if account_settings.LOGIN_BY_CODE_ENABLED:
                 code_flow = {"id": Flow.LOGIN_BY_CODE}
                 _, data = flows.login_by_code.get_pending_login(request, peek=True)
                 if data:
                     code_flow["is_pending"] = True
                 ret.append(code_flow)
-            if get_account_adapter().is_open_for_signup(request):
+            if (
+                get_account_adapter().is_open_for_signup(request)
+                and not allauth_settings.SOCIALACCOUNT_ONLY
+            ):
                 ret.append({"id": Flow.SIGNUP})
             if allauth_settings.SOCIALACCOUNT_ENABLED:
                 from allauth.headless.socialaccount.response import (

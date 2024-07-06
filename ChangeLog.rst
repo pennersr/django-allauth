@@ -34,8 +34,9 @@ Security notice
 Backwards incompatible changes
 ------------------------------
 
-- Dropped support for Django 3.2 (which reached end of life).  As Django 3.2 was
-  the last to support Python 3.7, support for Python 3.7 is now dropped as well.
+- Dropped support for Django 3.2, 4.0 and 4.1 (which all reached end of life).
+  As Django 3.2 was the last to support Python 3.7, support for Python 3.7 is
+  now dropped as well.
 
 
 0.63.3 (2024-05-31)

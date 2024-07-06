@@ -128,3 +128,40 @@ def test_add_authenticator(
         ).count()
         == 1
     )
+
+
+def test_2fa_login(
+    client,
+    user,
+    user_password,
+    passkey,
+    webauthn_authentication_bypass,
+    headless_reverse,
+):
+    resp = client.post(
+        headless_reverse("headless:account:login"),
+        data={
+            "username": user.username,
+            "password": user_password,
+        },
+        content_type="application/json",
+    )
+    assert resp.status_code == 401
+    data = resp.json()
+    pending_flows = [f for f in data["data"]["flows"] if f.get("is_pending")]
+    assert len(pending_flows) == 1
+    pending_flow = pending_flows[0]
+    assert pending_flow == {
+        "id": "mfa_authenticate",
+        "is_pending": True,
+        "types": ["webauthn"],
+    }
+    with webauthn_authentication_bypass(passkey) as credential:
+        resp = client.post(
+            headless_reverse("headless:mfa:authenticate_webauthn"),
+            data={"credential": credential},
+            content_type="application/json",
+        )
+    data = resp.json()
+    assert resp.status_code == 200
+    assert data["data"]["user"]["id"] == passkey.user_id

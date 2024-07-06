@@ -5,7 +5,7 @@ This package has the following external dependencies:
 
 - Python 3.8, 3.9, or 3.10, 3.11, 3.12.
 
-- Django (4.0+)
+- Django (4.2+)
 
 - Depending on which social providers you use:
 

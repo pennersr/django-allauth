@@ -14,7 +14,7 @@ jobs:
       matrix:
         project: ['regular', 'headless_only']
         python-version: ['3.8', '3.9', '3.10', '3.11', '3.12']
-        django-version: ['main', '4.0', '4.1', '4.2', '5.0']
+        django-version: ['main', '4.2', '5.0']
         exclude:
           - python-version: '3.8'
             django-version: '5.0'

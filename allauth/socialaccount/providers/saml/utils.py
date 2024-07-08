@@ -2,7 +2,7 @@ from urllib.parse import urlparse
 
 from django.core.cache import cache
 from django.core.exceptions import ImproperlyConfigured
-from django.http import Http404
+from django.http import Http404, HttpRequest
 from django.urls import reverse
 from django.utils.http import urlencode
 
@@ -12,6 +12,7 @@ from onelogin.saml2.idp_metadata_parser import OneLogin_Saml2_IdPMetadataParser
 
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.models import SocialApp
+from allauth.socialaccount.providers.base import Provider
 from allauth.socialaccount.providers.saml.provider import SAMLProvider
 
 
@@ -37,10 +38,10 @@ def prepare_django_request(request):
     return result
 
 
-def build_sp_config(request, provider_config, org):
-    acs_url = request.build_absolute_uri(reverse("saml_acs", args=[org]))
-    sls_url = request.build_absolute_uri(reverse("saml_sls", args=[org]))
-    metadata_url = request.build_absolute_uri(reverse("saml_metadata", args=[org]))
+def build_sp_config(hostname: str, provider_config, org):
+    acs_url = f'{hostname}{reverse("saml_acs", args=[org])}'
+    sls_url = f'{hostname}{reverse("saml_sls", args=[org])}'
+    metadata_url = f'{hostname}{reverse("saml_metadata", args=[org])}'
     # SP entity ID generated with the following precedence:
     # 1. Explicitly configured SP via the SocialApp.settings
     # 2. Fallback to the SAML metadata urlpattern
@@ -92,7 +93,8 @@ def fetch_metadata_url_config(idp_config):
     return saml_config
 
 
-def build_saml_config(request, provider_config, org):
+def build_saml_config(hostname: str, provider_config: dict, org: str) -> dict:
+    """Builds saml2 configuration from allauth provider configuration to hand-off to OneLogin library"""
     avd = provider_config.get("advanced", {})
     security_config = {
         "authnRequestsSigned": avd.get("authn_request_signed", False),
@@ -145,7 +147,7 @@ def build_saml_config(request, provider_config, org):
         if slo_url:
             saml_config["idp"]["singleLogoutService"] = {"url": slo_url}
 
-    saml_config["sp"] = build_sp_config(request, provider_config, org)
+    saml_config["sp"] = build_sp_config(hostname, provider_config, org)
     return saml_config
 
 
@@ -168,8 +170,9 @@ def decode_relay_state(relay_state):
     return next_url
 
 
-def build_auth(request, provider):
+def build_auth(request: HttpRequest, provider: Provider):
     req = prepare_django_request(request)
-    config = build_saml_config(request, provider.app.settings, provider.app.client_id)
+    hostname = request.build_absolute_uri()
+    config = build_saml_config(hostname, provider.app.settings, provider.app.client_id)
     auth = OneLogin_Saml2_Auth(req, config)
     return auth

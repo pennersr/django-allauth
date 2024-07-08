@@ -186,7 +186,8 @@ def test_sls(auth_client, db, saml_settings, user_factory, sls_saml_request):
 )
 def test_build_saml_config_without_metadata_url(rf, provider_config):
     request = rf.get("/")
-    config = build_saml_config(request, provider_config, "org")
+    hostname = request.build_absolute_uri()
+    config = build_saml_config(hostname, provider_config, "org")
     assert config["idp"]["entityId"] == "dummy"
     assert config["idp"]["x509cert"] == "cert"
     assert config["idp"]["singleSignOnService"] == {"url": "https://idp.org/sso/"}
@@ -224,7 +225,8 @@ def test_build_saml_config(rf, provider_config):
                 "x509cert": "cert",
             }
         }
-        config = build_saml_config(request, provider_config, "org")
+        hostname = request.build_absolute_uri()
+        config = build_saml_config(hostname, provider_config, "org")
 
     assert config["idp"]["entityId"] == "dummy"
     assert config["idp"]["x509cert"] == "cert"

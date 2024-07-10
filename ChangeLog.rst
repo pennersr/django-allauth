@@ -21,6 +21,17 @@ Note worthy changes
   a 409.
 
 
+Backwards incompatible changes
+------------------------------
+
+- Dropped support for Django 3.2, 4.0 and 4.1 (which all reached end of life).
+  As Django 3.2 was the last to support Python 3.7, support for Python 3.7 is
+  now dropped as well.
+
+
+0.63.4 (2024-07-10)
+*******************
+
 Security notice
 ---------------
 
@@ -32,14 +43,6 @@ Security notice
 
 - Enumeration prevention: the behavior on the outside of an actual signup versus
   a signup where the user already existed was not fully identical, fixed.
-
-
-Backwards incompatible changes
-------------------------------
-
-- Dropped support for Django 3.2, 4.0 and 4.1 (which all reached end of life).
-  As Django 3.2 was the last to support Python 3.7, support for Python 3.7 is
-  now dropped as well.
 
 
 0.63.3 (2024-05-31)

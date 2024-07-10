@@ -381,10 +381,8 @@ class BaseSignupForm(_base_signup_form_class()):
             # Don't create a new account, only send an email informing the user
             # that (s)he already has one...
             email = self.cleaned_data["email"]
-            adapter = get_adapter()
-            adapter.send_account_already_exists_mail(email)
+            resp = flows.signup.prevent_enumeration(request, email)
             user = None
-            resp = adapter.respond_email_verification_sent(request, None)
             request.session[flows.login.LOGIN_SESSION_KEY] = EmailVerificationStage.key
         else:
             user = self.save(request)

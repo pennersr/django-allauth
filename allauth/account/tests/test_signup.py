@@ -310,6 +310,7 @@ def test_prevent_enumeration_with_mandatory_verification(
     assert resp.status_code == 302
     assert resp["location"] == reverse("account_email_verification_sent")
     assertTemplateUsed(resp, "account/email/account_already_exists_message.txt")
+    assertTemplateUsed(resp, "account/messages/email_confirmation_sent.txt")
     assert EmailAddress.objects.filter(email="john@example.org").count() == 1
 
 

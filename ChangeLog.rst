@@ -10,6 +10,9 @@ Security notice
   log/print tokens, you will now have to explicitly log the ``token`` field of
   the ``SocialToken`` instance.
 
+- Enumeration prevention: the behavior on the outside of an actual signup versus
+  a signup where the user already existed was not fully identical, fixed.
+
 
 0.63.3 (2024-05-31)
 *******************

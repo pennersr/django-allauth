@@ -1,7 +1,14 @@
 0.63.4 (unreleased)
 *******************
 
-- ...
+Security notice
+---------------
+
+- The ``__str__()`` method of the ``SocialToken`` model returned the access
+  token. As a consequence, logging or printing tokens otherwise would expose the
+  access token. Now, the method no longer returns the token. If you want to
+  log/print tokens, you will now have to explicitly log the ``token`` field of
+  the ``SocialToken`` instance.
 
 
 0.63.3 (2024-05-31)

@@ -1,6 +1,7 @@
 from django.urls import reverse
 
 from allauth.socialaccount.adapter import get_adapter
+from allauth.socialaccount.models import SocialToken
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
@@ -44,11 +45,11 @@ class OpenIDConnectOAuth2Adapter(OAuth2Adapter):
     def profile_url(self):
         return self.openid_config["userinfo_endpoint"]
 
-    def complete_login(self, request, app, token, response):
+    def complete_login(self, request, app, token: SocialToken, response):
         response = (
             get_adapter()
             .get_requests_session()
-            .get(self.profile_url, headers={"Authorization": "Bearer " + str(token)})
+            .get(self.profile_url, headers={"Authorization": "Bearer " + token.token})
         )
         response.raise_for_status()
         extra_data = response.json()

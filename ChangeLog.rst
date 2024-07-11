@@ -1,3 +1,14 @@
+0.63.5 (2024-07-11)
+*******************
+
+Fixes
+-----
+
+- The security fix in 0.63.4 that altered the ``__str__()`` of ``SocialToken``
+  caused issues within the Amazon Cognito, Atlassian, JupyterHub, LemonLDAP,
+  Nextcloud and OpenID Connect providers. Fixed.
+
+
 0.63.4 (2024-07-10)
 *******************
 

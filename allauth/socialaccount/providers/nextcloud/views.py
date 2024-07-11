@@ -3,6 +3,7 @@ import xml.etree.ElementTree as ET
 from allauth.core import context
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
+from allauth.socialaccount.models import SocialToken
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
@@ -34,12 +35,12 @@ class NextCloudOAuth2Adapter(OAuth2Adapter):
     def profile_url(self):
         return self._build_server_url("/ocs/v1.php/cloud/users/")
 
-    def complete_login(self, request, app, token, **kwargs):
+    def complete_login(self, request, app, token: SocialToken, **kwargs):
         extra_data = self.get_user_info(token, kwargs["response"]["user_id"])
         return self.get_provider().sociallogin_from_response(request, extra_data)
 
-    def get_user_info(self, token, user_id):
-        headers = {"Authorization": "Bearer {0}".format(token)}
+    def get_user_info(self, token: SocialToken, user_id):
+        headers = {"Authorization": "Bearer {0}".format(token.token)}
         resp = (
             get_adapter()
             .get_requests_session()

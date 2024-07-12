@@ -1,5 +1,3 @@
-import json
-
 from django.contrib.auth import get_user_model
 from django.test.client import RequestFactory
 from django.test.utils import override_settings
@@ -130,7 +128,7 @@ class FacebookTests(OAuth2TestsMixin, TestCase):
     )
     def test_login_by_token_reauthenticate(self):
         resp = self.client.get(reverse("account_login"))
-        nonce = json.loads(resp.context["fb_data"])["loginOptions"]["auth_nonce"]
+        nonce = resp.context["fb_data"]["loginOptions"]["auth_nonce"]
         with mocked_response(
             {"access_token": "app_token"},
             {

@@ -1,4 +1,4 @@
 {% load static %}
 <div id="fb-root"></div>
-<script id="allauth-facebook-settings" type="application/json">{{ fb_data }}</script>
+{{ fb_data|json_script:"allauth-facebook-settings" }}
 <script type="text/javascript" src="{% static 'facebook/js/fbconnect.js' %}"></script>

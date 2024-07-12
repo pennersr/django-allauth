@@ -1,3 +1,13 @@
+0.63.6 (2024-07-12)
+*******************
+
+Security notice
+---------------
+
+- When the Facebook provider was configured to use the ``js_sdk`` method the
+  login page could become vulnerable to an XSS attack.
+
+
 0.63.5 (2024-07-11)
 *******************
 

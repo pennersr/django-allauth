@@ -29,7 +29,7 @@
   }
 
   var allauth = window.allauth = window.allauth || {}
-  var fbSettings = JSON.parse(document.getElementById('allauth-facebook-settings').innerHTML)
+  const fbSettings = JSON.parse(document.getElementById('allauth-facebook-settings').textContent)
   var fbInitialized = false
 
   allauth.facebook = {

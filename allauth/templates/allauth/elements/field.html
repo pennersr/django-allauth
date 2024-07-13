@@ -29,7 +29,7 @@
                {% if attrs.id %}id="{{ attrs.id }}"{% endif %}
                {% if attrs.placeholder %}placeholder="{{ attrs.placeholder }}"{% endif %}
                {% if attrs.autocomplete %}autocomplete="{{ attrs.autocomplete }}"{% endif %}
-               value="{{ attrs.value|default_if_none:'' }}"
+               {% if attrs.value is not None %}value="{{ attrs.value }}"{% endif %}
                type="{{ attrs.type }}">
         {% if attrs.type == "checkbox" or attrs.type == "radio" %}
             <label for="{{ attrs.id }}">

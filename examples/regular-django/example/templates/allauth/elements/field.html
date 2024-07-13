@@ -5,7 +5,7 @@
                name="{{ attrs.name }}"
                class="form-check-input"
                id="{{ attrs.id }}"
-               value="{{ attrs.value|default_if_none:"" }}"
+               {% if attrs.value is not None %}value="{{ attrs.value }}"{% endif %}
                {% if attrs.disabled %}disabled{% endif %}
                type="{{ attrs.type }}">
         <label class="form-check-label" for="{{ attrs.id }}">
@@ -37,7 +37,7 @@
     <input {% if attrs.required %}required{% endif %}
            name="{{ attrs.name }}"
            id="{{ attrs.id }}"
-           value="{{ attrs.value|default_if_none:"" }}"
+           {% if attrs.value is not None %}value="{{ attrs.value }}"{% endif %}
            type="hidden">
 {% else %}
     <div class="{% if attrs.unlabeled %}form-floating{% endif %} mb-3">
@@ -57,7 +57,7 @@
                {% if attrs.tabindex %}tabindex="{{ attrs.tabindex }}"{% endif %}
                {% if attrs.style %}style="{{ attrs.style }}"{% endif %}
                {% if attrs.autocomplete %}autocomplete="{{ attrs.autocomplete }}"{% endif %}
-               value="{{ attrs.value|default_if_none:"" }}"
+               {% if attrs.value is not None %}value="{{ attrs.value }}"{% endif %}
                type="{{ attrs.type }}">
         {% if attrs.unlabeled %}
             <label class="" for="{{ attrs.id }}">

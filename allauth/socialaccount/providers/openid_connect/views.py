@@ -45,7 +45,7 @@ class OpenIDConnectOAuth2Adapter(OAuth2Adapter):
     def profile_url(self):
         return self.openid_config["userinfo_endpoint"]
 
-    def complete_login(self, request, app, token: SocialToken, response):
+    def complete_login(self, request, app, token: SocialToken, **kwargs):
         response = (
             get_adapter()
             .get_requests_session()

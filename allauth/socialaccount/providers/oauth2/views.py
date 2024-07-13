@@ -48,7 +48,7 @@ class OAuth2Adapter:
             self.request, provider=self.provider_id
         )
 
-    def complete_login(self, request, app, access_token, **kwargs):
+    def complete_login(self, request, app, token: SocialToken, **kwargs):
         """
         Returns a SocialLogin instance
         """

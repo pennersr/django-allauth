@@ -18,7 +18,7 @@ class LemonLDAPOAuth2Adapter(OAuth2Adapter):
     authorize_url = "{0}/oauth2/authorize".format(provider_base_url)
     profile_url = "{0}/oauth2/userinfo".format(provider_base_url)
 
-    def complete_login(self, request, app, token: SocialToken, response):
+    def complete_login(self, request, app, token: SocialToken, **kwargs):
         response = (
             get_adapter()
             .get_requests_session()

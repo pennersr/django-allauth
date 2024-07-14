@@ -4,7 +4,7 @@
 {% load allauth %}
 {% block content %}
     {% element h1 %}
-        {% trans "Add Security Key or Device" %}
+        {% trans "Add Security Key" %}
     {% endelement %}
     {% url 'mfa_add_webauthn' as action_url %}
     {% element form form=form method="post" action=action_url %}
@@ -15,7 +15,7 @@
         {% endslot %}
         {% slot actions %}
             {% element button id="mfa_webauthn_add" type="button" %}
-                {% trans "Add key or device" %}
+                {% trans "Add" %}
             {% endelement %}
         {% endslot %}
     {% endelement %}

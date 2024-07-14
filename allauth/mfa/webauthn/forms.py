@@ -16,7 +16,7 @@ class AddWebAuthnForm(forms.Form):
             label=_("Passwordless"),
             required=False,
             help_text=_(
-                "Enabling passwordless operation allows you to sign in using just this key/device, but imposes additional requirements such as biometrics or PIN protection."
+                "Enabling passwordless operation allows you to sign in using just this key, but imposes additional requirements such as biometrics or PIN protection."
             ),
         )
     credential = forms.JSONField(required=True, widget=forms.HiddenInput)

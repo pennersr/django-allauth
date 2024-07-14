@@ -28,10 +28,10 @@ export default function MFAOverview (props) {
           <Link to='/account/2fa/totp/activate'>Activate</Link>
         </>}
 
-      <h2>Security Keys and Devices</h2>
+      <h2>Security Keys</h2>
 
       {webauthn.length
-        ? <><p>You have added {webauthn.length} security keys/devices.</p>
+        ? <><p>You have added {webauthn.length} security keys.</p>
           <Link to='/account/2fa/webauthn'>Manage</Link>
         </>
         : <><p>No security keys have been added.</p>

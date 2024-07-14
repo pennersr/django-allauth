@@ -5,10 +5,10 @@
 {% load humanize %}
 {% block content %}
     {% element h1 %}
-        {% trans "Security Keys and Devices" %}
+        {% trans "Security Keys" %}
     {% endelement %}
     {% if authenticators|length == 0 %}
-        <p>{% blocktranslate %}You have not added any security keys/devices.{% endblocktranslate %}</p>
+        <p>{% blocktranslate %}No security keys have been added.{% endblocktranslate %}</p>
     {% else %}
         {% element table %}
             {% element thead %}
@@ -35,7 +35,7 @@
                                     {% translate "Security key" %}
                                 {% endelement %}
                             {% else %}
-                                {% element badge title=_("This key does not specify whether is a passkey.") tags="mfa,key,warning" %}
+                                {% element badge title=_("This key does not indicate whether it is a passkey.") tags="mfa,key,warning" %}
                                     {% translate "Unspecified" %}
                                 {% endelement %}
                             {% endif %}

@@ -33,7 +33,7 @@
     {% element button_group vertical=True %}
         {% if "webauthn" in MFA_SUPPORTED_TYPES %}
             {% element button form="webauthn_form" id="mfa_webauthn_authenticate" type="button" tags="outline,primary" %}
-                {% trans "Use security key or device" %}
+                {% trans "Use a security key" %}
             {% endelement %}
         {% endif %}
         {% url "account_login" as login_url %}

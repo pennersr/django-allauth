@@ -4,7 +4,7 @@
 {% load allauth %}
 {% block content %}
     {% element h1 %}
-        {% trans "Edit Security Key or Device" %}
+        {% trans "Edit Security Key" %}
     {% endelement %}
     {% url 'mfa_edit_webauthn' as action_url %}
     {% element form form=form method="post" action=action_url %}

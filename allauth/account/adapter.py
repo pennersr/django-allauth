@@ -752,7 +752,7 @@ class DefaultAccountAdapter(BaseAdapter):
             if "webauthn" in types:
                 entry = {
                     "id": "mfa_reauthenticate:webauthn",
-                    "description": _("Use security key or device"),
+                    "description": _("Use a security key"),
                     "url": reverse("mfa_reauthenticate_webauthn"),
                 }
                 ret.append(entry)

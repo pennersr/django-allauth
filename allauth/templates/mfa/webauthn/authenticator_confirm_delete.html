@@ -3,7 +3,7 @@
 {% load allauth %}
 {% block content %}
     {% element h1 %}
-        {% trans "Remove Security Key or Device" %}
+        {% trans "Remove Security Key" %}
     {% endelement %}
     <p>{% blocktranslate %}Are you sure you want to remove this security key?{% endblocktranslate %}</p>
     {% url 'mfa_remove_webauthn' pk=authenticator.pk as action_url %}

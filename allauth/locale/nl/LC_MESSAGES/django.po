@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-06 06:50-0500\n"
-"PO-Revision-Date: 2024-04-20 22:01+0200\n"
+"PO-Revision-Date: 2024-07-14 20:59+0200\n"
 "Last-Translator: Raymond Penners <raymond.penners@intenct.nl>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/django-allauth/"
 "django-allauth/nl/>\n"
@@ -101,7 +101,7 @@ msgstr "Gebruik je authenticator-app"
 #: account/adapter.py:755 templates/mfa/authenticate.html:36
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use security key or device"
-msgstr ""
+msgstr "Gebruik een beveiligingssleutel"
 
 #: account/admin.py:23
 msgid "Mark selected email addresses as verified"
@@ -231,7 +231,7 @@ msgstr "e-mailadres bevestigingen"
 
 #: headless/apps.py:7
 msgid "Headless"
-msgstr ""
+msgstr "Headless"
 
 #: mfa/adapter.py:32
 msgid ""
@@ -269,12 +269,12 @@ msgstr "geheime sleutel"
 
 #: mfa/adapter.py:143
 msgid "Backup key"
-msgstr ""
+msgstr "Reservesleutel"
 
 #: mfa/adapter.py:144
 #, python-brace-format
 msgid "Key nr. {number}"
-msgstr ""
+msgstr "Sleutel nr. {number}"
 
 #: mfa/apps.py:9
 msgid "MFA"
@@ -290,7 +290,7 @@ msgstr "TOTP Authenticator"
 
 #: mfa/models.py:26
 msgid "WebAuthn"
-msgstr ""
+msgstr "WebAuthn"
 
 #: mfa/totp/forms.py:11
 msgid "Authenticator code"
@@ -868,7 +868,7 @@ msgstr ""
 
 #: templates/account/login.html:42
 msgid "Sign in with a passkey"
-msgstr ""
+msgstr "Meld je aan met een passkey"
 
 #: templates/account/login.html:47 templates/account/request_login_code.html:9
 msgid "Mail me a sign-in code"
@@ -1167,7 +1167,7 @@ msgstr "Er zijn nieuwe herstelcodes gegenereerd."
 
 #: templates/mfa/email/webauthn_added_subject.txt:3
 msgid "Security Key Added"
-msgstr ""
+msgstr "Beveiligingssleutel toegevoegd"
 
 #: templates/mfa/email/webauthn_removed_message.txt:4
 #, fuzzy
@@ -1177,7 +1177,7 @@ msgstr "Je e-mailadres is bevestigd."
 
 #: templates/mfa/email/webauthn_removed_subject.txt:3
 msgid "Security Key Removed"
-msgstr ""
+msgstr "Beveiligingssleutel verwijderd"
 
 #: templates/mfa/index.html:14 templates/mfa/totp/base.html:4
 msgid "Authenticator App"
@@ -1201,27 +1201,27 @@ msgstr "Activeer"
 
 #: templates/mfa/index.html:45 templates/mfa/webauthn/base.html:4
 msgid "Security Keys"
-msgstr ""
+msgstr "Beveiligingssleutels"
 
 #: templates/mfa/index.html:50
 #, python-format
 msgid "You have added %(count)s security key/device."
 msgid_plural "You have added %(count)s security keys/devices."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Je hebt %(count)s beveiligingssleutel gekoppeld."
+msgstr[1] "Je hebt %(count)s beveiligingssleutels gekoppeld."
 
 #: templates/mfa/index.html:53
 msgid "No security keys have been added."
-msgstr ""
+msgstr "Er zijn geen beveiligingssleutels gekoppeld."
 
 #: templates/mfa/index.html:60
 msgid "Manage"
-msgstr ""
+msgstr "Beheren"
 
 #: templates/mfa/index.html:65
 #: templates/mfa/webauthn/authenticator_list.html:68
 msgid "Add"
-msgstr ""
+msgstr "Voeg toe"
 
 #: templates/mfa/index.html:75 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:6
@@ -1262,11 +1262,11 @@ msgstr "Er zijn nieuwe herstelcodes gegenereerd."
 
 #: templates/mfa/messages/webauthn_added.txt:2
 msgid "Security key added."
-msgstr ""
+msgstr "Beveiligingssleutel toegevoegd."
 
 #: templates/mfa/messages/webauthn_removed.txt:2
 msgid "Security key removed."
-msgstr ""
+msgstr "Beveiligingssleutel verwijderd."
 
 #: templates/mfa/reauthenticate.html:6
 msgid "Enter an authenticator code:"
@@ -1338,15 +1338,15 @@ msgstr ""
 
 #: templates/mfa/webauthn/add_form.html:7
 msgid "Add Security Key or Device"
-msgstr ""
+msgstr "Beveiligingssleutel toevoegen"
 
 #: templates/mfa/webauthn/add_form.html:18
 msgid "Add key or device"
-msgstr ""
+msgstr "Beveiligingssleutel toevoegen"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:6
 msgid "Remove Security Key or Device"
-msgstr ""
+msgstr "Verwijder beveiligingssleutel"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:8
 #, fuzzy
@@ -1356,19 +1356,19 @@ msgstr "Weet je zeker dat je wilt afmelden?"
 
 #: templates/mfa/webauthn/authenticator_list.html:8
 msgid "Security Keys and Devices"
-msgstr ""
+msgstr "Beveiligingssleutels"
 
 #: templates/mfa/webauthn/authenticator_list.html:11
 msgid "You have not added any security keys/devices."
-msgstr ""
+msgstr "Je hebt geen beveiligingssleutels toegevoegd."
 
 #: templates/mfa/webauthn/authenticator_list.html:19
 msgid "Usage"
-msgstr ""
+msgstr "Gebruik"
 
 #: templates/mfa/webauthn/authenticator_list.html:31
 msgid "Passkey"
-msgstr ""
+msgstr "Passkey"
 
 #: templates/mfa/webauthn/authenticator_list.html:35
 #, fuzzy
@@ -1378,39 +1378,37 @@ msgstr "geheime sleutel"
 
 #: templates/mfa/webauthn/authenticator_list.html:38
 msgid "This key does not specify whether is a passkey."
-msgstr ""
+msgstr "Het is onduidelijk of deze sleutel een passkey betreft."
 
 #: templates/mfa/webauthn/authenticator_list.html:39
-#, fuzzy
-#| msgid "Unverified"
 msgid "Unspecified"
-msgstr "Ongeverifieerd"
+msgstr "Ongespecificeerd"
 
 #: templates/mfa/webauthn/authenticator_list.html:44
 #, python-format
 msgid "Added on %(created_at)s"
-msgstr ""
+msgstr "Toegevoegd op %(created_at)s"
 
 #: templates/mfa/webauthn/authenticator_list.html:46
 #, python-format
 msgid "Last used %(last_used)s"
-msgstr ""
+msgstr "Laatst gebruikt %(last_used)s"
 
 #: templates/mfa/webauthn/authenticator_list.html:54
 msgid "Edit"
-msgstr ""
+msgstr "Bewerken"
 
 #: templates/mfa/webauthn/edit_form.html:7
 msgid "Edit Security Key or Device"
-msgstr ""
+msgstr "Bewerk beveiligingssleutel"
 
 #: templates/mfa/webauthn/edit_form.html:18
 msgid "Save"
-msgstr ""
+msgstr "Opslaan"
 
 #: templates/mfa/webauthn/snippets/scripts.html:2
 msgid "This functionality requires JavaScript."
-msgstr ""
+msgstr "Deze functionaliteit vereist JavaScript."
 
 #: templates/socialaccount/authentication_error.html:5
 #: templates/socialaccount/authentication_error.html:9

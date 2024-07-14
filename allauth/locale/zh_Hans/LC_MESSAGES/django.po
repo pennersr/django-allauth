@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-06 06:50-0500\n"
+"POT-Creation-Date: 2024-07-14 14:14-0500\n"
 "PO-Revision-Date: 2024-07-06 07:09+0000\n"
 "Last-Translator: Zhuo Cheng <chengz21@mails.tsinghua.edu.cn>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -95,8 +95,10 @@ msgstr "请使用认证APP或代码"
 
 #: account/adapter.py:755 templates/mfa/authenticate.html:36
 #: templates/mfa/webauthn/reauthenticate.html:15
-msgid "Use security key or device"
-msgstr "请使用安全密钥或设备"
+#, fuzzy
+#| msgid "Security key"
+msgid "Use a security key"
+msgstr "安全密钥"
 
 #: account/admin.py:23
 msgid "Mark selected email addresses as verified"
@@ -106,12 +108,12 @@ msgstr "将选定的email地址标注为已验证"
 msgid "Accounts"
 msgstr "账户"
 
-#: account/forms.py:56 account/forms.py:481
+#: account/forms.py:56 account/forms.py:479
 msgid "You must type the same password each time."
 msgstr "每次输入的密码必须相同。"
 
-#: account/forms.py:91 account/forms.py:411 account/forms.py:562
-#: account/forms.py:676
+#: account/forms.py:91 account/forms.py:409 account/forms.py:560
+#: account/forms.py:674
 msgid "Password"
 msgstr "密码"
 
@@ -119,13 +121,13 @@ msgstr "密码"
 msgid "Remember Me"
 msgstr "记住我"
 
-#: account/forms.py:102 account/forms.py:269 account/forms.py:497
-#: account/forms.py:580 account/forms.py:693
+#: account/forms.py:102 account/forms.py:269 account/forms.py:495
+#: account/forms.py:578 account/forms.py:691
 msgid "Email address"
 msgstr "Email地址"
 
-#: account/forms.py:106 account/forms.py:307 account/forms.py:494
-#: account/forms.py:575
+#: account/forms.py:106 account/forms.py:307 account/forms.py:492
+#: account/forms.py:573
 msgid "Email"
 msgstr "Email"
 
@@ -163,23 +165,23 @@ msgstr "Email （选填项）"
 msgid "You must type the same email each time."
 msgstr "每次输入的Email必须相同。"
 
-#: account/forms.py:417 account/forms.py:563
+#: account/forms.py:415 account/forms.py:561
 msgid "Password (again)"
 msgstr "密码（重复）"
 
-#: account/forms.py:543
+#: account/forms.py:541
 msgid "Current Password"
 msgstr "当前密码"
 
-#: account/forms.py:545 account/forms.py:629
+#: account/forms.py:543 account/forms.py:627
 msgid "New Password"
 msgstr "新密码"
 
-#: account/forms.py:546 account/forms.py:630
+#: account/forms.py:544 account/forms.py:628
 msgid "New Password (again)"
 msgstr "新密码（重复）"
 
-#: account/forms.py:716 account/forms.py:718 mfa/base/forms.py:15
+#: account/forms.py:714 account/forms.py:716 mfa/base/forms.py:15
 #: mfa/base/forms.py:17 mfa/totp/forms.py:13
 msgid "Code"
 msgstr "代码"
@@ -288,10 +290,14 @@ msgid "Passwordless"
 msgstr "无密码"
 
 #: mfa/webauthn/forms.py:19
+#, fuzzy
+#| msgid ""
+#| "Enabling passwordless operation allows you to sign in using just this key/"
+#| "device, but imposes additional requirements such as biometrics or PIN "
+#| "protection."
 msgid ""
-"Enabling passwordless operation allows you to sign in using just this key/"
-"device, but imposes additional requirements such as biometrics or PIN "
-"protection."
+"Enabling passwordless operation allows you to sign in using just this key, "
+"but imposes additional requirements such as biometrics or PIN protection."
 msgstr ""
 "启用无密码操作允许您仅使用此密钥/设备登录，但会提出其他要求，例如生物特征或"
 "PIN保护。"
@@ -1149,17 +1155,21 @@ msgstr "停用"
 msgid "Activate"
 msgstr "激活"
 
-#: templates/mfa/index.html:45 templates/mfa/webauthn/base.html:4
+#: templates/mfa/index.html:45 templates/mfa/webauthn/authenticator_list.html:8
+#: templates/mfa/webauthn/base.html:4
 msgid "Security Keys"
 msgstr "安全密钥"
 
 #: templates/mfa/index.html:50
-#, python-format
-msgid "You have added %(count)s security key/device."
-msgid_plural "You have added %(count)s security keys/devices."
+#, fuzzy, python-format
+#| msgid "You have added %(count)s security key/device."
+#| msgid_plural "You have added %(count)s security keys/devices."
+msgid "You have added %(count)s security key."
+msgid_plural "You have added %(count)s security keys."
 msgstr[0] "您已添加%(count)s个安全密钥/设备。"
 
 #: templates/mfa/index.html:53
+#: templates/mfa/webauthn/authenticator_list.html:11
 msgid "No security keys have been added."
 msgstr "未添加安全密钥。"
 
@@ -1167,7 +1177,7 @@ msgstr "未添加安全密钥。"
 msgid "Manage"
 msgstr "管理"
 
-#: templates/mfa/index.html:65
+#: templates/mfa/index.html:65 templates/mfa/webauthn/add_form.html:18
 #: templates/mfa/webauthn/authenticator_list.html:68
 msgid "Add"
 msgstr "添加"
@@ -1278,28 +1288,20 @@ msgid ""
 msgstr "您即将停用基于身份验证器应用的身份验证。确定要执行此操作吗？"
 
 #: templates/mfa/webauthn/add_form.html:7
-msgid "Add Security Key or Device"
-msgstr "添加安全密钥或设备"
-
-#: templates/mfa/webauthn/add_form.html:18
-msgid "Add key or device"
-msgstr "添加密钥或设备"
+#, fuzzy
+#| msgid "Security Keys"
+msgid "Add Security Key"
+msgstr "安全密钥"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:6
-msgid "Remove Security Key or Device"
+#, fuzzy
+#| msgid "Remove Security Key or Device"
+msgid "Remove Security Key"
 msgstr "移除安全密钥或设备"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:8
 msgid "Are you sure you want to remove this security key?"
 msgstr "您确定要移除此安全密钥吗？"
-
-#: templates/mfa/webauthn/authenticator_list.html:8
-msgid "Security Keys and Devices"
-msgstr "安全密钥和设备"
-
-#: templates/mfa/webauthn/authenticator_list.html:11
-msgid "You have not added any security keys/devices."
-msgstr "您尚未添加任何安全密钥/设备。"
 
 #: templates/mfa/webauthn/authenticator_list.html:19
 msgid "Usage"
@@ -1314,7 +1316,9 @@ msgid "Security key"
 msgstr "安全密钥"
 
 #: templates/mfa/webauthn/authenticator_list.html:38
-msgid "This key does not specify whether is a passkey."
+#, fuzzy
+#| msgid "This key does not specify whether is a passkey."
+msgid "This key does not indicate whether it is a passkey."
 msgstr "此密钥未指定是否为 passkey。"
 
 #: templates/mfa/webauthn/authenticator_list.html:39
@@ -1336,8 +1340,10 @@ msgid "Edit"
 msgstr "编辑"
 
 #: templates/mfa/webauthn/edit_form.html:7
-msgid "Edit Security Key or Device"
-msgstr "编辑安全密钥或设备"
+#, fuzzy
+#| msgid "Security Keys"
+msgid "Edit Security Key"
+msgstr "安全密钥"
 
 #: templates/mfa/webauthn/edit_form.html:18
 msgid "Save"
@@ -1493,3 +1499,21 @@ msgstr "用户会话"
 #: usersessions/models.py:58
 msgid "session key"
 msgstr "会话密钥"
+
+#~ msgid "Use security key or device"
+#~ msgstr "请使用安全密钥或设备"
+
+#~ msgid "Add Security Key or Device"
+#~ msgstr "添加安全密钥或设备"
+
+#~ msgid "Add key or device"
+#~ msgstr "添加密钥或设备"
+
+#~ msgid "Security Keys and Devices"
+#~ msgstr "安全密钥和设备"
+
+#~ msgid "You have not added any security keys/devices."
+#~ msgstr "您尚未添加任何安全密钥/设备。"
+
+#~ msgid "Edit Security Key or Device"
+#~ msgstr "编辑安全密钥或设备"

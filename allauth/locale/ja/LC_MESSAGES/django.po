@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-06 06:50-0500\n"
+"POT-Creation-Date: 2024-07-14 14:14-0500\n"
 "PO-Revision-Date: 2024-07-01 15:09+0000\n"
 "Last-Translator: SATOH Fumiyasu <fumiyas@osstech.co.jp>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/allauth/django-"
@@ -95,8 +95,10 @@ msgstr "認証アプリまたは認証コードを利用する"
 
 #: account/adapter.py:755 templates/mfa/authenticate.html:36
 #: templates/mfa/webauthn/reauthenticate.html:15
-msgid "Use security key or device"
-msgstr "セキュリティキー/デバイスを使用"
+#, fuzzy
+#| msgid "Security key"
+msgid "Use a security key"
+msgstr "セキュリティキー"
 
 #: account/admin.py:23
 msgid "Mark selected email addresses as verified"
@@ -106,12 +108,12 @@ msgstr "確認済みにするメールアドレスを選択"
 msgid "Accounts"
 msgstr "アカウント"
 
-#: account/forms.py:56 account/forms.py:481
+#: account/forms.py:56 account/forms.py:479
 msgid "You must type the same password each time."
 msgstr "同じパスワードを入力してください。"
 
-#: account/forms.py:91 account/forms.py:411 account/forms.py:562
-#: account/forms.py:676
+#: account/forms.py:91 account/forms.py:409 account/forms.py:560
+#: account/forms.py:674
 msgid "Password"
 msgstr "パスワード"
 
@@ -119,13 +121,13 @@ msgstr "パスワード"
 msgid "Remember Me"
 msgstr "ログインしたままにする"
 
-#: account/forms.py:102 account/forms.py:269 account/forms.py:497
-#: account/forms.py:580 account/forms.py:693
+#: account/forms.py:102 account/forms.py:269 account/forms.py:495
+#: account/forms.py:578 account/forms.py:691
 msgid "Email address"
 msgstr "メールアドレス"
 
-#: account/forms.py:106 account/forms.py:307 account/forms.py:494
-#: account/forms.py:575
+#: account/forms.py:106 account/forms.py:307 account/forms.py:492
+#: account/forms.py:573
 msgid "Email"
 msgstr "メールアドレス"
 
@@ -163,23 +165,23 @@ msgstr "メールアドレス (オプション)"
 msgid "You must type the same email each time."
 msgstr "同じパスワードを入力してください。"
 
-#: account/forms.py:417 account/forms.py:563
+#: account/forms.py:415 account/forms.py:561
 msgid "Password (again)"
 msgstr "パスワード (再入力)"
 
-#: account/forms.py:543
+#: account/forms.py:541
 msgid "Current Password"
 msgstr "現在のパスワード"
 
-#: account/forms.py:545 account/forms.py:629
+#: account/forms.py:543 account/forms.py:627
 msgid "New Password"
 msgstr "新しいパスワード"
 
-#: account/forms.py:546 account/forms.py:630
+#: account/forms.py:544 account/forms.py:628
 msgid "New Password (again)"
 msgstr "新しいパスワード (再入力)"
 
-#: account/forms.py:716 account/forms.py:718 mfa/base/forms.py:15
+#: account/forms.py:714 account/forms.py:716 mfa/base/forms.py:15
 #: mfa/base/forms.py:17 mfa/totp/forms.py:13
 msgid "Code"
 msgstr "コード"
@@ -290,10 +292,14 @@ msgid "Passwordless"
 msgstr "パスワードレス"
 
 #: mfa/webauthn/forms.py:19
+#, fuzzy
+#| msgid ""
+#| "Enabling passwordless operation allows you to sign in using just this key/"
+#| "device, but imposes additional requirements such as biometrics or PIN "
+#| "protection."
 msgid ""
-"Enabling passwordless operation allows you to sign in using just this key/"
-"device, but imposes additional requirements such as biometrics or PIN "
-"protection."
+"Enabling passwordless operation allows you to sign in using just this key, "
+"but imposes additional requirements such as biometrics or PIN protection."
 msgstr ""
 "パスワードレス機能を有効化すると、このキー/デバイスを使用してログイン可能にな"
 "ります。その代わりに生態認証や PIN コードなどによる保護が必要になります。"
@@ -1186,17 +1192,21 @@ msgstr "無効化する"
 msgid "Activate"
 msgstr "有効化する"
 
-#: templates/mfa/index.html:45 templates/mfa/webauthn/base.html:4
+#: templates/mfa/index.html:45 templates/mfa/webauthn/authenticator_list.html:8
+#: templates/mfa/webauthn/base.html:4
 msgid "Security Keys"
 msgstr "セキュリティキー"
 
 #: templates/mfa/index.html:50
-#, python-format
-msgid "You have added %(count)s security key/device."
-msgid_plural "You have added %(count)s security keys/devices."
+#, fuzzy, python-format
+#| msgid "You have added %(count)s security key/device."
+#| msgid_plural "You have added %(count)s security keys/devices."
+msgid "You have added %(count)s security key."
+msgid_plural "You have added %(count)s security keys."
 msgstr[0] "%(count)s 個のセキュリティキー/デバイスを登録しました。"
 
 #: templates/mfa/index.html:53
+#: templates/mfa/webauthn/authenticator_list.html:11
 msgid "No security keys have been added."
 msgstr "登録されているセキュリティキーはありません。"
 
@@ -1204,7 +1214,7 @@ msgstr "登録されているセキュリティキーはありません。"
 msgid "Manage"
 msgstr "管理"
 
-#: templates/mfa/index.html:65
+#: templates/mfa/index.html:65 templates/mfa/webauthn/add_form.html:18
 #: templates/mfa/webauthn/authenticator_list.html:68
 msgid "Add"
 msgstr "登録"
@@ -1318,28 +1328,20 @@ msgid ""
 msgstr "認証アプリによる認証を無効化しようとしています。本当によろしいですか?"
 
 #: templates/mfa/webauthn/add_form.html:7
-msgid "Add Security Key or Device"
-msgstr "セキュリティキー/デバイスの登録"
-
-#: templates/mfa/webauthn/add_form.html:18
-msgid "Add key or device"
-msgstr "キー/デバイスを登録"
+#, fuzzy
+#| msgid "Security Keys"
+msgid "Add Security Key"
+msgstr "セキュリティキー"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:6
-msgid "Remove Security Key or Device"
+#, fuzzy
+#| msgid "Remove Security Key or Device"
+msgid "Remove Security Key"
 msgstr "セキュリティキー/デバイスの解除"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:8
 msgid "Are you sure you want to remove this security key?"
 msgstr "セキュリティキーを解除しますか?"
-
-#: templates/mfa/webauthn/authenticator_list.html:8
-msgid "Security Keys and Devices"
-msgstr "セキュリティキー/デバイス"
-
-#: templates/mfa/webauthn/authenticator_list.html:11
-msgid "You have not added any security keys/devices."
-msgstr "登録されたセキュリティキー/デバイスはありません。"
 
 #: templates/mfa/webauthn/authenticator_list.html:19
 msgid "Usage"
@@ -1354,7 +1356,9 @@ msgid "Security key"
 msgstr "セキュリティキー"
 
 #: templates/mfa/webauthn/authenticator_list.html:38
-msgid "This key does not specify whether is a passkey."
+#, fuzzy
+#| msgid "This key does not specify whether is a passkey."
+msgid "This key does not indicate whether it is a passkey."
 msgstr "このキーはパスキーかどうか記載されていません。"
 
 #: templates/mfa/webauthn/authenticator_list.html:39
@@ -1376,8 +1380,10 @@ msgid "Edit"
 msgstr "編集"
 
 #: templates/mfa/webauthn/edit_form.html:7
-msgid "Edit Security Key or Device"
-msgstr "セキュリティキー/デバイスの編集"
+#, fuzzy
+#| msgid "Security Keys"
+msgid "Edit Security Key"
+msgstr "セキュリティキー"
 
 #: templates/mfa/webauthn/edit_form.html:18
 msgid "Save"
@@ -1534,6 +1540,24 @@ msgstr "ユーザーセッション"
 #: usersessions/models.py:58
 msgid "session key"
 msgstr "セッションキー"
+
+#~ msgid "Use security key or device"
+#~ msgstr "セキュリティキー/デバイスを使用"
+
+#~ msgid "Add Security Key or Device"
+#~ msgstr "セキュリティキー/デバイスの登録"
+
+#~ msgid "Add key or device"
+#~ msgstr "キー/デバイスを登録"
+
+#~ msgid "Security Keys and Devices"
+#~ msgstr "セキュリティキー/デバイス"
+
+#~ msgid "You have not added any security keys/devices."
+#~ msgstr "登録されたセキュリティキー/デバイスはありません。"
+
+#~ msgid "Edit Security Key or Device"
+#~ msgstr "セキュリティキー/デバイスの編集"
 
 #, python-brace-format
 #~ msgid "Password must be a minimum of {0} characters."

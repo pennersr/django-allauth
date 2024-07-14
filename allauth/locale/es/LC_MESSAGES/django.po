@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.61.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-06 06:50-0500\n"
+"POT-Creation-Date: 2024-07-14 14:14-0500\n"
 "PO-Revision-Date: 2024-07-01 15:09+0000\n"
 "Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/allauth/django-"
@@ -98,8 +98,10 @@ msgstr "Utiliza la aplicación o el código de autenticación"
 
 #: account/adapter.py:755 templates/mfa/authenticate.html:36
 #: templates/mfa/webauthn/reauthenticate.html:15
-msgid "Use security key or device"
-msgstr "Usar clave o dispositivo de seguridad"
+#, fuzzy
+#| msgid "Security key"
+msgid "Use a security key"
+msgstr "Clave de seguridad"
 
 #: account/admin.py:23
 msgid "Mark selected email addresses as verified"
@@ -110,12 +112,12 @@ msgstr ""
 msgid "Accounts"
 msgstr "Cuentas"
 
-#: account/forms.py:56 account/forms.py:481
+#: account/forms.py:56 account/forms.py:479
 msgid "You must type the same password each time."
 msgstr "Debe escribir la misma contraseña cada vez."
 
-#: account/forms.py:91 account/forms.py:411 account/forms.py:562
-#: account/forms.py:676
+#: account/forms.py:91 account/forms.py:409 account/forms.py:560
+#: account/forms.py:674
 msgid "Password"
 msgstr "Contraseña"
 
@@ -123,13 +125,13 @@ msgstr "Contraseña"
 msgid "Remember Me"
 msgstr "Recordarme"
 
-#: account/forms.py:102 account/forms.py:269 account/forms.py:497
-#: account/forms.py:580 account/forms.py:693
+#: account/forms.py:102 account/forms.py:269 account/forms.py:495
+#: account/forms.py:578 account/forms.py:691
 msgid "Email address"
 msgstr "Dirección de correo electrónico"
 
-#: account/forms.py:106 account/forms.py:307 account/forms.py:494
-#: account/forms.py:575
+#: account/forms.py:106 account/forms.py:307 account/forms.py:492
+#: account/forms.py:573
 msgid "Email"
 msgstr "Correo electrónico"
 
@@ -167,23 +169,23 @@ msgstr "Correo electrónico (opcional)"
 msgid "You must type the same email each time."
 msgstr "Debe escribir el mismo correo electrónico cada vez."
 
-#: account/forms.py:417 account/forms.py:563
+#: account/forms.py:415 account/forms.py:561
 msgid "Password (again)"
 msgstr "Contraseña (de nuevo)"
 
-#: account/forms.py:543
+#: account/forms.py:541
 msgid "Current Password"
 msgstr "Contraseña actual"
 
-#: account/forms.py:545 account/forms.py:629
+#: account/forms.py:543 account/forms.py:627
 msgid "New Password"
 msgstr "Nueva contraseña"
 
-#: account/forms.py:546 account/forms.py:630
+#: account/forms.py:544 account/forms.py:628
 msgid "New Password (again)"
 msgstr "Nueva contraseña (de nuevo)"
 
-#: account/forms.py:716 account/forms.py:718 mfa/base/forms.py:15
+#: account/forms.py:714 account/forms.py:716 mfa/base/forms.py:15
 #: mfa/base/forms.py:17 mfa/totp/forms.py:13
 msgid "Code"
 msgstr "Código"
@@ -298,10 +300,14 @@ msgid "Passwordless"
 msgstr "Passwordless"
 
 #: mfa/webauthn/forms.py:19
+#, fuzzy
+#| msgid ""
+#| "Enabling passwordless operation allows you to sign in using just this key/"
+#| "device, but imposes additional requirements such as biometrics or PIN "
+#| "protection."
 msgid ""
-"Enabling passwordless operation allows you to sign in using just this key/"
-"device, but imposes additional requirements such as biometrics or PIN "
-"protection."
+"Enabling passwordless operation allows you to sign in using just this key, "
+"but imposes additional requirements such as biometrics or PIN protection."
 msgstr ""
 "Habilitar la operación sin contraseña le permite iniciar sesión usando solo "
 "esta clave/dispositivo, pero impone requisitos adicionales como biometría o "
@@ -1209,18 +1215,22 @@ msgstr "Desactivar"
 msgid "Activate"
 msgstr "Activar"
 
-#: templates/mfa/index.html:45 templates/mfa/webauthn/base.html:4
+#: templates/mfa/index.html:45 templates/mfa/webauthn/authenticator_list.html:8
+#: templates/mfa/webauthn/base.html:4
 msgid "Security Keys"
 msgstr "Claves de seguridad"
 
 #: templates/mfa/index.html:50
-#, python-format
-msgid "You have added %(count)s security key/device."
-msgid_plural "You have added %(count)s security keys/devices."
+#, fuzzy, python-format
+#| msgid "You have added %(count)s security key/device."
+#| msgid_plural "You have added %(count)s security keys/devices."
+msgid "You have added %(count)s security key."
+msgid_plural "You have added %(count)s security keys."
 msgstr[0] "Has añadido %(count)s clave/dispositivo de seguridad."
 msgstr[1] "Has añadido %(count)s claves/dispositivos de seguridad."
 
 #: templates/mfa/index.html:53
+#: templates/mfa/webauthn/authenticator_list.html:11
 msgid "No security keys have been added."
 msgstr "No se han agregado claves de seguridad."
 
@@ -1228,7 +1238,7 @@ msgstr "No se han agregado claves de seguridad."
 msgid "Manage"
 msgstr "Administrar"
 
-#: templates/mfa/index.html:65
+#: templates/mfa/index.html:65 templates/mfa/webauthn/add_form.html:18
 #: templates/mfa/webauthn/authenticator_list.html:68
 msgid "Add"
 msgstr "Añadir"
@@ -1349,28 +1359,20 @@ msgstr ""
 "autenticación. ¿Está seguro?"
 
 #: templates/mfa/webauthn/add_form.html:7
-msgid "Add Security Key or Device"
-msgstr "Agregar clave de seguridad o dispositivo"
-
-#: templates/mfa/webauthn/add_form.html:18
-msgid "Add key or device"
-msgstr "Agregar clave o dispositivo"
+#, fuzzy
+#| msgid "Security Keys"
+msgid "Add Security Key"
+msgstr "Claves de seguridad"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:6
-msgid "Remove Security Key or Device"
+#, fuzzy
+#| msgid "Remove Security Key or Device"
+msgid "Remove Security Key"
 msgstr "Eliminar clave de seguridad o dispositivo"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:8
 msgid "Are you sure you want to remove this security key?"
 msgstr "¿Estás seguro de que deseas eliminar esta clave de seguridad?"
-
-#: templates/mfa/webauthn/authenticator_list.html:8
-msgid "Security Keys and Devices"
-msgstr "Dispositivos y claves de seguridad"
-
-#: templates/mfa/webauthn/authenticator_list.html:11
-msgid "You have not added any security keys/devices."
-msgstr "No ha agregado ninguna clave/dispositivo de seguridad."
 
 #: templates/mfa/webauthn/authenticator_list.html:19
 msgid "Usage"
@@ -1385,7 +1387,9 @@ msgid "Security key"
 msgstr "Clave de seguridad"
 
 #: templates/mfa/webauthn/authenticator_list.html:38
-msgid "This key does not specify whether is a passkey."
+#, fuzzy
+#| msgid "This key does not specify whether is a passkey."
+msgid "This key does not indicate whether it is a passkey."
 msgstr "Esta clave no especifica si es un passkey."
 
 #: templates/mfa/webauthn/authenticator_list.html:39
@@ -1407,8 +1411,10 @@ msgid "Edit"
 msgstr "Editar"
 
 #: templates/mfa/webauthn/edit_form.html:7
-msgid "Edit Security Key or Device"
-msgstr "Editar clave o dispositivo de seguridad"
+#, fuzzy
+#| msgid "Security Keys"
+msgid "Edit Security Key"
+msgstr "Claves de seguridad"
 
 #: templates/mfa/webauthn/edit_form.html:18
 msgid "Save"
@@ -1572,6 +1578,24 @@ msgstr "Sesiones de usuario"
 #: usersessions/models.py:58
 msgid "session key"
 msgstr "clave de sesión"
+
+#~ msgid "Use security key or device"
+#~ msgstr "Usar clave o dispositivo de seguridad"
+
+#~ msgid "Add Security Key or Device"
+#~ msgstr "Agregar clave de seguridad o dispositivo"
+
+#~ msgid "Add key or device"
+#~ msgstr "Agregar clave o dispositivo"
+
+#~ msgid "Security Keys and Devices"
+#~ msgstr "Dispositivos y claves de seguridad"
+
+#~ msgid "You have not added any security keys/devices."
+#~ msgstr "No ha agregado ninguna clave/dispositivo de seguridad."
+
+#~ msgid "Edit Security Key or Device"
+#~ msgstr "Editar clave o dispositivo de seguridad"
 
 #, python-brace-format
 #~ msgid "Password must be a minimum of {0} characters."

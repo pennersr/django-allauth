@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-06 06:50-0500\n"
+"POT-Creation-Date: 2024-07-14 14:14-0500\n"
 "PO-Revision-Date: 2024-04-20 21:50+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -105,8 +105,10 @@ msgstr "시크릿 토큰"
 
 #: account/adapter.py:755 templates/mfa/authenticate.html:36
 #: templates/mfa/webauthn/reauthenticate.html:15
-msgid "Use security key or device"
-msgstr ""
+#, fuzzy
+#| msgid "secret key"
+msgid "Use a security key"
+msgstr "비밀 키"
 
 #: account/admin.py:23
 #, fuzzy
@@ -118,12 +120,12 @@ msgstr "주 이메일은 인증이 필요합니다."
 msgid "Accounts"
 msgstr "계정"
 
-#: account/forms.py:56 account/forms.py:481
+#: account/forms.py:56 account/forms.py:479
 msgid "You must type the same password each time."
 msgstr "동일한 비밀번호를 입력해야 합니다."
 
-#: account/forms.py:91 account/forms.py:411 account/forms.py:562
-#: account/forms.py:676
+#: account/forms.py:91 account/forms.py:409 account/forms.py:560
+#: account/forms.py:674
 msgid "Password"
 msgstr "비밀번호"
 
@@ -131,13 +133,13 @@ msgstr "비밀번호"
 msgid "Remember Me"
 msgstr "아이디 저장"
 
-#: account/forms.py:102 account/forms.py:269 account/forms.py:497
-#: account/forms.py:580 account/forms.py:693
+#: account/forms.py:102 account/forms.py:269 account/forms.py:495
+#: account/forms.py:578 account/forms.py:691
 msgid "Email address"
 msgstr "이메일 주소"
 
-#: account/forms.py:106 account/forms.py:307 account/forms.py:494
-#: account/forms.py:575
+#: account/forms.py:106 account/forms.py:307 account/forms.py:492
+#: account/forms.py:573
 msgid "Email"
 msgstr "이메일"
 
@@ -177,23 +179,23 @@ msgstr "이메일 (선택사항)"
 msgid "You must type the same email each time."
 msgstr "동일한 이메일을 입력해야 합니다."
 
-#: account/forms.py:417 account/forms.py:563
+#: account/forms.py:415 account/forms.py:561
 msgid "Password (again)"
 msgstr "비밀번호 (확인)"
 
-#: account/forms.py:543
+#: account/forms.py:541
 msgid "Current Password"
 msgstr "현재 비밀번호"
 
-#: account/forms.py:545 account/forms.py:629
+#: account/forms.py:543 account/forms.py:627
 msgid "New Password"
 msgstr "새 비밀번호"
 
-#: account/forms.py:546 account/forms.py:630
+#: account/forms.py:544 account/forms.py:628
 msgid "New Password (again)"
 msgstr "새 비밀번호 (확인)"
 
-#: account/forms.py:716 account/forms.py:718 mfa/base/forms.py:15
+#: account/forms.py:714 account/forms.py:716 mfa/base/forms.py:15
 #: mfa/base/forms.py:17 mfa/totp/forms.py:13
 msgid "Code"
 msgstr ""
@@ -307,9 +309,8 @@ msgstr "비밀번호"
 
 #: mfa/webauthn/forms.py:19
 msgid ""
-"Enabling passwordless operation allows you to sign in using just this key/"
-"device, but imposes additional requirements such as biometrics or PIN "
-"protection."
+"Enabling passwordless operation allows you to sign in using just this key, "
+"but imposes additional requirements such as biometrics or PIN protection."
 msgstr ""
 
 #: socialaccount/adapter.py:36
@@ -1262,17 +1263,19 @@ msgstr ""
 msgid "Activate"
 msgstr ""
 
-#: templates/mfa/index.html:45 templates/mfa/webauthn/base.html:4
+#: templates/mfa/index.html:45 templates/mfa/webauthn/authenticator_list.html:8
+#: templates/mfa/webauthn/base.html:4
 msgid "Security Keys"
 msgstr ""
 
 #: templates/mfa/index.html:50
 #, python-format
-msgid "You have added %(count)s security key/device."
-msgid_plural "You have added %(count)s security keys/devices."
+msgid "You have added %(count)s security key."
+msgid_plural "You have added %(count)s security keys."
 msgstr[0] ""
 
 #: templates/mfa/index.html:53
+#: templates/mfa/webauthn/authenticator_list.html:11
 msgid "No security keys have been added."
 msgstr ""
 
@@ -1280,7 +1283,7 @@ msgstr ""
 msgid "Manage"
 msgstr ""
 
-#: templates/mfa/index.html:65
+#: templates/mfa/index.html:65 templates/mfa/webauthn/add_form.html:18
 #: templates/mfa/webauthn/authenticator_list.html:68
 msgid "Add"
 msgstr ""
@@ -1393,30 +1396,22 @@ msgid ""
 msgstr ""
 
 #: templates/mfa/webauthn/add_form.html:7
-msgid "Add Security Key or Device"
-msgstr ""
-
-#: templates/mfa/webauthn/add_form.html:18
-msgid "Add key or device"
-msgstr ""
+#, fuzzy
+#| msgid "secret key"
+msgid "Add Security Key"
+msgstr "비밀 키"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:6
-msgid "Remove Security Key or Device"
-msgstr ""
+#, fuzzy
+#| msgid "secret key"
+msgid "Remove Security Key"
+msgstr "비밀 키"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:8
 #, fuzzy
 #| msgid "Are you sure you want to sign out?"
 msgid "Are you sure you want to remove this security key?"
 msgstr "정말로 로그아웃 하시겠습니까?"
-
-#: templates/mfa/webauthn/authenticator_list.html:8
-msgid "Security Keys and Devices"
-msgstr ""
-
-#: templates/mfa/webauthn/authenticator_list.html:11
-msgid "You have not added any security keys/devices."
-msgstr ""
 
 #: templates/mfa/webauthn/authenticator_list.html:19
 msgid "Usage"
@@ -1433,7 +1428,7 @@ msgid "Security key"
 msgstr "비밀 키"
 
 #: templates/mfa/webauthn/authenticator_list.html:38
-msgid "This key does not specify whether is a passkey."
+msgid "This key does not indicate whether it is a passkey."
 msgstr ""
 
 #: templates/mfa/webauthn/authenticator_list.html:39
@@ -1457,8 +1452,10 @@ msgid "Edit"
 msgstr ""
 
 #: templates/mfa/webauthn/edit_form.html:7
-msgid "Edit Security Key or Device"
-msgstr ""
+#, fuzzy
+#| msgid "secret key"
+msgid "Edit Security Key"
+msgstr "비밀 키"
 
 #: templates/mfa/webauthn/edit_form.html:18
 msgid "Save"

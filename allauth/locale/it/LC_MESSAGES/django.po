@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-06 06:50-0500\n"
+"POT-Creation-Date: 2024-07-14 14:14-0500\n"
 "PO-Revision-Date: 2024-04-20 21:29+0200\n"
 "Last-Translator: Sandro <sandro@e-den.it>\n"
 "Language: it\n"
@@ -102,8 +102,10 @@ msgstr "Usa la tua app di autenticazione"
 
 #: account/adapter.py:755 templates/mfa/authenticate.html:36
 #: templates/mfa/webauthn/reauthenticate.html:15
-msgid "Use security key or device"
-msgstr ""
+#, fuzzy
+#| msgid "secret key"
+msgid "Use a security key"
+msgstr "secret key"
 
 #: account/admin.py:23
 msgid "Mark selected email addresses as verified"
@@ -113,12 +115,12 @@ msgstr "Contrassegna gli indirizzi email selezionati come verificati."
 msgid "Accounts"
 msgstr "Account"
 
-#: account/forms.py:56 account/forms.py:481
+#: account/forms.py:56 account/forms.py:479
 msgid "You must type the same password each time."
 msgstr "Devi digitare la stessa password."
 
-#: account/forms.py:91 account/forms.py:411 account/forms.py:562
-#: account/forms.py:676
+#: account/forms.py:91 account/forms.py:409 account/forms.py:560
+#: account/forms.py:674
 msgid "Password"
 msgstr "Password"
 
@@ -126,13 +128,13 @@ msgstr "Password"
 msgid "Remember Me"
 msgstr "Ricordami"
 
-#: account/forms.py:102 account/forms.py:269 account/forms.py:497
-#: account/forms.py:580 account/forms.py:693
+#: account/forms.py:102 account/forms.py:269 account/forms.py:495
+#: account/forms.py:578 account/forms.py:691
 msgid "Email address"
 msgstr "Indirizzo email"
 
-#: account/forms.py:106 account/forms.py:307 account/forms.py:494
-#: account/forms.py:575
+#: account/forms.py:106 account/forms.py:307 account/forms.py:492
+#: account/forms.py:573
 msgid "Email"
 msgstr "email"
 
@@ -170,23 +172,23 @@ msgstr "email (opzionale)"
 msgid "You must type the same email each time."
 msgstr "Devi digitare la stessa password ogni volta."
 
-#: account/forms.py:417 account/forms.py:563
+#: account/forms.py:415 account/forms.py:561
 msgid "Password (again)"
 msgstr "Password (nuovamente)"
 
-#: account/forms.py:543
+#: account/forms.py:541
 msgid "Current Password"
 msgstr "Password attuale"
 
-#: account/forms.py:545 account/forms.py:629
+#: account/forms.py:543 account/forms.py:627
 msgid "New Password"
 msgstr "Nuova password"
 
-#: account/forms.py:546 account/forms.py:630
+#: account/forms.py:544 account/forms.py:628
 msgid "New Password (again)"
 msgstr "Nuova password (nuovamente)"
 
-#: account/forms.py:716 account/forms.py:718 mfa/base/forms.py:15
+#: account/forms.py:714 account/forms.py:716 mfa/base/forms.py:15
 #: mfa/base/forms.py:17 mfa/totp/forms.py:13
 msgid "Code"
 msgstr "Codice"
@@ -306,9 +308,8 @@ msgstr "Password"
 
 #: mfa/webauthn/forms.py:19
 msgid ""
-"Enabling passwordless operation allows you to sign in using just this key/"
-"device, but imposes additional requirements such as biometrics or PIN "
-"protection."
+"Enabling passwordless operation allows you to sign in using just this key, "
+"but imposes additional requirements such as biometrics or PIN protection."
 msgstr ""
 
 #: socialaccount/adapter.py:36
@@ -1211,18 +1212,20 @@ msgstr "Disattiva"
 msgid "Activate"
 msgstr "Attiva"
 
-#: templates/mfa/index.html:45 templates/mfa/webauthn/base.html:4
+#: templates/mfa/index.html:45 templates/mfa/webauthn/authenticator_list.html:8
+#: templates/mfa/webauthn/base.html:4
 msgid "Security Keys"
 msgstr ""
 
 #: templates/mfa/index.html:50
 #, python-format
-msgid "You have added %(count)s security key/device."
-msgid_plural "You have added %(count)s security keys/devices."
+msgid "You have added %(count)s security key."
+msgid_plural "You have added %(count)s security keys."
 msgstr[0] ""
 msgstr[1] ""
 
 #: templates/mfa/index.html:53
+#: templates/mfa/webauthn/authenticator_list.html:11
 msgid "No security keys have been added."
 msgstr ""
 
@@ -1230,7 +1233,7 @@ msgstr ""
 msgid "Manage"
 msgstr ""
 
-#: templates/mfa/index.html:65
+#: templates/mfa/index.html:65 templates/mfa/webauthn/add_form.html:18
 #: templates/mfa/webauthn/authenticator_list.html:68
 msgid "Add"
 msgstr ""
@@ -1353,30 +1356,22 @@ msgstr ""
 "autenticazione. Sei sicuro?"
 
 #: templates/mfa/webauthn/add_form.html:7
-msgid "Add Security Key or Device"
-msgstr ""
-
-#: templates/mfa/webauthn/add_form.html:18
-msgid "Add key or device"
-msgstr ""
+#, fuzzy
+#| msgid "secret key"
+msgid "Add Security Key"
+msgstr "secret key"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:6
-msgid "Remove Security Key or Device"
-msgstr ""
+#, fuzzy
+#| msgid "secret key"
+msgid "Remove Security Key"
+msgstr "secret key"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:8
 #, fuzzy
 #| msgid "Are you sure you want to sign out?"
 msgid "Are you sure you want to remove this security key?"
 msgstr "Sei sicuro di volerti disconnettere?"
-
-#: templates/mfa/webauthn/authenticator_list.html:8
-msgid "Security Keys and Devices"
-msgstr ""
-
-#: templates/mfa/webauthn/authenticator_list.html:11
-msgid "You have not added any security keys/devices."
-msgstr ""
 
 #: templates/mfa/webauthn/authenticator_list.html:19
 msgid "Usage"
@@ -1393,7 +1388,7 @@ msgid "Security key"
 msgstr "secret key"
 
 #: templates/mfa/webauthn/authenticator_list.html:38
-msgid "This key does not specify whether is a passkey."
+msgid "This key does not indicate whether it is a passkey."
 msgstr ""
 
 #: templates/mfa/webauthn/authenticator_list.html:39
@@ -1417,8 +1412,10 @@ msgid "Edit"
 msgstr ""
 
 #: templates/mfa/webauthn/edit_form.html:7
-msgid "Edit Security Key or Device"
-msgstr ""
+#, fuzzy
+#| msgid "secret key"
+msgid "Edit Security Key"
+msgstr "secret key"
 
 #: templates/mfa/webauthn/edit_form.html:18
 msgid "Save"

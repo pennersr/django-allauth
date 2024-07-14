@@ -11,26 +11,24 @@ msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-06 06:50-0500\n"
-"PO-Revision-Date: 2024-04-20 21:42+0200\n"
-"Last-Translator: Gilou <contact+dev@gilouweb.com>\n"
-"Language-Team: français <>\n"
+"PO-Revision-Date: 2024-07-11 16:09+0000\n"
+"Last-Translator: Laurent FAVOLE <laurentfavole03@gmail.com>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/allauth/"
+"django-allauth/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.4.2\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.7-dev\n"
 
 #: account/adapter.py:58
 msgid "This account is currently inactive."
 msgstr "Ce compte est actuellement désactivé."
 
 #: account/adapter.py:60
-#, fuzzy
-#| msgid "You cannot remove your primary email address (%(email)s)."
 msgid "You cannot remove your primary email address."
-msgstr ""
-"Vous ne pouvez pas retirer votre adresse e-mail principale (%(email)s)."
+msgstr "Vous ne pouvez pas retirer votre adresse e-mail principale."
 
 #: account/adapter.py:63
 msgid "This email address is already associated with this account."
@@ -57,10 +55,8 @@ msgid "Incorrect password."
 msgstr "Mot de passe incorrect."
 
 #: account/adapter.py:72
-#, fuzzy
-#| msgid "Bad Token"
 msgid "Invalid or expired key."
-msgstr "Mauvais jeton d'identification"
+msgstr "Clé invalide ou expirée."
 
 #: account/adapter.py:73
 msgid "The password reset token was invalid."
@@ -101,12 +97,13 @@ msgstr "Utilisez votre mot de passe"
 #, fuzzy
 #| msgid "Use your authenticator app"
 msgid "Use authenticator app or code"
-msgstr "Utilisez votre application d'authentification"
+msgstr "Utilisez une application d'authentification ou un code"
 
 #: account/adapter.py:755 templates/mfa/authenticate.html:36
 #: templates/mfa/webauthn/reauthenticate.html:15
+#, fuzzy
 msgid "Use security key or device"
-msgstr ""
+msgstr "Utilisez votre clé de sécurité ou appareil"
 
 #: account/admin.py:23
 msgid "Mark selected email addresses as verified"
@@ -204,7 +201,7 @@ msgstr "adresse e-mail"
 
 #: account/models.py:32
 msgid "verified"
-msgstr "vérifié"
+msgstr "vérifiée"
 
 #: account/models.py:33
 msgid "primary"
@@ -236,7 +233,7 @@ msgstr "confirmations par e-mail"
 
 #: headless/apps.py:7
 msgid "Headless"
-msgstr ""
+msgstr "Headless"
 
 #: mfa/adapter.py:32
 msgid ""
@@ -251,12 +248,12 @@ msgid "You cannot deactivate two-factor authentication."
 msgstr "Vous ne pouvez pas désactiver l'authentification à deux facteurs."
 
 #: mfa/adapter.py:38
-#, fuzzy
-#| msgid "You cannot deactivate two-factor authentication."
 msgid ""
 "You cannot generate recovery codes without having two-factor authentication "
 "enabled."
-msgstr "Vous ne pouvez pas désactiver l'authentification à deux facteurs."
+msgstr ""
+"Vous ne pouvez pas générer de codes de récupération sans avoir activé "
+"l'authentification à deux facteurs."
 
 #: mfa/adapter.py:42
 msgid ""
@@ -270,16 +267,17 @@ msgstr ""
 #, fuzzy
 #| msgid "secret key"
 msgid "Master key"
-msgstr "clé secrète"
+msgstr "Clé principale"
 
 #: mfa/adapter.py:143
+#, fuzzy
 msgid "Backup key"
-msgstr ""
+msgstr "Clé de secours"
 
 #: mfa/adapter.py:144
 #, python-brace-format
 msgid "Key nr. {number}"
-msgstr ""
+msgstr "Clé n°{number}"
 
 #: mfa/apps.py:9
 msgid "MFA"
@@ -294,8 +292,9 @@ msgid "TOTP Authenticator"
 msgstr "Authentificateur TOTP"
 
 #: mfa/models.py:26
+#, fuzzy
 msgid "WebAuthn"
-msgstr ""
+msgstr "WebAuthn"
 
 #: mfa/totp/forms.py:11
 msgid "Authenticator code"
@@ -308,11 +307,15 @@ msgid "Passwordless"
 msgstr "Mot de passe"
 
 #: mfa/webauthn/forms.py:19
+#, fuzzy
 msgid ""
 "Enabling passwordless operation allows you to sign in using just this key/"
 "device, but imposes additional requirements such as biometrics or PIN "
 "protection."
 msgstr ""
+"L'activation des opérations sans mot de passe vous permet de vous connecter "
+"en utilisant seulement cette clé/appareil, mais demande des exigences plus "
+"élevées comme les informations biométriques ou un code PIN."
 
 #: socialaccount/adapter.py:36
 #, python-format
@@ -324,10 +327,8 @@ msgstr ""
 "préalable avec ce compte, et ensuite connecter votre compte %s."
 
 #: socialaccount/adapter.py:40
-#, fuzzy
-#| msgid "Bad Token"
 msgid "Invalid token."
-msgstr "Mauvais jeton d'identification"
+msgstr "Mauvais jeton d'identification."
 
 #: socialaccount/adapter.py:41
 msgid "Your account has no password set up."
@@ -343,9 +344,7 @@ msgstr "Vous devez d'abord associer une adresse e-mail à votre compte."
 #| "You can sign in to your account using any of the following third-party "
 #| "accounts:"
 msgid "You cannot disconnect your last remaining third-party account."
-msgstr ""
-"Vous pouvez vous connecter à votre compte en utilisant l'un des comptes "
-"tiers suivants :"
+msgstr "Vous ne pouvez pas déconnecter votre dernier compte tiers restant."
 
 #: socialaccount/adapter.py:47
 #: templates/socialaccount/messages/account_connected_other.txt:2
@@ -535,14 +534,16 @@ msgstr "Connexion"
 
 #: templates/account/confirm_login_code.html:9
 msgid "Enter Sign-In Code"
-msgstr ""
+msgstr "Entrez le code de connexion"
 
 #: templates/account/confirm_login_code.html:15
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "We’ve sent a code to %(email_link)s. The code expires shortly, so please "
 "enter it soon."
 msgstr ""
+"Nous avons envoyé un code à %(email_link)s. Ce code expire rapidement, donc "
+"veuillez l'entrer rapidement."
 
 #: templates/account/confirm_login_code.html:34
 #: templates/account/request_login_code.html:31
@@ -716,15 +717,19 @@ msgid "Email Removed"
 msgstr "E-mail retiré"
 
 #: templates/account/email/login_code_message.txt:5
+#, fuzzy
 msgid ""
 "Your sign-in code is listed below. Please enter it in your open browser "
 "window."
 msgstr ""
+"Votre code de connexion est indiqué ci-dessous. Veuillez l'entrer dans votre "
+"navigateur."
 
 #: templates/account/email/login_code_message.txt:9
 #: templates/account/email/unknown_account_message.txt:6
+#, fuzzy
 msgid "This mail can be safely ignored if you did not initiate this action."
-msgstr ""
+msgstr "Cet email peut être ignoré si vous n'avez pas effectué cette action."
 
 #: templates/account/email/login_code_subject.txt:3
 #, fuzzy
@@ -784,16 +789,20 @@ msgid "Password Set"
 msgstr "Définition du mot de passe"
 
 #: templates/account/email/unknown_account_message.txt:4
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "You are receiving this email because you, or someone else, tried to access "
 "an account with email %(email)s. However, we do not have any record of such "
 "an account in our database."
 msgstr ""
+"Vous recevez cet email car vous, ou quelqu'un d'autre, a essayé d'accéder à "
+"un compte avec l'email %(email)s. Cependant, nous ne disposons pas de ce "
+"compte dans nos bases de données."
 
 #: templates/account/email/unknown_account_message.txt:8
 msgid "If it was you, you can sign up for an account using the link below."
 msgstr ""
+"Si c'était vous, vous pouvez vous inscrire en utilisant le lien ci-dessous."
 
 #: templates/account/email/unknown_account_subject.txt:3
 #, fuzzy
@@ -882,11 +891,11 @@ msgstr ""
 
 #: templates/account/login.html:42
 msgid "Sign in with a passkey"
-msgstr ""
+msgstr "Se connecter avec une clé d'accès"
 
 #: templates/account/login.html:47 templates/account/request_login_code.html:9
 msgid "Mail me a sign-in code"
-msgstr ""
+msgstr "M'envoyer un code de connexion"
 
 #: templates/account/logout.html:4 templates/account/logout.html:8
 #: templates/account/logout.html:21 templates/allauth/layouts/base.html:55
@@ -931,7 +940,7 @@ msgstr "Vous êtes déconnecté(e)."
 #: templates/account/messages/login_code_sent.txt:2
 #, python-format
 msgid "A sign-in code has been mailed to %(email)s."
-msgstr ""
+msgstr "Un code de connexion a été envoyé à %(email)s."
 
 #: templates/account/messages/password_changed.txt:2
 msgid "Password successfully changed."
@@ -985,9 +994,8 @@ msgid ""
 "spam folder. Otherwise contact us if you do not receive it in a few minutes."
 msgstr ""
 "Nous vous avons envoyé un e-mail. Si vous ne l'avez pas reçu, veuillez "
-"vérifier\n"
-"votre dossier de spam. Sinon, contactez-nous si vous ne le recevez pas dans\n"
-"quelques minutes."
+"vérifier votre dossier de spam. Sinon, contactez-nous si vous ne le recevez "
+"pas dans quelques minutes."
 
 #: templates/account/password_reset_from_key.html:10
 msgid "Bad Token"
@@ -1019,10 +1027,13 @@ msgid "Enter your password:"
 msgstr "Saisissez votre mot de passe :"
 
 #: templates/account/request_login_code.html:12
+#, fuzzy
 msgid ""
 "You will receive an email containing a special code for a password-free sign-"
 "in."
 msgstr ""
+"Vous recevrez un email avec un code spécial pour vous connecter sans mot de "
+"passe."
 
 #: templates/account/request_login_code.html:24
 #, fuzzy
@@ -1098,12 +1109,14 @@ msgstr ""
 "Merci de nous contacter si vous ne le recevez pas d'ici quelques minutes."
 
 #: templates/account/verified_email_required.html:13
+#, fuzzy
 msgid ""
 "This part of the site requires us to verify that\n"
 "you are who you claim to be. For this purpose, we require that you\n"
 "verify ownership of your email address. "
 msgstr ""
-"Pour accéder à cette partie du site, il faut d'abord que nous ayons vérifié "
+"Pour accéder à cette partie du site, il faut d'abord que\n"
+"nous ayons vérifié qui vous indiquez être. Pour cela, vous devez prouver\n"
 "que vous êtes bien le propriétaire de l'adresse e-mail que vous nous avez "
 "indiquée. "
 
@@ -1115,10 +1128,11 @@ msgid ""
 "Otherwise\n"
 "contact us if you do not receive it within a few minutes."
 msgstr ""
-"Nous vous avons envoyé un e-mail de vérification. Merci de cliquer sur le "
-"lien inclus dans ce courriel. Si vous ne voyez pas l'e-mail de vérification "
-"dans votre boîte de réception, vérifiez votre dossier spam. Contactez-nous "
-"si vous ne l'avez pas reçu d'ici quelques minutes."
+"Nous vous avons envoyé un e-mail de vérification.\n"
+"Merci de cliquer sur le lien inclus dans ce courriel. Si vous ne voyez pas "
+"l'e-mail de vérification dans votre boîte de réception, vérifiez votre "
+"dossier spam.\n"
+"Contactez-nous si vous ne l'avez pas reçu d'ici quelques minutes."
 
 #: templates/account/verified_email_required.html:23
 #, python-format
@@ -1193,7 +1207,7 @@ msgstr "Un nouveau jeu de codes de récupération a été généré."
 
 #: templates/mfa/email/webauthn_added_subject.txt:3
 msgid "Security Key Added"
-msgstr ""
+msgstr "Clé de sécurité ajoutée"
 
 #: templates/mfa/email/webauthn_removed_message.txt:4
 #, fuzzy
@@ -1202,8 +1216,9 @@ msgid "A security key has been removed."
 msgstr "Votre e-mail a été confirmé."
 
 #: templates/mfa/email/webauthn_removed_subject.txt:3
+#, fuzzy
 msgid "Security Key Removed"
-msgstr ""
+msgstr "Clé de sécurité retirée"
 
 #: templates/mfa/index.html:14 templates/mfa/totp/base.html:4
 msgid "Authenticator App"
@@ -1228,27 +1243,27 @@ msgstr "Activer"
 
 #: templates/mfa/index.html:45 templates/mfa/webauthn/base.html:4
 msgid "Security Keys"
-msgstr ""
+msgstr "Clés de sécurité"
 
 #: templates/mfa/index.html:50
-#, python-format
+#, fuzzy, python-format
 msgid "You have added %(count)s security key/device."
 msgid_plural "You have added %(count)s security keys/devices."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Vous avez ajouté %(count)s clé de sécurité/appareil."
+msgstr[1] "Vous avez ajouté %(count)s clé des sécurité/appareil."
 
 #: templates/mfa/index.html:53
 msgid "No security keys have been added."
-msgstr ""
+msgstr "Aucune clé de sécurité n'a été ajoutée."
 
 #: templates/mfa/index.html:60
 msgid "Manage"
-msgstr ""
+msgstr "Gérer"
 
 #: templates/mfa/index.html:65
 #: templates/mfa/webauthn/authenticator_list.html:68
 msgid "Add"
-msgstr ""
+msgstr "Ajouter"
 
 #: templates/mfa/index.html:75 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:6
@@ -1290,11 +1305,12 @@ msgstr "Un nouveau jeu de codes de récupération a été généré."
 
 #: templates/mfa/messages/webauthn_added.txt:2
 msgid "Security key added."
-msgstr ""
+msgstr "Clé de sécurité ajoutée."
 
 #: templates/mfa/messages/webauthn_removed.txt:2
+#, fuzzy
 msgid "Security key removed."
-msgstr ""
+msgstr "Clé de sécurité enlevée."
 
 #: templates/mfa/reauthenticate.html:6
 msgid "Enter an authenticator code:"
@@ -1367,16 +1383,18 @@ msgstr ""
 "l'application d'authentification. Êtes-vous sûr(e) ?"
 
 #: templates/mfa/webauthn/add_form.html:7
+#, fuzzy
 msgid "Add Security Key or Device"
-msgstr ""
+msgstr "Ajouter une clé de sécurité ou un appareil"
 
 #: templates/mfa/webauthn/add_form.html:18
 msgid "Add key or device"
-msgstr ""
+msgstr "Ajouter une clé ou un appareil"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:6
+#, fuzzy
 msgid "Remove Security Key or Device"
-msgstr ""
+msgstr "Enlever une clé de sécurité ou un appareil"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:8
 #, fuzzy
@@ -1385,20 +1403,22 @@ msgid "Are you sure you want to remove this security key?"
 msgstr "Êtes-vous sûr(e) de vouloir vous déconnecter ?"
 
 #: templates/mfa/webauthn/authenticator_list.html:8
+#, fuzzy
 msgid "Security Keys and Devices"
-msgstr ""
+msgstr "Clés de sécurité et appareils"
 
 #: templates/mfa/webauthn/authenticator_list.html:11
+#, fuzzy
 msgid "You have not added any security keys/devices."
-msgstr ""
+msgstr "Vous n'avez pas ajouté de clés de sécurité ou d'appareils."
 
 #: templates/mfa/webauthn/authenticator_list.html:19
 msgid "Usage"
-msgstr ""
+msgstr "Utilisation"
 
 #: templates/mfa/webauthn/authenticator_list.html:31
 msgid "Passkey"
-msgstr ""
+msgstr "Clé de sécurité"
 
 #: templates/mfa/webauthn/authenticator_list.html:35
 #, fuzzy
@@ -1407,40 +1427,41 @@ msgid "Security key"
 msgstr "clé secrète"
 
 #: templates/mfa/webauthn/authenticator_list.html:38
+#, fuzzy
 msgid "This key does not specify whether is a passkey."
-msgstr ""
+msgstr "Cette clé n'indique pas si c'est une clé de sécurité."
 
 #: templates/mfa/webauthn/authenticator_list.html:39
-#, fuzzy
-#| msgid "Unverified"
 msgid "Unspecified"
-msgstr "Non vérifiée"
+msgstr "Non spécifiée"
 
 #: templates/mfa/webauthn/authenticator_list.html:44
-#, python-format
+#, fuzzy, python-format
 msgid "Added on %(created_at)s"
-msgstr ""
+msgstr "Ajoutée à %(created_at)s"
 
 #: templates/mfa/webauthn/authenticator_list.html:46
 #, python-format
 msgid "Last used %(last_used)s"
-msgstr ""
+msgstr "Dernière utilisation à %(last_used)s"
 
 #: templates/mfa/webauthn/authenticator_list.html:54
 msgid "Edit"
-msgstr ""
+msgstr "Modifier"
 
 #: templates/mfa/webauthn/edit_form.html:7
+#, fuzzy
 msgid "Edit Security Key or Device"
-msgstr ""
+msgstr "Modifier la clé de sécurité ou l'appareil"
 
 #: templates/mfa/webauthn/edit_form.html:18
 msgid "Save"
-msgstr ""
+msgstr "Enregistrer"
 
 #: templates/mfa/webauthn/snippets/scripts.html:2
+#, fuzzy
 msgid "This functionality requires JavaScript."
-msgstr ""
+msgstr "Cette fonctionnalité nécessite JavaScript."
 
 #: templates/socialaccount/authentication_error.html:5
 #: templates/socialaccount/authentication_error.html:9
@@ -1554,9 +1575,9 @@ msgid ""
 "You are about to use your %(provider_name)s account to login to\n"
 "%(site_name)s. As a final step, please complete the following form:"
 msgstr ""
-"Vous êtes sur le point de vous connecter via votre compte %(provider_name)s "
+"Vous êtes sur le point de vous connecter via votre compte %(provider_name)s\n"
 "au site %(site_name)s. Merci de compléter le formulaire suivant pour "
-"confirmer la connexion :"
+"confirmer la connexion :"
 
 #: templates/socialaccount/snippets/login.html:10
 msgid "Or use a third-party"

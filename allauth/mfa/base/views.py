@@ -13,6 +13,7 @@ from allauth.mfa.models import Authenticator
 from allauth.mfa.stages import AuthenticateStage
 from allauth.mfa.utils import is_mfa_enabled
 from allauth.mfa.webauthn.forms import AuthenticateWebAuthnForm
+from allauth.mfa.webauthn.internal.flows import auth as webauthn_auth
 from allauth.utils import get_form_class
 
 
@@ -81,12 +82,11 @@ class AuthenticateView(TemplateView):
             }
         )
         if self.webauthn_form:
+            request_options = webauthn_auth.begin_authentication(self.stage.login.user)
             ret.update(
                 {
                     "webauthn_form": self.webauthn_form,
-                    "js_data": {
-                        "request_options": self.webauthn_form.authentication_data
-                    },
+                    "js_data": {"request_options": request_options},
                 }
             )
         return ret

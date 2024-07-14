@@ -130,10 +130,10 @@ async function request (method, path, data, headers) {
   if (msg.status === 410) {
     tokenStorage.removeItem('sessionToken')
   }
+  if (msg.meta?.session_token) {
+    tokenStorage.setItem('sessionToken', msg.meta.session_token)
+  }
   if ([401, 410].includes(msg.status) || (msg.status === 200 && msg.meta?.is_authenticated)) {
-    if (msg.meta?.session_token) {
-      tokenStorage.setItem('sessionToken', msg.meta.session_token)
-    }
     const event = new CustomEvent('allauth.auth.change', { detail: msg })
     document.dispatchEvent(event)
   }

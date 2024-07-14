@@ -1,11 +1,10 @@
-import os
 from typing import Any, Dict, List, Optional
 
 from django.contrib.auth import get_user_model
 
 import fido2.features
 from fido2.server import Fido2Server
-from fido2.utils import websafe_decode, websafe_encode
+from fido2.utils import websafe_decode
 from fido2.webauthn import (
     AttestedCredentialData,
     AuthenticationResponse,
@@ -28,7 +27,6 @@ if not fido2.features.webauthn_json_mapping.enabled:
     fido2.features.webauthn_json_mapping.enabled = True
 
 
-CHALLENGE_SESSION_KEY = "mfa.webauthn.challenge"
 STATE_SESSION_KEY = "mfa.webauthn.state"
 EXTENSIONS = {"credProps": True}
 
@@ -36,19 +34,6 @@ EXTENSIONS = {"credProps": True}
 def build_user_payload(user) -> PublicKeyCredentialUserEntity:
     kwargs = get_adapter().get_public_key_credential_user_entity(user)
     return PublicKeyCredentialUserEntity(**kwargs)
-
-
-def generate_challenge() -> bytes:
-    challenge = context.request.session.get(CHALLENGE_SESSION_KEY)
-    if challenge is not None:
-        return websafe_decode(challenge)
-    challenge = os.urandom(32)
-    context.request.session[CHALLENGE_SESSION_KEY] = websafe_encode(challenge)
-    return challenge
-
-
-def consume_challenge() -> None:
-    context.request.session.pop(CHALLENGE_SESSION_KEY, None)
 
 
 def get_state() -> Optional[Dict]:
@@ -96,7 +81,6 @@ def begin_registration(user, passwordless: bool) -> Dict:
             if passwordless
             else UserVerificationRequirement.DISCOURAGED
         ),
-        challenge=generate_challenge(),
         extensions=EXTENSIONS,
     )
     set_state(state)
@@ -108,8 +92,11 @@ def complete_registration(credential: Dict) -> AuthenticatorData:
     state = get_state()
     if not state:
         raise get_adapter().validation_error("incorrect_code")
-    binding = server.register_complete(state, credential)
-    consume_challenge()
+    try:
+        binding = server.register_complete(state, credential)
+    except ValueError:
+        # raise ValueError("Wrong challenge in response.")
+        raise get_adapter().validation_error("incorrect_code")
     clear_state()
     return binding
 
@@ -153,7 +140,6 @@ def begin_authentication(user=None) -> Dict:
     request_options, state = server.authenticate_begin(
         credentials=get_credentials(user) if user else [],
         user_verification=UserVerificationRequirement.PREFERRED,
-        challenge=generate_challenge(),
     )
     set_state(state)
     return dict(request_options)
@@ -182,7 +168,6 @@ def complete_authentication(user, response: Dict) -> Authenticator:
     except ValueError as e:
         # ValueError: Unknown credential ID.
         raise get_adapter().validation_error("incorrect_code") from e
-    consume_challenge()
     clear_state()
     authenticator = get_authenticator_by_credential_id(user, binding.credential_id)
     if not authenticator:

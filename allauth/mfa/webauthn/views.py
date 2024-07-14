@@ -19,7 +19,7 @@ from allauth.mfa.webauthn.forms import (
     LoginWebAuthnForm,
     ReauthenticateWebAuthnForm,
 )
-from allauth.mfa.webauthn.internal import flows
+from allauth.mfa.webauthn.internal import auth, flows
 
 
 @method_decorator(reauthentication_required, name="dispatch")
@@ -29,7 +29,8 @@ class AddWebAuthnView(FormView):
 
     def get_context_data(self, **kwargs):
         ret = super().get_context_data()
-        ret["js_data"] = {"creation_options": ret["form"].registration_data}
+        creation_options = auth.begin_registration(self.request.user, False)
+        ret["js_data"] = {"creation_options": creation_options}
         return ret
 
     def get_form_kwargs(self):
@@ -99,8 +100,8 @@ class LoginWebAuthnView(FormView):
 
     def get(self, request, *args, **kwargs):
         if get_account_adapter().is_ajax(request):
-            form = self.get_form()
-            data = {"request_options": form.authentication_data}
+            request_options = auth.begin_authentication(user=None)
+            data = {"request_options": request_options}
             return JsonResponse(data)
         return HttpResponseRedirect(reverse("account_login"))
 
@@ -145,7 +146,8 @@ class ReauthenticateWebAuthnView(BaseReauthenticateView):
 
     def get_context_data(self, **kwargs):
         ret = super().get_context_data()
-        ret["js_data"] = {"request_options": ret["form"].authentication_data}
+        request_options = auth.begin_authentication(self.request.user)
+        ret["js_data"] = {"request_options": request_options}
         return ret
 
 

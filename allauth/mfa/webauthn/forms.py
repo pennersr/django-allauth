@@ -24,8 +24,6 @@ class AddWebAuthnForm(forms.Form):
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop("user")
         initial = kwargs.setdefault("initial", {})
-        passwordless = bool(initial.get("passwordless"))
-        self.registration_data = auth.begin_registration(self.user, passwordless)
         initial.setdefault(
             "name",
             get_adapter().generate_authenticator_name(
@@ -65,7 +63,6 @@ class AuthenticateWebAuthnForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop("user")
-        self.authentication_data = auth.begin_authentication(self.user)
         super().__init__(*args, **kwargs)
 
     def clean_credential(self):

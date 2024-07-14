@@ -8,6 +8,8 @@ def test_passkey_login(
     client, passkey, webauthn_authentication_bypass, headless_reverse
 ):
     with webauthn_authentication_bypass(passkey) as credential:
+        resp = client.get(headless_reverse("headless:mfa:login_webauthn"))
+        assert "request_options" in resp.json()["data"]
         resp = client.post(
             headless_reverse("headless:mfa:login_webauthn"),
             data={"credential": credential},
@@ -17,10 +19,19 @@ def test_passkey_login(
     assert data["data"]["user"]["id"] == passkey.user_id
 
 
-def test_passkey_login_get_options(client, headless_reverse, db):
+def test_passkey_login_get_options(client, headless_client, headless_reverse, db):
     resp = client.get(headless_reverse("headless:mfa:login_webauthn"))
     data = resp.json()
-    assert data == {"status": 200, "data": {"request_options": {"publicKey": ANY}}}
+    meta = {}
+    if headless_client == "app":
+        meta = {
+            "meta": {"session_token": ANY},
+        }
+    assert data == {
+        "status": 200,
+        "data": {"request_options": {"publicKey": ANY}},
+        **meta,
+    }
 
 
 def test_reauthenticate(
@@ -157,6 +168,8 @@ def test_2fa_login(
         "types": ["webauthn"],
     }
     with webauthn_authentication_bypass(passkey) as credential:
+        resp = client.get(headless_reverse("headless:mfa:authenticate_webauthn"))
+        assert "request_options" in resp.json()["data"]
         resp = client.post(
             headless_reverse("headless:mfa:authenticate_webauthn"),
             data={"credential": credential},

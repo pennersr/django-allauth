@@ -20,7 +20,7 @@
 
   function addForm (o) {
     const addBtn = document.getElementById(o.ids.add)
-    const passwordlessCb = o.ids.apsswordless ? document.getElementById(o.ids.passwordless) : null
+    const passwordlessCb = o.ids.passwordless ? document.getElementById(o.ids.passwordless) : null
     const credentialInput = document.getElementById(o.ids.credential)
     const form = credentialInput.closest('form')
     addBtn.addEventListener('click', async function () {

@@ -6,7 +6,7 @@ from allauth.account.internal import flows
 from allauth.account.models import EmailAddress
 from allauth.account.utils import user_display, user_username
 from allauth.headless.constants import Flow
-from allauth.headless.internal import authkit, sessionkit
+from allauth.headless.internal import authkit
 from allauth.headless.internal.restkit.response import APIResponse
 from allauth.mfa import app_settings as mfa_settings
 
@@ -25,21 +25,12 @@ class BaseAuthenticationResponse(APIResponse):
         meta = {
             "is_authenticated": user and user.is_authenticated,
         }
-        self._add_session_meta(request, meta)
         super().__init__(
             request,
             data=data,
             meta=meta,
             status=status,
         )
-
-    def _add_session_meta(self, request, meta):
-        session_token = sessionkit.expose_session_token(request)
-        if session_token:
-            meta["session_token"] = session_token
-        access_token = authkit.expose_access_token(request)
-        if access_token:
-            meta["access_token"] = access_token
 
     def _get_flows(self, request, user):
         auth_status = authkit.AuthenticationStatus(request)

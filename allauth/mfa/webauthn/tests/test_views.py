@@ -11,6 +11,10 @@ from allauth.mfa.models import Authenticator
 
 def test_passkey_login(client, passkey, webauthn_authentication_bypass):
     with webauthn_authentication_bypass(passkey) as credential:
+        resp = client.get(
+            reverse("mfa_login_webauthn"), HTTP_X_REQUESTED_WITH="XMLHttpRequest"
+        )
+        assert "request_options" in resp.json()
         resp = client.post(
             reverse("mfa_login_webauthn"), data={"credential": credential}
         )

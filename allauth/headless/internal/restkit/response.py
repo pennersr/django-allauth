@@ -1,19 +1,42 @@
+from typing import Any, Dict, Optional
+
 from django.forms.utils import ErrorList
 from django.http import JsonResponse
 from django.utils.cache import add_never_cache_headers
 
+from allauth.headless.internal import authkit, sessionkit
+
 
 class APIResponse(JsonResponse):
-    def __init__(self, request, errors=None, data=None, meta=None, status=200):
-        d = {"status": status}
+    def __init__(
+        self,
+        request,
+        errors=None,
+        data=None,
+        meta: Optional[Dict] = None,
+        status: int = 200,
+    ):
+        d: Dict[str, Any] = {"status": status}
         if data is not None:
             d["data"] = data
+        meta = self._add_session_meta(request, meta)
         if meta is not None:
             d["meta"] = meta
         if errors:
             d["errors"] = errors
         super().__init__(d, status=status)
         add_never_cache_headers(self)
+
+    def _add_session_meta(self, request, meta: Optional[Dict]) -> Optional[Dict]:
+        session_token = sessionkit.expose_session_token(request)
+        access_token = authkit.expose_access_token(request)
+        if session_token:
+            meta = meta or {}
+            meta["session_token"] = session_token
+        if access_token:
+            meta = meta or {}
+            meta["access_token"] = access_token
+        return meta
 
 
 class ErrorResponse(APIResponse):

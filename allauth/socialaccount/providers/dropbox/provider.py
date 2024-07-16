@@ -5,8 +5,7 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
 class DropboxOAuth2Account(ProviderAccount):
-    def to_str(self):
-        return self.account.extra_data.get("email") or super().to_str()
+    pass
 
 
 class DropboxOAuth2Provider(OAuth2Provider):

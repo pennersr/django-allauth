@@ -5,9 +5,7 @@ from allauth.socialaccount.providers.yahoo.views import YahooOAuth2Adapter
 
 
 class YahooAccount(ProviderAccount):
-    def to_str(self):
-        dflt = super(YahooAccount, self).to_str()
-        return self.account.extra_data.get("email", dflt)
+    pass
 
 
 class YahooProvider(OAuth2Provider):

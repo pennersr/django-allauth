@@ -4,11 +4,7 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
 class AsanaAccount(ProviderAccount):
-    def to_str(self):
-        dflt = super().to_str()
-        email = self.account.extra_data.get("email")
-        name = self.account.extra_data.get("name")
-        return email or name or dflt
+    pass
 
 
 class AsanaProvider(OAuth2Provider):

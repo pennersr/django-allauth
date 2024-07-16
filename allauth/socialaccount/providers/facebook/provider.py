@@ -50,10 +50,6 @@ class FacebookAccount(ProviderAccount):
             % uid
         )  # noqa
 
-    def to_str(self):
-        dflt = super(FacebookAccount, self).to_str()
-        return self.account.extra_data.get("email", dflt)
-
 
 class FacebookProvider(OAuth2Provider):
     id = PROVIDER_ID

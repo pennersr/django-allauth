@@ -46,4 +46,4 @@ class EdxTests(OAuth2TestsMixin, TestCase):
         )
 
     def get_expected_to_str(self):
-        return "krzysztof"
+        return "krzysztof.hoffmann@opi.org.pl"

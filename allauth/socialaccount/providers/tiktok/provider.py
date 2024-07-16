@@ -17,10 +17,6 @@ class TikTokAccount(ProviderAccount):
     def get_avatar_url(self):
         return self.account.extra_data.get("avatar_url")
 
-    def to_str(self):
-        username = self.get_username()
-        return username or super().to_str()
-
 
 class TikTokProvider(OAuth2Provider):
     id = "tiktok"

@@ -90,7 +90,7 @@ class BitbucketOAuth2Tests(OAuth2TestsMixin, TestCase):
         ]
 
     def get_expected_to_str(self):
-        return "tutorials"
+        return "tutorials@bitbucket.org"
 
     def test_provider_account(self):
         self.login(self.get_mocked_response())
@@ -98,7 +98,7 @@ class BitbucketOAuth2Tests(OAuth2TestsMixin, TestCase):
         self.assertEqual(socialaccount.user.username, "tutorials")
         self.assertEqual(socialaccount.user.email, "tutorials@bitbucket.org")
         account = socialaccount.get_provider_account()
-        self.assertEqual(account.to_str(), "tutorials")
+        self.assertEqual(account.to_str(), "tutorials@bitbucket.org")
         self.assertEqual(account.get_profile_url(), "https://bitbucket.org/tutorials")
         self.assertEqual(
             account.get_avatar_url(),

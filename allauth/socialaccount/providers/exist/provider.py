@@ -10,10 +10,6 @@ class ExistAccount(ProviderAccount):
     def get_avatar_url(self):
         return self.account.extra_data.get("avatar")
 
-    def to_str(self):
-        dflt = super().to_str()
-        return self.account.extra_data.get("username", dflt)
-
 
 class ExistProvider(OAuth2Provider):
     id = "exist"

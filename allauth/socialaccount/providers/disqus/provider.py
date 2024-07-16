@@ -12,12 +12,6 @@ class DisqusAccount(ProviderAccount):
     def get_avatar_url(self):
         return self.account.extra_data.get("avatar", {}).get("permalink")
 
-    def to_str(self):
-        dflt = super(DisqusAccount, self).to_str()
-        email = self.account.extra_data.get("email")
-        name = self.account.extra_data.get("name")
-        return email or name or dflt
-
 
 class DisqusProvider(OAuth2Provider):
     id = "disqus"

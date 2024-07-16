@@ -4,8 +4,7 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
 class HubicAccount(ProviderAccount):
-    def to_str(self):
-        return self.account.extra_data.get("email") or super().to_str()
+    pass
 
 
 class HubicProvider(OAuth2Provider):

@@ -7,10 +7,6 @@ class FeedlyAccount(ProviderAccount):
     def get_avatar_url(self):
         return self.account.extra_data.get("picture")
 
-    def to_str(self):
-        dflt = super().to_str()
-        return self.account.extra_data.get("email", dflt)
-
 
 class FeedlyProvider(OAuth2Provider):
     id = "feedly"

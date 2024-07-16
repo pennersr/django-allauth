@@ -4,8 +4,7 @@ from allauth.socialaccount.providers.vimeo.views import VimeoOAuthAdapter
 
 
 class VimeoAccount(ProviderAccount):
-    def to_str(self):
-        return self.account.extra_data.get("username") or super().to_str()
+    pass
 
 
 class VimeoProvider(OAuthProvider):

@@ -6,8 +6,7 @@ from allauth.socialaccount.providers.base import Provider, ProviderAccount
 
 
 class SAMLAccount(ProviderAccount):
-    def to_str(self):
-        return super().to_str()
+    pass
 
 
 class SAMLProvider(Provider):

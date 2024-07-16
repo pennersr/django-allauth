@@ -6,8 +6,7 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
 class DwollaAccount(ProviderAccount):
-    def to_str(self):
-        return self.account.extra_data.get("name") or super().to_str()
+    pass
 
 
 class DwollaProvider(OAuth2Provider):

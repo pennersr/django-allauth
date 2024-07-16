@@ -13,9 +13,7 @@ class Scope:
 
 
 class CILogonAccount(ProviderAccount):
-    def to_str(self):
-        dflt = super(CILogonAccount, self).to_str()
-        return self.account.extra_data.get("email", dflt)
+    pass
 
 
 class CILogonProvider(OAuth2Provider):

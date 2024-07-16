@@ -10,9 +10,6 @@ class TrelloAccount(ProviderAccount):
     def get_avatar_url(self):
         return None
 
-    def to_str(self):
-        return self.account.extra_data.get("username") or super().to_str()
-
 
 class TrelloProvider(OAuthProvider):
     id = "trello"

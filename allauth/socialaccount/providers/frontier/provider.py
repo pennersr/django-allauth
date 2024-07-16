@@ -21,10 +21,6 @@ class FrontierAccount(ProviderAccount):
             urlencode({"d": "mp"}),
         )
 
-    def to_str(self):
-        dflt = super(FrontierAccount, self).to_str()
-        return self.account.extra_data.get("email", dflt)
-
 
 class FrontierProvider(OAuth2Provider):
     id = "frontier"

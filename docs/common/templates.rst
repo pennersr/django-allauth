@@ -113,7 +113,7 @@ element `templatetag`::
 Under the hood, this `templatetag` renders the ``allauth/elements/h1.html``
 template, which out of the box contains this::
 
-    {% load allauth %}<h1>{% slot default %}{% endslot %}</h1>
+    {% load allauth %}<h1>{% slot %}{% endslot %}</h1>
 
 If you want to change the styling of all headings across all pages, you can do
 so by overriding that ``allauth/elements/h1.html`` template, as follows::
@@ -121,13 +121,37 @@ so by overriding that ``allauth/elements/h1.html`` template, as follows::
     {% load allauth %}
     <div class="myproject-h1 aa-{{ origin|slugify }}"
          style="font-size: {% if "foo" in attrs.tags %}3{% else %}5{% endif %}rem">
-        {% slot default %}{% endslot %}
+        {% slot %}{% endslot %}
     </div>
 
 Of course, the above is a bit of a contrived example. In each of the element
 templates the ``{{ origin }}`` context variable is available, which is equal to
 the base template name where the element is used (e.g. ``account/login`` for
 elements used from within the ``account/login.html`` template).
+
+Slots may also be named. In that case, the ``element`` will be invoked like::
+
+    {% load allauth %}
+    {% element form method="post" action=action_url %}
+        {% slot body %}
+            ...
+        {% endslot %}
+        {% slot actions %}
+            ...
+        {% endslot %}
+    {% endelement %}
+
+When overriding an element with named slots, they may be injected in any order.
+For example, with ``allauth/elements/form.html``::
+
+    {% load allauth %}
+    <form method="{{ attrs.method }}" action="{{ attrs.action }}">
+        {% slot body %}
+        {% endslot %}
+        <hr>
+        {% slot actions %}
+        {% endslot %}
+    </form>
 
 The following elements are available -- override them as you see fit for your
 project:

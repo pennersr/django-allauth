@@ -26,7 +26,7 @@ class PinterestAccount(ProviderAccount):
         first_name = self.account.extra_data.get("first_name")
         last_name = self.account.extra_data.get("last_name")
         if first_name or last_name:
-            return " ".join(x for x in [first_name, last_name] if x)
+            return f"{first_name or ''} {last_name or ''}".strip()
         return super().to_str()
 
 

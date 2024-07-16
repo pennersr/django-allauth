@@ -11,15 +11,18 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 class AppleAccount(ProviderAccount):
     def to_str(self):
-        dflt = super().to_str()
         email = self.account.extra_data.get("email")
-        name = self.account.extra_data.get("name", {})
-        if name and (name.get("firstName") or name.get("lastName")):
-            full_name = " ".join([name.get("firstName", ""), name.get("lastName", "")])
+        if email and not email.lower().endswith("@privaterelay.appleid.com"):
+            return email
+
+        name = self.account.extra_data.get("name") or {}
+        if name.get("firstName") or name.get("lastName"):
+            full_name = f"{name['firstName'] or ''} {name['lastName'] or ''}"
             full_name = full_name.strip()
             if full_name:
-                return f"{full_name} <{email or dflt}>"
-        return email or dflt
+                return full_name
+
+        return super().to_str()
 
 
 class AppleProvider(OAuth2Provider):

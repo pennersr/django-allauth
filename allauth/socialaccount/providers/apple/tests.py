@@ -171,7 +171,7 @@ class AppleTests(OAuth2TestsMixin, TestCase):
         )
 
     def get_expected_to_str(self):
-        return "A B <test@privaterelay.appleid.com>"
+        return "A B"
 
     def get_complete_parameters(self, auth_request_params):
         """

@@ -62,7 +62,10 @@ def _should_check_dangling_login(request, response):
         content_type = content_type.partition(";")[0]
     if content_type and content_type != "text/html":
         return False
-    if request.path.startswith(settings.STATIC_URL) or request.path in [
+    # STATIC_URL might be None, as the staticfiles app is not strictly required
+    if (
+        settings.STATIC_URL and request.path.startswith(settings.STATIC_URL)
+    ) or request.path in [
         "/favicon.ico",
         "/robots.txt",
         "/humans.txt",

@@ -144,7 +144,7 @@ class ResetPasswordTests(TestCase):
         self.assertGreater(body.find("https://"), 0)
 
         # Extract URL for `password_reset_from_key` view
-        url = body[body.find("/password/reset/") :].split()[0]
+        url = body[body.find("/accounts/password/reset/") :].split()[0]
         resp = self.client.get(url)
 
         reset_pass_url = resp.url
@@ -188,7 +188,7 @@ class ResetPasswordTests(TestCase):
         self.assertEqual(user2, resp.context["user"])
 
         # Extract URL for `password_reset_from_key` view and access it
-        url = body[body.find("/password/reset/") :].split()[0]
+        url = body[body.find("/accounts/password/reset/") :].split()[0]
         resp = self.client.get(url)
         # Follow the redirect the actual password reset page with the key
         # hidden.
@@ -218,7 +218,7 @@ class ResetPasswordTests(TestCase):
         self.assertGreater(body.find("https://"), 0)
         EmailAddress.objects.create(user=user, email="other@email.org")
         # Extract URL for `password_reset_from_key` view
-        url = body[body.find("/password/reset/") :].split()[0]
+        url = body[body.find("/accounts/password/reset/") :].split()[0]
         resp = self.client.get(url)
         self.assertTemplateUsed(
             resp,
@@ -230,7 +230,7 @@ class ResetPasswordTests(TestCase):
     def test_password_reset_ACCOUNT_LOGIN_ON_PASSWORD_RESET(self):
         user = self._request_new_password()
         body = mail.outbox[0].body
-        url = body[body.find("/password/reset/") :].split()[0]
+        url = body[body.find("/accounts/password/reset/") :].split()[0]
         resp = self.client.get(url)
         # Follow the redirect the actual password reset page with the key
         # hidden.
@@ -239,7 +239,7 @@ class ResetPasswordTests(TestCase):
         )
         self.assertTrue(user.is_authenticated)
         # EmailVerificationMethod.MANDATORY sends us to the confirm-email page
-        self.assertRedirects(resp, "/confirm-email/")
+        self.assertRedirects(resp, "/accounts/confirm-email/")
 
     def _create_user(self, username="john", password="doe", **kwargs):
         user = get_user_model().objects.create(
@@ -278,7 +278,7 @@ def test_password_reset_flow(client, user, mailoutbox, settings):
     assert body.find("http://") > 0
 
     # Extract URL for `password_reset_from_key` view and access it
-    url = body[body.find("/password/reset/") :].split()[0]
+    url = body[body.find("/accounts/password/reset/") :].split()[0]
     resp = client.get(url)
     # Follow the redirect the actual password reset page with the key
     # hidden.

@@ -26,7 +26,7 @@ def test_login(client, db, telegram_app):
     resp = client.post(reverse("telegram_login"))
     assert resp.status_code == 302
     assert resp["location"].startswith(
-        "https://oauth.telegram.org/auth?origin=http%3A%2F%2Ftestserver%2F&bot_id=123&request_access=write&embed=0&return_to=http%3A%2F%2Ftestserver%2Ftelegram%2Flogin%2Fcallback%2F%3Fstate%3D"
+        "https://oauth.telegram.org/auth?origin=http%3A%2F%2Ftestserver%2F&bot_id=123&request_access=write&embed=0&return_to=http%3A%2F%2Ftestserver%2Faccounts%2Ftelegram%2Flogin%2Fcallback%2F%3Fstate%3D"
     )
 
 

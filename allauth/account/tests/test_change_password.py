@@ -29,7 +29,7 @@ def test_set_usable_password_redirects_to_change(auth_client, user):
             [
                 (reverse_lazy("account_change_password"), 302),
                 (
-                    "/login/?next=/password/change/",
+                    "/accounts/login/?next=/accounts/password/change/",
                     302,
                 ),
             ],
@@ -67,7 +67,7 @@ def test_set_password(
             [
                 (reverse_lazy("account_change_password"), 302),
                 (
-                    "/login/?next=/password/change/",
+                    "/accounts/login/?next=/accounts/password/change/",
                     302,
                 ),
             ],

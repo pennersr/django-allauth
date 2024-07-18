@@ -280,7 +280,10 @@ def test_add_with_reauthentication(auth_client, user, user_password, settings):
     )
     assert not EmailAddress.objects.filter(email="john3@example.org").exists()
     assert resp.status_code == 302
-    assert resp["location"] == reverse("account_reauthenticate") + "?next=%2Femail%2F"
+    assert (
+        resp["location"]
+        == reverse("account_reauthenticate") + "?next=%2Faccounts%2Femail%2F"
+    )
     resp = auth_client.post(resp["location"], {"password": user_password})
     assert EmailAddress.objects.filter(email="john3@example.org").exists()
     assertTemplateUsed(resp, "account/messages/email_confirmation_sent.txt")

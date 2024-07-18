@@ -20,6 +20,7 @@ stdenv.mkDerivation {
         python311Packages.pytest
         python311Packages.pytest-cov
         python311Packages.pytest-django
+        python311Packages.pytest-asyncio
         python311Packages.python-lsp-server
         python311Packages.python3-openid
         python311Packages.python3-saml

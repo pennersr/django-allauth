@@ -3,8 +3,7 @@ from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.authentication import get_authentication_records
 from allauth.account.internal import flows
-from allauth.account.models import EmailAddress
-from allauth.account.utils import user_display, user_username
+from allauth.headless.adapter import get_adapter
 from allauth.headless.constants import Flow
 from allauth.headless.internal import authkit
 from allauth.headless.internal.restkit.response import APIResponse
@@ -15,7 +14,8 @@ class BaseAuthenticationResponse(APIResponse):
     def __init__(self, request, user=None, status=None):
         data = {}
         if user and user.is_authenticated:
-            data["user"] = user_data(user)
+            adapter = get_adapter()
+            data["user"] = adapter.serialize_user(user)
             data["methods"] = get_authentication_records(request)
             status = status or 200
         else:
@@ -110,24 +110,6 @@ class ForbiddenResponse(APIResponse):
 class ConflictResponse(APIResponse):
     def __init__(self, request):
         super().__init__(request, status=409)
-
-
-def user_data(user):
-    """Basic user data, also exposed in partly authenticated scenario's
-    (e.g. password reset, email verification).
-    """
-    ret = {
-        "id": user.pk,
-        "display": user_display(user),
-        "has_usable_password": user.has_usable_password(),
-    }
-    email = EmailAddress.objects.get_primary_email(user)
-    if email:
-        ret["email"] = email
-    username = user_username(user)
-    if username:
-        ret["username"] = username
-    return ret
 
 
 def get_config_data(request):

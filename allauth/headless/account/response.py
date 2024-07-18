@@ -1,4 +1,5 @@
-from allauth.headless.base.response import APIResponse, user_data
+from allauth.headless.adapter import get_adapter
+from allauth.headless.base.response import APIResponse
 
 
 class RequestEmailVerificationResponse(APIResponse):
@@ -8,9 +9,10 @@ class RequestEmailVerificationResponse(APIResponse):
 
 class VerifyEmailResponse(APIResponse):
     def __init__(self, request, verification, stage):
+        adapter = get_adapter()
         data = {
             "email": verification.email_address.email,
-            "user": user_data(verification.email_address.user),
+            "user": adapter.serialize_user(verification.email_address.user),
         }
         meta = {
             "is_authenticating": stage is not None,
@@ -37,5 +39,6 @@ class RequestPasswordResponse(APIResponse):
 
 class PasswordResetKeyResponse(APIResponse):
     def __init__(self, request, user):
-        data = {"user": user_data(user)}
+        adapter = get_adapter()
+        data = {"user": adapter.serialize_user(user)}
         super().__init__(request, data=data)

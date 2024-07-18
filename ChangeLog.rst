@@ -20,6 +20,9 @@ Note worthy changes
 - Headless: When trying to sign up while a user is already logged in, you now get
   a 409.
 
+- Headless: You can now alter the user data payload by overriding the newly
+  introduced ``serialize_user()`` adapter method.
+
 
 Backwards incompatible changes
 ------------------------------

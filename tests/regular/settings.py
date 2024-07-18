@@ -24,7 +24,7 @@ DATABASES = {
 }
 
 ROOT_URLCONF = "tests.regular.urls"
-LOGIN_URL = "/login/"
+LOGIN_URL = "/accounts/login/"
 
 TEMPLATES = [
     {

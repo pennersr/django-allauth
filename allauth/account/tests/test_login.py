@@ -194,7 +194,7 @@ class LoginTests(TestCase):
         self.assertGreater(body.find("https://"), 0)
 
         # Extract URL for `password_reset_from_key` view and access it
-        url = body[body.find("/password/reset/") :].split()[0]
+        url = body[body.find("/accounts/password/reset/") :].split()[0]
         resp = self.client.get(url)
         # Follow the redirect the actual password reset page with the key
         # hidden.
@@ -319,7 +319,7 @@ def test_login_password_forgotten_link_present(client, db):
     form = LoginForm()
     assert (
         form.fields["password"].help_text
-        == '<a href="/password/reset/">Forgot your password?</a>'
+        == '<a href="/accounts/password/reset/">Forgot your password?</a>'
     )
 
 

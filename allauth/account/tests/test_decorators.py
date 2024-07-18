@@ -23,7 +23,7 @@ def test_secure_admin_login_skips_admin_login_next(client):
     Test that we're not using 'next=/admin/login%2Fnext=/foo'
     """
     resp = client.get(reverse("admin:login") + "?next=/foo")
-    assert resp["location"] == "/login/?next=%2Ffoo"
+    assert resp["location"] == "/accounts/login/?next=%2Ffoo"
 
 
 def test_secure_admin_login_denies_regular_users(auth_client):

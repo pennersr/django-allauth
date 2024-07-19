@@ -49,26 +49,15 @@ class AmazonCognitoProvider(OAuth2Provider):
         )
 
     def extract_extra_data(self, data):
-        return {
-            "address": data.get("address"),
-            "birthdate": data.get("birthdate"),
-            "email": data.get("email"),
-            "family_name": data.get("family_name"),
-            "gender": data.get("gender"),
-            "given_name": data.get("given_name"),
-            "locale": data.get("locale"),
-            "middlename": data.get("middlename"),
-            "nickname": data.get("nickname"),
-            "phone_number": data.get("phone_number"),
-            "phone_number_verified": convert_to_python_bool_if_value_is_json_string_bool(
-                data.get("phone_number_verified")
-            ),
-            "picture": data.get("picture"),
-            "preferred_username": data.get("preferred_username"),
-            "profile": data.get("profile"),
-            "website": data.get("website"),
-            "zoneinfo": data.get("zoneinfo"),
-        }
+        ret = dict(data)
+        phone_number_verified = data.get("phone_number_verified")
+        if phone_number_verified is not None:
+            ret["phone_number_verified"] = (
+                convert_to_python_bool_if_value_is_json_string_bool(
+                    "phone_number_verified"
+                )
+            )
+        return ret
 
     @classmethod
     def get_slug(cls):

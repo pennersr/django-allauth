@@ -11,17 +11,14 @@ from allauth.socialaccount.providers.quickbooks.views import (
 
 class QuickBooksAccount(ProviderAccount):
     def to_str(self):
-        dflt = super(QuickBooksAccount, self).to_str()
         email = self.account.extra_data.get("email")
-        email_verified = self.account.extra_data.get("emailVerified")
-        if email and email_verified:
+        if email:
             return email
-        name = self.account.extra_data.get("name", dflt)
-        first_name = self.account.extra_data.get("givenName", None)
-        last_name = self.account.extra_data.get("familyName", None)
-        if first_name and last_name:
-            name = first_name + " " + last_name
-        return name
+        first_name = self.account.extra_data.get("givenName")
+        last_name = self.account.extra_data.get("familyName")
+        if first_name or last_name:
+            return f"{first_name} {last_name}".strip()
+        return super().to_str()
 
 
 class QuickBooksOAuth2Provider(OAuth2Provider):

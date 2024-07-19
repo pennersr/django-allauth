@@ -275,10 +275,23 @@ class ProviderAccount:
         """
         ed = self.account.extra_data
         if isinstance(ed, dict):
-            if ed.get("email") and isinstance(ed["email"], str):
-                return ed["email"]
-            elif ed.get("username") and isinstance(ed["username"], str):
-                return ed["username"]
-            elif ed.get("name") and isinstance(ed["name"], str):
-                return ed["name"]
+            keys = [
+                "email",
+                "default_email",
+                "username",
+                "name",
+                "full_name",
+                "fullName",
+            ]
+            for key in keys:
+                if ed.get(key) and isinstance(ed[key], str):
+                    return ed[key]
+            first_name = ed.get("first_name") or ed.get("firstName") or ""
+            last_name = ed.get("last_name") or ed.get("lastName") or ""
+            if (
+                isinstance(first_name, str)
+                and isinstance(last_name, str)
+                and (first_name or last_name)
+            ):
+                return f"{first_name} {last_name}".strip()
         return self.get_brand()["name"]

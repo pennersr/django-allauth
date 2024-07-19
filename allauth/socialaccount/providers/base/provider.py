@@ -274,9 +274,11 @@ class ProviderAccount:
         fashion, without having to worry about it.
         """
         ed = self.account.extra_data
-        return (
-            ed.get("email")
-            or ed.get("username")
-            or ed.get("name")
-            or self.get_brand()["name"]
-        )
+        if isinstance(ed, dict):
+            if ed.get("email") and isinstance(ed["email"], str):
+                return ed["email"]
+            elif ed.get("username") and isinstance(ed["username"], str):
+                return ed["username"]
+            elif ed.get("name") and isinstance(ed["name"], str):
+                return ed["name"]
+        return self.get_brand()["name"]

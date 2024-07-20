@@ -23,10 +23,6 @@ class OdnoklassnikiAccount(ProviderAccount):
         else:
             return ret
 
-    def to_str(self):
-        dflt = super(OdnoklassnikiAccount, self).to_str()
-        return self.account.extra_data.get("name", dflt)
-
 
 class OdnoklassnikiProvider(OAuth2Provider):
     id = "odnoklassniki"

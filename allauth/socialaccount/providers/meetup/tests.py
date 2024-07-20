@@ -34,3 +34,6 @@ class MeetupTests(OAuth2TestsMixin, TestCase):
         "hometown": "Kolkata", "lat": 20.270000457763672,
         "visited": 1488829924000, "self": {"common": {}}}}""",
         )
+
+    def get_expected_to_str(self):
+        return "Meetup"

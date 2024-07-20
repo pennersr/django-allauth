@@ -28,3 +28,6 @@ class AtlassianTests(OAuth2TestsMixin, TestCase):
             }
         }"""
         return MockedResponse(200, response_data)
+
+    def get_expected_to_str(self):
+        return "mia@example.com"

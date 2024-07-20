@@ -6,9 +6,7 @@ from allauth.socialaccount.providers.sharefile.views import (
 
 
 class ShareFileAccount(ProviderAccount):
-    def to_str(self):
-        dflt = super(ShareFileAccount, self).to_str()
-        return self.account.extra_data.get("name", dflt)
+    pass
 
 
 class ShareFileProvider(OAuth2Provider):

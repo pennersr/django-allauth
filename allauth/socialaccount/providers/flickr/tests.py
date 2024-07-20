@@ -43,6 +43,9 @@ class FlickrTests(OAuthTestsMixin, TestCase):
             ),
         ]  # noqa
 
+    def get_expected_to_str(self):
+        return "pennersr"
+
     def test_login(self):
         account = super(FlickrTests, self).test_login()
         f_account = account.get_provider_account()
@@ -52,7 +55,7 @@ class FlickrTests(OAuthTestsMixin, TestCase):
             f_account.get_profile_url(),
             "http://www.flickr.com/people/12345678@N00/",
         )
-        self.assertEqual(f_account.to_str(), "raymond penners")
+        self.assertEqual(f_account.to_str(), "pennersr")
 
 
 class FlickrWithoutRealNameTests(OAuthTestsMixin, TestCase):
@@ -95,6 +98,9 @@ class FlickrWithoutRealNameTests(OAuthTestsMixin, TestCase):
 """,
             ),
         ]  # noqa
+
+    def get_expected_to_str(self):
+        return "pennersr"
 
     def test_login(self):
         account = super(FlickrWithoutRealNameTests, self).test_login()

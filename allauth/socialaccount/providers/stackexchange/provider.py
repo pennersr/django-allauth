@@ -12,10 +12,6 @@ class StackExchangeAccount(ProviderAccount):
     def get_avatar_url(self):
         return self.account.extra_data.get("avatar_url")
 
-    def to_str(self):
-        dflt = super(StackExchangeAccount, self).to_str()
-        return self.account.extra_data.get("name", dflt)
-
 
 class StackExchangeProvider(OAuth2Provider):
     id = "stackexchange"

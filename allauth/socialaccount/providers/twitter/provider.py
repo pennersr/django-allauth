@@ -5,6 +5,7 @@ from allauth.socialaccount.providers.twitter.views import TwitterOAuthAdapter
 
 class TwitterAccount(ProviderAccount):
     def get_screen_name(self):
+        """The screen name is the username of the Twitter account."""
         return self.account.extra_data.get("screen_name")
 
     def get_profile_url(self):

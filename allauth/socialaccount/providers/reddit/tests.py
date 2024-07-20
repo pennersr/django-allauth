@@ -15,3 +15,6 @@ class RedditTests(OAuth2TestsMixin, TestCase):
         "name": "wayward710"}""",
             )
         ]
+
+    def get_expected_to_str(self):
+        return "wayward710"

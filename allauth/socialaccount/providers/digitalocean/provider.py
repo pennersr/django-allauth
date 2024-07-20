@@ -6,7 +6,8 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
 class DigitalOceanAccount(ProviderAccount):
-    pass
+    def get_user_data(self):
+        return self.account.extra_data.get("account", {})
 
 
 class DigitalOceanProvider(OAuth2Provider):

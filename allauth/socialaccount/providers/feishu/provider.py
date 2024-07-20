@@ -7,9 +7,6 @@ class FeishuAccount(ProviderAccount):
     def get_avatar_url(self):
         return self.account.extra_data.get("avatar_big")
 
-    def to_str(self):
-        return self.account.extra_data.get("name", super(FeishuAccount, self).to_str())
-
 
 class FeishuProvider(OAuth2Provider):
     id = "feishu"

@@ -18,9 +18,8 @@ class KakaoAccount(ProviderAccount):
             "profile_image_url", self.properties.get("profile_image")
         )
 
-    def to_str(self):
-        dflt = super(KakaoAccount, self).to_str()
-        return self.profile.get("nickname", self.properties.get("nickname", dflt))
+    def get_user_data(self):
+        return self.account.extra_data.get("kakao_account")
 
 
 class KakaoProvider(OAuth2Provider):

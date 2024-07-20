@@ -7,13 +7,10 @@ from allauth.socialaccount.providers.windowslive.views import (
 
 class WindowsLiveAccount(ProviderAccount):
     def to_str(self):
-        name = "{0} {1}".format(
-            self.account.extra_data.get("first_name", ""),
-            self.account.extra_data.get("last_name", ""),
-        )
-        if name.strip() != "":
-            return name
-        return super(WindowsLiveAccount, self).to_str()
+        email = self.account.extra_data.get("emails", {}).get("preferred")
+        if email:
+            return email
+        return super().to_str()
 
 
 class WindowsLiveProvider(OAuth2Provider):

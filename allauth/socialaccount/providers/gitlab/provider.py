@@ -10,10 +10,6 @@ class GitLabAccount(ProviderAccount):
     def get_avatar_url(self):
         return self.account.extra_data.get("avatar_url")
 
-    def to_str(self):
-        dflt = super(GitLabAccount, self).to_str()
-        return self.account.extra_data.get("name", dflt)
-
 
 class GitLabProvider(OAuth2Provider):
     id = "gitlab"

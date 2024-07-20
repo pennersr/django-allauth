@@ -9,9 +9,8 @@ class BasecampAccount(ProviderAccount):
     def get_avatar_url(self):
         return None
 
-    def to_str(self):
-        dflt = super(BasecampAccount, self).to_str()
-        return self.account.extra_data.get("name", dflt)
+    def get_user_data(self):
+        return self.account.extra_data.get("identity", {})
 
 
 class BasecampProvider(OAuth2Provider):

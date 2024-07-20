@@ -6,9 +6,7 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
 class JupyterHubAccount(ProviderAccount):
-    def to_str(self):
-        dflt = super(JupyterHubAccount, self).to_str()
-        return self.account.extra_data.get("name", dflt)
+    pass
 
 
 class JupyterHubProvider(OAuth2Provider):

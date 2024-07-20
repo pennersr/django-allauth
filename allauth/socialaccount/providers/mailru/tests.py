@@ -19,3 +19,6 @@ class MailRuTests(OAuth2TestsMixin, TestCase):
         # to get the test suite going but did not verify to check the
         # exact response being returned.
         return '{"access_token": "testac", "uid": "weibo", "refresh_token": "testrf", "x_mailru_vid": "1"}'  # noqa
+
+    def get_expected_to_str(self):
+        return "emaslov@mail.ru"

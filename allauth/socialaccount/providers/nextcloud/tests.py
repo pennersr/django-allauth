@@ -64,3 +64,6 @@ class NextCloudTests(OAuth2TestsMixin, TestCase):
 </ocs>
 """,
         )
+
+    def get_expected_to_str(self):
+        return "batman@wayne.com"

@@ -5,14 +5,7 @@ from allauth.socialaccount.providers.slack.views import SlackOAuth2Adapter
 
 class SlackAccount(ProviderAccount):
     def get_avatar_url(self):
-        return self.account.extra_data.get("user").get("image_192", None)
-
-    def to_str(self):
-        dflt = super(SlackAccount, self).to_str()
-        return "%s (%s)" % (
-            self.account.extra_data.get("name", ""),
-            dflt,
-        )
+        return self.account.extra_data.get("user", {}).get("image_192")
 
 
 class SlackProvider(OAuth2Provider):

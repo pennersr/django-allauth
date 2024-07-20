@@ -8,10 +8,6 @@ class AtlassianAccount(ProviderAccount):
     def get_profile_url(self):
         return self.account.extra_data.get("picture")
 
-    def to_str(self):
-        dflt = super().to_str()
-        return self.account.extra_data.get("name", dflt)
-
 
 class AtlassianProvider(OAuth2Provider):
     id = "atlassian"

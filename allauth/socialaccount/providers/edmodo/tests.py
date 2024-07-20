@@ -42,3 +42,6 @@ class EdmodoTests(OAuth2TestsMixin, TestCase):
 }
 """,
         )  # noqa
+
+    def get_expected_to_str(self):
+        return "getacclaim-teacher1"

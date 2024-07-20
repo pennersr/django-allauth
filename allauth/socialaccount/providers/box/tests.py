@@ -31,3 +31,6 @@ class BoxOAuth2Tests(OAuth2TestsMixin, TestCase):
         }""",
             )
         ]
+
+    def get_expected_to_str(self):
+        return "balls@example.com"

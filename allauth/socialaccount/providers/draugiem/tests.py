@@ -144,4 +144,4 @@ class DraugiemTests(TestCase):
                 pacc.get_avatar_url()
                 == "http://cdn.memegenerator.net/instances/500x/23395689.jpg"
             )
-            assert pacc.to_str() == "Draugiem"
+            assert pacc.to_str() == "Anakin"

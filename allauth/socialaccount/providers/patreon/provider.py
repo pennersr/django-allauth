@@ -13,6 +13,10 @@ class PatreonAccount(ProviderAccount):
     def get_avatar_url(self):
         return self.account.extra_data.get("attributes").get("thumb_url")
 
+    def to_str(self):
+        email = self.account.extra_data.get("attributes", {}).get("email")
+        return email or super().to_str()
+
 
 class PatreonProvider(OAuth2Provider):
     id = PROVIDER_ID

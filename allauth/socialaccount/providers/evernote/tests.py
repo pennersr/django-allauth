@@ -10,6 +10,9 @@ class EvernoteTests(OAuthTestsMixin, TestCase):
     def get_mocked_response(self):
         return []
 
+    def get_expected_to_str(self):
+        return "Evernote"
+
     def get_access_token_response(self):
         return MockedResponse(
             200,

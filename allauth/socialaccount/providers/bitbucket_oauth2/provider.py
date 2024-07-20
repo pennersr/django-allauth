@@ -12,10 +12,6 @@ class BitbucketOAuth2Account(ProviderAccount):
     def get_avatar_url(self):
         return self.account.extra_data.get("links", {}).get("avatar", {}).get("href")
 
-    def to_str(self):
-        dflt = super(BitbucketOAuth2Account, self).to_str()
-        return self.account.extra_data.get("display_name", dflt)
-
 
 class BitbucketOAuth2Provider(OAuth2Provider):
     id = "bitbucket_oauth2"

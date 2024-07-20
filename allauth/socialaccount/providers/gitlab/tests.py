@@ -50,6 +50,9 @@ class GitLabTests(OAuth2TestsMixin, TestCase):
         """,
         )
 
+    def get_expected_to_str(self):
+        return "mr.bob"
+
     def test_valid_response(self):
         data = {"id": 12345}
         response = MockedResponse(200, json.dumps(data))

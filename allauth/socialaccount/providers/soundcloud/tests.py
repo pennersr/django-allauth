@@ -40,3 +40,6 @@ class SoundCloudTests(OAuth2TestsMixin, TestCase):
             "plan": "Free"
         }""",
         )
+
+    def get_expected_to_str(self):
+        return "user187631676"

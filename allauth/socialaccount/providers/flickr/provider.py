@@ -11,20 +11,21 @@ class FlickrAccount(ProviderAccount):
         return self.account.extra_data.get("picture-url")
 
     def to_str(self):
-        dflt = super(FlickrAccount, self).to_str()
-
-        # Try to use name if it exists. If there is no name, the Flickr API
-        # returns an empty string.
-        name = (
-            self.account.extra_data.get("person").get("realname").get("_content", None)
+        username = (
+            self.account.extra_data.get("person", {})
+            .get("username", {})
+            .get("_content")
         )
-        if name:
-            return name
-
-        # Default to username if name does not exist.
-        return (
-            self.account.extra_data.get("person").get("username").get("_content", dflt)
+        if username:
+            return username
+        realname = (
+            self.account.extra_data.get("person", {})
+            .get("realname", {})
+            .get("_content")
         )
+        if realname:
+            return realname
+        return super().to_str()
 
 
 class FlickrProvider(OAuthProvider):

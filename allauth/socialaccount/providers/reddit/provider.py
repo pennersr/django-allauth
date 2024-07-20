@@ -4,10 +4,7 @@ from allauth.socialaccount.providers.reddit.views import RedditAdapter
 
 
 class RedditAccount(ProviderAccount):
-    def to_str(self):
-        dflt = super(RedditAccount, self).to_str()
-        name = self.account.extra_data.get("name", dflt)
-        return name
+    pass
 
 
 class RedditProvider(OAuth2Provider):

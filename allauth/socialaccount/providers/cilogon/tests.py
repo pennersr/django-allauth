@@ -20,3 +20,6 @@ class CILogonTests(OAuth2TestsMixin, TestCase):
             "sub": "http://cilogon.org/serverA/users/1234567"
         }""",
         )
+
+    def get_expected_to_str(self):
+        return "johndoe@example.edu"

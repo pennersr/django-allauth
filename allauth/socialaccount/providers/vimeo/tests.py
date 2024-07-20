@@ -37,3 +37,6 @@ class VimeoTests(OAuthTestsMixin, TestCase):
 """,
             )
         ]
+
+    def get_expected_to_str(self):
+        return "user17574504"

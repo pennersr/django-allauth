@@ -12,10 +12,6 @@ class AngelListAccount(ProviderAccount):
     def get_avatar_url(self):
         return self.account.extra_data.get("image")
 
-    def to_str(self):
-        dflt = super(AngelListAccount, self).to_str()
-        return self.account.extra_data.get("name", dflt)
-
 
 class AngelListProvider(OAuth2Provider):
     id = "angellist"

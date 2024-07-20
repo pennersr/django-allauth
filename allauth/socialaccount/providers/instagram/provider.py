@@ -11,10 +11,6 @@ class InstagramAccount(ProviderAccount):
     def get_profile_url(self):
         return self.PROFILE_URL + self.account.extra_data.get("username")
 
-    def to_str(self):
-        dflt = super(InstagramAccount, self).to_str()
-        return self.account.extra_data.get("username", dflt)
-
 
 class InstagramProvider(OAuth2Provider):
     id = "instagram"

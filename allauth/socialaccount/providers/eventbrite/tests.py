@@ -27,3 +27,6 @@ class EventbriteTests(OAuth2TestsMixin, TestCase):
             "image_id": "99999999"
         }""",
         )
+
+    def get_expected_to_str(self):
+        return "test@example.com"

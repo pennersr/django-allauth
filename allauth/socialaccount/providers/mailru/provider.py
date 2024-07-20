@@ -19,10 +19,6 @@ class MailRuAccount(ProviderAccount):
         else:
             return ret
 
-    def to_str(self):
-        dflt = super(MailRuAccount, self).to_str()
-        return self.account.extra_data.get("name", dflt)
-
 
 class MailRuProvider(OAuth2Provider):
     id = "mailru"

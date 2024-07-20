@@ -36,6 +36,9 @@ class GiteaTests(OAuth2TestsMixin, TestCase):
             }""",
         )
 
+    def get_expected_to_str(self):
+        return "giteauser"
+
     def test_account_name_null(self):
         """String conversion when Gitea responds with empty username"""
         data = """{

@@ -39,8 +39,10 @@ class AmazonCognitoTestCase(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         mocked_payload = json.dumps(_get_mocked_claims())
-
         return MockedResponse(status_code=200, content=mocked_payload)
+
+    def get_expected_to_str(self):
+        return "johndoe"
 
     @override_settings(SOCIALACCOUNT_PROVIDERS={"amazon_cognito": {}})
     def test_oauth2_adapter_raises_if_domain_settings_is_missing(

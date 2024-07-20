@@ -9,12 +9,8 @@ class CleverAccount(ProviderAccount):
         # return self.account.extra_data.get('user').get('image_192', None)
         return None
 
-    def to_str(self):
-        dflt = super(CleverAccount, self).to_str()
-        return "%s (%s)" % (
-            self.account.extra_data.get("name", ""),
-            dflt,
-        )
+    def get_user_data(self):
+        return self.account.extra_data.get("data", {})
 
 
 class CleverProvider(OAuth2Provider):

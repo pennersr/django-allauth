@@ -13,8 +13,8 @@ class FoursquareAccount(ProviderAccount):
         return self.account.extra_data.get("photo")
 
     def to_str(self):
-        dflt = super(FoursquareAccount, self).to_str()
-        return self.account.extra_data.get("name", dflt)
+        dflt = super().to_str()
+        return self.account.extra_data.get("contact", {}).get("email", dflt)
 
 
 class FoursquareProvider(OAuth2Provider):

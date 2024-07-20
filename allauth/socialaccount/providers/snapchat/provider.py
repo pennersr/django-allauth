@@ -10,12 +10,8 @@ from allauth.socialaccount.providers.snapchat.views import (
 
 
 class SnapchatAccount(ProviderAccount):
-    def to_str(self):
-        dflt = super(SnapchatAccount, self).to_str()
-        return "%s (%s)" % (
-            self.account.extra_data.get("data").get("me").get("displayName", ""),
-            dflt,
-        )
+    def get_user_data(self):
+        return self.account.extra_data.get("data", {}).get("me", {})
 
 
 class SnapchatProvider(OAuth2Provider):

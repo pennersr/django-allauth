@@ -7,8 +7,7 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
 class FirefoxAccountsAccount(ProviderAccount):
-    def to_str(self):
-        return self.account.uid
+    pass
 
 
 class FirefoxAccountsProvider(OAuth2Provider):

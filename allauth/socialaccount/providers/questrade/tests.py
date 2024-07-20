@@ -12,3 +12,6 @@ class QuestradeTests(OAuth2TestsMixin, TestCase):
             200,
             """{"userId":400,"accounts":[]}""",
         )
+
+    def get_expected_to_str(self):
+        return "Questrade"

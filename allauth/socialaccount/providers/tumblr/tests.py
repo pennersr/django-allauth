@@ -42,3 +42,6 @@ class TumblrTests(OAuthTestsMixin, TestCase):
 """,
             )
         ]
+
+    def get_expected_to_str(self):
+        return "derekg"

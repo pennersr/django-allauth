@@ -25,6 +25,9 @@ class DiscordTests(OAuth2TestsMixin, TestCase):
         }""",
         )
 
+    def get_expected_to_str(self):
+        return "Nelly"
+
     def test_display_name(self, multiple_login=False):
         email = "user@example.com"
         user = get_user_model()(is_active=True)
@@ -65,6 +68,9 @@ class OldDiscordTests(DiscordTests, TestCase):
             "email": "nelly@example.com"
         }""",
         )
+
+    def get_expected_to_str(self):
+        return "Nelly#1337"
 
     def test_display_name(self, multiple_login=False):
         email = "user@example.com"

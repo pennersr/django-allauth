@@ -36,6 +36,9 @@ class StripeTests(OAuth2TestsMixin, TestCase):
         }""",
         )
 
+    def get_expected_to_str(self):
+        return "test@example.com"
+
     def get_login_response_json(self, with_refresh_token=True):
         rt = ""
         if with_refresh_token:

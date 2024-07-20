@@ -21,3 +21,6 @@ class DaumTests(OAuth2TestsMixin, TestCase):
         body["message"] = "OK"
         body["result"] = result
         return MockedResponse(200, json.dumps(body))
+
+    def get_expected_to_str(self):
+        return "xncbf"

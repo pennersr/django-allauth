@@ -24,6 +24,9 @@ class HubicTests(OAuth2TestsMixin, TestCase):
 """,
         )
 
+    def get_expected_to_str(self):
+        return "user@example.com"
+
     def get_login_response_json(self, with_refresh_token=True):
         return '{\
     "access_token": "testac",\

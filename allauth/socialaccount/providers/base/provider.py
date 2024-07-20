@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Dict, Optional
 
 from django.core.exceptions import ImproperlyConfigured, PermissionDenied
 
@@ -144,7 +144,8 @@ class Provider:
     def extract_extra_data(self, data):
         """
         Extracts fields from `data` that will be stored in
-        `SocialAccount`'s `extra_data` JSONField.
+        `SocialAccount`'s `extra_data` JSONField, such as email address, first
+        name, last name, and phone number.
 
         :return: any JSON-serializable Python structure.
         """
@@ -249,9 +250,31 @@ class ProviderAccount:
     def __str__(self):
         return self.to_str()
 
+    def get_user_data(self) -> Optional[Dict]:
+        """Typically, the ``extra_data`` directly contains user related keys.
+        For some providers, however, they are nested below a different key. In
+        that case, you can override this method so that the base ``__str__()``
+        will still be able to find the data.
+        """
+        ret = self.account.extra_data
+        if not isinstance(ret, dict):
+            ret = None
+        return ret
+
     def to_str(self):
         """
-        This did not use to work in the past due to py2 compatibility:
+        Returns string representation of this social account. This is the
+        unique identifier of the account, such as its username or its email
+        address. It should be meaningful to human beings, which means a numeric
+        ID number is rarely the appropriate representation here.
+
+        Subclasses are meant to override this method.
+
+        Users will see the string representation of their social accounts in
+        the page rendered by the allauth.socialaccount.views.connections view.
+
+        The following code did not use to work in the past due to py2
+        compatibility:
 
             class GoogleAccount(ProviderAccount):
                 def __str__(self):
@@ -261,4 +284,70 @@ class ProviderAccount:
         So we have this method `to_str` that can be overridden in a conventional
         fashion, without having to worry about it.
         """
+        user_data = self.get_user_data()
+        if user_data:
+            combi_values = {}
+            tbl = [
+                # Prefer username -- it's the most human recognizable & unique.
+                (
+                    None,
+                    [
+                        "username",
+                        "userName",
+                        "user_name",
+                        "login",
+                        "handle",
+                    ],
+                ),
+                # Second best is email
+                (None, ["email", "Email", "mail", "email_address"]),
+                (
+                    None,
+                    [
+                        "name",
+                        "display_name",
+                        "displayName",
+                        "Display_Name",
+                        "nickname",
+                    ],
+                ),
+                # Use the full name
+                (None, ["full_name", "fullName"]),
+                # Alternatively, try to assemble a full name ourselves.
+                (
+                    "first_name",
+                    [
+                        "first_name",
+                        "firstname",
+                        "firstName",
+                        "First_Name",
+                        "given_name",
+                        "givenName",
+                    ],
+                ),
+                (
+                    "last_name",
+                    [
+                        "last_name",
+                        "lastname",
+                        "lastName",
+                        "Last_Name",
+                        "family_name",
+                        "familyName",
+                        "surname",
+                    ],
+                ),
+            ]
+            for store_as, variants in tbl:
+                for key in variants:
+                    value = user_data.get(key)
+                    if isinstance(value, str):
+                        value = value.strip()
+                        if value and not store_as:
+                            return value
+                        combi_values[store_as] = value
+            first_name = combi_values.get("first_name") or ""
+            last_name = combi_values.get("last_name") or ""
+            if first_name or last_name:
+                return f"{first_name} {last_name}".strip()
         return self.get_brand()["name"]

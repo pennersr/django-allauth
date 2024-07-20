@@ -39,3 +39,6 @@ class DigitalOceanTests(OAuth2TestsMixin, TestCase):
             "uuid":"b6fr89dbf6d9156cace5f3c78dc9851d957381ef"
           }
         }"""
+
+    def get_expected_to_str(self):
+        return "sammy@example.com"

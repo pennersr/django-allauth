@@ -12,10 +12,6 @@ class DoximityAccount(ProviderAccount):
     def get_avatar_url(self):
         return self.account.extra_data.get("profile_photo")
 
-    def to_str(self):
-        dflt = super(DoximityAccount, self).to_str()
-        return self.account.extra_data.get("full_name", dflt)
-
 
 class DoximityProvider(OAuth2Provider):
     id = "doximity"

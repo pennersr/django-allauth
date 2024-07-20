@@ -7,11 +7,6 @@ class TumblrAccount(ProviderAccount):
     def get_profile_url_(self):
         return "http://%s.tumblr.com/" % self.account.extra_data.get("name")
 
-    def to_str(self):
-        dflt = super(TumblrAccount, self).to_str()
-        name = self.account.extra_data.get("name", dflt)
-        return name
-
 
 class TumblrProvider(OAuthProvider):
     id = "tumblr"

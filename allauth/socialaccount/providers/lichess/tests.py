@@ -83,3 +83,6 @@ class LichessTests(OAuth2TestsMixin, TestCase):
             ),
             MockedResponse(200, """{"email":"george@example.com"}"""),
         ]
+
+    def get_expected_to_str(self):
+        return "george"

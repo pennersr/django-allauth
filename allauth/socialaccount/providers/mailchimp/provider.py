@@ -18,6 +18,11 @@ class MailChimpAccount(ProviderAccount):
         """Return avatar url."""
         return self.account.extra_data["login"]["avatar"]
 
+    def to_str(self):
+        dflt = super().to_str()
+        login_data = self.account.extra_data.get("login", {})
+        return login_data.get("login_email") or login_data.get("email") or dflt
+
 
 class MailChimpProvider(OAuth2Provider):
     """OAuth2Provider subclass for MailChimp v3."""

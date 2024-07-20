@@ -7,9 +7,6 @@ class DaumAccount(ProviderAccount):
     def get_avatar_url(self):
         return self.account.extra_data.get("bigImagePath")
 
-    def to_str(self):
-        return self.account.extra_data.get("nickname", self.account.uid)
-
 
 class DaumProvider(OAuth2Provider):
     id = "Daum"

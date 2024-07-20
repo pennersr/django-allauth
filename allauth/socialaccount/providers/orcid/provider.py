@@ -11,9 +11,6 @@ class OrcidAccount(ProviderAccount):
     def get_profile_url(self):
         return extract_from_dict(self.account.extra_data, ["orcid-identifier", "uri"])
 
-    def to_str(self):
-        return self.account.uid
-
 
 class OrcidProvider(OAuth2Provider):
     id = "orcid"

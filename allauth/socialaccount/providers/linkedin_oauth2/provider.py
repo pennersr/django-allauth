@@ -46,6 +46,8 @@ def _extract_email(data):
 class LinkedInOAuth2Account(ProviderAccount):
     def to_str(self):
         ret = super(LinkedInOAuth2Account, self).to_str()
+        if self.account.extra_data.get("emailAddress"):
+            return self.account.extra_data["emailAddress"]
         first_name = _extract_name_field(self.account.extra_data, "firstName")
         last_name = _extract_name_field(self.account.extra_data, "lastName")
         if first_name or last_name:

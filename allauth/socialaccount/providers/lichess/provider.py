@@ -12,10 +12,6 @@ class LichessAccount(ProviderAccount):
     def get_avatar_url(self):
         return self.account.extra_data.get("avatar")
 
-    def to_str(self):
-        dflt = super().to_str()
-        return self.account.extra_data.get("username", dflt)
-
 
 class LichessProvider(OAuth2Provider):
     id = "lichess"

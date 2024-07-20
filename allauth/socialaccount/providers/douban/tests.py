@@ -25,3 +25,6 @@ class DoubanTests(OAuth2TestsMixin, TestCase):
              "large_avatar": "http://img3.douban.com/icon/up3659811-3.jpg"}
 """,
         )
+
+    def get_expected_to_str(self):
+        return "guoqiao"

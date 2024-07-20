@@ -25,5 +25,8 @@ class VKTests(OAuth2TestsMixin, TestCase):
 """,
         )
 
+    def get_expected_to_str(self):
+        return "Raymond Penners"
+
     def get_login_response_json(self, with_refresh_token=True):
         return '{"user_id": 219004864, "access_token":"testac"}'

@@ -9,11 +9,6 @@ class CoinbaseAccount(ProviderAccount):
     def get_avatar_url(self):
         return None
 
-    def to_str(self):
-        return self.account.extra_data.get(
-            "name", super(CoinbaseAccount, self).to_str()
-        )
-
 
 class CoinbaseProvider(OAuth2Provider):
     id = "coinbase"

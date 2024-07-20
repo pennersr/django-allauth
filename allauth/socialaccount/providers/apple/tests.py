@@ -170,6 +170,9 @@ class AppleTests(OAuth2TestsMixin, TestCase):
             200, KEY_SERVER_RESP_JSON, {"content-type": "application/json"}
         )
 
+    def get_expected_to_str(self):
+        return "A B"
+
     def get_complete_parameters(self, auth_request_params):
         """
         Add apple specific response parameters which they include in the

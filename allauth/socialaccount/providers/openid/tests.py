@@ -61,6 +61,11 @@ class OpenIDTests(TestCase):
                         fetch_redirect_response=False,
                     )
                     get_user_model().objects.get(first_name="raymond")
+                    social_account = SocialAccount.objects.get(
+                        uid=complete_response.identity_url
+                    )
+                    account = social_account.get_provider_account()
+                    self.assertEqual(account.to_str(), complete_response.identity_url)
 
     @override_settings(
         SOCIALACCOUNT_PROVIDERS={

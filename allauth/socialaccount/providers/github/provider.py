@@ -12,18 +12,6 @@ class GitHubAccount(ProviderAccount):
     def get_avatar_url(self):
         return self.account.extra_data.get("avatar_url")
 
-    def to_str(self):
-        dflt = super(GitHubAccount, self).to_str()
-        return next(
-            value
-            for value in (
-                self.account.extra_data.get("name", None),
-                self.account.extra_data.get("login", None),
-                dflt,
-            )
-            if value is not None
-        )
-
 
 class GitHubProvider(OAuth2Provider):
     id = "github"

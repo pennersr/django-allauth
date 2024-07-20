@@ -7,10 +7,6 @@ class Auth0Account(ProviderAccount):
     def get_avatar_url(self):
         return self.account.extra_data.get("picture")
 
-    def to_str(self):
-        dflt = super(Auth0Account, self).to_str()
-        return self.account.extra_data.get("name", dflt)
-
 
 class Auth0Provider(OAuth2Provider):
     id = "auth0"

@@ -23,10 +23,6 @@ class MediaWikiAccount(ProviderAccount):
             return None
         return userpage.format(username=username.replace(" ", "_"))
 
-    def to_str(self):
-        dflt = super(MediaWikiAccount, self).to_str()
-        return self.account.extra_data.get("username", dflt)
-
 
 class MediaWikiProvider(OAuth2Provider):
     id = "mediawiki"
@@ -45,6 +41,8 @@ class MediaWikiProvider(OAuth2Provider):
 
     def extract_extra_data(self, data):
         return dict(
+            email=self._get_email(data),
+            realname=data.get("realname"),
             username=data.get("username"),
         )
 

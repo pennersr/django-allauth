@@ -18,9 +18,6 @@ class OpenStreetMapAccount(ProviderAccount):
     def get_username(self):
         return self.account.extra_data["display_name"]
 
-    def to_str(self):
-        return self.get_username()
-
 
 class OpenStreetMapProvider(OAuthProvider):
     id = "openstreetmap"

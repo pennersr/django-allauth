@@ -11,12 +11,7 @@ from allauth.socialaccount.providers.dummy.forms import AuthenticateForm
 
 
 class DummyAccount(ProviderAccount):
-    def to_str(self):
-        dflt = super().to_str()
-        first_name = self.account.extra_data.get("first_name") or ""
-        last_name = self.account.extra_data.get("last_name") or ""
-        name = " ".join([first_name, last_name]).strip() or dflt
-        return name
+    pass
 
 
 class DummyProvider(Provider):

@@ -37,3 +37,6 @@ class SpotifyOAuth2Tests(OAuth2TestsMixin, TestCase):
           "uri": "spotify:user:wizzler"
         }""",
         )  # noqa
+
+    def get_expected_to_str(self):
+        return "email@example.com"

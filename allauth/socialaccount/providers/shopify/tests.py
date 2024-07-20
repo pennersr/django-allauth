@@ -62,6 +62,9 @@ class ShopifyTests(OAuth2TestsMixin, TestCase):
         """,
         )
 
+    def get_expected_to_str(self):
+        return "email@example.com"
+
 
 @override_settings(SOCIALACCOUNT_PROVIDERS={"shopify": {"IS_EMBEDDED": True}})
 class ShopifyEmbeddedTests(ShopifyTests):

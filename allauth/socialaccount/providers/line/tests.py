@@ -18,3 +18,6 @@ class LineTests(OAuth2TestsMixin, TestCase):
 "http://dl.profile.line-cdn.net/0m055ab14d725138288331268c45ac5286a35482fb794a"
 }""",
         )
+
+    def get_expected_to_str(self):
+        return "\uc774\uc0c1\ud601"

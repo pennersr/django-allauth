@@ -12,11 +12,6 @@ class FiveHundredPxAccount(ProviderAccount):
     def get_avatar_url(self):
         return self.account.extra_data.get("userpic_url")
 
-    def to_str(self):
-        dflt = super(FiveHundredPxAccount, self).to_str()
-        name = self.account.extra_data.get("fullname", dflt)
-        return name
-
 
 class FiveHundredPxProvider(OAuthProvider):
     id = "500px"

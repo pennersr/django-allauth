@@ -16,3 +16,6 @@ class FirefoxAccountsTests(OAuth2TestsMixin, TestCase):
             "email":"user@example.com"
         }""",
         )
+
+    def get_expected_to_str(self):
+        return "user@example.com"

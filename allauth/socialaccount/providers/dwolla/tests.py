@@ -29,3 +29,6 @@ class DwollaTests(OAuth2TestsMixin, TestCase):
             %s }"""
             % rt
         )
+
+    def get_expected_to_str(self):
+        return "John Doe"

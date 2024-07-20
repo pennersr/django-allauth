@@ -24,3 +24,6 @@ class DingTalkTests(OAuth2TestsMixin, TestCase):
     "expireIn": "3600",
     "refreshToken": "testrf"
 }"""
+
+    def get_expected_to_str(self):
+        return "aiden"

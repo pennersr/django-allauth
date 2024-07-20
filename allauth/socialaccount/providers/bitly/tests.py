@@ -28,3 +28,6 @@ class BitlyTests(OAuth2TestsMixin, TestCase):
             "status_txt": "OK"
         }""",
         )
+
+    def get_expected_to_str(self):
+        return "bitlyapioauthdemo"

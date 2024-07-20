@@ -15,6 +15,12 @@ class EventbriteAccount(ProviderAccount):
         """Return avatar url."""
         return self.account.extra_data["image_id"]
 
+    def to_str(self):
+        emails = self.account.extra_data.get("emails")
+        if emails:
+            return emails[0]["email"]
+        return super().to_str()
+
 
 class EventbriteProvider(OAuth2Provider):
     """OAuth2Provider subclass for Eventbrite."""

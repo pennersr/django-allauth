@@ -30,3 +30,6 @@ class NaverTests(OAuth2TestsMixin, TestCase):
 }
 """,
         )
+
+    def get_expected_to_str(self):
+        return "shlee940322@example.com"

@@ -27,6 +27,9 @@ class AuthentiqTests(OAuth2TestsMixin, TestCase):
             ),
         )
 
+    def get_expected_to_str(self):
+        return "jane@email.invalid"
+
     @override_settings(
         SOCIALACCOUNT_QUERY_EMAIL=False,
     )

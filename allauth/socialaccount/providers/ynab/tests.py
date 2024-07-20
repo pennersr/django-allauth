@@ -33,6 +33,9 @@ class YNABTests(OAuth2TestsMixin, TestCase):
         """,
         )
 
+    def get_expected_to_str(self):
+        return "YNAB"
+
     def test_ynab_compelete_login_401(self):
         from allauth.socialaccount.providers.ynab.views import (
             YNABOAuth2Adapter,

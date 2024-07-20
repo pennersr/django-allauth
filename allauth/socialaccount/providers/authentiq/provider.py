@@ -50,10 +50,6 @@ class AuthentiqAccount(ProviderAccount):
     def get_avatar_url(self):
         return self.account.extra_data.get("picture")
 
-    def to_str(self):
-        dflt = super(AuthentiqAccount, self).to_str()
-        return self.account.extra_data.get("name", dflt)
-
 
 class AuthentiqProvider(OAuth2Provider):
     id = "authentiq"

@@ -26,3 +26,6 @@ class FeedlyTests(OAuth2TestsMixin, TestCase):
   "wave": "2013.7"
 }""",
         )
+
+    def get_expected_to_str(self):
+        return "jim.smith@example.com"

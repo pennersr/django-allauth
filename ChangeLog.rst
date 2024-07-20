@@ -23,6 +23,16 @@ Note worthy changes
 - Headless: You can now alter the user data payload by overriding the newly
   introduced ``serialize_user()`` adapter method.
 
+- Ensured that email address, given name and family name fields are stored in
+  the SocialAccount instance. This information was not previously saved in
+  Amazon Cognito, Edmodo, and MediaWiki SocialAccount instances.
+
+- When multiple third-party accounts of the same provider were connected, the
+  third-party account connections overview did not always provide a clear
+  recognizable distinction between those accounts. Now, the
+  ``SocialAccount.__str__()`` has been altered to return the unique username or
+  email address, rather than a non-unique display name.
+
 
 Backwards incompatible changes
 ------------------------------

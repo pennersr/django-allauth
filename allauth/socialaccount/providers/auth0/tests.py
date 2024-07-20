@@ -20,3 +20,6 @@ class Auth0Tests(OAuth2TestsMixin, TestCase):
             }
         """,
         )
+
+    def get_expected_to_str(self):
+        return "mr.bob@your.Auth0.server.example.com"

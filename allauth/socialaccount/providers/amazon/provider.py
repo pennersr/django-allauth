@@ -4,8 +4,7 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
 class AmazonAccount(ProviderAccount):
-    def to_str(self):
-        return self.account.extra_data.get("name", super(AmazonAccount, self).to_str())
+    pass
 
 
 class AmazonProvider(OAuth2Provider):

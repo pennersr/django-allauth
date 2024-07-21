@@ -32,7 +32,7 @@ msgstr "نمی‌توانی نشانی رایانامه‌ی اصلی‌ات (%(
 #, fuzzy
 #| msgid "This email address is already associated with another account."
 msgid "This email address is already associated with this account."
-msgstr "این نشانی رایانامه ازقبل به این حساب وصل شده."
+msgstr "این نشانی ایمیل ازقبل به این حساب وصل شده."
 
 #: account/adapter.py:66
 msgid "The email address and/or password you specified are not correct."
@@ -40,7 +40,7 @@ msgstr "نشانی رایانامه یا گذرواژه نادرست است."
 
 #: account/adapter.py:68
 msgid "A user is already registered with this email address."
-msgstr "یک کاربر ازقبل با این نشانی رایانامه ثبت شده."
+msgstr " یک کاربر ازقبل با این نشانی ایمیل ثبت شده است."
 
 #: account/adapter.py:69
 msgid "Please type your current password."
@@ -69,16 +69,16 @@ msgstr "نمی توانید بیش از %d آدرس ایمیل اضافه کنی
 
 #: account/adapter.py:76
 msgid "Too many failed login attempts. Try again later."
-msgstr "خیلی زیاد تلاش ناموفق کردی، لطفا بعدا ازنو سعی کن."
+msgstr "خیلی زیاد تلاش ناموفق کردی، لطفا بعدا دوباره سعی کن."
 
 #: account/adapter.py:78
 msgid "The email address is not assigned to any user account"
-msgstr "این نشانی رایانامه به هیچ حساب کاربری‌ای منتسب نشده."
+msgstr "این نشانی ایمیل به هیچ حساب کاربری‌ای منتسب نشده."
 
 #: account/adapter.py:79
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary email address must be verified."
-msgstr "نشانی رایانامه‌ی اصلی‌ات باید تاییدشده باشد."
+msgstr "نشانی ایمیل اصلی‌ات باید تایید شده باشد."
 
 #: account/adapter.py:81
 msgid "Username can not be used. Please use other username."
@@ -111,7 +111,7 @@ msgstr "کلید محرمانه"
 #, fuzzy
 #| msgid "Your primary email address must be verified."
 msgid "Mark selected email addresses as verified"
-msgstr "نشانی رایانامه‌ی اصلی‌ات باید تاییدشده باشد."
+msgstr "نشانی ایمیل اصلی‌ات باید تاییدشده باشد."
 
 #: account/apps.py:11
 #, fuzzy
@@ -120,7 +120,7 @@ msgstr "حساب‌ها"
 
 #: account/forms.py:56 account/forms.py:479
 msgid "You must type the same password each time."
-msgstr "هربار باید گذرواژه‌ی یکسانی وارد کنی."
+msgstr "هربار باید گذرواژه‌ی یکسانی را وارد کنی."
 
 #: account/forms.py:91 account/forms.py:409 account/forms.py:560
 #: account/forms.py:674
@@ -129,7 +129,7 @@ msgstr "گذرواژه"
 
 #: account/forms.py:92
 msgid "Remember Me"
-msgstr "مرا به یادآور"
+msgstr "مرا به حفظ کن"
 
 #: account/forms.py:102 account/forms.py:269 account/forms.py:495
 #: account/forms.py:578 account/forms.py:691
@@ -139,7 +139,7 @@ msgstr "نشانی رایانامه"
 #: account/forms.py:106 account/forms.py:307 account/forms.py:492
 #: account/forms.py:573
 msgid "Email"
-msgstr "رایانامه"
+msgstr "ایمیل"
 
 #: account/forms.py:109 account/forms.py:112 account/forms.py:259
 #: account/forms.py:262
@@ -165,7 +165,7 @@ msgstr "گذرواژه‌ات را فراموش کرده‌ای؟"
 #, fuzzy
 #| msgid "Email (optional)"
 msgid "Email (again)"
-msgstr "رایانامه (ازنو)"
+msgstr "ایمیل (دوباره)"
 
 #: account/forms.py:302
 #, fuzzy
@@ -175,13 +175,13 @@ msgstr "تاییدیه‌ی نشانی رایانامه"
 
 #: account/forms.py:310
 msgid "Email (optional)"
-msgstr "رایانامه (اختیاری)"
+msgstr "ایمیل (اختیاری)"
 
 #: account/forms.py:369
 #, fuzzy
 #| msgid "You must type the same password each time."
 msgid "You must type the same email each time."
-msgstr "هربار باید رایانامه‌ی یکسانی وارد کنی."
+msgstr "هربار باید ایمیل یکسانی وارد کنی."
 
 #: account/forms.py:415 account/forms.py:561
 msgid "Password (again)"
@@ -210,7 +210,7 @@ msgstr "کاربر"
 
 #: account/models.py:30 account/models.py:38 account/models.py:150
 msgid "email address"
-msgstr "نشانی رایانامه"
+msgstr "نشانی ایمیل"
 
 #: account/models.py:32
 msgid "verified"
@@ -238,15 +238,15 @@ msgstr "کلید"
 
 #: account/models.py:160
 msgid "email confirmation"
-msgstr "تاییدیه‌ی رایانامه"
+msgstr "تاییدیه‌ی ایمیل"
 
 #: account/models.py:161
 msgid "email confirmations"
-msgstr "تاییدیه‌های رایانامه"
+msgstr "تاییدیه‌های ایمیل"
 
 #: headless/apps.py:7
 msgid "Headless"
-msgstr ""
+msgstr "بی نتیجه"
 
 #: mfa/adapter.py:32
 msgid ""
@@ -256,7 +256,7 @@ msgstr ""
 
 #: mfa/adapter.py:35
 msgid "You cannot deactivate two-factor authentication."
-msgstr ""
+msgstr "شما نمی توانید یک آدرس ایمیل محافظت شده توسط احراز هویت دوعاملی را غیر فعال کنید"
 
 #: mfa/adapter.py:38
 msgid ""

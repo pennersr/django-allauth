@@ -1,6 +1,8 @@
 import typing
 from contextlib import contextmanager
 
+from django.utils.functional import SimpleLazyObject, empty
+
 from allauth import app_settings as allauth_settings
 from allauth.account.stages import LoginStageController
 from allauth.account.utils import unstash_login
@@ -37,8 +39,11 @@ class AuthenticationStatus:
 
 
 def purge_request_user_cache(request):
-    if hasattr(request, "_cached_user"):
-        delattr(request, "_cached_user")
+    for attr in ["_cached_user", "_acached_user"]:
+        if hasattr(request, attr):
+            delattr(request, attr)
+    if isinstance(request.user, SimpleLazyObject):
+        request.user._wrapped = empty
 
 
 @contextmanager

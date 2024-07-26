@@ -68,6 +68,7 @@ via the Django admin as well:
                     # additional configuration is needed, which is placed in
                     # `SocialApp.settings`:
                     "settings": {
+
                         # Mapping account attributes to upstream (IdP specific) attributes.
                         # If left empty, an attempt will be done to map the attributes using
                         # built-in defaults.
@@ -76,6 +77,12 @@ via the Django admin as well:
                             "email_verified": "http://schemas.auth0.com/email_verified",
                             "email": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress",
                         },
+
+                        # The following setting allows you to force the use of nameID as email.
+                        # This can be useful if you are using a SAML IdP that is broken in some way and
+                        # does not allow use of the emailAddress nameid format
+                        "use_nameid_for_email": False,
+
                         # The configuration of the IdP.
                         "idp": {
                             # The entity ID of the IdP is required.

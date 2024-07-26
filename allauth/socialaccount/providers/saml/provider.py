@@ -106,10 +106,11 @@ class SAMLProvider(Provider):
             attributes["email_verified"] = email_verified
 
         # If we did not find an email, check if the NameID contains the email.
-        if (
-            not attributes.get("email")
-            and data.get_nameid_format()
+        if not attributes.get("email") and (
+            data.get_nameid_format()
             == "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
+            # Alternatively, if `use_id_for_email` is true, then we always interpret the nameID as email
+            or provider_config.get("use_nameid_for_email", False)
         ):
             attributes["email"] = data.get_nameid()
 

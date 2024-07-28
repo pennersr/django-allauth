@@ -11,10 +11,11 @@ Available settings:
   Used to override forms. Defaults to::
 
     MFA_FORMS = {
-        'authenticate': 'allauth.mfa.forms.AuthenticateForm',
-        'reauthenticate': 'allauth.mfa.forms.AuthenticateForm',
-        'activate_totp': 'allauth.mfa.forms.ActivateTOTPForm',
-        'deactivate_totp': 'allauth.mfa.forms.DeactivateTOTPForm',
+        'authenticate': 'allauth.mfa.base.forms.AuthenticateForm',
+        'reauthenticate': 'allauth.mfa.base.forms.AuthenticateForm',
+        'activate_totp': 'allauth.mfa.totp.forms.ActivateTOTPForm',
+        'deactivate_totp': 'allauth.mfa.totp.forms.DeactivateTOTPForm',
+        'generate_recovery_codes': 'allauth.mfa.recovery_codes.forms.GenerateRecoveryCodesForm',
     }
 
 ``MFA_PASSKEY_LOGIN_ENABLED`` (default: ``False``)

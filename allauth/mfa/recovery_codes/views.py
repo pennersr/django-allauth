@@ -11,6 +11,7 @@ from allauth.mfa import app_settings
 from allauth.mfa.models import Authenticator
 from allauth.mfa.recovery_codes.forms import GenerateRecoveryCodesForm
 from allauth.mfa.recovery_codes.internal import flows
+from allauth.utils import get_form_class
 
 
 @method_decorator(reauthentication_required, name="dispatch")
@@ -38,6 +39,11 @@ class GenerateRecoveryCodesView(FormView):
         ret = super().get_form_kwargs()
         ret["user"] = self.request.user
         return ret
+
+    def get_form_class(self):
+        return get_form_class(
+            app_settings.FORMS, "generate_recovery_codes", self.form_class
+        )
 
 
 generate_recovery_codes = GenerateRecoveryCodesView.as_view()

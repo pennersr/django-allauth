@@ -23,6 +23,9 @@ Note worthy changes
 - Headless: You can now alter the user data payload by overriding the newly
   introduced ``serialize_user()`` adapter method.
 
+- Headless: The token strategy now allows for exposing refresh tokens and any
+  other information you may need (such as e.g. ``expires_in``).
+
 - Ensured that email address, given name and family name fields are stored in
   the SocialAccount instance. This information was not previously saved in
   Amazon Cognito, Edmodo, and MediaWiki SocialAccount instances.

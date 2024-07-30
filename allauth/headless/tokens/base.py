@@ -1,19 +1,32 @@
 import abc
-import typing
+from typing import Any, Dict, Optional
 
 from django.contrib.sessions.backends.base import SessionBase
 from django.http import HttpRequest
 
 
 class AbstractTokenStrategy(abc.ABC):
-    def get_session_token(self, request: HttpRequest) -> typing.Optional[str]:
+    def get_session_token(self, request: HttpRequest) -> Optional[str]:
         """
         Returns the session token, if any.
         """
         token = request.headers.get("x-session-token")
         return token
 
-    def create_access_token(self, request: HttpRequest) -> typing.Optional[str]:
+    def create_access_token_payload(
+        self, request: HttpRequest
+    ) -> Optional[Dict[str, Any]]:
+        """
+        After authenticating, this method is called to create the access
+        token response payload, exposing the access token and possibly other
+        information such as a ``refresh_token`` and ``expires_in``.
+        """
+        at = self.create_access_token(request)
+        if not at:
+            return None
+        return {"access_token": at}
+
+    def create_access_token(self, request: HttpRequest) -> Optional[str]:
         """Create an access token.
 
         While session tokens are required to handle the authentication process,
@@ -39,7 +52,7 @@ class AbstractTokenStrategy(abc.ABC):
         ...
 
     @abc.abstractmethod
-    def lookup_session(self, session_token: str) -> typing.Optional[SessionBase]:
+    def lookup_session(self, session_token: str) -> Optional[SessionBase]:
         """
         Looks up the Django session given the session token. Returns `None`
         if the session does not / no longer exist.

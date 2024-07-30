@@ -1,5 +1,5 @@
-import typing
 from contextlib import contextmanager
+from typing import Any, Dict, Optional
 
 from django.utils.functional import SimpleLazyObject, empty
 
@@ -77,7 +77,7 @@ def authentication_context(request):
         request.META["CSRF_COOKIE_NEEDS_UPDATE"] = False
 
 
-def expose_access_token(request) -> typing.Optional[str]:
+def expose_access_token(request) -> Optional[Dict[str, Any]]:
     """
     Determines if a new access token needs to be exposed.
     """
@@ -89,4 +89,4 @@ def expose_access_token(request) -> typing.Optional[str]:
     if pre_user.is_authenticated and pre_user.pk == request.user.pk:
         return None
     strategy = app_settings.TOKEN_STRATEGY
-    return strategy.create_access_token(request)
+    return strategy.create_access_token_payload(request)

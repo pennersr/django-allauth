@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-14 14:14-0500\n"
-"PO-Revision-Date: 2024-07-06 07:09+0000\n"
+"POT-Creation-Date: 2024-07-30 16:02-0500\n"
+"PO-Revision-Date: 2024-07-23 14:40+0000\n"
 "Last-Translator: Zhuo Cheng <chengz21@mails.tsinghua.edu.cn>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "allauth/django-allauth/zh_Hans/>\n"
@@ -95,10 +95,8 @@ msgstr "请使用认证APP或代码"
 
 #: account/adapter.py:755 templates/mfa/authenticate.html:36
 #: templates/mfa/webauthn/reauthenticate.html:15
-#, fuzzy
-#| msgid "Security key"
 msgid "Use a security key"
-msgstr "安全密钥"
+msgstr "使用安全密钥"
 
 #: account/admin.py:23
 msgid "Mark selected email addresses as verified"
@@ -290,17 +288,12 @@ msgid "Passwordless"
 msgstr "无密码"
 
 #: mfa/webauthn/forms.py:19
-#, fuzzy
-#| msgid ""
-#| "Enabling passwordless operation allows you to sign in using just this key/"
-#| "device, but imposes additional requirements such as biometrics or PIN "
-#| "protection."
 msgid ""
 "Enabling passwordless operation allows you to sign in using just this key, "
 "but imposes additional requirements such as biometrics or PIN protection."
 msgstr ""
-"启用无密码操作允许您仅使用此密钥/设备登录，但会提出其他要求，例如生物特征或"
-"PIN保护。"
+"启用无密码操作允许您仅使用此密钥登录，但会提出其他要求，例如生物特征或PIN保"
+"护。"
 
 #: socialaccount/adapter.py:36
 #, python-format
@@ -430,11 +423,11 @@ msgstr "社交应用令牌"
 msgid "Invalid profile data"
 msgstr "无效个人资料数据"
 
-#: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:17
+#: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:16
 msgid "Login"
 msgstr "登录"
 
-#: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:20
+#: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:19
 #: templates/mfa/authenticate.html:41
 msgid "Cancel"
 msgstr "取消"
@@ -498,7 +491,7 @@ msgstr "可选项"
 #: templates/account/confirm_login_code.html:27 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
 #: templates/account/request_login_code.html:5
-#: templates/allauth/layouts/base.html:62 templates/mfa/authenticate.html:6
+#: templates/allauth/layouts/base.html:68 templates/mfa/authenticate.html:6
 #: templates/mfa/authenticate.html:24 templates/openid/login.html:5
 #: templates/openid/login.html:9 templates/openid/login.html:20
 #: templates/socialaccount/login.html:5
@@ -842,7 +835,7 @@ msgid "Mail me a sign-in code"
 msgstr "邮寄登录代码给我"
 
 #: templates/account/logout.html:4 templates/account/logout.html:8
-#: templates/account/logout.html:21 templates/allauth/layouts/base.html:55
+#: templates/account/logout.html:21 templates/allauth/layouts/base.html:61
 #: templates/usersessions/usersession_list.html:64
 msgid "Sign Out"
 msgstr "登出"
@@ -979,7 +972,7 @@ msgid "Signup"
 msgstr "注册"
 
 #: templates/account/signup.html:8 templates/account/signup.html:30
-#: templates/allauth/layouts/base.html:68 templates/socialaccount/signup.html:9
+#: templates/allauth/layouts/base.html:74 templates/socialaccount/signup.html:9
 #: templates/socialaccount/signup.html:25
 msgid "Sign Up"
 msgstr "注册"
@@ -1075,12 +1068,18 @@ msgstr "消息："
 msgid "Menu:"
 msgstr "菜单："
 
-#: templates/allauth/layouts/base.html:43 templates/mfa/authenticate.html:10
+#: templates/allauth/layouts/base.html:43
+#, fuzzy
+#| msgid "Account Connections"
+msgid "Account Connection"
+msgstr "账号连接"
+
+#: templates/allauth/layouts/base.html:49 templates/mfa/authenticate.html:10
 #: templates/mfa/index.html:5 templates/mfa/index.html:9
 msgid "Two-Factor Authentication"
 msgstr "双因素身份认证"
 
-#: templates/allauth/layouts/base.html:49
+#: templates/allauth/layouts/base.html:55
 #: templates/usersessions/usersession_list.html:6
 #: templates/usersessions/usersession_list.html:10
 msgid "Sessions"
@@ -1161,12 +1160,10 @@ msgid "Security Keys"
 msgstr "安全密钥"
 
 #: templates/mfa/index.html:50
-#, fuzzy, python-format
-#| msgid "You have added %(count)s security key/device."
-#| msgid_plural "You have added %(count)s security keys/devices."
+#, python-format
 msgid "You have added %(count)s security key."
 msgid_plural "You have added %(count)s security keys."
-msgstr[0] "您已添加%(count)s个安全密钥/设备。"
+msgstr[0] "您已添加%(count)s个安全密钥。"
 
 #: templates/mfa/index.html:53
 #: templates/mfa/webauthn/authenticator_list.html:11
@@ -1288,16 +1285,12 @@ msgid ""
 msgstr "您即将停用基于身份验证器应用的身份验证。确定要执行此操作吗？"
 
 #: templates/mfa/webauthn/add_form.html:7
-#, fuzzy
-#| msgid "Security Keys"
 msgid "Add Security Key"
-msgstr "安全密钥"
+msgstr "添加安全密钥"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:6
-#, fuzzy
-#| msgid "Remove Security Key or Device"
 msgid "Remove Security Key"
-msgstr "移除安全密钥或设备"
+msgstr "移除安全密钥"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:8
 msgid "Are you sure you want to remove this security key?"
@@ -1316,10 +1309,8 @@ msgid "Security key"
 msgstr "安全密钥"
 
 #: templates/mfa/webauthn/authenticator_list.html:38
-#, fuzzy
-#| msgid "This key does not specify whether is a passkey."
 msgid "This key does not indicate whether it is a passkey."
-msgstr "此密钥未指定是否为 passkey。"
+msgstr "此密钥未表明其是否为 passkey。"
 
 #: templates/mfa/webauthn/authenticator_list.html:39
 msgid "Unspecified"
@@ -1340,10 +1331,8 @@ msgid "Edit"
 msgstr "编辑"
 
 #: templates/mfa/webauthn/edit_form.html:7
-#, fuzzy
-#| msgid "Security Keys"
 msgid "Edit Security Key"
-msgstr "安全密钥"
+msgstr "编辑安全密钥"
 
 #: templates/mfa/webauthn/edit_form.html:18
 msgid "Save"

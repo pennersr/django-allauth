@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-14 14:14-0500\n"
+"POT-Creation-Date: 2024-07-30 16:02-0500\n"
 "PO-Revision-Date: 2024-04-20 22:02+0200\n"
 "Last-Translator: Jeyhun Piriyev <jeihunpiriyev@gmail.com>\n"
 "Language-Team: Azerbaijani (Azerbaijan)\n"
@@ -465,14 +465,14 @@ msgstr "sosial tətbiq tokenləri"
 msgid "Invalid profile data"
 msgstr "Yanlış profil məlumatı"
 
-#: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:17
+#: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:16
 #, fuzzy
 #| msgctxt "field label"
 #| msgid "Login"
 msgid "Login"
 msgstr "Daxil ol"
 
-#: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:20
+#: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:19
 #: templates/mfa/authenticate.html:41
 msgid "Cancel"
 msgstr "Ləğv et"
@@ -537,7 +537,7 @@ msgstr "Alternativ variantlar"
 #: templates/account/confirm_login_code.html:27 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
 #: templates/account/request_login_code.html:5
-#: templates/allauth/layouts/base.html:62 templates/mfa/authenticate.html:6
+#: templates/allauth/layouts/base.html:68 templates/mfa/authenticate.html:6
 #: templates/mfa/authenticate.html:24 templates/openid/login.html:5
 #: templates/openid/login.html:9 templates/openid/login.html:20
 #: templates/socialaccount/login.html:5
@@ -913,7 +913,7 @@ msgid "Mail me a sign-in code"
 msgstr ""
 
 #: templates/account/logout.html:4 templates/account/logout.html:8
-#: templates/account/logout.html:21 templates/allauth/layouts/base.html:55
+#: templates/account/logout.html:21 templates/allauth/layouts/base.html:61
 #: templates/usersessions/usersession_list.html:64
 msgid "Sign Out"
 msgstr "Çıxış"
@@ -1055,7 +1055,7 @@ msgid "Signup"
 msgstr "Qeydiyyatdan keçin"
 
 #: templates/account/signup.html:8 templates/account/signup.html:30
-#: templates/allauth/layouts/base.html:68 templates/socialaccount/signup.html:9
+#: templates/allauth/layouts/base.html:74 templates/socialaccount/signup.html:9
 #: templates/socialaccount/signup.html:25
 msgid "Sign Up"
 msgstr "Qeydiyyatdan Keç"
@@ -1155,12 +1155,18 @@ msgstr "Mesajlar:"
 msgid "Menu:"
 msgstr "Menyu:"
 
-#: templates/allauth/layouts/base.html:43 templates/mfa/authenticate.html:10
+#: templates/allauth/layouts/base.html:43
+#, fuzzy
+#| msgid "Account Connections"
+msgid "Account Connection"
+msgstr "Hesab Əlaqələri"
+
+#: templates/allauth/layouts/base.html:49 templates/mfa/authenticate.html:10
 #: templates/mfa/index.html:5 templates/mfa/index.html:9
 msgid "Two-Factor Authentication"
 msgstr "İki Faktorlu Doğrulama"
 
-#: templates/allauth/layouts/base.html:49
+#: templates/allauth/layouts/base.html:55
 #: templates/usersessions/usersession_list.html:6
 #: templates/usersessions/usersession_list.html:10
 msgid "Sessions"

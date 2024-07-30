@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-14 14:14-0500\n"
+"POT-Creation-Date: 2024-07-30 16:02-0500\n"
 "PO-Revision-Date: 2024-05-18 20:01+0000\n"
 "Last-Translator: Samad Valipour <samadvalipour76@gmail.com>\n"
 "Language-Team: Persian <https://hosted.weblate.org/projects/allauth/django-"
@@ -256,7 +256,9 @@ msgstr ""
 
 #: mfa/adapter.py:35
 msgid "You cannot deactivate two-factor authentication."
-msgstr "شما نمی توانید یک آدرس ایمیل محافظت شده توسط احراز هویت دوعاملی را غیر فعال کنید"
+msgstr ""
+"شما نمی توانید یک آدرس ایمیل محافظت شده توسط احراز هویت دوعاملی را غیر فعال "
+"کنید"
 
 #: mfa/adapter.py:38
 msgid ""
@@ -463,14 +465,14 @@ msgstr "توکن‌های اپلیکیشن اجتماعی"
 msgid "Invalid profile data"
 msgstr "داده نامعتبر نمایه"
 
-#: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:17
+#: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:16
 #, fuzzy
 #| msgctxt "field label"
 #| msgid "Login"
 msgid "Login"
 msgstr "ورود"
 
-#: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:20
+#: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:19
 #: templates/mfa/authenticate.html:41
 msgid "Cancel"
 msgstr ""
@@ -537,7 +539,7 @@ msgstr ""
 #: templates/account/confirm_login_code.html:27 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
 #: templates/account/request_login_code.html:5
-#: templates/allauth/layouts/base.html:62 templates/mfa/authenticate.html:6
+#: templates/allauth/layouts/base.html:68 templates/mfa/authenticate.html:6
 #: templates/mfa/authenticate.html:24 templates/openid/login.html:5
 #: templates/openid/login.html:9 templates/openid/login.html:20
 #: templates/socialaccount/login.html:5
@@ -926,7 +928,7 @@ msgid "Mail me a sign-in code"
 msgstr ""
 
 #: templates/account/logout.html:4 templates/account/logout.html:8
-#: templates/account/logout.html:21 templates/allauth/layouts/base.html:55
+#: templates/account/logout.html:21 templates/allauth/layouts/base.html:61
 #: templates/usersessions/usersession_list.html:64
 msgid "Sign Out"
 msgstr "خروج"
@@ -1079,7 +1081,7 @@ msgid "Signup"
 msgstr "ثبت‌نام"
 
 #: templates/account/signup.html:8 templates/account/signup.html:30
-#: templates/allauth/layouts/base.html:68 templates/socialaccount/signup.html:9
+#: templates/allauth/layouts/base.html:74 templates/socialaccount/signup.html:9
 #: templates/socialaccount/signup.html:25
 msgid "Sign Up"
 msgstr "ثبت نام"
@@ -1197,12 +1199,18 @@ msgstr ""
 msgid "Menu:"
 msgstr ""
 
-#: templates/allauth/layouts/base.html:43 templates/mfa/authenticate.html:10
+#: templates/allauth/layouts/base.html:43
+#, fuzzy
+#| msgid "Account Connections"
+msgid "Account Connection"
+msgstr "اتصال‌های حساب"
+
+#: templates/allauth/layouts/base.html:49 templates/mfa/authenticate.html:10
 #: templates/mfa/index.html:5 templates/mfa/index.html:9
 msgid "Two-Factor Authentication"
 msgstr ""
 
-#: templates/allauth/layouts/base.html:49
+#: templates/allauth/layouts/base.html:55
 #: templates/usersessions/usersession_list.html:6
 #: templates/usersessions/usersession_list.html:10
 msgid "Sessions"

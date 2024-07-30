@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-14 14:14-0500\n"
-"PO-Revision-Date: 2024-07-01 15:09+0000\n"
-"Last-Translator: Allan Silva Barroso de Oliveira <allan.sbo@hotmail.com>\n"
+"POT-Creation-Date: 2024-07-30 16:02-0500\n"
+"PO-Revision-Date: 2024-07-23 14:40+0000\n"
+"Last-Translator: alefsanderribeiro <alefsander.pvh14@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "allauth/django-allauth/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -101,10 +101,8 @@ msgstr "Use um aplicativo autenticador ou código"
 
 #: account/adapter.py:755 templates/mfa/authenticate.html:36
 #: templates/mfa/webauthn/reauthenticate.html:15
-#, fuzzy
-#| msgid "Security key"
 msgid "Use a security key"
-msgstr "Chave de segurança"
+msgstr "Usa uma Chave de segurança"
 
 #: account/admin.py:23
 msgid "Mark selected email addresses as verified"
@@ -302,18 +300,13 @@ msgid "Passwordless"
 msgstr "Sem senha"
 
 #: mfa/webauthn/forms.py:19
-#, fuzzy
-#| msgid ""
-#| "Enabling passwordless operation allows you to sign in using just this key/"
-#| "device, but imposes additional requirements such as biometrics or PIN "
-#| "protection."
 msgid ""
 "Enabling passwordless operation allows you to sign in using just this key, "
 "but imposes additional requirements such as biometrics or PIN protection."
 msgstr ""
 "A ativação da operação sem senha permite que você faça login usando apenas "
-"esta chave/dispositivo, mas impõe requisitos adicionais, como biometria ou "
-"proteção por PIN."
+"esta chave, mas impõe requisitos adicionais, como biometria ou proteção por "
+"PIN."
 
 #: socialaccount/adapter.py:36
 #, python-format
@@ -423,7 +416,7 @@ msgstr "\"oauth_token\" (OAuth1) ou token de acesso (OAuth2)"
 
 #: socialaccount/models.py:165
 msgid "token secret"
-msgstr "token secret"
+msgstr "token de segurança"
 
 #: socialaccount/models.py:166
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
@@ -445,11 +438,11 @@ msgstr "tokens de aplicativo social"
 msgid "Invalid profile data"
 msgstr "Dados pessoais inválidos"
 
-#: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:17
+#: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:16
 msgid "Login"
 msgstr "Login"
 
-#: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:20
+#: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:19
 #: templates/mfa/authenticate.html:41
 msgid "Cancel"
 msgstr "Cancelar"
@@ -514,7 +507,7 @@ msgstr "Opções alternativas"
 #: templates/account/confirm_login_code.html:27 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
 #: templates/account/request_login_code.html:5
-#: templates/allauth/layouts/base.html:62 templates/mfa/authenticate.html:6
+#: templates/allauth/layouts/base.html:68 templates/mfa/authenticate.html:6
 #: templates/mfa/authenticate.html:24 templates/openid/login.html:5
 #: templates/openid/login.html:9 templates/openid/login.html:20
 #: templates/socialaccount/login.html:5
@@ -875,7 +868,7 @@ msgid "Mail me a sign-in code"
 msgstr "Envie-me um código de entrada"
 
 #: templates/account/logout.html:4 templates/account/logout.html:8
-#: templates/account/logout.html:21 templates/allauth/layouts/base.html:55
+#: templates/account/logout.html:21 templates/allauth/layouts/base.html:61
 #: templates/usersessions/usersession_list.html:64
 msgid "Sign Out"
 msgstr "Sair"
@@ -1015,7 +1008,7 @@ msgid "Signup"
 msgstr "Cadastre-se"
 
 #: templates/account/signup.html:8 templates/account/signup.html:30
-#: templates/allauth/layouts/base.html:68 templates/socialaccount/signup.html:9
+#: templates/allauth/layouts/base.html:74 templates/socialaccount/signup.html:9
 #: templates/socialaccount/signup.html:25
 msgid "Sign Up"
 msgstr "Cadastro"
@@ -1113,12 +1106,18 @@ msgstr "Mensagens:"
 msgid "Menu:"
 msgstr "Menu:"
 
-#: templates/allauth/layouts/base.html:43 templates/mfa/authenticate.html:10
+#: templates/allauth/layouts/base.html:43
+#, fuzzy
+#| msgid "Account Connections"
+msgid "Account Connection"
+msgstr "Conexões da Conta"
+
+#: templates/allauth/layouts/base.html:49 templates/mfa/authenticate.html:10
 #: templates/mfa/index.html:5 templates/mfa/index.html:9
 msgid "Two-Factor Authentication"
 msgstr "Autenticação em dois fatores"
 
-#: templates/allauth/layouts/base.html:49
+#: templates/allauth/layouts/base.html:55
 #: templates/usersessions/usersession_list.html:6
 #: templates/usersessions/usersession_list.html:10
 msgid "Sessions"
@@ -1203,13 +1202,11 @@ msgid "Security Keys"
 msgstr "Chaves de Segurança"
 
 #: templates/mfa/index.html:50
-#, fuzzy, python-format
-#| msgid "You have added %(count)s security key/device."
-#| msgid_plural "You have added %(count)s security keys/devices."
+#, python-format
 msgid "You have added %(count)s security key."
 msgid_plural "You have added %(count)s security keys."
-msgstr[0] "Você adicionou %(count)s chave ou dispositivo de segurança."
-msgstr[1] "Você adicionou %(count)s chaves ou dispositivos de segurança."
+msgstr[0] "Você adicionou %(count)s chave de segurança."
+msgstr[1] "Você adicionou %(count)s chaves de segurança."
 
 #: templates/mfa/index.html:53
 #: templates/mfa/webauthn/authenticator_list.html:11
@@ -1340,16 +1337,12 @@ msgstr ""
 "Você está prestes a desativar a autenticação em dois fatores. Tem certeza?"
 
 #: templates/mfa/webauthn/add_form.html:7
-#, fuzzy
-#| msgid "Security Keys"
 msgid "Add Security Key"
-msgstr "Chaves de Segurança"
+msgstr "Adiciona Chave de Segurança"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:6
-#, fuzzy
-#| msgid "Remove Security Key or Device"
 msgid "Remove Security Key"
-msgstr "Remover chave ou dispositivo de segurança"
+msgstr "Remover chave de segurança"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:8
 msgid "Are you sure you want to remove this security key?"
@@ -1368,10 +1361,8 @@ msgid "Security key"
 msgstr "Chave de segurança"
 
 #: templates/mfa/webauthn/authenticator_list.html:38
-#, fuzzy
-#| msgid "This key does not specify whether is a passkey."
 msgid "This key does not indicate whether it is a passkey."
-msgstr "Esta chave não especifica se é uma chave de acesso."
+msgstr "Esta chave não indica se é uma chave de acesso."
 
 #: templates/mfa/webauthn/authenticator_list.html:39
 msgid "Unspecified"
@@ -1392,10 +1383,8 @@ msgid "Edit"
 msgstr "Editar"
 
 #: templates/mfa/webauthn/edit_form.html:7
-#, fuzzy
-#| msgid "Security Keys"
 msgid "Edit Security Key"
-msgstr "Chaves de Segurança"
+msgstr "Editar Chave de Segurança"
 
 #: templates/mfa/webauthn/edit_form.html:18
 msgid "Save"

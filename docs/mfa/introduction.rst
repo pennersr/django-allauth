@@ -31,3 +31,5 @@ Remember to add the app to the ``settings.py`` of your project::
         'allauth.mfa',
         ...
     ]
+
+Note that :doc:`WebAuthn support <./webauthn>` is disabled by default.

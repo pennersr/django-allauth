@@ -297,27 +297,13 @@ class SocialLogin:
             setup_user_email(request, user, self.email_addresses)
 
     @property
-    def user(self):
-        return self._user
-
-    @user.setter
-    def user(self, v):
-        self._user = v
-        self._is_existing = None
-
-    @property
     def is_existing(self) -> bool:
         """When `False`, this social login represents a temporary account, not
         yet backed by a database record.
         """
-        if self._is_existing is not None:
-            return self._is_existing
         if self.user.pk is None:
-            ret = False
-        else:
-            ret = get_user_model().objects.filter(pk=self.user.pk).exists()
-        self._is_existing = ret
-        return ret
+            return False
+        return get_user_model().objects.filter(pk=self.user.pk).exists()
 
     def lookup(self) -> None:
         """Look up the existing local user account to which this social login

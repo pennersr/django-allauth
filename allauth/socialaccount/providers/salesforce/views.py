@@ -29,7 +29,7 @@ class SalesforceOAuth2Adapter(OAuth2Adapter):
         resp = (
             get_adapter()
             .get_requests_session()
-            .get(self.userinfo_url, params={"oauth_token": token})
+            .get(self.userinfo_url, params={"oauth_token": token.token})
         )
         resp.raise_for_status()
         extra_data = resp.json()

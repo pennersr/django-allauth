@@ -1,11 +1,8 @@
-64.0.0 (unreleased)
+64.0.0 (2024-07-31)
 *******************
 
 Note worthy changes
 -------------------
-
-- Added support for WebAuthn based security keys and passkey login. Note that
-  this is currently disabled by default.
 
 - The 0.x.y version numbers really did not do justice to the state of the
   project, and we are way past the point where a version 1.0 would be
@@ -14,6 +11,9 @@ Note worthy changes
   versioning. However, please be aware that feature releases may occasionally
   include minor documented backwards incompatibilities. Always read the release
   notes before upgrading.
+
+- Added support for WebAuthn based security keys and passkey login. Note that
+  this is currently disabled by default.
 
 - Headless: The TOTP URI is now available in the MFA activation response.
 

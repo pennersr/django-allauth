@@ -16,6 +16,7 @@ def serialize_request(request):
             "GET": request.GET.urlencode(),
             "POST": request.POST.urlencode(),
             "method": request.method,
+            "scheme": request.scheme,
         }
     )
 
@@ -28,6 +29,7 @@ def deserialize_request(s, request):
     request.path = data["path"]
     request.path_info = data["path_info"]
     request.method = data["method"]
+    request._get_scheme = lambda: data["scheme"]
     return request
 
 

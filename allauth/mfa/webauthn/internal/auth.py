@@ -23,8 +23,7 @@ from allauth.mfa.adapter import get_adapter
 from allauth.mfa.models import Authenticator
 
 
-if not fido2.features.webauthn_json_mapping.enabled:
-    fido2.features.webauthn_json_mapping.enabled = True
+fido2.features.webauthn_json_mapping.enabled = True
 
 
 STATE_SESSION_KEY = "mfa.webauthn.state"

@@ -74,6 +74,8 @@ class LoginView(APIView):
     input_class = LoginInput
 
     def post(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return ConflictResponse(request)
         credentials = self.input.cleaned_data
         user = get_account_adapter().authenticate(self.request, **credentials)
         if user:

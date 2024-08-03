@@ -125,6 +125,13 @@ paths:
                   $ref: "#/components/examples/UnauthenticatedPendingEmailVerification"
                 pending_2fa:
                   $ref: "#/components/examples/UnauthenticatedPending2FA"
+        "409":
+          description: |
+            Conflict. For example, when logging in when a user is already logged in.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConflictResponse"
   /_allauth/{client}/v1/auth/signup:
     post:
       tags:

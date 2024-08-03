@@ -171,3 +171,18 @@ def test_login_rate_limit(
         )
         expected_status = 429 if attempt else 200
         assert resp.status_code == expected_status
+
+
+def test_login_already_logged_in(
+    auth_client, user, user_password, settings, headless_reverse
+):
+    settings.ACCOUNT_AUTHENTICATION_METHOD = "email"
+    resp = auth_client.post(
+        headless_reverse("headless:account:login"),
+        data={
+            "email": user.email,
+            "password": user_password,
+        },
+        content_type="application/json",
+    )
+    assert resp.status_code == 409

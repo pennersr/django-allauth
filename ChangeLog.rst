@@ -1,7 +1,8 @@
 64.1.0 (unreleased)
 *******************
 
-- ...
+- Headless: When trying to login while a user is already logged in, you now get
+  a 409.
 
 
 64.0.0 (2024-07-31)

@@ -16,6 +16,7 @@ class SAMLProvider(Provider):
     account_class = SAMLAccount
     default_attribute_mapping = {
         "uid": [
+            "urn:oid:0.9.2342.19200300.100.1.1",
             "urn:oasis:names:tc:SAML:attribute:subject-id",
         ],
         "email": [

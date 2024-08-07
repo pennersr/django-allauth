@@ -73,8 +73,8 @@ via the Django admin as well:
                         # If left empty, an attempt will be done to map the attributes using
                         # built-in defaults.
                         "attribute_mapping": {
-                            "uid": "urn:oid:1.3.6.1.4.1.5923.1.1.1.6",
-                            "email_verified": "true",
+                            "uid": "urn:oid:0.9.2342.19200300.100.1.1",
+                            "email_verified": "urn:oid:0.9.2342.19200300.100.1.3",
                             "email": "urn:oid:0.9.2342.19200300.100.1.3",
                         },
 

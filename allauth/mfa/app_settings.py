@@ -73,6 +73,13 @@ class AppSettings:
             "PASSKEY_LOGIN_ENABLED", False
         )
 
+    @property
+    def TOTP_TIME_TOLERANCE(self):
+        """
+        The number of time steps in the past or future to allow for TOTP codes.
+        """
+        return self._setting("TOTP_TIME_TOLERANCE", 1)
+
 
 _app_settings = AppSettings("MFA_")
 

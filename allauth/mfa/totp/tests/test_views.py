@@ -9,6 +9,15 @@ from allauth.account.authentication import AUTHENTICATION_METHODS_SESSION_KEY
 from allauth.account.models import EmailAddress
 from allauth.mfa.adapter import get_adapter
 from allauth.mfa.models import Authenticator
+import time
+from unittest.mock import patch
+
+from django.test import override_settings
+from django.urls import reverse
+
+from allauth.mfa import app_settings
+from allauth.mfa.models import Authenticator
+from allauth.mfa.totp.internal.auth import hotp_counter_from_time, hotp_value
 
 
 def test_activate_totp_with_incorrect_code(auth_client, reauthentication_bypass):
@@ -181,6 +190,108 @@ def test_cannot_deactivate_totp(auth_client, user_with_totp, user_password):
             "__all__": [get_adapter().error_messages["cannot_delete_authenticator"]],
         }
 
+
+@override_settings(ACCOUNT_LOGIN_ATTEMPTS_LIMIT=None)
+def test_totp_time_tolerance(user_with_totp, user_password, enable_cache):
+    client = Client()
+    auth = Authenticator.objects.get(user=user_with_totp, type=Authenticator.Type.TOTP)
+    secret = auth.wrap().instance.data["secret"]
+
+    def login_with_code(code):
+        client.post(
+            reverse("account_login"),
+            {"login": user_with_totp.username, "password": user_password},
+        )
+        resp = client.post(reverse("mfa_authenticate"), {"code": code})
+        return resp.status_code == 302
+
+    current_counter = hotp_counter_from_time()
+
+    # Test current time step
+    current_code = f"{hotp_value(secret, current_counter):06d}"
+    assert login_with_code(current_code)
+
+    # Test one step in the past
+    past_code = f"{hotp_value(secret, current_counter - 1):06d}"
+    assert login_with_code(past_code)
+
+    # Test one step in the future
+    future_code = f"{hotp_value(secret, current_counter + 1):06d}"
+    assert login_with_code(future_code)
+
+    # Test two steps in the past (should fail with default tolerance)
+    past_code_2 = f"{hotp_value(secret, current_counter - 2):06d}"
+    assert not login_with_code(past_code_2)
+
+    # Test two steps in the future (should fail with default tolerance)
+    future_code_2 = f"{hotp_value(secret, current_counter + 2):06d}"
+    assert not login_with_code(future_code_2)
+    client = Client()
+    auth = Authenticator.objects.get(user=user_with_totp, type=Authenticator.Type.TOTP)
+    secret = auth.wrap().instance.data["secret"]
+
+    def login_with_code(code):
+        client.post(
+            reverse("account_login"),
+            {"login": user_with_totp.username, "password": user_password},
+        )
+        resp = client.post(reverse("mfa_authenticate"), {"code": code})
+        return resp.status_code == 302
+
+    current_counter = hotp_counter_from_time()
+
+    # Test current time step
+    current_code = f"{hotp_value(secret, current_counter):06d}"
+    assert login_with_code(current_code)
+
+    # Test one step in the past
+    past_code = f"{hotp_value(secret, current_counter - 1):06d}"
+    assert login_with_code(past_code)
+
+    # Test one step in the future
+    future_code = f"{hotp_value(secret, current_counter + 1):06d}"
+    assert login_with_code(future_code)
+
+    # Test two steps in the past (should fail with default tolerance)
+    past_code_2 = f"{hotp_value(secret, current_counter - 2):06d}"
+    assert not login_with_code(past_code_2)
+
+    # Test two steps in the future (should fail with default tolerance)
+    future_code_2 = f"{hotp_value(secret, current_counter + 2):06d}"
+    assert not login_with_code(future_code_2)
+
+@override_settings(ACCOUNT_LOGIN_ATTEMPTS_LIMIT=None)
+def test_totp_custom_time_tolerance(user_with_totp, user_password, enable_cache):
+    client = Client()
+    auth = Authenticator.objects.get(user=user_with_totp, type=Authenticator.Type.TOTP)
+    secret = auth.wrap().instance.data["secret"]
+
+    def login_with_code(code):
+        client.post(
+            reverse("account_login"),
+            {"login": user_with_totp.username, "password": user_password},
+        )
+        resp = client.post(reverse("mfa_authenticate"), {"code": code})
+        return resp.status_code == 302
+
+    current_counter = hotp_counter_from_time()
+
+    with override_settings(MFA_TOTP_TIME_TOLERANCE=2):
+        # Test two steps in the past (should succeed with tolerance=2)
+        past_code_2 = f"{hotp_value(secret, current_counter - 2):06d}"
+        assert login_with_code(past_code_2)
+
+        # Test two steps in the future (should succeed with tolerance=2)
+        future_code_2 = f"{hotp_value(secret, current_counter + 2):06d}"
+        assert login_with_code(future_code_2)
+
+        # Test three steps in the past (should fail with tolerance=2)
+        past_code_3 = f"{hotp_value(secret, current_counter - 3):06d}"
+        assert not login_with_code(past_code_3)
+
+        # Test three steps in the future (should fail with tolerance=2)
+        future_code_3 = f"{hotp_value(secret, current_counter + 3):06d}"
+        assert not login_with_code(future_code_3)
 
 def test_totp_code_reuse(
     user_with_totp, user_password, totp_validation_bypass, enable_cache

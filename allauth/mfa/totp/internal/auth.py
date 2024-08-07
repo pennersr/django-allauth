@@ -61,11 +61,18 @@ def _is_insecure_bypass(code: str) -> bool:
     return bool(code and app_settings.TOTP_INSECURE_BYPASS_CODE == code)
 
 
-def validate_totp_code(secret: str, code: str) -> bool:
+
+def validate_totp_code(secret: str, code: str, tolerance: int = None) -> bool:
     if _is_insecure_bypass(code):
         return True
-    value = hotp_value(secret, hotp_counter_from_time())
-    return code == format_hotp_value(value)
+    if tolerance is None:
+        tolerance = app_settings.TOTP_TIME_TOLERANCE
+    current_counter = hotp_counter_from_time()
+    for counter in range(current_counter - tolerance, current_counter + tolerance + 1):
+        value = hotp_value(secret, counter)
+        if code == format_hotp_value(value):
+            return True
+    return False
 
 
 class TOTP:
@@ -87,7 +94,7 @@ class TOTP:
             return False
 
         secret = decrypt(self.instance.data["secret"])
-        valid = validate_totp_code(secret, code)
+        valid = validate_totp_code(secret, code, app_settings.TOTP_TIME_TOLERANCE)
         if valid:
             self._mark_code_used(code)
         return valid

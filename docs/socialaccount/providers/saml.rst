@@ -73,9 +73,9 @@ via the Django admin as well:
                         # If left empty, an attempt will be done to map the attributes using
                         # built-in defaults.
                         "attribute_mapping": {
-                            "uid": "urn:oid:1.3.6.1.4.1.5923.1.1.1.6",
-                            "email_verified": "true",
-                            "email": "urn:oid:0.9.2342.19200300.100.1.3",
+                            "uid": "http://schemas.auth0.com/clientID",
+                            "email_verified": "http://schemas.auth0.com/email_verified",
+                            "email": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress",
                         },
 
                         # The following setting allows you to force the use of nameID as email.

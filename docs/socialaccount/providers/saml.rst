@@ -166,7 +166,8 @@ The SAML provider has the following endpoints:
 
 - ``/accounts/saml/<organization_slug>/metadata/``: Metadata URL.
 
-Tips and Notes on SAML with Django:
+Guidelines
+**********
 
 - Most SAML IdPs require TLS (nee SSL) to be used, making testing with
   `runserver` challenging. Make sure to configure Django to use HTTPS.

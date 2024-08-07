@@ -74,7 +74,7 @@ via the Django admin as well:
                         # built-in defaults.
                         "attribute_mapping": {
                             "uid": "urn:oid:1.3.6.1.4.1.5923.1.1.1.6",
-                            "email_verified": "urn:oid:0.9.2342.19200300.100.1.3",
+                            "email_verified": "true",
                             "email": "urn:oid:0.9.2342.19200300.100.1.3",
                         },
 

@@ -165,3 +165,28 @@ The SAML provider has the following endpoints:
 - ``/accounts/saml/<organization_slug>/sls/``: Single Logout Service URL.
 
 - ``/accounts/saml/<organization_slug>/metadata/``: Metadata URL.
+
+Guidelines
+**********
+
+- Most SAML IdPs require TLS (formerly SSL) to be used, making testing with
+  ``runserver`` challenging. Make sure to configure Django to use HTTPS.
+- If using a reverse proxy, be sure to set Django settings 
+  ``USE_X_FORWARDED_HOST = True``,
+  ``SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')``, and
+  ``SECURE_SSL_REDIRECT = True``. In your web server's reverse proxy
+  configuration, ensure that you set request headers
+  ``X_FORWARDED_PROTO 'https' env=HTTPS`` and ``X-Forwarded-Ssl on``.
+- Cookies must also be secure; ensure that ``CSRF_COOKIE_DOMAIN`` and
+  ``SESSION_COOKIE_DOMAIN`` are set to ``yourdomain.com``, and that
+  ``CSRF_COOKIE_SECURE``  and ``SESSION_COOKIE_SECURE`` are ``True`` in your Django
+  settings.
+- Test with your browser in privacy / incognito mode, check your developer
+  console to ensure that cookies are being set correctly, and use a tool like
+  SAML Tracer
+  (`Firefox <https://addons.mozilla.org/en-US/firefox/addon/saml-tracer/>`_
+  / `Chromium <https://chromewebstore.google.com/detail/saml-tracer/mpdajninpobndbfcldcmbpnnbhibjmch>`_)
+  to inspect the SAML messages being exchanged. SAML Tracer is also useful for
+  looking up the IdP SAML values to map to ``uid``, ``email``, and ``email_verified``
+  in the ``attribute_mapping`` configuration.
+  

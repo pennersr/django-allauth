@@ -21,16 +21,11 @@ from django.contrib.auth.password_validation import (
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import FieldDoesNotExist
 from django.core.mail import EmailMessage, EmailMultiAlternatives
-from django.http import (
-    HttpResponse,
-    HttpResponseRedirect,
-    HttpResponseServerError,
-)
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import resolve_url
 from django.template import TemplateDoesNotExist
 from django.template.loader import render_to_string
 from django.urls import reverse
-from django.urls.exceptions import NoReverseMatch
 from django.utils import timezone
 from django.utils.crypto import get_random_string
 from django.utils.encoding import force_str
@@ -41,6 +36,7 @@ from allauth.account import signals
 from allauth.account.app_settings import AuthenticationMethod
 from allauth.core import context, ratelimit
 from allauth.core.internal.adapter import BaseAdapter
+from allauth.core.internal.httpkit import headed_redirect_response
 from allauth.utils import generate_unique_username, import_attribute
 
 from . import app_settings
@@ -625,22 +621,10 @@ class DefaultAccountAdapter(BaseAdapter):
         self.send_mail(email_template, emailconfirmation.email_address.email, ctx)
 
     def respond_user_inactive(self, request, user):
-        try:
-            return HttpResponseRedirect(reverse("account_inactive"))
-        except NoReverseMatch:
-            if allauth_app_settings.HEADLESS_ONLY:
-                # The response we would be rendering here is not actually used.
-                return HttpResponseServerError()
-            raise
+        return headed_redirect_response("account_inactive")
 
     def respond_email_verification_sent(self, request, user):
-        try:
-            return HttpResponseRedirect(reverse("account_email_verification_sent"))
-        except NoReverseMatch:
-            if allauth_app_settings.HEADLESS_ONLY:
-                # The response we would be rendering here is not actually used.
-                return HttpResponseServerError()
-            raise
+        return headed_redirect_response("account_email_verification_sent")
 
     def _get_login_attempts_cache_key(self, request, **credentials):
         site = get_current_site(request)

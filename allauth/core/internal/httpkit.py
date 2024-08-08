@@ -3,8 +3,14 @@ from urllib.parse import parse_qs, quote, urlencode, urlparse, urlunparse
 
 from django import shortcuts
 from django.core.exceptions import ImproperlyConfigured
-from django.http import QueryDict
-from django.urls import NoReverseMatch
+from django.http import (
+    HttpResponseRedirect,
+    HttpResponseServerError,
+    QueryDict,
+)
+from django.urls import NoReverseMatch, reverse
+
+from allauth import app_settings as allauth_settings
 
 
 def serialize_request(request):
@@ -89,3 +95,17 @@ def get_frontend_url(request, urlname, **kwargs):
         if url:
             return render_url(request, url, **kwargs)
     return None
+
+
+def headed_redirect_response(viewname):
+    """
+    In some cases, we're redirecting to a non-headless view. In case of
+    headless-only mode, that view clearly does not exist.
+    """
+    try:
+        return HttpResponseRedirect(reverse(viewname))
+    except NoReverseMatch:
+        if allauth_settings.HEADLESS_ONLY:
+            # The response we would be rendering here is not actually used.
+            return HttpResponseServerError()
+        raise

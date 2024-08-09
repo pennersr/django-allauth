@@ -127,8 +127,8 @@ class AppSettings:
         return self.EmailVerificationMethod(ret)
 
     @property
-    def EMAIL_VERIFICATION_BY_CODE(self):
-        return self._setting("EMAIL_VERIFICATION_BY_CODE", False)
+    def EMAIL_VERIFICATION_BY_CODE_ENABLED(self):
+        return self._setting("EMAIL_VERIFICATION_BY_CODE_ENABLED", False)
 
     @property
     def EMAIL_VERIFICATION_BY_CODE_MAX_ATTEMPTS(self):

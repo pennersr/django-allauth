@@ -428,7 +428,7 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
             send_email_confirmation(
                 self.request, request.user, email=email_address.email
             )
-        if app_settings.EMAIL_VERIFICATION_BY_CODE:
+        if app_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED:
             return HttpResponseRedirect(reverse("account_email_verification_sent"))
 
     def _action_remove(self, request, *args, **kwargs):
@@ -488,7 +488,7 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
         return data
 
     def get_success_url(self):
-        if app_settings.EMAIL_VERIFICATION_BY_CODE:
+        if app_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED:
             return reverse("account_email_verification_sent")
         return self.success_url
 
@@ -835,7 +835,7 @@ class ConfirmEmailVerificationCodeView(FormView):
 
 
 def email_verification_sent(request):
-    if app_settings.EMAIL_VERIFICATION_BY_CODE:
+    if app_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED:
         return ConfirmEmailVerificationCodeView.as_view()(request)
     else:
         return EmailVerificationSentView.as_view()(request)

@@ -91,7 +91,7 @@ function createRouter (config) {
         },
         {
           path: '/account/verify-email',
-          element: config.data.account.email_verification_by_code ? <VerifyEmailByCode /> : <VerificationEmailSent />
+          element: config.data.account.email_verification_by_code_enabled ? <VerifyEmailByCode /> : <VerificationEmailSent />
         },
         {
           path: '/account/verify-email/:key',

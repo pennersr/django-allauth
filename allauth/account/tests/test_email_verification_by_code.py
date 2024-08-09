@@ -28,7 +28,7 @@ def get_last_code(client, mailoutbox):
 
 @pytest.fixture(autouse=True)
 def email_verification_settings(settings):
-    settings.ACCOUNT_EMAIL_VERIFICATION_BY_CODE = True
+    settings.ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED = True
     settings.ACCOUNT_EMAIL_VERIFICATION = "mandatory"
     return settings
 

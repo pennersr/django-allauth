@@ -101,7 +101,7 @@ class VerifyEmailInput(inputs.Input):
         ):
             raise get_account_adapter().validation_error(
                 "incorrect_code"
-                if account_app_settings.EMAIL_VERIFICATION_BY_CODE
+                if account_app_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED
                 else "invalid_or_expired_key"
             )
         return confirmation

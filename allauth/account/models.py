@@ -323,7 +323,7 @@ class Login:
 
 
 def get_emailconfirmation_model():
-    if app_settings.EMAIL_VERIFICATION_BY_CODE:
+    if app_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED:
         from allauth.account.internal.flows.email_verification import (
             EmailVerificationModel,
         )

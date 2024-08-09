@@ -40,7 +40,7 @@ def settings_check(app_configs, **kwargs):
                 )
             )
     if (
-        app_settings.EMAIL_VERIFICATION_BY_CODE
+        app_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED
         and app_settings.EMAIL_VERIFICATION
         != app_settings.EmailVerificationMethod.MANDATORY
     ):

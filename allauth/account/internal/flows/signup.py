@@ -18,7 +18,7 @@ def prevent_enumeration(request: HttpRequest, email: str) -> HttpResponse:
         "account/messages/email_confirmation_sent.txt",
         {"email": email, "login": False, "signup": True},
     )
-    if app_settings.EMAIL_VERIFICATION_BY_CODE:
+    if app_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED:
         email_verification.request_email_verification_code(
             request, user=None, email=email
         )

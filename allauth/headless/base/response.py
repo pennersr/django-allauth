@@ -116,6 +116,7 @@ def get_config_data(request):
     data = {
         "authentication_method": account_settings.AUTHENTICATION_METHOD,
         "is_open_for_signup": get_account_adapter().is_open_for_signup(request),
+        "email_verification_by_code": account_settings.EMAIL_VERIFICATION_BY_CODE,
     }
     return {"account": data}
 

@@ -728,9 +728,8 @@ class BaseConfirmCodeForm(forms.Form):
         super().__init__(*args, **kwargs)
 
     def clean_code(self):
-        code = self.cleaned_data.get("code").replace(" ", "").lower()
-        expected_code = self.code.replace(" ", "").lower()
-        if not self.code or code != expected_code:
+        code = self.cleaned_data.get("code")
+        if not flows.login_by_code.compare_code(actual=code, expected=self.code):
             raise get_adapter().validation_error("incorrect_code")
         return code
 

@@ -1,10 +1,14 @@
 import { useState, useEffect } from 'react'
+import { Navigate } from 'react-router-dom'
 import * as allauth from '../lib/allauth'
 import FormErrors from '../components/FormErrors'
 import Button from '../components/Button'
+import { useConfig } from '../auth/hooks'
 
 export default function ChangeEmail () {
+  const config = useConfig()
   const [email, setEmail] = useState('')
+  const [redirectToVerification, setRedirectToVerification] = useState(false)
   const [emailAddresses, setEmailAddresses] = useState([])
   const [response, setResponse] = useState({ fetching: false, content: { status: 200, data: [] } })
 
@@ -19,6 +23,12 @@ export default function ChangeEmail () {
     })
   }, [])
 
+  function requestRedirectToVerification () {
+    if (config.data.account.email_verification_by_code) {
+      setRedirectToVerification(true)
+    }
+  }
+
   function addEmail () {
     setResponse({ ...response, fetching: true })
     allauth.addEmail(email).then((resp) => {
@@ -26,6 +36,7 @@ export default function ChangeEmail () {
       if (resp.status === 200) {
         setEmailAddresses(resp.data)
         setEmail('')
+        requestRedirectToVerification()
       }
     }).catch((e) => {
       console.error(e)
@@ -37,7 +48,11 @@ export default function ChangeEmail () {
 
   function requestEmailVerification (email) {
     setResponse({ ...response, fetching: true })
-    allauth.requestEmailVerification(email).catch((e) => {
+    allauth.requestEmailVerification(email).then((resp) => {
+      if (resp.status === 200) {
+        requestRedirectToVerification()
+      }
+    }).catch((e) => {
       console.error(e)
       window.alert(e)
     }).then(() => {
@@ -73,6 +88,10 @@ export default function ChangeEmail () {
     }).then(() => {
       setResponse((r) => { return { ...r, fetching: false } })
     })
+  }
+
+  if (redirectToVerification) {
+    return <Navigate to='/account/verify-email' />
   }
 
   return (

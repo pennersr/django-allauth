@@ -6,6 +6,7 @@ from django.http import HttpRequest
 
 from allauth.account import app_settings
 from allauth.account.adapter import get_adapter
+from allauth.account.internal.flows.login_by_code import compare_code
 from allauth.account.models import EmailAddress, EmailConfirmationMixin
 from allauth.core import context
 
@@ -25,6 +26,16 @@ class EmailVerificationModel(EmailConfirmationMixin):
     @classmethod
     def create(cls, email_address: EmailAddress):
         return EmailVerificationModel(email_address)
+
+    @classmethod
+    def from_key(cls, key):
+        verification, _ = get_pending_verification(context.request, peek=True)
+        if not verification or not compare_code(actual=key, expected=verification.key):
+            return None
+        return verification
+
+    def key_expired(self):
+        return False
 
 
 def request_email_verification_code(

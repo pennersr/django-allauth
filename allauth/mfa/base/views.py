@@ -51,7 +51,8 @@ class AuthenticateView(TemplateView):
                 )
                 self.webauthn_form = (
                     AuthenticateWebAuthnFormClass(user=user)
-                    if support_webauthn else None
+                    if support_webauthn
+                    else None
                 )
             else:
                 self.auth_form = (

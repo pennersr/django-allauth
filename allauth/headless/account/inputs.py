@@ -99,8 +99,11 @@ class VerifyEmailInput(inputs.Input):
             or confirmation.key_expired()
             or not confirmation.email_address.can_set_verified()
         ):
-            raise get_account_adapter().validation_error("invalid_or_expired_key")
-
+            raise get_account_adapter().validation_error(
+                "incorrect_code"
+                if account_app_settings.EMAIL_VERIFICATION_BY_CODE
+                else "invalid_or_expired_key"
+            )
         return confirmation
 
 

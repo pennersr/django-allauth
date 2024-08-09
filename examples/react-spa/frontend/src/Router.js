@@ -16,6 +16,7 @@ import Home from './Home'
 import ChangeEmail from './account/ChangeEmail'
 import ManageProviders from './socialaccount/ManageProviders'
 import VerifyEmail, { loader as verifyEmailLoader } from './account/VerifyEmail'
+import VerifyEmailByCode from './account/VerifyEmailByCode'
 import VerificationEmailSent from './account/VerificationEmailSent'
 import RequestPasswordReset from './account/RequestPasswordReset'
 import ChangePassword from './account/ChangePassword'
@@ -36,8 +37,9 @@ import ReauthenticateTOTP from './mfa/ReauthenticateTOTP'
 import Reauthenticate from './account/Reauthenticate'
 import Sessions from './usersessions/Sessions'
 import Root from './Root'
+import { useConfig } from './auth/hooks'
 
-function createRouter () {
+function createRouter (config) {
   return createBrowserRouter([
     {
       path: '/',
@@ -89,7 +91,7 @@ function createRouter () {
         },
         {
           path: '/account/verify-email',
-          element: <VerificationEmailSent />
+          element: config.data.account.email_verification_by_code ? <VerifyEmailByCode /> : <VerificationEmailSent />
         },
         {
           path: '/account/verify-email/:key',
@@ -184,8 +186,9 @@ export default function Router () {
   // even before the <AuthContext/> trigger the initial loading of the auth.
   // state.
   const [router, setRouter] = useState(null)
+  const config = useConfig()
   useEffect(() => {
-    setRouter(createRouter())
-  }, [])
+    setRouter(createRouter(config))
+  }, [config])
   return router ? <RouterProvider router={router} /> : null
 }

@@ -16,6 +16,7 @@ class SAMLProvider(Provider):
     account_class = SAMLAccount
     default_attribute_mapping = {
         "uid": [
+            "urn:oid:0.9.2342.19200300.100.1.1",
             "urn:oasis:names:tc:SAML:attribute:subject-id",
         ],
         "email": [
@@ -23,6 +24,7 @@ class SAMLProvider(Provider):
             "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress",
         ],
         "email_verified": [
+            "urn:oid:0.9.2342.19200300.100.1.3",
             "http://schemas.auth0.com/email_verified",
         ],
         "first_name": [

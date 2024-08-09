@@ -32,14 +32,11 @@ from django.utils.encoding import force_str
 from django.utils.translation import gettext_lazy as _
 
 from allauth import app_settings as allauth_app_settings
-from allauth.account import signals
-from allauth.account.app_settings import AuthenticationMethod
+from allauth.account import app_settings, signals
 from allauth.core import context, ratelimit
 from allauth.core.internal.adapter import BaseAdapter
 from allauth.core.internal.httpkit import headed_redirect_response
 from allauth.utils import generate_unique_username, import_attribute
-
-from . import app_settings
 
 
 class DefaultAccountAdapter(BaseAdapter):
@@ -119,7 +116,8 @@ class DefaultAccountAdapter(BaseAdapter):
             .exists()
         )
         login_by_email = (
-            app_settings.AUTHENTICATION_METHOD == AuthenticationMethod.EMAIL
+            app_settings.AUTHENTICATION_METHOD
+            == app_settings.AuthenticationMethod.EMAIL
         )
         if email_address.primary:
             if has_other:
@@ -608,12 +606,20 @@ class DefaultAccountAdapter(BaseAdapter):
         self.send_mail("account/email/account_already_exists", email, ctx)
 
     def send_confirmation_mail(self, request, emailconfirmation, signup):
-        activate_url = self.get_email_confirmation_url(request, emailconfirmation)
         ctx = {
             "user": emailconfirmation.email_address.user,
-            "activate_url": activate_url,
-            "key": emailconfirmation.key,
         }
+        if app_settings.EMAIL_VERIFICATION_BY_CODE:
+            ctx.update({"code": emailconfirmation.key})
+        else:
+            ctx.update(
+                {
+                    "key": emailconfirmation.key,
+                    "activate_url": self.get_email_confirmation_url(
+                        request, emailconfirmation
+                    ),
+                }
+            )
         if signup:
             email_template = "account/email/email_confirmation_signup"
         else:
@@ -760,7 +766,13 @@ class DefaultAccountAdapter(BaseAdapter):
             ctx.update(context)
         self.send_mail(template_prefix, email, ctx)
 
-    def generate_login_code(self):
+    def generate_login_code(self) -> str:
+        return self._generate_code()
+
+    def generate_email_verification_code(self) -> str:
+        return self._generate_code()
+
+    def _generate_code(self):
         forbidden_chars = "0OI18B2ZAEU"
         allowed_chars = string.ascii_uppercase + string.digits
         for ch in forbidden_chars:

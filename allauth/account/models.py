@@ -323,7 +323,13 @@ class Login:
 
 
 def get_emailconfirmation_model():
-    if app_settings.EMAIL_CONFIRMATION_HMAC:
+    if app_settings.EMAIL_VERIFICATION_BY_CODE:
+        from allauth.account.internal.flows.email_verification import (
+            EmailVerificationModel,
+        )
+
+        return EmailVerificationModel
+    elif app_settings.EMAIL_CONFIRMATION_HMAC:
         model = EmailConfirmationHMAC
     else:
         model = EmailConfirmation

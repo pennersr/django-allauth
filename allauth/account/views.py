@@ -18,6 +18,7 @@ from allauth.account.adapter import get_adapter
 from allauth.account.forms import (
     AddEmailForm,
     ChangePasswordForm,
+    ConfirmEmailVerificationCodeForm,
     ConfirmLoginCodeForm,
     LoginForm,
     ReauthenticateForm,
@@ -42,6 +43,7 @@ from allauth.account.models import (
     EmailConfirmation,
     get_emailconfirmation_model,
 )
+from allauth.account.stages import EmailVerificationStage, LoginStageController
 from allauth.account.utils import (
     complete_signup,
     perform_login,
@@ -391,7 +393,7 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
     def post(self, request, *args, **kwargs):
         res = None
         if "action_add" in request.POST:
-            res = super(EmailView, self).post(request, *args, **kwargs)
+            res = super().post(request, *args, **kwargs)
         elif request.POST.get("email"):
             if "action_send" in request.POST:
                 res = self._action_send(request)
@@ -426,6 +428,8 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
             send_email_confirmation(
                 self.request, request.user, email=email_address.email
             )
+        if app_settings.EMAIL_VERIFICATION_BY_CODE:
+            return HttpResponseRedirect(reverse("account_email_verification_sent"))
 
     def _action_remove(self, request, *args, **kwargs):
         email_address = self._get_email_address(request)
@@ -482,6 +486,11 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
                 }
             )
         return data
+
+    def get_success_url(self):
+        if app_settings.EMAIL_VERIFICATION_BY_CODE:
+            return reverse("account_email_verification_sent")
+        return self.success_url
 
 
 email = EmailView.as_view()
@@ -750,7 +759,86 @@ class EmailVerificationSentView(TemplateView):
     template_name = "account/verification_sent." + app_settings.TEMPLATE_EXTENSION
 
 
-email_verification_sent = EmailVerificationSentView.as_view()
+class ConfirmEmailVerificationCodeView(FormView):
+    template_name = (
+        "account/confirm_email_verification_code." + app_settings.TEMPLATE_EXTENSION
+    )
+    form_class = ConfirmEmailVerificationCodeForm
+
+    def dispatch(self, request, *args, **kwargs):
+        self.stage = LoginStageController.enter(request, EmailVerificationStage.key)
+        self.verification, self.pending_verification = (
+            flows.email_verification.get_pending_verification(request, peek=True)
+        )
+        # preventing enumeration?
+        verification_is_fake = (
+            self.pending_verification and "code" not in self.pending_verification
+        )
+        # Can we at all continue?
+        if (
+            # No verification pending?
+            (
+                not self.pending_verification
+            )  # Anonymous, yet no stage (or fake verifcation)?
+            or (
+                request.user.is_anonymous
+                and not self.stage
+                and not verification_is_fake
+            )
+        ):
+            return HttpResponseRedirect(
+                reverse(
+                    "account_login" if request.user.is_anonymous else "account_email"
+                )
+            )
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_form_class(self):
+        return get_form_class(
+            app_settings.FORMS, "confirm_email_verification_code", self.form_class
+        )
+
+    def get_form_kwargs(self):
+        ret = super().get_form_kwargs()
+        ret["code"] = self.verification.key if self.verification else ""
+        return ret
+
+    def get_context_data(self, **kwargs):
+        ret = super().get_context_data(**kwargs)
+        ret["email"] = self.pending_verification["email"]
+        ret["cancel_url"] = (
+            reverse("account_login") if self.stage else reverse("account_email")
+        )
+        return ret
+
+    def form_valid(self, form):
+        email_address = self.verification.confirm(self.request)
+        if self.stage:
+            if not email_address:
+                return self.stage.abort()
+            return self.stage.exit()
+        return HttpResponseRedirect(reverse("account_email"))
+
+    def form_invalid(self, form):
+        attempts_left = flows.email_verification.record_invalid_attempt(
+            self.request, self.pending_verification
+        )
+        if attempts_left:
+            return super().form_invalid(form)
+        adapter = get_adapter(self.request)
+        adapter.add_message(
+            self.request,
+            messages.ERROR,
+            message=adapter.error_messages["too_many_login_attempts"],
+        )
+        return HttpResponseRedirect(reverse("account_login"))
+
+
+def email_verification_sent(request):
+    if app_settings.EMAIL_VERIFICATION_BY_CODE:
+        return ConfirmEmailVerificationCodeView.as_view()(request)
+    else:
+        return EmailVerificationSentView.as_view()(request)
 
 
 class BaseReauthenticateView(NextRedirectMixin, FormView):

@@ -527,7 +527,13 @@ class AddEmailForm(UserForm):
         return value
 
     def save(self, request):
-        if app_settings.CHANGE_EMAIL:
+        if app_settings.EMAIL_VERIFICATION_BY_CODE:
+            email_address = EmailAddress(
+                user=self.user, email=self.cleaned_data["email"]
+            )
+            email_address.send_confirmation(request)
+            return email_address
+        elif app_settings.CHANGE_EMAIL:
             return EmailAddress.objects.add_new_email(
                 request, self.user, self.cleaned_data["email"]
             )
@@ -709,7 +715,7 @@ class RequestLoginCodeForm(forms.Form):
         return email
 
 
-class ConfirmLoginCodeForm(forms.Form):
+class BaseConfirmCodeForm(forms.Form):
     code = forms.CharField(
         label=_("Code"),
         widget=forms.TextInput(
@@ -727,3 +733,11 @@ class ConfirmLoginCodeForm(forms.Form):
         if not self.code or code != expected_code:
             raise get_adapter().validation_error("incorrect_code")
         return code
+
+
+class ConfirmLoginCodeForm(BaseConfirmCodeForm):
+    pass
+
+
+class ConfirmEmailVerificationCodeForm(BaseConfirmCodeForm):
+    pass

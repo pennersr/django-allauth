@@ -39,4 +39,14 @@ def settings_check(app_configs, **kwargs):
                     msg="SOCIALACCOUNT_ONLY requires ACCOUNT_EMAIL_VERIFICATION = 'none'"
                 )
             )
+    if (
+        app_settings.EMAIL_VERIFICATION_BY_CODE
+        and app_settings.EMAIL_VERIFICATION
+        != app_settings.EmailVerificationMethod.MANDATORY
+    ):
+        ret.append(
+            Critical(
+                msg="ACCOUNT_EMAIL_VERFICATION_BY_CODE requires ACCOUNT_EMAIL_VERIFICATION = 'mandatory'"
+            )
+        )
     return ret

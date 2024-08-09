@@ -527,7 +527,7 @@ class AddEmailForm(UserForm):
         return value
 
     def save(self, request):
-        if app_settings.EMAIL_VERIFICATION_BY_CODE:
+        if app_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED:
             email_address = EmailAddress(
                 user=self.user, email=self.cleaned_data["email"]
             )

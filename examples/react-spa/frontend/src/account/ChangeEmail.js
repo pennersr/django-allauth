@@ -24,7 +24,7 @@ export default function ChangeEmail () {
   }, [])
 
   function requestRedirectToVerification () {
-    if (config.data.account.email_verification_by_code) {
+    if (config.data.account.email_verification_by_code_enabled) {
       setRedirectToVerification(true)
     }
   }

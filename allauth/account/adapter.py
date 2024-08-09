@@ -609,7 +609,7 @@ class DefaultAccountAdapter(BaseAdapter):
         ctx = {
             "user": emailconfirmation.email_address.user,
         }
-        if app_settings.EMAIL_VERIFICATION_BY_CODE:
+        if app_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED:
             ctx.update({"code": emailconfirmation.key})
         else:
             ctx.update(

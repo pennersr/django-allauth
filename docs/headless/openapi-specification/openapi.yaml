@@ -1698,12 +1698,12 @@ components:
             - username_email
         is_open_for_signup:
           type: boolean
-        email_verification_by_code:
+        email_verification_by_code_enabled:
           type: boolean
       required:
         - authentication_method
         - is_open_for_signup
-        - email_verification_by_code
+        - email_verification_by_code_enabled
     AuthenticationResponse:
       type: object
       description: |

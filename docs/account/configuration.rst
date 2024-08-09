@@ -73,6 +73,18 @@ Available settings:
   verification mail is still sent, whereas in case of "none" no email
   verification mails are sent.
 
+``ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED`` (default: ``False``)
+  Constrols whether email verification is performed by means of following a link
+  in the email (``False``), or by entering a code (``True``).
+
+``ACCOUNT_EMAIL_VERIFICATION_BY_CODE_MAX_ATTEMPTS`` (default: ``3``)
+  This setting controls the maximum number of attempts the user has at inputting
+  a valid code.
+
+``ACCOUNT_EMAIL_VERIFICATION_BY_CODE_TIMEOUT`` (default: ``900``)
+  The code that is emailed has a limited life span. It expires this many seconds after
+  which it was sent.
+
 ``ACCOUNT_EMAIL_SUBJECT_PREFIX`` (default: ``"[Site] "``)
   Subject-line prefix to use for email messages sent. By default, the
   name of the current ``Site`` (``django.contrib.sites``) is used.

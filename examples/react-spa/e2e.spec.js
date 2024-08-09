@@ -138,6 +138,7 @@ test('complete socialaccount flow', async ({ page }) => {
   await page.getByLabel('Password:').fill(newPassword)
   await page.getByLabel('Password (again)').fill(newPassword)
   await page.getByRole('button', { name: 'Set' }).click()
+  await page.waitForURL(BASE_URL + '/dashboard')
 
   // Login using password now
   await logout(page)

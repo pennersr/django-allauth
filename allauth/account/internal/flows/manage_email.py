@@ -131,7 +131,7 @@ def verify_email(request: HttpRequest, email_address: EmailAddress) -> bool:
     if not email_address.set_verified(commit=False):
         return False
     email_address.set_as_primary(conditional=(not app_settings.CHANGE_EMAIL))
-    email_address.save(update_fields=["verified", "primary"])
+    email_address.save()
     if app_settings.CHANGE_EMAIL:
         for instance in EmailAddress.objects.filter(
             user_id=email_address.user_id

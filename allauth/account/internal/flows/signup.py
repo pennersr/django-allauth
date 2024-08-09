@@ -4,6 +4,7 @@ from django.urls import reverse
 
 from allauth.account import app_settings
 from allauth.account.adapter import get_adapter
+from allauth.account.internal.flows import email_verification
 from allauth.core.internal.httpkit import get_frontend_url
 from allauth.utils import build_absolute_uri
 
@@ -17,6 +18,10 @@ def prevent_enumeration(request: HttpRequest, email: str) -> HttpResponse:
         "account/messages/email_confirmation_sent.txt",
         {"email": email, "login": False, "signup": True},
     )
+    if app_settings.EMAIL_VERIFICATION_BY_CODE:
+        email_verification.request_email_verification_code(
+            request, user=None, email=email
+        )
     resp = adapter.respond_email_verification_sent(request, None)
     return resp
 

@@ -1,3 +1,6 @@
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+
 from allauth.account.adapter import get_adapter
 from allauth.account.app_settings import EmailVerificationMethod
 from allauth.account.utils import resume_login, stash_login, unstash_login
@@ -25,6 +28,10 @@ class LoginStage:
     def exit(self):
         self.controller.set_handled(self.key)
         return resume_login(self.request, self.login)
+
+    def abort(self):
+        unstash_login(self.request)
+        return HttpResponseRedirect(reverse("account_login"))
 
 
 class LoginStageController:

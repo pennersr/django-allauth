@@ -1,0 +1,36 @@
+{% extends "account/base_entrance.html" %}
+{% load i18n %}
+{% load allauth account %}
+{% block head_title %}
+    {% translate "Email Verification" %}
+{% endblock head_title %}
+{% block content %}
+    {% element h1 %}
+        {% translate "Enter Email Verification Code" %}
+    {% endelement %}
+    {% setvar email_link %}
+        <a href="mailto:{{ email }}">{{ email }}</a>
+    {% endsetvar %}
+    {% element p %}
+        {% blocktranslate %}We’ve sent a code to {{ email_link }}. The code expires shortly, so please enter it soon.{% endblocktranslate %}
+    {% endelement %}
+    {% url 'account_email_verification_sent' as action_url %}
+    {% element form form=form method="post" action=action_url tags="entrance,email,verification" %}
+        {% slot body %}
+            {% csrf_token %}
+            {% element fields form=form unlabeled=True %}
+            {% endelement %}
+            {{ redirect_field }}
+        {% endslot %}
+        {% slot actions %}
+            {% element button type="submit" tags="prominent,login" %}
+                {% translate "Confirm" %}
+            {% endelement %}
+        {% endslot %}
+    {% endelement %}
+    {% element h2 %}
+        {% element button href=cancel_url tags="link" %}
+            {% translate "Cancel" %}
+        {% endelement %}
+    {% endelement %}
+{% endblock content %}

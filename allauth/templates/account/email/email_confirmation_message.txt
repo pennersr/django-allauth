@@ -2,6 +2,8 @@
 {% load account %}
 {% load i18n %}
 
-{% block content %}{% autoescape off %}{% user_display user as user_display %}{% blocktrans with site_name=current_site.name site_domain=current_site.domain %}You're receiving this email because user {{ user_display }} has given your email address to register an account on {{ site_domain }}.
+{% block content %}{% autoescape off %}{% user_display user as user_display %}{% blocktranslate with site_name=current_site.name site_domain=current_site.domain %}You're receiving this email because user {{ user_display }} has given your email address to register an account on {{ site_domain }}.{% endblocktranslate %}
 
-To confirm this is correct, go to {{ activate_url }}{% endblocktrans %}{% endautoescape %}{% endblock content %}
+{% if code %}{% blocktranslate %}Your email verification code is listed below. Please enter it in your open browser window.{% endblocktranslate %}
+
+{{ code }}{% else %}{% blocktranslate %}To confirm this is correct, go to {{ activate_url }}{% endblocktranslate %}{% endif %}{% endautoescape %}{% endblock content %}

@@ -127,6 +127,18 @@ class AppSettings:
         return self.EmailVerificationMethod(ret)
 
     @property
+    def EMAIL_VERIFICATION_BY_CODE(self):
+        return self._setting("EMAIL_VERIFICATION_BY_CODE", False)
+
+    @property
+    def EMAIL_VERIFICATION_BY_CODE_MAX_ATTEMPTS(self):
+        return self._setting("EMAIL_VERIFICATION_BY_CODE_MAX_ATTEMPTS", 3)
+
+    @property
+    def EMAIL_VERIFICATION_BY_CODE_TIMEOUT(self):
+        return self._setting("EMAIL_VERIFICATION_BY_CODE_TIMEOUT", 15 * 60)
+
+    @property
     def MAX_EMAIL_ADDRESSES(self):
         return self._setting("MAX_EMAIL_ADDRESSES", None)
 

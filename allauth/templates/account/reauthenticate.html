@@ -14,7 +14,7 @@
             {{ redirect_field }}
         {% endslot %}
         {% slot actions %}
-            {% element button type="submit" %}
+            {% element button type="submit" tags="primary,mfa,login" %}
                 {% trans "Confirm" %}
             {% endelement %}
         {% endslot %}

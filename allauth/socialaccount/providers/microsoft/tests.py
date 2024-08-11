@@ -31,6 +31,9 @@ class MicrosoftGraphTests(OAuth2TestsMixin, TestCase):
         """  # noqa
         return MockedResponse(200, response_data)
 
+    def get_expected_to_str(self):
+        return "annew@CIE493742.onmicrosoft.com"
+
     def test_invalid_data(self):
         response = MockedResponse(200, json.dumps({}))
         with self.assertRaises(OAuth2Error):

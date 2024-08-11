@@ -1,5 +1,6 @@
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth.provider import OAuthProvider
+from allauth.socialaccount.providers.vimeo.views import VimeoOAuthAdapter
 
 
 class VimeoAccount(ProviderAccount):
@@ -10,6 +11,7 @@ class VimeoProvider(OAuthProvider):
     id = "vimeo"
     name = "Vimeo"
     account_class = VimeoAccount
+    oauth_adapter_class = VimeoOAuthAdapter
 
     def get_default_scope(self):
         scope = []

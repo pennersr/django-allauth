@@ -7,7 +7,7 @@ from allauth.socialaccount.providers.base import AuthAction, ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
-class Scope(object):
+class Scope:
     NAME = "aq:name"
     EMAIL = "email"
     PHONE = "phone"
@@ -49,10 +49,6 @@ class AuthentiqAccount(ProviderAccount):
 
     def get_avatar_url(self):
         return self.account.extra_data.get("picture")
-
-    def to_str(self):
-        dflt = super(AuthentiqAccount, self).to_str()
-        return self.account.extra_data.get("name", dflt)
 
 
 class AuthentiqProvider(OAuth2Provider):

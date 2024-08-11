@@ -9,9 +9,6 @@ class LineAccount(ProviderAccount):
             "picture"
         )
 
-    def to_str(self):
-        return self.account.extra_data.get("displayName", self.account.uid)
-
 
 class LineProvider(OAuth2Provider):
     id = "line"

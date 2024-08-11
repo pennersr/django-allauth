@@ -3,6 +3,7 @@ import hashlib
 import json
 import random
 import requests
+import uuid
 import warnings
 from urllib.parse import parse_qs, urlparse
 
@@ -42,11 +43,14 @@ def setup_app(provider_id):
     return app
 
 
-class OAuthTestsMixin(object):
-    provider_id = None
+class OAuthTestsMixin:
+    provider_id: str
 
     def get_mocked_response(self):
         pass
+
+    def get_expected_to_str(self):
+        raise NotImplementedError
 
     def setUp(self):
         super(OAuthTestsMixin, self).setUp()
@@ -73,13 +77,13 @@ class OAuthTestsMixin(object):
         user = resp.context["user"]
         self.assertFalse(user.has_usable_password())
         account = SocialAccount.objects.get(user=user, provider=self.provider.id)
+        provider_account = account.get_provider_account()
+        self.assertEqual(provider_account.to_str(), self.get_expected_to_str())
         # The following lines don't actually test that much, but at least
         # we make sure that the code is hit.
-        provider_account = account.get_provider_account()
         provider_account.get_avatar_url()
         provider_account.get_profile_url()
         provider_account.get_brand()
-        provider_account.to_str()
         return account
 
     @override_settings(
@@ -143,23 +147,29 @@ def create_oauth_tests(provider):
     return Class
 
 
-class OAuth2TestsMixin(object):
-    provider_id = None
+class OAuth2TestsMixin:
+    provider_id: str
 
     def get_mocked_response(self):
         pass
 
+    def get_expected_to_str(self):
+        raise NotImplementedError
+
+    def get_access_token(self) -> str:
+        return "testac"
+
+    def get_refresh_token(self) -> str:
+        return "testrf"
+
     def get_login_response_json(self, with_refresh_token=True):
-        rt = ""
+        response = {
+            "uid": uuid.uuid4().hex,
+            "access_token": self.get_access_token(),
+        }
         if with_refresh_token:
-            rt = ',"refresh_token": "testrf"'
-        return (
-            """{
-            "uid":"weibo",
-            "access_token":"testac"
-            %s }"""
-            % rt
-        )
+            response["refresh_token"] = self.get_refresh_token()
+        return json.dumps(response)
 
     def mocked_response(self, *responses):
         return mocked_response(*responses)
@@ -279,18 +289,18 @@ class OAuth2TestsMixin(object):
         sa = SocialAccount.objects.filter(
             user=user, provider=self.provider.app.provider_id or self.provider.id
         ).get()
+        provider_account = sa.get_provider_account()
+        self.assertEqual(provider_account.to_str(), self.get_expected_to_str())
         # The following lines don't actually test that much, but at least
         # we make sure that the code is hit.
-        provider_account = sa.get_provider_account()
         provider_account.get_avatar_url()
         provider_account.get_profile_url()
         provider_account.get_brand()
-        provider_account.to_str()
         # get token
         if self.app:
             t = sa.socialtoken_set.get()
             # verify access_token and refresh_token
-            self.assertEqual("testac", t.token)
+            self.assertEqual(self.get_access_token(), t.token)
             resp = json.loads(self.get_login_response_json(with_refresh_token=True))
             if "refresh_token" in resp:
                 refresh_token = resp.get("refresh_token")
@@ -406,6 +416,9 @@ class OpenIDConnectTests(OAuth2TestsMixin):
 
     def mocked_response(self, *responses):
         return mocked_response(*responses, callback=self._mocked_responses)
+
+    def get_expected_to_str(self):
+        return "ness@some.oidc.server.onett.example"
 
     def setup_provider(self):
         self.app = setup_app(self.provider_id)

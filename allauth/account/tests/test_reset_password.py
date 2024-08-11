@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 from django.core import mail
 from django.test.utils import override_settings
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.utils.http import urlencode
 
 import pytest
@@ -53,7 +53,7 @@ def test_reset_password_unknown_account_disabled(client, settings):
 
 @pytest.mark.parametrize(
     "query,expected_location",
-    [("", reverse("account_reset_password_done")), ("?next=/foo", "/foo")],
+    [("", reverse_lazy("account_reset_password_done")), ("?next=/foo", "/foo")],
 )
 def test_reset_password_next_url(client, user, query, expected_location):
     resp = client.post(
@@ -144,7 +144,7 @@ class ResetPasswordTests(TestCase):
         self.assertGreater(body.find("https://"), 0)
 
         # Extract URL for `password_reset_from_key` view
-        url = body[body.find("/password/reset/") :].split()[0]
+        url = body[body.find("/accounts/password/reset/") :].split()[0]
         resp = self.client.get(url)
 
         reset_pass_url = resp.url
@@ -188,7 +188,7 @@ class ResetPasswordTests(TestCase):
         self.assertEqual(user2, resp.context["user"])
 
         # Extract URL for `password_reset_from_key` view and access it
-        url = body[body.find("/password/reset/") :].split()[0]
+        url = body[body.find("/accounts/password/reset/") :].split()[0]
         resp = self.client.get(url)
         # Follow the redirect the actual password reset page with the key
         # hidden.
@@ -218,7 +218,7 @@ class ResetPasswordTests(TestCase):
         self.assertGreater(body.find("https://"), 0)
         EmailAddress.objects.create(user=user, email="other@email.org")
         # Extract URL for `password_reset_from_key` view
-        url = body[body.find("/password/reset/") :].split()[0]
+        url = body[body.find("/accounts/password/reset/") :].split()[0]
         resp = self.client.get(url)
         self.assertTemplateUsed(
             resp,
@@ -230,7 +230,7 @@ class ResetPasswordTests(TestCase):
     def test_password_reset_ACCOUNT_LOGIN_ON_PASSWORD_RESET(self):
         user = self._request_new_password()
         body = mail.outbox[0].body
-        url = body[body.find("/password/reset/") :].split()[0]
+        url = body[body.find("/accounts/password/reset/") :].split()[0]
         resp = self.client.get(url)
         # Follow the redirect the actual password reset page with the key
         # hidden.
@@ -239,7 +239,7 @@ class ResetPasswordTests(TestCase):
         )
         self.assertTrue(user.is_authenticated)
         # EmailVerificationMethod.MANDATORY sends us to the confirm-email page
-        self.assertRedirects(resp, "/confirm-email/")
+        self.assertRedirects(resp, "/accounts/confirm-email/")
 
     def _create_user(self, username="john", password="doe", **kwargs):
         user = get_user_model().objects.create(
@@ -278,7 +278,7 @@ def test_password_reset_flow(client, user, mailoutbox, settings):
     assert body.find("http://") > 0
 
     # Extract URL for `password_reset_from_key` view and access it
-    url = body[body.find("/password/reset/") :].split()[0]
+    url = body[body.find("/accounts/password/reset/") :].split()[0]
     resp = client.get(url)
     # Follow the redirect the actual password reset page with the key
     # hidden.
@@ -331,7 +331,7 @@ def test_password_reset_flow(client, user, mailoutbox, settings):
 
 @pytest.mark.parametrize(
     "next_url,expected_location",
-    [(None, reverse("account_reset_password_from_key_done")), ("/foo", "/foo")],
+    [(None, reverse_lazy("account_reset_password_from_key_done")), ("/foo", "/foo")],
 )
 def test_reset_password_from_key_next_url(
     user, client, password_factory, next_url, expected_location, password_reset_url

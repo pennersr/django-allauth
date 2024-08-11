@@ -1,4 +1,3 @@
-import json
 import requests
 import string
 from urllib.parse import quote
@@ -9,7 +8,6 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.crypto import get_random_string
 from django.utils.html import escapejs
-from django.utils.safestring import mark_safe
 
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.adapter import get_adapter
@@ -49,10 +47,6 @@ class FacebookAccount(ProviderAccount):
             + "/%s/picture?type=square&height=600&width=600&return_ssl_resources=1"
             % uid
         )  # noqa
-
-    def to_str(self):
-        dflt = super(FacebookAccount, self).to_str()
-        return self.account.extra_data.get("name", dflt)
 
 
 class FacebookProvider(OAuth2Provider):
@@ -176,7 +170,7 @@ class FacebookProvider(OAuth2Provider):
             "errorUrl": abs_uri("socialaccount_login_error"),
             "csrfToken": get_token(request),
         }
-        ctx = {"fb_data": mark_safe(json.dumps(fb_data))}
+        ctx = {"fb_data": fb_data}
         return render_to_string("facebook/fbconnect.html", ctx, request=request)
 
     def get_nonce(self, request, or_create=False, pop=False):

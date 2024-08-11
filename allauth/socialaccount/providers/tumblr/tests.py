@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from allauth.socialaccount.tests import OAuthTestsMixin
 from allauth.tests import MockedResponse, TestCase
 
@@ -45,3 +42,6 @@ class TumblrTests(OAuthTestsMixin, TestCase):
 """,
             )
         ]
+
+    def get_expected_to_str(self):
+        return "derekg"

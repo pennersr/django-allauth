@@ -24,3 +24,6 @@ class SnapchatOAuth2Tests(OAuth2TestsMixin, TestCase):
                   "errors":[]
             }""",
         )  # noqa
+
+    def get_expected_to_str(self):
+        return "Karun Shrestha"

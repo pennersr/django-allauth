@@ -1,9 +1,7 @@
-# -*- coding: utf-8 -*-
 """
     Run just this suite:
     python manage.py test allauth.socialaccount.providers.trainingpeaks.tests.TrainingPeaksTests
 """
-from __future__ import unicode_literals
 
 from collections import namedtuple
 
@@ -32,6 +30,9 @@ class TrainingPeaksTests(OAuth2TestsMixin, TestCase):
                 "Weight": 87.5223617553711
             }""",
         )  # noqa
+
+    def get_expected_to_str(self):
+        return "user@example.com"
 
     def get_login_response_json(self, with_refresh_token=True):
         rtoken = ""

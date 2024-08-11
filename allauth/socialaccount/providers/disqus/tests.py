@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from django.contrib.auth.models import User
 from django.test.utils import override_settings
 
@@ -35,6 +34,9 @@ class DisqusTests(OAuth2TestsMixin, TestCase):
         """
             % (name, email),
         )
+
+    def get_expected_to_str(self):
+        return "raymond.penners@example.com"
 
     def test_account_connect(self):
         email = "user@example.com"

@@ -11,10 +11,6 @@ class ZoomAccount(ProviderAccount):
     def get_avatar_url(self):
         return self.account.extra_data.get("pic_url")
 
-    def to_str(self):
-        dflt = super(ZoomAccount, self).to_str()
-        return self.account.extra_data.get("name", dflt)
-
 
 class ZoomProvider(OAuth2Provider):
     id = "zoom"

@@ -147,7 +147,7 @@ def import_attribute(path):
 
 
 def import_callable(path_or_callable):
-    if not hasattr(path_or_callable, "__call__"):
+    if not callable(path_or_callable):
         ret = import_attribute(path_or_callable)
     else:
         ret = path_or_callable

@@ -63,3 +63,13 @@ def test_login_by_code_max_attempts(client, user, request_login_by_code, setting
             assert resp.status_code == 200
             assert LOGIN_CODE_SESSION_KEY in client.session
             assert resp.context["form"].errors == {"code": ["Incorrect code."]}
+
+
+def test_login_by_code_unknown_user(mailoutbox, client, db):
+    resp = client.post(
+        reverse("account_request_login_code"),
+        data={"email": "unknown@email.org"},
+    )
+    assert resp.status_code == 302
+    assert resp["location"] == reverse("account_confirm_login_code")
+    resp = client.post(reverse("account_confirm_login_code"), data={"code": "123456"})

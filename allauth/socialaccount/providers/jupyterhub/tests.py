@@ -23,3 +23,6 @@ class JupyterHubTests(OAuth2TestsMixin, TestCase):
         "servers": null}
         """,
         )
+
+    def get_expected_to_str(self):
+        return "abc"

@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from allauth.socialaccount.tests import OAuth2TestsMixin
 from allauth.tests import MockedResponse, TestCase
 
@@ -34,3 +31,6 @@ class BoxOAuth2Tests(OAuth2TestsMixin, TestCase):
         }""",
             )
         ]
+
+    def get_expected_to_str(self):
+        return "balls@example.com"

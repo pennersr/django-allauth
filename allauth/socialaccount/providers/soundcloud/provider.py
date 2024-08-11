@@ -12,12 +12,6 @@ class SoundCloudAccount(ProviderAccount):
     def get_avatar_url(self):
         return self.account.extra_data.get("avatar_url")
 
-    def to_str(self):
-        dflt = super(SoundCloudAccount, self).to_str()
-        full_name = self.account.extra_data.get("full_name")
-        username = self.account.extra_data.get("username")
-        return full_name or username or dflt
-
 
 class SoundCloudProvider(OAuth2Provider):
     id = "soundcloud"

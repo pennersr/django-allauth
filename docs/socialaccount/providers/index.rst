@@ -123,6 +123,7 @@ Provider Specifics
    strava
    stripe
    telegram
+   tiktok
    trainingpeaks
    trello
    twitch

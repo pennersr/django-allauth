@@ -7,10 +7,6 @@ class GumroadAccount(ProviderAccount):
     def get_profile_url(self):
         return self.account.extra_data.get("url")
 
-    def to_str(self):
-        dflt = super(GumroadAccount, self).to_str()
-        return self.account.extra_data.get("name", dflt)
-
 
 class GumroadProvider(OAuth2Provider):
     id = "gumroad"

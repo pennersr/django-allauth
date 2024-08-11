@@ -20,7 +20,7 @@ from allauth.socialaccount.internal import statekit
 from allauth.socialaccount.models import SocialToken
 from allauth.socialaccount.providers.base import ProviderException
 from allauth.socialaccount.providers.base.constants import AuthError
-from allauth.socialaccount.providers.base.mixins import OAuthLoginMixin
+from allauth.socialaccount.providers.base.views import BaseLoginView
 from allauth.socialaccount.providers.oauth2.client import (
     OAuth2Client,
     OAuth2Error,
@@ -28,7 +28,7 @@ from allauth.socialaccount.providers.oauth2.client import (
 from allauth.utils import build_absolute_uri, get_request_param
 
 
-class OAuth2Adapter(object):
+class OAuth2Adapter:
     expires_in_key = "expires_in"
     client_class = OAuth2Client
     supports_state = True
@@ -48,7 +48,7 @@ class OAuth2Adapter(object):
             self.request, provider=self.provider_id
         )
 
-    def complete_login(self, request, app, access_token, **kwargs):
+    def complete_login(self, request, app, token: SocialToken, **kwargs):
         """
         Returns a SocialLogin instance
         """
@@ -89,7 +89,7 @@ class OAuth2Adapter(object):
         return client
 
 
-class OAuth2View(object):
+class OAuth2View:
     @classmethod
     def adapter_view(cls, adapter):
         def view(request, *args, **kwargs):
@@ -107,10 +107,9 @@ class OAuth2View(object):
         return view
 
 
-class OAuth2LoginView(OAuthLoginMixin, OAuth2View):
-    def login(self, request, *args, **kwargs):
-        provider = self.adapter.get_provider()
-        return provider.redirect_from_request(request)
+class OAuth2LoginView(OAuth2View, BaseLoginView):
+    def get_provider(self):
+        return self.adapter.get_provider()
 
 
 class OAuth2CallbackView(OAuth2View):

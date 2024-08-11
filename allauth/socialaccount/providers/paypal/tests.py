@@ -21,3 +21,6 @@ class PaypalTests(OAuth2TestsMixin, TestCase):
         }
         """,
         )
+
+    def get_expected_to_str(self):
+        return "janedoe@example.com"

@@ -10,10 +10,6 @@ class AgaveAccount(ProviderAccount):
     def get_avatar_url(self):
         return self.account.extra_data.get("avatar_url", "dflt")
 
-    def to_str(self):
-        dflt = super(AgaveAccount, self).to_str()
-        return self.account.extra_data.get("name", dflt)
-
 
 class AgaveProvider(OAuth2Provider):
     id = "agave"

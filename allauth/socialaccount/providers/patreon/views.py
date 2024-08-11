@@ -19,11 +19,13 @@ class PatreonOAuth2Adapter(OAuth2Adapter):
     authorize_url = "https://www.patreon.com/oauth2/authorize"
     profile_url = "{0}/{1}".format(
         API_URL,
-        "identity?include=memberships&fields%5Buser%5D=email,first_name,"
-        "full_name,image_url,last_name,social_connections,"
-        "thumb_url,url,vanity"
-        if USE_API_V2
-        else "current_user",
+        (
+            "identity?include=memberships&fields%5Buser%5D=email,first_name,"
+            "full_name,image_url,last_name,social_connections,"
+            "thumb_url,url,vanity"
+            if USE_API_V2
+            else "current_user"
+        ),
     )
 
     def complete_login(self, request, app, token, **kwargs):

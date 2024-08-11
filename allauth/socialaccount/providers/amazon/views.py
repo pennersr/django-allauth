@@ -16,8 +16,9 @@ class AmazonOAuth2Adapter(OAuth2Adapter):
         response = (
             get_adapter()
             .get_requests_session()
-            .get(self.profile_url, params={"access_token": token})
+            .get(self.profile_url, params={"access_token": token.token})
         )
+        response.raise_for_status()
         extra_data = response.json()
         if "Profile" in extra_data:
             extra_data = {

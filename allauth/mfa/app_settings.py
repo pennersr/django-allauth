@@ -1,4 +1,4 @@
-class AppSettings(object):
+class AppSettings:
     def __init__(self, prefix):
         self.prefix = prefix
 
@@ -62,6 +62,16 @@ class AppSettings(object):
     def SUPPORTED_TYPES(self):
         dflt = ["recovery_codes", "totp"]
         return self._setting("SUPPORTED_TYPES", dflt)
+
+    @property
+    def WEBAUTHN_ALLOW_INSECURE_ORIGIN(self):
+        return self._setting("WEBAUTHN_ALLOW_INSECURE_ORIGIN", False)
+
+    @property
+    def PASSKEY_LOGIN_ENABLED(self) -> bool:
+        return "webauthn" in self.SUPPORTED_TYPES and self._setting(
+            "PASSKEY_LOGIN_ENABLED", False
+        )
 
 
 _app_settings = AppSettings("MFA_")

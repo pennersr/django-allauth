@@ -10,21 +10,20 @@ the normal Django allauth workflow.
     This limitation means that Django allauth features are not applied to the
     Django admin site:
 
-    * ``ACCOUNT_LOGIN_ATTEMPTS_LIMIT`` and ``ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT`` do not
-      protect Django’s admin login from being brute forced.
+    * The admin login is not protected from being brute forced (``ACCOUNT_RATE_LIMITS``).
+    * Two-factor authentication is not enforced.
     * Any other custom workflow that overrides the Django allauth adapter's
       login method will not be applied.
 
 An easy workaround for this is to require users to login before going to the
-Django admin site's login page (note that the following would need to be applied to
+Django admin site's login page, by adding this to urls.py (note that the following would need to be applied to
 every instance of ``AdminSite``):
+
 
 .. code-block:: python
 
-    from django.conf import settings
     from django.contrib import admin
-    from django.contrib.admin.views.decorators import staff_member_required
+    from allauth.account.decorators import secure_admin_login
 
-    admin.site.login = staff_member_required(
-        admin.site.login, login_url=settings.LOGIN_URL
-    )
+    admin.autodiscover()
+    admin.site.login = secure_admin_login(admin.site.login)

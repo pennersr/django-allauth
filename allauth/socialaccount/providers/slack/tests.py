@@ -11,11 +11,22 @@ class SlackOAuth2Tests(OAuth2TestsMixin, TestCase):
         return MockedResponse(
             200,
             """{
-          "ok": true,
-          "url": "https:\\/\\/myteam.slack.com\\/",
-          "team": {"name": "My Team", "id": "U0G9QF9C6"},
-          "user": {"id": "T0G9PQBBK"},
-          "team_id": "T12345",
-          "user_id": "U12345"
+    "ok": true,
+    "sub": "U0R7JM",
+    "https://slack.com/user_id": "U0R7JM",
+    "https://slack.com/team_id": "T0R7GR",
+    "email": "krane@slack-corp.com",
+    "email_verified": true,
+    "date_email_verified": 1622128723,
+    "name": "krane",
+    "picture": "https://secure.gravatar.com/....png",
+    "given_name": "Bront",
+    "family_name": "Labradoodle",
+    "locale": "en-US",
+    "https://slack.com/team_name": "kraneflannel",
+    "https://slack.com/team_domain": "kraneflannel"
         }""",
         )  # noqa
+
+    def get_expected_to_str(self):
+        return "krane@slack-corp.com"

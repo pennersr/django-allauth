@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from allauth.socialaccount.tests import OAuthTestsMixin
 from allauth.tests import MockedResponse, TestCase
 
@@ -38,3 +37,6 @@ class VimeoTests(OAuthTestsMixin, TestCase):
 """,
             )
         ]
+
+    def get_expected_to_str(self):
+        return "user17574504"

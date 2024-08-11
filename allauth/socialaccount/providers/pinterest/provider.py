@@ -19,10 +19,6 @@ class PinterestAccount(ProviderAccount):
     def get_avatar_url(self):
         return self.account.extra_data.get("profile_image")
 
-    def to_str(self):
-        dflt = super(PinterestAccount, self).to_str()
-        return self.account.extra_data.get("username", dflt)
-
 
 class PinterestProvider(OAuth2Provider):
     id = "pinterest"

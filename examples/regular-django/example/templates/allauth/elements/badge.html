@@ -4,13 +4,16 @@
         warning
     {% elif "danger" in attrs.tags %}
         danger
+    {% elif "secondary" in attrs.tags %}
+        secondary
     {% elif "success" in attrs.tags %}
         success
     {% else %}
         primary
     {% endif %}
 {% endsetvar %}
-<span class="badge text-bg-{{ variant }}">
+<span {% if attrs.title %}title="{{ attrs.title }}"{% endif %}
+      class="badge text-bg-{{ variant }}">
     {% slot %}
     {% endslot %}
 </span>

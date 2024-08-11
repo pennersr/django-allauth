@@ -6,9 +6,6 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
 class FigmaAccount(ProviderAccount):
-    def to_str(self):
-        return self.account.extra_data.get("handle", "")
-
     def get_avatar_url(self):
         return self.account.extra_data.get("img_url", "")
 

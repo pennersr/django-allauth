@@ -23,3 +23,6 @@ class AngelListTests(OAuth2TestsMixin, TestCase):
 "email"]}
 """,
         )
+
+    def get_expected_to_str(self):
+        return "raymond.penners@example.com"

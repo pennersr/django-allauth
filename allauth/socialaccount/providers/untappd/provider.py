@@ -13,9 +13,8 @@ class UntappdAccount(ProviderAccount):
     def get_avatar_url(self):
         return self.account.extra_data.get("user_avatar")
 
-    def to_str(self):
-        dflt = super(UntappdAccount, self).to_str()
-        return self.account.extra_data.get("user_name", dflt)
+    def get_user_data(self):
+        return self.account.extra_data.get("response", {}).get("user", {})
 
 
 class UntappdProvider(OAuth2Provider):

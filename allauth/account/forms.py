@@ -9,6 +9,7 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import gettext, gettext_lazy as _, pgettext
 
 from allauth.account.internal import flows
+from allauth.account.stages import EmailVerificationStage
 from allauth.core import context, ratelimit
 from allauth.utils import get_username_max_length, set_form_field_order
 
@@ -46,7 +47,7 @@ class EmailAwarePasswordResetTokenGenerator(PasswordResetTokenGenerator):
 default_token_generator = app_settings.PASSWORD_RESET_TOKEN_GENERATOR()
 
 
-class PasswordVerificationMixin(object):
+class PasswordVerificationMixin:
     def clean(self):
         cleaned_data = super(PasswordVerificationMixin, self).clean()
         password1 = cleaned_data.get("password1")
@@ -184,7 +185,7 @@ class LoginForm(forms.Form):
                     auth_method = app_settings.AuthenticationMethod.EMAIL
                 else:
                     auth_method = app_settings.AuthenticationMethod.USERNAME
-            raise adapter.validation_error("%s_password_mismatch" % auth_method)
+            raise adapter.validation_error("%s_password_mismatch" % auth_method.value)
         return self.cleaned_data
 
     def login(self, request, redirect_url=None):
@@ -253,7 +254,7 @@ def _base_signup_form_class():
     return fc_class
 
 
-class BaseSignupForm(_base_signup_form_class()):
+class BaseSignupForm(_base_signup_form_class()):  # type: ignore[misc]
     username = forms.CharField(
         label=_("Username"),
         min_length=app_settings.USERNAME_MIN_LENGTH,
@@ -341,6 +342,10 @@ class BaseSignupForm(_base_signup_form_class()):
             value = self.validate_unique_email(value)
         return value
 
+    def clean_email2(self):
+        value = self.cleaned_data["email2"].lower()
+        return value
+
     def validate_unique_email(self, value):
         adapter = get_adapter()
         assessment = assess_unique_email(value)
@@ -376,10 +381,9 @@ class BaseSignupForm(_base_signup_form_class()):
             # Don't create a new account, only send an email informing the user
             # that (s)he already has one...
             email = self.cleaned_data["email"]
-            adapter = get_adapter()
-            adapter.send_account_already_exists_mail(email)
+            resp = flows.signup.prevent_enumeration(request, email)
             user = None
-            resp = adapter.respond_email_verification_sent(request, None)
+            request.session[flows.login.LOGIN_SESSION_KEY] = EmailVerificationStage.key
         else:
             user = self.save(request)
             resp = None
@@ -414,8 +418,41 @@ class SignupForm(BaseSignupForm):
         if hasattr(self, "field_order"):
             set_form_field_order(self, self.field_order)
 
+        honeypot_field_name = app_settings.SIGNUP_FORM_HONEYPOT_FIELD
+        if honeypot_field_name:
+            self.fields[honeypot_field_name] = forms.CharField(
+                required=False,
+                label="",
+                widget=forms.TextInput(
+                    attrs={
+                        "style": "position: absolute; right: -99999px;",
+                        "tabindex": "-1",
+                        "autocomplete": "nope",
+                    }
+                ),
+            )
+
+    def try_save(self, request):
+        """
+        override of parent class method that adds additional catching
+        of a potential bot filling out the honeypot field and returns a
+        'fake' email verification response if honeypot was filled out
+        """
+        honeypot_field_name = app_settings.SIGNUP_FORM_HONEYPOT_FIELD
+        if honeypot_field_name:
+            if self.cleaned_data[honeypot_field_name]:
+                user = None
+                adapter = get_adapter()
+                # honeypot fields work best when you do not report to the bot
+                # that anything went wrong. So we return a fake email verification
+                # sent response but without creating a user
+                resp = adapter.respond_email_verification_sent(request, None)
+                return user, resp
+
+        return super().try_save(request)
+
     def clean(self):
-        super(SignupForm, self).clean()
+        super().clean()
 
         # `password` cannot be of type `SetPasswordField`, as we don't
         # have a `User` yet. So, let's populate a dummy user to be used
@@ -555,8 +592,7 @@ class ResetPasswordForm(forms.Form):
     def save(self, request, **kwargs):
         email = self.cleaned_data["email"]
         if not self.users:
-            if app_settings.EMAIL_UNKNOWN_ACCOUNTS:
-                flows.signup.send_unknown_account_mail(request, email)
+            flows.signup.send_unknown_account_mail(request, email)
         else:
             self._send_password_reset_mail(request, email, self.users, **kwargs)
         return email

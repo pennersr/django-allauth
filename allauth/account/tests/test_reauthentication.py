@@ -5,6 +5,7 @@ from django.urls import reverse
 import pytest
 from pytest_django.asserts import assertTemplateUsed
 
+from allauth import app_settings as allauth_settings
 from allauth.account.adapter import get_adapter
 from allauth.account.authentication import AUTHENTICATION_METHODS_SESSION_KEY
 
@@ -20,6 +21,8 @@ from allauth.account.authentication import AUTHENTICATION_METHODS_SESSION_KEY
 def test_user_with_mfa_only(
     user_factory, with_totp, with_password, expected_method_urlnames, client
 ):
+    if not allauth_settings.MFA_ENABLED and with_totp:
+        return
     user = user_factory(with_totp=with_totp, password=None if with_password else "!")
     assert user.has_usable_password() == with_password
     client.force_login(user)
@@ -29,6 +32,8 @@ def test_user_with_mfa_only(
         map(reverse, expected_method_urlnames)
     )
     for urlname in ["account_reauthenticate", "mfa_reauthenticate"]:
+        if urlname == "mfa_reauthenticate" and not allauth_settings.MFA_ENABLED:
+            continue
         resp = client.get(reverse(urlname) + "?next=/foo")
         if urlname in expected_method_urlnames:
             assert resp.status_code == 200

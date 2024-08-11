@@ -7,3 +7,4 @@ Installation
 
    requirements
    quickstart
+   examples

@@ -18,10 +18,6 @@ class TwitterOAuth2Account(ProviderAccount):
     def get_avatar_url(self):
         return self.account.extra_data.get("profile_image_url")
 
-    def to_str(self):
-        username = self.get_username()
-        return username or super(TwitterOAuth2Account, self).to_str()
-
 
 class TwitterOAuth2Provider(OAuth2Provider):
     id = "twitter_oauth2"

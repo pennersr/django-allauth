@@ -7,4 +7,5 @@ Multi-Factor Authentication
    configuration
    forms
    adapter
+   webauthn
    django-allauth-2fa

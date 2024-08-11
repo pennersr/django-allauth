@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import json
 
 from allauth.socialaccount.models import SocialAccount
@@ -50,6 +49,9 @@ class GitLabTests(OAuth2TestsMixin, TestCase):
             }
         """,
         )
+
+    def get_expected_to_str(self):
+        return "mr.bob"
 
     def test_valid_response(self):
         data = {"id": 12345}

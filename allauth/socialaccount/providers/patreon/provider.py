@@ -1,6 +1,7 @@
 """
 Provider for Patreon
 """
+
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 from allauth.socialaccount.providers.patreon.views import PatreonOAuth2Adapter
@@ -11,6 +12,10 @@ from .constants import PROVIDER_ID, USE_API_V2
 class PatreonAccount(ProviderAccount):
     def get_avatar_url(self):
         return self.account.extra_data.get("attributes").get("thumb_url")
+
+    def to_str(self):
+        email = self.account.extra_data.get("attributes", {}).get("email")
+        return email or super().to_str()
 
 
 class PatreonProvider(OAuth2Provider):

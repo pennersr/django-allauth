@@ -13,7 +13,9 @@ hook to them for your own needs.
     provided.
 
 - ``allauth.socialaccount.signals.social_account_added(request, sociallogin)``
-    Sent after a user connects a social account to their local account.
+    Sent after a user connects a social account to their local account. This
+    is an explicit action and does not get called for the creation of a
+    socialaccount.
 
 - ``allauth.socialaccount.signals.social_account_updated(request, sociallogin)``
     Sent after a social account has been updated. This happens when a user

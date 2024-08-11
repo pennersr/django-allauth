@@ -1,5 +1,6 @@
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
+from allauth.socialaccount.models import SocialToken
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
@@ -17,8 +18,8 @@ class JupyterHubOAuth2Adapter(OAuth2Adapter):
     authorize_url = "{0}/hub/api/oauth2/authorize".format(provider_base_url)
     profile_url = "{0}/hub/api/user".format(provider_base_url)
 
-    def complete_login(self, request, app, access_token, **kwargs):
-        headers = {"Authorization": "Bearer {0}".format(access_token)}
+    def complete_login(self, request, app, token: SocialToken, **kwargs):
+        headers = {"Authorization": "Bearer {0}".format(token.token)}
 
         extra_data = (
             get_adapter().get_requests_session().get(self.profile_url, headers=headers)

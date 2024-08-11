@@ -272,7 +272,7 @@ def test_confirm_email_with_another_user_logged_in(
     )
     assert user2 == resp.context["user"]
 
-    url = body[body.find("/confirm-email/") :].split()[0]
+    url = body[body.find("/accounts/confirm-email/") :].split()[0]
     resp = client.post(url)
 
     assertTemplateUsed(resp, "account/messages/logged_out.txt")
@@ -297,7 +297,7 @@ def test_confirm_email_with_same_user_logged_in(
     body = mailoutbox[0].body
     assert body.find("http://") > 0
 
-    url = body[body.find("/confirm-email/") :].split()[0]
+    url = body[body.find("/accounts/confirm-email/") :].split()[0]
     resp = client.post(url)
 
     assertTemplateNotUsed(resp, "account/messages/logged_out.txt")

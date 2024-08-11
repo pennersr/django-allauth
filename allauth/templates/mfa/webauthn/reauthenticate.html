@@ -1,0 +1,30 @@
+{% extends "account/base_reauthenticate.html" %}
+{% load i18n %}
+{% load allauth %}
+{% block reauthenticate_content %}
+    {% url 'mfa_reauthenticate_webauthn' as action_url %}
+    {% element form form=form method="post" action=action_url %}
+        {% slot body %}
+            {% csrf_token %}
+            {% element fields form=form unlabeled=True %}
+            {% endelement %}
+            {{ redirect_field }}
+        {% endslot %}
+        {% slot actions %}
+            {% element button id="mfa_webauthn_reauthenticate" type="submit" tags="primary,mfa,login" %}
+                {% trans "Use a security key" %}
+            {% endelement %}
+        {% endslot %}
+    {% endelement %}
+    {{ js_data|json_script:"js_data" }}
+    {% include "mfa/webauthn/snippets/scripts.html" %}
+    <script type="text/javascript">
+        allauth.webauthn.forms.authenticateForm({
+        ids: {
+        authenticate: "mfa_webauthn_reauthenticate",
+        credential: "{{ form.credential.auto_id }}"
+        },
+        data: JSON.parse(document.getElementById('js_data').textContent)
+        })
+    </script>
+{% endblock %}

@@ -20,3 +20,6 @@ class EveOnlineTests(OAuth2TestsMixin, TestCase):
             "CharacterOwnerHash": "XM4D...FoY="
         }""",
         )
+
+    def get_expected_to_str(self):
+        return "CCP illurkall"

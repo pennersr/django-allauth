@@ -42,7 +42,6 @@ from allauth.account.models import (
     EmailConfirmation,
     get_emailconfirmation_model,
 )
-from allauth.account.reauthentication import resume_request
 from allauth.account.utils import (
     complete_signup,
     perform_login,
@@ -66,6 +65,7 @@ sensitive_post_parameters_m = method_decorator(
 )
 
 
+@method_decorator(rate_limit(action="login"), name="dispatch")
 class LoginView(
     NextRedirectMixin,
     RedirectAuthenticatedUserMixin,
@@ -99,6 +99,11 @@ class LoginView(
             return e.response
 
     def get_context_data(self, **kwargs):
+        passkey_login_enabled = False
+        if allauth_app_settings.MFA_ENABLED:
+            from allauth.mfa import app_settings as mfa_settings
+
+            passkey_login_enabled = mfa_settings.PASSKEY_LOGIN_ENABLED
         ret = super().get_context_data(**kwargs)
         signup_url = None
         if not allauth_app_settings.SOCIALACCOUNT_ONLY:
@@ -112,6 +117,7 @@ class LoginView(
                 "SOCIALACCOUNT_ENABLED": allauth_app_settings.SOCIALACCOUNT_ENABLED,
                 "SOCIALACCOUNT_ONLY": allauth_app_settings.SOCIALACCOUNT_ONLY,
                 "LOGIN_BY_CODE_ENABLED": app_settings.LOGIN_BY_CODE_ENABLED,
+                "PASSKEY_LOGIN_ENABLED": passkey_login_enabled,
             }
         )
         if app_settings.LOGIN_BY_CODE_ENABLED:
@@ -348,8 +354,8 @@ class ConfirmEmailView(NextRedirectMixin, LogoutFunctionalityMixin, TemplateView
     def get_redirect_url(self):
         url = self.get_next_url()
         if not url:
-            url = get_adapter(self.request).get_email_confirmation_redirect_url(
-                self.request
+            url = get_adapter(self.request).get_email_verification_redirect_url(
+                self.object.email_address,
             )
         return url
 
@@ -780,7 +786,7 @@ class BaseReauthenticateView(NextRedirectMixin, FormView):
         return url
 
     def form_valid(self, form):
-        response = resume_request(self.request)
+        response = flows.reauthentication.resume_request(self.request)
         if response:
             return response
         return super().form_valid(form)
@@ -878,7 +884,7 @@ class ConfirmLoginCodeView(RedirectAuthenticatedUserMixin, NextRedirectMixin, Fo
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        kwargs["code"] = self.pending_login.get("code")
+        kwargs["code"] = self.pending_login.get("code", "")
         return kwargs
 
     def form_valid(self, form):

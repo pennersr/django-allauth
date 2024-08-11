@@ -9,11 +9,6 @@ class RobinhoodAccount(ProviderAccount):
     def get_avatar_url(self):
         return None
 
-    def to_str(self):
-        return self.account.extra_data.get(
-            "username", super(RobinhoodAccount, self).to_str()
-        )
-
 
 class RobinhoodProvider(OAuth2Provider):
     id = "robinhood"

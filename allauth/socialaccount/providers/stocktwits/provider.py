@@ -9,9 +9,8 @@ class StocktwitsAccount(ProviderAccount):
     def get_avatar_url(self):
         return self.account.extra_data.get("user", {}).get("avatar_url_ssl")
 
-    def to_str(self):
-        dflt = super(StocktwitsAccount, self).to_str()
-        return self.account.extra_data.get("user", {}).get("name", dflt)
+    def get_user_data(self):
+        return self.account.extra_data.get("user", {})
 
 
 class StocktwitsProvider(OAuth2Provider):

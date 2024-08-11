@@ -8,7 +8,6 @@ class EdxTests(OAuth2TestsMixin, TestCase):
     provider_id = EdxProvider.id
 
     def get_mocked_response(self):
-        print(self)
         return MockedResponse(
             200,
             """{
@@ -45,3 +44,6 @@ class EdxTests(OAuth2TestsMixin, TestCase):
 "account_privacy":"private"
 }""",
         )
+
+    def get_expected_to_str(self):
+        return "krzysztof"

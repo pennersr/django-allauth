@@ -5,7 +5,7 @@ from allauth.socialaccount.providers.cilogon.views import CILogonOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
-class Scope(object):
+class Scope:
     OPENID = "openid"
     EMAIL = "email"
     PROFILE = "profile"
@@ -13,9 +13,7 @@ class Scope(object):
 
 
 class CILogonAccount(ProviderAccount):
-    def to_str(self):
-        dflt = super(CILogonAccount, self).to_str()
-        return self.account.extra_data.get("name", dflt)
+    pass
 
 
 class CILogonProvider(OAuth2Provider):

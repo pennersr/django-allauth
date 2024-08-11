@@ -1,7 +1,7 @@
 from django.apps import apps
 
 
-class AppSettings(object):
+class AppSettings:
     def __init__(self, prefix):
         self.prefix = prefix
 
@@ -31,6 +31,16 @@ class AppSettings(object):
     @property
     def USERSESSIONS_ENABLED(self):
         return apps.is_installed("allauth.usersessions")
+
+    @property
+    def HEADLESS_ENABLED(self):
+        return apps.is_installed("allauth.headless")
+
+    @property
+    def HEADLESS_ONLY(self) -> bool:
+        from allauth.utils import get_setting
+
+        return get_setting("HEADLESS_ONLY", False)
 
     @property
     def DEFAULT_AUTO_FIELD(self):

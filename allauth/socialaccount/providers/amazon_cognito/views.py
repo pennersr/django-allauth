@@ -1,5 +1,6 @@
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
+from allauth.socialaccount.models import SocialToken
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
@@ -39,9 +40,9 @@ class AmazonCognitoOAuth2Adapter(OAuth2Adapter):
     def profile_url(self):
         return "{}/oauth2/userInfo".format(self.domain)
 
-    def complete_login(self, request, app, access_token, **kwargs):
+    def complete_login(self, request, app, token: SocialToken, **kwargs):
         headers = {
-            "Authorization": "Bearer {}".format(access_token),
+            "Authorization": "Bearer {}".format(token.token),
         }
         extra_data = (
             get_adapter().get_requests_session().get(self.profile_url, headers=headers)

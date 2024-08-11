@@ -2,7 +2,7 @@ import html
 import json
 import string
 import warnings
-from urllib.parse import quote, urlparse
+from urllib.parse import urlparse
 
 from django.conf import settings
 from django.contrib import messages
@@ -36,11 +36,8 @@ from allauth.account import signals
 from allauth.account.app_settings import AuthenticationMethod
 from allauth.core import context, ratelimit
 from allauth.core.internal.adapter import BaseAdapter
-from allauth.utils import (
-    build_absolute_uri,
-    generate_unique_username,
-    import_attribute,
-)
+from allauth.core.internal.httpkit import headed_redirect_response
+from allauth.utils import generate_unique_username, import_attribute
 
 from . import app_settings
 
@@ -55,6 +52,9 @@ class DefaultAccountAdapter(BaseAdapter):
 
     error_messages = {
         "account_inactive": _("This account is currently inactive."),
+        "cannot_remove_primary_email": _(
+            "You cannot remove your primary email address."
+        ),
         "duplicate_email": _(
             "This email address is already associated with this account."
         ),
@@ -65,12 +65,14 @@ class DefaultAccountAdapter(BaseAdapter):
         "enter_current_password": _("Please type your current password."),
         "incorrect_code": _("Incorrect code."),
         "incorrect_password": _("Incorrect password."),
+        "invalid_or_expired_key": _("Invalid or expired key."),
         "invalid_password_reset": _("The password reset token was invalid."),
         "max_email_addresses": _("You cannot add more than %d email addresses."),
         "too_many_login_attempts": _(
             "Too many failed login attempts. Try again later."
         ),
         "unknown_email": _("The email address is not assigned to any user account"),
+        "unverified_primary_email": _("Your primary email address must be verified."),
         "username_blacklisted": _(
             "Username can not be used. Please use other username."
         ),
@@ -230,15 +232,20 @@ class DefaultAccountAdapter(BaseAdapter):
         """
         return resolve_url(app_settings.LOGOUT_REDIRECT_URL)
 
-    def get_email_confirmation_redirect_url(self, request):
+    def get_email_verification_redirect_url(self, email_address):
         """
-        The URL to return to after successful email confirmation.
+        The URL to return to after email verification.
         """
-        if request.user.is_authenticated:
+        get_url = getattr(self, "get_email_confirmation_redirect_url", None)
+        if get_url:
+            # Deprecated.
+            return get_url(self.request)
+
+        if self.request.user.is_authenticated:
             if app_settings.EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL:
                 return app_settings.EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL
             else:
-                return self.get_login_redirect_url(request)
+                return self.get_login_redirect_url(self.request)
         else:
             return app_settings.EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL
 
@@ -378,6 +385,8 @@ class DefaultAccountAdapter(BaseAdapter):
         Wrapper of `django.contrib.messages.add_message`, that reads
         the message text from a template.
         """
+        if getattr(getattr(request, "allauth", None), "headless", None):
+            return
         if "django.contrib.messages" in settings.INSTALLED_APPS:
             if message:
                 messages.add_message(request, level, message, extra_tags=extra_tags)
@@ -520,7 +529,7 @@ class DefaultAccountAdapter(BaseAdapter):
         """
         from allauth.account.internal.flows import manage_email
 
-        return manage_email.confirm_email(request, email_address)
+        return manage_email.verify_email(request, email_address)
 
     def set_password(self, user, password):
         user.set_password(password)
@@ -559,16 +568,11 @@ class DefaultAccountAdapter(BaseAdapter):
     def get_reset_password_from_key_url(self, key):
         """
         Method intented to be overriden in case the password reset email
-        needs to point to your frontend/SPA.
+        needs to be adjusted.
         """
-        # We intentionally accept an opaque `key` on the interface here, and not
-        # implementation details such as a separate `uidb36` and `key. Ideally,
-        # this should have done on `urls` level as well.
-        path = reverse(
-            "account_reset_password_from_key", kwargs={"uidb36": "UID", "key": "KEY"}
-        )
-        path = path.replace("UID-KEY", quote(key))
-        return build_absolute_uri(self.request, path)
+        from allauth.account.internal import flows
+
+        return flows.password_reset.get_reset_password_from_key_url(self.request, key)
 
     def get_email_confirmation_url(self, request, emailconfirmation):
         """Constructs the email confirmation (activation) url.
@@ -577,9 +581,9 @@ class DefaultAccountAdapter(BaseAdapter):
         confirmations are sent outside of the request context `request`
         can be `None` here.
         """
-        url = reverse("account_confirm_email", args=[emailconfirmation.key])
-        ret = build_absolute_uri(request, url)
-        return ret
+        from allauth.account.internal import flows
+
+        return flows.manage_email.get_email_verification_url(request, emailconfirmation)
 
     def should_send_confirmation_mail(self, request, email_address, signup):
         send_email = ratelimit.consume(
@@ -590,9 +594,11 @@ class DefaultAccountAdapter(BaseAdapter):
         return send_email
 
     def send_account_already_exists_mail(self, email):
-        signup_url = build_absolute_uri(context.request, reverse("account_signup"))
-        password_reset_url = build_absolute_uri(
-            context.request, reverse("account_reset_password")
+        from allauth.account.internal import flows
+
+        signup_url = flows.signup.get_signup_url(context.request)
+        password_reset_url = flows.password_reset.get_reset_password_url(
+            context.request
         )
         ctx = {
             "request": context.request,
@@ -615,10 +621,10 @@ class DefaultAccountAdapter(BaseAdapter):
         self.send_mail(email_template, emailconfirmation.email_address.email, ctx)
 
     def respond_user_inactive(self, request, user):
-        return HttpResponseRedirect(reverse("account_inactive"))
+        return headed_redirect_response("account_inactive")
 
     def respond_email_verification_sent(self, request, user):
-        return HttpResponseRedirect(reverse("account_email_verification_sent"))
+        return headed_redirect_response("account_email_verification_sent")
 
     def _get_login_attempts_cache_key(self, request, **credentials):
         site = get_current_site(request)
@@ -705,26 +711,35 @@ class DefaultAccountAdapter(BaseAdapter):
         """The order of the methods returned matters. The first method is the
         default when using the `@reauthentication_required` decorator.
         """
-        ret = []
-        if not user.is_authenticated:
-            return ret
-        if user.has_usable_password():
-            ret.append(
-                {
-                    "description": _("Use your password"),
-                    "url": reverse("account_reauthenticate"),
-                }
-            )
-        if allauth_app_settings.MFA_ENABLED:
-            from allauth.mfa.utils import is_mfa_enabled
+        from allauth.account.internal.flows.reauthentication import (
+            get_reauthentication_flows,
+        )
 
-            if is_mfa_enabled(user):
-                ret.append(
-                    {
-                        "description": _("Use your authenticator app"),
-                        "url": reverse("mfa_reauthenticate"),
-                    }
-                )
+        flow_by_id = {f["id"]: f for f in get_reauthentication_flows(user)}
+        ret = []
+        if "reauthenticate" in flow_by_id:
+            entry = {
+                "id": "reauthenticate",
+                "description": _("Use your password"),
+                "url": reverse("account_reauthenticate"),
+            }
+            ret.append(entry)
+        if "mfa_reauthenticate" in flow_by_id:
+            types = flow_by_id["mfa_reauthenticate"]["types"]
+            if "recovery_codes" in types or "totp" in types:
+                entry = {
+                    "id": "mfa_reauthenticate",
+                    "description": _("Use authenticator app or code"),
+                    "url": reverse("mfa_reauthenticate"),
+                }
+                ret.append(entry)
+            if "webauthn" in types:
+                entry = {
+                    "id": "mfa_reauthenticate:webauthn",
+                    "description": _("Use a security key"),
+                    "url": reverse("mfa_reauthenticate_webauthn"),
+                }
+                ret.append(entry)
         return ret
 
     def get_email_verification_method(self, login=None):

@@ -1,0 +1,72 @@
+{% extends "mfa/webauthn/base.html" %}
+{% load i18n %}
+{% load static %}
+{% load allauth %}
+{% load humanize %}
+{% block content %}
+    {% element h1 %}
+        {% trans "Security Keys" %}
+    {% endelement %}
+    {% if authenticators|length == 0 %}
+        <p>{% blocktranslate %}No security keys have been added.{% endblocktranslate %}</p>
+    {% else %}
+        {% element table %}
+            {% element thead %}
+                {% element th %}
+                    {% translate "Key" %}
+                {% endelement %}
+                {% element th %}
+                    {% translate "Usage" %}
+                {% endelement %}
+                {% element th %}
+                {% endelement %}
+            {% endelement %}
+            {% element tbody %}
+                {% for authenticator in authenticators %}
+                    {% element tr %}
+                        {% element td %}
+                            {{ authenticator }}
+                            {% if authenticator.wrap.is_passwordless is True %}
+                                {% element badge tags="mfa,key,primary" %}
+                                    {% translate "Passkey" %}
+                                {% endelement %}
+                            {% elif authenticator.wrap.is_passwordless is False %}
+                                {% element badge tags="mfa,key,secondary" %}
+                                    {% translate "Security key" %}
+                                {% endelement %}
+                            {% else %}
+                                {% element badge title=_("This key does not indicate whether it is a passkey.") tags="mfa,key,warning" %}
+                                    {% translate "Unspecified" %}
+                                {% endelement %}
+                            {% endif %}
+                        {% endelement %}
+                        {% element td %}
+                            {% blocktranslate with created_at=authenticator.created_at|date:"SHORT_DATE_FORMAT" %}Added on {{ created_at }}{% endblocktranslate %}.
+                            {% if authenticator.last_used_at %}
+                                {% blocktranslate with last_used=authenticator.last_used_at|naturaltime %}Last used {{ last_used }}{% endblocktranslate %}
+                            {% else %}
+                                Not used.
+                            {% endif %}
+                        {% endelement %}
+                        {% element td align="right" %}
+                            {% url 'mfa_edit_webauthn' pk=authenticator.pk as edit_url %}
+                            {% element button tags="mfa,authenticator,edit,tool" href=edit_url %}
+                                {% translate "Edit" %}
+                            {% endelement %}
+                            {% url 'mfa_remove_webauthn' pk=authenticator.pk as remove_url %}
+                            {% element button tags="mfa,authenticator,danger,delete,tool" href=remove_url %}
+                                {% translate "Remove" %}
+                            {% endelement %}
+                        {% endelement %}
+                    {% endelement %}
+                {% endfor %}
+            {% endelement %}
+        {% endelement %}
+    {% endif %}
+    {% url 'mfa_add_webauthn' as add_url %}
+    {% element button href=add_url %}
+        {% translate "Add" %}
+    {% endelement %}
+</li>
+</ul>
+{% endblock %}

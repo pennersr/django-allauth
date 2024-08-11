@@ -1,16 +1,16 @@
-class AuthProcess(object):
+class AuthProcess:
     LOGIN = "login"
     CONNECT = "connect"
     REDIRECT = "redirect"
 
 
-class AuthAction(object):
+class AuthAction:
     AUTHENTICATE = "authenticate"
     REAUTHENTICATE = "reauthenticate"
     REREQUEST = "rerequest"
 
 
-class AuthError(object):
+class AuthError:
     UNKNOWN = "unknown"
     CANCELLED = "cancelled"  # Cancelled on request of user
     DENIED = "denied"  # Denied by server

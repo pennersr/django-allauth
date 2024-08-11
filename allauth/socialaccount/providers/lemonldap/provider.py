@@ -9,10 +9,6 @@ class LemonLDAPAccount(ProviderAccount):
     def get_avatar_url(self):
         return self.account.extra_data.get("picture")
 
-    def to_str(self):
-        dflt = super(LemonLDAPAccount, self).to_str()
-        return self.account.extra_data.get("name", dflt)
-
 
 class LemonLDAPProvider(OAuth2Provider):
     id = "lemonldap"

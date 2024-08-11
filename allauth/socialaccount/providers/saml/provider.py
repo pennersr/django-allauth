@@ -6,8 +6,7 @@ from allauth.socialaccount.providers.base import Provider, ProviderAccount
 
 
 class SAMLAccount(ProviderAccount):
-    def to_str(self):
-        return super().to_str()
+    pass
 
 
 class SAMLProvider(Provider):
@@ -107,27 +106,31 @@ class SAMLProvider(Provider):
             attributes["email_verified"] = email_verified
 
         # If we did not find an email, check if the NameID contains the email.
-        if (
-            not attributes.get("email")
-            and data.get_nameid_format()
+        if not attributes.get("email") and (
+            data.get_nameid_format()
             == "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
+            # Alternatively, if `use_id_for_email` is true, then we always interpret the nameID as email
+            or provider_config.get("use_nameid_for_email", False)
         ):
             attributes["email"] = data.get_nameid()
 
         return attributes
 
     def redirect(self, request, process, next_url=None, data=None, **kwargs):
-        from allauth.socialaccount.providers.saml.utils import (
-            build_auth,
-            encode_relay_state,
-        )
+        from allauth.socialaccount.providers.saml.utils import build_auth
 
-        state = self.stash_redirect_state(request, process, next_url, data, **kwargs)
         auth = build_auth(request, self)
-        relay_state = encode_relay_state(state)
         # If we pass `return_to=None` `auth.login` will use the URL of the
-        # current view, which will then end up being used as a redirect URL.
-        redirect = auth.login(return_to=relay_state)
+        # current view.
+        redirect = auth.login(return_to="")
+        self.stash_redirect_state(
+            request,
+            process,
+            next_url,
+            data,
+            state_id=auth.get_last_request_id(),
+            **kwargs
+        )
         return HttpResponseRedirect(redirect)
 
 

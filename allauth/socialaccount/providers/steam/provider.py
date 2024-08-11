@@ -33,7 +33,10 @@ class SteamAccount(OpenIDAccount):
 
 
 def extract_steam_id(url):
-    return url.lstrip("https://steamcommunity.com/openid/id/")
+    prefix = "https://steamcommunity.com/openid/id/"
+    if not url.startswith(prefix):
+        raise ValueError(url)
+    return url[len(prefix) :]
 
 
 def request_steam_account_summary(api_key, steam_id):

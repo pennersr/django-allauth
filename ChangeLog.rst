@@ -1,5 +1,182 @@
-0.63.0 (unreleased)
+64.1.0 (unreleased)
 *******************
+
+- Headless: When trying to login while a user is already logged in, you now get
+  a 409.
+  
+- Added support for custom account email verification based on the user's email.
+
+
+64.0.0 (2024-07-31)
+*******************
+
+Note worthy changes
+-------------------
+
+- The 0.x.y version numbers really did not do justice to the state of the
+  project, and we are way past the point where a version 1.0 would be
+  applicable. Additionally, 64 is a nice round number. Therefore, the version
+  numbering is changed from 0.x.y to x.y.z. We will use a loose form of semantic
+  versioning. However, please be aware that feature releases may occasionally
+  include minor documented backwards incompatibilities. Always read the release
+  notes before upgrading.
+
+- Added support for WebAuthn based security keys and passkey login. Note that
+  this is currently disabled by default.
+
+- Headless: The TOTP URI is now available in the MFA activation response.
+
+- Headless: When trying to sign up while a user is already logged in, you now get
+  a 409.
+
+- Headless: You can now alter the user data payload by overriding the newly
+  introduced ``serialize_user()`` adapter method.
+
+- Headless: The token strategy now allows for exposing refresh tokens and any
+  other information you may need (such as e.g. ``expires_in``).
+
+- Ensured that email address, given name and family name fields are stored in
+  the SocialAccount instance. This information was not previously saved in
+  Amazon Cognito, Edmodo, and MediaWiki SocialAccount instances.
+
+- When multiple third-party accounts of the same provider were connected, the
+  third-party account connections overview did not always provide a clear
+  recognizable distinction between those accounts. Now, the
+  ``SocialAccount.__str__()`` has been altered to return the unique username or
+  email address, rather than a non-unique display name.
+
+
+Backwards incompatible changes
+------------------------------
+
+- Dropped support for Django 3.2, 4.0 and 4.1 (which all reached end of life).
+  As Django 3.2 was the last to support Python 3.7, support for Python 3.7 is
+  now dropped as well.
+
+
+0.63.6 (2024-07-12)
+*******************
+
+Security notice
+---------------
+
+- When the Facebook provider was configured to use the ``js_sdk`` method the
+  login page could become vulnerable to an XSS attack.
+
+
+0.63.5 (2024-07-11)
+*******************
+
+Fixes
+-----
+
+- The security fix in 0.63.4 that altered the ``__str__()`` of ``SocialToken``
+  caused issues within the Amazon Cognito, Atlassian, JupyterHub, LemonLDAP,
+  Nextcloud and OpenID Connect providers. Fixed.
+
+
+0.63.4 (2024-07-10)
+*******************
+
+Security notice
+---------------
+
+- The ``__str__()`` method of the ``SocialToken`` model returned the access
+  token. As a consequence, logging or printing tokens otherwise would expose the
+  access token. Now, the method no longer returns the token. If you want to
+  log/print tokens, you will now have to explicitly log the ``token`` field of
+  the ``SocialToken`` instance.
+
+- Enumeration prevention: the behavior on the outside of an actual signup versus
+  a signup where the user already existed was not fully identical, fixed.
+
+
+0.63.3 (2024-05-31)
+*******************
+
+Note worthy changes
+-------------------
+
+- In ``HEADLESS_ONLY`` mode, the ``/accounts/<provider>/login/`` URLs were still
+  available, fixed.
+
+- The few remaining OAuth 1.0 providers were not compatible with headless mode,
+  fixed.
+
+- Depending on where you placed the ``secure_admin_login(admin.site.login)``
+  protection you could run into circular import errors, fixed.
+
+
+Backwards incompatible changes
+------------------------------
+
+- SAML: IdP initiated SSO is disabled by default, see security notice below.
+
+
+Security notice
+---------------
+
+- SAML: ``RelayState`` was used to keep track of whether or not the login flow
+  was IdP or SP initiated. As ``RelayState`` is a separate field, not part of
+  the ``SAMLResponse`` payload, it is not signed and thereby making the SAML
+  login flow vulnerable to CSRF/replay attacks. Now, ``InResponseTo`` is used
+  instead, addressing the issue for SP initiated SSO flows. IdP initiated SSO
+  remains inherently insecure, by design. For that reason, it is now disabled by
+  default. If you need to support IdP initiated SSO, you will need to opt-in to
+  that by adding ``"reject_idp_initiated_sso": False`` to your advanced SAML
+  provider settings.
+
+
+0.63.2 (2024-05-24)
+*******************
+
+Note worthy changes
+-------------------
+
+- ``allauth.headless`` now supports the ``is_open_for_signup()`` adapter method.
+  In case signup is closed, a 403 is returned during signup.
+
+- Connecting a third-party account in ``HEADLESS_ONLY`` mode failed if the
+  connections view could not be reversed, fixed.
+
+- In case a headless attempt was made to connect a third-party account that was already
+  connected to a different account, no error was communicated to the frontend. Fixed.
+
+- When the headless provider signup endpoint was called while that flow was not pending,
+  a crash would occur. This has been fixed to return a 409 (conflict).
+
+- Microsoft provider: the URLs pointing to the login and graph API are now
+  configurable via the app settings.
+
+
+0.63.1 (2024-05-17)
+*******************
+
+Note worthy changes
+-------------------
+
+- When only ``allauth.account`` was installed, you could run into an exception
+  stating "allauth.socialaccount not installed, yet its models are
+  imported.". This has been fixed.
+
+- When ``SOCIALACCOUNT_EMAIL_AUTHENTICATION`` was turned on, and a user would
+  connect a third-party account for which email authentication would kick in,
+  the connect was implicitly skipped. Fixed.
+
+- The recommendation from the documentation to protect the Django admin login
+  could cause an infinite redirect loop in case of
+  ``AUTHENTICATED_LOGIN_REDIRECTS``. A decorator ``secure_admin_login()`` is now
+  offered out of the box to ensure that the Django admin is properly secured by
+  allauth (e.g. rate limits, 2FA).
+
+- Subpackages from the ``tests`` package were packaged, fixed.
+
+
+0.63.0 (2024-05-14)
+*******************
+
+Note worthy changes
+-------------------
 
 - New providers: TikTok, Lichess.
 
@@ -9,7 +186,13 @@
   accordingly. Migrations are in place.  For rationale, see the note about email
   case sensitivity in the documentation.
 
-- Added support for custom account email verification based on the user's email.
+- An official API for single-page and mobile application support is now
+  available, via the new ``allauth.headless`` app.
+
+- Added support for a honeypot field on the signup form. Real users do not see
+  the field and therefore leave it empty. When bots do fill out the field
+  account creation is silently skipped.
+
 
 0.62.1 (2024-04-24)
 *******************
@@ -63,12 +246,12 @@ Backwards incompatible changes
 ------------------------------
 
 - The django-allauth required dependencies are now more fine grained.  If you do
-  not use any of the social account functionality, a `pip install
-  django-allauth` will, e.g., no longer pull in dependencies for handling
-  JWT. If you are using social account functionality, install using `pip install
-  django-allauth[socialaccount]`.  That will install the dependencies covering
-  most common providers. If you are using the Steam provider, install using `pip
-  install django-allauth[socialaccount,steam]`.
+  not use any of the social account functionality, a ``pip install
+  django-allauth`` will, e.g., no longer pull in dependencies for handling
+  JWT. If you are using social account functionality, install using ``pip install
+  "django-allauth[socialaccount]"``.  That will install the dependencies covering
+  most common providers. If you are using the Steam provider, install using ``pip
+  install django-allauth[socialaccount,steam]``.
 
 
 0.61.1 (2024-02-09)

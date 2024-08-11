@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from allauth.socialaccount.providers.lemonldap.provider import (
     LemonLDAPProvider,
 )
@@ -21,3 +20,6 @@ class LemonLDAPTests(OAuth2TestsMixin, TestCase):
             }
         """,
         )
+
+    def get_expected_to_str(self):
+        return "dwho@example.com"

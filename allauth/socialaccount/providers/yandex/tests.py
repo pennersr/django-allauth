@@ -29,6 +29,9 @@ class YandexTests(OAuth2TestsMixin, TestCase):
             data = self.yandex_data
         return MockedResponse(200, data)
 
+    def get_expected_to_str(self):
+        return "test@yandex.ru"
+
     def get_login_response_json(self, with_refresh_token=True):
         return """
             {

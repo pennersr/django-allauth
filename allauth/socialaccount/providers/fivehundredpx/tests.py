@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from allauth.socialaccount.tests import OAuthTestsMixin
 from allauth.tests import MockedResponse, TestCase
 
@@ -79,3 +78,6 @@ class FiveHundredPxTests(OAuthTestsMixin, TestCase):
         }""",
             )
         ]  # noqa
+
+    def get_expected_to_str(self):
+        return "testuser"

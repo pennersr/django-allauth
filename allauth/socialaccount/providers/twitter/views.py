@@ -8,8 +8,6 @@ from allauth.socialaccount.providers.oauth.views import (
     OAuthLoginView,
 )
 
-from .provider import TwitterProvider
-
 
 class TwitterAPI(OAuth):
     """
@@ -25,7 +23,7 @@ class TwitterAPI(OAuth):
 
 
 class TwitterOAuthAdapter(OAuthAdapter):
-    provider_id = TwitterProvider.id
+    provider_id = "twitter"
     request_token_url = "https://api.twitter.com/oauth/request_token"
     access_token_url = "https://api.twitter.com/oauth/access_token"
     # Issue #42 -- this one authenticates over and over again...

@@ -53,6 +53,9 @@ class GoogleTests(OAuth2TestsMixin, TestCase):
         self.email = "raymond.penners@example.com"
         self.identity_overwrites = {}
 
+    def get_expected_to_str(self):
+        return "raymond.penners@example.com"
+
     def get_google_id_token_payload(self):
         now = datetime.utcnow()
         client_id = "app123id"  # Matches `setup_app`

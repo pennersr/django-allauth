@@ -14,10 +14,6 @@ class GlobusAccount(ProviderAccount):
     def get_avatar_url(self):
         return self.account.extra_data.get("avatar_url", "dflt")
 
-    def to_str(self):
-        dflt = super(GlobusAccount, self).to_str()
-        return self.account.extra_data.get("name", dflt)
-
 
 class GlobusProvider(OAuth2Provider):
     id = "globus"

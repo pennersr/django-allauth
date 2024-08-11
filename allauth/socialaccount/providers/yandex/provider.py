@@ -5,18 +5,18 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 from allauth.socialaccount.providers.yandex.views import YandexOAuth2Adapter
 
 
-class YandexAccout(ProviderAccount):
+class YandexAccount(ProviderAccount):
     def to_str(self):
-        first_name = self.account.extra_data.get("first_name", "")
-        last_name = self.account.extra_data.get("last_name", "")
-        name = " ".join([first_name, last_name]).strip()
-        return name or super(YandexAccout, self).to_str()
+        email = self.account.extra_data.get("default_email")
+        if email:
+            return email
+        return super().to_str()
 
 
 class YandexProvider(OAuth2Provider):
     id = "yandex"
     name = "Yandex"
-    account_class = YandexAccout
+    account_class = YandexAccount
     oauth2_adapter_class = YandexOAuth2Adapter
 
     def get_default_scope(self):

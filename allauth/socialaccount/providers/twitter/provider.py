@@ -1,9 +1,11 @@
 from allauth.socialaccount.providers.base import AuthAction, ProviderAccount
 from allauth.socialaccount.providers.oauth.provider import OAuthProvider
+from allauth.socialaccount.providers.twitter.views import TwitterOAuthAdapter
 
 
 class TwitterAccount(ProviderAccount):
     def get_screen_name(self):
+        """The screen name is the username of the Twitter account."""
         return self.account.extra_data.get("screen_name")
 
     def get_profile_url(self):
@@ -31,6 +33,7 @@ class TwitterProvider(OAuthProvider):
     id = "twitter"
     name = "Twitter"
     account_class = TwitterAccount
+    oauth_adapter_class = TwitterOAuthAdapter
 
     def get_auth_url(self, request, action):
         if action == AuthAction.REAUTHENTICATE:

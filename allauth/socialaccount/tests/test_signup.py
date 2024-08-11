@@ -1,9 +1,7 @@
-import django
+from unittest.mock import patch
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
-from django.contrib.messages.middleware import MessageMiddleware
-from django.contrib.sessions.middleware import SessionMiddleware
-from django.test.client import RequestFactory
 from django.urls import reverse
 
 import pytest
@@ -19,14 +17,10 @@ from allauth.socialaccount.views import signup
 
 
 @pytest.fixture
-def setup_sociallogin_flow(rf):
+def setup_sociallogin_flow(request_factory):
     def f(client, sociallogin):
-        request = rf.get("/")
-        request.session = {}
+        request = request_factory.get("/")
         request.user = AnonymousUser()
-
-        SessionMiddleware(lambda request: None).process_request(request)
-        MessageMiddleware(lambda request: None).process_request(request)
 
         resp = complete_social_login(request, sociallogin)
         session = client.session
@@ -39,7 +33,7 @@ def setup_sociallogin_flow(rf):
 
 
 @pytest.fixture
-def email_address_clash():
+def email_address_clash(request_factory):
     def _email_address_clash(username, email):
         User = get_user_model()
         # Some existig user
@@ -62,11 +56,8 @@ def email_address_clash():
         )
 
         # Signing up, should pop up the social signup form
-        factory = RequestFactory()
-        request = factory.get("/accounts/twitter/login/callback/")
+        request = request_factory.get("/accounts/twitter/login/callback/")
         request.user = AnonymousUser()
-        SessionMiddleware(lambda request: None).process_request(request)
-        MessageMiddleware(lambda request: None).process_request(request)
         with context.request_context(request):
             resp = complete_social_login(request, sociallogin)
         return request, resp
@@ -154,17 +145,15 @@ def test_email_address_clash_username_auto_signup(db, settings, email_address_cl
     assert user_username(user) != "test"
 
 
-def test_populate_username_in_blacklist(db, settings, rf):
+def test_populate_username_in_blacklist(db, settings, request_factory):
     settings.ACCOUNT_EMAIL_REQUIRED = True
     settings.ACCOUNT_USERNAME_BLACKLIST = ["username", "username1", "username2"]
     settings.ACCOUNT_UNIQUE_EMAIL = True
     settings.ACCOUNT_USERNAME_REQUIRED = True
     settings.ACCOUNT_AUTHENTICATION_METHOD = "email"
     settings.SOCIALACCOUNT_AUTO_SIGNUP = True
-    request = rf.get("/accounts/twitter/login/callback/")
+    request = request_factory.get("/accounts/twitter/login/callback/")
     request.user = AnonymousUser()
-    SessionMiddleware(lambda request: None).process_request(request)
-    MessageMiddleware(lambda request: None).process_request(request)
 
     User = get_user_model()
     user = User()
@@ -290,24 +279,13 @@ def test_unique_email_validation_signup(
     form = resp.context["form"]
     assert form["email"].value() == email
     resp = client.post(reverse("socialaccount_signup"), data={"email": email})
-
-    if django.VERSION >= (4, 1):
-        assertFormError(
-            resp.context["form"],
-            "email",
-            "An account already exists with this email address."
-            " Please sign in to that account first, then connect"
-            " your Unittest Server account.",
-        )
-    else:
-        assertFormError(
-            resp,
-            "form",
-            "email",
-            "An account already exists with this email address."
-            " Please sign in to that account first, then connect"
-            " your Unittest Server account.",
-        )
+    assertFormError(
+        resp.context["form"],
+        "email",
+        "An account already exists with this email address."
+        " Please sign in to that account first, then connect"
+        " your Unittest Server account.",
+    )
 
 
 def test_social_account_taken_at_signup(
@@ -458,3 +436,22 @@ def test_email_address_conflict_removes_conflicting_email(
     assert mailoutbox[0].subject == "[example.com] Please Confirm Your Email Address"
     assert resp["location"] == settings.LOGIN_REDIRECT_URL
     assert EmailAddress.objects.filter(email=user.email).count() == 1
+
+
+def test_signup_closed(
+    settings,
+    db,
+    client,
+    setup_sociallogin_flow,
+    sociallogin_factory,
+):
+    sociallogin = sociallogin_factory(
+        email="test@example.com", email_verified=False, username="test"
+    )
+    with patch(
+        "allauth.socialaccount.adapter.DefaultSocialAccountAdapter.is_open_for_signup"
+    ) as iofs:
+        iofs.return_value = False
+        resp = setup_sociallogin_flow(client, sociallogin)
+    assert b"Sign Up Closed" in resp.content
+    assert not get_user_model().objects.exists()

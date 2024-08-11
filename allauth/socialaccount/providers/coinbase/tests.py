@@ -23,3 +23,6 @@ class CoinbaseTests(OAuth2TestsMixin, TestCase):
           "resource_path": "/v2/user"
             }""",
         )
+
+    def get_expected_to_str(self):
+        return "user1"

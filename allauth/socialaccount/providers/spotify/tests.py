@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from allauth.socialaccount.tests import OAuth2TestsMixin
 from allauth.tests import MockedResponse, TestCase
 
@@ -40,3 +37,6 @@ class SpotifyOAuth2Tests(OAuth2TestsMixin, TestCase):
           "uri": "spotify:user:wizzler"
         }""",
         )  # noqa
+
+    def get_expected_to_str(self):
+        return "email@example.com"

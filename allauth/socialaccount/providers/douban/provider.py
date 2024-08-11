@@ -10,10 +10,6 @@ class DoubanAccount(ProviderAccount):
     def get_avatar_url(self):
         return self.account.extra_data.get("large_avatar")
 
-    def to_str(self):
-        dflt = super(DoubanAccount, self).to_str()
-        return self.account.extra_data.get("name", dflt)
-
 
 class DoubanProvider(OAuth2Provider):
     id = "douban"

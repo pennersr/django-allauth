@@ -1,4 +1,5 @@
 from allauth.socialaccount.adapter import get_adapter
+from allauth.socialaccount.models import SocialToken
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
@@ -12,9 +13,9 @@ class AtlassianOAuth2Adapter(OAuth2Adapter):
     authorize_url = "https://auth.atlassian.com/authorize"
     profile_url = "https://api.atlassian.com/me"
 
-    def complete_login(self, request, app, access_token, **kwargs):
+    def complete_login(self, request, app, token: SocialToken, **kwargs):
         headers = {
-            "Authorization": f"Bearer {access_token}",
+            "Authorization": f"Bearer {token.token}",
             "Accept": "application/json",
         }
         response = (

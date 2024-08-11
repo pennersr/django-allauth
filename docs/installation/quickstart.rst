@@ -8,7 +8,7 @@ related functionality, install using::
 
 Otherwise, install using::
 
-    pip install django-allauth[socialaccount]
+    pip install "django-allauth[socialaccount]"
 
 Then, assuming you have a Django project up and running, add the following to
 the ``settings.py`` of your project::

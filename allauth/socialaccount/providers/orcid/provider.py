@@ -3,16 +3,13 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 from allauth.socialaccount.providers.orcid.views import OrcidOAuth2Adapter
 
 
-class Scope(object):
+class Scope:
     USERINFO_PROFILE = "/authenticate"
 
 
 class OrcidAccount(ProviderAccount):
     def get_profile_url(self):
         return extract_from_dict(self.account.extra_data, ["orcid-identifier", "uri"])
-
-    def to_str(self):
-        return self.account.uid
 
 
 class OrcidProvider(OAuth2Provider):

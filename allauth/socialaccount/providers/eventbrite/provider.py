@@ -1,4 +1,5 @@
 """Customise Provider classes for Eventbrite API v3."""
+
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.eventbrite.views import (
@@ -8,16 +9,20 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
 class EventbriteAccount(ProviderAccount):
-
     """ProviderAccount subclass for Eventbrite."""
 
     def get_avatar_url(self):
         """Return avatar url."""
         return self.account.extra_data["image_id"]
 
+    def to_str(self):
+        emails = self.account.extra_data.get("emails")
+        if emails:
+            return emails[0]["email"]
+        return super().to_str()
+
 
 class EventbriteProvider(OAuth2Provider):
-
     """OAuth2Provider subclass for Eventbrite."""
 
     id = "eventbrite"

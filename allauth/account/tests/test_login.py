@@ -1,7 +1,6 @@
 import json
 from unittest.mock import ANY, patch
 
-import django
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core import mail
@@ -140,23 +139,15 @@ class LoginTests(TestCase):
                     "password": ("doe" if is_valid_attempt else "wrong"),
                 },
             )
-            if django.VERSION >= (4, 1):
-                self.assertFormError(
-                    resp.context["form"],
-                    None,
+            self.assertFormError(
+                resp.context["form"],
+                None,
+                (
                     "Too many failed login attempts. Try again later."
                     if is_locked
-                    else "The username and/or password you specified are not correct.",
-                )
-            else:
-                self.assertFormError(
-                    resp,
-                    "form",
-                    None,
-                    "Too many failed login attempts. Try again later."
-                    if is_locked
-                    else "The username and/or password you specified are not correct.",
-                )
+                    else "The username and/or password you specified are not correct."
+                ),
+            )
 
     @override_settings(
         ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.EMAIL,
@@ -184,44 +175,26 @@ class LoginTests(TestCase):
         resp = self.client.post(
             reverse("account_login"), {"login": user.email, "password": "bad"}
         )
-        if django.VERSION >= (4, 1):
-            self.assertFormError(
-                resp.context["form"],
-                None,
-                "The email address and/or password you specified are not correct.",
-            )
-        else:
-            self.assertFormError(
-                resp,
-                "form",
-                None,
-                "The email address and/or password you specified are not correct.",
-            )
-
+        self.assertFormError(
+            resp.context["form"],
+            None,
+            "The email address and/or password you specified are not correct.",
+        )
         resp = self.client.post(
             reverse("account_login"), {"login": user.email, "password": "bad"}
         )
-        if django.VERSION >= (4, 1):
-            self.assertFormError(
-                resp.context["form"],
-                None,
-                "Too many failed login attempts. Try again later.",
-            )
-        else:
-            self.assertFormError(
-                resp,
-                "form",
-                None,
-                "Too many failed login attempts. Try again later.",
-            )
-
+        self.assertFormError(
+            resp.context["form"],
+            None,
+            "Too many failed login attempts. Try again later.",
+        )
         self.client.post(reverse("account_reset_password"), data={"email": user.email})
 
         body = mail.outbox[0].body
         self.assertGreater(body.find("https://"), 0)
 
         # Extract URL for `password_reset_from_key` view and access it
-        url = body[body.find("/password/reset/") :].split()[0]
+        url = body[body.find("/accounts/password/reset/") :].split()[0]
         resp = self.client.get(url)
         # Follow the redirect the actual password reset page with the key
         # hidden.
@@ -270,7 +243,7 @@ class LoginTests(TestCase):
             user=user, email="john@example.org", primary=True, verified=True
         )
         EmailAddress.objects.create(
-            user=user, email="john@example.com", primary=True, verified=False
+            user=user, email="john@example.com", primary=False, verified=False
         )
 
         resp = self.client.post(
@@ -346,5 +319,19 @@ def test_login_password_forgotten_link_present(client, db):
     form = LoginForm()
     assert (
         form.fields["password"].help_text
-        == '<a href="/password/reset/">Forgot your password?</a>'
+        == '<a href="/accounts/password/reset/">Forgot your password?</a>'
     )
+
+
+def test_login_while_authenticated(settings, client, user_factory):
+    settings.ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = False
+    user_factory(username="john", email="john@example.org", password="doe")
+    user_factory(username="jane", email="jane@example.org", password="doe")
+    redirect_url = settings.LOGIN_REDIRECT_URL
+
+    resp = client.post(reverse("account_login"), {"login": "john", "password": "doe"})
+    assert resp.status_code == 302
+    assert resp["location"] == redirect_url
+    resp = client.post(reverse("account_login"), {"login": "jane", "password": "doe"})
+    assert resp.status_code == 302
+    assert resp["location"] == redirect_url

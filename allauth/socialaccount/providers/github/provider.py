@@ -1,3 +1,4 @@
+from allauth.account.models import EmailAddress
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.github.views import GitHubOAuth2Adapter
@@ -10,18 +11,6 @@ class GitHubAccount(ProviderAccount):
 
     def get_avatar_url(self):
         return self.account.extra_data.get("avatar_url")
-
-    def to_str(self):
-        dflt = super(GitHubAccount, self).to_str()
-        return next(
-            value
-            for value in (
-                self.account.extra_data.get("name", None),
-                self.account.extra_data.get("login", None),
-                dflt,
-            )
-            if value is not None
-        )
 
 
 class GitHubProvider(OAuth2Provider):
@@ -45,6 +34,24 @@ class GitHubProvider(OAuth2Provider):
             username=data.get("login"),
             name=data.get("name"),
         )
+
+    def extract_extra_data(self, data):
+        if "emails" in data:
+            data = dict(data)
+            data.pop("emails")
+        return data
+
+    def extract_email_addresses(self, data):
+        ret = []
+        for email in data.get("emails", []):
+            ret.append(
+                EmailAddress(
+                    email=email["email"],
+                    primary=email["primary"],
+                    verified=email["verified"],
+                )
+            )
+        return ret
 
 
 provider_classes = [GitHubProvider]

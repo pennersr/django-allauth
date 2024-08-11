@@ -1,4 +1,5 @@
 """Customise Provider classes for MailChimp API v3."""
+
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.mailchimp.views import (
     MailChimpOAuth2Adapter,
@@ -7,7 +8,6 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
 class MailChimpAccount(ProviderAccount):
-
     """ProviderAccount subclass for MailChimp."""
 
     def get_profile_url(self):
@@ -18,9 +18,13 @@ class MailChimpAccount(ProviderAccount):
         """Return avatar url."""
         return self.account.extra_data["login"]["avatar"]
 
+    def to_str(self):
+        dflt = super().to_str()
+        login_data = self.account.extra_data.get("login", {})
+        return login_data.get("login_email") or login_data.get("email") or dflt
+
 
 class MailChimpProvider(OAuth2Provider):
-
     """OAuth2Provider subclass for MailChimp v3."""
 
     id = "mailchimp"

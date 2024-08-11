@@ -1,5 +1,6 @@
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth.provider import OAuthProvider
+from allauth.socialaccount.providers.xing.views import XingOAuthAdapter
 
 
 class XingAccount(ProviderAccount):
@@ -10,17 +11,15 @@ class XingAccount(ProviderAccount):
         return self.account.extra_data.get("photo_urls", {}).get("large")
 
     def to_str(self):
-        dflt = super(XingAccount, self).to_str()
-        first_name = self.account.extra_data.get("first_name", "")
-        last_name = self.account.extra_data.get("last_name", "")
-        name = " ".join([first_name, last_name]).strip()
-        return name or dflt
+        dflt = super().to_str()
+        return self.account.extra_data.get("active_email") or dflt
 
 
 class XingProvider(OAuthProvider):
     id = "xing"
     name = "Xing"
     account_class = XingAccount
+    oauth_adapter_class = XingOAuthAdapter
 
     def extract_uid(self, data):
         return data["id"]

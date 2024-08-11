@@ -1,19 +1,17 @@
+import json
+
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.utils.http import urlencode
 
 from allauth.account.models import EmailAddress
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.base import Provider, ProviderAccount
+from allauth.socialaccount.providers.dummy.forms import AuthenticateForm
 
 
 class DummyAccount(ProviderAccount):
-    def to_str(self):
-        dflt = super().to_str()
-        print(self.account.extra_data)
-        first_name = self.account.extra_data.get("first_name") or ""
-        last_name = self.account.extra_data.get("last_name") or ""
-        name = " ".join([first_name, last_name]).strip() or dflt
-        return name
+    pass
 
 
 class DummyProvider(Provider):
@@ -22,6 +20,7 @@ class DummyProvider(Provider):
     account_class = DummyAccount
     uses_apps = False
     supports_redirect = True
+    supports_token_authentication = True
 
     def get_login_url(self, request, **kwargs):
         url = reverse("dummy_login")
@@ -67,6 +66,21 @@ class DummyProvider(Provider):
                 )
             )
         return addresses
+
+    def verify_token(self, request, token):
+        # Our ID token is just a JSON payload that can be handed over
+        # to the `AuthenticateForm`.
+        id_token = token.get("id_token")
+        if id_token:
+            try:
+                data = json.loads(id_token)
+            except json.JSONDecodeError:
+                pass
+            else:
+                form = AuthenticateForm(data=data)
+                if form.is_valid():
+                    return self.sociallogin_from_response(request, form.cleaned_data)
+        raise get_adapter().validation_error("invalid_token")
 
 
 provider_classes = [DummyProvider]

@@ -16,10 +16,6 @@ class StravaAccount(ProviderAccount):
             return avatar
         return None
 
-    def to_str(self):
-        name = super(StravaAccount, self).to_str()
-        return self.account.extra_data.get("name", name)
-
 
 class StravaProvider(OAuth2Provider):
     id = "strava"

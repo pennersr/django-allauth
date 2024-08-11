@@ -14,10 +14,6 @@ class SpotifyAccount(ProviderAccount):
         except IndexError:
             return None
 
-    def to_str(self):
-        dflt = super(SpotifyAccount, self).to_str()
-        return self.account.extra_data.get("display_name", dflt)
-
 
 class SpotifyOAuth2Provider(OAuth2Provider):
     id = "spotify"

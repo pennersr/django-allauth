@@ -7,8 +7,6 @@ from allauth.socialaccount.providers.oauth.views import (
     OAuthLoginView,
 )
 
-from .provider import VimeoProvider
-
 
 class VimeoAPI(OAuth):
     url = "http://vimeo.com/api/rest/v2?method=vimeo.people.getInfo"
@@ -20,7 +18,7 @@ class VimeoAPI(OAuth):
 
 
 class VimeoOAuthAdapter(OAuthAdapter):
-    provider_id = VimeoProvider.id
+    provider_id = "vimeo"
     request_token_url = "https://vimeo.com/oauth/request_token"
     access_token_url = "https://vimeo.com/oauth/access_token"
     authorize_url = "https://vimeo.com/oauth/authorize"

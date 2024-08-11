@@ -1,0 +1,22 @@
+{% extends "mfa/webauthn/base.html" %}
+{% load i18n %}
+{% load static %}
+{% load allauth %}
+{% block content %}
+    {% element h1 %}
+        {% trans "Edit Security Key" %}
+    {% endelement %}
+    {% url 'mfa_edit_webauthn' as action_url %}
+    {% element form form=form method="post" action=action_url %}
+        {% slot body %}
+            {% csrf_token %}
+            {% element fields form=form %}
+            {% endelement %}
+        {% endslot %}
+        {% slot actions %}
+            {% element button id="mfa_webauthn_edit" type="submit" %}
+                {% trans "Save" %}
+            {% endelement %}
+        {% endslot %}
+    {% endelement %}
+{% endblock %}

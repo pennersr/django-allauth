@@ -25,3 +25,6 @@ class HubspotTests(OAuth2TestsMixin, TestCase):
                     "token_type": "access"
                 }""",
         )
+
+    def get_expected_to_str(self):
+        return "m@acme.com"

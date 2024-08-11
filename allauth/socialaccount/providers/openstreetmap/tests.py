@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from allauth.socialaccount.tests import OAuthTestsMixin
 from allauth.tests import MockedResponse, TestCase
 
@@ -31,6 +30,9 @@ class OpenStreetMapTests(OAuthTestsMixin, TestCase):
             )
         ]  # noqa
 
+    def get_expected_to_str(self):
+        return "Steve"
+
     def test_login(self):
         account = super(OpenStreetMapTests, self).test_login()
         osm_account = account.get_provider_account()
@@ -43,3 +45,4 @@ class OpenStreetMapTests(OAuthTestsMixin, TestCase):
             osm_account.get_profile_url(),
             "https://www.openstreetmap.org/user/Steve",
         )
+        self.assertEqual(osm_account.to_str(), "Steve")

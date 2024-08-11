@@ -1,4 +1,5 @@
 import datetime
+from typing import Dict, Optional
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -9,9 +10,12 @@ from django.db.models.constraints import UniqueConstraint
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-from . import app_settings, signals
-from .adapter import get_adapter
-from .managers import EmailAddressManager, EmailConfirmationManager
+from allauth.account import app_settings, signals
+from allauth.account.adapter import get_adapter
+from allauth.account.managers import (
+    EmailAddressManager,
+    EmailConfirmationManager,
+)
 
 
 class EmailAddress(models.Model):
@@ -34,14 +38,21 @@ class EmailAddress(models.Model):
         verbose_name = _("email address")
         verbose_name_plural = _("email addresses")
         unique_together = [("user", "email")]
+        constraints = [
+            UniqueConstraint(
+                fields=["user", "primary"],
+                name="unique_primary_email",
+                condition=Q(primary=True),
+            )
+        ]
         if app_settings.UNIQUE_EMAIL:
-            constraints = [
+            constraints.append(
                 UniqueConstraint(
                     fields=["email"],
                     name="unique_verified_email",
                     condition=Q(verified=True),
                 )
-            ]
+            )
 
     def __str__(self):
         return self.email
@@ -170,7 +181,7 @@ class EmailConfirmation(EmailConfirmationMixin, models.Model):
         )
         return expiration_date <= timezone.now()
 
-    key_expired.boolean = True
+    key_expired.boolean = True  # type: ignore[attr-defined]
 
     def confirm(self, request):
         if not self.key_expired():
@@ -182,7 +193,7 @@ class EmailConfirmation(EmailConfirmationMixin, models.Model):
         self.save()
 
 
-class EmailConfirmationHMAC(EmailConfirmationMixin, object):
+class EmailConfirmationHMAC(EmailConfirmationMixin):
     def __init__(self, email_address):
         self.email_address = email_address
 
@@ -223,15 +234,21 @@ class Login:
     case email verification is optional and we are only logging in).
     """
 
+    email_verification: app_settings.EmailVerificationMethod
+    signal_kwargs: Optional[Dict]
+    signup: bool
+    email: Optional[str]
+    state: Dict
+
     def __init__(
         self,
         user,
-        email_verification=None,
-        redirect_url=None,
-        signal_kwargs=None,
-        signup=False,
-        email=None,
-        state=None,
+        email_verification: Optional[app_settings.EmailVerificationMethod] = None,
+        redirect_url: Optional[str] = None,
+        signal_kwargs: Optional[Dict] = None,
+        signup: bool = False,
+        email: Optional[str] = None,
+        state: Optional[Dict] = None,
     ):
         self.user = user
         if not email_verification:
@@ -268,7 +285,6 @@ class Login:
     @classmethod
     def deserialize(cls, data):
         from allauth.account.utils import url_str_to_user_pk
-        from allauth.socialaccount.models import SocialLogin
 
         user = (
             get_user_model()
@@ -283,6 +299,8 @@ class Login:
             if signal_kwargs is not None:
                 sociallogin = signal_kwargs.get("sociallogin")
                 if sociallogin is not None:
+                    from allauth.socialaccount.models import SocialLogin
+
                     signal_kwargs = signal_kwargs.copy()
                     signal_kwargs["sociallogin"] = SocialLogin.deserialize(sociallogin)
 

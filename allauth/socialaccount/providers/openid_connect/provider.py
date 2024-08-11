@@ -10,9 +10,7 @@ from allauth.socialaccount.providers.openid_connect.views import (
 
 
 class OpenIDConnectProviderAccount(ProviderAccount):
-    def to_str(self):
-        dflt = super(OpenIDConnectProviderAccount, self).to_str()
-        return self.account.extra_data.get("name", dflt)
+    pass
 
 
 class OpenIDConnectProvider(OAuth2Provider):

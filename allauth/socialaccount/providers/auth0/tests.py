@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from allauth.socialaccount.providers.auth0.provider import Auth0Provider
 from allauth.socialaccount.tests import OAuth2TestsMixin
 from allauth.tests import MockedResponse, TestCase
@@ -21,3 +20,6 @@ class Auth0Tests(OAuth2TestsMixin, TestCase):
             }
         """,
         )
+
+    def get_expected_to_str(self):
+        return "mr.bob@your.Auth0.server.example.com"

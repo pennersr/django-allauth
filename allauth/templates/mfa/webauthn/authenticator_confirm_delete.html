@@ -1,0 +1,18 @@
+{% extends "mfa/webauthn/base.html" %}
+{% load i18n %}
+{% load allauth %}
+{% block content %}
+    {% element h1 %}
+        {% trans "Remove Security Key" %}
+    {% endelement %}
+    <p>{% blocktranslate %}Are you sure you want to remove this security key?{% endblocktranslate %}</p>
+    {% url 'mfa_remove_webauthn' pk=authenticator.pk as action_url %}
+    {% element form method="post" action=action_url no_visible_fields=True %}
+        {% slot actions %}
+            {% csrf_token %}
+            {% element button tags="danger" type="submit" %}
+                {% translate "Remove" %}
+            {% endelement %}
+        {% endslot %}
+    {% endelement %}
+{% endblock %}

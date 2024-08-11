@@ -71,7 +71,7 @@ class ShopifyOAuth2LoginView(OAuth2LoginView):
             #     are being removed from Shopify on January 1, 2022.
             #
             # So this needs to be dropped/revisitted anyway.
-            response = super().login(request, *args, **kwargs)
+            response = super().dispatch(request, *args, **kwargs)
             """
             Shopify embedded apps (that run within an iFrame) require a JS
             (not server) redirect for starting the oauth2 process.

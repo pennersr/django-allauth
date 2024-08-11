@@ -30,3 +30,6 @@ class VimeoOAuth2Tests(OAuth2TestsMixin, TestCase):
             "account": "pro"
         }""",
         )  # noqa
+
+    def get_expected_to_str(self):
+        return "AllAuth"

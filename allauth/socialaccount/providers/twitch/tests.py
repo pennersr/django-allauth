@@ -34,6 +34,9 @@ class TwitchTests(OAuth2TestsMixin, TestCase):
         """,
         )  # noqa
 
+    def get_expected_to_str(self):
+        return "dallas"
+
     def test_response_over_400_raises_OAuth2Error(self):
         resp_mock = MockedResponse(400, '{"error": "Invalid token"}')
         expected_error = "Twitch API Error: Invalid token ()"

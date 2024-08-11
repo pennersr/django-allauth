@@ -12,16 +12,6 @@ class TrainingPeaksAccount(ProviderAccount):
     def get_avatar_url(self):
         return None
 
-    def to_str(self):
-        name = (
-            self.account.extra_data.get("FirstName")
-            + " "
-            + self.account.extra_data.get("LastName")
-        )
-        if name != " ":
-            return name
-        return super(TrainingPeaksAccount, self).to_str()
-
 
 class TrainingPeaksProvider(OAuth2Provider):
     id = "trainingpeaks"

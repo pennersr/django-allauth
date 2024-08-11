@@ -9,7 +9,7 @@ from allauth.socialaccount.providers.oauth2.client import OAuth2Error
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
-class Scope(object):
+class Scope:
     EMAIL = "email"
     PROFILE = "profile"
 
@@ -49,10 +49,6 @@ class GoogleAccount(ProviderAccount):
 
     def get_avatar_url(self):
         return self.account.extra_data.get("picture")
-
-    def to_str(self):
-        dflt = super(GoogleAccount, self).to_str()
-        return self.account.extra_data.get("name", dflt)
 
 
 class GoogleProvider(OAuth2Provider):

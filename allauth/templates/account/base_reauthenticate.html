@@ -18,12 +18,12 @@
         {% element h2 %}
             {% translate "Alternative options" %}
         {% endelement %}
-        <ul>
+        {% element button_group %}
             {% for alt in reauthentication_alternatives %}
-                <li>
-                    <a href="{{ alt.url }}">{{ alt.description }}</a>
-                </li>
+                {% element button href=alt.url tags="primary,outline" %}
+                    {{ alt.description }}
+                {% endelement %}
             {% endfor %}
-        </ul>
+        {% endelement %}
     {% endif %}
 {% endblock content %}

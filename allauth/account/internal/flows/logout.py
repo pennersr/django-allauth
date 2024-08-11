@@ -1,7 +1,8 @@
 from django.contrib import messages
+from django.http import HttpRequest
 
 
-def logout(request):
+def logout(request: HttpRequest) -> None:
     from allauth.account.adapter import get_adapter
 
     adapter = get_adapter()

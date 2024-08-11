@@ -8,8 +8,6 @@ from allauth.socialaccount.providers.oauth.views import (
     OAuthLoginView,
 )
 
-from .provider import OpenStreetMapProvider
-
 
 class OpenStreetMapAPI(OAuth):
     url = "https://api.openstreetmap.org/api/0.6/user/details"
@@ -28,7 +26,7 @@ class OpenStreetMapAPI(OAuth):
 
 
 class OpenStreetMapOAuthAdapter(OAuthAdapter):
-    provider_id = OpenStreetMapProvider.id
+    provider_id = "openstreetmap"
     request_token_url = "https://www.openstreetmap.org/oauth/request_token"
     access_token_url = "https://www.openstreetmap.org/oauth/access_token"
     authorize_url = "https://www.openstreetmap.org/oauth/authorize"

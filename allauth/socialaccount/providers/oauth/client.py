@@ -35,7 +35,7 @@ class OAuthError(Exception):
     pass
 
 
-class OAuthClient(object):
+class OAuthClient:
     def __init__(
         self,
         request,
@@ -165,7 +165,7 @@ class OAuthClient(object):
         return HttpResponseRedirect(url)
 
 
-class OAuth(object):
+class OAuth:
     """
     Base class to perform oauth signed requests from access keys saved
     in a user's session. See the ``OAuthTwitter`` class below for an

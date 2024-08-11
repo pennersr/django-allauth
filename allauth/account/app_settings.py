@@ -1,15 +1,16 @@
 import warnings
+from enum import Enum
 
 from django.core.exceptions import ImproperlyConfigured
 
 
-class AppSettings(object):
-    class AuthenticationMethod:
+class AppSettings:
+    class AuthenticationMethod(str, Enum):
         USERNAME = "username"
         EMAIL = "email"
         USERNAME_EMAIL = "username_email"
 
-    class EmailVerificationMethod:
+    class EmailVerificationMethod(str, Enum):
         # After signing up, keep the user account inactive until the email
         # address is verified
         MANDATORY = "mandatory"
@@ -123,7 +124,7 @@ class AppSettings(object):
             ret = self.EmailVerificationMethod.MANDATORY
         elif ret is False:
             ret = self.EmailVerificationMethod.OPTIONAL
-        return ret
+        return self.EmailVerificationMethod(ret)
 
     @property
     def MAX_EMAIL_ADDRESSES(self):
@@ -136,7 +137,7 @@ class AppSettings(object):
     @property
     def AUTHENTICATION_METHOD(self):
         ret = self._setting("AUTHENTICATION_METHOD", self.AuthenticationMethod.USERNAME)
-        return ret
+        return self.AuthenticationMethod(ret)
 
     @property
     def EMAIL_MAX_LENGTH(self):
@@ -237,6 +238,13 @@ class AppSettings(object):
         Signup form
         """
         return self._setting("SIGNUP_FORM_CLASS", None)
+
+    @property
+    def SIGNUP_FORM_HONEYPOT_FIELD(self):
+        """
+        Honeypot field name. Empty string or ``None`` will disable honeypot behavior.
+        """
+        return self._setting("SIGNUP_FORM_HONEYPOT_FIELD", None)
 
     @property
     def USERNAME_REQUIRED(self):

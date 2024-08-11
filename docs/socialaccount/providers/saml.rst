@@ -5,7 +5,7 @@ SAML 2.0 is supported out of the box. However, the required dependencies are not
 installed by default. Therefore, you will need to specifcy the ``saml`` extra when
 installing the package::
 
-    $ pip install django-allauth[saml]
+    $ pip install "django-allauth[saml]"
 
 When you need to support SAML based authentication, often you need to support
 multiple organizations, each having their own SAML based Identity Provider
@@ -56,7 +56,7 @@ via the Django admin as well:
                     # `SocialAccount.provider` value set to this ID. The combination
                     # of this value and the `uid` must be unique. The IdP entity ID is a
                     # good choice for this.
-                    "provider_id": "urn:dev-123.us.auth0.com",
+                    "provider_id": "urn:example.com",
 
                     # The organization slug is configured by setting the
                     # `client_id` value. In this example, the SAML login URL is:
@@ -68,6 +68,7 @@ via the Django admin as well:
                     # additional configuration is needed, which is placed in
                     # `SocialApp.settings`:
                     "settings": {
+
                         # Mapping account attributes to upstream (IdP specific) attributes.
                         # If left empty, an attempt will be done to map the attributes using
                         # built-in defaults.
@@ -76,17 +77,23 @@ via the Django admin as well:
                             "email_verified": "http://schemas.auth0.com/email_verified",
                             "email": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress",
                         },
+
+                        # The following setting allows you to force the use of nameID as email.
+                        # This can be useful if you are using a SAML IdP that is broken in some way and
+                        # does not allow use of the emailAddress nameid format
+                        "use_nameid_for_email": False,
+
                         # The configuration of the IdP.
                         "idp": {
                             # The entity ID of the IdP is required.
-                            "entity_id": "urn:dev-123.us.auth0.com",
+                            "entity_id": "urn:example.com",
 
                             # Then, you can either specify the IdP's metadata URL:
-                            "metadata_url": "https://dev-123.us.auth0.com/samlp/metadata/456",
+                            "metadata_url": "https://example.com/saml2/metadata",
 
                             # Or, you can inline the IdP parameters here as follows:
-                            "sso_url": "https://dev-123.us.auth0.com/samlp/456",
-                            "slo_url": "https://dev-123.us.auth0.com/samlp/456",
+                            "sso_url": "https://example.com/saml2/sso",
+                            "slo_url": "https://example.com/saml2/slo",
                             "x509cert": """
     -----BEGIN CERTIFICATE-----
     MIIDHTCCAgWgAwIBAgIJLogff5x+S0BlMA0GCSqGSIb3DQEBCwUAMCwxKjAoBgNV
@@ -101,8 +108,46 @@ via the Django admin as well:
                             # Optional entity ID of the SP. If not set, defaults to the `saml_metadata` urlpattern
                             "entity_id": "https://serviceprovider.com/sso/sp/metadata.xml",
                         },
+
+                        # Advanced settings.
+                        "advanced": {
+                            "allow_repeat_attribute_name": True,
+                            "allow_single_label_domains": False,
+                            "authn_request_signed": False,
+                            "digest_algorithm": "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256",
+                            "logout_request_signed": False,
+                            "logout_response_signed": False,
+                            "metadata_signed": False,
+                            "name_id_encrypted": False,
+                            "name_id_format": "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified",
+                            "private_key": "MIID/zCCAuegAwIBAg...VGgdy+xoA==",
+                            "reject_deprecated_algorithm": True,
+                            # Due to security concerns, IdP initiated SSO is rejected by default.
+                            "reject_idp_initiated_sso": True,
+                            "signature_algorithm": "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256",
+                            "want_assertion_encrypted": False,
+                            "want_assertion_signed": False,
+                            "want_attribute_statement": True,
+                            "want_message_signed": False,
+                            "want_name_id": False,
+                            "want_name_id_encrypted": False,
+                            "x509cert": "MIIEvQIBADANB...oddbXECo=",
+                        },
+                        "contact_person": {
+                            "technical": {
+                                "givenName": "Alice",
+                                "emailAddress": "alice@example.com",
+                            },
+                            "administrative": {
+                                "givenName": "Bob",
+                                "emailAddress": "bob@example.com",
+                            },
+                        },
                     },
                 },
+            ]
+        }
+    }
 
 
 In your templates, you can construct login URLs using the following template tag::
@@ -120,3 +165,28 @@ The SAML provider has the following endpoints:
 - ``/accounts/saml/<organization_slug>/sls/``: Single Logout Service URL.
 
 - ``/accounts/saml/<organization_slug>/metadata/``: Metadata URL.
+
+Guidelines
+**********
+
+- Most SAML IdPs require TLS (formerly SSL) to be used, making testing with
+  ``runserver`` challenging. Make sure to configure Django to use HTTPS.
+- If using a reverse proxy, be sure to set Django settings 
+  ``USE_X_FORWARDED_HOST = True``,
+  ``SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')``, and
+  ``SECURE_SSL_REDIRECT = True``. In your web server's reverse proxy
+  configuration, ensure that you set request headers
+  ``X_FORWARDED_PROTO 'https' env=HTTPS`` and ``X-Forwarded-Ssl on``.
+- Cookies must also be secure; ensure that ``CSRF_COOKIE_DOMAIN`` and
+  ``SESSION_COOKIE_DOMAIN`` are set to ``yourdomain.com``, and that
+  ``CSRF_COOKIE_SECURE``  and ``SESSION_COOKIE_SECURE`` are ``True`` in your Django
+  settings.
+- Test with your browser in privacy / incognito mode, check your developer
+  console to ensure that cookies are being set correctly, and use a tool like
+  SAML Tracer
+  (`Firefox <https://addons.mozilla.org/en-US/firefox/addon/saml-tracer/>`_
+  / `Chromium <https://chromewebstore.google.com/detail/saml-tracer/mpdajninpobndbfcldcmbpnnbhibjmch>`_)
+  to inspect the SAML messages being exchanged. SAML Tracer is also useful for
+  looking up the IdP SAML values to map to ``uid``, ``email``, and ``email_verified``
+  in the ``attribute_mapping`` configuration.
+  

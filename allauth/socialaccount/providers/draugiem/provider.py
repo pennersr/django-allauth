@@ -22,16 +22,6 @@ class DraugiemAccount(ProviderAccount):
         else:
             return ret
 
-    def to_str(self):
-        default = super(DraugiemAccount, self).to_str()
-        name = self.account.extra_data.get("name")
-        surname = self.account.extra_data.get("surnname")
-
-        if name and surname:
-            return "%s %s" % (name, surname)
-
-        return default
-
 
 class DraugiemProvider(Provider):
     id = "draugiem"

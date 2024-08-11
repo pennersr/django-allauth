@@ -21,3 +21,6 @@ class YahooTests(OAuth2TestsMixin, TestCase):
         }
         """  # noqa
         return MockedResponse(200, response_data)
+
+    def get_expected_to_str(self):
+        return "janedoe@example.com"

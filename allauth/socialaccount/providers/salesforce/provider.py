@@ -14,10 +14,6 @@ class SalesforceAccount(ProviderAccount):
     def get_avatar_url(self):
         return self.account.extra_data.get("picture")
 
-    def to_str(self):
-        dflt = super(SalesforceAccount, self).to_str()
-        return self.account.extra_data.get("name", dflt)
-
 
 class SalesforceProvider(OAuth2Provider):
     id = "salesforce"

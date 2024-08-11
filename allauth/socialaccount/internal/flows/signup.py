@@ -1,15 +1,15 @@
 from django.forms import ValidationError
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
-from django.urls import reverse
 
 from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
+from allauth.account.internal.flows.signup import prevent_enumeration
 from allauth.account.utils import (
     assess_unique_email,
     complete_signup,
     user_username,
 )
+from allauth.core.exceptions import SignupClosedException
+from allauth.core.internal.httpkit import headed_redirect_response
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.models import SocialLogin
@@ -23,8 +23,7 @@ def get_pending_signup(request):
 
 def redirect_to_signup(request, sociallogin):
     request.session["socialaccount_sociallogin"] = sociallogin.serialize()
-    url = reverse("socialaccount_signup")
-    return HttpResponseRedirect(url)
+    return headed_redirect_response("socialaccount_signup")
 
 
 def clear_pending_signup(request):
@@ -71,9 +70,7 @@ def process_auto_signup(request, sociallogin):
             # address. Instead, we're going to send the user an email that
             # the account already exists, and on the outside make it appear
             # as if an email verification mail was sent.
-            account_adapter = get_account_adapter(request)
-            account_adapter.send_account_already_exists_mail(email)
-            resp = account_adapter.respond_email_verification_sent(request, None)
+            resp = prevent_enumeration(request, email)
             return False, resp
     elif app_settings.EMAIL_REQUIRED:
         # Nope, email is required and we don't have it yet...
@@ -83,10 +80,7 @@ def process_auto_signup(request, sociallogin):
 
 def process_signup(request, sociallogin):
     if not get_adapter().is_open_for_signup(request, sociallogin):
-        return render(
-            request,
-            "account/signup_closed." + account_settings.TEMPLATE_EXTENSION,
-        )
+        raise SignupClosedException()
     auto_signup, resp = process_auto_signup(request, sociallogin)
     if resp:
         return resp

@@ -1,4 +1,4 @@
-from urllib.parse import parse_qsl, urlparse
+from urllib.parse import urlparse
 
 from django.core.cache import cache
 from django.core.exceptions import ImproperlyConfigured
@@ -160,15 +160,12 @@ def decode_relay_state(relay_state):
     should be redirected to after login``. Also, for an IdP initiated login
     sometimes a URL is used.
     """
-    state_id, next_url = None, None
+    next_url = None
     if relay_state:
         parts = urlparse(relay_state)
         if parts.scheme or parts.netloc or (parts.path and parts.path.startswith("/")):
             next_url = relay_state
-        else:
-            params = dict(parse_qsl(relay_state))
-            state_id = params.get("state")
-    return state_id, next_url
+    return next_url
 
 
 def build_auth(request, provider):

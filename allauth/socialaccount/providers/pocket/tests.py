@@ -14,6 +14,9 @@ class PocketOAuthTests(OAuthTestsMixin, TestCase):
     def get_mocked_response(self):
         return []
 
+    def get_expected_to_str(self):
+        return "name@example.com"
+
     def get_access_token_response(self):
         return MockedResponse(
             200,

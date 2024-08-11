@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 import json
 import requests
 from datetime import date, datetime
@@ -12,12 +9,10 @@ from django.test import RequestFactory, TestCase
 from django.utils.http import base36_to_int, int_to_base36
 from django.views import csrf
 
-from allauth import app_settings
-
-from . import utils
+from allauth import app_settings, utils
 
 
-class MockedResponse(object):
+class MockedResponse:
     def __init__(self, status_code, content, headers=None):
         if headers is None:
             headers = {}

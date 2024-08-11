@@ -44,8 +44,9 @@ def saml_settings(settings):
 
 
 @pytest.fixture
-def acs_saml_response():
-    xml = """<samlp:Response xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="123"  InResponseTo="ONELOGIN_456"  Version="2.0" IssueInstant="2023-07-08T08:24:14.141Z"  Destination="https://allauth.org/accounts/org/acs/">
+def acs_saml_response_factory():
+    def factory(in_response_to=None):
+        xml = f"""<samlp:Response xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="123"  InResponseTo="{in_response_to or ''}"  Version="2.0" IssueInstant="2023-07-08T08:24:14.141Z"  Destination="https://allauth.org/accounts/org/acs/">
   <saml:Issuer xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">urn:dev-123.us.auth0.com
   </saml:Issuer>
   <samlp:Status>
@@ -167,7 +168,9 @@ def acs_saml_response():
   </saml:Assertion>
 </samlp:Response>
 """
-    return base64.b64encode(xml.encode("utf8")).decode("utf8")
+        return base64.b64encode(xml.encode("utf8")).decode("utf8")
+
+    return factory
 
 
 @pytest.fixture

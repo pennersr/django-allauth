@@ -9,10 +9,6 @@ class MicrosoftGraphAccount(ProviderAccount):
     def get_avatar_url(self):
         return self.account.extra_data.get("photo")
 
-    def to_str(self):
-        dflt = super(MicrosoftGraphAccount, self).to_str()
-        return self.account.extra_data.get("displayName", dflt)
-
 
 class MicrosoftGraphProvider(OAuth2Provider):
     id = "microsoft"

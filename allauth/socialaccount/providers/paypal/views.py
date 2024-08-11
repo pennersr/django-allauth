@@ -37,7 +37,7 @@ class PaypalOAuth2Adapter(OAuth2Adapter):
             .get_requests_session()
             .post(
                 self.profile_url,
-                params={"schema": "openid", "access_token": token},
+                params={"schema": "openid", "access_token": token.token},
             )
         )
         extra_data = response.json()

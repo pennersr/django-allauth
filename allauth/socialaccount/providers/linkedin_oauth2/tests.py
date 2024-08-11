@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from json import loads
 
 from django.test.utils import override_settings
@@ -53,6 +52,9 @@ class LinkedInOAuth2Tests(OAuth2TestsMixin, TestCase):
             ),
         ]
 
+    def get_expected_to_str(self):
+        return "Raymond Penners"
+
     def test_data_to_str(self):
         data = {
             "emailAddress": "john@doe.org",
@@ -67,7 +69,7 @@ class LinkedInOAuth2Tests(OAuth2TestsMixin, TestCase):
             "publicProfileUrl": "https://www.linkedin.com/in/johndoe",
         }
         acc = SocialAccount(extra_data=data, provider="linkedin_oauth2")
-        self.assertEqual(acc.get_provider_account().to_str(), "John Doe")
+        self.assertEqual(acc.get_provider_account().to_str(), "john@doe.org")
 
     def test_get_avatar_url_no_picture_setting(self):
         extra_data = """

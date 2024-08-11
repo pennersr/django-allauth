@@ -6,8 +6,6 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
 class DwollaAccount(ProviderAccount):
-    """Dwolla Account"""
-
     pass
 
 

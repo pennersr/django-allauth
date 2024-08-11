@@ -14,10 +14,6 @@ class WeiboAccount(ProviderAccount):
     def get_avatar_url(self):
         return self.account.extra_data.get("avatar_large")
 
-    def to_str(self):
-        dflt = super(WeiboAccount, self).to_str()
-        return self.account.extra_data.get("name", dflt)
-
 
 class WeiboProvider(OAuth2Provider):
     id = "weibo"

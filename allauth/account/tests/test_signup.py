@@ -1,4 +1,3 @@
-import django
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
@@ -112,28 +111,28 @@ class BaseSignupFormTests(TestCase):
         widget = field.widget
         self.assertEqual(widget.attrs.get("maxlength"), str(max_length))
 
-    @override_settings(
-        ACCOUNT_USERNAME_REQUIRED=True, ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE=True
-    )
-    def test_signup_email_verification(self):
-        data = {
-            "username": "username",
-            "email": "user@example.com",
-        }
-        form = BaseSignupForm(data, email_required=True)
-        self.assertFalse(form.is_valid())
 
-        data = {
-            "username": "username",
-            "email": "user@example.com",
-            "email2": "user@example.com",
-        }
-        form = BaseSignupForm(data, email_required=True)
-        self.assertTrue(form.is_valid())
+def test_signup_email_verification(settings, db):
+    settings.ACCOUNT_USERNAME_REQUIRED = True
+    settings.ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
+    data = {
+        "username": "username",
+        "email": "user@example.com",
+    }
+    form = BaseSignupForm(data, email_required=True)
+    assert not form.is_valid()
 
-        data["email2"] = "anotheruser@example.com"
-        form = BaseSignupForm(data, email_required=True)
-        self.assertFalse(form.is_valid())
+    data = {
+        "username": "username",
+        "email": "user@example.com",
+        "email2": "USER@example.COM",
+    }
+    form = BaseSignupForm(data, email_required=True)
+    assert form.is_valid()
+
+    data["email2"] = "anotheruser@example.com"
+    form = BaseSignupForm(data, email_required=True)
+    assert not form.is_valid()
 
 
 @override_settings(
@@ -215,19 +214,11 @@ class SignupTests(TestCase):
                 "password2": "janedoe",
             },
         )
-        if django.VERSION >= (4, 1):
-            self.assertFormError(
-                resp.context["form"],
-                "password2",
-                "You must type the same password each time.",
-            )
-        else:
-            self.assertFormError(
-                resp,
-                "form",
-                "password2",
-                "You must type the same password each time.",
-            )
+        self.assertFormError(
+            resp.context["form"],
+            "password2",
+            "You must type the same password each time.",
+        )
 
     @override_settings(
         ACCOUNT_USERNAME_REQUIRED=True, ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE=True
@@ -273,6 +264,11 @@ class SignupTests(TestCase):
                 "password2": "johndoe",
             },
         )
+        self.assertFormError(resp.context["form"], None, [])
+        self.assertFormError(
+            resp.context["form"],
+            "password1",
+            ["This password is too short. It must contain at least 9 characters."],
         if django.VERSION >= (4, 1):
             self.assertFormError(resp.context["form"], None, [])
             self.assertFormError(
@@ -288,6 +284,7 @@ class SignupTests(TestCase):
                 "password1",
                 ["This password is too short. It must contain at least 9 characters."],
             )
+
     @override_settings(
         ACCOUNT_ADAPTER="allauth.account.tests.test_adapter.CustomAccountEmailVerificationAdapter"
     )
@@ -344,6 +341,7 @@ def test_prevent_enumeration_with_mandatory_verification(
     assert resp.status_code == 302
     assert resp["location"] == reverse("account_email_verification_sent")
     assertTemplateUsed(resp, "account/email/account_already_exists_message.txt")
+    assertTemplateUsed(resp, "account/messages/email_confirmation_sent.txt")
     assert EmailAddress.objects.filter(email="john@example.org").count() == 1
 
 
@@ -459,3 +457,36 @@ def test_email_lower_case(db, settings):
     )
     assert resp.status_code == 302
     assert EmailAddress.objects.filter(email="john@doe.org").count() == 1
+
+
+def test_does_not_create_user_when_honeypot_filled_out(client, db, settings):
+    settings.ACCOUNT_SIGNUP_FORM_HONEYPOT_FIELD = "phone_number"
+    resp = client.post(
+        reverse("account_signup"),
+        {
+            "username": "johndoe",
+            "email": "john@example.com",
+            "password1": "Password1@",
+            "password2": "Password1@",
+            "phone_number": "5551231234",
+        },
+    )
+
+    assert not get_user_model().objects.all().exists()
+    assert resp.status_code == 302
+
+
+def test_create_user_when_honeypot_not_filled_out(client, db, settings):
+    settings.ACCOUNT_SIGNUP_FORM_HONEYPOT_FIELD = "phone_number"
+    resp = client.post(
+        reverse("account_signup"),
+        {
+            "username": "johndoe",
+            "email": "john@example.com",
+            "password1": "Password1@",
+            "password2": "Password1@",
+            "phone_number": "",
+        },
+    )
+    assert get_user_model().objects.filter(username="johndoe").count() == 1
+    assert resp.status_code == 302

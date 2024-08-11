@@ -20,7 +20,7 @@ def jwt_encode(*args, **kwargs):
     return resp
 
 
-class Scope(object):
+class Scope:
     EMAIL = "email"
     NAME = "name"
 

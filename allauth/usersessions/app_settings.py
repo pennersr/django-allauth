@@ -1,4 +1,4 @@
-class AppSettings(object):
+class AppSettings:
     def __init__(self, prefix):
         self.prefix = prefix
 

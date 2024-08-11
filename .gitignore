@@ -32,3 +32,4 @@ virtualenv
 *.mo
 /.stfolder
 .direnv/
+examples/react-spa/docker-compose.override.yml

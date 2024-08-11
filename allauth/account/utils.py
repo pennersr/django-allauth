@@ -509,7 +509,7 @@ def assess_unique_email(email) -> Optional[bool]:
         # Fail right away.
         return False
     elif (
-        app_settings.EMAIL_VERIFICATION
+        get_adapter().get_email_verification_method()
         == app_settings.EmailVerificationMethod.MANDATORY
     ):
         # In case of mandatory verification and enumeration prevention,

@@ -252,7 +252,7 @@ class Login:
     ):
         self.user = user
         if not email_verification:
-            email_verification = app_settings.EMAIL_VERIFICATION
+            email_verification = get_adapter().get_email_verification_method(self)
         self.email_verification = email_verification
         self.redirect_url = redirect_url
         self.signal_kwargs = signal_kwargs

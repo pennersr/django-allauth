@@ -27,6 +27,10 @@ class AppSettings:
     def FRONTEND_URLS(self):
         return self._setting("FRONTEND_URLS", {})
 
+    @property
+    def INPUTS(self):
+        return self._setting("INPUTS", {})
+
 
 _app_settings = AppSettings("HEADLESS_")
 

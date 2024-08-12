@@ -9,6 +9,7 @@ from allauth.account.utils import complete_signup, send_email_confirmation
 from allauth.core import ratelimit
 from allauth.core.exceptions import ImmediateHttpResponse
 from allauth.decorators import rate_limit
+from allauth.headless import app_settings
 from allauth.headless.account import response
 from allauth.headless.account.inputs import (
     AddEmailInput,
@@ -34,6 +35,7 @@ from allauth.headless.base.response import (
 )
 from allauth.headless.base.views import APIView, AuthenticatedAPIView
 from allauth.headless.internal.restkit.response import ErrorResponse
+from allauth.utils import get_form_class
 
 
 class RequestLoginCodeView(APIView):
@@ -146,6 +148,9 @@ class VerifyEmailView(APIView):
 
 class RequestPasswordResetView(APIView):
     input_class = RequestPasswordResetInput
+
+    def get_input_class(self):
+        return get_form_class(app_settings.INPUTS, "reset_password", self.input_class)
 
     def post(self, request, *args, **kwargs):
         r429 = ratelimit.consume_or_429(

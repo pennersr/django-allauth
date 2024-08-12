@@ -5,8 +5,10 @@ from django.http import HttpResponseBadRequest
 from django.views.generic import View
 
 from allauth.core.exceptions import ImmediateHttpResponse
+from allauth.headless import app_settings
 from allauth.headless.internal.restkit.inputs import Input
 from allauth.headless.internal.restkit.response import ErrorResponse
+from allauth.utils import get_form_class
 
 
 class RESTView(View):
@@ -27,8 +29,11 @@ class RESTView(View):
     def get_input_kwargs(self):
         return {}
 
+    def get_input_class(self):
+        return self.input_class
+
     def handle_input(self, data):
-        input_class = self.input_class
+        input_class = self.get_input_class()
         if isinstance(input_class, dict):
             input_class = input_class.get(self.request.method)
         if not input_class:

@@ -365,7 +365,7 @@ class DefaultAccountAdapter(BaseAdapter):
     def clean_password(self, password, user=None):
         """
         Validates a password. You can hook into this if you want to
-        restric the allowed password choices.
+        restrict the allowed password choices.
         """
         min_length = app_settings.PASSWORD_MIN_LENGTH
         if min_length:

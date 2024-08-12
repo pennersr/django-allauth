@@ -104,7 +104,16 @@ class VerifyEmailInput(inputs.Input):
         return confirmation
 
 
-class RequestPasswordResetInput(ResetPasswordForm, inputs.Input):
+from allauth.utils import get_form_class
+
+
+def _reset_password_form_class():
+    return get_form_class(
+        account_app_settings.FORMS, "reset_password", ResetPasswordForm
+    )
+
+
+class RequestPasswordResetInput(_reset_password_form_class(), inputs.Input):
     pass
 
 

@@ -83,3 +83,33 @@ def test_auth_unverified_email_and_mfa(
             content_type="application/json",
         )
     assert resp.status_code == 200
+
+
+def test_dangling_mfa_is_logged_out(
+    client,
+    user_with_totp,
+    password_factory,
+    settings,
+    totp_validation_bypass,
+    headless_reverse,
+    headless_client,
+    user_password,
+):
+    settings.ACCOUNT_AUTHENTICATION_METHOD = "email"
+    resp = client.post(
+        headless_reverse("headless:account:login"),
+        data={
+            "email": user_with_totp.email,
+            "password": user_password,
+        },
+        content_type="application/json",
+    )
+    assert resp.status_code == 401
+    data = resp.json()
+    flow = [f for f in data["data"]["flows"] if f["id"] == Flow.MFA_AUTHENTICATE][0]
+    assert flow["is_pending"]
+    assert flow["types"] == ["totp"]
+    resp = client.delete(headless_reverse("headless:account:current_session"))
+    data = resp.json()
+    assert resp.status_code == 401
+    assert all(not f.get("is_pending") for f in data["data"]["flows"])

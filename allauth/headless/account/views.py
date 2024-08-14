@@ -107,7 +107,7 @@ class SignupView(APIView):
         return AuthenticationResponse(request)
 
 
-class SessionView(AuthenticatedAPIView):
+class SessionView(APIView):
     def get(self, request, *args, **kwargs):
         return AuthenticationResponse(request)
 

@@ -5,6 +5,14 @@
   a 409.
 
 
+Security notice
+---------------
+
+- Headless: When a user was not fully logged in, for example, because (s)he was
+  in the process of completing the 2FA process, calling logout would not wipe
+  the session containing the partially logged in user.
+
+
 64.0.0 (2024-07-31)
 *******************
 

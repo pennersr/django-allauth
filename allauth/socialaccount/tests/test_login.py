@@ -39,6 +39,7 @@ def test_email_authentication(
     settings.ACCOUNT_AUTHENTICATION_METHOD = "email"
     settings.ACCOUNT_EMAIL_VERIFICATION = "mandatory"
     settings.SOCIALACCOUNT_AUTO_SIGNUP = True
+    settings.SOCIALACCOUNT_STORE_TOKENS = True
     if setting == "on-global":
         settings.SOCIALACCOUNT_EMAIL_AUTHENTICATION = True
     elif setting == "on-provider":
@@ -54,7 +55,9 @@ def test_email_authentication(
 
     user = user_factory(with_emailaddress=with_emailaddress)
 
-    sociallogin = sociallogin_factory(email=user.email, provider="unittest-server")
+    sociallogin = sociallogin_factory(
+        email=user.email, provider="unittest-server", with_token=True
+    )
 
     request = request_factory.get("/")
     request.user = AnonymousUser()
@@ -78,6 +81,9 @@ def test_email_authentication(
             assert resp["location"] == reverse("account_email_verification_sent")
         assert get_user_model().objects.count() == 1
         assert SocialAccount.objects.filter(user=user.pk).exists() == auto_connect
+        assert (
+            SocialToken.objects.filter(account__user=user.pk).exists() == auto_connect
+        )
         assert added_signal.called == auto_connect
         assert not updated_signal.called
 

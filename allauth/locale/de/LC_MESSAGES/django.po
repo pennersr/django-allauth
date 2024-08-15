@@ -9,16 +9,16 @@ msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-30 16:02-0500\n"
-"PO-Revision-Date: 2024-06-08 10:54+0000\n"
-"Last-Translator: hentoe <hendriktoedter@gmx.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/allauth/django-"
-"allauth/de/>\n"
+"PO-Revision-Date: 2024-08-07 18:09+0000\n"
+"Last-Translator: Natalia N <natalian@inbox.ru>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/allauth/"
+"django-allauth/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.6-dev\n"
+"X-Generator: Weblate 5.7-dev\n"
 
 #: account/adapter.py:58
 msgid "This account is currently inactive."
@@ -93,17 +93,13 @@ msgid "Use your password"
 msgstr "Verwenden Sie Ihr Passwort"
 
 #: account/adapter.py:748
-#, fuzzy
-#| msgid "Use your authenticator app"
 msgid "Use authenticator app or code"
-msgstr "Verwenden Sie Ihre Authenticator-App"
+msgstr "Verwenden Sie eine Authentifizierungs-App oder einen Code"
 
 #: account/adapter.py:755 templates/mfa/authenticate.html:36
 #: templates/mfa/webauthn/reauthenticate.html:15
-#, fuzzy
-#| msgid "secret key"
 msgid "Use a security key"
-msgstr "Geheimer Schlüssel"
+msgstr "Verwenden Sie einen Sicherheitsschlüssel"
 
 #: account/admin.py:23
 msgid "Mark selected email addresses as verified"
@@ -233,7 +229,7 @@ msgstr "E-Mail-Bestätigungen"
 
 #: headless/apps.py:7
 msgid "Headless"
-msgstr ""
+msgstr "Kopflos"
 
 #: mfa/adapter.py:32
 msgid ""
@@ -264,19 +260,17 @@ msgstr ""
 "E-Mail-Adresse verifiziert haben."
 
 #: mfa/adapter.py:141
-#, fuzzy
-#| msgid "secret key"
 msgid "Master key"
-msgstr "Geheimer Schlüssel"
+msgstr "Hauptschlüssel"
 
 #: mfa/adapter.py:143
 msgid "Backup key"
-msgstr ""
+msgstr "Sicherungsschlüssel"
 
 #: mfa/adapter.py:144
 #, python-brace-format
 msgid "Key nr. {number}"
-msgstr ""
+msgstr "Schlüsselnr. {number}"
 
 #: mfa/apps.py:9
 msgid "MFA"
@@ -292,23 +286,24 @@ msgstr "TOTP Authenticator"
 
 #: mfa/models.py:26
 msgid "WebAuthn"
-msgstr ""
+msgstr "WebAuthn"
 
 #: mfa/totp/forms.py:11
 msgid "Authenticator code"
 msgstr "Authentifizierungscode"
 
 #: mfa/webauthn/forms.py:16
-#, fuzzy
-#| msgid "Password"
 msgid "Passwordless"
-msgstr "Passwort"
+msgstr "Passwortlos"
 
 #: mfa/webauthn/forms.py:19
 msgid ""
 "Enabling passwordless operation allows you to sign in using just this key, "
 "but imposes additional requirements such as biometrics or PIN protection."
 msgstr ""
+"Wenn Sie den passwortlosen Betrieb aktivieren, können Sie sich nur mit "
+"diesem Schlüssel anmelden, müssen aber zusätzliche Anforderungen erfüllen, "
+"wie z. B. biometrische Daten oder PIN-Schutz."
 
 #: socialaccount/adapter.py:36
 #, python-format
@@ -871,7 +866,7 @@ msgstr ""
 
 #: templates/account/login.html:42
 msgid "Sign in with a passkey"
-msgstr ""
+msgstr "Mit einem Passkey anmelden"
 
 #: templates/account/login.html:47 templates/account/request_login_code.html:9
 msgid "Mail me a sign-in code"
@@ -1125,10 +1120,8 @@ msgid "Menu:"
 msgstr "Menü"
 
 #: templates/allauth/layouts/base.html:43
-#, fuzzy
-#| msgid "Account Connections"
 msgid "Account Connection"
-msgstr "Konto-Verknüpfungen"
+msgstr "Konto-Verknüpfung"
 
 #: templates/allauth/layouts/base.html:49 templates/mfa/authenticate.html:10
 #: templates/mfa/index.html:5 templates/mfa/index.html:9
@@ -1177,24 +1170,20 @@ msgid "Authenticator App Deactivated"
 msgstr "Authenticator-App deaktiviert"
 
 #: templates/mfa/email/webauthn_added_message.txt:4
-#, fuzzy
-#| msgid "A new set of recovery codes has been generated."
 msgid "A new security key has been added."
-msgstr "Ein neuer Satz Wiederherstellungscodes wurde generiert."
+msgstr "Es wurde ein neuer Sicherheitsschlüssel hinzugefügt."
 
 #: templates/mfa/email/webauthn_added_subject.txt:3
 msgid "Security Key Added"
-msgstr ""
+msgstr "Sicherheitsschlüssel hinzugefügt"
 
 #: templates/mfa/email/webauthn_removed_message.txt:4
-#, fuzzy
-#| msgid "Your email has been confirmed."
 msgid "A security key has been removed."
-msgstr "Ihre E-Mail wurde bestätigt."
+msgstr "Ein Sicherheitsschlüssel wurde entfernt."
 
 #: templates/mfa/email/webauthn_removed_subject.txt:3
 msgid "Security Key Removed"
-msgstr ""
+msgstr "Sicherheitsschlüssel entfernt"
 
 #: templates/mfa/index.html:14 templates/mfa/totp/base.html:4
 msgid "Authenticator App"
@@ -1219,28 +1208,28 @@ msgstr "Aktivieren"
 #: templates/mfa/index.html:45 templates/mfa/webauthn/authenticator_list.html:8
 #: templates/mfa/webauthn/base.html:4
 msgid "Security Keys"
-msgstr ""
+msgstr "Sicherheitsschlüssel"
 
 #: templates/mfa/index.html:50
 #, python-format
 msgid "You have added %(count)s security key."
 msgid_plural "You have added %(count)s security keys."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Sie haben %(count)s Sicherheitsschlüssel hinzugefügt."
+msgstr[1] "Sie haben %(count)s Sicherheitsschlüssel hinzugefügt."
 
 #: templates/mfa/index.html:53
 #: templates/mfa/webauthn/authenticator_list.html:11
 msgid "No security keys have been added."
-msgstr ""
+msgstr "Es wurden keine Sicherheitsschlüssel hinzugefügt."
 
 #: templates/mfa/index.html:60
 msgid "Manage"
-msgstr ""
+msgstr "Verwalten"
 
 #: templates/mfa/index.html:65 templates/mfa/webauthn/add_form.html:18
 #: templates/mfa/webauthn/authenticator_list.html:68
 msgid "Add"
-msgstr ""
+msgstr "Hinzufügen"
 
 #: templates/mfa/index.html:75 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:6
@@ -1283,11 +1272,11 @@ msgstr "Ein neuer Satz Wiederherstellungscodes wurde generiert."
 
 #: templates/mfa/messages/webauthn_added.txt:2
 msgid "Security key added."
-msgstr ""
+msgstr "Sicherheitsschlüssel hinzugefügt."
 
 #: templates/mfa/messages/webauthn_removed.txt:2
 msgid "Security key removed."
-msgstr ""
+msgstr "Sicherheitsschlüssel entfernt."
 
 #: templates/mfa/reauthenticate.html:6
 msgid "Enter an authenticator code:"
@@ -1360,74 +1349,63 @@ msgstr ""
 "Sind Sie sicher?"
 
 #: templates/mfa/webauthn/add_form.html:7
-#, fuzzy
-#| msgid "secret key"
 msgid "Add Security Key"
-msgstr "Geheimer Schlüssel"
+msgstr "Sicherheitsschlüssel hinzufügen"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:6
-#, fuzzy
-#| msgid "secret key"
 msgid "Remove Security Key"
-msgstr "Geheimer Schlüssel"
+msgstr "Sicherheitsschlüssel entfernen"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:8
-#, fuzzy
-#| msgid "Are you sure you want to sign out?"
 msgid "Are you sure you want to remove this security key?"
-msgstr "Bist du sicher, dass du dich abmelden möchtest?"
+msgstr ""
+"Sind Sie sicher, dass Sie diesen Sicherheitsschlüssel entfernen möchten?"
 
 #: templates/mfa/webauthn/authenticator_list.html:19
 msgid "Usage"
-msgstr ""
+msgstr "Verwendung"
 
 #: templates/mfa/webauthn/authenticator_list.html:31
 msgid "Passkey"
-msgstr ""
+msgstr "Passkey"
 
 #: templates/mfa/webauthn/authenticator_list.html:35
-#, fuzzy
-#| msgid "secret key"
 msgid "Security key"
-msgstr "Geheimer Schlüssel"
+msgstr "Sicherheitsschlüssel"
 
 #: templates/mfa/webauthn/authenticator_list.html:38
 msgid "This key does not indicate whether it is a passkey."
-msgstr ""
+msgstr "Dieser Schlüssel gibt nicht an, ob es sich um einen Passkey handelt."
 
 #: templates/mfa/webauthn/authenticator_list.html:39
-#, fuzzy
-#| msgid "Unverified"
 msgid "Unspecified"
-msgstr "Unbestätigt"
+msgstr "Unbestimmt"
 
 #: templates/mfa/webauthn/authenticator_list.html:44
 #, python-format
 msgid "Added on %(created_at)s"
-msgstr ""
+msgstr "Hinzugefügt um %(created_at)s"
 
 #: templates/mfa/webauthn/authenticator_list.html:46
 #, python-format
 msgid "Last used %(last_used)s"
-msgstr ""
+msgstr "Zuletzt verwendet %(last_used)s"
 
 #: templates/mfa/webauthn/authenticator_list.html:54
 msgid "Edit"
-msgstr ""
+msgstr "Bearbeiten"
 
 #: templates/mfa/webauthn/edit_form.html:7
-#, fuzzy
-#| msgid "secret key"
 msgid "Edit Security Key"
-msgstr "Geheimer Schlüssel"
+msgstr "Sicherheitsschlüssel bearbeiten"
 
 #: templates/mfa/webauthn/edit_form.html:18
 msgid "Save"
-msgstr ""
+msgstr "Speichern"
 
 #: templates/mfa/webauthn/snippets/scripts.html:2
 msgid "This functionality requires JavaScript."
-msgstr ""
+msgstr "Diese Funktionalität erfordert JavaScript."
 
 #: templates/socialaccount/authentication_error.html:5
 #: templates/socialaccount/authentication_error.html:9

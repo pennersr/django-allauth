@@ -1,4 +1,5 @@
 import datetime
+import time
 from typing import Dict, Optional
 
 from django.conf import settings
@@ -239,6 +240,7 @@ class Login:
     signup: bool
     email: Optional[str]
     state: Dict
+    initiated_at: float
 
     def __init__(
         self,
@@ -249,6 +251,7 @@ class Login:
         signup: bool = False,
         email: Optional[str] = None,
         state: Optional[Dict] = None,
+        initiated_at: Optional[float] = None,
     ):
         self.user = user
         if not email_verification:
@@ -259,6 +262,7 @@ class Login:
         self.signup = signup
         self.email = email
         self.state = {} if state is None else state
+        self.initiated_at = initiated_at if initiated_at else time.time()
 
     def serialize(self):
         from allauth.account.utils import user_pk_to_url_str
@@ -279,6 +283,7 @@ class Login:
             "email": self.email,
             "signal_kwargs": signal_kwargs,
             "state": self.state,
+            "initiated_at": self.initiated_at,
         }
         return data
 
@@ -311,6 +316,7 @@ class Login:
                 signup=data["signup"],
                 signal_kwargs=signal_kwargs,
                 state=data["state"],
+                initiated_at=data["initiated_at"],
             )
         except KeyError:
             raise ValueError()

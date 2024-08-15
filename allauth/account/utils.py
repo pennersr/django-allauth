@@ -1,3 +1,4 @@
+import time
 import unicodedata
 from collections import OrderedDict
 from typing import Optional
@@ -174,9 +175,14 @@ def unstash_login(request, peek=False):
     if isinstance(data, dict):
         try:
             login = Login.deserialize(data)
-            request._account_login_accessed = True
         except ValueError:
             pass
+        else:
+            if time.time() - login.initiated_at > app_settings.LOGIN_TIMEOUT:
+                login = None
+                request.session.pop(flows.login.LOGIN_SESSION_KEY, None)
+            else:
+                request._account_login_accessed = True
     return login
 
 

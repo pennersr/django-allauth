@@ -1,8 +1,15 @@
 64.1.0 (unreleased)
 *******************
 
+Note worthy changes
+-------------------
+
 - Headless: When trying to login while a user is already logged in, you now get
   a 409.
+
+- Limited the maximum allowed time for a login to go through the various login
+  stages. This limits, for example, the time span that the 2FA stage remains
+  available.
 
 
 Security notice

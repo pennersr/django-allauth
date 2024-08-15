@@ -1,3 +1,4 @@
+import time
 from unittest.mock import ANY, patch
 
 from django.conf import settings
@@ -5,6 +6,9 @@ from django.core.cache import cache
 from django.test import Client
 from django.urls import reverse
 
+from pytest_django.asserts import assertTemplateUsed
+
+from allauth.account import app_settings
 from allauth.account.authentication import AUTHENTICATION_METHODS_SESSION_KEY
 from allauth.account.models import EmailAddress
 from allauth.mfa.adapter import get_adapter
@@ -221,3 +225,22 @@ def test_totp_code_reuse(
             assert resp.context["form"].errors == {
                 "code": [get_adapter().error_messages["incorrect_code"]]
             }
+
+
+def test_totp_stage_expires(client, user_with_totp, user_password):
+    resp = client.post(
+        reverse("account_login"),
+        {"login": user_with_totp.username, "password": user_password},
+    )
+    assert resp.status_code == 302
+    assert resp["location"] == reverse("mfa_authenticate")
+    resp = client.get(reverse("mfa_authenticate"))
+    assert resp.status_code == 200
+    assertTemplateUsed(resp, "mfa/authenticate.html")
+    with patch(
+        "allauth.account.utils.time.time",
+        return_value=time.time() + 1.1 * app_settings.LOGIN_TIMEOUT,
+    ):
+        resp = client.get(reverse("mfa_authenticate"))
+        assert resp.status_code == 302
+        assert resp["location"] == reverse("account_login")

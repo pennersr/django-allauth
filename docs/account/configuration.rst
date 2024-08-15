@@ -147,6 +147,16 @@ Available settings:
   confirming the email address **immediately after signing up**, assuming users
   didn't close their browser or used some sort of private browsing mode.
 
+``ACCOUNT_LOGIN_ON_PASSWORD_RESET`` (default: ``False``)
+  By changing this setting to ``True``, users will automatically be logged in
+  once they have reset their password. By default they are redirected to the
+  password reset done page.
+
+``ACCOUNT_LOGIN_TIMEOUT`` (default: ``900``)
+  The maximum allowed time (in seconds) for a login to go through the
+  various login stages. This limits, for example, the time span that the
+  2FA stage remains available.
+
 ``ACCOUNT_LOGOUT_ON_GET`` (default: ``False``)
   Determines whether or not the user is automatically logged out by a
   GET request. `GET is not designed to modify the server state <http://programmers.stackexchange.com/questions/188860/>`_,
@@ -158,11 +168,6 @@ Available settings:
   Determines whether or not the user is automatically logged out after
   changing or setting their password. See documentation for
   `Django's session invalidation on password change <https://docs.djangoproject.com/en/stable/topics/auth/default/#session-invalidation-on-password-change>`_.
-
-``ACCOUNT_LOGIN_ON_PASSWORD_RESET`` (default: ``False``)
-  By changing this setting to ``True``, users will automatically be logged in
-  once they have reset their password. By default they are redirected to the
-  password reset done page.
 
 ``ACCOUNT_LOGOUT_REDIRECT_URL`` (default: ``settings.LOGOUT_REDIRECT_URL or "/"``)
   The URL (or URL name) to return to after the user logs out. Defaults to

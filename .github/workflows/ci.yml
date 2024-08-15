@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ main, '0.55.x' ]
+    branches: [ main ]
   pull_request:
-    branches: [ main, '0.55.x' ]
+    branches: [ main ]
 
 jobs:
   testenv:
@@ -14,13 +14,19 @@ jobs:
       matrix:
         project: ['regular', 'headless_only']
         python-version: ['3.8', '3.9', '3.10', '3.11', '3.12']
-        django-version: ['main', '4.2', '5.0']
+        django-version: ['main', '4.2', '5.0', '5.1']
         exclude:
           - python-version: '3.8'
             django-version: '5.0'
 
           - python-version: '3.9'
             django-version: '5.0'
+
+          - python-version: '3.8'
+            django-version: '5.1'
+
+          - python-version: '3.9'
+            django-version: '5.1'
 
           - python-version: '3.8'
             django-version: 'main'
@@ -49,7 +55,7 @@ jobs:
         DJANGO: ${{ matrix.django-version }}
         PRJ: ${{ matrix.project }}
     - name: Coverage (Coveralls)
-      if: ${{ success() && matrix.django-version == '5.0' && matrix.python-version == '3.12' && matrix.project == 'regular' }}
+      if: ${{ success() && matrix.django-version == '5.1' && matrix.python-version == '3.12' && matrix.project == 'regular' }}
       run: coveralls --service=github
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

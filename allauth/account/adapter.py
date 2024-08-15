@@ -563,9 +563,19 @@ class DefaultAccountAdapter(BaseAdapter):
 
         return url_has_allowed_host_and_scheme(url, allowed_hosts=allowed_hosts)
 
+    def send_password_reset_mail(self, user, email, context):
+        """
+        Method intended to be overridden in case you need to customize the logic
+        used to determine whether a user is permitted to request a password reset.
+        For example, if you are enforcing something like "social only" authentication
+        in your app, you may want to intervene here by checking `user.has_usable_password`
+
+        """
+        return self.send_mail("account/email/password_reset_key", email, context)
+
     def get_reset_password_from_key_url(self, key):
         """
-        Method intented to be overriden in case the password reset email
+        Method intended to be overridden in case the password reset email
         needs to be adjusted.
         """
         from allauth.account.internal import flows

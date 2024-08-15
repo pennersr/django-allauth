@@ -429,6 +429,15 @@ class AppSettings:
     def LOGIN_BY_CODE_TIMEOUT(self):
         return self._setting("LOGIN_BY_CODE_TIMEOUT", 3 * 60)
 
+    @property
+    def LOGIN_TIMEOUT(self):
+        """
+        The maximum allowed time (in seconds) for a login to go through the
+        various login stages. This limits, for example, the time span that the
+        2FA stage remains available.
+        """
+        return self._setting("LOGIN_TIMEOUT", 15 * 60)
+
 
 _app_settings = AppSettings("ACCOUNT_")
 

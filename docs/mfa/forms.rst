@@ -7,6 +7,7 @@ Forms
 *Path*
   ``allauth.mfa.base.forms.AuthenticateForm``
   ``allauth.mfa.base.forms.ReauthenticateForm``
+  ``allauth.mfa.webauthn.forms.AuthenticateWebAuthnForm``
 
 *Used on*:
   AuthenticateView and ReauthenticateView, used when a user authenticates with MFA.
@@ -14,17 +15,26 @@ Forms
 Example override::
 
     from allauth.mfa.base.forms import AuthenticateForm, ReauthenticateForm
+    from allauth.mfa.webauthn.forms import AuthenticateWebAuthnForm
+
+
     class MyCustomAuthenticateForm(AuthenticateForm):
-      pass
+        pass
+
 
     class MyCustomReauthenticateForm(ReauthenticateForm):
-      pass
+        pass
+
+
+    class MyCustomAuthenticateWebAuthnForm(AuthenticateWebAuthnForm):
+        pass
 
 ``settings.py``::
 
     MFA_FORMS = {
         'authenticate': 'mysite.forms.MyCustomAuthenticateForm',
         'reauthenticate': 'mysite.forms.MyCustomReauthenticateForm',
+        'authenticate_webauthn: 'mysite.forms.MyCustomAuthenticateWebAuthnForm',
     }
 
 Activate TOTP

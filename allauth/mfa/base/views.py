@@ -19,6 +19,7 @@ from allauth.utils import get_form_class
 
 class AuthenticateView(TemplateView):
     form_class = AuthenticateForm
+    webauthn_form_class = AuthenticateWebAuthnForm
     template_name = "mfa/authenticate." + account_settings.TEMPLATE_EXTENSION
 
     def dispatch(self, request, *args, **kwargs):
@@ -39,32 +40,41 @@ class AuthenticateView(TemplateView):
 
     def _build_forms(self):
         posted_form = None
+        AuthenticateFormClass = self.get_form_class()
+        AuthenticateWebAuthnFormClass = self.get_webauthn_form_class()
         user = self.stage.login.user
         support_webauthn = "webauthn" in app_settings.SUPPORTED_TYPES
         if self.request.method == "POST":
             if "code" in self.request.POST:
-                posted_form = self.auth_form = AuthenticateForm(
+                posted_form = self.auth_form = AuthenticateFormClass(
                     user=user, data=self.request.POST
                 )
                 self.webauthn_form = (
-                    AuthenticateWebAuthnForm(user=user) if support_webauthn else None
+                    AuthenticateWebAuthnFormClass(user=user)
+                    if support_webauthn
+                    else None
                 )
             else:
                 self.auth_form = (
-                    AuthenticateForm(user=user) if support_webauthn else None
+                    AuthenticateFormClass(user=user) if support_webauthn else None
                 )
-                posted_form = self.webauthn_form = AuthenticateWebAuthnForm(
+                posted_form = self.webauthn_form = AuthenticateWebAuthnFormClass(
                     user=user, data=self.request.POST
                 )
         else:
-            self.auth_form = AuthenticateForm(user=user)
+            self.auth_form = AuthenticateFormClass(user=user)
             self.webauthn_form = (
-                AuthenticateWebAuthnForm(user=user) if support_webauthn else None
+                AuthenticateWebAuthnFormClass(user=user) if support_webauthn else None
             )
         return posted_form
 
     def get_form_class(self):
         return get_form_class(app_settings.FORMS, "authenticate", self.form_class)
+
+    def get_webauthn_form_class(self):
+        return get_form_class(
+            app_settings.FORMS, "authenticate_webauthn", self.webauthn_form_class
+        )
 
     def form_valid(self, form):
         form.save()

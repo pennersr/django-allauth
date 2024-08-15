@@ -1,4 +1,4 @@
-64.1.0 (unreleased)
+64.1.0 (2024-08-15)
 *******************
 
 Note worthy changes
@@ -9,7 +9,7 @@ Note worthy changes
 
 - Limited the maximum allowed time for a login to go through the various login
   stages. This limits, for example, the time span that the 2FA stage remains
-  available.
+  available. See ``settings.ACCOUNT_LOGIN_TIMEOUT``.
 
 
 Security notice

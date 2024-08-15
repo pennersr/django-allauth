@@ -14,7 +14,7 @@ from allauth.core import context, ratelimit
 from allauth.utils import get_username_max_length, set_form_field_order
 
 from . import app_settings
-from .adapter import get_adapter
+from .adapter import DefaultAccountAdapter, get_adapter
 from .app_settings import AuthenticationMethod
 from .models import EmailAddress, Login
 from .utils import (
@@ -598,18 +598,15 @@ class ResetPasswordForm(forms.Form):
             raise get_adapter().validation_error("unknown_email")
         return self.cleaned_data["email"]
 
-    def save(self, request, **kwargs):
+    def save(self, request, **kwargs) -> str:
         email = self.cleaned_data["email"]
         if not self.users:
             flows.signup.send_unknown_account_mail(request, email)
-        else:
-            self._send_password_reset_mail(request, email, self.users, **kwargs)
-        return email
+            return email
 
-    def _send_password_reset_mail(self, request, email, users, **kwargs):
+        adapter: DefaultAccountAdapter = get_adapter()
         token_generator = kwargs.get("token_generator", default_token_generator)
-
-        for user in users:
+        for user in self.users:
             temp_key = token_generator.make_token(user)
 
             # send the password reset email
@@ -618,7 +615,7 @@ class ResetPasswordForm(forms.Form):
             # not implementation details such as a separate `uidb36` and
             # `key. Ideally, this should have done on `urls` level as well.
             key = f"{uid}-{temp_key}"
-            url = get_adapter().get_reset_password_from_key_url(key)
+            url = adapter.get_reset_password_from_key_url(key)
             context = {
                 "user": user,
                 "password_reset_url": url,
@@ -629,7 +626,8 @@ class ResetPasswordForm(forms.Form):
 
             if app_settings.AUTHENTICATION_METHOD != AuthenticationMethod.EMAIL:
                 context["username"] = user_username(user)
-            get_adapter().send_mail("account/email/password_reset_key", email, context)
+            adapter.send_password_reset_mail(user, email, context)
+        return email
 
 
 class ResetPasswordKeyForm(PasswordVerificationMixin, forms.Form):

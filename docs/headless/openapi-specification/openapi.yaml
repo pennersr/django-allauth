@@ -980,7 +980,7 @@ paths:
   ######################################################################
   # Account: WebAuthn
   ######################################################################
-  /_allauth/{client}/v1/account/webauthn:
+  /_allauth/{client}/v1/account/authenticators/webauthn:
     get:
       tags:
         - "Account: WebAuthn"

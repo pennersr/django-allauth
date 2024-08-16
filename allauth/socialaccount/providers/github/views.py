@@ -1,3 +1,5 @@
+from typing import Optional
+
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
@@ -30,13 +32,12 @@ class GitHubOAuth2Adapter(OAuth2Adapter):
         )
         resp.raise_for_status()
         extra_data = resp.json()
-        if app_settings.QUERY_EMAIL and not extra_data.get("email"):
-            emails = self.get_emails(headers)
-            if emails:
+        if app_settings.QUERY_EMAIL:
+            if emails := self.get_emails(headers):
                 extra_data["emails"] = emails
         return self.get_provider().sociallogin_from_response(request, extra_data)
 
-    def get_emails(self, headers):
+    def get_emails(self, headers) -> Optional[list]:
         resp = (
             get_adapter().get_requests_session().get(self.emails_url, headers=headers)
         )

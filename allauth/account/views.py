@@ -241,22 +241,10 @@ class ConfirmEmailView(NextRedirectMixin, LogoutFunctionalityMixin, TemplateView
         self.object = confirmation = self.get_object()
         email_address = confirmation.confirm(self.request)
         if not email_address:
-            get_adapter(self.request).add_message(
-                self.request,
-                messages.ERROR,
-                "account/messages/email_confirmation_failed.txt",
-                {"email": confirmation.email_address.email},
-            )
             return self.respond(False)
 
         self.logout_other_user(self.object)
 
-        get_adapter(self.request).add_message(
-            self.request,
-            messages.SUCCESS,
-            "account/messages/email_confirmed.txt",
-            {"email": confirmation.email_address.email},
-        )
         if app_settings.LOGIN_ON_EMAIL_CONFIRMATION:
             resp = self.login_on_confirm(confirmation)
             if resp is not None:
@@ -378,6 +366,7 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
         return get_form_class(app_settings.FORMS, "add_email", self.form_class)
 
     def dispatch(self, request, *args, **kwargs):
+        self._did_send_verification_email = False
         sync_user_email_addresses(request.user)
         return super().dispatch(request, *args, **kwargs)
 
@@ -388,6 +377,7 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
 
     def form_valid(self, form):
         flows.manage_email.add_email(self.request, form)
+        self._did_send_verification_email = True
         return super().form_valid(form)
 
     def post(self, request, *args, **kwargs):
@@ -401,6 +391,7 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
                 res = self._action_remove(request)
             elif "action_primary" in request.POST:
                 res = self._action_primary(request)
+
             res = res or HttpResponseRedirect(self.get_success_url())
             # Given that we bypassed AjaxCapableProcessFormViewMixin,
             # we'll have to call invoke it manually...
@@ -428,6 +419,7 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
             send_email_confirmation(
                 self.request, request.user, email=email_address.email
             )
+            self._did_send_verification_email = True
         if app_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED:
             return HttpResponseRedirect(reverse("account_email_verification_sent"))
 
@@ -488,7 +480,10 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
         return data
 
     def get_success_url(self):
-        if app_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED:
+        if (
+            self._did_send_verification_email
+            and app_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED
+        ):
             return reverse("account_email_verification_sent")
         return self.success_url
 
@@ -768,7 +763,9 @@ class ConfirmEmailVerificationCodeView(FormView):
     def dispatch(self, request, *args, **kwargs):
         self.stage = LoginStageController.enter(request, EmailVerificationStage.key)
         self.verification, self.pending_verification = (
-            flows.email_verification.get_pending_verification(request, peek=True)
+            flows.email_verification_by_code.get_pending_verification(
+                request, peek=True
+            )
         )
         # preventing enumeration?
         verification_is_fake = (
@@ -820,7 +817,7 @@ class ConfirmEmailVerificationCodeView(FormView):
         return HttpResponseRedirect(reverse("account_email"))
 
     def form_invalid(self, form):
-        attempts_left = flows.email_verification.record_invalid_attempt(
+        attempts_left = flows.email_verification_by_code.record_invalid_attempt(
             self.request, self.pending_verification
         )
         if attempts_left:

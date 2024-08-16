@@ -1,6 +1,5 @@
 from django.contrib import messages
 from django.http import HttpRequest
-from django.urls import reverse
 
 from allauth.account import app_settings, signals
 from allauth.account.adapter import get_adapter
@@ -8,8 +7,6 @@ from allauth.account.internal.flows.reauthentication import (
     raise_if_reauthentication_required,
 )
 from allauth.account.models import EmailAddress
-from allauth.core.internal.httpkit import get_frontend_url
-from allauth.utils import build_absolute_uri
 
 
 def can_delete_email(email_address: EmailAddress) -> bool:
@@ -114,42 +111,3 @@ def mark_as_primary(request: HttpRequest, email_address: EmailAddress):
         emit_email_changed(request, from_email_address, email_address)
         success = True
     return success
-
-
-def verify_email(request: HttpRequest, email_address: EmailAddress) -> bool:
-    """
-    Marks the email address as confirmed on the db
-    """
-    from allauth.account.models import EmailAddress
-    from allauth.account.utils import emit_email_changed
-
-    from_email_address = (
-        EmailAddress.objects.filter(user_id=email_address.user_id)
-        .exclude(pk=email_address.pk)
-        .first()
-    )
-    if not email_address.set_verified(commit=False):
-        return False
-    email_address.set_as_primary(conditional=(not app_settings.CHANGE_EMAIL))
-    email_address.save()
-    if app_settings.CHANGE_EMAIL:
-        for instance in EmailAddress.objects.filter(
-            user_id=email_address.user_id
-        ).exclude(pk=email_address.pk):
-            instance.remove()
-        emit_email_changed(request, from_email_address, email_address)
-    return True
-
-
-def get_email_verification_url(request: HttpRequest, emailconfirmation) -> str:
-    """Constructs the email confirmation (activation) url.
-
-    Note that if you have architected your system such that email
-    confirmations are sent outside of the request context `request`
-    can be `None` here.
-    """
-    url = get_frontend_url(request, "account_confirm_email", key=emailconfirmation.key)
-    if not url:
-        url = reverse("account_confirm_email", args=[emailconfirmation.key])
-        url = build_absolute_uri(request, url)
-    return url

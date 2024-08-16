@@ -509,9 +509,12 @@ class AddEmailForm(UserForm):
         if on_this_account:
             raise adapter.validation_error("duplicate_email")
         if (
+            # Email is taken by a different account...
             on_diff_account
-            and app_settings.PREVENT_ENUMERATION != "strict"
+            # We care about not having duplicate emails
             and app_settings.UNIQUE_EMAIL
+            # Enumeration prevention is turned off.
+            and (not app_settings.PREVENT_ENUMERATION)
         ):
             raise adapter.validation_error("email_taken")
         if not EmailAddress.objects.can_add_email(self.user):

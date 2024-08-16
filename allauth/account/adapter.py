@@ -525,9 +525,9 @@ class DefaultAccountAdapter(BaseAdapter):
         """
         Marks the email address as confirmed on the db
         """
-        from allauth.account.internal.flows import manage_email
+        from allauth.account.internal.flows import email_verification
 
-        return manage_email.verify_email(request, email_address)
+        return email_verification.verify_email(request, email_address)
 
     def set_password(self, user, password):
         user.set_password(password)
@@ -581,7 +581,9 @@ class DefaultAccountAdapter(BaseAdapter):
         """
         from allauth.account.internal import flows
 
-        return flows.manage_email.get_email_verification_url(request, emailconfirmation)
+        return flows.email_verification.get_email_verification_url(
+            request, emailconfirmation
+        )
 
     def should_send_confirmation_mail(self, request, email_address, signup):
         send_email = ratelimit.consume(

@@ -5,7 +5,7 @@ from django.urls import reverse
 
 import pytest
 
-from allauth.account.internal.flows import email_verification
+from allauth.account.internal.flows import email_verification_by_code
 from allauth.account.models import EmailAddress
 
 
@@ -16,9 +16,9 @@ def get_last_code(client, mailoutbox):
             "\n[0-9a-z]{6}\n", mailoutbox[0].body, re.I | re.DOTALL | re.MULTILINE
         )[0].strip()
         assert (
-            client.session[email_verification.EMAIL_VERIFICATION_CODE_SESSION_KEY][
-                "code"
-            ]
+            client.session[
+                email_verification_by_code.EMAIL_VERIFICATION_CODE_SESSION_KEY
+            ]["code"]
             == code
         )
         return code

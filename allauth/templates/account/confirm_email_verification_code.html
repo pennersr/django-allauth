@@ -23,13 +23,13 @@
             {{ redirect_field }}
         {% endslot %}
         {% slot actions %}
-            {% element button type="submit" tags="prominent,login" %}
+            {% element button type="submit" tags="prominent,confirm" %}
                 {% translate "Confirm" %}
             {% endelement %}
         {% endslot %}
     {% endelement %}
     {% element h2 %}
-        {% element button href=cancel_url tags="link" %}
+        {% element button href=cancel_url tags="link,cancel" %}
             {% translate "Cancel" %}
         {% endelement %}
     {% endelement %}

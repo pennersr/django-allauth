@@ -309,15 +309,21 @@ def test_add_not_allowed(
         reverse("account_email"),
         {"action_add": "", "email": email},
     )
-    if prevent_enumeration == "strict":
+    if prevent_enumeration:
         assert resp.status_code == 302
-        EmailAddress.objects.get(
+        email_address = EmailAddress.objects.get(
             email=email,
             user=user,
             verified=False,
             primary=False,
         )
         assertTemplateUsed(resp, "account/messages/email_confirmation_sent.txt")
+        key = EmailConfirmationHMAC(email_address).key
+        resp = auth_client.post(reverse("account_confirm_email", args=[key]))
+        assertTemplateUsed(resp, "account/messages/email_confirmation_failed.txt")
+        assert resp.status_code == 302
+        email_address.refresh_from_db()
+        assert not email_address.verified
     else:
         assert resp.status_code == 200
         assert resp.context["form"].errors == {

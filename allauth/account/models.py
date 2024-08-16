@@ -128,11 +128,6 @@ class EmailConfirmationMixin:
         if not email_address.verified:
             confirmed = get_adapter().confirm_email(request, email_address)
             if confirmed:
-                signals.email_confirmed.send(
-                    sender=self.__class__,
-                    request=request,
-                    email_address=email_address,
-                )
                 return email_address
 
     def send(self, request=None, signup=False):
@@ -324,7 +319,7 @@ class Login:
 
 def get_emailconfirmation_model():
     if app_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED:
-        from allauth.account.internal.flows.email_verification import (
+        from allauth.account.internal.flows.email_verification_by_code import (
             EmailVerificationModel,
         )
 

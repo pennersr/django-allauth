@@ -111,7 +111,7 @@ template::
     <script src="//accounts.google.com/gsi/client" async></script>
     <div id="g_id_onload"
          data-client_id="123-secret.apps.googleusercontent.com"
-         data-login_uri="{% url 'google_login_by_token' %}"
+         data-login_uri="{% url 'google_login_by_token' %}">
     </div>
 
 Follow the `Sign In with Google for Web`_ guide for more information.

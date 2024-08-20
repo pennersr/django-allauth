@@ -1,12 +1,12 @@
 from unittest.mock import ANY
 
-from django.contrib.auth import SESSION_KEY
 from django.urls import reverse
 
 import pytest
 
 from allauth.account.authentication import AUTHENTICATION_METHODS_SESSION_KEY
-from allauth.account.internal.flows.login_by_code import LOGIN_CODE_SESSION_KEY
+from allauth.account.internal.flows.login import LOGIN_SESSION_KEY
+from allauth.account.internal.flows.login_by_code import LOGIN_CODE_STATE_KEY
 
 
 @pytest.fixture
@@ -23,7 +23,7 @@ def request_login_by_code(mailoutbox):
             resp["location"] == reverse("account_confirm_login_code") + "?next=%2Ffoo"
         )
         assert len(mailoutbox) == 1
-        code = client.session[LOGIN_CODE_SESSION_KEY]["code"]
+        code = client.session[LOGIN_SESSION_KEY]["state"][LOGIN_CODE_STATE_KEY]["code"]
         assert len(code) == 6
         assert code in mailoutbox[0].body
         return code
@@ -39,7 +39,7 @@ def test_login_by_code(client, user, request_login_by_code):
         data={"code": code_with_ws, "next": "/foo"},
     )
     assert resp.status_code == 302
-    assert client.session[SESSION_KEY] == str(user.pk)
+    assert LOGIN_SESSION_KEY not in client.session
     assert resp["location"] == "/foo"
     assert client.session[AUTHENTICATION_METHODS_SESSION_KEY][-1] == {
         "method": "code",
@@ -58,10 +58,10 @@ def test_login_by_code_max_attempts(client, user, request_login_by_code, setting
         if i >= 1:
             assert resp.status_code == 302
             assert resp["location"] == reverse("account_request_login_code")
-            assert LOGIN_CODE_SESSION_KEY not in client.session
+            assert LOGIN_SESSION_KEY not in client.session
         else:
             assert resp.status_code == 200
-            assert LOGIN_CODE_SESSION_KEY in client.session
+            assert LOGIN_SESSION_KEY in client.session
             assert resp.context["form"].errors == {"code": ["Incorrect code."]}
 
 

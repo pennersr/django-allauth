@@ -39,7 +39,10 @@ class RESTView(View):
             data = {}
         self.input = input_class(data=data, **input_kwargs)
         if not self.input.is_valid():
-            return ErrorResponse(self.request, input=self.input)
+            return self.handle_invalid_input(self.input)
+
+    def handle_invalid_input(self, input):
+        return ErrorResponse(self.request, input=input)
 
     def _parse_json(self, request):
         if request.method == "GET" or not request.body:

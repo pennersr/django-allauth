@@ -22,7 +22,7 @@ export default function ConfirmLoginCode () {
     })
   }
 
-  if (authInfo.pendingFlow?.id !== Flows.LOGIN_BY_CODE) {
+  if (response.content?.status === 409 || authInfo.pendingFlow?.id !== Flows.LOGIN_BY_CODE) {
     return <Navigate to='/account/login/code' />
   }
   return (

@@ -43,7 +43,11 @@ from allauth.account.models import (
     EmailConfirmation,
     get_emailconfirmation_model,
 )
-from allauth.account.stages import EmailVerificationStage, LoginStageController
+from allauth.account.stages import (
+    EmailVerificationStage,
+    LoginByCodeStage,
+    LoginStageController,
+)
 from allauth.account.utils import (
     complete_signup,
     perform_login,
@@ -957,8 +961,11 @@ class ConfirmLoginCodeView(RedirectAuthenticatedUserMixin, NextRedirectMixin, Fo
 
     @method_decorator(never_cache)
     def dispatch(self, request, *args, **kwargs):
+        self.stage = LoginStageController.enter(request, LoginByCodeStage.key)
+        if not self.stage:
+            return HttpResponseRedirect(reverse("account_request_login_code"))
         self.user, self.pending_login = flows.login_by_code.get_pending_login(
-            request, peek=True
+            self.stage.login, peek=True
         )
         if not self.pending_login:
             return HttpResponseRedirect(reverse("account_request_login_code"))
@@ -975,12 +982,12 @@ class ConfirmLoginCodeView(RedirectAuthenticatedUserMixin, NextRedirectMixin, Fo
     def form_valid(self, form):
         redirect_url = self.get_next_url()
         return flows.login_by_code.perform_login_by_code(
-            self.request, self.user, redirect_url, self.pending_login
+            self.request, self.stage, redirect_url
         )
 
     def form_invalid(self, form):
         attempts_left = flows.login_by_code.record_invalid_attempt(
-            self.request, self.pending_login
+            self.request, self.stage.login
         )
         if attempts_left:
             return super().form_invalid(form)

@@ -132,3 +132,17 @@ class EmailVerificationStage(LoginStage):
                     self.request, login.user
                 )
         return response, cont
+
+
+class LoginByCodeStage(LoginStage):
+    key = "login_by_code"
+
+    def handle(self):
+        from allauth.account.internal.flows import login_by_code
+
+        user, data = login_by_code.get_pending_login(self.login, peek=True)
+        if data is None:
+            # No pending login, just continue.
+            return None, True
+        response = HttpResponseRedirect(reverse("account_confirm_login_code"))
+        return response, True

@@ -677,7 +677,7 @@ paths:
         - "Authentication: Login By Code"
       summary: Confirm login code
       description: |
-        Use this endpoint to input along the received "special" login code.
+        Use this endpoint to pass along the received "special" login code.
       parameters:
         - $ref: "#/components/parameters/Client"
       requestBody:
@@ -704,6 +704,13 @@ paths:
               examples:
                 unauthenticated_pending_2fa:
                   $ref: "#/components/examples/UnauthenticatedPending2FA"
+        "409":
+          description: |
+            Conflict. The "login by code" flow is not pending.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConflictResponse"
 
   ######################################################################
   # Account: Providers

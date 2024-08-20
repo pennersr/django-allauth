@@ -41,11 +41,7 @@ class BaseAuthenticationResponse(APIResponse):
             if not allauth_settings.SOCIALACCOUNT_ONLY:
                 ret.append({"id": Flow.LOGIN})
             if account_settings.LOGIN_BY_CODE_ENABLED:
-                code_flow = {"id": Flow.LOGIN_BY_CODE}
-                _, data = flows.login_by_code.get_pending_login(request, peek=True)
-                if data:
-                    code_flow["is_pending"] = True
-                ret.append(code_flow)
+                ret.append({"id": Flow.LOGIN_BY_CODE})
             if (
                 get_account_adapter().is_open_for_signup(request)
                 and not allauth_settings.SOCIALACCOUNT_ONLY
@@ -72,8 +68,15 @@ class BaseAuthenticationResponse(APIResponse):
             pending_flow = {"id": stage_key, "is_pending": True}
             if stage and stage_key == Flow.MFA_AUTHENTICATE:
                 self._enrich_mfa_flow(stage, pending_flow)
-            ret.append(pending_flow)
+            self._upsert_pending_flow(ret, pending_flow)
         return ret
+
+    def _upsert_pending_flow(self, flows, pending_flow):
+        flow = next((flow for flow in flows if flow["id"] == pending_flow["id"]), None)
+        if flow:
+            flow.update(pending_flow)
+        else:
+            flows.append(pending_flow)
 
     def _enrich_mfa_flow(self, stage, flow: dict) -> None:
         from allauth.mfa.adapter import get_adapter as get_mfa_adapter

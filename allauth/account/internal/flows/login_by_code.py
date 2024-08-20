@@ -14,11 +14,11 @@ from allauth.account.internal.flows.signup import send_unknown_account_mail
 from allauth.account.models import Login
 
 
-LOGIN_CODE_SESSION_KEY = "account_login_code"
+LOGIN_CODE_STATE_KEY = "login_code"
 
 
 def request_login_code(request: HttpRequest, email: str) -> None:
-    from allauth.account.utils import filter_users_by_email
+    from allauth.account.utils import filter_users_by_email, stash_login
 
     adapter = get_adapter()
     users = filter_users_by_email(email, is_active=True, prefer_verified=True)
@@ -28,6 +28,7 @@ def request_login_code(request: HttpRequest, email: str) -> None:
         "failed_attempts": 0,
     }
     if not users:
+        user = None
         send_unknown_account_mail(request, email)
     else:
         user = users[0]
@@ -40,27 +41,29 @@ def request_login_code(request: HttpRequest, email: str) -> None:
         pending_login.update(
             {"code": code, "user_id": user._meta.pk.value_to_string(user)}
         )
-
-    request.session[LOGIN_CODE_SESSION_KEY] = pending_login
+    login = Login(user=user, email=email)
+    login.state[LOGIN_CODE_STATE_KEY] = pending_login
+    login.state["stages"] = {"current": "login_by_code"}
     adapter.add_message(
         request,
         messages.SUCCESS,
         "account/messages/login_code_sent.txt",
         {"email": email},
     )
+    stash_login(request, login)
 
 
 def get_pending_login(
-    request: HttpRequest, peek: bool = False
+    login: Login, peek: bool = False
 ) -> Tuple[Optional[AbstractBaseUser], Optional[Dict[str, Any]]]:
     if peek:
-        data = request.session.get(LOGIN_CODE_SESSION_KEY)
+        data = login.state.get(LOGIN_CODE_STATE_KEY)
     else:
-        data = request.session.pop(LOGIN_CODE_SESSION_KEY, None)
+        data = login.state.pop(LOGIN_CODE_STATE_KEY, None)
     if not data:
         return None, None
     if time.time() - data["at"] >= app_settings.LOGIN_BY_CODE_TIMEOUT:
-        request.session.pop(LOGIN_CODE_SESSION_KEY, None)
+        login.state.pop(LOGIN_CODE_STATE_KEY, None)
         return None, None
     user_id_str = data.get("user_id")
     user = None
@@ -70,30 +73,37 @@ def get_pending_login(
     return user, data
 
 
-def record_invalid_attempt(request: HttpRequest, pending_login: Dict[str, Any]) -> bool:
+def record_invalid_attempt(request, login: Login) -> bool:
+    from allauth.account.utils import stash_login, unstash_login
+
+    pending_login = login.state[LOGIN_CODE_STATE_KEY]
     n = pending_login["failed_attempts"]
     n += 1
     pending_login["failed_attempts"] = n
     if n >= app_settings.LOGIN_BY_CODE_MAX_ATTEMPTS:
-        request.session.pop(LOGIN_CODE_SESSION_KEY, None)
+        unstash_login(request)
         return False
     else:
-        request.session[LOGIN_CODE_SESSION_KEY] = pending_login
+        login.state[LOGIN_CODE_STATE_KEY] = pending_login
+        stash_login(request, login)
         return True
 
 
 def perform_login_by_code(
     request: HttpRequest,
-    user: AbstractBaseUser,
+    stage,
     redirect_url: Optional[str],
-    pending_login: Dict[str, Any],
 ):
-    request.session.pop(LOGIN_CODE_SESSION_KEY, None)
-    record_authentication(request, method="code", email=pending_login["email"])
+    state = stage.login.state.pop(LOGIN_CODE_STATE_KEY)
+    email = state["email"]
+    record_authentication(request, method="code", email=email)
+    # Just requesting a login code does is not considered to be a real login,
+    # yet, is needed in order to make the stage machinery work. Now that we've
+    # completed the code, let's start a real login.
     login = Login(
-        user=user,
+        user=stage.login.user,
         redirect_url=redirect_url,
-        email=pending_login["email"],
+        email=email,
     )
     return perform_login(request, login)
 

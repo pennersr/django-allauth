@@ -710,6 +710,7 @@ class DefaultAccountAdapter(BaseAdapter):
 
     def get_login_stages(self):
         ret = []
+        ret.append("allauth.account.stages.LoginByCodeStage")
         ret.append("allauth.account.stages.EmailVerificationStage")
         if allauth_app_settings.MFA_ENABLED:
             ret.append("allauth.mfa.stages.AuthenticateStage")

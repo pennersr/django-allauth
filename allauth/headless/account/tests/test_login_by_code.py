@@ -46,3 +46,34 @@ def test_login_by_code_rate_limit(
                     "param": "email",
                 },
             ]
+
+
+def test_login_by_code_max_attemps(headless_reverse, user, client, settings):
+    settings.ACCOUNT_LOGIN_BY_CODE_MAX_ATTEMPTS = 2
+    resp = client.post(
+        headless_reverse("headless:account:request_login_code"),
+        data={"email": user.email},
+        content_type="application/json",
+    )
+    assert resp.status_code == 401
+    for i in range(3):
+        resp = client.post(
+            headless_reverse("headless:account:confirm_login_code"),
+            data={"code": "wrong"},
+            content_type="application/json",
+        )
+        session_resp = client.get(
+            headless_reverse("headless:account:current_session"),
+            data={"code": "wrong"},
+            content_type="application/json",
+        )
+        assert session_resp.status_code == 401
+        pending_flows = [
+            f for f in session_resp.json()["data"]["flows"] if f.get("is_pending")
+        ]
+        if i >= 1:
+            assert resp.status_code == 409 if i >= 2 else 400
+            assert len(pending_flows) == 0
+        else:
+            assert resp.status_code == 400
+            assert len(pending_flows) == 1

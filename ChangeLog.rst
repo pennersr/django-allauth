@@ -4,6 +4,10 @@
 - Verifying email addresses by means of a code (instead of a link) is now supported.
   See ``settings.ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED``.
 
+- Mark public views with ``@login_not_required`` to support Django 5.1’s new |LoginRequiredMiddleware|__.
+
+  .. |LoginRequiredMiddleware| replace:: ``LoginRequiredMiddleware``
+  __ https://docs.djangoproject.com/en/stable/ref/middleware/#django.contrib.auth.middleware.LoginRequiredMiddleware
 
 64.1.0 (2024-08-15)
 *******************

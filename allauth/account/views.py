@@ -1,3 +1,4 @@
+import django
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
@@ -66,8 +67,22 @@ sensitive_post_parameters_m = method_decorator(
     sensitive_post_parameters("oldpassword", "password", "password1", "password2")
 )
 
+if django.VERSION >= (5, 1):
+    # Currently missing from django-stubs
+    from django.contrib.auth.decorators import \
+        login_not_required  # type: ignore [attr-defined]
+
+    login_not_required_cls = method_decorator(login_not_required, name="dispatch")
+
+else:
+
+    # Dummy decorator for older Django versions
+    def login_not_required_cls(obj):
+        return obj
+
 
 @method_decorator(rate_limit(action="login"), name="dispatch")
+@login_not_required_cls
 class LoginView(
     NextRedirectMixin,
     RedirectAuthenticatedUserMixin,
@@ -134,6 +149,7 @@ login = LoginView.as_view()
 
 
 @method_decorator(rate_limit(action="signup"), name="dispatch")
+@login_not_required_cls
 class SignupView(
     RedirectAuthenticatedUserMixin,
     CloseableSignupMixin,
@@ -206,6 +222,7 @@ class SignupView(
 signup = SignupView.as_view()
 
 
+@login_not_required_cls
 class ConfirmEmailView(NextRedirectMixin, LogoutFunctionalityMixin, TemplateView):
     template_name = "account/email_confirm." + app_settings.TEMPLATE_EXTENSION
 
@@ -574,6 +591,7 @@ class PasswordSetView(AjaxCapableProcessFormViewMixin, NextRedirectMixin, FormVi
 password_set = PasswordSetView.as_view()
 
 
+@login_not_required_cls
 class PasswordResetView(NextRedirectMixin, AjaxCapableProcessFormViewMixin, FormView):
     template_name = "account/password_reset." + app_settings.TEMPLATE_EXTENSION
     form_class = ResetPasswordForm
@@ -606,6 +624,7 @@ class PasswordResetView(NextRedirectMixin, AjaxCapableProcessFormViewMixin, Form
 password_reset = PasswordResetView.as_view()
 
 
+@login_not_required_cls
 class PasswordResetDoneView(TemplateView):
     template_name = "account/password_reset_done." + app_settings.TEMPLATE_EXTENSION
 
@@ -614,6 +633,7 @@ password_reset_done = PasswordResetDoneView.as_view()
 
 
 @method_decorator(rate_limit(action="reset_password_from_key"), name="dispatch")
+@login_not_required_cls
 class PasswordResetFromKeyView(
     AjaxCapableProcessFormViewMixin,
     NextRedirectMixin,
@@ -705,6 +725,7 @@ class PasswordResetFromKeyView(
 password_reset_from_key = PasswordResetFromKeyView.as_view()
 
 
+@login_not_required_cls
 class PasswordResetFromKeyDoneView(TemplateView):
     template_name = (
         "account/password_reset_from_key_done." + app_settings.TEMPLATE_EXTENSION
@@ -714,6 +735,7 @@ class PasswordResetFromKeyDoneView(TemplateView):
 password_reset_from_key_done = PasswordResetFromKeyDoneView.as_view()
 
 
+@login_not_required_cls
 class LogoutView(NextRedirectMixin, LogoutFunctionalityMixin, TemplateView):
     template_name = "account/logout." + app_settings.TEMPLATE_EXTENSION
 
@@ -743,6 +765,7 @@ class LogoutView(NextRedirectMixin, LogoutFunctionalityMixin, TemplateView):
 logout = LogoutView.as_view()
 
 
+@login_not_required_cls
 class AccountInactiveView(TemplateView):
     template_name = "account/account_inactive." + app_settings.TEMPLATE_EXTENSION
 
@@ -750,10 +773,12 @@ class AccountInactiveView(TemplateView):
 account_inactive = AccountInactiveView.as_view()
 
 
+@login_not_required_cls
 class EmailVerificationSentView(TemplateView):
     template_name = "account/verification_sent." + app_settings.TEMPLATE_EXTENSION
 
 
+@login_not_required_cls
 class ConfirmEmailVerificationCodeView(FormView):
     template_name = (
         "account/confirm_email_verification_code." + app_settings.TEMPLATE_EXTENSION
@@ -831,6 +856,7 @@ class ConfirmEmailVerificationCodeView(FormView):
         return HttpResponseRedirect(reverse("account_login"))
 
 
+@login_not_required_cls
 def email_verification_sent(request):
     if app_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED:
         return ConfirmEmailVerificationCodeView.as_view()(request)
@@ -838,6 +864,7 @@ def email_verification_sent(request):
         return EmailVerificationSentView.as_view()(request)
 
 
+@login_not_required_cls
 class BaseReauthenticateView(NextRedirectMixin, FormView):
     def dispatch(self, request, *args, **kwargs):
         resp = self._check_reauthentication_method_available(request)
@@ -919,6 +946,7 @@ class ReauthenticateView(BaseReauthenticateView):
 reauthenticate = ReauthenticateView.as_view()
 
 
+@login_not_required_cls
 class RequestLoginCodeView(RedirectAuthenticatedUserMixin, NextRedirectMixin, FormView):
     form_class = RequestLoginCodeForm
     template_name = "account/request_login_code." + app_settings.TEMPLATE_EXTENSION
@@ -951,6 +979,7 @@ class RequestLoginCodeView(RedirectAuthenticatedUserMixin, NextRedirectMixin, Fo
 request_login_code = RequestLoginCodeView.as_view()
 
 
+@login_not_required_cls
 class ConfirmLoginCodeView(RedirectAuthenticatedUserMixin, NextRedirectMixin, FormView):
     form_class = ConfirmLoginCodeForm
     template_name = "account/confirm_login_code." + app_settings.TEMPLATE_EXTENSION

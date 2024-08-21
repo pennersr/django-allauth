@@ -140,7 +140,7 @@ Features
 
 **⚙️ Configuration**
     The required consumer keys and secrets for interacting with Facebook,
-    Twitter and the likes can be configured using regular settings, or, can be
+    X (Twitter) and the likes can be configured using regular settings, or, can be
     configured in the database via the Django admin. Here, optional support for
     the Django sites framework is available, which is helpful for larger
     multi-domain projects, but also allows for easy switching between a

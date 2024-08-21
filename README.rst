@@ -90,7 +90,7 @@ local account registration app to your ``INSTALLED_APPS`` list.
 
 This inadequacy is the reason for this project's existence  -- to offer a fully
 integrated authentication app that allows for both local and social
-authentication, with flows that just work, beautifully !
+authentication, with flows that just work, beautifully!
 
 .. end-rationale
 

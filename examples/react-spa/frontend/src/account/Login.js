@@ -42,8 +42,9 @@ export default function Login () {
         <FormErrors param='password' errors={response.content?.errors} />
       </div>
       <Button disabled={response.fetching} onClick={() => submit()}>Login</Button>
-
-      <Link className='btn btn-secondary' to='/account/login/code'>Mail me a sign-in code</Link>
+      {config.data.account.login_by_code_enabled
+        ? <Link className='btn btn-secondary' to='/account/login/code'>Mail me a sign-in code</Link>
+        : null}
       <WebAuthnLoginButton>Sign in with a passkey</WebAuthnLoginButton>
       {hasProviders
         ? <>

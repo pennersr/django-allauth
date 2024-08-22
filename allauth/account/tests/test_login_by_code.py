@@ -7,6 +7,7 @@ import pytest
 from allauth.account.authentication import AUTHENTICATION_METHODS_SESSION_KEY
 from allauth.account.internal.flows.login import LOGIN_SESSION_KEY
 from allauth.account.internal.flows.login_by_code import LOGIN_CODE_STATE_KEY
+from allauth.account.models import EmailAddress
 
 
 @pytest.fixture
@@ -73,3 +74,38 @@ def test_login_by_code_unknown_user(mailoutbox, client, db):
     assert resp.status_code == 302
     assert resp["location"] == reverse("account_confirm_login_code")
     resp = client.post(reverse("account_confirm_login_code"), data={"code": "123456"})
+
+
+@pytest.mark.parametrize(
+    "setting,code_required",
+    [
+        (True, True),
+        ({"password"}, True),
+        ({"socialaccount"}, False),
+    ],
+)
+def test_login_by_code_required(
+    client, settings, user_factory, password_factory, setting, code_required
+):
+    password = password_factory()
+    user = user_factory(password=password, email_verified=False)
+    email_address = EmailAddress.objects.get(email=user.email)
+    assert not email_address.verified
+    settings.ACCOUNT_LOGIN_BY_CODE_REQUIRED = setting
+    resp = client.post(
+        reverse("account_login"),
+        data={"login": user.username, "password": password},
+    )
+    assert resp.status_code == 302
+    if code_required:
+        assert resp["location"] == reverse("account_confirm_login_code")
+        code = client.session[LOGIN_SESSION_KEY]["state"][LOGIN_CODE_STATE_KEY]["code"]
+        resp = client.get(
+            reverse("account_confirm_login_code"),
+            data={"login": user.username, "password": password},
+        )
+        assert resp.status_code == 200
+        resp = client.post(reverse("account_confirm_login_code"), data={"code": code})
+        email_address.refresh_from_db()
+        assert email_address.verified
+    assert resp["location"] == settings.LOGIN_REDIRECT_URL

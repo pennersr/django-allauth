@@ -1,6 +1,6 @@
 import warnings
 from enum import Enum
-from typing import Set
+from typing import Set, Union
 
 from django.core.exceptions import ImproperlyConfigured
 
@@ -452,7 +452,7 @@ class AppSettings:
         return self._setting("LOGIN_TIMEOUT", 15 * 60)
 
     @property
-    def LOGIN_BY_CODE_REQUIRED(self) -> bool | Set[str]:
+    def LOGIN_BY_CODE_REQUIRED(self) -> Union[bool, Set[str]]:
         """
         When enabled (in case of ``True``), every user logging in is
         required to input a login confirmation code sent by email.

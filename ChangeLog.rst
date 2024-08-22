@@ -4,6 +4,10 @@
 - Verifying email addresses by means of a code (instead of a link) is now supported.
   See ``settings.ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED``.
 
+- Added support for requiring logging in by code, so that every user logging in
+  is required to input a login confirmation code sent by email. See
+  ``settings.ACCOUNT_LOGIN_BY_CODE_REQUIRED``.
+
 
 64.1.0 (2024-08-15)
 *******************

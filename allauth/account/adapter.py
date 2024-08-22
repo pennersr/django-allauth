@@ -19,7 +19,7 @@ from django.contrib.auth.password_validation import (
     validate_password,
 )
 from django.contrib.sites.shortcuts import get_current_site
-from django.core.exceptions import FieldDoesNotExist, PermissionDenied
+from django.core.exceptions import FieldDoesNotExist
 from django.core.mail import EmailMessage, EmailMultiAlternatives
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import resolve_url

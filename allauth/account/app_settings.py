@@ -456,8 +456,9 @@ class AppSettings:
         """
         When enabled (in case of ``True``), every user logging in is
         required to input a login confirmation code sent by email.
-        Alternatively, you can specify a set authention methods (``"password"``,
-        ``"mfa"``, or ``"socialaccount"``) for which login codes are required.
+        Alternatively, you can specify a set of authentication methods
+        (``"password"``, ``"mfa"``, or ``"socialaccount"``) for which login
+        codes are required.
         """
         value = self._setting("LOGIN_BY_CODE_REQUIRED", False)
         if isinstance(value, bool):

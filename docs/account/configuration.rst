@@ -149,8 +149,8 @@ Available settings:
 ``ACCOUNT_LOGIN_BY_CODE_REQUIRED`` (default: ``False``)
   When enabled (in case of ``True``), every user logging in is required to input
   a login confirmation code sent by email.  Alternatively, you can specify a set
-  authention methods (``"password"``, ``"mfa"``, or ``"socialaccount"``) for
-  which login codes are required.
+  of authentication methods (``"password"``, ``"mfa"``, or ``"socialaccount"``)
+  for which login codes are required.
 
 ``ACCOUNT_LOGIN_BY_CODE_TIMEOUT`` (default: ``180``)
   The code that is emailed has a limited life span. It expires this many seconds after

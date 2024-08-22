@@ -616,7 +616,7 @@ msgstr ""
 msgid ""
 "You are receiving this mail because the following change was made to your "
 "account:"
-msgstr “Sizga quyidagi akkauntga o‘zgartirish kiritilgani uchun bu xatni olmoqdasiz”
+msgstr "Sizga quyidagi akkauntga o‘zgartirish kiritilgani uchun bu xatni olmoqdasiz"
 
 #: templates/account/email/base_notification.txt:10
 #, python-format
@@ -712,7 +712,7 @@ msgid ""
 "It can be safely ignored if you did not request a password reset. Click the "
 "link below to reset your password."
 msgstr ""
-“Siz yoki boshqa birov foydalanuvchi akkauntingiz uchun parolni tiklashni soʻragani uchun bu xatni olmoqdasiz.\n”
+"Siz yoki boshqa birov foydalanuvchi akkauntingiz uchun parolni tiklashni soʻragani uchun bu xatni olmoqdasiz.\n"
 "Agar siz parolni tiklashni so'ramagan bo'lsangiz, buni e'tiborsiz qoldirishingiz mumkin. "
 "Parolni tiklash uchun quyidagi havolani bosing."
 
@@ -1303,7 +1303,7 @@ msgstr "%(created_at)s da qoʻshilgan"
 #: templates/mfa/webauthn/authenticator_list.html:46
 #, python-format
 msgid "Last used %(last_used)s"
-msgstr %(last_used)s da oxirgi marta ishlatilgan""
+msgstr "%(last_used)s da oxirgi marta ishlatilgan"
 
 #: templates/mfa/webauthn/authenticator_list.html:54
 msgid "Edit"

@@ -1,11 +1,11 @@
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
-from allauth.account import app_settings
 from allauth.account.adapter import get_adapter
 from allauth.account.app_settings import EmailVerificationMethod
 from allauth.account.models import EmailAddress
 from allauth.account.utils import resume_login, stash_login, unstash_login
+from allauth.core.internal.httpkit import headed_redirect_response
 from allauth.utils import import_callable
 
 
@@ -152,8 +152,8 @@ class LoginByCodeStage(LoginStage):
             if not email:
                 # No way of contacting the user.. cannot meet the
                 # requirements. Abort.
-                return HttpResponseRedirect(reverse("account_login")), False
+                return headed_redirect_response("account_login"), False
             login_by_code.request_login_code(self.request, email, login=self.login)
 
-        response = HttpResponseRedirect(reverse("account_confirm_login_code"))
+        response = headed_redirect_response("account_confirm_login_code")
         return response, True

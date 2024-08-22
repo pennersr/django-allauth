@@ -823,7 +823,7 @@ msgstr "Ushbu emailni tasdiqlash havolasi muddati tugagan yoki yaroqsiz. Iltimos
 msgid ""
 "If you have not created an account yet, then please %(link)ssign "
 "up%(end_link)s first."
-msgstr "Agar siz hali akkaunt yaratmagan bo'lsangiz, iltimos, birinchi%(link) akkaunt yarating%(end_link)s."
+msgstr "Agar siz hali akkaunt yaratmagan bo'lsangiz, iltimos, birinchi %(link)sakkaunt yarating%(end_link)s."
 
 #: templates/account/login.html:42
 msgid "Sign in with a passkey"
@@ -973,7 +973,7 @@ msgstr "Ro'yxatdan O'tish"
 #: templates/account/signup.html:17
 #, python-format
 msgid "Already have an account? Then please %(link)ssign in%(end_link)s."
-msgstr "Allaqachon akkauntingiz bormi? Unda akkauntingizga %(link)kiring%(end_link)s."
+msgstr "Allaqachon akkauntingiz bormi? Unda akkauntingizga %(link)skiring%(end_link)s."
 
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:9

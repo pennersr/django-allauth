@@ -1707,10 +1707,13 @@ components:
           type: boolean
         email_verification_by_code_enabled:
           type: boolean
+        login_by_code_enabled:
+          type: boolean
       required:
         - authentication_method
-        - is_open_for_signup
         - email_verification_by_code_enabled
+        - is_open_for_signup
+        - login_by_code_enabled
     AuthenticationResponse:
       type: object
       description: |

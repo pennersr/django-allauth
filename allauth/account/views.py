@@ -997,7 +997,13 @@ class ConfirmLoginCodeView(RedirectAuthenticatedUserMixin, NextRedirectMixin, Fo
             messages.ERROR,
             message=adapter.error_messages["too_many_login_attempts"],
         )
-        return HttpResponseRedirect(reverse("account_request_login_code"))
+        return HttpResponseRedirect(
+            reverse(
+                "account_request_login_code"
+                if self.pending_login["initiated_by_user"]
+                else "account_login"
+            )
+        )
 
     def get_context_data(self, **kwargs):
         ret = super().get_context_data(**kwargs)

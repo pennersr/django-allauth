@@ -85,7 +85,9 @@ def _authenticate(request, sociallogin):
 
 
 def record_authentication(request, sociallogin):
-    authentication.record_authentication(
+    from allauth.account.internal.flows.login import record_authentication
+
+    record_authentication(
         request,
         "socialaccount",
         **{

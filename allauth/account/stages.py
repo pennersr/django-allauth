@@ -1,8 +1,10 @@
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
+from allauth.account import app_settings
 from allauth.account.adapter import get_adapter
 from allauth.account.app_settings import EmailVerificationMethod
+from allauth.account.models import EmailAddress
 from allauth.account.utils import resume_login, stash_login, unstash_login
 from allauth.utils import import_callable
 
@@ -141,8 +143,17 @@ class LoginByCodeStage(LoginStage):
         from allauth.account.internal.flows import login_by_code
 
         user, data = login_by_code.get_pending_login(self.login, peek=True)
-        if data is None:
+        login_by_code_required = get_adapter().is_login_by_code_required(self.login)
+        if data is None and not login_by_code_required:
             # No pending login, just continue.
             return None, True
+        elif data is None and login_by_code_required:
+            email = EmailAddress.objects.get_primary_email(self.login.user)
+            if not email:
+                # No way of contacting the user.. cannot meet the
+                # requirements. Abort.
+                return HttpResponseRedirect(reverse("account_login")), False
+            login_by_code.request_login_code(self.request, email, login=self.login)
+
         response = HttpResponseRedirect(reverse("account_confirm_login_code"))
         return response, True

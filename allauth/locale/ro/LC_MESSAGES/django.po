@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauthrr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-30 16:02-0500\n"
+"POT-Creation-Date: 2024-08-22 08:29-0500\n"
 "PO-Revision-Date: 2024-04-20 21:34+0200\n"
 "Last-Translator: Gilou <contact+dev@gilouweb.com>\n"
 "Language-Team: \n"
@@ -22,11 +22,11 @@ msgstr ""
 "n%100<=19) ? 1 : 2);\n"
 "X-Generator: Poedit 3.0\n"
 
-#: account/adapter.py:58
+#: account/adapter.py:51
 msgid "This account is currently inactive."
 msgstr "Acest cont este in prezent inactiv."
 
-#: account/adapter.py:60
+#: account/adapter.py:53
 #, fuzzy
 #| msgid "You cannot remove your primary email address (%(email)s)."
 msgid "You cannot remove your primary email address."
@@ -34,85 +34,85 @@ msgstr ""
 "Nu poti elimina adresa de e-mail  (%(email)s). \n"
 "Aceasta este setata ca adresa principala de e-mail."
 
-#: account/adapter.py:63
+#: account/adapter.py:56
 msgid "This email address is already associated with this account."
 msgstr "Aceasta adresa de e-mail este deja asociata acestui cont."
 
-#: account/adapter.py:66
+#: account/adapter.py:59
 msgid "The email address and/or password you specified are not correct."
 msgstr "Adresa de e-mail si / sau parola sunt incorecte."
 
-#: account/adapter.py:68
+#: account/adapter.py:61
 msgid "A user is already registered with this email address."
 msgstr "Un utilizator este deja inregistrat cu aceasta adresa de e-mail."
 
-#: account/adapter.py:69
+#: account/adapter.py:62
 msgid "Please type your current password."
 msgstr "Te rugam tasteaza parola actuala."
 
-#: account/adapter.py:70 mfa/adapter.py:40
+#: account/adapter.py:63 mfa/adapter.py:40
 msgid "Incorrect code."
 msgstr ""
 
-#: account/adapter.py:71
+#: account/adapter.py:64
 #, fuzzy
 #| msgid "Current Password"
 msgid "Incorrect password."
 msgstr "Parola actuala"
 
-#: account/adapter.py:72
+#: account/adapter.py:65
 #, fuzzy
 #| msgid "Bad Token"
 msgid "Invalid or expired key."
 msgstr "Token invalid"
 
-#: account/adapter.py:73
+#: account/adapter.py:66
 msgid "The password reset token was invalid."
 msgstr "Link-ul de resetare a parolei nu era valid."
 
-#: account/adapter.py:74
+#: account/adapter.py:67
 #, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "Nu poti adauga mai mult de %d adrese de e-mail."
 
-#: account/adapter.py:76
+#: account/adapter.py:69
 msgid "Too many failed login attempts. Try again later."
 msgstr "Prea multe incercări de conectare esuate. Incearca mai tarziu."
 
-#: account/adapter.py:78
+#: account/adapter.py:71
 msgid "The email address is not assigned to any user account"
 msgstr "Adresa de e-mail nu este atribuita niciunui cont de utilizator"
 
-#: account/adapter.py:79
+#: account/adapter.py:72
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary email address must be verified."
 msgstr ""
 "Adresa de e-mail trebuie mai intai confirmata inainte de a o seta ca adresa "
 "principala. Acceseaza link-ul din e-mailul de verificare."
 
-#: account/adapter.py:81
+#: account/adapter.py:74
 msgid "Username can not be used. Please use other username."
 msgstr ""
 "Numele de utilizator nu este disponibil. Te rugam alege alt nume de "
 "utilizator."
 
-#: account/adapter.py:84
+#: account/adapter.py:77
 msgid "The username and/or password you specified are not correct."
 msgstr "Numele de utilizator si / sau parola sunt incorecte."
 
-#: account/adapter.py:739
+#: account/adapter.py:732
 #, fuzzy
 #| msgid "Forgot Password?"
 msgid "Use your password"
 msgstr "Ai uitat parola?"
 
-#: account/adapter.py:748
+#: account/adapter.py:741
 #, fuzzy
 #| msgid "token secret"
 msgid "Use authenticator app or code"
 msgstr "token secret"
 
-#: account/adapter.py:755 templates/mfa/authenticate.html:36
+#: account/adapter.py:748 templates/mfa/authenticate.html:36
 #: templates/mfa/webauthn/reauthenticate.html:15
 #, fuzzy
 #| msgid "secret key"
@@ -135,8 +135,8 @@ msgstr "Conturi"
 msgid "You must type the same password each time."
 msgstr "Trebuie sa tastezi aceeași parolă de fiecare data."
 
-#: account/forms.py:91 account/forms.py:409 account/forms.py:560
-#: account/forms.py:674
+#: account/forms.py:91 account/forms.py:409 account/forms.py:569
+#: account/forms.py:683
 msgid "Password"
 msgstr "Parola"
 
@@ -145,12 +145,12 @@ msgid "Remember Me"
 msgstr "Tine-ma minte"
 
 #: account/forms.py:102 account/forms.py:269 account/forms.py:495
-#: account/forms.py:578 account/forms.py:691
+#: account/forms.py:587 account/forms.py:700
 msgid "Email address"
 msgstr "Adresa de e-mail"
 
 #: account/forms.py:106 account/forms.py:307 account/forms.py:492
-#: account/forms.py:573
+#: account/forms.py:582
 msgid "Email"
 msgstr "E-mail"
 
@@ -190,64 +190,64 @@ msgstr "E-mail (optional)"
 msgid "You must type the same email each time."
 msgstr "Trebuie sa tastezi aceeasi adresa de e-mail de fiecare data."
 
-#: account/forms.py:415 account/forms.py:561
+#: account/forms.py:415 account/forms.py:570
 msgid "Password (again)"
 msgstr "Parola (confirma)"
 
-#: account/forms.py:541
+#: account/forms.py:550
 msgid "Current Password"
 msgstr "Parola actuala"
 
-#: account/forms.py:543 account/forms.py:627
+#: account/forms.py:552 account/forms.py:636
 msgid "New Password"
 msgstr "Parola noua"
 
-#: account/forms.py:544 account/forms.py:628
+#: account/forms.py:553 account/forms.py:637
 msgid "New Password (again)"
 msgstr "Parola noua (confirma)"
 
-#: account/forms.py:714 account/forms.py:716 mfa/base/forms.py:15
+#: account/forms.py:723 account/forms.py:725 mfa/base/forms.py:15
 #: mfa/base/forms.py:17 mfa/totp/forms.py:13
 msgid "Code"
 msgstr ""
 
-#: account/models.py:24
+#: account/models.py:26
 msgid "user"
 msgstr "utilizator"
 
-#: account/models.py:30 account/models.py:38 account/models.py:150
+#: account/models.py:32 account/models.py:40 account/models.py:147
 msgid "email address"
 msgstr "adresa de e-mail"
 
-#: account/models.py:32
+#: account/models.py:34
 msgid "verified"
 msgstr "verificata"
 
-#: account/models.py:33
+#: account/models.py:35
 msgid "primary"
 msgstr "principala"
 
-#: account/models.py:39
+#: account/models.py:41
 msgid "email addresses"
 msgstr "adrese de e-mail"
 
-#: account/models.py:153
+#: account/models.py:150
 msgid "created"
 msgstr "creata"
 
-#: account/models.py:154
+#: account/models.py:151
 msgid "sent"
 msgstr "trimis"
 
-#: account/models.py:155 socialaccount/models.py:69
+#: account/models.py:152 socialaccount/models.py:69
 msgid "key"
 msgstr "cheie"
 
-#: account/models.py:160
+#: account/models.py:157
 msgid "email confirmation"
 msgstr "confirmare e-mail"
 
-#: account/models.py:161
+#: account/models.py:158
 msgid "email confirmations"
 msgstr "confirmari e-mail"
 
@@ -479,6 +479,7 @@ msgid "Login"
 msgstr "Nume de utilizator sau e-mail"
 
 #: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:19
+#: templates/account/confirm_email_verification_code.html:33
 #: templates/mfa/authenticate.html:41
 msgid "Cancel"
 msgstr ""
@@ -541,6 +542,33 @@ msgstr ""
 msgid "Alternative options"
 msgstr ""
 
+#: templates/account/confirm_email_verification_code.html:5
+#, fuzzy
+#| msgid "email confirmation"
+msgid "Email Verification"
+msgstr "confirmare e-mail"
+
+#: templates/account/confirm_email_verification_code.html:9
+#, fuzzy
+#| msgid "token secret"
+msgid "Enter Email Verification Code"
+msgstr "token secret"
+
+#: templates/account/confirm_email_verification_code.html:15
+#: templates/account/confirm_login_code.html:15
+#, python-format
+msgid ""
+"We’ve sent a code to %(email_link)s. The code expires shortly, so please "
+"enter it soon."
+msgstr ""
+
+#: templates/account/confirm_email_verification_code.html:27
+#: templates/account/email_confirm.html:24
+#: templates/account/reauthenticate.html:18
+#: templates/mfa/reauthenticate.html:18
+msgid "Confirm"
+msgstr "Confirma"
+
 #: templates/account/confirm_login_code.html:5
 #: templates/account/confirm_login_code.html:27 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
@@ -555,13 +583,6 @@ msgstr "Conecteaza-te"
 
 #: templates/account/confirm_login_code.html:9
 msgid "Enter Sign-In Code"
-msgstr ""
-
-#: templates/account/confirm_login_code.html:15
-#, python-format
-msgid ""
-"We’ve sent a code to %(email_link)s. The code expires shortly, so please "
-"enter it soon."
 msgstr ""
 
 #: templates/account/confirm_login_code.html:34
@@ -701,14 +722,23 @@ msgstr "confirmare e-mail"
 #| "To confirm this is correct, go to %(activate_url)s"
 msgid ""
 "You're receiving this email because user %(user_display)s has given your "
-"email address to register an account on %(site_domain)s.\n"
-"\n"
-"To confirm this is correct, go to %(activate_url)s"
+"email address to register an account on %(site_domain)s."
 msgstr ""
 "Ai primit acest e-mail pentru ca utilizatorul %(user_display)s a folosit "
 "aceasta adresa de e-mail pentru a inregistra un cont pe %(site_domain)s.\n"
 "\n"
 "Pentru a confirma, click pe link-ul urmator: %(activate_url)s"
+
+#: templates/account/email/email_confirmation_message.txt:7
+msgid ""
+"Your email verification code is listed below. Please enter it in your open "
+"browser window."
+msgstr ""
+
+#: templates/account/email/email_confirmation_message.txt:9
+#, python-format
+msgid "To confirm this is correct, go to %(activate_url)s"
+msgstr ""
 
 #: templates/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your Email Address"
@@ -884,12 +914,6 @@ msgid ""
 msgstr ""
 "Te rugam confirma faptul ca <a href=\"mailto:%(email)s\">%(email)s</a> este "
 "o adresa de e-mail a utilizatorului %(user_display)s."
-
-#: templates/account/email_confirm.html:24
-#: templates/account/reauthenticate.html:18
-#: templates/mfa/reauthenticate.html:18
-msgid "Confirm"
-msgstr "Confirma"
 
 #: templates/account/email_confirm.html:30
 #: templates/account/messages/email_confirmation_failed.txt:2

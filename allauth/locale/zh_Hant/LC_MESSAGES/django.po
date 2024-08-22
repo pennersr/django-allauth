@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-30 16:02-0500\n"
+"POT-Creation-Date: 2024-08-22 08:29-0500\n"
 "PO-Revision-Date: 2024-07-03 05:09+0000\n"
 "Last-Translator: hugoalh <hugoalh@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
@@ -19,81 +19,81 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 5.7-dev\n"
 
-#: account/adapter.py:58
+#: account/adapter.py:51
 msgid "This account is currently inactive."
 msgstr "此帳號目前沒有啟用。"
 
-#: account/adapter.py:60
+#: account/adapter.py:53
 msgid "You cannot remove your primary email address."
 msgstr "你不能移除你的主要電子郵件地址。"
 
-#: account/adapter.py:63
+#: account/adapter.py:56
 msgid "This email address is already associated with this account."
 msgstr "此電子郵件地址已經與此帳號連結了。"
 
-#: account/adapter.py:66
+#: account/adapter.py:59
 msgid "The email address and/or password you specified are not correct."
 msgstr "你提供的電子郵件地址和／或密碼不正確。"
 
-#: account/adapter.py:68
+#: account/adapter.py:61
 msgid "A user is already registered with this email address."
 msgstr "已經有使用者使用此電子郵件地址註冊。"
 
-#: account/adapter.py:69
+#: account/adapter.py:62
 msgid "Please type your current password."
 msgstr "請輸入你目前的密碼。"
 
-#: account/adapter.py:70 mfa/adapter.py:40
+#: account/adapter.py:63 mfa/adapter.py:40
 msgid "Incorrect code."
 msgstr "不正確的代碼。"
 
-#: account/adapter.py:71
+#: account/adapter.py:64
 msgid "Incorrect password."
 msgstr "不正確的密碼。"
 
-#: account/adapter.py:72
+#: account/adapter.py:65
 msgid "Invalid or expired key."
 msgstr "無效或已過期的金鑰。"
 
-#: account/adapter.py:73
+#: account/adapter.py:66
 msgid "The password reset token was invalid."
 msgstr "密碼重置令牌無效。"
 
-#: account/adapter.py:74
+#: account/adapter.py:67
 #, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "你不能新增超過 %d 個電子郵件地址。"
 
-#: account/adapter.py:76
+#: account/adapter.py:69
 msgid "Too many failed login attempts. Try again later."
 msgstr "登入嘗試失敗次數過多。請稍後再試。"
 
-#: account/adapter.py:78
+#: account/adapter.py:71
 msgid "The email address is not assigned to any user account"
 msgstr "此電子郵件地址未分配給任何使用者帳號"
 
-#: account/adapter.py:79
+#: account/adapter.py:72
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary email address must be verified."
 msgstr "你的主要電子郵件地址必須已驗證。"
 
-#: account/adapter.py:81
+#: account/adapter.py:74
 msgid "Username can not be used. Please use other username."
 msgstr "無法使用此使用者名稱。請使用其他使用者名稱。"
 
-#: account/adapter.py:84
+#: account/adapter.py:77
 msgid "The username and/or password you specified are not correct."
 msgstr "你提供的使用者名稱和／或密碼不正確。"
 
-#: account/adapter.py:739
+#: account/adapter.py:732
 msgid "Use your password"
 msgstr "使用你的密碼"
 
-#: account/adapter.py:748
+#: account/adapter.py:741
 msgid "Use authenticator app or code"
 msgstr "使用驗證器應用程式或代碼"
 
-#: account/adapter.py:755 templates/mfa/authenticate.html:36
+#: account/adapter.py:748 templates/mfa/authenticate.html:36
 #: templates/mfa/webauthn/reauthenticate.html:15
 #, fuzzy
 #| msgid "secret key"
@@ -112,8 +112,8 @@ msgstr "帳號"
 msgid "You must type the same password each time."
 msgstr "你必須每次輸入相同的密碼。"
 
-#: account/forms.py:91 account/forms.py:409 account/forms.py:560
-#: account/forms.py:674
+#: account/forms.py:91 account/forms.py:409 account/forms.py:569
+#: account/forms.py:683
 msgid "Password"
 msgstr "密碼"
 
@@ -122,12 +122,12 @@ msgid "Remember Me"
 msgstr "記住我"
 
 #: account/forms.py:102 account/forms.py:269 account/forms.py:495
-#: account/forms.py:578 account/forms.py:691
+#: account/forms.py:587 account/forms.py:700
 msgid "Email address"
 msgstr "電子郵件地址"
 
 #: account/forms.py:106 account/forms.py:307 account/forms.py:492
-#: account/forms.py:573
+#: account/forms.py:582
 msgid "Email"
 msgstr "電子郵件"
 
@@ -165,64 +165,64 @@ msgstr "電子郵件（選擇性）"
 msgid "You must type the same email each time."
 msgstr "你必須每次輸入相同的電子郵件。"
 
-#: account/forms.py:415 account/forms.py:561
+#: account/forms.py:415 account/forms.py:570
 msgid "Password (again)"
 msgstr "密碼（再次）"
 
-#: account/forms.py:541
+#: account/forms.py:550
 msgid "Current Password"
 msgstr "目前密碼"
 
-#: account/forms.py:543 account/forms.py:627
+#: account/forms.py:552 account/forms.py:636
 msgid "New Password"
 msgstr "新密碼"
 
-#: account/forms.py:544 account/forms.py:628
+#: account/forms.py:553 account/forms.py:637
 msgid "New Password (again)"
 msgstr "新密碼（再次）"
 
-#: account/forms.py:714 account/forms.py:716 mfa/base/forms.py:15
+#: account/forms.py:723 account/forms.py:725 mfa/base/forms.py:15
 #: mfa/base/forms.py:17 mfa/totp/forms.py:13
 msgid "Code"
 msgstr "代碼"
 
-#: account/models.py:24
+#: account/models.py:26
 msgid "user"
 msgstr "使用者"
 
-#: account/models.py:30 account/models.py:38 account/models.py:150
+#: account/models.py:32 account/models.py:40 account/models.py:147
 msgid "email address"
 msgstr "電子郵件地址"
 
-#: account/models.py:32
+#: account/models.py:34
 msgid "verified"
 msgstr "已驗證"
 
-#: account/models.py:33
+#: account/models.py:35
 msgid "primary"
 msgstr "主要"
 
-#: account/models.py:39
+#: account/models.py:41
 msgid "email addresses"
 msgstr "電子郵件地址"
 
-#: account/models.py:153
+#: account/models.py:150
 msgid "created"
 msgstr "已建立"
 
-#: account/models.py:154
+#: account/models.py:151
 msgid "sent"
 msgstr "已傳送"
 
-#: account/models.py:155 socialaccount/models.py:69
+#: account/models.py:152 socialaccount/models.py:69
 msgid "key"
 msgstr "金鑰"
 
-#: account/models.py:160
+#: account/models.py:157
 msgid "email confirmation"
 msgstr "電子郵件確認"
 
-#: account/models.py:161
+#: account/models.py:158
 msgid "email confirmations"
 msgstr "電子郵件確認"
 
@@ -446,6 +446,7 @@ msgid "Login"
 msgstr "登入"
 
 #: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:19
+#: templates/account/confirm_email_verification_code.html:33
 #: templates/mfa/authenticate.html:41
 msgid "Cancel"
 msgstr ""
@@ -508,6 +509,31 @@ msgstr ""
 msgid "Alternative options"
 msgstr ""
 
+#: templates/account/confirm_email_verification_code.html:5
+#, fuzzy
+#| msgid "email confirmation"
+msgid "Email Verification"
+msgstr "電子郵件確認"
+
+#: templates/account/confirm_email_verification_code.html:9
+msgid "Enter Email Verification Code"
+msgstr ""
+
+#: templates/account/confirm_email_verification_code.html:15
+#: templates/account/confirm_login_code.html:15
+#, python-format
+msgid ""
+"We’ve sent a code to %(email_link)s. The code expires shortly, so please "
+"enter it soon."
+msgstr ""
+
+#: templates/account/confirm_email_verification_code.html:27
+#: templates/account/email_confirm.html:24
+#: templates/account/reauthenticate.html:18
+#: templates/mfa/reauthenticate.html:18
+msgid "Confirm"
+msgstr "確認"
+
 #: templates/account/confirm_login_code.html:5
 #: templates/account/confirm_login_code.html:27 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
@@ -522,13 +548,6 @@ msgstr "登入"
 
 #: templates/account/confirm_login_code.html:9
 msgid "Enter Sign-In Code"
-msgstr ""
-
-#: templates/account/confirm_login_code.html:15
-#, python-format
-msgid ""
-"We’ve sent a code to %(email_link)s. The code expires shortly, so please "
-"enter it soon."
 msgstr ""
 
 #: templates/account/confirm_login_code.html:34
@@ -666,13 +685,22 @@ msgstr "電子郵件確認"
 #| "To confirm this is correct, go to %(activate_url)s\n"
 msgid ""
 "You're receiving this email because user %(user_display)s has given your "
-"email address to register an account on %(site_domain)s.\n"
-"\n"
-"To confirm this is correct, go to %(activate_url)s"
+"email address to register an account on %(site_domain)s."
 msgstr ""
 "網站%(site_name)s上的使用者%(user_display)s將此設為他的電子郵件地址。\n"
 "\n"
 "為了確認這是正確的，請開啟這個連結： %(activate_url)s\n"
+
+#: templates/account/email/email_confirmation_message.txt:7
+msgid ""
+"Your email verification code is listed below. Please enter it in your open "
+"browser window."
+msgstr ""
+
+#: templates/account/email/email_confirmation_message.txt:9
+#, python-format
+msgid "To confirm this is correct, go to %(activate_url)s"
+msgstr ""
 
 #: templates/account/email/email_confirmation_subject.txt:3
 #, fuzzy
@@ -845,12 +873,6 @@ msgid ""
 msgstr ""
 "請確認<a href=\"mailto:%(email)s\">%(email)s</a>是否是使用者 "
 "%(user_display)s 的電子郵件地址。"
-
-#: templates/account/email_confirm.html:24
-#: templates/account/reauthenticate.html:18
-#: templates/mfa/reauthenticate.html:18
-msgid "Confirm"
-msgstr "確認"
 
 #: templates/account/email_confirm.html:30
 #: templates/account/messages/email_confirmation_failed.txt:2

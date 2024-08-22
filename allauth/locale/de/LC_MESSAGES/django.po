@@ -8,11 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-30 16:02-0500\n"
+"POT-Creation-Date: 2024-08-22 08:29-0500\n"
 "PO-Revision-Date: 2024-08-07 18:09+0000\n"
 "Last-Translator: Natalia N <natalian@inbox.ru>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/allauth/"
-"django-allauth/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/allauth/django-"
+"allauth/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,83 +20,83 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.7-dev\n"
 
-#: account/adapter.py:58
+#: account/adapter.py:51
 msgid "This account is currently inactive."
 msgstr "Dieses Konto ist derzeit inaktiv."
 
-#: account/adapter.py:60
+#: account/adapter.py:53
 msgid "You cannot remove your primary email address."
 msgstr "Du kannst deine primäre E-Mail-Adresse nicht löschen."
 
-#: account/adapter.py:63
+#: account/adapter.py:56
 msgid "This email address is already associated with this account."
 msgstr "Diese E-Mail-Adresse wird bereits in diesem Konto verwendet."
 
-#: account/adapter.py:66
+#: account/adapter.py:59
 msgid "The email address and/or password you specified are not correct."
 msgstr "Die E-Mail-Adresse und/oder das Passwort sind leider falsch."
 
-#: account/adapter.py:68
+#: account/adapter.py:61
 msgid "A user is already registered with this email address."
 msgstr "Es ist bereits jemand mit dieser E-Mail-Adresse registriert."
 
-#: account/adapter.py:69
+#: account/adapter.py:62
 msgid "Please type your current password."
 msgstr "Bitte gib dein aktuelles Passwort ein."
 
-#: account/adapter.py:70 mfa/adapter.py:40
+#: account/adapter.py:63 mfa/adapter.py:40
 msgid "Incorrect code."
 msgstr "Falscher Code."
 
-#: account/adapter.py:71
+#: account/adapter.py:64
 msgid "Incorrect password."
 msgstr "Falsches Passwort."
 
-#: account/adapter.py:72
+#: account/adapter.py:65
 msgid "Invalid or expired key."
 msgstr "Falsches oder abgelaufenes Token."
 
-#: account/adapter.py:73
+#: account/adapter.py:66
 msgid "The password reset token was invalid."
 msgstr "Das Sicherheits-Token zum Zurücksetzen des Passwortes war ungültig."
 
-#: account/adapter.py:74
+#: account/adapter.py:67
 #, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "Du kannst nicht mehr als %d E-Mail-Adressen hinzufügen."
 
-#: account/adapter.py:76
+#: account/adapter.py:69
 msgid "Too many failed login attempts. Try again later."
 msgstr ""
 "Zu viele gescheiterte Anmeldeversuche. Bitte versuche es später erneut."
 
-#: account/adapter.py:78
+#: account/adapter.py:71
 msgid "The email address is not assigned to any user account"
 msgstr "Diese E-Mail-Adresse ist keinem Konto zugeordnet"
 
-#: account/adapter.py:79
+#: account/adapter.py:72
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary email address must be verified."
 msgstr "Deine primäre E-Mailadresse muss bestätigt werden."
 
-#: account/adapter.py:81
+#: account/adapter.py:74
 msgid "Username can not be used. Please use other username."
 msgstr ""
 "Anmeldename kann nicht verwendet werden. Bitte wähle einen anderen Namen."
 
-#: account/adapter.py:84
+#: account/adapter.py:77
 msgid "The username and/or password you specified are not correct."
 msgstr "Der Anmeldename und/oder das Passwort sind leider falsch."
 
-#: account/adapter.py:739
+#: account/adapter.py:732
 msgid "Use your password"
 msgstr "Verwenden Sie Ihr Passwort"
 
-#: account/adapter.py:748
+#: account/adapter.py:741
 msgid "Use authenticator app or code"
 msgstr "Verwenden Sie eine Authentifizierungs-App oder einen Code"
 
-#: account/adapter.py:755 templates/mfa/authenticate.html:36
+#: account/adapter.py:748 templates/mfa/authenticate.html:36
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use a security key"
 msgstr "Verwenden Sie einen Sicherheitsschlüssel"
@@ -113,8 +113,8 @@ msgstr "Konten"
 msgid "You must type the same password each time."
 msgstr "Du musst zweimal das selbe Passwort eingeben."
 
-#: account/forms.py:91 account/forms.py:409 account/forms.py:560
-#: account/forms.py:674
+#: account/forms.py:91 account/forms.py:409 account/forms.py:569
+#: account/forms.py:683
 msgid "Password"
 msgstr "Passwort"
 
@@ -123,12 +123,12 @@ msgid "Remember Me"
 msgstr "Angemeldet bleiben"
 
 #: account/forms.py:102 account/forms.py:269 account/forms.py:495
-#: account/forms.py:578 account/forms.py:691
+#: account/forms.py:587 account/forms.py:700
 msgid "Email address"
 msgstr "E-Mail-Adresse"
 
 #: account/forms.py:106 account/forms.py:307 account/forms.py:492
-#: account/forms.py:573
+#: account/forms.py:582
 msgid "Email"
 msgstr "E-Mail"
 
@@ -166,64 +166,64 @@ msgstr "E-Mail (optional)"
 msgid "You must type the same email each time."
 msgstr "Du musst zweimal dieselbe E-Mail-Adresse eingeben."
 
-#: account/forms.py:415 account/forms.py:561
+#: account/forms.py:415 account/forms.py:570
 msgid "Password (again)"
 msgstr "Passwort (Wiederholung)"
 
-#: account/forms.py:541
+#: account/forms.py:550
 msgid "Current Password"
 msgstr "Aktuelles Passwort"
 
-#: account/forms.py:543 account/forms.py:627
+#: account/forms.py:552 account/forms.py:636
 msgid "New Password"
 msgstr "Neues Passwort"
 
-#: account/forms.py:544 account/forms.py:628
+#: account/forms.py:553 account/forms.py:637
 msgid "New Password (again)"
 msgstr "Neues Passwort (Wiederholung)"
 
-#: account/forms.py:714 account/forms.py:716 mfa/base/forms.py:15
+#: account/forms.py:723 account/forms.py:725 mfa/base/forms.py:15
 #: mfa/base/forms.py:17 mfa/totp/forms.py:13
 msgid "Code"
 msgstr "Code"
 
-#: account/models.py:24
+#: account/models.py:26
 msgid "user"
 msgstr "Benutzer"
 
-#: account/models.py:30 account/models.py:38 account/models.py:150
+#: account/models.py:32 account/models.py:40 account/models.py:147
 msgid "email address"
 msgstr "E-Mail-Adresse"
 
-#: account/models.py:32
+#: account/models.py:34
 msgid "verified"
 msgstr "bestätigt"
 
-#: account/models.py:33
+#: account/models.py:35
 msgid "primary"
 msgstr "Primär"
 
-#: account/models.py:39
+#: account/models.py:41
 msgid "email addresses"
 msgstr "E-Mail-Adressen"
 
-#: account/models.py:153
+#: account/models.py:150
 msgid "created"
 msgstr "Erstellt"
 
-#: account/models.py:154
+#: account/models.py:151
 msgid "sent"
 msgstr "Gesendet"
 
-#: account/models.py:155 socialaccount/models.py:69
+#: account/models.py:152 socialaccount/models.py:69
 msgid "key"
 msgstr "Schlüssel"
 
-#: account/models.py:160
+#: account/models.py:157
 msgid "email confirmation"
 msgstr "E-Mail-Bestätigung"
 
-#: account/models.py:161
+#: account/models.py:158
 msgid "email confirmations"
 msgstr "E-Mail-Bestätigungen"
 
@@ -442,6 +442,7 @@ msgid "Login"
 msgstr "Anmeldung"
 
 #: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:19
+#: templates/account/confirm_email_verification_code.html:33
 #: templates/mfa/authenticate.html:41
 msgid "Cancel"
 msgstr "Abbrechen"
@@ -503,6 +504,35 @@ msgstr "Bitte authentifizieren Sie sich erneut, um Ihr Konto zu schützen."
 msgid "Alternative options"
 msgstr "Alternative Optionen"
 
+#: templates/account/confirm_email_verification_code.html:5
+#, fuzzy
+#| msgid "Email Confirmation"
+msgid "Email Verification"
+msgstr "E-Mail-Bestätigung"
+
+#: templates/account/confirm_email_verification_code.html:9
+#, fuzzy
+#| msgid "Enter an authenticator code:"
+msgid "Enter Email Verification Code"
+msgstr "Geben Sie einen Authentifizierungscode ein:"
+
+#: templates/account/confirm_email_verification_code.html:15
+#: templates/account/confirm_login_code.html:15
+#, python-format
+msgid ""
+"We’ve sent a code to %(email_link)s. The code expires shortly, so please "
+"enter it soon."
+msgstr ""
+"Wir haben einen Code an %(email_link)s gesendet. Der Code läuft in Kürze ab, "
+"bitte geben Sie ihn bald ein."
+
+#: templates/account/confirm_email_verification_code.html:27
+#: templates/account/email_confirm.html:24
+#: templates/account/reauthenticate.html:18
+#: templates/mfa/reauthenticate.html:18
+msgid "Confirm"
+msgstr "Bestätigen"
+
 #: templates/account/confirm_login_code.html:5
 #: templates/account/confirm_login_code.html:27 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
@@ -518,15 +548,6 @@ msgstr "Anmeldung"
 #: templates/account/confirm_login_code.html:9
 msgid "Enter Sign-In Code"
 msgstr "Anmeldecode eingeben"
-
-#: templates/account/confirm_login_code.html:15
-#, python-format
-msgid ""
-"We’ve sent a code to %(email_link)s. The code expires shortly, so please "
-"enter it soon."
-msgstr ""
-"Wir haben einen Code an %(email_link)s gesendet. Der Code läuft in Kürze ab, "
-"bitte geben Sie ihn bald ein."
 
 #: templates/account/confirm_login_code.html:34
 #: templates/account/request_login_code.html:31
@@ -669,18 +690,38 @@ msgid "Email Confirmation"
 msgstr "E-Mail-Bestätigung"
 
 #: templates/account/email/email_confirmation_message.txt:5
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| "You're receiving this email because user %(user_display)s has given your "
+#| "email address to register an account on %(site_domain)s.\n"
+#| "\n"
+#| "To confirm this is correct, go to %(activate_url)s"
 msgid ""
 "You're receiving this email because user %(user_display)s has given your "
-"email address to register an account on %(site_domain)s.\n"
-"\n"
-"To confirm this is correct, go to %(activate_url)s"
+"email address to register an account on %(site_domain)s."
 msgstr ""
 "Du erhältst diese E-Mail, weil der Nutzer %(user_display)s von "
 "%(site_domain)s deine E-Mail-Adresse als seine angab, um sie mit seinem "
 "Konto zu verknüpfen.\n"
 "\n"
 "Um dies zu bestätigen, rufe bitte folgende Adresse auf: %(activate_url)s"
+
+#: templates/account/email/email_confirmation_message.txt:7
+#, fuzzy
+#| msgid ""
+#| "Your sign-in code is listed below. Please enter it in your open browser "
+#| "window."
+msgid ""
+"Your email verification code is listed below. Please enter it in your open "
+"browser window."
+msgstr ""
+"Ihr Anmeldecode steht unten. Bitte geben Sie ihn in Ihrem geöffneten "
+"Browserfenster ein."
+
+#: templates/account/email/email_confirmation_message.txt:9
+#, python-format
+msgid "To confirm this is correct, go to %(activate_url)s"
+msgstr ""
 
 #: templates/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your Email Address"
@@ -829,12 +870,6 @@ msgid ""
 msgstr ""
 "Bitte bestätige, dass <a href=\"mailto:%(email)s\">%(email)s</a> eine E-Mail-"
 "Adresse von %(user_display)s ist."
-
-#: templates/account/email_confirm.html:24
-#: templates/account/reauthenticate.html:18
-#: templates/mfa/reauthenticate.html:18
-msgid "Confirm"
-msgstr "Bestätigen"
 
 #: templates/account/email_confirm.html:30
 #: templates/account/messages/email_confirmation_failed.txt:2
@@ -1643,7 +1678,6 @@ msgstr "Sitzungsschlüssel"
 #~ msgstr "Der Anmeldename ist bereits vergeben – bitte wähle einen anderen."
 
 #, fuzzy
-#~| msgid "Sign In"
 #~ msgid "Shopify Sign In"
 #~ msgstr "Anmeldung"
 

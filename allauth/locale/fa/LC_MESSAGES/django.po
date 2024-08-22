@@ -6,11 +6,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-30 16:02-0500\n"
+"POT-Creation-Date: 2024-08-22 08:29-0500\n"
 "PO-Revision-Date: 2024-08-05 09:09+0000\n"
 "Last-Translator: Mohammad Amin Osali <osalimohammadamin@gmail.com>\n"
-"Language-Team: Persian <https://hosted.weblate.org/projects/allauth/"
-"django-allauth/fa/>\n"
+"Language-Team: Persian <https://hosted.weblate.org/projects/allauth/django-"
+"allauth/fa/>\n"
 "Language: fa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,81 +18,81 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Generator: Weblate 5.7-dev\n"
 
-#: account/adapter.py:58
+#: account/adapter.py:51
 msgid "This account is currently inactive."
 msgstr "اکنون این حساب غیرفعال است."
 
-#: account/adapter.py:60
+#: account/adapter.py:53
 msgid "You cannot remove your primary email address."
 msgstr "امکان حذف نشانه ایمیل اصلی (%(email)s) مقدور نمی باشد."
 
-#: account/adapter.py:63
+#: account/adapter.py:56
 msgid "This email address is already associated with this account."
 msgstr "این نشانی ایمیل ازقبل به این حساب وصل شده."
 
-#: account/adapter.py:66
+#: account/adapter.py:59
 msgid "The email address and/or password you specified are not correct."
 msgstr "نشانی ایمیل یا گذرواژه نادرست است."
 
-#: account/adapter.py:68
+#: account/adapter.py:61
 msgid "A user is already registered with this email address."
 msgstr "یک کاربر ازقبل با این نشانی ایمیل ثبت شده است."
 
-#: account/adapter.py:69
+#: account/adapter.py:62
 msgid "Please type your current password."
 msgstr "لطفا گذرواژه کنونی‌‌ات را وارد کن."
 
-#: account/adapter.py:70 mfa/adapter.py:40
+#: account/adapter.py:63 mfa/adapter.py:40
 msgid "Incorrect code."
 msgstr "کد اشتباه است."
 
-#: account/adapter.py:71
+#: account/adapter.py:64
 msgid "Incorrect password."
 msgstr "رمز عبور اشتباه است."
 
-#: account/adapter.py:72
+#: account/adapter.py:65
 msgid "Invalid or expired key."
 msgstr "کلید نامعتبر است یا منقضی شده است."
 
-#: account/adapter.py:73
+#: account/adapter.py:66
 msgid "The password reset token was invalid."
 msgstr "توکن بازنشانی گذرواژه نامعتبر است."
 
-#: account/adapter.py:74
+#: account/adapter.py:67
 #, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "نمی توانید بیش از %d تعداد آدرس ایمیل اضافه کنید."
 
-#: account/adapter.py:76
+#: account/adapter.py:69
 msgid "Too many failed login attempts. Try again later."
 msgstr "تعداد تلاش های ناموفق بیش از حد مجاز شده است. لطفا بعدا تلاش کنید."
 
-#: account/adapter.py:78
+#: account/adapter.py:71
 msgid "The email address is not assigned to any user account"
 msgstr "این نشانی ایمیل به هیچ حساب کاربری‌ای متصل نشده"
 
-#: account/adapter.py:79
+#: account/adapter.py:72
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary email address must be verified."
 msgstr "نشانی ایمیل اصلی‌ شما باید تایید شده باشد."
 
-#: account/adapter.py:81
+#: account/adapter.py:74
 msgid "Username can not be used. Please use other username."
 msgstr "نام‌کاربری قابل استفاده نیست. لطفا از نام‌کاربری دیگری استفاده کنید."
 
-#: account/adapter.py:84
+#: account/adapter.py:77
 msgid "The username and/or password you specified are not correct."
 msgstr "نام‌کاربری یا گذرواژه وارد شده نادرست است."
 
-#: account/adapter.py:739
+#: account/adapter.py:732
 msgid "Use your password"
 msgstr "از گذرواژه خود استفاده کنید"
 
-#: account/adapter.py:748
+#: account/adapter.py:741
 msgid "Use authenticator app or code"
 msgstr "از برنامه تایید دومرحله ای یا کد استفاده کنید"
 
-#: account/adapter.py:755 templates/mfa/authenticate.html:36
+#: account/adapter.py:748 templates/mfa/authenticate.html:36
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use a security key"
 msgstr "از کلید امنیتی استفاده کنید"
@@ -109,8 +109,8 @@ msgstr "حساب‌ها"
 msgid "You must type the same password each time."
 msgstr "هربار باید گذرواژه‌ی یکسانی را وارد کنی."
 
-#: account/forms.py:91 account/forms.py:409 account/forms.py:560
-#: account/forms.py:674
+#: account/forms.py:91 account/forms.py:409 account/forms.py:569
+#: account/forms.py:683
 msgid "Password"
 msgstr "گذرواژه"
 
@@ -119,12 +119,12 @@ msgid "Remember Me"
 msgstr "مرا به خاطر بسپار"
 
 #: account/forms.py:102 account/forms.py:269 account/forms.py:495
-#: account/forms.py:578 account/forms.py:691
+#: account/forms.py:587 account/forms.py:700
 msgid "Email address"
 msgstr "نشانی ایمیل"
 
 #: account/forms.py:106 account/forms.py:307 account/forms.py:492
-#: account/forms.py:573
+#: account/forms.py:582
 msgid "Email"
 msgstr "ایمیل"
 
@@ -166,64 +166,64 @@ msgstr "ایمیل (اختیاری)"
 msgid "You must type the same email each time."
 msgstr "هربار باید ایمیل یکسانی وارد کنی."
 
-#: account/forms.py:415 account/forms.py:561
+#: account/forms.py:415 account/forms.py:570
 msgid "Password (again)"
 msgstr "گذرواژه (دوباره)"
 
-#: account/forms.py:541
+#: account/forms.py:550
 msgid "Current Password"
 msgstr "گذرواژه کنونی"
 
-#: account/forms.py:543 account/forms.py:627
+#: account/forms.py:552 account/forms.py:636
 msgid "New Password"
 msgstr "گذرواژه جدید"
 
-#: account/forms.py:544 account/forms.py:628
+#: account/forms.py:553 account/forms.py:637
 msgid "New Password (again)"
 msgstr "گذرواژه جدید (دوباره)"
 
-#: account/forms.py:714 account/forms.py:716 mfa/base/forms.py:15
+#: account/forms.py:723 account/forms.py:725 mfa/base/forms.py:15
 #: mfa/base/forms.py:17 mfa/totp/forms.py:13
 msgid "Code"
 msgstr "کد"
 
-#: account/models.py:24
+#: account/models.py:26
 msgid "user"
 msgstr "کاربر"
 
-#: account/models.py:30 account/models.py:38 account/models.py:150
+#: account/models.py:32 account/models.py:40 account/models.py:147
 msgid "email address"
 msgstr "نشانی ایمیل"
 
-#: account/models.py:32
+#: account/models.py:34
 msgid "verified"
 msgstr "تاییدشده"
 
-#: account/models.py:33
+#: account/models.py:35
 msgid "primary"
 msgstr "اصلی"
 
-#: account/models.py:39
+#: account/models.py:41
 msgid "email addresses"
 msgstr "نشانی‌های ایمیل"
 
-#: account/models.py:153
+#: account/models.py:150
 msgid "created"
 msgstr "ایجاد‌شده"
 
-#: account/models.py:154
+#: account/models.py:151
 msgid "sent"
 msgstr "ارسال شد"
 
-#: account/models.py:155 socialaccount/models.py:69
+#: account/models.py:152 socialaccount/models.py:69
 msgid "key"
 msgstr "کلید"
 
-#: account/models.py:160
+#: account/models.py:157
 msgid "email confirmation"
 msgstr "تاییدیه‌ی ایمیل"
 
-#: account/models.py:161
+#: account/models.py:158
 msgid "email confirmations"
 msgstr "تاییدیه‌های ایمیل"
 
@@ -457,6 +457,7 @@ msgid "Login"
 msgstr "ورود"
 
 #: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:19
+#: templates/account/confirm_email_verification_code.html:33
 #: templates/mfa/authenticate.html:41
 msgid "Cancel"
 msgstr ""
@@ -519,6 +520,33 @@ msgstr ""
 msgid "Alternative options"
 msgstr ""
 
+#: templates/account/confirm_email_verification_code.html:5
+#, fuzzy
+#| msgid "email confirmation"
+msgid "Email Verification"
+msgstr "تاییدیه‌ی رایانامه"
+
+#: templates/account/confirm_email_verification_code.html:9
+#, fuzzy
+#| msgid "token secret"
+msgid "Enter Email Verification Code"
+msgstr "رمز توکن"
+
+#: templates/account/confirm_email_verification_code.html:15
+#: templates/account/confirm_login_code.html:15
+#, python-format
+msgid ""
+"We’ve sent a code to %(email_link)s. The code expires shortly, so please "
+"enter it soon."
+msgstr ""
+
+#: templates/account/confirm_email_verification_code.html:27
+#: templates/account/email_confirm.html:24
+#: templates/account/reauthenticate.html:18
+#: templates/mfa/reauthenticate.html:18
+msgid "Confirm"
+msgstr "تایید"
+
 #: templates/account/confirm_login_code.html:5
 #: templates/account/confirm_login_code.html:27 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
@@ -533,13 +561,6 @@ msgstr "ورود"
 
 #: templates/account/confirm_login_code.html:9
 msgid "Enter Sign-In Code"
-msgstr ""
-
-#: templates/account/confirm_login_code.html:15
-#, python-format
-msgid ""
-"We’ve sent a code to %(email_link)s. The code expires shortly, so please "
-"enter it soon."
 msgstr ""
 
 #: templates/account/confirm_login_code.html:34
@@ -687,9 +708,7 @@ msgstr "تاییدیه‌ی رایانامه"
 #| "To confirm this is correct, go to %(activate_url)s\n"
 msgid ""
 "You're receiving this email because user %(user_display)s has given your "
-"email address to register an account on %(site_domain)s.\n"
-"\n"
-"To confirm this is correct, go to %(activate_url)s"
+"email address to register an account on %(site_domain)s."
 msgstr ""
 "سلام،\n"
 "\n"
@@ -697,6 +716,17 @@ msgstr ""
 "برای اتصال به حساب‌اش در %(site_name)s داده.\n"
 "\n"
 "برای تایید درستی این به ‌%(activate_url)s برو.\n"
+
+#: templates/account/email/email_confirmation_message.txt:7
+msgid ""
+"Your email verification code is listed below. Please enter it in your open "
+"browser window."
+msgstr ""
+
+#: templates/account/email/email_confirmation_message.txt:9
+#, python-format
+msgid "To confirm this is correct, go to %(activate_url)s"
+msgstr ""
 
 #: templates/account/email/email_confirmation_subject.txt:3
 #, fuzzy
@@ -868,12 +898,6 @@ msgid ""
 msgstr ""
 "لطفا تایید کن که <a href=\"mailto:%(email)s\">%(email)s</a> یه نشانی "
 "رایانامه برای کاربر %(user_display)s است."
-
-#: templates/account/email_confirm.html:24
-#: templates/account/reauthenticate.html:18
-#: templates/mfa/reauthenticate.html:18
-msgid "Confirm"
-msgstr "تایید"
 
 #: templates/account/email_confirm.html:30
 #: templates/account/messages/email_confirmation_failed.txt:2

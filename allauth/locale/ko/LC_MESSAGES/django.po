@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 20:26-0500\n"
+"POT-Creation-Date: 2024-08-22 08:29-0500\n"
 "PO-Revision-Date: 2024-04-20 21:50+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,81 +18,81 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: account/adapter.py:54
+#: account/adapter.py:51
 msgid "This account is currently inactive."
 msgstr "해당 계정은 현재 비활성화 상태입니다."
 
-#: account/adapter.py:56
+#: account/adapter.py:53
 msgid "You cannot remove your primary email address."
 msgstr "주 이메일은 제거할 수 없습니다."
 
-#: account/adapter.py:59
+#: account/adapter.py:56
 msgid "This email address is already associated with this account."
 msgstr "해당 이메일은 이미 이 계정에 등록되어 있습니다."
 
-#: account/adapter.py:62
+#: account/adapter.py:59
 msgid "The email address and/or password you specified are not correct."
 msgstr "이메일 또는 비밀번호가 올바르지 않습니다."
 
-#: account/adapter.py:64
+#: account/adapter.py:61
 msgid "A user is already registered with this email address."
 msgstr "해당 이메일은 이미 사용되고 있습니다."
 
-#: account/adapter.py:65
+#: account/adapter.py:62
 msgid "Please type your current password."
 msgstr "현재 비밀번호를 입력하세요."
 
-#: account/adapter.py:66 mfa/adapter.py:40
+#: account/adapter.py:63 mfa/adapter.py:40
 msgid "Incorrect code."
 msgstr "올바르지 않은 코드."
 
-#: account/adapter.py:67
+#: account/adapter.py:64
 msgid "Incorrect password."
 msgstr "올바르지 않은 비밀번호."
 
-#: account/adapter.py:68
+#: account/adapter.py:65
 msgid "Invalid or expired key."
 msgstr "올비르지 않거나 만료된 키."
 
-#: account/adapter.py:69
+#: account/adapter.py:66
 msgid "The password reset token was invalid."
 msgstr "비밀번호 초기화 토큰이 올바르지 않습니다."
 
-#: account/adapter.py:70
+#: account/adapter.py:67
 #, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "이메일 주소는 %d개 이상 추가할 수 없습니다."
 
-#: account/adapter.py:72
+#: account/adapter.py:69
 msgid "Too many failed login attempts. Try again later."
 msgstr "너무 많은 로그인 실패가 감지되었습니다. 잠시 후에 다시 시도하세요."
 
-#: account/adapter.py:74
+#: account/adapter.py:71
 msgid "The email address is not assigned to any user account"
 msgstr "해당 이메일을 가지고 있는 사용자가 없습니다."
 
-#: account/adapter.py:75
+#: account/adapter.py:72
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary email address must be verified."
 msgstr "주 이메일은 인증이 필요합니다."
 
-#: account/adapter.py:77
+#: account/adapter.py:74
 msgid "Username can not be used. Please use other username."
 msgstr "해당 아이디는 이미 사용중입니다. 다른 사용자명을 이용해 주세요."
 
-#: account/adapter.py:80
+#: account/adapter.py:77
 msgid "The username and/or password you specified are not correct."
 msgstr "아이디 또는 비밀번호가 올바르지 않습니다."
 
-#: account/adapter.py:723
+#: account/adapter.py:732
 msgid "Use your password"
 msgstr "비밀번호를 사용하세요"
 
-#: account/adapter.py:732
+#: account/adapter.py:741
 msgid "Use authenticator app or code"
 msgstr "인증 앱 또는 코드를 사용하세요"
 
-#: account/adapter.py:739 templates/mfa/authenticate.html:36
+#: account/adapter.py:748 templates/mfa/authenticate.html:36
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use a security key"
 msgstr "보안키를 사용하세요"
@@ -109,8 +109,8 @@ msgstr "계정"
 msgid "You must type the same password each time."
 msgstr "동일한 비밀번호를 입력해야 합니다."
 
-#: account/forms.py:91 account/forms.py:409 account/forms.py:560
-#: account/forms.py:674
+#: account/forms.py:91 account/forms.py:409 account/forms.py:569
+#: account/forms.py:683
 msgid "Password"
 msgstr "비밀번호"
 
@@ -119,12 +119,12 @@ msgid "Remember Me"
 msgstr "아이디 저장"
 
 #: account/forms.py:102 account/forms.py:269 account/forms.py:495
-#: account/forms.py:578 account/forms.py:691
+#: account/forms.py:587 account/forms.py:700
 msgid "Email address"
 msgstr "이메일 주소"
 
 #: account/forms.py:106 account/forms.py:307 account/forms.py:492
-#: account/forms.py:573
+#: account/forms.py:582
 msgid "Email"
 msgstr "이메일"
 
@@ -162,64 +162,64 @@ msgstr "이메일 (선택사항)"
 msgid "You must type the same email each time."
 msgstr "동일한 이메일을 입력해야 합니다."
 
-#: account/forms.py:415 account/forms.py:561
+#: account/forms.py:415 account/forms.py:570
 msgid "Password (again)"
 msgstr "비밀번호 (확인)"
 
-#: account/forms.py:541
+#: account/forms.py:550
 msgid "Current Password"
 msgstr "현재 비밀번호"
 
-#: account/forms.py:543 account/forms.py:627
+#: account/forms.py:552 account/forms.py:636
 msgid "New Password"
 msgstr "새 비밀번호"
 
-#: account/forms.py:544 account/forms.py:628
+#: account/forms.py:553 account/forms.py:637
 msgid "New Password (again)"
 msgstr "새 비밀번호 (확인)"
 
-#: account/forms.py:714 account/forms.py:716 mfa/base/forms.py:15
+#: account/forms.py:723 account/forms.py:725 mfa/base/forms.py:15
 #: mfa/base/forms.py:17 mfa/totp/forms.py:13
 msgid "Code"
 msgstr "코드"
 
-#: account/models.py:24
+#: account/models.py:26
 msgid "user"
 msgstr "사용자"
 
-#: account/models.py:30 account/models.py:38 account/models.py:150
+#: account/models.py:32 account/models.py:40 account/models.py:147
 msgid "email address"
 msgstr "이메일 주소"
 
-#: account/models.py:32
+#: account/models.py:34
 msgid "verified"
 msgstr "인증완료"
 
-#: account/models.py:33
+#: account/models.py:35
 msgid "primary"
 msgstr "주"
 
-#: account/models.py:39
+#: account/models.py:41
 msgid "email addresses"
 msgstr "이메일 주소"
 
-#: account/models.py:153
+#: account/models.py:150
 msgid "created"
 msgstr "생성됨"
 
-#: account/models.py:154
+#: account/models.py:151
 msgid "sent"
 msgstr "전송됨"
 
-#: account/models.py:155 socialaccount/models.py:69
+#: account/models.py:152 socialaccount/models.py:69
 msgid "key"
 msgstr "키"
 
-#: account/models.py:160
+#: account/models.py:157
 msgid "email confirmation"
 msgstr "이메일 확인"
 
-#: account/models.py:161
+#: account/models.py:158
 msgid "email confirmations"
 msgstr "이메일 확인"
 
@@ -290,8 +290,9 @@ msgstr "비밀번호 없음"
 msgid ""
 "Enabling passwordless operation allows you to sign in using just this key, "
 "but imposes additional requirements such as biometrics or PIN protection."
-msgstr "비밀번호 없는 작업을 활성화하면 이 키만 사용하여 로그인할 수 있지만, "
-"생체 인식이나 PIN 보호와 같은 추가 요구 사항이 적용됩니다."
+msgstr ""
+"비밀번호 없는 작업을 활성화하면 이 키만 사용하여 로그인할 수 있지만, 생체 인"
+"식이나 PIN 보호와 같은 추가 요구 사항이 적용됩니다."
 
 #: socialaccount/adapter.py:36
 #, python-format
@@ -428,6 +429,7 @@ msgid "Login"
 msgstr "로그인"
 
 #: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:19
+#: templates/account/confirm_email_verification_code.html:33
 #: templates/mfa/authenticate.html:41
 msgid "Cancel"
 msgstr "취소"
@@ -489,6 +491,34 @@ msgstr "계정을 보호하려면 다시 인증하세요."
 msgid "Alternative options"
 msgstr "대체 옵션"
 
+#: templates/account/confirm_email_verification_code.html:5
+#, fuzzy
+#| msgid "Email Confirmation"
+msgid "Email Verification"
+msgstr "이메일 확인"
+
+#: templates/account/confirm_email_verification_code.html:9
+#, fuzzy
+#| msgid "Enter an authenticator code:"
+msgid "Enter Email Verification Code"
+msgstr "인증 코드 입력:"
+
+#: templates/account/confirm_email_verification_code.html:15
+#: templates/account/confirm_login_code.html:15
+#, python-format
+msgid ""
+"We’ve sent a code to %(email_link)s. The code expires shortly, so please "
+"enter it soon."
+msgstr ""
+"%(email_link)s로 코드를 보냈습니다. 코드가 곧만료되므로 즉시 입력하세요."
+
+#: templates/account/confirm_email_verification_code.html:27
+#: templates/account/email_confirm.html:24
+#: templates/account/reauthenticate.html:18
+#: templates/mfa/reauthenticate.html:18
+msgid "Confirm"
+msgstr "확인"
+
 #: templates/account/confirm_login_code.html:5
 #: templates/account/confirm_login_code.html:27 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
@@ -504,14 +534,6 @@ msgstr "로그인"
 #: templates/account/confirm_login_code.html:9
 msgid "Enter Sign-In Code"
 msgstr "로그인 코드 입력"
-
-#: templates/account/confirm_login_code.html:15
-#, python-format
-msgid ""
-"We’ve sent a code to %(email_link)s. The code expires shortly, so please "
-"enter it soon."
-msgstr "%(email_link)s로 코드를 보냈습니다. 코드가 곧"
-"만료되므로 즉시 입력하세요."
 
 #: templates/account/confirm_login_code.html:34
 #: templates/account/request_login_code.html:31
@@ -582,13 +604,13 @@ msgid ""
 "\n"
 "%(password_reset_url)s"
 msgstr ""
-"귀하 또는 다른 사람이 다음 이메일 주소를 사용하여 계정을 등록하려고 시도했기에 "
-"이 이메일을 받으셨습니다:\n"
+"귀하 또는 다른 사람이 다음 이메일 주소를 사용하여 계정을 등록하려고 시도했기"
+"에 이 이메일을 받으셨습니다:\n"
 "\n"
 "%(email)s\n"
 "\n"
-"하지만 이 이메일 주소를 사용하는 계정이 이미 존재합니다. 혹시 이 사실을 잊으셨다면, "
-"비밀번호 찾기 절차를 통해 계정을 복구해 주세요:\n"
+"하지만 이 이메일 주소를 사용하는 계정이 이미 존재합니다. 혹시 이 사실을 잊으"
+"셨다면, 비밀번호 찾기 절차를 통해 계정을 복구해 주세요:\n"
 "\n"
 "%(password_reset_url)s"
 
@@ -627,8 +649,8 @@ msgid ""
 "- Browser: %(user_agent)s\n"
 "- Date: %(timestamp)s"
 msgstr ""
-"이 변경 사항을 인지하지 못하셨다면 즉시 적절한 보안 조치를 취해주시기 바랍니다. "
-"귀하의 계정 변경 출처는 다음과 같습니다:\n"
+"이 변경 사항을 인지하지 못하셨다면 즉시 적절한 보안 조치를 취해주시기 바랍니"
+"다. 귀하의 계정 변경 출처는 다음과 같습니다:\n"
 "\n"
 "- IP 주소: %(ip)s\n"
 "- 브라우저: %(user_agent)s\n"
@@ -652,17 +674,37 @@ msgid "Email Confirmation"
 msgstr "이메일 확인"
 
 #: templates/account/email/email_confirmation_message.txt:5
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| "You're receiving this email because user %(user_display)s has given your "
+#| "email address to register an account on %(site_domain)s.\n"
+#| "\n"
+#| "To confirm this is correct, go to %(activate_url)s"
 msgid ""
 "You're receiving this email because user %(user_display)s has given your "
-"email address to register an account on %(site_domain)s.\n"
-"\n"
-"To confirm this is correct, go to %(activate_url)s"
+"email address to register an account on %(site_domain)s."
 msgstr ""
 "%(user_display)s 에 대해 %(site_domain)s 으로부터 이메일을 인증이 전송되었습"
 "니다.\n"
 "\n"
 "%(activate_url)s 에서 인증을 완료하세요."
+
+#: templates/account/email/email_confirmation_message.txt:7
+#, fuzzy
+#| msgid ""
+#| "Your sign-in code is listed below. Please enter it in your open browser "
+#| "window."
+msgid ""
+"Your email verification code is listed below. Please enter it in your open "
+"browser window."
+msgstr ""
+"귀하의 로그인 코드는 아래에 나와 있습니다. 열린 브라우저 창에 입력해 주시기 "
+"바랍니다."
+
+#: templates/account/email/email_confirmation_message.txt:9
+#, python-format
+msgid "To confirm this is correct, go to %(activate_url)s"
+msgstr ""
 
 #: templates/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your Email Address"
@@ -682,12 +724,14 @@ msgid ""
 "Your sign-in code is listed below. Please enter it in your open browser "
 "window."
 msgstr ""
-"귀하의 로그인 코드는 아래에 나와 있습니다. 열린 브라우저 창에 입력해 주시기 바랍니다."
+"귀하의 로그인 코드는 아래에 나와 있습니다. 열린 브라우저 창에 입력해 주시기 "
+"바랍니다."
 
 #: templates/account/email/login_code_message.txt:9
 #: templates/account/email/unknown_account_message.txt:6
 msgid "This mail can be safely ignored if you did not initiate this action."
-msgstr "이 메일은 귀하가 이 작업을 시작하지 않았다면 안전하게 무시하셔도 됩니다."
+msgstr ""
+"이 메일은 귀하가 이 작업을 시작하지 않았다면 안전하게 무시하셔도 됩니다."
 
 #: templates/account/email/login_code_subject.txt:3
 msgid "Sign-In Code"
@@ -748,12 +792,14 @@ msgid ""
 "an account with email %(email)s. However, we do not have any record of such "
 "an account in our database."
 msgstr ""
-"귀하 또는 다른 사람이 이메일 %(email)s로 계정에 접근하려 했기 때문에 이 이메일을 받으셨습니다. "
-"그러나 저희 데이터베이스에는 해당 계정의 기록이 없습니다."
+"귀하 또는 다른 사람이 이메일 %(email)s로 계정에 접근하려 했기 때문에 이 이메"
+"일을 받으셨습니다. 그러나 저희 데이터베이스에는 해당 계정의 기록이 없습니다."
 
 #: templates/account/email/unknown_account_message.txt:8
 msgid "If it was you, you can sign up for an account using the link below."
-msgstr "이 작업이 귀하에 의해 이루어진 것이라면, 아래 링크를 사용하여 계정을 등록할 수 있습니다."
+msgstr ""
+"이 작업이 귀하에 의해 이루어진 것이라면, 아래 링크를 사용하여 계정을 등록할 "
+"수 있습니다."
 
 #: templates/account/email/unknown_account_subject.txt:3
 msgid "Unknown Account"
@@ -802,12 +848,6 @@ msgid ""
 msgstr ""
 "<a href=\"mailto:%(email)s\">%(email)s</a>이 사용자 %(user_display)s의 이메일"
 "이 맞는지 확인해 주세요."
-
-#: templates/account/email_confirm.html:24
-#: templates/account/reauthenticate.html:18
-#: templates/mfa/reauthenticate.html:18
-msgid "Confirm"
-msgstr "확인"
 
 #: templates/account/email_confirm.html:30
 #: templates/account/messages/email_confirmation_failed.txt:2
@@ -1056,9 +1096,10 @@ msgid ""
 "Otherwise\n"
 "contact us if you do not receive it within a few minutes."
 msgstr ""
-"인증 메일이 전송되었습니다. \n회원가입 완료를 위해 전송된 메일의 링크를 클릭하"
-"세요. 인증 메일을 받지 못했다면 스팸 폴더를 확인해주세요. 몇 분 후에도 메일"
-"이 전송되지 않으면 저희에게 연락주세요."
+"인증 메일이 전송되었습니다. \n"
+"회원가입 완료를 위해 전송된 메일의 링크를 클릭하세요. 인증 메일을 받지 못했다"
+"면 스팸 폴더를 확인해주세요. 몇 분 후에도 메일이 전송되지 않으면 저희에게 연"
+"락주세요."
 
 #: templates/account/verified_email_required.html:23
 #, python-format
@@ -1096,7 +1137,8 @@ msgstr "세션"
 msgid ""
 "Your account is protected by two-factor authentication. Please enter an "
 "authenticator code:"
-msgstr "귀하의 계정은 2단계 인증으로 보호되고 있습니다. 인증 코드 입력해 주세요:"
+msgstr ""
+"귀하의 계정은 2단계 인증으로 보호되고 있습니다. 인증 코드 입력해 주세요:"
 
 #: templates/mfa/email/recovery_codes_generated_message.txt:4
 msgid ""
@@ -1267,8 +1309,8 @@ msgid ""
 "below with your authenticator app. Then, input the verification code "
 "generated by the app below."
 msgstr ""
-"귀하의 계정을 2단계 인증으로 보호하려면 아래의 QR 코드를 인증기 앱으로 스캔하세요. "
-"그런 다음, 앱에서 생성된 인증 코드를 아래에 입력하세요."
+"귀하의 계정을 2단계 인증으로 보호하려면 아래의 QR 코드를 인증기 앱으로 스캔하"
+"세요. 그런 다음, 앱에서 생성된 인증 코드를 아래에 입력하세요."
 
 #: templates/mfa/totp/activate_form.html:21
 msgid "Authenticator secret"
@@ -1290,8 +1332,7 @@ msgstr "인증 앱 비활성화"
 msgid ""
 "You are about to deactivate authenticator app based authentication. Are you "
 "sure?"
-msgstr ""
-"인증 앱 기반 인증을 비활성화하려고 합니다. 확실하세요?"
+msgstr "인증 앱 기반 인증을 비활성화하려고 합니다. 확실하세요?"
 
 #: templates/mfa/webauthn/add_form.html:7
 msgid "Add Security Key"
@@ -1384,8 +1425,7 @@ msgstr "서드파티 계정을 추가하세요."
 #, python-format
 msgid ""
 "A third-party account from %(provider)s has been connected to your account."
-msgstr ""
-"%(provider)s로 부터 서드파티 계정이 귀하의 계정에 연결되었습니다."
+msgstr "%(provider)s로 부터 서드파티 계정이 귀하의 계정에 연결되었습니다."
 
 #: templates/socialaccount/email/account_connected_subject.txt:3
 msgid "Third-Party Account Connected"

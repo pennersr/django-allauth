@@ -22,12 +22,13 @@ def setup_sociallogin_flow(request_factory):
         request = request_factory.get("/")
         request.user = AnonymousUser()
 
-        resp = complete_social_login(request, sociallogin)
-        session = client.session
-        for k, v in request.session.items():
-            session[k] = v
-        session.save()
-        return resp
+        with context.request_context(request):
+            resp = complete_social_login(request, sociallogin)
+            session = client.session
+            for k, v in request.session.items():
+                session[k] = v
+            session.save()
+            return resp
 
     return f
 

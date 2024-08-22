@@ -19,7 +19,7 @@ from django.contrib.auth.password_validation import (
     validate_password,
 )
 from django.contrib.sites.shortcuts import get_current_site
-from django.core.exceptions import FieldDoesNotExist
+from django.core.exceptions import FieldDoesNotExist, PermissionDenied
 from django.core.mail import EmailMessage, EmailMultiAlternatives
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import resolve_url
@@ -789,16 +789,18 @@ class DefaultAccountAdapter(BaseAdapter):
         """
         from allauth.account import authentication
 
+        method = None
+        records = authentication.get_authentication_records(self.request)
+        if records:
+            method = records[-1]["method"]
+        if method == "code":
+            return False
         value = app_settings.LOGIN_BY_CODE_REQUIRED
         if isinstance(value, bool):
             return value
         if not value:
             return False
-        records = authentication.get_authentication_records(self.request)
-        if not records:
-            # Shouldn't normally happen.
-            return True
-        return records[-1]["method"] in value
+        return method is None or method in value
 
 
 def get_adapter(request=None):

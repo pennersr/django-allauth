@@ -9,6 +9,17 @@ from allauth.core.internal.httpkit import get_frontend_url
 from allauth.utils import build_absolute_uri
 
 
+def verify_email_indirectly(request: HttpRequest, user, email: str) -> bool:
+    try:
+        email_address = EmailAddress.objects.get_for_user(user, email)
+    except EmailAddress.DoesNotExist:
+        return False
+    else:
+        if not email_address.verified:
+            return verify_email(request, email_address)
+        return True
+
+
 def verify_email(request: HttpRequest, email_address: EmailAddress) -> bool:
     """
     Marks the email address as confirmed on the db

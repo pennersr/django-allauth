@@ -1,5 +1,6 @@
 import warnings
 from enum import Enum
+from typing import Set
 
 from django.core.exceptions import ImproperlyConfigured
 
@@ -449,6 +450,19 @@ class AppSettings:
         2FA stage remains available.
         """
         return self._setting("LOGIN_TIMEOUT", 15 * 60)
+
+    @property
+    def LOGIN_BY_CODE_REQUIRED(self) -> bool | Set[str]:
+        """
+        When enabled (in case of ``True``), every user logging in is
+        required to input a login confirmation code sent by email.
+        Alternatively, you can specify a set authention methods (``"password"``,
+        ``"mfa"``, or ``"socialaccount"``) for which login codes are required.
+        """
+        value = self._setting("LOGIN_BY_CODE_REQUIRED", False)
+        if isinstance(value, bool):
+            return value
+        return set(value)
 
 
 _app_settings = AppSettings("ACCOUNT_")

@@ -1,7 +1,7 @@
 from typing import Callable, Optional
 
 from allauth.account.adapter import get_adapter as get_account_adapter
-from allauth.account.authentication import record_authentication
+from allauth.account.internal.flows.login import record_authentication
 from allauth.core import context, ratelimit
 from allauth.mfa import signals
 from allauth.mfa.models import Authenticator

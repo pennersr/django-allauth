@@ -782,6 +782,24 @@ class DefaultAccountAdapter(BaseAdapter):
             allowed_chars = allowed_chars.replace(ch, "")
         return get_random_string(length=6, allowed_chars=allowed_chars)
 
+    def is_login_by_code_required(self, login) -> bool:
+        """
+        Returns whether or not login-by-code is required for the given
+        login.
+        """
+        from allauth.account import authentication
+
+        value = app_settings.LOGIN_BY_CODE_REQUIRED
+        if isinstance(value, bool):
+            return value
+        if not value:
+            return False
+        records = authentication.get_authentication_records(self.request)
+        if not records:
+            # Shouldn't normally happen.
+            return True
+        return records[-1]["method"] in value
+
 
 def get_adapter(request=None):
     return import_attribute(app_settings.ADAPTER)(request)

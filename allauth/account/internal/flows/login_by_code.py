@@ -8,8 +8,13 @@ from django.http import HttpRequest
 
 from allauth.account import app_settings
 from allauth.account.adapter import get_adapter
-from allauth.account.authentication import record_authentication
-from allauth.account.internal.flows.login import perform_login
+from allauth.account.internal.flows.email_verification import (
+    verify_email_indirectly,
+)
+from allauth.account.internal.flows.login import (
+    perform_login,
+    record_authentication,
+)
 from allauth.account.internal.flows.signup import send_unknown_account_mail
 from allauth.account.models import Login
 
@@ -17,15 +22,19 @@ from allauth.account.models import Login
 LOGIN_CODE_STATE_KEY = "login_code"
 
 
-def request_login_code(request: HttpRequest, email: str) -> None:
+def request_login_code(
+    request: HttpRequest, email: str, login: Optional[Login] = None
+) -> None:
     from allauth.account.utils import filter_users_by_email, stash_login
 
+    initiated_by_user = login is None
     adapter = get_adapter()
     users = filter_users_by_email(email, is_active=True, prefer_verified=True)
     pending_login = {
         "at": time.time(),
         "email": email,
         "failed_attempts": 0,
+        "initiated_by_user": initiated_by_user,
     }
     if not users:
         user = None
@@ -41,16 +50,19 @@ def request_login_code(request: HttpRequest, email: str) -> None:
         pending_login.update(
             {"code": code, "user_id": user._meta.pk.value_to_string(user)}
         )
-    login = Login(user=user, email=email)
-    login.state[LOGIN_CODE_STATE_KEY] = pending_login
-    login.state["stages"] = {"current": "login_by_code"}
     adapter.add_message(
         request,
         messages.SUCCESS,
         "account/messages/login_code_sent.txt",
         {"email": email},
     )
-    stash_login(request, login)
+    if initiated_by_user:
+        login = Login(user=user, email=email)
+        login.state["stages"] = {"current": "login_by_code"}
+    assert login
+    login.state[LOGIN_CODE_STATE_KEY] = pending_login
+    if initiated_by_user:
+        stash_login(request, login)
 
 
 def get_pending_login(
@@ -94,18 +106,23 @@ def perform_login_by_code(
     stage,
     redirect_url: Optional[str],
 ):
-    state = stage.login.state.pop(LOGIN_CODE_STATE_KEY)
+    state = stage.login.state[LOGIN_CODE_STATE_KEY]
     email = state["email"]
+    user = stage.login.user
     record_authentication(request, method="code", email=email)
-    # Just requesting a login code does is not considered to be a real login,
-    # yet, is needed in order to make the stage machinery work. Now that we've
-    # completed the code, let's start a real login.
-    login = Login(
-        user=stage.login.user,
-        redirect_url=redirect_url,
-        email=email,
-    )
-    return perform_login(request, login)
+    verify_email_indirectly(request, user, email)
+    if state["initiated_by_user"]:
+        # Just requesting a login code does is not considered to be a real login,
+        # yet, is needed in order to make the stage machinery work. Now that we've
+        # completed the code, let's start a real login.
+        login = Login(
+            user=user,
+            redirect_url=redirect_url,
+            email=email,
+        )
+        return perform_login(request, login)
+    else:
+        return stage.exit()
 
 
 def compare_code(*, actual, expected) -> bool:

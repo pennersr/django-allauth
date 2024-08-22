@@ -8,10 +8,8 @@ from django.utils.http import urlencode
 
 from allauth import app_settings as allauth_settings
 from allauth.account import app_settings
-from allauth.account.authentication import (
-    get_authentication_records,
-    record_authentication,
-)
+from allauth.account.authentication import get_authentication_records
+from allauth.account.internal.flows.login import record_authentication
 from allauth.core.exceptions import ReauthenticationRequired
 from allauth.core.internal.httpkit import (
     deserialize_request,

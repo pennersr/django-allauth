@@ -56,6 +56,11 @@ if not allauth_app_settings.SOCIALACCOUNT_ONLY:
                 views.password_reset_from_key_done,
                 name="account_reset_password_from_key_done",
             ),
+            path(
+                "login/code/confirm/",
+                views.confirm_login_code,
+                name="account_confirm_login_code",
+            ),
         ]
     )
 
@@ -66,11 +71,6 @@ if app_settings.LOGIN_BY_CODE_ENABLED:
                 "login/code/",
                 views.request_login_code,
                 name="account_request_login_code",
-            ),
-            path(
-                "login/code/confirm/",
-                views.confirm_login_code,
-                name="account_confirm_login_code",
             ),
         ]
     )

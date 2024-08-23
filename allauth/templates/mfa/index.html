@@ -50,7 +50,9 @@
                         {% blocktranslate count count=authenticators.webauthn|length %}You have added {{ count }} security key.{% plural %}You have added {{ count }} security keys.{% endblocktranslate %}
                     {% endelement %}
                 {% else %}
-                    {% element p %}{% translate "No security keys have been added." %}{% endelement %}
+                    {% element p %}
+                        {% translate "No security keys have been added." %}
+                    {% endelement %}
                 {% endif %}
             {% endslot %}
             {% slot actions %}

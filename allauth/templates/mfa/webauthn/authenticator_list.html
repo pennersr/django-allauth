@@ -8,7 +8,9 @@
         {% trans "Security Keys" %}
     {% endelement %}
     {% if authenticators|length == 0 %}
-        {% element p %}{% blocktranslate %}No security keys have been added.{% endblocktranslate %}{% endelement %}
+        {% element p %}
+            {% blocktranslate %}No security keys have been added.{% endblocktranslate %}
+        {% endelement %}
     {% else %}
         {% element table %}
             {% element thead %}

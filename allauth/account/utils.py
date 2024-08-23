@@ -377,8 +377,6 @@ def send_email_confirmation(request, user, signup=False, email=None):
                 "account/messages/email_confirmation_sent.txt",
                 {"email": email, "login": not signup, "signup": signup},
             )
-    if signup:
-        adapter.stash_user(request, user_pk_to_url_str(user))
     return sent
 
 

@@ -46,11 +46,13 @@
             {% endslot %}
             {% slot body %}
                 {% if authenticators.webauthn|length %}
-                    <p>
+                    {% element p %}
                         {% blocktranslate count count=authenticators.webauthn|length %}You have added {{ count }} security key.{% plural %}You have added {{ count }} security keys.{% endblocktranslate %}
-                    </p>
+                    {% endelement %}
                 {% else %}
-                    <p>{% translate "No security keys have been added." %}</p>
+                    {% element p %}
+                        {% translate "No security keys have been added." %}
+                    {% endelement %}
                 {% endif %}
             {% endslot %}
             {% slot actions %}

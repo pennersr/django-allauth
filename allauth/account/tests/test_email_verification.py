@@ -1,10 +1,9 @@
 from datetime import timedelta
-from unittest.mock import Mock, patch
+from unittest.mock import Mock
 
 from django.conf import settings
 from django.contrib.auth import SESSION_KEY, get_user_model
 from django.core.cache import cache
-from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.utils.timezone import now
 
@@ -22,9 +21,6 @@ from allauth.account.models import (
     EmailConfirmationHMAC,
 )
 from allauth.account.signals import user_logged_in
-from allauth.account.utils import user_pk_to_url_str
-
-from .test_models import UUIDUser
 
 
 @pytest.mark.parametrize(
@@ -34,20 +30,30 @@ from .test_models import UUIDUser
         ("?next=/foo", "/foo"),
     ],
 )
-def test_login_on_confirm(user_factory, client, query, expected_location):
+def test_login_on_verification(
+    client, db, query, expected_location, password_factory, settings
+):
+    settings.ACCOUNT_EMAIL_VERIFICATION = app_settings.EmailVerificationMethod.MANDATORY
     settings.ACCOUNT_EMAIL_CONFIRMATION_HMAC = True
     settings.ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
-    user = user_factory(email_verified=False)
-    email = EmailAddress.objects.get_for_user(user, user.email)
+    password = password_factory()
+    resp = client.post(
+        reverse("account_signup"),
+        data={
+            "username": "john",
+            "email": "a@a.com",
+            "password1": password,
+            "password2": password,
+        },
+    )
+    assert resp.status_code == 302
+    assert resp["location"] == reverse("account_email_verification_sent")
+
+    email = EmailAddress.objects.get(email="a@a.com")
     key = EmailConfirmationHMAC(email).key
 
     receiver_mock = Mock()  # we've logged if signal was called
     user_logged_in.connect(receiver_mock)
-
-    # fake post-signup account_user stash
-    session = client.session
-    session["account_user"] = user_pk_to_url_str(user)
-    session.save()
 
     resp = client.post(reverse("account_confirm_email", args=[key]) + query)
     assert resp["location"] == expected_location
@@ -58,40 +64,11 @@ def test_login_on_confirm(user_factory, client, query, expected_location):
         sender=get_user_model(),
         request=resp.wsgi_request,
         response=resp,
-        user=user,
+        user=email.user,
         signal=user_logged_in,
     )
 
     user_logged_in.disconnect(receiver_mock)
-
-
-@patch("allauth.account.views.perform_login")
-@patch("allauth.account.utils.get_user_model", return_value=UUIDUser)
-def test_login_on_confirm_uuid_user(
-    mocked_gum, mock_perform_login, settings, client, db
-):
-    settings.ACCOUNT_EMAIL_CONFIRMATION_HMAC = True
-    settings.ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
-
-    user = UUIDUser(is_active=True, email="john@example.com", username="john")
-
-    # fake post-signup account_user stash
-    session = client.session
-    session["account_user"] = user_pk_to_url_str(user)
-    session.save()
-
-    # fake email and email confirmation to avoid swappable model hell
-    email = Mock(verified=False, user=user)
-    key = "mockkey"
-    confirmation = Mock(autospec=EmailConfirmationHMAC, key=key)
-    confirmation.email_address = email
-    confirmation.from_key.return_value = confirmation
-    mock_perform_login.return_value = HttpResponseRedirect(redirect_to="/")
-
-    with patch("allauth.account.models.EmailConfirmationHMAC", confirmation):
-        client.post(reverse("account_confirm_email", args=[key]))
-
-    assert mock_perform_login.called
 
 
 def test_email_verification_failed(settings, user_factory, client):
@@ -216,7 +193,7 @@ def test_optional_email_verification(settings, client, db, mailoutbox):
     assert len(mailoutbox) == 1
 
 
-def test_email_confirmation_hmac(settings, client, user_factory, mailoutbox, rf):
+def test_email_verification_hmac(settings, client, user_factory, mailoutbox, rf):
     settings.ACCOUNT_EMAIL_CONFIRMATION_HMAC = True
     user = user_factory(email_verified=False)
     email = EmailAddress.objects.get_for_user(user, user.email)
@@ -229,7 +206,7 @@ def test_email_confirmation_hmac(settings, client, user_factory, mailoutbox, rf)
     assert email.verified
 
 
-def test_email_confirmation_hmac_timeout(
+def test_email_verification_hmac_timeout(
     settings, user_factory, client, mailoutbox, rf
 ):
     settings.ACCOUNT_EMAIL_CONFIRMATION_HMAC = True
@@ -245,10 +222,10 @@ def test_email_confirmation_hmac_timeout(
     assert not email.verified
 
 
-def test_confirm_email_with_another_user_logged_in(
+def test_verify_email_with_another_user_logged_in(
     settings, user_factory, client, mailoutbox
 ):
-    """Test the email confirmation view. If User B clicks on an email
+    """Test the email verification view. If User B clicks on an email
     verification link while logged in as User A, ensure User A gets
     logged out."""
     settings.ACCOUNT_AUTHENTICATION_METHOD = app_settings.AuthenticationMethod.EMAIL
@@ -258,7 +235,6 @@ def test_confirm_email_with_another_user_logged_in(
     assert len(mailoutbox) == 1
     assert mailoutbox[0].to == [user.email]
     client.logout()
-
     body = mailoutbox[0].body
     assert body.find("http://") > 0
 
@@ -281,7 +257,7 @@ def test_confirm_email_with_another_user_logged_in(
     assertRedirects(resp, settings.LOGIN_URL, fetch_redirect_response=False)
 
 
-def test_confirm_email_with_same_user_logged_in(
+def test_verify_email_with_same_user_logged_in(
     settings, user_factory, client, mailoutbox
 ):
     """If the user clicks on an email verification link while logged in, ensure
@@ -308,7 +284,7 @@ def test_confirm_email_with_same_user_logged_in(
     assert user == resp.wsgi_request.user
 
 
-def test_confirm_logs_out_user(auth_client, settings, user, user_factory):
+def test_verify_logs_out_user(auth_client, settings, user, user_factory):
     """
     When a user is signed in, and you follow an email confirmation link of
     another user within the same browser/session, be sure to sign out the signed

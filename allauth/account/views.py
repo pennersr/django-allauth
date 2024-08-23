@@ -53,7 +53,6 @@ from allauth.account.utils import (
     perform_login,
     send_email_confirmation,
     sync_user_email_addresses,
-    url_str_to_user_pk,
     user_display,
 )
 from allauth.core import ratelimit
@@ -242,23 +241,16 @@ class ConfirmEmailView(NextRedirectMixin, LogoutFunctionalityMixin, TemplateView
             self.logout()
 
     def post(self, *args, **kwargs):
-        self.object = confirmation = self.get_object()
-        email_address = confirmation.confirm(self.request)
+        self.object = verification = self.get_object()
+        email_address, response = flows.email_verification.verify_email_and_resume(
+            self.request, verification
+        )
+        if response:
+            return response
         if not email_address:
             return self.respond(False)
 
         self.logout_other_user(self.object)
-
-        if app_settings.LOGIN_ON_EMAIL_CONFIRMATION:
-            resp = self.login_on_confirm(confirmation)
-            if resp is not None:
-                return resp
-        # Don't -- allauth doesn't touch is_active so that sys admin can
-        # use it to block users et al
-        #
-        # user = confirmation.email_address.user
-        # user.is_active = True
-        # user.save()
         return self.respond(True)
 
     def respond(self, success):
@@ -267,46 +259,6 @@ class ConfirmEmailView(NextRedirectMixin, LogoutFunctionalityMixin, TemplateView
             ctx = self.get_context_data()
             return self.render_to_response(ctx)
         return redirect(redirect_url)
-
-    def login_on_confirm(self, confirmation):
-        """
-        Simply logging in the user may become a security issue. If you
-        do not take proper care (e.g. don't purge used email
-        confirmations), a malicious person that got hold of the link
-        will be able to login over and over again and the user is
-        unable to do anything about it. Even restoring their own mailbox
-        security will not help, as the links will still work. For
-        password reset this is different, this mechanism works only as
-        long as the attacker has access to the mailbox. If they no
-        longer has access they cannot issue a password request and
-        intercept it. Furthermore, all places where the links are
-        listed (log files, but even Google Analytics) all of a sudden
-        need to be secured. Purging the email confirmation once
-        confirmed changes the behavior -- users will not be able to
-        repeatedly confirm (in case they forgot that they already
-        clicked the mail).
-
-        All in all, opted for storing the user that is in the process
-        of signing up in the session to avoid all of the above.  This
-        may not 100% work in case the user closes the browser (and the
-        session gets lost), but at least we're secure.
-        """
-        user_pk = None
-        user_pk_str = get_adapter(self.request).unstash_user(self.request)
-        if user_pk_str:
-            user_pk = url_str_to_user_pk(user_pk_str)
-        user = confirmation.email_address.user
-        if user_pk == user.pk and self.request.user.is_anonymous:
-            return perform_login(
-                self.request,
-                user,
-                email_verification=app_settings.EmailVerificationMethod.NONE,
-                # passed as callable, as this method
-                # depends on the authenticated state
-                redirect_url=self.get_redirect_url,
-            )
-
-        return None
 
     def get_object(self, queryset=None):
         key = self.kwargs["key"]

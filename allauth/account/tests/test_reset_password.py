@@ -69,7 +69,7 @@ def test_reset_password_next_url(client, user, query, expected_location):
     ACCOUNT_PREVENT_ENUMERATION=False,
     ACCOUNT_DEFAULT_HTTP_PROTOCOL="https",
     ACCOUNT_EMAIL_VERIFICATION=app_settings.EmailVerificationMethod.MANDATORY,
-    ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.USERNAME,
+    ACCOUNT_LOGIN_METHODS={app_settings.AuthenticationMethod.USERNAME},
     ACCOUNT_SIGNUP_FORM_CLASS=None,
     ACCOUNT_EMAIL_SUBJECT_PREFIX=None,
     LOGIN_REDIRECT_URL="/accounts/profile/",
@@ -110,9 +110,7 @@ class ResetPasswordTests(TestCase):
         body = mail.outbox[0].body
         assert user.username in body
 
-    @override_settings(
-        ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.EMAIL
-    )
+    @override_settings(ACCOUNT_LOGIN_METHODS={app_settings.AuthenticationMethod.EMAIL})
     def test_password_forgotten_no_username_hint(self):
         user = self._request_new_password()
         body = mail.outbox[0].body
@@ -162,9 +160,7 @@ class ResetPasswordTests(TestCase):
 
         self.assertTrue(resp.context_data["token_fail"])
 
-    @override_settings(
-        ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.EMAIL
-    )
+    @override_settings(ACCOUNT_LOGIN_METHODS={app_settings.AuthenticationMethod.EMAIL})
     def test_password_reset_flow_with_another_user_logged_in(self):
         """
         Tests the password reset flow: if User B requested a password

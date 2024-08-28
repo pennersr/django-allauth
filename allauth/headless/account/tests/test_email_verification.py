@@ -38,7 +38,7 @@ def test_auth_unverified_email(
     status_code,
 ):
     settings.ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = login_on_email_verification
-    settings.ACCOUNT_AUTHENTICATION_METHOD = "email"
+    settings.ACCOUNT_LOGIN_METHODS = {"email"}
     settings.ACCOUNT_EMAIL_VERIFICATION = "mandatory"
     password = password_factory()
     user = user_factory(email_verified=False, password=password)
@@ -67,7 +67,7 @@ def test_auth_unverified_email(
 def test_verify_email_bad_key(
     client, settings, password_factory, user_factory, headless_reverse
 ):
-    settings.ACCOUNT_AUTHENTICATION_METHOD = "email"
+    settings.ACCOUNT_LOGIN_METHODS = {"email"}
     settings.ACCOUNT_EMAIL_VERIFICATION = "mandatory"
     password = password_factory()
     user = user_factory(email_verified=False, password=password)

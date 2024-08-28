@@ -11,7 +11,7 @@ def test_auth_unverified_email_and_mfa(
     headless_reverse,
     headless_client,
 ):
-    settings.ACCOUNT_AUTHENTICATION_METHOD = "email"
+    settings.ACCOUNT_LOGIN_METHODS = {"email"}
     settings.ACCOUNT_EMAIL_VERIFICATION = "mandatory"
     settings.ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
     password = password_factory()
@@ -96,7 +96,7 @@ def test_dangling_mfa_is_logged_out(
     headless_client,
     user_password,
 ):
-    settings.ACCOUNT_AUTHENTICATION_METHOD = "email"
+    settings.ACCOUNT_LOGIN_METHODS = {"email"}
     resp = client.post(
         headless_reverse("headless:account:login"),
         data={

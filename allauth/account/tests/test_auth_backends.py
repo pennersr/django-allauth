@@ -20,7 +20,7 @@ class AuthenticationBackendTests(TestCase):
         self.user = user
 
     @override_settings(
-        ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.USERNAME
+        ACCOUNT_LOGIN_METHODS={app_settings.LoginMethod.USERNAME}
     )  # noqa
     def test_auth_by_username(self):
         user = self.user
@@ -38,9 +38,7 @@ class AuthenticationBackendTests(TestCase):
             None,
         )
 
-    @override_settings(
-        ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.EMAIL
-    )  # noqa
+    @override_settings(ACCOUNT_LOGIN_METHODS={app_settings.LoginMethod.EMAIL})  # noqa
     def test_auth_by_email(self):
         user = self.user
         backend = AuthenticationBackend()
@@ -58,7 +56,10 @@ class AuthenticationBackendTests(TestCase):
         )
 
     @override_settings(
-        ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.USERNAME_EMAIL
+        ACCOUNT_LOGIN_METHODS={
+            app_settings.LoginMethod.EMAIL,
+            app_settings.LoginMethod.USERNAME,
+        }
     )  # noqa
     def test_auth_by_username_or_email(self):
         user = self.user
@@ -78,15 +79,15 @@ class AuthenticationBackendTests(TestCase):
 
 
 @pytest.mark.parametrize(
-    "auth_method",
+    "login_methods",
     [
-        app_settings.AuthenticationMethod.EMAIL,
-        app_settings.AuthenticationMethod.USERNAME,
-        app_settings.AuthenticationMethod.USERNAME_EMAIL,
+        {app_settings.LoginMethod.EMAIL},
+        {app_settings.LoginMethod.USERNAME},
+        {app_settings.LoginMethod.USERNAME, app_settings.LoginMethod.EMAIL},
     ],
 )
-def test_account_enumeration_timing_attack(user, db, rf, settings, auth_method):
-    settings.ACCOUNT_AUTHENTICATION_METHOD = auth_method
+def test_account_enumeration_timing_attack(user, db, rf, settings, login_methods):
+    settings.ACCOUNT_LOGIN_METHODS = login_methods
     with patch("django.contrib.auth.models.User.set_password") as set_password_mock:
         with patch(
             "django.contrib.auth.models.User.check_password", new=set_password_mock

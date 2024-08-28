@@ -19,7 +19,7 @@ from allauth.tests import TestCase
 @override_settings(
     ACCOUNT_DEFAULT_HTTP_PROTOCOL="https",
     ACCOUNT_EMAIL_VERIFICATION=app_settings.EmailVerificationMethod.MANDATORY,
-    ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.USERNAME,
+    ACCOUNT_LOGIN_METHODS={app_settings.AuthenticationMethod.USERNAME},
     ACCOUNT_SIGNUP_FORM_CLASS=None,
     ACCOUNT_EMAIL_SUBJECT_PREFIX=None,
     LOGIN_REDIRECT_URL="/accounts/profile/",
@@ -29,7 +29,10 @@ from allauth.tests import TestCase
 )
 class LoginTests(TestCase):
     @override_settings(
-        ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.USERNAME_EMAIL
+        ACCOUNT_LOGIN_METHODS={
+            app_settings.LoginMethod.USERNAME,
+            app_settings.LoginMethod.EMAIL,
+        }
     )
     def test_username_containing_at(self):
         user = get_user_model().objects.create(username="@raymond.penners")
@@ -152,7 +155,7 @@ class LoginTests(TestCase):
             )
 
     @override_settings(
-        ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.EMAIL,
+        ACCOUNT_LOGIN_METHODS={app_settings.LoginMethod.EMAIL},
         ACCOUNT_EMAIL_VERIFICATION=app_settings.EmailVerificationMethod.MANDATORY,
         ACCOUNT_LOGIN_ATTEMPTS_LIMIT=1,
         CACHES={
@@ -230,7 +233,7 @@ class LoginTests(TestCase):
         )
 
     @override_settings(
-        ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.EMAIL,
+        ACCOUNT_LOGIN_METHODS={app_settings.LoginMethod.EMAIL},
         ACCOUNT_EMAIL_VERIFICATION=app_settings.EmailVerificationMethod.MANDATORY,
         ACCOUNT_LOGIN_ATTEMPTS_LIMIT=1,
     )

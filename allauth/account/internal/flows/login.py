@@ -1,10 +1,13 @@
 import time
 from typing import Any, Dict
 
+from django.core import exceptions, validators
 from django.http import HttpRequest, HttpResponse
 
 from allauth import app_settings as allauth_settings
+from allauth.account import app_settings
 from allauth.account.adapter import get_adapter
+from allauth.account.app_settings import LoginMethod
 from allauth.account.models import Login
 from allauth.core.exceptions import ImmediateHttpResponse
 
@@ -115,3 +118,15 @@ def is_login_rate_limited(request, login: Login) -> bool:
     if is_verification_rate_limited(request, login):
         return True
     return False
+
+
+def derive_login_method(login: str) -> LoginMethod:
+    if len(app_settings.LOGIN_METHODS) == 1:
+        return next(iter(app_settings.LOGIN_METHODS))
+    if LoginMethod.EMAIL in app_settings.LOGIN_METHODS:
+        try:
+            validators.validate_email(login)
+            return LoginMethod.EMAIL
+        except exceptions.ValidationError:
+            pass
+    return LoginMethod.USERNAME

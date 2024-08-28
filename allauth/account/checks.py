@@ -53,24 +53,22 @@ def settings_check(app_configs, **kwargs):
         )
     # If login is by email, email must be required
     if (
-        app_settings.AUTHENTICATION_METHOD == app_settings.AuthenticationMethod.EMAIL
+        app_settings.LOGIN_METHODS == {app_settings.LoginMethod.EMAIL}
         and not app_settings.EMAIL_REQUIRED
     ):
         ret.append(
             Critical(
-                msg="ACCOUNT_AUTHENTICATION_METHOD = 'email' requires ACCOUNT_EMAIL_REQUIRED = True"
+                msg="ACCOUNT_LOGIN_METHODS = {'email'} requires ACCOUNT_EMAIL_REQUIRED = True"
             )
         )
 
-    # If login includes email, login must be unique
+    # If login includes email, email must be unique
     if (
-        app_settings.AUTHENTICATION_METHOD != app_settings.AuthenticationMethod.USERNAME
+        app_settings.LoginMethod.EMAIL in app_settings.LOGIN_METHODS
         and not app_settings.UNIQUE_EMAIL
     ):
         ret.append(
-            Critical(
-                msg="If ACCOUNT_AUTHENTICATION_METHOD is email based, ACCOUNT_UNIQUE_EMAIL = True is required"
-            )
+            Critical(msg="Using email as a login method requires ACCOUNT_UNIQUE_EMAIL")
         )
 
     # Mandatory email verification requires email
@@ -93,13 +91,10 @@ def settings_check(app_configs, **kwargs):
                 )
             )
 
-        if app_settings.AUTHENTICATION_METHOD in (
-            app_settings.AuthenticationMethod.USERNAME,
-            app_settings.AuthenticationMethod.USERNAME_EMAIL,
-        ):
+        if app_settings.LoginMethod.USERNAME in app_settings.LOGIN_METHODS:
             ret.append(
                 Critical(
-                    msg="No ACCOUNT_USER_MODEL_USERNAME_FIELD, yet, ACCOUNT_AUTHENTICATION_METHOD requires it"
+                    msg="No ACCOUNT_USER_MODEL_USERNAME_FIELD, yet, ACCOUNT_LOGIN_METHODS requires it"
                 )
             )
 
@@ -135,4 +130,11 @@ def settings_check(app_configs, **kwargs):
             )
         )
 
+    if hasattr(settings, "ACCOUNT_AUTHENTICATION_METHOD"):
+        converted = set(settings.ACCOUNT_AUTHENTICATION_METHOD.split("_"))
+        ret.append(
+            Warning(
+                f"settings.ACCOUNT_AUTHENTICATION_METHOD is deprecated, use: settings.ACCOUNT_LOGIN_METHODS = {repr(converted)}"
+            )
+        )
     return ret

@@ -26,7 +26,7 @@ need the following in your settings.py::
     ACCOUNT_USER_MODEL_USERNAME_FIELD = None
     ACCOUNT_EMAIL_REQUIRED = True
     ACCOUNT_USERNAME_REQUIRED = False
-    ACCOUNT_AUTHENTICATION_METHOD = 'email'
+    ACCOUNT_LOGIN_METHODS = {'email'}
 
 
 Creating and Populating User instances

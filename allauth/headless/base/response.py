@@ -1,6 +1,7 @@
 from allauth import app_settings as allauth_settings
 from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
+from allauth.account.app_settings import LoginMethod
 from allauth.account.authentication import get_authentication_records
 from allauth.account.internal import flows
 from allauth.account.internal.stagekit import LOGIN_SESSION_KEY
@@ -117,12 +118,21 @@ class ConflictResponse(APIResponse):
 
 
 def get_config_data(request):
+    login_methods = account_settings.LOGIN_METHODS
     data = {
-        "authentication_method": account_settings.AUTHENTICATION_METHOD,
+        "login_methods": list(login_methods),
         "is_open_for_signup": get_account_adapter().is_open_for_signup(request),
         "email_verification_by_code_enabled": account_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED,
         "login_by_code_enabled": account_settings.LOGIN_BY_CODE_ENABLED,
     }
+    # NOTE: For backwards compatibility only.
+    if LoginMethod.EMAIL in login_methods and LoginMethod.USERNAME in login_methods:
+        data["authentication_method"] = "username_email"
+    elif LoginMethod.EMAIL in login_methods:
+        data["authentication_method"] = "email"
+    elif LoginMethod.USERNAME in login_methods:
+        data["authentication_method"] = "username"
+    # (end NOTE)
     return {"account": data}
 
 

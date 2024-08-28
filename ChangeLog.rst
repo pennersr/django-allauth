@@ -1,7 +1,14 @@
 65.4.0 (unreleased)
 *******************
 
-- ...
+Note worthy changes
+-------------------
+
+- The setting ``ACCOUNT_AUTHENTICATION_METHOD: str`` (with values
+  ``"username"``, ``"username_email"``, ``"email"``) has been replaced by
+  ``ACCOUNT_LOGIN_METHODS: set[str]``. which is a set of values including
+  ``"username"`` or ``"email"``. This is change is performed in a backwards
+  compatible manner.
 
 
 65.3.1 (2025-12-25)

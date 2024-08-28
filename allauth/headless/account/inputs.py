@@ -41,29 +41,27 @@ class LoginInput(inputs.Input):
         username = None
         email = None
 
-        if (
-            account_app_settings.AUTHENTICATION_METHOD
-            == account_app_settings.AuthenticationMethod.USERNAME
-        ):
+        if account_app_settings.LOGIN_METHODS == {
+            account_app_settings.LoginMethod.USERNAME
+        }:
             username = cleaned_data.get("username")
             missing_field = "username"
-        elif (
-            account_app_settings.AUTHENTICATION_METHOD
-            == account_app_settings.AuthenticationMethod.EMAIL
-        ):
+        elif account_app_settings.LOGIN_METHODS == {
+            account_app_settings.LoginMethod.EMAIL
+        }:
             email = cleaned_data.get("email")
             missing_field = "email"
-        elif (
-            account_app_settings.AUTHENTICATION_METHOD
-            == account_app_settings.AuthenticationMethod.USERNAME_EMAIL
-        ):
+        elif account_app_settings.LOGIN_METHODS == {
+            account_app_settings.LoginMethod.USERNAME,
+            account_app_settings.LoginMethod.EMAIL,
+        }:
             username = cleaned_data.get("username")
             email = cleaned_data.get("email")
             missing_field = "email"
             if email and username:
                 raise get_adapter().validation_error("email_or_username")
         else:
-            raise ImproperlyConfigured(account_app_settings.AUTHENTICATION_METHOD)
+            raise ImproperlyConfigured(account_app_settings.LOGIN_METHODS)
 
         if not email and not username:
             if not self.errors.get(missing_field):

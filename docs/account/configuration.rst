@@ -14,11 +14,6 @@ Available settings:
   By changing this setting to ``False``, logged in users will not be redirected when
   they access login/signup pages.
 
-``ACCOUNT_AUTHENTICATION_METHOD`` (default: ``"username"``, alternatives: ``"email"`` or ``"username_email"``)
-  Specifies the login method to use -- whether the user logs in by
-  entering their username, email address, or either one of both.
-  Setting this to ``"email"`` requires ``ACCOUNT_EMAIL_REQUIRED=True``
-
 ``ACCOUNT_CHANGE_EMAIL`` (default: ``False``)
   When disabled (``False``), users can add one or more email addresses (up to a
   maximum of ``ACCOUNT_MAX_EMAIL_ADDRESSES``) to their account and freely manage
@@ -155,6 +150,11 @@ Available settings:
 ``ACCOUNT_LOGIN_BY_CODE_TIMEOUT`` (default: ``180``)
   The code that is emailed has a limited life span. It expires this many seconds after
   which it was sent.
+
+``ACCOUNT_LOGIN_METHODS`` (default: ``{"username"}``, options: ``"email"`` or ``"username"``)
+  Specifies the login method to use -- whether the user logs in by entering
+  their username, email address, or either one of both.  Setting this to include
+  ``"email"`` requires ``ACCOUNT_EMAIL_REQUIRED=True``
 
 ``ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION`` (default: ``False``)
   The default behavior is not log users in and to redirect them to
@@ -314,7 +314,7 @@ Available settings:
 ``ACCOUNT_USERNAME_REQUIRED`` (default: ``True``)
   The user is required to enter a username when signing up. Note that
   the user will be asked to do so even if
-  ``ACCOUNT_AUTHENTICATION_METHOD`` is set to ``email``. Set to ``False``
+  ``ACCOUNT_LOGINS_METHOD`` is set to ``{"email"}``. Set to ``False``
   when you do not wish to prompt the user to enter a username.
 
 ``ACCOUNT_USERNAME_VALIDATORS`` (default: ``None``)

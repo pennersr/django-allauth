@@ -28,7 +28,7 @@ def test_auth_password_input_error(headless_reverse, client):
 
 
 def test_auth_password_bad_password(headless_reverse, client, user, settings):
-    settings.ACCOUNT_AUTHENTICATION_METHOD = "email"
+    settings.ACCOUNT_LOGIN_METHODS = {"email"}
     resp = client.post(
         headless_reverse("headless:account:login"),
         data={
@@ -53,7 +53,7 @@ def test_auth_password_bad_password(headless_reverse, client, user, settings):
 def test_auth_password_success(
     client, user, user_password, settings, headless_reverse, headless_client
 ):
-    settings.ACCOUNT_AUTHENTICATION_METHOD = "email"
+    settings.ACCOUNT_LOGIN_METHODS = {"email"}
     login_resp = client.post(
         headless_reverse("headless:account:login"),
         data={
@@ -122,7 +122,7 @@ def test_login_failed_rate_limit(
     enable_cache,
 ):
     settings.ACCOUNT_RATE_LIMITS = {"login_failed": "1/m/ip"}
-    settings.ACCOUNT_AUTHENTICATION_METHOD = "email"
+    settings.ACCOUNT_LOGIN_METHODS = {"email"}
     for attempt in range(2):
         resp = client.post(
             headless_reverse("headless:account:login"),
@@ -159,7 +159,7 @@ def test_login_rate_limit(
     enable_cache,
 ):
     settings.ACCOUNT_RATE_LIMITS = {"login": "1/m/ip"}
-    settings.ACCOUNT_AUTHENTICATION_METHOD = "email"
+    settings.ACCOUNT_LOGIN_METHODS = {"email"}
     for attempt in range(2):
         resp = client.post(
             headless_reverse("headless:account:login"),
@@ -176,7 +176,7 @@ def test_login_rate_limit(
 def test_login_already_logged_in(
     auth_client, user, user_password, settings, headless_reverse
 ):
-    settings.ACCOUNT_AUTHENTICATION_METHOD = "email"
+    settings.ACCOUNT_LOGIN_METHODS = {"email"}
     resp = auth_client.post(
         headless_reverse("headless:account:login"),
         data={

@@ -17,7 +17,7 @@ test_username_validators = [
 @override_settings(
     ACCOUNT_DEFAULT_HTTP_PROTOCOL="https",
     ACCOUNT_EMAIL_VERIFICATION=app_settings.EmailVerificationMethod.MANDATORY,
-    ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.USERNAME,
+    ACCOUNT_LOGIN_METHODS={app_settings.LoginMethod.USERNAME},
     ACCOUNT_SIGNUP_FORM_CLASS=None,
     ACCOUNT_EMAIL_SUBJECT_PREFIX=None,
     LOGIN_REDIRECT_URL="/accounts/profile/",

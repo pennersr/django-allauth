@@ -112,10 +112,7 @@ class DefaultAccountAdapter(BaseAdapter):
             .exclude(pk=email_address.pk)
             .exists()
         )
-        login_by_email = (
-            app_settings.AUTHENTICATION_METHOD
-            == app_settings.AuthenticationMethod.EMAIL
-        )
+        login_by_email = app_settings.LOGIN_METHODS == {app_settings.LoginMethod.EMAIL}
         if email_address.primary:
             if has_other:
                 # Don't allow, let the user mark one of the others as primary

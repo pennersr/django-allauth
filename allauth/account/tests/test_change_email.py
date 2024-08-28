@@ -7,7 +7,7 @@ from django.urls import reverse
 import pytest
 from pytest_django.asserts import assertTemplateNotUsed, assertTemplateUsed
 
-from allauth.account.app_settings import AuthenticationMethod
+from allauth.account.app_settings import LoginMethod
 from allauth.account.models import EmailAddress, EmailConfirmationHMAC
 from allauth.account.utils import user_email
 
@@ -58,7 +58,7 @@ def test_ajax_add_invalid(auth_client):
 
 
 def test_ajax_remove_primary(auth_client, user, settings):
-    settings.ACCOUNT_AUTHENTICATION_METHOD = "email"
+    settings.ACCOUNT_LOGIN_METHODS = {"email"}
     resp = auth_client.post(
         reverse("account_email"),
         {"action_remove": "", "email": user.email},
@@ -332,29 +332,29 @@ def test_add_not_allowed(
 
 
 @pytest.mark.parametrize(
-    "authentication_method,primary_email,secondary_emails,delete_email,success",
+    "login_methods,primary_email,secondary_emails,delete_email,success",
     [
-        (AuthenticationMethod.EMAIL, "pri@ma.il", ["sec@ma.il"], "pri@ma.il", False),
-        (AuthenticationMethod.EMAIL, "pri@ma.il", ["sec@ma.il"], "sec@ma.il", True),
-        (AuthenticationMethod.EMAIL, "pri@ma.il", [], "pri@ma.il", False),
-        (AuthenticationMethod.USERNAME, "pri@ma.il", ["sec@ma.il"], "pri@ma.il", False),
-        (AuthenticationMethod.USERNAME, "pri@ma.il", ["sec@ma.il"], "sec@ma.il", True),
-        (AuthenticationMethod.USERNAME, "pri@ma.il", [], "pri@ma.il", True),
+        ({LoginMethod.EMAIL}, "pri@ma.il", ["sec@ma.il"], "pri@ma.il", False),
+        ({LoginMethod.EMAIL}, "pri@ma.il", ["sec@ma.il"], "sec@ma.il", True),
+        ({LoginMethod.EMAIL}, "pri@ma.il", [], "pri@ma.il", False),
+        ({LoginMethod.USERNAME}, "pri@ma.il", ["sec@ma.il"], "pri@ma.il", False),
+        ({LoginMethod.USERNAME}, "pri@ma.il", ["sec@ma.il"], "sec@ma.il", True),
+        ({LoginMethod.USERNAME}, "pri@ma.il", [], "pri@ma.il", True),
         (
-            AuthenticationMethod.USERNAME_EMAIL,
+            {LoginMethod.USERNAME, LoginMethod.EMAIL},
             "pri@ma.il",
             ["sec@ma.il"],
             "pri@ma.il",
             False,
         ),
         (
-            AuthenticationMethod.USERNAME_EMAIL,
+            {LoginMethod.USERNAME, LoginMethod.EMAIL},
             "pri@ma.il",
             ["sec@ma.il"],
             "sec@ma.il",
             True,
         ),
-        (AuthenticationMethod.USERNAME_EMAIL, "pri@ma.il", [], "pri@ma.il", True),
+        ({LoginMethod.USERNAME, LoginMethod.EMAIL}, "pri@ma.il", [], "pri@ma.il", True),
     ],
 )
 def test_remove_email(
@@ -364,10 +364,10 @@ def test_remove_email(
     primary_email,
     secondary_emails,
     delete_email,
-    authentication_method,
+    login_methods,
     success,
 ):
-    settings.ACCOUNT_AUTHENTICATION_METHOD = authentication_method
+    settings.ACCOUNT_LOGIN_METHODS = login_methods
     user = user_factory(email=primary_email)
     EmailAddress.objects.bulk_create(
         [

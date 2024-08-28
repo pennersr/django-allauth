@@ -3,8 +3,9 @@ from threading import local
 from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import ModelBackend
 
+from allauth.account.app_settings import LoginMethod
+
 from . import app_settings
-from .app_settings import AuthenticationMethod
 from .utils import filter_users_by_email, filter_users_by_username
 
 
@@ -14,9 +15,9 @@ _stash = local()
 class AuthenticationBackend(ModelBackend):
     def authenticate(self, request, **credentials):
         ret = None
-        if app_settings.AUTHENTICATION_METHOD == AuthenticationMethod.EMAIL:
+        if app_settings.LOGIN_METHODS == {LoginMethod.EMAIL}:
             ret = self._authenticate_by_email(**credentials)
-        elif app_settings.AUTHENTICATION_METHOD == AuthenticationMethod.USERNAME_EMAIL:
+        elif app_settings.LOGIN_METHODS == {LoginMethod.USERNAME, LoginMethod.EMAIL}:
             ret = self._authenticate_by_email(
                 **credentials, time_attack_mitigation=False
             )

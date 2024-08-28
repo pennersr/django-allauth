@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Set, Union
+from typing import FrozenSet, Set, Union
 
 
 class AppSettings:
@@ -7,6 +7,10 @@ class AppSettings:
         USERNAME = "username"
         EMAIL = "email"
         USERNAME_EMAIL = "username_email"
+
+    class LoginMethod(str, Enum):
+        USERNAME = "username"
+        EMAIL = "email"
 
     class EmailVerificationMethod(str, Enum):
         # After signing up, keep the user account inactive until the email
@@ -108,9 +112,17 @@ class AppSettings:
         return self._setting("CHANGE_EMAIL", False)
 
     @property
-    def AUTHENTICATION_METHOD(self):
-        ret = self._setting("AUTHENTICATION_METHOD", self.AuthenticationMethod.USERNAME)
-        return self.AuthenticationMethod(ret)
+    def LOGIN_METHODS(self) -> FrozenSet[LoginMethod]:
+        methods = self._setting("LOGIN_METHODS", None)
+        if methods is None:
+            auth_method = self._setting(
+                "AUTHENTICATION_METHOD", self.AuthenticationMethod.USERNAME
+            )
+            if auth_method == self.AuthenticationMethod.USERNAME_EMAIL:
+                methods = {self.LoginMethod.EMAIL, self.LoginMethod.USERNAME}
+            else:
+                methods = {self.LoginMethod(auth_method)}
+        return frozenset([self.LoginMethod(m) for m in methods])
 
     @property
     def EMAIL_MAX_LENGTH(self):

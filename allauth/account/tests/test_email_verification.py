@@ -248,7 +248,7 @@ def test_verify_email_with_another_user_logged_in(
     """Test the email verification view. If User B clicks on an email
     verification link while logged in as User A, ensure User A gets
     logged out."""
-    settings.ACCOUNT_AUTHENTICATION_METHOD = app_settings.AuthenticationMethod.EMAIL
+    settings.ACCOUNT_LOGIN_METHODS = {app_settings.AuthenticationMethod.EMAIL}
     user = user_factory(email_verified=False)
     client.force_login(user)
     client.post(reverse("account_email"), {"email": user.email, "action_send": ""})
@@ -283,7 +283,7 @@ def test_verify_email_with_same_user_logged_in(
     """If the user clicks on an email verification link while logged in, ensure
     the user stays logged in.
     """
-    settings.ACCOUNT_AUTHENTICATION_METHOD = app_settings.AuthenticationMethod.EMAIL
+    settings.ACCOUNT_LOGIN_METHODS = {app_settings.AuthenticationMethod.EMAIL}
     user = user_factory(email_verified=False)
     client.force_login(user)
     client.post(reverse("account_email"), {"email": user.email, "action_send": ""})

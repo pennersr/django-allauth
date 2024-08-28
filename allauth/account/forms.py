@@ -8,6 +8,7 @@ from django.urls import NoReverseMatch, reverse
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext, gettext_lazy as _, pgettext
 
+from allauth.account.app_settings import LoginMethod
 from allauth.account.internal import flows
 from allauth.account.internal.stagekit import LOGIN_SESSION_KEY
 from allauth.account.stages import EmailVerificationStage
@@ -16,7 +17,6 @@ from allauth.utils import get_username_max_length, set_form_field_order
 
 from . import app_settings
 from .adapter import DefaultAccountAdapter, get_adapter
-from .app_settings import AuthenticationMethod
 from .models import EmailAddress, Login
 from .utils import (
     filter_users_by_email,
@@ -96,7 +96,7 @@ class LoginForm(forms.Form):
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop("request", None)
         super(LoginForm, self).__init__(*args, **kwargs)
-        if app_settings.AUTHENTICATION_METHOD == AuthenticationMethod.EMAIL:
+        if app_settings.LOGIN_METHODS == {LoginMethod.EMAIL}:
             login_widget = forms.EmailInput(
                 attrs={
                     "placeholder": _("Email address"),
@@ -104,7 +104,7 @@ class LoginForm(forms.Form):
                 }
             )
             login_field = forms.EmailField(label=_("Email"), widget=login_widget)
-        elif app_settings.AUTHENTICATION_METHOD == AuthenticationMethod.USERNAME:
+        elif app_settings.LOGIN_METHODS == {LoginMethod.USERNAME}:
             login_widget = forms.TextInput(
                 attrs={"placeholder": _("Username"), "autocomplete": "username"}
             )
@@ -114,10 +114,10 @@ class LoginForm(forms.Form):
                 max_length=get_username_max_length(),
             )
         else:
-            assert (
-                app_settings.AUTHENTICATION_METHOD
-                == AuthenticationMethod.USERNAME_EMAIL
-            )  # nosec
+            assert app_settings.LOGIN_METHODS == {
+                LoginMethod.USERNAME,
+                LoginMethod.EMAIL,
+            }  # nosec
             login_widget = forms.TextInput(
                 attrs={"placeholder": _("Username or email"), "autocomplete": "email"}
             )
@@ -145,28 +145,19 @@ class LoginForm(forms.Form):
         """
         credentials = {}
         login = self.cleaned_data["login"]
-        if app_settings.AUTHENTICATION_METHOD == AuthenticationMethod.EMAIL:
+        method = flows.login.derive_login_method(login)
+        if method == LoginMethod.EMAIL:
             credentials["email"] = login
-        elif app_settings.AUTHENTICATION_METHOD == AuthenticationMethod.USERNAME:
+        elif method == LoginMethod.USERNAME:
             credentials["username"] = login
         else:
-            if self._is_login_email(login):
-                credentials["email"] = login
-            credentials["username"] = login
+            raise NotImplementedError()
         credentials["password"] = self.cleaned_data["password"]
         return credentials
 
     def clean_login(self):
         login = self.cleaned_data["login"]
         return login.strip()
-
-    def _is_login_email(self, login):
-        try:
-            validators.validate_email(login)
-            ret = True
-        except exceptions.ValidationError:
-            ret = False
-        return ret
 
     def clean(self):
         super(LoginForm, self).clean()
@@ -182,14 +173,10 @@ class LoginForm(forms.Form):
             self._login = login
             self.user = user
         else:
-            auth_method = app_settings.AUTHENTICATION_METHOD
-            if auth_method == app_settings.AuthenticationMethod.USERNAME_EMAIL:
-                login = self.cleaned_data["login"]
-                if self._is_login_email(login):
-                    auth_method = app_settings.AuthenticationMethod.EMAIL
-                else:
-                    auth_method = app_settings.AuthenticationMethod.USERNAME
-            raise adapter.validation_error("%s_password_mismatch" % auth_method.value)
+            login_method = flows.login.derive_login_method(
+                login=self.cleaned_data["login"]
+            )
+            raise adapter.validation_error("%s_password_mismatch" % login_method.value)
         return self.cleaned_data
 
     def login(self, request, redirect_url=None):
@@ -628,7 +615,7 @@ class ResetPasswordForm(forms.Form):
                 "request": request,
             }
 
-            if app_settings.AUTHENTICATION_METHOD != AuthenticationMethod.EMAIL:
+            if LoginMethod.USERNAME in app_settings.LOGIN_METHODS:
                 context["username"] = user_username(user)
             adapter.send_password_reset_mail(user, email, context)
         return email

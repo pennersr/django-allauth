@@ -36,7 +36,7 @@ def test_email_authentication(
     settings.ACCOUNT_EMAIL_REQUIRED = True
     settings.ACCOUNT_UNIQUE_EMAIL = True
     settings.ACCOUNT_USERNAME_REQUIRED = False
-    settings.ACCOUNT_AUTHENTICATION_METHOD = "email"
+    settings.ACCOUNT_LOGIN_METHODS = {"email"}
     settings.ACCOUNT_EMAIL_VERIFICATION = "mandatory"
     settings.SOCIALACCOUNT_AUTO_SIGNUP = True
     settings.SOCIALACCOUNT_STORE_TOKENS = True

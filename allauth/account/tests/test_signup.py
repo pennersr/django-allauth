@@ -138,7 +138,7 @@ def test_signup_email_verification(settings, db):
 @override_settings(
     ACCOUNT_DEFAULT_HTTP_PROTOCOL="https",
     ACCOUNT_EMAIL_VERIFICATION=app_settings.EmailVerificationMethod.MANDATORY,
-    ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.USERNAME,
+    ACCOUNT_LOGIN_METHODS={app_settings.LoginMethod.USERNAME},
     ACCOUNT_SIGNUP_FORM_CLASS=None,
     ACCOUNT_EMAIL_SUBJECT_PREFIX=None,
     LOGIN_REDIRECT_URL="/accounts/profile/",
@@ -276,7 +276,7 @@ def test_prevent_enumeration_with_mandatory_verification(
     settings, user_factory, email_factory
 ):
     settings.ACCOUNT_PREVENT_ENUMERATION = True
-    settings.ACCOUNT_AUTHENTICATION_METHOD = app_settings.AuthenticationMethod.EMAIL
+    settings.ACCOUNT_LOGIN_METHODS = {app_settings.LoginMethod.EMAIL}
     settings.ACCOUNT_EMAIL_VERIFICATION = app_settings.EmailVerificationMethod.MANDATORY
     user = user_factory(username="john", email="john@example.org", password="doe")
     c = Client()
@@ -298,7 +298,7 @@ def test_prevent_enumeration_with_mandatory_verification(
 
 def test_prevent_enumeration_off(settings, user_factory, email_factory):
     settings.ACCOUNT_PREVENT_ENUMERATION = False
-    settings.ACCOUNT_AUTHENTICATION_METHOD = app_settings.AuthenticationMethod.EMAIL
+    settings.ACCOUNT_LOGIN_METHODS = {app_settings.LoginMethod.EMAIL}
     settings.ACCOUNT_EMAIL_VERIFICATION = app_settings.EmailVerificationMethod.MANDATORY
     user = user_factory(username="john", email="john@example.org", password="doe")
     c = Client()
@@ -319,7 +319,7 @@ def test_prevent_enumeration_off(settings, user_factory, email_factory):
 
 def test_prevent_enumeration_strictly(settings, user_factory, email_factory):
     settings.ACCOUNT_PREVENT_ENUMERATION = "strict"
-    settings.ACCOUNT_AUTHENTICATION_METHOD = app_settings.AuthenticationMethod.EMAIL
+    settings.ACCOUNT_LOGIN_METHODS = {app_settings.LoginMethod.EMAIL}
     settings.ACCOUNT_EMAIL_VERIFICATION = app_settings.EmailVerificationMethod.NONE
     user = user_factory(username="john", email="john@example.org", password="doe")
     c = Client()
@@ -339,7 +339,7 @@ def test_prevent_enumeration_strictly(settings, user_factory, email_factory):
 
 def test_prevent_enumeration_on(settings, user_factory, email_factory):
     settings.ACCOUNT_PREVENT_ENUMERATION = True
-    settings.ACCOUNT_AUTHENTICATION_METHOD = app_settings.AuthenticationMethod.EMAIL
+    settings.ACCOUNT_LOGIN_METHODS = {app_settings.LoginMethod.EMAIL}
     settings.ACCOUNT_EMAIL_VERIFICATION = app_settings.EmailVerificationMethod.NONE
     user = user_factory(username="john", email="john@example.org", password="doe")
     c = Client()
@@ -394,7 +394,7 @@ def test_signup_user_model_no_email(settings, client, password_factory, db, mail
 
 
 def test_email_lower_case(db, settings):
-    settings.ACCOUNT_AUTHENTICATION_METHOD = app_settings.AuthenticationMethod.EMAIL
+    settings.ACCOUNT_LOGIN_METHODS = {app_settings.LoginMethod.EMAIL}
     settings.ACCOUNT_EMAIL_VERIFICATION = app_settings.EmailVerificationMethod.NONE
     c = Client()
     resp = c.post(

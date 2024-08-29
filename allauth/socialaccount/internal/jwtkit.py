@@ -1,4 +1,7 @@
 import json
+import time
+
+from django.core.cache import cache
 
 import jwt
 from cryptography.hazmat.backends import default_backend
@@ -58,6 +61,21 @@ def fetch_key(credential, keys_url, lookup):
     return alg, key
 
 
+def verify_jti(data: dict) -> None:
+    """
+    Put the JWT token on a blacklist to prevent replay attacks.
+    """
+    iss = data.get("iss")
+    exp = data.get("exp")
+    jti = data.get("jti")
+    if iss is None or exp is None or jti is None:
+        return
+    timeout = exp - time.time()
+    key = f"jwt:iss={iss},jti={jti}"
+    if not cache.add(key=key, value=True, timeout=timeout):
+        raise OAuth2Error("token already used")
+
+
 def verify_and_decode(
     *, credential, keys_url, issuer, audience, lookup_kid, verify_signature=True
 ):
@@ -81,6 +99,7 @@ def verify_and_decode(
             audience=audience,
             algorithms=algorithms,
         )
+        verify_jti(data)
         return data
     except jwt.PyJWTError as e:
         raise OAuth2Error("Invalid id_token") from e

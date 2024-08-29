@@ -9,6 +9,14 @@
   ``settings.ACCOUNT_LOGIN_BY_CODE_REQUIRED``.
 
 
+Security notice
+---------------
+
+- In case an ID token is used for authentication, the JTI is now respected to
+  prevent the possibility of replays instead of solely relying on the expiration
+  time.
+
+
 64.1.0 (2024-08-15)
 *******************
 

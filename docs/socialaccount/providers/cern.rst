@@ -1,10 +1,9 @@
 CERN
 ----
 
-Starting from September 1st 2023, CERN upgraded their SSO to a standard OpenID
-Connect based solution. As a result, the previously builtin CERN provider is no
-longer needed and has been removed. Instead, use the regular OpenID Connect
-configuration::
+Members of the scientific commmunity affiliated with CERN (https://home.cern/about)
+can put their applications behind CERN SSO, which supports OIDC and SAML protocols.
+For OIDC, use the regular OpenID Connect configuration:
 
     SOCIALACCOUNT_PROVIDERS = {
         "openid_connect": {
@@ -15,15 +14,15 @@ configuration::
                     "client_id": "<insert-id>",
                     "secret": "<insert-secret>",
                     "settings": {
-                        "server_url": "https://auth.cern.ch/auth/realms/cern/.well-known/openid-configuration",
-                    },
+                        "server_url": "https://auth.cern.ch/auth/realms/cern/.well-known/openid-configuration"
+                    }
                 }
             ]
         }
     }
 
 App registration (get your key and secret here)
-    https://sso-management.web.cern.ch/OAuth/RegisterOAuthClient.aspx
+    https://application-portal.web.cern.ch/
 
-CERN OAuth2 Documentation
-    https://espace.cern.ch/authentication/CERN%20Authentication/OAuth.aspx
+Documentation
+    https://auth.docs.cern.ch/applications/application-configuration/

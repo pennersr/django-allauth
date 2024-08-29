@@ -120,11 +120,13 @@ class Provider:
             provider=self.sub_id,
         )
         email_addresses = self.extract_email_addresses(response)
-        self.cleanup_email_addresses(
+        email = self.cleanup_email_addresses(
             common_fields.get("email"),
             email_addresses,
             email_verified=common_fields.get("email_verified"),
         )
+        if email:
+            common_fields["email"] = email
         sociallogin = SocialLogin(
             account=socialaccount, email_addresses=email_addresses
         )
@@ -165,7 +167,9 @@ class Provider:
         """
         return {}
 
-    def cleanup_email_addresses(self, email, addresses, email_verified=False):
+    def cleanup_email_addresses(
+        self, email: Optional[str], addresses: list, email_verified: bool = False
+    ) -> Optional[str]:
         # Avoid loading models before adapters have been registered.
         from allauth.account.models import EmailAddress
 
@@ -180,6 +184,12 @@ class Provider:
         for address in addresses:
             if adapter.is_email_verified(self, address.email):
                 address.verified = True
+
+        # Sort in order of importance (primary, verified...)
+        addresses.sort(key=lambda a: (a.primary, a.verified, a.email), reverse=True)
+        if not email and addresses:
+            email = addresses[0].email
+        return email
 
     def extract_email_addresses(self, data):
         """

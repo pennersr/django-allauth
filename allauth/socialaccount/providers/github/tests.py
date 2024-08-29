@@ -1,3 +1,5 @@
+from unittest.mock import patch
+
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount.tests import OAuth2TestsMixin
@@ -95,7 +97,12 @@ class GitHubTests(OAuth2TestsMixin, TestCase):
         """,
             ),
         ]
-        self.login(mocks)
+        with patch(
+            "allauth.socialaccount.adapter.DefaultSocialAccountAdapter.populate_user"
+        ) as populate_mock:
+            self.login(mocks)
+        populate_data = populate_mock.call_args[0][2]
+        assert populate_data["email"] == "octocat@github.com"
         socialaccount = SocialAccount.objects.get(uid="201022")
         self.assertIsNone(socialaccount.extra_data.get("name"))
         account = socialaccount.get_provider_account()

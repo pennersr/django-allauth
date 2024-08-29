@@ -15,7 +15,7 @@ For OIDC, use the regular OpenID Connect configuration:
                     "secret": "<insert-secret>",
                     "settings": {
                         "server_url": "https://auth.cern.ch/auth/realms/cern/.well-known/openid-configuration",
-                    },
+                    }
                 }
             ]
         }

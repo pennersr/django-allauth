@@ -8,11 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-22 08:29-0500\n"
+"POT-Creation-Date: 2024-08-30 02:40-0500\n"
 "PO-Revision-Date: 2024-08-23 19:09+0000\n"
 "Last-Translator: Emirhan Soytaş <emrhns61@hotmail.com>\n"
-"Language-Team: Turkish <https://hosted.weblate.org/projects/allauth/"
-"django-allauth/tr/>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/allauth/django-"
+"allauth/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -86,15 +86,15 @@ msgstr "Bu kullanıcı adı kullanılamaz. Lütfen başka bir kullanıcı adı d
 msgid "The username and/or password you specified are not correct."
 msgstr "Girdiğiniz kullanıcı adı ve/veya parola doğru değil."
 
-#: account/adapter.py:732
+#: account/adapter.py:736
 msgid "Use your password"
 msgstr "Şifrenizi kullanın"
 
-#: account/adapter.py:741
+#: account/adapter.py:745
 msgid "Use authenticator app or code"
 msgstr "Doğrulayıcı uygulaması veya kodu kullan"
 
-#: account/adapter.py:748 templates/mfa/authenticate.html:36
+#: account/adapter.py:752 templates/mfa/authenticate.html:36
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use a security key"
 msgstr "Güvenlik anahtarı kullan"
@@ -112,7 +112,7 @@ msgid "You must type the same password each time."
 msgstr "Her seferinde aynı parolayı girmelisiniz."
 
 #: account/forms.py:91 account/forms.py:409 account/forms.py:569
-#: account/forms.py:683
+#: account/forms.py:681
 msgid "Password"
 msgstr "Parola"
 
@@ -121,7 +121,7 @@ msgid "Remember Me"
 msgstr "Beni Hatırla"
 
 #: account/forms.py:102 account/forms.py:269 account/forms.py:495
-#: account/forms.py:587 account/forms.py:700
+#: account/forms.py:587 account/forms.py:698
 msgid "Email address"
 msgstr "E-posta adresi"
 
@@ -172,15 +172,15 @@ msgstr "Parola (tekrar)"
 msgid "Current Password"
 msgstr "Mevcut Parola"
 
-#: account/forms.py:552 account/forms.py:636
+#: account/forms.py:552 account/forms.py:634
 msgid "New Password"
 msgstr "Yeni Parola"
 
-#: account/forms.py:553 account/forms.py:637
+#: account/forms.py:553 account/forms.py:635
 msgid "New Password (again)"
 msgstr "Yeni Parola (tekrar)"
 
-#: account/forms.py:723 account/forms.py:725 mfa/base/forms.py:15
+#: account/forms.py:721 account/forms.py:723 mfa/base/forms.py:15
 #: mfa/base/forms.py:17 mfa/totp/forms.py:13
 msgid "Code"
 msgstr "Kod"
@@ -365,7 +365,7 @@ msgstr "gizli anahtar"
 msgid "API secret, client secret, or consumer secret"
 msgstr "API anahtarı, istemci anahtarı veya tüketici anahtarı"
 
-#: socialaccount/models.py:69 templates/mfa/webauthn/authenticator_list.html:16
+#: socialaccount/models.py:69 templates/mfa/webauthn/authenticator_list.html:18
 msgid "Key"
 msgstr "Anahtar"
 
@@ -574,8 +574,8 @@ msgid "Re-send Verification"
 msgstr "Tekrar Doğrula"
 
 #: templates/account/email.html:50
-#: templates/mfa/webauthn/authenticator_confirm_delete.html:14
-#: templates/mfa/webauthn/authenticator_list.html:58
+#: templates/mfa/webauthn/authenticator_confirm_delete.html:16
+#: templates/mfa/webauthn/authenticator_list.html:60
 #: templates/socialaccount/connections.html:40
 msgid "Remove"
 msgstr "Kaldır"
@@ -1135,8 +1135,10 @@ msgid "Menu:"
 msgstr "Menü:"
 
 #: templates/allauth/layouts/base.html:43
-msgid "Account Connection"
-msgstr "Hesap Bağlantısı"
+#: templates/socialaccount/connections.html:5
+#: templates/socialaccount/connections.html:9
+msgid "Account Connections"
+msgstr "Hesap Bağlantıları"
 
 #: templates/allauth/layouts/base.html:49 templates/mfa/authenticate.html:10
 #: templates/mfa/index.html:5 templates/mfa/index.html:9
@@ -1232,27 +1234,27 @@ msgid_plural "You have added %(count)s security keys."
 msgstr[0] "%(count)s adet güvenlik anahtarı eklediniz."
 msgstr[1] "%(count)s adet güvenlik anahtarı eklediniz."
 
-#: templates/mfa/index.html:53
-#: templates/mfa/webauthn/authenticator_list.html:11
+#: templates/mfa/index.html:54
+#: templates/mfa/webauthn/authenticator_list.html:12
 msgid "No security keys have been added."
 msgstr "Hiçbir güvenlik anahtarı eklenmedi."
 
-#: templates/mfa/index.html:60
+#: templates/mfa/index.html:62
 msgid "Manage"
 msgstr "Yönet"
 
-#: templates/mfa/index.html:65 templates/mfa/webauthn/add_form.html:18
-#: templates/mfa/webauthn/authenticator_list.html:68
+#: templates/mfa/index.html:67 templates/mfa/webauthn/add_form.html:18
+#: templates/mfa/webauthn/authenticator_list.html:70
 msgid "Add"
 msgstr "Ekle"
 
-#: templates/mfa/index.html:75 templates/mfa/recovery_codes/base.html:4
+#: templates/mfa/index.html:77 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:6
 #: templates/mfa/recovery_codes/index.html:6
 msgid "Recovery Codes"
 msgstr "Kurtarma Kodları"
 
-#: templates/mfa/index.html:80 templates/mfa/recovery_codes/index.html:9
+#: templates/mfa/index.html:82 templates/mfa/recovery_codes/index.html:9
 #, python-format
 msgid ""
 "There is %(unused_count)s out of %(total_count)s recovery codes available."
@@ -1265,19 +1267,19 @@ msgstr[1] ""
 "%(total_count)s adet kurtarma kodu içerisinden %(unused_count)s sayıda "
 "kurtarma kodu uygun durumda."
 
-#: templates/mfa/index.html:84
+#: templates/mfa/index.html:86
 msgid "No recovery codes set up."
 msgstr "Tanımlı kurtarma kodu bulunmamakta."
 
-#: templates/mfa/index.html:94
+#: templates/mfa/index.html:96
 msgid "View"
 msgstr "İncele"
 
-#: templates/mfa/index.html:100
+#: templates/mfa/index.html:102
 msgid "Download"
 msgstr "İndir"
 
-#: templates/mfa/index.html:108 templates/mfa/recovery_codes/generate.html:29
+#: templates/mfa/index.html:110 templates/mfa/recovery_codes/generate.html:29
 msgid "Generate"
 msgstr "Oluştur"
 
@@ -1369,41 +1371,41 @@ msgstr "Güvenlik Anahtarı Ekle"
 msgid "Remove Security Key"
 msgstr "Güvenlik Anahtarı Kaldır"
 
-#: templates/mfa/webauthn/authenticator_confirm_delete.html:8
+#: templates/mfa/webauthn/authenticator_confirm_delete.html:9
 msgid "Are you sure you want to remove this security key?"
 msgstr "Bu güvenlik anahtarını kaldırmak istediğinizden emin misiniz?"
 
-#: templates/mfa/webauthn/authenticator_list.html:19
+#: templates/mfa/webauthn/authenticator_list.html:21
 msgid "Usage"
 msgstr "Kullanım"
 
-#: templates/mfa/webauthn/authenticator_list.html:31
+#: templates/mfa/webauthn/authenticator_list.html:33
 msgid "Passkey"
 msgstr "Geçiş Anahtarı"
 
-#: templates/mfa/webauthn/authenticator_list.html:35
+#: templates/mfa/webauthn/authenticator_list.html:37
 msgid "Security key"
 msgstr "Güvenlik anahtarı"
 
-#: templates/mfa/webauthn/authenticator_list.html:38
+#: templates/mfa/webauthn/authenticator_list.html:40
 msgid "This key does not indicate whether it is a passkey."
 msgstr "Bu anahtar, bir geçiş anahtarı olduğunu belirtmiyor."
 
-#: templates/mfa/webauthn/authenticator_list.html:39
+#: templates/mfa/webauthn/authenticator_list.html:41
 msgid "Unspecified"
 msgstr "Belirtilmemiş"
 
-#: templates/mfa/webauthn/authenticator_list.html:44
+#: templates/mfa/webauthn/authenticator_list.html:46
 #, python-format
 msgid "Added on %(created_at)s"
 msgstr "%(created_at)s tarihinde eklendi"
 
-#: templates/mfa/webauthn/authenticator_list.html:46
+#: templates/mfa/webauthn/authenticator_list.html:48
 #, python-format
 msgid "Last used %(last_used)s"
 msgstr "En son %(last_used)s tarihinde kullanıldı"
 
-#: templates/mfa/webauthn/authenticator_list.html:54
+#: templates/mfa/webauthn/authenticator_list.html:56
 msgid "Edit"
 msgstr "Düzenle"
 
@@ -1428,11 +1430,6 @@ msgstr "Üçüncü Taraf Giriş Hatası"
 msgid ""
 "An error occurred while attempting to login via your third-party account."
 msgstr "Üçüncü taraf hesabınız ile giriş yapılırken bir hata meydana geldi."
-
-#: templates/socialaccount/connections.html:5
-#: templates/socialaccount/connections.html:9
-msgid "Account Connections"
-msgstr "Hesap Bağlantıları"
 
 #: templates/socialaccount/connections.html:13
 msgid ""
@@ -1576,6 +1573,9 @@ msgstr "Kullanıcı Oturumları"
 #: usersessions/models.py:58
 msgid "session key"
 msgstr "oturum anahtarı"
+
+#~ msgid "Account Connection"
+#~ msgstr "Hesap Bağlantısı"
 
 #, python-brace-format
 #~ msgid "Password must be a minimum of {0} characters."

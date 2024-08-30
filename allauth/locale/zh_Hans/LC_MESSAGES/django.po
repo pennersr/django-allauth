@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-22 08:29-0500\n"
+"POT-Creation-Date: 2024-08-30 02:40-0500\n"
 "PO-Revision-Date: 2024-07-23 14:40+0000\n"
 "Last-Translator: Zhuo Cheng <chengz21@mails.tsinghua.edu.cn>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -85,15 +85,15 @@ msgstr "此用户名不能使用，请改用其他用户名。"
 msgid "The username and/or password you specified are not correct."
 msgstr "您提供的用户名或密码不正确。"
 
-#: account/adapter.py:732
+#: account/adapter.py:736
 msgid "Use your password"
 msgstr "使用您的密码"
 
-#: account/adapter.py:741
+#: account/adapter.py:745
 msgid "Use authenticator app or code"
 msgstr "请使用认证APP或代码"
 
-#: account/adapter.py:748 templates/mfa/authenticate.html:36
+#: account/adapter.py:752 templates/mfa/authenticate.html:36
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use a security key"
 msgstr "使用安全密钥"
@@ -111,7 +111,7 @@ msgid "You must type the same password each time."
 msgstr "每次输入的密码必须相同。"
 
 #: account/forms.py:91 account/forms.py:409 account/forms.py:569
-#: account/forms.py:683
+#: account/forms.py:681
 msgid "Password"
 msgstr "密码"
 
@@ -120,7 +120,7 @@ msgid "Remember Me"
 msgstr "记住我"
 
 #: account/forms.py:102 account/forms.py:269 account/forms.py:495
-#: account/forms.py:587 account/forms.py:700
+#: account/forms.py:587 account/forms.py:698
 msgid "Email address"
 msgstr "Email地址"
 
@@ -171,15 +171,15 @@ msgstr "密码（重复）"
 msgid "Current Password"
 msgstr "当前密码"
 
-#: account/forms.py:552 account/forms.py:636
+#: account/forms.py:552 account/forms.py:634
 msgid "New Password"
 msgstr "新密码"
 
-#: account/forms.py:553 account/forms.py:637
+#: account/forms.py:553 account/forms.py:635
 msgid "New Password (again)"
 msgstr "新密码（重复）"
 
-#: account/forms.py:723 account/forms.py:725 mfa/base/forms.py:15
+#: account/forms.py:721 account/forms.py:723 mfa/base/forms.py:15
 #: mfa/base/forms.py:17 mfa/totp/forms.py:13
 msgid "Code"
 msgstr "代码"
@@ -355,7 +355,7 @@ msgstr "密钥"
 msgid "API secret, client secret, or consumer secret"
 msgstr "API密钥、客户端密钥或消费者密钥"
 
-#: socialaccount/models.py:69 templates/mfa/webauthn/authenticator_list.html:16
+#: socialaccount/models.py:69 templates/mfa/webauthn/authenticator_list.html:18
 msgid "Key"
 msgstr "密钥"
 
@@ -565,8 +565,8 @@ msgid "Re-send Verification"
 msgstr "重发验证Email"
 
 #: templates/account/email.html:50
-#: templates/mfa/webauthn/authenticator_confirm_delete.html:14
-#: templates/mfa/webauthn/authenticator_list.html:58
+#: templates/mfa/webauthn/authenticator_confirm_delete.html:16
+#: templates/mfa/webauthn/authenticator_list.html:60
 #: templates/socialaccount/connections.html:40
 msgid "Remove"
 msgstr "移除"
@@ -1102,9 +1102,9 @@ msgid "Menu:"
 msgstr "菜单："
 
 #: templates/allauth/layouts/base.html:43
-#, fuzzy
-#| msgid "Account Connections"
-msgid "Account Connection"
+#: templates/socialaccount/connections.html:5
+#: templates/socialaccount/connections.html:9
+msgid "Account Connections"
 msgstr "账号连接"
 
 #: templates/allauth/layouts/base.html:49 templates/mfa/authenticate.html:10
@@ -1198,27 +1198,27 @@ msgid "You have added %(count)s security key."
 msgid_plural "You have added %(count)s security keys."
 msgstr[0] "您已添加%(count)s个安全密钥。"
 
-#: templates/mfa/index.html:53
-#: templates/mfa/webauthn/authenticator_list.html:11
+#: templates/mfa/index.html:54
+#: templates/mfa/webauthn/authenticator_list.html:12
 msgid "No security keys have been added."
 msgstr "未添加安全密钥。"
 
-#: templates/mfa/index.html:60
+#: templates/mfa/index.html:62
 msgid "Manage"
 msgstr "管理"
 
-#: templates/mfa/index.html:65 templates/mfa/webauthn/add_form.html:18
-#: templates/mfa/webauthn/authenticator_list.html:68
+#: templates/mfa/index.html:67 templates/mfa/webauthn/add_form.html:18
+#: templates/mfa/webauthn/authenticator_list.html:70
 msgid "Add"
 msgstr "添加"
 
-#: templates/mfa/index.html:75 templates/mfa/recovery_codes/base.html:4
+#: templates/mfa/index.html:77 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:6
 #: templates/mfa/recovery_codes/index.html:6
 msgid "Recovery Codes"
 msgstr "恢复代码"
 
-#: templates/mfa/index.html:80 templates/mfa/recovery_codes/index.html:9
+#: templates/mfa/index.html:82 templates/mfa/recovery_codes/index.html:9
 #, python-format
 msgid ""
 "There is %(unused_count)s out of %(total_count)s recovery codes available."
@@ -1226,19 +1226,19 @@ msgid_plural ""
 "There are %(unused_count)s out of %(total_count)s recovery codes available."
 msgstr[0] "在 %(total_count)s个恢复码中，有 %(unused_count)s 个可用。"
 
-#: templates/mfa/index.html:84
+#: templates/mfa/index.html:86
 msgid "No recovery codes set up."
 msgstr "未设置恢复代码。"
 
-#: templates/mfa/index.html:94
+#: templates/mfa/index.html:96
 msgid "View"
 msgstr "查看"
 
-#: templates/mfa/index.html:100
+#: templates/mfa/index.html:102
 msgid "Download"
 msgstr "下载"
 
-#: templates/mfa/index.html:108 templates/mfa/recovery_codes/generate.html:29
+#: templates/mfa/index.html:110 templates/mfa/recovery_codes/generate.html:29
 msgid "Generate"
 msgstr "生成"
 
@@ -1325,41 +1325,41 @@ msgstr "添加安全密钥"
 msgid "Remove Security Key"
 msgstr "移除安全密钥"
 
-#: templates/mfa/webauthn/authenticator_confirm_delete.html:8
+#: templates/mfa/webauthn/authenticator_confirm_delete.html:9
 msgid "Are you sure you want to remove this security key?"
 msgstr "您确定要移除此安全密钥吗？"
 
-#: templates/mfa/webauthn/authenticator_list.html:19
+#: templates/mfa/webauthn/authenticator_list.html:21
 msgid "Usage"
 msgstr "用途"
 
-#: templates/mfa/webauthn/authenticator_list.html:31
+#: templates/mfa/webauthn/authenticator_list.html:33
 msgid "Passkey"
 msgstr "Passkey"
 
-#: templates/mfa/webauthn/authenticator_list.html:35
+#: templates/mfa/webauthn/authenticator_list.html:37
 msgid "Security key"
 msgstr "安全密钥"
 
-#: templates/mfa/webauthn/authenticator_list.html:38
+#: templates/mfa/webauthn/authenticator_list.html:40
 msgid "This key does not indicate whether it is a passkey."
 msgstr "此密钥未表明其是否为 passkey。"
 
-#: templates/mfa/webauthn/authenticator_list.html:39
+#: templates/mfa/webauthn/authenticator_list.html:41
 msgid "Unspecified"
 msgstr "未指定"
 
-#: templates/mfa/webauthn/authenticator_list.html:44
+#: templates/mfa/webauthn/authenticator_list.html:46
 #, python-format
 msgid "Added on %(created_at)s"
 msgstr "添加于 %(created_at)s"
 
-#: templates/mfa/webauthn/authenticator_list.html:46
+#: templates/mfa/webauthn/authenticator_list.html:48
 #, python-format
 msgid "Last used %(last_used)s"
 msgstr "上次使用：%(last_used)s"
 
-#: templates/mfa/webauthn/authenticator_list.html:54
+#: templates/mfa/webauthn/authenticator_list.html:56
 msgid "Edit"
 msgstr "编辑"
 
@@ -1384,11 +1384,6 @@ msgstr "第三方登录失败"
 msgid ""
 "An error occurred while attempting to login via your third-party account."
 msgstr "尝试通过您的第三方账户登录时发生错误。"
-
-#: templates/socialaccount/connections.html:5
-#: templates/socialaccount/connections.html:9
-msgid "Account Connections"
-msgstr "账号连接"
 
 #: templates/socialaccount/connections.html:13
 msgid ""
@@ -1521,6 +1516,11 @@ msgstr "用户会话"
 #: usersessions/models.py:58
 msgid "session key"
 msgstr "会话密钥"
+
+#, fuzzy
+#~| msgid "Account Connections"
+#~ msgid "Account Connection"
+#~ msgstr "账号连接"
 
 #~ msgid "Use security key or device"
 #~ msgstr "请使用安全密钥或设备"

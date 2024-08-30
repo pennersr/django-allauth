@@ -9,11 +9,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-22 08:29-0500\n"
+"POT-Creation-Date: 2024-08-30 02:40-0500\n"
 "PO-Revision-Date: 2024-08-29 17:05+0000\n"
 "Last-Translator: Asura Class <asuraclass01@gmail.com>\n"
-"Language-Team: Thai <https://hosted.weblate.org/projects/allauth/"
-"django-allauth/th/>\n"
+"Language-Team: Thai <https://hosted.weblate.org/projects/allauth/django-"
+"allauth/th/>\n"
 "Language: th\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -87,15 +87,15 @@ msgstr "ไม่สามารถใช้ชื่อผู้ใช้นี
 msgid "The username and/or password you specified are not correct."
 msgstr "ชื่อผู้ใช้และ/หรือรหัสผ่านที่ระบุมาไม่ถูกต้อง"
 
-#: account/adapter.py:732
+#: account/adapter.py:736
 msgid "Use your password"
 msgstr "ใช้รหัสผ่านของคุณ"
 
-#: account/adapter.py:741
+#: account/adapter.py:745
 msgid "Use authenticator app or code"
 msgstr "ใช้แอปหรือรหัสยืนยันตัวตน"
 
-#: account/adapter.py:748 templates/mfa/authenticate.html:36
+#: account/adapter.py:752 templates/mfa/authenticate.html:36
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use a security key"
 msgstr "ใช้คีย์ความปลอดภัย"
@@ -113,7 +113,7 @@ msgid "You must type the same password each time."
 msgstr "ต้องพิมพ์รหัสผ่านเดิมซ้ำอีกครั้ง"
 
 #: account/forms.py:91 account/forms.py:409 account/forms.py:569
-#: account/forms.py:683
+#: account/forms.py:681
 msgid "Password"
 msgstr "รหัสผ่าน"
 
@@ -122,7 +122,7 @@ msgid "Remember Me"
 msgstr "จดจำการเข้าใช้"
 
 #: account/forms.py:102 account/forms.py:269 account/forms.py:495
-#: account/forms.py:587 account/forms.py:700
+#: account/forms.py:587 account/forms.py:698
 msgid "Email address"
 msgstr "อีเมล"
 
@@ -173,15 +173,15 @@ msgstr "รหัสผ่าน (อีกครั้ง)"
 msgid "Current Password"
 msgstr "รหัสผ่านปัจจุบัน"
 
-#: account/forms.py:552 account/forms.py:636
+#: account/forms.py:552 account/forms.py:634
 msgid "New Password"
 msgstr "รหัสผ่านใหม่"
 
-#: account/forms.py:553 account/forms.py:637
+#: account/forms.py:553 account/forms.py:635
 msgid "New Password (again)"
 msgstr "รหัสผ่านใหม่ (อีกครั้ง)"
 
-#: account/forms.py:723 account/forms.py:725 mfa/base/forms.py:15
+#: account/forms.py:721 account/forms.py:723 mfa/base/forms.py:15
 #: mfa/base/forms.py:17 mfa/totp/forms.py:13
 msgid "Code"
 msgstr "รหัส"
@@ -234,8 +234,7 @@ msgstr "หัวขาด"
 msgid ""
 "You cannot add an email address to an account protected by two-factor "
 "authentication."
-msgstr ""
-"คุณไม่สามารถเพิ่มที่อยู่อีเมลลงในบัญชีที่ได้รับการป้องกันโดยการรับรองความถูกต้องด้วยสองปัจจัย"
+msgstr "คุณไม่สามารถเพิ่มที่อยู่อีเมลลงในบัญชีที่ได้รับการป้องกันโดยการรับรองความถูกต้องด้วยสองปัจจัย"
 
 #: mfa/adapter.py:35
 msgid "You cannot deactivate two-factor authentication."
@@ -245,15 +244,13 @@ msgstr "คุณไม่สามารถปิดใช้งานการ
 msgid ""
 "You cannot generate recovery codes without having two-factor authentication "
 "enabled."
-msgstr ""
-"คุณไม่สามารถสร้างรหัสกู้คืนได้โดยไม่ต้องเปิดใช้งานการรับรองความถูกต้องด้วยสองปัจจัย"
+msgstr "คุณไม่สามารถสร้างรหัสกู้คืนได้โดยไม่ต้องเปิดใช้งานการรับรองความถูกต้องด้วยสองปัจจัย"
 
 #: mfa/adapter.py:42
 msgid ""
 "You cannot activate two-factor authentication until you have verified your "
 "email address."
-msgstr ""
-"คุณไม่สามารถเปิดใช้งานการรับรองความถูกต้องด้วยสองปัจจัยได้จนกว่าคุณจะยืนยันที่อยู่อีเมลของคุณแล้ว"
+msgstr "คุณไม่สามารถเปิดใช้งานการรับรองความถูกต้องด้วยสองปัจจัยได้จนกว่าคุณจะยืนยันที่อยู่อีเมลของคุณแล้ว"
 
 #: mfa/adapter.py:141
 msgid "Master key"
@@ -305,8 +302,7 @@ msgstr ""
 msgid ""
 "An account already exists with this email address. Please sign in to that "
 "account first, then connect your %s account."
-msgstr ""
-"มีบัญชีที่ใช้อีเมลนี้แล้ว โปรดลงชื่อเข้าใช้ก่อนแล้วค่อยเชื่อมต่อกับบัญชี ของคุณ"
+msgstr "มีบัญชีที่ใช้อีเมลนี้แล้ว โปรดลงชื่อเข้าใช้ก่อนแล้วค่อยเชื่อมต่อกับบัญชี ของคุณ"
 
 #: socialaccount/adapter.py:40
 msgid "Invalid token."
@@ -363,7 +359,7 @@ msgstr "รหัสลับ"
 msgid "API secret, client secret, or consumer secret"
 msgstr "ความลับของ API, ความลับของไคลเอ็นต์ หรือความลับของผู้บริโภค"
 
-#: socialaccount/models.py:69 templates/mfa/webauthn/authenticator_list.html:16
+#: socialaccount/models.py:69 templates/mfa/webauthn/authenticator_list.html:18
 msgid "Key"
 msgstr "คีย์"
 
@@ -510,8 +506,7 @@ msgstr "กรอกรหัสยืนยันอีเมล"
 msgid ""
 "We’ve sent a code to %(email_link)s. The code expires shortly, so please "
 "enter it soon."
-msgstr ""
-"เราได้ส่งรหัสไปยังลิงก์ทางอีเมลแล้ว รหัสจะหมดอายุ นี้ ดังนั้นโปรดป้อน นี้"
+msgstr "เราได้ส่งรหัสไปยังลิงก์ทางอีเมลแล้ว รหัสจะหมดอายุ นี้ ดังนั้นโปรดป้อน นี้"
 
 #: templates/account/confirm_email_verification_code.html:27
 #: templates/account/email_confirm.html:24
@@ -570,8 +565,8 @@ msgid "Re-send Verification"
 msgstr "ส่งการยืนยันอีกครั้ง"
 
 #: templates/account/email.html:50
-#: templates/mfa/webauthn/authenticator_confirm_delete.html:14
-#: templates/mfa/webauthn/authenticator_list.html:58
+#: templates/mfa/webauthn/authenticator_confirm_delete.html:16
+#: templates/mfa/webauthn/authenticator_list.html:60
 #: templates/socialaccount/connections.html:40
 msgid "Remove"
 msgstr "ลบ"
@@ -606,8 +601,8 @@ msgid ""
 "%(password_reset_url)s"
 msgstr ""
 "คุณได้รับอีเมลนี้เนื่องจากคุณหรือบุคคลอื่นพยายามสมัครใช้งาน บัญชีโดยใช้ที่อยู่อีเมล: %(อีเมล)s "
-"อย่างไรก็ตามมีบัญชีที่ใช้ที่อยู่อีเมลนั้นอยู่แล้ว ในกรณีที่คุณมี ลืมเรื่องนี้ โปรดใช้ขั้นตอนการลืมรหัสผ่านเพื่อกู้คื"
-"น บัญชีของคุณ: %(รหัสผ่าน_รีเซ็ต_url)s"
+"อย่างไรก็ตามมีบัญชีที่ใช้ที่อยู่อีเมลนั้นอยู่แล้ว ในกรณีที่คุณมี ลืมเรื่องนี้ "
+"โปรดใช้ขั้นตอนการลืมรหัสผ่านเพื่อกู้คืน บัญชีของคุณ: %(รหัสผ่าน_รีเซ็ต_url)s"
 
 #: templates/account/email/account_already_exists_subject.txt:3
 msgid "Account Already Exists"
@@ -687,8 +682,7 @@ msgstr ""
 msgid ""
 "Your email verification code is listed below. Please enter it in your open "
 "browser window."
-msgstr ""
-"รหัสยืนยันอีเมลของคุณแสดงอยู่ด้านล่างนี้ โปรดป้อนรหัสดังกล่าวในหน้าต่างเบราว์เซอร์ที่เปิดอยู่"
+msgstr "รหัสยืนยันอีเมลของคุณแสดงอยู่ด้านล่างนี้ โปรดป้อนรหัสดังกล่าวในหน้าต่างเบราว์เซอร์ที่เปิดอยู่"
 
 #: templates/account/email/email_confirmation_message.txt:9
 #, python-format
@@ -712,14 +706,12 @@ msgstr "ลบ อีเมล์"
 msgid ""
 "Your sign-in code is listed below. Please enter it in your open browser "
 "window."
-msgstr ""
-"รหัสลงชื่อเข้าใช้ของคุณแสดงอยู่ด้านล่างนี้ โปรดป้อนรหัสดังกล่าวในหน้าต่างเบราว์เซอร์ที่เปิดอยู่"
+msgstr "รหัสลงชื่อเข้าใช้ของคุณแสดงอยู่ด้านล่างนี้ โปรดป้อนรหัสดังกล่าวในหน้าต่างเบราว์เซอร์ที่เปิดอยู่"
 
 #: templates/account/email/login_code_message.txt:9
 #: templates/account/email/unknown_account_message.txt:6
 msgid "This mail can be safely ignored if you did not initiate this action."
-msgstr ""
-"คุณสามารถละเว้นเมลนี้ได้อย่างปลอดภัยหากคุณไม่ได้เป็นผู้เริ่มดำเนินการนี้"
+msgstr "คุณสามารถละเว้นเมลนี้ได้อย่างปลอดภัยหากคุณไม่ได้เป็นผู้เริ่มดำเนินการนี้"
 
 #: templates/account/email/login_code_subject.txt:3
 msgid "Sign-In Code"
@@ -744,9 +736,8 @@ msgstr ""
 "\n"
 "You're receiving this e-mail because you or someone else has requested a "
 "คุณได้รับอีเมลนี้เพราะว่า คุณหรือใครบางคนได้ทำการร้องขอรหัสผ่านของบัญชีนี้ที่ %(site_domain)s.\n"
-"It can be safely ignored if you did not request a password reset. Click the คุ"
-"ณสามารถมองข้ามและลบอีเมลนี้ทิ้งได้เลยหากคุณไม่ได้ทำการร้องขอการรีเซ็ทรหัสผ่านคลิกที่ลิงค์ข้างล่างนี้เ"
-"พื่อรีเซ็ทรหัสผ่านของคุณ"
+"It can be safely ignored if you did not request a password reset. Click the "
+"คุณสามารถมองข้ามและลบอีเมลนี้ทิ้งได้เลยหากคุณไม่ได้ทำการร้องขอการรีเซ็ทรหัสผ่านคลิกที่ลิงค์ข้างล่างนี้เพื่อรีเซ็ทรหัสผ่านของคุณ"
 
 #: templates/account/email/password_reset_key_message.txt:9
 #, python-format
@@ -854,8 +845,8 @@ msgid ""
 "This email confirmation link expired or is invalid. Please <a "
 "href=\"%(email_url)s\">issue a new email confirmation request</a>."
 msgstr ""
-"ลิงก์ยืนยันอีเมลนี้หมดอายุหรือไม่ถูกต้อง กรุณา <a href=\"%(email_url)s\""
-">ส่งคำขอยืนยันอีเมลใหม่</a>"
+"ลิงก์ยืนยันอีเมลนี้หมดอายุหรือไม่ถูกต้อง กรุณา <a "
+"href=\"%(email_url)s\">ส่งคำขอยืนยันอีเมลใหม่</a>"
 
 #: templates/account/login.html:19
 #, python-format
@@ -948,8 +939,7 @@ msgstr "ลืมรหัสผ่าน?"
 msgid ""
 "Forgotten your password? Enter your email address below, and we'll send you "
 "an email allowing you to reset it."
-msgstr ""
-"ลืมรหัสผ่านหรือไม่? ป้อนที่อยู่อีเมลของคุณด้านล่าง และเราจะส่งอีเมลไปให้คุณเพื่อรีเซ็ตรหัสผ่าน"
+msgstr "ลืมรหัสผ่านหรือไม่? ป้อนที่อยู่อีเมลของคุณด้านล่าง และเราจะส่งอีเมลไปให้คุณเพื่อรีเซ็ตรหัสผ่าน"
 
 #: templates/account/password_reset.html:25
 msgid "Reset My Password"
@@ -998,8 +988,7 @@ msgstr "ลืมรหัสผ่าน?:"
 msgid ""
 "You will receive an email containing a special code for a password-free sign-"
 "in."
-msgstr ""
-"คุณจะได้รับอีเมลที่มีรหัสพิเศษสำหรับการลงชื่อเข้าใช้แบบไม่ต้องใช้รหัสผ่าน"
+msgstr "คุณจะได้รับอีเมลที่มีรหัสพิเศษสำหรับการลงชื่อเข้าใช้แบบไม่ต้องใช้รหัสผ่าน"
 
 #: templates/account/request_login_code.html:24
 msgid "Request Code"
@@ -1046,8 +1035,7 @@ msgstr "คำเตือน:"
 msgid ""
 "You currently do not have any email address set up. You should really add an "
 "email address so you can receive notifications, reset your password, etc."
-msgstr ""
-"ขณะนี้คุณยังไม่ได้ตั้งค่าที่อยู่อีเมล คุณควรเพิ่มที่อยู่อีเมลเพื่อรับการแจ้งเตือน รีเซ็ตรหัสผ่าน ฯลฯ"
+msgstr "ขณะนี้คุณยังไม่ได้ตั้งค่าที่อยู่อีเมล คุณควรเพิ่มที่อยู่อีเมลเพื่อรับการแจ้งเตือน รีเซ็ตรหัสผ่าน ฯลฯ"
 
 #: templates/account/verification_sent.html:5
 #: templates/account/verification_sent.html:9
@@ -1073,8 +1061,8 @@ msgid ""
 "you are who you claim to be. For this purpose, we require that you\n"
 "verify ownership of your email address. "
 msgstr ""
-"ส่วนนี้ของไซต์ต้องการให้เราตรวจสอบว่าคุณคือบุคคลที่คุณอ้างว่าเป็น เพื่อจุดประสงค์นี้ เราต้องการให้คุ"
-"ณ\n"
+"ส่วนนี้ของไซต์ต้องการให้เราตรวจสอบว่าคุณคือบุคคลที่คุณอ้างว่าเป็น เพื่อจุดประสงค์นี้ "
+"เราต้องการให้คุณ\n"
 "ยืนยันความเป็นเจ้าของที่อยู่อีเมลของคุณ "
 
 #: templates/account/verified_email_required.html:18
@@ -1095,8 +1083,8 @@ msgid ""
 "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your "
 "email address</a>."
 msgstr ""
-"<strong>หมายเหตุ:</strong> คุณยังสามารถ<a href=\"%(email_url)s\""
-">เปลี่ยนที่อยู่อีเมล</a>ของคุณได้"
+"<strong>หมายเหตุ:</strong> คุณยังสามารถ<a href=\"%(email_url)s\">เปลี่ยนที่อยู่อีเมล</"
+"a>ของคุณได้"
 
 #: templates/allauth/layouts/base.html:18
 msgid "Messages:"
@@ -1107,8 +1095,10 @@ msgid "Menu:"
 msgstr "เมนู:"
 
 #: templates/allauth/layouts/base.html:43
-msgid "Account Connection"
-msgstr "การเชื่อมต่อบัญชี"
+#: templates/socialaccount/connections.html:5
+#: templates/socialaccount/connections.html:9
+msgid "Account Connections"
+msgstr "การเชื่อมต่อบัญชีต่างๆ"
 
 #: templates/allauth/layouts/base.html:49 templates/mfa/authenticate.html:10
 #: templates/mfa/index.html:5 templates/mfa/index.html:9
@@ -1125,8 +1115,7 @@ msgstr "เซสชั่น"
 msgid ""
 "Your account is protected by two-factor authentication. Please enter an "
 "authenticator code:"
-msgstr ""
-"บัญชีของคุณได้รับการปกป้องด้วยการตรวจสอบสิทธิ์สองขั้นตอน โปรดป้อนรหัสตรวจสอบสิทธิ์:"
+msgstr "บัญชีของคุณได้รับการปกป้องด้วยการตรวจสอบสิทธิ์สองขั้นตอน โปรดป้อนรหัสตรวจสอบสิทธิ์:"
 
 #: templates/mfa/email/recovery_codes_generated_message.txt:4
 msgid ""
@@ -1202,27 +1191,27 @@ msgid "You have added %(count)s security key."
 msgid_plural "You have added %(count)s security keys."
 msgstr[0] "คุณได้เพิ่มรหัสความปลอดภัย %(count)s แล้ว"
 
-#: templates/mfa/index.html:53
-#: templates/mfa/webauthn/authenticator_list.html:11
+#: templates/mfa/index.html:54
+#: templates/mfa/webauthn/authenticator_list.html:12
 msgid "No security keys have been added."
 msgstr "ไม่มีการเพิ่มคีย์ความปลอดภัย"
 
-#: templates/mfa/index.html:60
+#: templates/mfa/index.html:62
 msgid "Manage"
 msgstr "จัดการ"
 
-#: templates/mfa/index.html:65 templates/mfa/webauthn/add_form.html:18
-#: templates/mfa/webauthn/authenticator_list.html:68
+#: templates/mfa/index.html:67 templates/mfa/webauthn/add_form.html:18
+#: templates/mfa/webauthn/authenticator_list.html:70
 msgid "Add"
 msgstr "แอป"
 
-#: templates/mfa/index.html:75 templates/mfa/recovery_codes/base.html:4
+#: templates/mfa/index.html:77 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:6
 #: templates/mfa/recovery_codes/index.html:6
 msgid "Recovery Codes"
 msgstr "รหัสการกู้คืน"
 
-#: templates/mfa/index.html:80 templates/mfa/recovery_codes/index.html:9
+#: templates/mfa/index.html:82 templates/mfa/recovery_codes/index.html:9
 #, python-format
 msgid ""
 "There is %(unused_count)s out of %(total_count)s recovery codes available."
@@ -1230,19 +1219,19 @@ msgid_plural ""
 "There are %(unused_count)s out of %(total_count)s recovery codes available."
 msgstr[0] "มีรหัสกู้คืน %(unused_count)s จากทั้งหมด %(total_count)s รหัส"
 
-#: templates/mfa/index.html:84
+#: templates/mfa/index.html:86
 msgid "No recovery codes set up."
 msgstr "ไม่มีการตั้งค่ารหัสการกู้คืน"
 
-#: templates/mfa/index.html:94
+#: templates/mfa/index.html:96
 msgid "View"
 msgstr "ดู"
 
-#: templates/mfa/index.html:100
+#: templates/mfa/index.html:102
 msgid "Download"
 msgstr "ดาวน์โหลด"
 
-#: templates/mfa/index.html:108 templates/mfa/recovery_codes/generate.html:29
+#: templates/mfa/index.html:110 templates/mfa/recovery_codes/generate.html:29
 msgid "Generate"
 msgstr "สร้าง"
 
@@ -1308,9 +1297,7 @@ msgstr "ความลับของผู้รับรอง"
 msgid ""
 "You can store this secret and use it to reinstall your authenticator app at "
 "a later time."
-msgstr ""
-"คุณสามารถเก็บความลับนี้ไว้และนำไปใช้ในการติดตั้งแอปพลิเคชันการตรวจสอบความถูกต้องอีกครั้งในภายห"
-"ลังได้"
+msgstr "คุณสามารถเก็บความลับนี้ไว้และนำไปใช้ในการติดตั้งแอปพลิเคชันการตรวจสอบความถูกต้องอีกครั้งในภายหลังได้"
 
 #: templates/mfa/totp/deactivate_form.html:5
 #: templates/mfa/totp/deactivate_form.html:9
@@ -1321,8 +1308,7 @@ msgstr "ปิดใช้งานแอป Authenticator"
 msgid ""
 "You are about to deactivate authenticator app based authentication. Are you "
 "sure?"
-msgstr ""
-"คุณกำลังจะปิดการใช้งานการตรวจสอบสิทธิ์โดยใช้แอปตัวตรวจสอบสิทธิ์ คุณแน่ใจหรือไม่?"
+msgstr "คุณกำลังจะปิดการใช้งานการตรวจสอบสิทธิ์โดยใช้แอปตัวตรวจสอบสิทธิ์ คุณแน่ใจหรือไม่?"
 
 #: templates/mfa/webauthn/add_form.html:7
 msgid "Add Security Key"
@@ -1332,41 +1318,41 @@ msgstr "เพิ่มรหัสความปลอดภัย"
 msgid "Remove Security Key"
 msgstr "ถอดกุญแจความปลอดภัยออก"
 
-#: templates/mfa/webauthn/authenticator_confirm_delete.html:8
+#: templates/mfa/webauthn/authenticator_confirm_delete.html:9
 msgid "Are you sure you want to remove this security key?"
 msgstr "คุณแน่ใจว่าต้องการลงชื่อออกหรือลบคีย์ความปลอดภัยนี้หรือไม่"
 
-#: templates/mfa/webauthn/authenticator_list.html:19
+#: templates/mfa/webauthn/authenticator_list.html:21
 msgid "Usage"
 msgstr "การใช้งาน"
 
-#: templates/mfa/webauthn/authenticator_list.html:31
+#: templates/mfa/webauthn/authenticator_list.html:33
 msgid "Passkey"
 msgstr "กุญแจผี"
 
-#: templates/mfa/webauthn/authenticator_list.html:35
+#: templates/mfa/webauthn/authenticator_list.html:37
 msgid "Security key"
 msgstr "กุญแจความปลอดภัย"
 
-#: templates/mfa/webauthn/authenticator_list.html:38
+#: templates/mfa/webauthn/authenticator_list.html:40
 msgid "This key does not indicate whether it is a passkey."
 msgstr "คีย์นี้ไม่ได้ระบุว่าเป็นรหัสผ่านหรือไม่"
 
-#: templates/mfa/webauthn/authenticator_list.html:39
+#: templates/mfa/webauthn/authenticator_list.html:41
 msgid "Unspecified"
 msgstr "ไม่ระบุ"
 
-#: templates/mfa/webauthn/authenticator_list.html:44
+#: templates/mfa/webauthn/authenticator_list.html:46
 #, python-format
 msgid "Added on %(created_at)s"
 msgstr "เพิ่มเมื่อ %(created_at)s"
 
-#: templates/mfa/webauthn/authenticator_list.html:46
+#: templates/mfa/webauthn/authenticator_list.html:48
 #, python-format
 msgid "Last used %(last_used)s"
 msgstr "ใช้ล่าสุด %(last_used)s"
 
-#: templates/mfa/webauthn/authenticator_list.html:54
+#: templates/mfa/webauthn/authenticator_list.html:56
 msgid "Edit"
 msgstr "แก้ไข"
 
@@ -1390,13 +1376,7 @@ msgstr "การเข้าสู่ระบบของบุคคลที
 #: templates/socialaccount/authentication_error.html:12
 msgid ""
 "An error occurred while attempting to login via your third-party account."
-msgstr ""
-"เกิดข้อผิดพลาดขณะพยายามเข้าสู่ระบบผ่านเครือข่ายโซเชียลหรือบัญชีบุคคลที่สามของคุณ"
-
-#: templates/socialaccount/connections.html:5
-#: templates/socialaccount/connections.html:9
-msgid "Account Connections"
-msgstr "การเชื่อมต่อบัญชีต่างๆ"
+msgstr "เกิดข้อผิดพลาดขณะพยายามเข้าสู่ระบบผ่านเครือข่ายโซเชียลหรือบัญชีบุคคลที่สามของคุณ"
 
 #: templates/socialaccount/connections.html:13
 msgid ""
@@ -1406,8 +1386,7 @@ msgstr "คุณสามารถลงชื่อเข้าใช้บั
 
 #: templates/socialaccount/connections.html:46
 msgid "You currently have no third-party accounts connected to this account."
-msgstr ""
-"ขณะนี้คุณไม่มีบัญชีบุคคลที่สามหรือเครือข่ายโซเชียลที่เชื่อมโยงกับบัญชีนี้"
+msgstr "ขณะนี้คุณไม่มีบัญชีบุคคลที่สามหรือเครือข่ายโซเชียลที่เชื่อมโยงกับบัญชีนี้"
 
 #: templates/socialaccount/connections.html:50
 msgid "Add a Third-Party Account"
@@ -1530,6 +1509,9 @@ msgstr "เซสชันผู้ใช้"
 #: usersessions/models.py:58
 msgid "session key"
 msgstr "คีย์เซสชั่น"
+
+#~ msgid "Account Connection"
+#~ msgstr "การเชื่อมต่อบัญชี"
 
 #, python-brace-format
 #~ msgid "Password must be a minimum of {0} characters."

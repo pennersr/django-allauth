@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-22 08:29-0500\n"
+"POT-Creation-Date: 2024-08-30 02:40-0500\n"
 "PO-Revision-Date: 2024-07-01 15:09+0000\n"
 "Last-Translator: SATOH Fumiyasu <fumiyas@osstech.co.jp>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/allauth/django-"
@@ -85,15 +85,15 @@ msgstr "このユーザー名は使用できません。他のユーザー名を
 msgid "The username and/or password you specified are not correct."
 msgstr "入力されたユーザー名もしくはパスワードが正しくありません。"
 
-#: account/adapter.py:732
+#: account/adapter.py:736
 msgid "Use your password"
 msgstr "パスワードを使用する"
 
-#: account/adapter.py:741
+#: account/adapter.py:745
 msgid "Use authenticator app or code"
 msgstr "認証アプリまたは認証コードを利用する"
 
-#: account/adapter.py:748 templates/mfa/authenticate.html:36
+#: account/adapter.py:752 templates/mfa/authenticate.html:36
 #: templates/mfa/webauthn/reauthenticate.html:15
 #, fuzzy
 #| msgid "Security key"
@@ -113,7 +113,7 @@ msgid "You must type the same password each time."
 msgstr "同じパスワードを入力してください。"
 
 #: account/forms.py:91 account/forms.py:409 account/forms.py:569
-#: account/forms.py:683
+#: account/forms.py:681
 msgid "Password"
 msgstr "パスワード"
 
@@ -122,7 +122,7 @@ msgid "Remember Me"
 msgstr "ログインしたままにする"
 
 #: account/forms.py:102 account/forms.py:269 account/forms.py:495
-#: account/forms.py:587 account/forms.py:700
+#: account/forms.py:587 account/forms.py:698
 msgid "Email address"
 msgstr "メールアドレス"
 
@@ -173,15 +173,15 @@ msgstr "パスワード (再入力)"
 msgid "Current Password"
 msgstr "現在のパスワード"
 
-#: account/forms.py:552 account/forms.py:636
+#: account/forms.py:552 account/forms.py:634
 msgid "New Password"
 msgstr "新しいパスワード"
 
-#: account/forms.py:553 account/forms.py:637
+#: account/forms.py:553 account/forms.py:635
 msgid "New Password (again)"
 msgstr "新しいパスワード (再入力)"
 
-#: account/forms.py:723 account/forms.py:725 mfa/base/forms.py:15
+#: account/forms.py:721 account/forms.py:723 mfa/base/forms.py:15
 #: mfa/base/forms.py:17 mfa/totp/forms.py:13
 msgid "Code"
 msgstr "コード"
@@ -367,7 +367,7 @@ msgid "API secret, client secret, or consumer secret"
 msgstr ""
 "API シークレット、クライアントシークレット、またはコンシューマーシークレット"
 
-#: socialaccount/models.py:69 templates/mfa/webauthn/authenticator_list.html:16
+#: socialaccount/models.py:69 templates/mfa/webauthn/authenticator_list.html:18
 msgid "Key"
 msgstr "キー"
 
@@ -584,8 +584,8 @@ msgid "Re-send Verification"
 msgstr "確認メールを再送する"
 
 #: templates/account/email.html:50
-#: templates/mfa/webauthn/authenticator_confirm_delete.html:14
-#: templates/mfa/webauthn/authenticator_list.html:58
+#: templates/mfa/webauthn/authenticator_confirm_delete.html:16
+#: templates/mfa/webauthn/authenticator_list.html:60
 #: templates/socialaccount/connections.html:40
 msgid "Remove"
 msgstr "削除"
@@ -1146,9 +1146,9 @@ msgid "Menu:"
 msgstr "メニュー:"
 
 #: templates/allauth/layouts/base.html:43
-#, fuzzy
-#| msgid "Account Connections"
-msgid "Account Connection"
+#: templates/socialaccount/connections.html:5
+#: templates/socialaccount/connections.html:9
+msgid "Account Connections"
 msgstr "アカウント接続"
 
 #: templates/allauth/layouts/base.html:49 templates/mfa/authenticate.html:10
@@ -1246,27 +1246,27 @@ msgid "You have added %(count)s security key."
 msgid_plural "You have added %(count)s security keys."
 msgstr[0] "%(count)s 個のセキュリティキー/デバイスを登録しました。"
 
-#: templates/mfa/index.html:53
-#: templates/mfa/webauthn/authenticator_list.html:11
+#: templates/mfa/index.html:54
+#: templates/mfa/webauthn/authenticator_list.html:12
 msgid "No security keys have been added."
 msgstr "登録されているセキュリティキーはありません。"
 
-#: templates/mfa/index.html:60
+#: templates/mfa/index.html:62
 msgid "Manage"
 msgstr "管理"
 
-#: templates/mfa/index.html:65 templates/mfa/webauthn/add_form.html:18
-#: templates/mfa/webauthn/authenticator_list.html:68
+#: templates/mfa/index.html:67 templates/mfa/webauthn/add_form.html:18
+#: templates/mfa/webauthn/authenticator_list.html:70
 msgid "Add"
 msgstr "登録"
 
-#: templates/mfa/index.html:75 templates/mfa/recovery_codes/base.html:4
+#: templates/mfa/index.html:77 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:6
 #: templates/mfa/recovery_codes/index.html:6
 msgid "Recovery Codes"
 msgstr "リカバリーコード"
 
-#: templates/mfa/index.html:80 templates/mfa/recovery_codes/index.html:9
+#: templates/mfa/index.html:82 templates/mfa/recovery_codes/index.html:9
 #, python-format
 msgid ""
 "There is %(unused_count)s out of %(total_count)s recovery codes available."
@@ -1275,19 +1275,19 @@ msgid_plural ""
 msgstr[0] ""
 "利用可能なリカバリーコードは %(total_count)s 個中 %(unused_count)s 個です。"
 
-#: templates/mfa/index.html:84
+#: templates/mfa/index.html:86
 msgid "No recovery codes set up."
 msgstr "リカバリーコードが設定されていません。"
 
-#: templates/mfa/index.html:94
+#: templates/mfa/index.html:96
 msgid "View"
 msgstr "表示"
 
-#: templates/mfa/index.html:100
+#: templates/mfa/index.html:102
 msgid "Download"
 msgstr "ダウンロード"
 
-#: templates/mfa/index.html:108 templates/mfa/recovery_codes/generate.html:29
+#: templates/mfa/index.html:110 templates/mfa/recovery_codes/generate.html:29
 msgid "Generate"
 msgstr "生成する"
 
@@ -1380,43 +1380,43 @@ msgstr "セキュリティキー"
 msgid "Remove Security Key"
 msgstr "セキュリティキー/デバイスの解除"
 
-#: templates/mfa/webauthn/authenticator_confirm_delete.html:8
+#: templates/mfa/webauthn/authenticator_confirm_delete.html:9
 msgid "Are you sure you want to remove this security key?"
 msgstr "セキュリティキーを解除しますか?"
 
-#: templates/mfa/webauthn/authenticator_list.html:19
+#: templates/mfa/webauthn/authenticator_list.html:21
 msgid "Usage"
 msgstr ""
 
-#: templates/mfa/webauthn/authenticator_list.html:31
+#: templates/mfa/webauthn/authenticator_list.html:33
 msgid "Passkey"
 msgstr "パスキー"
 
-#: templates/mfa/webauthn/authenticator_list.html:35
+#: templates/mfa/webauthn/authenticator_list.html:37
 msgid "Security key"
 msgstr "セキュリティキー"
 
-#: templates/mfa/webauthn/authenticator_list.html:38
+#: templates/mfa/webauthn/authenticator_list.html:40
 #, fuzzy
 #| msgid "This key does not specify whether is a passkey."
 msgid "This key does not indicate whether it is a passkey."
 msgstr "このキーはパスキーかどうか記載されていません。"
 
-#: templates/mfa/webauthn/authenticator_list.html:39
+#: templates/mfa/webauthn/authenticator_list.html:41
 msgid "Unspecified"
 msgstr "未指定"
 
-#: templates/mfa/webauthn/authenticator_list.html:44
+#: templates/mfa/webauthn/authenticator_list.html:46
 #, python-format
 msgid "Added on %(created_at)s"
 msgstr "登録日: %(created_at)s"
 
-#: templates/mfa/webauthn/authenticator_list.html:46
+#: templates/mfa/webauthn/authenticator_list.html:48
 #, python-format
 msgid "Last used %(last_used)s"
 msgstr "最終使用日: %(last_used)s"
 
-#: templates/mfa/webauthn/authenticator_list.html:54
+#: templates/mfa/webauthn/authenticator_list.html:56
 msgid "Edit"
 msgstr "編集"
 
@@ -1443,11 +1443,6 @@ msgstr "外部アカウントによるログインに失敗しました"
 msgid ""
 "An error occurred while attempting to login via your third-party account."
 msgstr "外部アカウントでのログイン時ににエラーが発生しました。"
-
-#: templates/socialaccount/connections.html:5
-#: templates/socialaccount/connections.html:9
-msgid "Account Connections"
-msgstr "アカウント接続"
 
 #: templates/socialaccount/connections.html:13
 msgid ""
@@ -1581,6 +1576,11 @@ msgstr "ユーザーセッション"
 #: usersessions/models.py:58
 msgid "session key"
 msgstr "セッションキー"
+
+#, fuzzy
+#~| msgid "Account Connections"
+#~ msgid "Account Connection"
+#~ msgstr "アカウント接続"
 
 #~ msgid "Use security key or device"
 #~ msgstr "セキュリティキー/デバイスを使用"

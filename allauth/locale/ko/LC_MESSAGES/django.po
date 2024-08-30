@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-27 04:25-0500\n"
+"POT-Creation-Date: 2024-08-30 02:40-0500\n"
 "PO-Revision-Date: 2024-04-20 21:50+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1119,7 +1119,9 @@ msgid "Menu:"
 msgstr "메뉴:"
 
 #: templates/allauth/layouts/base.html:43
-msgid "Account Connection"
+#: templates/socialaccount/connections.html:5
+#: templates/socialaccount/connections.html:9
+msgid "Account Connections"
 msgstr "계정 연결"
 
 #: templates/allauth/layouts/base.html:49 templates/mfa/authenticate.html:10
@@ -1402,11 +1404,6 @@ msgid ""
 "An error occurred while attempting to login via your third-party account."
 msgstr "소셜 계정을 통해 로그인 하는 도중 오류가 발생했습니다."
 
-#: templates/socialaccount/connections.html:5
-#: templates/socialaccount/connections.html:9
-msgid "Account Connections"
-msgstr "계정 연결"
-
 #: templates/socialaccount/connections.html:13
 msgid ""
 "You can sign in to your account using any of the following third-party "
@@ -1436,8 +1433,7 @@ msgstr "소셜 계정 연결됨."
 msgid ""
 "A third-party account from %(provider)s has been disconnected from your "
 "account."
-msgstr ""
-"%(provider)s로 부터 소셜 계정이 귀하의 계정에서 연결이 해제되었습니다."
+msgstr "%(provider)s로 부터 소셜 계정이 귀하의 계정에서 연결이 해제되었습니다."
 
 #: templates/socialaccount/email/account_disconnected_subject.txt:3
 msgid "Third-Party Account Disconnected"
@@ -1539,3 +1535,6 @@ msgstr "사용자 세션"
 #: usersessions/models.py:58
 msgid "session key"
 msgstr "세션 키"
+
+#~ msgid "Account Connection"
+#~ msgstr "계정 연결"

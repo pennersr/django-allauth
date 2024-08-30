@@ -9,11 +9,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.55\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-22 08:29-0500\n"
+"POT-Creation-Date: 2024-08-30 02:40-0500\n"
 "PO-Revision-Date: 2024-08-29 17:05+0000\n"
 "Last-Translator: Asura Class <asuraclass01@gmail.com>\n"
-"Language-Team: Czech <https://hosted.weblate.org/projects/allauth/"
-"django-allauth/cs/>\n"
+"Language-Team: Czech <https://hosted.weblate.org/projects/allauth/django-"
+"allauth/cs/>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -92,19 +92,19 @@ msgstr "Toto uživatelské jméno nemůže být zvoleno. Prosím, zvolte si jin�
 msgid "The username and/or password you specified are not correct."
 msgstr "Zadané uživatelské jméno nebo heslo není správné."
 
-#: account/adapter.py:732
+#: account/adapter.py:736
 #, fuzzy
 #| msgid "Forgot Password?"
 msgid "Use your password"
 msgstr "Zapomenuté heslo?"
 
-#: account/adapter.py:741
+#: account/adapter.py:745
 #, fuzzy
 #| msgid "Authenticator App"
 msgid "Use authenticator app or code"
 msgstr "Autentifikátor"
 
-#: account/adapter.py:748 templates/mfa/authenticate.html:36
+#: account/adapter.py:752 templates/mfa/authenticate.html:36
 #: templates/mfa/webauthn/reauthenticate.html:15
 #, fuzzy
 #| msgid "secret key"
@@ -126,7 +126,7 @@ msgid "You must type the same password each time."
 msgstr "Hesla se musí shodovat."
 
 #: account/forms.py:91 account/forms.py:409 account/forms.py:569
-#: account/forms.py:683
+#: account/forms.py:681
 msgid "Password"
 msgstr "Heslo"
 
@@ -135,7 +135,7 @@ msgid "Remember Me"
 msgstr "Zapamatovat"
 
 #: account/forms.py:102 account/forms.py:269 account/forms.py:495
-#: account/forms.py:587 account/forms.py:700
+#: account/forms.py:587 account/forms.py:698
 msgid "Email address"
 msgstr "E-mailová adresa"
 
@@ -188,15 +188,15 @@ msgstr "Heslo (znovu)"
 msgid "Current Password"
 msgstr "Současné heslo"
 
-#: account/forms.py:552 account/forms.py:636
+#: account/forms.py:552 account/forms.py:634
 msgid "New Password"
 msgstr "Nové heslo"
 
-#: account/forms.py:553 account/forms.py:637
+#: account/forms.py:553 account/forms.py:635
 msgid "New Password (again)"
 msgstr "Nové heslo (znovu)"
 
-#: account/forms.py:723 account/forms.py:725 mfa/base/forms.py:15
+#: account/forms.py:721 account/forms.py:723 mfa/base/forms.py:15
 #: mfa/base/forms.py:17 mfa/totp/forms.py:13
 msgid "Code"
 msgstr "Kód"
@@ -397,7 +397,7 @@ msgstr "tajný klíč"
 msgid "API secret, client secret, or consumer secret"
 msgstr "tajný API klíč, tajný klientský klíč nebo uživatelský tajný klíč"
 
-#: socialaccount/models.py:69 templates/mfa/webauthn/authenticator_list.html:16
+#: socialaccount/models.py:69 templates/mfa/webauthn/authenticator_list.html:18
 msgid "Key"
 msgstr "Klíč"
 
@@ -610,8 +610,8 @@ msgid "Re-send Verification"
 msgstr "Znovu zaslat oveřovací e-mail"
 
 #: templates/account/email.html:50
-#: templates/mfa/webauthn/authenticator_confirm_delete.html:14
-#: templates/mfa/webauthn/authenticator_list.html:58
+#: templates/mfa/webauthn/authenticator_confirm_delete.html:16
+#: templates/mfa/webauthn/authenticator_list.html:60
 #: templates/socialaccount/connections.html:40
 msgid "Remove"
 msgstr "Odstranit"
@@ -1046,8 +1046,8 @@ msgid ""
 "used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
 "a>."
 msgstr ""
-"ลิงก์รีเซ็ตรหัสผ่านไม่ถูกต้อง อาจเป็นเพราะลิงก์นี้ถูกใช้ไปแล้ว กรุณาขอ <a href=\""
-"%(passwd_reset_url)s\">รีเซ็ตรหัสผ่านใหม่</a>"
+"ลิงก์รีเซ็ตรหัสผ่านไม่ถูกต้อง อาจเป็นเพราะลิงก์นี้ถูกใช้ไปแล้ว กรุณาขอ <a "
+"href=\"%(passwd_reset_url)s\">รีเซ็ตรหัสผ่านใหม่</a>"
 
 #: templates/account/password_reset_from_key_done.html:12
 msgid "Your password is now changed."
@@ -1185,9 +1185,9 @@ msgid "Menu:"
 msgstr "Menu:"
 
 #: templates/allauth/layouts/base.html:43
-#, fuzzy
-#| msgid "Account Connections"
-msgid "Account Connection"
+#: templates/socialaccount/connections.html:5
+#: templates/socialaccount/connections.html:9
+msgid "Account Connections"
 msgstr "Propojení účtu"
 
 #: templates/allauth/layouts/base.html:49 templates/mfa/authenticate.html:10
@@ -1298,27 +1298,27 @@ msgstr[1] ""
 msgstr[2] ""
 msgstr[3] ""
 
-#: templates/mfa/index.html:53
-#: templates/mfa/webauthn/authenticator_list.html:11
+#: templates/mfa/index.html:54
+#: templates/mfa/webauthn/authenticator_list.html:12
 msgid "No security keys have been added."
 msgstr ""
 
-#: templates/mfa/index.html:60
+#: templates/mfa/index.html:62
 msgid "Manage"
 msgstr ""
 
-#: templates/mfa/index.html:65 templates/mfa/webauthn/add_form.html:18
-#: templates/mfa/webauthn/authenticator_list.html:68
+#: templates/mfa/index.html:67 templates/mfa/webauthn/add_form.html:18
+#: templates/mfa/webauthn/authenticator_list.html:70
 msgid "Add"
 msgstr ""
 
-#: templates/mfa/index.html:75 templates/mfa/recovery_codes/base.html:4
+#: templates/mfa/index.html:77 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:6
 #: templates/mfa/recovery_codes/index.html:6
 msgid "Recovery Codes"
 msgstr "Záchranné kódy"
 
-#: templates/mfa/index.html:80 templates/mfa/recovery_codes/index.html:9
+#: templates/mfa/index.html:82 templates/mfa/recovery_codes/index.html:9
 #, python-format
 msgid ""
 "There is %(unused_count)s out of %(total_count)s recovery codes available."
@@ -1337,21 +1337,21 @@ msgstr[3] ""
 "Z dostupných záchranných kódů je použito %(unused_count)s z celkového počtu "
 "%(total_count)s kódů."
 
-#: templates/mfa/index.html:84
+#: templates/mfa/index.html:86
 msgid "No recovery codes set up."
 msgstr "Nejsou nastaveny žádné záchranné kódy."
 
-#: templates/mfa/index.html:94
+#: templates/mfa/index.html:96
 msgid "View"
 msgstr ""
 
-#: templates/mfa/index.html:100
+#: templates/mfa/index.html:102
 #, fuzzy
 #| msgid "Download codes"
 msgid "Download"
 msgstr "Stáhnout kódy"
 
-#: templates/mfa/index.html:108 templates/mfa/recovery_codes/generate.html:29
+#: templates/mfa/index.html:110 templates/mfa/recovery_codes/generate.html:29
 msgid "Generate"
 msgstr "Generovat"
 
@@ -1451,47 +1451,47 @@ msgstr "tajný klíč"
 msgid "Remove Security Key"
 msgstr "tajný klíč"
 
-#: templates/mfa/webauthn/authenticator_confirm_delete.html:8
+#: templates/mfa/webauthn/authenticator_confirm_delete.html:9
 #, fuzzy
 #| msgid "Are you sure you want to sign out?"
 msgid "Are you sure you want to remove this security key?"
 msgstr "Jste si jisti, že se chcete odhlásit?"
 
-#: templates/mfa/webauthn/authenticator_list.html:19
+#: templates/mfa/webauthn/authenticator_list.html:21
 msgid "Usage"
 msgstr ""
 
-#: templates/mfa/webauthn/authenticator_list.html:31
+#: templates/mfa/webauthn/authenticator_list.html:33
 msgid "Passkey"
 msgstr ""
 
-#: templates/mfa/webauthn/authenticator_list.html:35
+#: templates/mfa/webauthn/authenticator_list.html:37
 #, fuzzy
 #| msgid "secret key"
 msgid "Security key"
 msgstr "tajný klíč"
 
-#: templates/mfa/webauthn/authenticator_list.html:38
+#: templates/mfa/webauthn/authenticator_list.html:40
 msgid "This key does not indicate whether it is a passkey."
 msgstr ""
 
-#: templates/mfa/webauthn/authenticator_list.html:39
+#: templates/mfa/webauthn/authenticator_list.html:41
 #, fuzzy
 #| msgid "Unverified"
 msgid "Unspecified"
 msgstr "Neověřeno"
 
-#: templates/mfa/webauthn/authenticator_list.html:44
+#: templates/mfa/webauthn/authenticator_list.html:46
 #, python-format
 msgid "Added on %(created_at)s"
 msgstr ""
 
-#: templates/mfa/webauthn/authenticator_list.html:46
+#: templates/mfa/webauthn/authenticator_list.html:48
 #, python-format
 msgid "Last used %(last_used)s"
 msgstr ""
 
-#: templates/mfa/webauthn/authenticator_list.html:54
+#: templates/mfa/webauthn/authenticator_list.html:56
 msgid "Edit"
 msgstr ""
 
@@ -1524,11 +1524,6 @@ msgstr "Přihlášení pomocí sociální sítě selhalo."
 msgid ""
 "An error occurred while attempting to login via your third-party account."
 msgstr "Nastala chyba při přihlašování pomocí vašeho účtu sociální sítě."
-
-#: templates/socialaccount/connections.html:5
-#: templates/socialaccount/connections.html:9
-msgid "Account Connections"
-msgstr "Propojení účtu"
 
 #: templates/socialaccount/connections.html:13
 #, fuzzy
@@ -1687,6 +1682,11 @@ msgstr ""
 #: usersessions/models.py:58
 msgid "session key"
 msgstr ""
+
+#, fuzzy
+#~| msgid "Account Connections"
+#~ msgid "Account Connection"
+#~ msgstr "Propojení účtu"
 
 #, python-brace-format
 #~ msgid "Password must be a minimum of {0} characters."

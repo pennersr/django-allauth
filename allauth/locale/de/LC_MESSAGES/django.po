@@ -8,11 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-22 08:29-0500\n"
+"POT-Creation-Date: 2024-08-30 02:40-0500\n"
 "PO-Revision-Date: 2024-08-23 19:09+0000\n"
 "Last-Translator: Natalia N <natalian@inbox.ru>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/allauth/"
-"django-allauth/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/allauth/django-"
+"allauth/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -88,15 +88,15 @@ msgstr ""
 msgid "The username and/or password you specified are not correct."
 msgstr "Der Anmeldename und/oder das Passwort sind leider falsch."
 
-#: account/adapter.py:732
+#: account/adapter.py:736
 msgid "Use your password"
 msgstr "Verwenden Sie Ihr Passwort"
 
-#: account/adapter.py:741
+#: account/adapter.py:745
 msgid "Use authenticator app or code"
 msgstr "Verwenden Sie eine Authentifizierungs-App oder einen Code"
 
-#: account/adapter.py:748 templates/mfa/authenticate.html:36
+#: account/adapter.py:752 templates/mfa/authenticate.html:36
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use a security key"
 msgstr "Verwenden Sie einen Sicherheitsschlüssel"
@@ -114,7 +114,7 @@ msgid "You must type the same password each time."
 msgstr "Du musst zweimal das selbe Passwort eingeben."
 
 #: account/forms.py:91 account/forms.py:409 account/forms.py:569
-#: account/forms.py:683
+#: account/forms.py:681
 msgid "Password"
 msgstr "Passwort"
 
@@ -123,7 +123,7 @@ msgid "Remember Me"
 msgstr "Angemeldet bleiben"
 
 #: account/forms.py:102 account/forms.py:269 account/forms.py:495
-#: account/forms.py:587 account/forms.py:700
+#: account/forms.py:587 account/forms.py:698
 msgid "Email address"
 msgstr "E-Mail-Adresse"
 
@@ -174,15 +174,15 @@ msgstr "Passwort (Wiederholung)"
 msgid "Current Password"
 msgstr "Aktuelles Passwort"
 
-#: account/forms.py:552 account/forms.py:636
+#: account/forms.py:552 account/forms.py:634
 msgid "New Password"
 msgstr "Neues Passwort"
 
-#: account/forms.py:553 account/forms.py:637
+#: account/forms.py:553 account/forms.py:635
 msgid "New Password (again)"
 msgstr "Neues Passwort (Wiederholung)"
 
-#: account/forms.py:723 account/forms.py:725 mfa/base/forms.py:15
+#: account/forms.py:721 account/forms.py:723 mfa/base/forms.py:15
 #: mfa/base/forms.py:17 mfa/totp/forms.py:13
 msgid "Code"
 msgstr "Code"
@@ -369,7 +369,7 @@ msgstr "Geheimer Schlüssel"
 msgid "API secret, client secret, or consumer secret"
 msgstr "'API secret', 'client secret' oder 'consumer secret'"
 
-#: socialaccount/models.py:69 templates/mfa/webauthn/authenticator_list.html:16
+#: socialaccount/models.py:69 templates/mfa/webauthn/authenticator_list.html:18
 msgid "Key"
 msgstr "Schlüssel"
 
@@ -579,8 +579,8 @@ msgid "Re-send Verification"
 msgstr "Bestätigungs-Mail nochmal verschicken"
 
 #: templates/account/email.html:50
-#: templates/mfa/webauthn/authenticator_confirm_delete.html:14
-#: templates/mfa/webauthn/authenticator_list.html:58
+#: templates/mfa/webauthn/authenticator_confirm_delete.html:16
+#: templates/mfa/webauthn/authenticator_list.html:60
 #: templates/socialaccount/connections.html:40
 msgid "Remove"
 msgstr "Ausgewählte entfernen"
@@ -1139,8 +1139,10 @@ msgid "Menu:"
 msgstr "Menü"
 
 #: templates/allauth/layouts/base.html:43
-msgid "Account Connection"
-msgstr "Konto-Verknüpfung"
+#: templates/socialaccount/connections.html:5
+#: templates/socialaccount/connections.html:9
+msgid "Account Connections"
+msgstr "Konto-Verknüpfungen"
 
 #: templates/allauth/layouts/base.html:49 templates/mfa/authenticate.html:10
 #: templates/mfa/index.html:5 templates/mfa/index.html:9
@@ -1236,27 +1238,27 @@ msgid_plural "You have added %(count)s security keys."
 msgstr[0] "Sie haben %(count)s Sicherheitsschlüssel hinzugefügt."
 msgstr[1] "Sie haben %(count)s Sicherheitsschlüssel hinzugefügt."
 
-#: templates/mfa/index.html:53
-#: templates/mfa/webauthn/authenticator_list.html:11
+#: templates/mfa/index.html:54
+#: templates/mfa/webauthn/authenticator_list.html:12
 msgid "No security keys have been added."
 msgstr "Es wurden keine Sicherheitsschlüssel hinzugefügt."
 
-#: templates/mfa/index.html:60
+#: templates/mfa/index.html:62
 msgid "Manage"
 msgstr "Verwalten"
 
-#: templates/mfa/index.html:65 templates/mfa/webauthn/add_form.html:18
-#: templates/mfa/webauthn/authenticator_list.html:68
+#: templates/mfa/index.html:67 templates/mfa/webauthn/add_form.html:18
+#: templates/mfa/webauthn/authenticator_list.html:70
 msgid "Add"
 msgstr "Hinzufügen"
 
-#: templates/mfa/index.html:75 templates/mfa/recovery_codes/base.html:4
+#: templates/mfa/index.html:77 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:6
 #: templates/mfa/recovery_codes/index.html:6
 msgid "Recovery Codes"
 msgstr "Wiederherstellungs-Codes"
 
-#: templates/mfa/index.html:80 templates/mfa/recovery_codes/index.html:9
+#: templates/mfa/index.html:82 templates/mfa/recovery_codes/index.html:9
 #, python-format
 msgid ""
 "There is %(unused_count)s out of %(total_count)s recovery codes available."
@@ -1269,19 +1271,19 @@ msgstr[1] ""
 "Es stehen %(unused_count)s von %(total_count)s Wiederherstellungscodes zur "
 "Verfügung."
 
-#: templates/mfa/index.html:84
+#: templates/mfa/index.html:86
 msgid "No recovery codes set up."
 msgstr "Es wurden keine Wiederherstellungscodes eingerichtet."
 
-#: templates/mfa/index.html:94
+#: templates/mfa/index.html:96
 msgid "View"
 msgstr "Anzeigen"
 
-#: templates/mfa/index.html:100
+#: templates/mfa/index.html:102
 msgid "Download"
 msgstr "Herunterladen"
 
-#: templates/mfa/index.html:108 templates/mfa/recovery_codes/generate.html:29
+#: templates/mfa/index.html:110 templates/mfa/recovery_codes/generate.html:29
 msgid "Generate"
 msgstr "Generieren"
 
@@ -1375,42 +1377,42 @@ msgstr "Sicherheitsschlüssel hinzufügen"
 msgid "Remove Security Key"
 msgstr "Sicherheitsschlüssel entfernen"
 
-#: templates/mfa/webauthn/authenticator_confirm_delete.html:8
+#: templates/mfa/webauthn/authenticator_confirm_delete.html:9
 msgid "Are you sure you want to remove this security key?"
 msgstr ""
 "Sind Sie sicher, dass Sie diesen Sicherheitsschlüssel entfernen möchten?"
 
-#: templates/mfa/webauthn/authenticator_list.html:19
+#: templates/mfa/webauthn/authenticator_list.html:21
 msgid "Usage"
 msgstr "Verwendung"
 
-#: templates/mfa/webauthn/authenticator_list.html:31
+#: templates/mfa/webauthn/authenticator_list.html:33
 msgid "Passkey"
 msgstr "Passkey"
 
-#: templates/mfa/webauthn/authenticator_list.html:35
+#: templates/mfa/webauthn/authenticator_list.html:37
 msgid "Security key"
 msgstr "Sicherheitsschlüssel"
 
-#: templates/mfa/webauthn/authenticator_list.html:38
+#: templates/mfa/webauthn/authenticator_list.html:40
 msgid "This key does not indicate whether it is a passkey."
 msgstr "Dieser Schlüssel gibt nicht an, ob es sich um einen Passkey handelt."
 
-#: templates/mfa/webauthn/authenticator_list.html:39
+#: templates/mfa/webauthn/authenticator_list.html:41
 msgid "Unspecified"
 msgstr "Unbestimmt"
 
-#: templates/mfa/webauthn/authenticator_list.html:44
+#: templates/mfa/webauthn/authenticator_list.html:46
 #, python-format
 msgid "Added on %(created_at)s"
 msgstr "Hinzugefügt um %(created_at)s"
 
-#: templates/mfa/webauthn/authenticator_list.html:46
+#: templates/mfa/webauthn/authenticator_list.html:48
 #, python-format
 msgid "Last used %(last_used)s"
 msgstr "Zuletzt verwendet %(last_used)s"
 
-#: templates/mfa/webauthn/authenticator_list.html:54
+#: templates/mfa/webauthn/authenticator_list.html:56
 msgid "Edit"
 msgstr "Bearbeiten"
 
@@ -1437,11 +1439,6 @@ msgid ""
 msgstr ""
 "Beim Versuch, sich über Ihr Drittanbieterkonto anzumelden, ist ein Fehler "
 "aufgetreten."
-
-#: templates/socialaccount/connections.html:5
-#: templates/socialaccount/connections.html:9
-msgid "Account Connections"
-msgstr "Konto-Verknüpfungen"
 
 #: templates/socialaccount/connections.html:13
 msgid ""
@@ -1581,6 +1578,9 @@ msgstr "Benutzersitzungen"
 #: usersessions/models.py:58
 msgid "session key"
 msgstr "Sitzungsschlüssel"
+
+#~ msgid "Account Connection"
+#~ msgstr "Konto-Verknüpfung"
 
 #, python-brace-format
 #~ msgid "Password must be a minimum of {0} characters."

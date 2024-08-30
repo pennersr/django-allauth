@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-22 08:29-0500\n"
-"PO-Revision-Date: 2024-08-16 21:09+0000\n"
+"PO-Revision-Date: 2024-08-30 07:32+0000\n"
 "Last-Translator: Alefsander Ribeiro Nascimento <alefsander.pvh14@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "allauth/django-allauth/pt_BR/>\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.7\n"
+"X-Generator: Weblate 5.7.1-dev\n"
 
 #: account/adapter.py:51
 msgid "This account is currently inactive."
@@ -505,16 +505,12 @@ msgid "Alternative options"
 msgstr "Opções alternativas"
 
 #: templates/account/confirm_email_verification_code.html:5
-#, fuzzy
-#| msgid "Email Confirmation"
 msgid "Email Verification"
-msgstr "Confirmação de E-mail"
+msgstr "Verificação de Email"
 
 #: templates/account/confirm_email_verification_code.html:9
-#, fuzzy
-#| msgid "Enter an authenticator code:"
 msgid "Enter Email Verification Code"
-msgstr "Informe um código de autenticação:"
+msgstr "Digite Verificação de Email Código"
 
 #: templates/account/confirm_email_verification_code.html:15
 #: templates/account/confirm_login_code.html:15
@@ -692,37 +688,26 @@ msgid "Email Confirmation"
 msgstr "Confirmação de E-mail"
 
 #: templates/account/email/email_confirmation_message.txt:5
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this email because user %(user_display)s has given your "
-#| "email address to register an account on %(site_domain)s.\n"
-#| "\n"
-#| "To confirm this is correct, go to %(activate_url)s"
+#, python-format
 msgid ""
 "You're receiving this email because user %(user_display)s has given your "
 "email address to register an account on %(site_domain)s."
 msgstr ""
-"Você está recebendo essa mensagem porque o usuário %(user_display)s utilizou "
-"este e-mail para se cadastrar no site %(site_domain)s.\n"
-"\n"
-"Para confirmar que isso está correto, clique em %(activate_url)s"
+"Você está recebendo este e-mail porque o usuário %(user_display)s deu seu "
+"endereço de e-mail para registrar uma conta em %(site_domain)s."
 
 #: templates/account/email/email_confirmation_message.txt:7
-#, fuzzy
-#| msgid ""
-#| "Your sign-in code is listed below. Please enter it in your open browser "
-#| "window."
 msgid ""
 "Your email verification code is listed below. Please enter it in your open "
 "browser window."
 msgstr ""
-"Seu código de entrada está listado abaixo. Por favor, informe-o em sua "
-"janela de navegador aberta."
+"Seu código de verificação de e-mail está listado abaixo. Por favor, insira-o "
+"na janela do navegador aberto."
 
 #: templates/account/email/email_confirmation_message.txt:9
 #, python-format
 msgid "To confirm this is correct, go to %(activate_url)s"
-msgstr ""
+msgstr "Para confirmar isso é correto, vá para %(activate_url)s"
 
 #: templates/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your Email Address"

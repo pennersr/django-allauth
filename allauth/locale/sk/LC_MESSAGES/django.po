@@ -8,15 +8,17 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-22 08:29-0500\n"
-"PO-Revision-Date: 2024-04-20 21:23+0200\n"
-"Last-Translator: Erik Telepovský <erik@pragmaticmates.com>\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2024-08-29 07:21+0000\n"
+"Last-Translator: Adam Zahradník <adam@zahradnik.xyz>\n"
+"Language-Team: Slovak <https://hosted.weblate.org/projects/allauth/"
+"django-allauth/sk/>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
 ">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
+"X-Generator: Weblate 5.7.1-dev\n"
 "X-Translated-Using: django-rosetta 0.9.9\n"
 
 #: account/adapter.py:51
@@ -24,10 +26,8 @@ msgid "This account is currently inactive."
 msgstr "Tento účet nie je momentálne aktívny."
 
 #: account/adapter.py:53
-#, fuzzy
-#| msgid "You cannot remove your primary email address (%(email)s)."
 msgid "You cannot remove your primary email address."
-msgstr "Primárna e-mailová adresa sa nedá odstrániť (%(email)s)."
+msgstr "Primárna e-mailová adresa sa nedá odstrániť."
 
 #: account/adapter.py:56
 msgid "This email address is already associated with this account."
@@ -51,13 +51,11 @@ msgstr "Nesprávny kód."
 
 #: account/adapter.py:64
 msgid "Incorrect password."
-msgstr "Nesprávne heslo"
+msgstr "Nesprávne heslo."
 
 #: account/adapter.py:65
-#, fuzzy
-#| msgid "Bad Token"
 msgid "Invalid or expired key."
-msgstr "Zlý token"
+msgstr "Neplatný kľúč."
 
 #: account/adapter.py:66
 msgid "The password reset token was invalid."
@@ -95,23 +93,17 @@ msgid "Use your password"
 msgstr "Použite svoje heslo"
 
 #: account/adapter.py:741
-#, fuzzy
-#| msgid "Use your authenticator app"
 msgid "Use authenticator app or code"
-msgstr "použite autentifikačnú aplikáciu"
+msgstr "Použiť autentifikačnú aplikáciu alebo kód"
 
 #: account/adapter.py:748 templates/mfa/authenticate.html:36
 #: templates/mfa/webauthn/reauthenticate.html:15
-#, fuzzy
-#| msgid "secret key"
 msgid "Use a security key"
-msgstr "tajný kľúč"
+msgstr "Použiť bezpečnostný kľuč"
 
 #: account/admin.py:23
-#, fuzzy
-#| msgid "Your primary email address must be verified."
 msgid "Mark selected email addresses as verified"
-msgstr "Primárna e-mailová adresa musí byť overená."
+msgstr "Označiť vybrané adresy ako overené"
 
 #: account/apps.py:11
 msgid "Accounts"
@@ -248,26 +240,16 @@ msgstr ""
 "autentifikáciou."
 
 #: mfa/adapter.py:35
-#, fuzzy
-#| msgid ""
-#| "You cannot add an email address to an account protected by two-factor "
-#| "authentication."
 msgid "You cannot deactivate two-factor authentication."
-msgstr ""
-"Nemôžete si pridať ďalšiu emailovú adresu do účtu s dvojfaktorovou "
-"autentifikáciou."
+msgstr "Nemôžete si deaktivovať dvojfaktorovú autentifikáciu."
 
 #: mfa/adapter.py:38
-#, fuzzy
-#| msgid ""
-#| "You cannot add an email address to an account protected by two-factor "
-#| "authentication."
 msgid ""
 "You cannot generate recovery codes without having two-factor authentication "
 "enabled."
 msgstr ""
-"Nemôžete si pridať ďalšiu emailovú adresu do účtu s dvojfaktorovou "
-"autentifikáciou."
+"Nemôžete si vygenerovať záložné kódy bez aktívnej dvojfaktorovej "
+"autentifikácie."
 
 #: mfa/adapter.py:42
 msgid ""
@@ -278,19 +260,17 @@ msgstr ""
 "svoju adresu."
 
 #: mfa/adapter.py:141
-#, fuzzy
-#| msgid "secret key"
 msgid "Master key"
-msgstr "tajný kľúč"
+msgstr "Hlavný kľúč"
 
 #: mfa/adapter.py:143
 msgid "Backup key"
-msgstr ""
+msgstr "Záložný kľúč"
 
 #: mfa/adapter.py:144
 #, python-brace-format
 msgid "Key nr. {number}"
-msgstr ""
+msgstr "Kľúč č. {number}"
 
 #: mfa/apps.py:9
 msgid "MFA"
@@ -306,23 +286,23 @@ msgstr "TOTP autentifikátor"
 
 #: mfa/models.py:26
 msgid "WebAuthn"
-msgstr ""
+msgstr "WebAuthn"
 
 #: mfa/totp/forms.py:11
 msgid "Authenticator code"
 msgstr "Kód z autentifikátora"
 
 #: mfa/webauthn/forms.py:16
-#, fuzzy
-#| msgid "Password"
 msgid "Passwordless"
-msgstr "Heslo"
+msgstr "Prihlásenie bez hesla"
 
 #: mfa/webauthn/forms.py:19
 msgid ""
 "Enabling passwordless operation allows you to sign in using just this key, "
 "but imposes additional requirements such as biometrics or PIN protection."
 msgstr ""
+"Aktivácia prihlásenia bez hesla vám dovolí prihlásiť sa len pomocou tohto "
+"kľúča, ale vyžaduje dodatočné požiadavky ako napríklad PIN alebo biometriu."
 
 #: socialaccount/adapter.py:36
 #, python-format
@@ -334,10 +314,8 @@ msgstr ""
 "daným účtom a potom pripojte svoj %s účet."
 
 #: socialaccount/adapter.py:40
-#, fuzzy
-#| msgid "Bad Token"
 msgid "Invalid token."
-msgstr "Zlý token"
+msgstr "Neplatný token."
 
 #: socialaccount/adapter.py:41
 msgid "Your account has no password set up."
@@ -348,19 +326,13 @@ msgid "Your account has no verified email address."
 msgstr "Váš účet nemá overenú e-mailovú adresu."
 
 #: socialaccount/adapter.py:44
-#, fuzzy
-#| msgid ""
-#| "You can sign in to your account using any of the following third-party "
-#| "accounts:"
 msgid "You cannot disconnect your last remaining third-party account."
-msgstr "Môžete sa prihlásiť pomocou niektorého z nasledujúcich účtov:"
+msgstr "Nemôžete si odstrániť svoj posledný účet tretej strany."
 
 #: socialaccount/adapter.py:47
 #: templates/socialaccount/messages/account_connected_other.txt:2
-#, fuzzy
-#| msgid "The social account is already connected to a different account."
 msgid "The third-party account is already connected to a different account."
-msgstr "Tento sociálny účet už bol pripojený k inému používateľovi."
+msgstr "Tento účet tretej strany už je priradený k inému používateľovi."
 
 #: socialaccount/apps.py:9
 msgid "Social Accounts"
@@ -466,11 +438,8 @@ msgid "Invalid profile data"
 msgstr "Nesprávne profilové údaje"
 
 #: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:16
-#, fuzzy
-#| msgctxt "field label"
-#| msgid "Login"
 msgid "Login"
-msgstr "Login"
+msgstr "Prihlásiť sa"
 
 #: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:19
 #: templates/account/confirm_email_verification_code.html:33
@@ -482,8 +451,7 @@ msgstr "Zrušiť"
 #, python-format
 msgid ""
 "Invalid response while obtaining request token from \"%s\". Response was: %s."
-msgstr ""
-"Neplatná odpoveď pri získavaní požiadavky tokenu z  \"%s\". Odpoveď: %s."
+msgstr "Neplatná odpoveď pri získavaní request tokenu z \"%s\". Odpoveď: %s."
 
 #: socialaccount/providers/oauth/client.py:119
 #: socialaccount/providers/pocket/client.py:86
@@ -509,7 +477,7 @@ msgstr "Žiadny prístup do privátneho úložiska na \"%s\"."
 #: socialaccount/providers/pocket/client.py:41
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
-msgstr "Neplatná odozva pri získavaní požiadavky tokenu z  \"%s\"."
+msgstr "Neplatná odpoveď pri získavaní request tokenu z \"%s\"."
 
 #: templates/account/account_inactive.html:5
 #: templates/account/account_inactive.html:9
@@ -535,16 +503,12 @@ msgid "Alternative options"
 msgstr "Alternatívne možnosti"
 
 #: templates/account/confirm_email_verification_code.html:5
-#, fuzzy
-#| msgid "email confirmation"
 msgid "Email Verification"
-msgstr "potvrdenie e-mailu"
+msgstr "Overenie emailovej adresy"
 
 #: templates/account/confirm_email_verification_code.html:9
-#, fuzzy
-#| msgid "Enter an authenticator code:"
 msgid "Enter Email Verification Code"
-msgstr "Zadajte kód z autentifikátora:"
+msgstr "Zadajte kód na overenie emailovej adresy"
 
 #: templates/account/confirm_email_verification_code.html:15
 #: templates/account/confirm_login_code.html:15
@@ -553,6 +517,8 @@ msgid ""
 "We’ve sent a code to %(email_link)s. The code expires shortly, so please "
 "enter it soon."
 msgstr ""
+"Odoslali sme overovací kód na adresu %(email_link)s. Platnosť tohto kódu "
+"čoskoro vyprší, zadajte ho čo najskôr."
 
 #: templates/account/confirm_email_verification_code.html:27
 #: templates/account/email_confirm.html:24
@@ -575,14 +541,12 @@ msgstr "Prihlásiť sa"
 
 #: templates/account/confirm_login_code.html:9
 msgid "Enter Sign-In Code"
-msgstr ""
+msgstr "Zadanie prihlasovacieho kódu"
 
 #: templates/account/confirm_login_code.html:34
 #: templates/account/request_login_code.html:31
-#, fuzzy
-#| msgid "Alternative options"
 msgid "Other sign-in options"
-msgstr "Alternatívne možnosti"
+msgstr "Iné možnosti prihlásenia"
 
 #: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
@@ -648,14 +612,14 @@ msgid ""
 "\n"
 "%(password_reset_url)s"
 msgstr ""
-"Tento e-mail ste dostali, pretože ste sa Vy, alebo niekto iný\n"
+"Tento e-mail ste dostali, pretože ste sa vy, alebo niekto iný\n"
 "pokúšali vytvoriť účet pre e-mailovu adresu:\n"
 "\n"
 "%(email)s\n"
 "\n"
 "Účet s touto e-mailovou adresou už však existuje.  V prípade,\n"
-"že ste na svoju registráciu zabudli, použite prosím funkciu obnovy hesla k "
-"Vášmu účtu:\n"
+"že ste na svoju registráciu zabudli, použite prosím funkciu obnovy\n"
+"hesla vášho účtu:\n"
 "\n"
 "%(password_reset_url)s"
 
@@ -681,7 +645,7 @@ msgstr ""
 msgid ""
 "You are receiving this mail because the following change was made to your "
 "account:"
-msgstr ""
+msgstr "Tento email dostávate kvôli nasledujúcim zmenám vo vašom účte:"
 
 #: templates/account/email/base_notification.txt:10
 #, python-format
@@ -693,56 +657,51 @@ msgid ""
 "- Browser: %(user_agent)s\n"
 "- Date: %(timestamp)s"
 msgstr ""
+"Ak ste tieto zmeny nevykonali vy, prosím okamžite prijmite náležité "
+"bezpečnostné opatrenia. Zmeny vo vašom účte pochádzajú z:\n"
+"\n"
+"- IP adresa: %(ip)s\n"
+"- Prehliadač: %(user_agent)s\n"
+"- Dátum: %(timestamp)s"
 
 #: templates/account/email/email_changed_message.txt:4
 #, python-format
 msgid "Your email has been changed from %(from_email)s to %(to_email)s."
-msgstr ""
+msgstr "Vaša emailová adresa bola zmenená z %(from_email)s na %(to_email)s."
 
 #: templates/account/email/email_changed_subject.txt:3
-#, fuzzy
-#| msgid "Cancel"
 msgid "Email Changed"
-msgstr "Zrušiť"
+msgstr "Emailová adresa zmenená"
 
 #: templates/account/email/email_confirm_message.txt:4
-#, fuzzy
-#| msgid "You have confirmed %(email)s."
 msgid "Your email has been confirmed."
-msgstr "%(email)s potvrdené."
+msgstr "Vaša emailová adresa bola overená."
 
 #: templates/account/email/email_confirm_subject.txt:3
-#, fuzzy
-#| msgid "email confirmation"
 msgid "Email Confirmation"
-msgstr "potvrdenie e-mailu"
+msgstr "Overenie emailovej adresy"
 
 #: templates/account/email/email_confirmation_message.txt:5
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this email because user %(user_display)s has given your "
-#| "email address to register an account on %(site_domain)s.\n"
-#| "\n"
-#| "To confirm this is correct, go to %(activate_url)s"
+#, python-format
 msgid ""
 "You're receiving this email because user %(user_display)s has given your "
 "email address to register an account on %(site_domain)s."
 msgstr ""
-"Tento e-mail ste dostali, pretože používateľ %(user_display)s na "
-"%(site_domain)s zadal túto e-mailovú adresu na prepojenie s jeho účtom.\n"
-"\n"
-"Pre potvrdenie nasledujte %(activate_url)s"
+"Tento email dostávate, pretože používateľ %(user_display)s zadal vašu "
+"emailovú adresu na registráciu účtu na %(site_domain)s ."
 
 #: templates/account/email/email_confirmation_message.txt:7
 msgid ""
 "Your email verification code is listed below. Please enter it in your open "
 "browser window."
 msgstr ""
+"Váš kód na overenie emailovej adresy je uvedený nižšie. Prosím, zadajte ho "
+"do otvoreného okna vo vašom prehliadači."
 
 #: templates/account/email/email_confirmation_message.txt:9
 #, python-format
 msgid "To confirm this is correct, go to %(activate_url)s"
-msgstr ""
+msgstr "Pre overenie správnosti navštívte %(activate_url)s"
 
 #: templates/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your Email Address"
@@ -751,42 +710,36 @@ msgstr "Potvrďte prosím svoju e-mailovú adresu"
 #: templates/account/email/email_deleted_message.txt:4
 #, python-format
 msgid "Email address %(deleted_email)s has been removed from your account."
-msgstr ""
+msgstr "Emailová adresa %(deleted_email)s bola odstránená z vášho účtu."
 
 #: templates/account/email/email_deleted_subject.txt:3
-#, fuzzy
-#| msgid "Remove"
 msgid "Email Removed"
-msgstr "Odstrániť"
+msgstr "Emailová adresa odstránená"
 
 #: templates/account/email/login_code_message.txt:5
 msgid ""
 "Your sign-in code is listed below. Please enter it in your open browser "
 "window."
 msgstr ""
+"Váš prihlasovací kód je uvedený nižšie. Prosím, zadajte ho do otvoreného "
+"okna vo vašom prehliadači."
 
 #: templates/account/email/login_code_message.txt:9
 #: templates/account/email/unknown_account_message.txt:6
 msgid "This mail can be safely ignored if you did not initiate this action."
-msgstr ""
+msgstr "Tento email môžete kľudne ignorovať, ak ste si nevyžiadali túto akciu."
 
 #: templates/account/email/login_code_subject.txt:3
-#, fuzzy
-#| msgid "Sign In"
 msgid "Sign-In Code"
-msgstr "Prihlásiť sa"
+msgstr "Prihlasovací kód"
 
 #: templates/account/email/password_changed_message.txt:4
-#, fuzzy
-#| msgid "Your password is now changed."
 msgid "Your password has been changed."
-msgstr "Tvoje heslo bolo zmenené."
+msgstr "Vaše heslo bolo zmenené."
 
 #: templates/account/email/password_changed_subject.txt:3
-#, fuzzy
-#| msgid "Password (again)"
 msgid "Password Changed"
-msgstr "Heslo (znovu)"
+msgstr "Heslo zmenené"
 
 #: templates/account/email/password_reset_key_message.txt:4
 msgid ""
@@ -795,9 +748,10 @@ msgid ""
 "It can be safely ignored if you did not request a password reset. Click the "
 "link below to reset your password."
 msgstr ""
-"Tento e-mail ste dostali, pretože niekto požiadal o heslo k Vášmu "
-"používateľskému účtu. Ak ste to neboli Vy, správu môžete pokojne ignorovať. "
-"Odkaz nižšie obnoví heslo."
+"Tento e-mail ste dostali, pretože niekto požiadal o heslo k vášmu "
+"používateľskému účtu.\n"
+"Ak ste to neboli vy, správu môžete pokojne ignorovať. Kliknutím na odkaz "
+"nižšie obnovíte svoje heslo."
 
 #: templates/account/email/password_reset_key_message.txt:9
 #, python-format
@@ -809,10 +763,8 @@ msgid "Password Reset Email"
 msgstr "E-mail pre obnovu hesla"
 
 #: templates/account/email/password_reset_message.txt:4
-#, fuzzy
-#| msgid "Your password is now changed."
 msgid "Your password has been reset."
-msgstr "Tvoje heslo bolo zmenené."
+msgstr "Vaše heslo bolo obnovené."
 
 #: templates/account/email/password_reset_subject.txt:3
 #: templates/account/password_reset.html:4
@@ -823,16 +775,12 @@ msgid "Password Reset"
 msgstr "Obnoviť heslo"
 
 #: templates/account/email/password_set_message.txt:4
-#, fuzzy
-#| msgid "Your password is now changed."
 msgid "Your password has been set."
-msgstr "Tvoje heslo bolo zmenené."
+msgstr "Vaše heslo bolo nastavené."
 
 #: templates/account/email/password_set_subject.txt:3
-#, fuzzy
-#| msgid "Password Reset"
 msgid "Password Set"
-msgstr "Obnoviť heslo"
+msgstr "Heslo nastavené"
 
 #: templates/account/email/unknown_account_message.txt:4
 #, python-format
@@ -841,16 +789,19 @@ msgid ""
 "an account with email %(email)s. However, we do not have any record of such "
 "an account in our database."
 msgstr ""
+"Tento email dostávate, pretože ste sa vy, alebo niekto iný pokúsili "
+"pristúpiť k účtu s emailovou adresou %(email)s. Avšak, neevidujeme žiaden "
+"účet s danou adresou v našom systéme."
 
 #: templates/account/email/unknown_account_message.txt:8
 msgid "If it was you, you can sign up for an account using the link below."
 msgstr ""
+"Ak ste to boli vy, môžete si zaregistrovať nový účet navštívením linku "
+"nižšie."
 
 #: templates/account/email/unknown_account_subject.txt:3
-#, fuzzy
-#| msgid "Accounts"
 msgid "Unknown Account"
-msgstr "Účty"
+msgstr "Neznámy účet"
 
 #: templates/account/email_change.html:5 templates/account/email_change.html:9
 msgid "Email Address"
@@ -858,32 +809,24 @@ msgstr "E-mailová adresa"
 
 #: templates/account/email_change.html:21
 #: templates/account/email_change.html:29
-#, fuzzy
-#| msgid "Current Password"
 msgid "Current email"
-msgstr "Súčasné heslo"
+msgstr "Súčasná emailová adresa"
 
 #: templates/account/email_change.html:31
 msgid "Changing to"
-msgstr ""
+msgstr "Zmeniť na"
 
 #: templates/account/email_change.html:35
-#, fuzzy
-#| msgid "Your email address is still pending verification:"
 msgid "Your email address is still pending verification."
-msgstr "Vaša e-mailová adresa stále čaká na overenie:"
+msgstr "Vaša emailová adresa stále čaká na overenie."
 
 #: templates/account/email_change.html:41
-#, fuzzy
-#| msgid "Cancel"
 msgid "Cancel Change"
-msgstr "Zrušiť"
+msgstr "Zrušiť zmenu"
 
 #: templates/account/email_change.html:49
-#, fuzzy
-#| msgid "Change Email"
 msgid "Change to"
-msgstr "Zmeniť e-mail"
+msgstr "Zmeniť na"
 
 #: templates/account/email_change.html:55
 #: templates/allauth/layouts/base.html:31
@@ -932,11 +875,11 @@ msgstr ""
 
 #: templates/account/login.html:42
 msgid "Sign in with a passkey"
-msgstr ""
+msgstr "Prihlásiť sa prístupovým kľúčom"
 
 #: templates/account/login.html:47 templates/account/request_login_code.html:9
 msgid "Mail me a sign-in code"
-msgstr ""
+msgstr "Poslať prihlasovací kód"
 
 #: templates/account/logout.html:4 templates/account/logout.html:8
 #: templates/account/logout.html:21 templates/allauth/layouts/base.html:61
@@ -980,7 +923,7 @@ msgstr "Odhlásili ste sa."
 #: templates/account/messages/login_code_sent.txt:2
 #, python-format
 msgid "A sign-in code has been mailed to %(email)s."
-msgstr ""
+msgstr "Prihlasovací kód bol odoslaný na %(email)s."
 
 #: templates/account/messages/password_changed.txt:2
 msgid "Password successfully changed."
@@ -1032,8 +975,8 @@ msgid ""
 "We have sent you an email. If you have not received it please check your "
 "spam folder. Otherwise contact us if you do not receive it in a few minutes."
 msgstr ""
-"Poslali sme vám e-mail.  Ak ste ho nedostali, skontrolujte si priečinok so "
-"spamom.  Ak ste v priebehu pár minút žiaden neobdržali, kontaktujte nás."
+"Poslali sme vám email. Ak ste ho nedostali, skontrolujte si priečinok "
+"nevyžiadanej pošty. Ak ho v priebehu pár minút neobdržíte, kontaktujte nás."
 
 #: templates/account/password_reset_from_key.html:10
 msgid "Bad Token"
@@ -1066,13 +1009,11 @@ msgstr "Zadajte svoje heslo:"
 msgid ""
 "You will receive an email containing a special code for a password-free sign-"
 "in."
-msgstr ""
+msgstr "Obdržíte email obsahujúci kód, ktorý použijete na prihlásenie."
 
 #: templates/account/request_login_code.html:24
-#, fuzzy
-#| msgid "Recovery Codes"
 msgid "Request Code"
-msgstr "Kódy obnovy"
+msgstr "Vyžiadať kód"
 
 #: templates/account/signup.html:4 templates/socialaccount/signup.html:5
 msgid "Signup"
@@ -1155,9 +1096,9 @@ msgid ""
 "Otherwise\n"
 "contact us if you do not receive it within a few minutes."
 msgstr ""
-"Poslali sme Vám overovací e-mail. Kliknite prosím na odkaz v e-maili. Ak ste "
-"e-mail neobdržali, skontrolujte váš spam priečinok. V prípade, že ho do "
-"niekoľkých minút nedostanete, kontaktujte nás."
+"Poslali sme vám overovací e-mail. Kliknite prosím na odkaz v emaili. Ak ste "
+"email neobdržali, skontrolujte priečinok nevyžiadanej pošty. V prípade, že "
+"ho do niekoľkých minút nedostanete, kontaktujte nás."
 
 #: templates/account/verified_email_required.html:23
 #, python-format
@@ -1177,10 +1118,8 @@ msgid "Menu:"
 msgstr "Menu:"
 
 #: templates/allauth/layouts/base.html:43
-#, fuzzy
-#| msgid "Account Connections"
 msgid "Account Connection"
-msgstr "Pripojenia účtu"
+msgstr "Pripojené účty"
 
 #: templates/allauth/layouts/base.html:49 templates/mfa/authenticate.html:10
 #: templates/mfa/index.html:5 templates/mfa/index.html:9
@@ -1191,7 +1130,7 @@ msgstr "Dvojfaktorová autentifikácia"
 #: templates/usersessions/usersession_list.html:6
 #: templates/usersessions/usersession_list.html:10
 msgid "Sessions"
-msgstr ""
+msgstr "Relácie"
 
 #: templates/mfa/authenticate.html:13
 msgid ""
@@ -1202,17 +1141,13 @@ msgstr ""
 "autentifikátora:"
 
 #: templates/mfa/email/recovery_codes_generated_message.txt:4
-#, fuzzy
-#| msgid "A new set of recovery codes has been generated."
 msgid ""
 "A new set of Two-Factor Authentication recovery codes has been generated."
-msgstr "Boli vygenerované nové kódy obnovy."
+msgstr "Boli vygenerované nové záložné kódy pre dvojfaktorovú autentifikáciu."
 
 #: templates/mfa/email/recovery_codes_generated_subject.txt:3
-#, fuzzy
-#| msgid "Recovery Codes"
 msgid "New Recovery Codes Generated"
-msgstr "Kódy obnovy"
+msgstr "Nové záložné kódy"
 
 #: templates/mfa/email/totp_activated_message.txt:4
 #: templates/mfa/messages/totp_activated.txt:2
@@ -1220,10 +1155,8 @@ msgid "Authenticator app activated."
 msgstr "Autentifikačná aplikácia aktivovaná."
 
 #: templates/mfa/email/totp_activated_subject.txt:3
-#, fuzzy
-#| msgid "Authenticator app activated."
 msgid "Authenticator App Activated"
-msgstr "Autentifikačná aplikácia aktivovaná."
+msgstr "Aktivácia autentifikačnej aplikácie"
 
 #: templates/mfa/email/totp_deactivated_message.txt:4
 #: templates/mfa/messages/totp_deactivated.txt:2
@@ -1231,30 +1164,24 @@ msgid "Authenticator app deactivated."
 msgstr "Autentifikačná aplikácia deaktivovaná."
 
 #: templates/mfa/email/totp_deactivated_subject.txt:3
-#, fuzzy
-#| msgid "Authenticator app deactivated."
 msgid "Authenticator App Deactivated"
-msgstr "Autentifikačná aplikácia deaktivovaná."
+msgstr "Deaktivácia autentifikačnej aplikácie"
 
 #: templates/mfa/email/webauthn_added_message.txt:4
-#, fuzzy
-#| msgid "A new set of recovery codes has been generated."
 msgid "A new security key has been added."
-msgstr "Boli vygenerované nové kódy obnovy."
+msgstr "Bol pridaný nový bezpečnostný kľúč."
 
 #: templates/mfa/email/webauthn_added_subject.txt:3
 msgid "Security Key Added"
-msgstr ""
+msgstr "Pridaný bezpečnostný kľúč"
 
 #: templates/mfa/email/webauthn_removed_message.txt:4
-#, fuzzy
-#| msgid "You have confirmed %(email)s."
 msgid "A security key has been removed."
-msgstr "%(email)s potvrdené."
+msgstr "Bezpečnostný kľúč bol odstránený."
 
 #: templates/mfa/email/webauthn_removed_subject.txt:3
 msgid "Security Key Removed"
-msgstr ""
+msgstr "Odstránený bezpečnostný kľúč"
 
 #: templates/mfa/index.html:14 templates/mfa/totp/base.html:4
 msgid "Authenticator App"
@@ -1279,30 +1206,30 @@ msgstr "Aktivovať"
 #: templates/mfa/index.html:45 templates/mfa/webauthn/authenticator_list.html:8
 #: templates/mfa/webauthn/base.html:4
 msgid "Security Keys"
-msgstr ""
+msgstr "Bezpečnostné kľúče"
 
 #: templates/mfa/index.html:50
 #, python-format
 msgid "You have added %(count)s security key."
 msgid_plural "You have added %(count)s security keys."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Pridali ste si %(count)s bezpečnostný kľúč."
+msgstr[1] "Pridali ste si %(count)s bezpečnostné kľúče."
+msgstr[2] "Pridali ste si %(count)s bezpečnostných kľúčov."
+msgstr[3] "Pridali ste si %(count)s bezpečnostných kľúčov."
 
 #: templates/mfa/index.html:53
 #: templates/mfa/webauthn/authenticator_list.html:11
 msgid "No security keys have been added."
-msgstr ""
+msgstr "Nepridali ste si žiadne bezpečnostné kľúče."
 
 #: templates/mfa/index.html:60
 msgid "Manage"
-msgstr ""
+msgstr "Spravovať"
 
 #: templates/mfa/index.html:65 templates/mfa/webauthn/add_form.html:18
 #: templates/mfa/webauthn/authenticator_list.html:68
 msgid "Add"
-msgstr ""
+msgstr "Pridať"
 
 #: templates/mfa/index.html:75 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:6
@@ -1351,11 +1278,11 @@ msgstr "Boli vygenerované nové kódy obnovy."
 
 #: templates/mfa/messages/webauthn_added.txt:2
 msgid "Security key added."
-msgstr ""
+msgstr "Bezpečnostný kľúč pridaný."
 
 #: templates/mfa/messages/webauthn_removed.txt:2
 msgid "Security key removed."
-msgstr ""
+msgstr "Bezpečnostný kľúč odstránený."
 
 #: templates/mfa/reauthenticate.html:6
 msgid "Enter an authenticator code:"
@@ -1424,90 +1351,72 @@ msgid ""
 msgstr "Chystáte sa deaktivovať vašu autentifikačnú aplikáciu. Ste si istý?"
 
 #: templates/mfa/webauthn/add_form.html:7
-#, fuzzy
-#| msgid "secret key"
 msgid "Add Security Key"
-msgstr "tajný kľúč"
+msgstr "Pridať bezpečnostný kľúč"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:6
-#, fuzzy
-#| msgid "secret key"
 msgid "Remove Security Key"
-msgstr "tajný kľúč"
+msgstr "Odstrániť bezpečnostný kľúč"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:8
-#, fuzzy
-#| msgid "Are you sure you want to sign out?"
 msgid "Are you sure you want to remove this security key?"
-msgstr "Ste si istý, že sa chcete odhlásiť?"
+msgstr "Ste si istý, že chcete odstrániť tento bezpečnostný kľúč?"
 
 #: templates/mfa/webauthn/authenticator_list.html:19
 msgid "Usage"
-msgstr ""
+msgstr "Využitie"
 
 #: templates/mfa/webauthn/authenticator_list.html:31
 msgid "Passkey"
-msgstr ""
+msgstr "Prístupový kľúč"
 
 #: templates/mfa/webauthn/authenticator_list.html:35
-#, fuzzy
-#| msgid "secret key"
 msgid "Security key"
-msgstr "tajný kľúč"
+msgstr "Bezpečnostný kľúč"
 
 #: templates/mfa/webauthn/authenticator_list.html:38
 msgid "This key does not indicate whether it is a passkey."
-msgstr ""
+msgstr "Tento kľúč neuvádza, či ide o prístupový kľúč."
 
 #: templates/mfa/webauthn/authenticator_list.html:39
-#, fuzzy
-#| msgid "Unverified"
 msgid "Unspecified"
-msgstr "Neoverený"
+msgstr "Neuvedené"
 
 #: templates/mfa/webauthn/authenticator_list.html:44
 #, python-format
 msgid "Added on %(created_at)s"
-msgstr ""
+msgstr "Pridaný %(created_at)s"
 
 #: templates/mfa/webauthn/authenticator_list.html:46
 #, python-format
 msgid "Last used %(last_used)s"
-msgstr ""
+msgstr "Naposledy použitý %(last_used)s"
 
 #: templates/mfa/webauthn/authenticator_list.html:54
 msgid "Edit"
-msgstr ""
+msgstr "Upraviť"
 
 #: templates/mfa/webauthn/edit_form.html:7
-#, fuzzy
-#| msgid "secret key"
 msgid "Edit Security Key"
-msgstr "tajný kľúč"
+msgstr "Upraviť bezpečnostný kľúč"
 
 #: templates/mfa/webauthn/edit_form.html:18
 msgid "Save"
-msgstr ""
+msgstr "Uložiť"
 
 #: templates/mfa/webauthn/snippets/scripts.html:2
 msgid "This functionality requires JavaScript."
-msgstr ""
+msgstr "Táto funkcionalita vyžaduje JavaScript."
 
 #: templates/socialaccount/authentication_error.html:5
 #: templates/socialaccount/authentication_error.html:9
-#, fuzzy
-#| msgid "Social Network Login Failure"
 msgid "Third-Party Login Failure"
-msgstr "Prihlasovanie pomocou sociálnej siete neúspešné"
+msgstr "Zlyhanie prihlasovania tretej strany"
 
 #: templates/socialaccount/authentication_error.html:12
-#, fuzzy
-#| msgid ""
-#| "An error occurred while attempting to login via your social network "
-#| "account."
 msgid ""
 "An error occurred while attempting to login via your third-party account."
-msgstr "Pri prihlasovaní pomocou sociálnej siete sa vyskytla chyba."
+msgstr "Pri prihlasovaní sa cez účet tretej strany nastala chyba."
 
 #: templates/socialaccount/connections.html:5
 #: templates/socialaccount/connections.html:9
@@ -1521,11 +1430,8 @@ msgid ""
 msgstr "Môžete sa prihlásiť pomocou niektorého z nasledujúcich účtov:"
 
 #: templates/socialaccount/connections.html:46
-#, fuzzy
-#| msgid ""
-#| "You currently have no social network accounts connected to this account."
 msgid "You currently have no third-party accounts connected to this account."
-msgstr "Momentálne nemáte pripojený žiaden sociálny účet."
+msgstr "Momentálne nemáte priradený žiaden účet tretej strany."
 
 #: templates/socialaccount/connections.html:50
 msgid "Add a Third-Party Account"
@@ -1535,26 +1441,22 @@ msgstr "Pridať účet tretej strany"
 #, python-format
 msgid ""
 "A third-party account from %(provider)s has been connected to your account."
-msgstr ""
+msgstr "Účet tretej strany %(provider)s bol priradený do vášho účtu."
 
 #: templates/socialaccount/email/account_connected_subject.txt:3
-#, fuzzy
-#| msgid "Add a Third-Party Account"
 msgid "Third-Party Account Connected"
-msgstr "Pridať účet tretej strany"
+msgstr "Priradený účet tretej strany"
 
 #: templates/socialaccount/email/account_disconnected_message.txt:4
 #, python-format
 msgid ""
 "A third-party account from %(provider)s has been disconnected from your "
 "account."
-msgstr ""
+msgstr "Účet tretej strany %(provider)s bol odstránený z vášho účtu."
 
 #: templates/socialaccount/email/account_disconnected_subject.txt:3
-#, fuzzy
-#| msgid "Add a Third-Party Account"
 msgid "Third-Party Account Disconnected"
-msgstr "Pridať účet tretej strany"
+msgstr "Odstránený účet tretej strany"
 
 #: templates/socialaccount/login.html:10
 #, python-format
@@ -1569,7 +1471,7 @@ msgstr "Chystáte sa prepojiť nový účet tretej strany %(provider)s."
 #: templates/socialaccount/login.html:17
 #, python-format
 msgid "Sign In Via %(provider)s"
-msgstr "Prihlásiť sa cez %(provider)s."
+msgstr "Prihlásiť sa cez %(provider)s"
 
 #: templates/socialaccount/login.html:20
 #, python-format
@@ -1598,16 +1500,12 @@ msgstr ""
 "<a href=\"%(login_url)s\">prihlásiť sa</a>."
 
 #: templates/socialaccount/messages/account_connected.txt:2
-#, fuzzy
-#| msgid "The social account has been connected."
 msgid "The third-party account has been connected."
-msgstr "Sociálny účet bol pripojený."
+msgstr "Účet tretej strany bol priradený."
 
 #: templates/socialaccount/messages/account_disconnected.txt:2
-#, fuzzy
-#| msgid "The social account has been disconnected."
 msgid "The third-party account has been disconnected."
-msgstr "Sociálny účet bol odpojený."
+msgstr "Účet tretej strany bol odstránený."
 
 #: templates/socialaccount/signup.html:12
 #, python-format
@@ -1615,7 +1513,7 @@ msgid ""
 "You are about to use your %(provider_name)s account to login to\n"
 "%(site_name)s. As a final step, please complete the following form:"
 msgstr ""
-"Chystáte sa použiť váš %(provider_name)s účet na prihlásenie do "
+"Chystáte sa použiť váš %(provider_name)s účet na prihlásenie do\n"
 "%(site_name)s. Ako posledný krok vyplňte nasledujúci formulár:"
 
 #: templates/socialaccount/snippets/login.html:10
@@ -1624,43 +1522,39 @@ msgstr "Alebo použiť tretiu stranu"
 
 #: templates/usersessions/messages/sessions_logged_out.txt:2
 msgid "Signed out of all other sessions."
-msgstr ""
+msgstr "Boli ste odhlásený zo všetkých ostatných relácií."
 
 #: templates/usersessions/usersession_list.html:23
 msgid "Started At"
-msgstr ""
+msgstr "Začiatok"
 
 #: templates/usersessions/usersession_list.html:24
-#, fuzzy
-#| msgid "Email Address"
 msgid "IP Address"
-msgstr "E-mailová adresa"
+msgstr "IP adresa"
 
 #: templates/usersessions/usersession_list.html:25
 msgid "Browser"
-msgstr ""
+msgstr "Prehliadač"
 
 #: templates/usersessions/usersession_list.html:27
 msgid "Last seen at"
-msgstr ""
+msgstr "Naposledy použitá"
 
 #: templates/usersessions/usersession_list.html:47
-#, fuzzy
-#| msgid "Current Password"
 msgid "Current"
-msgstr "Súčasné heslo"
+msgstr "Aktuálna relácia"
 
 #: templates/usersessions/usersession_list.html:60
 msgid "Sign Out Other Sessions"
-msgstr ""
+msgstr "Odhlásiť sa z ostatných relácií"
 
 #: usersessions/apps.py:9
 msgid "User Sessions"
-msgstr ""
+msgstr "Relácie používateľa"
 
 #: usersessions/models.py:58
 msgid "session key"
-msgstr ""
+msgstr "klúč relácie"
 
 #, python-brace-format
 #~ msgid "Password must be a minimum of {0} characters."

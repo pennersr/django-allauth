@@ -1,5 +1,8 @@
-64.2.0 (unreleased)
+64.2.0 (2024-08-30)
 *******************
+
+Note worthy changes
+-------------------
 
 - Verifying email addresses by means of a code (instead of a link) is now supported.
   See ``settings.ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED``.

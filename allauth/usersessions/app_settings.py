@@ -21,6 +21,20 @@ class AppSettings:
         """
         return self._setting("TRACK_ACTIVITY", False)
 
+    @property
+    def HISTORY_ENABLED(self):
+        """Whether or not to keep track of session history of user agent and IP. When enabled, a
+        history of the last N sessions will be kept.
+        """
+        return self._setting("HISTORY_ENABLED", False)
+
+    @property
+    def HISTORY_MAX_COUNT(self):
+        """The maximum number of history entries to keep track of. When the number of history
+        entries exceeds this number, the oldest entry will be removed.
+        """
+        return self._setting("HISTORY_MAX_COUNT", 10)
+
 
 _app_settings = AppSettings("USERSESSIONS_")
 

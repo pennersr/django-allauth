@@ -1,7 +1,11 @@
 64.2.1 (unreleased)
 *******************
 
-- ...
+Fixes
+-----
+
+- Verifying the email address by clicking on the link would no longer log you in, even
+  in case of ``ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True``.
 
 
 64.2.0 (2024-08-30)

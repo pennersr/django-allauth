@@ -6,6 +6,7 @@ from django.urls import path, reverse
 
 import pytest
 
+from allauth.account.internal import flows
 from allauth.account.middleware import AccountMiddleware
 from allauth.core.exceptions import ImmediateHttpResponse
 
@@ -38,7 +39,7 @@ def test_remove_dangling_login(
     response["Content-Type"] = content_type
     mw = AccountMiddleware(lambda request: response)
     mw(request)
-    assert ("account_login" in request.session) is (not login_removed)
+    assert (flows.login.LOGIN_SESSION_KEY in request.session) is (not login_removed)
 
 
 def raise_immediate_http_response(request):

@@ -8,6 +8,7 @@ from django.utils.decorators import sync_and_async_middleware
 
 from asgiref.sync import iscoroutinefunction, sync_to_async
 
+from allauth.account import app_settings
 from allauth.account.adapter import get_adapter
 from allauth.account.internal import flows
 from allauth.core import context
@@ -81,8 +82,24 @@ def _should_check_dangling_login(request, response):
 
 
 def _check_dangling_login(request):
+    from allauth.account.stages import EmailVerificationStage
+
     if not getattr(request, "_account_login_accessed", False):
-        if flows.login.LOGIN_SESSION_KEY in request.session:
+        if login := request.session.get(flows.login.LOGIN_SESSION_KEY):
+            if isinstance(login, dict):  # Deal with fake stages
+                current_stage = login.get("state", {}).get("stages", {}).get("current")
+                if (
+                    current_stage == EmailVerificationStage.key
+                    and not app_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED
+                ):
+                    # These days, "email verification by link" is just a regular
+                    # stage.  However, "email verification by link" was never
+                    # automatically cancelled. So we need to make an exception
+                    # here.
+                    #
+                    # TODO: Reconsider the overall approach to dangling logins:
+                    # https://github.com/pennersr/django-allauth/issues/4087
+                    return
             request.session.pop(flows.login.LOGIN_SESSION_KEY)
 
 

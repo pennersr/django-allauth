@@ -383,6 +383,7 @@ class BaseSignupForm(_base_signup_form_class()):  # type: ignore[misc]
             email = self.cleaned_data["email"]
             resp = flows.signup.prevent_enumeration(request, email)
             user = None
+            # Fake a login stage.
             request.session[flows.login.LOGIN_SESSION_KEY] = EmailVerificationStage.key
         else:
             user = self.save(request)

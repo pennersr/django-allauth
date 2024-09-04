@@ -49,6 +49,9 @@ def test_login_on_verification(
     assert resp.status_code == 302
     assert resp["location"] == reverse("account_email_verification_sent")
 
+    resp = client.get(resp["location"])
+    assert resp.status_code == 200
+
     email = EmailAddress.objects.get(email="a@a.com")
     key = EmailConfirmationHMAC(email).key
 

@@ -54,6 +54,7 @@ def test_email_authentication(
     settings.SOCIALACCOUNT_EMAIL_AUTHENTICATION_AUTO_CONNECT = auto_connect
 
     user = user_factory(with_emailaddress=with_emailaddress)
+    assert user.has_usable_password()
 
     sociallogin = sociallogin_factory(
         email=user.email, provider="unittest-server", with_token=True
@@ -69,6 +70,7 @@ def test_email_authentication(
                 "allauth.socialaccount.signals.social_account_added.send"
             ) as added_signal:
                 resp = complete_social_login(request, sociallogin)
+    user.refresh_from_db()
     if setting == "off":
         assert resp["location"] == reverse("account_email_verification_sent")
         assert not added_signal.called
@@ -76,7 +78,13 @@ def test_email_authentication(
     else:
         if with_emailaddress:
             assert resp["location"] == "/accounts/profile/"
+            assert user.has_usable_password()
         else:
+            assert not user.has_usable_password()
+            # This should be improved. The provider vouches for the fact that
+            # the user verified the email, so we can mark it as such locally as
+            # well.
+
             # user.email is set, but not verified.
             assert resp["location"] == reverse("account_email_verification_sent")
         assert get_user_model().objects.count() == 1

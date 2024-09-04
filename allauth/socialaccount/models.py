@@ -208,6 +208,7 @@ class SocialLogin:
     token: Optional[SocialToken]
     email_addresses: List[EmailAddress]
     state: Dict
+    _did_authenticate_by_email: Optional[str]
 
     def __init__(
         self,
@@ -309,7 +310,7 @@ class SocialLogin:
         """Look up the existing local user account to which this social login
         points, if any.
         """
-        self._did_authenticate_by_email = False
+        self._did_authenticate_by_email = None
         if not self._lookup_by_socialaccount():
             self._lookup_by_email()
 
@@ -364,11 +365,16 @@ class SocialLogin:
             users = filter_users_by_email(email, prefer_verified=True)
             if users:
                 self.user = users[0]
-                self._did_authenticate_by_email = True
+                self._did_authenticate_by_email = email
                 return
 
-    def _accept_login(self) -> None:
+    def _accept_login(self, request) -> None:
+        from allauth.socialaccount.internal.flows.email_authentication import (
+            wipe_password,
+        )
+
         if self._did_authenticate_by_email:
+            wipe_password(request, self.user, self._did_authenticate_by_email)
             if app_settings.EMAIL_AUTHENTICATION_AUTO_CONNECT:
                 self.connect(context.request, self.user)
 

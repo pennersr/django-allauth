@@ -20,7 +20,7 @@ from allauth.socialaccount.providers.base import AuthProcess
 
 
 def _login(request, sociallogin):
-    sociallogin._accept_login()
+    sociallogin._accept_login(request)
     record_authentication(request, sociallogin)
     return perform_login(
         request,

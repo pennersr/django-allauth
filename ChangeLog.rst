@@ -16,6 +16,12 @@ Security notice
   email addresses and locking other users out. This safety check is now added to
   WebAuthn security keys as well.
 
+- In case a user signs in into an account using social account email
+  authentication (``SOCIALACCOUNT_EMAIL_AUTHENTICATION``) and the email used is
+  not verified, the password of the account is now wiped (made unusable) to
+  prevent the person that created the account (without verifying it) from
+  signing in.
+
 
 64.2.0 (2024-08-30)
 *******************

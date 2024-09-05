@@ -1,8 +1,8 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
-from allauth.account.models import EmailAddress
 from allauth.mfa.adapter import get_adapter
+from allauth.mfa.internal.flows.add import validate_can_add_authenticator
 from allauth.mfa.totp.internal import auth
 
 
@@ -16,22 +16,15 @@ class ActivateTOTPForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop("user")
-        self.email_verified = not EmailAddress.objects.filter(
-            user=self.user, verified=False
-        ).exists()
         super().__init__(*args, **kwargs)
         self.secret = auth.get_totp_secret(regenerate=not self.is_bound)
 
     def clean_code(self):
-        try:
-            code = self.cleaned_data["code"]
-            if not self.email_verified:
-                raise get_adapter().validation_error("unverified_email")
-            if not auth.validate_totp_code(self.secret, code):
-                raise get_adapter().validation_error("incorrect_code")
-            return code
-        except forms.ValidationError as e:
-            raise e
+        validate_can_add_authenticator(self.user)
+        code = self.cleaned_data["code"]
+        if not auth.validate_totp_code(self.secret, code):
+            raise get_adapter().validation_error("incorrect_code")
+        return code
 
 
 class DeactivateTOTPForm(forms.Form):

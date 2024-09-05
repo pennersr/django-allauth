@@ -1,5 +1,7 @@
 from unittest.mock import ANY
 
+import pytest
+
 from allauth.headless.constants import Flow
 from allauth.mfa.models import Authenticator
 
@@ -110,21 +112,27 @@ def test_delete_authenticator(
     assert not Authenticator.objects.filter(pk=passkey.pk).exists()
 
 
+@pytest.mark.parametrize("email_verified", [False, True])
 def test_add_authenticator(
     user,
     auth_client,
     headless_reverse,
     webauthn_registration_bypass,
     reauthentication_bypass,
+    email_verified,
 ):
     resp = auth_client.get(headless_reverse("headless:mfa:manage_webauthn"))
     # Reauthentication required
-    assert resp.status_code == 401
+    assert resp.status_code == 401 if email_verified else 409
 
     with reauthentication_bypass():
         resp = auth_client.get(headless_reverse("headless:mfa:manage_webauthn"))
-        data = resp.json()
-        assert data["data"]["creation_options"] == ANY
+        if email_verified:
+            assert resp.status_code == 200
+            data = resp.json()
+            assert data["data"]["creation_options"] == ANY
+        else:
+            assert resp.status_code == 409
 
         with webauthn_registration_bypass(user, False) as credential:
             resp = auth_client.post(
@@ -132,13 +140,15 @@ def test_add_authenticator(
                 data={"credential": credential},
                 content_type="application/json",
             )
-            assert resp.status_code == 200
-    assert (
-        Authenticator.objects.filter(
-            type=Authenticator.Type.WEBAUTHN, user=user
-        ).count()
-        == 1
-    )
+            webauthn_count = Authenticator.objects.filter(
+                type=Authenticator.Type.WEBAUTHN, user=user
+            ).count()
+            if email_verified:
+                assert resp.status_code == 200
+                assert webauthn_count == 1
+            else:
+                assert resp.status_code == 409
+                assert webauthn_count == 0
 
 
 def test_2fa_login(

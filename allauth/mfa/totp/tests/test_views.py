@@ -6,11 +6,11 @@ from django.core.cache import cache
 from django.test import Client
 from django.urls import reverse
 
+import pytest
 from pytest_django.asserts import assertTemplateUsed
 
 from allauth.account import app_settings
 from allauth.account.authentication import AUTHENTICATION_METHODS_SESSION_KEY
-from allauth.account.models import EmailAddress
 from allauth.mfa.adapter import get_adapter
 from allauth.mfa.models import Authenticator
 
@@ -29,22 +29,17 @@ def test_activate_totp_with_incorrect_code(auth_client, reauthentication_bypass)
     }
 
 
+@pytest.mark.parametrize("email_verified", [False])
+@pytest.mark.parametrize("method", ["get", "post"])
 def test_activate_totp_with_unverified_email(
-    auth_client, user, totp_validation_bypass, reauthentication_bypass
+    auth_client, user, totp_validation_bypass, reauthentication_bypass, method
 ):
-    EmailAddress.objects.filter(user=user).update(verified=False)
     with reauthentication_bypass():
-        resp = auth_client.get(reverse("mfa_activate_totp"))
-        with totp_validation_bypass():
-            resp = auth_client.post(
-                reverse("mfa_activate_totp"),
-                {
-                    "code": "123",
-                },
-            )
-    assert resp.context["form"].errors == {
-        "code": [get_adapter().error_messages["unverified_email"]],
-    }
+        if method == "get":
+            resp = auth_client.get(reverse("mfa_activate_totp"))
+        else:
+            resp = auth_client.post(reverse("mfa_activate_totp"), {"code": "123"})
+    assert resp["location"] == reverse("mfa_index")
 
 
 def test_activate_totp_success(

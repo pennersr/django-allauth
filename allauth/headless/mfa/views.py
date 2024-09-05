@@ -1,3 +1,5 @@
+from django.core.exceptions import ValidationError
+
 from allauth.account.models import Login
 from allauth.headless.base.response import APIResponse, AuthenticationResponse
 from allauth.headless.base.views import (
@@ -5,6 +7,7 @@ from allauth.headless.base.views import (
     AuthenticatedAPIView,
     AuthenticationStageAPIView,
 )
+from allauth.headless.internal.restkit.response import ErrorResponse
 from allauth.headless.mfa import response
 from allauth.headless.mfa.inputs import (
     ActivateTOTPInput,
@@ -18,6 +21,7 @@ from allauth.headless.mfa.inputs import (
     UpdateWebAuthnInput,
 )
 from allauth.mfa.adapter import DefaultMFAAdapter, get_adapter
+from allauth.mfa.internal.flows import add
 from allauth.mfa.models import Authenticator
 from allauth.mfa.recovery_codes.internal import flows as recovery_codes_flows
 from allauth.mfa.stages import AuthenticateStage
@@ -26,6 +30,13 @@ from allauth.mfa.webauthn.internal import (
     auth as webauthn_auth,
     flows as webauthn_flows,
 )
+
+
+def _validate_can_add_authenticator(request):
+    try:
+        add.validate_can_add_authenticator(request.user)
+    except ValidationError as e:
+        return ErrorResponse(request, status=409, exception=e)
 
 
 class AuthenticateView(AuthenticationStageAPIView):
@@ -63,6 +74,9 @@ class ManageTOTPView(AuthenticatedAPIView):
     def get(self, request, *args, **kwargs) -> APIResponse:
         authenticator = self._get_authenticator()
         if not authenticator:
+            err = _validate_can_add_authenticator(request)
+            if err:
+                return err
             adapter: DefaultMFAAdapter = get_adapter()
             secret = totp_auth.get_totp_secret(regenerate=True)
             totp_url: str = adapter.build_totp_url(request.user, secret)
@@ -111,6 +125,13 @@ class ManageWebAuthnView(AuthenticatedAPIView):
         "PUT": UpdateWebAuthnInput,
         "DELETE": DeleteWebAuthnInput,
     }
+
+    def handle(self, request, *args, **kwargs):
+        if request.method in ["GET", "POST"]:
+            err = _validate_can_add_authenticator(request)
+            if err:
+                return err
+        return super().handle(request, *args, **kwargs)
 
     def get(self, request, *args, **kwargs):
         passwordless = "passwordless" in request.GET

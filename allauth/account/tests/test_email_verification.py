@@ -15,6 +15,7 @@ from pytest_django.asserts import (
 )
 
 from allauth.account import app_settings
+from allauth.account.adapter import DefaultAccountAdapter
 from allauth.account.models import (
     EmailAddress,
     EmailConfirmation,
@@ -23,19 +24,33 @@ from allauth.account.models import (
 from allauth.account.signals import user_logged_in
 
 
+class TestEmailVerificationAdapter(DefaultAccountAdapter):
+    LOGIN_REDIRECT_URL = "/foobar"
+
+    def get_login_redirect_url(self, request):
+        return self.LOGIN_REDIRECT_URL
+
+
 @pytest.mark.parametrize(
-    "query,expected_location",
+    "adapter,query,expected_location",
     [
-        ("", settings.LOGIN_REDIRECT_URL),
-        ("?next=/foo", "/foo"),
+        (None, "", settings.LOGIN_REDIRECT_URL),
+        (None, "?next=/foo", "/foo"),
+        (
+            "allauth.account.tests.test_email_verification.TestEmailVerificationAdapter",
+            "",
+            TestEmailVerificationAdapter.LOGIN_REDIRECT_URL,
+        ),
     ],
 )
 def test_login_on_verification(
-    client, db, query, expected_location, password_factory, settings
+    adapter, client, db, query, expected_location, password_factory, settings
 ):
     settings.ACCOUNT_EMAIL_VERIFICATION = app_settings.EmailVerificationMethod.MANDATORY
     settings.ACCOUNT_EMAIL_CONFIRMATION_HMAC = True
     settings.ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+    if adapter:
+        settings.ACCOUNT_ADAPTER = adapter
     password = password_factory()
     resp = client.post(
         reverse("account_signup"),

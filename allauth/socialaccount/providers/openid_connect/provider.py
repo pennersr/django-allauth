@@ -53,7 +53,7 @@ class OpenIDConnectProvider(OAuth2Provider):
         return self.app.settings.get("token_auth_method")
 
     def get_default_scope(self):
-        return ["openid", "profile", "email"]
+        return ["openid", "profile", "email", "groups"]
 
     def extract_uid(self, data):
         return str(data["sub"])
@@ -65,6 +65,7 @@ class OpenIDConnectProvider(OAuth2Provider):
             name=data.get("name"),
             user_id=data.get("user_id"),
             picture=data.get("picture"),
+            groups=data.get("groups"),
         )
 
     def extract_email_addresses(self, data):

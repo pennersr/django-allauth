@@ -8,6 +8,15 @@ Fixes
   in case of ``ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True``.
 
 
+Security notice
+---------------
+
+- It was already the case that you could not enable TOTP 2FA if your account had
+  unverified email addresses. This is necessary to stop a user from claiming
+  email addresses and locking other users out. This safety check is now added to
+  WebAuthn security keys as well.
+
+
 64.2.0 (2024-08-30)
 *******************
 

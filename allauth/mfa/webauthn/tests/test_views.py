@@ -137,3 +137,18 @@ def test_add_key(
 def test_list_keys(auth_client):
     resp = auth_client.get(reverse("mfa_list_webauthn"))
     assertTemplateUsed(resp, "mfa/webauthn/authenticator_list.html")
+
+
+@pytest.mark.parametrize("email_verified", [False])
+@pytest.mark.parametrize("method", ["get", "post"])
+def test_add_with_unverified_email(
+    auth_client, user, webauthn_registration_bypass, reauthentication_bypass, method
+):
+    with webauthn_registration_bypass(user, False) as credential:
+        if method == "get":
+            resp = auth_client.get(reverse("mfa_add_webauthn"))
+        else:
+            resp = auth_client.post(
+                reverse("mfa_add_webauthn"), data={"credential": credential}
+            )
+        assert resp["location"] == reverse("mfa_index")

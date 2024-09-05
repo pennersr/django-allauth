@@ -35,7 +35,7 @@ export default function ActivateTOTP (props) {
       <div>
         <label>
           Authenticator secret:
-          <input disabled type='text' value={totp.meta.secret} />
+          <input disabled type='text' value={totp.meta?.secret} />
           <span>You can store this secret and use it to reinstall your authenticator app at a later time.</span>
         </label>
       </div>
@@ -45,6 +45,7 @@ export default function ActivateTOTP (props) {
           <input type='text' value={code} onChange={(e) => setCode(e.target.value)} />
         </label>
         <FormErrors param='code' errors={response.content?.errors} />
+        <FormErrors errors={totp.errors} />
       </div>
       <Button onClick={() => submit()}>Activate</Button>
     </section>

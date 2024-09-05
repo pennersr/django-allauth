@@ -912,6 +912,8 @@ paths:
           $ref: "#/components/responses/TOTPAuthenticatorNotFound"
         "200":
           $ref: "#/components/responses/TOTPAuthenticator"
+        "409":
+          $ref: "#/components/responses/AddAuthenticatorConflict"
     post:
       tags:
         - "Account: 2FA"
@@ -937,6 +939,8 @@ paths:
               examples:
                 invalid_code:
                   $ref: "#/components/examples/InvalidAuthenticatorCode"
+        "409":
+          $ref: "#/components/responses/AddAuthenticatorConflict"
     delete:
       tags:
         - "Account: 2FA"
@@ -1008,6 +1012,8 @@ paths:
           $ref: "#/components/responses/WebAuthnCreationOptionsResponse"
         "401":
           $ref: "#/components/responses/ReauthenticationRequired"
+        "409":
+          $ref: "#/components/responses/AddAuthenticatorConflict"
     put:
       tags:
         - "Account: WebAuthn"
@@ -1057,6 +1063,8 @@ paths:
           $ref: "#/components/responses/AddWebAuthnAuthenticator"
         "401":
           $ref: "#/components/responses/ReauthenticationRequired"
+        "409":
+          $ref: "#/components/responses/AddAuthenticatorConflict"
   ######################################################################
   # Sessions
   ######################################################################
@@ -2549,6 +2557,13 @@ components:
   # Components: Responses
   ######################################################################
   responses:
+    AddAuthenticatorConflict:
+      description: |
+        The account prohibits adding an authenticator, e.g. because of an unverified email address.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ConflictResponse"
     Authentication:
       description: Not authenticated.
       content:

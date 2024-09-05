@@ -17,11 +17,15 @@ export default function AddWebAuthn (props) {
     setResponse({ ...response, fetching: true })
     try {
       const optResp = await allauth.getWebAuthnCreateOptions(passwordless)
-      const jsonOptions = optResp.data.creation_options
-      const options = parseCreationOptionsFromJSON(jsonOptions)
-      const credential = await create(options)
-      const addResp = await allauth.addWebAuthnCredential(name, credential)
-      setResponse((r) => { return { ...r, content: addResp } })
+      if (optResp.status === 200) {
+        const jsonOptions = optResp.data.creation_options
+        const options = parseCreationOptionsFromJSON(jsonOptions)
+        const credential = await create(options)
+        const addResp = await allauth.addWebAuthnCredential(name, credential)
+        setResponse((r) => { return { ...r, content: addResp } })
+      } else {
+        setResponse((r) => { return { ...r, content: optResp } })
+      }
     } catch (e) {
       console.error(e)
       window.alert(e)
@@ -41,6 +45,7 @@ export default function AddWebAuthn (props) {
           Name:
           <input value={name} onChange={(e) => setName(e.target.value)} />
           <FormErrors param='name' errors={response.content?.errors} />
+          <FormErrors errors={response.content?.errors} />
         </label>
       </div>
       <div>

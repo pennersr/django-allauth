@@ -12,6 +12,7 @@ from allauth.account.decorators import reauthentication_required
 from allauth.account.mixins import NextRedirectMixin
 from allauth.account.models import Login
 from allauth.account.views import BaseReauthenticateView
+from allauth.mfa.internal.flows.add import redirect_if_add_not_allowed
 from allauth.mfa.models import Authenticator
 from allauth.mfa.webauthn.forms import (
     AddWebAuthnForm,
@@ -22,6 +23,7 @@ from allauth.mfa.webauthn.forms import (
 from allauth.mfa.webauthn.internal import auth, flows
 
 
+@method_decorator(redirect_if_add_not_allowed, name="dispatch")
 @method_decorator(reauthentication_required, name="dispatch")
 class AddWebAuthnView(FormView):
     form_class = AddWebAuthnForm

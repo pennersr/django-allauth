@@ -53,13 +53,18 @@ def user_password(password_factory):
 
 
 @pytest.fixture
-def user_factory(email_factory, db, user_password):
+def email_verified():
+    return True
+
+
+@pytest.fixture
+def user_factory(email_factory, db, user_password, email_verified):
     def factory(
         email=None,
         username=None,
         commit=True,
         with_email=True,
-        email_verified=True,
+        email_verified=email_verified,
         password=None,
         with_emailaddress=True,
         with_totp=False,

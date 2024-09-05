@@ -11,6 +11,7 @@ from allauth.account import app_settings as account_settings
 from allauth.account.decorators import reauthentication_required
 from allauth.mfa import app_settings
 from allauth.mfa.adapter import get_adapter
+from allauth.mfa.internal.flows.add import redirect_if_add_not_allowed
 from allauth.mfa.models import Authenticator
 from allauth.mfa.totp.forms import ActivateTOTPForm, DeactivateTOTPForm
 from allauth.mfa.totp.internal import flows
@@ -18,6 +19,7 @@ from allauth.mfa.utils import is_mfa_enabled
 from allauth.utils import get_form_class
 
 
+@method_decorator(redirect_if_add_not_allowed, name="dispatch")
 @method_decorator(reauthentication_required, name="dispatch")
 class ActivateTOTPView(FormView):
     form_class = ActivateTOTPForm

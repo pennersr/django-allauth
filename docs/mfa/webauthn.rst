@@ -14,3 +14,9 @@ WebAuthn support is disabled by default. To enable it, add these settings::
     # regard localhost as a secure origin, which is problematic during
     # local development and testing.
     MFA_WEBAUTHN_ALLOW_INSECURE_ORIGIN = True
+
+    # Add "humanize" contrib app if using default templates
+    INSTALLED_APPS = [
+        ...
+        "django.contrib.humanize",
+    ]

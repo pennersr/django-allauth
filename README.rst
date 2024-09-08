@@ -50,7 +50,10 @@ Home page
   https://allauth.org/
 
 Source code
-  https://github.com/pennersr/django-allauth
+  https://codeberg.org/allauth/django-allauth
+
+Issue Tracker
+  https://codeberg.org/allauth/django-allauth/issues
 
 Documentation
   https://docs.allauth.org/en/latest/

@@ -1,6 +1,6 @@
 import warnings
 from enum import Enum
-from typing import FrozenSet, Set, Union
+from typing import FrozenSet, Literal, Set, Union
 
 
 class AppSettings:
@@ -12,6 +12,7 @@ class AppSettings:
     class LoginMethod(str, Enum):
         USERNAME = "username"
         EMAIL = "email"
+        PHONE = "phone"
 
     class EmailVerificationMethod(str, Enum):
         # After signing up, keep the user account inactive until the email
@@ -152,6 +153,14 @@ class AppSettings:
         Adjust max_length of email addresses
         """
         return self._setting("EMAIL_MAX_LENGTH", 254)
+
+    @property
+    def PHONE_VERIFICATION_MAX_ATTEMPTS(self):
+        return self._setting("PHONE_VERIFICATION_MAX_ATTEMPTS", 3)
+
+    @property
+    def PHONE_VERIFICATION_TIMEOUT(self):
+        return self._setting("PHONE_VERIFICATION_TIMEOUT", 15 * 60)
 
     @property
     def UNIQUE_EMAIL(self):

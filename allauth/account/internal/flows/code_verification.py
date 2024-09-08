@@ -35,12 +35,15 @@ class AbstractCodeVerificationProcess(abc.ABC):
         return self.state.get("code", "")
 
     @classmethod
-    def initial_state(cls, user, email):
+    def initial_state(cls, user, email: str = None, phone: str = None):
         state = {
             "at": time.time(),
             "failed_attempts": 0,
-            "email": email,
         }
+        if email:
+            state["email"] = email
+        if phone:
+            state["phone"] = phone
         if user:
             state["user_id"] = user_id_to_str(user)
         return state

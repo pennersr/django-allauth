@@ -211,10 +211,11 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.weibo",
     "allauth.socialaccount.providers.xing",
     "allauth.usersessions",
-    "example.demo",
+    "example.users",
 )
 
 
+AUTH_USER_MODEL = "users.User"
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
@@ -234,6 +235,8 @@ ACCOUNT_LOGIN_METHODS = {
 }
 ACCOUNT_PASSWORD_RESET_BY_CODE_ENABLED = True
 ACCOUNT_SIGNUP_FIELDS = ["email*", "password1*", "password2*"]
+ACCOUNT_ADAPTER = "example.users.allauth.AccountAdapter"
+
 
 MFA_SUPPORTED_TYPES = [
     "webauthn",

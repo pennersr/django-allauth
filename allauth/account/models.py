@@ -239,6 +239,7 @@ class Login:
     email_verification: app_settings.EmailVerificationMethod
     signal_kwargs: Optional[Dict]
     signup: bool
+    # FIXME: phone
     email: Optional[str]
     state: Dict
     initiated_at: float

@@ -16,6 +16,7 @@ from allauth.account.internal.flows.login import (
 )
 from allauth.account.internal.flows.signup import send_unknown_account_mail
 from allauth.account.internal.stagekit import clear_login, stash_login
+from allauth.account.internal.userkit import user_id_to_str
 from allauth.account.models import Login
 from allauth.account.stages import LoginByCodeStage, LoginStageController
 
@@ -59,8 +60,27 @@ class LoginCodeVerificationProcess(AbstractCodeVerificationProcess):
         stash_login(self.request, self.stage.login)
 
     def send(self):
+        email = self.state.get("email")
+        phone = self.state.get("phone")
+        if email:
+            self.send_by_email(email)
+        elif phone:
+            self.send_by_phone(phone)
+        else:
+            raise ValueError()
+
+    def send_by_phone(self, phone):
+        # FIXME: logging or...
+        if self.user:
+            adapter = get_adapter()
+            code = adapter.generate_phone_verification_code()
+            adapter.send_phone_verification_code(
+                user=self.user, phone=phone, code=code, signup=False
+            )
+            self.state["code"] = code
+
+    def send_by_email(self, email):
         adapter = get_adapter()
-        email = self.state["email"]
         if not self.user:
             send_unknown_account_mail(self.request, email)
         else:
@@ -79,8 +99,10 @@ class LoginCodeVerificationProcess(AbstractCodeVerificationProcess):
         )
 
     @classmethod
-    def initiate(cls, *, request, user, email: str, stage=None):
-        initial_state = cls.initial_state(user, email)
+    def initiate(
+        cls, *, request, user, email: str = None, phone: str = None, stage=None
+    ):
+        initial_state = cls.initial_state(user=user, email=email, phone=phone)
         initial_state["initiated_by_user"] = stage is None
         if not stage:
             login = Login(user=user, email=email)

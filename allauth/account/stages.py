@@ -175,3 +175,27 @@ class LoginByCodeStage(LoginStage):
 
         response = headed_redirect_response("account_confirm_login_code")
         return response, True
+
+
+class PhoneVerificationStage(LoginStage):
+    key = "verify_phone"
+    urlname = "account_verify_phone"
+
+    def handle(self):
+        from allauth.account.internal.flows import phone_verification
+
+        phone_field = app_settings.SIGNUP_FIELDS.get("phone")
+        if not phone_field:
+            return None, True
+        adapter = get_adapter()
+        phone_verified = adapter.get_phone(self.login.user)
+        if phone_verified is None:
+            return None, (not phone_field["required"])
+        phone, verified = phone_verified
+        if verified:
+            return None, True
+        phone_verification.PhoneVerificationStageProcess.initiate(
+            stage=self, phone=phone
+        )
+        response = headed_redirect_response("account_verify_phone")
+        return response, True

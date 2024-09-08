@@ -413,3 +413,18 @@ def settings_impacting_urls(settings):
         reload_urlconf()
 
     return f
+
+
+@pytest.fixture(autouse=True)
+def clear_phone_stub():
+    from tests.common import phone_stub
+
+    yield
+    phone_stub.clear()
+
+
+@pytest.fixture
+def sms_outbox():
+    from tests.common import phone_stub
+
+    return phone_stub.sms_outbox

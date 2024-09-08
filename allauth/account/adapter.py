@@ -1,9 +1,11 @@
 import html
 import json
 import string
+import typing
 import warnings
 from urllib.parse import urlparse
 
+from django import forms
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import (
@@ -82,6 +84,8 @@ class DefaultAccountAdapter(BaseAdapter):
         "username_taken": AbstractUser._meta.get_field("username").error_messages[
             "unique"
         ],
+        "select_only_one": _("Please select only one."),
+        "same_as_current": _("The new value must be different from the current one."),
     }
 
     def stash_verified_email(self, request, email):
@@ -728,6 +732,7 @@ class DefaultAccountAdapter(BaseAdapter):
     def get_login_stages(self):
         ret = []
         ret.append("allauth.account.stages.LoginByCodeStage")
+        ret.append("allauth.account.stages.PhoneVerificationStage")
         ret.append("allauth.account.stages.EmailVerificationStage")
         if allauth_app_settings.MFA_ENABLED:
             from allauth.mfa import app_settings as mfa_settings
@@ -809,6 +814,12 @@ class DefaultAccountAdapter(BaseAdapter):
         """
         return self._generate_code()
 
+    def generate_phone_verification_code(self) -> str:
+        """
+        Generates a new phone verification code.
+        """
+        return self._generate_code()
+
     def _generate_code(self, length=6):
         forbidden_chars = "0OI18B2ZAEU"
         allowed_chars = string.ascii_uppercase + string.digits
@@ -835,6 +846,50 @@ class DefaultAccountAdapter(BaseAdapter):
         if not value:
             return False
         return method is None or method in value
+
+    def phone_form_field(self, **kwargs):
+        """
+        Returns a form field used to input phone numbers.
+        """
+        from allauth.account.fields import PhoneField
+
+        return PhoneField(**kwargs)
+
+    def send_phone_verification_code(
+        self, *, user, phone: str, code: str, signup: bool, **kwargs
+    ):
+        """
+        Sends a verification code.
+        """
+        raise NotImplementedError
+
+    def set_phone(self, user, phone: str, verified: bool):
+        """
+        Sets the phone number (and verified status) for the given user.
+        """
+        raise NotImplementedError
+
+    def get_phone(self, user) -> typing.Optional[typing.Tuple[str, bool]]:
+        """
+        Returns the phone number stored for the given user. A tuple of the
+        phone number itself, and whether or not the phone number was verified is
+        returned.
+        """
+        raise NotImplementedError
+
+    def set_phone_verified(self, user, phone: str):
+        """
+        Marks the specified phone number for the given user as
+        verified. Note that the user is already expected to have
+        the phone number attached to the account.
+        """
+        raise NotImplementedError
+
+    def get_user_by_phone(self, phone: str):
+        """
+        Looks up a user given the specified phone number.
+        """
+        raise NotImplementedError
 
 
 def get_adapter(request=None):

@@ -94,6 +94,7 @@ class LoginForm(forms.Form):
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop("request", None)
         super().__init__(*args, **kwargs)
+        adapter = get_adapter()
         if app_settings.LOGIN_METHODS == {LoginMethod.EMAIL}:
             login_widget = forms.EmailInput(
                 attrs={
@@ -111,11 +112,16 @@ class LoginForm(forms.Form):
                 widget=login_widget,
                 max_length=get_username_max_length(),
             )
+        elif app_settings.LOGIN_METHODS == {LoginMethod.PHONE}:
+            login_field = adapter.phone_form_field(required=True)
         else:
-            assert app_settings.LOGIN_METHODS == {
-                LoginMethod.USERNAME,
-                LoginMethod.EMAIL,
-            }  # nosec
+            assert app_settings.LOGIN_METHODS.issubset(
+                {
+                    LoginMethod.USERNAME,
+                    LoginMethod.EMAIL,
+                    LoginMethod.PHONE,
+                }
+            )  # nosec
             login_widget = forms.TextInput(
                 attrs={"placeholder": _("Username or email"), "autocomplete": "email"}
             )
@@ -305,6 +311,13 @@ class BaseSignupForm(_base_signup_form_class()):  # type: ignore[misc]
         else:
             del self.fields["username"]
 
+        phone = self._signup_fields.get("phone")
+        self._has_phone_field = bool(phone)
+        if phone:
+            self.fields["phone"] = forms.CharField(
+                label=_("Phone"), required=phone["required"]
+            )
+
         default_field_order = list(self._signup_fields.keys())
         set_form_field_order(
             self, getattr(self, "field_order", None) or default_field_order
@@ -404,6 +417,10 @@ class BaseSignupForm(_base_signup_form_class()):  # type: ignore[misc]
         adapter = get_adapter()
         user = adapter.new_user(request)
         adapter.save_user(request, user, self)
+        if self._has_phone_field:
+            phone = self.cleaned_data.get("phone")
+            if phone:
+                adapter.set_phone(user, phone, False)
         self.custom_signup(request, user)
         # TODO: Move into adapter `save_user` ?
         setup_user_email(request, user, [EmailAddress(email=email)] if email else [])
@@ -413,7 +430,7 @@ class BaseSignupForm(_base_signup_form_class()):  # type: ignore[misc]
 class SignupForm(BaseSignupForm):
     def __init__(self, *args, **kwargs):
         self.by_passkey = kwargs.pop("by_passkey", False)
-        super(SignupForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         if not self.by_passkey and "password1" in self._signup_fields:
             self.fields["password1"] = PasswordField(
                 label=_("Password"),
@@ -695,6 +712,26 @@ class RequestLoginCodeForm(forms.Form):
         )
     )
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._has_email = LoginMethod.EMAIL in app_settings.LOGIN_METHODS
+        self._has_phone = LoginMethod.PHONE in app_settings.LOGIN_METHODS
+        if not self._has_email:
+            self.fields.pop("email")
+        if self._has_phone:
+            adapter = get_adapter()
+            self.fields["phone"] = adapter.phone_form_field()
+            self.fields["email"].required = False
+
+    def clean(self):
+        cleaned_data = super().clean()
+        adapter = get_adapter()
+        phone = cleaned_data.get("phone")
+        email = cleaned_data.get("email")
+        if email and phone:
+            raise adapter.validation_error("select_only_one")
+        return cleaned_data
+
     def clean_email(self):
         adapter = get_adapter()
         email = self.cleaned_data["email"]
@@ -740,3 +777,21 @@ class ConfirmEmailVerificationCodeForm(BaseConfirmCodeForm):
 
 class ConfirmPasswordResetCodeForm(BaseConfirmCodeForm):
     pass
+
+
+class VerifyPhoneForm(BaseConfirmCodeForm):
+    pass
+
+
+class ChangePhoneForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        self.phone = kwargs.pop("phone")
+        super().__init__(*args, **kwargs)
+        adapter = get_adapter()
+        self.fields["phone"] = adapter.phone_form_field(required=True)
+
+    def clean_phone(self):
+        phone = self.cleaned_data["phone"]
+        if phone == self.phone:
+            raise get_adapter().validation_error("same_as_current")
+        return phone

@@ -3,14 +3,6 @@ PYTHON = python
 .PHONY: usage
 usage:
 	@echo 'Usage: make [target]'
-	@echo ''
-	@echo 'Targets:'
-	@echo '  black         Auto format Python code'
-	@echo '  isort         Fix isort issues'
-	@echo '  po            (Re)generate .po files'
-	@echo '  mo            Compile .po into .mo'
-	@echo '  qa            Perform QA checks'
-	@echo '  test          Execute test suite'
 
 .PHONY: po
 po:
@@ -22,22 +14,27 @@ mo:
 
 .PHONY: isort
 isort:
-	isort .
+	isort --check-only --diff .
 
 .PHONY: black
 black:
-	black allauth/ setup.py
+	black --check .
 
 .PHONY: test
 test:
 	pytest allauth/
 
-.PHONY: qa
-qa: validate-api-spec mypy
-	flake8 allauth
-	isort --check-only --diff .
-	black --check .
+
+.PHONY: djlint
+djlint:
 	djlint --check allauth examples
+
+.PHONY: flake8
+flake8:
+	flake8 allauth
+
+.PHONY: qa
+qa: validate-api-spec mypy djlint black isort flake8
 
 .PHONY: mypy
 mypy:
@@ -46,3 +43,60 @@ mypy:
 .PHONY: validate-api-spec
 validate-api-spec:
 	swagger-cli validate docs/headless/openapi-specification/openapi.yaml
+
+.PHONY: ci
+ci:
+	woodpecker-cli exec .woodpecker.yaml
+
+
+.PHONY: standardjs
+standardjs:
+	find ./allauth -name '*.js' | xargs ./node_modules/.bin/standard --ignore allauth/mfa/static/mfa/js/webauthn-json.js
+
+
+.PHONY: docs
+docs:
+	$(MAKE) -C docs html
+
+
+.PHONY: ci-install-black
+ci-install-black:
+	pip install black==24.4.0
+
+.PHONY: ci-install-mo
+ci-install-mo:
+	apt-get update
+	apt-get install -y --no-install-recommends gettext
+	pip install .[mfa,socialaccount,openid,saml]
+
+.PHONY: ci-install-standardjs
+ci-install-standardjs:
+	npm install standard --no-lockfile --no-progress --non-interactive --silent
+
+.PHONY: ci-install-djlint
+ci-install-djlint:
+	pip install djlint==1.34.1
+
+.PHONY: ci-install-docs
+ci-install-docs:
+	pip install Django Sphinx sphinx_rtd_theme
+
+.PHONY: ci-install-flake8
+ci-install-flake8:
+	pip install flake8==7.1.1
+
+.PHONY: ci-install-isort
+ci-install-isort:
+	pip install isort==5.13.2
+
+.PHONY: ci-install-mypy
+ci-install-mypy:
+	pip install .[mfa,socialaccount,openid,saml]
+	pip install				\
+	  'django-stubs==5.0.2'			\
+	  'mypy==1.10.0'			\
+	  'pytest>=7.4'				\
+	  'pytest-asyncio == 0.23.8'		\
+	  'pytest-django>=4.5.2'		\
+	  'types-requests==2.32.0.20240602'	\
+	  'python3-saml>=1.15.0,<2.0.0'

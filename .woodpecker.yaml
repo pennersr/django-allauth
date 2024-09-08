@@ -1,0 +1,160 @@
+when:
+  - event: pull_request
+  - event: [push, tag, manual]
+    branch: main
+
+steps:
+  test:
+    image: python:${PYTHON_VERSION}-bookworm
+    commands:
+      - pip install tox
+      - tox -e "prj${PRJ}-py${PYTHON_VERSION/./}-${DJANGO_VERSION}"
+    when:
+      - matrix:
+          STEP: test
+
+  run-py:
+    image: python:3.12-bookworm
+    commands:
+      - make "ci-install-${STEP/run-py-/}"
+      - make "${STEP/run-py-/}"
+    when:
+      - matrix:
+          STEP: run-py-*
+
+  standardjs:
+    image: node:22-bookworm
+    commands:
+      - make ci-install-standardjs
+      - make standardjs
+    when:
+      - matrix:
+          STEP: run-js-standardjs
+
+matrix:
+  # NOTE: Woodpecker does not seem to have support for matrix exclusion, at
+  # least, I couldn't get it to work. Opted for handcoding the whole matrix :(
+  include:
+    ######################################################################
+    # Linters
+
+    - STEP: run-py-black
+      PRJ: regular
+      DJANGO_VERSION: django50
+      PYTHON_VERSION: 3.12
+    - STEP: run-py-mo
+      PRJ: regular
+      DJANGO_VERSION: django50
+      PYTHON_VERSION: 3.12
+    - STEP: run-py-djlint
+      PRJ: regular
+      DJANGO_VERSION: django50
+      PYTHON_VERSION: 3.12
+    - STEP: run-py-docs
+      PRJ: regular
+      DJANGO_VERSION: django50
+      PYTHON_VERSION: 3.12
+    - STEP: run-py-flake8
+      PRJ: regular
+      DJANGO_VERSION: django50
+      PYTHON_VERSION: 3.12
+    - STEP: run-py-isort
+      PRJ: regular
+      DJANGO_VERSION: django50
+      PYTHON_VERSION: 3.12
+    - STEP: run-py-mypy
+      PRJ: regular
+      DJANGO_VERSION: django50
+      PYTHON_VERSION: 3.12
+    - STEP: run-js-standardjs
+      PRJ: regular
+      DJANGO_VERSION: django50
+      PYTHON_VERSION: 3.12
+
+    ######################################################################
+    # Regular project
+
+    # Pytho 3.8/3.9 require Django <5
+    - STEP: test
+      PRJ: regular
+      DJANGO_VERSION: django42
+      PYTHON_VERSION: 3.8
+    - STEP: test
+      PRJ: regular
+      DJANGO_VERSION: django42
+      PYTHON_VERSION: 3.9
+
+    # Python 3.10+ work with django5+
+    - STEP: test
+      PRJ: regular
+      DJANGO_VERSION: django50
+      PYTHON_VERSION: 3.10
+    - STEP: test
+      PRJ: regular
+      DJANGO_VERSION: django50
+      PYTHON_VERSION: 3.11
+    - STEP: test
+      PRJ: regular
+      DJANGO_VERSION: django50
+      PYTHON_VERSION: 3.12
+    - STEP: test
+      PRJ: regular
+      DJANGO_VERSION: django51
+      PYTHON_VERSION: 3.10
+    - STEP: test
+      PRJ: regular
+      DJANGO_VERSION: django51
+      PYTHON_VERSION: 3.11
+    - STEP: test
+      PRJ: regular
+      DJANGO_VERSION: django51
+      PYTHON_VERSION: 3.12
+    # Only test main on latest Python
+    - STEP: test
+      PRJ: regular
+      DJANGO_VERSION: djangomain
+      PYTHON_VERSION: 3.12
+
+    ######################################################################
+    # Headless project
+
+    # Pytho 3.8/3.9 require Django <5
+    - STEP: test
+      PRJ: headless_only
+      DJANGO_VERSION: django42
+      PYTHON_VERSION: 3.8
+    - STEP: test
+      PRJ: headless_only
+      DJANGO_VERSION: django42
+      PYTHON_VERSION: 3.9
+
+    # Python 3.10+ work with django5+
+    - STEP: test
+      PRJ: headless_only
+      DJANGO_VERSION: django50
+      PYTHON_VERSION: 3.10
+    - STEP: test
+      PRJ: headless_only
+      DJANGO_VERSION: django50
+      PYTHON_VERSION: 3.11
+    - STEP: test
+      PRJ: headless_only
+      DJANGO_VERSION: django50
+      PYTHON_VERSION: 3.12
+    - STEP: test
+      PRJ: headless_only
+      DJANGO_VERSION: django51
+      PYTHON_VERSION: 3.10
+    - STEP: test
+      PRJ: headless_only
+      DJANGO_VERSION: django51
+      PYTHON_VERSION: 3.11
+    - STEP: test
+      PRJ: headless_only
+      DJANGO_VERSION: django51
+      PYTHON_VERSION: 3.12
+    # Only test main on latest Python
+    - STEP: test
+      PRJ: headless_only
+      DJANGO_VERSION: djangomain
+      PYTHON_VERSION: 3.12

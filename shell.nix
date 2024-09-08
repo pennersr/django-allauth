@@ -38,6 +38,7 @@ stdenv.mkDerivation {
         playwright-test
 
         swagger-cli
+        woodpecker-cli
     ];
     shellHook = ''
         export PATH="$PWD/node_modules/.bin/:$PATH"

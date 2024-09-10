@@ -3,12 +3,12 @@
   'use strict'
 
   function postForm (action, data) {
-    var f = document.createElement('form')
+    const f = document.createElement('form')
     f.method = 'POST'
     f.action = action
 
-    for (var key in data) {
-      var d = document.createElement('input')
+    for (const key in data) {
+      const d = document.createElement('input')
       d.type = 'hidden'
       d.name = key
       d.value = data[key]
@@ -28,9 +28,9 @@
     }
   }
 
-  var allauth = window.allauth = window.allauth || {}
+  const allauth = window.allauth = window.allauth || {}
   const fbSettings = JSON.parse(document.getElementById('allauth-facebook-settings').textContent)
-  var fbInitialized = false
+  let fbInitialized = false
 
   allauth.facebook = {
 
@@ -44,10 +44,9 @@
       };
 
       (function (d) {
-        var js
-        var id = 'facebook-jssdk'
+        const id = 'facebook-jssdk'
         if (d.getElementById(id)) { return }
-        js = d.createElement('script'); js.id = id; js.async = true
+        const js = d.createElement('script'); js.id = id; js.async = true
         js.src = opts.sdkUrl
         d.getElementsByTagName('head')[0].appendChild(js)
       }(document))
@@ -57,9 +56,9 @@
     },
 
     login: function (nextUrl, action, process, scope) {
-      var self = this
+      const self = this
       if (!fbInitialized) {
-        var url = this.opts.loginUrl + '?next=' + encodeURIComponent(nextUrl) + '&action=' + encodeURIComponent(action) + '&process=' + encodeURIComponent(process) + '&scope=' + encodeURIComponent(scope)
+        const url = this.opts.loginUrl + '?next=' + encodeURIComponent(nextUrl) + '&action=' + encodeURIComponent(action) + '&process=' + encodeURIComponent(process) + '&scope=' + encodeURIComponent(scope)
         setLocationHref(url)
         return
       }
@@ -90,9 +89,9 @@
     },
 
     onLoginSuccess: function (response, nextUrl, process) {
-      var data = {
+      const data = {
         next: nextUrl || '',
-        process: process,
+        process,
         access_token: response.authResponse.accessToken,
         expires_in: response.authResponse.expiresIn,
         csrfmiddlewaretoken: this.opts.csrfToken
@@ -102,7 +101,7 @@
     },
 
     logout: function (nextUrl) {
-      var self = this
+      const self = this
       if (!fbInitialized) {
         return
       }
@@ -112,7 +111,7 @@
     },
 
     onLogoutSuccess: function (response, nextUrl) {
-      var data = {
+      const data = {
         next: nextUrl || '',
         csrfmiddlewaretoken: this.opts.csrfToken
       }

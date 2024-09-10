@@ -1,5 +1,6 @@
 (function () {
   const allauth = window.allauth = window.allauth || {}
+  const webauthnJSON = window.webauthnJSON
 
   function dispatchError (exception) {
     const event = new CustomEvent('allauth.error', { detail: { tags: ['mfa', 'webauthn'], exception }, cancelable: true })

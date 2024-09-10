@@ -1125,7 +1125,7 @@ paths:
   ######################################################################
   # Authentication: Current Sessions
   ######################################################################
-  /_allauth/{client}/v1/sessions:
+  /_allauth/{client}/v1/auth/sessions:
     get:
       tags:
         - "Sessions"

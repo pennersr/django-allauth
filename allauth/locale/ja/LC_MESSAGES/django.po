@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-30 02:40-0500\n"
-"PO-Revision-Date: 2024-07-01 15:09+0000\n"
+"PO-Revision-Date: 2024-09-06 23:09+0000\n"
 "Last-Translator: SATOH Fumiyasu <fumiyas@osstech.co.jp>\n"
-"Language-Team: Japanese <https://hosted.weblate.org/projects/allauth/django-"
-"allauth/ja/>\n"
+"Language-Team: Japanese <https://hosted.weblate.org/projects/allauth/"
+"django-allauth/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.7-dev\n"
+"X-Generator: Weblate 5.8-dev\n"
 
 #: account/adapter.py:51
 msgid "This account is currently inactive."
@@ -95,10 +95,8 @@ msgstr "認証アプリまたは認証コードを利用する"
 
 #: account/adapter.py:752 templates/mfa/authenticate.html:36
 #: templates/mfa/webauthn/reauthenticate.html:15
-#, fuzzy
-#| msgid "Security key"
 msgid "Use a security key"
-msgstr "セキュリティキー"
+msgstr "セキュリティキーを使用"
 
 #: account/admin.py:23
 msgid "Mark selected email addresses as verified"
@@ -292,17 +290,12 @@ msgid "Passwordless"
 msgstr "パスワードレス"
 
 #: mfa/webauthn/forms.py:19
-#, fuzzy
-#| msgid ""
-#| "Enabling passwordless operation allows you to sign in using just this key/"
-#| "device, but imposes additional requirements such as biometrics or PIN "
-#| "protection."
 msgid ""
 "Enabling passwordless operation allows you to sign in using just this key, "
 "but imposes additional requirements such as biometrics or PIN protection."
 msgstr ""
-"パスワードレス機能を有効化すると、このキー/デバイスを使用してログイン可能にな"
-"ります。その代わりに生態認証や PIN コードなどによる保護が必要になります。"
+"パスワードレス機能を有効化すると、このキーを使用してログイン可能になります。"
+"その代わりに生態認証や PIN コードなどによる保護が必要になります。"
 
 #: socialaccount/adapter.py:36
 #, python-format
@@ -506,16 +499,12 @@ msgid "Alternative options"
 msgstr "そのほかの方法"
 
 #: templates/account/confirm_email_verification_code.html:5
-#, fuzzy
-#| msgid "Email Confirmation"
 msgid "Email Verification"
 msgstr "メールアドレスの確認"
 
 #: templates/account/confirm_email_verification_code.html:9
-#, fuzzy
-#| msgid "Enter an authenticator code:"
 msgid "Enter Email Verification Code"
-msgstr "認証アプリのコードを入力:"
+msgstr "メールの確認コードを入力:"
 
 #: templates/account/confirm_email_verification_code.html:15
 #: templates/account/confirm_login_code.html:15
@@ -637,7 +626,7 @@ msgstr "アカウントが既に存在"
 #: templates/account/email/base_message.txt:1
 #, python-format
 msgid "Hello from %(site_name)s!"
-msgstr "こんにちは、%(site_name)s!"
+msgstr "こんにちは、%(site_name)s です!"
 
 #: templates/account/email/base_message.txt:5
 #, python-format
@@ -691,38 +680,24 @@ msgid "Email Confirmation"
 msgstr "メールアドレスの確認"
 
 #: templates/account/email/email_confirmation_message.txt:5
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this email because user %(user_display)s has given your "
-#| "email address to register an account on %(site_domain)s.\n"
-#| "\n"
-#| "To confirm this is correct, go to %(activate_url)s"
+#, python-format
 msgid ""
 "You're receiving this email because user %(user_display)s has given your "
 "email address to register an account on %(site_domain)s."
-msgstr ""
-"%(user_display)s さんが %(site_domain)s にこのメールアドレスを登録しようとし"
-"ています。\n"
-"\n"
-"問題がなければ、確認のために下記の URL をクリックしてください。\n"
-"%(activate_url)s"
+msgstr "%(user_display)s さんが %(site_domain)s "
+"にあなたのメールアドレスを登録しようとしています。"
 
 #: templates/account/email/email_confirmation_message.txt:7
-#, fuzzy
-#| msgid ""
-#| "Your sign-in code is listed below. Please enter it in your open browser "
-#| "window."
 msgid ""
 "Your email verification code is listed below. Please enter it in your open "
 "browser window."
-msgstr ""
-"以下にあなたのログインコードが記載されています。開いているブラウザのウィンド"
-"ウに入力してください。"
+msgstr "あなたのメール確認コードを下記に記載します。開いているブラウザのウィンドウに"
+"入力してください。"
 
 #: templates/account/email/email_confirmation_message.txt:9
 #, python-format
 msgid "To confirm this is correct, go to %(activate_url)s"
-msgstr ""
+msgstr "間違いなければ、%(activate_url)s にアクセスしてください。"
 
 #: templates/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your Email Address"
@@ -1239,12 +1214,10 @@ msgid "Security Keys"
 msgstr "セキュリティキー"
 
 #: templates/mfa/index.html:50
-#, fuzzy, python-format
-#| msgid "You have added %(count)s security key/device."
-#| msgid_plural "You have added %(count)s security keys/devices."
+#, python-format
 msgid "You have added %(count)s security key."
 msgid_plural "You have added %(count)s security keys."
-msgstr[0] "%(count)s 個のセキュリティキー/デバイスを登録しました。"
+msgstr[0] "%(count)s 個のセキュリティキーを登録しました。"
 
 #: templates/mfa/index.html:54
 #: templates/mfa/webauthn/authenticator_list.html:12
@@ -1369,16 +1342,12 @@ msgid ""
 msgstr "認証アプリによる認証を無効化しようとしています。本当によろしいですか?"
 
 #: templates/mfa/webauthn/add_form.html:7
-#, fuzzy
-#| msgid "Security Keys"
 msgid "Add Security Key"
-msgstr "セキュリティキー"
+msgstr "セキュリティキーを追加"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:6
-#, fuzzy
-#| msgid "Remove Security Key or Device"
 msgid "Remove Security Key"
-msgstr "セキュリティキー/デバイスの解除"
+msgstr "セキュリティキーを解除"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:9
 msgid "Are you sure you want to remove this security key?"
@@ -1386,7 +1355,7 @@ msgstr "セキュリティキーを解除しますか?"
 
 #: templates/mfa/webauthn/authenticator_list.html:21
 msgid "Usage"
-msgstr ""
+msgstr "使用方法"
 
 #: templates/mfa/webauthn/authenticator_list.html:33
 msgid "Passkey"
@@ -1397,10 +1366,8 @@ msgid "Security key"
 msgstr "セキュリティキー"
 
 #: templates/mfa/webauthn/authenticator_list.html:40
-#, fuzzy
-#| msgid "This key does not specify whether is a passkey."
 msgid "This key does not indicate whether it is a passkey."
-msgstr "このキーはパスキーかどうか記載されていません。"
+msgstr "このキーはパスキーかどうか示されていません。"
 
 #: templates/mfa/webauthn/authenticator_list.html:41
 msgid "Unspecified"
@@ -1421,10 +1388,8 @@ msgid "Edit"
 msgstr "編集"
 
 #: templates/mfa/webauthn/edit_form.html:7
-#, fuzzy
-#| msgid "Security Keys"
 msgid "Edit Security Key"
-msgstr "セキュリティキー"
+msgstr "セキュリティキーを編集"
 
 #: templates/mfa/webauthn/edit_form.html:18
 msgid "Save"

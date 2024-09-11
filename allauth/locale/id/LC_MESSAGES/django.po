@@ -3,30 +3,29 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-30 02:40-0500\n"
-"PO-Revision-Date: 2024-04-20 21:35+0200\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2024-09-06 23:09+0000\n"
+"Last-Translator: Reza Almanda <rezaalmanda27@gmail.com>\n"
+"Language-Team: Indonesian <https://hosted.weblate.org/projects/allauth/"
+"django-allauth/id/>\n"
+"Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.8-dev\n"
 
 #: account/adapter.py:51
 msgid "This account is currently inactive."
 msgstr "Akun ini sedang tidak aktif."
 
 #: account/adapter.py:53
-#, fuzzy
-#| msgid "You cannot remove your primary email address (%(email)s)."
 msgid "You cannot remove your primary email address."
-msgstr "Anda tidak dapat menghapus alamat e-mail utama Anda (%(email)s)."
+msgstr "Anda tidak dapat menghapus alamat email utama Anda."
 
 #: account/adapter.py:56
 msgid "This email address is already associated with this account."
@@ -46,19 +45,15 @@ msgstr "Silahkan ketik kata sandi Anda saat ini."
 
 #: account/adapter.py:63 mfa/adapter.py:40
 msgid "Incorrect code."
-msgstr ""
+msgstr "Kode salah."
 
 #: account/adapter.py:64
-#, fuzzy
-#| msgid "Current Password"
 msgid "Incorrect password."
-msgstr "Kata sandi saat ini"
+msgstr "Kata sandi salah."
 
 #: account/adapter.py:65
-#, fuzzy
-#| msgid "Bad Token"
 msgid "Invalid or expired key."
-msgstr "Token Salah"
+msgstr "Kunci tidak valid atau kedaluwarsa."
 
 #: account/adapter.py:66
 msgid "The password reset token was invalid."
@@ -92,29 +87,21 @@ msgid "The username and/or password you specified are not correct."
 msgstr "Nama pengguna dan/atau kata sandi yang anda masukkan tidak benar."
 
 #: account/adapter.py:736
-#, fuzzy
-#| msgid "Forgot Password?"
 msgid "Use your password"
-msgstr "Lupa Kata Sandi?"
+msgstr "Gunakan kata sandi Anda"
 
 #: account/adapter.py:745
-#, fuzzy
-#| msgid "token secret"
 msgid "Use authenticator app or code"
-msgstr "rahasia token"
+msgstr "Gunakan aplikasi atau kode autentikator"
 
 #: account/adapter.py:752 templates/mfa/authenticate.html:36
 #: templates/mfa/webauthn/reauthenticate.html:15
-#, fuzzy
-#| msgid "secret key"
 msgid "Use a security key"
-msgstr "kunci rahasia"
+msgstr "Gunakan kunci keamanan"
 
 #: account/admin.py:23
-#, fuzzy
-#| msgid "Your primary email address must be verified."
 msgid "Mark selected email addresses as verified"
-msgstr "Alamat e-mail utama Anda harus diverifikasi."
+msgstr "Tandai alamat email yang dipilih sebagai terverifikasi"
 
 #: account/apps.py:11
 msgid "Accounts"
@@ -158,10 +145,8 @@ msgid "Login"
 msgstr "Masuk"
 
 #: account/forms.py:136
-#, fuzzy
-#| msgid "Forgot Password?"
 msgid "Forgot your password?"
-msgstr "Lupa Kata Sandi?"
+msgstr "Lupa kata sandi Anda?"
 
 #: account/forms.py:298
 msgid "Email (again)"
@@ -198,7 +183,7 @@ msgstr "Kata sandi baru (lagi)"
 #: account/forms.py:721 account/forms.py:723 mfa/base/forms.py:15
 #: mfa/base/forms.py:17 mfa/totp/forms.py:13
 msgid "Code"
-msgstr ""
+msgstr "Kode"
 
 #: account/models.py:26
 msgid "user"
@@ -242,52 +227,56 @@ msgstr "konfirmasi e-mail"
 
 #: headless/apps.py:7
 msgid "Headless"
-msgstr ""
+msgstr "Headless"
 
 #: mfa/adapter.py:32
 msgid ""
 "You cannot add an email address to an account protected by two-factor "
 "authentication."
 msgstr ""
+"Anda tidak dapat menambahkan alamat email ke akun yang dilindungi oleh "
+"autentikasi dua faktor."
 
 #: mfa/adapter.py:35
 msgid "You cannot deactivate two-factor authentication."
-msgstr ""
+msgstr "Anda tidak dapat menonaktifkan autentikasi dua faktor."
 
 #: mfa/adapter.py:38
 msgid ""
 "You cannot generate recovery codes without having two-factor authentication "
 "enabled."
 msgstr ""
+"Anda tidak dapat membuat kode pemulihan tanpa mengaktifkan autentikasi dua "
+"faktor."
 
 #: mfa/adapter.py:42
 msgid ""
 "You cannot activate two-factor authentication until you have verified your "
 "email address."
 msgstr ""
+"Anda tidak dapat mengaktifkan autentikasi dua faktor hingga Anda "
+"memverifikasi alamat email Anda."
 
 #: mfa/adapter.py:141
-#, fuzzy
-#| msgid "secret key"
 msgid "Master key"
-msgstr "kunci rahasia"
+msgstr "Kunci utama"
 
 #: mfa/adapter.py:143
 msgid "Backup key"
-msgstr ""
+msgstr "Kunci cadangan"
 
 #: mfa/adapter.py:144
 #, python-brace-format
 msgid "Key nr. {number}"
-msgstr ""
+msgstr "Kunci no. {number}"
 
 #: mfa/apps.py:9
 msgid "MFA"
-msgstr ""
+msgstr "MFA"
 
 #: mfa/models.py:24
 msgid "Recovery codes"
-msgstr ""
+msgstr "Kode pemulihan"
 
 #: mfa/models.py:25
 msgid "TOTP Authenticator"

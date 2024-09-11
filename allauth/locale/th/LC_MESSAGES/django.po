@@ -10,16 +10,16 @@ msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-30 02:40-0500\n"
-"PO-Revision-Date: 2024-08-29 17:05+0000\n"
-"Last-Translator: Asura Class <asuraclass01@gmail.com>\n"
-"Language-Team: Thai <https://hosted.weblate.org/projects/allauth/django-"
-"allauth/th/>\n"
+"PO-Revision-Date: 2024-09-11 08:09+0000\n"
+"Last-Translator: Napapat Angsutrarux <napapat_a@hotmail.com>\n"
+"Language-Team: Thai <https://hosted.weblate.org/projects/allauth/"
+"django-allauth/th/>\n"
 "Language: th\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.7.1-dev\n"
+"X-Generator: Weblate 5.8-dev\n"
 
 #: account/adapter.py:51
 msgid "This account is currently inactive."
@@ -261,9 +261,9 @@ msgid "Backup key"
 msgstr "คีย์สำรอง"
 
 #: mfa/adapter.py:144
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Key nr. {number}"
-msgstr "หมายเลขคีย์"
+msgstr "หมายเลขคีย์ {number}"
 
 #: mfa/apps.py:9
 msgid "MFA"
@@ -298,11 +298,12 @@ msgstr ""
 "แต่ต้องมีข้อกำหนดเพิ่มเติม เช่น ไบโอเมตริกซ์หรือการป้องกัน PIN"
 
 #: socialaccount/adapter.py:36
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An account already exists with this email address. Please sign in to that "
 "account first, then connect your %s account."
-msgstr "มีบัญชีที่ใช้อีเมลนี้แล้ว โปรดลงชื่อเข้าใช้ก่อนแล้วค่อยเชื่อมต่อกับบัญชี ของคุณ"
+msgstr ""
+"มีบัญชีที่ใช้อีเมลนี้แล้ว โปรดลงชื่อเข้าใช้บัญชีนั้นก่อน จากนั้นเชื่อมต่อกับบัญชี %s ของคุณ"
 
 #: socialaccount/adapter.py:40
 msgid "Invalid token."
@@ -438,10 +439,10 @@ msgid "Cancel"
 msgstr "ยกเลิก"
 
 #: socialaccount/providers/oauth/client.py:85
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Invalid response while obtaining request token from \"%s\". Response was: %s."
-msgstr "การตอบสนองผิดพลาดขณะที่กำลังได้รับ request token จาก \"%s\""
+msgstr "การตอบสนองไม่ถูกต้องขณะได้รับคำขอโทเค็นจาก \"%s\" การตอบสนองคือ: %s"
 
 #: socialaccount/providers/oauth/client.py:119
 #: socialaccount/providers/pocket/client.py:86
@@ -502,11 +503,12 @@ msgstr "กรอกรหัสยืนยันอีเมล"
 
 #: templates/account/confirm_email_verification_code.html:15
 #: templates/account/confirm_login_code.html:15
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "We’ve sent a code to %(email_link)s. The code expires shortly, so please "
 "enter it soon."
-msgstr "เราได้ส่งรหัสไปยังลิงก์ทางอีเมลแล้ว รหัสจะหมดอายุ นี้ ดังนั้นโปรดป้อน นี้"
+msgstr ""
+"เราส่งรหัสไปที่ %(email_link)s รหัสจะหมดอายุในไม่ช้า โปรดกรอกรหัสโดยเร็ว"
 
 #: templates/account/confirm_email_verification_code.html:27
 #: templates/account/email_confirm.html:24
@@ -584,7 +586,7 @@ msgid "Do you really want to remove the selected email address?"
 msgstr "คุณต้องการที่จะลบอีเมลนี้จริงหรอ"
 
 #: templates/account/email/account_already_exists_message.txt:4
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You are receiving this email because you or someone else tried to signup for "
 "an\n"
@@ -600,20 +602,25 @@ msgid ""
 "\n"
 "%(password_reset_url)s"
 msgstr ""
-"คุณได้รับอีเมลนี้เนื่องจากคุณหรือบุคคลอื่นพยายามสมัครใช้งาน บัญชีโดยใช้ที่อยู่อีเมล: %(อีเมล)s "
-"อย่างไรก็ตามมีบัญชีที่ใช้ที่อยู่อีเมลนั้นอยู่แล้ว ในกรณีที่คุณมี ลืมเรื่องนี้ "
-"โปรดใช้ขั้นตอนการลืมรหัสผ่านเพื่อกู้คืน บัญชีของคุณ: %(รหัสผ่าน_รีเซ็ต_url)s"
+"คุณได้รับอีเมลนี้ เพราะคุณหรือมีคนอื่นพยายามลงทะเบียน\n"
+"บัญชีโดยใช้ที่อยู่อีเมล:\n"
+"\n"
+"%(email)s\n"
+"\n"
+"อย่างไรก็ตาม มีบัญชีที่ใช้อีเมลดังกล่าวอยู่แล้ว  ในกรณีที่คุณ\n"
+"ลืมอีเมลนี้ไป โปรดใช้ขั้นตอนลืมรหัสผ่านเพื่อกู้คืน\n"
+"บัญชีของคุณ:\n"
+"\n"
+"%(password_reset_url)s"
 
 #: templates/account/email/account_already_exists_subject.txt:3
 msgid "Account Already Exists"
 msgstr "มีบัญชีอยู่แล้ว"
 
 #: templates/account/email/base_message.txt:1
-#, fuzzy, python-format
+#, python-format
 msgid "Hello from %(site_name)s!"
-msgstr ""
-"ขอบคุณจาก %(site_name)s!\n"
-"%(site_domain)s"
+msgstr "สวัสดีจาก %(site_name)s!"
 
 #: templates/account/email/base_message.txt:5
 #, python-format
@@ -665,18 +672,13 @@ msgid "Email Confirmation"
 msgstr "การยืนยันทางอีเมล์"
 
 #: templates/account/email/email_confirmation_message.txt:5
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You're receiving this email because user %(user_display)s has given your "
 "email address to register an account on %(site_domain)s."
 msgstr ""
-"สวัสดีจาก %(site_name)s!\n"
-"\n"
-"คุณได้รับอีเมลนี้เนื่องจากผู้ใช้ %(user_display)s ใน %(site_domain)s "
-"ได้ให้ที่อยู่อีเมลของคุณเพื่อเชื่อมต่อบัญชีของตน\n"
-"\n"
-"หากต้องการยืนยันว่าข้อมูลนี้ถูกต้อง โปรดไปที่ %(activate_url)s\n"
-"ลงทะเบียนบัญชีใน %(site_domain)s"
+"คุณได้รับอีเมลนี้เพราะผู้ใช้ %(user_display)s ให้ที่อยู่อีเมลของคุณเพื่อลงทะเบียนบัญชีใน "
+"%(site_domain)s"
 
 #: templates/account/email/email_confirmation_message.txt:7
 msgid ""
@@ -832,12 +834,11 @@ msgstr ""
 
 #: templates/account/email_confirm.html:30
 #: templates/account/messages/email_confirmation_failed.txt:2
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to confirm %(email)s because it is already confirmed by a different "
 "account."
-msgstr ""
-"บัญชีโซเชียลไม่สามารถยืนยัน %(อีเมล)s ได้เนื่องจากมีการเชื่อมโยงกับบัญชีอื่นที่ได้รับการยืนยันแล้ว"
+msgstr "ไม่สามารถยืนยัน %(email)s ได้เพราะได้รับการยืนยันโดยบัญชีอื่นแล้ว"
 
 #: templates/account/email_confirm.html:36
 #, python-format

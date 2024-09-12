@@ -6,4 +6,5 @@ User Sessions
    introduction
    installation
    configuration
+   signals
    adapter

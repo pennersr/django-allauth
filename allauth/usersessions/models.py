@@ -68,16 +68,16 @@ class UserSessionManager(models.Manager):
 
                 session.save()
 
-                if (
-                    from_session.ip != session.ip
-                    or from_session.user_agent != session.user_agent
-                ):
-                    session_client_changed.send(
-                        sender=UserSession,
-                        request=request,
-                        from_session=from_session,
-                        to_session=session,
-                    )
+        if (
+            from_session.ip != session.ip
+            or from_session.user_agent != session.user_agent
+        ):
+            session_client_changed.send(
+                sender=UserSession,
+                request=request,
+                from_session=from_session,
+                to_session=session,
+            )
 
 
 class UserSession(models.Model):

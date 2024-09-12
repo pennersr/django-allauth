@@ -3,7 +3,7 @@ from importlib import import_module
 from django.conf import settings
 from django.contrib.auth import get_user
 from django.core.exceptions import ImproperlyConfigured
-from django.db import models
+from django.db import models, transaction
 from django.http import HttpRequest
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -36,15 +36,48 @@ class UserSessionManager(models.Manager):
         ua = request.META.get("HTTP_USER_AGENT", "")[
             0 : UserSession._meta.get_field("user_agent").max_length
         ]
-        UserSession.objects.update_or_create(
-            session_key=request.session.session_key,
-            defaults=dict(
-                user=request.user,
-                ip=get_adapter().get_client_ip(request),
-                user_agent=ua,
-                last_seen_at=timezone.now(),
-            ),
+
+        defaults = dict(
+            user=request.user,
+            ip=get_adapter().get_client_ip(request),
+            user_agent=ua,
         )
+
+        with transaction.atomic():
+            from allauth.usersessions.signals import session_client_changed
+
+            session, created = UserSession.objects.get_or_create(
+                session_key=request.session.session_key, defaults=defaults
+            )
+
+            if not created:
+                from_session = UserSession(
+                    session_key=session.session_key,
+                    user=session.user,
+                    ip=session.ip,
+                    user_agent=session.user_agent,
+                    data=session.data,
+                    created_at=session.created_at,
+                    last_seen_at=session.last_seen_at,
+                )
+                # Update session
+                session.user = defaults["user"]
+                session.ip = defaults["ip"]
+                session.user_agent = defaults["user_agent"]
+                session.last_seen_at = timezone.now()
+
+                session.save()
+
+                if (
+                    from_session.ip != session.ip
+                    or from_session.user_agent != session.user_agent
+                ):
+                    session_client_changed.send(
+                        sender=UserSession,
+                        request=request,
+                        from_session=from_session,
+                        to_session=session,
+                    )
 
 
 class UserSession(models.Model):

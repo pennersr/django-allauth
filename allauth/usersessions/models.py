@@ -43,6 +43,7 @@ class UserSessionManager(models.Manager):
             user_agent=ua,
         )
 
+        from_session = None
         with transaction.atomic():
             from allauth.usersessions.signals import session_client_changed
 
@@ -68,7 +69,7 @@ class UserSessionManager(models.Manager):
 
                 session.save()
 
-        if (
+        if from_session and (
             from_session.ip != session.ip
             or from_session.user_agent != session.user_agent
         ):

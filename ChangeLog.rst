@@ -1,7 +1,8 @@
 64.3.0 (unreleased)
 *******************
 
-- ...
+- The ``userserssions`` app now emits signals when either the IP address or user
+  agent for a session changes.
 
 
 64.2.1 (2024-09-05)

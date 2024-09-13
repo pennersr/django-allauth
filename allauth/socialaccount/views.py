@@ -6,6 +6,10 @@ from django.utils.decorators import method_decorator
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 
+from allauth.account.internal.decorators import (
+    login_not_required,
+    unauthenticated_only,
+)
 from allauth.socialaccount.forms import DisconnectForm, SignupForm
 from allauth.socialaccount.internal import flows
 from allauth.socialaccount.models import SocialAccount
@@ -21,6 +25,7 @@ from . import app_settings
 from .adapter import get_adapter
 
 
+@method_decorator(unauthenticated_only, name="dispatch")
 class SignupView(
     RedirectAuthenticatedUserMixin,
     CloseableSignupMixin,
@@ -69,6 +74,7 @@ class SignupView(
 signup = SignupView.as_view()
 
 
+@method_decorator(login_not_required, name="dispatch")
 class LoginCancelledView(TemplateView):
     template_name = (
         "socialaccount/login_cancelled." + account_settings.TEMPLATE_EXTENSION

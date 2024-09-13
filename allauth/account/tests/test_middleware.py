@@ -7,6 +7,7 @@ from django.urls import path, reverse
 import pytest
 
 from allauth.account.internal import flows
+from allauth.account.internal.decorators import login_not_required
 from allauth.account.middleware import AccountMiddleware
 from allauth.core.exceptions import ImmediateHttpResponse
 
@@ -42,6 +43,7 @@ def test_remove_dangling_login(
     assert (flows.login.LOGIN_SESSION_KEY in request.session) is (not login_removed)
 
 
+@login_not_required
 def raise_immediate_http_response(request):
     response = HttpResponse(content="raised-response")
     raise ImmediateHttpResponse(response=response)

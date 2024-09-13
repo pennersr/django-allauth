@@ -10,6 +10,7 @@ from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 
+from allauth.account.internal.decorators import login_not_required
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.helpers import (
     complete_social_login,
@@ -19,6 +20,7 @@ from allauth.socialaccount.providers.base.views import BaseLoginView
 from allauth.socialaccount.providers.telegram.provider import TelegramProvider
 
 
+@method_decorator(login_not_required, name="dispatch")
 class LoginView(BaseLoginView):
     provider_id = TelegramProvider.id
 
@@ -27,6 +29,7 @@ login = LoginView.as_view()
 
 
 @method_decorator(csrf_exempt, name="dispatch")
+@method_decorator(login_not_required, name="dispatch")
 class CallbackView(View):
     def get(self, request):
         return render(request, "telegram/callback.html")

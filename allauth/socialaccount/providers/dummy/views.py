@@ -1,8 +1,10 @@
 from django.core.exceptions import PermissionDenied
 from django.urls import reverse
+from django.utils.decorators import method_decorator
 from django.utils.http import urlencode
 from django.views.generic.edit import FormView
 
+from allauth.account.internal.decorators import login_not_required
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.helpers import (
     complete_social_login,
@@ -15,6 +17,7 @@ from allauth.socialaccount.providers.dummy.forms import AuthenticateForm
 from allauth.socialaccount.providers.dummy.provider import DummyProvider
 
 
+@method_decorator(login_not_required, name="dispatch")
 class LoginView(BaseLoginView):
     provider_id = DummyProvider.id
 
@@ -26,6 +29,7 @@ class AuthenticateView(FormView):
     form_class = AuthenticateForm
     template_name = "dummy/authenticate_form.html"
 
+    @method_decorator(login_not_required)
     def dispatch(self, request, *args, **kwargs):
         self.state_id = request.GET.get("state")
         if not self.state_id:

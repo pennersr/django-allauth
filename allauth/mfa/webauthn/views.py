@@ -9,6 +9,7 @@ from django.views.generic.list import ListView
 from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.decorators import reauthentication_required
+from allauth.account.internal.decorators import unauthenticated_only
 from allauth.account.mixins import NextRedirectMixin
 from allauth.account.models import Login
 from allauth.account.views import BaseReauthenticateView
@@ -97,6 +98,7 @@ class RemoveWebAuthnView(NextRedirectMixin, DeleteView):
 remove_webauthn = RemoveWebAuthnView.as_view()
 
 
+@method_decorator(unauthenticated_only, name="dispatch")
 class LoginWebAuthnView(FormView):
     form_class = LoginWebAuthnForm
 

@@ -7,6 +7,7 @@ from django.utils import timezone
 from django.utils.http import urlencode
 from django.views.decorators.csrf import csrf_exempt
 
+from allauth.account.internal.decorators import login_not_required
 from allauth.socialaccount.internal import jwtkit
 from allauth.socialaccount.models import SocialToken
 from allauth.socialaccount.providers.oauth2.views import (
@@ -101,6 +102,7 @@ class AppleOAuth2Adapter(OAuth2Adapter):
 
 
 @csrf_exempt
+@login_not_required
 def apple_post_callback(request, finish_endpoint_name="apple_finish_callback"):
     """
     Apple uses a `form_post` response type, which due to

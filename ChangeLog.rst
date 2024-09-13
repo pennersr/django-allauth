@@ -1,6 +1,9 @@
 64.3.0 (unreleased)
 *******************
 
+- Added transparent support for Django's ``LoginRequiredMiddleware`` (new since
+  Django 5.1).
+
 - The ``userserssions`` app now emits signals when either the IP address or user
   agent for a session changes.
 

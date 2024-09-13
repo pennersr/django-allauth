@@ -2,6 +2,7 @@ import logging
 
 from django.urls import reverse
 
+from allauth.account.internal.decorators import login_not_required
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.helpers import (
     complete_social_login,
@@ -58,6 +59,7 @@ class OAuthAdapter:
 class OAuthView:
     @classmethod
     def adapter_view(cls, adapter):
+        @login_not_required
         def view(request, *args, **kwargs):
             self = cls()
             self.request = request

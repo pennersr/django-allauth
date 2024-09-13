@@ -4,6 +4,7 @@ from types import SimpleNamespace
 from django.middleware.csrf import get_token
 from django.views.decorators.csrf import csrf_exempt
 
+from allauth.account.internal.decorators import login_not_required
 from allauth.headless.constants import Client
 from allauth.headless.internal import authkit
 
@@ -17,6 +18,7 @@ def app_view(
     function=None,
 ):
     def decorator(view_func):
+        @login_not_required
         @wraps(view_func)
         def _wrapper_view(request, *args, **kwargs):
             mark_request_as_headless(request, Client.APP)
@@ -35,6 +37,7 @@ def browser_view(
     function=None,
 ):
     def decorator(view_func):
+        @login_not_required
         @wraps(view_func)
         def _wrapper_view(request, *args, **kwargs):
             mark_request_as_headless(request, Client.BROWSER)

@@ -9,6 +9,7 @@ from django.urls import reverse
 from django.utils import timezone
 
 from allauth.account import app_settings as account_settings
+from allauth.account.internal.decorators import login_not_required
 from allauth.core.exceptions import ImmediateHttpResponse
 from allauth.core.internal.httpkit import add_query_params
 from allauth.socialaccount.adapter import get_adapter
@@ -92,6 +93,7 @@ class OAuth2Adapter:
 class OAuth2View:
     @classmethod
     def adapter_view(cls, adapter):
+        @login_not_required
         def view(request, *args, **kwargs):
             self = cls()
             self.request = request

@@ -2,9 +2,11 @@ import requests
 
 from django.conf import settings
 from django.core.exceptions import PermissionDenied, ValidationError
+from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
 
+from allauth.account.internal.decorators import login_not_required
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.helpers import (
     complete_social_login,
@@ -120,6 +122,7 @@ oauth2_callback = OAuth2CallbackView.adapter_view(GoogleOAuth2Adapter)
 
 
 class LoginByTokenView(View):
+    @method_decorator(login_not_required)
     def dispatch(self, request):
         self.adapter = get_adapter()
         self.provider = self.adapter.get_provider(

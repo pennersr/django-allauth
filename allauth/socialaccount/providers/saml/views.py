@@ -16,6 +16,7 @@ from onelogin.saml2.auth import OneLogin_Saml2_Settings
 from onelogin.saml2.errors import OneLogin_Saml2_Error
 
 from allauth.account.adapter import get_adapter as get_account_adapter
+from allauth.account.internal.decorators import login_not_required
 from allauth.core.internal import httpkit
 from allauth.socialaccount.helpers import (
     complete_social_login,
@@ -50,6 +51,7 @@ class SAMLViewMixin:
 
 
 @method_decorator(csrf_exempt, name="dispatch")
+@method_decorator(login_not_required, name="dispatch")
 class ACSView(SAMLViewMixin, View):
     def dispatch(self, request, organization_slug):
         url = reverse(
@@ -66,6 +68,7 @@ class ACSView(SAMLViewMixin, View):
 acs = ACSView.as_view()
 
 
+@method_decorator(login_not_required, name="dispatch")
 class FinishACSView(SAMLViewMixin, View):
     def dispatch(self, request, organization_slug):
         provider = self.get_provider(organization_slug)
@@ -138,6 +141,7 @@ finish_acs = FinishACSView.as_view()
 
 
 @method_decorator(csrf_exempt, name="dispatch")
+@method_decorator(login_not_required, name="dispatch")
 class SLSView(SAMLViewMixin, View):
     def dispatch(self, request, organization_slug):
         provider = self.get_provider(organization_slug)
@@ -174,6 +178,7 @@ class SLSView(SAMLViewMixin, View):
 sls = SLSView.as_view()
 
 
+@method_decorator(login_not_required, name="dispatch")
 class MetadataView(SAMLViewMixin, View):
     def dispatch(self, request, organization_slug):
         provider = self.get_provider(organization_slug)
@@ -197,6 +202,7 @@ class MetadataView(SAMLViewMixin, View):
 metadata = MetadataView.as_view()
 
 
+@method_decorator(login_not_required, name="dispatch")
 class LoginView(SAMLViewMixin, BaseLoginView):
     def get_provider(self):
         app = self.get_app(self.kwargs["organization_slug"])

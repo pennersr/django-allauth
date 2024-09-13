@@ -30,6 +30,11 @@ from allauth.account.forms import (
     UserTokenForm,
 )
 from allauth.account.internal import flows
+from allauth.account.internal.decorators import (
+    login_not_required,
+    login_stage_required,
+    unauthenticated_only,
+)
 from allauth.account.mixins import (
     AjaxCapableProcessFormViewMixin,
     CloseableSignupMixin,
@@ -71,6 +76,7 @@ sensitive_post_parameters_m = method_decorator(
 
 
 @method_decorator(rate_limit(action="login"), name="dispatch")
+@method_decorator(unauthenticated_only, name="dispatch")
 class LoginView(
     NextRedirectMixin,
     RedirectAuthenticatedUserMixin,
@@ -137,6 +143,7 @@ login = LoginView.as_view()
 
 
 @method_decorator(rate_limit(action="signup"), name="dispatch")
+@method_decorator(unauthenticated_only, name="dispatch")
 class SignupView(
     RedirectAuthenticatedUserMixin,
     CloseableSignupMixin,
@@ -209,6 +216,7 @@ class SignupView(
 signup = SignupView.as_view()
 
 
+@method_decorator(login_not_required, name="dispatch")
 class ConfirmEmailView(NextRedirectMixin, LogoutFunctionalityMixin, TemplateView):
     template_name = "account/email_confirm." + app_settings.TEMPLATE_EXTENSION
 
@@ -530,6 +538,7 @@ class PasswordSetView(AjaxCapableProcessFormViewMixin, NextRedirectMixin, FormVi
 password_set = PasswordSetView.as_view()
 
 
+@method_decorator(login_not_required, name="dispatch")
 class PasswordResetView(NextRedirectMixin, AjaxCapableProcessFormViewMixin, FormView):
     template_name = "account/password_reset." + app_settings.TEMPLATE_EXTENSION
     form_class = ResetPasswordForm
@@ -570,6 +579,7 @@ password_reset_done = PasswordResetDoneView.as_view()
 
 
 @method_decorator(rate_limit(action="reset_password_from_key"), name="dispatch")
+@method_decorator(login_not_required, name="dispatch")
 class PasswordResetFromKeyView(
     AjaxCapableProcessFormViewMixin,
     NextRedirectMixin,
@@ -661,6 +671,7 @@ class PasswordResetFromKeyView(
 password_reset_from_key = PasswordResetFromKeyView.as_view()
 
 
+@method_decorator(login_not_required, name="dispatch")
 class PasswordResetFromKeyDoneView(TemplateView):
     template_name = (
         "account/password_reset_from_key_done." + app_settings.TEMPLATE_EXTENSION
@@ -699,6 +710,7 @@ class LogoutView(NextRedirectMixin, LogoutFunctionalityMixin, TemplateView):
 logout = LogoutView.as_view()
 
 
+@method_decorator(login_not_required, name="dispatch")
 class AccountInactiveView(TemplateView):
     template_name = "account/account_inactive." + app_settings.TEMPLATE_EXTENSION
 
@@ -706,6 +718,7 @@ class AccountInactiveView(TemplateView):
 account_inactive = AccountInactiveView.as_view()
 
 
+@method_decorator(login_not_required, name="dispatch")
 class EmailVerificationSentView(TemplateView):
     template_name = "account/verification_sent." + app_settings.TEMPLATE_EXTENSION
 
@@ -787,6 +800,7 @@ class ConfirmEmailVerificationCodeView(FormView):
         return HttpResponseRedirect(reverse("account_login"))
 
 
+@method_decorator(login_not_required, name="dispatch")
 def email_verification_sent(request):
     if app_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED:
         return ConfirmEmailVerificationCodeView.as_view()(request)
@@ -875,6 +889,7 @@ class ReauthenticateView(BaseReauthenticateView):
 reauthenticate = ReauthenticateView.as_view()
 
 
+@method_decorator(unauthenticated_only, name="dispatch")
 class RequestLoginCodeView(RedirectAuthenticatedUserMixin, NextRedirectMixin, FormView):
     form_class = RequestLoginCodeForm
     template_name = "account/request_login_code." + app_settings.TEMPLATE_EXTENSION
@@ -907,15 +922,19 @@ class RequestLoginCodeView(RedirectAuthenticatedUserMixin, NextRedirectMixin, Fo
 request_login_code = RequestLoginCodeView.as_view()
 
 
+@method_decorator(
+    login_stage_required(
+        stage=LoginByCodeStage.key, redirect_urlname="account_request_login_code"
+    ),
+    name="dispatch",
+)
 class ConfirmLoginCodeView(RedirectAuthenticatedUserMixin, NextRedirectMixin, FormView):
     form_class = ConfirmLoginCodeForm
     template_name = "account/confirm_login_code." + app_settings.TEMPLATE_EXTENSION
 
     @method_decorator(never_cache)
     def dispatch(self, request, *args, **kwargs):
-        self.stage = LoginStageController.enter(request, LoginByCodeStage.key)
-        if not self.stage:
-            return HttpResponseRedirect(reverse("account_request_login_code"))
+        self.stage = request._login_stage
         self.user, self.pending_login = flows.login_by_code.get_pending_login(
             self.stage.login, peek=True
         )

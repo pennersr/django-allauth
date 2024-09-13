@@ -2,6 +2,7 @@ from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 
@@ -10,6 +11,7 @@ from openid.consumer.discover import DiscoveryFailure
 from openid.extensions.ax import AttrInfo, FetchRequest
 from openid.extensions.sreg import SRegRequest
 
+from allauth.account.internal.decorators import login_not_required
 from allauth.socialaccount.app_settings import QUERY_EMAIL
 from allauth.socialaccount.helpers import (
     complete_social_login,
@@ -31,6 +33,7 @@ def _openid_consumer(request, provider, endpoint):
     return client
 
 
+@method_decorator(login_not_required, name="dispatch")
 class OpenIDLoginView(View):
     template_name = "openid/login.html"
     form_class = LoginForm
@@ -124,6 +127,7 @@ class OpenIDLoginView(View):
 login = OpenIDLoginView.as_view()
 
 
+@method_decorator(login_not_required, name="dispatch")
 class OpenIDCallbackView(View):
     provider_class = OpenIDProvider
 

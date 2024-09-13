@@ -5,7 +5,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
 from allauth.account import app_settings as account_settings
-from allauth.account.stages import LoginStageController
+from allauth.account.internal.decorators import login_stage_required
 from allauth.account.views import BaseReauthenticateView
 from allauth.mfa import app_settings
 from allauth.mfa.base.forms import AuthenticateForm, ReauthenticateForm
@@ -17,14 +17,18 @@ from allauth.mfa.webauthn.internal.flows import auth as webauthn_auth
 from allauth.utils import get_form_class
 
 
+@method_decorator(
+    login_stage_required(stage=AuthenticateStage.key, redirect_urlname="account_login"),
+    name="dispatch",
+)
 class AuthenticateView(TemplateView):
     form_class = AuthenticateForm
     webauthn_form_class = AuthenticateWebAuthnForm
     template_name = "mfa/authenticate." + account_settings.TEMPLATE_EXTENSION
 
     def dispatch(self, request, *args, **kwargs):
-        self.stage = LoginStageController.enter(request, AuthenticateStage.key)
-        if not self.stage or not is_mfa_enabled(
+        self.stage = request._login_stage
+        if not is_mfa_enabled(
             self.stage.login.user,
             [Authenticator.Type.TOTP, Authenticator.Type.WEBAUTHN],
         ):

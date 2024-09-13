@@ -3,8 +3,10 @@ import requests
 
 from django import forms
 from django.core.exceptions import PermissionDenied
+from django.utils.decorators import method_decorator
 from django.views.generic import View
 
+from allauth.account.internal.decorators import login_not_required
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.helpers import (
@@ -53,6 +55,7 @@ oauth2_callback = OAuth2CallbackView.adapter_view(FacebookOAuth2Adapter)
 
 
 class LoginByTokenView(View):
+    @method_decorator(login_not_required)
     def dispatch(self, request):
         self.adapter = get_adapter()
         self.provider = self.adapter.get_provider(request, PROVIDER_ID)

@@ -28,9 +28,19 @@
             {% endelement %}
         {% endslot %}
     {% endelement %}
-    {% element h2 %}
+    {% if cancel_url %}
         {% element button href=cancel_url tags="link,cancel" %}
             {% translate "Cancel" %}
         {% endelement %}
-    {% endelement %}
+    {% else %}
+        {% element button type="submit" form="logout-from-stage" tags="link,cancel" %}
+            {% translate "Cancel" %}
+        {% endelement %}
+        <form id="logout-from-stage"
+              method="post"
+              action="{% url 'account_logout' %}">
+            <input type="hidden" name="next" value="{% url 'account_login' %}">
+            {% csrf_token %}
+        </form>
+    {% endif %}
 {% endblock content %}

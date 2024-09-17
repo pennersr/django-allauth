@@ -5,6 +5,10 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 
 from allauth.account import app_settings
+from allauth.account.internal.stagekit import (
+    get_pending_stage,
+    redirect_to_pending_stage,
+)
 from allauth.account.stages import LoginStageController
 from allauth.account.utils import get_login_redirect_url
 
@@ -41,13 +45,13 @@ def unauthenticated_only(function=None):
         @login_not_required
         @wraps(view_func)
         def _wrapper_view(request, *args, **kwargs):
-            if (
-                request.user.is_authenticated
-                # ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = False is going to
-                # be deprecated.
-                and app_settings.AUTHENTICATED_LOGIN_REDIRECTS
-            ):
-                return HttpResponseRedirect(get_login_redirect_url(request))
+            if app_settings.AUTHENTICATED_LOGIN_REDIRECTS:
+                if request.user.is_authenticated:
+                    return HttpResponseRedirect(get_login_redirect_url(request))
+                else:
+                    stage = get_pending_stage(request)
+                    if stage and stage.is_resumable(request):
+                        return redirect_to_pending_stage(request, stage)
             return view_func(request, *args, **kwargs)
 
         return _wrapper_view

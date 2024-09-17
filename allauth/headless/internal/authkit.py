@@ -4,8 +4,7 @@ from typing import Any, Dict, Optional
 from django.utils.functional import SimpleLazyObject, empty
 
 from allauth import app_settings as allauth_settings
-from allauth.account.stages import LoginStageController
-from allauth.account.utils import unstash_login
+from allauth.account.internal.stagekit import get_pending_stage
 from allauth.core.exceptions import ImmediateHttpResponse
 from allauth.headless import app_settings
 from allauth.headless.constants import Client
@@ -21,13 +20,7 @@ class AuthenticationStatus:
         return self.request.user.is_authenticated
 
     def get_pending_stage(self):
-        stage = None
-        if not self.is_authenticated:
-            login = unstash_login(self.request, peek=True)
-            if login:
-                ctrl = LoginStageController(self.request, login)
-                stage = ctrl.get_pending_stage()
-        return stage
+        return get_pending_stage(self.request)
 
     @property
     def has_pending_signup(self):

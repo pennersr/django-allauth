@@ -109,3 +109,9 @@ def test_login_by_code_required(
         email_address.refresh_from_db()
         assert email_address.verified
     assert resp["location"] == settings.LOGIN_REDIRECT_URL
+
+
+def test_login_by_code_redirect(client, user, request_login_by_code):
+    request_login_by_code(client, user.email)
+    resp = client.get(reverse("account_login"))
+    assert resp["location"] == reverse("account_confirm_login_code")

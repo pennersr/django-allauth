@@ -116,3 +116,22 @@ def test_add_or_change_email(auth_client, user, get_last_code, change_email, set
     assert resp["location"] == reverse("account_email")
     assert EmailAddress.objects.filter(email=email, verified=True).count() == 1
     assert EmailAddress.objects.filter(user=user).count() == (1 if change_email else 2)
+
+
+def test_email_verification_login_redirect(
+    client, db, settings, password_factory, email_verification_settings
+):
+    password = password_factory()
+    resp = client.post(
+        reverse("account_signup"),
+        {
+            "username": "johndoe",
+            "email": "user@email.org",
+            "password1": password,
+            "password2": password,
+        },
+    )
+    assert resp.status_code == 302
+    assert resp["location"] == reverse("account_email_verification_sent")
+    resp = client.get(reverse("account_login"))
+    assert resp["location"] == reverse("account_email_verification_sent")

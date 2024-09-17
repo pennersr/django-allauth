@@ -56,7 +56,7 @@ class ConfirmLoginCodeView(APIView):
         if not self.stage:
             return ConflictResponse(request)
         self.user, self.pending_login = flows.login_by_code.get_pending_login(
-            self.stage.login, peek=True
+            request, self.stage.login, peek=True
         )
         return super().dispatch(request, *args, **kwargs)
 

@@ -157,6 +157,9 @@ def test_email_verification_mandatory(settings, db, client, mailoutbox, enable_c
         )
         # Wait for cooldown -- wipe cache (incl. rate limits)
         cache.clear()
+        # if we don't wipe the session, login will redirect to pending stage...
+        client.logout()
+
     # Verify, and re-attempt to login.
     confirmation = EmailConfirmation.objects.filter(
         email_address__user__username="johndoe"
@@ -317,3 +320,21 @@ def test_verify_logs_out_user(auth_client, settings, user, user_factory):
         )
     )
     assert not auth_client.session.get(SESSION_KEY)
+
+
+def test_email_verification_login_redirect(client, db, settings, password_factory):
+    settings.ACCOUNT_EMAIL_VERIFICATION = app_settings.EmailVerificationMethod.MANDATORY
+    password = password_factory()
+    resp = client.post(
+        reverse("account_signup"),
+        {
+            "username": "johndoe",
+            "email": "user@email.org",
+            "password1": password,
+            "password2": password,
+        },
+    )
+    assert resp.status_code == 302
+    assert resp["location"] == reverse("account_email_verification_sent")
+    resp = client.get(reverse("account_login"))
+    assert resp.status_code == 200

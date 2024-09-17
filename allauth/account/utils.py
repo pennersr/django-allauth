@@ -14,7 +14,7 @@ from django.utils.http import base36_to_int, int_to_base36
 
 from allauth.account import app_settings, signals
 from allauth.account.adapter import get_adapter
-from allauth.account.internal import flows
+from allauth.account.internal import flows, stagekit
 from allauth.account.models import Login
 from allauth.core.internal import httpkit
 from allauth.utils import (
@@ -180,7 +180,7 @@ def unstash_login(request, peek=False):
         else:
             if time.time() - login.initiated_at > app_settings.LOGIN_TIMEOUT:
                 login = None
-                request.session.pop(flows.login.LOGIN_SESSION_KEY, None)
+                stagekit.clear_login(request)
             else:
                 request._account_login_accessed = True
     return login

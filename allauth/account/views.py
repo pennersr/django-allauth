@@ -696,8 +696,7 @@ class LogoutView(NextRedirectMixin, LogoutFunctionalityMixin, TemplateView):
 
     def post(self, *args, **kwargs):
         url = self.get_redirect_url()
-        if self.request.user.is_authenticated:
-            self.logout()
+        self.logout()
         response = redirect(url)
         return _ajax_response(self.request, response)
 
@@ -772,9 +771,7 @@ class ConfirmEmailVerificationCodeView(FormView):
     def get_context_data(self, **kwargs):
         ret = super().get_context_data(**kwargs)
         ret["email"] = self.pending_verification["email"]
-        ret["cancel_url"] = (
-            reverse("account_login") if self.stage else reverse("account_email")
-        )
+        ret["cancel_url"] = None if self.stage else reverse("account_email")
         return ret
 
     def form_valid(self, form):
@@ -936,7 +933,7 @@ class ConfirmLoginCodeView(RedirectAuthenticatedUserMixin, NextRedirectMixin, Fo
     def dispatch(self, request, *args, **kwargs):
         self.stage = request._login_stage
         self.user, self.pending_login = flows.login_by_code.get_pending_login(
-            self.stage.login, peek=True
+            self.request, self.stage.login, peek=True
         )
         if not self.pending_login:
             return HttpResponseRedirect(reverse("account_request_login_code"))

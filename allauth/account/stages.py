@@ -1,16 +1,19 @@
+from typing import Optional
+
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
+from allauth.account import app_settings
 from allauth.account.adapter import get_adapter
 from allauth.account.app_settings import EmailVerificationMethod
 from allauth.account.models import EmailAddress
-from allauth.account.utils import resume_login, stash_login, unstash_login
 from allauth.core.internal.httpkit import headed_redirect_response
 from allauth.utils import import_callable
 
 
 class LoginStage:
     key: str  # Set in subclasses
+    urlname: Optional[str] = None
 
     def __init__(self, controller, request, login):
         if not self.key:
@@ -28,12 +31,19 @@ class LoginStage:
         return None, True
 
     def exit(self):
+        from allauth.account.utils import resume_login
+
         self.controller.set_handled(self.key)
         return resume_login(self.request, self.login)
 
     def abort(self):
-        unstash_login(self.request)
+        from allauth.account.internal.stagekit import clear_login
+
+        clear_login(self.request)
         return HttpResponseRedirect(reverse("account_login"))
+
+    def is_resumable(self, request):
+        return True
 
 
 class LoginStageController:
@@ -44,6 +54,8 @@ class LoginStageController:
 
     @classmethod
     def enter(cls, request, stage_key):
+        from allauth.account.utils import unstash_login
+
         login = unstash_login(request, peek=True)
         if not login:
             return None
@@ -66,7 +78,7 @@ class LoginStageController:
         stage_state = self.state.setdefault(stage_key, {})
         stage_state["handled"] = True
 
-    def get_pending_stage(self):
+    def get_pending_stage(self) -> Optional[LoginStage]:
         ret = None
         stages = self.get_stages()
         for stage in stages:
@@ -87,6 +99,9 @@ class LoginStageController:
         return stages
 
     def handle(self):
+        from allauth.account.internal.stagekit import clear_login
+        from allauth.account.utils import stash_login
+
         stages = self.get_stages()
         for stage in stages:
             if self.is_handled(stage.key):
@@ -97,16 +112,20 @@ class LoginStageController:
                 if cont:
                     stash_login(self.request, self.login)
                 else:
-                    unstash_login(self.request)
+                    clear_login(self.request)
                 return response
             else:
                 assert cont
                 self.set_handled(stage.key)
-        unstash_login(self.request)
+        clear_login(self.request)
 
 
 class EmailVerificationStage(LoginStage):
     key = "verify_email"
+    urlname = "account_email_verification_sent"
+
+    def is_resumable(self, request):
+        return app_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED
 
     def handle(self):
         from allauth.account.utils import (
@@ -138,11 +157,14 @@ class EmailVerificationStage(LoginStage):
 
 class LoginByCodeStage(LoginStage):
     key = "login_by_code"
+    urlname = "account_confirm_login_code"
 
     def handle(self):
         from allauth.account.internal.flows import login_by_code
 
-        user, data = login_by_code.get_pending_login(self.login, peek=True)
+        user, data = login_by_code.get_pending_login(
+            self.request, self.login, peek=True
+        )
         login_by_code_required = get_adapter().is_login_by_code_required(self.login)
         if data is None and not login_by_code_required:
             # No pending login, just continue.

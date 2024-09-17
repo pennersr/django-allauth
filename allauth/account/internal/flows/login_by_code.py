@@ -16,6 +16,7 @@ from allauth.account.internal.flows.login import (
     record_authentication,
 )
 from allauth.account.internal.flows.signup import send_unknown_account_mail
+from allauth.account.internal.stagekit import clear_login
 from allauth.account.models import Login
 
 
@@ -66,7 +67,7 @@ def request_login_code(
 
 
 def get_pending_login(
-    login: Login, peek: bool = False
+    request, login: Login, peek: bool = False
 ) -> Tuple[Optional[AbstractBaseUser], Optional[Dict[str, Any]]]:
     if peek:
         data = login.state.get(LOGIN_CODE_STATE_KEY)
@@ -76,6 +77,7 @@ def get_pending_login(
         return None, None
     if time.time() - data["at"] >= app_settings.LOGIN_BY_CODE_TIMEOUT:
         login.state.pop(LOGIN_CODE_STATE_KEY, None)
+        clear_login(request)
         return None, None
     user_id_str = data.get("user_id")
     user = None

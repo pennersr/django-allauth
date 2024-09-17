@@ -4,8 +4,22 @@
 - Added transparent support for Django's ``LoginRequiredMiddleware`` (new since
   Django 5.1).
 
-- The ``userserssions`` app now emits signals when either the IP address or user
+- The ``usersessions`` app now emits signals when either the IP address or user
   agent for a session changes.
+
+
+Backwards incompatible changes
+------------------------------
+
+- When the user is partially logged in (e.g. pending 2FA, or login by code),
+  accessing the login/signup page now redirects to the pending login stage. This
+  is similar to the redirect that was already in place when the user was fully
+  authenticated while accessing the login/signup page. As a result, cancelling
+  (logging out of) the pending stage requires an actual logout POST instead of
+  merely linking back to e.g. the login page. The builtin templates handle this
+  change transparently, but if you copied any of the templates involving the
+  login stages you will have to adjust the cancel link into a logout POST.
+
 
 
 64.2.1 (2024-09-05)

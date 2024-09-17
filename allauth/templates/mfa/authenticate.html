@@ -36,8 +36,7 @@
                 {% trans "Use a security key" %}
             {% endelement %}
         {% endif %}
-        {% url "account_login" as login_url %}
-        {% element button href=login_url tags="outline,primary,mfa,cancel" %}
+        {% element button type="submit" form="logout-from-stage" tags="outline,primary,mfa,cancel" %}
             {% trans "Cancel" %}
         {% endelement %}
     {% endelement %}
@@ -61,4 +60,10 @@
         })
         </script>
     {% endif %}
+    <form id="logout-from-stage"
+          method="post"
+          action="{% url 'account_logout' %}">
+        <input type="hidden" name="next" value="{% url 'account_login' %}">
+        {% csrf_token %}
+    </form>
 {% endblock content %}

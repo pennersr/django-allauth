@@ -29,9 +29,14 @@
         {% endslot %}
     {% endelement %}
     {% element h2 %}
-        {% url 'account_login' as login_url %}
-        {% element button href=login_url tags="link" %}
-            {% translate "Other sign-in options" %}
+        {% element button type="submit" form="logout-from-stage" tags="link" %}
+            {% translate "Cancel" %}
         {% endelement %}
     {% endelement %}
+    <form id="logout-from-stage"
+          method="post"
+          action="{% url 'account_logout' %}">
+        <input type="hidden" name="next" value="{% url 'account_login' %}">
+        {% csrf_token %}
+    </form>
 {% endblock content %}

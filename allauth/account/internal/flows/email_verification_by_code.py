@@ -7,6 +7,7 @@ from django.http import HttpRequest
 from allauth.account import app_settings
 from allauth.account.adapter import get_adapter
 from allauth.account.internal.flows.login_by_code import compare_code
+from allauth.account.internal.stagekit import clear_login
 from allauth.account.models import EmailAddress, EmailConfirmationMixin
 from allauth.core import context
 
@@ -36,6 +37,11 @@ class EmailVerificationModel(EmailConfirmationMixin):
 
     def key_expired(self):
         return False
+
+
+def clear_state(request):
+    request.session.pop(EMAIL_VERIFICATION_CODE_SESSION_KEY, None)
+    clear_login(request)
 
 
 def request_email_verification_code(
@@ -73,9 +79,10 @@ def get_pending_verification(
     else:
         data = request.session.pop(EMAIL_VERIFICATION_CODE_SESSION_KEY, None)
     if not data:
+        clear_state(request)
         return None, None
     if time.time() - data["at"] >= app_settings.EMAIL_VERIFICATION_BY_CODE_TIMEOUT:
-        request.session.pop(EMAIL_VERIFICATION_CODE_SESSION_KEY, None)
+        clear_state(request)
         return None, None
     if user_id_str := data.get("user_id"):
         user_id = get_user_model()._meta.pk.to_python(user_id_str)  # type: ignore[union-attr]
@@ -98,7 +105,7 @@ def record_invalid_attempt(
     n += 1
     pending_verification["failed_attempts"] = n
     if n >= app_settings.EMAIL_VERIFICATION_BY_CODE_MAX_ATTEMPTS:
-        request.session.pop(EMAIL_VERIFICATION_CODE_SESSION_KEY, None)
+        clear_state(request)
         return False
     else:
         request.session[EMAIL_VERIFICATION_CODE_SESSION_KEY] = pending_verification

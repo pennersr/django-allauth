@@ -54,7 +54,6 @@ from allauth.account.stages import (
     LoginStageController,
 )
 from allauth.account.utils import (
-    complete_signup,
     perform_login,
     send_email_confirmation,
     sync_user_email_addresses,
@@ -168,11 +167,11 @@ class SignupView(
             return resp
         try:
             redirect_url = self.get_success_url()
-            return complete_signup(
+            return flows.signup.complete_signup(
                 self.request,
-                self.user,
-                email_verification=None,
-                success_url=redirect_url,
+                user=self.user,
+                redirect_url=redirect_url,
+                by_passkey=form.by_passkey,
             )
         except ImmediateHttpResponse as e:
             return e.response
@@ -214,6 +213,18 @@ class SignupView(
 
 
 signup = SignupView.as_view()
+
+
+class SignupByPasskeyView(SignupView):
+    template_name = "account/signup_by_passkey." + app_settings.TEMPLATE_EXTENSION
+
+    def get_form_kwargs(self):
+        ret = super().get_form_kwargs()
+        ret["by_passkey"] = True
+        return ret
+
+
+signup_by_passkey = SignupByPasskeyView.as_view()
 
 
 @method_decorator(login_not_required, name="dispatch")

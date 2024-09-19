@@ -9,6 +9,7 @@ from allauth.mfa.webauthn import views
 urlpatterns: List[Union[URLPattern, URLResolver]] = [
     path("", views.list_webauthn, name="mfa_list_webauthn"),
     path("add/", views.add_webauthn, name="mfa_add_webauthn"),
+    path("signup/", views.signup_webauthn, name="mfa_signup_webauthn"),
     path(
         "reauthenticate/",
         views.reauthenticate_webauthn,

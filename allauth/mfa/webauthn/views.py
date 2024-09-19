@@ -9,7 +9,10 @@ from django.views.generic.list import ListView
 from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.decorators import reauthentication_required
-from allauth.account.internal.decorators import unauthenticated_only
+from allauth.account.internal.decorators import (
+    login_stage_required,
+    unauthenticated_only,
+)
 from allauth.account.mixins import NextRedirectMixin
 from allauth.account.models import Login
 from allauth.account.views import BaseReauthenticateView
@@ -20,8 +23,10 @@ from allauth.mfa.webauthn.forms import (
     EditWebAuthnForm,
     LoginWebAuthnForm,
     ReauthenticateWebAuthnForm,
+    SignupWebAuthnForm,
 )
 from allauth.mfa.webauthn.internal import auth, flows
+from allauth.mfa.webauthn.stages import PasskeySignupStage
 
 
 @method_decorator(redirect_if_add_not_allowed, name="dispatch")
@@ -171,3 +176,39 @@ class EditWebAuthnView(NextRedirectMixin, UpdateView):
 
 
 edit_webauthn = EditWebAuthnView.as_view()
+
+
+@method_decorator(
+    login_stage_required(
+        stage=PasskeySignupStage.key, redirect_urlname="account_signup"
+    ),
+    name="dispatch",
+)
+class SignupWebAuthnView(FormView):
+    form_class = SignupWebAuthnForm
+    template_name = "mfa/webauthn/signup_form." + account_settings.TEMPLATE_EXTENSION
+
+    def get_context_data(self, **kwargs):
+        ret = super().get_context_data()
+        creation_options = auth.begin_registration(
+            self.request._login_stage.login.user, True
+        )
+        ret["js_data"] = {"creation_options": creation_options}
+        return ret
+
+    def get_form_kwargs(self):
+        ret = super().get_form_kwargs()
+        ret["user"] = self.request._login_stage.login.user
+        return ret
+
+    def form_valid(self, form):
+        flows.signup_authenticator(
+            self.request,
+            user=self.request._login_stage.login.user,
+            name=form.cleaned_data["name"],
+            credential=form.cleaned_data["credential"],
+        )
+        return self.request._login_stage.exit()
+
+
+signup_webauthn = SignupWebAuthnView.as_view()

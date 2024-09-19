@@ -17,6 +17,11 @@ if not allauth_app_settings.SOCIALACCOUNT_ONLY:
         [
             path("signup/", views.signup, name="account_signup"),
             path(
+                "signup/passkey/",
+                views.signup_by_passkey,
+                name="account_signup_by_passkey",
+            ),
+            path(
                 "reauthenticate/", views.reauthenticate, name="account_reauthenticate"
             ),
             # Email

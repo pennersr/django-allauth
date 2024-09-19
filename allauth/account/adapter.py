@@ -717,7 +717,12 @@ class DefaultAccountAdapter(BaseAdapter):
         ret.append("allauth.account.stages.LoginByCodeStage")
         ret.append("allauth.account.stages.EmailVerificationStage")
         if allauth_app_settings.MFA_ENABLED:
+            from allauth.mfa import app_settings as mfa_settings
+
             ret.append("allauth.mfa.stages.AuthenticateStage")
+
+            if mfa_settings.PASSKEY_SIGNUP_ENABLED:
+                ret.append("allauth.mfa.webauthn.stages.PasskeySignupStage")
         return ret
 
     def get_reauthentication_methods(self, user):

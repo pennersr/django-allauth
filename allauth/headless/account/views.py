@@ -5,7 +5,7 @@ from allauth.account.internal import flows
 from allauth.account.internal.flows import password_change, password_reset
 from allauth.account.models import EmailAddress, Login
 from allauth.account.stages import EmailVerificationStage, LoginStageController
-from allauth.account.utils import complete_signup, send_email_confirmation
+from allauth.account.utils import send_email_confirmation
 from allauth.core import ratelimit
 from allauth.core.exceptions import ImmediateHttpResponse
 from allauth.decorators import rate_limit
@@ -103,12 +103,7 @@ class SignupView(APIView):
         user, resp = self.input.try_save(request)
         if not resp:
             try:
-                complete_signup(
-                    request,
-                    user,
-                    email_verification=None,
-                    success_url=None,
-                )
+                flows.signup.complete_signup(request, user=user)
             except ImmediateHttpResponse:
                 pass
         return AuthenticationResponse(request)

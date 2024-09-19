@@ -234,7 +234,7 @@ MFA_SUPPORTED_TYPES = [
     "recovery_codes",
 ]
 MFA_PASSKEY_LOGIN_ENABLED = True
-
+MFA_PASSKEY_SIGNUP_ENABLED = True
 try:
     from .local_settings import *  # noqa
 except ImportError:

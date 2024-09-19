@@ -162,17 +162,12 @@ def perform_login(
 
 
 def complete_signup(request, user, email_verification, success_url, signal_kwargs=None):
-    if signal_kwargs is None:
-        signal_kwargs = {}
-    signals.user_signed_up.send(
-        sender=user.__class__, request=request, user=user, **signal_kwargs
-    )
-    return perform_login(
+    # FIXME: DeprecationWarning
+    return flows.signup.complete_signup(
         request,
-        user,
+        user=user,
         email_verification=email_verification,
-        signup=True,
-        redirect_url=success_url,
+        success_url=success_url,
         signal_kwargs=signal_kwargs,
     )
 

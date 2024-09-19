@@ -1,0 +1,33 @@
+{% extends "account/base_entrance.html" %}
+{% load i18n %}
+{% load static %}
+{% load allauth %}
+{% block content %}
+    {% element h1 %}
+        {% trans "Create Passkey" %}
+    {% endelement %}
+    {% url 'mfa_signup_webauthn' as action_url %}
+    {% element form form=form method="post" action=action_url %}
+        {% slot body %}
+            {% csrf_token %}
+            {% element fields form=form %}
+            {% endelement %}
+        {% endslot %}
+        {% slot actions %}
+            {% element button id="mfa_webauthn_signup" type="button" %}
+                {% trans "Create" %}
+            {% endelement %}
+        {% endslot %}
+    {% endelement %}
+    {% include "mfa/webauthn/snippets/scripts.html" %}
+    {{ js_data|json_script:"js_data" }}
+    <script>
+        allauth.webauthn.forms.signupForm({
+            ids: {
+                signup: "mfa_webauthn_signup",
+                credential: "{{ form.credential.auto_id }}"
+            },
+            data: JSON.parse(document.getElementById('js_data').textContent)
+        })
+    </script>
+{% endblock %}

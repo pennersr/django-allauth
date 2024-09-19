@@ -9,16 +9,8 @@ from allauth.mfa.models import Authenticator
 from allauth.mfa.webauthn.internal import auth, flows
 
 
-class AddWebAuthnForm(forms.Form):
+class _BaseAddWebAuthnForm(forms.Form):
     name = forms.CharField(required=False)
-    if app_settings.PASSKEY_LOGIN_ENABLED:
-        passwordless = forms.BooleanField(
-            label=_("Passwordless"),
-            required=False,
-            help_text=_(
-                "Enabling passwordless operation allows you to sign in using just this key, but imposes additional requirements such as biometrics or PIN protection."
-            ),
-        )
     credential = forms.JSONField(required=True, widget=forms.HiddenInput)
 
     def __init__(self, *args, **kwargs):
@@ -56,6 +48,21 @@ class AddWebAuthnForm(forms.Form):
             auth.parse_registration_response(credential)
             auth.complete_registration(credential)
         return cleaned_data
+
+
+class AddWebAuthnForm(_BaseAddWebAuthnForm):
+    if app_settings.PASSKEY_LOGIN_ENABLED:
+        passwordless = forms.BooleanField(
+            label=_("Passwordless"),
+            required=False,
+            help_text=_(
+                "Enabling passwordless operation allows you to sign in using just this key, but imposes additional requirements such as biometrics or PIN protection."
+            ),
+        )
+
+
+class SignupWebAuthnForm(_BaseAddWebAuthnForm):
+    pass
 
 
 class AuthenticateWebAuthnForm(forms.Form):

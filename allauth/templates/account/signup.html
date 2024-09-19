@@ -32,6 +32,15 @@
             {% endslot %}
         {% endelement %}
     {% endif %}
+    {% if "FIXME:PASSKEY_SIGNUP_ENABLED" %}
+        {% element hr %}
+        {% endelement %}
+        {# FIXME: preserve ?next #}
+        {% url 'account_signup_by_passkey' as signup_by_passkey_url %}
+        {% element button href=signup_by_passkey_url tags="prominent,signup,outline,primary" %}
+            {% trans "Sign up using a passkey" %}
+        {% endelement %}
+    {% endif %}
     {% if SOCIALACCOUNT_ENABLED %}
         {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
     {% endif %}

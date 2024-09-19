@@ -406,16 +406,18 @@ class BaseSignupForm(_base_signup_form_class()):  # type: ignore[misc]
 
 class SignupForm(BaseSignupForm):
     def __init__(self, *args, **kwargs):
+        self.by_passkey = kwargs.pop("by_passkey", False)
         super(SignupForm, self).__init__(*args, **kwargs)
-        self.fields["password1"] = PasswordField(
-            label=_("Password"),
-            autocomplete="new-password",
-            help_text=password_validation.password_validators_help_text_html(),
-        )
-        if app_settings.SIGNUP_PASSWORD_ENTER_TWICE:
-            self.fields["password2"] = PasswordField(
-                label=_("Password (again)"), autocomplete="new-password"
+        if not self.by_passkey:
+            self.fields["password1"] = PasswordField(
+                label=_("Password"),
+                autocomplete="new-password",
+                help_text=password_validation.password_validators_help_text_html(),
             )
+            if app_settings.SIGNUP_PASSWORD_ENTER_TWICE:
+                self.fields["password2"] = PasswordField(
+                    label=_("Password (again)"), autocomplete="new-password"
+                )
 
         if hasattr(self, "field_order"):
             set_form_field_order(self, self.field_order)

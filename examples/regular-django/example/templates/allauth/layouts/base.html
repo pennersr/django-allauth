@@ -54,18 +54,18 @@
                                 </select>
                             </form>
                             {% if user.is_authenticated %}
-                                {% url 'account_email' as email_url %}
-                                {% url 'socialaccount_connections' as socialaccount_url %}
-                                {% if email_url or socialaccount_url %}
-                                    <a href="{% if email_url %}{{ email_url }}{% else %}{{ socialaccount_url }}{% endif %}"
+                                {% url 'account_email' as email_url_ %}
+                                {% url 'socialaccount_connections' as socialaccount_url_ %}
+                                {% if email_url_ or socialaccount_url_ %}
+                                    <a href="{% if email_url_ %}{{ email_url_ }}{% else %}{{ socialaccount_url_ }}{% endif %}"
                                        class="btn btn-secondary">Manage Account</a>
                                 {% endif %}
                                 <a href="{% url 'account_logout' %}" class="btn btn-danger">{% translate "Sign Out" %}</a>
                             {% else %}
                                 <a href="{% url 'account_login' %}" class="btn btn-outline-light">{% translate "Sign In" %}</a>
-                                {% url 'account_signup' as signup_url %}
-                                {% if signup_url %}
-                                    <a href="{{ signup_url }}" class="btn btn-success">{% translate "Sign Up" %}</a>
+                                {% url 'account_signup' as signup_url_ %}
+                                {% if signup_url_ %}
+                                    <a href="{{ signup_url_ }}" class="btn btn-success">{% translate "Sign Up" %}</a>
                                 {% endif %}
                             {% endif %}
                         </div>

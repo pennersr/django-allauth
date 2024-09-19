@@ -1,5 +1,6 @@
 import re
 
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 
@@ -33,10 +34,19 @@ def email_verification_settings(settings):
     return settings
 
 
-def test_signup(client, db, settings, password_factory, get_last_code):
+@pytest.mark.parametrize(
+    "query,expected_url",
+    [
+        ("", settings.LOGIN_REDIRECT_URL),
+        ("?next=/foo", "/foo"),
+    ],
+)
+def test_signup(
+    client, db, settings, password_factory, get_last_code, query, expected_url
+):
     password = password_factory()
     resp = client.post(
-        reverse("account_signup"),
+        reverse("account_signup") + query,
         {
             "username": "johndoe",
             "email": "john@example.com",
@@ -52,7 +62,7 @@ def test_signup(client, db, settings, password_factory, get_last_code):
     assert resp.status_code == 200
     resp = client.post(reverse("account_email_verification_sent"), data={"code": code})
     assert resp.status_code == 302
-    assert resp["location"] == settings.LOGIN_REDIRECT_URL
+    assert resp["location"] == expected_url
 
 
 def test_signup_prevent_enumeration(

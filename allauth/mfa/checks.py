@@ -1,0 +1,34 @@
+from django.core.checks import Critical, register
+
+
+@register()
+def settings_check(app_configs, **kwargs):
+    from allauth.account import app_settings as account_settings
+    from allauth.mfa import app_settings
+
+    ret = []
+    if app_settings.PASSKEY_SIGNUP_ENABLED:
+        if not account_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED:
+            # The fact that a signup is passkey based is stored in the session,
+            # which gets lost when using link based verification.
+            ret.append(
+                Critical(
+                    msg="MFA_PASSKEY_SIGNUP_ENABLED requires ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED"
+                )
+            )
+        if not account_settings.EMAIL_REQUIRED:
+            ret.append(
+                Critical(
+                    msg="MFA_PASSKEY_SIGNUP_ENABLED requires ACCOUNT_EMAIL_REQUIRED"
+                )
+            )
+        if (
+            account_settings.EMAIL_VERIFICATION
+            != account_settings.EmailVerificationMethod.MANDATORY
+        ):
+            ret.append(
+                Critical(
+                    msg="MFA_PASSKEY_SIGNUP_ENABLED requires ACCOUNT_EMAIL_VERIFCIATION = 'mandatory'"
+                )
+            )
+    return ret

@@ -13,6 +13,7 @@ class MFAConfig(AppConfig):
 
     def ready(self):
         from allauth.account import signals as account_signals
+        from allauth.mfa import checks  # noqa
         from allauth.mfa import signals
 
         account_signals._add_email.connect(signals.on_add_email)

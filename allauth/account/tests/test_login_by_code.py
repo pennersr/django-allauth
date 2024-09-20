@@ -5,8 +5,8 @@ from django.urls import reverse
 import pytest
 
 from allauth.account.authentication import AUTHENTICATION_METHODS_SESSION_KEY
-from allauth.account.internal.flows.login import LOGIN_SESSION_KEY
 from allauth.account.internal.flows.login_by_code import LOGIN_CODE_STATE_KEY
+from allauth.account.internal.stagekit import LOGIN_SESSION_KEY
 from allauth.account.models import EmailAddress
 
 

@@ -31,7 +31,7 @@ class LoginStage:
         return None, True
 
     def exit(self):
-        from allauth.account.utils import resume_login
+        from allauth.account.internal.flows.login import resume_login
 
         self.controller.set_handled(self.key)
         return resume_login(self.request, self.login)
@@ -54,7 +54,7 @@ class LoginStageController:
 
     @classmethod
     def enter(cls, request, stage_key):
-        from allauth.account.utils import unstash_login
+        from allauth.account.internal.stagekit import unstash_login
 
         login = unstash_login(request, peek=True)
         if not login:
@@ -99,8 +99,7 @@ class LoginStageController:
         return stages
 
     def handle(self):
-        from allauth.account.internal.stagekit import clear_login
-        from allauth.account.utils import stash_login
+        from allauth.account.internal.stagekit import clear_login, stash_login
 
         stages = self.get_stages()
         for stage in stages:

@@ -1,4 +1,3 @@
-import time
 import unicodedata
 from collections import OrderedDict
 from typing import Optional
@@ -14,7 +13,7 @@ from django.utils.http import base36_to_int, int_to_base36
 
 from allauth.account import app_settings, signals
 from allauth.account.adapter import get_adapter
-from allauth.account.internal import flows, stagekit
+from allauth.account.internal import flows
 from allauth.account.models import Login
 from allauth.core.internal import httpkit
 from allauth.utils import (
@@ -160,35 +159,6 @@ def perform_login(
         email=email,
     )
     return flows.login.perform_login(request, login)
-
-
-def resume_login(request, login):
-    return flows.login.resume_login(request, login)
-
-
-def unstash_login(request, peek=False):
-    login = None
-    if peek:
-        data = request.session.get(flows.login.LOGIN_SESSION_KEY)
-    else:
-        data = request.session.pop(flows.login.LOGIN_SESSION_KEY, None)
-    if isinstance(data, dict):
-        try:
-            login = Login.deserialize(data)
-        except ValueError:
-            pass
-        else:
-            if time.time() - login.initiated_at > app_settings.LOGIN_TIMEOUT:
-                login = None
-                stagekit.clear_login(request)
-            else:
-                request._account_login_accessed = True
-    return login
-
-
-def stash_login(request, login):
-    request.session[flows.login.LOGIN_SESSION_KEY] = login.serialize()
-    request._account_login_accessed = True
 
 
 def complete_signup(request, user, email_verification, success_url, signal_kwargs=None):

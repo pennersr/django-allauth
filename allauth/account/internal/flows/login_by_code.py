@@ -16,7 +16,7 @@ from allauth.account.internal.flows.login import (
     record_authentication,
 )
 from allauth.account.internal.flows.signup import send_unknown_account_mail
-from allauth.account.internal.stagekit import clear_login
+from allauth.account.internal.stagekit import clear_login, stash_login
 from allauth.account.models import Login
 
 
@@ -26,7 +26,7 @@ LOGIN_CODE_STATE_KEY = "login_code"
 def request_login_code(
     request: HttpRequest, email: str, login: Optional[Login] = None
 ) -> None:
-    from allauth.account.utils import filter_users_by_email, stash_login
+    from allauth.account.utils import filter_users_by_email
 
     initiated_by_user = login is None
     adapter = get_adapter()
@@ -88,7 +88,7 @@ def get_pending_login(
 
 
 def record_invalid_attempt(request, login: Login) -> bool:
-    from allauth.account.utils import stash_login, unstash_login
+    from allauth.account.internal.stagekit import stash_login, unstash_login
 
     pending_login = login.state[LOGIN_CODE_STATE_KEY]
     n = pending_login["failed_attempts"]

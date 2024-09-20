@@ -9,6 +9,7 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import gettext, gettext_lazy as _, pgettext
 
 from allauth.account.internal import flows
+from allauth.account.internal.stagekit import LOGIN_SESSION_KEY
 from allauth.account.stages import EmailVerificationStage
 from allauth.core import context, ratelimit
 from allauth.utils import get_username_max_length, set_form_field_order
@@ -384,7 +385,7 @@ class BaseSignupForm(_base_signup_form_class()):  # type: ignore[misc]
             resp = flows.signup.prevent_enumeration(request, email)
             user = None
             # Fake a login stage.
-            request.session[flows.login.LOGIN_SESSION_KEY] = EmailVerificationStage.key
+            request.session[LOGIN_SESSION_KEY] = EmailVerificationStage.key
         else:
             user = self.save(request)
             resp = None

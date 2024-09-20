@@ -233,7 +233,7 @@ def test_totp_stage_expires(client, user_with_totp, user_password):
     assert resp.status_code == 200
     assertTemplateUsed(resp, "mfa/authenticate.html")
     with patch(
-        "allauth.account.utils.time.time",
+        "allauth.account.internal.stagekit.time.time",
         return_value=time.time() + 1.1 * app_settings.LOGIN_TIMEOUT,
     ):
         resp = client.get(reverse("mfa_authenticate"))

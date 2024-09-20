@@ -8,7 +8,6 @@ from allauth.account.models import Login
 from allauth.core.exceptions import ImmediateHttpResponse
 
 
-LOGIN_SESSION_KEY = "account_login"
 AUTHENTICATION_METHODS_SESSION_KEY = "account_authentication_methods"
 
 

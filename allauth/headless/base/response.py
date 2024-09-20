@@ -3,6 +3,7 @@ from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.authentication import get_authentication_records
 from allauth.account.internal import flows
+from allauth.account.internal.stagekit import LOGIN_SESSION_KEY
 from allauth.headless.adapter import get_adapter
 from allauth.headless.constants import Flow
 from allauth.headless.internal import authkit
@@ -61,7 +62,7 @@ class BaseAuthenticationResponse(APIResponse):
         if stage:
             stage_key = stage.key
         else:
-            lsk = request.session.get(flows.login.LOGIN_SESSION_KEY)
+            lsk = request.session.get(LOGIN_SESSION_KEY)
             if isinstance(lsk, str):
                 stage_key = lsk
         if stage_key:

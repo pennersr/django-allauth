@@ -23,6 +23,12 @@ Available settings:
   this to be enabled, you also need to add ``"webauthn"`` to
   ``MFA_SUPPORTED_TYPES``.
 
+``MFA_PASSKEY_SIGNUP_ENABLED`` (default: ``False``)
+  Whether or not end users can signup using a (WebAuthn) passkey. Note that for
+  this to be enabled, you need to add ``"webauthn"`` to ``MFA_SUPPORTED_TYPES``,
+  require mandatory email verification and have
+  ``ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED`` set to ``True``.
+
 ``MFA_RECOVERY_CODE_COUNT`` (default: ``10``)
   The number of recovery codes.
 

@@ -75,7 +75,6 @@ class AppSettings:
 
     @property
     def PASSKEY_SIGNUP_ENABLED(self) -> bool:
-        # FIXME: Document
         return "webauthn" in self.SUPPORTED_TYPES and self._setting(
             "PASSKEY_SIGNUP_ENABLED", False
         )

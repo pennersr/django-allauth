@@ -178,6 +178,11 @@ class SignupView(
 
     def get_context_data(self, **kwargs):
         ret = super().get_context_data(**kwargs)
+        passkey_signup_enabled = False
+        if allauth_app_settings.MFA_ENABLED:
+            from allauth.mfa import app_settings as mfa_settings
+
+            passkey_signup_enabled = mfa_settings.PASSKEY_SIGNUP_ENABLED
         form = ret["form"]
         email = self.request.session.get("account_verified_email")
         if email:
@@ -187,13 +192,22 @@ class SignupView(
             for email_key in email_keys:
                 form.fields[email_key].initial = email
         login_url = self.passthrough_next_url(reverse("account_login"))
+        signup_url = self.passthrough_next_url(reverse("account_signup"))
+        signup_by_passkey_url = None
+        if passkey_signup_enabled:
+            signup_by_passkey_url = self.passthrough_next_url(
+                reverse("account_signup_by_passkey")
+            )
         site = get_current_site(self.request)
         ret.update(
             {
                 "login_url": login_url,
+                "signup_url": signup_url,
+                "signup_by_passkey_url": signup_by_passkey_url,
                 "site": site,
                 "SOCIALACCOUNT_ENABLED": allauth_app_settings.SOCIALACCOUNT_ENABLED,
                 "SOCIALACCOUNT_ONLY": allauth_app_settings.SOCIALACCOUNT_ONLY,
+                "PASSKEY_SIGNUP_ENABLED": passkey_signup_enabled,
             }
         )
         return ret

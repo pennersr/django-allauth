@@ -162,7 +162,6 @@ def perform_login(
 
 
 def complete_signup(request, user, email_verification, success_url, signal_kwargs=None):
-    # FIXME: DeprecationWarning
     return flows.signup.complete_signup(
         request,
         user=user,

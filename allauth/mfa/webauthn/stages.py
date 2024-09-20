@@ -5,6 +5,7 @@ from allauth.core.internal.httpkit import headed_redirect_response
 class PasskeySignupStage(LoginStage):
     # FIXME: requires headless support
     key = "mfa_webauthn_signup"
+    urlname = "mfa_signup_webauthn"
 
     def handle(self):
         response, cont = None, True

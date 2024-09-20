@@ -6,6 +6,9 @@
     {% element h1 %}
         {% trans "Create Passkey" %}
     {% endelement %}
+    {% element p %}
+        {% blocktranslate %}You are about to create a passkey for your account. As you can add additional keys later on, you can use a descriptive name to tell the keys apart.{% endblocktranslate %}
+    {% endelement %}
     {% url 'mfa_signup_webauthn' as action_url %}
     {% element form form=form method="post" action=action_url %}
         {% slot body %}
@@ -19,6 +22,15 @@
             {% endelement %}
         {% endslot %}
     {% endelement %}
+    {% element button type="submit" form="logout-from-stage" tags="link,cancel" %}
+        {% translate "Cancel" %}
+    {% endelement %}
+    <form id="logout-from-stage"
+          method="post"
+          action="{% url 'account_logout' %}">
+        <input type="hidden" name="next" value="{% url 'account_login' %}">
+        {% csrf_token %}
+    </form>
     {% include "mfa/webauthn/snippets/scripts.html" %}
     {{ js_data|json_script:"js_data" }}
     <script>

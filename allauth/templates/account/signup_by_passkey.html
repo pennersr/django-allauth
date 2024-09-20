@@ -32,9 +32,7 @@
     {% endelement %}
     {% element hr %}
     {% endelement %}
-    {# FIXME: preserve ?next #}
-    {% url 'account_signup' as signup_by_passkey_url %}
-    {% element button href=signup_by_passkey_url tags="prominent,signup,outline,primary" %}
+    {% element button href=signup_url tags="prominent,signup,outline,primary" %}
         {% trans "Other options" %}
     {% endelement %}
 {% endblock content %}

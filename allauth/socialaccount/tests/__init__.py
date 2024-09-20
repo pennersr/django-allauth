@@ -84,7 +84,6 @@ class OAuthTestsMixin:
         provider_account.get_avatar_url()
         provider_account.get_profile_url()
         provider_account.get_brand()
-        return account
 
     @override_settings(
         SOCIALACCOUNT_AUTO_SIGNUP=True,

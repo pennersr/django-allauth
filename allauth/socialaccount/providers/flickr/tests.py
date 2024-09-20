@@ -1,3 +1,4 @@
+from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount.tests import OAuthTestsMixin
 from allauth.tests import MockedResponse, TestCase
 
@@ -47,7 +48,8 @@ class FlickrTests(OAuthTestsMixin, TestCase):
         return "pennersr"
 
     def test_login(self):
-        account = super(FlickrTests, self).test_login()
+        super().test_login()
+        account = SocialAccount.objects.get(uid="12345678@N00")
         f_account = account.get_provider_account()
         self.assertEqual(account.user.first_name, "raymond")
         self.assertEqual(account.user.last_name, "penners")
@@ -103,7 +105,8 @@ class FlickrWithoutRealNameTests(OAuthTestsMixin, TestCase):
         return "pennersr"
 
     def test_login(self):
-        account = super(FlickrWithoutRealNameTests, self).test_login()
+        super().test_login()
+        account = SocialAccount.objects.get(uid="12345678@N00")
         f_account = account.get_provider_account()
         self.assertEqual(account.user.first_name, "")
         self.assertEqual(account.user.last_name, "")

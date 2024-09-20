@@ -1,3 +1,4 @@
+from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount.tests import OAuthTestsMixin
 from allauth.tests import MockedResponse, TestCase
 
@@ -34,7 +35,8 @@ class OpenStreetMapTests(OAuthTestsMixin, TestCase):
         return "Steve"
 
     def test_login(self):
-        account = super(OpenStreetMapTests, self).test_login()
+        super().test_login()
+        account = SocialAccount.objects.get(uid="1")
         osm_account = account.get_provider_account()
         self.assertEqual(osm_account.get_username(), "Steve")
         self.assertEqual(

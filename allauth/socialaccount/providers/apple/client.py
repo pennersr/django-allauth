@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+import time
 from urllib.parse import parse_qsl, quote, urlencode
 
 from django.core.exceptions import ImproperlyConfigured
@@ -34,7 +34,7 @@ class AppleOAuth2Client(OAuth2Client):
 
     def generate_client_secret(self):
         """Create a JWT signed with an apple provided private key"""
-        now = datetime.utcnow()
+        now = int(time.time())
         app = get_adapter(self.request).get_app(self.request, "apple")
         if not app.key:
             raise ImproperlyConfigured("Apple 'key' missing")
@@ -46,7 +46,7 @@ class AppleOAuth2Client(OAuth2Client):
             "aud": "https://appleid.apple.com",
             "sub": self.get_client_id(),
             "iat": now,
-            "exp": now + timedelta(hours=1),
+            "exp": now + 60 * 60,
         }
         headers = {"kid": self.consumer_secret, "alg": "ES256"}
         client_secret = jwt_encode(

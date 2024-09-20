@@ -1,5 +1,5 @@
 import json
-from datetime import datetime, timedelta
+import time
 from importlib import import_module
 from unittest.mock import Mock, patch
 
@@ -57,7 +57,7 @@ class GoogleTests(OAuth2TestsMixin, TestCase):
         return "raymond.penners@example.com"
 
     def get_google_id_token_payload(self):
-        now = datetime.utcnow()
+        now = int(time.time())
         client_id = "app123id"  # Matches `setup_app`
         payload = {
             "iss": "https://accounts.google.com",
@@ -74,7 +74,7 @@ class GoogleTests(OAuth2TestsMixin, TestCase):
             "family_name": "Penners",
             "locale": "en",
             "iat": now,
-            "exp": now + timedelta(hours=1),
+            "exp": now + 60 * 60,
         }
         payload.update(self.identity_overwrites)
         return payload
@@ -97,7 +97,7 @@ class GoogleTests(OAuth2TestsMixin, TestCase):
     def test_wrong_id_token_claim_values(self):
         wrong_claim_values = {
             "iss": "not-google",
-            "exp": datetime.utcnow() - timedelta(seconds=1),
+            "exp": time.time() - 1,
             "aud": "foo",
         }
         for key, value in wrong_claim_values.items():

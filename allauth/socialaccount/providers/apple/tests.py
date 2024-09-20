@@ -1,5 +1,5 @@
 import json
-from datetime import datetime, timedelta
+import time
 from importlib import import_module
 from urllib.parse import parse_qs, urlparse
 
@@ -123,11 +123,11 @@ class AppleTests(OAuth2TestsMixin, TestCase):
     provider_id = AppleProvider.id
 
     def get_apple_id_token_payload(self):
-        now = datetime.utcnow()
+        now = int(time.time())
         return {
             "iss": "https://appleid.apple.com",
             "aud": "app123id",  # Matches `setup_app`
-            "exp": now + timedelta(hours=1),
+            "exp": now + 60 * 60,
             "iat": now,
             "sub": "000313.c9720f41e9434e18987a.1218",
             "at_hash": "CkaUPjk4MJinaAq6Z0tGUA",

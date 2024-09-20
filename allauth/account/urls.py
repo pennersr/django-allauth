@@ -16,6 +16,7 @@ if not allauth_app_settings.SOCIALACCOUNT_ONLY:
     urlpatterns.extend(
         [
             path("signup/", views.signup, name="account_signup"),
+            # FIXME: depending on setting
             path(
                 "signup/passkey/",
                 views.signup_by_passkey,

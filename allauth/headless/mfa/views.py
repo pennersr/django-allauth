@@ -1,7 +1,13 @@
 from django.core.exceptions import ValidationError
 
+from allauth.account.internal.stagekit import get_pending_stage
 from allauth.account.models import Login
-from allauth.headless.base.response import APIResponse, AuthenticationResponse
+from allauth.headless.account.views import SignupView
+from allauth.headless.base.response import (
+    APIResponse,
+    AuthenticationResponse,
+    ConflictResponse,
+)
 from allauth.headless.base.views import (
     APIView,
     AuthenticatedAPIView,
@@ -14,10 +20,12 @@ from allauth.headless.mfa.inputs import (
     AddWebAuthnInput,
     AuthenticateInput,
     AuthenticateWebAuthnInput,
+    CreateWebAuthnInput,
     DeleteWebAuthnInput,
     GenerateRecoveryCodesInput,
     LoginWebAuthnInput,
     ReauthenticateWebAuthnInput,
+    SignupWebAuthnInput,
     UpdateWebAuthnInput,
 )
 from allauth.mfa.adapter import DefaultMFAAdapter, get_adapter
@@ -30,6 +38,7 @@ from allauth.mfa.webauthn.internal import (
     auth as webauthn_auth,
     flows as webauthn_flows,
 )
+from allauth.mfa.webauthn.stages import PasskeySignupStage
 
 
 def _validate_can_add_authenticator(request):
@@ -219,4 +228,53 @@ class LoginWebAuthnView(APIView):
         redirect_url = None
         login = Login(user=authenticator.user, redirect_url=redirect_url)
         webauthn_flows.perform_passwordless_login(request, authenticator, login)
+        return AuthenticationResponse(request)
+
+
+class SignupWebAuthnView(SignupView):
+    input_class = {
+        "POST": SignupWebAuthnInput,
+        "PUT": CreateWebAuthnInput,
+    }
+    by_passkey = True
+
+    def get(self, request, *args, **kwargs):
+        resp = self._require_stage()
+        if resp:
+            return resp
+        creation_options = webauthn_flows.begin_registration(
+            request, self.stage.login.user, passwordless=True, signup=True
+        )
+        return response.AddWebAuthnResponse(request, creation_options)
+
+    def _prep_stage(self):
+        if hasattr(self, "stage"):
+            return self.stage
+        self.stage = get_pending_stage(self.request)
+        return self.stage
+
+    def _require_stage(self):
+        self._prep_stage()
+        if not self.stage or self.stage.key != PasskeySignupStage.key:
+            return ConflictResponse(self.request)
+        return None
+
+    def get_input_kwargs(self):
+        ret = super().get_input_kwargs()
+        self._prep_stage()
+        if self.stage and self.request.method == "PUT":
+            ret["user"] = self.stage.login.user
+        return ret
+
+    def put(self, request, *args, **kwargs):
+        resp = self._require_stage()
+        if resp:
+            return resp
+        webauthn_flows.signup_authenticator(
+            request,
+            user=self.stage.login.user,
+            name=self.input.cleaned_data["name"],
+            credential=self.input.cleaned_data["credential"],
+        )
+        self.stage.exit()
         return AuthenticationResponse(request)

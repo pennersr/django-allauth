@@ -94,6 +94,7 @@ class LoginView(APIView):
 @method_decorator(rate_limit(action="signup"), name="handle")
 class SignupView(APIView):
     input_class = SignupInput
+    by_passkey = False
 
     def post(self, request, *args, **kwargs):
         if request.user.is_authenticated:
@@ -103,7 +104,9 @@ class SignupView(APIView):
         user, resp = self.input.try_save(request)
         if not resp:
             try:
-                flows.signup.complete_signup(request, user=user)
+                flows.signup.complete_signup(
+                    request, user=user, by_passkey=self.by_passkey
+                )
             except ImmediateHttpResponse:
                 pass
         return AuthenticationResponse(request)

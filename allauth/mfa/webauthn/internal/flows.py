@@ -22,8 +22,11 @@ from allauth.mfa.recovery_codes.internal.flows import (
 from allauth.mfa.webauthn.internal import auth
 
 
-def begin_registration(request: HttpRequest, user, passwordless: bool) -> dict:
-    raise_if_reauthentication_required(request)
+def begin_registration(
+    request: HttpRequest, user, passwordless: bool, signup: bool = False
+) -> dict:
+    if not signup:
+        raise_if_reauthentication_required(request)
     creation_options = auth.begin_registration(user, passwordless)
     return creation_options
 

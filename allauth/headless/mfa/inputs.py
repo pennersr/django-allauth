@@ -1,3 +1,4 @@
+from allauth.account.forms import BaseSignupForm
 from allauth.headless.internal.restkit import inputs
 from allauth.mfa.base.forms import AuthenticateForm
 from allauth.mfa.models import Authenticator
@@ -8,6 +9,7 @@ from allauth.mfa.webauthn.forms import (
     AuthenticateWebAuthnForm,
     LoginWebAuthnForm,
     ReauthenticateWebAuthnForm,
+    SignupWebAuthnForm,
 )
 
 
@@ -24,6 +26,10 @@ class GenerateRecoveryCodesInput(GenerateRecoveryCodesForm, inputs.Input):
 
 
 class AddWebAuthnInput(AddWebAuthnForm, inputs.Input):
+    pass
+
+
+class CreateWebAuthnInput(SignupWebAuthnForm, inputs.Input):
     pass
 
 
@@ -61,4 +67,8 @@ class AuthenticateWebAuthnInput(AuthenticateWebAuthnForm, inputs.Input):
 
 
 class LoginWebAuthnInput(LoginWebAuthnForm, inputs.Input):
+    pass
+
+
+class SignupWebAuthnInput(BaseSignupForm, inputs.Input):
     pass

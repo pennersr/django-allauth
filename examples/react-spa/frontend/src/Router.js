@@ -25,6 +25,7 @@ import ActivateTOTP, { loader as activateTOTPLoader } from './mfa/ActivateTOTP'
 import DeactivateTOTP from './mfa/DeactivateTOTP'
 import RecoveryCodes, { loader as recoveryCodesLoader } from './mfa/RecoveryCodes'
 import AddWebAuthn from './mfa/AddWebAuthn'
+import SignupByPasskey from './mfa/SignupByPasskey'
 import ReauthenticateWebAuthn from './mfa/ReauthenticateWebAuthn'
 import ListWebAuthn, { loader as listWebAuthnLoader } from './mfa/ListWebAuthn'
 import GenerateRecoveryCodes, { loader as generateRecoveryCodesLoader } from './mfa/GenerateRecoveryCodes'
@@ -34,6 +35,7 @@ import AuthenticateRecoveryCodes from './mfa/AuthenticateRecoveryCodes'
 import AuthenticateWebAuthn from './mfa/AuthenticateWebAuthn'
 import ReauthenticateRecoveryCodes from './mfa/ReauthenticateRecoveryCodes'
 import ReauthenticateTOTP from './mfa/ReauthenticateTOTP'
+import CreateSignupPasskey from './mfa/CreateSignupPasskey'
 import Reauthenticate from './account/Reauthenticate'
 import Sessions from './usersessions/Sessions'
 import Root from './Root'
@@ -88,6 +90,14 @@ function createRouter (config) {
         {
           path: '/account/signup',
           element: <AnonymousRoute><Signup /></AnonymousRoute>
+        },
+        {
+          path: '/account/signup/passkey',
+          element: <AnonymousRoute><SignupByPasskey /></AnonymousRoute>
+        },
+        {
+          path: '/account/signup/passkey/create',
+          element: <AnonymousRoute><CreateSignupPasskey /></AnonymousRoute>
         },
         {
           path: '/account/verify-email',

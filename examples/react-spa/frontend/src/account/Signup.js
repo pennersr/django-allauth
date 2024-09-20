@@ -51,6 +51,7 @@ export default function Signup () {
         <FormErrors param='password2' errors={password2Errors} />
       </div>
       <Button disabled={response.fetching} onClick={() => submit()}>Sign Up</Button>
+      <a href='/account/signup/passkey'>Sign up using a passkey</a>
 
       {hasProviders
         ? <>

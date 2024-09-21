@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-21 06:42-0500\n"
-"PO-Revision-Date: 2024-08-23 19:09+0000\n"
+"PO-Revision-Date: 2024-09-21 14:26+0200\n"
 "Last-Translator: Natalia N <natalian@inbox.ru>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/allauth/django-"
 "allauth/de/>\n"
@@ -1051,22 +1051,16 @@ msgstr ""
 "entlang%(end_link)s."
 
 #: templates/account/signup.html:39
-#, fuzzy
-#| msgid "Sign in with a passkey"
 msgid "Sign up using a passkey"
-msgstr "Mit einem Passkey anmelden"
+msgstr "Mit einem Passkey registrieren"
 
 #: templates/account/signup_by_passkey.html:8
-#, fuzzy
-#| msgid "Sign Up"
 msgid "Passkey Sign Up"
-msgstr "Registrieren"
+msgstr "Passkey Registrierung"
 
 #: templates/account/signup_by_passkey.html:36
-#, fuzzy
-#| msgid "Other sign-in options"
 msgid "Other options"
-msgstr "Andere Anmeldeoptionen"
+msgstr "Andere Optionen"
 
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:9
@@ -1447,23 +1441,19 @@ msgid "Save"
 msgstr "Speichern"
 
 #: templates/mfa/webauthn/signup_form.html:7
-#, fuzzy
-#| msgid "Passkey"
 msgid "Create Passkey"
-msgstr "Passkey"
+msgstr "Passkey erstellen"
 
 #: templates/mfa/webauthn/signup_form.html:10
 msgid ""
 "You are about to create a passkey for your account. As you can add "
 "additional keys later on, you can use a descriptive name to tell the keys "
 "apart."
-msgstr ""
+msgstr "Sie sind dabei, einen Passkey für Ihr Konto zu erstellen. Da Sie später weitere Schlüssel hinzufügen können, können Sie einen beschreibenden Namen verwenden, um die Schlüssel voneinander zu unterscheiden."
 
 #: templates/mfa/webauthn/signup_form.html:21
-#, fuzzy
-#| msgid "created"
 msgid "Create"
-msgstr "Erstellt"
+msgstr "Erstellen"
 
 #: templates/mfa/webauthn/snippets/scripts.html:2
 msgid "This functionality requires JavaScript."

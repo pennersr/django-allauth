@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-21 06:42-0500\n"
-"PO-Revision-Date: 2024-08-30 09:44+0200\n"
+"PO-Revision-Date: 2024-09-21 14:24+0200\n"
 "Last-Translator: Raymond Penners <raymond.penners@intenct.nl>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/django-allauth/"
 "django-allauth/nl/>\n"
@@ -1044,22 +1044,16 @@ msgid "Already have an account? Then please %(link)ssign in%(end_link)s."
 msgstr "Heb je al een account? %(link)sMeld je dan aan%(end_link)s."
 
 #: templates/account/signup.html:39
-#, fuzzy
-#| msgid "Sign in with a passkey"
 msgid "Sign up using a passkey"
-msgstr "Meld je aan met een passkey"
+msgstr "Registreren met een passkey"
 
 #: templates/account/signup_by_passkey.html:8
-#, fuzzy
-#| msgid "Sign Up"
 msgid "Passkey Sign Up"
-msgstr "Registreren"
+msgstr "Passkey registratie"
 
 #: templates/account/signup_by_passkey.html:36
-#, fuzzy
-#| msgid "Other sign-in options"
 msgid "Other options"
-msgstr "Andere aanmeld-opties"
+msgstr "Andere opties"
 
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:9
@@ -1429,23 +1423,19 @@ msgid "Save"
 msgstr "Opslaan"
 
 #: templates/mfa/webauthn/signup_form.html:7
-#, fuzzy
-#| msgid "Passkey"
 msgid "Create Passkey"
-msgstr "Passkey"
+msgstr "Passkey aanmaken"
 
 #: templates/mfa/webauthn/signup_form.html:10
 msgid ""
 "You are about to create a passkey for your account. As you can add "
 "additional keys later on, you can use a descriptive name to tell the keys "
 "apart."
-msgstr ""
+msgstr "Je staat op het punt een passkey aan te maken. Aangezen je later extra sleutels kunt toevoegen kun je deze een herkenbare naam geven om de sleutels uit elkaar te kunnen houden."
 
 #: templates/mfa/webauthn/signup_form.html:21
-#, fuzzy
-#| msgid "created"
 msgid "Create"
-msgstr "aangemaakt"
+msgstr "Maak aan"
 
 #: templates/mfa/webauthn/snippets/scripts.html:2
 msgid "This functionality requires JavaScript."

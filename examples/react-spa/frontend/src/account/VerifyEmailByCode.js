@@ -3,7 +3,7 @@ import FormErrors from '../components/FormErrors'
 import {
   Navigate
 } from 'react-router-dom'
-import { getEmailVerification, verifyEmail } from '../lib/allauth'
+import { verifyEmail } from '../lib/allauth'
 import Button from '../components/Button'
 
 export default function VerifyEmail () {
@@ -26,12 +26,6 @@ export default function VerifyEmail () {
     return <Navigate to='/account/email' />
   }
 
-  const body = (
-    <>
-      <p>Please confirm.</p>
-      <Button disabled={response.fetching} onClick={() => submit()}>Confirm</Button>
-    </>
-  )
   return (
     <div>
       <h1>Confirm Email Address</h1>

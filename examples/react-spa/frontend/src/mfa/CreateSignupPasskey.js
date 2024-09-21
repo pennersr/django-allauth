@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import FormErrors from '../components/FormErrors'
-import { confirmLoginCode, Flows } from '../lib/allauth'
+import { Flows } from '../lib/allauth'
 import { Navigate } from 'react-router-dom'
 import Button from '../components/Button'
 import { useAuthStatus } from '../auth'
@@ -10,7 +10,7 @@ import {
   parseCreationOptionsFromJSON
 } from '@github/webauthn-json/browser-ponyfill'
 
-export default function ConfirmLoginCode () {
+export default function CreateSignupPasskey () {
   const [, authInfo] = useAuthStatus()
   const [name, setName] = useState('')
   const [response, setResponse] = useState({ fetching: false, content: null })
@@ -42,7 +42,7 @@ export default function ConfirmLoginCode () {
     <div>
       <h1>Create Passkey</h1>
       <p>
-        The code expires shortly, so please enter it soon.
+        You are about to create a passkey for your account. As you can add additional keys later on, you can use a descriptive name to tell the keys apart.
       </p>
 
       <FormErrors errors={response.content?.errors} />

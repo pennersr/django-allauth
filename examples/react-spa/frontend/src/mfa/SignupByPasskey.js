@@ -2,14 +2,11 @@ import { useState } from 'react'
 import FormErrors from '../components/FormErrors'
 import { signUpByPasskey } from '../lib/allauth'
 import { Link } from 'react-router-dom'
-import { useConfig } from '../auth'
-import ProviderList from '../socialaccount/ProviderList'
 import Button from '../components/Button'
 
 export default function Signup () {
   const [email, setEmail] = useState('')
   const [response, setResponse] = useState({ fetching: false, content: null })
-  const config = useConfig()
 
   function submit () {
     setResponse({ ...response, fetching: true })

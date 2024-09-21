@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-30 02:40-0500\n"
+"POT-Creation-Date: 2024-09-21 06:42-0500\n"
 "PO-Revision-Date: 2024-04-20 22:02+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -61,6 +61,7 @@ msgid "The password reset token was invalid."
 msgstr "Neteisingas slaptažodžio atstatymo atpažinimo ženklas."
 
 #: account/adapter.py:67
+#, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "Negalima pridėti daugiau nei %d el. pašto adresų."
 
@@ -86,15 +87,15 @@ msgstr ""
 msgid "The username and/or password you specified are not correct."
 msgstr "Pateiktas naudotojo vardas ir/arba slaptažodis yra neteisingi."
 
-#: account/adapter.py:736
+#: account/adapter.py:741
 msgid "Use your password"
 msgstr "Naudokite slaptažodį"
 
-#: account/adapter.py:745
+#: account/adapter.py:750
 msgid "Use authenticator app or code"
 msgstr "Naudokite autentifikacijos programą arba kodą"
 
-#: account/adapter.py:752 templates/mfa/authenticate.html:36
+#: account/adapter.py:757 templates/mfa/authenticate.html:36
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use a security key"
 msgstr "Naudokite saugumo raktą"
@@ -107,80 +108,80 @@ msgstr "Pažymėti pasirinktus el. pašto adresus, kaip patvirtintus"
 msgid "Accounts"
 msgstr "Paskyros"
 
-#: account/forms.py:56 account/forms.py:479
+#: account/forms.py:57 account/forms.py:483
 msgid "You must type the same password each time."
 msgstr "Turite įvesti tą patį slaptažodį kiekvieną kartą."
 
-#: account/forms.py:91 account/forms.py:409 account/forms.py:569
-#: account/forms.py:681
+#: account/forms.py:92 account/forms.py:413 account/forms.py:573
+#: account/forms.py:685
 msgid "Password"
 msgstr "Slaptažodis"
 
-#: account/forms.py:92
+#: account/forms.py:93
 msgid "Remember Me"
 msgstr "Prisimink mane"
 
-#: account/forms.py:102 account/forms.py:269 account/forms.py:495
-#: account/forms.py:587 account/forms.py:698
+#: account/forms.py:103 account/forms.py:270 account/forms.py:499
+#: account/forms.py:591 account/forms.py:702
 msgid "Email address"
 msgstr "El. pašto adresas"
 
-#: account/forms.py:106 account/forms.py:307 account/forms.py:492
-#: account/forms.py:582
+#: account/forms.py:107 account/forms.py:308 account/forms.py:496
+#: account/forms.py:586
 msgid "Email"
 msgstr "El. paštas"
 
-#: account/forms.py:109 account/forms.py:112 account/forms.py:259
-#: account/forms.py:262
+#: account/forms.py:110 account/forms.py:113 account/forms.py:260
+#: account/forms.py:263
 msgid "Username"
 msgstr "Naudotojo vardas"
 
-#: account/forms.py:122
+#: account/forms.py:123
 msgid "Username or email"
 msgstr "Naudotojo vardas arba el. paštas"
 
-#: account/forms.py:125
+#: account/forms.py:126
 msgctxt "field label"
 msgid "Login"
 msgstr "Prisijungimo vardas"
 
-#: account/forms.py:136
+#: account/forms.py:137
 msgid "Forgot your password?"
 msgstr "Pamiršote slaptažodį?"
 
-#: account/forms.py:298
+#: account/forms.py:299
 msgid "Email (again)"
 msgstr "El. paštas (pakartoti)"
 
-#: account/forms.py:302
+#: account/forms.py:303
 msgid "Email address confirmation"
 msgstr "El. pašto patvirtinimas"
 
-#: account/forms.py:310
+#: account/forms.py:311
 msgid "Email (optional)"
 msgstr "El. paštas (neprivalomas)"
 
-#: account/forms.py:369
+#: account/forms.py:370
 msgid "You must type the same email each time."
 msgstr "Turite įvesti tą patį el. pašto adresą kiekvieną kartą."
 
-#: account/forms.py:415 account/forms.py:570
+#: account/forms.py:419 account/forms.py:574
 msgid "Password (again)"
 msgstr "Slaptažodis (pakartoti)"
 
-#: account/forms.py:550
+#: account/forms.py:554
 msgid "Current Password"
 msgstr "Esamas slaptažodis"
 
-#: account/forms.py:552 account/forms.py:634
+#: account/forms.py:556 account/forms.py:638
 msgid "New Password"
 msgstr "Naujas slaptažodis"
 
-#: account/forms.py:553 account/forms.py:635
+#: account/forms.py:557 account/forms.py:639
 msgid "New Password (again)"
 msgstr "Naujas slaptažodis (pakartoti)"
 
-#: account/forms.py:721 account/forms.py:723 mfa/base/forms.py:15
+#: account/forms.py:725 account/forms.py:727 mfa/base/forms.py:15
 #: mfa/base/forms.py:17 mfa/totp/forms.py:13
 msgid "Code"
 msgstr "Kodas"
@@ -233,7 +234,9 @@ msgstr "Begalvis"
 msgid ""
 "You cannot add an email address to an account protected by two-factor "
 "authentication."
-msgstr "Jūs negalite pridėti el. pašto adreso į dviguba autentifikacija saugomą paskyrą."
+msgstr ""
+"Jūs negalite pridėti el. pašto adreso į dviguba autentifikacija saugomą "
+"paskyrą."
 
 #: mfa/adapter.py:35
 msgid "You cannot deactivate two-factor authentication."
@@ -243,13 +246,16 @@ msgstr "Jūs negalite deaktyvuoti dvigubos autentifikacijos."
 msgid ""
 "You cannot generate recovery codes without having two-factor authentication "
 "enabled."
-msgstr "Jūs negalite generuoti atstatymo kodų be įjungtos dvigubos autentifikacijos."
+msgstr ""
+"Jūs negalite generuoti atstatymo kodų be įjungtos dvigubos autentifikacijos."
 
 #: mfa/adapter.py:42
 msgid ""
 "You cannot activate two-factor authentication until you have verified your "
 "email address."
-msgstr "Jūs negalite aktyvuoti dvigubos autentifikacijos kol nepatvirtinsite savo el. pašto."
+msgstr ""
+"Jūs negalite aktyvuoti dvigubos autentifikacijos kol nepatvirtinsite savo "
+"el. pašto."
 
 #: mfa/adapter.py:141
 msgid "Master key"
@@ -284,17 +290,18 @@ msgstr ""
 msgid "Authenticator code"
 msgstr ""
 
-#: mfa/webauthn/forms.py:16
+#: mfa/webauthn/forms.py:56
 msgid "Passwordless"
 msgstr "Be Slaptažodžio"
 
-#: mfa/webauthn/forms.py:19
+#: mfa/webauthn/forms.py:59
 msgid ""
 "Enabling passwordless operation allows you to sign in using just this key, "
 "but imposes additional requirements such as biometrics or PIN protection."
 msgstr ""
 
 #: socialaccount/adapter.py:36
+#, python-format
 msgid ""
 "An account already exists with this email address. Please sign in to that "
 "account first, then connect your %s account."
@@ -430,14 +437,20 @@ msgstr "Prisijungti"
 
 #: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:19
 #: templates/account/confirm_email_verification_code.html:33
-#: templates/mfa/authenticate.html:41
+#: templates/account/confirm_email_verification_code.html:37
+#: templates/account/confirm_login_code.html:32
+#: templates/mfa/authenticate.html:40
+#: templates/mfa/webauthn/signup_form.html:26
 msgid "Cancel"
 msgstr "Atšaukti"
 
 #: socialaccount/providers/oauth/client.py:85
+#, python-format
 msgid ""
 "Invalid response while obtaining request token from \"%s\". Response was: %s."
-msgstr "Klaidingas atsakymas gaunant užklausos atpažinimo ženklą iš \"%s\". Atsakymas buvo: %s."
+msgstr ""
+"Klaidingas atsakymas gaunant užklausos atpažinimo ženklą iš \"%s\". "
+"Atsakymas buvo: %s."
 
 #: socialaccount/providers/oauth/client.py:119
 #: socialaccount/providers/pocket/client.py:86
@@ -502,7 +515,9 @@ msgstr "Įrašykite Teisingą Patvirtinimo Kodą"
 msgid ""
 "We’ve sent a code to %(email_link)s. The code expires shortly, so please "
 "enter it soon."
-msgstr "Į %(email_link)s išsiuntėme kodą. Kodo galiojimas greitai pasibaigs, tas įrašykite jį kuo greičiau."
+msgstr ""
+"Į %(email_link)s išsiuntėme kodą. Kodo galiojimas greitai pasibaigs, tas "
+"įrašykite jį kuo greičiau."
 
 #: templates/account/confirm_email_verification_code.html:27
 #: templates/account/email_confirm.html:24
@@ -526,11 +541,6 @@ msgstr "Prisijungti"
 #: templates/account/confirm_login_code.html:9
 msgid "Enter Sign-In Code"
 msgstr "Įrašykite Prisijungimo Kodą"
-
-#: templates/account/confirm_login_code.html:34
-#: templates/account/request_login_code.html:31
-msgid "Other sign-in options"
-msgstr "Kiti prisijungimo pasirinkimai"
 
 #: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
@@ -596,13 +606,13 @@ msgid ""
 "\n"
 "%(password_reset_url)s"
 msgstr ""
-"Jūs gaunate šį laišką, nes kažkas bandė prisiregistruoti\n "
-"naudojantis :\n"
+"Jūs gaunate šį laišką, nes kažkas bandė prisiregistruoti\n"
+" naudojantis :\n"
 "\n"
 "%(email)s\n"
 "\n"
-"Paskyra su šiuo el. pašto adresu egzistuoja. Jei užmiršote\n "
-"apie tai, prašome naudotis užmiršto slaptažodžio procedūra, kad "
+"Paskyra su šiuo el. pašto adresu egzistuoja. Jei užmiršote\n"
+" apie tai, prašome naudotis užmiršto slaptažodžio procedūra, kad "
 "atstatytumėte\n"
 "jūsų paskyrą:\n"
 "\n"
@@ -613,6 +623,7 @@ msgid "Account Already Exists"
 msgstr "Pakyra Jau Egzistuoja"
 
 #: templates/account/email/base_message.txt:1
+#, python-format
 msgid "Hello from %(site_name)s!"
 msgstr "Ačiū nuo %(site_name)s!"
 
@@ -651,7 +662,8 @@ msgstr ""
 #: templates/account/email/email_changed_message.txt:4
 #, python-format
 msgid "Your email has been changed from %(from_email)s to %(to_email)s."
-msgstr "Jūsų el. pašto adresas buvo pakeistas iš %(from_email)s į %(to_email)s."
+msgstr ""
+"Jūsų el. pašto adresas buvo pakeistas iš %(from_email)s į %(to_email)s."
 
 #: templates/account/email/email_changed_subject.txt:3
 msgid "Email Changed"
@@ -666,6 +678,7 @@ msgid "Email Confirmation"
 msgstr "El. Pašto Patvirtinimas"
 
 #: templates/account/email/email_confirmation_message.txt:5
+#, python-format
 msgid ""
 "You're receiving this email because user %(user_display)s has given your "
 "email address to register an account on %(site_domain)s."
@@ -677,7 +690,9 @@ msgstr ""
 msgid ""
 "Your email verification code is listed below. Please enter it in your open "
 "browser window."
-msgstr "Jūsų el. pašto patvirtinimo kodas yra nurodytas žemiau. Prašome įvesti jį į atidarytos naršklės langą."
+msgstr ""
+"Jūsų el. pašto patvirtinimo kodas yra nurodytas žemiau. Prašome įvesti jį į "
+"atidarytos naršklės langą."
 
 #: templates/account/email/email_confirmation_message.txt:9
 #, python-format
@@ -701,7 +716,9 @@ msgstr "El. Paštas Pašalintas"
 msgid ""
 "Your sign-in code is listed below. Please enter it in your open browser "
 "window."
-msgstr "Jūsų el. pašto patvirtinimo kodas yra nurodytas žemiau. Prašome įvesti jį į atidarytos naršyklės langą."
+msgstr ""
+"Jūsų el. pašto patvirtinimo kodas yra nurodytas žemiau. Prašome įvesti jį į "
+"atidarytos naršyklės langą."
 
 #: templates/account/email/login_code_message.txt:9
 #: templates/account/email/unknown_account_message.txt:6
@@ -769,8 +786,8 @@ msgid ""
 "an account with email %(email)s. However, we do not have any record of such "
 "an account in our database."
 msgstr ""
-"Jūs gaunate šį laišką, nes kažkas bandė prisijungti prie paskyros su el. pašto "
-"adresu %(email)s, tačiau tokios paskyros duombazėje nėra."
+"Jūs gaunate šį laišką, nes kažkas bandė prisijungti prie paskyros su el. "
+"pašto adresu %(email)s, tačiau tokios paskyros duombazėje nėra."
 
 #: templates/account/email/unknown_account_message.txt:8
 msgid "If it was you, you can sign up for an account using the link below."
@@ -816,6 +833,7 @@ msgid "Confirm Email Address"
 msgstr "Patvirtinkite el. pašto adresą"
 
 #: templates/account/email_confirm.html:16
+#, python-format
 msgid ""
 "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an email "
 "address for user %(user_display)s."
@@ -825,12 +843,15 @@ msgstr ""
 
 #: templates/account/email_confirm.html:30
 #: templates/account/messages/email_confirmation_failed.txt:2
+#, python-format
 msgid ""
 "Unable to confirm %(email)s because it is already confirmed by a different "
 "account."
-msgstr "%(email)s nepatvirtintas, nes šį el. paštą jau patvirtino kita paskyra."
+msgstr ""
+"%(email)s nepatvirtintas, nes šį el. paštą jau patvirtino kita paskyra."
 
 #: templates/account/email_confirm.html:36
+#, python-format
 msgid ""
 "This email confirmation link expired or is invalid. Please <a "
 "href=\"%(email_url)s\">issue a new email confirmation request</a>."
@@ -948,7 +969,9 @@ msgstr "Prašome susisiekti su mumis jei negalite atstatyti slaptažodžio."
 msgid ""
 "We have sent you an email. If you have not received it please check your "
 "spam folder. Otherwise contact us if you do not receive it in a few minutes."
-msgstr "Išsiuntėme jums patvirtinimo laišką. Prašome sekite nuorodą pateiktą laiške. Susisiekite su mumis jei negausite laiško per kelias minutes."
+msgstr ""
+"Išsiuntėme jums patvirtinimo laišką. Prašome sekite nuorodą pateiktą laiške. "
+"Susisiekite su mumis jei negausite laiško per kelias minutes."
 
 #: templates/account/password_reset_from_key.html:10
 msgid "Bad Token"
@@ -988,20 +1011,44 @@ msgstr "Gausite laišką su specialiu kodu prisijungimui be slaptažodžio."
 msgid "Request Code"
 msgstr "Prašyti Kodo"
 
-#: templates/account/signup.html:4 templates/socialaccount/signup.html:5
+#: templates/account/request_login_code.html:30
+msgid "Other sign-in options"
+msgstr "Kiti prisijungimo pasirinkimai"
+
+#: templates/account/signup.html:4 templates/account/signup_by_passkey.html:4
+#: templates/socialaccount/signup.html:5
 msgid "Signup"
 msgstr "Registracija"
 
 #: templates/account/signup.html:8 templates/account/signup.html:30
+#: templates/account/signup_by_passkey.html:29
 #: templates/allauth/layouts/base.html:74 templates/socialaccount/signup.html:9
 #: templates/socialaccount/signup.html:25
 msgid "Sign Up"
 msgstr "Registruotis"
 
-#: templates/account/signup.html:17
+#: templates/account/signup.html:17 templates/account/signup_by_passkey.html:17
 #, python-format
 msgid "Already have an account? Then please %(link)ssign in%(end_link)s."
 msgstr "Jau turite paskyrą? Prašome %(link)sprisijungti%(end_link)s."
+
+#: templates/account/signup.html:39
+#, fuzzy
+#| msgid "Sign in with a passkey"
+msgid "Sign up using a passkey"
+msgstr "Prisijunkite su prieigos raktu"
+
+#: templates/account/signup_by_passkey.html:8
+#, fuzzy
+#| msgid "Sign Up"
+msgid "Passkey Sign Up"
+msgstr "Registruotis"
+
+#: templates/account/signup_by_passkey.html:36
+#, fuzzy
+#| msgid "Other sign-in options"
+msgid "Other options"
+msgstr "Kiti prisijungimo pasirinkimai"
 
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:9
@@ -1017,6 +1064,7 @@ msgid "Note"
 msgstr "Pastaba"
 
 #: templates/account/snippets/already_logged_in.html:7
+#, python-format
 msgid "You are already logged in as %(user_display)s."
 msgstr "Jūs jau esate prisijungęs, kaip %(user_display)s."
 
@@ -1048,8 +1096,9 @@ msgid ""
 "receive the verification email within a few minutes."
 msgstr ""
 "Išsiuntėme jums laišką patvirtinimui. Sekite laiške pateiktą nuorodą, kad "
-"užbaigtumėte registraciją. Jei nematote laiško pagrindiniame skyriuje, patikrinkite šlamšto skyrių. Prašome susisiekti su mumis, jei laiško negavote "
-"per kelias minutes."
+"užbaigtumėte registraciją. Jei nematote laiško pagrindiniame skyriuje, "
+"patikrinkite šlamšto skyrių. Prašome susisiekti su mumis, jei laiško "
+"negavote per kelias minutes."
 
 #: templates/account/verified_email_required.html:13
 msgid ""
@@ -1070,11 +1119,12 @@ msgid ""
 "contact us if you do not receive it within a few minutes."
 msgstr ""
 "Išsiuntėme jums patvirtinimo laišką.\n"
-"Prašome sekite nuorodą pateiktą laiške. Jei laiško nematote, "
-"patikrinkite šlamšto skyrių. Susisiekite su mumis\n"
+"Prašome sekite nuorodą pateiktą laiške. Jei laiško nematote, patikrinkite "
+"šlamšto skyrių. Susisiekite su mumis\n"
 "jei negausite laiško per kelias minutes."
 
 #: templates/account/verified_email_required.html:23
+#, python-format
 msgid ""
 "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your "
 "email address</a>."
@@ -1364,6 +1414,25 @@ msgstr "Keisti Saugumo Raktą"
 msgid "Save"
 msgstr ""
 
+#: templates/mfa/webauthn/signup_form.html:7
+#, fuzzy
+#| msgid "Current Password"
+msgid "Create Passkey"
+msgstr "Esamas slaptažodis"
+
+#: templates/mfa/webauthn/signup_form.html:10
+msgid ""
+"You are about to create a passkey for your account. As you can add "
+"additional keys later on, you can use a descriptive name to tell the keys "
+"apart."
+msgstr ""
+
+#: templates/mfa/webauthn/signup_form.html:21
+#, fuzzy
+#| msgid "created"
+msgid "Create"
+msgstr "sukurtas"
+
 #: templates/mfa/webauthn/snippets/scripts.html:2
 msgid "This functionality requires JavaScript."
 msgstr ""
@@ -1376,9 +1445,7 @@ msgstr "Trečiosios Šalies Prisijungimo Klaida"
 #: templates/socialaccount/authentication_error.html:12
 msgid ""
 "An error occurred while attempting to login via your third-party account."
-msgstr ""
-"Įvyko nenumatyta klaida bandant prisijungti trčiosios šalies "
-"paskyra."
+msgstr "Įvyko nenumatyta klaida bandant prisijungti trčiosios šalies paskyra."
 
 #: templates/socialaccount/connections.html:13
 msgid ""
@@ -1390,7 +1457,8 @@ msgstr ""
 
 #: templates/socialaccount/connections.html:46
 msgid "You currently have no third-party accounts connected to this account."
-msgstr "Šiuo metu jūs neturite nei vienos prijungtos trečiosios šalies paskyros."
+msgstr ""
+"Šiuo metu jūs neturite nei vienos prijungtos trečiosios šalies paskyros."
 
 #: templates/socialaccount/connections.html:50
 msgid "Add a Third-Party Account"
@@ -1400,7 +1468,8 @@ msgstr "Pridėti Trečiosios Šalies paskyrą"
 #, python-format
 msgid ""
 "A third-party account from %(provider)s has been connected to your account."
-msgstr "Trečiosios šalies paskyra iš %(provider)s buvo prijungta prie jūsų paskyros."
+msgstr ""
+"Trečiosios šalies paskyra iš %(provider)s buvo prijungta prie jūsų paskyros."
 
 #: templates/socialaccount/email/account_connected_subject.txt:3
 msgid "Third-Party Account Connected"
@@ -1411,7 +1480,8 @@ msgstr "Trečiosios Šalies Paskyra Prijungta"
 msgid ""
 "A third-party account from %(provider)s has been disconnected from your "
 "account."
-msgstr "Trečiosios šalies paskyra iš %(provider)s buvo atjungta nuo jūsų paskyros."
+msgstr ""
+"Trečiosios šalies paskyra iš %(provider)s buvo atjungta nuo jūsų paskyros."
 
 #: templates/socialaccount/email/account_disconnected_subject.txt:3
 msgid "Third-Party Account Disconnected"
@@ -1425,7 +1495,8 @@ msgstr "Prijungti %(provider)s"
 #: templates/socialaccount/login.html:13
 #, python-format
 msgid "You are about to connect a new third-party account from %(provider)s."
-msgstr "Jūs tuojaus prijungsite naują trečiosios šalies paskyrą iš %(provider)s."
+msgstr ""
+"Jūs tuojaus prijungsite naują trečiosios šalies paskyrą iš %(provider)s."
 
 #: templates/socialaccount/login.html:17
 #, python-format
@@ -1435,7 +1506,9 @@ msgstr "Prisijungkite Su %(provider)s"
 #: templates/socialaccount/login.html:20
 #, python-format
 msgid "You are about to sign in using a third-party account from %(provider)s."
-msgstr "Jūs tuojaus prisijungsite naudojantis trečiosios šalies paskyra iš %(provider)s."
+msgstr ""
+"Jūs tuojaus prisijungsite naudojantis trečiosios šalies paskyra iš "
+"%(provider)s."
 
 #: templates/socialaccount/login.html:27
 #: templates/socialaccount/login_redirect.html:10
@@ -1510,7 +1583,7 @@ msgstr "Atjungti Kitas Sesijas"
 msgid "User Sessions"
 msgstr "Vartotojo Sesijos"
 
-#: usersessions/models.py:58
+#: usersessions/models.py:92
 msgid "session key"
 msgstr "sesijos raktas"
 

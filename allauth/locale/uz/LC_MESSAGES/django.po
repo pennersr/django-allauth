@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-30 02:40-0500\n"
+"POT-Creation-Date: 2024-09-21 06:42-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Hojiakbar Barotov barotovhojiakbar.me@gmail.com\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -88,15 +88,15 @@ msgstr ""
 msgid "The username and/or password you specified are not correct."
 msgstr "Siz ko'rsatgan foydalanuvchi nomi va/yoki paroli noto'g'ri."
 
-#: account/adapter.py:736
+#: account/adapter.py:741
 msgid "Use your password"
 msgstr "Parolingizdan foydalanish"
 
-#: account/adapter.py:745
+#: account/adapter.py:750
 msgid "Use authenticator app or code"
 msgstr "Autentifikatsiya ilovasi yoki kodidan foydalanish"
 
-#: account/adapter.py:752 templates/mfa/authenticate.html:36
+#: account/adapter.py:757 templates/mfa/authenticate.html:36
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use a security key"
 msgstr "Xavfsizlik kalitidan foydalanish"
@@ -109,80 +109,80 @@ msgstr "Tanlangan email manzillarini tasdiqlangan deb belgilash"
 msgid "Accounts"
 msgstr "Akkauntlar"
 
-#: account/forms.py:56 account/forms.py:479
+#: account/forms.py:57 account/forms.py:483
 msgid "You must type the same password each time."
 msgstr "Har safar bir xil parolni kiritishingiz kerak."
 
-#: account/forms.py:91 account/forms.py:409 account/forms.py:569
-#: account/forms.py:681
+#: account/forms.py:92 account/forms.py:413 account/forms.py:573
+#: account/forms.py:685
 msgid "Password"
 msgstr "Parol"
 
-#: account/forms.py:92
+#: account/forms.py:93
 msgid "Remember Me"
 msgstr "Meni Eslab Qolmoq"
 
-#: account/forms.py:102 account/forms.py:269 account/forms.py:495
-#: account/forms.py:587 account/forms.py:698
+#: account/forms.py:103 account/forms.py:270 account/forms.py:499
+#: account/forms.py:591 account/forms.py:702
 msgid "Email address"
 msgstr "Email manzili"
 
-#: account/forms.py:106 account/forms.py:307 account/forms.py:492
-#: account/forms.py:582
+#: account/forms.py:107 account/forms.py:308 account/forms.py:496
+#: account/forms.py:586
 msgid "Email"
 msgstr "Email"
 
-#: account/forms.py:109 account/forms.py:112 account/forms.py:259
-#: account/forms.py:262
+#: account/forms.py:110 account/forms.py:113 account/forms.py:260
+#: account/forms.py:263
 msgid "Username"
 msgstr "Foydalanuvchi nomi"
 
-#: account/forms.py:122
+#: account/forms.py:123
 msgid "Username or email"
 msgstr "Foydalanuvchi nomi yoki email"
 
-#: account/forms.py:125
+#: account/forms.py:126
 msgctxt "field label"
 msgid "Login"
 msgstr "Kirish"
 
-#: account/forms.py:136
+#: account/forms.py:137
 msgid "Forgot your password?"
 msgstr "Parolingiz esdan chiqdimi?"
 
-#: account/forms.py:298
+#: account/forms.py:299
 msgid "Email (again)"
 msgstr "Email (yana)"
 
-#: account/forms.py:302
+#: account/forms.py:303
 msgid "Email address confirmation"
 msgstr "Email manzilini tasdiqlash"
 
-#: account/forms.py:310
+#: account/forms.py:311
 msgid "Email (optional)"
 msgstr "Email (ixtiyoriy)"
 
-#: account/forms.py:369
+#: account/forms.py:370
 msgid "You must type the same email each time."
 msgstr "Har safar bir xil email manzilini yozishingiz kerak."
 
-#: account/forms.py:415 account/forms.py:570
+#: account/forms.py:419 account/forms.py:574
 msgid "Password (again)"
 msgstr "Parol (yana)"
 
-#: account/forms.py:550
+#: account/forms.py:554
 msgid "Current Password"
 msgstr "Joriy Parol"
 
-#: account/forms.py:552 account/forms.py:634
+#: account/forms.py:556 account/forms.py:638
 msgid "New Password"
 msgstr "Yangi Parol"
 
-#: account/forms.py:553 account/forms.py:635
+#: account/forms.py:557 account/forms.py:639
 msgid "New Password (again)"
 msgstr "Yangi Parol (yana)"
 
-#: account/forms.py:721 account/forms.py:723 mfa/base/forms.py:15
+#: account/forms.py:725 account/forms.py:727 mfa/base/forms.py:15
 #: mfa/base/forms.py:17 mfa/totp/forms.py:13
 msgid "Code"
 msgstr "Kod"
@@ -291,11 +291,11 @@ msgstr "WebAuthn"
 msgid "Authenticator code"
 msgstr "Autentifikatsiya kodi"
 
-#: mfa/webauthn/forms.py:16
+#: mfa/webauthn/forms.py:56
 msgid "Passwordless"
 msgstr "Parolsiz"
 
-#: mfa/webauthn/forms.py:19
+#: mfa/webauthn/forms.py:59
 msgid ""
 "Enabling passwordless operation allows you to sign in using just this key, "
 "but imposes additional requirements such as biometrics or PIN protection."
@@ -440,7 +440,10 @@ msgstr "Kirish"
 
 #: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:19
 #: templates/account/confirm_email_verification_code.html:33
-#: templates/mfa/authenticate.html:41
+#: templates/account/confirm_email_verification_code.html:37
+#: templates/account/confirm_login_code.html:32
+#: templates/mfa/authenticate.html:40
+#: templates/mfa/webauthn/signup_form.html:26
 msgid "Cancel"
 msgstr "Bekor qilish"
 
@@ -539,11 +542,6 @@ msgstr "Kirish"
 #: templates/account/confirm_login_code.html:9
 msgid "Enter Sign-In Code"
 msgstr "Kirish Kodini Kiritish"
-
-#: templates/account/confirm_login_code.html:34
-#: templates/account/request_login_code.html:31
-msgid "Other sign-in options"
-msgstr "Boshqa kirish variantlari"
 
 #: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
@@ -1019,22 +1017,46 @@ msgstr ""
 msgid "Request Code"
 msgstr "Kod So'rash"
 
-#: templates/account/signup.html:4 templates/socialaccount/signup.html:5
+#: templates/account/request_login_code.html:30
+msgid "Other sign-in options"
+msgstr "Boshqa kirish variantlari"
+
+#: templates/account/signup.html:4 templates/account/signup_by_passkey.html:4
+#: templates/socialaccount/signup.html:5
 msgid "Signup"
 msgstr "Ro'yxatdan O'tish"
 
 #: templates/account/signup.html:8 templates/account/signup.html:30
+#: templates/account/signup_by_passkey.html:29
 #: templates/allauth/layouts/base.html:74 templates/socialaccount/signup.html:9
 #: templates/socialaccount/signup.html:25
 msgid "Sign Up"
 msgstr "Ro'yxatdan O'tish"
 
-#: templates/account/signup.html:17
+#: templates/account/signup.html:17 templates/account/signup_by_passkey.html:17
 #, python-format
 msgid "Already have an account? Then please %(link)ssign in%(end_link)s."
 msgstr ""
 "Allaqachon akkauntingiz bormi? Unda akkauntingizga "
 "%(link)skiring%(end_link)s."
+
+#: templates/account/signup.html:39
+#, fuzzy
+#| msgid "Sign in with a passkey"
+msgid "Sign up using a passkey"
+msgstr "O'tish kaliti bilan tizimga kirish"
+
+#: templates/account/signup_by_passkey.html:8
+#, fuzzy
+#| msgid "Sign Up"
+msgid "Passkey Sign Up"
+msgstr "Ro'yxatdan O'tish"
+
+#: templates/account/signup_by_passkey.html:36
+#, fuzzy
+#| msgid "Other sign-in options"
+msgid "Other options"
+msgstr "Boshqa kirish variantlari"
 
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:9
@@ -1409,6 +1431,25 @@ msgstr "Elektron Kalitni O'zgartirish"
 msgid "Save"
 msgstr "Saqlash"
 
+#: templates/mfa/webauthn/signup_form.html:7
+#, fuzzy
+#| msgid "Passkey"
+msgid "Create Passkey"
+msgstr "O'tish kaliti"
+
+#: templates/mfa/webauthn/signup_form.html:10
+msgid ""
+"You are about to create a passkey for your account. As you can add "
+"additional keys later on, you can use a descriptive name to tell the keys "
+"apart."
+msgstr ""
+
+#: templates/mfa/webauthn/signup_form.html:21
+#, fuzzy
+#| msgid "created"
+msgid "Create"
+msgstr "yaratilgan"
+
 #: templates/mfa/webauthn/snippets/scripts.html:2
 msgid "This functionality requires JavaScript."
 msgstr "Bu funksiya JavaScript-ni talab qiladi."
@@ -1561,7 +1602,7 @@ msgstr "Boshqa Seanslardan Chiqish"
 msgid "User Sessions"
 msgstr "Foydalanuvchi Seanslari"
 
-#: usersessions/models.py:58
+#: usersessions/models.py:92
 msgid "session key"
 msgstr "seans kaliti"
 

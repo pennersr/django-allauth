@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-30 02:40-0500\n"
+"POT-Creation-Date: 2024-09-21 06:42-0500\n"
 "PO-Revision-Date: 2024-07-23 14:40+0000\n"
 "Last-Translator: Zhuo Cheng <chengz21@mails.tsinghua.edu.cn>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -85,15 +85,15 @@ msgstr "此用户名不能使用，请改用其他用户名。"
 msgid "The username and/or password you specified are not correct."
 msgstr "您提供的用户名或密码不正确。"
 
-#: account/adapter.py:736
+#: account/adapter.py:741
 msgid "Use your password"
 msgstr "使用您的密码"
 
-#: account/adapter.py:745
+#: account/adapter.py:750
 msgid "Use authenticator app or code"
 msgstr "请使用认证APP或代码"
 
-#: account/adapter.py:752 templates/mfa/authenticate.html:36
+#: account/adapter.py:757 templates/mfa/authenticate.html:36
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use a security key"
 msgstr "使用安全密钥"
@@ -106,80 +106,80 @@ msgstr "将选定的email地址标注为已验证"
 msgid "Accounts"
 msgstr "账户"
 
-#: account/forms.py:56 account/forms.py:479
+#: account/forms.py:57 account/forms.py:483
 msgid "You must type the same password each time."
 msgstr "每次输入的密码必须相同。"
 
-#: account/forms.py:91 account/forms.py:409 account/forms.py:569
-#: account/forms.py:681
+#: account/forms.py:92 account/forms.py:413 account/forms.py:573
+#: account/forms.py:685
 msgid "Password"
 msgstr "密码"
 
-#: account/forms.py:92
+#: account/forms.py:93
 msgid "Remember Me"
 msgstr "记住我"
 
-#: account/forms.py:102 account/forms.py:269 account/forms.py:495
-#: account/forms.py:587 account/forms.py:698
+#: account/forms.py:103 account/forms.py:270 account/forms.py:499
+#: account/forms.py:591 account/forms.py:702
 msgid "Email address"
 msgstr "Email地址"
 
-#: account/forms.py:106 account/forms.py:307 account/forms.py:492
-#: account/forms.py:582
+#: account/forms.py:107 account/forms.py:308 account/forms.py:496
+#: account/forms.py:586
 msgid "Email"
 msgstr "Email"
 
-#: account/forms.py:109 account/forms.py:112 account/forms.py:259
-#: account/forms.py:262
+#: account/forms.py:110 account/forms.py:113 account/forms.py:260
+#: account/forms.py:263
 msgid "Username"
 msgstr "用户名"
 
-#: account/forms.py:122
+#: account/forms.py:123
 msgid "Username or email"
 msgstr "用户名或email"
 
-#: account/forms.py:125
+#: account/forms.py:126
 msgctxt "field label"
 msgid "Login"
 msgstr "登录"
 
-#: account/forms.py:136
+#: account/forms.py:137
 msgid "Forgot your password?"
 msgstr "忘记密码？"
 
-#: account/forms.py:298
+#: account/forms.py:299
 msgid "Email (again)"
 msgstr "Email （再次输入）"
 
-#: account/forms.py:302
+#: account/forms.py:303
 msgid "Email address confirmation"
 msgstr "Email地址确认"
 
-#: account/forms.py:310
+#: account/forms.py:311
 msgid "Email (optional)"
 msgstr "Email （选填项）"
 
-#: account/forms.py:369
+#: account/forms.py:370
 msgid "You must type the same email each time."
 msgstr "每次输入的Email必须相同。"
 
-#: account/forms.py:415 account/forms.py:570
+#: account/forms.py:419 account/forms.py:574
 msgid "Password (again)"
 msgstr "密码（重复）"
 
-#: account/forms.py:550
+#: account/forms.py:554
 msgid "Current Password"
 msgstr "当前密码"
 
-#: account/forms.py:552 account/forms.py:634
+#: account/forms.py:556 account/forms.py:638
 msgid "New Password"
 msgstr "新密码"
 
-#: account/forms.py:553 account/forms.py:635
+#: account/forms.py:557 account/forms.py:639
 msgid "New Password (again)"
 msgstr "新密码（重复）"
 
-#: account/forms.py:721 account/forms.py:723 mfa/base/forms.py:15
+#: account/forms.py:725 account/forms.py:727 mfa/base/forms.py:15
 #: mfa/base/forms.py:17 mfa/totp/forms.py:13
 msgid "Code"
 msgstr "代码"
@@ -283,11 +283,11 @@ msgstr "WebAuthn"
 msgid "Authenticator code"
 msgstr "认证器代码"
 
-#: mfa/webauthn/forms.py:16
+#: mfa/webauthn/forms.py:56
 msgid "Passwordless"
 msgstr "无密码"
 
-#: mfa/webauthn/forms.py:19
+#: mfa/webauthn/forms.py:59
 msgid ""
 "Enabling passwordless operation allows you to sign in using just this key, "
 "but imposes additional requirements such as biometrics or PIN protection."
@@ -429,7 +429,10 @@ msgstr "登录"
 
 #: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:19
 #: templates/account/confirm_email_verification_code.html:33
-#: templates/mfa/authenticate.html:41
+#: templates/account/confirm_email_verification_code.html:37
+#: templates/account/confirm_login_code.html:32
+#: templates/mfa/authenticate.html:40
+#: templates/mfa/webauthn/signup_form.html:26
 msgid "Cancel"
 msgstr "取消"
 
@@ -530,11 +533,6 @@ msgstr "登录"
 #: templates/account/confirm_login_code.html:9
 msgid "Enter Sign-In Code"
 msgstr "输入登录代码"
-
-#: templates/account/confirm_login_code.html:34
-#: templates/account/request_login_code.html:31
-msgid "Other sign-in options"
-msgstr "其它登录选项"
 
 #: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
@@ -1000,20 +998,44 @@ msgstr "您将收到一封包含用于免密码登录的特殊代码的电子邮
 msgid "Request Code"
 msgstr "请求码"
 
-#: templates/account/signup.html:4 templates/socialaccount/signup.html:5
+#: templates/account/request_login_code.html:30
+msgid "Other sign-in options"
+msgstr "其它登录选项"
+
+#: templates/account/signup.html:4 templates/account/signup_by_passkey.html:4
+#: templates/socialaccount/signup.html:5
 msgid "Signup"
 msgstr "注册"
 
 #: templates/account/signup.html:8 templates/account/signup.html:30
+#: templates/account/signup_by_passkey.html:29
 #: templates/allauth/layouts/base.html:74 templates/socialaccount/signup.html:9
 #: templates/socialaccount/signup.html:25
 msgid "Sign Up"
 msgstr "注册"
 
-#: templates/account/signup.html:17
+#: templates/account/signup.html:17 templates/account/signup_by_passkey.html:17
 #, python-format
 msgid "Already have an account? Then please %(link)ssign in%(end_link)s."
 msgstr "已经有一个账号？ 请%(link)s登录%(end_link)s."
+
+#: templates/account/signup.html:39
+#, fuzzy
+#| msgid "Sign in with a passkey"
+msgid "Sign up using a passkey"
+msgstr "使用 passkey 登录"
+
+#: templates/account/signup_by_passkey.html:8
+#, fuzzy
+#| msgid "Sign Up"
+msgid "Passkey Sign Up"
+msgstr "注册"
+
+#: templates/account/signup_by_passkey.html:36
+#, fuzzy
+#| msgid "Other sign-in options"
+msgid "Other options"
+msgstr "其它登录选项"
 
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:9
@@ -1371,6 +1393,25 @@ msgstr "编辑安全密钥"
 msgid "Save"
 msgstr "保存"
 
+#: templates/mfa/webauthn/signup_form.html:7
+#, fuzzy
+#| msgid "Passkey"
+msgid "Create Passkey"
+msgstr "Passkey"
+
+#: templates/mfa/webauthn/signup_form.html:10
+msgid ""
+"You are about to create a passkey for your account. As you can add "
+"additional keys later on, you can use a descriptive name to tell the keys "
+"apart."
+msgstr ""
+
+#: templates/mfa/webauthn/signup_form.html:21
+#, fuzzy
+#| msgid "created"
+msgid "Create"
+msgstr "已建立"
+
 #: templates/mfa/webauthn/snippets/scripts.html:2
 msgid "This functionality requires JavaScript."
 msgstr "此功能需要 JavaScript。"
@@ -1513,7 +1554,7 @@ msgstr "注销其他会话"
 msgid "User Sessions"
 msgstr "用户会话"
 
-#: usersessions/models.py:58
+#: usersessions/models.py:92
 msgid "session key"
 msgstr "会话密钥"
 

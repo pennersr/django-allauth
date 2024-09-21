@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-30 02:40-0500\n"
+"POT-Creation-Date: 2024-09-21 06:42-0500\n"
 "PO-Revision-Date: 2024-06-01 11:09+0000\n"
 "Last-Translator: Ajordat <alexjortri@gmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/allauth/django-"
@@ -90,17 +90,17 @@ msgstr ""
 msgid "The username and/or password you specified are not correct."
 msgstr "L'usuari i/o la contrasenya que heu especificat no són correctes."
 
-#: account/adapter.py:736
+#: account/adapter.py:741
 msgid "Use your password"
 msgstr "Utilitzeu la vostra paraula de pas"
 
-#: account/adapter.py:745
+#: account/adapter.py:750
 #, fuzzy
 #| msgid "Use your authenticator app"
 msgid "Use authenticator app or code"
 msgstr "Utilitzeu la vostra aplicació d’autenticar"
 
-#: account/adapter.py:752 templates/mfa/authenticate.html:36
+#: account/adapter.py:757 templates/mfa/authenticate.html:36
 #: templates/mfa/webauthn/reauthenticate.html:15
 #, fuzzy
 #| msgid "secret key"
@@ -115,80 +115,80 @@ msgstr "Marqueu l’adreça de correu seleccionada com a verificada"
 msgid "Accounts"
 msgstr "Comptes"
 
-#: account/forms.py:56 account/forms.py:479
+#: account/forms.py:57 account/forms.py:483
 msgid "You must type the same password each time."
 msgstr "Heu d'escriure la mateixa contrasenya cada cop."
 
-#: account/forms.py:91 account/forms.py:409 account/forms.py:569
-#: account/forms.py:681
+#: account/forms.py:92 account/forms.py:413 account/forms.py:573
+#: account/forms.py:685
 msgid "Password"
 msgstr "Contrasenya"
 
-#: account/forms.py:92
+#: account/forms.py:93
 msgid "Remember Me"
 msgstr "Recordar-me"
 
-#: account/forms.py:102 account/forms.py:269 account/forms.py:495
-#: account/forms.py:587 account/forms.py:698
+#: account/forms.py:103 account/forms.py:270 account/forms.py:499
+#: account/forms.py:591 account/forms.py:702
 msgid "Email address"
 msgstr "Correu electrònic"
 
-#: account/forms.py:106 account/forms.py:307 account/forms.py:492
-#: account/forms.py:582
+#: account/forms.py:107 account/forms.py:308 account/forms.py:496
+#: account/forms.py:586
 msgid "Email"
 msgstr "Correu electrònic"
 
-#: account/forms.py:109 account/forms.py:112 account/forms.py:259
-#: account/forms.py:262
+#: account/forms.py:110 account/forms.py:113 account/forms.py:260
+#: account/forms.py:263
 msgid "Username"
 msgstr "Nom d'usuari"
 
-#: account/forms.py:122
+#: account/forms.py:123
 msgid "Username or email"
 msgstr "Nom d'usuari o correu electrònic"
 
-#: account/forms.py:125
+#: account/forms.py:126
 msgctxt "field label"
 msgid "Login"
 msgstr "Iniciar sessió"
 
-#: account/forms.py:136
+#: account/forms.py:137
 msgid "Forgot your password?"
 msgstr "Heu oblidat la contrasenya?"
 
-#: account/forms.py:298
+#: account/forms.py:299
 msgid "Email (again)"
 msgstr "Correu electrònic (un altre cop)"
 
-#: account/forms.py:302
+#: account/forms.py:303
 msgid "Email address confirmation"
 msgstr "Confirmació de direcció de correu electrònic"
 
-#: account/forms.py:310
+#: account/forms.py:311
 msgid "Email (optional)"
 msgstr "Correu electrònic (opcional)"
 
-#: account/forms.py:369
+#: account/forms.py:370
 msgid "You must type the same email each time."
 msgstr "Heu d'escriure el mateix correu electrònic cada cop."
 
-#: account/forms.py:415 account/forms.py:570
+#: account/forms.py:419 account/forms.py:574
 msgid "Password (again)"
 msgstr "Contrasenya (de nou)"
 
-#: account/forms.py:550
+#: account/forms.py:554
 msgid "Current Password"
 msgstr "Contrasenya actual"
 
-#: account/forms.py:552 account/forms.py:634
+#: account/forms.py:556 account/forms.py:638
 msgid "New Password"
 msgstr "Nova contrasenya"
 
-#: account/forms.py:553 account/forms.py:635
+#: account/forms.py:557 account/forms.py:639
 msgid "New Password (again)"
 msgstr "Nova contrasenya (de nou)"
 
-#: account/forms.py:721 account/forms.py:723 mfa/base/forms.py:15
+#: account/forms.py:725 account/forms.py:727 mfa/base/forms.py:15
 #: mfa/base/forms.py:17 mfa/totp/forms.py:13
 msgid "Code"
 msgstr "Codi"
@@ -300,13 +300,13 @@ msgstr ""
 msgid "Authenticator code"
 msgstr "Codi de l’autenticador"
 
-#: mfa/webauthn/forms.py:16
+#: mfa/webauthn/forms.py:56
 #, fuzzy
 #| msgid "Password"
 msgid "Passwordless"
 msgstr "Contrasenya"
 
-#: mfa/webauthn/forms.py:19
+#: mfa/webauthn/forms.py:59
 msgid ""
 "Enabling passwordless operation allows you to sign in using just this key, "
 "but imposes additional requirements such as biometrics or PIN protection."
@@ -450,7 +450,10 @@ msgstr "Iniciar sessió"
 
 #: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:19
 #: templates/account/confirm_email_verification_code.html:33
-#: templates/mfa/authenticate.html:41
+#: templates/account/confirm_email_verification_code.html:37
+#: templates/account/confirm_login_code.html:32
+#: templates/mfa/authenticate.html:40
+#: templates/mfa/webauthn/signup_form.html:26
 msgid "Cancel"
 msgstr "Cancel·lar"
 
@@ -556,11 +559,6 @@ msgstr "Iniciar sessió"
 #: templates/account/confirm_login_code.html:9
 msgid "Enter Sign-In Code"
 msgstr "Introduïu el codi d'inici de sessió"
-
-#: templates/account/confirm_login_code.html:34
-#: templates/account/request_login_code.html:31
-msgid "Other sign-in options"
-msgstr "Opcions alternatives d'inici de sessió"
 
 #: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
@@ -1057,20 +1055,42 @@ msgstr ""
 msgid "Request Code"
 msgstr "Sol·licitar codi"
 
-#: templates/account/signup.html:4 templates/socialaccount/signup.html:5
+#: templates/account/request_login_code.html:30
+msgid "Other sign-in options"
+msgstr "Opcions alternatives d'inici de sessió"
+
+#: templates/account/signup.html:4 templates/account/signup_by_passkey.html:4
+#: templates/socialaccount/signup.html:5
 msgid "Signup"
 msgstr "Registrar-se"
 
 #: templates/account/signup.html:8 templates/account/signup.html:30
+#: templates/account/signup_by_passkey.html:29
 #: templates/allauth/layouts/base.html:74 templates/socialaccount/signup.html:9
 #: templates/socialaccount/signup.html:25
 msgid "Sign Up"
 msgstr "Registrar-se"
 
-#: templates/account/signup.html:17
+#: templates/account/signup.html:17 templates/account/signup_by_passkey.html:17
 #, python-format
 msgid "Already have an account? Then please %(link)ssign in%(end_link)s."
 msgstr "Ja teniu un compte? Si us plau %(link)sinicieu sessió%(end_link)s."
+
+#: templates/account/signup.html:39
+msgid "Sign up using a passkey"
+msgstr ""
+
+#: templates/account/signup_by_passkey.html:8
+#, fuzzy
+#| msgid "Sign Up"
+msgid "Passkey Sign Up"
+msgstr "Registrar-se"
+
+#: templates/account/signup_by_passkey.html:36
+#, fuzzy
+#| msgid "Other sign-in options"
+msgid "Other options"
+msgstr "Opcions alternatives d'inici de sessió"
 
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:9
@@ -1465,6 +1485,25 @@ msgstr "clau secreta"
 msgid "Save"
 msgstr ""
 
+#: templates/mfa/webauthn/signup_form.html:7
+#, fuzzy
+#| msgid "Current Password"
+msgid "Create Passkey"
+msgstr "Contrasenya actual"
+
+#: templates/mfa/webauthn/signup_form.html:10
+msgid ""
+"You are about to create a passkey for your account. As you can add "
+"additional keys later on, you can use a descriptive name to tell the keys "
+"apart."
+msgstr ""
+
+#: templates/mfa/webauthn/signup_form.html:21
+#, fuzzy
+#| msgid "created"
+msgid "Create"
+msgstr "creat"
+
 #: templates/mfa/webauthn/snippets/scripts.html:2
 msgid "This functionality requires JavaScript."
 msgstr ""
@@ -1615,7 +1654,7 @@ msgstr "Tanca les altres sessions"
 msgid "User Sessions"
 msgstr "Sessions de l’usuari"
 
-#: usersessions/models.py:58
+#: usersessions/models.py:92
 msgid "session key"
 msgstr "clau de sessió"
 

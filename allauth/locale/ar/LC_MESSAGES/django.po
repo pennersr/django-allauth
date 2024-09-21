@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-30 02:40-0500\n"
+"POT-Creation-Date: 2024-09-21 06:42-0500\n"
 "PO-Revision-Date: 2024-07-08 18:09+0000\n"
 "Last-Translator: Amr Essam <amr_esam@ymail.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/allauth/django-"
@@ -88,15 +88,15 @@ msgstr "اسم المستخدم غير مسموح به. الرجاء اختيا�
 msgid "The username and/or password you specified are not correct."
 msgstr "اسم المستخدم و / أو كلمة المرور غير صحيحة."
 
-#: account/adapter.py:736
+#: account/adapter.py:741
 msgid "Use your password"
 msgstr "استخدم كلمة مرورك"
 
-#: account/adapter.py:745
+#: account/adapter.py:750
 msgid "Use authenticator app or code"
 msgstr "استخدم تطبيق المصادقة او الكود"
 
-#: account/adapter.py:752 templates/mfa/authenticate.html:36
+#: account/adapter.py:757 templates/mfa/authenticate.html:36
 #: templates/mfa/webauthn/reauthenticate.html:15
 #, fuzzy
 #| msgid "secret key"
@@ -111,82 +111,82 @@ msgstr "تحديد البريد الإلكتروني المختار بأنه ت�
 msgid "Accounts"
 msgstr "الحسابات"
 
-#: account/forms.py:56 account/forms.py:479
+#: account/forms.py:57 account/forms.py:483
 msgid "You must type the same password each time."
 msgstr "يجب عليك كتابة كلمة المرور نفسها في كل مرة‪."
 
-#: account/forms.py:91 account/forms.py:409 account/forms.py:569
-#: account/forms.py:681
+#: account/forms.py:92 account/forms.py:413 account/forms.py:573
+#: account/forms.py:685
 msgid "Password"
 msgstr "كلمة المرور"
 
-#: account/forms.py:92
+#: account/forms.py:93
 msgid "Remember Me"
 msgstr "تذكرني"
 
-#: account/forms.py:102 account/forms.py:269 account/forms.py:495
-#: account/forms.py:587 account/forms.py:698
+#: account/forms.py:103 account/forms.py:270 account/forms.py:499
+#: account/forms.py:591 account/forms.py:702
 msgid "Email address"
 msgstr "عنوان البريد الالكتروني"
 
-#: account/forms.py:106 account/forms.py:307 account/forms.py:492
-#: account/forms.py:582
+#: account/forms.py:107 account/forms.py:308 account/forms.py:496
+#: account/forms.py:586
 msgid "Email"
 msgstr "البريد الالكتروني"
 
-#: account/forms.py:109 account/forms.py:112 account/forms.py:259
-#: account/forms.py:262
+#: account/forms.py:110 account/forms.py:113 account/forms.py:260
+#: account/forms.py:263
 msgid "Username"
 msgstr "اسم المستخدم"
 
-#: account/forms.py:122
+#: account/forms.py:123
 msgid "Username or email"
 msgstr "اسم المستخدم أو البريد الإلكتروني"
 
-#: account/forms.py:125
+#: account/forms.py:126
 msgctxt "field label"
 msgid "Login"
 msgstr "تسجيل الدخول"
 
-#: account/forms.py:136
+#: account/forms.py:137
 #, fuzzy
 #| msgid "Forgot Password?"
 msgid "Forgot your password?"
 msgstr "هل نسيت كلمة المرور؟"
 
-#: account/forms.py:298
+#: account/forms.py:299
 msgid "Email (again)"
 msgstr "البريد الإلكتروني ‪(مجددا)"
 
-#: account/forms.py:302
+#: account/forms.py:303
 msgid "Email address confirmation"
 msgstr "تأكيد البريد الإلكتروني"
 
-#: account/forms.py:310
+#: account/forms.py:311
 msgid "Email (optional)"
 msgstr "البريد الالكتروني (اختياري)"
 
-#: account/forms.py:369
+#: account/forms.py:370
 msgid "You must type the same email each time."
 msgstr "يجب عليك كتابة البريد الإلكتروني نفسه في كل مرة‪."
 
-#: account/forms.py:415 account/forms.py:570
+#: account/forms.py:419 account/forms.py:574
 msgid "Password (again)"
 msgstr "كلمة المرور (مجددا)"
 
-#: account/forms.py:550
+#: account/forms.py:554
 msgid "Current Password"
 msgstr "كلمة المرور الحالية"
 
-#: account/forms.py:552 account/forms.py:634
+#: account/forms.py:556 account/forms.py:638
 msgid "New Password"
 msgstr "كلمة المرور الجديدة"
 
-#: account/forms.py:553 account/forms.py:635
+#: account/forms.py:557 account/forms.py:639
 msgid "New Password (again)"
 msgstr "كلمة المرور الجديدة (مجددا)"
 
-#: account/forms.py:721 account/forms.py:723 mfa/base/forms.py:15
+#: account/forms.py:725 account/forms.py:727 mfa/base/forms.py:15
 #: mfa/base/forms.py:17 mfa/totp/forms.py:13
 msgid "Code"
 msgstr "شفرة"
@@ -294,13 +294,13 @@ msgstr ""
 msgid "Authenticator code"
 msgstr "كود المصدق"
 
-#: mfa/webauthn/forms.py:16
+#: mfa/webauthn/forms.py:56
 #, fuzzy
 #| msgid "Password"
 msgid "Passwordless"
 msgstr "كلمة المرور"
 
-#: mfa/webauthn/forms.py:19
+#: mfa/webauthn/forms.py:59
 msgid ""
 "Enabling passwordless operation allows you to sign in using just this key, "
 "but imposes additional requirements such as biometrics or PIN protection."
@@ -454,7 +454,10 @@ msgstr "تسجيل الدخول"
 
 #: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:19
 #: templates/account/confirm_email_verification_code.html:33
-#: templates/mfa/authenticate.html:41
+#: templates/account/confirm_email_verification_code.html:37
+#: templates/account/confirm_login_code.html:32
+#: templates/mfa/authenticate.html:40
+#: templates/mfa/webauthn/signup_form.html:26
 msgid "Cancel"
 msgstr "يلغي"
 
@@ -559,11 +562,6 @@ msgstr "تسجيل الدخول"
 #: templates/account/confirm_login_code.html:9
 msgid "Enter Sign-In Code"
 msgstr "أدخل رمز تسجيل الدخول"
-
-#: templates/account/confirm_login_code.html:34
-#: templates/account/request_login_code.html:31
-msgid "Other sign-in options"
-msgstr "خيارات تسجيل الدخول الأخرى"
 
 #: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
@@ -1071,20 +1069,42 @@ msgstr "ستتلقى بريدًا إلكترونيًا يحتوي على رمز 
 msgid "Request Code"
 msgstr "كود الطلب"
 
-#: templates/account/signup.html:4 templates/socialaccount/signup.html:5
+#: templates/account/request_login_code.html:30
+msgid "Other sign-in options"
+msgstr "خيارات تسجيل الدخول الأخرى"
+
+#: templates/account/signup.html:4 templates/account/signup_by_passkey.html:4
+#: templates/socialaccount/signup.html:5
 msgid "Signup"
 msgstr "التسجيل"
 
 #: templates/account/signup.html:8 templates/account/signup.html:30
+#: templates/account/signup_by_passkey.html:29
 #: templates/allauth/layouts/base.html:74 templates/socialaccount/signup.html:9
 #: templates/socialaccount/signup.html:25
 msgid "Sign Up"
 msgstr "الاشتراك"
 
-#: templates/account/signup.html:17
+#: templates/account/signup.html:17 templates/account/signup_by_passkey.html:17
 #, python-format
 msgid "Already have an account? Then please %(link)ssign in%(end_link)s."
 msgstr "لديك حساب؟ %(link)sسجل الدخول%(end_link)s."
+
+#: templates/account/signup.html:39
+msgid "Sign up using a passkey"
+msgstr ""
+
+#: templates/account/signup_by_passkey.html:8
+#, fuzzy
+#| msgid "Sign Up"
+msgid "Passkey Sign Up"
+msgstr "الاشتراك"
+
+#: templates/account/signup_by_passkey.html:36
+#, fuzzy
+#| msgid "Other sign-in options"
+msgid "Other options"
+msgstr "خيارات تسجيل الدخول الأخرى"
 
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:9
@@ -1480,6 +1500,25 @@ msgstr "مفتاح سري"
 msgid "Save"
 msgstr ""
 
+#: templates/mfa/webauthn/signup_form.html:7
+#, fuzzy
+#| msgid "Current Password"
+msgid "Create Passkey"
+msgstr "كلمة المرور الحالية"
+
+#: templates/mfa/webauthn/signup_form.html:10
+msgid ""
+"You are about to create a passkey for your account. As you can add "
+"additional keys later on, you can use a descriptive name to tell the keys "
+"apart."
+msgstr ""
+
+#: templates/mfa/webauthn/signup_form.html:21
+#, fuzzy
+#| msgid "created"
+msgid "Create"
+msgstr "تمّ إنشاؤه"
+
 #: templates/mfa/webauthn/snippets/scripts.html:2
 msgid "This functionality requires JavaScript."
 msgstr ""
@@ -1656,7 +1695,7 @@ msgstr "تسجيل الخروج من الجلسات الأخرى"
 msgid "User Sessions"
 msgstr "جلسات المستخدم"
 
-#: usersessions/models.py:58
+#: usersessions/models.py:92
 msgid "session key"
 msgstr "مفتاح جلسة"
 

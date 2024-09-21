@@ -9,11 +9,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-30 02:40-0500\n"
+"POT-Creation-Date: 2024-09-21 06:42-0500\n"
 "PO-Revision-Date: 2024-09-11 08:09+0000\n"
 "Last-Translator: Napapat Angsutrarux <napapat_a@hotmail.com>\n"
-"Language-Team: Thai <https://hosted.weblate.org/projects/allauth/"
-"django-allauth/th/>\n"
+"Language-Team: Thai <https://hosted.weblate.org/projects/allauth/django-"
+"allauth/th/>\n"
 "Language: th\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -87,15 +87,15 @@ msgstr "ไม่สามารถใช้ชื่อผู้ใช้นี
 msgid "The username and/or password you specified are not correct."
 msgstr "ชื่อผู้ใช้และ/หรือรหัสผ่านที่ระบุมาไม่ถูกต้อง"
 
-#: account/adapter.py:736
+#: account/adapter.py:741
 msgid "Use your password"
 msgstr "ใช้รหัสผ่านของคุณ"
 
-#: account/adapter.py:745
+#: account/adapter.py:750
 msgid "Use authenticator app or code"
 msgstr "ใช้แอปหรือรหัสยืนยันตัวตน"
 
-#: account/adapter.py:752 templates/mfa/authenticate.html:36
+#: account/adapter.py:757 templates/mfa/authenticate.html:36
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use a security key"
 msgstr "ใช้คีย์ความปลอดภัย"
@@ -108,80 +108,80 @@ msgstr "อีเมลหลักของคุณต้องได้กา
 msgid "Accounts"
 msgstr "บัญชี"
 
-#: account/forms.py:56 account/forms.py:479
+#: account/forms.py:57 account/forms.py:483
 msgid "You must type the same password each time."
 msgstr "ต้องพิมพ์รหัสผ่านเดิมซ้ำอีกครั้ง"
 
-#: account/forms.py:91 account/forms.py:409 account/forms.py:569
-#: account/forms.py:681
+#: account/forms.py:92 account/forms.py:413 account/forms.py:573
+#: account/forms.py:685
 msgid "Password"
 msgstr "รหัสผ่าน"
 
-#: account/forms.py:92
+#: account/forms.py:93
 msgid "Remember Me"
 msgstr "จดจำการเข้าใช้"
 
-#: account/forms.py:102 account/forms.py:269 account/forms.py:495
-#: account/forms.py:587 account/forms.py:698
+#: account/forms.py:103 account/forms.py:270 account/forms.py:499
+#: account/forms.py:591 account/forms.py:702
 msgid "Email address"
 msgstr "อีเมล"
 
-#: account/forms.py:106 account/forms.py:307 account/forms.py:492
-#: account/forms.py:582
+#: account/forms.py:107 account/forms.py:308 account/forms.py:496
+#: account/forms.py:586
 msgid "Email"
 msgstr "อีเมล"
 
-#: account/forms.py:109 account/forms.py:112 account/forms.py:259
-#: account/forms.py:262
+#: account/forms.py:110 account/forms.py:113 account/forms.py:260
+#: account/forms.py:263
 msgid "Username"
 msgstr "ชื่อผู้ใช้"
 
-#: account/forms.py:122
+#: account/forms.py:123
 msgid "Username or email"
 msgstr "ชื่อผู้ใช้ หรือ อีเมล"
 
-#: account/forms.py:125
+#: account/forms.py:126
 msgctxt "field label"
 msgid "Login"
 msgstr "ลงชื่อเข้าใช้"
 
-#: account/forms.py:136
+#: account/forms.py:137
 msgid "Forgot your password?"
 msgstr "ลืมรหัสผ่านของคุณ?"
 
-#: account/forms.py:298
+#: account/forms.py:299
 msgid "Email (again)"
 msgstr "อีเมล์ (ไม่บังคับ)"
 
-#: account/forms.py:302
+#: account/forms.py:303
 msgid "Email address confirmation"
 msgstr "การยืนยันที่อยู่อีเมล"
 
-#: account/forms.py:310
+#: account/forms.py:311
 msgid "Email (optional)"
 msgstr "อีเมล (ไม่จำเป็น)"
 
-#: account/forms.py:369
+#: account/forms.py:370
 msgid "You must type the same email each time."
 msgstr "คุณจะต้องพิมพ์รหัสผ่านอีเมลเดียวกันทุกครั้ง"
 
-#: account/forms.py:415 account/forms.py:570
+#: account/forms.py:419 account/forms.py:574
 msgid "Password (again)"
 msgstr "รหัสผ่าน (อีกครั้ง)"
 
-#: account/forms.py:550
+#: account/forms.py:554
 msgid "Current Password"
 msgstr "รหัสผ่านปัจจุบัน"
 
-#: account/forms.py:552 account/forms.py:634
+#: account/forms.py:556 account/forms.py:638
 msgid "New Password"
 msgstr "รหัสผ่านใหม่"
 
-#: account/forms.py:553 account/forms.py:635
+#: account/forms.py:557 account/forms.py:639
 msgid "New Password (again)"
 msgstr "รหัสผ่านใหม่ (อีกครั้ง)"
 
-#: account/forms.py:721 account/forms.py:723 mfa/base/forms.py:15
+#: account/forms.py:725 account/forms.py:727 mfa/base/forms.py:15
 #: mfa/base/forms.py:17 mfa/totp/forms.py:13
 msgid "Code"
 msgstr "รหัส"
@@ -285,11 +285,11 @@ msgstr "WebAuthn"
 msgid "Authenticator code"
 msgstr "รหัสตรวจสอบความถูกต้อง"
 
-#: mfa/webauthn/forms.py:16
+#: mfa/webauthn/forms.py:56
 msgid "Passwordless"
 msgstr "ไร้รหัสผ่าน"
 
-#: mfa/webauthn/forms.py:19
+#: mfa/webauthn/forms.py:59
 msgid ""
 "Enabling passwordless operation allows you to sign in using just this key, "
 "but imposes additional requirements such as biometrics or PIN protection."
@@ -302,8 +302,7 @@ msgstr ""
 msgid ""
 "An account already exists with this email address. Please sign in to that "
 "account first, then connect your %s account."
-msgstr ""
-"มีบัญชีที่ใช้อีเมลนี้แล้ว โปรดลงชื่อเข้าใช้บัญชีนั้นก่อน จากนั้นเชื่อมต่อกับบัญชี %s ของคุณ"
+msgstr "มีบัญชีที่ใช้อีเมลนี้แล้ว โปรดลงชื่อเข้าใช้บัญชีนั้นก่อน จากนั้นเชื่อมต่อกับบัญชี %s ของคุณ"
 
 #: socialaccount/adapter.py:40
 msgid "Invalid token."
@@ -434,7 +433,10 @@ msgstr "ลงชื่อเข้าใช้"
 
 #: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:19
 #: templates/account/confirm_email_verification_code.html:33
-#: templates/mfa/authenticate.html:41
+#: templates/account/confirm_email_verification_code.html:37
+#: templates/account/confirm_login_code.html:32
+#: templates/mfa/authenticate.html:40
+#: templates/mfa/webauthn/signup_form.html:26
 msgid "Cancel"
 msgstr "ยกเลิก"
 
@@ -507,8 +509,7 @@ msgstr "กรอกรหัสยืนยันอีเมล"
 msgid ""
 "We’ve sent a code to %(email_link)s. The code expires shortly, so please "
 "enter it soon."
-msgstr ""
-"เราส่งรหัสไปที่ %(email_link)s รหัสจะหมดอายุในไม่ช้า โปรดกรอกรหัสโดยเร็ว"
+msgstr "เราส่งรหัสไปที่ %(email_link)s รหัสจะหมดอายุในไม่ช้า โปรดกรอกรหัสโดยเร็ว"
 
 #: templates/account/confirm_email_verification_code.html:27
 #: templates/account/email_confirm.html:24
@@ -532,11 +533,6 @@ msgstr "ลงชื่อเข้าใช้"
 #: templates/account/confirm_login_code.html:9
 msgid "Enter Sign-In Code"
 msgstr "ป้อนรหัสเข้าสู่ระบบ"
-
-#: templates/account/confirm_login_code.html:34
-#: templates/account/request_login_code.html:31
-msgid "Other sign-in options"
-msgstr "ตัวเลือกการลงชื่อเข้าใช้อื่นๆ"
 
 #: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
@@ -995,20 +991,44 @@ msgstr "คุณจะได้รับอีเมลที่มีรหั
 msgid "Request Code"
 msgstr "ขอรหัส"
 
-#: templates/account/signup.html:4 templates/socialaccount/signup.html:5
+#: templates/account/request_login_code.html:30
+msgid "Other sign-in options"
+msgstr "ตัวเลือกการลงชื่อเข้าใช้อื่นๆ"
+
+#: templates/account/signup.html:4 templates/account/signup_by_passkey.html:4
+#: templates/socialaccount/signup.html:5
 msgid "Signup"
 msgstr "ลงทะเบียน"
 
 #: templates/account/signup.html:8 templates/account/signup.html:30
+#: templates/account/signup_by_passkey.html:29
 #: templates/allauth/layouts/base.html:74 templates/socialaccount/signup.html:9
 #: templates/socialaccount/signup.html:25
 msgid "Sign Up"
 msgstr "ลงทะเบียน"
 
-#: templates/account/signup.html:17
+#: templates/account/signup.html:17 templates/account/signup_by_passkey.html:17
 #, python-format
 msgid "Already have an account? Then please %(link)ssign in%(end_link)s."
 msgstr "มีบัญชีอยู่แล้ว? กรุณา%(link)sลงชื่อเข้าใช้%(end_link)s"
+
+#: templates/account/signup.html:39
+#, fuzzy
+#| msgid "Sign in with a passkey"
+msgid "Sign up using a passkey"
+msgstr "ลงชื่อเข้าใช้ด้วยรหัสผ่าน"
+
+#: templates/account/signup_by_passkey.html:8
+#, fuzzy
+#| msgid "Sign Up"
+msgid "Passkey Sign Up"
+msgstr "ลงทะเบียน"
+
+#: templates/account/signup_by_passkey.html:36
+#, fuzzy
+#| msgid "Other sign-in options"
+msgid "Other options"
+msgstr "ตัวเลือกการลงชื่อเข้าใช้อื่นๆ"
 
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:9
@@ -1365,6 +1385,25 @@ msgstr "แก้ไขรหัสความปลอดภัย"
 msgid "Save"
 msgstr "บันทึก"
 
+#: templates/mfa/webauthn/signup_form.html:7
+#, fuzzy
+#| msgid "Passkey"
+msgid "Create Passkey"
+msgstr "กุญแจผี"
+
+#: templates/mfa/webauthn/signup_form.html:10
+msgid ""
+"You are about to create a passkey for your account. As you can add "
+"additional keys later on, you can use a descriptive name to tell the keys "
+"apart."
+msgstr ""
+
+#: templates/mfa/webauthn/signup_form.html:21
+#, fuzzy
+#| msgid "created"
+msgid "Create"
+msgstr "สร้างแล้ว"
+
 #: templates/mfa/webauthn/snippets/scripts.html:2
 msgid "This functionality requires JavaScript."
 msgstr "ฟังก์ชันนี้ต้องใช้ JavaScript"
@@ -1507,7 +1546,7 @@ msgstr "ออกจากระบบเซสชั่นอื่น ๆ"
 msgid "User Sessions"
 msgstr "เซสชันผู้ใช้"
 
-#: usersessions/models.py:58
+#: usersessions/models.py:92
 msgid "session key"
 msgstr "คีย์เซสชั่น"
 

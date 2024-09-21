@@ -25,10 +25,8 @@
             {% endelement %}
         {% endslot %}
     {% endelement %}
-    {% element h2 %}
-        {% url 'account_login' as login_url %}
-        {% element button href=login_url tags="link" %}
-            {% translate "Other sign-in options" %}
-        {% endelement %}
+    {% url 'account_login' as login_url %}
+    {% element button href=login_url tags="link" %}
+        {% translate "Other sign-in options" %}
     {% endelement %}
 {% endblock content %}

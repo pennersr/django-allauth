@@ -28,10 +28,8 @@
             {% endelement %}
         {% endslot %}
     {% endelement %}
-    {% element h2 %}
-        {% element button type="submit" form="logout-from-stage" tags="link" %}
-            {% translate "Cancel" %}
-        {% endelement %}
+    {% element button type="submit" form="logout-from-stage" tags="link" %}
+        {% translate "Cancel" %}
     {% endelement %}
     <form id="logout-from-stage"
           method="post"

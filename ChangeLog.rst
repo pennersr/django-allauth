@@ -7,6 +7,9 @@
 - The ``usersessions`` app now emits signals when either the IP address or user
   agent for a session changes.
 
+- Added support for signup using a passkey. See
+  ``settings.MFA_PASSKEY_SIGNUP_EMANED``.
+
 
 Backwards incompatible changes
 ------------------------------

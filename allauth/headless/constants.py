@@ -20,3 +20,4 @@ class Flow(str, Enum):
     MFA_REAUTHENTICATE = "mfa_reauthenticate"
     MFA_AUTHENTICATE = "mfa_authenticate"  # NOTE: Equal to `allauth.mfa.stages.AuthenticationStage.key`
     MFA_LOGIN_WEBAUTHN = "mfa_login_webauthn"
+    MFA_SIGNUP_WEBAUTHN = "mfa_signup_webauthn"

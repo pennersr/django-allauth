@@ -3,7 +3,7 @@ from allauth.core.internal.httpkit import headed_redirect_response
 
 
 class PasskeySignupStage(LoginStage):
-    key = "mfa_webauthn_signup"
+    key = "mfa_signup_webauthn"
     urlname = "mfa_signup_webauthn"
 
     def handle(self):

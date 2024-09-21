@@ -1,5 +1,7 @@
 from unittest.mock import ANY
 
+from django.contrib.auth import get_user_model
+
 import pytest
 
 from allauth.headless.constants import Flow
@@ -188,3 +190,29 @@ def test_2fa_login(
     data = resp.json()
     assert resp.status_code == 200
     assert data["data"]["user"]["id"] == passkey.user_id
+
+
+def test_passkey_signup(client, db, webauthn_registration_bypass, headless_reverse):
+    resp = client.post(
+        headless_reverse("headless:mfa:signup_webauthn"),
+        data={"email": "pass@key.org", "username": "passkey"},
+        content_type="application/json",
+    )
+    assert resp.status_code == 401
+    flow = [flow for flow in resp.json()["data"]["flows"] if flow.get("is_pending")][0]
+    assert flow["id"] == Flow.MFA_SIGNUP_WEBAUTHN.value
+    resp = client.get(headless_reverse("headless:mfa:signup_webauthn"))
+    data = resp.json()
+    assert "creation_options" in data["data"]
+
+    user = get_user_model().objects.get(email="pass@key.org")
+    with webauthn_registration_bypass(user, True) as credential:
+        resp = client.put(
+            headless_reverse("headless:mfa:signup_webauthn"),
+            data={"name": "Some key", "credential": credential},
+            content_type="application/json",
+        )
+    data = resp.json()
+    assert data["meta"]["is_authenticated"]
+    authenticator = Authenticator.objects.get(user=user)
+    assert authenticator.wrap().name == "Some key"

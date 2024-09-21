@@ -3,6 +3,7 @@ from functools import wraps
 from django.contrib.auth import decorators
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.views.decorators.cache import never_cache
 
 from allauth.account import app_settings
 from allauth.account.internal.stagekit import (
@@ -24,6 +25,7 @@ login_not_required = getattr(
 
 def login_stage_required(stage: str, redirect_urlname: str):
     def decorator(view_func):
+        @never_cache
         @login_not_required
         @wraps(view_func)
         def _wrapper_view(request, *args, **kwargs):
@@ -42,6 +44,7 @@ def login_stage_required(stage: str, redirect_urlname: str):
 
 def unauthenticated_only(function=None):
     def decorator(view_func):
+        @never_cache
         @login_not_required
         @wraps(view_func)
         def _wrapper_view(request, *args, **kwargs):

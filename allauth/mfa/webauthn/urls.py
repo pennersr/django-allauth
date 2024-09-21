@@ -9,7 +9,6 @@ from allauth.mfa.webauthn import views
 urlpatterns: List[Union[URLPattern, URLResolver]] = [
     path("", views.list_webauthn, name="mfa_list_webauthn"),
     path("add/", views.add_webauthn, name="mfa_add_webauthn"),
-    path("signup/", views.signup_webauthn, name="mfa_signup_webauthn"),
     path(
         "reauthenticate/",
         views.reauthenticate_webauthn,
@@ -36,3 +35,7 @@ urlpatterns: List[Union[URLPattern, URLResolver]] = [
 
 if app_settings.PASSKEY_LOGIN_ENABLED:
     urlpatterns.append(path("login/", views.login_webauthn, name="mfa_login_webauthn"))
+if app_settings.PASSKEY_SIGNUP_ENABLED:
+    urlpatterns.append(
+        path("signup/", views.signup_webauthn, name="mfa_signup_webauthn")
+    )

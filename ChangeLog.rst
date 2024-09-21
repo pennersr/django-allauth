@@ -8,7 +8,7 @@
   agent for a session changes.
 
 - Added support for signup using a passkey. See
-  ``settings.MFA_PASSKEY_SIGNUP_EMANED``.
+  ``settings.MFA_PASSKEY_SIGNUP_ENABLED``.
 
 
 Backwards incompatible changes

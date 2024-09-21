@@ -166,7 +166,7 @@ def complete_signup(request, user, email_verification, success_url, signal_kwarg
         request,
         user=user,
         email_verification=email_verification,
-        success_url=success_url,
+        redirect_url=success_url,
         signal_kwargs=signal_kwargs,
     )
 

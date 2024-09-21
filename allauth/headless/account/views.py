@@ -93,7 +93,7 @@ class LoginView(APIView):
 
 @method_decorator(rate_limit(action="signup"), name="handle")
 class SignupView(APIView):
-    input_class = SignupInput
+    input_class = {"POST": SignupInput}
     by_passkey = False
 
     def post(self, request, *args, **kwargs):

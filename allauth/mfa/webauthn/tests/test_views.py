@@ -1,6 +1,7 @@
 from unittest.mock import ANY
 
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.urls import reverse
 
 import pytest
@@ -152,3 +153,19 @@ def test_add_with_unverified_email(
                 reverse("mfa_add_webauthn"), data={"credential": credential}
             )
         assert resp["location"] == reverse("mfa_index")
+
+
+def test_passkey_signup(client, db, webauthn_registration_bypass):
+    resp = client.post(
+        reverse("account_signup_by_passkey"),
+        data={"email": "pass@key.org", "username": "passkey"},
+    )
+    assert resp["location"] == reverse("mfa_signup_webauthn")
+    resp = client.post(resp["location"])
+    assert resp.status_code == 200
+    user = get_user_model().objects.get(email="pass@key.org")
+    with webauthn_registration_bypass(user, True) as credential:
+        resp = client.post(
+            reverse("mfa_signup_webauthn"), data={"credential": credential}
+        )
+    assert resp["location"] == settings.LOGIN_REDIRECT_URL

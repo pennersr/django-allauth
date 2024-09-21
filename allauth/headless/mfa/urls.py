@@ -68,7 +68,6 @@ def build_urlpatterns(client):
                 )
             )
         if mfa_settings.PASSKEY_SIGNUP_ENABLED:
-            # FIXME: document in opepapi
             auth_patterns.append(
                 path(
                     "webauthn/signup",

@@ -35,11 +35,6 @@ export default function ConfirmLoginCode () {
     setResponse((r) => { return { ...r, fetching: false } })
   }
 
-  if (response.content?.status === 200) {
-    alert('OK')
-    // FIXME
-  }
-
   if (response.content?.status === 409 || authInfo.pendingFlow?.id !== Flows.MFA_WEBAUTHN_SIGNUP) {
     return <Navigate to='/account/signup/passkey' />
   }

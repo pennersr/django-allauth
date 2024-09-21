@@ -25,7 +25,7 @@ Overriding the Built-In Templates
 
 The ``allauth`` app includes all templates, and can be found in the
 `allauth/templates
-<https://github.com/pennersr/django-allauth/tree/main/allauth/templates>`__
+<https://codeberg.org/allauth/django-allauth/src/branch/main/allauth/templates>`__
 directory. When ``allauth`` is part of your ``INSTALLED_APPS``, and
 ``"APP_DIRS": True`` is configured, Django will be able to find its templates.
 As ``DIRS`` is searched before ``APP_DIRS``, overriding the templates involves
@@ -190,6 +190,6 @@ The source repository contains a Bootstrap styled example project, which
 provides a good example of how all of the above can be put together to provide
 styling without altering any of the content templates.  Please take a look at
 the `templates of the example project
-<https://github.com/pennersr/django-allauth/tree/main/examples/regular-django/example/templates>`__.
+<https://codeberg.org/allauth/django-allauth/src/branch/main/examples/regular-django/example/templates>`__.
 You can see those templates live in the `running demo project
 <https://django.demo.allauth.org>`__.

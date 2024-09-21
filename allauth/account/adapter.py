@@ -101,7 +101,10 @@ class DefaultAccountAdapter(BaseAdapter):
             ret = verified_email.lower() == email.lower()
         return ret
 
-    def can_delete_email(self, email_address):
+    def can_delete_email(self, email_address) -> bool:
+        """
+        Returns whether or not the given email address can be deleted.
+        """
         from allauth.account.models import EmailAddress
 
         has_other = (
@@ -131,7 +134,10 @@ class DefaultAccountAdapter(BaseAdapter):
         else:
             return True
 
-    def format_email_subject(self, subject):
+    def format_email_subject(self, subject) -> str:
+        """
+        Formats the given email subject.
+        """
         prefix = app_settings.EMAIL_SUBJECT_PREFIX
         if prefix is None:
             site = get_current_site(context.request)
@@ -523,7 +529,10 @@ class DefaultAccountAdapter(BaseAdapter):
 
         return email_verification.verify_email(request, email_address)
 
-    def set_password(self, user, password):
+    def set_password(self, user, password) -> None:
+        """
+        Sets the password for the user.
+        """
         user.set_password(password)
         user.save()
 
@@ -779,9 +788,15 @@ class DefaultAccountAdapter(BaseAdapter):
         self.send_mail(template_prefix, email, ctx)
 
     def generate_login_code(self) -> str:
+        """
+        Generates a new login code.
+        """
         return self._generate_code()
 
     def generate_email_verification_code(self) -> str:
+        """
+        Generates a new email verification code.
+        """
         return self._generate_code()
 
     def _generate_code(self):

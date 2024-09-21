@@ -176,6 +176,7 @@ be initiated by means of these flows:
 - Login or signup by handing over a third-party provider retrieved elsewhere (`provider_token`).
 - Login using a special code (`login_by_code`).
 - Login using a passkey (`mfa_login_webauthn`).
+- Signup using a passkey (`mfa_signup_webauthn`).
 
 Depending on the state of the account, and the configuration of django-allauth, the flows above
 can either lead to becoming directly authenticated, or, to followup flows:

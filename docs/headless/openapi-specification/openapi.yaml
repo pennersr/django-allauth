@@ -53,7 +53,8 @@ x-tagGroups:
       - "Authentication: Providers"
       - "Authentication: 2FA"
       - "Authentication: Login By Code"
-      - "Authentication: WebAuthn"
+      - "Authentication: WebAuthn: Login"
+      - "Authentication: WebAuthn: Signup"
   - name: Account
     tags:
       - "Account: Email"
@@ -524,7 +525,7 @@ paths:
   /_allauth/{client}/v1/auth/webauthn/authenticate:
     get:
       tags:
-        - "Authentication: WebAuthn"
+        - "Authentication: WebAuthn: Login"
       summary: Get WebAuthn credential request options for 2FA
       parameters:
         - $ref: "#/components/parameters/Client"
@@ -537,7 +538,7 @@ paths:
           $ref: "#/components/responses/WebAuthnRequestOptionsResponse"
     post:
       tags:
-        - "Authentication: WebAuthn"
+        - "Authentication: WebAuthn: Login"
       summary: Perform 2FA using WebAuthn
       parameters:
         - $ref: "#/components/parameters/Client"
@@ -558,7 +559,7 @@ paths:
   /_allauth/{client}/v1/auth/webauthn/reauthenticate:
     get:
       tags:
-        - "Authentication: WebAuthn"
+        - "Authentication: WebAuthn: Login"
       summary: Get WebAuthn credential request options for reauthentication
       parameters:
         - $ref: "#/components/parameters/Client"
@@ -571,7 +572,7 @@ paths:
           $ref: "#/components/responses/WebAuthnRequestOptionsResponse"
     post:
       tags:
-        - "Authentication: WebAuthn"
+        - "Authentication: WebAuthn: Login"
       summary: Reauthenticate using WebAuthn
       parameters:
         - $ref: "#/components/parameters/Client"
@@ -592,7 +593,7 @@ paths:
   /_allauth/{client}/v1/auth/webauthn/login:
     get:
       tags:
-        - "Authentication: WebAuthn"
+        - "Authentication: WebAuthn: Login"
       summary: Get WebAuthn credential request options for login
       parameters:
         - $ref: "#/components/parameters/Client"
@@ -605,7 +606,7 @@ paths:
           $ref: "#/components/responses/WebAuthnRequestOptionsResponse"
     post:
       tags:
-        - "Authentication: WebAuthn"
+        - "Authentication: WebAuthn: Login"
       summary: Login using WebAuthn
       parameters:
         - $ref: "#/components/parameters/Client"
@@ -636,6 +637,113 @@ paths:
               examples:
                 pending_email:
                   $ref: "#/components/examples/UnauthenticatedPendingEmailVerification"
+  /_allauth/{client}/v1/auth/webauthn/signup:
+    post:
+      tags:
+        - "Authentication: WebAuthn: Signup"
+      summary: Initiate the passkey signup flow
+      parameters:
+        - $ref: "#/components/parameters/Client"
+        - $ref: "#/components/parameters/SessionToken"
+      description: |
+        You initiate the passkey signup flow by inputting (`POST`) the required properties (e.g. email)
+        similar to the regular account signup, except that the `password` is to be left out.
+        The user will then be required to verify the email address, after which WebAuthn credential
+        creation options can be retrieved (`GET`) and used to actualy complete (`PUT`) the flow.
+      requestBody:
+        $ref: "#/components/requestBodies/PasskeySignup"
+      responses:
+        "400":
+          description: |
+            An input error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                invalid_email:
+                  $ref: "#/components/examples/InvalidEmail"
+        "401":
+          description: |
+            Not authenticated, email verification pending.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthenticationResponse"
+              examples:
+                pending_email:
+                  $ref: "#/components/examples/UnauthenticatedPendingEmailVerification"
+        "403":
+          description: |
+            Forbidden. For example, when signup is closed.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ForbiddenResponse"
+        "409":
+          description: |
+            Conflict. For example, when signing up while user is logged in.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConflictResponse"
+    get:
+      tags:
+        - "Authentication: WebAuthn: Signup"
+      summary: Get passkey credential request options
+      parameters:
+        - $ref: "#/components/parameters/Client"
+        - $ref: "#/components/parameters/SessionToken"
+      description: |
+        Returns the WebAuthn credential request options, that can be
+        processed using `parseRequestOptionsFromJSON()` on the frontend.
+      responses:
+        "200":
+          $ref: "#/components/responses/WebAuthnRequestOptionsResponse"
+        "409":
+          description: |
+            Conflict. For example, when the passkey signup flow is not pending.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConflictResponse"
+    put:
+      tags:
+        - "Authentication: WebAuthn: Signup"
+      summary: Complete the passkey signup flow
+      parameters:
+        - $ref: "#/components/parameters/Client"
+        - $ref: "#/components/parameters/SessionToken"
+      description: |
+        Complete the passkey signup flow by handing over the WebAuthn credential.
+      requestBody:
+        $ref: "#/components/requestBodies/AddWebAuthnAuthenticator"
+      responses:
+        "200":
+          $ref: "#/components/responses/Authenticated"
+        "400":
+          description: An input error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: |
+            Not authenticated.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthenticationResponse"
+              examples:
+                pending_email:
+                  $ref: "#/components/examples/UnauthenticatedPendingEmailVerification"
+        "409":
+          description: |
+            Conflict. For example, when the passkey signup flow is not pending.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConflictResponse"
   ######################################################################
   # Authentication: Login by Code
   ######################################################################
@@ -1503,6 +1611,13 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/EndSessions"
+    PasskeySignup:
+      description: Signup using a passkey
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/PasskeySignup"
     ProviderAccount:
       content:
         application/json:
@@ -2064,6 +2179,15 @@ components:
       properties:
         email:
           $ref: "#/components/schemas/Email"
+      required:
+        - email
+    PasskeySignup:
+      type: object
+      properties:
+        email:
+          $ref: "#/components/schemas/Email"
+        username:
+          $ref: "#/components/schemas/Username"
       required:
         - email
     Signup:

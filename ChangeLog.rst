@@ -1,4 +1,4 @@
-64.3.0 (unreleased)
+65.0.0 (unreleased)
 *******************
 
 - Added transparent support for Django's ``LoginRequiredMiddleware`` (new since

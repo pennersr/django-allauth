@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-30 02:40-0500\n"
-"PO-Revision-Date: 2024-09-06 23:09+0000\n"
+"PO-Revision-Date: 2024-09-17 18:28+0000\n"
 "Last-Translator: SATOH Fumiyasu <fumiyas@osstech.co.jp>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/allauth/"
 "django-allauth/ja/>\n"
@@ -795,8 +795,7 @@ msgstr ""
 
 #: templates/account/email/unknown_account_message.txt:8
 msgid "If it was you, you can sign up for an account using the link below."
-msgstr ""
-"もしそれがあなたなら、以下のリンクからアカウントを登録することができます。"
+msgstr "もしあなたで間違いないなら、以下のリンクからアカウントを登録できます。"
 
 #: templates/account/email/unknown_account_subject.txt:3
 msgid "Unknown Account"
@@ -1413,7 +1412,7 @@ msgstr "外部アカウントでのログイン時ににエラーが発生しま
 msgid ""
 "You can sign in to your account using any of the following third-party "
 "accounts:"
-msgstr "以下の外部アカウントを使ってログインすることができます:"
+msgstr "以下の外部アカウントを使ってログインできます:"
 
 #: templates/socialaccount/connections.html:46
 msgid "You currently have no third-party accounts connected to this account."

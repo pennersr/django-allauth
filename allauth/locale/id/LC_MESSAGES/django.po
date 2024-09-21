@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-30 02:40-0500\n"
-"PO-Revision-Date: 2024-09-06 23:09+0000\n"
+"PO-Revision-Date: 2024-09-13 16:21+0000\n"
 "Last-Translator: Reza Almanda <rezaalmanda27@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/allauth/"
 "django-allauth/id/>\n"
@@ -280,45 +280,41 @@ msgstr "Kode pemulihan"
 
 #: mfa/models.py:25
 msgid "TOTP Authenticator"
-msgstr ""
+msgstr "Otentikator TOTP"
 
 #: mfa/models.py:26
 msgid "WebAuthn"
-msgstr ""
+msgstr "WebAuthn"
 
 #: mfa/totp/forms.py:11
 msgid "Authenticator code"
-msgstr ""
+msgstr "Kode autentikator"
 
 #: mfa/webauthn/forms.py:16
-#, fuzzy
-#| msgid "Password"
 msgid "Passwordless"
-msgstr "Kata sandi"
+msgstr "Tanpa kata sandi"
 
 #: mfa/webauthn/forms.py:19
 msgid ""
 "Enabling passwordless operation allows you to sign in using just this key, "
 "but imposes additional requirements such as biometrics or PIN protection."
 msgstr ""
+"Mengaktifkan operasi tanpa kata sandi memungkinkan Anda untuk masuk hanya "
+"dengan menggunakan kunci ini, tetapi memberlakukan persyaratan tambahan "
+"seperti perlindungan biometrik atau PIN."
 
 #: socialaccount/adapter.py:36
-#, fuzzy, python-format
-#| msgid ""
-#| "An account already exists with this e-mail address. Please sign in to "
-#| "that account first, then connect your %s account."
+#, python-format
 msgid ""
 "An account already exists with this email address. Please sign in to that "
 "account first, then connect your %s account."
 msgstr ""
-"Sudah ada akun yang menggunakan alamat e-mail ini. Silahkan masuk ke akun "
-"itu terlebih dahulu, lalu sambungkan akun %s Anda."
+"Akun sudah ada dengan alamat email ini. Silakan masuk ke akun tersebut "
+"terlebih dahulu, lalu hubungkan akun %s Anda."
 
 #: socialaccount/adapter.py:40
-#, fuzzy
-#| msgid "Bad Token"
 msgid "Invalid token."
-msgstr "Token Salah"
+msgstr "Token Salah."
 
 #: socialaccount/adapter.py:41
 msgid "Your account has no password set up."
@@ -329,21 +325,13 @@ msgid "Your account has no verified email address."
 msgstr "Akun Anda tidak memiliki alamat e-mail yang terverifikasi."
 
 #: socialaccount/adapter.py:44
-#, fuzzy
-#| msgid ""
-#| "You can sign in to your account using any of the following third party "
-#| "accounts:"
 msgid "You cannot disconnect your last remaining third-party account."
-msgstr ""
-"Anda dapat masuk ke akun Anda menggunakan salah satu dari akun jejaring "
-"sosial berikut:"
+msgstr "Anda tidak dapat memutuskan akun pihak ketiga Anda yang terakhir."
 
 #: socialaccount/adapter.py:47
 #: templates/socialaccount/messages/account_connected_other.txt:2
-#, fuzzy
-#| msgid "The social account is already connected to a different account."
 msgid "The third-party account is already connected to a different account."
-msgstr "Akun sosial sudah terhubung ke akun lain."
+msgstr "Akun pihak ketiga sudah terhubung ke akun yang berbeda."
 
 #: socialaccount/apps.py:9
 msgid "Social Accounts"
@@ -354,10 +342,8 @@ msgid "provider"
 msgstr "pemberi"
 
 #: socialaccount/models.py:52
-#, fuzzy
-#| msgid "provider"
 msgid "provider ID"
-msgstr "pemberi"
+msgstr "ID penyedia"
 
 #: socialaccount/models.py:56
 msgid "name"
@@ -448,9 +434,6 @@ msgid "Invalid profile data"
 msgstr "Data profil tidak valid"
 
 #: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:16
-#, fuzzy
-#| msgctxt "field label"
-#| msgid "Login"
 msgid "Login"
 msgstr "Masuk"
 

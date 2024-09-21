@@ -7,6 +7,7 @@ from django.urls import reverse
 import pytest
 from pytest_django.asserts import assertTemplateUsed
 
+from allauth.account.authentication import AUTHENTICATION_METHODS_SESSION_KEY
 from allauth.mfa.models import Authenticator
 
 
@@ -20,6 +21,15 @@ def test_passkey_login(client, passkey, webauthn_authentication_bypass):
             reverse("mfa_login_webauthn"), data={"credential": credential}
         )
     assert resp["location"] == settings.LOGIN_REDIRECT_URL
+    assert client.session[AUTHENTICATION_METHODS_SESSION_KEY] == [
+        {
+            "at": ANY,
+            "id": ANY,
+            "method": "mfa",
+            "passwordless": True,
+            "type": "webauthn",
+        }
+    ]
 
 
 def test_reauthenticate(
@@ -169,3 +179,24 @@ def test_passkey_signup(client, db, webauthn_registration_bypass):
             reverse("mfa_signup_webauthn"), data={"credential": credential}
         )
     assert resp["location"] == settings.LOGIN_REDIRECT_URL
+
+
+def test_webauthn_login(
+    client, user_with_passkey, passkey, user_password, webauthn_authentication_bypass
+):
+    resp = client.post(
+        reverse("account_login"),
+        {"login": user_with_passkey.username, "password": user_password},
+    )
+    assert resp.status_code == 302
+    assert resp["location"] == reverse("mfa_authenticate")
+    with webauthn_authentication_bypass(passkey) as credential:
+        resp = client.get(reverse("mfa_authenticate"))
+        assert resp.status_code == 200
+        resp = client.post(reverse("mfa_authenticate"), {"credential": credential})
+    assert resp.status_code == 302
+    assert resp["location"] == settings.LOGIN_REDIRECT_URL
+    assert client.session[AUTHENTICATION_METHODS_SESSION_KEY] == [
+        {"method": "password", "at": ANY, "username": user_with_passkey.username},
+        {"method": "mfa", "at": ANY, "id": ANY, "type": Authenticator.Type.WEBAUTHN},
+    ]

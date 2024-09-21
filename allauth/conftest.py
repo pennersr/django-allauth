@@ -281,7 +281,11 @@ def passkey(user):
     authenticator = Authenticator.objects.create(
         user=user,
         type=Authenticator.Type.WEBAUTHN,
-        data={"name": "Test passkey", "passwordless": True},
+        data={
+            "name": "Test passkey",
+            "passwordless": True,
+            "credential": {},
+        },
     )
     return authenticator
 

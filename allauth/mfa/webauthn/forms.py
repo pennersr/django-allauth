@@ -4,7 +4,10 @@ from django.utils.translation import gettext_lazy as _
 from allauth.core import context
 from allauth.mfa import app_settings
 from allauth.mfa.adapter import get_adapter
-from allauth.mfa.base.internal.flows import check_rate_limit
+from allauth.mfa.base.internal.flows import (
+    check_rate_limit,
+    post_authentication,
+)
 from allauth.mfa.models import Authenticator
 from allauth.mfa.webauthn.internal import auth, flows
 
@@ -67,6 +70,8 @@ class SignupWebAuthnForm(_BaseAddWebAuthnForm):
 
 class AuthenticateWebAuthnForm(forms.Form):
     credential = forms.JSONField(required=True, widget=forms.HiddenInput)
+    reauthenticated = False
+    passwordless = False
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop("user")
@@ -88,16 +93,25 @@ class AuthenticateWebAuthnForm(forms.Form):
 
     def save(self):
         authenticator = self.cleaned_data["credential"]
-        authenticator.record_usage()
+        post_authentication(
+            context.request,
+            authenticator,
+            reauthenticated=self.reauthenticated,
+            passwordless=self.passwordless,
+        )
 
 
 class LoginWebAuthnForm(AuthenticateWebAuthnForm):
+    reauthenticated = False
+    passwordless = True
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, user=None, **kwargs)
 
 
 class ReauthenticateWebAuthnForm(AuthenticateWebAuthnForm):
-    pass
+    reauthenticated = True
+    passwordless = False
 
 
 class EditWebAuthnForm(forms.Form):

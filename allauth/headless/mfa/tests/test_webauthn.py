@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 
 import pytest
 
+from allauth.account.authentication import AUTHENTICATION_METHODS_SESSION_KEY
 from allauth.headless.constants import Flow
 from allauth.mfa.models import Authenticator
 
@@ -190,6 +191,10 @@ def test_2fa_login(
     data = resp.json()
     assert resp.status_code == 200
     assert data["data"]["user"]["id"] == passkey.user_id
+    assert client.headless_session()[AUTHENTICATION_METHODS_SESSION_KEY] == [
+        {"method": "password", "at": ANY, "username": passkey.user.username},
+        {"method": "mfa", "at": ANY, "id": ANY, "type": Authenticator.Type.WEBAUTHN},
+    ]
 
 
 def test_passkey_signup(client, db, webauthn_registration_bypass, headless_reverse):

@@ -37,6 +37,11 @@ class AppClient(Client):
         self.session_token = self.session.session_key
         return ret
 
+    def headless_session(self):
+        from allauth.headless.internal import sessionkit
+
+        return sessionkit.session_store(self.session_token)
+
 
 @pytest.fixture
 def app_client():
@@ -46,7 +51,9 @@ def app_client():
 @pytest.fixture
 def client(headless_client):
     if headless_client == "browser":
-        return Client()
+        client = Client()
+        client.headless_session = lambda: client.session
+        return client
     return AppClient()
 
 

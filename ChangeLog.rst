@@ -1,5 +1,8 @@
-65.0.0 (unreleased)
+65.0.0 (2024-09-22)
 *******************
+
+Note worthy changes
+-------------------
 
 - Added transparent support for Django's ``LoginRequiredMiddleware`` (new since
   Django 5.1).
@@ -22,7 +25,6 @@ Backwards incompatible changes
   merely linking back to e.g. the login page. The builtin templates handle this
   change transparently, but if you copied any of the templates involving the
   login stages you will have to adjust the cancel link into a logout POST.
-
 
 
 64.2.1 (2024-09-05)

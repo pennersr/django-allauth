@@ -1,11 +1,18 @@
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.core.exceptions import ImproperlyConfigured
 from django.http import HttpResponsePermanentRedirect, HttpResponseRedirect
+from django.utils.decorators import method_decorator
 from django.utils.html import format_html
+from django.views.decorators.cache import never_cache
 
 from allauth.account import app_settings
 from allauth.account.adapter import get_adapter
 from allauth.account.internal import flows
+from allauth.account.internal.decorators import login_not_required
+from allauth.account.internal.stagekit import (
+    get_pending_stage,
+    redirect_to_pending_stage,
+)
 from allauth.account.utils import (
     get_login_redirect_url,
     get_next_redirect_url,
@@ -31,13 +38,19 @@ def _ajax_response(request, response, form=None, data=None):
 
 
 class RedirectAuthenticatedUserMixin:
+    @method_decorator(login_not_required)
+    @method_decorator(never_cache)
     def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated and app_settings.AUTHENTICATED_LOGIN_REDIRECTS:
-            redirect_to = self.get_authenticated_redirect_url()
-            response = HttpResponseRedirect(redirect_to)
-            return _ajax_response(request, response)
-        else:
-            response = super().dispatch(request, *args, **kwargs)
+        if app_settings.AUTHENTICATED_LOGIN_REDIRECTS:
+            if request.user.is_authenticated:
+                redirect_to = self.get_authenticated_redirect_url()
+                response = HttpResponseRedirect(redirect_to)
+                return _ajax_response(request, response)
+            else:
+                stage = get_pending_stage(request)
+                if stage and stage.is_resumable(request):
+                    return redirect_to_pending_stage(request, stage)
+        response = super().dispatch(request, *args, **kwargs)
         return response
 
     def get_authenticated_redirect_url(self):

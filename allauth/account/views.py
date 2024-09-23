@@ -33,7 +33,6 @@ from allauth.account.internal import flows
 from allauth.account.internal.decorators import (
     login_not_required,
     login_stage_required,
-    unauthenticated_only,
 )
 from allauth.account.mixins import (
     AjaxCapableProcessFormViewMixin,
@@ -75,7 +74,6 @@ sensitive_post_parameters_m = method_decorator(
 
 
 @method_decorator(rate_limit(action="login"), name="dispatch")
-@method_decorator(unauthenticated_only, name="dispatch")
 class LoginView(
     NextRedirectMixin,
     RedirectAuthenticatedUserMixin,
@@ -142,7 +140,6 @@ login = LoginView.as_view()
 
 
 @method_decorator(rate_limit(action="signup"), name="dispatch")
-@method_decorator(unauthenticated_only, name="dispatch")
 class SignupView(
     RedirectAuthenticatedUserMixin,
     CloseableSignupMixin,
@@ -911,7 +908,6 @@ class ReauthenticateView(BaseReauthenticateView):
 reauthenticate = ReauthenticateView.as_view()
 
 
-@method_decorator(unauthenticated_only, name="dispatch")
 class RequestLoginCodeView(RedirectAuthenticatedUserMixin, NextRedirectMixin, FormView):
     form_class = RequestLoginCodeForm
     template_name = "account/request_login_code." + app_settings.TEMPLATE_EXTENSION
@@ -950,7 +946,7 @@ request_login_code = RequestLoginCodeView.as_view()
     ),
     name="dispatch",
 )
-class ConfirmLoginCodeView(RedirectAuthenticatedUserMixin, NextRedirectMixin, FormView):
+class ConfirmLoginCodeView(NextRedirectMixin, FormView):
     form_class = ConfirmLoginCodeForm
     template_name = "account/confirm_login_code." + app_settings.TEMPLATE_EXTENSION
 

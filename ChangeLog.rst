@@ -8,6 +8,11 @@ Fixes
   over at the email management page fired the ``email_added`` signal prematurely
   as the email address instance was still unsaved. Fixed.
 
+- The newly introduced logic to redirect to pending login stages has now been
+  integrated in the ``RedirectAuthenticatedUserMixin`` so that the existing
+  behavior of invoking ``get_authenticated_redirect_url()`` when already
+  authenticated is respected.
+
 
 65.0.0 (2024-09-22)
 *******************

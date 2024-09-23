@@ -1,2 +1,2 @@
-django-allauth[mfa,socialaccount]>=65.0.0
+django-allauth[mfa,socialaccount]>=65.0.1
 qrcode >= 7.0.0

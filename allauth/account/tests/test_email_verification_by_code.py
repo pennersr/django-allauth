@@ -102,33 +102,31 @@ def test_add_or_change_email(auth_client, user, get_last_code, change_email, set
     settings.ACCOUNT_CHANGE_EMAIL = change_email
     email = "additional@email.org"
     assert EmailAddress.objects.filter(user=user).count() == 1
-    with (
-        patch("allauth.account.signals.email_added") as email_added_signal,
-        patch("allauth.account.signals.email_changed") as email_changed_signal,
-    ):
-        resp = auth_client.post(
-            reverse("account_email"), {"action_add": "", "email": email}
-        )
-        assert resp["location"] == reverse("account_email_verification_sent")
-        assert not email_added_signal.send.called
-        assert not email_changed_signal.send.called
+    with patch("allauth.account.signals.email_added") as email_added_signal:
+        with patch("allauth.account.signals.email_changed") as email_changed_signal:
+            resp = auth_client.post(
+                reverse("account_email"), {"action_add": "", "email": email}
+            )
+            assert resp["location"] == reverse("account_email_verification_sent")
+            assert not email_added_signal.send.called
+            assert not email_changed_signal.send.called
     assert EmailAddress.objects.filter(email=email).count() == 0
     code = get_last_code()
     resp = auth_client.get(reverse("account_email_verification_sent"))
     assert resp.status_code == 200
-    with (
-        patch("allauth.account.signals.email_added") as email_added_signal,
-        patch("allauth.account.signals.email_changed") as email_changed_signal,
-        patch("allauth.account.signals.email_confirmed") as email_confirmed_signal,
-    ):
-        resp = auth_client.post(
-            reverse("account_email_verification_sent"), data={"code": code}
-        )
-        assert resp.status_code == 302
-        assert resp["location"] == reverse("account_email")
-        assert email_added_signal.send.called
-        assert email_confirmed_signal.send.called
-        assert email_changed_signal.send.called == change_email
+    with patch("allauth.account.signals.email_added") as email_added_signal:
+        with patch("allauth.account.signals.email_changed") as email_changed_signal:
+            with patch(
+                "allauth.account.signals.email_confirmed"
+            ) as email_confirmed_signal:
+                resp = auth_client.post(
+                    reverse("account_email_verification_sent"), data={"code": code}
+                )
+                assert resp.status_code == 302
+                assert resp["location"] == reverse("account_email")
+                assert email_added_signal.send.called
+                assert email_confirmed_signal.send.called
+                assert email_changed_signal.send.called == change_email
     assert EmailAddress.objects.filter(email=email, verified=True).count() == 1
     assert EmailAddress.objects.filter(user=user).count() == (1 if change_email else 2)
 

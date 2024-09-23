@@ -26,16 +26,18 @@
             {% element button type="submit" tags="prominent,confirm" %}
                 {% translate "Confirm" %}
             {% endelement %}
+            {% if cancel_url %}
+                {% element button href=cancel_url tags="link,cancel" %}
+                    {% translate "Cancel" %}
+                {% endelement %}
+            {% else %}
+                {% element button type="submit" form="logout-from-stage" tags="link,cancel" %}
+                    {% translate "Cancel" %}
+                {% endelement %}
+            {% endif %}
         {% endslot %}
     {% endelement %}
-    {% if cancel_url %}
-        {% element button href=cancel_url tags="link,cancel" %}
-            {% translate "Cancel" %}
-        {% endelement %}
-    {% else %}
-        {% element button type="submit" form="logout-from-stage" tags="link,cancel" %}
-            {% translate "Cancel" %}
-        {% endelement %}
+    {% if not cancel_url %}
         <form id="logout-from-stage"
               method="post"
               action="{% url 'account_logout' %}">

@@ -23,34 +23,38 @@
             {% element button type="submit" tags="primary,mfa,login" %}
                 {% trans "Sign In" %}
             {% endelement %}
+            {% if "webauthn" not in MFA_SUPPORTED_TYPES %}
+                {% element button type="submit" form="logout-from-stage" tags="link,mfa,cancel" %}
+                    {% trans "Cancel" %}
+                {% endelement %}
+            {% endif %}
         {% endslot %}
     {% endelement %}
-    {% element hr %}
-    {% endelement %}
-    {% element h2 %}
-        {% translate "Alternative options" %}
-    {% endelement %}
-    {% element button_group vertical=True %}
-        {% if "webauthn" in MFA_SUPPORTED_TYPES %}
+    {% if "webauthn" in MFA_SUPPORTED_TYPES %}
+        {% element hr %}
+        {% endelement %}
+        {% element h2 %}
+            {% translate "Alternative options" %}
+        {% endelement %}
+        {% element button_group vertical=True %}
             {% element button form="webauthn_form" id="mfa_webauthn_authenticate" type="button" tags="outline,primary" %}
                 {% trans "Use a security key" %}
             {% endelement %}
-        {% endif %}
-        {% element button type="submit" form="logout-from-stage" tags="outline,primary,mfa,cancel" %}
-            {% trans "Cancel" %}
+            {% element button type="submit" form="logout-from-stage" tags="outline,primary,mfa,cancel" %}
+                {% trans "Cancel" %}
+            {% endelement %}
         {% endelement %}
-    {% endelement %}
-    {% if "webauthn" in MFA_SUPPORTED_TYPES %}
-        {% element form id="webauthn_form" form=webauthn_form method="post" action=action_url no_visible_fields=True %}
-            {% slot body %}
-                {% csrf_token %}
-                {% element fields form=webauthn_form %}
-                {% endelement %}
-            {% endslot %}
-        {% endelement %}
-        {{ js_data|json_script:"js_data" }}
-        {% include "mfa/webauthn/snippets/scripts.html" %}
-        <script>
+        {% if "webauthn" in MFA_SUPPORTED_TYPES %}
+            {% element form id="webauthn_form" form=webauthn_form method="post" action=action_url no_visible_fields=True %}
+                {% slot body %}
+                    {% csrf_token %}
+                    {% element fields form=webauthn_form %}
+                    {% endelement %}
+                {% endslot %}
+            {% endelement %}
+            {{ js_data|json_script:"js_data" }}
+            {% include "mfa/webauthn/snippets/scripts.html" %}
+            <script>
         allauth.webauthn.forms.authenticateForm({
         ids: {
         authenticate: "mfa_webauthn_authenticate",
@@ -58,7 +62,8 @@
         },
         data: JSON.parse(document.getElementById('js_data').textContent)
         })
-        </script>
+            </script>
+        {% endif %}
     {% endif %}
     <form id="logout-from-stage"
           method="post"

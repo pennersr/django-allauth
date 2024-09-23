@@ -4,7 +4,9 @@
 Fixes
 -----
 
-- ...
+- When email verification by code was used, adding additional email addresses
+  over at the email management page fired the ``email_added`` signal prematurely
+  as the email address instance was still unsaved. Fixed.
 
 
 65.0.0 (2024-09-22)

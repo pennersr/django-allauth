@@ -39,6 +39,7 @@ def verify_email(request: HttpRequest, email_address: EmailAddress) -> bool:
     from allauth.account.models import EmailAddress
     from allauth.account.utils import emit_email_changed
 
+    added = not email_address.pk
     from_email_address = (
         EmailAddress.objects.filter(user_id=email_address.user_id)
         .exclude(pk=email_address.pk)
@@ -54,18 +55,24 @@ def verify_email(request: HttpRequest, email_address: EmailAddress) -> bool:
         return False
     email_address.set_as_primary(conditional=(not app_settings.CHANGE_EMAIL))
     email_address.save()
+    if added:
+        signals.email_added.send(
+            sender=EmailAddress,
+            request=request,
+            user=request.user,
+            email_address=email_address,
+        )
+    signals.email_confirmed.send(
+        sender=EmailAddress,
+        request=request,
+        email_address=email_address,
+    )
     if app_settings.CHANGE_EMAIL:
         for instance in EmailAddress.objects.filter(
             user_id=email_address.user_id
         ).exclude(pk=email_address.pk):
             instance.remove()
         emit_email_changed(request, from_email_address, email_address)
-
-    signals.email_confirmed.send(
-        sender=EmailAddress,
-        request=request,
-        email_address=email_address,
-    )
     get_adapter(request).add_message(
         request,
         messages.SUCCESS,

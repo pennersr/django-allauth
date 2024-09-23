@@ -30,7 +30,7 @@ def delete_email(request: HttpRequest, email_address: EmailAddress) -> bool:
     else:
         email_address.remove()
         signals.email_removed.send(
-            sender=request.user.__class__,
+            sender=EmailAddress,
             request=request,
             user=request.user,
             email_address=email_address,
@@ -62,12 +62,13 @@ def add_email(request: HttpRequest, form):
         "account/messages/email_confirmation_sent.txt",
         {"email": form.cleaned_data["email"]},
     )
-    signals.email_added.send(
-        sender=request.user.__class__,
-        request=request,
-        user=request.user,
-        email_address=email_address,
-    )
+    if email_address.pk:
+        signals.email_added.send(
+            sender=EmailAddress,
+            request=request,
+            user=request.user,
+            email_address=email_address,
+        )
 
 
 def can_mark_as_primary(email_address: EmailAddress):

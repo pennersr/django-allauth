@@ -501,9 +501,11 @@ def assess_unique_email(email) -> Optional[bool]:
 
 
 def emit_email_changed(request, from_email_address, to_email_address) -> None:
+    from .models import EmailAddress
+
     user = to_email_address.user
     signals.email_changed.send(
-        sender=user.__class__,
+        sender=EmailAddress,
         request=request,
         user=user,
         from_email_address=from_email_address,

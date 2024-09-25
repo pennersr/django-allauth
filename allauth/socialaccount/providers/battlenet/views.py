@@ -129,9 +129,13 @@ class BattleNetOAuth2Adapter(OAuth2Adapter):
         return self.battlenet_base_url + "/userinfo"
 
     def complete_login(self, request, app, token, **kwargs):
-        params = {"access_token": token.token}
         response = (
-            get_adapter().get_requests_session().get(self.profile_url, params=params)
+            get_adapter()
+            .get_requests_session()
+            .get(
+                self.profile_url,
+                headers={"authorization": "Bearer %s" % (token.token)},
+            )
         )
         data = _check_errors(response)
 

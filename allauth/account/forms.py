@@ -19,7 +19,6 @@ from .adapter import DefaultAccountAdapter, get_adapter
 from .app_settings import AuthenticationMethod
 from .models import EmailAddress, Login
 from .utils import (
-    assess_unique_email,
     filter_users_by_email,
     setup_user_email,
     sync_user_email_addresses,
@@ -349,7 +348,7 @@ class BaseSignupForm(_base_signup_form_class()):  # type: ignore[misc]
 
     def validate_unique_email(self, value):
         adapter = get_adapter()
-        assessment = assess_unique_email(value)
+        assessment = flows.manage_email.assess_unique_email(value)
         if assessment is True:
             # All good.
             pass

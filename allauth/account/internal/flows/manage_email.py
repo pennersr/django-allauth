@@ -1,3 +1,5 @@
+from typing import Optional
+
 from django.contrib import messages
 from django.http import HttpRequest
 
@@ -131,3 +133,41 @@ def emit_email_changed(request, from_email_address, to_email_address) -> None:
             },
             email=from_email_address.email,
         )
+
+
+def assess_unique_email(email) -> Optional[bool]:
+    """
+    True -- email is unique
+    False -- email is already in use
+    None -- email is in use, but we should hide that using email verification.
+    """
+    from allauth.account.utils import filter_users_by_email
+
+    if not filter_users_by_email(email):
+        # All good.
+        return True
+    elif not app_settings.PREVENT_ENUMERATION:
+        # Fail right away.
+        return False
+    elif (
+        app_settings.EMAIL_VERIFICATION
+        == app_settings.EmailVerificationMethod.MANDATORY
+    ):
+        # In case of mandatory verification and enumeration prevention,
+        # we can avoid creating a new account with the same (unverified)
+        # email address, because we are going to send an email anyway.
+        assert app_settings.PREVENT_ENUMERATION
+        return None
+    elif app_settings.PREVENT_ENUMERATION == "strict":
+        # We're going to be strict on enumeration prevention, and allow for
+        # this email address to pass even though it already exists. In this
+        # scenario, you can signup multiple times using the same email
+        # address resulting in multiple accounts with an unverified email.
+        return True
+    else:
+        assert app_settings.PREVENT_ENUMERATION is True
+        # Conflict. We're supposed to prevent enumeration, but we can't
+        # because that means letting the user in, while emails are required
+        # to be unique. In this case, uniqueness takes precedence over
+        # enumeration prevention.
+        return False

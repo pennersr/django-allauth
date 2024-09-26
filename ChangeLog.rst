@@ -7,6 +7,15 @@ Fixes
 - A regression occurred in the newly introduced support using
   ``LoginRequiredMiddleware``, fixed.
 
+- For email verification by link, it is not an issue if the user runs into rate
+  limits. The reason is that the link is session independent. Therefore, if the
+  user hits rate limits, we can just silently skip sending additional
+  verification emails, as the previous emails that were already sent still
+  contain valid links. This is different from email verification by code.  Here,
+  the session contains a specific code, meaning, silently skipping new
+  verification emails is not an option, and we must hard fail (429) instead. The
+  latter was missing, fixed.
+
 
 65.0.1 (2024-09-23)
 *******************

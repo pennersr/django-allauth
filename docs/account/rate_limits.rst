@@ -53,7 +53,7 @@ The following actions are available for configuration:
   login from being brute forced. Note that a successful login will clear this
   rate limit.
 
-``"confirm_email"`` (default: ``"1/3m/key"``)
+``"confirm_email"`` (default: ``"1/3m/key"`` (link) or ``"1/10s/key"`` (code))
   Users can request email confirmation mails via the email management view, and,
   implicitly, when logging in with an unverified account. This rate limit
   prevents users from sending too many of these mails.

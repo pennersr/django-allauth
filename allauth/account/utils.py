@@ -3,7 +3,6 @@ from collections import OrderedDict
 from typing import Optional
 
 from django.conf import settings
-from django.contrib import messages
 from django.contrib.auth import REDIRECT_FIELD_NAME, get_user_model
 from django.core.exceptions import FieldDoesNotExist
 from django.db import models
@@ -281,67 +280,10 @@ def setup_user_email(request, user, addresses):
     return primary
 
 
-def send_email_confirmation(request, user, signup=False, email=None):
-    """
-    Email verification mails are sent:
-    a) Explicitly: when a user signs up
-    b) Implicitly: when a user attempts to log in using an unverified
-    email while EMAIL_VERIFICATION is mandatory.
-
-    Especially in case of b), we want to limit the number of mails
-    sent (consider a user retrying a few times), which is why there is
-    a cooldown period before sending a new mail. This cooldown period
-    can be configured in ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN setting.
-
-    TODO: This code is doing way too much. Looking up EmailAddress, creating
-    if not present, etc. To be refactored.
-    """
-    from .models import EmailAddress
-
-    adapter = get_adapter()
-    sent = False
-    email_address = None
-    if not email:
-        email = user_email(user)
-    if not email:
-        email_address = (
-            EmailAddress.objects.filter(user=user).order_by("verified", "pk").first()
-        )
-        if email_address:
-            email = email_address.email
-
-    if email:
-        if email_address is None:
-            try:
-                email_address = EmailAddress.objects.get_for_user(user, email)
-            except EmailAddress.DoesNotExist:
-                pass
-        if email_address is not None:
-            if not email_address.verified:
-                send_email = adapter.should_send_confirmation_mail(
-                    request, email_address, signup
-                )
-                if send_email:
-                    email_address.send_confirmation(request, signup=signup)
-                    sent = True
-            else:
-                send_email = False
-        else:
-            send_email = True
-            email_address = EmailAddress.objects.add_email(
-                request, user, email, signup=signup, confirm=True
-            )
-            sent = True
-            assert email_address
-        # At this point, if we were supposed to send an email we have sent it.
-        if send_email:
-            adapter.add_message(
-                request,
-                messages.INFO,
-                "account/messages/email_confirmation_sent.txt",
-                {"email": email, "login": not signup, "signup": signup},
-            )
-    return sent
+def send_email_confirmation(request, user, signup=False, email=None) -> bool:
+    return flows.email_verification.send_verification_email(
+        request, user, signup=signup, email=email
+    )
 
 
 def sync_user_email_addresses(user):

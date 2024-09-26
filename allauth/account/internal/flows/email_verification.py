@@ -8,6 +8,8 @@ from allauth.account import app_settings, signals
 from allauth.account.adapter import get_adapter
 from allauth.account.internal.flows.manage_email import emit_email_changed
 from allauth.account.models import EmailAddress
+from allauth.core import ratelimit
+from allauth.core.exceptions import ImmediateHttpResponse
 from allauth.core.internal.httpkit import get_frontend_url
 from allauth.utils import build_absolute_uri
 
@@ -131,3 +133,91 @@ def login_on_verification(request, verification) -> Optional[HttpResponse]:
     if stage.login.user.pk != verification.email_address.user_id:
         return None
     return stage.exit()
+
+
+def handle_verification_email_rate_limit(request, email_address: EmailAddress) -> bool:
+    """
+    For email verification by link, it is not an issue if the user runs into rate
+    limits. The reason is that the link is session independent. Therefore, if the
+    user hits rate limits, we can just silently skip sending additional
+    verification emails, as the previous emails that were already sent still
+    contain valid links. This is different from email verification by code.  Here,
+    the session contains a specific code, meaning, silently skipping new
+    verification emails is not an option, and we must hard fail (429) instead. The
+    latter was missing, fixed.
+    """
+    rl_ok = ratelimit.consume(
+        request,
+        action="confirm_email",
+        key=email_address.email.lower(),
+    )
+    if not rl_ok and app_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED:
+        raise ImmediateHttpResponse(ratelimit.respond_429(request))
+    return rl_ok
+
+
+def send_verification_email(request, user, signup=False, email=None) -> bool:
+    """
+    Email verification mails are sent:
+    a) Explicitly: when a user signs up
+    b) Implicitly: when a user attempts to log in using an unverified
+    email while EMAIL_VERIFICATION is mandatory.
+
+    Especially in case of b), we want to limit the number of mails
+    sent (consider a user retrying a few times), which is why there is
+    a cooldown period before sending a new mail. This cooldown period
+    can be configured in ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN setting.
+
+    TODO: This code is doing way too much. Looking up EmailAddress, creating
+    if not present, etc. To be refactored.
+    """
+    from allauth.account.utils import user_email
+
+    adapter = get_adapter()
+    sent = False
+    email_address = None
+    if not email:
+        email = user_email(user)
+    if not email:
+        email_address = (
+            EmailAddress.objects.filter(user=user).order_by("verified", "pk").first()
+        )
+        if email_address:
+            email = email_address.email
+
+    if email:
+        if email_address is None:
+            try:
+                email_address = EmailAddress.objects.get_for_user(user, email)
+            except EmailAddress.DoesNotExist:
+                pass
+        if email_address is not None:
+            if not email_address.verified:
+                send_email = handle_verification_email_rate_limit(
+                    request, email_address
+                )
+                if send_email:
+                    send_email = adapter.should_send_confirmation_mail(
+                        request, email_address, signup
+                    )
+                if send_email:
+                    email_address.send_confirmation(request, signup=signup)
+                    sent = True
+            else:
+                send_email = False
+        else:
+            send_email = True
+            email_address = EmailAddress.objects.add_email(
+                request, user, email, signup=signup, confirm=True
+            )
+            sent = True
+            assert email_address
+        # At this point, if we were supposed to send an email we have sent it.
+        if send_email:
+            adapter.add_message(
+                request,
+                messages.INFO,
+                "account/messages/email_confirmation_sent.txt",
+                {"email": email, "login": not signup, "signup": signup},
+            )
+    return sent

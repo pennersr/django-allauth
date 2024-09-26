@@ -209,10 +209,14 @@ class AppSettings:
         login_failed_rl = None
         if attempts_amount and attempts_timeout:
             login_failed_rl = f"10/m/ip,{attempts_amount}/{attempts_timeout}s/key"
-        cooldown = self._setting("EMAIL_CONFIRMATION_COOLDOWN", 3 * 60)
-        confirm_email_rl = None
-        if cooldown:
-            confirm_email_rl = f"1/{cooldown}s/key"
+
+        if self.EMAIL_VERIFICATION_BY_CODE_ENABLED:
+            confirm_email_rl = "1/10s/key"
+        else:
+            cooldown = self._setting("EMAIL_CONFIRMATION_COOLDOWN", 3 * 60)
+            confirm_email_rl = None
+            if cooldown:
+                confirm_email_rl = f"1/{cooldown}s/key"
         ret = {
             # Change password view (for users already logged in)
             "change_password": "5/m/user",

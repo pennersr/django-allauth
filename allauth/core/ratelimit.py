@@ -1,10 +1,12 @@
 import hashlib
 import time
 from collections import namedtuple
+from typing import Optional
 
 from django.conf import settings
 from django.core.cache import cache
 from django.core.exceptions import ImproperlyConfigured
+from django.http import HttpResponse
 from django.shortcuts import render
 
 from allauth import app_settings
@@ -125,16 +127,21 @@ def _handler429(request):
     return render(request, "429." + app_settings.TEMPLATE_EXTENSION, status=429)
 
 
-def consume_or_429(request, *args, **kwargs):
+def respond_429(request) -> HttpResponse:
+    if app_settings.HEADLESS_ENABLED and hasattr(request.allauth, "headless"):
+        from allauth.headless.base.response import RateLimitResponse
+
+        return RateLimitResponse(request)
+
+    try:
+        handler429 = import_callable(settings.ROOT_URLCONF + ".handler429")
+        handler429 = import_callable(handler429)
+    except (ImportError, AttributeError):
+        handler429 = _handler429
+    return handler429(request)
+
+
+def consume_or_429(request, *args, **kwargs) -> Optional[HttpResponse]:
     if not consume(request, *args, **kwargs):
-        if app_settings.HEADLESS_ENABLED and hasattr(request.allauth, "headless"):
-            from allauth.headless.base.response import RateLimitResponse
-
-            return RateLimitResponse(request)
-
-        try:
-            handler429 = import_callable(settings.ROOT_URLCONF + ".handler429")
-            handler429 = import_callable(handler429)
-        except (ImportError, AttributeError):
-            handler429 = _handler429
-        return handler429(request)
+        return respond_429(request)
+    return None

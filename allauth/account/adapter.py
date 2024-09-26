@@ -598,13 +598,8 @@ class DefaultAccountAdapter(BaseAdapter):
             request, emailconfirmation
         )
 
-    def should_send_confirmation_mail(self, request, email_address, signup):
-        send_email = ratelimit.consume(
-            request,
-            action="confirm_email",
-            key=email_address.email.lower(),
-        )
-        return send_email
+    def should_send_confirmation_mail(self, request, email_address, signup) -> bool:
+        return True
 
     def send_account_already_exists_mail(self, email):
         from allauth.account.internal import flows

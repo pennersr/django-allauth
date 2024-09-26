@@ -3,6 +3,7 @@ from typing import Any, Dict
 
 from django.http import HttpRequest, HttpResponse
 
+from allauth import app_settings as allauth_settings
 from allauth.account.adapter import get_adapter
 from allauth.account.models import Login
 from allauth.core.exceptions import ImmediateHttpResponse
@@ -97,5 +98,10 @@ def resume_login(request: HttpRequest, login: Login) -> HttpResponse:
         if response:
             return response
     except ImmediateHttpResponse as e:
+        if allauth_settings.HEADLESS_ENABLED:
+            from allauth.headless.internal.restkit.response import APIResponse
+
+            if isinstance(e.response, APIResponse):
+                raise e
         response = e.response
     return response

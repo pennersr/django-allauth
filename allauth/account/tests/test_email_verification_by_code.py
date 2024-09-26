@@ -3,6 +3,7 @@ from unittest.mock import patch
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.test import Client
 from django.urls import reverse
 
 import pytest
@@ -32,6 +33,7 @@ def get_last_code(client, mailoutbox):
 def email_verification_settings(settings):
     settings.ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED = True
     settings.ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+    settings.ACCOUNT_AUTHENTICATION_METHOD = "email"
     return settings
 
 
@@ -148,3 +150,30 @@ def test_email_verification_login_redirect(
     assert resp["location"] == reverse("account_email_verification_sent")
     resp = client.get(reverse("account_login"))
     assert resp["location"] == reverse("account_email_verification_sent")
+
+
+def test_email_verification_rate_limits(
+    db,
+    user_password,
+    email_verification_settings,
+    settings,
+    user_factory,
+    password_factory,
+    enable_cache,
+):
+    settings.ACCOUNT_RATE_LIMITS = {"confirm_email": "1/m/key"}
+    email = "user@email.org"
+    user_factory(email=email, email_verified=False, password=user_password)
+    for attempt in range(2):
+        resp = Client().post(
+            reverse("account_login"),
+            {
+                "login": email,
+                "password": user_password,
+            },
+        )
+        if attempt == 0:
+            assert resp.status_code == 302
+            assert resp["location"] == reverse("account_email_verification_sent")
+        else:
+            assert resp.status_code == 429

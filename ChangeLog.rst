@@ -4,7 +4,8 @@
 Fixes
 -----
 
-- ...
+- A regression occurred in the newly introduced support using
+  ``LoginRequiredMiddleware``, fixed.
 
 
 65.0.1 (2024-09-23)

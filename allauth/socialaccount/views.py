@@ -34,6 +34,7 @@ class SignupView(
     def get_form_class(self):
         return get_form_class(app_settings.FORMS, "signup", self.form_class)
 
+    @method_decorator(login_not_required)
     def dispatch(self, request, *args, **kwargs):
         self.sociallogin = flows.signup.get_pending_signup(request)
         if not self.sociallogin:

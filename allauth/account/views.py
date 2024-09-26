@@ -73,7 +73,6 @@ sensitive_post_parameters_m = method_decorator(
 )
 
 
-@method_decorator(rate_limit(action="login"), name="dispatch")
 class LoginView(
     NextRedirectMixin,
     RedirectAuthenticatedUserMixin,
@@ -84,6 +83,8 @@ class LoginView(
     template_name = "account/login." + app_settings.TEMPLATE_EXTENSION
     success_url = None
 
+    @method_decorator(rate_limit(action="login"))
+    @method_decorator(login_not_required)
     @sensitive_post_parameters_m
     @method_decorator(never_cache)
     def dispatch(self, request, *args, **kwargs):
@@ -139,7 +140,6 @@ class LoginView(
 login = LoginView.as_view()
 
 
-@method_decorator(rate_limit(action="signup"), name="dispatch")
 class SignupView(
     RedirectAuthenticatedUserMixin,
     CloseableSignupMixin,
@@ -150,6 +150,8 @@ class SignupView(
     template_name = "account/signup." + app_settings.TEMPLATE_EXTENSION
     form_class = SignupForm
 
+    @method_decorator(rate_limit(action="signup"))
+    @method_decorator(login_not_required)
     @sensitive_post_parameters_m
     @method_decorator(never_cache)
     def dispatch(self, request, *args, **kwargs):
@@ -911,10 +913,6 @@ reauthenticate = ReauthenticateView.as_view()
 class RequestLoginCodeView(RedirectAuthenticatedUserMixin, NextRedirectMixin, FormView):
     form_class = RequestLoginCodeForm
     template_name = "account/request_login_code." + app_settings.TEMPLATE_EXTENSION
-
-    @method_decorator(never_cache)
-    def dispatch(self, request, *args, **kwargs):
-        return super().dispatch(request, *args, **kwargs)
 
     def get_form_class(self):
         return get_form_class(app_settings.FORMS, "request_login_code", self.form_class)

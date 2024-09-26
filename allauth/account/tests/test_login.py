@@ -7,6 +7,8 @@ from django.core import mail
 from django.test.utils import override_settings
 from django.urls import NoReverseMatch, reverse
 
+from pytest_django.asserts import assertTemplateUsed
+
 from allauth.account import app_settings
 from allauth.account.authentication import AUTHENTICATION_METHODS_SESSION_KEY
 from allauth.account.forms import LoginForm
@@ -335,3 +337,9 @@ def test_login_while_authenticated(settings, client, user_factory):
     resp = client.post(reverse("account_login"), {"login": "jane", "password": "doe"})
     assert resp.status_code == 302
     assert resp["location"] == redirect_url
+
+
+def test_login_page(client, db):
+    resp = client.get(reverse("account_login"))
+    assert resp.status_code == 200
+    assertTemplateUsed(resp, "account/login.html")

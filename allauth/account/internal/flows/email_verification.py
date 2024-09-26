@@ -6,6 +6,7 @@ from django.urls import reverse
 
 from allauth.account import app_settings, signals
 from allauth.account.adapter import get_adapter
+from allauth.account.internal.flows.manage_email import emit_email_changed
 from allauth.account.models import EmailAddress
 from allauth.core.internal.httpkit import get_frontend_url
 from allauth.utils import build_absolute_uri
@@ -36,9 +37,6 @@ def verify_email(request: HttpRequest, email_address: EmailAddress) -> bool:
     """
     Marks the email address as confirmed on the db
     """
-    from allauth.account.models import EmailAddress
-    from allauth.account.utils import emit_email_changed
-
     added = not email_address.pk
     from_email_address = (
         EmailAddress.objects.filter(user_id=email_address.user_id)

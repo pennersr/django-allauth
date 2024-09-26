@@ -11,7 +11,7 @@ from django.db.models import Q
 from django.utils.encoding import force_str
 from django.utils.http import base36_to_int, int_to_base36
 
-from allauth.account import app_settings, signals
+from allauth.account import app_settings
 from allauth.account.adapter import get_adapter
 from allauth.account.internal import flows
 from allauth.account.models import Login
@@ -498,26 +498,3 @@ def assess_unique_email(email) -> Optional[bool]:
         # to be unique. In this case, uniqueness takes precedence over
         # enumeration prevention.
         return False
-
-
-def emit_email_changed(request, from_email_address, to_email_address) -> None:
-    from .models import EmailAddress
-
-    user = to_email_address.user
-    signals.email_changed.send(
-        sender=EmailAddress,
-        request=request,
-        user=user,
-        from_email_address=from_email_address,
-        to_email_address=to_email_address,
-    )
-    if from_email_address:
-        get_adapter().send_notification_mail(
-            "account/email/email_changed",
-            user,
-            context={
-                "from_email": from_email_address.email,
-                "to_email": to_email_address.email,
-            },
-            email=from_email_address.email,
-        )

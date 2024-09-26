@@ -81,8 +81,6 @@ def can_mark_as_primary(email_address: EmailAddress):
 
 
 def mark_as_primary(request: HttpRequest, email_address: EmailAddress):
-    from allauth.account.utils import emit_email_changed
-
     if app_settings.REAUTHENTICATION_REQUIRED:
         raise_if_reauthentication_required(request)
 
@@ -112,3 +110,24 @@ def mark_as_primary(request: HttpRequest, email_address: EmailAddress):
         emit_email_changed(request, from_email_address, email_address)
         success = True
     return success
+
+
+def emit_email_changed(request, from_email_address, to_email_address) -> None:
+    user = to_email_address.user
+    signals.email_changed.send(
+        sender=EmailAddress,
+        request=request,
+        user=user,
+        from_email_address=from_email_address,
+        to_email_address=to_email_address,
+    )
+    if from_email_address:
+        get_adapter().send_notification_mail(
+            "account/email/email_changed",
+            user,
+            context={
+                "from_email": from_email_address.email,
+                "to_email": to_email_address.email,
+            },
+            email=from_email_address.email,
+        )

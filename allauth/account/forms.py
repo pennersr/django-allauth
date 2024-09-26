@@ -176,6 +176,10 @@ class LoginForm(forms.Form):
         adapter = get_adapter(self.request)
         user = adapter.authenticate(self.request, **credentials)
         if user:
+            login = Login(user=user, email=credentials.get("email"))
+            if flows.login.is_login_rate_limited(context.request, login):
+                raise adapter.validation_error("too_many_login_attempts")
+            self._login = login
             self.user = user
         else:
             auth_method = app_settings.AUTHENTICATION_METHOD
@@ -190,11 +194,8 @@ class LoginForm(forms.Form):
 
     def login(self, request, redirect_url=None):
         credentials = self.user_credentials()
-        login = Login(
-            user=self.user,
-            redirect_url=redirect_url,
-            email=credentials.get("email"),
-        )
+        login = self._login
+        login.redirect_url = redirect_url
         ret = flows.login.perform_password_login(request, credentials, login)
         remember = app_settings.SESSION_REMEMBER
         if remember is None:

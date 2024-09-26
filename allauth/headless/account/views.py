@@ -3,7 +3,7 @@ from django.utils.decorators import method_decorator
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.internal import flows
 from allauth.account.internal.flows import password_change, password_reset
-from allauth.account.models import EmailAddress, Login
+from allauth.account.models import EmailAddress
 from allauth.account.stages import EmailVerificationStage, LoginStageController
 from allauth.account.utils import send_email_confirmation
 from allauth.core import ratelimit
@@ -84,10 +84,7 @@ class LoginView(APIView):
         if request.user.is_authenticated:
             return ConflictResponse(request)
         credentials = self.input.cleaned_data
-        user = get_account_adapter().authenticate(self.request, **credentials)
-        if user:
-            login = Login(user=user, email=credentials.get("email"))
-            flows.login.perform_password_login(request, credentials, login)
+        flows.login.perform_password_login(request, credentials, self.input.login)
         return AuthenticationResponse(self.request)
 
 

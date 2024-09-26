@@ -7,7 +7,7 @@ from django.urls import reverse
 from allauth.account import app_settings, signals
 from allauth.account.adapter import get_adapter
 from allauth.account.internal.flows.manage_email import emit_email_changed
-from allauth.account.models import EmailAddress
+from allauth.account.models import EmailAddress, Login
 from allauth.core import ratelimit
 from allauth.core.exceptions import ImmediateHttpResponse
 from allauth.core.internal.httpkit import get_frontend_url
@@ -135,7 +135,15 @@ def login_on_verification(request, verification) -> Optional[HttpResponse]:
     return stage.exit()
 
 
-def handle_verification_email_rate_limit(request, email_address: EmailAddress) -> bool:
+def consume_email_verification_rate_limit(
+    request: HttpRequest, email: str, dry_run: bool = False
+) -> bool:
+    return ratelimit.consume(
+        request, action="confirm_email", key=email.lower(), dry_run=dry_run
+    )
+
+
+def handle_verification_email_rate_limit(request, email: str) -> bool:
     """
     For email verification by link, it is not an issue if the user runs into rate
     limits. The reason is that the link is session independent. Therefore, if the
@@ -146,11 +154,7 @@ def handle_verification_email_rate_limit(request, email_address: EmailAddress) -
     verification emails is not an option, and we must hard fail (429) instead. The
     latter was missing, fixed.
     """
-    rl_ok = ratelimit.consume(
-        request,
-        action="confirm_email",
-        key=email_address.email.lower(),
-    )
+    rl_ok = consume_email_verification_rate_limit(request, email)
     if not rl_ok and app_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED:
         raise ImmediateHttpResponse(ratelimit.respond_429(request))
     return rl_ok
@@ -194,7 +198,7 @@ def send_verification_email(request, user, signup=False, email=None) -> bool:
         if email_address is not None:
             if not email_address.verified:
                 send_email = handle_verification_email_rate_limit(
-                    request, email_address
+                    request, email_address.email
                 )
                 if send_email:
                     send_email = adapter.should_send_confirmation_mail(
@@ -221,3 +225,26 @@ def send_verification_email(request, user, signup=False, email=None) -> bool:
                 {"email": email, "login": not signup, "signup": signup},
             )
     return sent
+
+
+def is_verification_rate_limited(request: HttpRequest, login: Login) -> bool:
+    """
+    Returns whether or not the email verification is *hard* rate limited.
+    Hard, meaning, it would be blocking login (verification by code, not link).
+    """
+    if (
+        (not login.email)
+        or (not app_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED)
+        or login.email_verification != app_settings.EmailVerificationMethod.MANDATORY
+    ):
+        return False
+    try:
+        email_address = EmailAddress.objects.get_for_user(login.user, login.email)
+        if not email_address.verified:
+            if not consume_email_verification_rate_limit(
+                request, login.email, dry_run=True
+            ):
+                return True
+    except EmailAddress.DoesNotExist:
+        pass
+    return False

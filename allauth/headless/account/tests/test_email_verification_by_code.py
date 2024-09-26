@@ -33,4 +33,13 @@ def test_email_verification_rate_limits(
             ][0]
             assert flow["id"] == Flow.VERIFY_EMAIL
         else:
-            assert resp.status_code == 429
+            assert resp.status_code == 400
+            assert resp.json() == {
+                "status": 400,
+                "errors": [
+                    {
+                        "message": "Too many failed login attempts. Try again later.",
+                        "code": "too_many_login_attempts",
+                    }
+                ],
+            }

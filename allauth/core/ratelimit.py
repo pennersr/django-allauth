@@ -91,7 +91,7 @@ def clear(request, *, action, key=None, user=None):
         cache.delete(cache_key)
 
 
-def consume(request, *, action, key=None, user=None):
+def consume(request, *, action, key=None, user=None, dry_run: bool = False):
     from allauth.account import app_settings
 
     if not request or request.method == "GET":
@@ -103,19 +103,21 @@ def consume(request, *, action, key=None, user=None):
 
     allowed = True
     for rate in rates:
-        if not _consume_rate(request, action=action, rate=rate, key=key, user=user):
+        if not _consume_rate(
+            request, action=action, rate=rate, key=key, user=user, dry_run=dry_run
+        ):
             allowed = False
     return allowed
 
 
-def _consume_rate(request, *, action, rate, key=None, user=None):
+def _consume_rate(request, *, action, rate, key=None, user=None, dry_run: bool = False):
     cache_key = _cache_key(request, action=action, rate=rate, key=key, user=user)
     history = cache.get(cache_key, [])
     now = time.time()
     while history and history[-1] <= now - rate.duration:
         history.pop()
     allowed = len(history) < rate.amount
-    if allowed:
+    if allowed and not dry_run:
         history.insert(0, now)
         cache.set(cache_key, history, rate.duration)
     return allowed

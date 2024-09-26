@@ -13,7 +13,11 @@ from allauth.account.forms import (
     UserTokenForm,
 )
 from allauth.account.internal import flows
-from allauth.account.models import EmailAddress, get_emailconfirmation_model
+from allauth.account.models import (
+    EmailAddress,
+    Login,
+    get_emailconfirmation_model,
+)
 from allauth.core import context
 from allauth.headless.adapter import get_adapter
 from allauth.headless.internal.restkit import inputs
@@ -76,10 +80,14 @@ class LoginInput(inputs.Input):
             else:
                 credentials["username"] = username
                 auth_method = account_app_settings.AuthenticationMethod.USERNAME
-            self.user = get_account_adapter().authenticate(
-                context.request, **credentials
-            )
-            if not self.user:
+            user = get_account_adapter().authenticate(context.request, **credentials)
+            if user:
+                self.login = Login(user=user, email=credentials.get("email"))
+                if flows.login.is_login_rate_limited(context.request, self.login):
+                    raise get_account_adapter().validation_error(
+                        "too_many_login_attempts"
+                    )
+            else:
                 error_code = "%s_password_mismatch" % auth_method.value
                 self.add_error(
                     "password", get_account_adapter().validation_error(error_code)

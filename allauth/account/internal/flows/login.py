@@ -105,3 +105,13 @@ def resume_login(request: HttpRequest, login: Login) -> HttpResponse:
                 raise e
         response = e.response
     return response
+
+
+def is_login_rate_limited(request, login: Login) -> bool:
+    from allauth.account.internal.flows.email_verification import (
+        is_verification_rate_limited,
+    )
+
+    if is_verification_rate_limited(request, login):
+        return True
+    return False

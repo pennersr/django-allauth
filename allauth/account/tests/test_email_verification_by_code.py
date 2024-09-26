@@ -176,4 +176,7 @@ def test_email_verification_rate_limits(
             assert resp.status_code == 302
             assert resp["location"] == reverse("account_email_verification_sent")
         else:
-            assert resp.status_code == 429
+            assert resp.status_code == 200
+            assert resp.context["form"].errors == {
+                "__all__": ["Too many failed login attempts. Try again later."]
+            }

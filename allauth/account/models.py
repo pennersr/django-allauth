@@ -240,6 +240,7 @@ class Login:
     email: Optional[str]
     state: Dict
     initiated_at: float
+    redirect_url: Optional[str]
 
     def __init__(
         self,

@@ -13,7 +13,7 @@ Fixes
   verification emails, as the previous emails that were already sent still
   contain valid links. This is different from email verification by code.  Here,
   the session contains a specific code, meaning, silently skipping new
-  verification emails is not an option, and we must hard fail (429) instead. The
+  verification emails is not an option, and we must block the login instead. The
   latter was missing, fixed.
 
 

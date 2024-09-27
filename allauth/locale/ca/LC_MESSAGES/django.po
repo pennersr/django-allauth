@@ -10,16 +10,16 @@ msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-21 06:42-0500\n"
-"PO-Revision-Date: 2024-06-01 11:09+0000\n"
+"PO-Revision-Date: 2024-09-26 16:15+0000\n"
 "Last-Translator: Ajordat <alexjortri@gmail.com>\n"
-"Language-Team: Catalan <https://hosted.weblate.org/projects/allauth/django-"
-"allauth/ca/>\n"
+"Language-Team: Catalan <https://hosted.weblate.org/projects/allauth/"
+"django-allauth/ca/>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.6-dev\n"
+"X-Generator: Weblate 5.8-dev\n"
 
 #: account/adapter.py:51
 msgid "This account is currently inactive."
@@ -95,17 +95,13 @@ msgid "Use your password"
 msgstr "Utilitzeu la vostra paraula de pas"
 
 #: account/adapter.py:750
-#, fuzzy
-#| msgid "Use your authenticator app"
 msgid "Use authenticator app or code"
-msgstr "Utilitzeu la vostra aplicació d’autenticar"
+msgstr "Utilitzar una aplicació d’autenticació o un codi"
 
 #: account/adapter.py:757 templates/mfa/authenticate.html:36
 #: templates/mfa/webauthn/reauthenticate.html:15
-#, fuzzy
-#| msgid "secret key"
 msgid "Use a security key"
-msgstr "clau secreta"
+msgstr "Utilitzar una clau de seguretat"
 
 #: account/admin.py:23
 msgid "Mark selected email addresses as verified"
@@ -266,19 +262,17 @@ msgstr ""
 "la vostra adreça de correu electrònic."
 
 #: mfa/adapter.py:141
-#, fuzzy
-#| msgid "secret key"
 msgid "Master key"
-msgstr "clau secreta"
+msgstr "Clau mestra"
 
 #: mfa/adapter.py:143
 msgid "Backup key"
-msgstr ""
+msgstr "Clau de recanvi"
 
 #: mfa/adapter.py:144
 #, python-brace-format
 msgid "Key nr. {number}"
-msgstr ""
+msgstr "Clau n. {number}"
 
 #: mfa/apps.py:9
 msgid "MFA"
@@ -301,16 +295,17 @@ msgid "Authenticator code"
 msgstr "Codi de l’autenticador"
 
 #: mfa/webauthn/forms.py:56
-#, fuzzy
-#| msgid "Password"
 msgid "Passwordless"
-msgstr "Contrasenya"
+msgstr "Sense contrasenya"
 
 #: mfa/webauthn/forms.py:59
 msgid ""
 "Enabling passwordless operation allows you to sign in using just this key, "
 "but imposes additional requirements such as biometrics or PIN protection."
 msgstr ""
+"Habilitar operacions sense contrasenya permet iniciar la sessió utilitzant "
+"aquesta clau, però imposa requisits adicionals com la biometrica o protecció "
+"per PIN."
 
 #: socialaccount/adapter.py:36
 #, python-format
@@ -516,16 +511,12 @@ msgid "Alternative options"
 msgstr "Opcions alternatives"
 
 #: templates/account/confirm_email_verification_code.html:5
-#, fuzzy
-#| msgid "Email Confirmation"
 msgid "Email Verification"
-msgstr "Confirmació de correu electrònic"
+msgstr "Verificació de correu electrònic"
 
 #: templates/account/confirm_email_verification_code.html:9
-#, fuzzy
-#| msgid "Enter an authenticator code:"
 msgid "Enter Email Verification Code"
-msgstr "Entreu un codi d’autenticació:"
+msgstr "Entreu un codi d’autenticació de correu"
 
 #: templates/account/confirm_email_verification_code.html:15
 #: templates/account/confirm_login_code.html:15
@@ -703,37 +694,26 @@ msgid "Email Confirmation"
 msgstr "Confirmació de correu electrònic"
 
 #: templates/account/email/email_confirmation_message.txt:5
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this email because user %(user_display)s has given your "
-#| "email address to register an account on %(site_domain)s.\n"
-#| "\n"
-#| "To confirm this is correct, go to %(activate_url)s"
+#, python-format
 msgid ""
 "You're receiving this email because user %(user_display)s has given your "
 "email address to register an account on %(site_domain)s."
 msgstr ""
 "Heu rebut aquest missatge perquè l'usuari %(user_display)s ha proporcionat "
-"la vostra adreça per registrar un compte a %(site_domain)s.\n"
-"\n"
-"Per confirmar que això és correcte, seguiu aquest enllaç %(activate_url)s"
+"la vostra adreça per registrar un compte a %(site_domain)s."
 
 #: templates/account/email/email_confirmation_message.txt:7
-#, fuzzy
-#| msgid ""
-#| "Your sign-in code is listed below. Please enter it in your open browser "
-#| "window."
 msgid ""
 "Your email verification code is listed below. Please enter it in your open "
 "browser window."
 msgstr ""
-"El seu codi d'inici de sessió es troba a continuació. Si us plau, "
-"introdueixi'l a la finestra oberta del navegador."
+"El seu codi de verificació per correu electrònic es troba a continuació. Si "
+"us plau, introdueixi'l a la finestra oberta del navegador."
 
 #: templates/account/email/email_confirmation_message.txt:9
 #, python-format
 msgid "To confirm this is correct, go to %(activate_url)s"
-msgstr ""
+msgstr "Per confirmar que això és correcte, aneu a %(activate_url)s"
 
 #: templates/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your Email Address"
@@ -911,7 +891,7 @@ msgstr ""
 
 #: templates/account/login.html:42
 msgid "Sign in with a passkey"
-msgstr ""
+msgstr "Inicia sessió amb un clau d'accés"
 
 #: templates/account/login.html:47 templates/account/request_login_code.html:9
 msgid "Mail me a sign-in code"
@@ -1078,19 +1058,15 @@ msgstr "Ja teniu un compte? Si us plau %(link)sinicieu sessió%(end_link)s."
 
 #: templates/account/signup.html:39
 msgid "Sign up using a passkey"
-msgstr ""
+msgstr "Registra't amb un clau d'accés"
 
 #: templates/account/signup_by_passkey.html:8
-#, fuzzy
-#| msgid "Sign Up"
 msgid "Passkey Sign Up"
-msgstr "Registrar-se"
+msgstr "Registrar clau d'accés"
 
 #: templates/account/signup_by_passkey.html:36
-#, fuzzy
-#| msgid "Other sign-in options"
 msgid "Other options"
-msgstr "Opcions alternatives d'inici de sessió"
+msgstr "Opcions alternatives"
 
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:9
@@ -1237,14 +1213,12 @@ msgid "Authenticator App Deactivated"
 msgstr "App d’autenticació desactivada"
 
 #: templates/mfa/email/webauthn_added_message.txt:4
-#, fuzzy
-#| msgid "A new set of recovery codes has been generated."
 msgid "A new security key has been added."
-msgstr "Un nou conjunt de codis de recuperació ha estat generat."
+msgstr "Una nova clau de seguretat ha estat afegida."
 
 #: templates/mfa/email/webauthn_added_subject.txt:3
 msgid "Security Key Added"
-msgstr ""
+msgstr "Clau de Seguretat Afegida"
 
 #: templates/mfa/email/webauthn_removed_message.txt:4
 #, fuzzy

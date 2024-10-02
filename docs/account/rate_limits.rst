@@ -3,8 +3,11 @@ Rate Limits
 
 In order to be secure out of the box various rate limits are in place. The rate
 limit mechanism is backed by a Django cache. Hence, rate limiting will not work
-properly if you are using the `DummyCache`. When rate limits are hit the
-``429.html`` template is rendered.
+properly if you are using the `DummyCache`.
+
+When rate limits are hit the ``429.html`` template is rendered,
+alternatively, you can configure a custom handler by declaring
+a ``handler429`` view in your root URLconf.
 
 Rate limits are consumed by triggering actions, the full list of which is
 documented below.  Per action, the rate can be configured. The rate itself is an

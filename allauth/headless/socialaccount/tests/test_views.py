@@ -295,6 +295,26 @@ def test_connect(user, auth_client, sociallogin_setup_state, headless_reverse, d
     assert SocialAccount.objects.filter(user=user, provider="dummy", uid="123").exists()
 
 
+def test_connect_reauthentication_required(
+    user, auth_client, sociallogin_setup_state, headless_reverse, db, settings
+):
+    settings.ACCOUNT_REAUTHENTICATION_REQUIRED = True
+
+    state = sociallogin_setup_state(
+        auth_client, process="connect", next="/foo", headless=True
+    )
+    resp = auth_client.post(
+        reverse("dummy_authenticate") + f"?state={state}",
+        data={
+            "id": 123,
+        },
+    )
+    assert resp.status_code == 302
+    assert (
+        resp["location"] == "/foo?error=reauthentication_required&error_process=connect"
+    )
+
+
 def test_connect_already_connected(
     user, user_factory, auth_client, sociallogin_setup_state, headless_reverse, db
 ):

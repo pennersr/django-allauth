@@ -1,7 +1,12 @@
 65.1.0 (unreleased)
 *******************
 
-- ...
+Fixes
+-----
+
+- When using ``HEADLESS_ONLY = True`` together with
+  ``ACCOUNT_REAUTHENTICATION_REQUIRED = True``, you could run into a
+  ``NoReverseMatch`` when connecting a social acount. Fixed.
 
 
 65.0.2 (2024-09-27)

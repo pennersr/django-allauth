@@ -74,7 +74,7 @@ Available settings:
   verification mails are sent.
 
 ``ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED`` (default: ``False``)
-  Constrols whether email verification is performed by means of following a link
+  Controls whether email verification is performed by means of following a link
   in the email (``False``), or by entering a code (``True``).
 
 ``ACCOUNT_EMAIL_VERIFICATION_BY_CODE_MAX_ATTEMPTS`` (default: ``3``)

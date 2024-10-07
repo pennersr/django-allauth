@@ -338,3 +338,25 @@ def test_email_verification_login_redirect(client, db, settings, password_factor
     assert resp["location"] == reverse("account_email_verification_sent")
     resp = client.get(reverse("account_login"))
     assert resp.status_code == 200
+
+
+def test_email_verification_redirect_url(client, db, settings, user_password):
+    settings.ACCOUNT_EMAIL_VERIFICATION = app_settings.EmailVerificationMethod.MANDATORY
+    settings.ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = "/foobar"
+    settings.ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+    email = "user@email.org"
+    resp = client.post(
+        reverse("account_signup"),
+        {
+            "username": "johndoe",
+            "email": email,
+            "password1": user_password,
+            "password2": user_password,
+        },
+    )
+    assert resp.status_code == 302
+    assert resp["location"] == reverse("account_email_verification_sent")
+    confirmation = EmailConfirmationHMAC(EmailAddress.objects.get(email=email))
+    resp = client.get(reverse("account_confirm_email", args=[confirmation.key]))
+    assert resp.status_code == 302
+    assert resp["location"] == "/foobar"

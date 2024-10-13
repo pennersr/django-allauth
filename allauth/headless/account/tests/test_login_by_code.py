@@ -1,3 +1,5 @@
+import time
+
 from allauth.account.models import EmailAddress
 from allauth.headless.constants import Flow
 
@@ -112,3 +114,33 @@ def test_login_by_code_required(
     assert data["meta"]["is_authenticated"]
     email_address.refresh_from_db()
     assert email_address.verified
+
+
+def test_login_by_code_expired(headless_reverse, user, client, mailoutbox):
+    resp = client.post(
+        headless_reverse("headless:account:request_login_code"),
+        data={"email": user.email},
+        content_type="application/json",
+    )
+    assert resp.status_code == 401
+    data = resp.json()
+    assert [f for f in data["data"]["flows"] if f["id"] == Flow.LOGIN_BY_CODE][0][
+        "is_pending"
+    ]
+    assert len(mailoutbox) == 1
+    code = [line for line in mailoutbox[0].body.splitlines() if len(line) == 6][0]
+
+    # Expire code
+    session = client.headless_session()
+    login = session["account_login"]
+    login["state"]["login_code"]["at"] = time.time() - 24 * 60 * 60
+    session["account_login"] = login
+    session.save()
+
+    # Post valid code
+    resp = client.post(
+        headless_reverse("headless:account:confirm_login_code"),
+        data={"code": code},
+        content_type="application/json",
+    )
+    assert resp.status_code == 409

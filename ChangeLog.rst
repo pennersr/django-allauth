@@ -8,6 +8,9 @@ Fixes
   ``ACCOUNT_REAUTHENTICATION_REQUIRED = True``, you could run into a
   ``NoReverseMatch`` when connecting a social acount. Fixed.
 
+- In headless mode, submitting a login code when the login flow expired resulted
+  in a 500. Fixed -- it now returns a 409.
+
 
 65.0.2 (2024-09-27)
 *******************

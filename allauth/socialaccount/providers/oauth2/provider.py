@@ -43,9 +43,11 @@ class OAuth2Provider(Provider):
         redirect URL. Additional -- so no need to pass the standard `client_id`,
         `redirect_uri`, `response_type`.
         """
-        settings = self.get_settings()
-        ret = dict(settings.get("AUTH_PARAMS", {}))
-        return ret
+        ret = self.app.settings.get("auth_params")
+        if ret is None:
+            settings = self.get_settings()
+            ret = settings.get("AUTH_PARAMS", {})
+        return dict(ret)
 
     def get_auth_params_from_request(self, request, action):
         """
@@ -69,9 +71,11 @@ class OAuth2Provider(Provider):
         """
         Returns the scope to use, taking settings `SCOPE` into consideration.
         """
-        settings = self.get_settings()
-        scope = list(settings.get("SCOPE", self.get_default_scope()))
-        return scope
+        scope = self.app.settings.get("scope")
+        if scope is None:
+            settings = self.get_settings()
+            scope = settings.get("SCOPE", self.get_default_scope())
+        return list(scope)
 
     def get_scope_from_request(self, request):
         """

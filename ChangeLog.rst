@@ -1,6 +1,14 @@
 65.1.0 (unreleased)
 *******************
 
+Note worthy changes
+-------------------
+
+- OAuth2/OIDC: When setting up multiple apps for the same provider, you can now
+  configure a different scope per app by including ``"scope": [...]`` in the app
+  settings.
+
+
 Fixes
 -----
 

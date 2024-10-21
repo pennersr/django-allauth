@@ -46,25 +46,25 @@ Integrated set of Django applications addressing authentication,
 registration, account management as well as 3rd party (social) account
 authentication.
 
-Home page
+Home page link
   https://allauth.org/
 
-Source code
+Source code link
   https://codeberg.org/allauth/django-allauth
 
-Issue Tracker
+Issue Tracker link
   https://codeberg.org/allauth/django-allauth/issues
 
-Documentation
+Documentation link
   https://docs.allauth.org/en/latest/
 
-Stack Overflow
+Stack Overflow link
   https://stackoverflow.com/questions/tagged/django-allauth
 
-Demo
+Demo link
   https://django.demo.allauth.org and https://react.demo.allauth.org
 
-Translations
+Translations link
   https://hosted.weblate.org/projects/allauth/django-allauth/
 
 .. end-welcome

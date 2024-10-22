@@ -1,19 +1,20 @@
 import time
+from datetime import datetime
 from typing import Any, Dict, Optional, Tuple
 
 from django.contrib.auth import get_user_model
 from django.http import HttpRequest
 
-from allauth.account import app_settings
+from allauth.account import app_settings  
+
 from allauth.account.adapter import get_adapter
 from allauth.account.internal.flows.login_by_code import compare_code
 from allauth.account.internal.stagekit import clear_login
 from allauth.account.models import EmailAddress, EmailConfirmationMixin
 from allauth.core import context
 
-
 EMAIL_VERIFICATION_CODE_SESSION_KEY = "account_email_verification_code"
-
+EMAIL_VERIFICATION_CODE_TIMEOUT = 60 * 60  # 1 hour
 
 class EmailVerificationModel(EmailConfirmationMixin):
     def __init__(self, email_address: EmailAddress, key: Optional[str] = None):
@@ -36,13 +37,11 @@ class EmailVerificationModel(EmailConfirmationMixin):
         return verification
 
     def key_expired(self):
-        return False
-
+        return datetime.now() > self.created_at + datetime.timedelta(seconds=EMAIL_VERIFICATION_CODE_TIMEOUT)
 
 def clear_state(request):
     request.session.pop(EMAIL_VERIFICATION_CODE_SESSION_KEY, None)
     clear_login(request)
-
 
 def request_email_verification_code(
     request: HttpRequest,
@@ -65,11 +64,11 @@ def request_email_verification_code(
                 "user_id": user._meta.pk.value_to_string(user),
                 "email": email,
                 "code": code,
+                "created_at": datetime.now().timestamp(),
             }
         )
     request.session[EMAIL_VERIFICATION_CODE_SESSION_KEY] = pending_verification
     return code
-
 
 def get_pending_verification(
     request: HttpRequest, peek: bool = False
@@ -96,7 +95,6 @@ def get_pending_verification(
     else:
         verification = None
     return verification, data
-
 
 def record_invalid_attempt(
     request: HttpRequest, pending_verification: Dict[str, Any]

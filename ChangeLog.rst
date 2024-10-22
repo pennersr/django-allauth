@@ -8,6 +8,12 @@ Note worthy changes
   configure a different scope per app by including ``"scope": [...]`` in the app
   settings.
 
+- Facebook login: Facebook `Limited Login
+  <https://developers.facebook.com/docs/facebook-login/limited-login>`_ is now
+  supported via the Headless API. When you have a Limited Login JWT obtained
+  from the iOS SDK, you can use the Headless "provider token" flow to login with
+  it.
+
 
 Fixes
 -----

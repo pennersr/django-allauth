@@ -56,6 +56,13 @@ class FacebookProvider(OAuth2Provider):
     oauth2_adapter_class = FacebookOAuth2Adapter
     supports_token_authentication = True
 
+    # TODO: populate these from https://www.facebook.com/.well-known/openid-configuration/
+    #  just like in a normal OIDC provider (as that's what "Limited Login" really is)
+    limited_login_expected_jwt_issuer = "https://www.facebook.com"
+    limited_login_jwks_url = (
+        "https://limited.facebook.com/.well-known/oauth/openid/jwks/"
+    )
+
     def __init__(self, *args, **kwargs):
         self._locale_callable_cache = None
         super().__init__(*args, **kwargs)
@@ -204,17 +211,30 @@ class FacebookProvider(OAuth2Provider):
             ret.append(EmailAddress(email=email, verified=False, primary=True))
         return ret
 
-    def verify_token(self, request, token):
+    def verify_token(self, request, token: dict):
+        """
+        Verifies both normal oAuth2-style "access_token"s as well
+        as OIDC-style "Limited Login" JWTs.
+
+        Limited Login is an OIDC-based form of Facebook Login
+        that their iOS SDK uses when App Tracking Transparency consent is denied.
+        """
         from allauth.socialaccount.providers.facebook import flows
 
         access_token = token.get("access_token")
-        if not access_token:
+        id_token = token.get("id_token")
+
+        if not any([access_token, id_token]):
             raise get_adapter().validation_error("invalid_token")
+
         try:
-            login = flows.verify_token(request, self, access_token)
+            if access_token:
+                return flows.verify_token(request, self, access_token)
+            else:
+                assert id_token
+                return flows.verify_limited_login_token(request, self, id_token)
         except (OAuth2Error, requests.RequestException) as e:
             raise get_adapter().validation_error("invalid_token") from e
-        return login
 
 
 provider_classes = [FacebookProvider]

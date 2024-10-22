@@ -3,12 +3,25 @@ import hmac
 from datetime import timedelta
 
 from django.core.cache import cache
+from django.http import HttpRequest
 from django.utils import timezone
 
 from allauth.socialaccount.adapter import get_adapter
+from allauth.socialaccount.internal import jwtkit
 from allauth.socialaccount.models import SocialLogin, SocialToken
 from allauth.socialaccount.providers.base import Provider
 from allauth.socialaccount.providers.facebook.constants import GRAPH_API_URL
+
+
+# maps fields from the Limited Login JWT to Graph API response fields
+JWT_FIELD_TO_GRAPH_API_FIELD_MAP = {
+    "sub": "id",
+    "email": "email",
+    "given_name": "first_name",
+    "family_name": "last_name",
+    "name": "name",
+    "user_link": "link",
+}
 
 
 def compute_appsecret_proof(app, token):
@@ -135,3 +148,33 @@ def verify_token(
     login = complete_login(request, provider, token)
     login.token = token
     return login
+
+
+def verify_limited_login_token(
+    request: HttpRequest, provider, id_token: str
+) -> SocialLogin:
+    """
+    Verifies a Facebook Limited Login token.
+    See https://developers.facebook.com/docs/facebook-login/limited-login/token/validating.
+
+    We validate the JWT, then convert its data/claims into
+    a fake Facebook Graph API response, which is then passed to
+    `provider.sociallogin_from_response` to be handled as normal.
+    """
+
+    # note: this already does replay protection internally
+    jwt_data = jwtkit.verify_and_decode(
+        credential=id_token,
+        keys_url=provider.limited_login_jwks_url,
+        issuer=provider.limited_login_expected_jwt_issuer,
+        audience=provider.app.client_id,
+        lookup_kid=jwtkit.lookup_kid_jwk,
+    )
+
+    fake_response = {
+        graph_field: jwt_data[jwt_field]
+        for jwt_field, graph_field in JWT_FIELD_TO_GRAPH_API_FIELD_MAP.items()
+        if jwt_field in jwt_data
+    }
+
+    return provider.sociallogin_from_response(request, fake_response)

@@ -5,6 +5,7 @@ from django.urls import reverse
 
 from allauth.account import app_settings as account_settings
 from allauth.account.models import EmailAddress
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount.tests import OAuth2TestsMixin
 from allauth.tests import MockedResponse, TestCase, mocked_response
@@ -163,3 +164,28 @@ class FacebookTests(OAuth2TestsMixin, TestCase):
     def _login_verified(self):
         self.login(self.get_mocked_response())
         return EmailAddress.objects.get(email="raymond.penners@example.com")
+
+
+def test_limited_token(rf, db, settings, jwt_decode_bypass):
+    settings.SOCIALACCOUNT_PROVIDERS = {
+        "facebook": {
+            "AUTH_PARAMS": {},
+            "VERIFIED_EMAIL": False,
+            "APPS": [{"client_id": "123"}],
+        }
+    }
+    request = rf.get("/")
+    adapter = get_adapter(request)
+    provider = adapter.get_provider(request, FacebookProvider.id)
+    token = {"id_token": "X"}
+    with jwt_decode_bypass(
+        {
+            "sub": "f123",
+            "email": "e@mail.org",
+            "given_name": "John",
+            "family_name": "Doe",
+        }
+    ):
+        login = provider.verify_token(request, token)
+        assert login.account.uid == "f123"
+        assert login.email_addresses[0].email == "e@mail.org"

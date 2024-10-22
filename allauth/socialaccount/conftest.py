@@ -1,3 +1,6 @@
+from contextlib import contextmanager
+from unittest.mock import patch
+
 import pytest
 
 from allauth.account.models import EmailAddress
@@ -33,3 +36,31 @@ def sociallogin_factory(user_factory):
         return sociallogin
 
     return factory
+
+
+@pytest.fixture
+def jwt_decode_bypass():
+    @contextmanager
+    def f(jwt_data):
+        with patch("allauth.socialaccount.internal.jwtkit.verify_and_decode") as m:
+            data = {
+                "iss": "https://accounts.google.com",
+                "aud": "client_id",
+                "sub": "123sub",
+                "hd": "example.com",
+                "email": "raymond@example.com",
+                "email_verified": True,
+                "at_hash": "HK6E_P6Dh8Y93mRNtsDB1Q",
+                "name": "Raymond Penners",
+                "picture": "https://lh5.googleusercontent.com/photo.jpg",
+                "given_name": "Raymond",
+                "family_name": "Penners",
+                "locale": "en",
+                "iat": 123,
+                "exp": 456,
+            }
+            data.update(jwt_data)
+            m.return_value = data
+            yield
+
+    return f

@@ -1,8 +1,9 @@
 Facebook
 --------
 
-For Facebook both OAuth2 and the Facebook Connect Javascript SDK are
-supported. You can even mix the two.
+For Facebook both OAuth2, Facebook Connect Javascript SDK and even
+`Limited Login <https://developers.facebook.com/docs/facebook-login/limited-login>`_
+are supported. You can even mix and match.
 
 An advantage of the Javascript SDK may be a more streamlined user
 experience as you do not leave your site. Furthermore, you do not need
@@ -124,3 +125,12 @@ Development callback URL
     Leave your App Domains empty and put ``http://localhost:8000`` in the
     section labeled ``Website with Facebook Login``. Note that you'll need to
     add your site's actual domain to this section once it goes live.
+
+For Limited Login, it is exclusively supported via the Headless API's "provider
+token" flow.
+
+Pass your Limited Login JWT (obtained from the Facebook iOS SDK) to that
+endpoint as an ``id_token``.
+
+Note that Limited Login is purely used for login and does not allow access to
+the user's Facebook account - no ``SocialToken`` is created.

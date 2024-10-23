@@ -11,16 +11,16 @@ msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-21 06:42-0500\n"
-"PO-Revision-Date: 2024-08-11 08:09+0000\n"
-"Last-Translator: Olivier Debauche <olivier.debauche@umons.ac.be>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/allauth/django-"
-"allauth/fr/>\n"
+"PO-Revision-Date: 2024-10-16 17:16+0000\n"
+"Last-Translator: Laurent FAVOLE <laurentfavole03@gmail.com>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/allauth/"
+"django-allauth/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.7-dev\n"
+"X-Generator: Weblate 5.8-rc\n"
 
 #: account/adapter.py:51
 msgid "This account is currently inactive."
@@ -507,16 +507,12 @@ msgid "Alternative options"
 msgstr "Options alternatives"
 
 #: templates/account/confirm_email_verification_code.html:5
-#, fuzzy
-#| msgid "Email Confirmation"
 msgid "Email Verification"
-msgstr "Confirmation par e-mail"
+msgstr "Vérification par e-mail"
 
 #: templates/account/confirm_email_verification_code.html:9
-#, fuzzy
-#| msgid "Enter an authenticator code:"
 msgid "Enter Email Verification Code"
-msgstr "Saisissez un code d'authentification :"
+msgstr "Saisissez le code de vérification reçu par mail"
 
 #: templates/account/confirm_email_verification_code.html:15
 #: templates/account/confirm_login_code.html:15
@@ -689,27 +685,15 @@ msgid "Email Confirmation"
 msgstr "Confirmation par e-mail"
 
 #: templates/account/email/email_confirmation_message.txt:5
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this email because user %(user_display)s has given your "
-#| "email address to register an account on %(site_domain)s.\n"
-#| "\n"
-#| "To confirm this is correct, go to %(activate_url)s"
+#, python-format
 msgid ""
 "You're receiving this email because user %(user_display)s has given your "
 "email address to register an account on %(site_domain)s."
 msgstr ""
 "Vous recevez cet e-mail car l'utilisateur %(user_display)s a indiqué votre "
-"adresse pour se connecter à son compte sur %(site_domain)s.\n"
-"\n"
-"Pour confirmer que vous en êtes bien le propriétaire, allez à "
-"%(activate_url)s"
+"adresse pour se connecter à son compte sur %(site_domain)s."
 
 #: templates/account/email/email_confirmation_message.txt:7
-#, fuzzy
-#| msgid ""
-#| "Your sign-in code is listed below. Please enter it in your open browser "
-#| "window."
 msgid ""
 "Your email verification code is listed below. Please enter it in your open "
 "browser window."
@@ -720,7 +704,7 @@ msgstr ""
 #: templates/account/email/email_confirmation_message.txt:9
 #, python-format
 msgid "To confirm this is correct, go to %(activate_url)s"
-msgstr ""
+msgstr "Pour confirmer que cela est correct, allez sur %(activate_url)s"
 
 #: templates/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your Email Address"
@@ -740,13 +724,13 @@ msgid ""
 "Your sign-in code is listed below. Please enter it in your open browser "
 "window."
 msgstr ""
-"Votre code de connexion est indiqué ci-dessous. Veuillez le saisir dans la "
-"fenêtre ouverte de votre navigateur."
+"Votre code de connexion est indiqué ci-dessous. Veuillez l'entrer dans votre "
+"navigateur."
 
 #: templates/account/email/login_code_message.txt:9
 #: templates/account/email/unknown_account_message.txt:6
 msgid "This mail can be safely ignored if you did not initiate this action."
-msgstr "Cet email peut être ignoré si vous n'avez pas effectué cette action."
+msgstr "Cet email peut être ignoré si vous n'avez rien effectué."
 
 #: templates/account/email/login_code_subject.txt:3
 msgid "Sign-In Code"
@@ -1069,22 +1053,16 @@ msgstr ""
 "connecter%(end_link)s."
 
 #: templates/account/signup.html:39
-#, fuzzy
-#| msgid "Sign in with a passkey"
 msgid "Sign up using a passkey"
-msgstr "Se connecter avec une clé d'accès"
+msgstr "S'inscrire avec une clé d'accès"
 
 #: templates/account/signup_by_passkey.html:8
-#, fuzzy
-#| msgid "Sign Up"
 msgid "Passkey Sign Up"
-msgstr "Création de compte"
+msgstr "Création de compte avec clé de sécurité"
 
 #: templates/account/signup_by_passkey.html:36
-#, fuzzy
-#| msgid "Other sign-in options"
 msgid "Other options"
-msgstr "Autres options de connexion"
+msgstr "Autres options"
 
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:9
@@ -1466,10 +1444,8 @@ msgid "Save"
 msgstr "Enregistrer"
 
 #: templates/mfa/webauthn/signup_form.html:7
-#, fuzzy
-#| msgid "Passkey"
 msgid "Create Passkey"
-msgstr "Clé de sécurité"
+msgstr "Créer une clé de sécurité"
 
 #: templates/mfa/webauthn/signup_form.html:10
 msgid ""
@@ -1477,12 +1453,13 @@ msgid ""
 "additional keys later on, you can use a descriptive name to tell the keys "
 "apart."
 msgstr ""
+"Vous allez créer une clé de sécurité pour votre compte. Étant donne que vous "
+"pourrez en ajouter d'autres plus tard, vous pouvez utiliser un nom "
+"descriptif pour différencier les clés."
 
 #: templates/mfa/webauthn/signup_form.html:21
-#, fuzzy
-#| msgid "created"
 msgid "Create"
-msgstr "créé"
+msgstr "Créer"
 
 #: templates/mfa/webauthn/snippets/scripts.html:2
 msgid "This functionality requires JavaScript."

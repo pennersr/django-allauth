@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-21 06:42-0500\n"
-"PO-Revision-Date: 2024-09-25 06:15+0000\n"
+"PO-Revision-Date: 2024-10-10 07:15+0000\n"
 "Last-Translator: SATOH Fumiyasu <fumiyas@osstech.co.jp>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/allauth/"
 "django-allauth/ja/>\n"
@@ -921,7 +921,7 @@ msgstr "ログアウトしました。"
 #: templates/account/messages/login_code_sent.txt:2
 #, python-format
 msgid "A sign-in code has been mailed to %(email)s."
-msgstr "%(email)s にログインコードを送信しました。"
+msgstr "ログインコードを %(email)s へ送信しました。"
 
 #: templates/account/messages/password_changed.txt:2
 msgid "Password successfully changed."
@@ -972,8 +972,8 @@ msgid ""
 "We have sent you an email. If you have not received it please check your "
 "spam folder. Otherwise contact us if you do not receive it in a few minutes."
 msgstr ""
-"確認のためのメールを送信しました。受信できない場合は、スパムフォルダをご確認"
-"ください。数分以内にメールが届かない場合はご連絡ください。"
+"確認のためのメールを送信しました。確認メールが届かないときは迷惑メールフォル"
+"ダをご確認ください。しばらくしてもメールが届かない場合はご連絡ください。"
 
 #: templates/account/password_reset_from_key.html:10
 msgid "Bad Token"
@@ -1093,8 +1093,8 @@ msgid ""
 "receive the verification email within a few minutes."
 msgstr ""
 "確認のメールを送信しました。メールに記載されたリンクをクリックして、ユーザー"
-"登録を完了させてください。数分待っても確認のメールが届かない場合はご連絡くだ"
-"さい。"
+"登録を完了させてください。確認メールが届かないときは迷惑メールフォルダをご確"
+"認ください。しばらくしても確認のメールが届かない場合はお問い合わせください。"
 
 #: templates/account/verified_email_required.html:13
 msgid ""
@@ -1116,9 +1116,8 @@ msgid ""
 msgstr ""
 "確認のためのメールを送信しました。メールに記載されたリンクをクリックしてくだ"
 "さい。\n"
-"確認メールが受信ボックスに見つからない場合は、迷惑メールフォルダをチェックし"
-"てください。\n"
-"数分以内にメールが届かない場合はご連絡ください。"
+"確認メールが届かないときは迷惑メールフォルダをご確認ください。\n"
+"しばらくしてもメールが届かない場合はお問い合わせください。"
 
 #: templates/account/verified_email_required.html:23
 #, python-format

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-21 06:42-0500\n"
-"PO-Revision-Date: 2024-09-23 09:16+0000\n"
+"PO-Revision-Date: 2024-09-30 13:16+0000\n"
 "Last-Translator: Emirhan Soytaş <emrhns61@hotmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/allauth/"
 "django-allauth/tr/>\n"
@@ -22,7 +22,7 @@ msgstr ""
 
 #: account/adapter.py:51
 msgid "This account is currently inactive."
-msgstr "Bu hesap şu anda etkin değil."
+msgstr "Bu hesap şu anda etkin durumda değil."
 
 #: account/adapter.py:53
 msgid "You cannot remove your primary email address."
@@ -58,7 +58,7 @@ msgstr "Geçersiz veya süresi geçmiş anahtar."
 
 #: account/adapter.py:66
 msgid "The password reset token was invalid."
-msgstr "Şifre sıfırlama kodu hatalı."
+msgstr "Şifre sıfırlama kodu geçersiz."
 
 #: account/adapter.py:67
 #, python-format
@@ -878,7 +878,7 @@ msgid ""
 "If you have not created an account yet, then please %(link)ssign "
 "up%(end_link)s first."
 msgstr ""
-"Zaten hesabınız var mı? O zaman lütfen %(link)sgiriş yapın%(end_link)s."
+"Henüz bir hesap oluşturmadıysanız lütfen önce %(link)süye olun%(end_link)s."
 
 #: templates/account/login.html:42
 msgid "Sign in with a passkey"

@@ -39,7 +39,7 @@ export default function Sessions () {
     <div>
       <h1>Sessions</h1>
 
-      <table>
+      <table className='table table-bordered'>
         <thead>
           <tr>
             <th>Started At</th>
@@ -54,7 +54,7 @@ export default function Sessions () {
           {sessions.map((session, i) => {
             return (
               <tr key={i}>
-                <td>{new Date(session.created_at).toLocaleString()}</td>
+                <td>{new Date(session.created_at * 1000).toLocaleString()}</td>
                 <td>{session.ip}</td>
                 <td>{session.user_agent}</td>
                 {config.data.usersessions.track_activity ? <td>{session.last_seen_at}</td> : null}

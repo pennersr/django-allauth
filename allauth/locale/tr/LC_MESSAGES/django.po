@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-21 06:42-0500\n"
-"PO-Revision-Date: 2024-09-30 13:16+0000\n"
+"PO-Revision-Date: 2024-10-26 18:15+0000\n"
 "Last-Translator: Emirhan Soytaş <emrhns61@hotmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/allauth/"
 "django-allauth/tr/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.8-dev\n"
+"X-Generator: Weblate 5.8.2-dev\n"
 
 #: account/adapter.py:51
 msgid "This account is currently inactive."
@@ -1472,7 +1472,7 @@ msgid ""
 "accounts:"
 msgstr ""
 "Hesabınıza aşağıdaki üçüncü taraf hesaplar aracılığı ile giriş "
-"yapabilirsiniz."
+"yapabilirsiniz:"
 
 #: templates/socialaccount/connections.html:46
 msgid "You currently have no third-party accounts connected to this account."
@@ -1528,7 +1528,7 @@ msgstr "%(provider)s ile Giriş Yap"
 #, python-format
 msgid "You are about to sign in using a third-party account from %(provider)s."
 msgstr ""
-"%(provider)s üzerinden bir üçüncü taraf hesap ile giriş yapmak üzeresiniz."
+"%(provider)s üzerinden üçüncü taraf bir hesap ile giriş yapmak üzeresiniz."
 
 #: templates/socialaccount/login.html:27
 #: templates/socialaccount/login_redirect.html:10

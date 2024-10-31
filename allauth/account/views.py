@@ -940,7 +940,12 @@ request_login_code = RequestLoginCodeView.as_view()
 
 @method_decorator(
     login_stage_required(
-        stage=LoginByCodeStage.key, redirect_urlname="account_request_login_code"
+        stage=LoginByCodeStage.key,
+        redirect_urlname=(
+            "account_request_login_code"
+            if app_settings.LOGIN_BY_CODE_ENABLED
+            else "account_login"
+        ),
     ),
     name="dispatch",
 )

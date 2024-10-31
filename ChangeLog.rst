@@ -1,7 +1,11 @@
 65.1.1 (unreleased)
 *******************
 
-- ...
+Fixes
+-----
+
+- A ``NoReverseMatch`` could occur when using ``ACCOUNT_LOGIN_BY_CODE_REQUIRED =
+  True`` while ``ACCOUNT_LOGIN_BY_CODE_ENABLED = False``, fixed.
 
 
 65.1.0 (2024-10-23)

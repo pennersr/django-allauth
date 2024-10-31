@@ -1,5 +1,5 @@
 {% load allauth %}
-{% for err in attrs.form.non_field_errors %}<div class="alert alert-danger">{{ err }}</div>{% endfor %}
+{% for err in attrs.form.non_field_errors %}<div role="alert" class="alert alert-danger">{{ err }}</div>{% endfor %}
 <form class="{% block form_class %}{% if not attrs.no_visible_fields %}card{% endif %}{% endblock %}"
       method="{{ attrs.method }}"
       action="{{ attrs.action }}">

@@ -72,7 +72,7 @@
             </div>
         {% endif %}
         {% if attrs.errors %}
-            {% for error in attrs.errors %}<div class="invalid-feedback">{{ error }}</div>{% endfor %}
+            {% for error in attrs.errors %}<div role="alert" class="invalid-feedback">{{ error }}</div>{% endfor %}
         {% endif %}
     </div>
 {% endif %}

@@ -45,10 +45,15 @@
                                 {% csrf_token %}
                                 {% get_available_languages as LANGUAGES %}
                                 {% get_current_language as LANGUAGE_CODE %}
-                                <select name="language" onchange="this.form.submit()">
+                                <label for="language-dropdown" class="visually-hidden">{% translate "Select Language" %}</label>
+                                <select id="language-dropdown"
+                                        aria-label="{% translate 'Select Language' %}"
+                                        name="language"
+                                        onchange="this.form.submit()">
                                     {% get_language_info_list for LANGUAGES as languages %}
                                     {% for lang in languages %}
-                                        <option {% if lang.code == LANGUAGE_CODE %}selected{% endif %}
+                                        <option lang="{{ lang.code }}"
+                                                {% if lang.code == LANGUAGE_CODE %}selected{% endif %}
                                                 value="{{ lang.code }}">{{ lang.name_local }}</option>
                                     {% endfor %}
                                 </select>

@@ -1,8 +1,8 @@
 {% extends "allauth/layouts/base.html" %}
 {% load allauth %}
 {% block body %}
-    <div class="flex-grow-1 d-flex flex-row">
-        <aside class="col-md-2 text-bg-dark ">
+    <div class="flex-grow-1 row">
+        <aside class="col-sm-4 col-md-3 col-lg-2 text-bg-dark">
             <ul class="p-3 nav nav-pills flex-column">
                 {% url 'account_email' as email_url_ %}
                 {% if email_url_ %}
@@ -41,7 +41,7 @@
                 {% endif %}
             </ul>
         </aside>
-        <main class="col-md-10">
+        <main class="col-sm-8 col-md-9 col-lg-10">
             <div id="content" class="container">
                 {% if messages %}
                     <div class="pt-4">

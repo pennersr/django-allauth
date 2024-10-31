@@ -1,4 +1,4 @@
-Introduction
+Introduction page.
 ============
 
 The purpose of the optional ``allauth.usersessions`` app is to keep track of

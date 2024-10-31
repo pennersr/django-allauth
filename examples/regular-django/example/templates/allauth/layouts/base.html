@@ -40,7 +40,7 @@
                                 <a class="nav-link" href="https://codeberg.org/allauth/django-allauth">Repository</a>
                             </li>
                         </ul>
-                        <div class="d-lg-flex gap-2 col-lg-3 justify-content-lg-end text-nowrap">
+                        <div class="d-flex flex-column flex-sm-row gap-2 col-lg-3 justify-content-lg-end text-nowrap">
                             <form class="d-flex" method="post" action="{% url 'set_language' %}">
                                 {% csrf_token %}
                                 {% get_available_languages as LANGUAGES %}

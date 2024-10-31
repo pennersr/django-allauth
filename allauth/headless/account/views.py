@@ -142,12 +142,12 @@ class VerifyEmailView(APIView):
         if not email_address:
             # Should not happen, VerifyInputInput should have verified all
             # preconditions.
-            return APIResponse(status=500)
+            return APIResponse(request, status=500)
         if self.stage:
             # Verifying email as part of login/signup flow, so emit a
             # authentication status response.
             self.stage.exit()
-        return AuthenticationResponse(self.request)
+        return AuthenticationResponse(request)
 
 
 class RequestPasswordResetView(APIView):

@@ -8,25 +8,24 @@ msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-21 06:42-0500\n"
-"PO-Revision-Date: 2024-04-20 22:11+0200\n"
-"Last-Translator: Eneko Illarramendi <eneko@illarra.com>\n"
-"Language-Team: Basque <translate@tropela.eus>\n"
+"PO-Revision-Date: 2024-10-31 18:31+0000\n"
+"Last-Translator: Alain EIguren <alaineigurenzu@proton.me>\n"
+"Language-Team: Basque <https://hosted.weblate.org/projects/allauth/"
+"django-allauth/eu/>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.1.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.8.2-dev\n"
 
 #: account/adapter.py:51
 msgid "This account is currently inactive."
-msgstr "Kontu hau ez dago aktiboa orain."
+msgstr "Kontu hau ez dago aktibo une honetan."
 
 #: account/adapter.py:53
-#, fuzzy
-#| msgid "You cannot remove your primary email address (%(email)s)."
 msgid "You cannot remove your primary email address."
-msgstr "Ezin duzu zure helbide elektroniko nagusia ezabatu (%(email)s)."
+msgstr "Ezin duzu zure helbide elektroniko nagusia ezabatu."
 
 #: account/adapter.py:56
 msgid "This email address is already associated with this account."
@@ -47,13 +46,11 @@ msgstr "Mesedez idatzi zure oraingo pasahitza."
 
 #: account/adapter.py:63 mfa/adapter.py:40
 msgid "Incorrect code."
-msgstr ""
+msgstr "Kode okerra."
 
 #: account/adapter.py:64
-#, fuzzy
-#| msgid "Current Password"
 msgid "Incorrect password."
-msgstr "Oraingo pasahitza"
+msgstr "Pasahitz okerra."
 
 #: account/adapter.py:65
 #, fuzzy

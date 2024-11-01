@@ -595,6 +595,7 @@ class PasswordResetView(NextRedirectMixin, AjaxCapableProcessFormViewMixin, Form
 password_reset = PasswordResetView.as_view()
 
 
+@method_decorator(login_not_required, name="dispatch")
 class PasswordResetDoneView(TemplateView):
     template_name = "account/password_reset_done." + app_settings.TEMPLATE_EXTENSION
 

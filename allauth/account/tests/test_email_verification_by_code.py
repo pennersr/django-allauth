@@ -125,7 +125,7 @@ def test_add_or_change_email(auth_client, user, get_last_code, change_email, set
                     reverse("account_email_verification_sent"), data={"code": code}
                 )
                 assert resp.status_code == 302
-                assert resp["location"] == reverse("account_email")
+                assert resp["location"] == settings.LOGIN_REDIRECT_URL
                 assert email_added_signal.send.called
                 assert email_confirmed_signal.send.called
                 assert email_changed_signal.send.called == change_email

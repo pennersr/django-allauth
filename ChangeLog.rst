@@ -18,6 +18,10 @@ Fixes
   ``LoginRequiredMiddleware``, as it was not properly marked as
   ``@login_not_required``.
 
+- When verifying an email address by code, the success URL was hardcoded to the
+  email management view, instead of calling the
+  ``get_email_verification_redirect_url()`` adapter method.
+
 
 65.1.0 (2024-10-23)
 *******************

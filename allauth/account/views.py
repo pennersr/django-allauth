@@ -805,7 +805,13 @@ class ConfirmEmailVerificationCodeView(FormView):
             if not email_address:
                 return self.stage.abort()
             return self.stage.exit()
-        return HttpResponseRedirect(reverse("account_email"))
+        if not email_address:
+            url = reverse("account_email")
+        else:
+            url = get_adapter(self.request).get_email_verification_redirect_url(
+                email_address
+            )
+        return HttpResponseRedirect(url)
 
     def form_invalid(self, form):
         attempts_left = flows.email_verification_by_code.record_invalid_attempt(

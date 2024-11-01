@@ -1,5 +1,12 @@
-65.1.1 (unreleased)
+65.2.0 (unreleased)
 *******************
+
+Note worthy changes
+-------------------
+
+- OIDC: You can now configure whether or not PKCE is enabled per app by
+  including ``"oauth_pkce_enabled": True`` in the app settings.
+
 
 Fixes
 -----

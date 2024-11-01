@@ -30,9 +30,12 @@ class OAuth2Provider(Provider):
     def get_callback_url(self):
         return reverse(self.id + "_callback")
 
-    def get_pkce_params(self):
-        settings = self.get_settings()
-        if settings.get("OAUTH_PKCE_ENABLED", self.pkce_enabled_default):
+    def get_pkce_params(self) -> dict:
+        enabled = self.app.settings.get("oauth_pkce_enabled")
+        if enabled is None:
+            settings = self.get_settings()
+            enabled = settings.get("OAUTH_PKCE_ENABLED", self.pkce_enabled_default)
+        if enabled:
             pkce_code_params = generate_code_challenge()
             return pkce_code_params
         return {}

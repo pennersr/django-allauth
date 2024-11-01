@@ -7,6 +7,10 @@ Fixes
 - A ``NoReverseMatch`` could occur when using ``ACCOUNT_LOGIN_BY_CODE_REQUIRED =
   True`` while ``ACCOUNT_LOGIN_BY_CODE_ENABLED = False``, fixed.
 
+- The ``PasswordResetDoneView`` did not behave correctly when using Django's
+  ``LoginRequiredMiddleware``, as it was not properly marked as
+  ``@login_not_required``.
+
 
 65.1.0 (2024-10-23)
 *******************

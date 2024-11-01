@@ -32,12 +32,14 @@ def password_reset_url():
 @pytest.mark.django_db
 def test_reset_password_unknown_account(client, settings):
     settings.ACCOUNT_PREVENT_ENUMERATION = True
-    client.post(
+    resp = client.post(
         reverse("account_reset_password"),
         data={"email": "unknown@example.org"},
+        follow=True,
     )
     assert len(mail.outbox) == 1
     assert mail.outbox[0].to == ["unknown@example.org"]
+    assert resp.redirect_chain == [(reverse("account_reset_password_done"), 302)]
 
 
 @pytest.mark.django_db

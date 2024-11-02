@@ -8,17 +8,17 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-21 06:42-0500\n"
-"PO-Revision-Date: 2024-08-29 07:21+0000\n"
-"Last-Translator: Adam Zahradník <adam@zahradnik.xyz>\n"
-"Language-Team: Slovak <https://hosted.weblate.org/projects/allauth/django-"
-"allauth/sk/>\n"
+"PO-Revision-Date: 2024-11-03 04:02+0000\n"
+"Last-Translator: Milan Šalka <salka.milan@googlemail.com>\n"
+"Language-Team: Slovak <https://hosted.weblate.org/projects/allauth/"
+"django-allauth/sk/>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
 ">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.7.1-dev\n"
+"X-Generator: Weblate 5.8.2\n"
 "X-Translated-Using: django-rosetta 0.9.9\n"
 
 #: account/adapter.py:51
@@ -229,7 +229,7 @@ msgstr "potvrdenia e-mailu"
 
 #: headless/apps.py:7
 msgid "Headless"
-msgstr ""
+msgstr "Bezhlavný"
 
 #: mfa/adapter.py:32
 msgid ""
@@ -1035,22 +1035,16 @@ msgid "Already have an account? Then please %(link)ssign in%(end_link)s."
 msgstr "Už ste sa zaregistrovali? Tak sa %(link)sprihláste%(end_link)s."
 
 #: templates/account/signup.html:39
-#, fuzzy
-#| msgid "Sign in with a passkey"
 msgid "Sign up using a passkey"
-msgstr "Prihlásiť sa prístupovým kľúčom"
+msgstr "Ste pripravený/á nájsť svojho ideálneho partnera"
 
 #: templates/account/signup_by_passkey.html:8
-#, fuzzy
-#| msgid "Sign Up"
 msgid "Passkey Sign Up"
-msgstr "Zaregistrovať"
+msgstr "Passkey Zaregistrujte sa"
 
 #: templates/account/signup_by_passkey.html:36
-#, fuzzy
-#| msgid "Other sign-in options"
 msgid "Other options"
-msgstr "Iné možnosti prihlásenia"
+msgstr "Ďalšie možnosti"
 
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:9
@@ -1429,10 +1423,8 @@ msgid "Save"
 msgstr "Uložiť"
 
 #: templates/mfa/webauthn/signup_form.html:7
-#, fuzzy
-#| msgid "Passkey"
 msgid "Create Passkey"
-msgstr "Prístupový kľúč"
+msgstr "Vytvoriť Passkey"
 
 #: templates/mfa/webauthn/signup_form.html:10
 msgid ""
@@ -1440,12 +1432,12 @@ msgid ""
 "additional keys later on, you can use a descriptive name to tell the keys "
 "apart."
 msgstr ""
+"Chystáte sa vytvoriť prihrávku pre váš účet. Ako môžete pridať ďalšie kľúče "
+"neskôr, môžete použiť descriptive meno povedať kľúče od seba."
 
 #: templates/mfa/webauthn/signup_form.html:21
-#, fuzzy
-#| msgid "created"
 msgid "Create"
-msgstr "vytvorený"
+msgstr "Vytvorte"
 
 #: templates/mfa/webauthn/snippets/scripts.html:2
 msgid "This functionality requires JavaScript."

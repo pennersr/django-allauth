@@ -21,8 +21,8 @@ class DraugiemApiError(Exception):
     pass
 
 
-ACCESS_TOKEN_URL = "http://api.draugiem.lv/json"
-AUTHORIZE_URL = "http://api.draugiem.lv/authorize"
+ACCESS_TOKEN_URL = "https://api.draugiem.lv/json"
+AUTHORIZE_URL = "https://api.draugiem.lv/authorize"
 
 
 def login(request):

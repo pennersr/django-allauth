@@ -30,7 +30,7 @@ class OpenIDConnectProvider(OAuth2Provider):
 
     def wk_server_url(self, url):
         well_known_uri = "/.well-known/openid-configuration"
-        if not url.endswith(well_known_uri):
+        if "/.well-known/" not in url:
             url += well_known_uri
         return url
 

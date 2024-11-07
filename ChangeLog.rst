@@ -7,6 +7,8 @@ Note worthy changes
 - OIDC: You can now configure whether or not PKCE is enabled per app by
   including ``"oauth_pkce_enabled": True`` in the app settings.
 
+- The OpenStreetMap provider is deprecated. You can set it up as an OpenID Connect provider instead.
+
 
 Fixes
 -----

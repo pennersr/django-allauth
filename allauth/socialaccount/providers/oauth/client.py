@@ -213,4 +213,4 @@ class OAuth:
                 % get_token_prefix(self.request_token_url)
             )
 
-        return response.text
+        return response

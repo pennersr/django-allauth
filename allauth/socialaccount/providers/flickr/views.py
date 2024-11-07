@@ -1,5 +1,3 @@
-import json
-
 from django.utils.http import urlencode
 
 from allauth.socialaccount.providers.oauth.client import OAuth
@@ -16,13 +14,13 @@ class FlickrAPI(OAuth):
     def get_user_info(self):
         default_params = {"nojsoncallback": "1", "format": "json"}
         p = dict({"method": "flickr.test.login"}, **default_params)
-        u = json.loads(self.query(self.api_url + "?" + urlencode(p)))
+        u = self.query(self.api_url + "?" + urlencode(p)).json()
 
         p = dict(
             {"method": "flickr.people.getInfo", "user_id": u["user"]["id"]},
             **default_params,
         )
-        user = json.loads(self.query(self.api_url + "?" + urlencode(p)))
+        user = self.query(self.api_url + "?" + urlencode(p)).json()
         return user
 
 

@@ -1,5 +1,3 @@
-import json
-
 from allauth.socialaccount.providers.oauth.client import OAuth
 from allauth.socialaccount.providers.oauth.views import (
     OAuthAdapter,
@@ -13,7 +11,7 @@ class VimeoAPI(OAuth):
 
     def get_user_info(self):
         url = self.url
-        data = json.loads(self.query(url, params=dict(format="json")))
+        data = self.query(url, params=dict(format="json")).json()
         return data["person"]
 
 

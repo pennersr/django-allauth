@@ -10,10 +10,10 @@ from allauth.socialaccount.providers.oauth.views import (
 
 
 class OpenStreetMapAPI(OAuth):
-    url = "https://api.openstreetmap.org/api/0.6/user/details"
+    url = "https://api.openstreetmap.org/api/0.6/user/details.json"
 
     def get_user_info(self):
-        raw_xml = self.query(self.url)
+        raw_xml = self.query(self.url).text
         try:
             user_element = ElementTree.fromstring(raw_xml).find("user")
             user_info = user_element.attrib

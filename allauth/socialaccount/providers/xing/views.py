@@ -1,5 +1,3 @@
-import json
-
 from allauth.socialaccount.providers.oauth.client import OAuth
 from allauth.socialaccount.providers.oauth.views import (
     OAuthAdapter,
@@ -12,7 +10,7 @@ class XingAPI(OAuth):
     url = "https://api.xing.com/v1/users/me.json"
 
     def get_user_info(self):
-        user = json.loads(self.query(self.url))
+        user = self.query(self.url).json()
         return user
 
 

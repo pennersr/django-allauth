@@ -1,5 +1,3 @@
-import json
-
 from allauth.socialaccount.providers.oauth.client import OAuth
 from allauth.socialaccount.providers.oauth.views import (
     OAuthAdapter,
@@ -12,7 +10,7 @@ class TumblrAPI(OAuth):
     url = "http://api.tumblr.com/v2/user/info"
 
     def get_user_info(self):
-        data = json.loads(self.query(self.url))
+        data = self.query(self.url).json()
         return data["response"]["user"]
 
 

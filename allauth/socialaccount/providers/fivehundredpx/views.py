@@ -1,5 +1,3 @@
-import json
-
 from allauth.socialaccount.providers.oauth.client import OAuth
 from allauth.socialaccount.providers.oauth.views import (
     OAuthAdapter,
@@ -19,7 +17,7 @@ class FiveHundredPxAPI(OAuth):
     url = API_BASE + "/users"
 
     def get_user_info(self):
-        return json.loads(self.query(self.url))["user"]
+        return self.query(self.url).json()["user"]
 
 
 class FiveHundredPxOAuthAdapter(OAuthAdapter):

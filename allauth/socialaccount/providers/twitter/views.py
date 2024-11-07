@@ -1,5 +1,3 @@
-import json
-
 from allauth.socialaccount.app_settings import QUERY_EMAIL
 from allauth.socialaccount.providers.oauth.client import OAuth
 from allauth.socialaccount.providers.oauth.views import (
@@ -18,7 +16,7 @@ class TwitterAPI(OAuth):
     url = _base_url + "?include_email=true" if QUERY_EMAIL else _base_url
 
     def get_user_info(self):
-        user = json.loads(self.query(self.url))
+        user = self.query(self.url).json()
         return user
 
 

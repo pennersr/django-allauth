@@ -29,7 +29,7 @@ class OpenIDConnectOAuth2Adapter(OAuth2Adapter):
     def basic_auth(self):
         token_auth_method = self.get_provider().app.settings.get("token_auth_method")
         if token_auth_method:
-            return token_auth_method == "client_secret_basic"
+            return token_auth_method == "client_secret_basic"  # nosec
         return "client_secret_basic" in self.openid_config.get(
             "token_endpoint_auth_methods_supported", []
         )

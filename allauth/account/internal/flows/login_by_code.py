@@ -60,7 +60,7 @@ def request_login_code(
     if initiated_by_user:
         login = Login(user=user, email=email)
         login.state["stages"] = {"current": "login_by_code"}
-    assert login
+    assert login  # nosec
     login.state[LOGIN_CODE_STATE_KEY] = pending_login
     if initiated_by_user:
         stash_login(request, login)

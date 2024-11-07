@@ -34,7 +34,7 @@ class OAuth2Adapter:
     client_class = OAuth2Client
     supports_state = True
     redirect_uri_protocol: Optional[str] = None
-    access_token_method = "POST"
+    access_token_method = "POST"  # nosec
     login_cancelled_error = "access_denied"
     scope_delimiter = " "
     basic_auth = False

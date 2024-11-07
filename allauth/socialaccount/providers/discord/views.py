@@ -8,7 +8,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 class DiscordOAuth2Adapter(OAuth2Adapter):
     provider_id = "discord"
-    access_token_url = "https://discord.com/api/oauth2/token"
+    access_token_url = "https://discord.com/api/oauth2/token"  # nosec
     authorize_url = "https://discord.com/api/oauth2/authorize"
     profile_url = "https://discord.com/api/users/@me"
 

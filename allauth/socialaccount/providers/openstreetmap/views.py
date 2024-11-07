@@ -16,8 +16,8 @@ class OpenStreetMapAPI(OAuth):
 
 class OpenStreetMapOAuthAdapter(OAuthAdapter):
     provider_id = "openstreetmap"
-    request_token_url = "https://www.openstreetmap.org/oauth/request_token"
-    access_token_url = "https://www.openstreetmap.org/oauth/access_token"
+    request_token_url = "https://www.openstreetmap.org/oauth/request_token"  # nosec
+    access_token_url = "https://www.openstreetmap.org/oauth/access_token"  # nosec
     authorize_url = "https://www.openstreetmap.org/oauth/authorize"
 
     def complete_login(self, request, app, token, response):

@@ -14,10 +14,11 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 class LineOAuth2Adapter(OAuth2Adapter):
     provider_id = "line"
-    access_token_url = "https://api.line.me/oauth2/v2.1/token"
+    access_token_url = "https://api.line.me/oauth2/v2.1/token"  # nosec
     authorize_url = "https://access.line.me/oauth2/v2.1/authorize"
     profile_url = "https://api.line.me/v2/profile"  # https://developers.line.biz/en/reference/line-login/#get-user-profile
-    id_token_url = "https://api.line.me/oauth2/v2.1/verify"  # https://developers.line.biz/en/reference/line-login/#verify-id-token
+    # https://developers.line.biz/en/reference/line-login/#verify-id-token
+    id_token_url = "https://api.line.me/oauth2/v2.1/verify"  # nosec
 
     def parse_token(self, data):
         """

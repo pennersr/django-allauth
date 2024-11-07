@@ -10,9 +10,9 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 class MailRuOAuth2Adapter(OAuth2Adapter):
     provider_id = "mailru"
-    access_token_url = "https://connect.mail.ru/oauth/token"
+    access_token_url = "https://connect.mail.ru/oauth/token"  # nosec
     authorize_url = "https://connect.mail.ru/oauth/authorize"
-    profile_url = "http://www.appsmail.ru/platform/api"
+    profile_url = "https://www.appsmail.ru/platform/api"
 
     def complete_login(self, request, app, token, **kwargs):
         uid = kwargs["response"]["x_mailru_vid"]
@@ -25,7 +25,7 @@ class MailRuOAuth2Adapter(OAuth2Adapter):
         param_list = sorted([item + "=" + data[item] for item in data])
         data["sig"] = md5(
             ("".join(param_list) + app.secret).encode("utf-8")
-        ).hexdigest()
+        ).hexdigest()  # nosec: https://api.mail.ru/docs/guides/restapi/
         response = (
             get_adapter().get_requests_session().get(self.profile_url, params=data)
         )

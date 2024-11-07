@@ -8,7 +8,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 class StackExchangeOAuth2Adapter(OAuth2Adapter):
     provider_id = "stackexchange"
-    access_token_url = "https://stackexchange.com/oauth/access_token"
+    access_token_url = "https://stackexchange.com/oauth/access_token"  # nosec
     authorize_url = "https://stackexchange.com/oauth"
     profile_url = "https://api.stackexchange.com/2.1/me"
 

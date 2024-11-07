@@ -117,7 +117,7 @@ class LoginForm(forms.Form):
             assert (
                 app_settings.AUTHENTICATION_METHOD
                 == AuthenticationMethod.USERNAME_EMAIL
-            )
+            )  # nosec
             login_widget = forms.TextInput(
                 attrs={"placeholder": _("Username or email"), "autocomplete": "email"}
             )
@@ -136,7 +136,7 @@ class LoginForm(forms.Form):
             forgot_txt = _("Forgot your password?")
             self.fields["password"].help_text = mark_safe(
                 f'<a href="{reset_url}">{forgot_txt}</a>'
-            )
+            )  # nosec
 
     def user_credentials(self):
         """
@@ -357,7 +357,7 @@ class BaseSignupForm(_base_signup_form_class()):  # type: ignore[misc]
             # Fail right away.
             raise adapter.validation_error("email_taken")
         else:
-            assert assessment is None
+            assert assessment is None  # nosec
             self.account_already_exists = True
         return adapter.validate_unique_email(value)
 

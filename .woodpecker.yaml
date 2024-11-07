@@ -38,6 +38,10 @@ matrix:
     ######################################################################
     # Linters
 
+    - STEP: run-py-bandit
+      PRJ: regular
+      DJANGO_VERSION: django50
+      PYTHON_VERSION: 3.12
     - STEP: run-py-black
       PRJ: regular
       DJANGO_VERSION: django50

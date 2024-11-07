@@ -8,7 +8,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 class QuestradeOAuth2Adapter(OAuth2Adapter):
     provider_id = "questrade"
-    access_token_url = "https://login.questrade.com/oauth2/token"
+    access_token_url = "https://login.questrade.com/oauth2/token"  # nosec
     authorize_url = "https://login.questrade.com/oauth2/authorize"
     supports_state = False
 

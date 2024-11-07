@@ -16,8 +16,8 @@ class XingAPI(OAuth):
 
 class XingOAuthAdapter(OAuthAdapter):
     provider_id = "xing"
-    request_token_url = "https://api.xing.com/v1/request_token"
-    access_token_url = "https://api.xing.com/v1/access_token"
+    request_token_url = "https://api.xing.com/v1/request_token"  # nosec
+    access_token_url = "https://api.xing.com/v1/access_token"  # nosec
     authorize_url = "https://www.xing.com/v1/authorize"
 
     def complete_login(self, request, app, token, response):

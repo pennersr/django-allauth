@@ -8,7 +8,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 class WahooOAuth2Adapter(OAuth2Adapter):
     provider_id = "wahoo"
-    access_token_url = "https://api.wahooligan.com/oauth/token"
+    access_token_url = "https://api.wahooligan.com/oauth/token"  # nosec
     authorize_url = "https://api.wahooligan.com/oauth/authorize"
     profile_url = "https://api.wahooligan.com/v1/user"
 

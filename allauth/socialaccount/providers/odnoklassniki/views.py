@@ -35,10 +35,10 @@ USER_FIELDS = [
 
 class OdnoklassnikiOAuth2Adapter(OAuth2Adapter):
     provider_id = "odnoklassniki"
-    access_token_url = "https://api.odnoklassniki.ru/oauth/token.do"
+    access_token_url = "https://api.odnoklassniki.ru/oauth/token.do"  # nosec
     authorize_url = "https://www.odnoklassniki.ru/oauth/authorize"
     profile_url = "https://api.odnoklassniki.ru/fb.do"
-    access_token_method = "POST"
+    access_token_method = "POST"  # nosec
 
     def complete_login(self, request, app, token, **kwargs):
         data = {
@@ -48,13 +48,16 @@ class OdnoklassnikiOAuth2Adapter(OAuth2Adapter):
             "format": "JSON",
             "application_key": app.key,
         }
+        # Ondoklassniki prescribes a weak algo
         suffix = md5(
             "{0:s}{1:s}".format(data["access_token"], app.secret).encode("utf-8")
-        ).hexdigest()
+        ).hexdigest()  # nosec
         check_list = sorted(
             ["{0:s}={1:s}".format(k, v) for k, v in data.items() if k != "access_token"]
         )
-        data["sig"] = md5(("".join(check_list) + suffix).encode("utf-8")).hexdigest()
+        data["sig"] = md5(
+            ("".join(check_list) + suffix).encode("utf-8")
+        ).hexdigest()  # nosec
 
         response = (
             get_adapter().get_requests_session().get(self.profile_url, params=data)

@@ -8,7 +8,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 class StripeOAuth2Adapter(OAuth2Adapter):
     provider_id = "stripe"
-    access_token_url = "https://connect.stripe.com/oauth/token"
+    access_token_url = "https://connect.stripe.com/oauth/token"  # nosec
     authorize_url = "https://connect.stripe.com/oauth/authorize"
     profile_url = "https://api.stripe.com/v1/accounts/%s"
 

@@ -9,7 +9,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 class TwitchOAuth2Adapter(OAuth2Adapter):
     provider_id = "twitch"
-    access_token_url = "https://id.twitch.tv/oauth2/token"
+    access_token_url = "https://id.twitch.tv/oauth2/token"  # nosec
     authorize_url = "https://id.twitch.tv/oauth2/authorize"
     profile_url = "https://api.twitch.tv/helix/users"
 

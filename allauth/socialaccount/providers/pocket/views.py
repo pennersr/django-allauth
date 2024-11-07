@@ -4,8 +4,8 @@ from .client import PocketOAuthClient
 
 class PocketOAuthAdapter(OAuthAdapter):
     provider_id = "pocket"
-    request_token_url = "https://getpocket.com/v3/oauth/request"
-    access_token_url = "https://getpocket.com/v3/oauth/authorize"
+    request_token_url = "https://getpocket.com/v3/oauth/request"  # nosec
+    access_token_url = "https://getpocket.com/v3/oauth/authorize"  # nosec
     authorize_url = "https://getpocket.com/auth/authorize"
     client_class = PocketOAuthClient
 

@@ -42,7 +42,7 @@ class FacebookOAuth2Adapter(OAuth2Adapter):
     scope_delimiter = ","
     authorize_url = settings.get("AUTHORIZE_URL", provider_default_auth_url)
     access_token_url = GRAPH_API_URL + "/oauth/access_token"
-    access_token_method = "GET"
+    access_token_method = "GET"  # nosec
     expires_in_key = "expires_in"
 
     def complete_login(self, request, app, access_token, **kwargs):

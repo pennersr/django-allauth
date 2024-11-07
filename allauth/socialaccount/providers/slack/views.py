@@ -10,7 +10,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 class SlackOAuth2Adapter(OAuth2Adapter):
     provider_id = "slack"
 
-    access_token_url = "https://slack.com/api/openid.connect.token"
+    access_token_url = "https://slack.com/api/openid.connect.token"  # nosec
     authorize_url = "https://slack.com//openid/connect/authorize"
     identity_url = "https://slack.com/api/openid.connect.userInfo"
 

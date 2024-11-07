@@ -1,5 +1,5 @@
 import base64
-import pickle
+import pickle  # nosec
 from collections import UserDict
 
 from openid.association import Association as OIDAssociation
@@ -29,7 +29,11 @@ class JSONSafeSession(UserDict):
 
     def __getitem__(self, key):
         data = UserDict.__getitem__(self, key)
-        return pickle.loads(base64.b64decode(data.encode("ascii")))
+        # We can avoid all of this once this is released:
+        #     https://github.com/necaris/python3-openid/pull/71
+        # We're not loading pickled data from an external source, so this
+        # is safe.
+        return pickle.loads(base64.b64decode(data.encode("ascii")))  # nosec
 
 
 class OldAXAttribute:

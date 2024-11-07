@@ -37,7 +37,7 @@ class PinterestOAuth2Adapter(OAuth2Adapter):
         )
 
     if provider_api_version == "v3":
-        access_token_method = "PUT"
+        access_token_method = "PUT"  # nosec
 
     def complete_login(self, request, app, token, **kwargs):
         response = (

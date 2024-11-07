@@ -16,6 +16,10 @@ mo:
 isort:
 	isort --check-only --diff .
 
+.PHONY: bandit
+bandit:
+	bandit -c pyproject.toml -r allauth/
+
 .PHONY: black
 black:
 	black --check .
@@ -58,6 +62,10 @@ standardjs:
 docs:
 	$(MAKE) -C docs html
 
+
+.PHONY: ci-install-bandit
+ci-install-bandit:
+	pip install bandit==1.7.10
 
 .PHONY: ci-install-black
 ci-install-black:

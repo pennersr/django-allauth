@@ -45,7 +45,7 @@ def providers_media_js(context):
     request = context["request"]
     providers = get_adapter().list_providers(request)
     ret = "\n".join(p.media_js(request) for p in providers)
-    return mark_safe(ret)
+    return mark_safe(ret)  # nosec
 
 
 @register.simple_tag

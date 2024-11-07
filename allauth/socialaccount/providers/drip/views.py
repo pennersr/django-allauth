@@ -14,7 +14,7 @@ class DripOAuth2Adapter(OAuth2Adapter):
     provider_id = "drip"
 
     authorize_url = "https://www.getdrip.com/oauth/authorize"
-    access_token_url = "https://www.getdrip.com/oauth/token"
+    access_token_url = "https://www.getdrip.com/oauth/token"  # nosec
     profile_url = "https://api.getdrip.com/v2/user"
 
     def complete_login(self, request, app, token, **kwargs):

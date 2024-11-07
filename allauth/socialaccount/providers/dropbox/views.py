@@ -8,7 +8,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 class DropboxOAuth2Adapter(OAuth2Adapter):
     provider_id = "dropbox"
-    access_token_url = "https://api.dropbox.com/oauth2/token"
+    access_token_url = "https://api.dropbox.com/oauth2/token"  # nosec
     authorize_url = "https://www.dropbox.com/oauth2/authorize"
     profile_url = "https://api.dropbox.com/2/users/get_current_account"
 

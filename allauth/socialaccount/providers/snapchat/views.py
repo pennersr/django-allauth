@@ -15,7 +15,7 @@ from allauth.socialaccount.providers.snapchat.constants import (
 class SnapchatOAuth2Adapter(OAuth2Adapter):
     provider_id = PROVIDER_ID
 
-    access_token_url = "https://accounts.snapchat.com/accounts/oauth2/token"
+    access_token_url = "https://accounts.snapchat.com/accounts/oauth2/token"  # nosec
     authorize_url = "https://accounts.snapchat.com/accounts/oauth2/auth"
     identity_url = "https://api.snapkit.com/v1/me"
 

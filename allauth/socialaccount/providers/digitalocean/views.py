@@ -8,7 +8,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 class DigitalOceanOAuth2Adapter(OAuth2Adapter):
     provider_id = "digitalocean"
-    access_token_url = "https://cloud.digitalocean.com/v1/oauth/token"
+    access_token_url = "https://cloud.digitalocean.com/v1/oauth/token"  # nosec
     authorize_url = "https://cloud.digitalocean.com/v1/oauth/authorize"
     profile_url = "https://api.digitalocean.com/v2/account"
 

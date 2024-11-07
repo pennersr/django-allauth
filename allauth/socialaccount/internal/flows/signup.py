@@ -64,7 +64,7 @@ def process_auto_signup(request, sociallogin):
             # address conflict only after posting whereas we detected it
             # here already.
         else:
-            assert assessment is None
+            assert assessment is None  # nosec
             # Prevent enumeration is properly turned on, meaning, we cannot
             # show the signup form to allow the user to input another email
             # address. Instead, we're going to send the user an email that

@@ -33,7 +33,7 @@ def _login(request, sociallogin):
 
 def pre_social_login(request, sociallogin):
     clear_pending_signup(request)
-    assert not sociallogin.is_existing
+    assert not sociallogin.is_existing  # nosec
     sociallogin.lookup()
     get_adapter().pre_social_login(request, sociallogin)
     signals.pre_social_login.send(

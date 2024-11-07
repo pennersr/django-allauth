@@ -10,7 +10,7 @@ from .client import WeixinOAuth2Client
 
 class WeixinOAuth2Adapter(OAuth2Adapter):
     provider_id = "weixin"
-    access_token_url = "https://api.weixin.qq.com/sns/oauth2/access_token"
+    access_token_url = "https://api.weixin.qq.com/sns/oauth2/access_token"  # nosec
     profile_url = "https://api.weixin.qq.com/sns/userinfo"
     client_class = WeixinOAuth2Client
 

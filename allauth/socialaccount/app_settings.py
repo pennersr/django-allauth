@@ -56,7 +56,7 @@ class AppSettings:
                     "settings": app_settings,
                 }
             )
-            assert app["provider_id"]
+            assert app["provider_id"]  # nosec
             apps.append(app)
         ret["APPS"] = apps
         return ret

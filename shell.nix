@@ -8,6 +8,7 @@ stdenv.mkDerivation {
         isort
         djlint
         python311
+        python311Packages.bandit
         python311Packages.mypy
         python311Packages.django-stubs
         python311Packages.types-requests

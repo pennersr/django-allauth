@@ -8,7 +8,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 class ZoomOAuth2Adapter(OAuth2Adapter):
     provider_id = "zoom"
-    access_token_url = "https://zoom.us/oauth/token"
+    access_token_url = "https://zoom.us/oauth/token"  # nosec
     authorize_url = "https://zoom.us/oauth/authorize"
     profile_url = "https://api.zoom.us/v2/users/me"
 

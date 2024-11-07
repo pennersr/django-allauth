@@ -32,7 +32,7 @@ def sociallogin_factory(user_factory):
                 EmailAddress(email=user.email, verified=email_verified, primary=True)
             ]
         if with_token:
-            sociallogin.token = SocialToken(token="123", token_secret="456")
+            sociallogin.token = SocialToken(token="123", token_secret="456")  # nosec
         return sociallogin
 
     return factory

@@ -85,7 +85,7 @@ def get_username_max_length():
 def generate_username_candidate(basename, suffix_length):
     max_length = get_username_max_length()
     suffix = "".join(
-        random.choice(USERNAME_SUFFIX_CHARS[i]) for i in range(suffix_length)
+        random.choice(USERNAME_SUFFIX_CHARS[i]) for i in range(suffix_length)  # nosec
     )
     return basename[0 : max_length - len(suffix)] + suffix
 
@@ -140,7 +140,7 @@ def valid_email_or_none(email):
 
 
 def import_attribute(path):
-    assert isinstance(path, str)
+    assert isinstance(path, str)  # nosec
     pkg, attr = path.rsplit(".", 1)
     ret = getattr(importlib.import_module(pkg), attr)
     return ret

@@ -16,8 +16,8 @@ class TumblrAPI(OAuth):
 
 class TumblrOAuthAdapter(OAuthAdapter):
     provider_id = "tumblr"
-    request_token_url = "https://www.tumblr.com/oauth/request_token"
-    access_token_url = "https://www.tumblr.com/oauth/access_token"
+    request_token_url = "https://www.tumblr.com/oauth/request_token"  # nosec
+    access_token_url = "https://www.tumblr.com/oauth/access_token"  # nosec
     authorize_url = "https://www.tumblr.com/oauth/authorize"
 
     def complete_login(self, request, app, token, response):

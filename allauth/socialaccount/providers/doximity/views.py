@@ -8,7 +8,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 class DoximityOAuth2Adapter(OAuth2Adapter):
     provider_id = "doximity"
-    access_token_url = "https://auth.doximity.com/oauth/token"
+    access_token_url = "https://auth.doximity.com/oauth/token"  # nosec
     authorize_url = "https://auth.doximity.com/oauth/authorize"
     profile_url = "https://www.doximity.com/api/v1/users/current"
 

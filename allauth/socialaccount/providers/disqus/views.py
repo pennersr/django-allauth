@@ -8,7 +8,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 class DisqusOAuth2Adapter(OAuth2Adapter):
     provider_id = "disqus"
-    access_token_url = "https://disqus.com/api/oauth/2.0/access_token/"
+    access_token_url = "https://disqus.com/api/oauth/2.0/access_token/"  # nosec
     authorize_url = "https://disqus.com/api/oauth/2.0/authorize/"
     profile_url = "https://disqus.com/api/3.0/users/details.json"
     scope_delimiter = ","

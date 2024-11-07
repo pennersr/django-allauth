@@ -13,7 +13,7 @@ from allauth.mfa.models import Authenticator
 from allauth.mfa.utils import decrypt, encrypt
 
 
-SECRET_SESSION_KEY = "mfa.totp.secret"
+SECRET_SESSION_KEY = "mfa.totp.secret"  # nosec
 
 
 def generate_totp_secret(length: int = 20) -> str:

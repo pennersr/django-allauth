@@ -21,14 +21,17 @@ class DraugiemApiError(Exception):
     pass
 
 
-ACCESS_TOKEN_URL = "https://api.draugiem.lv/json"
+ACCESS_TOKEN_URL = "https://api.draugiem.lv/json"  # nosec
 AUTHORIZE_URL = "https://api.draugiem.lv/authorize"
 
 
 def login(request):
     app = get_adapter().get_app(request, DraugiemProvider.id)
     redirect_url = request.build_absolute_uri(reverse(callback))
-    redirect_url_hash = md5((app.secret + redirect_url).encode("utf-8")).hexdigest()
+    # Draugiem mandates a weak hashing algorithm.
+    redirect_url_hash = md5(
+        (app.secret + redirect_url).encode("utf-8")
+    ).hexdigest()  # nosec
     params = {
         "app": app.client_id,
         "hash": redirect_url_hash,

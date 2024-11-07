@@ -12,7 +12,7 @@ from allauth.socialaccount.providers.oauth2.client import (
 
 class FeishuOAuth2Client(OAuth2Client):
     app_access_token_url = (
-        "https://open.feishu.cn/open-apis/auth/v3/app_access_token/internal/"
+        "https://open.feishu.cn/open-apis/auth/v3/app_access_token/internal/"  # nosec
     )
 
     def get_redirect_url(self, authorization_url, scope, extra_params):
@@ -57,7 +57,7 @@ class FeishuOAuth2Client(OAuth2Client):
         params = None
         self._strip_empty_keys(data)
         url = self.access_token_url
-        if self.access_token_method == "GET":
+        if self.access_token_method == "GET":  # nosec
             params = data
             data = None
         if data and pkce_code_verifier:

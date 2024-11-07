@@ -218,7 +218,7 @@ class SocialLogin:
         email_addresses: Optional[List[EmailAddress]] = None,
     ):
         if token:
-            assert token.account is None or token.account == account
+            assert token.account is None or token.account == account  # nosec
         self.token = token
         self.user = user
         if account:
@@ -315,7 +315,7 @@ class SocialLogin:
             self._lookup_by_email()
 
     def _lookup_by_socialaccount(self) -> bool:
-        assert not self.is_existing
+        assert not self.is_existing  # nosec
         try:
             a = SocialAccount.objects.get(
                 provider=self.account.provider, uid=self.account.uid
@@ -337,7 +337,7 @@ class SocialLogin:
         # Update token
         if not app_settings.STORE_TOKENS or not self.token:
             return
-        assert not self.token.pk
+        assert not self.token.pk  # nosec
         app = self.token.app
         if app and not app.pk:
             # If the app is not stored in the db, leave the FK empty.

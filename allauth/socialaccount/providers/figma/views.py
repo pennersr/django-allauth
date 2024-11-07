@@ -10,7 +10,7 @@ class FigmaOAuth2Adapter(OAuth2Adapter):
     provider_id = "figma"
 
     authorize_url = "https://www.figma.com/oauth"
-    access_token_url = "https://www.figma.com/api/oauth/token"
+    access_token_url = "https://www.figma.com/api/oauth/token"  # nosec
     userinfo_url = "https://api.figma.com/v1/me"
 
     def complete_login(self, request, app, token, **kwargs):

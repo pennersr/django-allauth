@@ -8,7 +8,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 class MiroOAuth2Adapter(OAuth2Adapter):
     provider_id = "miro"
-    access_token_url = "https://api.miro.com/v1/oauth/token"
+    access_token_url = "https://api.miro.com/v1/oauth/token"  # nosec
     authorize_url = "https://miro.com/oauth/authorize"
     profile_url = "https://api.miro.com/v1/users/me"
 

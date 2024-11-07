@@ -8,7 +8,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 class StravaOAuth2Adapter(OAuth2Adapter):
     provider_id = "strava"
-    access_token_url = "https://www.strava.com/oauth/token"
+    access_token_url = "https://www.strava.com/oauth/token"  # nosec
     authorize_url = "https://www.strava.com/oauth/authorize"
     profile_url = "https://www.strava.com/api/v3/athlete"
 

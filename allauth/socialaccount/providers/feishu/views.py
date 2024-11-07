@@ -17,9 +17,11 @@ class FeishuOAuth2Adapter(OAuth2Adapter):
     provider_id = "feishu"
 
     authorization_url = "https://open.feishu.cn/open-apis/authen/v1/index"
-    access_token_url = "https://open.feishu.cn/open-apis/authen/v1/access_token"
+    access_token_url = (
+        "https://open.feishu.cn/open-apis/authen/v1/access_token"  # nosec
+    )
     app_access_token_url = (
-        "https://open.feishu.cn/open-apis/auth/v3/app_access_token/internal/"
+        "https://open.feishu.cn/open-apis/auth/v3/app_access_token/internal/"  # nosec
     )
     user_info_url = "https://open.feishu.cn/open-apis/authen/v1/user_info"
 

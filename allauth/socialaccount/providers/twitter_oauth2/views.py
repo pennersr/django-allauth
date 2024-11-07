@@ -8,7 +8,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 class TwitterOAuth2Adapter(OAuth2Adapter):
     provider_id = "twitter_oauth2"
-    access_token_url = "https://api.twitter.com/2/oauth2/token"
+    access_token_url = "https://api.twitter.com/2/oauth2/token"  # nosec
     authorize_url = "https://twitter.com/i/oauth2/authorize"
     profile_url = "https://api.twitter.com/2/users/me"
     basic_auth = True

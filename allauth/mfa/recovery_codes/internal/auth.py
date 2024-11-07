@@ -91,7 +91,7 @@ class RecoveryCodes:
             return False
         else:
             migrated_codes = self.instance.data["migrated_codes"]
-            assert isinstance(migrated_codes, list)
+            assert isinstance(migrated_codes, list)  # nosec
             migrated_codes.pop(idx)
             self.instance.data["migrated_codes"] = migrated_codes
             self.instance.save()

@@ -10,7 +10,7 @@ from .client import DingTalkOAuth2Client
 
 class DingTalkOAuth2Adapter(OAuth2Adapter):
     provider_id = "dingtalk"
-    access_token_url = "https://api.dingtalk.com/v1.0/oauth2/userAccessToken"
+    access_token_url = "https://api.dingtalk.com/v1.0/oauth2/userAccessToken"  # nosec
     authorize_url = "https://login.dingtalk.com/oauth2/auth"
     profile_url = "https://api.dingtalk.com/v1.0/contact/users/me"
     client_class = DingTalkOAuth2Client

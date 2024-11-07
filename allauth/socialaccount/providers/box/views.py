@@ -8,7 +8,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 class BoxOAuth2Adapter(OAuth2Adapter):
     provider_id = "box"
-    access_token_url = "https://api.box.com/oauth2/token"
+    access_token_url = "https://api.box.com/oauth2/token"  # nosec
     authorize_url = "https://account.box.com/api/oauth2/authorize"
     profile_url = "https://api.box.com/2.0/users/me"
     redirect_uri_protocol = None

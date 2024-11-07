@@ -12,7 +12,7 @@ from ..base import ProviderException
 
 class DoubanOAuth2Adapter(OAuth2Adapter):
     provider_id = "douban"
-    access_token_url = "https://www.douban.com/service/auth2/token"
+    access_token_url = "https://www.douban.com/service/auth2/token"  # nosec
     authorize_url = "https://www.douban.com/service/auth2/auth"
     profile_url = "https://api.douban.com/v2/user/~me"
 

@@ -8,7 +8,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 class KakaoOAuth2Adapter(OAuth2Adapter):
     provider_id = "kakao"
-    access_token_url = "https://kauth.kakao.com/oauth/token"
+    access_token_url = "https://kauth.kakao.com/oauth/token"  # nosec
     authorize_url = "https://kauth.kakao.com/oauth/authorize"
     profile_url = "https://kapi.kakao.com/v2/user/me"
 

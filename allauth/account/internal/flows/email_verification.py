@@ -215,7 +215,7 @@ def send_verification_email(request, user, signup=False, email=None) -> bool:
                 request, user, email, signup=signup, confirm=True
             )
             sent = True
-            assert email_address
+            assert email_address  # nosec
         # At this point, if we were supposed to send an email we have sent it.
         if send_email:
             adapter.add_message(

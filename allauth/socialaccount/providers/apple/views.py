@@ -24,7 +24,7 @@ from .client import AppleOAuth2Client
 class AppleOAuth2Adapter(OAuth2Adapter):
     client_class = AppleOAuth2Client
     provider_id = "apple"
-    access_token_url = "https://appleid.apple.com/auth/token"
+    access_token_url = "https://appleid.apple.com/auth/token"  # nosec
     authorize_url = "https://appleid.apple.com/auth/authorize"
     public_key_url = "https://appleid.apple.com/auth/keys"
 

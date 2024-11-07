@@ -8,12 +8,14 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 class QuickBooksOAuth2Adapter(OAuth2Adapter):
     provider_id = "quickbooks"
-    access_token_url = "https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer"
+    access_token_url = (
+        "https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer"  # nosec
+    )
     authorize_url = "https://appcenter.intuit.com/connect/oauth2"
     profile_test = "https://sandbox-accounts.platform.intuit.com/v1/openid_connect/userinfo"  # NOQA
     profile_url = "https://accounts.platform.intuit.com/v1/openid_connect/userinfo"
     profile_url_method = "GET"
-    access_token_method = "POST"
+    access_token_method = "POST"  # nosec
 
     def complete_login(self, request, app, token, **kwargs):
         realm_id = request.GET.get("realmId")

@@ -220,7 +220,7 @@ class DefaultSocialAccountAdapter(BaseAdapter):
                 raise ImproperlyConfigured(f"unknown provider: {app.provider}")
             return provider_class(request, app=app)
         elif provider_class:
-            assert not provider_class.uses_apps
+            assert not provider_class.uses_apps  # nosec
             return provider_class(request, app=None)
         else:
             raise ImproperlyConfigured(f"unknown provider: {app.provider}")

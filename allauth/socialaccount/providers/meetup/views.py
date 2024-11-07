@@ -8,7 +8,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 class MeetupOAuth2Adapter(OAuth2Adapter):
     provider_id = "meetup"
-    access_token_url = "https://secure.meetup.com/oauth2/access"
+    access_token_url = "https://secure.meetup.com/oauth2/access"  # nosec
     authorize_url = "https://secure.meetup.com/oauth2/authorize"
     profile_url = "https://api.meetup.com/2/member/self"
 

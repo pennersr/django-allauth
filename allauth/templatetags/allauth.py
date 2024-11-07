@@ -141,5 +141,5 @@ class SetVarNode(template.Node):
         self.var = var
 
     def render(self, context):
-        context[self.var] = mark_safe(self.nodelist.render(context).strip())
+        context[self.var] = mark_safe(self.nodelist.render(context).strip())  # nosec
         return ""

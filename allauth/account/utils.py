@@ -251,7 +251,7 @@ def setup_user_email(request, user, addresses):
     """
     from .models import EmailAddress
 
-    assert not EmailAddress.objects.filter(user=user).exists()
+    assert not EmailAddress.objects.filter(user=user).exists()  # nosec
     priority_addresses = []
     # Is there a stashed email?
     adapter = get_adapter()

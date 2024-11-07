@@ -10,7 +10,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 class CleverOAuth2Adapter(OAuth2Adapter):
     provider_id = "clever"
 
-    access_token_url = "https://clever.com/oauth/tokens"
+    access_token_url = "https://clever.com/oauth/tokens"  # nosec
     authorize_url = "https://clever.com/oauth/authorize"
     identity_url = "https://api.clever.com/v3.0/me"
     user_details_url = "https://api.clever.com/v3.0/users"

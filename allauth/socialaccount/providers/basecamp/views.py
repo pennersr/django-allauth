@@ -9,7 +9,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 class BasecampOAuth2Adapter(OAuth2Adapter):
     provider_id = "basecamp"
     access_token_url = (
-        "https://launchpad.37signals.com/authorization/token?type=web_server"  # noqa
+        "https://launchpad.37signals.com/authorization/token?type=web_server"  # nosec
     )
     authorize_url = "https://launchpad.37signals.com/authorization/new"
     profile_url = "https://launchpad.37signals.com/authorization.json"

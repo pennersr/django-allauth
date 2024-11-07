@@ -9,7 +9,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 class BitbucketOAuth2Adapter(OAuth2Adapter):
     provider_id = "bitbucket_oauth2"
-    access_token_url = "https://bitbucket.org/site/oauth2/access_token"
+    access_token_url = "https://bitbucket.org/site/oauth2/access_token"  # nosec
     authorize_url = "https://bitbucket.org/site/oauth2/authorize"
     profile_url = "https://api.bitbucket.org/2.0/user"
     emails_url = "https://api.bitbucket.org/2.0/user/emails"

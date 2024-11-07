@@ -8,7 +8,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 class YandexOAuth2Adapter(OAuth2Adapter):
     provider_id = "yandex"
-    access_token_url = "https://oauth.yandex.ru/token"
+    access_token_url = "https://oauth.yandex.ru/token"  # nosec
     authorize_url = "https://oauth.yandex.com/authorize"
     profile_url = "https://login.yandex.ru/info"
 

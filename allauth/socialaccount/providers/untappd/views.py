@@ -11,8 +11,8 @@ from .client import UntappdOAuth2Client
 class UntappdOAuth2Adapter(OAuth2Adapter):
     client_class = UntappdOAuth2Client
     provider_id = "untappd"
-    access_token_url = "https://untappd.com/oauth/authorize/"
-    access_token_method = "GET"
+    access_token_url = "https://untappd.com/oauth/authorize/"  # nosec
+    access_token_method = "GET"  # nosec
     authorize_url = "https://untappd.com/oauth/authenticate/"
     user_info_url = "https://api.untappd.com/v4/user/info/"
 

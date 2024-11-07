@@ -8,7 +8,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 class CILogonOAuth2Adapter(OAuth2Adapter):
     provider_id = "cilogon"
-    access_token_url = "https://cilogon.org/oauth2/token"
+    access_token_url = "https://cilogon.org/oauth2/token"  # nosec
     authorize_url = "https://cilogon.org/authorize"
     profile_url = "https://cilogon.org/oauth2/userinfo"
 

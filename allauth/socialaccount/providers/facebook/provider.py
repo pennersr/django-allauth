@@ -231,7 +231,7 @@ class FacebookProvider(OAuth2Provider):
             if access_token:
                 return flows.verify_token(request, self, access_token)
             else:
-                assert id_token
+                assert id_token  # nosec
                 return flows.verify_limited_login_token(request, self, id_token)
         except (OAuth2Error, requests.RequestException) as e:
             raise get_adapter().validation_error("invalid_token") from e

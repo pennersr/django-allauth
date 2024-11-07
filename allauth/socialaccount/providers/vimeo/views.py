@@ -17,8 +17,8 @@ class VimeoAPI(OAuth):
 
 class VimeoOAuthAdapter(OAuthAdapter):
     provider_id = "vimeo"
-    request_token_url = "https://vimeo.com/oauth/request_token"
-    access_token_url = "https://vimeo.com/oauth/access_token"
+    request_token_url = "https://vimeo.com/oauth/request_token"  # nosec
+    access_token_url = "https://vimeo.com/oauth/access_token"  # nosec
     authorize_url = "https://vimeo.com/oauth/authorize"
 
     def complete_login(self, request, app, token, response):

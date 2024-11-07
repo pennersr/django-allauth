@@ -29,7 +29,7 @@ class UntappdOAuth2Client(OAuth2Client):
         params = None
         self._strip_empty_keys(data)
         url = self.access_token_url
-        if self.access_token_method == "GET":
+        if self.access_token_method == "GET":  # nosec
             params = data
             data = None
         if data and pkce_code_verifier:

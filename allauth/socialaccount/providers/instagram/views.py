@@ -8,7 +8,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 class InstagramOAuth2Adapter(OAuth2Adapter):
     provider_id = "instagram"
-    access_token_url = "https://api.instagram.com/oauth/access_token"
+    access_token_url = "https://api.instagram.com/oauth/access_token"  # nosec
     authorize_url = "https://api.instagram.com/oauth/authorize"
     profile_url = "https://graph.instagram.com/me"
 

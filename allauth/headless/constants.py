@@ -15,7 +15,7 @@ class Flow(str, Enum):
     SIGNUP = "signup"
     PROVIDER_REDIRECT = "provider_redirect"
     PROVIDER_SIGNUP = "provider_signup"
-    PROVIDER_TOKEN = "provider_token"
+    PROVIDER_TOKEN = "provider_token"  # nosec
     REAUTHENTICATE = "reauthenticate"
     MFA_REAUTHENTICATE = "mfa_reauthenticate"
     MFA_AUTHENTICATE = "mfa_authenticate"  # NOTE: Equal to `allauth.mfa.stages.AuthenticationStage.key`

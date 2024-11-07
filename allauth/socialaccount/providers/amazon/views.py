@@ -8,7 +8,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 class AmazonOAuth2Adapter(OAuth2Adapter):
     provider_id = "amazon"
-    access_token_url = "https://api.amazon.com/auth/o2/token"
+    access_token_url = "https://api.amazon.com/auth/o2/token"  # nosec
     authorize_url = "http://www.amazon.com/ap/oa"
     profile_url = "https://api.amazon.com/user/profile"
 

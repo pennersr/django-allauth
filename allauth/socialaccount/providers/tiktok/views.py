@@ -10,7 +10,7 @@ from allauth.socialaccount.providers.tiktok.scope import TikTokScope
 
 class TikTokOAuth2Adapter(OAuth2Adapter):
     provider_id = "tiktok"
-    access_token_url = "https://open.tiktokapis.com/v2/oauth/token/"
+    access_token_url = "https://open.tiktokapis.com/v2/oauth/token/"  # nosec
     authorize_url = "https://www.tiktok.com/v2/auth/authorize/"
     # https://developers.tiktok.com/doc/tiktok-api-v2-get-user-info/
     profile_url = "https://open.tiktokapis.com/v2/user/info/"

@@ -9,13 +9,13 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 class LinkedInOAuth2Adapter(OAuth2Adapter):
     provider_id = "linkedin_oauth2"
-    access_token_url = "https://www.linkedin.com/oauth/v2/accessToken"
+    access_token_url = "https://www.linkedin.com/oauth/v2/accessToken"  # nosec
     authorize_url = "https://www.linkedin.com/oauth/v2/authorization"
     profile_url = "https://api.linkedin.com/v2/me"
     email_url = "https://api.linkedin.com/v2/emailAddress?q=members&projection=(elements*(handle~))"  # noqa
     # See:
     # http://developer.linkedin.com/forum/unauthorized-invalid-or-expired-token-immediately-after-receiving-oauth2-token?page=1 # noqa
-    access_token_method = "GET"
+    access_token_method = "GET"  # nosec
 
     def complete_login(self, request, app, token, **kwargs):
         extra_data = self.get_user_info(token)

@@ -8,7 +8,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 class HubicOAuth2Adapter(OAuth2Adapter):
     provider_id = "hubic"
-    access_token_url = "https://api.hubic.com/oauth/token"
+    access_token_url = "https://api.hubic.com/oauth/token"  # nosec
     authorize_url = "https://api.hubic.com/oauth/auth"
     profile_url = "https://api.hubic.com/1.0/account"
     redirect_uri_protocol = "https"

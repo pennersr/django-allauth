@@ -25,7 +25,7 @@ class EmailAddressManager(models.Manager):
         """
         Returns the email address the user is in the process of changing to, if any.
         """
-        assert app_settings.CHANGE_EMAIL
+        assert app_settings.CHANGE_EMAIL  # nosec
         return (
             self.model.objects.filter(user=user, verified=False).order_by("pk").last()
         )
@@ -35,7 +35,7 @@ class EmailAddressManager(models.Manager):
         Adds an email address the user wishes to change to, replacing his
         current email address once confirmed.
         """
-        assert app_settings.CHANGE_EMAIL
+        assert app_settings.CHANGE_EMAIL  # nosec
         instance = self.get_new(user)
         email = email.lower()
         if not instance:

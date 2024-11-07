@@ -8,7 +8,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 class EdmodoOAuth2Adapter(OAuth2Adapter):
     provider_id = "edmodo"
-    access_token_url = "https://api.edmodo.com/oauth/token"
+    access_token_url = "https://api.edmodo.com/oauth/token"  # nosec
     authorize_url = "https://api.edmodo.com/oauth/authorize"
     profile_url = "https://api.edmodo.com/users/me"
 

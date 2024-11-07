@@ -77,7 +77,7 @@ def user_factory(email_factory, db, user_password, email_verified):
 
         User = get_user_model()
         user = User()
-        if password == "!":
+        if password == "!":  # nosec
             user.password = password
         else:
             user.set_password(user_password if password is None else password)
@@ -109,7 +109,9 @@ def email_factory():
                 username = uuid.uuid4().hex
             email = f"{username}@{uuid.uuid4().hex}.org"
         if mixed_case:
-            email = "".join([random.choice([c.upper(), c.lower()]) for c in email])
+            email = "".join(
+                [random.choice([c.upper(), c.lower()]) for c in email]  # nosec
+            )
         else:
             email = email.lower()
         return email

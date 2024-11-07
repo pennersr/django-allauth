@@ -8,7 +8,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 class AngelListOAuth2Adapter(OAuth2Adapter):
     provider_id = "angellist"
-    access_token_url = "https://angel.co/api/oauth/token/"
+    access_token_url = "https://angel.co/api/oauth/token/"  # nosec
     authorize_url = "https://angel.co/api/oauth/authorize/"
     profile_url = "https://api.angel.co/1/me/"
     supports_state = False

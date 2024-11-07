@@ -9,7 +9,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 class AtlassianOAuth2Adapter(OAuth2Adapter):
     provider_id = "atlassian"
-    access_token_url = "https://api.atlassian.com/oauth/token"
+    access_token_url = "https://api.atlassian.com/oauth/token"  # nosec
     authorize_url = "https://auth.atlassian.com/authorize"
     profile_url = "https://api.atlassian.com/me"
 

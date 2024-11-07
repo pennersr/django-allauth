@@ -8,7 +8,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 class TwentyThreeAndMeOAuth2Adapter(OAuth2Adapter):
     provider_id = "twentythreeandme"
-    access_token_url = "https://api.23andme.com/token"
+    access_token_url = "https://api.23andme.com/token"  # nosec
     authorize_url = "https://api.23andme.com/authorize"
     profile_url = "https://api.23andme.com/1/user/"
 

@@ -114,7 +114,7 @@ class LoginStageController:
                     clear_login(self.request)
                 return response
             else:
-                assert cont
+                assert cont  # nosec
                 self.set_handled(stage.key)
         clear_login(self.request)
 

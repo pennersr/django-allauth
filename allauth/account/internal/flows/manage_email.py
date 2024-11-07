@@ -98,7 +98,7 @@ def mark_as_primary(request: HttpRequest, email_address: EmailAddress):
             "account/messages/unverified_primary_email.txt",
         )
     else:
-        assert request.user.is_authenticated
+        assert request.user.is_authenticated  # nosec
         from_email_address = EmailAddress.objects.filter(
             user=request.user, primary=True
         ).first()
@@ -156,7 +156,7 @@ def assess_unique_email(email) -> Optional[bool]:
         # In case of mandatory verification and enumeration prevention,
         # we can avoid creating a new account with the same (unverified)
         # email address, because we are going to send an email anyway.
-        assert app_settings.PREVENT_ENUMERATION
+        assert app_settings.PREVENT_ENUMERATION  # nosec
         return None
     elif app_settings.PREVENT_ENUMERATION == "strict":
         # We're going to be strict on enumeration prevention, and allow for
@@ -165,7 +165,7 @@ def assess_unique_email(email) -> Optional[bool]:
         # address resulting in multiple accounts with an unverified email.
         return True
     else:
-        assert app_settings.PREVENT_ENUMERATION is True
+        assert app_settings.PREVENT_ENUMERATION is True  # nosec
         # Conflict. We're supposed to prevent enumeration, but we can't
         # because that means letting the user in, while emails are required
         # to be unique. In this case, uniqueness takes precedence over

@@ -59,7 +59,7 @@ def request_email_verification_code(
     if not pretend:
         adapter = get_adapter()
         code = adapter.generate_email_verification_code()
-        assert user._meta.pk
+        assert user._meta.pk  # nosec
         pending_verification.update(
             {
                 "user_id": user._meta.pk.value_to_string(user),

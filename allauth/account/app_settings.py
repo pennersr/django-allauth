@@ -1,8 +1,5 @@
-import warnings
 from enum import Enum
 from typing import Set, Union
-
-from django.core.exceptions import ImproperlyConfigured
 
 
 class AppSettings:
@@ -22,44 +19,7 @@ class AppSettings:
         NONE = "none"
 
     def __init__(self, prefix):
-        from django.conf import settings
-
         self.prefix = prefix
-        # If login is by email, email must be required
-        assert (
-            not self.AUTHENTICATION_METHOD == self.AuthenticationMethod.EMAIL
-        ) or self.EMAIL_REQUIRED
-        # If login includes email, login must be unique
-        assert (
-            self.AUTHENTICATION_METHOD == self.AuthenticationMethod.USERNAME
-        ) or self.UNIQUE_EMAIL
-        assert (
-            self.EMAIL_VERIFICATION != self.EmailVerificationMethod.MANDATORY
-        ) or self.EMAIL_REQUIRED
-        if not self.USER_MODEL_USERNAME_FIELD:
-            assert not self.USERNAME_REQUIRED
-            assert self.AUTHENTICATION_METHOD not in (
-                self.AuthenticationMethod.USERNAME,
-                self.AuthenticationMethod.USERNAME_EMAIL,
-            )
-        if self.MAX_EMAIL_ADDRESSES is not None:
-            assert self.MAX_EMAIL_ADDRESSES > 0
-        if self.CHANGE_EMAIL:
-            if self.MAX_EMAIL_ADDRESSES is not None and self.MAX_EMAIL_ADDRESSES != 2:
-                raise ImproperlyConfigured(
-                    "Invalid combination of ACCOUNT_CHANGE_EMAIL and ACCOUNT_MAX_EMAIL_ADDRESSES"
-                )
-        if hasattr(settings, "ACCOUNT_LOGIN_ATTEMPTS_LIMIT") or hasattr(
-            settings, "ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT"
-        ):
-            warnings.warn(
-                "settings.ACCOUNT_LOGIN_ATTEMPTS_LIMIT/TIMEOUT is deprecated, use: settings.ACCOUNT_RATE_LIMITS['login_failed']"
-            )
-
-        if hasattr(settings, "ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN"):
-            warnings.warn(
-                "settings.ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN is deprecated, use: settings.ACCOUNT_RATE_LIMITS['confirm_email']"
-            )
 
     def _setting(self, name, dflt):
         from allauth.utils import get_setting

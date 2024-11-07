@@ -9,7 +9,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 class DataportenOAuth2Adapter(OAuth2Adapter):
     provider_id = "dataporten"
-    access_token_url = "https://auth.dataporten.no/oauth/token"
+    access_token_url = "https://auth.dataporten.no/oauth/token"  # nosec
     authorize_url = "https://auth.dataporten.no/oauth/authorization"
     profile_url = "https://auth.dataporten.no/userinfo"
     groups_url = "https://groups-api.dataporten.no/groups/"

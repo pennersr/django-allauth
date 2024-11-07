@@ -207,6 +207,13 @@ paths:
               examples:
                 invalid_email:
                   $ref: "#/components/examples/InvalidEmailVerificationKey"
+        "409":
+          description: |
+            Conflict. The email verification (by code) flow is not pending.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConflictResponse"
     post:
       tags:
         - "Authentication: Account"
@@ -237,6 +244,13 @@ paths:
                   $ref: "#/components/examples/InvalidEmailVerificationKey"
         "401":
           $ref: "#/components/responses/Unauthenticated"
+        "409":
+          description: |
+            Conflict. The email verification (by code) flow is not pending.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConflictResponse"
   /_allauth/{client}/v1/auth/reauthenticate:
     post:
       tags:

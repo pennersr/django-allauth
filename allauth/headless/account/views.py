@@ -1,5 +1,6 @@
 from django.utils.decorators import method_decorator
 
+from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.internal import flows
 from allauth.account.internal.flows import password_change, password_reset
@@ -126,12 +127,31 @@ class VerifyEmailView(APIView):
 
     def handle(self, request, *args, **kwargs):
         self.stage = LoginStageController.enter(request, EmailVerificationStage.key)
+        if not self.stage and account_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED:
+            return ConflictResponse(request)
         return super().handle(request, *args, **kwargs)
+
+    def handle_invalid_input(self, input: VerifyEmailInput):
+        self._record_invalid_attempt()
+        return super().handle_invalid_input(input)
+
+    def _record_invalid_attempt(self) -> None:
+        if account_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED:
+            _, pending_verification = (
+                flows.email_verification_by_code.get_pending_verification(
+                    self.request, peek=True
+                )
+            )
+            if pending_verification:
+                flows.email_verification_by_code.record_invalid_attempt(
+                    self.request, pending_verification
+                )
 
     def get(self, request, *args, **kwargs):
         key = request.headers.get("x-email-verification-key", "")
         input = self.input_class({"key": key})
         if not input.is_valid():
+            self._record_invalid_attempt()
             return ErrorResponse(request, input=input)
         verification = input.cleaned_data["key"]
         return response.VerifyEmailResponse(request, verification, stage=self.stage)

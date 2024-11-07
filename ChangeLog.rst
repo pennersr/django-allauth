@@ -25,6 +25,15 @@ Fixes
   ``get_email_verification_redirect_url()`` adapter method.
 
 
+Security notice
+---------------
+
+- Headless: ``settings.ACCOUNT_EMAIL_VERIFICATION_BY_CODE_MAX_ATTEMPTS`` was not
+  enforced, fixed.  Note that the related verification endpoint will return a
+  409 in case the maximum limit is exceeded, as at that point the pending email
+  verification stage is aborted.
+
+
 65.1.0 (2024-10-23)
 *******************
 

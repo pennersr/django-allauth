@@ -317,6 +317,7 @@ class ProviderAccount:
                         "name",
                         "display_name",
                         "displayName",
+                        "displayname",
                         "Display_Name",
                         "nickname",
                     ],

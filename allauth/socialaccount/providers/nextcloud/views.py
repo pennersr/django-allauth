@@ -1,5 +1,3 @@
-import xml.etree.ElementTree as ET
-
 from allauth.core import context
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
@@ -44,11 +42,11 @@ class NextCloudOAuth2Adapter(OAuth2Adapter):
         resp = (
             get_adapter()
             .get_requests_session()
-            .get(self.profile_url + user_id, headers=headers)
+            .get(self.profile_url + user_id, params={"format": "json"}, headers=headers)
         )
         resp.raise_for_status()
-        data = ET.fromstring(resp.content.decode())[1]
-        return {d.tag: d.text.strip() for d in data if d.text is not None}
+        data = resp.json()["ocs"]["data"]
+        return data
 
 
 oauth2_login = OAuth2LoginView.adapter_view(NextCloudOAuth2Adapter)

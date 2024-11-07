@@ -21,7 +21,7 @@ class NextCloudProvider(OAuth2Provider):
     def extract_common_fields(self, data):
         return dict(
             username=data["displayname"],
-            email=data["email"],
+            email=data.get("email"),
         )
 
     def get_default_scope(self):

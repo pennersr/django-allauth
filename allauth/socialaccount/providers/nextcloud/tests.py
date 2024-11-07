@@ -22,46 +22,44 @@ class NextCloudTests(OAuth2TestsMixin, TestCase):
     def get_mocked_response(self):
         return MockedResponse(
             200,
-            """<?xml version="1.0"?>
-<ocs>
- <meta>
-  <status>ok</status>
-  <statuscode>100</statuscode>
-  <message>OK</message>
-  <totalitems></totalitems>
-  <itemsperpage></itemsperpage>
- </meta>
- <data>
-  <enabled>1</enabled>
-  <id>batman</id>
-  <storageLocation>/var/www/html/data/batman</storageLocation>
-  <lastLogin>1553946472000</lastLogin>
-  <backend>Database</backend>
-  <subadmin/>
-  <quota>
-   <free>1455417655296</free>
-   <used>467191265</used>
-   <total>1455884846561</total>
-   <relative>0.03</relative>
-   <quota>-3</quota>
-  </quota>
-  <email>batman@wayne.com</email>
-  <displayname>batman</displayname>
-  <phone>7351857301</phone>
-  <address>BatCave, Gotham City</address>
-  <website>https://batman.org</website>
-  <twitter>@the_batman</twitter>
-  <groups>
-   <element>admin</element>
-  </groups>
-  <language>fr</language>
-  <locale>fr_FR</locale>
-  <backendCapabilities>
-   <setDisplayName>1</setDisplayName>
-   <setPassword>1</setPassword>
-  </backendCapabilities>
- </data>
-</ocs>
+            """
+{
+  "ocs": {
+    "meta": {
+      "status": "ok",
+      "statuscode": 100,
+      "message": "OK",
+      "totalitems": "",
+      "itemsperpage": ""
+    },
+    "data": {
+      "enabled": true,
+      "storageLocation": "\\/var\\/www\\/html\\/data\\/pennersr",
+      "id": "pennersr",
+      "lastLogin": 1730973409000,
+      "backend": "Database",
+      "subadmin": [],
+      "quota": {
+        "free": 9159623057408,
+        "used": 1585107741,
+        "total": 9161208165149,
+        "relative": 0.02,
+        "quota": -3
+      },
+      "email": "batman@wayne.com",
+      "displayname": "pennersr",
+      "phone": "",
+      "address": "",
+      "website": "",
+      "twitter": "",
+      "groups": [
+        "admin"
+      ],
+      "language": "nl",
+      "locale": ""
+    }
+  }
+}
 """,
         )
 

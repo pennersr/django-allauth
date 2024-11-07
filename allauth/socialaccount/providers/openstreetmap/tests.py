@@ -12,21 +12,53 @@ class OpenStreetMapTests(OAuthTestsMixin, TestCase):
         return [
             MockedResponse(
                 200,
-                r"""<?xml version="1.0" encoding="UTF-8"?>
-<osm version="0.6" generator="OpenStreetMap server" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
-<user id="1" display_name="Steve" account_created="2005-09-13T15:32:57Z">
-  <description></description>
-  <contributor-terms agreed="true"/>
-  <img href="https://secure.gravatar.com/avatar.jpg"/>
-  <roles>
-  </roles>
-  <changesets count="899"/>
-  <traces count="21"/>
-  <blocks>
-    <received count="0" active="0"/>
-  </blocks>
-</user>
-</osm>
+                r"""
+{
+  "version": "0.6",
+  "generator": "OpenStreetMap server",
+  "copyright": "OpenStreetMap and contributors",
+  "attribution": "http://www.openstreetmap.org/copyright",
+  "license": "http://opendatacommons.org/licenses/odbl/1-0/",
+  "user": {
+    "id": 1,
+    "display_name": "Steve",
+    "account_created": "2024-11-06T20:11:01Z",
+    "description": "",
+    "contributor_terms": {
+      "agreed": true,
+      "pd": true
+    },
+    "img": {
+      "href": "https://secure.gravatar.com/avatar.jpg"
+    },
+    "roles": [],
+    "changesets": {
+      "count": 0
+    },
+    "traces": {
+      "count": 0
+    },
+    "blocks": {
+      "received": {
+        "count": 0,
+        "active": 0
+      }
+    },
+    "languages": [
+      "en-US",
+      "en"
+    ],
+    "messages": {
+      "received": {
+        "count": 0,
+        "unread": 0
+      },
+      "sent": {
+        "count": 0
+      }
+    }
+  }
+}
 """,
             )
         ]  # noqa

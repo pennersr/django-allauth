@@ -1,4 +1,4 @@
-65.2.0 (unreleased)
+65.2.0 (2024-11-08)
 *******************
 
 Note worthy changes

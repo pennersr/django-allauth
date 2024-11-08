@@ -12,7 +12,8 @@ class SessionTokenStrategy(AbstractTokenStrategy):
         if not request.session.session_key:
             request.session.save()
         key = request.session.session_key
-        assert isinstance(key, str)  # nosec: We did save.
+        # We did save
+        assert isinstance(key, str)  # nosec
         return key
 
     def lookup_session(self, session_token: str) -> typing.Optional[SessionBase]:

@@ -15,7 +15,8 @@ def _build_locale_table(filename_or_file):
     # Require the XML parser module only if we want the default mapping
     from xml.dom.minidom import parse  # nosec
 
-    dom = parse(filename_or_file)  # nosec: trusted source
+    # Trusted source
+    dom = parse(filename_or_file)  # nosec
 
     reps = dom.getElementsByTagName("representation")
     locs = map(lambda r: r.childNodes[0].data, reps)

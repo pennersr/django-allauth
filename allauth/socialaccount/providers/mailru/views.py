@@ -23,9 +23,10 @@ class MailRuOAuth2Adapter(OAuth2Adapter):
             "uids": uid,
         }
         param_list = sorted([item + "=" + data[item] for item in data])
+        # See: https://api.mail.ru/docs/guides/restapi/
         data["sig"] = md5(
             ("".join(param_list) + app.secret).encode("utf-8")
-        ).hexdigest()  # nosec: https://api.mail.ru/docs/guides/restapi/
+        ).hexdigest()  # nosec
         response = (
             get_adapter().get_requests_session().get(self.profile_url, params=data)
         )

@@ -40,6 +40,8 @@ Note worthy changes
   ``ACCOUNT_SIGNUP_FIELDS`` configuration, as well as any custom fields you have
   in ``ACCOUNT_SIGNUP_FORM_CLASS``.
 
+- Added official support for Python 3.13.
+
 
 Fixes
 -----

@@ -13,7 +13,7 @@ jobs:
       fail-fast: false
       matrix:
         project: ['regular', 'headless_only', 'login_required_mw']
-        python-version: ['3.8', '3.9', '3.10', '3.11', '3.12']
+        python-version: ['3.8', '3.9', '3.10', '3.11', '3.12', '3.13']
         django-version: ['4.2', '5.0', '5.1']
         exclude:
           - python-version: '3.8'
@@ -44,6 +44,8 @@ jobs:
           - project: 'login_required_mw'
             python-version: '3.11'
           - project: 'login_required_mw'
+            python-version: '3.12'
+          - project: 'login_required_mw'
             django-version: 'main'
           - project: 'login_required_mw'
             django-version: '4.2'
@@ -72,7 +74,7 @@ jobs:
         DJANGO: ${{ matrix.django-version }}
         PRJ: ${{ matrix.project }}
     - name: Coverage (Coveralls)
-      if: ${{ success() && matrix.django-version == '5.1' && matrix.python-version == '3.12' && matrix.project == 'regular' }}
+      if: ${{ success() && matrix.django-version == '5.1' && matrix.python-version == '3.13' && matrix.project == 'regular' }}
       run: coveralls --service=github
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

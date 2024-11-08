@@ -945,14 +945,19 @@ class RequestLoginCodeView(RedirectAuthenticatedUserMixin, NextRedirectMixin, Fo
 request_login_code = RequestLoginCodeView.as_view()
 
 
+def _login_by_code_urlname():
+    # NOTE: Having this as a method instead of a constant allows changing
+    # settings in test cases...
+    return (
+        "account_request_login_code"
+        if app_settings.LOGIN_BY_CODE_ENABLED
+        else "account_login"
+    )
+
+
 @method_decorator(
     login_stage_required(
-        stage=LoginByCodeStage.key,
-        redirect_urlname=(
-            "account_request_login_code"
-            if app_settings.LOGIN_BY_CODE_ENABLED
-            else "account_login"
-        ),
+        stage=LoginByCodeStage.key, redirect_urlname=(_login_by_code_urlname())
     ),
     name="dispatch",
 )
@@ -967,7 +972,7 @@ class ConfirmLoginCodeView(NextRedirectMixin, FormView):
             self.request, self.stage.login, peek=True
         )
         if not self.pending_login:
-            return HttpResponseRedirect(reverse("account_request_login_code"))
+            return HttpResponseRedirect(reverse(_login_by_code_urlname()))
         return super().dispatch(request, *args, **kwargs)
 
     def get_form_class(self):
@@ -998,7 +1003,7 @@ class ConfirmLoginCodeView(NextRedirectMixin, FormView):
         )
         return HttpResponseRedirect(
             reverse(
-                "account_request_login_code"
+                _login_by_code_urlname()
                 if self.pending_login["initiated_by_user"]
                 else "account_login"
             )

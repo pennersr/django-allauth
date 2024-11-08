@@ -188,3 +188,25 @@ While authenticated, re-authentication may be required to safeguard the account 
 are performed. The re-authentication flows are the following:
 - Re-authenticate using password (`reauthenticate`).
 - Re-authenticate using a 2FA authenticator (TOTP, recovery codes, or WebAuthn) (`mfa_reauthenticate`).
+
+# Security Considerations
+
+## Input Sanitization
+
+The Django framework, by design, does *not* perform input sanitization. For
+example, there is nothing preventing end users from signing up using `<script>`
+or `Robert'); DROP TABLE students` as a first name. Django relies on its
+template language for proper escaping of such values and mitigate any XSS
+attacks.
+
+As a result, any `allauth.headless` client **must** have proper XSS protection
+in place as well. Be prepared that, for example, the WebAuthn endpoints could
+return authenticator names as follows:
+
+    {
+      "name": "<script>alert(1)</script>",
+      "credential": {
+        "type": "public-key",
+        ...
+      }
+    }

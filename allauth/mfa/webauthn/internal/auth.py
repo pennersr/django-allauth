@@ -130,7 +130,7 @@ def get_authenticator_by_credential_id(
 def parse_authentication_response(response: Any) -> AuthenticationResponse:
     try:
         return AuthenticationResponse.from_dict(response)
-    except TypeError:
+    except (TypeError, ValueError):
         raise get_adapter().validation_error("incorrect_code")
 
 

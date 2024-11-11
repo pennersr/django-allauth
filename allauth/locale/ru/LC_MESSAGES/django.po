@@ -10,15 +10,15 @@ msgstr ""
 "POT-Creation-Date: 2024-09-21 06:42-0500\n"
 "PO-Revision-Date: 2024-11-22 19:00+0000\n"
 "Last-Translator: Reser21 <is.galyaveev@yandex.ru>\n"
-"Language-Team: Russian <https://hosted.weblate.org/projects/allauth/"
-"django-allauth/ru/>\n"
+"Language-Team: Russian <https://hosted.weblate.org/projects/allauth/django-"
+"allauth/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
-"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.9-dev\n"
 
 #: account/adapter.py:51
@@ -1405,7 +1405,6 @@ msgstr ""
 
 #: templates/mfa/webauthn/authenticator_list.html:37
 #, fuzzy
-#| msgid "secret key"
 msgid "Security key"
 msgstr "секретный ключ"
 
@@ -1415,7 +1414,6 @@ msgstr ""
 
 #: templates/mfa/webauthn/authenticator_list.html:41
 #, fuzzy
-#| msgid "Unverified"
 msgid "Unspecified"
 msgstr "Не подтвержден"
 
@@ -1435,7 +1433,6 @@ msgstr ""
 
 #: templates/mfa/webauthn/edit_form.html:7
 #, fuzzy
-#| msgid "secret key"
 msgid "Edit Security Key"
 msgstr "секретный ключ"
 
@@ -1445,7 +1442,6 @@ msgstr ""
 
 #: templates/mfa/webauthn/signup_form.html:7
 #, fuzzy
-#| msgid "Current Password"
 msgid "Create Passkey"
 msgstr "Текущий пароль"
 
@@ -1615,7 +1611,6 @@ msgid "session key"
 msgstr "ключ сеанса"
 
 #, fuzzy
-#~| msgid "Account Connections"
 #~ msgid "Account Connection"
 #~ msgstr "Прикрепленные аккаунты"
 
@@ -1643,12 +1638,10 @@ msgstr "ключ сеанса"
 #~ "ссылке ниже."
 
 #, fuzzy
-#~| msgid "The following email addresses are associated with your account:"
 #~ msgid "The following email address is associated with your account:"
 #~ msgstr "Следующие e-mail адреса прикреплены к вашему аккаунту:"
 
 #, fuzzy
-#~| msgid "Confirm Email Address"
 #~ msgid "Change Email Address"
 #~ msgstr "Подтвердите e-mail адрес."
 
@@ -1695,7 +1688,6 @@ msgstr "ключ сеанса"
 #~ "другое."
 
 #, fuzzy
-#~| msgid "Sign In"
 #~ msgid "Shopify Sign In"
 #~ msgstr "Войти"
 

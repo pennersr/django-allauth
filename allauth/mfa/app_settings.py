@@ -59,6 +59,13 @@ class AppSettings:
         return code
 
     @property
+    def TOTP_TOLERANCE(self):
+        """
+        The number of time steps in the past or future to allow. Lower values are more secure, but more likely to fail due to clock drift.
+        """
+        return self._setting("TOTP_TOLERANCE", 0)
+
+    @property
     def SUPPORTED_TYPES(self):
         dflt = ["recovery_codes", "totp"]
         return self._setting("SUPPORTED_TYPES", dflt)

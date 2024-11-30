@@ -8,18 +8,18 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-21 06:42-0500\n"
-"PO-Revision-Date: 2024-06-18 13:09+0000\n"
-"Last-Translator: Andrei Satsevich <mr.ackid@gmail.com>\n"
-"Language-Team: Russian <https://hosted.weblate.org/projects/allauth/django-"
-"allauth/ru/>\n"
+"PO-Revision-Date: 2024-11-22 19:00+0000\n"
+"Last-Translator: Reser21 <is.galyaveev@yandex.ru>\n"
+"Language-Team: Russian <https://hosted.weblate.org/projects/allauth/"
+"django-allauth/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.6-dev\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.9-dev\n"
 
 #: account/adapter.py:51
 msgid "This account is currently inactive."
@@ -93,17 +93,13 @@ msgid "Use your password"
 msgstr "Используйте ваш пароль"
 
 #: account/adapter.py:750
-#, fuzzy
-#| msgid "Use your authenticator app"
 msgid "Use authenticator app or code"
-msgstr "Используйте приложение-аутентификатор"
+msgstr "Используйте приложение-аутентификатор или код"
 
 #: account/adapter.py:757 templates/mfa/authenticate.html:36
 #: templates/mfa/webauthn/reauthenticate.html:15
-#, fuzzy
-#| msgid "secret key"
 msgid "Use a security key"
-msgstr "секретный ключ"
+msgstr "Используйте ключ безопасности"
 
 #: account/admin.py:23
 msgid "Mark selected email addresses as verified"
@@ -260,23 +256,21 @@ msgid ""
 "You cannot activate two-factor authentication until you have verified your "
 "email address."
 msgstr ""
-"Вы не сможете активировать двухфакторную аутентификацию, пока не пдотвердите "
+"Вы не сможете активировать двухфакторную аутентификацию, пока не подтвердите "
 "свой адрес электронной почты."
 
 #: mfa/adapter.py:141
-#, fuzzy
-#| msgid "secret key"
 msgid "Master key"
-msgstr "секретный ключ"
+msgstr "Основной ключ"
 
 #: mfa/adapter.py:143
 msgid "Backup key"
-msgstr ""
+msgstr "Запасной ключ"
 
 #: mfa/adapter.py:144
 #, python-brace-format
 msgid "Key nr. {number}"
-msgstr ""
+msgstr "Ключ №{number}"
 
 #: mfa/apps.py:9
 msgid "MFA"
@@ -299,16 +293,17 @@ msgid "Authenticator code"
 msgstr "Код аутентификатора"
 
 #: mfa/webauthn/forms.py:56
-#, fuzzy
-#| msgid "Password"
 msgid "Passwordless"
-msgstr "Пароль"
+msgstr "Без пароля"
 
 #: mfa/webauthn/forms.py:59
 msgid ""
 "Enabling passwordless operation allows you to sign in using just this key, "
 "but imposes additional requirements such as biometrics or PIN protection."
 msgstr ""
+"Включение режима работы без пароля позволяет вам войти в систему, используя "
+"только этот ключ, но предъявляет дополнительные требования, такие как защита "
+"биометрией или PIN-кодом."
 
 #: socialaccount/adapter.py:36
 #, python-format
@@ -513,16 +508,12 @@ msgid "Alternative options"
 msgstr "Альтернативные варианты"
 
 #: templates/account/confirm_email_verification_code.html:5
-#, fuzzy
-#| msgid "Email Confirmation"
 msgid "Email Verification"
-msgstr "Подтверждение по электронной почте"
+msgstr "Подтверждение электронной почты"
 
 #: templates/account/confirm_email_verification_code.html:9
-#, fuzzy
-#| msgid "Enter an authenticator code:"
 msgid "Enter Email Verification Code"
-msgstr "Введите код аутентификатора:"
+msgstr "Введите код подтверждения электронной почты:"
 
 #: templates/account/confirm_email_verification_code.html:15
 #: templates/account/confirm_login_code.html:15
@@ -692,27 +683,16 @@ msgid "Email Confirmation"
 msgstr "Подтверждение по электронной почте"
 
 #: templates/account/email/email_confirmation_message.txt:5
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this email because user %(user_display)s has given your "
-#| "email address to register an account on %(site_domain)s.\n"
-#| "\n"
-#| "To confirm this is correct, go to %(activate_url)s"
+#, python-format
 msgid ""
 "You're receiving this email because user %(user_display)s has given your "
 "email address to register an account on %(site_domain)s."
 msgstr ""
 "Вы получили это письмо, потому что пользователь %(user_display)s указал ваш "
 "адрес электронной почты для регистрации учетной записи на сайте "
-"%(site_domain)s.\n"
-"\n"
-"Чтобы подтвердить, перейдите по ссылке %(activate_url)s"
+"%(site_domain)s."
 
 #: templates/account/email/email_confirmation_message.txt:7
-#, fuzzy
-#| msgid ""
-#| "Your sign-in code is listed below. Please enter it in your open browser "
-#| "window."
 msgid ""
 "Your email verification code is listed below. Please enter it in your open "
 "browser window."
@@ -723,7 +703,7 @@ msgstr ""
 #: templates/account/email/email_confirmation_message.txt:9
 #, python-format
 msgid "To confirm this is correct, go to %(activate_url)s"
-msgstr ""
+msgstr "Для подтверждения перейдите на %(activate_url)s"
 
 #: templates/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your Email Address"
@@ -903,7 +883,7 @@ msgstr ""
 
 #: templates/account/login.html:42
 msgid "Sign in with a passkey"
-msgstr ""
+msgstr "Войти с ключом доступа"
 
 #: templates/account/login.html:47 templates/account/request_login_code.html:9
 msgid "Mail me a sign-in code"
@@ -1060,7 +1040,7 @@ msgstr "Регистрация"
 #: templates/allauth/layouts/base.html:74 templates/socialaccount/signup.html:9
 #: templates/socialaccount/signup.html:25
 msgid "Sign Up"
-msgstr "Регистрация"
+msgstr "Зарегистрируйтесь"
 
 #: templates/account/signup.html:17 templates/account/signup_by_passkey.html:17
 #, python-format
@@ -1069,19 +1049,15 @@ msgstr "Уже зарегистрированы? %(link)sВойдите%(end_lin
 
 #: templates/account/signup.html:39
 msgid "Sign up using a passkey"
-msgstr ""
+msgstr "Зарегистрироваться, используя ключ доступа"
 
 #: templates/account/signup_by_passkey.html:8
-#, fuzzy
-#| msgid "Sign Up"
 msgid "Passkey Sign Up"
-msgstr "Регистрация"
+msgstr "Регистрация с ключом доступа"
 
 #: templates/account/signup_by_passkey.html:36
-#, fuzzy
-#| msgid "Other sign-in options"
 msgid "Other options"
-msgstr "Другие варианты входа"
+msgstr "Другие варианты"
 
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:9
@@ -1229,24 +1205,20 @@ msgid "Authenticator App Deactivated"
 msgstr "Приложение для проверки подлинности отключено"
 
 #: templates/mfa/email/webauthn_added_message.txt:4
-#, fuzzy
-#| msgid "A new set of recovery codes has been generated."
 msgid "A new security key has been added."
-msgstr "Был создан новый набор кодов восстановления."
+msgstr "Был создан новый ключ доступа."
 
 #: templates/mfa/email/webauthn_added_subject.txt:3
 msgid "Security Key Added"
-msgstr ""
+msgstr "Создан ключ доступа"
 
 #: templates/mfa/email/webauthn_removed_message.txt:4
-#, fuzzy
-#| msgid "Your email has been confirmed."
 msgid "A security key has been removed."
-msgstr "Ваш адрес электронной почты был подтвержден."
+msgstr "Ключ доступа был удален."
 
 #: templates/mfa/email/webauthn_removed_subject.txt:3
 msgid "Security Key Removed"
-msgstr ""
+msgstr "Ключ доступа удален"
 
 #: templates/mfa/index.html:14 templates/mfa/totp/base.html:4
 msgid "Authenticator App"
@@ -1271,30 +1243,30 @@ msgstr "Активировать"
 #: templates/mfa/index.html:45 templates/mfa/webauthn/authenticator_list.html:8
 #: templates/mfa/webauthn/base.html:4
 msgid "Security Keys"
-msgstr ""
+msgstr "Ключи доступа"
 
 #: templates/mfa/index.html:50
 #, python-format
 msgid "You have added %(count)s security key."
 msgid_plural "You have added %(count)s security keys."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Вы создали %(count)s ключ доступа."
+msgstr[1] "Вы создали %(count)s клюей доступа."
+msgstr[2] "Вы создали %(count)s ключей доступа."
+msgstr[3] "Вы создали %(count)s ключ доступа."
 
 #: templates/mfa/index.html:54
 #: templates/mfa/webauthn/authenticator_list.html:12
 msgid "No security keys have been added."
-msgstr ""
+msgstr "Ключи доступа ещё не были созданы."
 
 #: templates/mfa/index.html:62
 msgid "Manage"
-msgstr ""
+msgstr "Управлять"
 
 #: templates/mfa/index.html:67 templates/mfa/webauthn/add_form.html:18
 #: templates/mfa/webauthn/authenticator_list.html:70
 msgid "Add"
-msgstr ""
+msgstr "Добавить"
 
 #: templates/mfa/index.html:77 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:6
@@ -1335,11 +1307,11 @@ msgstr "Был создан новый набор кодов восстанов�
 
 #: templates/mfa/messages/webauthn_added.txt:2
 msgid "Security key added."
-msgstr ""
+msgstr "Ключ доступа создан."
 
 #: templates/mfa/messages/webauthn_removed.txt:2
 msgid "Security key removed."
-msgstr ""
+msgstr "Ключ доступа удален."
 
 #: templates/mfa/reauthenticate.html:6
 msgid "Enter an authenticator code:"
@@ -1412,22 +1384,16 @@ msgstr ""
 "Аутентификатор. Вы уверены?"
 
 #: templates/mfa/webauthn/add_form.html:7
-#, fuzzy
-#| msgid "secret key"
 msgid "Add Security Key"
-msgstr "секретный ключ"
+msgstr "Создать ключ доступа"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:6
-#, fuzzy
-#| msgid "secret key"
 msgid "Remove Security Key"
-msgstr "секретный ключ"
+msgstr "Удалить ключ доступа"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:9
-#, fuzzy
-#| msgid "Are you sure you want to sign out?"
 msgid "Are you sure you want to remove this security key?"
-msgstr "Вы уверены, что хотите выйти?"
+msgstr "Вы уверены, что хотите удалить этот ключ доступа?"
 
 #: templates/mfa/webauthn/authenticator_list.html:21
 msgid "Usage"
@@ -1491,14 +1457,12 @@ msgid ""
 msgstr ""
 
 #: templates/mfa/webauthn/signup_form.html:21
-#, fuzzy
-#| msgid "created"
 msgid "Create"
-msgstr "создано"
+msgstr "Создать"
 
 #: templates/mfa/webauthn/snippets/scripts.html:2
 msgid "This functionality requires JavaScript."
-msgstr ""
+msgstr "Для этой функции требуется JavaScript."
 
 #: templates/socialaccount/authentication_error.html:5
 #: templates/socialaccount/authentication_error.html:9
@@ -1560,7 +1524,7 @@ msgstr "Соединение с %(provider)s"
 #: templates/socialaccount/login.html:13
 #, python-format
 msgid "You are about to connect a new third-party account from %(provider)s."
-msgstr "Вы собираетесь подключить новый сторонний аккаунт из %(provider)s"
+msgstr "Вы собираетесь подключить новый сторонний аккаунт из %(provider)s."
 
 #: templates/socialaccount/login.html:17
 #, python-format
@@ -1590,8 +1554,8 @@ msgid ""
 "accounts. If this was a mistake, please proceed to <a "
 "href=\"%(login_url)s\">sign in</a>."
 msgstr ""
-"Вы прервали авторизацию, используя один из ваших аккаутов. Если это было "
-"ошибкой, перейдите к <a href=\"%(login_url)s\">авторизации</a>. "
+"Вы прервали авторизацию, используя один из ваших аккаунтов. Если это было "
+"ошибкой, перейдите к <a href=\"%(login_url)s\">авторизации</a>."
 
 #: templates/socialaccount/messages/account_connected.txt:2
 msgid "The third-party account has been connected."

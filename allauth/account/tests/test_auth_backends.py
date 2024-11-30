@@ -1,5 +1,9 @@
+from unittest.mock import patch
+
 from django.contrib.auth import get_user_model
 from django.test.utils import override_settings
+
+import pytest
 
 from allauth.account import app_settings
 from allauth.account.auth_backends import AuthenticationBackend
@@ -71,3 +75,32 @@ class AuthenticationBackendTests(TestCase):
             ).pk,
             user.pk,
         )
+
+
+@pytest.mark.parametrize(
+    "auth_method",
+    [
+        app_settings.AuthenticationMethod.EMAIL,
+        app_settings.AuthenticationMethod.USERNAME,
+        app_settings.AuthenticationMethod.USERNAME_EMAIL,
+    ],
+)
+def test_account_enumeration_timing_attack(user, db, rf, settings, auth_method):
+    settings.ACCOUNT_AUTHENTICATION_METHOD = auth_method
+    with (
+        patch("django.contrib.auth.models.User.set_password") as set_password_mock,
+        patch("django.contrib.auth.models.User.check_password", new=set_password_mock),
+    ):
+        backend = AuthenticationBackend()
+        backend.authenticate(
+            rf.get("/"), email="not@known.org", username="not-known", password="secret"
+        )
+        set_password_mock.assert_called_once()
+        set_password_mock.reset_mock()
+        backend.authenticate(rf.get("/"), username=user.username, password="secret")
+        set_password_mock.assert_called_once()
+        set_password_mock.reset_mock()
+        backend.authenticate(
+            rf.get("/"), email=user.email, username="not-known", password="secret"
+        )
+        set_password_mock.assert_called_once()

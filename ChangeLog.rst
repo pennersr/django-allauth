@@ -7,6 +7,13 @@ Note worthy changes
 - Added support for TOTP code tolerance (see ``MFA_TOTP_TOLERANCE``).
 
 
+Security notice
+---------------
+
+- Authentication by email/password was vulnerable to account enumeration by
+  means of a timing attack. Thanks to Julie Rymer for the report and the patch.
+
+
 65.2.0 (2024-11-08)
 *******************
 

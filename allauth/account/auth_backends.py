@@ -17,7 +17,9 @@ class AuthenticationBackend(ModelBackend):
         if app_settings.AUTHENTICATION_METHOD == AuthenticationMethod.EMAIL:
             ret = self._authenticate_by_email(**credentials)
         elif app_settings.AUTHENTICATION_METHOD == AuthenticationMethod.USERNAME_EMAIL:
-            ret = self._authenticate_by_email(**credentials)
+            ret = self._authenticate_by_email(
+                **credentials, time_attack_mitigation=False
+            )
             if not ret:
                 ret = self._authenticate_by_username(**credentials)
         else:
@@ -45,7 +47,9 @@ class AuthenticationBackend(ModelBackend):
             if self._check_password(user, password):
                 return user
 
-    def _authenticate_by_email(self, **credentials):
+    def _authenticate_by_email(
+        self, time_attack_mitigation: bool = True, **credentials
+    ):
         # Even though allauth will pass along `email`, other apps may
         # not respect this setting. For example, when using
         # django-tastypie basic authentication, the login is always
@@ -53,9 +57,14 @@ class AuthenticationBackend(ModelBackend):
         # and use username as fallback
         email = credentials.get("email", credentials.get("username"))
         if email:
-            for user in filter_users_by_email(email, prefer_verified=True):
-                if self._check_password(user, credentials["password"]):
-                    return user
+            password = credentials["password"]
+            users = filter_users_by_email(email, prefer_verified=True)
+            if users:
+                for user in users:
+                    if self._check_password(user, password):
+                        return user
+            elif time_attack_mitigation:
+                get_user_model()().set_password(password)
         return None
 
     def _check_password(self, user, password):

@@ -1,6 +1,6 @@
 import unicodedata
 from collections import OrderedDict
-from typing import Optional
+from typing import List, Optional
 
 from django.conf import settings
 from django.contrib.auth import REDIRECT_FIELD_NAME, get_user_model
@@ -326,7 +326,7 @@ def filter_users_by_username(*username):
 
 def filter_users_by_email(
     email: str, is_active: Optional[bool] = None, prefer_verified: bool = False
-):
+) -> List:
     """Return list of users by email address
 
     Typically one, at most just a few in length.  First we look through

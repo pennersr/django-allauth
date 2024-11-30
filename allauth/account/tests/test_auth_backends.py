@@ -87,20 +87,23 @@ class AuthenticationBackendTests(TestCase):
 )
 def test_account_enumeration_timing_attack(user, db, rf, settings, auth_method):
     settings.ACCOUNT_AUTHENTICATION_METHOD = auth_method
-    with (
-        patch("django.contrib.auth.models.User.set_password") as set_password_mock,
-        patch("django.contrib.auth.models.User.check_password", new=set_password_mock),
-    ):
-        backend = AuthenticationBackend()
-        backend.authenticate(
-            rf.get("/"), email="not@known.org", username="not-known", password="secret"
-        )
-        set_password_mock.assert_called_once()
-        set_password_mock.reset_mock()
-        backend.authenticate(rf.get("/"), username=user.username, password="secret")
-        set_password_mock.assert_called_once()
-        set_password_mock.reset_mock()
-        backend.authenticate(
-            rf.get("/"), email=user.email, username="not-known", password="secret"
-        )
-        set_password_mock.assert_called_once()
+    with patch("django.contrib.auth.models.User.set_password") as set_password_mock:
+        with patch(
+            "django.contrib.auth.models.User.check_password", new=set_password_mock
+        ):
+            backend = AuthenticationBackend()
+            backend.authenticate(
+                rf.get("/"),
+                email="not@known.org",
+                username="not-known",
+                password="secret",
+            )
+            set_password_mock.assert_called_once()
+            set_password_mock.reset_mock()
+            backend.authenticate(rf.get("/"), username=user.username, password="secret")
+            set_password_mock.assert_called_once()
+            set_password_mock.reset_mock()
+            backend.authenticate(
+                rf.get("/"), email=user.email, username="not-known", password="secret"
+            )
+            set_password_mock.assert_called_once()

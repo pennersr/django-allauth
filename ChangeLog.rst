@@ -1,7 +1,10 @@
 65.3.0 (unreleased)
 *******************
 
-- ...
+Note worthy changes
+-------------------
+
+- Added support for TOTP code tolerance (see ``MFA_TOTP_TOLERANCE``).
 
 
 65.2.0 (2024-11-08)

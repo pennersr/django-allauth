@@ -1,6 +1,7 @@
 import pytest
 
 from allauth.account import app_settings
+from allauth.account.models import EmailAddress
 from allauth.headless.constants import Flow
 
 
@@ -106,3 +107,65 @@ def test_email_verification_rate_limits_submitting_codes(
             assert resp.status_code == 400
         else:
             assert resp.status_code == 409
+
+
+def test_add_email(
+    auth_client,
+    user,
+    email_factory,
+    headless_reverse,
+    settings,
+    get_last_email_verification_code,
+):
+    settings.ACCOUNT_AUTHENTICATION_METHOD = "email"
+    settings.ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED = True
+    settings.ACCOUNT_CHANGE_EMAIL = True
+    new_email = email_factory()
+
+    # Let's add an email...
+    resp = auth_client.post(
+        headless_reverse("headless:account:manage_email"),
+        data={"email": new_email},
+        content_type="application/json",
+    )
+    assert resp.status_code == 200
+
+    # It's in the response, albeit unverified.
+    assert len(resp.json()["data"]) == 2
+    email_map = {addr["email"]: addr for addr in resp.json()["data"]}
+    assert not email_map[new_email]["verified"]
+
+    # Verify the email with an invalid code.
+    resp = auth_client.post(
+        headless_reverse("headless:account:verify_email"),
+        data={"key": "key"},
+        content_type="application/json",
+    )
+    assert resp.status_code == 400
+    assert resp.json() == {
+        "status": 400,
+        "errors": [
+            {"message": "Incorrect code.", "code": "incorrect_code", "param": "key"}
+        ],
+    }
+
+    # And with the valid code...
+    code = get_last_email_verification_code()
+    resp = auth_client.post(
+        headless_reverse("headless:account:verify_email"),
+        data={"key": code},
+        content_type="application/json",
+    )
+    assert resp.status_code == 200
+    assert resp.json()["data"]["user"]["email"] == new_email
+
+    # ACCOUNT_CHANGE_EMAIL = True, so the other one is gone.
+    assert EmailAddress.objects.filter(user=user).count() == 1
+
+    # Re-verification won't work...
+    resp = auth_client.post(
+        headless_reverse("headless:account:verify_email"),
+        data={"key": code},
+        content_type="application/json",
+    )
+    assert resp.status_code == 400

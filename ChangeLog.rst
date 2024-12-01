@@ -1,7 +1,11 @@
 65.3.1 (unreleased)
 *******************
 
-- ...
+Fixes
+-----
+
+- Headless: When using email verification by code, you could incorrectly
+  encounter a 409 when attempting to add a new email address while logged in.
 
 
 65.3.0 (2024-11-30)

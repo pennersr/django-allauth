@@ -1,5 +1,6 @@
 import json
 import random
+import re
 import time
 import uuid
 from contextlib import contextmanager
@@ -324,3 +325,22 @@ def request_factory(rf):
             return request
 
     return RequestFactory()
+
+
+@pytest.fixture
+def get_last_email_verification_code(client, mailoutbox):
+    from allauth.account.internal.flows import email_verification_by_code
+
+    def f():
+        code = re.search(
+            "\n[0-9a-z]{6}\n", mailoutbox[0].body, re.I | re.DOTALL | re.MULTILINE
+        )[0].strip()
+        assert (
+            client.session[
+                email_verification_by_code.EMAIL_VERIFICATION_CODE_SESSION_KEY
+            ]["code"]
+            == code
+        )
+        return code
+
+    return f

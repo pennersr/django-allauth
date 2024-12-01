@@ -1,4 +1,3 @@
-import re
 from unittest.mock import patch
 
 from django.conf import settings
@@ -8,25 +7,7 @@ from django.urls import reverse
 
 import pytest
 
-from allauth.account.internal.flows import email_verification_by_code
 from allauth.account.models import EmailAddress
-
-
-@pytest.fixture
-def get_last_code(client, mailoutbox):
-    def f():
-        code = re.search(
-            "\n[0-9a-z]{6}\n", mailoutbox[0].body, re.I | re.DOTALL | re.MULTILINE
-        )[0].strip()
-        assert (
-            client.session[
-                email_verification_by_code.EMAIL_VERIFICATION_CODE_SESSION_KEY
-            ]["code"]
-            == code
-        )
-        return code
-
-    return f
 
 
 @pytest.fixture(autouse=True)
@@ -45,7 +26,13 @@ def email_verification_settings(settings):
     ],
 )
 def test_signup(
-    client, db, settings, password_factory, get_last_code, query, expected_url
+    client,
+    db,
+    settings,
+    password_factory,
+    get_last_email_verification_code,
+    query,
+    expected_url,
 ):
     password = password_factory()
     resp = client.post(
@@ -58,7 +45,7 @@ def test_signup(
         },
     )
     assert get_user_model().objects.filter(username="johndoe").count() == 1
-    code = get_last_code()
+    code = get_last_email_verification_code()
     assert resp.status_code == 302
     assert resp["location"] == reverse("account_email_verification_sent")
     resp = client.get(reverse("account_email_verification_sent"))
@@ -100,7 +87,9 @@ def test_signup_prevent_enumeration(
 
 
 @pytest.mark.parametrize("change_email", (False, True))
-def test_add_or_change_email(auth_client, user, get_last_code, change_email, settings):
+def test_add_or_change_email(
+    auth_client, user, get_last_email_verification_code, change_email, settings
+):
     settings.ACCOUNT_CHANGE_EMAIL = change_email
     email = "additional@email.org"
     assert EmailAddress.objects.filter(user=user).count() == 1
@@ -113,7 +102,7 @@ def test_add_or_change_email(auth_client, user, get_last_code, change_email, set
             assert not email_added_signal.send.called
             assert not email_changed_signal.send.called
     assert EmailAddress.objects.filter(email=email).count() == 0
-    code = get_last_code()
+    code = get_last_email_verification_code()
     resp = auth_client.get(reverse("account_email_verification_sent"))
     assert resp.status_code == 200
     with patch("allauth.account.signals.email_added") as email_added_signal:

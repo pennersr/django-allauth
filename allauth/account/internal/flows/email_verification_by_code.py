@@ -38,6 +38,12 @@ class EmailVerificationModel(EmailConfirmationMixin):
     def key_expired(self):
         return False
 
+    def confirm(self, request) -> Optional[EmailAddress]:
+        ret = super().confirm(request)
+        if ret:
+            clear_state(request)
+        return ret
+
 
 def clear_state(request):
     request.session.pop(EMAIL_VERIFICATION_CODE_SESSION_KEY, None)

@@ -124,14 +124,15 @@ class EmailAddress(models.Model):
 
 
 class EmailConfirmationMixin:
-    def confirm(self, request):
-        email_address = self.email_address
+    def confirm(self, request) -> Optional[EmailAddress]:
+        email_address = self.email_address  # type: ignore[attr-defined]
         if not email_address.verified:
             confirmed = get_adapter().confirm_email(request, email_address)
             if confirmed:
                 return email_address
+        return None
 
-    def send(self, request=None, signup=False):
+    def send(self, request=None, signup=False) -> None:
         get_adapter().send_confirmation_mail(request, self, signup)
         signals.email_confirmation_sent.send(
             sender=self.__class__,
@@ -180,11 +181,12 @@ class EmailConfirmation(EmailConfirmationMixin, models.Model):
 
     key_expired.boolean = True  # type: ignore[attr-defined]
 
-    def confirm(self, request):
+    def confirm(self, request) -> Optional[EmailAddress]:
         if not self.key_expired():
             return super().confirm(request)
+        return None
 
-    def send(self, request=None, signup=False):
+    def send(self, request=None, signup=False) -> None:
         super().send(request=request, signup=signup)
         self.sent = timezone.now()
         self.save()

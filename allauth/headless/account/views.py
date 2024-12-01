@@ -3,8 +3,11 @@ from django.utils.decorators import method_decorator
 from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.internal import flows
-from allauth.account.internal.flows import password_change, password_reset
-from allauth.account.models import EmailAddress
+from allauth.account.internal.flows import (
+    manage_email,
+    password_change,
+    password_reset,
+)
 from allauth.account.stages import EmailVerificationStage, LoginStageController
 from allauth.account.utils import send_email_confirmation
 from allauth.core import ratelimit
@@ -127,7 +130,11 @@ class VerifyEmailView(APIView):
 
     def handle(self, request, *args, **kwargs):
         self.stage = LoginStageController.enter(request, EmailVerificationStage.key)
-        if not self.stage and account_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED:
+        if (
+            not self.stage
+            and account_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED
+            and not request.user.is_authenticated
+        ):
             return ConflictResponse(request)
         return super().handle(request, *args, **kwargs)
 
@@ -236,7 +243,7 @@ class ManageEmailView(AuthenticatedAPIView):
         return self._respond_email_list()
 
     def _respond_email_list(self):
-        addrs = EmailAddress.objects.filter(user=self.request.user)
+        addrs = manage_email.list_email_addresses(self.request, self.request.user)
         return response.EmailAddressesResponse(self.request, addrs)
 
     def post(self, request, *args, **kwargs):

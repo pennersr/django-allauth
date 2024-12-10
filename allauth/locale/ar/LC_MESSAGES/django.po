@@ -26,7 +26,6 @@ msgstr "هذا الحساب غير نشط حاليا."
 
 #: account/adapter.py:53
 #, fuzzy
-#| msgid "You cannot remove your primary email address (%(email)s)."
 msgid "You cannot remove your primary email address."
 msgstr "لا يمكنك إزالة عنوان البريد الإلكتروني الرئيسي (%(email)s)."
 
@@ -99,7 +98,6 @@ msgstr "استخدم تطبيق المصادقة او الكود"
 #: account/adapter.py:757 templates/mfa/authenticate.html:36
 #: templates/mfa/webauthn/reauthenticate.html:15
 #, fuzzy
-#| msgid "secret key"
 msgid "Use a security key"
 msgstr "مفتاح سري"
 
@@ -150,7 +148,6 @@ msgstr "تسجيل الدخول"
 
 #: account/forms.py:137
 #, fuzzy
-#| msgid "Forgot Password?"
 msgid "Forgot your password?"
 msgstr "هل نسيت كلمة المرور؟"
 
@@ -261,18 +258,17 @@ msgstr ""
 
 #: mfa/adapter.py:141
 #, fuzzy
-#| msgid "secret key"
 msgid "Master key"
 msgstr "مفتاح سري"
 
 #: mfa/adapter.py:143
 msgid "Backup key"
-msgstr ""
+msgstr "المفتاح الاحتياطي"
 
 #: mfa/adapter.py:144
 #, python-brace-format
 msgid "Key nr. {number}"
-msgstr ""
+msgstr "مفتاح رقم {number}"
 
 #: mfa/apps.py:9
 msgid "MFA"
@@ -296,15 +292,17 @@ msgstr "كود المصدق"
 
 #: mfa/webauthn/forms.py:56
 #, fuzzy
-#| msgid "Password"
 msgid "Passwordless"
 msgstr "كلمة المرور"
 
 #: mfa/webauthn/forms.py:59
+#, fuzzy
 msgid ""
 "Enabling passwordless operation allows you to sign in using just this key, "
 "but imposes additional requirements such as biometrics or PIN protection."
 msgstr ""
+"يسمح لك تفعيل الدخول من غير كلمة سر استعمال هذا المفتاح فقط، ولكنه يفرض شروط "
+"دخول أخرى مثل الدخول بالمعرّفات الحيوية (مثل البصمة) أو"
 
 #: socialaccount/adapter.py:36
 #, python-format
@@ -317,7 +315,6 @@ msgstr ""
 
 #: socialaccount/adapter.py:40
 #, fuzzy
-#| msgid "Bad Token"
 msgid "Invalid token."
 msgstr "كود غير صالح"
 
@@ -331,9 +328,6 @@ msgstr "حسابك ليس لديه عنوان بريد إلكتروني موثق
 
 #: socialaccount/adapter.py:44
 #, fuzzy
-#| msgid ""
-#| "You can sign in to your account using any of the following third party "
-#| "accounts:"
 msgid "You cannot disconnect your last remaining third-party account."
 msgstr ""
 "يمكنك تسجيل الدخول إلى حسابك باستخدام أي من حسابات الطرف الثالث التالية:"
@@ -341,7 +335,6 @@ msgstr ""
 #: socialaccount/adapter.py:47
 #: templates/socialaccount/messages/account_connected_other.txt:2
 #, fuzzy
-#| msgid "The social account is already connected to a different account."
 msgid "The third-party account is already connected to a different account."
 msgstr "حساب التواصل الاجتماعي متصل مسبقا مع حساب مختلف."
 
@@ -447,8 +440,6 @@ msgstr "معلومات ملف شخصي غير صالحة"
 
 #: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:16
 #, fuzzy
-#| msgctxt "field label"
-#| msgid "Login"
 msgid "Login"
 msgstr "تسجيل الدخول"
 
@@ -463,7 +454,6 @@ msgstr "يلغي"
 
 #: socialaccount/providers/oauth/client.py:85
 #, fuzzy, python-format
-#| msgid "Invalid response while obtaining request token from \"%s\"."
 msgid ""
 "Invalid response while obtaining request token from \"%s\". Response was: %s."
 msgstr "تم تلقي رد غير صالح عند الحصول على كود الطلب من \"%s\"."
@@ -506,7 +496,6 @@ msgstr "هذا الحساب غير نشط."
 #: templates/account/base_reauthenticate.html:5
 #: templates/account/base_reauthenticate.html:9
 #, fuzzy
-#| msgid "Confirm Email Address"
 msgid "Confirm Access"
 msgstr "تأكيد البريد الإلكتروني"
 
@@ -521,13 +510,11 @@ msgstr "خيارات بديلة"
 
 #: templates/account/confirm_email_verification_code.html:5
 #, fuzzy
-#| msgid "email confirmation"
 msgid "Email Verification"
 msgstr "تأكيد البريد الإلكتروني"
 
 #: templates/account/confirm_email_verification_code.html:9
 #, fuzzy
-#| msgid "token secret"
 msgid "Enter Email Verification Code"
 msgstr "كود سري"
 
@@ -685,29 +672,21 @@ msgstr "J لقد تم تغيير بريدك الإلكتروني من %(from_ema
 
 #: templates/account/email/email_changed_subject.txt:3
 #, fuzzy
-#| msgid "Email address"
 msgid "Email Changed"
 msgstr "عنوان البريد الالكتروني"
 
 #: templates/account/email/email_confirm_message.txt:4
 #, fuzzy
-#| msgid "Your password has been deleted."
 msgid "Your email has been confirmed."
 msgstr "تم حذف كلمة المرور الخاصة بك."
 
 #: templates/account/email/email_confirm_subject.txt:3
 #, fuzzy
-#| msgid "email confirmation"
 msgid "Email Confirmation"
 msgstr "تأكيد البريد الإلكتروني"
 
 #: templates/account/email/email_confirmation_message.txt:5
 #, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this email because user %(user_display)s has given your "
-#| "email address to register an account on %(site_domain)s.\n"
-#| "\n"
-#| "To confirm this is correct, go to %(activate_url)s"
 msgid ""
 "You're receiving this email because user %(user_display)s has given your "
 "email address to register an account on %(site_domain)s."
@@ -719,9 +698,6 @@ msgstr ""
 
 #: templates/account/email/email_confirmation_message.txt:7
 #, fuzzy
-#| msgid ""
-#| "Your sign-in code is listed below. Please enter it in your open browser "
-#| "window."
 msgid ""
 "Your email verification code is listed below. Please enter it in your open "
 "browser window."
@@ -745,7 +721,6 @@ msgstr "تمت إزالة عنوان البريد الإلكتروني %(deleted
 
 #: templates/account/email/email_deleted_subject.txt:3
 #, fuzzy
-#| msgid "Remove"
 msgid "Email Removed"
 msgstr "احذف"
 
@@ -764,19 +739,16 @@ msgstr "يمكن تجاهل هذا البريد بأمان إذا لم تبدأ 
 
 #: templates/account/email/login_code_subject.txt:3
 #, fuzzy
-#| msgid "Sign In"
 msgid "Sign-In Code"
 msgstr "تسجيل الدخول"
 
 #: templates/account/email/password_changed_message.txt:4
 #, fuzzy
-#| msgid "Your password is now changed."
 msgid "Your password has been changed."
 msgstr "تم تغيير كلمة المرور الخاصة بك."
 
 #: templates/account/email/password_changed_subject.txt:3
 #, fuzzy
-#| msgid "Password (again)"
 msgid "Password Changed"
 msgstr "كلمة المرور (مجددا)"
 
@@ -802,7 +774,6 @@ msgstr "رسالة إعادة ضبط كلمة المرور"
 
 #: templates/account/email/password_reset_message.txt:4
 #, fuzzy
-#| msgid "Your password has been deleted."
 msgid "Your password has been reset."
 msgstr "تم حذف كلمة المرور الخاصة بك."
 
@@ -816,13 +787,11 @@ msgstr "إعادة تعيين كلمة المرور"
 
 #: templates/account/email/password_set_message.txt:4
 #, fuzzy
-#| msgid "Your password has been deleted."
 msgid "Your password has been set."
 msgstr "تم حذف كلمة المرور الخاصة بك."
 
 #: templates/account/email/password_set_subject.txt:3
 #, fuzzy
-#| msgid "Password Reset"
 msgid "Password Set"
 msgstr "إعادة تعيين كلمة المرور"
 
@@ -843,7 +812,6 @@ msgstr "إذا كنت أنت، فيمكنك التسجيل للحصول على �
 
 #: templates/account/email/unknown_account_subject.txt:3
 #, fuzzy
-#| msgid "Account"
 msgid "Unknown Account"
 msgstr "حساب"
 
@@ -854,7 +822,6 @@ msgstr "بريد إلكتروني"
 #: templates/account/email_change.html:21
 #: templates/account/email_change.html:29
 #, fuzzy
-#| msgid "Current Password"
 msgid "Current email"
 msgstr "كلمة المرور الحالية"
 
@@ -864,7 +831,6 @@ msgstr "التغيير إلى"
 
 #: templates/account/email_change.html:35
 #, fuzzy
-#| msgid "Your email address is still pending verification:"
 msgid "Your email address is still pending verification."
 msgstr "ما زال عنوان البريد الإلكتروني بانتظار التوثيق:"
 
@@ -874,7 +840,6 @@ msgstr "إلغاء التغيير"
 
 #: templates/account/email_change.html:49
 #, fuzzy
-#| msgid "Change Email"
 msgid "Change to"
 msgstr "تغيير البريد الإلكتروني"
 
@@ -916,9 +881,6 @@ msgstr ""
 
 #: templates/account/login.html:19
 #, fuzzy, python-format
-#| msgid ""
-#| "If you have not created an account yet, then please\n"
-#| "<a href=\"%(signup_url)s\">sign up</a> first."
 msgid ""
 "If you have not created an account yet, then please %(link)ssign "
 "up%(end_link)s first."
@@ -1055,7 +1017,6 @@ msgstr "تعيين كلمة مرور"
 
 #: templates/account/reauthenticate.html:6
 #, fuzzy
-#| msgid "Forgot Password?"
 msgid "Enter your password:"
 msgstr "هل نسيت كلمة المرور؟"
 
@@ -1096,13 +1057,11 @@ msgstr ""
 
 #: templates/account/signup_by_passkey.html:8
 #, fuzzy
-#| msgid "Sign Up"
 msgid "Passkey Sign Up"
 msgstr "الاشتراك"
 
 #: templates/account/signup_by_passkey.html:36
 #, fuzzy
-#| msgid "Other sign-in options"
 msgid "Other options"
 msgstr "خيارات تسجيل الدخول الأخرى"
 
@@ -1121,7 +1080,6 @@ msgstr "ملاحظة"
 
 #: templates/account/snippets/already_logged_in.html:7
 #, fuzzy, python-format
-#| msgid "you are already logged in as %(user_display)s."
 msgid "You are already logged in as %(user_display)s."
 msgstr "تم تسجيل دخولك بالفعل يا %(user_display)s."
 
@@ -1233,7 +1191,6 @@ msgstr "تم تفعيل تطبيق المصادقة."
 
 #: templates/mfa/email/totp_activated_subject.txt:3
 #, fuzzy
-#| msgid "token secret"
 msgid "Authenticator App Activated"
 msgstr "كود سري"
 
@@ -1248,7 +1205,6 @@ msgstr "تم تعطيل تطبيق المصادقة"
 
 #: templates/mfa/email/webauthn_added_message.txt:4
 #, fuzzy
-#| msgid "A new set of recovery codes has been generated."
 msgid "A new security key has been added."
 msgstr "تم إنشاء مجموعة جديدة من رموز الاسترداد."
 
@@ -1258,7 +1214,6 @@ msgstr ""
 
 #: templates/mfa/email/webauthn_removed_message.txt:4
 #, fuzzy
-#| msgid "Your password has been deleted."
 msgid "A security key has been removed."
 msgstr "تم حذف كلمة المرور الخاصة بك."
 
@@ -1365,7 +1320,6 @@ msgstr ""
 
 #: templates/mfa/reauthenticate.html:6
 #, fuzzy
-#| msgid "token secret"
 msgid "Enter an authenticator code:"
 msgstr "كود سري"
 
@@ -1410,7 +1364,6 @@ msgstr ""
 
 #: templates/mfa/totp/activate_form.html:21
 #, fuzzy
-#| msgid "token secret"
 msgid "Authenticator secret"
 msgstr "كود سري"
 
@@ -1436,19 +1389,16 @@ msgstr ""
 
 #: templates/mfa/webauthn/add_form.html:7
 #, fuzzy
-#| msgid "secret key"
 msgid "Add Security Key"
 msgstr "مفتاح سري"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:6
 #, fuzzy
-#| msgid "secret key"
 msgid "Remove Security Key"
 msgstr "مفتاح سري"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:9
 #, fuzzy
-#| msgid "Are you sure you want to sign out?"
 msgid "Are you sure you want to remove this security key?"
 msgstr "هل تريد حقا تسجيل الخروج؟"
 
@@ -1462,7 +1412,6 @@ msgstr ""
 
 #: templates/mfa/webauthn/authenticator_list.html:37
 #, fuzzy
-#| msgid "secret key"
 msgid "Security key"
 msgstr "مفتاح سري"
 
@@ -1472,19 +1421,18 @@ msgstr ""
 
 #: templates/mfa/webauthn/authenticator_list.html:41
 #, fuzzy
-#| msgid "Unverified"
 msgid "Unspecified"
 msgstr "غير موثق"
 
 #: templates/mfa/webauthn/authenticator_list.html:46
 #, python-format
 msgid "Added on %(created_at)s"
-msgstr ""
+msgstr "تاريخ الإضافة: %(created_at)s"
 
 #: templates/mfa/webauthn/authenticator_list.html:48
 #, python-format
 msgid "Last used %(last_used)s"
-msgstr ""
+msgstr "تاريخ آخر استعمال: %(last_used)s"
 
 #: templates/mfa/webauthn/authenticator_list.html:56
 msgid "Edit"
@@ -1492,7 +1440,6 @@ msgstr ""
 
 #: templates/mfa/webauthn/edit_form.html:7
 #, fuzzy
-#| msgid "secret key"
 msgid "Edit Security Key"
 msgstr "مفتاح سري"
 
@@ -1502,7 +1449,6 @@ msgstr ""
 
 #: templates/mfa/webauthn/signup_form.html:7
 #, fuzzy
-#| msgid "Current Password"
 msgid "Create Passkey"
 msgstr "كلمة المرور الحالية"
 
@@ -1515,35 +1461,27 @@ msgstr ""
 
 #: templates/mfa/webauthn/signup_form.html:21
 #, fuzzy
-#| msgid "created"
 msgid "Create"
 msgstr "تمّ إنشاؤه"
 
 #: templates/mfa/webauthn/snippets/scripts.html:2
 msgid "This functionality requires JavaScript."
-msgstr ""
+msgstr "تحتاج هذه العملية استعمال جافاسكرِبت."
 
 #: templates/socialaccount/authentication_error.html:5
 #: templates/socialaccount/authentication_error.html:9
 #, fuzzy
-#| msgid "Social Network Login Failure"
 msgid "Third-Party Login Failure"
 msgstr "فشل تسجيل الدخول الاجتماعي"
 
 #: templates/socialaccount/authentication_error.html:12
 #, fuzzy
-#| msgid ""
-#| "An error occurred while attempting to login via your social network "
-#| "account."
 msgid ""
 "An error occurred while attempting to login via your third-party account."
 msgstr "حدث خطأ أثناء محاولة تسجيل الدخول عن طريق حساب الشبكة الاجتماعية."
 
 #: templates/socialaccount/connections.html:13
 #, fuzzy
-#| msgid ""
-#| "You can sign in to your account using any of the following third party "
-#| "accounts:"
 msgid ""
 "You can sign in to your account using any of the following third-party "
 "accounts:"
@@ -1552,14 +1490,11 @@ msgstr ""
 
 #: templates/socialaccount/connections.html:46
 #, fuzzy
-#| msgid ""
-#| "You currently have no social network accounts connected to this account."
 msgid "You currently have no third-party accounts connected to this account."
 msgstr "ليس لديك حاليا أي شبكة اجتماعية متصلة بهذا الحساب."
 
 #: templates/socialaccount/connections.html:50
 #, fuzzy
-#| msgid "Add a 3rd Party Account"
 msgid "Add a Third-Party Account"
 msgstr "إضافة حساب طرف الثالث"
 
@@ -1571,7 +1506,6 @@ msgstr "تم ربط حساب جهة خارجية من %(provider)s بحسابك.
 
 #: templates/socialaccount/email/account_connected_subject.txt:3
 #, fuzzy
-#| msgid "Add a 3rd Party Account"
 msgid "Third-Party Account Connected"
 msgstr "إضافة حساب طرف الثالث"
 
@@ -1584,7 +1518,6 @@ msgstr "تم قطع اتصال حساب جهة خارجية من %(provider)s ب
 
 #: templates/socialaccount/email/account_disconnected_subject.txt:3
 #, fuzzy
-#| msgid "Add a 3rd Party Account"
 msgid "Third-Party Account Disconnected"
 msgstr "إضافة حساب طرف الثالث"
 
@@ -1595,8 +1528,6 @@ msgstr "ربط %(provider)s"
 
 #: templates/socialaccount/login.html:13
 #, fuzzy, python-format
-#| msgid ""
-#| "You are about to connect a new third party account from %(provider)s."
 msgid "You are about to connect a new third-party account from %(provider)s."
 msgstr "أنت على وشك ربط حساب طرف ثالث جديد من %(provider)s."
 
@@ -1607,8 +1538,6 @@ msgstr "تسجيل الدخول عبر %(provider)s"
 
 #: templates/socialaccount/login.html:20
 #, fuzzy, python-format
-#| msgid ""
-#| "You are about to sign in using a third party account from %(provider)s."
 msgid "You are about to sign in using a third-party account from %(provider)s."
 msgstr "أنت على وشك تسجيل الدخول باستخدام حساب الطرف الثالث من %(provider)s."
 
@@ -1635,13 +1564,11 @@ msgstr ""
 
 #: templates/socialaccount/messages/account_connected.txt:2
 #, fuzzy
-#| msgid "The social account has been connected."
 msgid "The third-party account has been connected."
 msgstr "تم ربط حساب التواصل الاجتماعي."
 
 #: templates/socialaccount/messages/account_disconnected.txt:2
 #, fuzzy
-#| msgid "The social account has been disconnected."
 msgid "The third-party account has been disconnected."
 msgstr "تم قطع الاتصال بحساب التواصل الاجتماعي."
 
@@ -1669,7 +1596,6 @@ msgstr "بدأت في"
 
 #: templates/usersessions/usersession_list.html:24
 #, fuzzy
-#| msgid "Email Address"
 msgid "IP Address"
 msgstr "بريد إلكتروني"
 
@@ -1683,7 +1609,6 @@ msgstr "شوهد آخر مرة في"
 
 #: templates/usersessions/usersession_list.html:47
 #, fuzzy
-#| msgid "Current Password"
 msgid "Current"
 msgstr "كلمة المرور الحالية"
 
@@ -1700,7 +1625,6 @@ msgid "session key"
 msgstr "مفتاح جلسة"
 
 #, fuzzy
-#~| msgid "Account Connections"
 #~ msgid "Account Connection"
 #~ msgstr "اتصالات الحساب"
 

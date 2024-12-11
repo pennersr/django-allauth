@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-21 06:42-0500\n"
-"PO-Revision-Date: 2024-07-08 18:09+0000\n"
+"PO-Revision-Date: 2024-12-11 10:35+0100\n"
 "Last-Translator: Amr Essam <amr_esam@ymail.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/allauth/django-"
 "allauth/ar/>\n"
@@ -1341,7 +1341,7 @@ msgstr "لم يتم إعداد رموز الاسترداد."
 
 #: templates/mfa/index.html:96
 msgid "View"
-msgstr "منظر"
+msgstr "عرض"
 
 #: templates/mfa/index.html:102
 msgid "Download"

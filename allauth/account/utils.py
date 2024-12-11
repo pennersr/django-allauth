@@ -357,7 +357,7 @@ def filter_users_by_email(
     if app_settings.USER_MODEL_EMAIL_FIELD and not is_verified:
         q_dict = {app_settings.USER_MODEL_EMAIL_FIELD: email}
         user_qs = User.objects.filter(**q_dict)
-        for user in user_qs.iterator():
+        for user in user_qs.iterator(2000):
             user_email = getattr(user, app_settings.USER_MODEL_EMAIL_FIELD)
             if _unicode_ci_compare(user_email, email):
                 users.append(user)

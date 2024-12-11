@@ -32,7 +32,7 @@ def forwards(apps, schema_editor):
                     break
         qs.exclude(pk=primary_email_address.pk).update(primary=False)
 
-    for user in get_users_with_multiple_primary_email().iterator():
+    for user in get_users_with_multiple_primary_email().iterator(2000):
         unset_extra_primary_emails(user)
 
 

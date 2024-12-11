@@ -50,7 +50,7 @@ configuration::
                 {
                     "client_id": "123",
                     "secret": "456",
-                    "key": ""
+                    "key": "",
                     "settings": {
                         # You can fine tune these settings per app:
                         "scope": [

@@ -15,6 +15,9 @@ The default value of the ``auth_date_validity`` is 30 seconds.
         'telegram': {
             'APP': {
                 'client_id': '<bot_id>',
+
+                # NOTE: For the secret, be sure to provide the complete bot token,
+                # which typically includes the bot ID as a prefix.
                 'secret': '<bot token>',
             },
             'AUTH_PARAMS': {'auth_date_validity': 30},

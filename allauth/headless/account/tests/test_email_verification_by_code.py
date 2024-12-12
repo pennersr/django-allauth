@@ -1,3 +1,7 @@
+from unittest.mock import ANY
+
+from django.contrib.auth.models import User
+
 import pytest
 
 from allauth.account import app_settings
@@ -116,6 +120,7 @@ def test_add_email(
     headless_reverse,
     settings,
     get_last_email_verification_code,
+    mailoutbox,
 ):
     settings.ACCOUNT_AUTHENTICATION_METHOD = "email"
     settings.ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED = True
@@ -150,7 +155,7 @@ def test_add_email(
     }
 
     # And with the valid code...
-    code = get_last_email_verification_code()
+    code = get_last_email_verification_code(auth_client, mailoutbox)
     resp = auth_client.post(
         headless_reverse("headless:account:verify_email"),
         data={"key": code},
@@ -169,3 +174,65 @@ def test_add_email(
         content_type="application/json",
     )
     assert resp.status_code == 400
+
+
+@pytest.mark.parametrize(
+    "login_on_email_verification,status_code", [(False, 401), (True, 200)]
+)
+def test_signup_with_email_verification(
+    db,
+    client,
+    email_factory,
+    password_factory,
+    settings,
+    headless_reverse,
+    headless_client,
+    get_last_email_verification_code,
+    login_on_email_verification,
+    status_code,
+    mailoutbox,
+):
+    settings.ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+    settings.ACCOUNT_USERNAME_REQUIRED = False
+    settings.ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = login_on_email_verification
+    settings.ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED = True
+    email = email_factory()
+    resp = client.post(
+        headless_reverse("headless:account:signup"),
+        data={
+            "email": email,
+            "password": password_factory(),
+        },
+        content_type="application/json",
+    )
+    assert resp.status_code == 401
+    assert User.objects.filter(email=email).exists()
+    data = resp.json()
+    flow = next((f for f in data["data"]["flows"] if f.get("is_pending")))
+    assert flow["id"] == "verify_email"
+
+    code = get_last_email_verification_code(client, mailoutbox)
+    resp = client.get(
+        headless_reverse("headless:account:verify_email"),
+        HTTP_X_EMAIL_VERIFICATION_KEY=code,
+    )
+    assert resp.status_code == 200
+    assert resp.json() == {
+        "data": {
+            "email": email,
+            "user": ANY,
+        },
+        "meta": {"is_authenticating": True},
+        "status": 200,
+    }
+    resp = client.post(
+        headless_reverse("headless:account:verify_email"),
+        data={"key": code},
+        content_type="application/json",
+    )
+    addr = EmailAddress.objects.get(email=email)
+    assert addr.verified
+
+    assert resp.status_code == status_code
+    data = resp.json()
+    assert data["meta"]["is_authenticated"] is login_on_email_verification

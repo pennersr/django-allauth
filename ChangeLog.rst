@@ -10,6 +10,9 @@ Fixes
 - Headless: In contrast to the headed version, it was possible to remove the
   last 3rd party account from a user that has no usable password. Fixed.
 
+- Headless: The setting ``ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION`` was not respected,
+  and always assumed to be ``True``.
+
 
 65.3.0 (2024-11-30)
 *******************

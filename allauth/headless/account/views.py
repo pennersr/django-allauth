@@ -4,6 +4,7 @@ from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.internal import flows
 from allauth.account.internal.flows import (
+    email_verification,
     manage_email,
     password_change,
     password_reset,
@@ -164,16 +165,16 @@ class VerifyEmailView(APIView):
         return response.VerifyEmailResponse(request, verification, stage=self.stage)
 
     def post(self, request, *args, **kwargs):
-        confirmation = self.input.cleaned_data["key"]
-        email_address = confirmation.confirm(request)
+        verification = self.input.cleaned_data["key"]
+        email_address = verification.confirm(request)
         if not email_address:
             # Should not happen, VerifyInputInput should have verified all
             # preconditions.
             return APIResponse(request, status=500)
         if self.stage:
-            # Verifying email as part of login/signup flow, so emit a
-            # authentication status response.
-            self.stage.exit()
+            # Verifying email as part of login/signup flow may imply the user is
+            # to be logged in...
+            email_verification.login_on_verification(request, verification)
         return AuthenticationResponse(request)
 
 

@@ -41,12 +41,16 @@ class EmailVerificationModel(EmailConfirmationMixin):
     def confirm(self, request) -> Optional[EmailAddress]:
         ret = super().confirm(request)
         if ret:
-            clear_state(request)
+            clear_pending_verification(request)
         return ret
 
 
-def clear_state(request):
+def clear_pending_verification(request):
     request.session.pop(EMAIL_VERIFICATION_CODE_SESSION_KEY, None)
+
+
+def clear_state(request):
+    clear_pending_verification(request)
     clear_login(request)
 
 

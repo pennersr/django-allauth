@@ -13,6 +13,7 @@ def test_auth_unverified_email_and_mfa(
 ):
     settings.ACCOUNT_AUTHENTICATION_METHOD = "email"
     settings.ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+    settings.ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
     password = password_factory()
     user = user_factory(email_verified=False, password=password, with_totp=True)
     resp = client.post(

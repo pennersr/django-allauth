@@ -224,6 +224,11 @@ paths:
         their email address, or, by inputting a code that is sent. On the API,
         both cases are handled identically. Meaning, the required key is either
         the one from the link, or, the code itself.
+
+        Note that a status code of 401 does not imply failure. It indicates that
+        the email verification was successful, yet, the user is still not signed
+        in. For example, in case `ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION` is set to
+        `False`, a 401 is returned when verifying as part of login/signup.
       parameters:
         - $ref: "#/components/parameters/Client"
         - $ref: "#/components/parameters/SessionToken"

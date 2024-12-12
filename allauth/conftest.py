@@ -328,17 +328,21 @@ def request_factory(rf):
 
 
 @pytest.fixture
-def get_last_email_verification_code(client, mailoutbox):
+def get_last_email_verification_code():
     from allauth.account.internal.flows import email_verification_by_code
 
-    def f():
+    def f(client, mailoutbox):
         code = re.search(
             "\n[0-9a-z]{6}\n", mailoutbox[0].body, re.I | re.DOTALL | re.MULTILINE
         )[0].strip()
+        if hasattr(client, "headless_session"):
+            session = client.headless_session()
+        else:
+            session = client.session
         assert (
-            client.session[
-                email_verification_by_code.EMAIL_VERIFICATION_CODE_SESSION_KEY
-            ]["code"]
+            session[email_verification_by_code.EMAIL_VERIFICATION_CODE_SESSION_KEY][
+                "code"
+            ]
             == code
         )
         return code

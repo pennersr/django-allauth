@@ -33,6 +33,7 @@ def test_signup(
     get_last_email_verification_code,
     query,
     expected_url,
+    mailoutbox,
 ):
     password = password_factory()
     resp = client.post(
@@ -45,7 +46,7 @@ def test_signup(
         },
     )
     assert get_user_model().objects.filter(username="johndoe").count() == 1
-    code = get_last_email_verification_code()
+    code = get_last_email_verification_code(client, mailoutbox)
     assert resp.status_code == 302
     assert resp["location"] == reverse("account_email_verification_sent")
     resp = client.get(reverse("account_email_verification_sent"))
@@ -88,7 +89,12 @@ def test_signup_prevent_enumeration(
 
 @pytest.mark.parametrize("change_email", (False, True))
 def test_add_or_change_email(
-    auth_client, user, get_last_email_verification_code, change_email, settings
+    auth_client,
+    user,
+    get_last_email_verification_code,
+    change_email,
+    settings,
+    mailoutbox,
 ):
     settings.ACCOUNT_CHANGE_EMAIL = change_email
     email = "additional@email.org"
@@ -102,7 +108,7 @@ def test_add_or_change_email(
             assert not email_added_signal.send.called
             assert not email_changed_signal.send.called
     assert EmailAddress.objects.filter(email=email).count() == 0
-    code = get_last_email_verification_code()
+    code = get_last_email_verification_code(auth_client, mailoutbox)
     resp = auth_client.get(reverse("account_email_verification_sent"))
     assert resp.status_code == 200
     with patch("allauth.account.signals.email_added") as email_added_signal:

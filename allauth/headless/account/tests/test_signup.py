@@ -39,6 +39,7 @@ def test_signup_with_email_verification(
 ):
     settings.ACCOUNT_EMAIL_VERIFICATION = "mandatory"
     settings.ACCOUNT_USERNAME_REQUIRED = False
+    settings.ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
     email = email_factory()
     resp = client.post(
         headless_reverse("headless:account:signup"),

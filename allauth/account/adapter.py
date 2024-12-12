@@ -191,10 +191,12 @@ class DefaultAccountAdapter(BaseAdapter):
             msg.content_subtype = "html"  # Main content is now text/html
         return msg
 
-    def send_mail(self, template_prefix, email, context):
+    def send_mail(self, template_prefix: str, email: str, context: dict) -> None:
+        request = globals()["context"].request
         ctx = {
+            "request": request,
             "email": email,
-            "current_site": get_current_site(globals()["context"].request),
+            "current_site": get_current_site(request),
         }
         ctx.update(context)
         msg = self.render_mail(template_prefix, email, ctx)
@@ -601,7 +603,7 @@ class DefaultAccountAdapter(BaseAdapter):
     def should_send_confirmation_mail(self, request, email_address, signup) -> bool:
         return True
 
-    def send_account_already_exists_mail(self, email):
+    def send_account_already_exists_mail(self, email: str) -> None:
         from allauth.account.internal import flows
 
         signup_url = flows.signup.get_signup_url(context.request)
@@ -609,7 +611,6 @@ class DefaultAccountAdapter(BaseAdapter):
             context.request
         )
         ctx = {
-            "request": context.request,
             "signup_url": signup_url,
             "password_reset_url": password_reset_url,
         }

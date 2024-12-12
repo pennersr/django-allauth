@@ -18,11 +18,11 @@ isort:
 
 .PHONY: bandit
 bandit:
-	bandit -c pyproject.toml -r allauth/
+	bandit -q -c pyproject.toml -r allauth/
 
 .PHONY: black
 black:
-	black --check .
+	black --check -q .
 
 .PHONY: test
 test:
@@ -31,7 +31,7 @@ test:
 
 .PHONY: djlint
 djlint:
-	djlint --check allauth examples
+	djlint --quiet --check allauth examples
 
 .PHONY: flake8
 flake8:

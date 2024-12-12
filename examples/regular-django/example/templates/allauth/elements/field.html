@@ -21,7 +21,7 @@
     </div>
 {% elif attrs.type == "textarea" %}
     <div class="mb-3">
-        <label class="" for="{{ attrs.id }}">
+        <label for="{{ attrs.id }}">
             {% slot label %}
             {% endslot %}
         </label>
@@ -39,10 +39,31 @@
            id="{{ attrs.id }}"
            {% if attrs.value is not None %}value="{{ attrs.value }}"{% endif %}
            type="hidden">
+{% elif attrs.type == "select" %}
+    <div class="{% if attrs.unlabeled %}form-floating{% endif %} mb-3">
+        {% if not attrs.unlabeled %}
+            <label for="{{ attrs.id }}">
+                {% slot label %}
+                {% endslot %}
+            </label>
+        {% endif %}
+        <select id="{{ attrs.id }}" name="{{ attrs.name }}" class="form-select">
+            {% for option in attrs.choices %}
+                <option {% if option.0 == attrs.value %}selected{% endif %}
+                        value="{{ option.0 }}">{{ option.1 }}</option>
+            {% endfor %}
+        </select>
+        {% if attrs.unlabeled %}
+            <label for="{{ attrs.id }}">
+                {% slot label %}
+                {% endslot %}
+            </label>
+        {% endif %}
+    </div>
 {% else %}
     <div class="{% if attrs.unlabeled %}form-floating{% endif %} mb-3">
         {% if not attrs.unlabeled %}
-            <label class="" for="{{ attrs.id }}">
+            <label for="{{ attrs.id }}">
                 {% slot label %}
                 {% endslot %}
             </label>
@@ -60,7 +81,7 @@
                {% if attrs.value is not None %}value="{{ attrs.value }}"{% endif %}
                type="{{ attrs.type }}">
         {% if attrs.unlabeled %}
-            <label class="" for="{{ attrs.id }}">
+            <label for="{{ attrs.id }}">
                 {% slot label %}
                 {% endslot %}
             </label>

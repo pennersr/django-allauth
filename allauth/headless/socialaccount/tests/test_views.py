@@ -86,6 +86,25 @@ def test_disconnect_bad_request(auth_client, user, headless_reverse, provider_id
     }
 
 
+def test_disconnect_not_allowed(auth_client, user, headless_reverse, provider_id):
+    user.set_unusable_password()
+    user.save(update_fields=["password"])
+    auth_client.force_login(user)
+    account = SocialAccount.objects.create(user=user, uid="123", provider=provider_id)
+    resp = auth_client.delete(
+        headless_reverse("headless:socialaccount:manage_providers"),
+        data={"provider": provider_id, "account": account.uid},
+        content_type="application/json",
+    )
+    assert resp.status_code == 400
+    assert resp.json() == {
+        "status": 400,
+        "errors": [
+            {"code": "no_password", "message": "Your account has no password set up."}
+        ],
+    }
+
+
 def test_valid_token(client, headless_reverse, db):
     id_token = json.dumps(
         {

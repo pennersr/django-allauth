@@ -48,7 +48,7 @@ def logout_on_password_change(request: HttpRequest, user: AbstractBaseUser) -> b
     # logout isn't desired.
     logged_out = True
     if not app_settings.LOGOUT_ON_PASSWORD_CHANGE:
-        update_session_auth_hash(request, user)
+        update_session_auth_hash(request, user)  # type: ignore[arg-type]
         logged_out = False
     else:
         logout(request)

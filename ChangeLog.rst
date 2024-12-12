@@ -7,6 +7,9 @@ Fixes
 - Headless: When using email verification by code, you could incorrectly
   encounter a 409 when attempting to add a new email address while logged in.
 
+- Headless: In contrast to the headed version, it was possible to remove the
+  last 3rd party account from a user that has no usable password. Fixed.
+
 
 65.3.0 (2024-11-30)
 *******************

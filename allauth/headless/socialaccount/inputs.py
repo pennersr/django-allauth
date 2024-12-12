@@ -7,6 +7,7 @@ from allauth.socialaccount.adapter import (
     get_adapter as get_socialaccount_adapter,
 )
 from allauth.socialaccount.forms import SignupForm
+from allauth.socialaccount.internal.flows.connect import validate_disconnect
 from allauth.socialaccount.models import SocialAccount, SocialApp
 from allauth.socialaccount.providers import registry
 from allauth.socialaccount.providers.base.constants import AuthProcess
@@ -36,7 +37,7 @@ class DeleteProviderAccountInput(inputs.Input):
             ).first()
             if not account:
                 raise get_adapter().validation_error("account_not_found")
-            get_socialaccount_adapter().validate_disconnect(account, accounts)
+            validate_disconnect(context.request, account)
             self.cleaned_data["account"] = account
         return cleaned_data
 

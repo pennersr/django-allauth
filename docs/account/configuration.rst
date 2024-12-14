@@ -165,6 +165,10 @@ Available settings:
   confirming the email address **immediately after signing up**, assuming users
   didn't close their browser or used some sort of private browsing mode.
 
+  Note that this setting only affects email verification by link. It has no affect in
+  case you turn on code based verification
+  (``ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED``).
+
 ``ACCOUNT_LOGIN_ON_PASSWORD_RESET`` (default: ``False``)
   By changing this setting to ``True``, users will automatically be logged in
   once they have reset their password. By default they are redirected to the

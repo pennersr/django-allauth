@@ -1,8 +1,5 @@
 from typing import Optional
 
-from django.http import HttpResponseRedirect
-from django.urls import reverse
-
 from allauth.account import app_settings
 from allauth.account.adapter import get_adapter
 from allauth.account.app_settings import EmailVerificationMethod
@@ -40,7 +37,7 @@ class LoginStage:
         from allauth.account.internal.stagekit import clear_login
 
         clear_login(self.request)
-        return HttpResponseRedirect(reverse("account_login"))
+        return headed_redirect_response("account_login")
 
     def is_resumable(self, request):
         return True

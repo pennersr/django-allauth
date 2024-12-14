@@ -123,14 +123,20 @@ def login_on_verification(request, verification) -> Optional[HttpResponse]:
         LoginStageController,
     )
 
-    if not app_settings.LOGIN_ON_EMAIL_CONFIRMATION:
-        return None
-    if request.user.is_authenticated:
-        return None
     stage = LoginStageController.enter(request, EmailVerificationStage.key)
-    if not stage or not stage.login.user:
-        return None
-    if stage.login.user.pk != verification.email_address.user_id:
+    if (
+        (
+            # Logging in on email verification is disabled...
+            not app_settings.LOGIN_ON_EMAIL_CONFIRMATION
+            # (but, that is only relevant for verification-by-link)
+            and not app_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED
+        )
+        or (request.user.is_authenticated)
+        or (not stage or not stage.login.user)
+        or (stage.login.user.pk != verification.email_address.user_id)
+    ):
+        if stage:
+            stage.abort()
         return None
     return stage.exit()
 

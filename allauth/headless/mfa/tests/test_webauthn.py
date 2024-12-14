@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 
 import pytest
 
+from allauth.account import app_settings
 from allauth.account.authentication import AUTHENTICATION_METHODS_SESSION_KEY
 from allauth.headless.constants import Flow
 from allauth.mfa.models import Authenticator
@@ -197,19 +198,61 @@ def test_2fa_login(
     ]
 
 
-def test_passkey_signup(client, db, webauthn_registration_bypass, headless_reverse):
+@pytest.mark.parametrize("login_on_email_verification", [False, True])
+def test_passkey_signup(
+    client,
+    db,
+    webauthn_registration_bypass,
+    headless_reverse,
+    settings,
+    get_last_email_verification_code,
+    mailoutbox,
+    login_on_email_verification,
+):
+    settings.ACCOUNT_EMAIL_VERIFICATION = app_settings.EmailVerificationMethod.MANDATORY
+    settings.ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED = True
+    # This setting should have no influence when verifying by code:
+    settings.ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = login_on_email_verification
+
+    # Initiate passkey signup
     resp = client.post(
         headless_reverse("headless:mfa:signup_webauthn"),
         data={"email": "pass@key.org", "username": "passkey"},
         content_type="application/json",
     )
+
+    # Email verification kicks in.
     assert resp.status_code == 401
-    flow = [flow for flow in resp.json()["data"]["flows"] if flow.get("is_pending")][0]
+    pending_flows = [
+        flow for flow in resp.json()["data"]["flows"] if flow.get("is_pending")
+    ]
+    assert len(pending_flows) == 1
+    flow = pending_flows[0]
+    assert flow["id"] == Flow.VERIFY_EMAIL.value
+
+    # Verify email.
+    code = get_last_email_verification_code(client, mailoutbox)
+    resp = client.post(
+        headless_reverse("headless:account:verify_email"),
+        data={"key": code},
+        content_type="application/json",
+    )
+    assert resp.status_code == 401
+
+    # Now, the webauthn signup flow is pending.
+    pending_flows = [
+        flow for flow in resp.json()["data"]["flows"] if flow.get("is_pending")
+    ]
+    assert len(pending_flows) == 1
+    flow = pending_flows[0]
     assert flow["id"] == Flow.MFA_SIGNUP_WEBAUTHN.value
+
+    # Fetch flow creation options.
     resp = client.get(headless_reverse("headless:mfa:signup_webauthn"))
     data = resp.json()
     assert "creation_options" in data["data"]
 
+    # Create a passkey.
     user = get_user_model().objects.get(email="pass@key.org")
     with webauthn_registration_bypass(user, True) as credential:
         resp = client.put(
@@ -217,7 +260,10 @@ def test_passkey_signup(client, db, webauthn_registration_bypass, headless_rever
             data={"name": "Some key", "credential": credential},
             content_type="application/json",
         )
+
+    # Signed up successfully.
     data = resp.json()
+    assert resp.status_code == 200
     assert data["meta"]["is_authenticated"]
     authenticator = Authenticator.objects.get(user=user)
     assert authenticator.wrap().name == "Some key"

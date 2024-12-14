@@ -176,9 +176,7 @@ def test_add_email(
     assert resp.status_code == 400
 
 
-@pytest.mark.parametrize(
-    "login_on_email_verification,status_code", [(False, 401), (True, 200)]
-)
+@pytest.mark.parametrize("login_on_email_verification", [False, True])
 def test_signup_with_email_verification(
     db,
     client,
@@ -189,11 +187,11 @@ def test_signup_with_email_verification(
     headless_client,
     get_last_email_verification_code,
     login_on_email_verification,
-    status_code,
     mailoutbox,
 ):
     settings.ACCOUNT_EMAIL_VERIFICATION = "mandatory"
     settings.ACCOUNT_USERNAME_REQUIRED = False
+    # This setting should have no affect:
     settings.ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = login_on_email_verification
     settings.ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED = True
     email = email_factory()
@@ -233,6 +231,6 @@ def test_signup_with_email_verification(
     addr = EmailAddress.objects.get(email=email)
     assert addr.verified
 
-    assert resp.status_code == status_code
+    assert resp.status_code == 200
     data = resp.json()
-    assert data["meta"]["is_authenticated"] is login_on_email_verification
+    assert data["meta"]["is_authenticated"]

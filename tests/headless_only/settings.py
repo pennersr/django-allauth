@@ -263,6 +263,8 @@ HEADLESS_FRONTEND_URLS = {
     "account_reset_password_from_key": "/spa/password/reset/{key}/",
     "account_signup": "/spa/signup",
 }
+HEADLESS_SERVE_SPECIFICATION = True
+
 
 MFA_SUPPORTED_TYPES = ["totp", "webauthn", "recovery_codes"]
 MFA_PASSKEY_LOGIN_ENABLED = True

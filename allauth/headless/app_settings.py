@@ -24,6 +24,10 @@ class AppSettings:
         return cls()
 
     @property
+    def SERVE_SPECIFICATION(self):
+        return self._setting("SERVE_SPECIFICATION", False)
+
+    @property
     def FRONTEND_URLS(self):
         return self._setting("FRONTEND_URLS", {})
 

@@ -10,6 +10,10 @@ Note worthy changes
   ``"username"`` or ``"email"``. This is change is performed in a backwards
   compatible manner.
 
+- Headless: when ``HEADLESS_SERVE_SPECIFICATION`` is set to ``True``, the API
+  specification will be served dynamically, over at ``/_allauth/openapi.yaml``,
+  ``/_allauth/openapi.json`` and ``/_allauth/docs``.
+
 
 65.3.1 (2025-12-25)
 *******************

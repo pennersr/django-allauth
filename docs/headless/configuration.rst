@@ -32,6 +32,11 @@ Available settings:
   accessible. In this case, including ``allauth.urls`` skips those views, yet,
   still includes e.g. the provider callback views.
 
+``HEADLESS_SERVE_SPECIFICATION`` (default: ``False``)
+  Whether or not to serve the OpenAPI specification files. When enabled, the
+  endpoints ``/_allauth/openapi.yaml``, ``/_allauth/openapi.json`` and
+  ``/_allauth/docs`` become available.
+
 ``HEADLESS_TOKEN_STRATEGY`` (default: ``"allauth.headless.tokens.sessions.SessionTokenStrategy"``)
   If you need to change the way tokens are created and handled, you can plug in your own
   :doc:`./tokens`.

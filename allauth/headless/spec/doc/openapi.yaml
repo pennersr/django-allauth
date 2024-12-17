@@ -1839,13 +1839,12 @@ components:
       description: |
         Configuration of the Django `allauth.account` app.
       properties:
-        login_methods:
-          type: array
-          items:
-            type: string
-            enum:
-              - email
-              - username
+        authentication_method:
+          type: string
+          enum:
+            - email
+            - username
+            - username_email
         is_open_for_signup:
           type: boolean
         email_verification_by_code_enabled:

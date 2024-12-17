@@ -274,10 +274,15 @@ autodoc_mock_imports = [
 
 
 def copy_custom_files(app, exc):
+    root_dir = Path(__file__).parent.parent
     if app.builder.format == "html" and not exc:
         dst = Path(app.builder.outdir) / "headless" / "openapi-specification"
         os.makedirs(dst, exist_ok=True)
-        for fn in ["openapi.yaml", "index.html", "description.md"]:
+        for fn in [
+            root_dir / "allauth/headless/spec/doc/openapi.yaml",
+            root_dir / "allauth/headless/spec/doc/description.md",
+            root_dir / "docs/headless/openapi-specification/index.html",
+        ]:
             copy_asset_file(Path("headless/openapi-specification") / fn, dst)
 
 

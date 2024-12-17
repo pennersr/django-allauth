@@ -46,7 +46,7 @@ mypy:
 
 .PHONY: validate-api-spec
 validate-api-spec:
-	swagger-cli validate docs/headless/openapi-specification/openapi.yaml
+	swagger-cli validate allauth/headless/spec/doc/openapi.yaml
 
 .PHONY: ci
 ci:

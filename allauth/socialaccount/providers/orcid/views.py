@@ -24,7 +24,7 @@ class OrcidOAuth2Adapter(OAuth2Adapter):
 
     authorize_url = "https://{0}/oauth/authorize".format(base_domain)
     access_token_url = "https://{0}/oauth/token".format(api_domain)
-    profile_url = "https://{0}/v2.1/%s/record".format(api_domain)
+    profile_url = "https://{0}/v3.0/%s/record".format(api_domain)
 
     def complete_login(self, request, app, token, **kwargs):
         params = {}

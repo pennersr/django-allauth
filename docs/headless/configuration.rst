@@ -41,6 +41,11 @@ Available settings:
   endpoints ``/_allauth/openapi.yaml``, ``/_allauth/openapi.json`` and
   ``/_allauth/docs`` become available.
 
+``HEADLESS_SPECIFICATION_TEMPLATE_NAME`` (default: ``"headless/spec/redoc_cdn.html"``)
+  The template used to serve the OpenAPI specification in HTML format. Out of the box,
+  Redoc (``"headless/spec/redoc_cdn.html"``) and Swagger (
+  (``"headless/spec/swagger_cdn.html"``) are available..
+
 ``HEADLESS_TOKEN_STRATEGY`` (default: ``"allauth.headless.tokens.sessions.SessionTokenStrategy"``)
   If you need to change the way tokens are created and handled, you can plug in your own
   :doc:`./tokens`.

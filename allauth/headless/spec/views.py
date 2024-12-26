@@ -3,6 +3,7 @@ import json
 from django.http import HttpResponse
 from django.views.generic import TemplateView, View
 
+from allauth.headless import app_settings
 from allauth.headless.spec.internal.schema import get_schema
 
 
@@ -30,5 +31,6 @@ class OpenAPIJSONView(View):
         )
 
 
-class OpenAPIDocumentationView(TemplateView):
-    template_name = "headless/openapi.html"
+class OpenAPIHTMLView(TemplateView):
+    def get_template_names(self):
+        return [app_settings.SPECIFICATION_TEMPLATE_NAME]

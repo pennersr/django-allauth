@@ -11,8 +11,11 @@ Note worthy changes
   compatible manner.
 
 - Headless: when ``HEADLESS_SERVE_SPECIFICATION`` is set to ``True``, the API
-  specification will be served dynamically, over at ``/_allauth/openapi.yaml``,
-  ``/_allauth/openapi.json`` and ``/_allauth/docs``.
+  specification will be served dynamically, over at
+  ``/_allauth/openapi.(yaml|json|html)``.  The
+  ``HEADLESS_SPECIFICATION_TEMPLATE_NAME`` can be configured to choose between
+  Redoc (``"headless/spec/redoc_cdn.html"``) and Swagger (
+  (``"headless/spec/swagger_cdn.html"``).
 
 - Headless: added a new setting, ``HEADLESS_CLIENTS`` which you can use to limit
   the types of API clientsx (app/browser).

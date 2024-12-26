@@ -1,4 +1,4 @@
-from typing import Tuple
+from typing import Optional, Tuple
 
 
 class AppSettings:
@@ -27,8 +27,12 @@ class AppSettings:
         return cls()
 
     @property
-    def SERVE_SPECIFICATION(self):
+    def SERVE_SPECIFICATION(self) -> bool:
         return self._setting("SERVE_SPECIFICATION", False)
+
+    @property
+    def SPECIFICATION_TEMPLATE_NAME(self) -> Optional[str]:
+        return "headless/spec/redoc_cdn.html"
 
     @property
     def CLIENTS(self) -> Tuple[str]:

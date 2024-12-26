@@ -14,6 +14,9 @@ Note worthy changes
   specification will be served dynamically, over at ``/_allauth/openapi.yaml``,
   ``/_allauth/openapi.json`` and ``/_allauth/docs``.
 
+- Headless: added a new setting, ``HEADLESS_CLIENTS`` which you can use to limit
+  the types of API clientsx (app/browser).
+
 
 65.3.1 (2025-12-25)
 *******************

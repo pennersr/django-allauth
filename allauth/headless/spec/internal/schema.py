@@ -3,6 +3,8 @@ from pathlib import Path
 from django.urls import resolve, reverse
 from django.urls.exceptions import Resolver404
 
+from allauth.headless import app_settings
+
 
 def get_schema() -> dict:
     import yaml
@@ -18,13 +20,14 @@ def get_schema() -> dict:
     spec["info"]["description"] = description
 
     chroot(spec)
+    pin_client(spec)
     used_tags = drop_unused_paths(spec)
     drop_unused_tags(spec, used_tags)
     drop_unused_tag_groups(spec, used_tags)
     return spec
 
 
-def chroot(spec):
+def chroot(spec: dict) -> None:
     url = reverse("headless:openapi_yaml")
     root = url.rpartition("/")[0]
     paths = spec["paths"].items()
@@ -34,12 +37,23 @@ def chroot(spec):
         spec["paths"][new_path] = path_spec
 
 
-def drop_unused_paths(spec):
+def pin_client(spec: dict) -> None:
+    if len(app_settings.CLIENTS) != 1:
+        return
+    client = app_settings.CLIENTS[0]
+    paths = spec["paths"].items()
+    spec["paths"] = {}
+    for path, path_spec in paths:
+        new_path = path.replace("{client}", client)
+        spec["paths"][new_path] = path_spec
+
+
+def drop_unused_paths(spec: dict) -> set:
     paths = spec["paths"]
     used_tags = set()
     for path, path_spec in list(paths.items()):
         found_path = False
-        for client in ["browser", "app"]:
+        for client in app_settings.CLIENTS:
             try:
                 resolve(path.replace("{client}", client))
                 found_path = True
@@ -54,7 +68,7 @@ def drop_unused_paths(spec):
     return used_tags
 
 
-def drop_unused_tags(spec, used_tags):
+def drop_unused_tags(spec: dict, used_tags: set) -> None:
     tags = spec["tags"]
     spec["tags"] = []
     for tag in tags:
@@ -63,7 +77,7 @@ def drop_unused_tags(spec, used_tags):
         spec["tags"].append(tag)
 
 
-def drop_unused_tag_groups(spec, used_tags):
+def drop_unused_tag_groups(spec: dict, used_tags: set) -> None:
     tag_groups = spec["x-tagGroups"]
     spec["x-tagGroups"] = []
     for tag_group in tag_groups:

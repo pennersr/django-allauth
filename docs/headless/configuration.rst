@@ -7,6 +7,10 @@ Available settings:
   Specifies the adapter class to use, allowing you to alter certain
   default behaviour.
 
+``HEADLESS_CLIENTS`` (default: ``("app", "browser")``)
+  Specificies the supported types of clients for the API. Setting this to
+  e.g. `("app",)` will remove all `"browser"` related endpoints.
+
 ``HEADLESS_FRONTEND_URLS`` (default: ``{}``)
   Email confirmation and password reset mails contain links that by default point to the
   views from the ``allauth.account`` app. In case you  need to point these to your own frontend

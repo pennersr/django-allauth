@@ -1,3 +1,6 @@
+from typing import Tuple
+
+
 class AppSettings:
     def __init__(self, prefix):
         self.prefix = prefix
@@ -26,6 +29,10 @@ class AppSettings:
     @property
     def SERVE_SPECIFICATION(self):
         return self._setting("SERVE_SPECIFICATION", False)
+
+    @property
+    def CLIENTS(self) -> Tuple[str]:
+        return tuple(self._setting("CLIENTS", ("browser", "app")))
 
     @property
     def FRONTEND_URLS(self):

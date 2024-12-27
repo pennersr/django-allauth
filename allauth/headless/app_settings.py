@@ -32,7 +32,9 @@ class AppSettings:
 
     @property
     def SPECIFICATION_TEMPLATE_NAME(self) -> Optional[str]:
-        return "headless/spec/redoc_cdn.html"
+        return self._setting(
+            "SPECIFICATION_TEMPLATE_NAME", "headless/spec/redoc_cdn.html"
+        )
 
     @property
     def CLIENTS(self) -> Tuple[str]:

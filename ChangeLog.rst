@@ -18,7 +18,7 @@ Note worthy changes
   (``"headless/spec/swagger_cdn.html"``).
 
 - Headless: added a new setting, ``HEADLESS_CLIENTS`` which you can use to limit
-  the types of API clientsx (app/browser).
+  the types of API clients (app/browser).
 
 
 65.3.1 (2025-12-25)

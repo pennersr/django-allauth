@@ -5,11 +5,11 @@ Available settings:
 
 ``HEADLESS_ADAPTER`` (default: ``"allauth.headless.adapter.DefaultHeadlessAdapter"``)
   Specifies the adapter class to use, allowing you to alter certain
-  default behaviour.
+  default behavior.
 
 ``HEADLESS_CLIENTS`` (default: ``("app", "browser")``)
-  Specificies the supported types of clients for the API. Setting this to
-  e.g. `("app",)` will remove all `"browser"` related endpoints.
+  Specifies the supported types of clients for the API. Setting this to
+  e.g. ``("app",)`` will remove all ``"browser"`` related endpoints.
 
 ``HEADLESS_FRONTEND_URLS`` (default: ``{}``)
   Email confirmation and password reset mails contain links that by default point to the
@@ -44,7 +44,7 @@ Available settings:
 ``HEADLESS_SPECIFICATION_TEMPLATE_NAME`` (default: ``"headless/spec/redoc_cdn.html"``)
   The template used to serve the OpenAPI specification in HTML format. Out of the box,
   Redoc (``"headless/spec/redoc_cdn.html"``) and Swagger (
-  (``"headless/spec/swagger_cdn.html"``) are available..
+  (``"headless/spec/swagger_cdn.html"``) are available.
 
 ``HEADLESS_TOKEN_STRATEGY`` (default: ``"allauth.headless.tokens.sessions.SessionTokenStrategy"``)
   If you need to change the way tokens are created and handled, you can plug in your own

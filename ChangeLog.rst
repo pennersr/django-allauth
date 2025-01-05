@@ -21,7 +21,7 @@ Note worthy changes
   the types of API clients (app/browser).
 
 
-65.3.1 (2025-12-25)
+65.3.1 (2024-12-25)
 *******************
 
 Fixes

@@ -105,6 +105,11 @@ class SignupView(APIView):
             return ConflictResponse(request)
         if not get_account_adapter().is_open_for_signup(request):
             return ForbiddenResponse(request)
+        
+        unverified_users = User.objects.filter(email=self.input.cleaned_data["email"], is_verified=False)
+        if settings.DELETE_UNVERIFIED_ACCOUNTS_ON_SIGNUP and unverified_users.exists():
+            unverified_users.delete()
+            
         user, resp = self.input.try_save(request)
         if not resp:
             try:

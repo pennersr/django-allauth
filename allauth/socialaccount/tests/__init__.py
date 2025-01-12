@@ -446,3 +446,41 @@ class OpenIDConnectTests(OAuth2TestsMixin):
         self.assertRedirects(resp, "/accounts/profile/", fetch_redirect_response=False)
         sa = SocialAccount.objects.get(provider=self.app.provider_id)
         self.assertDictEqual(sa.extra_data, self.extra_data)
+
+    def test_404_on_unknown_provider_id(self):
+        """
+        Make sure that OIDC endpoints hit with an invalid provider_id
+        not corresponding to any configured social "apps" returns a 404
+        instead of an unhandled SocialApp.DoesNotExist.
+        """
+
+        # we can't use self.provider.get_login_url as we intentionally
+        # do not want to use the configured provider's ID, so let's inline
+        # OpenIDConnectProvider.get_login_url
+        login_url = reverse(
+            self.app.provider + "_login",
+            kwargs={
+                # intentionally invalidate the ID
+                "provider_id": self.app.provider_id
+                + "-invalid"
+            },
+        )
+
+        resp = self.client.post(login_url)
+
+        self.assertEqual(resp.status_code, 404)
+
+        # same with the callback endpoint - inlining OpenIDConnectProvider.get_callback_url
+        callback_url = reverse(
+            self.app.provider + "_callback",
+            kwargs={
+                # intentionally invalidate the ID
+                "provider_id": self.app.provider_id
+                + "-invalid"
+            },
+        )
+
+        # note: callback is a GET endpoint
+        resp = self.client.get(callback_url)
+
+        self.assertEqual(resp.status_code, 404)

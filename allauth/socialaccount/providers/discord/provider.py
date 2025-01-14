@@ -1,5 +1,5 @@
 from allauth.account.models import EmailAddress
-from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.base import AuthAction, ProviderAccount
 from allauth.socialaccount.providers.discord.views import DiscordOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
@@ -85,6 +85,12 @@ class DiscordProvider(OAuth2Provider):
             username=data.get("username"),
             name=data.get("username"),
         )
+
+    def get_auth_params_from_request(self, request, action):
+        ret = super().get_auth_params_from_request(request, action)
+        if action == AuthAction.REAUTHENTICATE:
+            ret["prompt"] = "consent"
+        return ret
 
     def get_default_scope(self):
         return ["email", "identify"]

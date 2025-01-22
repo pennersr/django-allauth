@@ -35,7 +35,7 @@ def settings_check(app_configs, **kwargs):
         ):
             ret.append(
                 Critical(
-                    msg="MFA_PASSKEY_SIGNUP_ENABLED requires ACCOUNT_EMAIL_VERIFICIATION = 'mandatory'"
+                    msg="MFA_PASSKEY_SIGNUP_ENABLED requires ACCOUNT_EMAIL_VERIFICATION = 'mandatory'"
                 )
             )
     return ret

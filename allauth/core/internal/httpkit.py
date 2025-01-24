@@ -83,7 +83,7 @@ def render_url(request, url_template, **kwargs):
     return url
 
 
-def get_frontend_url(request, urlname, **kwargs):
+def default_get_frontend_url(request, urlname, **kwargs):
     from allauth import app_settings as allauth_settings
 
     if allauth_settings.HEADLESS_ENABLED:
@@ -95,6 +95,16 @@ def get_frontend_url(request, urlname, **kwargs):
         if url:
             return render_url(request, url, **kwargs)
     return None
+
+
+def get_frontend_url(request, urlname, **kwargs):
+    from allauth import app_settings as allauth_settings
+
+    if allauth_settings.HEADLESS_ENABLED:
+        from allauth.headless.adapter import get_adapter
+
+        return get_adapter().get_frontend_url(urlname, **kwargs)
+    return default_get_frontend_url(request, urlname, **kwargs)
 
 
 def headed_redirect_response(viewname):

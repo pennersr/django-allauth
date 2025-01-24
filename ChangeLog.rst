@@ -7,7 +7,7 @@ Note worthy changes
 - The setting ``ACCOUNT_AUTHENTICATION_METHOD: str`` (with values
   ``"username"``, ``"username_email"``, ``"email"``) has been replaced by
   ``ACCOUNT_LOGIN_METHODS: set[str]``. which is a set of values including
-  ``"username"`` or ``"email"``. This is change is performed in a backwards
+  ``"username"`` or ``"email"``. This change is performed in a backwards
   compatible manner.
 
 - Headless: when ``HEADLESS_SERVE_SPECIFICATION`` is set to ``True``, the API

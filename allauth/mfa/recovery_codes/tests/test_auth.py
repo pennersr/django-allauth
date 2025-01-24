@@ -7,6 +7,8 @@ def test_flow(user):
     rc = RecoveryCodes.activate(user)
     codes = rc.generate_codes()
     assert len(set(codes)) == app_settings.RECOVERY_CODE_COUNT
+    for code in codes:
+        assert len(code) == app_settings.RECOVERY_CODE_DIGITS
     for i in range(app_settings.RECOVERY_CODE_COUNT):
         assert not rc._is_code_used(i)
     idx = 3

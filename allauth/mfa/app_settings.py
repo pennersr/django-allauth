@@ -23,6 +23,13 @@ class AppSettings:
         return self._setting("RECOVERY_CODE_COUNT", 10)
 
     @property
+    def RECOVERY_CODE_DIGITS(self):
+        """
+        The number of digits of each recovery code.
+        """
+        return self._setting("RECOVERY_CODE_DIGITS", 8)
+
+    @property
     def TOTP_PERIOD(self):
         """
         The period that a TOTP code will be valid for, in seconds.

@@ -32,6 +32,9 @@ Available settings:
 ``MFA_RECOVERY_CODE_COUNT`` (default: ``10``)
   The number of recovery codes.
 
+``MFA_RECOVERY_CODE_DIGITS`` (default: ``8``)
+  The number of digits of each recovery code.
+
 ``MFA_SUPPORTED_TYPES`` (default: ``[["recovery_codes", "totp"]``)
   The authenticator types that end users are able to setup. Allowed
   types are: ``"recovery_codes"``, ``"totp"``, and ``"webauthn"``. The

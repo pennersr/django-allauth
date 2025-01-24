@@ -10,6 +10,7 @@ class SocialAccountConfig(AppConfig):
     default_auto_field = app_settings.DEFAULT_AUTO_FIELD or "django.db.models.AutoField"
 
     def ready(self):
+        from allauth.socialaccount import checks  # noqa
         from allauth.socialaccount.providers import registry
 
         registry.load()

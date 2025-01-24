@@ -76,7 +76,15 @@ class AppSettings:
         See email verification method.  When `None`, the default
         `allauth.account` logic kicks in.
         """
-        return self._setting("EMAIL_VERIFICATION", None)
+        from allauth import app_settings as allauth_settings
+        from allauth.account import app_settings as account_settings
+
+        dflt = (
+            account_settings.EmailVerificationMethod.NONE
+            if allauth_settings.SOCIALACCOUNT_ONLY
+            else None
+        )
+        return self._setting("EMAIL_VERIFICATION", dflt)
 
     @property
     def EMAIL_AUTHENTICATION(self):

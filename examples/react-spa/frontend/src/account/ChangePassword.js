@@ -31,7 +31,7 @@ export default function ChangePassword () {
     })
   }
   if (response.content?.status === 200) {
-    return <Navigate to='/dashboard' />
+    return <Navigate to='/calculator' />
   }
   return (
     <div>

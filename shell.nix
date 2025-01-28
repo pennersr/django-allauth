@@ -13,8 +13,10 @@ stdenv.mkDerivation {
         python311Packages.django-stubs
         python311Packages.types-requests
         python311Packages.django
+        python311Packages.djangorestframework
         python311Packages.flake8
         python311Packages.debugpy
+        python311Packages.ninja
         python311Packages.pycodestyle
         python311Packages.pyls-flake8
         python311Packages.pylsp-rope

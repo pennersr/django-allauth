@@ -1,13 +1,16 @@
 import { getCSRFToken } from './django'
 
-const Client = Object.freeze({
+export const Client = Object.freeze({
   APP: 'app',
   BROWSER: 'browser'
 })
 
-const CLIENT = Client.BROWSER
+export const settings = {
+  client: Client.BROWSER,
+  baseUrl: `/_allauth/${Client.BROWSER}/v1`,
+  withCredentials: false
+}
 
-const BASE_URL = `/_allauth/${CLIENT}/v1`
 const ACCEPT_JSON = {
   accept: 'application/json'
 }
@@ -32,47 +35,47 @@ export const Flows = Object.freeze({
 
 export const URLs = Object.freeze({
   // Meta
-  CONFIG: BASE_URL + '/config',
+  CONFIG: '/config',
 
   // Account management
-  CHANGE_PASSWORD: BASE_URL + '/account/password/change',
-  EMAIL: BASE_URL + '/account/email',
-  PROVIDERS: BASE_URL + '/account/providers',
+  CHANGE_PASSWORD: '/account/password/change',
+  EMAIL: '/account/email',
+  PROVIDERS: '/account/providers',
 
   // Account management: 2FA
-  AUTHENTICATORS: BASE_URL + '/account/authenticators',
-  RECOVERY_CODES: BASE_URL + '/account/authenticators/recovery-codes',
-  TOTP_AUTHENTICATOR: BASE_URL + '/account/authenticators/totp',
+  AUTHENTICATORS: '/account/authenticators',
+  RECOVERY_CODES: '/account/authenticators/recovery-codes',
+  TOTP_AUTHENTICATOR: '/account/authenticators/totp',
 
   // Auth: Basics
-  LOGIN: BASE_URL + '/auth/login',
-  REQUEST_LOGIN_CODE: BASE_URL + '/auth/code/request',
-  CONFIRM_LOGIN_CODE: BASE_URL + '/auth/code/confirm',
-  SESSION: BASE_URL + '/auth/session',
-  REAUTHENTICATE: BASE_URL + '/auth/reauthenticate',
-  REQUEST_PASSWORD_RESET: BASE_URL + '/auth/password/request',
-  RESET_PASSWORD: BASE_URL + '/auth/password/reset',
-  SIGNUP: BASE_URL + '/auth/signup',
-  VERIFY_EMAIL: BASE_URL + '/auth/email/verify',
+  LOGIN: '/auth/login',
+  REQUEST_LOGIN_CODE: '/auth/code/request',
+  CONFIRM_LOGIN_CODE: '/auth/code/confirm',
+  SESSION: '/auth/session',
+  REAUTHENTICATE: '/auth/reauthenticate',
+  REQUEST_PASSWORD_RESET: '/auth/password/request',
+  RESET_PASSWORD: '/auth/password/reset',
+  SIGNUP: '/auth/signup',
+  VERIFY_EMAIL: '/auth/email/verify',
 
   // Auth: 2FA
-  MFA_AUTHENTICATE: BASE_URL + '/auth/2fa/authenticate',
-  MFA_REAUTHENTICATE: BASE_URL + '/auth/2fa/reauthenticate',
+  MFA_AUTHENTICATE: '/auth/2fa/authenticate',
+  MFA_REAUTHENTICATE: '/auth/2fa/reauthenticate',
 
   // Auth: Social
-  PROVIDER_SIGNUP: BASE_URL + '/auth/provider/signup',
-  REDIRECT_TO_PROVIDER: BASE_URL + '/auth/provider/redirect',
-  PROVIDER_TOKEN: BASE_URL + '/auth/provider/token',
+  PROVIDER_SIGNUP: '/auth/provider/signup',
+  REDIRECT_TO_PROVIDER: '/auth/provider/redirect',
+  PROVIDER_TOKEN: '/auth/provider/token',
 
   // Auth: Sessions
-  SESSIONS: BASE_URL + '/auth/sessions',
+  SESSIONS: '/auth/sessions',
 
   // Auth: WebAuthn
-  REAUTHENTICATE_WEBAUTHN: BASE_URL + '/auth/webauthn/reauthenticate',
-  AUTHENTICATE_WEBAUTHN: BASE_URL + '/auth/webauthn/authenticate',
-  LOGIN_WEBAUTHN: BASE_URL + '/auth/webauthn/login',
-  SIGNUP_WEBAUTHN: BASE_URL + '/auth/webauthn/signup',
-  WEBAUTHN_AUTHENTICATOR: BASE_URL + '/account/authenticators/webauthn'
+  REAUTHENTICATE_WEBAUTHN: '/auth/webauthn/reauthenticate',
+  AUTHENTICATE_WEBAUTHN: '/auth/webauthn/authenticate',
+  LOGIN_WEBAUTHN: '/auth/webauthn/login',
+  SIGNUP_WEBAUTHN: '/auth/webauthn/signup',
+  WEBAUTHN_AUTHENTICATOR: '/account/authenticators/webauthn'
 })
 
 export const AuthenticatorType = Object.freeze({
@@ -84,7 +87,7 @@ export const AuthenticatorType = Object.freeze({
 function postForm (action, data) {
   const f = document.createElement('form')
   f.method = 'POST'
-  f.action = action
+  f.action = settings.baseUrl + action
 
   for (const key in data) {
     const d = document.createElement('input')
@@ -99,6 +102,10 @@ function postForm (action, data) {
 
 const tokenStorage = window.sessionStorage
 
+export function getSessionToken () {
+  return tokenStorage.getItem('sessionToken')
+}
+
 async function request (method, path, data, headers) {
   const options = {
     method,
@@ -107,16 +114,19 @@ async function request (method, path, data, headers) {
       ...headers
     }
   }
+  if (settings.withCredentials) {
+    options.credentials = 'include'
+  }
   // Don't pass along authentication related headers to the config endpoint.
   if (path !== URLs.CONFIG) {
-    if (CLIENT === Client.BROWSER) {
+    if (settings.client === Client.BROWSER) {
       options.headers['X-CSRFToken'] = getCSRFToken()
-    } else if (CLIENT === Client.APP) {
+    } else if (settings.client === Client.APP) {
       // IMPORTANT!: Do NOT use `Client.APP` in a browser context, as you will
       // be vulnerable to CSRF attacks. This logic is only here for
       // development/demonstration/testing purposes...
       options.headers['User-Agent'] = 'django-allauth example app'
-      const sessionToken = tokenStorage.getItem('sessionToken')
+      const sessionToken = getSessionToken()
       if (sessionToken) {
         options.headers['X-Session-Token'] = sessionToken
       }
@@ -127,7 +137,7 @@ async function request (method, path, data, headers) {
     options.body = JSON.stringify(data)
     options.headers['Content-Type'] = 'application/json'
   }
-  const resp = await fetch(path, options)
+  const resp = await fetch(settings.baseUrl + path, options)
   const msg = await resp.json()
   if (msg.status === 410) {
     tokenStorage.removeItem('sessionToken')
@@ -286,7 +296,7 @@ export function redirectToProvider (providerId, callbackURL, process = AuthProce
   postForm(URLs.REDIRECT_TO_PROVIDER, {
     provider: providerId,
     process,
-    callback_url: callbackURL,
+    callback_url: window.location.protocol + '//' + window.location.host + callbackURL,
     csrfmiddlewaretoken: getCSRFToken()
   })
 }
@@ -347,4 +357,10 @@ export async function getWebAuthnRequestOptionsForLogin () {
 
 export async function getWebAuthnRequestOptionsForAuthentication () {
   return await request('GET', URLs.AUTHENTICATE_WEBAUTHN)
+}
+
+export function setup (client, baseUrl, withCredentials) {
+  settings.client = client
+  settings.baseUrl = baseUrl
+  settings.withCredentials = withCredentials
 }

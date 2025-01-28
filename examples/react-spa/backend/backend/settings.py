@@ -33,6 +33,9 @@ INSTALLED_APPS = [
     "allauth.mfa",
     "allauth.headless",
     "allauth.usersessions",
+    "drf_spectacular",
+    "backend.drf_demo",
+    "backend.ninja_demo",
 ]
 
 MIDDLEWARE = [
@@ -145,6 +148,14 @@ HEADLESS_SERVE_SPECIFICATION = True
 MFA_SUPPORTED_TYPES = ["totp", "recovery_codes", "webauthn"]
 MFA_PASSKEY_LOGIN_ENABLED = True
 MFA_PASSKEY_SIGNUP_ENABLED = True
+
+REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+SPECTACULAR_SETTINGS = {
+    "EXTERNAL_DOCS": {"description": "allauth", "url": "/_allauth/openapi.html"},
+}
+
 
 try:
     from .local_settings import *  # noqa

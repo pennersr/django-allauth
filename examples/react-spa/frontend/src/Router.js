@@ -4,7 +4,7 @@ import {
   createBrowserRouter,
   RouterProvider
 } from 'react-router-dom'
-import Dashboard from './Dashboard'
+import Calculator from './Calculator'
 import Login from './account/Login'
 import RequestLoginCode from './account/RequestLoginCode'
 import ConfirmLoginCode from './account/ConfirmLoginCode'
@@ -52,8 +52,8 @@ function createRouter (config) {
           element: <Home />
         },
         {
-          path: '/dashboard',
-          element: <AuthenticatedRoute><Dashboard /></AuthenticatedRoute>
+          path: '/calculator',
+          element: <Calculator />
         },
         {
           path: '/account/login',

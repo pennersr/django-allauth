@@ -6,6 +6,7 @@ export default function Root () {
     <>
       <NavBar />
       <main className='flex-shrink-0'>
+
         <div className='container'>
           <Outlet />
         </div>

@@ -50,7 +50,7 @@ export default function NavBar () {
         </button>
         <div className='collapse navbar-collapse' id='navbarCollapse'>
           <ul className='navbar-nav me-auto mb-2 mb-md-0'>
-            <NavBarItem to='/dashboard' icon='📈' name='Dashboard' />
+            <NavBarItem to='/calculator' icon='📈' name='Calculator' />
             {window.DEVELOPMENT ? <NavBarItem href='http://localhost:1080' icon='✉️' name='MailCatcher' /> : null}
             {user ? authNav : anonNav}
           </ul>

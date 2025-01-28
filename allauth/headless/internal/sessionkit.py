@@ -1,6 +1,9 @@
+import typing
 from importlib import import_module
 
 from django.conf import settings
+from django.contrib.auth import SESSION_KEY, get_user_model
+from django.http import HttpRequest
 
 from allauth.headless import app_settings
 from allauth.headless.constants import Client
@@ -26,3 +29,21 @@ def expose_session_token(request):
         new_token = strategy.create_session_token(request)
         if not hdr_token or hdr_token != new_token:
             return new_token
+
+
+def authenticate_by_x_session_token(
+    request: HttpRequest,
+) -> typing.Optional[typing.Tuple]:
+    token = request.headers.get("X-Session-Token")
+    if not token:
+        return None
+    session = app_settings.TOKEN_STRATEGY.lookup_session(token)
+    if not session:
+        return None
+    user_id_str = session.get(SESSION_KEY)
+    if user_id_str:
+        user_id = get_user_model()._meta.pk.to_python(user_id_str)
+        user = get_user_model().objects.filter(pk=user_id).first()
+        if user and user.is_active:
+            return (user, session)
+    return None

@@ -1,0 +1,25 @@
+main > .container {
+  padding: 60px 15px 0;
+}
+
+.aa-channel {
+  height: 10px;
+  width: 100%;
+  background: linear-gradient(90deg, black 50%, transparent 50%);
+  background-repeat: repeat-x;
+  background-size: 20px 10px;
+  background-position: 0px 0px;
+  animation: border-dance 0.5s infinite linear;
+  border: none;
+}
+.aa-channel-rev {
+  animation: border-dance 0.5s infinite linear reverse;
+}
+@keyframes border-dance {
+  0% {
+    background-position: 0px 0px;
+  }
+  100% {
+    background-position: 20px 0px;
+  }
+}

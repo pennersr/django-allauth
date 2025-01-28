@@ -9,9 +9,10 @@ from allauth.headless.internal.sessionkit import (
 
 class XSessionTokenAuthentication(authentication.BaseAuthentication):
     """
-    This authentication class uses the X-Session-Tokent hat django-allauth
+    This authentication class uses the X-Session-Token that django-allauth
     is using for authentication purposes.
     """
 
     def authenticate(self, request: HttpRequest):
-        return authenticate_by_x_session_token(request)
+        token = request.headers.get("X-Session-Token")
+        return authenticate_by_x_session_token(token)

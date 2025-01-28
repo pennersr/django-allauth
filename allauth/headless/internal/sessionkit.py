@@ -3,7 +3,6 @@ from importlib import import_module
 
 from django.conf import settings
 from django.contrib.auth import SESSION_KEY, get_user_model
-from django.http import HttpRequest
 
 from allauth.headless import app_settings
 from allauth.headless.constants import Client
@@ -31,12 +30,7 @@ def expose_session_token(request):
             return new_token
 
 
-def authenticate_by_x_session_token(
-    request: HttpRequest,
-) -> typing.Optional[typing.Tuple]:
-    token = request.headers.get("X-Session-Token")
-    if not token:
-        return None
+def authenticate_by_x_session_token(token: str) -> typing.Optional[typing.Tuple]:
     session = app_settings.TOKEN_STRATEGY.lookup_session(token)
     if not session:
         return None

@@ -11,7 +11,8 @@ class XSessionTokenAuth(AuthBase):
     openapi_type: str = "apiKey"
 
     def __call__(self, request: HttpRequest):
-        user_session = authenticate_by_x_session_token(request)
+        token = request.headers.get("X-Session-Token")
+        user_session = authenticate_by_x_session_token(token)
         if user_session:
             return user_session[0]
         return None

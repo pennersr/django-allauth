@@ -15,4 +15,6 @@ class XSessionTokenAuthentication(authentication.BaseAuthentication):
 
     def authenticate(self, request: HttpRequest):
         token = request.headers.get("X-Session-Token")
-        return authenticate_by_x_session_token(token)
+        if token:
+            return authenticate_by_x_session_token(token)
+        return None

@@ -1,3 +1,5 @@
+import typing
+
 from django.http import HttpRequest
 
 from rest_framework import authentication
@@ -14,7 +16,10 @@ class XSessionTokenAuthentication(authentication.BaseAuthentication):
     """
 
     def authenticate(self, request: HttpRequest):
-        token = request.headers.get("X-Session-Token")
+        token = self.get_session_token(request)
         if token:
             return authenticate_by_x_session_token(token)
         return None
+
+    def get_session_token(self, request: HttpRequest) -> typing.Optional[str]:
+        return request.headers.get("X-Session-Token")

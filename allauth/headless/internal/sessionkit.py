@@ -36,8 +36,10 @@ def authenticate_by_x_session_token(token: str) -> typing.Optional[typing.Tuple]
         return None
     user_id_str = session.get(SESSION_KEY)
     if user_id_str:
-        user_id = get_user_model()._meta.pk.to_python(user_id_str)
-        user = get_user_model().objects.filter(pk=user_id).first()
-        if user and user.is_active:
-            return (user, session)
+        meta_pk = get_user_model()._meta.pk
+        if meta_pk:
+            user_id = meta_pk.to_python(user_id_str)
+            user = get_user_model().objects.filter(pk=user_id).first()
+            if user and user.is_active:
+                return (user, session)
     return None

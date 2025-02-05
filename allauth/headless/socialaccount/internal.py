@@ -52,7 +52,7 @@ def on_authentication_error(
 
 
 def complete_token_login(request, sociallogin):
-    flows.login.complete_login(request, sociallogin, raises=True)
+    return flows.login.complete_login(request, sociallogin, raises=True)
 
 
 def complete_login(request, sociallogin):

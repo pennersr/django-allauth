@@ -38,8 +38,10 @@ class ProviderSignupView(APIView):
         return super().handle(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        flows.signup.signup_by_form(self.request, self.sociallogin, self.input)
-        return AuthenticationResponse(request)
+        response = flows.signup.signup_by_form(
+            self.request, self.sociallogin, self.input
+        )
+        return AuthenticationResponse.from_response(request, response)
 
     def get_input_kwargs(self):
         return {"sociallogin": self.sociallogin}
@@ -93,10 +95,11 @@ class ProviderTokenView(APIView):
 
     def post(self, request, *args, **kwargs):
         sociallogin = self.input.cleaned_data["sociallogin"]
+        response = None
         try:
-            complete_token_login(request, sociallogin)
+            response = complete_token_login(request, sociallogin)
         except ValidationError as e:
             return ErrorResponse(self.request, exception=e)
         except SignupClosedException:
             return ForbiddenResponse(self.request)
-        return AuthenticationResponse(self.request)
+        return AuthenticationResponse.from_response(self.request, response)

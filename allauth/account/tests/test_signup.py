@@ -4,6 +4,7 @@ from django.contrib.auth.models import AnonymousUser
 from django.contrib.messages.middleware import MessageMiddleware
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.core import mail
+from django.test import TestCase
 from django.test.client import Client, RequestFactory
 from django.test.utils import override_settings
 from django.urls import reverse
@@ -16,7 +17,6 @@ from allauth.account.adapter import get_adapter
 from allauth.account.forms import BaseSignupForm, SignupForm
 from allauth.account.models import EmailAddress
 from allauth.core import context
-from allauth.tests import TestCase
 from allauth.utils import get_username_max_length
 
 

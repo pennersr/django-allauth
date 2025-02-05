@@ -1,6 +1,8 @@
+from django.test import TestCase
+
 from allauth.socialaccount.providers.netiq.provider import NetIQProvider
 from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import MockedResponse, TestCase
+from allauth.tests import MockedResponse
 
 
 class NetIQTests(OAuth2TestsMixin, TestCase):

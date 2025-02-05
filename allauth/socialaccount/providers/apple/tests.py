@@ -4,6 +4,7 @@ from importlib import import_module
 from urllib.parse import parse_qs, urlparse
 
 from django.conf import settings
+from django.test import TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
 from django.utils.http import urlencode
@@ -11,7 +12,7 @@ from django.utils.http import urlencode
 import jwt
 
 from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import MockedResponse, TestCase, mocked_response
+from allauth.tests import MockedResponse, mocked_response
 
 from .apple_session import APPLE_SESSION_COOKIE_NAME
 from .client import jwt_encode

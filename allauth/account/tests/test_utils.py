@@ -9,6 +9,7 @@ from django.contrib.sessions.middleware import SessionMiddleware
 from django.core import mail, validators
 from django.core.exceptions import ValidationError
 from django.template import Context, Template
+from django.test import TestCase
 from django.test.client import RequestFactory
 from django.test.utils import override_settings
 from django.urls import reverse
@@ -23,7 +24,6 @@ from allauth.account.utils import (
     user_username,
 )
 from allauth.core import context
-from allauth.tests import TestCase
 
 from .test_models import UUIDUser
 

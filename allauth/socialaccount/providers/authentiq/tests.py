@@ -1,10 +1,11 @@
 import json
 
+from django.test import TestCase
 from django.test.client import RequestFactory
 from django.test.utils import override_settings
 
 from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import MockedResponse, TestCase
+from allauth.tests import MockedResponse
 
 from .provider import AuthentiqProvider
 from .views import AuthentiqOAuth2Adapter

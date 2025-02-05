@@ -1,10 +1,11 @@
 from urllib.parse import parse_qs, urlparse
 
+from django.test import TestCase
 from django.urls import reverse
 from django.utils.http import urlencode
 
 from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import MockedResponse, TestCase, mocked_response
+from allauth.tests import MockedResponse, mocked_response
 
 from .provider import NotionProvider
 

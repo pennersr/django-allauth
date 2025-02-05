@@ -1,10 +1,11 @@
+from django.test import TestCase
 from django.test.client import RequestFactory
 from django.urls import reverse
 
 from allauth.socialaccount.models import SocialToken
 from allauth.socialaccount.providers.oauth2.client import OAuth2Error
 from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import MockedResponse, TestCase, mocked_response
+from allauth.tests import MockedResponse, mocked_response
 
 from .provider import TwitchProvider
 from .views import TwitchOAuth2Adapter

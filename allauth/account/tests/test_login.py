@@ -4,6 +4,7 @@ from unittest.mock import ANY, patch
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core import mail
+from django.test import TestCase
 from django.test.utils import override_settings
 from django.urls import NoReverseMatch, reverse
 
@@ -13,7 +14,6 @@ from allauth.account import app_settings
 from allauth.account.authentication import AUTHENTICATION_METHODS_SESSION_KEY
 from allauth.account.forms import LoginForm
 from allauth.account.models import EmailAddress
-from allauth.tests import TestCase
 
 
 @override_settings(

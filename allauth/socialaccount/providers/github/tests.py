@@ -1,9 +1,11 @@
 from unittest.mock import patch
 
+from django.test import TestCase
+
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import MockedResponse, TestCase
+from allauth.tests import MockedResponse
 
 from .provider import GitHubProvider
 

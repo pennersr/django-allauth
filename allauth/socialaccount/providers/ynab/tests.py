@@ -1,12 +1,13 @@
 from requests.exceptions import HTTPError
 
+from django.test import TestCase
 from django.test.client import RequestFactory
 from django.test.utils import override_settings
 from django.urls import reverse
 
 from allauth.socialaccount.models import SocialToken
 from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import MockedResponse, TestCase, mocked_response
+from allauth.tests import MockedResponse, mocked_response
 
 from .provider import YNABProvider
 

@@ -1,6 +1,8 @@
+from django.test import TestCase
+
 from allauth.socialaccount.providers.exist.provider import ExistProvider
 from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import MockedResponse, TestCase
+from allauth.tests import MockedResponse
 
 
 class ExistTests(OAuth2TestsMixin, TestCase):

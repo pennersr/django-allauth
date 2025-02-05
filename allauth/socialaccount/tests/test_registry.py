@@ -1,8 +1,8 @@
 from django.apps import AppConfig, apps
+from django.test import TestCase
 from django.test.utils import override_settings
 
 from allauth.socialaccount import providers
-from allauth.tests import TestCase
 
 
 class CustomFacebookAppConfig(AppConfig):

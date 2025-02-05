@@ -1,6 +1,8 @@
+from django.test import TestCase
+
 from allauth.socialaccount.providers.auth0.provider import Auth0Provider
 from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import MockedResponse, TestCase
+from allauth.tests import MockedResponse
 
 
 class Auth0Tests(OAuth2TestsMixin, TestCase):

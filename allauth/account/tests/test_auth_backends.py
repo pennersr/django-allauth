@@ -1,13 +1,13 @@
 from unittest.mock import patch
 
 from django.contrib.auth import get_user_model
+from django.test import TestCase
 from django.test.utils import override_settings
 
 import pytest
 
 from allauth.account import app_settings
 from allauth.account.auth_backends import AuthenticationBackend
-from allauth.tests import TestCase
 
 
 class AuthenticationBackendTests(TestCase):

@@ -1,5 +1,6 @@
+from django.test import TestCase
+
 from allauth.socialaccount.tests import OpenIDConnectTests
-from allauth.tests import TestCase
 
 
 class MainOpenIDConnectTests(OpenIDConnectTests, TestCase):

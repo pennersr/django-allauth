@@ -28,6 +28,7 @@ stdenv.mkDerivation {
         python311Packages.python3-openid
         python311Packages.python3-saml
         python311Packages.pyjwt
+        python311Packages.psycopg
         python311Packages.qrcode
         python311Packages.sphinx-rtd-theme
         python311Packages.requests-oauthlib

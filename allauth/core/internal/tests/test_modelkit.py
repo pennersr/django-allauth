@@ -1,5 +1,6 @@
 from datetime import date, datetime
 
+from django.contrib.postgres.fields import ArrayField
 from django.core.files.base import ContentFile
 from django.db import models
 
@@ -27,6 +28,7 @@ def test_serializer():
         img2 = models.ImageField()
         img3 = models.ImageField()
         something = SomeField()
+        ips = ArrayField(models.GenericIPAddressField(), default=list, blank=True)
 
     def method(self):
         pass
@@ -36,6 +38,7 @@ def test_serializer():
         d=date.today(),
         something=some_value,
         t=datetime.now().time(),
+        ips=["1.1.1.1", "1.2.3.4"],
     )
     instance.img1 = ContentFile(b"%PDF", name="foo.pdf")
     instance.img2 = ContentFile(
@@ -59,6 +62,7 @@ def test_serializer():
     assert instance.nonfield == instance2.nonfield
     assert instance.d == instance2.d
     assert instance.dt.date() == instance2.dt.date()
+    assert instance.ips == instance2.ips
     for t1, t2 in [
         (instance.t, instance2.t),
         (instance.dt.time(), instance2.dt.time()),

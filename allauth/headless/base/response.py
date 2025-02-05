@@ -96,6 +96,19 @@ class AuthenticationResponse(BaseAuthenticationResponse):
     def __init__(self, request):
         super().__init__(request, user=request.user)
 
+    @classmethod
+    def from_response(cls, request, response):
+        """
+        The response might be a headed redirect to e.g. the confirmation
+        email page, because allauth.account is not (much) headless
+        aware. Also, what if an adapter method return headed responses in
+        post_login()?  So, let's ensure we always return a headless
+        response.
+        """
+        if isinstance(response, AuthenticationResponse):
+            return response
+        return AuthenticationResponse(request)
+
 
 class ReauthenticationResponse(BaseAuthenticationResponse):
     def __init__(self, request):

@@ -68,8 +68,10 @@ class ConfirmLoginCodeView(APIView):
         return super().dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        flows.login_by_code.perform_login_by_code(self.request, self.stage, None)
-        return AuthenticationResponse(request)
+        response = flows.login_by_code.perform_login_by_code(
+            self.request, self.stage, None
+        )
+        return AuthenticationResponse.from_response(request, response)
 
     def get_input_kwargs(self):
         kwargs = super().get_input_kwargs()
@@ -94,14 +96,7 @@ class LoginView(APIView):
         response = flows.login.perform_password_login(
             request, credentials, self.input.login
         )
-        if not isinstance(response, AuthenticationResponse):
-            # The response might be a headed redirect to e.g. the confirmation
-            # email page, because allauth.account is not (much) headless
-            # aware. Also, what if an adapter method return headed responses in
-            # post_login()?  So, let's ensure we always return a headless
-            # response.
-            response = AuthenticationResponse(self.request)
-        return response
+        return AuthenticationResponse.from_response(request, response)
 
 
 @method_decorator(rate_limit(action="signup"), name="handle")
@@ -117,12 +112,12 @@ class SignupView(APIView):
         user, resp = self.input.try_save(request)
         if not resp:
             try:
-                flows.signup.complete_signup(
+                resp = flows.signup.complete_signup(
                     request, user=user, by_passkey=self.by_passkey
                 )
             except ImmediateHttpResponse:
                 pass
-        return AuthenticationResponse(request)
+        return AuthenticationResponse.from_response(request, resp)
 
 
 class SessionView(APIView):
@@ -180,11 +175,12 @@ class VerifyEmailView(APIView):
             # Should not happen, VerifyInputInput should have verified all
             # preconditions.
             return APIResponse(request, status=500)
+        response = None
         if self.stage:
             # Verifying email as part of login/signup flow may imply the user is
             # to be logged in...
-            email_verification.login_on_verification(request, verification)
-        return AuthenticationResponse(request)
+            response = email_verification.login_on_verification(request, verification)
+        return AuthenticationResponse.from_response(request, response)
 
 
 class RequestPasswordResetView(APIView):

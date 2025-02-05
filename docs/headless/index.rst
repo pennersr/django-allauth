@@ -9,4 +9,5 @@ Headless
    api
    adapter
    tokens
+   integrations
    faq

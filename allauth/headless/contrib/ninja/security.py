@@ -10,6 +10,11 @@ from allauth.headless.internal.sessionkit import (
 
 
 class XSessionTokenAuth(AuthBase):
+    """
+    This security class uses the X-Session-Token that django-allauth
+    is using for authentication purposes.
+    """
+
     openapi_type: str = "apiKey"
 
     def __call__(self, request: HttpRequest):
@@ -21,6 +26,11 @@ class XSessionTokenAuth(AuthBase):
         return None
 
     def get_session_token(self, request: HttpRequest) -> typing.Optional[str]:
+        """
+        Returns the session token for the given request, by looking up the
+        ``X-Session-Token`` header. Override this if you want to extract the token
+        from e.g. the ``Authorization`` header.
+        """
         return request.headers.get("X-Session-Token")
 
 

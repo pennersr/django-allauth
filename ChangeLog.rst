@@ -20,6 +20,12 @@ Note worthy changes
 - Headless: added a new setting, ``HEADLESS_CLIENTS`` which you can use to limit
   the types of API clients (app/browser).
 
+- Headless: expanded the React SPA example to showcase integration with
+  Django Ninja as well as Django REST framework.
+
+- Headless: added out of the box support for being able to use the headless
+  session tokens with Django Ninja and Django REST framework.
+
 
 65.3.1 (2024-12-25)
 *******************

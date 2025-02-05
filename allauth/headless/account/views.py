@@ -91,8 +91,17 @@ class LoginView(APIView):
         if request.user.is_authenticated:
             return ConflictResponse(request)
         credentials = self.input.cleaned_data
-        flows.login.perform_password_login(request, credentials, self.input.login)
-        return AuthenticationResponse(self.request)
+        response = flows.login.perform_password_login(
+            request, credentials, self.input.login
+        )
+        if not isinstance(response, AuthenticationResponse):
+            # The response might be a headed redirect to e.g. the confirmation
+            # email page, because allauth.account is not (much) headless
+            # aware. Also, what if an adapter method return headed responses in
+            # post_login()?  So, let's ensure we always return a headless
+            # response.
+            response = AuthenticationResponse(self.request)
+        return response
 
 
 @method_decorator(rate_limit(action="signup"), name="handle")

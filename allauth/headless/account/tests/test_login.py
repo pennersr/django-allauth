@@ -2,6 +2,9 @@ from unittest.mock import ANY
 
 import pytest
 
+from allauth.account.signals import user_logged_in
+from allauth.headless.base.response import AuthenticationResponse
+
 
 def test_auth_password_input_error(headless_reverse, client):
     resp = client.post(
@@ -186,3 +189,27 @@ def test_login_already_logged_in(
         content_type="application/json",
     )
     assert resp.status_code == 409
+
+
+def test_custom_post_login_response(
+    settings, client, headless_reverse, user, user_password
+):
+    settings.ACCOUNT_LOGIN_METHODS = {"email"}
+
+    def on_user_logged_in(**kwargs):
+        response = kwargs["response"]
+        assert isinstance(response, AuthenticationResponse)
+
+    user_logged_in.connect(on_user_logged_in)
+    try:
+        login_resp = client.post(
+            headless_reverse("headless:account:login"),
+            data={
+                "email": user.email,
+                "password": user_password,
+            },
+            content_type="application/json",
+        )
+        assert login_resp.status_code == 200
+    finally:
+        user_logged_in.disconnect(on_user_logged_in)

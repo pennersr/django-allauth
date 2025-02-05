@@ -35,7 +35,10 @@ from allauth import app_settings as allauth_app_settings
 from allauth.account import app_settings, signals
 from allauth.core import context, ratelimit
 from allauth.core.internal.adapter import BaseAdapter
-from allauth.core.internal.httpkit import headed_redirect_response
+from allauth.core.internal.httpkit import (
+    headed_redirect_response,
+    is_headless_request,
+)
 from allauth.utils import generate_unique_username, import_attribute
 
 
@@ -385,7 +388,7 @@ class DefaultAccountAdapter(BaseAdapter):
         Wrapper of `django.contrib.messages.add_message`, that reads
         the message text from a template.
         """
-        if getattr(getattr(request, "allauth", None), "headless", None):
+        if is_headless_request(request):
             return
         if "django.contrib.messages" in settings.INSTALLED_APPS:
             if message:
@@ -479,9 +482,14 @@ class DefaultAccountAdapter(BaseAdapter):
     ):
         from .utils import get_login_redirect_url
 
-        response = HttpResponseRedirect(
-            get_login_redirect_url(request, redirect_url, signup=signup)
-        )
+        if is_headless_request(request):
+            from allauth.headless.base.response import AuthenticationResponse
+
+            response = AuthenticationResponse(request)
+        else:
+            response = HttpResponseRedirect(
+                get_login_redirect_url(request, redirect_url, signup=signup)
+            )
 
         if signal_kwargs is None:
             signal_kwargs = {}

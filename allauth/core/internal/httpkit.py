@@ -4,6 +4,7 @@ from urllib.parse import parse_qs, quote, urlencode, urlparse, urlunparse
 from django import shortcuts
 from django.core.exceptions import ImproperlyConfigured
 from django.http import (
+    HttpRequest,
     HttpResponseRedirect,
     HttpResponseServerError,
     QueryDict,
@@ -119,3 +120,7 @@ def headed_redirect_response(viewname):
             # The response we would be rendering here is not actually used.
             return HttpResponseServerError()
         raise
+
+
+def is_headless_request(request: HttpRequest) -> bool:
+    return bool(getattr(getattr(request, "allauth", None), "headless", None))

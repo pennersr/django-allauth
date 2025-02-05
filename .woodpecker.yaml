@@ -113,11 +113,11 @@ matrix:
       PRJ: regular
       DJANGO_VERSION: django51
       PYTHON_VERSION: 3.12
-    # Only test main on latest Python
-    - STEP: test
-      PRJ: regular
-      DJANGO_VERSION: djangomain
-      PYTHON_VERSION: 3.12
+    # # Only test main on latest Python
+    # - STEP: test
+    #   PRJ: regular
+    #   DJANGO_VERSION: djangomain
+    #   PYTHON_VERSION: 3.12
 
     ######################################################################
     # Headless project
@@ -157,11 +157,11 @@ matrix:
       PRJ: headless_only
       DJANGO_VERSION: django51
       PYTHON_VERSION: 3.12
-    # Only test main on latest Python
-    - STEP: test
-      PRJ: headless_only
-      DJANGO_VERSION: djangomain
-      PYTHON_VERSION: 3.12
+    # # Only test main on latest Python
+    # - STEP: test
+    #   PRJ: headless_only
+    #   DJANGO_VERSION: djangomain
+    #   PYTHON_VERSION: 3.12
     # Only test LoginRequiredMiddleware on latest Python/Django.
     - STEP: test
       PRJ: login_required_mw

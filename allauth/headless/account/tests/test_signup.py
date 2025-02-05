@@ -3,6 +3,8 @@ from unittest.mock import ANY, patch
 from django.contrib.auth.models import User
 
 from allauth.account.models import EmailAddress, EmailConfirmationHMAC
+from allauth.account.signals import user_logged_in
+from allauth.headless.base.response import AuthenticationResponse
 from allauth.headless.constants import Flow
 
 
@@ -15,17 +17,25 @@ def test_signup(
     headless_reverse,
     headless_client,
 ):
-    resp = client.post(
-        headless_reverse("headless:account:signup"),
-        data={
-            "username": "wizard",
-            "email": email_factory(),
-            "password": password_factory(),
-        },
-        content_type="application/json",
-    )
-    assert resp.status_code == 200
-    assert User.objects.filter(username="wizard").exists()
+    def on_user_logged_in(**kwargs):
+        response = kwargs["response"]
+        assert isinstance(response, AuthenticationResponse)
+
+    user_logged_in.connect(on_user_logged_in)
+    try:
+        resp = client.post(
+            headless_reverse("headless:account:signup"),
+            data={
+                "username": "wizard",
+                "email": email_factory(),
+                "password": password_factory(),
+            },
+            content_type="application/json",
+        )
+        assert resp.status_code == 200
+        assert User.objects.filter(username="wizard").exists()
+    finally:
+        user_logged_in.disconnect(on_user_logged_in)
 
 
 def test_signup_with_email_verification(

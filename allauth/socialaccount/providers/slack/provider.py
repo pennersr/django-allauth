@@ -1,3 +1,4 @@
+from allauth.account.models import EmailAddress
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 from allauth.socialaccount.providers.slack.views import SlackOAuth2Adapter
@@ -28,6 +29,14 @@ class SlackProvider(OAuth2Provider):
     def extract_common_fields(self, data):
         user = data.get("user", {})
         return {"name": user.get("name"), "email": user.get("email", None)}
+
+    def extract_email_addresses(self, data):
+        ret = []
+        email = data.get("email")
+        if email:
+            verified = data.get("email_verified")
+            ret.append(EmailAddress(email=email, verified=verified, primary=True))
+        return ret
 
     def get_default_scope(self):
         return ["openid", "profile", "email"]

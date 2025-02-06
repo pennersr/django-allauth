@@ -1,4 +1,4 @@
-65.4.0 (unreleased)
+65.4.0 (2025-02-06)
 *******************
 
 Note worthy changes

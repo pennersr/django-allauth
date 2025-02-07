@@ -1,3 +1,15 @@
+65.4.1 (2025-02-07)
+*******************
+
+Fixes
+-----
+
+- To make way for a future ``"phone"`` method, ``AUTHENTICATION_METHOD`` was
+  removed in favor of a new ``LOGIN_METHODS``. While this change was done in a
+  backwards compatible manner within allauth scope, other packages accessing
+  ``allauth.account.app_settings.AUTHENTICATION_METHOD`` would break. Fixed.
+
+
 65.4.0 (2025-02-06)
 *******************
 

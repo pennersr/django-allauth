@@ -1,3 +1,4 @@
+import warnings
 from enum import Enum
 from typing import FrozenSet, Set, Union
 
@@ -110,6 +111,21 @@ class AppSettings:
     @property
     def CHANGE_EMAIL(self):
         return self._setting("CHANGE_EMAIL", False)
+
+    @property
+    def AUTHENTICATION_METHOD(self):
+        warnings.warn(
+            "app_settings.AUTHENTICATION_METHOD is deprecated, use: app_settings.LOGIN_METHODS"
+        )
+        methods = self.LOGIN_METHODS
+        if self.LoginMethod.EMAIL in methods and self.LoginMethod.USERNAME in methods:
+            return "username_email"
+        elif self.LoginMethod.EMAIL in methods:
+            return "email"
+        elif self.LoginMethod.USERNAME in methods:
+            return "username"
+        else:
+            raise NotADirectoryError
 
     @property
     def LOGIN_METHODS(self) -> FrozenSet[LoginMethod]:

@@ -115,7 +115,8 @@ class AppSettings:
     @property
     def AUTHENTICATION_METHOD(self):
         warnings.warn(
-            "app_settings.AUTHENTICATION_METHOD is deprecated, use: app_settings.LOGIN_METHODS"
+            "app_settings.AUTHENTICATION_METHOD is deprecated, use: app_settings.LOGIN_METHODS",
+            stacklevel=2,
         )
         methods = self.LOGIN_METHODS
         if self.LoginMethod.EMAIL in methods and self.LoginMethod.USERNAME in methods:

@@ -216,7 +216,9 @@ class SocialLogin:
         account: Optional[SocialAccount] = None,
         token: Optional[SocialToken] = None,
         email_addresses: Optional[List[EmailAddress]] = None,
+        provider=None,
     ):
+        self.provider = provider
         if token:
             assert token.account is None or token.account == account  # nosec
         self.token = token
@@ -249,6 +251,7 @@ class SocialLogin:
     def serialize(self) -> Dict[str, Any]:
         serialize_instance = get_adapter().serialize_instance
         ret = dict(
+            provider=self.provider.serialize(),
             account=serialize_instance(self.account),
             user=serialize_instance(self.user),
             state=self.state,
@@ -260,7 +263,10 @@ class SocialLogin:
 
     @classmethod
     def deserialize(cls, data: Dict[str, Any]) -> "SocialLogin":
+        from allauth.socialaccount.providers.base.provider import Provider
+
         deserialize_instance = get_adapter().deserialize_instance
+        provider = Provider.deserialize(data["provider"])
         account = deserialize_instance(SocialAccount, data["account"])
         user = deserialize_instance(get_user_model(), data["user"])
         if "token" in data:
@@ -272,6 +278,7 @@ class SocialLogin:
             email_address = deserialize_instance(EmailAddress, ea)
             email_addresses.append(email_address)
         ret = cls()
+        ret.provider = provider
         ret.token = token
         ret.account = account
         ret.user = user

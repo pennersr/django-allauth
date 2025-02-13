@@ -350,7 +350,7 @@ class DefaultSocialAccountAdapter(BaseAdapter):
         (``SOCIALACCOUNT_PROVIDERS``).
         """
         ret = None
-        provider = login.account.get_provider()
+        provider = login.provider
         if provider.app:
             ret = provider.app.settings.get("email_authentication")
         if ret is None:

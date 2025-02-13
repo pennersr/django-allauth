@@ -125,7 +125,7 @@ def test_record_authentication(
     sociallogin = sociallogin_factory(provider="unittest-server", uid="123")
     sociallogin.state["process"] = process
     sociallogin.token = SocialToken(
-        app=sociallogin.account.get_provider().app, token="123", token_secret="456"
+        app=sociallogin.provider.app, token="123", token_secret="456"
     )
     SocialAccount.objects.create(user=user, uid="123", provider="unittest-server")
     request = request_factory.get("/")

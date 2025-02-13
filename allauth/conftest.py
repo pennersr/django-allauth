@@ -262,6 +262,13 @@ def google_provider_settings(settings):
 
 
 @pytest.fixture
+def twitter_provider_settings(settings):
+    tsettings = {"APPS": [{"client_id": "client_id", "secret": "secret"}]}
+    settings.SOCIALACCOUNT_PROVIDERS = {"twitter": tsettings}
+    return tsettings
+
+
+@pytest.fixture
 def user_with_totp(user):
     from allauth.mfa.totp.internal import auth
 

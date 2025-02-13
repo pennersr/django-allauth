@@ -1,7 +1,11 @@
 65.4.2 (unreleased)
 *******************
 
-- ...
+Fixes
+-----
+
+- Headless: In case you had multiple apps of the same provider configured,
+  you could run into a ``MultipleObjectsReturned``. Fixed.
 
 
 65.4.1 (2025-02-07)

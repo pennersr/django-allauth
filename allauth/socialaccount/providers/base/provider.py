@@ -1,8 +1,9 @@
-from typing import Dict, Optional
+from typing import Any, Dict, Optional
 
 from django.core.exceptions import ImproperlyConfigured, PermissionDenied
 
 from allauth.account.utils import get_next_redirect_url, get_request_param
+from allauth.core import context
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.internal import statekit
@@ -128,7 +129,9 @@ class Provider:
         if email:
             common_fields["email"] = email
         sociallogin = SocialLogin(
-            account=socialaccount, email_addresses=email_addresses
+            provider=self,
+            account=socialaccount,
+            email_addresses=email_addresses,
         )
         user = sociallogin.user = adapter.new_user(request, sociallogin)
         user.set_unusable_password()
@@ -231,6 +234,20 @@ class Provider:
     def sub_id(self) -> str:
         return (
             (self.app.provider_id or self.app.provider) if self.uses_apps else self.id
+        )
+
+    def serialize(self) -> Dict[str, Any]:
+        ret = {"id": self.id}
+        if self.uses_apps:
+            ret["app.client_id"] = self.app.client_id
+        return ret
+
+    @classmethod
+    def deserialize(cls, data: Dict[str, Any]) -> "Provider":
+        return get_adapter().get_provider(
+            context.request,
+            provider=data["id"],
+            client_id=data.get("app.client_id"),
         )
 
 

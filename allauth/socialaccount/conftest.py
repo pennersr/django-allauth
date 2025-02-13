@@ -4,6 +4,7 @@ from unittest.mock import patch
 import pytest
 
 from allauth.account.models import EmailAddress
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.models import (
     SocialAccount,
     SocialLogin,
@@ -25,8 +26,11 @@ def sociallogin_factory(user_factory):
         user = user_factory(
             username=username, email=email, commit=False, with_email=with_email
         )
+        provider_instance = get_adapter().get_provider(request=None, provider=provider)
         account = SocialAccount(provider=provider, uid=uid)
-        sociallogin = SocialLogin(user=user, account=account)
+        sociallogin = SocialLogin(
+            provider=provider_instance, user=user, account=account
+        )
         if with_email:
             sociallogin.email_addresses = [
                 EmailAddress(email=user.email, verified=email_verified, primary=True)

@@ -46,7 +46,7 @@ def provider_flows(request):
 
 
 def _signup_flow(request, sociallogin):
-    provider = sociallogin.account.get_provider()
+    provider = sociallogin.provider
     flow = {
         "id": Flow.PROVIDER_SIGNUP,
         "provider": _provider_data(request, provider),

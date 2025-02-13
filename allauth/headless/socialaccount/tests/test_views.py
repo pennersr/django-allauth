@@ -151,6 +151,33 @@ def test_invalid_token(client, headless_reverse, db, google_provider_settings):
     }
 
 
+def test_valid_token_multiple_apps(
+    client, headless_reverse, db, google_provider_settings, settings, user_factory
+):
+    settings.ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+    google_provider_settings["APPS"].append(
+        {"client_id": "client_id2", "secret": "secret2"}
+    )
+    id_token = {"sub": "uid-from-id-token", "email": "a@b.com", "email_verified": True}
+    with patch(
+        "allauth.socialaccount.providers.google.views._verify_and_decode",
+        return_value=id_token,
+    ):
+        resp = client.post(
+            headless_reverse("headless:socialaccount:provider_token"),
+            data={
+                "provider": "google",
+                "token": {
+                    "id_token": "dummy",
+                    "client_id": google_provider_settings["APPS"][0]["client_id"],
+                },
+                "process": AuthProcess.LOGIN,
+            },
+            content_type="application/json",
+        )
+        assert resp.status_code == 200
+
+
 def test_auth_error_no_headless_request(client, db, google_provider_settings, settings):
     """Authentication errors use the regular "Third-Party Login Failure"
     template if headless is not used.

@@ -12,7 +12,7 @@ from allauth.account.models import EmailAddress
 from allauth.account.utils import user_email, user_username
 from allauth.core import context
 from allauth.socialaccount.helpers import complete_social_login
-from allauth.socialaccount.models import SocialAccount, SocialLogin
+from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount.views import signup
 
 
@@ -34,7 +34,9 @@ def setup_sociallogin_flow(request_factory):
 
 
 @pytest.fixture
-def email_address_clash(request_factory):
+def email_address_clash(
+    request_factory, sociallogin_factory, twitter_provider_settings
+):
     def _email_address_clash(username, email):
         User = get_user_model()
         # Some existig user
@@ -48,12 +50,8 @@ def email_address_clash(request_factory):
         )
 
         # A social user being signed up...
-        account = SocialAccount(provider="twitter", uid="123")
-        user = User()
-        user_username(user, username)
-        user_email(user, email)
-        sociallogin = SocialLogin(
-            user=user, account=account, email_addresses=[EmailAddress(email=email)]
+        sociallogin = sociallogin_factory(
+            provider="twitter", username=username, email=email
         )
 
         # Signing up, should pop up the social signup form
@@ -146,7 +144,9 @@ def test_email_address_clash_username_auto_signup(db, settings, email_address_cl
     assert user_username(user) != "test"
 
 
-def test_populate_username_in_blacklist(db, settings, request_factory):
+def test_populate_username_in_blacklist(
+    db, settings, request_factory, sociallogin_factory, twitter_provider_settings
+):
     settings.ACCOUNT_EMAIL_REQUIRED = True
     settings.ACCOUNT_USERNAME_BLACKLIST = ["username", "username1", "username2"]
     settings.ACCOUNT_UNIQUE_EMAIL = True
@@ -155,18 +155,9 @@ def test_populate_username_in_blacklist(db, settings, request_factory):
     settings.SOCIALACCOUNT_AUTO_SIGNUP = True
     request = request_factory.get("/accounts/twitter/login/callback/")
     request.user = AnonymousUser()
-
-    User = get_user_model()
-    user = User()
-    setattr(user, account_settings.USER_MODEL_USERNAME_FIELD, "username")
-    setattr(
-        user,
-        account_settings.USER_MODEL_EMAIL_FIELD,
-        "username@example.com",
+    sociallogin = sociallogin_factory(
+        provider="twitter", username="username", email="username@example.com"
     )
-
-    account = SocialAccount(provider="twitter", uid="123")
-    sociallogin = SocialLogin(user=user, account=account)
     with context.request_context(request):
         complete_social_login(request, sociallogin)
 

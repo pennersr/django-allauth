@@ -187,7 +187,7 @@ class SignupView(
         email = self.request.session.get("account_verified_email")
         if email:
             email_keys = ["email"]
-            if app_settings.SIGNUP_EMAIL_ENTER_TWICE:
+            if "email2" in app_settings.SIGNUP_FIELDS:
                 email_keys.append("email2")
             for email_key in email_keys:
                 form.fields[email_key].initial = email
@@ -221,7 +221,7 @@ class SignupView(
             except ValidationError:
                 return initial
             initial["email"] = email
-            if app_settings.SIGNUP_EMAIL_ENTER_TWICE:
+            if "email2" in app_settings.SIGNUP_FIELDS:
                 initial["email2"] = email
         return initial
 

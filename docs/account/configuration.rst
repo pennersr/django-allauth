@@ -53,9 +53,6 @@ Available settings:
   was changed", including information on user agent / IP address from where the
   change originated, will be emailed.
 
-``ACCOUNT_EMAIL_REQUIRED`` (default: ``False``)
-  The user is required to hand over an email address when signing up.
-
 ``ACCOUNT_EMAIL_VERIFICATION`` (default: ``"optional"``)
   Determines the email verification method during signup -- choose
   one of ``"mandatory"``, ``"optional"``, or ``"none"``.
@@ -261,9 +258,12 @@ Available settings:
   ("Remember me?"), ``False`` to not remember, and ``True`` to always
   remember.
 
-``ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE`` (default: ``False``)
-  When signing up, let the user type in their email address twice to avoid
-  typo's.
+``ACCOUNT_SIGNUP_FIELDS`` (default: ``['username*', 'email', 'password1*', 'password2*']``)
+  The list of fields to complete in the signup form. Fields marked with an
+  asterisk (e.g. ``'username*'``) are required.  To let the user type in their
+  email address twice to avoid typos, you can add ``'email2'``.  The field
+  ``'password2'`` can be used let the user type in their password twice to avoid
+  typos.
 
 ``ACCOUNT_SIGNUP_FORM_CLASS`` (default: ``None``)
   A string pointing to a custom form class
@@ -283,9 +283,6 @@ Available settings:
   always successful for sophisticated bots so this should be
   used as one layer in a suite of spam detection tools if your
   site is having trouble with spam.
-
-``ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE`` (default: ``True``)
-  When signing up, let the user type in their password twice to avoid typos.
 
 ``ACCOUNT_SIGNUP_REDIRECT_URL`` (default: ``settings.LOGIN_REDIRECT_URL``)
   The URL (or URL name) to redirect to directly after signing up. Note that
@@ -322,12 +319,6 @@ Available settings:
 
 ``ACCOUNT_USERNAME_MIN_LENGTH`` (default: ``1``)
   An integer specifying the minimum allowed length of a username.
-
-``ACCOUNT_USERNAME_REQUIRED`` (default: ``True``)
-  The user is required to enter a username when signing up. Note that
-  the user will be asked to do so even if
-  ``ACCOUNT_LOGINS_METHOD`` is set to ``{"email"}``. Set to ``False``
-  when you do not wish to prompt the user to enter a username.
 
 ``ACCOUNT_USERNAME_VALIDATORS`` (default: ``None``)
   A path

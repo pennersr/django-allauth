@@ -51,15 +51,14 @@ def settings_check(app_configs, **kwargs):
                 msg="ACCOUNT_EMAIL_VERFICATION_BY_CODE requires ACCOUNT_EMAIL_VERIFICATION = 'mandatory'"
             )
         )
-    # If login is by email, email must be required
-    if (
-        app_settings.LOGIN_METHODS == {app_settings.LoginMethod.EMAIL}
-        and not app_settings.EMAIL_REQUIRED
+    # Cross-check SIGNUP_FIELDS against LOGIN_METHODS. E.g. login is by email, email must be required
+    signup_fields = app_settings.SIGNUP_FIELDS
+    if not any(
+        lm in signup_fields and signup_fields[lm]["required"]
+        for lm in app_settings.LOGIN_METHODS
     ):
         ret.append(
-            Critical(
-                msg="ACCOUNT_LOGIN_METHODS = {'email'} requires ACCOUNT_EMAIL_REQUIRED = True"
-            )
+            Critical(msg="ACCOUNT_LOGIN_METHODS conflicts with ACCOUNT_SIGNUP_FIELDS")
         )
 
     # If login includes email, email must be unique
@@ -137,4 +136,21 @@ def settings_check(app_configs, **kwargs):
                 f"settings.ACCOUNT_AUTHENTICATION_METHOD is deprecated, use: settings.ACCOUNT_LOGIN_METHODS = {repr(converted)}"
             )
         )
+
+    for field in [
+        "ACCOUNT_USERNAME_REQUIRED",
+        "ACCOUNT_EMAIL_REQUIRED",
+        "ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE",
+        "ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE",
+    ]:
+        if hasattr(settings, field):
+            signup_fields_converted = [
+                k + ("*" if v["required"] else "")
+                for k, v in app_settings.SIGNUP_FIELDS.items()
+            ]
+            ret.append(
+                Warning(
+                    f"settings.{field} is deprecated, use: settings.ACCOUNT_SIGNUP_FIELDS = {repr(signup_fields_converted)}"
+                )
+            )
     return ret

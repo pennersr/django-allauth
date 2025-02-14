@@ -13,9 +13,7 @@ class AppSettings:
         Request email address from 3rd party account provider?
         E.g. using OpenID AX
         """
-        from allauth.account import app_settings as account_settings
-
-        return self._setting("QUERY_EMAIL", account_settings.EMAIL_REQUIRED)
+        return self._setting("QUERY_EMAIL", self.EMAIL_REQUIRED)
 
     @property
     def AUTO_SIGNUP(self):
@@ -68,7 +66,9 @@ class AppSettings:
         """
         from allauth.account import app_settings as account_settings
 
-        return self._setting("EMAIL_REQUIRED", account_settings.EMAIL_REQUIRED)
+        fields = account_settings.SIGNUP_FIELDS
+        email_required = "email" in fields and fields["email"].get("required")
+        return self._setting("EMAIL_REQUIRED", email_required)
 
     @property
     def EMAIL_VERIFICATION(self):

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import FormErrors from '../components/FormErrors'
-import { requestPasswordReset } from '../lib/allauth'
-import { Link } from 'react-router-dom'
+import { requestPasswordReset, Flows } from '../lib/allauth'
+import { Navigate, Link } from 'react-router-dom'
 import Button from '../components/Button'
 
 export default function RequestPasswordReset () {
@@ -20,6 +20,9 @@ export default function RequestPasswordReset () {
     })
   }
 
+  if (response.content?.status === 401) {
+    return <Navigate to='/account/password/reset/confirm' />
+  }
   if (response.content?.status === 200) {
     return (
       <div>

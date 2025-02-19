@@ -291,6 +291,18 @@ paths:
   /_allauth/{client}/v1/auth/password/request:
     post:
       summary: Request password
+      description: |
+        Initiates the password reset procedure. Depending on whether or not
+        `ACCOUNT_PASSWORD_RESET_BY_CODE_ENABLED` is `True`, the procedure is
+        either stateless or stateful.
+
+        In case codes are used, it is stateful, and a new
+        `password_reset_by_code` flow is started. In this case, on a successful
+        password reset request, you will receive a 401 indicating the pending
+        status of this flow.
+
+        In case password reset is configured to use (stateless) links, you will
+        receive a 200 on a successful password reset request.
       tags:
         - "Authentication: Password Reset"
       parameters:
@@ -310,9 +322,18 @@ paths:
               examples:
                 invalid_email:
                   $ref: "#/components/examples/InvalidEmail"
+        "401":
+          $ref: "#/components/responses/Authentication"
   /_allauth/{client}/v1/auth/password/reset:
     get:
       summary: Get password reset information
+      description: |
+        Used to obtain information on and validate a password reset key.  The
+        key passed is either the key encoded in the password reset URL that the
+        user has received per email, or, the password reset code in case of
+        `ACCOUNT_PASSWORD_RESET_BY_CODE_ENABLED`. Note that in case of a code,
+        the number of requests you can make is limited (by
+        `ACCOUNT_PASSWORD_RESET_BY_CODE_MAX_ATTEMPTS`).
       tags:
         - "Authentication: Password Reset"
       parameters:
@@ -331,6 +352,13 @@ paths:
               examples:
                 password_reset_key_invalid:
                   $ref: "#/components/examples/InvalidPasswordResetKey"
+        "409":
+          description: |
+            Conflict. There is no password reset (by code) flow pending.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConflictResponse"
     post:
       summary: Reset password
       description: |
@@ -360,6 +388,13 @@ paths:
                   $ref: "#/components/examples/InvalidEmail"
         "401":
           $ref: "#/components/responses/Authentication"
+        "409":
+          description: |
+            Conflict. There is no password reset (by code) flow pending.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConflictResponse"
   ######################################################################
   # Authentication: Providers
   ######################################################################
@@ -1851,6 +1886,8 @@ components:
         email_verification_by_code_enabled:
           type: boolean
         login_by_code_enabled:
+          type: boolean
+        password_reset_by_code_enabled:
           type: boolean
       required:
         - authentication_method

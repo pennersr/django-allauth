@@ -1,18 +1,16 @@
 import { useState } from 'react'
 import FormErrors from '../components/FormErrors'
 import { getPasswordReset, resetPassword } from '../lib/allauth'
-import { Navigate, Link, useLoaderData } from 'react-router-dom'
+import { Navigate, Link, useLocation, useLoaderData } from 'react-router-dom'
 import Button from '../components/Button'
 
-export async function loader ({ params }) {
+export async function resetPasswordByLinkLoader ({ params }) {
   const key = params.key
   const resp = await getPasswordReset(key)
-  return { key, keyResponse: resp }
+  return { resetKey: key, resetKeyResponse: resp }
 }
 
-export default function ResetPassword () {
-  const { key, keyResponse } = useLoaderData()
-
+function ResetPassword ({ resetKey, resetKeyResponse }) {
   const [password1, setPassword1] = useState('')
   const [password2, setPassword2] = useState('')
   const [password2Errors, setPassword2Errors] = useState([])
@@ -26,7 +24,7 @@ export default function ResetPassword () {
     }
     setPassword2Errors([])
     setResponse({ ...response, fetching: true })
-    resetPassword({ key, password: password1 }).then((resp) => {
+    resetPassword({ key: resetKey, password: password1 }).then((resp) => {
       setResponse((r) => { return { ...r, content: resp } })
     }).catch((e) => {
       console.error(e)
@@ -39,8 +37,8 @@ export default function ResetPassword () {
     return <Navigate to='/account/login' />
   }
   let body
-  if (keyResponse.status !== 200) {
-    body = <FormErrors param='key' errors={keyResponse.errors} />
+  if (resetKeyResponse.status !== 200) {
+    body = <FormErrors param='key' errors={resetKeyResponse.errors} />
   } else if (response.content?.error?.detail?.key) {
     body = <FormErrors param='key' errors={response.content?.errors} />
   } else {
@@ -67,4 +65,17 @@ export default function ResetPassword () {
       {body}
     </div>
   )
+}
+
+export function ResetPasswordByLink () {
+  const { resetKey, resetKeyResponse } = useLoaderData()
+  return <ResetPassword resetKey={resetKey} resetKeyResponse={resetKeyResponse} />
+}
+
+export function ResetPasswordByCode () {
+  const { state } = useLocation()
+  if (!state || !state.resetKey || !state.resetKeyResponse) {
+    return <Navigate to='/account/password/reset' />
+  }
+  return <ResetPassword resetKey={state.resetKey} resetKeyResponse={state.resetKeyResponse} />
 }

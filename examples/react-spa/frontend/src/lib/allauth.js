@@ -25,6 +25,7 @@ export const Flows = Object.freeze({
   LOGIN: 'login',
   LOGIN_BY_CODE: 'login_by_code',
   SIGNUP: 'signup',
+  PASSWORD_RESET_BY_CODE: 'password_reset_by_code',
   PROVIDER_REDIRECT: 'provider_redirect',
   PROVIDER_SIGNUP: 'provider_signup',
   MFA_AUTHENTICATE: 'mfa_authenticate',

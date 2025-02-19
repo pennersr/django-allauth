@@ -4,7 +4,7 @@
 Note worthy changes
 -------------------
 
-- ...
+- Added support for resetting passwords by code, instead of a link.
 
 
 Fixes

@@ -6,8 +6,8 @@ from django.http import HttpRequest
 
 from allauth.account import app_settings
 from allauth.account.adapter import get_adapter
-from allauth.account.internal.flows.login_by_code import compare_code
 from allauth.account.internal.stagekit import clear_login
+from allauth.account.internal.textkit import compare_code
 from allauth.account.models import EmailAddress, EmailConfirmationMixin
 from allauth.core import context
 

@@ -396,6 +396,18 @@ class AppSettings:
         return ret
 
     @property
+    def PASSWORD_RESET_BY_CODE_ENABLED(self):
+        return self._setting("PASSWORD_RESET_BY_CODE_ENABLED", False)
+
+    @property
+    def PASSWORD_RESET_BY_CODE_MAX_ATTEMPTS(self):
+        return self._setting("PASSWORD_RESET_BY_CODE_MAX_ATTEMPTS", 3)
+
+    @property
+    def PASSWORD_RESET_BY_CODE_TIMEOUT(self):
+        return self._setting("PASSWORD_RESET_BY_CODE_TIMEOUT", 3 * 60)
+
+    @property
     def PASSWORD_RESET_TOKEN_GENERATOR(self):
         from allauth.account.forms import EmailAwarePasswordResetTokenGenerator
         from allauth.utils import import_attribute

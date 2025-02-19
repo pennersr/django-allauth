@@ -1,6 +1,8 @@
+import importlib
 import json
 import random
 import re
+import sys
 import time
 import uuid
 from contextlib import contextmanager
@@ -9,6 +11,7 @@ from unittest.mock import Mock, PropertyMock, patch
 from django.contrib.auth import get_user_model
 from django.contrib.messages.middleware import MessageMiddleware
 from django.contrib.sessions.middleware import SessionMiddleware
+from django.urls import clear_url_caches, set_urlconf
 
 import pytest
 
@@ -353,5 +356,60 @@ def get_last_email_verification_code():
             == code
         )
         return code
+
+    return f
+
+
+@pytest.fixture
+def get_last_password_reset_code():
+    from allauth.account.internal.flows import password_reset_by_code
+
+    def f(client, mailoutbox):
+        code = re.search(
+            "\n[0-9a-z]{8}\n", mailoutbox[0].body, re.I | re.DOTALL | re.MULTILINE
+        )[0].strip()
+        if hasattr(client, "headless_session"):
+            session = client.headless_session()
+        else:
+            session = client.session
+        assert (
+            session[password_reset_by_code.PASSWORD_RESET_VERIFICATION_SESSION_KEY][
+                "code"
+            ]
+            == code
+        )
+        return code
+
+    return f
+
+
+@pytest.fixture
+def settings_impacting_urls(settings):
+    @contextmanager
+    def f(**kv):
+        def reload_urlconf():
+            clear_url_caches()
+            for urlconf in [
+                settings.ROOT_URLCONF,
+                "allauth.account.urls",
+                "allauth.urls",
+            ]:
+                if urlconf in sys.modules:
+                    importlib.reload(sys.modules[urlconf])
+            set_urlconf(None)
+
+        old_values = {}
+        for k, v in kv.items():
+            if hasattr(settings, k):
+                old_values[k] = getattr(settings, k)
+            setattr(settings, k, v)
+        reload_urlconf()
+        yield
+        for k, v in kv.items():
+            if k in old_values:
+                setattr(settings, k, old_values[k])
+            else:
+                delattr(settings, k)
+        reload_urlconf()
 
     return f

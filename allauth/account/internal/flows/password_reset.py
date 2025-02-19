@@ -5,8 +5,10 @@ from django.contrib.auth.models import AbstractBaseUser
 from django.http import HttpRequest
 from django.urls import reverse
 
-from allauth.account import signals
+from allauth.account import app_settings, signals
 from allauth.account.adapter import get_adapter
+from allauth.account.app_settings import LoginMethod
+from allauth.account.internal.flows.signup import send_unknown_account_mail
 from allauth.account.models import EmailAddress
 from allauth.core.internal.httpkit import get_frontend_url
 from allauth.utils import build_absolute_uri
@@ -60,3 +62,35 @@ def get_reset_password_from_key_url(request: HttpRequest, key: str) -> str:
         path = path.replace("UID-KEY", quote(key))
         url = build_absolute_uri(request, path)
     return url
+
+
+def request_password_reset(request, email, users, token_generator):
+    from allauth.account.utils import user_pk_to_url_str, user_username
+
+    if not users:
+        send_unknown_account_mail(request, email)
+        return
+    adapter = get_adapter()
+    for user in users:
+        temp_key = (
+            token_generator or app_settings.PASSWORD_RESET_TOKEN_GENERATOR()
+        ).make_token(user)
+
+        # send the password reset email
+        uid = user_pk_to_url_str(user)
+        # We intentionally pass an opaque `key` on the interface here, and
+        # not implementation details such as a separate `uidb36` and
+        # `key. Ideally, this should have done on `urls` level as well.
+        key = f"{uid}-{temp_key}"
+        url = adapter.get_reset_password_from_key_url(key)
+        context = {
+            "user": user,
+            "password_reset_url": url,
+            "uid": uid,
+            "key": temp_key,
+            "request": request,
+        }
+
+        if LoginMethod.USERNAME in app_settings.LOGIN_METHODS:
+            context["username"] = user_username(user)
+        adapter.send_password_reset_mail(user, email, context)

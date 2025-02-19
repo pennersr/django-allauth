@@ -69,7 +69,7 @@ Available settings:
   verification mails are sent.
 
 ``ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED`` (default: ``False``)
-  Constrols whether email verification is performed by means of following a link
+  Controls whether email verification is performed by means of following a link
   in the email (``False``), or by entering a code (``True``).
 
 ``ACCOUNT_EMAIL_VERIFICATION_BY_CODE_MAX_ATTEMPTS`` (default: ``3``)
@@ -197,6 +197,18 @@ Available settings:
 
 ``ACCOUNT_PASSWORD_INPUT_RENDER_VALUE`` (default: ``False``)
   ``render_value`` parameter as passed to ``PasswordInput`` fields.
+
+``ACCOUNT_PASSWORD_RESET_BY_CODE_ENABLED`` (default: ``False``)
+  Controls whether password reset is performed by means of following a link
+  in the email (``False``), or by entering a code (``True``).
+
+``ACCOUNT_PASSWORD_RESET_BY_CODE_MAX_ATTEMPTS`` (default: ``3``)
+  This setting controls the maximum number of attempts the user has at inputting
+  a valid code.
+
+``ACCOUNT_PASSWORD_RESET_BY_CODE_TIMEOUT`` (default: ``180``)
+  The code that is emailed has a limited life span. It expires this many seconds after
+  which it was sent.
 
 ``ACCOUNT_PASSWORD_RESET_TOKEN_GENERATOR`` (default: ``"allauth.account.forms.EmailAwarePasswordResetTokenGenerator"``)
   A string pointing to a custom token generator

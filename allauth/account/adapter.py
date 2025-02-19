@@ -797,18 +797,24 @@ class DefaultAccountAdapter(BaseAdapter):
         """
         return self._generate_code()
 
+    def generate_password_reset_code(self) -> str:
+        """
+        Generates a new password reset code.
+        """
+        return self._generate_code(length=8)
+
     def generate_email_verification_code(self) -> str:
         """
         Generates a new email verification code.
         """
         return self._generate_code()
 
-    def _generate_code(self):
+    def _generate_code(self, length=6):
         forbidden_chars = "0OI18B2ZAEU"
         allowed_chars = string.ascii_uppercase + string.digits
         for ch in forbidden_chars:
             allowed_chars = allowed_chars.replace(ch, "")
-        return get_random_string(length=6, allowed_chars=allowed_chars)
+        return get_random_string(length=length, allowed_chars=allowed_chars)
 
     def is_login_by_code_required(self, login) -> bool:
         """

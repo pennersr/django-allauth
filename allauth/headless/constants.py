@@ -13,6 +13,7 @@ class Flow(str, Enum):
     LOGIN = "login"
     LOGIN_BY_CODE = LoginByCodeStage.key
     SIGNUP = "signup"
+    PASSWORD_RESET_BY_CODE = "password_reset_by_code"  # nosec
     PROVIDER_REDIRECT = "provider_redirect"
     PROVIDER_SIGNUP = "provider_signup"
     PROVIDER_TOKEN = "provider_token"  # nosec

@@ -39,6 +39,7 @@ def test_password_reset_flow(
             {
                 "code": "password_too_short",
                 "message": "This password is too short. It must contain at least 6 characters.",
+                "param": "password",
             }
         ],
     }

@@ -9,7 +9,7 @@ function APICard (props) {
         <a href={props.docs}>API documentation</a>
         <div className='mb-3'>
           <label>Status</label>
-          <input className='form-control' value={props.response.status} readonly />
+          <input className='form-control' value={props.response.status} readOnly />
         </div>
         <pre className='overflow-x-scroll'>{JSON.stringify(props.response.data, undefined, 4)}</pre>
       </div>
@@ -67,11 +67,11 @@ export default function Calculator () {
           <button onClick={onCalculate} className='btn btn-primary'>Add these inputs</button>
         </fieldset>
 
-        <div class='row'>
-          <div class='col-6'>
+        <div className='row'>
+          <div className='col-6'>
             <APICard title='Ninja' docs='/ninja/api/docs' response={ninjaResponse} />
           </div>
-          <div class='col-6'>
+          <div className='col-6'>
             <APICard title='Django REST Framework' docs='/drf/api/schema/redoc/' response={drfResponse} />
           </div>
         </div>

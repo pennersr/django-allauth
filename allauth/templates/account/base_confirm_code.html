@@ -1,0 +1,59 @@
+{% extends "account/base_entrance.html" %}
+{% load i18n %}
+{% load allauth account %}
+{% block content %}
+    {% setvar title_ %}
+        {% block title %}{% endblock %}
+    {% endsetvar %}
+    {% setvar action_url %}
+        {% block action_url %}{% endblock %}
+    {% endsetvar %}
+    {% setvar extra_tags %}
+        {% block extra_tags %}{% endblock %}
+    {% endsetvar %}
+    {% setvar form_tags %}
+        entrance,{{ extra_tags }}
+    {% endsetvar %}
+    {% setvar submit_button_tags %}
+        prominent,confirm,{{ extra_tags }}
+    {% endsetvar %}
+    {% setvar recipient %}
+        {% block recipient %}{% endblock %}
+    {% endsetvar %}
+    {% element h1 %}
+        {{ title_ }}
+    {% endelement %}
+    {% element p %}
+        {% blocktranslate %}We've sent a code to {{ recipient }}. The code expires shortly, so please enter it soon.{% endblocktranslate %}
+    {% endelement %}
+    {% element form form=form method="post" action=action_url tags=form_tags %}
+        {% slot body %}
+            {% csrf_token %}
+            {% element fields form=form unlabeled=True %}
+            {% endelement %}
+            {{ redirect_field }}
+        {% endslot %}
+        {% slot actions %}
+            {% element button type="submit" tags=submit_button_tags %}
+                {% translate "Confirm" %}
+            {% endelement %}
+            {% if cancel_url %}
+                {% element button href=cancel_url tags="link,cancel" %}
+                    {% translate "Cancel" %}
+                {% endelement %}
+            {% else %}
+                {% element button type="submit" form="logout-from-stage" tags="link,cancel" %}
+                    {% translate "Cancel" %}
+                {% endelement %}
+            {% endif %}
+        {% endslot %}
+    {% endelement %}
+    {% if not cancel_url %}
+        <form id="logout-from-stage"
+              method="post"
+              action="{% url 'account_logout' %}">
+            <input type="hidden" name="next" value="{% url 'account_login' %}">
+            {% csrf_token %}
+        </form>
+    {% endif %}
+{% endblock content %}

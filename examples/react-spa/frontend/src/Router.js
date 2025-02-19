@@ -19,6 +19,7 @@ import VerifyEmail, { loader as verifyEmailLoader } from './account/VerifyEmail'
 import VerifyEmailByCode from './account/VerifyEmailByCode'
 import VerificationEmailSent from './account/VerificationEmailSent'
 import RequestPasswordReset from './account/RequestPasswordReset'
+import ConfirmPasswordResetCode from './account/ConfirmPasswordResetCode'
 import ChangePassword from './account/ChangePassword'
 import MFAOverview, { loader as mfaOverviewLoader } from './mfa/MFAOverview'
 import ActivateTOTP, { loader as activateTOTPLoader } from './mfa/ActivateTOTP'
@@ -29,7 +30,7 @@ import SignupByPasskey from './mfa/SignupByPasskey'
 import ReauthenticateWebAuthn from './mfa/ReauthenticateWebAuthn'
 import ListWebAuthn, { loader as listWebAuthnLoader } from './mfa/ListWebAuthn'
 import GenerateRecoveryCodes, { loader as generateRecoveryCodesLoader } from './mfa/GenerateRecoveryCodes'
-import ResetPassword, { loader as resetPasswordLoader } from './account/ResetPassword'
+import { resetPasswordByLinkLoader, ResetPasswordByCode, ResetPasswordByLink } from './account/ResetPassword'
 import AuthenticateTOTP from './mfa/AuthenticateTOTP'
 import AuthenticateRecoveryCodes from './mfa/AuthenticateRecoveryCodes'
 import AuthenticateWebAuthn from './mfa/AuthenticateWebAuthn'
@@ -113,9 +114,17 @@ function createRouter (config) {
           element: <AnonymousRoute><RequestPasswordReset /></AnonymousRoute>
         },
         {
+          path: '/account/password/reset/confirm',
+          element: <AnonymousRoute><ConfirmPasswordResetCode /></AnonymousRoute>
+        },
+        {
+          path: '/account/password/reset/complete',
+          element: <AnonymousRoute><ResetPasswordByCode /></AnonymousRoute>
+        },
+        {
           path: '/account/password/reset/key/:key',
-          element: <AnonymousRoute><ResetPassword /></AnonymousRoute>,
-          loader: resetPasswordLoader
+          element: <AnonymousRoute><ResetPasswordByLink /></AnonymousRoute>,
+          loader: resetPasswordByLinkLoader
         },
         {
           path: '/account/password/change',

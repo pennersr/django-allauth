@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.utils.decorators import method_decorator
 
 from allauth.account import app_settings as account_settings
@@ -8,6 +10,7 @@ from allauth.account.internal.flows import (
     manage_email,
     password_change,
     password_reset,
+    password_reset_by_code,
 )
 from allauth.account.stages import EmailVerificationStage, LoginStageController
 from allauth.account.utils import send_email_confirmation
@@ -174,7 +177,7 @@ class VerifyEmailView(APIView):
         if not email_address:
             # Should not happen, VerifyInputInput should have verified all
             # preconditions.
-            return APIResponse(request, status=500)
+            return APIResponse(request, status=HTTPStatus.INTERNAL_SERVER_ERROR)
         response = None
         if self.stage:
             # Verifying email as part of login/signup flow may imply the user is
@@ -195,6 +198,8 @@ class RequestPasswordResetView(APIView):
         if r429:
             return r429
         self.input.save(request)
+        if account_settings.PASSWORD_RESET_BY_CODE_ENABLED:
+            return AuthenticationResponse(request)
         return response.RequestPasswordResponse(request)
 
 
@@ -202,18 +207,52 @@ class RequestPasswordResetView(APIView):
 class ResetPasswordView(APIView):
     input_class = ResetPasswordInput
 
+    def handle_invalid_input(self, input: ResetPasswordInput):
+        if self.process and "key" in input.errors:
+            self.process.record_invalid_attempt()
+        return super().handle_invalid_input(input)
+
+    def handle(self, request, *args, **kwargs):
+        self.process = None
+        if account_settings.PASSWORD_RESET_BY_CODE_ENABLED:
+            self.process = (
+                password_reset_by_code.PasswordResetVerificationProcess.resume(
+                    self.request
+                )
+            )
+            if not self.process:
+                return ConflictResponse(request)
+        return super().handle(request, *args, **kwargs)
+
     def get(self, request, *args, **kwargs):
         key = request.headers.get("X-Password-Reset-Key", "")
-        input = ResetPasswordKeyInput({"key": key})
-        if not input.is_valid():
-            return ErrorResponse(request, input=input)
-        return response.PasswordResetKeyResponse(request, input.user)
+        if self.process:
+            input = ResetPasswordKeyInput({"key": key}, code=self.process.code)
+            if not input.is_valid():
+                self.process.record_invalid_attempt()
+                return ErrorResponse(request, input=input)
+            self.process.confirm_code()
+            return response.PasswordResetKeyResponse(request, self.process.user)
+        else:
+            input = ResetPasswordKeyInput({"key": key})
+            if not input.is_valid():
+                return ErrorResponse(request, input=input)
+            return response.PasswordResetKeyResponse(request, input.user)
+
+    def get_input_kwargs(self):
+        ret = {}
+        if self.process:
+            ret.update({"code": self.process.code, "user": self.process.user})
+        return ret
 
     def post(self, request, *args, **kwargs):
-        flows.password_reset.reset_password(
-            self.input.user, self.input.cleaned_data["password"]
-        )
-        password_reset.finalize_password_reset(request, self.input.user)
+        user = self.input.user
+        flows.password_reset.reset_password(user, self.input.cleaned_data["password"])
+        if self.process:
+            self.process.confirm_code()
+            self.process.finish()
+        else:
+            password_reset.finalize_password_reset(request, user)
         return AuthenticationResponse(self.request)
 
 

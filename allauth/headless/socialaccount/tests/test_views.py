@@ -1,4 +1,5 @@
 import json
+from http import HTTPStatus
 from unittest.mock import patch
 
 from django.urls import reverse
@@ -32,7 +33,7 @@ def test_valid_redirect(client, headless_reverse, db):
             "process": AuthProcess.LOGIN,
         },
     )
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
 
 
 def test_manage_providers(auth_client, user, headless_reverse, provider_id):
@@ -46,16 +47,16 @@ def test_manage_providers(auth_client, user, headless_reverse, provider_id):
         headless_reverse("headless:socialaccount:manage_providers"),
     )
     data = resp.json()
-    assert data["status"] == 200
+    assert data["status"] == HTTPStatus.OK
     assert len(data["data"]) == 2
     resp = auth_client.delete(
         headless_reverse("headless:socialaccount:manage_providers"),
         data={"provider": account_to_del.provider, "account": account_to_del.uid},
         content_type="application/json",
     )
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
     assert resp.json() == {
-        "status": 200,
+        "status": HTTPStatus.OK,
         "data": [
             {
                 "display": "Unittest Server",
@@ -79,9 +80,9 @@ def test_disconnect_bad_request(auth_client, user, headless_reverse, provider_id
         data={"provider": provider_id, "account": "unknown"},
         content_type="application/json",
     )
-    assert resp.status_code == 400
+    assert resp.status_code == HTTPStatus.BAD_REQUEST
     assert resp.json() == {
-        "status": 400,
+        "status": HTTPStatus.BAD_REQUEST,
         "errors": [{"code": "account_not_found", "message": "Unknown account."}],
     }
 
@@ -96,9 +97,9 @@ def test_disconnect_not_allowed(auth_client, user, headless_reverse, provider_id
         data={"provider": provider_id, "account": account.uid},
         content_type="application/json",
     )
-    assert resp.status_code == 400
+    assert resp.status_code == HTTPStatus.BAD_REQUEST
     assert resp.json() == {
-        "status": 400,
+        "status": HTTPStatus.BAD_REQUEST,
         "errors": [
             {"code": "no_password", "message": "Your account has no password set up."}
         ],
@@ -124,7 +125,7 @@ def test_valid_token(client, headless_reverse, db):
         },
         content_type="application/json",
     )
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
     assert EmailAddress.objects.filter(email="a@b.com", verified=True).exists()
 
 
@@ -141,10 +142,10 @@ def test_invalid_token(client, headless_reverse, db, google_provider_settings):
         },
         content_type="application/json",
     )
-    assert resp.status_code == 400
+    assert resp.status_code == HTTPStatus.BAD_REQUEST
     data = resp.json()
     assert data == {
-        "status": 400,
+        "status": HTTPStatus.BAD_REQUEST,
         "errors": [
             {"message": "Invalid token.", "code": "invalid_token", "param": "token"}
         ],
@@ -175,7 +176,7 @@ def test_valid_token_multiple_apps(
             },
             content_type="application/json",
         )
-        assert resp.status_code == 200
+        assert resp.status_code == HTTPStatus.OK
 
 
 def test_auth_error_no_headless_request(client, db, google_provider_settings, settings):
@@ -249,7 +250,7 @@ def test_token_signup_closed(client, headless_reverse, db):
             },
             content_type="application/json",
         )
-        assert resp.status_code == 403
+        assert resp.status_code == HTTPStatus.FORBIDDEN
     assert not EmailAddress.objects.filter(email="a@b.com", verified=True).exists()
 
 
@@ -257,9 +258,10 @@ def test_provider_signup(client, headless_reverse, db, settings):
     settings.ACCOUNT_EMAIL_VERIFICATION = "mandatory"
     settings.ACCOUNT_EMAIL_REQUIRED = True
     settings.ACCOUNT_USERNAME_REQUIRED = False
+    account_uid = "123"
     id_token = json.dumps(
         {
-            "id": 123,
+            "id": account_uid,
         }
     )
     resp = client.post(
@@ -273,9 +275,29 @@ def test_provider_signup(client, headless_reverse, db, settings):
         },
         content_type="application/json",
     )
-    assert resp.status_code == 401
+    assert resp.status_code == HTTPStatus.UNAUTHORIZED
     pending_flow = [f for f in resp.json()["data"]["flows"] if f.get("is_pending")][0]
     assert pending_flow["id"] == "provider_signup"
+
+    resp = client.get(headless_reverse("headless:socialaccount:provider_signup"))
+    assert resp.status_code == HTTPStatus.OK
+    assert resp.json() == {
+        "data": {
+            "email": [],
+            "account": {
+                "display": "Dummy",
+                "provider": {
+                    "flows": ["provider_redirect", "provider_token"],
+                    "id": "dummy",
+                    "name": "Dummy",
+                },
+                "uid": account_uid,
+            },
+            "user": {"display": "user", "has_usable_password": False},
+        },
+        "status": HTTPStatus.OK,
+    }
+
     resp = client.post(
         headless_reverse("headless:socialaccount:provider_signup"),
         data={
@@ -283,7 +305,7 @@ def test_provider_signup(client, headless_reverse, db, settings):
         },
         content_type="application/json",
     )
-    assert resp.status_code == 401
+    assert resp.status_code == HTTPStatus.UNAUTHORIZED
     pending_flow = [f for f in resp.json()["data"]["flows"] if f.get("is_pending")][0]
     assert pending_flow["id"] == "verify_email"
     assert EmailAddress.objects.filter(email="a@b.com").exists()
@@ -309,7 +331,7 @@ def test_signup_closed(client, headless_reverse, db, settings):
         },
         content_type="application/json",
     )
-    assert resp.status_code == 401
+    assert resp.status_code == HTTPStatus.UNAUTHORIZED
     pending_flow = [f for f in resp.json()["data"]["flows"] if f.get("is_pending")][0]
     assert pending_flow["id"] == "provider_signup"
     with patch(
@@ -323,7 +345,7 @@ def test_signup_closed(client, headless_reverse, db, settings):
             },
             content_type="application/json",
         )
-    assert resp.status_code == 403
+    assert resp.status_code == HTTPStatus.FORBIDDEN
 
 
 def test_connect(user, auth_client, sociallogin_setup_state, headless_reverse, db):
@@ -336,7 +358,7 @@ def test_connect(user, auth_client, sociallogin_setup_state, headless_reverse, d
             "id": 123,
         },
     )
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     assert resp["location"] == "/foo"
     assert SocialAccount.objects.filter(user=user, provider="dummy", uid="123").exists()
 
@@ -355,7 +377,7 @@ def test_connect_reauthentication_required(
             "id": 123,
         },
     )
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     assert (
         resp["location"] == "/foo?error=reauthentication_required&error_process=connect"
     )
@@ -378,7 +400,7 @@ def test_connect_already_connected(
         },
     )
     # We're redirected, and an error code is shown.
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     assert resp["location"] == "/foo?error=connected_other&error_process=connect"
     assert not SocialAccount.objects.filter(
         user=user, provider="dummy", uid="123"
@@ -404,7 +426,7 @@ def test_token_connect(user, auth_client, headless_reverse, db):
         },
         content_type="application/json",
     )
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
     assert SocialAccount.objects.filter(uid="123", user=user).exists()
 
 
@@ -433,9 +455,9 @@ def test_token_connect_already_connected(
         content_type="application/json",
     )
     assert not SocialAccount.objects.filter(uid="123", user=user).exists()
-    assert resp.status_code == 400
+    assert resp.status_code == HTTPStatus.BAD_REQUEST
     assert resp.json() == {
-        "status": 400,
+        "status": HTTPStatus.BAD_REQUEST,
         "errors": [
             {
                 "code": "connected_other",
@@ -453,4 +475,4 @@ def test_provider_signup_not_pending(client, headless_reverse, db, settings):
         },
         content_type="application/json",
     )
-    assert resp.status_code == 409
+    assert resp.status_code == HTTPStatus.CONFLICT

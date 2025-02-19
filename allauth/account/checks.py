@@ -71,22 +71,23 @@ def settings_check(app_configs, **kwargs):
         )
 
     # Mandatory email verification requires email
+    email_required = "email" in signup_fields and signup_fields["email"]["required"]
     if (
         app_settings.EMAIL_VERIFICATION
         == app_settings.EmailVerificationMethod.MANDATORY
-        and not app_settings.EMAIL_REQUIRED
+        and not email_required
     ):
         ret.append(
             Critical(
-                msg="ACCOUNT_EMAIL_VERIFICATION = 'mandatory' requires ACCOUNT_EMAIL_REQUIRED = True"
+                msg="ACCOUNT_EMAIL_VERIFICATION = 'mandatory' requires 'email*' in ACCOUNT_SIGNUP_FIELDS"
             )
         )
 
     if not app_settings.USER_MODEL_USERNAME_FIELD:
-        if app_settings.USERNAME_REQUIRED:
+        if "username" in signup_fields:
             ret.append(
                 Critical(
-                    msg="No ACCOUNT_USER_MODEL_USERNAME_FIELD, yet, ACCOUNT_USERNAME_REQUIRED = True"
+                    msg="No ACCOUNT_USER_MODEL_USERNAME_FIELD, yet, ACCOUNT_SIGNUP_FIELDS contains 'username'"
                 )
             )
 

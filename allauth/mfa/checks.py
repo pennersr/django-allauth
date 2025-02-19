@@ -23,10 +23,11 @@ def settings_check(app_configs, **kwargs):
                     msg="MFA_PASSKEY_SIGNUP_ENABLED requires ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED"
                 )
             )
-        if not account_settings.EMAIL_REQUIRED:
+        email_required = account_settings.SIGNUP_FIELDS.get("email", {}).get("required")
+        if not email_required:
             ret.append(
                 Critical(
-                    msg="MFA_PASSKEY_SIGNUP_ENABLED requires ACCOUNT_EMAIL_REQUIRED"
+                    msg="MFA_PASSKEY_SIGNUP_ENABLED requires ACCOUNT_SIGNUP_FIELDS to contain 'email*'"
                 )
             )
         if (

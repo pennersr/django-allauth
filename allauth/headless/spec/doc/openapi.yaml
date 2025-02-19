@@ -466,6 +466,29 @@ paths:
               schema:
                 $ref: "#/components/schemas/ForbiddenResponse"
   /_allauth/{client}/v1/auth/provider/signup:
+    get:
+      tags:
+        - "Authentication: Providers"
+      summary: Provider signup information
+      description: |
+        If, while signing up using a third-party provider account, there is
+        insufficient information received from the provider to automatically
+        complete the signup process, an additional step is needed to complete
+        the missing data before the user is fully signed up and authenticated.
+        The information available so far, such as the pending provider account,
+        can be retrieved via this endpoint.
+      parameters:
+        - $ref: "#/components/parameters/Client"
+      responses:
+        "200":
+          $ref: "#/components/responses/ProviderSignup"
+        "409":
+          description: |
+            Conflict. The provider signup flow is not pending.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConflictResponse"
     post:
       tags:
         - "Authentication: Providers"
@@ -2905,6 +2928,34 @@ components:
                 type: array
                 items:
                   $ref: "#/components/schemas/ProviderAccount"
+            required:
+              - status
+              - data
+    ProviderSignup:
+      description: |
+        Information relating to the pending provider signup.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                $ref: "#/components/schemas/StatusOK"
+              data:
+                type: object
+                properties:
+                  email:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/EmailAddress"
+                  account:
+                    $ref: "#/components/schemas/ProviderAccount"
+                  user:
+                    $ref: "#/components/schemas/User"
+                required:
+                  - email
+                  - account
+                  - user
             required:
               - status
               - data

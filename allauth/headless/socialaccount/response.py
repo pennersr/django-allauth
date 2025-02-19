@@ -1,3 +1,5 @@
+from allauth.headless.account.response import email_address_data
+from allauth.headless.adapter import get_adapter
 from allauth.headless.base.response import APIResponse
 from allauth.headless.constants import Client, Flow
 from allauth.socialaccount.adapter import (
@@ -5,6 +7,14 @@ from allauth.socialaccount.adapter import (
 )
 from allauth.socialaccount.internal.flows import signup
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
+
+
+def _socialaccount_data(request, account):
+    return {
+        "uid": account.uid,
+        "provider": _provider_data(request, account.get_provider()),
+        "display": account.get_provider_account().to_str(),
+    }
 
 
 def _provider_data(request, provider):
@@ -86,12 +96,16 @@ def get_config_data(request):
 
 class SocialAccountsResponse(APIResponse):
     def __init__(self, request, accounts):
-        data = [
-            {
-                "uid": account.uid,
-                "provider": _provider_data(request, account.get_provider()),
-                "display": account.get_provider_account().to_str(),
-            }
-            for account in accounts
-        ]
+        data = [_socialaccount_data(request, account) for account in accounts]
+        super().__init__(request, data=data)
+
+
+class SocialLoginResponse(APIResponse):
+    def __init__(self, request, sociallogin):
+        adapter = get_adapter()
+        data = {
+            "user": adapter.serialize_user(sociallogin.user),
+            "account": _socialaccount_data(request, sociallogin.account),
+            "email": [email_address_data(ea) for ea in sociallogin.email_addresses],
+        }
         super().__init__(request, data=data)

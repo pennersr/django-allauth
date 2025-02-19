@@ -15,7 +15,10 @@ from allauth.headless.socialaccount.inputs import (
     SignupInput,
 )
 from allauth.headless.socialaccount.internal import complete_token_login
-from allauth.headless.socialaccount.response import SocialAccountsResponse
+from allauth.headless.socialaccount.response import (
+    SocialAccountsResponse,
+    SocialLoginResponse,
+)
 from allauth.socialaccount.adapter import (
     get_adapter as get_socialaccount_adapter,
 )
@@ -36,6 +39,9 @@ class ProviderSignupView(APIView):
         ):
             return ForbiddenResponse(request)
         return super().handle(request, *args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
+        return SocialLoginResponse(request, self.sociallogin)
 
     def post(self, request, *args, **kwargs):
         response = flows.signup.signup_by_form(

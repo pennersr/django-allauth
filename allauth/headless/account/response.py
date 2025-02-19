@@ -2,6 +2,14 @@ from allauth.headless.adapter import get_adapter
 from allauth.headless.base.response import APIResponse
 
 
+def email_address_data(addr):
+    return {
+        "email": addr.email,
+        "verified": addr.verified,
+        "primary": addr.primary,
+    }
+
+
 class RequestEmailVerificationResponse(APIResponse):
     def __init__(self, request, verification_sent):
         super().__init__(request, status=200 if verification_sent else 403)
@@ -22,14 +30,7 @@ class VerifyEmailResponse(APIResponse):
 
 class EmailAddressesResponse(APIResponse):
     def __init__(self, request, email_addresses):
-        data = [
-            {
-                "email": addr.email,
-                "verified": addr.verified,
-                "primary": addr.primary,
-            }
-            for addr in email_addresses
-        ]
+        data = [email_address_data(addr) for addr in email_addresses]
         super().__init__(request, data=data)
 
 

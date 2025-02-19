@@ -38,13 +38,14 @@ class DefaultHeadlessAdapter(BaseAdapter):
         verification).
         """
         ret = {
-            "id": user.pk,
             "display": user_display(user),
             "has_usable_password": user.has_usable_password(),
         }
-        email = EmailAddress.objects.get_primary_email(user)
-        if email:
-            ret["email"] = email
+        if user.pk:
+            ret["id"] = user.pk
+            email = EmailAddress.objects.get_primary_email(user)
+            if email:
+                ret["email"] = email
         username = user_username(user)
         if username:
             ret["username"] = username

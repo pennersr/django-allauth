@@ -26,7 +26,7 @@ class PasswordResetVerificationProcess(AbstractCodeVerificationProcess):
             state=state,
             timeout=app_settings.PASSWORD_RESET_BY_CODE_TIMEOUT,
             max_attempts=app_settings.PASSWORD_RESET_BY_CODE_MAX_ATTEMPTS,
-            user=None,
+            user=user,
         )
 
     def abort(self):
@@ -46,12 +46,6 @@ class PasswordResetVerificationProcess(AbstractCodeVerificationProcess):
     def persist(self):
         self.request.session[PASSWORD_RESET_VERIFICATION_SESSION_KEY] = self.state
 
-    @classmethod
-    def initial_state(cls, user, email):
-        state = super().initial_state(user)
-        state.update({"email": email})
-        return state
-
     def send(self):
         adapter = get_adapter()
         email = self.state["email"]
@@ -59,7 +53,7 @@ class PasswordResetVerificationProcess(AbstractCodeVerificationProcess):
             send_unknown_account_mail(self.request, email)
             return
         code = adapter.generate_password_reset_code()
-        self.state.update({"code": code})
+        self.state["code"] = code
         context = {
             "request": self.request,
             "code": self.code,

@@ -1,6 +1,8 @@
 import time
 
+from allauth.account.internal.stagekit import LOGIN_SESSION_KEY
 from allauth.account.models import EmailAddress
+from allauth.account.stages import LoginByCodeStage
 from allauth.headless.constants import Flow
 
 
@@ -132,8 +134,10 @@ def test_login_by_code_expired(headless_reverse, user, client, mailoutbox):
 
     # Expire code
     session = client.headless_session()
-    login = session["account_login"]
-    login["state"]["login_code"]["at"] = time.time() - 24 * 60 * 60
+    login = session[LOGIN_SESSION_KEY]
+    login["state"]["stages"][LoginByCodeStage.key]["data"]["at"] = (
+        time.time() - 24 * 60 * 60
+    )
     session["account_login"] = login
     session.save()
 

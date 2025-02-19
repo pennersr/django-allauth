@@ -49,8 +49,10 @@ class RequestLoginCodeView(APIView):
     input_class = RequestLoginCodeInput
 
     def post(self, request, *args, **kwargs):
-        flows.login_by_code.request_login_code(
-            self.request, self.input.cleaned_data["email"]
+        flows.login_by_code.LoginCodeVerificationProcess.initiate(
+            request=self.request,
+            user=self.input._user,
+            email=self.input.cleaned_data["email"],
         )
         return AuthenticationResponse(self.request)
 
@@ -63,28 +65,24 @@ class ConfirmLoginCodeView(APIView):
         self.stage = auth_status.get_pending_stage()
         if not self.stage:
             return ConflictResponse(request)
-        self.user, self.pending_login = flows.login_by_code.get_pending_login(
-            request, self.stage.login, peek=True
+        self.process = flows.login_by_code.LoginCodeVerificationProcess.resume(
+            self.stage
         )
-        if not self.pending_login:
+        if not self.process:
             return ConflictResponse(request)
         return super().dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        response = flows.login_by_code.perform_login_by_code(
-            self.request, self.stage, None
-        )
+        response = self.process.finish(None)
         return AuthenticationResponse.from_response(request, response)
 
     def get_input_kwargs(self):
         kwargs = super().get_input_kwargs()
-        kwargs["code"] = (
-            self.pending_login.get("code", "") if self.pending_login else ""
-        )
+        kwargs["code"] = self.process.code
         return kwargs
 
     def handle_invalid_input(self, input):
-        flows.login_by_code.record_invalid_attempt(self.request, self.stage.login)
+        self.process.record_invalid_attempt()
         return super().handle_invalid_input(input)
 
 

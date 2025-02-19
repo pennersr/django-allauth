@@ -5,9 +5,9 @@ from django.urls import reverse
 import pytest
 
 from allauth.account.authentication import AUTHENTICATION_METHODS_SESSION_KEY
-from allauth.account.internal.flows.login_by_code import LOGIN_CODE_STATE_KEY
 from allauth.account.internal.stagekit import LOGIN_SESSION_KEY
 from allauth.account.models import EmailAddress
+from allauth.account.stages import LoginByCodeStage
 
 
 @pytest.fixture
@@ -24,7 +24,9 @@ def request_login_by_code(mailoutbox):
             resp["location"] == reverse("account_confirm_login_code") + "?next=%2Ffoo"
         )
         assert len(mailoutbox) == 1
-        code = client.session[LOGIN_SESSION_KEY]["state"][LOGIN_CODE_STATE_KEY]["code"]
+        code = client.session[LOGIN_SESSION_KEY]["state"]["stages"][
+            LoginByCodeStage.key
+        ]["data"]["code"]
         assert len(code) == 6
         assert code in mailoutbox[0].body
         return code
@@ -99,7 +101,9 @@ def test_login_by_code_required(
     assert resp.status_code == 302
     if code_required:
         assert resp["location"] == reverse("account_confirm_login_code")
-        code = client.session[LOGIN_SESSION_KEY]["state"][LOGIN_CODE_STATE_KEY]["code"]
+        code = client.session[LOGIN_SESSION_KEY]["state"]["stages"][
+            LoginByCodeStage.key
+        ]["data"]["code"]
         resp = client.get(
             reverse("account_confirm_login_code"),
             data={"login": user.username, "password": password},

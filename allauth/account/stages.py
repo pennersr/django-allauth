@@ -158,20 +158,20 @@ class LoginByCodeStage(LoginStage):
     def handle(self):
         from allauth.account.internal.flows import login_by_code
 
-        user, data = login_by_code.get_pending_login(
-            self.request, self.login, peek=True
-        )
+        did_initiate_process = bool(self.state)
         login_by_code_required = get_adapter().is_login_by_code_required(self.login)
-        if data is None and not login_by_code_required:
-            # No pending login, just continue.
+        if not did_initiate_process and not login_by_code_required:
+            # Didn't initiate login by code process, but not required, so continue.
             return None, True
-        elif data is None and login_by_code_required:
+        elif not did_initiate_process and login_by_code_required:
             email = EmailAddress.objects.get_primary_email(self.login.user)
             if not email:
                 # No way of contacting the user.. cannot meet the
                 # requirements. Abort.
                 return headed_redirect_response("account_login"), False
-            login_by_code.request_login_code(self.request, email, login=self.login)
+            login_by_code.LoginCodeVerificationProcess.initiate(
+                request=self.request, user=self.login.user, email=email, stage=self
+            )
 
         response = headed_redirect_response("account_confirm_login_code")
         return response, True

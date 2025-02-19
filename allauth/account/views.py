@@ -1040,7 +1040,9 @@ class RequestLoginCodeView(RedirectAuthenticatedUserMixin, NextRedirectMixin, Fo
         return get_form_class(app_settings.FORMS, "request_login_code", self.form_class)
 
     def form_valid(self, form):
-        flows.login_by_code.request_login_code(self.request, form.cleaned_data["email"])
+        flows.login_by_code.LoginCodeVerificationProcess.initiate(
+            request=self.request, user=form._user, email=form.cleaned_data["email"]
+        )
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -1083,10 +1085,10 @@ class ConfirmLoginCodeView(NextRedirectMixin, FormView):
     @method_decorator(never_cache)
     def dispatch(self, request, *args, **kwargs):
         self.stage = request._login_stage
-        self.user, self.pending_login = flows.login_by_code.get_pending_login(
-            self.request, self.stage.login, peek=True
+        self._process = flows.login_by_code.LoginCodeVerificationProcess.resume(
+            self.stage
         )
-        if not self.pending_login:
+        if not self._process:
             return HttpResponseRedirect(reverse(_login_by_code_urlname()))
         return super().dispatch(request, *args, **kwargs)
 
@@ -1095,19 +1097,15 @@ class ConfirmLoginCodeView(NextRedirectMixin, FormView):
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        kwargs["code"] = self.pending_login.get("code", "")
+        kwargs["code"] = self._process.code
         return kwargs
 
     def form_valid(self, form):
         redirect_url = self.get_next_url()
-        return flows.login_by_code.perform_login_by_code(
-            self.request, self.stage, redirect_url
-        )
+        return self._process.finish(redirect_url)
 
     def form_invalid(self, form):
-        attempts_left = flows.login_by_code.record_invalid_attempt(
-            self.request, self.stage.login
-        )
+        attempts_left = self._process.record_invalid_attempt()
         if attempts_left:
             return super().form_invalid(form)
         adapter = get_adapter(self.request)
@@ -1119,7 +1117,7 @@ class ConfirmLoginCodeView(NextRedirectMixin, FormView):
         return HttpResponseRedirect(
             reverse(
                 _login_by_code_urlname()
-                if self.pending_login["initiated_by_user"]
+                if self._process.state["initiated_by_user"]
                 else "account_login"
             )
         )
@@ -1130,7 +1128,7 @@ class ConfirmLoginCodeView(NextRedirectMixin, FormView):
         ret.update(
             {
                 "site": site,
-                "email": self.pending_login["email"],
+                "email": self._process.state["email"],
             }
         )
         return ret

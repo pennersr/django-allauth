@@ -698,8 +698,8 @@ class RequestLoginCodeForm(forms.Form):
     def clean_email(self):
         adapter = get_adapter()
         email = self.cleaned_data["email"]
+        users = filter_users_by_email(email, is_active=True, prefer_verified=True)
         if not app_settings.PREVENT_ENUMERATION:
-            users = filter_users_by_email(email, is_active=True, prefer_verified=True)
             if not users:
                 raise adapter.validation_error("unknown_email")
 
@@ -707,6 +707,7 @@ class RequestLoginCodeForm(forms.Form):
             context.request, action="request_login_code", key=email.lower()
         ):
             raise adapter.validation_error("too_many_login_attempts")
+        self._user = users[0] if users else None
         return email
 
 

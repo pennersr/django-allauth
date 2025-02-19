@@ -34,10 +34,11 @@ class AbstractCodeVerificationProcess(abc.ABC):
         return self.state.get("code", "")
 
     @classmethod
-    def initial_state(cls, user):
+    def initial_state(cls, user, email):
         state = {
             "at": time.time(),
             "failed_attempts": 0,
+            "email": email,
         }
         if user:
             state["user_id"] = user_id_to_str(user)
@@ -61,9 +62,6 @@ class AbstractCodeVerificationProcess(abc.ABC):
 
     @abc.abstractmethod
     def send(self): ...  # noqa: E704
-
-    @abc.abstractmethod
-    def finish(self): ...  # noqa: E704
 
     @abc.abstractmethod
     def abort(self): ...  # noqa: E704

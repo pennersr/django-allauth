@@ -31,7 +31,7 @@ def verify_email_and_resume(
     email_address = verification.confirm(request)
     if not email_address:
         return None, None
-    response = login_on_verification(request, verification)
+    response = login_on_verification(request, email_address)
     return email_address, response
 
 
@@ -96,7 +96,7 @@ def get_email_verification_url(request: HttpRequest, emailconfirmation) -> str:
     return url
 
 
-def login_on_verification(request, verification) -> Optional[HttpResponse]:
+def login_on_verification(request, email_address) -> Optional[HttpResponse]:
     """Simply logging in the user may become a security issue. If you
     do not take proper care (e.g. don't purge used email
     confirmations), a malicious person that got hold of the link
@@ -133,7 +133,7 @@ def login_on_verification(request, verification) -> Optional[HttpResponse]:
         )
         or (request.user.is_authenticated)
         or (not stage or not stage.login.user)
-        or (stage.login.user.pk != verification.email_address.user_id)
+        or (stage.login.user.pk != email_address.user_id)
     ):
         if stage:
             stage.abort()

@@ -177,11 +177,13 @@ def list_email_addresses(request, user) -> List[EmailAddress]:
     addresses = list(EmailAddress.objects.filter(user=user))
     if app_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED:
         from allauth.account.internal.flows.email_verification_by_code import (
-            get_pending_verification,
+            EmailVerificationProcess,
         )
 
-        verification, _ = get_pending_verification(request, peek=True)
-        if verification and verification.email_address.user_id == user.pk:
-            addresses.append(verification.email_address)
+        process = EmailVerificationProcess.resume(request)
+        if process:
+            email_address = process.email_address
+            if email_address.user_id == user.pk:
+                addresses.append(email_address)
 
     return addresses

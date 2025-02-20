@@ -173,7 +173,7 @@ def test_add_email(
         data={"key": code},
         content_type="application/json",
     )
-    assert resp.status_code == 400
+    assert resp.status_code == 409
 
 
 @pytest.mark.parametrize("login_on_email_verification", [False, True])

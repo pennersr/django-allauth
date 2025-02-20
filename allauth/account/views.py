@@ -870,21 +870,15 @@ class ConfirmEmailVerificationCodeView(FormView):
 
     def dispatch(self, request, *args, **kwargs):
         self.stage = LoginStageController.enter(request, EmailVerificationStage.key)
-        self.verification, self.pending_verification = (
-            flows.email_verification_by_code.get_pending_verification(
-                request, peek=True
-            )
+        self._process = (
+            flows.email_verification_by_code.EmailVerificationProcess.resume(request)
         )
         # preventing enumeration?
-        verification_is_fake = (
-            self.pending_verification and "code" not in self.pending_verification
-        )
+        verification_is_fake = self._process and "user_id" not in self._process.state
         # Can we at all continue?
         if (
             # No verification pending?
-            (
-                not self.pending_verification
-            )  # Anonymous, yet no stage (or fake verifcation)?
+            (not self._process)  # Anonymous, yet no stage (or fake verifcation)?
             or (
                 request.user.is_anonymous
                 and not self.stage
@@ -905,17 +899,17 @@ class ConfirmEmailVerificationCodeView(FormView):
 
     def get_form_kwargs(self):
         ret = super().get_form_kwargs()
-        ret["code"] = self.verification.key if self.verification else ""
+        ret["code"] = self._process.code if self._process else ""
         return ret
 
     def get_context_data(self, **kwargs):
         ret = super().get_context_data(**kwargs)
-        ret["email"] = self.pending_verification["email"]
+        ret["email"] = self._process.state["email"]
         ret["cancel_url"] = None if self.stage else reverse("account_email")
         return ret
 
     def form_valid(self, form):
-        email_address = self.verification.confirm(self.request)
+        email_address = self._process.finish()
         if self.stage:
             if not email_address:
                 return self.stage.abort()
@@ -929,9 +923,7 @@ class ConfirmEmailVerificationCodeView(FormView):
         return HttpResponseRedirect(url)
 
     def form_invalid(self, form):
-        attempts_left = flows.email_verification_by_code.record_invalid_attempt(
-            self.request, self.pending_verification
-        )
+        attempts_left = self._process.record_invalid_attempt()
         if attempts_left:
             return super().form_invalid(form)
         adapter = get_adapter(self.request)

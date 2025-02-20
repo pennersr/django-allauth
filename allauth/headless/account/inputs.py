@@ -93,20 +93,32 @@ class LoginInput(inputs.Input):
 class VerifyEmailInput(inputs.Input):
     key = inputs.CharField()
 
+    def __init__(self, *args, **kwargs):
+        self.process = kwargs.pop("process", None)
+        super().__init__(*args, **kwargs)
+
     def clean_key(self):
         key = self.cleaned_data["key"]
-        model = get_emailconfirmation_model()
-        confirmation = model.from_key(key)
-        valid = confirmation and not confirmation.key_expired()
-        if not valid:
-            raise get_account_adapter().validation_error(
-                "incorrect_code"
-                if account_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED
-                else "invalid_or_expired_key"
-            )
-        if valid and not confirmation.email_address.can_set_verified():
+        if self.process:
+            if not compare_code(actual=key, expected=self.process.code):
+                raise get_account_adapter().validation_error("incorrect_code")
+            valid = True
+            email_address = self.process.email_address
+        else:
+            model = get_emailconfirmation_model()
+            verification = model.from_key(key)
+            valid = verification and not verification.key_expired()
+            if not valid:
+                raise get_account_adapter().validation_error(
+                    "incorrect_code"
+                    if account_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED
+                    else "invalid_or_expired_key"
+                )
+            email_address = verification.email_address
+            self.verification = verification
+        if valid and not email_address.can_set_verified():
             raise get_account_adapter().validation_error("email_taken")
-        return confirmation
+        return key
 
 
 class RequestPasswordResetInput(ResetPasswordForm, inputs.Input):

@@ -16,11 +16,11 @@ class RequestEmailVerificationResponse(APIResponse):
 
 
 class VerifyEmailResponse(APIResponse):
-    def __init__(self, request, verification, stage):
+    def __init__(self, request, email_address, stage):
         adapter = get_adapter()
         data = {
-            "email": verification.email_address.email,
-            "user": adapter.serialize_user(verification.email_address.user),
+            "email": email_address.email,
+            "user": adapter.serialize_user(email_address.user),
         }
         meta = {
             "is_authenticating": stage is not None,

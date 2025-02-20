@@ -142,36 +142,42 @@ class VerifyEmailView(APIView):
             and not request.user.is_authenticated
         ):
             return ConflictResponse(request)
-        return super().handle(request, *args, **kwargs)
-
-    def handle_invalid_input(self, input: VerifyEmailInput):
-        self._record_invalid_attempt()
-        return super().handle_invalid_input(input)
-
-    def _record_invalid_attempt(self) -> None:
+        self.process = None
         if account_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED:
-            _, pending_verification = (
-                flows.email_verification_by_code.get_pending_verification(
-                    self.request, peek=True
+            self.process = (
+                flows.email_verification_by_code.EmailVerificationProcess.resume(
+                    request
                 )
             )
-            if pending_verification:
-                flows.email_verification_by_code.record_invalid_attempt(
-                    self.request, pending_verification
-                )
+            if not self.process:
+                return ConflictResponse(request)
+        return super().handle(request, *args, **kwargs)
+
+    def get_input_kwargs(self):
+        return {"process": self.process}
+
+    def handle_invalid_input(self, input: VerifyEmailInput):
+        if self.process:
+            self.process.record_invalid_attempt()
+        return super().handle_invalid_input(input)
 
     def get(self, request, *args, **kwargs):
         key = request.headers.get("x-email-verification-key", "")
-        input = self.input_class({"key": key})
+        input = self.input_class({"key": key}, process=self.process)
         if not input.is_valid():
-            self._record_invalid_attempt()
+            self.process.record_invalid_attempt()
             return ErrorResponse(request, input=input)
-        verification = input.cleaned_data["key"]
-        return response.VerifyEmailResponse(request, verification, stage=self.stage)
+        if self.process:
+            email_address = self.process.email_address
+        else:
+            email_address = input.verification.email_address
+        return response.VerifyEmailResponse(request, email_address, stage=self.stage)
 
     def post(self, request, *args, **kwargs):
-        verification = self.input.cleaned_data["key"]
-        email_address = verification.confirm(request)
+        if self.process:
+            email_address = self.process.finish()
+        else:
+            email_address = self.input.verification.confirm(request)
         if not email_address:
             # Should not happen, VerifyInputInput should have verified all
             # preconditions.
@@ -180,7 +186,7 @@ class VerifyEmailView(APIView):
         if self.stage:
             # Verifying email as part of login/signup flow may imply the user is
             # to be logged in...
-            response = email_verification.login_on_verification(request, verification)
+            response = email_verification.login_on_verification(request, email_address)
         return AuthenticationResponse.from_response(request, response)
 
 

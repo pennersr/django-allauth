@@ -27,7 +27,8 @@ class AbstractCodeVerificationProcess(abc.ABC):
         if not user_id:
             return None
         user_id = str_to_user_id(user_id)
-        return get_user_model().objects.filter(pk=user_id).first()
+        self._user = get_user_model().objects.filter(pk=user_id).first()
+        return self._user
 
     @property
     def code(self):
@@ -45,10 +46,8 @@ class AbstractCodeVerificationProcess(abc.ABC):
         return state
 
     def record_invalid_attempt(self) -> bool:
-        n = self.state["failed_attempts"]
-        n += 1
-        self.state["failed_attempts"] = n
-        if n >= self.max_attempts:
+        self.state["failed_attempts"] += 1
+        if self.state["failed_attempts"] >= self.max_attempts:
             self.abort()
             return False
         self.persist()

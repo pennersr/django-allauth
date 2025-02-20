@@ -21,8 +21,8 @@ def prevent_enumeration(request: HttpRequest, email: str) -> HttpResponse:
         {"email": email, "login": False, "signup": True},
     )
     if app_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED:
-        email_verification_by_code.request_email_verification_code(
-            request, user=None, email=email
+        email_verification_by_code.EmailVerificationProcess.initiate(
+            request=request, user=None, email=email
         )
     resp = adapter.respond_email_verification_sent(request, None)
     return resp

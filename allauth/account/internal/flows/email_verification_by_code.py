@@ -1,13 +1,13 @@
-import time
-from typing import Any, Dict, Optional, Tuple
+from typing import Optional
 
-from django.contrib.auth import get_user_model
-from django.http import HttpRequest
+from django.utils.functional import cached_property
 
 from allauth.account import app_settings
 from allauth.account.adapter import get_adapter
+from allauth.account.internal.flows.code_verification import (
+    AbstractCodeVerificationProcess,
+)
 from allauth.account.internal.stagekit import clear_login
-from allauth.account.internal.textkit import compare_code
 from allauth.account.models import EmailAddress, EmailConfirmationMixin
 from allauth.core import context
 
@@ -19,9 +19,12 @@ class EmailVerificationModel(EmailConfirmationMixin):
     def __init__(self, email_address: EmailAddress, key: Optional[str] = None):
         self.email_address = email_address
         if not key:
-            key = request_email_verification_code(
-                context.request, user=email_address.user, email=email_address.email
+            process = EmailVerificationProcess.initiate(
+                request=context.request,
+                user=email_address.user,
+                email=email_address.email,
             )
+            key = process.code
         self.key = key
 
     @classmethod
@@ -30,93 +33,63 @@ class EmailVerificationModel(EmailConfirmationMixin):
 
     @classmethod
     def from_key(cls, key):
-        verification, _ = get_pending_verification(context.request, peek=True)
-        if not verification or not compare_code(actual=key, expected=verification.key):
-            return None
-        return verification
+        raise NotImplementedError
 
     def key_expired(self):
-        return False
-
-    def confirm(self, request) -> Optional[EmailAddress]:
-        ret = super().confirm(request)
-        if ret:
-            clear_pending_verification(request)
-        return ret
+        raise NotImplementedError
 
 
-def clear_pending_verification(request):
-    request.session.pop(EMAIL_VERIFICATION_CODE_SESSION_KEY, None)
-
-
-def clear_state(request):
-    clear_pending_verification(request)
-    clear_login(request)
-
-
-def request_email_verification_code(
-    request: HttpRequest,
-    user,
-    email: str,
-) -> str:
-    code = ""
-    pending_verification = {
-        "at": time.time(),
-        "failed_attempts": 0,
-        "email": email,
-    }
-    pretend = user is None
-    if not pretend:
-        adapter = get_adapter()
-        code = adapter.generate_email_verification_code()
-        assert user._meta.pk  # nosec
-        pending_verification.update(
-            {
-                "user_id": user._meta.pk.value_to_string(user),
-                "email": email,
-                "code": code,
-            }
+class EmailVerificationProcess(AbstractCodeVerificationProcess):
+    def __init__(self, request, state, user=None):
+        self.request = request
+        super().__init__(
+            state=state,
+            user=user,
+            max_attempts=app_settings.EMAIL_VERIFICATION_BY_CODE_MAX_ATTEMPTS,
+            timeout=app_settings.EMAIL_VERIFICATION_BY_CODE_TIMEOUT,
         )
-    request.session[EMAIL_VERIFICATION_CODE_SESSION_KEY] = pending_verification
-    return code
 
+    def persist(self):
+        self.request.session[EMAIL_VERIFICATION_CODE_SESSION_KEY] = self.state
 
-def get_pending_verification(
-    request: HttpRequest, peek: bool = False
-) -> Tuple[Optional[EmailVerificationModel], Optional[Dict[str, Any]]]:
-    if peek:
-        data = request.session.get(EMAIL_VERIFICATION_CODE_SESSION_KEY)
-    else:
-        data = request.session.pop(EMAIL_VERIFICATION_CODE_SESSION_KEY, None)
-    if not data:
-        clear_state(request)
-        return None, None
-    if time.time() - data["at"] >= app_settings.EMAIL_VERIFICATION_BY_CODE_TIMEOUT:
-        clear_state(request)
-        return None, None
-    if user_id_str := data.get("user_id"):
-        user_id = get_user_model()._meta.pk.to_python(user_id_str)  # type: ignore[union-attr]
-        user = get_user_model().objects.get(pk=user_id)
-        email = data["email"]
+    def abort(self):
+        self.request.session.pop(EMAIL_VERIFICATION_CODE_SESSION_KEY, None)
+        clear_login(self.request)
+
+    def send(self):
+        self.state["code"] = get_adapter().generate_email_verification_code()
+
+    @cached_property
+    def email_address(self):
+        user = self.user
+        email = self.state["email"]
         try:
             email_address = EmailAddress.objects.get_for_user(user, email)
         except EmailAddress.DoesNotExist:
             email_address = EmailAddress(user=user, email=email)
-        verification = EmailVerificationModel(email_address, key=data["code"])
-    else:
-        verification = None
-    return verification, data
+        return email_address
 
+    def finish(self):
+        verification = EmailVerificationModel(
+            self.email_address, key=self.state["code"]
+        )
+        self.request.session.pop(EMAIL_VERIFICATION_CODE_SESSION_KEY, None)
+        return verification.confirm(self.request)
 
-def record_invalid_attempt(
-    request: HttpRequest, pending_verification: Dict[str, Any]
-) -> bool:
-    n = pending_verification["failed_attempts"]
-    n += 1
-    pending_verification["failed_attempts"] = n
-    if n >= app_settings.EMAIL_VERIFICATION_BY_CODE_MAX_ATTEMPTS:
-        clear_state(request)
-        return False
-    else:
-        request.session[EMAIL_VERIFICATION_CODE_SESSION_KEY] = pending_verification
-        return True
+    @classmethod
+    def initiate(cls, *, request, user, email: str):
+        state = cls.initial_state(user, email)
+        process = EmailVerificationProcess(request=request, user=user, state=state)
+        process.send()
+        process.persist()
+        return process
+
+    @classmethod
+    def resume(cls, request):
+        state = request.session.get(EMAIL_VERIFICATION_CODE_SESSION_KEY)
+        if not state:
+            return None
+        process = EmailVerificationProcess(request=request, state=state)
+        if not process.is_valid():
+            return None
+        return process

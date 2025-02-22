@@ -76,6 +76,4 @@ class PasswordResetVerificationProcess(AbstractCodeVerificationProcess):
         if not state:
             return None
         process = PasswordResetVerificationProcess(request, state=state)
-        if not process.is_valid():
-            return None
-        return process
+        return process.abort_if_invalid()

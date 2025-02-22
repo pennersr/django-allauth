@@ -53,6 +53,12 @@ class AbstractCodeVerificationProcess(abc.ABC):
         self.persist()
         return True
 
+    def abort_if_invalid(self):
+        if not self.is_valid():
+            self.abort()
+            return None
+        return self
+
     def is_valid(self) -> bool:
         return time.time() - self.state["at"] <= self.timeout
 

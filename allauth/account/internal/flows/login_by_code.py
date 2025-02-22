@@ -97,6 +97,4 @@ class LoginCodeVerificationProcess(AbstractCodeVerificationProcess):
     @classmethod
     def resume(cls, stage):
         process = LoginCodeVerificationProcess(stage=stage)
-        if not process.is_valid():
-            return None
-        return process
+        return process.abort_if_invalid()

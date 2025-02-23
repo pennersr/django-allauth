@@ -27,6 +27,14 @@ from allauth.headless.internal.restkit import inputs
 class SignupInput(BaseSignupForm, inputs.Input):
     password = inputs.CharField()
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        password = account_settings.SIGNUP_FIELDS.get("password1")
+        if not password:
+            del self.fields["password"]
+        else:
+            self.fields["password"].required = password["required"]
+
     def clean_password(self):
         password = self.cleaned_data["password"]
         return get_account_adapter().clean_password(password)

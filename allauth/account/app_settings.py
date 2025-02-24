@@ -1,6 +1,6 @@
 import warnings
 from enum import Enum
-from typing import FrozenSet, Literal, Set, Union
+from typing import FrozenSet, Set, Union
 
 
 class AppSettings:

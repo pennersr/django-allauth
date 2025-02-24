@@ -165,12 +165,22 @@ class LoginByCodeStage(LoginStage):
             return None, True
         elif not did_initiate_process and login_by_code_required:
             email = EmailAddress.objects.get_primary_email(self.login.user)
-            if not email:
+            phone = None
+            phone_field = app_settings.SIGNUP_FIELDS.get("phone")
+            if not email and phone_field:
+                phone_verified = get_adapter().get_phone(self.login.user)
+                if phone_verified:
+                    phone = phone_verified[0]
+            if not email and not phone:
                 # No way of contacting the user.. cannot meet the
                 # requirements. Abort.
                 return headed_redirect_response("account_login"), False
             login_by_code.LoginCodeVerificationProcess.initiate(
-                request=self.request, user=self.login.user, email=email, stage=self
+                request=self.request,
+                user=self.login.user,
+                phone=phone,
+                email=email,
+                stage=self,
             )
 
         response = headed_redirect_response("account_confirm_login_code")

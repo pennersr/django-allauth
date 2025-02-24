@@ -431,15 +431,19 @@ class SignupForm(BaseSignupForm):
     def __init__(self, *args, **kwargs):
         self.by_passkey = kwargs.pop("by_passkey", False)
         super().__init__(*args, **kwargs)
-        if not self.by_passkey and "password1" in self._signup_fields:
+        password1_field = self._signup_fields.get("password1")
+        if not self.by_passkey and password1_field:
             self.fields["password1"] = PasswordField(
                 label=_("Password"),
                 autocomplete="new-password",
                 help_text=password_validation.password_validators_help_text_html(),
+                required=password1_field["required"],
             )
             if "password2" in self._signup_fields:
                 self.fields["password2"] = PasswordField(
-                    label=_("Password (again)"), autocomplete="new-password"
+                    label=_("Password (again)"),
+                    autocomplete="new-password",
+                    required=password1_field["required"],
                 )
 
         if hasattr(self, "field_order"):
@@ -716,7 +720,7 @@ class RequestLoginCodeForm(forms.Form):
         super().__init__(*args, **kwargs)
         self._has_email = LoginMethod.EMAIL in app_settings.LOGIN_METHODS
         self._has_phone = LoginMethod.PHONE in app_settings.LOGIN_METHODS
-        if not self._has_email:
+        if self._has_phone and not self._has_email:
             self.fields.pop("email")
         if self._has_phone:
             adapter = get_adapter()

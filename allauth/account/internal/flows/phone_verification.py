@@ -1,22 +1,22 @@
-import abc
-import time
-from typing import Any, Dict, Optional, Tuple
+from typing import Optional
 
-from django.contrib.auth import get_user_model
-from django.contrib.auth.models import AbstractBaseUser
-from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
+from django.http import HttpRequest
 
 from allauth.account import app_settings
 from allauth.account.adapter import get_adapter
 from allauth.account.internal.flows.code_verification import (
     AbstractCodeVerificationProcess,
 )
-from allauth.account.internal.stagekit import clear_login, stash_login
+from allauth.account.internal.stagekit import stash_login
 from allauth.account.internal.userkit import user_id_to_str
 
 
 PHONE_VERIFICATION_STATE_KEY = "phone_verification"
 PHONE_VERIFICATION_SESSION_KEY = "account_phone_verification"
+
+
+def verify_phone_indirectly(request: HttpRequest, user, phone: str) -> None:
+    get_adapter().set_phone_verified(user, phone)
 
 
 class PhoneVerificationProcess(AbstractCodeVerificationProcess):

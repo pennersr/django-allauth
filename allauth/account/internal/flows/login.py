@@ -45,8 +45,10 @@ def record_authentication(request, method, **extra_data):
     data = {
         "method": method,
         "at": time.time(),
-        **extra_data,
     }
+    for k, v in extra_data.items():
+        if v is not None:
+            data[k] = v
     methods.append(data)
     request.session[AUTHENTICATION_METHODS_SESSION_KEY] = methods
 

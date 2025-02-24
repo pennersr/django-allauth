@@ -5,7 +5,6 @@ import typing
 import warnings
 from urllib.parse import urlparse
 
-from django import forms
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import (

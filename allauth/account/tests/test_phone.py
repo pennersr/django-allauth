@@ -19,7 +19,9 @@ def phone_settings(settings):
 
 def test_signup(db, client, phone, sms_outbox):
     assert len(sms_outbox) == 0
-    resp = client.post(reverse("account_signup"), data={"phone": phone})
+    resp = client.post(
+        reverse("account_signup"), data={"phone": phone, "password1": ""}
+    )
     assert resp.status_code == HTTPStatus.FOUND
     assert len(sms_outbox) == 1
     assert resp["location"] == reverse("account_verify_phone")
@@ -38,7 +40,9 @@ def test_signup(db, client, phone, sms_outbox):
 
 def test_signup_invalid_attempts(db, client, phone, sms_outbox):
     assert len(sms_outbox) == 0
-    resp = client.post(reverse("account_signup"), data={"phone": phone})
+    resp = client.post(
+        reverse("account_signup"), data={"phone": phone, "password1": ""}
+    )
     assert resp.status_code == HTTPStatus.FOUND
     adapter = get_adapter()
     user = adapter.get_user_by_phone(phone)

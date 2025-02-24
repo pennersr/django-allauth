@@ -266,11 +266,13 @@ Available settings:
   typos.
 
 ``ACCOUNT_SIGNUP_FORM_CLASS`` (default: ``None``)
-  A string pointing to a custom form class
-  (e.g. ``'myapp.forms.SignupForm'``) that is used during signup to ask
-  the user for additional input (e.g. newsletter signup, birth
-  date). This class should implement a ``def signup(self, request, user)``
-  method, where user represents the newly signed up user.
+  A string pointing to a custom form class (e.g. ``'myapp.forms.SignupForm'``)
+  that is used during signup to ask the user for additional input (e.g. a
+  newsletter signup checkbox, or birth date). This class should derive from just
+  ``forms.Form`` and only list the additional fields you need. It must implement
+  a ``def signup(self, request, user)`` method, which is called during the
+  signup process. This method allows you to handle and store the submitted data
+  as needed.
 
 ``ACCOUNT_SIGNUP_FORM_HONEYPOT_FIELD`` (default: ``None``)
   A string value that will be used as the HTML 'name' property

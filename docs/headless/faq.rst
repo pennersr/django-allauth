@@ -11,7 +11,7 @@ from an API point of view.  As a result, the headed forms that can be overridden
 by means of ``ACCOUNT_FORMS`` play no role in the headless environment.
 
 Instead of overriding the complete signup form via ``ACCOUNT_FORMS``, provide a
-``ACCOUNT_SIGNUP_FORM_CLASS`` that derives from ``forms.Form`` and only lists
-the additional fields you need. These fields will automatically show up in the
-headed signup form, and will automatically be validated when posting payloads to
-the signup endpoint.
+``ACCOUNT_SIGNUP_FORM_CLASS`` as documented :doc:`here
+<../account/configuration>` , listing the additional fields you need. These
+fields will automatically show up in the headed signup form, and will
+automatically be validated when posting payloads to the signup endpoint.

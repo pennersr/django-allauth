@@ -13,8 +13,9 @@ def phone():
 
 
 @pytest.fixture(autouse=True)
-def phone_settings(settings):
-    settings.ACCOUNT_SIGNUP_FIELDS = ["phone", "password1"]
+def phone_settings(settings_impacting_urls):
+    with settings_impacting_urls(ACCOUNT_SIGNUP_FIELDS=["phone", "password1"]):
+        yield
 
 
 def test_signup(db, client, phone, sms_outbox):

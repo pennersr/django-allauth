@@ -240,7 +240,6 @@ class Login:
     signal_kwargs: Optional[Dict]
     signup: bool
     email: Optional[str]
-    # FIXME: phone: Optional[str]
     state: Dict
     initiated_at: float
     redirect_url: Optional[str]

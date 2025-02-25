@@ -21,5 +21,5 @@ class AccountAdapter(DefaultAccountAdapter):
         User = get_user_model()
         return User.objects.filter(pk=user_id).first()
 
-    def send_phone_verification_code(self, user, phone: str, code: str, signup: bool):
-        phone_stub.send_phone_verification_code(user, phone, code, signup)
+    def send_phone_verification_code(self, *, user, phone: str, code: str, **kwargs):
+        phone_stub.send_phone_verification_code(user, phone, code)

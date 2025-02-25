@@ -4,7 +4,21 @@ Phone
 Installation
 ************
 
-FIXME
+In addition to following the overall instructions, pay attention to the
+following in the ``settings.py`` of your project::
+
+  # Make sure that the login methods includes "phone" as a method.
+  ACCOUNT_LOGIN_METHODS = {"phone", "email"}
+
+  # Add a required phone field to the signup fields.
+  # ACCOUNT_SIGNUP_FIELD = [
+    'phone*',
+    'email*'  # Can be left out if you want to only use 'phone'.
+  ]
+
+  # You will need to provide methods for storing phone numbers, and
+  # sending SMS messages in a custom adapter.
+  ACCOUNT_ADAPTER = 'project.users.adapter.MyAccountAdapter'
 
 
 Form Fields

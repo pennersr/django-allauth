@@ -38,8 +38,6 @@ class PhoneVerificationProcess(AbstractCodeVerificationProcess):
         adapter.send_phone_verification_code(
             user=self.user,
             code=code,
-            # FIXME: login by code
-            signup=False,
             phone=self.state["phone"],
         )
         self.state.update({"code": code, "user_id": user_id_to_str(self.user)})

@@ -76,13 +76,10 @@ class LoginCodeVerificationProcess(AbstractCodeVerificationProcess):
             raise ValueError()
 
     def send_by_phone(self, phone):
-        # FIXME: logging or...
         if self.user:
             adapter = get_adapter()
             code = adapter.generate_phone_verification_code()
-            adapter.send_phone_verification_code(
-                user=self.user, phone=phone, code=code, signup=False
-            )
+            adapter.send_phone_verification_code(user=self.user, phone=phone, code=code)
             self.state["code"] = code
 
     def send_by_email(self, email):

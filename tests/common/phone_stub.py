@@ -19,13 +19,12 @@ def get_phone(user_id) -> typing.Optional[typing.Tuple[str, bool]]:
     return db.get(user_id)
 
 
-def send_phone_verification_code(user, phone: str, code: str, signup: bool):
+def send_phone_verification_code(user, phone: str, code: str):
     sms_outbox.append(
         {
             "user_id": user.pk,
             "phone": phone,
             "code": code,
-            "signup": signup,
         }
     )
 

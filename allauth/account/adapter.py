@@ -854,9 +854,7 @@ class DefaultAccountAdapter(BaseAdapter):
 
         return PhoneField(**kwargs)
 
-    def send_phone_verification_code(
-        self, *, user, phone: str, code: str, signup: bool, **kwargs
-    ):
+    def send_phone_verification_code(self, *, user, phone: str, code: str, **kwargs):
         """
         Sends a verification code.
         """

@@ -1,3 +1,4 @@
+import time
 from allauth.socialaccount.internal import statekit
 
 
@@ -31,11 +32,18 @@ def test_gc_states():
 def test_stashing(rf):
     request = rf.get("/")
     request.session = {}
+
+    # Stash states with a small delay
     state_id = statekit.stash_state(request, {"foo": "bar"})
+    time.sleep(0.001)  # delay for microseconds
     state2_id = statekit.stash_state(request, {"foo2": "bar2"})
+    time.sleep(0.001)  # delay for microseconds
     state3_id = statekit.stash_state(request, {"foo3": "bar3"})
+
+    # Unstash last state and check order
     state = statekit.unstash_last_state(request)
     assert state == {"foo3": "bar3"}
+
     state = statekit.unstash_state(request, state3_id)
     assert state is None
     state = statekit.unstash_state(request, state2_id)

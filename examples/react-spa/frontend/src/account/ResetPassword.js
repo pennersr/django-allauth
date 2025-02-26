@@ -39,7 +39,7 @@ function ResetPassword ({ resetKey, resetKeyResponse }) {
   let body
   if (resetKeyResponse.status !== 200) {
     body = <FormErrors param='key' errors={resetKeyResponse.errors} />
-  } else if (response.content?.error?.detail?.key) {
+  } else if (response.content?.errors?.filter(e => e.param === 'key')) {
     body = <FormErrors param='key' errors={response.content?.errors} />
   } else {
     body = (

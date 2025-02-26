@@ -198,6 +198,7 @@ class PhoneVerificationStage(LoginStage):
         if not phone_field:
             return None, True
         adapter = get_adapter()
+
         phone_verified = adapter.get_phone(self.login.user)
         if phone_verified is None:
             return None, (not phone_field["required"])

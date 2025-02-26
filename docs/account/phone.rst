@@ -54,7 +54,7 @@ be populated so that the models will be used:
 Sending SMS Messages
 ********************
 
-For sending SMS messages, various eternal providers and packages are
+For sending SMS messages, various external providers and packages are
 available. You can integrate those by overriding the following adapter method:
 
  .. autoclass:: allauth.account.adapter.DefaultAccountAdapter

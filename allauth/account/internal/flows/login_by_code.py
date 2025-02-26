@@ -81,6 +81,7 @@ class LoginCodeVerificationProcess(AbstractCodeVerificationProcess):
             code = adapter.generate_phone_verification_code()
             adapter.send_phone_verification_code(user=self.user, phone=phone, code=code)
             self.state["code"] = code
+        self.add_sent_message({"recipient": phone, "phone": phone})
 
     def send_by_email(self, email):
         adapter = get_adapter()
@@ -94,11 +95,14 @@ class LoginCodeVerificationProcess(AbstractCodeVerificationProcess):
             }
             adapter.send_mail("account/email/login_code", email, context)
             self.state["code"] = code
-        adapter.add_message(
+        self.add_sent_message({"email": email, "recipient": email})
+
+    def add_sent_message(self, context):
+        get_adapter().add_message(
             self.request,
             messages.SUCCESS,
             "account/messages/login_code_sent.txt",
-            {"email": email},
+            context,
         )
 
     @classmethod

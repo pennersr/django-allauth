@@ -54,4 +54,7 @@ class PhoneField(forms.CharField):
         super().__init__(*args, **kwargs)
 
     def clean(self, value):
-        return super().clean(value.replace(" ", "").replace("-", ""))
+        value = super().clean(value)
+        if value:
+            value = value.replace(" ", "").replace("-", "")
+        return value

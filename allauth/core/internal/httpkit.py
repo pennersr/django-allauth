@@ -47,7 +47,7 @@ def redirect(to):
         return shortcuts.redirect(f"/{to}")
 
 
-def add_query_params(url, params):
+def add_query_params(url: str, params: dict) -> str:
     parsed_url = urlparse(url)
     query_params = parse_qs(parsed_url.query)
     query_params.update(params)
@@ -108,13 +108,16 @@ def get_frontend_url(request, urlname, **kwargs):
     return default_get_frontend_url(request, urlname, **kwargs)
 
 
-def headed_redirect_response(viewname):
+def headed_redirect_response(viewname, query=None):
     """
     In some cases, we're redirecting to a non-headless view. In case of
     headless-only mode, that view clearly does not exist.
     """
     try:
-        return HttpResponseRedirect(reverse(viewname))
+        url = reverse(viewname)
+        if query:
+            url = add_query_params(url, query)
+        return HttpResponseRedirect(url)
     except NoReverseMatch:
         if allauth_settings.HEADLESS_ONLY:
             # The response we would be rendering here is not actually used.

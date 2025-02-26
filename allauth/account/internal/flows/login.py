@@ -131,4 +131,10 @@ def derive_login_method(login: str) -> LoginMethod:
             return LoginMethod.EMAIL
         except exceptions.ValidationError:
             pass
+    if LoginMethod.PHONE in app_settings.LOGIN_METHODS:
+        try:
+            get_adapter().phone_form_field(required=True).clean(login)
+            return LoginMethod.PHONE
+        except exceptions.ValidationError:
+            pass
     return LoginMethod.USERNAME

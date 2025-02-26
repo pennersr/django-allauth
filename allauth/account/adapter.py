@@ -70,6 +70,7 @@ class DefaultAccountAdapter(BaseAdapter):
         "incorrect_code": _("Incorrect code."),
         "incorrect_password": _("Incorrect password."),
         "invalid_or_expired_key": _("Invalid or expired key."),
+        "invalid_login": _("Invalid login."),
         "invalid_password_reset": _("The password reset token was invalid."),
         "max_email_addresses": _("You cannot add more than %d email addresses."),
         "too_many_login_attempts": _(

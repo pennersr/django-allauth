@@ -182,6 +182,7 @@ Depending on the state of the account, and the configuration of django-allauth, 
 can either lead to becoming directly authenticated, or, to followup flows:
 - Provider signup (`provider_signup`).
 - Email verification (`verify_email`).
+- Phone verification (`phone_email`).
 - Two-factor authentication required (TOTP, recovery codes, or WebAuthn) (`mfa_authenticate`).
 
 While authenticated, re-authentication may be required to safeguard the account when sensitive actions

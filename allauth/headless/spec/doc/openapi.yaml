@@ -2049,15 +2049,16 @@ components:
         id:
           type: string
           enum:
-            - verify_email
             - login
-            - signup
+            - mfa_authenticate
+            - mfa_reauthenticate
             - provider_redirect
             - provider_signup
             - provider_token
-            - mfa_authenticate
             - reauthenticate
-            - mfa_reauthenticate
+            - signup
+            - verify_email
+            - verify_phone
         provider:
           $ref: "#/components/schemas/Provider"
         is_pending:

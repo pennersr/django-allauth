@@ -75,6 +75,11 @@ def build_urlpatterns(client):
                     views.VerifyEmailView.as_api_view(client=client),
                     name="verify_email",
                 ),
+                path(
+                    "phone/verify",
+                    views.VerifyPhoneView.as_api_view(client=client),
+                    name="verify_phone",
+                ),
             ]
         )
     if account_settings.LOGIN_BY_CODE_ENABLED:

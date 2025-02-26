@@ -11,6 +11,7 @@ from allauth.account.forms import (
     RequestLoginCodeForm,
     ResetPasswordForm,
     UserTokenForm,
+    VerifyPhoneForm,
 )
 from allauth.account.internal import flows
 from allauth.account.internal.textkit import compare_code
@@ -246,4 +247,8 @@ class RequestLoginCodeInput(RequestLoginCodeForm, inputs.Input):
 
 
 class ConfirmLoginCodeInput(ConfirmLoginCodeForm, inputs.Input):
+    pass
+
+
+class VerifyPhoneInput(VerifyPhoneForm, inputs.Input):
     pass

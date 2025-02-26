@@ -12,7 +12,11 @@ from allauth.account.internal.flows import (
     password_reset,
     password_reset_by_code,
 )
-from allauth.account.stages import EmailVerificationStage, LoginStageController
+from allauth.account.stages import (
+    EmailVerificationStage,
+    LoginStageController,
+    PhoneVerificationStage,
+)
 from allauth.account.utils import send_email_confirmation
 from allauth.core import ratelimit
 from allauth.core.exceptions import ImmediateHttpResponse
@@ -33,6 +37,7 @@ from allauth.headless.account.inputs import (
     SelectEmailInput,
     SignupInput,
     VerifyEmailInput,
+    VerifyPhoneInput,
 )
 from allauth.headless.base.response import (
     APIResponse,
@@ -187,6 +192,42 @@ class VerifyEmailView(APIView):
             # Verifying email as part of login/signup flow may imply the user is
             # to be logged in...
             response = email_verification.login_on_verification(request, email_address)
+        return AuthenticationResponse.from_response(request, response)
+
+
+class VerifyPhoneView(APIView):
+    input_class = VerifyPhoneInput
+
+    def handle(self, request, *args, **kwargs):
+        self.stage = LoginStageController.enter(request, PhoneVerificationStage.key)
+        if self.stage:
+            self.process = (
+                flows.phone_verification.PhoneVerificationStageProcess.resume(
+                    self.stage
+                )
+            )
+        else:
+            if not request.user.is_authenticated:
+                return ConflictResponse(request)
+            self.process = (
+                flows.phone_verification.ChangePhoneVerificationProcess.resume(request)
+            )
+        if not self.process:
+            return ConflictResponse(request)
+        return super().handle(request, *args, **kwargs)
+
+    def get_input_kwargs(self):
+        return {"code": self.process.code}
+
+    def handle_invalid_input(self, input: VerifyPhoneInput):
+        self.process.record_invalid_attempt()
+        return super().handle_invalid_input(input)
+
+    def post(self, request, *args, **kwargs):
+        self.process.finish()
+        response = None
+        if self.stage:
+            response = self.stage.exit()
         return AuthenticationResponse.from_response(request, response)
 
 

@@ -18,6 +18,8 @@ class AccountAdapter(DefaultAccountAdapter):
 
     def get_user_by_phone(self, phone):
         user_id = phone_stub.get_user_id_by_phone(phone)
+        if user_id is None:
+            return None
         User = get_user_model()
         return User.objects.filter(pk=user_id).first()
 

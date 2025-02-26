@@ -62,6 +62,9 @@ class DefaultAccountAdapter(BaseAdapter):
         "email_password_mismatch": _(
             "The email address and/or password you specified are not correct."
         ),
+        "phone_password_mismatch": _(
+            "The phone number and/or password you specified are not correct."
+        ),
         "email_taken": _("A user is already registered with this email address."),
         "enter_current_password": _("Please type your current password."),
         "incorrect_code": _("Incorrect code."),
@@ -73,6 +76,7 @@ class DefaultAccountAdapter(BaseAdapter):
             "Too many failed login attempts. Try again later."
         ),
         "unknown_email": _("The email address is not assigned to any user account"),
+        "unknown_phone": _("The phone number is not assigned to any user account"),
         "unverified_primary_email": _("Your primary email address must be verified."),
         "username_blacklisted": _(
             "Username can not be used. Please use other username."
@@ -884,10 +888,11 @@ class DefaultAccountAdapter(BaseAdapter):
 
     def get_user_by_phone(self, phone: str):
         """
-        Looks up a user given the specified phone number.
+        Looks up a user given the specified phone number. Returns ``None`` if no user
+        was phone.
         """
         raise NotImplementedError
 
 
-def get_adapter(request=None):
+def get_adapter(request=None) -> DefaultAccountAdapter:
     return import_attribute(app_settings.ADAPTER)(request)

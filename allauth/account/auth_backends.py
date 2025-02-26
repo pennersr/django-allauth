@@ -1,8 +1,11 @@
 from threading import local
+from typing import Optional, Tuple
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import ModelBackend
+from django.contrib.auth.models import AbstractBaseUser
 
+from allauth.account.adapter import get_adapter
 from allauth.account.app_settings import LoginMethod
 
 from . import app_settings
@@ -14,59 +17,100 @@ _stash = local()
 
 class AuthenticationBackend(ModelBackend):
     def authenticate(self, request, **credentials):
-        ret = None
-        if app_settings.LOGIN_METHODS == {LoginMethod.EMAIL}:
-            ret = self._authenticate_by_email(**credentials)
-        elif app_settings.LOGIN_METHODS == {LoginMethod.USERNAME, LoginMethod.EMAIL}:
-            ret = self._authenticate_by_email(
-                **credentials, time_attack_mitigation=False
-            )
-            if not ret:
-                ret = self._authenticate_by_username(**credentials)
-        else:
-            ret = self._authenticate_by_username(**credentials)
-        return ret
-
-    def _authenticate_by_username(self, **credentials):
-        username_field = app_settings.USER_MODEL_USERNAME_FIELD
-        username = credentials.get("username")
         password = credentials.get("password")
-
-        User = get_user_model()
-
-        if not username_field or username is None or password is None:
+        if not password:
             return None
+
+        phone = credentials.get("phone")
+        user, did_attempt = self._authenticate_by_phone(phone, password)
+        if did_attempt:
+            return user
+
+        email = credentials.get("email")
+        user, did_attempt = self._authenticate_by_email(email, password)
+        if did_attempt:
+            return user
+
+        username = credentials.get("username")
+        if not username:
+            return None
+        # Username/email ambiguity: even though allauth will pass along
+        # `email` explicitly, other apps may not respect this. For example,
+        # when using django-tastypie basic authentication, the login is
+        # always passed as `username`.  So let's play nice with other apps
+        # and use username as fallback.
+        if (
+            LoginMethod.USERNAME in app_settings.LOGIN_METHODS
+            and LoginMethod.EMAIL in app_settings.LOGIN_METHODS
+        ):
+            user, _ = self._authenticate_by_email(
+                username, password, time_attack_mitigation=False
+            )
+            if not user:
+                user, _ = self._authenticate_by_username(username, password)
+            return user
+
+        # Either email, or username, is a login method. Not both.  No need
+        # to worry about time attacks.
+        user, did_attempt = self._authenticate_by_email(username, password)
+        if did_attempt:
+            return user
+
+        user, _ = self._authenticate_by_username(username, password)
+        return user
+
+    def _authenticate_by_phone(
+        self, phone: Optional[str], password: str
+    ) -> Tuple[Optional[AbstractBaseUser], bool]:
+        if LoginMethod.PHONE not in app_settings.LOGIN_METHODS:
+            return (None, False)
+        if not phone:
+            return (None, False)
+        adapter = get_adapter()
+        user = adapter.get_user_by_phone(phone)
+        if user:
+            if self._check_password(user, password):
+                return (user, True)
+        else:
+            get_user_model()().set_password(password)
+        return (None, True)
+
+    def _authenticate_by_username(
+        self, username: Optional[str], password: str
+    ) -> Tuple[Optional[AbstractBaseUser], bool]:
+        username_field = app_settings.USER_MODEL_USERNAME_FIELD
+        if (
+            (LoginMethod.USERNAME not in app_settings.LOGIN_METHODS)
+            or (not username_field)
+            or not username
+        ):
+            return (None, False)
+        User = get_user_model()
         try:
             # Username query is case insensitive
             user = filter_users_by_username(username).get()
         except User.DoesNotExist:
             # Run the default password hasher once to reduce the timing
             # difference between an existing and a nonexistent user.
-            get_user_model()().set_password(password)
-            return None
+            User().set_password(password)
         else:
             if self._check_password(user, password):
-                return user
+                return (user, True)
+        return (None, True)
 
     def _authenticate_by_email(
-        self, time_attack_mitigation: bool = True, **credentials
-    ):
-        # Even though allauth will pass along `email`, other apps may
-        # not respect this setting. For example, when using
-        # django-tastypie basic authentication, the login is always
-        # passed as `username`.  So let's play nice with other apps
-        # and use username as fallback
-        email = credentials.get("email", credentials.get("username"))
-        if email:
-            password = credentials["password"]
-            users = filter_users_by_email(email, prefer_verified=True)
-            if users:
-                for user in users:
-                    if self._check_password(user, password):
-                        return user
-            elif time_attack_mitigation:
-                get_user_model()().set_password(password)
-        return None
+        self, email: Optional[str], password: str, time_attack_mitigation: bool = True
+    ) -> Tuple[Optional[AbstractBaseUser], bool]:
+        if not email or LoginMethod.EMAIL not in app_settings.LOGIN_METHODS:
+            return (None, False)
+        users = filter_users_by_email(email, prefer_verified=True)
+        if users:
+            for user in users:
+                if self._check_password(user, password):
+                    return (user, True)
+        elif time_attack_mitigation:
+            get_user_model()().set_password(password)
+        return (None, True)
 
     def _check_password(self, user, password):
         ret = user.check_password(password)

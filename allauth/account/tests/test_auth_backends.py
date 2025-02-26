@@ -79,14 +79,24 @@ class AuthenticationBackendTests(TestCase):
 
 
 @pytest.mark.parametrize(
-    "login_methods",
+    "login_methods,credentials",
     [
-        {app_settings.LoginMethod.EMAIL},
-        {app_settings.LoginMethod.USERNAME},
-        {app_settings.LoginMethod.USERNAME, app_settings.LoginMethod.EMAIL},
+        ({app_settings.LoginMethod.EMAIL}, {"username": "not@known.org"}),
+        ({app_settings.LoginMethod.EMAIL}, {"email": "not@known.org"}),
+        ({app_settings.LoginMethod.USERNAME}, {"username": "not-known"}),
+        (
+            {app_settings.LoginMethod.USERNAME, app_settings.LoginMethod.EMAIL},
+            {"username": "not-known"},
+        ),
+        (
+            {app_settings.LoginMethod.USERNAME, app_settings.LoginMethod.EMAIL},
+            {"email": "not@known.org"},
+        ),
     ],
 )
-def test_account_enumeration_timing_attack(user, db, rf, settings, login_methods):
+def test_account_enumeration_timing_attack(
+    user, db, rf, settings, login_methods, credentials
+):
     settings.ACCOUNT_LOGIN_METHODS = login_methods
     with patch("django.contrib.auth.models.User.set_password") as set_password_mock:
         with patch(
@@ -95,16 +105,13 @@ def test_account_enumeration_timing_attack(user, db, rf, settings, login_methods
             backend = AuthenticationBackend()
             backend.authenticate(
                 rf.get("/"),
-                email="not@known.org",
-                username="not-known",
                 password="secret",
+                **credentials,
             )
             set_password_mock.assert_called_once()
             set_password_mock.reset_mock()
             backend.authenticate(rf.get("/"), username=user.username, password="secret")
             set_password_mock.assert_called_once()
             set_password_mock.reset_mock()
-            backend.authenticate(
-                rf.get("/"), email=user.email, username="not-known", password="secret"
-            )
+            backend.authenticate(rf.get("/"), username=user.email, password="secret")
             set_password_mock.assert_called_once()

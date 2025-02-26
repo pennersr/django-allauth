@@ -154,6 +154,8 @@ class LoginForm(forms.Form):
             credentials["email"] = login
         elif method == LoginMethod.USERNAME:
             credentials["username"] = login
+        elif method == LoginMethod.PHONE:
+            credentials["phone"] = login
         else:
             raise NotImplementedError()
         credentials["password"] = self.cleaned_data["password"]
@@ -720,12 +722,16 @@ class RequestLoginCodeForm(forms.Form):
         super().__init__(*args, **kwargs)
         self._has_email = LoginMethod.EMAIL in app_settings.LOGIN_METHODS
         self._has_phone = LoginMethod.PHONE in app_settings.LOGIN_METHODS
-        if self._has_phone and not self._has_email:
-            self.fields.pop("email")
         if self._has_phone:
             adapter = get_adapter()
-            self.fields["phone"] = adapter.phone_form_field()
+            self.fields["phone"] = adapter.phone_form_field(
+                required=not self._has_email
+            )
             self.fields["email"].required = False
+        # Inconsistent, but kept for backwards compatibility: even if email is not a login
+        # method the email field is added. May be used when login is by username.
+        if self._has_phone and not self._has_email:
+            self.fields.pop("email")
 
     def clean(self):
         cleaned_data = super().clean()
@@ -736,6 +742,18 @@ class RequestLoginCodeForm(forms.Form):
             raise adapter.validation_error("select_only_one")
         return cleaned_data
 
+    def clean_phone(self):
+        adapter = get_adapter()
+        phone = self.cleaned_data["phone"]
+        self._user = adapter.get_user_by_phone(phone)
+        if not self._user and not app_settings.PREVENT_ENUMERATION:
+            raise adapter.validation_error("unknown_phone")
+        if not ratelimit.consume(
+            context.request, action="request_login_code", key=phone.lower()
+        ):
+            raise adapter.validation_error("too_many_login_attempts")
+        return phone
+
     def clean_email(self):
         adapter = get_adapter()
         email = self.cleaned_data["email"]
@@ -743,7 +761,6 @@ class RequestLoginCodeForm(forms.Form):
         if not app_settings.PREVENT_ENUMERATION:
             if not users:
                 raise adapter.validation_error("unknown_email")
-
         if not ratelimit.consume(
             context.request, action="request_login_code", key=email.lower()
         ):

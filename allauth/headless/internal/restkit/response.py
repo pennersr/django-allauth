@@ -1,3 +1,4 @@
+from http import HTTPStatus
 from typing import Any, Dict, Optional
 
 from django.forms.utils import ErrorList
@@ -14,7 +15,7 @@ class APIResponse(JsonResponse):
         errors=None,
         data=None,
         meta: Optional[Dict] = None,
-        status: int = 200,
+        status: int = HTTPStatus.OK,
     ):
         d: Dict[str, Any] = {"status": status}
         if data is not None:

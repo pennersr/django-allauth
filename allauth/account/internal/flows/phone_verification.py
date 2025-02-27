@@ -89,6 +89,10 @@ class ChangePhoneVerificationProcess(PhoneVerificationProcess):
     def persist(self):
         self.request.session[PHONE_VERIFICATION_SESSION_KEY] = self.state
 
+    def finish(self):
+        super().finish()
+        self.request.session.pop(PHONE_VERIFICATION_SESSION_KEY, None)
+
     @classmethod
     def initiate(cls, request: HttpRequest, phone: str):
         state = cls.initial_state(user=request.user, phone=phone)

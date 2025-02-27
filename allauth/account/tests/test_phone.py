@@ -4,6 +4,7 @@ from django.conf import settings
 from django.urls import reverse
 
 import pytest
+from pytest_django.asserts import assertTemplateUsed
 
 from allauth.account.adapter import get_adapter
 
@@ -94,3 +95,32 @@ def test_login_with_unverified_phone_and_password(
         assert resp["location"] == settings.LOGIN_REDIRECT_URL
         phone_verified = get_adapter().get_phone(user)
         assert phone_verified == (phone, True)
+
+
+def test_change_phone(
+    auth_client, user, phone_only_settings, phone_factory, sms_outbox
+):
+    new_phone = phone_factory()
+    resp = auth_client.get(reverse("account_change_phone"))
+    assert resp.status_code == HTTPStatus.OK
+    assertTemplateUsed(resp, "account/phone_change.html")
+
+    resp = auth_client.post(reverse("account_change_phone"), {"phone": new_phone})
+    assert resp.status_code == HTTPStatus.FOUND
+    assert resp["location"] == reverse("account_verify_phone")
+
+    code = sms_outbox[-1]["code"]
+    resp = auth_client.get(reverse("account_verify_phone"))
+    assert resp.status_code == HTTPStatus.OK
+    assertTemplateUsed(resp, "account/confirm_phone_verification_code.html")
+
+    resp = auth_client.post(reverse("account_verify_phone"), {"code": code})
+    assert resp.status_code == HTTPStatus.FOUND
+    assert resp["location"] == reverse("account_change_phone")
+
+    phone_verified = get_adapter().get_phone(user)
+    assert phone_verified == (new_phone, True)
+
+    resp = auth_client.get(reverse("account_verify_phone"))
+    assert resp.status_code == HTTPStatus.FOUND
+    assert resp["location"] == reverse("account_change_phone")

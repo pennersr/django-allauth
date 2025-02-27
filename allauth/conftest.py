@@ -437,8 +437,16 @@ def sms_outbox():
 
 
 @pytest.fixture
-def phone():
-    return "+31612345678"
+def phone_factory():
+    def f():
+        return f"+31{random.randint(1, 10**10):010}"
+
+    return f
+
+
+@pytest.fixture
+def phone(phone_factory):
+    return phone_factory()
 
 
 @pytest.fixture

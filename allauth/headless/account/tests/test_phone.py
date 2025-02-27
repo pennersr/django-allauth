@@ -1,6 +1,98 @@
 from http import HTTPStatus
 
 
+def test_change_phone_to_same(
+    auth_client, user_with_phone, phone, settings_impacting_urls, headless_reverse
+):
+    with settings_impacting_urls(
+        ACCOUNT_SIGNUP_FIELDS=["phone*"],
+        ACCOUNT_LOGIN_METHODS=("phone",),
+    ):
+        resp = auth_client.post(
+            headless_reverse("headless:account:manage_phone"),
+            data={
+                "phone": phone,
+            },
+            content_type="application/json",
+        )
+        assert resp.status_code == HTTPStatus.BAD_REQUEST
+        assert resp.json() == {
+            "errors": [
+                {
+                    "code": "same_as_current",
+                    "message": "The new value must be different from the current one.",
+                    "param": "phone",
+                }
+            ],
+            "status": HTTPStatus.BAD_REQUEST,
+        }
+
+
+def test_change_phone(
+    auth_client,
+    user_with_phone,
+    phone,
+    settings_impacting_urls,
+    headless_reverse,
+    phone_factory,
+    sms_outbox,
+):
+    with settings_impacting_urls(
+        ACCOUNT_SIGNUP_FIELDS=["phone*"],
+        ACCOUNT_LOGIN_METHODS=("phone",),
+    ):
+        new_phone = phone_factory()
+        resp = auth_client.post(
+            headless_reverse("headless:account:manage_phone"),
+            data={
+                "phone": new_phone,
+            },
+            content_type="application/json",
+        )
+        assert resp.status_code == HTTPStatus.ACCEPTED
+        assert resp.json() == {
+            "data": [
+                {
+                    "phone": new_phone,
+                    "verified": False,
+                },
+            ],
+            "status": 202,
+        }
+
+        resp = auth_client.post(
+            headless_reverse("headless:account:verify_phone"),
+            data={
+                "code": sms_outbox[-1]["code"],
+            },
+            content_type="application/json",
+        )
+        assert resp.status_code == HTTPStatus.OK
+
+        resp = auth_client.post(
+            headless_reverse("headless:account:verify_phone"),
+            data={
+                "code": sms_outbox[-1]["code"],
+            },
+            content_type="application/json",
+        )
+        assert resp.status_code == HTTPStatus.CONFLICT
+
+        resp = auth_client.get(
+            headless_reverse("headless:account:manage_phone"),
+            content_type="application/json",
+        )
+        assert resp.json() == {
+            "data": [
+                {
+                    "phone": new_phone,
+                    "verified": True,
+                },
+            ],
+            "status": 200,
+        }
+
+
 def test_login(
     client,
     user_with_phone,

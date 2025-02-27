@@ -25,6 +25,7 @@ from allauth.headless.account import response
 from allauth.headless.account.inputs import (
     AddEmailInput,
     ChangePasswordInput,
+    ChangePhoneInput,
     ConfirmLoginCodeInput,
     DeleteEmailInput,
     LoginInput,
@@ -360,6 +361,43 @@ class ManageEmailView(AuthenticatedAPIView):
 
     def get_input_kwargs(self):
         return {"user": self.request.user}
+
+
+@method_decorator(rate_limit(action="change_phone"), name="handle")
+class ManagePhoneView(AuthenticatedAPIView):
+    input_class = ChangePhoneInput
+
+    def get(self, request, *args, **kwargs):
+        phone_numbers = []
+        phone_verified = get_account_adapter().get_phone(self.request.user)
+        if phone_verified:
+            phone_numbers.append(
+                {"phone": phone_verified[0], "verified": phone_verified[1]}
+            )
+        return response.PhoneNumbersResponse(self.request, phone_numbers)
+
+    def post(self, request, *args, **kwargs):
+        phone = self.input.cleaned_data["phone"]
+        flows.phone_verification.ChangePhoneVerificationProcess.initiate(
+            self.request, phone
+        )
+        return response.PhoneNumbersResponse(
+            self.request,
+            [
+                {
+                    "phone": phone,
+                    "verified": False,
+                }
+            ],
+            status=HTTPStatus.ACCEPTED,
+        )
+
+    def get_input_kwargs(self):
+        phone = None
+        phone_verified = get_account_adapter().get_phone(self.request.user)
+        if phone_verified:
+            phone = phone_verified[0]
+        return {"phone": phone}
 
 
 @method_decorator(rate_limit(action="reauthenticate"), name="handle")

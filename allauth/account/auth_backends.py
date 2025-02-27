@@ -1,9 +1,7 @@
 from threading import local
-from typing import Optional, Tuple
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import ModelBackend
-from django.contrib.auth.models import AbstractBaseUser
 
 from allauth.account.adapter import get_adapter
 from allauth.account.app_settings import LoginMethod
@@ -20,105 +18,85 @@ class AuthenticationBackend(ModelBackend):
         password = credentials.get("password")
         if not password:
             return None
-
-        phone = credentials.get("phone")
-        user, did_attempt = self._authenticate_by_phone(phone, password)
-        if did_attempt:
-            return user
-
-        email = credentials.get("email")
-        user, did_attempt = self._authenticate_by_email(email, password)
-        if did_attempt:
-            return user
-
-        username = credentials.get("username")
-        if not username:
-            return None
-        # Username/email ambiguity: even though allauth will pass along
-        # `email` explicitly, other apps may not respect this. For example,
-        # when using django-tastypie basic authentication, the login is
-        # always passed as `username`.  So let's play nice with other apps
-        # and use username as fallback.
-        if (
-            LoginMethod.USERNAME in app_settings.LOGIN_METHODS
-            and LoginMethod.EMAIL in app_settings.LOGIN_METHODS
-        ):
-            user, _ = self._authenticate_by_email(
-                username, password, time_attack_mitigation=False
-            )
-            if not user:
-                user, _ = self._authenticate_by_username(username, password)
-            return user
-
-        # Either email, or username, is a login method. Not both.  No need
-        # to worry about time attacks.
-        user, did_attempt = self._authenticate_by_email(username, password)
-        if did_attempt:
-            return user
-
-        user, _ = self._authenticate_by_username(username, password)
+        self._did_check_password = False
+        user = self._authenticate(request, **credentials)
+        if not self._did_check_password:
+            self._mitigate_timing_attack(password)
         return user
 
-    def _authenticate_by_phone(
-        self, phone: Optional[str], password: str
-    ) -> Tuple[Optional[AbstractBaseUser], bool]:
-        if LoginMethod.PHONE not in app_settings.LOGIN_METHODS:
-            return (None, False)
-        if not phone:
-            return (None, False)
+    def _authenticate(self, request, **credentials):
+        password = credentials.get("password")
+        username = credentials.get("username")
+        if username:
+            if LoginMethod.EMAIL in app_settings.LOGIN_METHODS:
+                # Username/email ambiguity: even though allauth will pass along
+                # `email` explicitly, other apps may not respect this. For example,
+                # when using django-tastypie basic authentication, the login is
+                # always passed as `username`.  So let's play nice with other apps
+                # and use username as fallback.
+                user = self._authenticate_by_email(username, password)
+                if user:
+                    return user
+            user = self._authenticate_by_username(username, password)
+            if user:
+                return user
+
+        email = credentials.get("email")
+        if email:
+            user = self._authenticate_by_email(email, password)
+            if user:
+                return user
+
+        phone = credentials.get("phone")
+        if phone:
+            user = self._authenticate_by_phone(phone, password)
+            if user:
+                return user
+        return None
+
+    def _authenticate_by_phone(self, phone: str, password: str):
+        if not phone or LoginMethod.PHONE not in app_settings.LOGIN_METHODS:
+            return None
         adapter = get_adapter()
         user = adapter.get_user_by_phone(phone)
-        if user:
-            if self._check_password(user, password):
-                return (user, True)
-        else:
-            get_user_model()().set_password(password)
-        return (None, True)
+        return self._check_password(user, password)
 
-    def _authenticate_by_username(
-        self, username: Optional[str], password: str
-    ) -> Tuple[Optional[AbstractBaseUser], bool]:
-        username_field = app_settings.USER_MODEL_USERNAME_FIELD
+    def _authenticate_by_username(self, username: str, password: str):
         if (
             (LoginMethod.USERNAME not in app_settings.LOGIN_METHODS)
-            or (not username_field)
+            or (not app_settings.USER_MODEL_USERNAME_FIELD)
             or not username
         ):
-            return (None, False)
-        User = get_user_model()
-        try:
-            # Username query is case insensitive
-            user = filter_users_by_username(username).get()
-        except User.DoesNotExist:
-            # Run the default password hasher once to reduce the timing
-            # difference between an existing and a nonexistent user.
-            User().set_password(password)
-        else:
-            if self._check_password(user, password):
-                return (user, True)
-        return (None, True)
+            return None
+        user = filter_users_by_username(username).first()
+        return self._check_password(user, password)
 
     def _authenticate_by_email(
-        self, email: Optional[str], password: str, time_attack_mitigation: bool = True
-    ) -> Tuple[Optional[AbstractBaseUser], bool]:
+        self,
+        email: str,
+        password: str,
+    ):
         if not email or LoginMethod.EMAIL not in app_settings.LOGIN_METHODS:
-            return (None, False)
+            return None
         users = filter_users_by_email(email, prefer_verified=True)
-        if users:
-            for user in users:
-                if self._check_password(user, password):
-                    return (user, True)
-        elif time_attack_mitigation:
-            get_user_model()().set_password(password)
-        return (None, True)
+        for user in users:
+            if self._check_password(user, password):
+                return user
+        return None
+
+    def _mitigate_timing_attack(self, password):
+        get_user_model()().set_password(password)
 
     def _check_password(self, user, password):
-        ret = user.check_password(password)
-        if ret:
-            ret = self.user_can_authenticate(user)
-            if not ret:
+        if not user:
+            return None
+        self._did_check_password = True
+        ok = user.check_password(password)
+        if ok:
+            ok = self.user_can_authenticate(user)
+            if not ok:
                 self._stash_user(user)
-        return ret
+        return user if ok else None
 
     @classmethod
     def _stash_user(cls, user):

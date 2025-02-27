@@ -162,6 +162,16 @@ class LoginForm(forms.Form):
         method = flows.login.derive_login_method(login)
         credentials = {}
         credentials[method] = login
+
+        # There are projects using usernames that look like email addresses,
+        # yet, really are usernames. So, if username is a login method, always
+        # give that a shot.
+        if (
+            LoginMethod.USERNAME in app_settings.LOGIN_METHODS
+            and method != LoginMethod.USERNAME
+        ):
+            credentials[LoginMethod.USERNAME] = login
+
         password = self.cleaned_data.get("password")
         if password:
             credentials["password"] = password

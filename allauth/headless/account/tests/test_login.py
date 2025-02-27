@@ -19,12 +19,12 @@ def test_auth_password_input_error(headless_reverse, client):
             {
                 "message": "This field is required.",
                 "code": "required",
-                "param": "password",
+                "param": "username",
             },
             {
                 "message": "This field is required.",
                 "code": "required",
-                "param": "username",
+                "param": "password",
             },
         ],
     }

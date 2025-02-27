@@ -1,6 +1,26 @@
 from http import HTTPStatus
 
 
+def test_login(
+    client,
+    user_with_phone,
+    phone,
+    user_password,
+    headless_reverse,
+    settings_impacting_urls,
+):
+    with settings_impacting_urls(
+        ACCOUNT_SIGNUP_FIELDS=["phone*", "password1*"],
+        ACCOUNT_LOGIN_METHODS=("phone",),
+    ):
+        resp = client.post(
+            headless_reverse("headless:account:login"),
+            data={"phone": phone, "password": user_password},
+            content_type="application/json",
+        )
+        assert resp.status_code == HTTPStatus.OK
+
+
 def test_signup(
     db,
     client,

@@ -22,7 +22,6 @@ class DefaultHeadlessAdapter(BaseAdapter):
         # showing up in a UI.
         "account_not_found": "Unknown account.",
         "client_id_required": "`client_id` required.",
-        "email_or_username": "Pass only one of email or username, not both.",
         "invalid_token": "Invalid token.",
         "token_authentication_not_supported": "Provider does not support token authentication.",
         "token_required": "`id_token` and/or `access_token` required.",

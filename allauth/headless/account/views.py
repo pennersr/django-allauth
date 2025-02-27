@@ -57,7 +57,8 @@ class RequestLoginCodeView(APIView):
         flows.login_by_code.LoginCodeVerificationProcess.initiate(
             request=self.request,
             user=self.input._user,
-            email=self.input.cleaned_data["email"],
+            email=self.input.cleaned_data.get("email"),
+            phone=self.input.cleaned_data.get("phone"),
         )
         return AuthenticationResponse(self.request)
 

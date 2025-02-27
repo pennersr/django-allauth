@@ -21,6 +21,37 @@ def test_login(
         assert resp.status_code == HTTPStatus.OK
 
 
+def test_login_by_code(
+    client,
+    user_with_phone,
+    phone,
+    headless_reverse,
+    settings_impacting_urls,
+    sms_outbox,
+):
+    with settings_impacting_urls(
+        ACCOUNT_SIGNUP_FIELDS=["phone*"],
+        ACCOUNT_LOGIN_METHODS=("phone",),
+    ):
+        resp = client.post(
+            headless_reverse("headless:account:request_login_code"),
+            data={
+                "phone": phone,
+            },
+            content_type="application/json",
+        )
+        assert resp.status_code == HTTPStatus.UNAUTHORIZED
+        code = sms_outbox[-1]["code"]
+        resp = client.post(
+            headless_reverse("headless:account:confirm_login_code"),
+            data={"code": code},
+            content_type="application/json",
+        )
+        assert resp.status_code == HTTPStatus.OK
+        data = resp.json()
+        assert data["meta"]["is_authenticated"]
+
+
 def test_signup(
     db,
     client,

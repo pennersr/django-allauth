@@ -76,11 +76,13 @@ class LoginCodeVerificationProcess(AbstractCodeVerificationProcess):
             raise ValueError()
 
     def send_by_phone(self, phone):
+        adapter = get_adapter()
         if self.user:
-            adapter = get_adapter()
             code = adapter.generate_phone_verification_code()
-            adapter.send_phone_verification_code(user=self.user, phone=phone, code=code)
+            adapter.send_verification_code_sms(user=self.user, phone=phone, code=code)
             self.state["code"] = code
+        else:
+            adapter.send_unknown_account_sms(phone)
         self.add_sent_message({"recipient": phone, "phone": phone})
 
     def send_by_email(self, email):

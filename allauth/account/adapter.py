@@ -859,7 +859,15 @@ class DefaultAccountAdapter(BaseAdapter):
 
         return PhoneField(**kwargs)
 
-    def send_phone_verification_code(self, *, user, phone: str, code: str, **kwargs):
+    def send_unknown_account_sms(self, phone: str, **kwargs):
+        """
+        In case enumeration prevention is enabled, and, a verification code
+        is requested for an unlisted phone number, this method is invoked to
+        send a text explaining that no account is on file.
+        """
+        pass
+
+    def send_verification_code_sms(self, *, user, phone: str, code: str, **kwargs):
         """
         Sends a verification code.
         """

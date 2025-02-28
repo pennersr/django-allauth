@@ -35,7 +35,7 @@ class PhoneVerificationProcess(AbstractCodeVerificationProcess):
     def send(self):
         adapter = get_adapter()
         code = adapter.generate_phone_verification_code()
-        adapter.send_phone_verification_code(
+        adapter.send_verification_code_sms(
             user=self.user,
             code=code,
             phone=self.state["phone"],

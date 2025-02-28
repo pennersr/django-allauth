@@ -22,11 +22,18 @@ class AccountAdapter(DefaultAccountAdapter):
     def set_phone_verified(self, user, phone):
         self.set_phone(user, phone, True)
 
-    def send_phone_verification_code(self, *, user, phone: str, code: str, **kwargs):
+    def send_verification_code_sms(self, *, user, phone: str, code: str, **kwargs):
         messages.add_message(
             self.request,
-            messages.INFO,
-            f"⚠️ SMS demo stub: assume code {code} was sent to {phone}",
+            messages.WARNING,
+            f"⚠️ SMS demo stub: assume code {code} was sent to {phone}.",
+        )
+
+    def send_unknown_account_sms(self, phone: str, **kwargs):
+        messages.add_message(
+            self.request,
+            messages.WARNING,
+            f"⚠️ SMS demo stub: Enumeration prevention: texted {phone} informing no account exists.",
         )
 
     def get_user_by_phone(self, phone):

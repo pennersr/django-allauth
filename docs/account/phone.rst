@@ -59,4 +59,5 @@ available. You can integrate those by overriding the following adapter method:
 
  .. autoclass:: allauth.account.adapter.DefaultAccountAdapter
 
-   .. automethod:: send_phone_verification_code
+   .. automethod:: send_verification_code_sms
+   .. automethod:: send_unknown_account_sms

@@ -1,4 +1,5 @@
 from http import HTTPStatus
+from unittest.mock import patch
 
 from django.conf import settings
 from django.urls import reverse
@@ -124,3 +125,15 @@ def test_change_phone(
     resp = auth_client.get(reverse("account_verify_phone"))
     assert resp.status_code == HTTPStatus.FOUND
     assert resp["location"] == reverse("account_change_phone")
+
+
+def test_login_by_code_enumeration_prevention(
+    db, phone_only_settings, client, phone_factory, sms_outbox
+):
+    resp = client.post(
+        reverse("account_request_login_code"), data={"phone": phone_factory()}
+    )
+    assert resp.status_code == HTTPStatus.FOUND
+    assert resp["location"] == reverse("account_confirm_login_code")
+    assert "code" not in sms_outbox[-1]
+    assert "user_id" not in sms_outbox[-1]

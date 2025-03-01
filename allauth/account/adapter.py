@@ -706,6 +706,10 @@ class DefaultAccountAdapter(BaseAdapter):
         email = EmailAddress.objects.get_primary_email(user)
         if email:
             credentials["email"] = email
+        if app_settings.LoginMethod.PHONE in app_settings.LOGIN_METHODS:
+            phone_verified = self.get_phone(user)
+            if phone_verified:
+                credentials["phone"] = phone_verified[0]
         reauth_user = self.authenticate(context.request, **credentials)
         return reauth_user is not None and reauth_user.pk == user.pk
 

@@ -46,10 +46,15 @@ def test_auth_unverified_email_and_mfa(
         flows.append(
             {
                 "id": "provider_redirect",
-                "providers": ["dummy", "openid_connect", "openid_connect"],
+                "providers": ["dummy", "unittest-server", "other-server"],
             }
         )
-    flows.append({"id": "provider_token", "providers": ["dummy"]})
+    flows.append(
+        {
+            "id": "provider_token",
+            "providers": ["dummy", "unittest-server", "other-server"],
+        }
+    )
     flows.append({"id": "mfa_login_webauthn"})
     flows.append(
         {

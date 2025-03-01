@@ -62,7 +62,7 @@ def test_manage_providers(auth_client, user, headless_reverse, provider_id):
                 "display": "Unittest Server",
                 "provider": {
                     "client_id": "Unittest client_id",
-                    "flows": ["provider_redirect"],
+                    "flows": ["provider_redirect", "provider_token"],
                     "id": provider_id,
                     "name": "Unittest Server",
                 },

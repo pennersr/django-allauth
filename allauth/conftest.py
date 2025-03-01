@@ -250,6 +250,11 @@ def provider_id():
 
 
 @pytest.fixture
+def openid_connect_provider_id():
+    return "unittest-server"
+
+
+@pytest.fixture
 def password_reset_key_generator():
     def f(user):
         from allauth.account import app_settings

@@ -7,6 +7,7 @@ from django.urls import reverse
 from pytest_django.asserts import assertTemplateUsed
 
 from allauth.account.models import EmailAddress
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount.providers.base.constants import AuthProcess
 
@@ -476,3 +477,35 @@ def test_provider_signup_not_pending(client, headless_reverse, db, settings):
         content_type="application/json",
     )
     assert resp.status_code == HTTPStatus.CONFLICT
+
+
+def test_valid_openid_connect_token(
+    client, headless_reverse, db, openid_connect_provider_id
+):
+    provider = get_adapter().get_provider(None, openid_connect_provider_id)
+    id_token = json.dumps(
+        {
+            "id": 123,
+            "email": "a@b.com",
+            "email_verified": True,
+        }
+    )
+    with patch(
+        "allauth.socialaccount.providers.openid_connect.views.OpenIDConnectOAuth2Adapter.openid_config"
+    ):
+        with patch("allauth.socialaccount.internal.jwtkit.verify_and_decode") as vad:
+            vad.return_value = {"sub": "123"}
+            resp = client.post(
+                headless_reverse("headless:socialaccount:provider_token"),
+                data={
+                    "provider": openid_connect_provider_id,
+                    "token": {
+                        "client_id": provider.app.client_id,
+                        "id_token": id_token,
+                    },
+                    "process": AuthProcess.LOGIN,
+                },
+                content_type="application/json",
+            )
+            assert resp.status_code == HTTPStatus.OK
+            assert SocialAccount.objects.filter(uid="123").exists()

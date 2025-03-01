@@ -4,15 +4,18 @@
 Note worthy changes
 -------------------
 
-- Added support for resetting passwords by code, instead of a link.
+- Added support for phone (SMS) authentication.
+
+- Added support for resetting passwords by code, instead of a link
+  (``ACCOUNT_PASSWORD_RESET_BY_CODE_ENABLED``).
 
 - Simplified signup form configuration. The following settings all controlled
   signup form: ``ACCOUNT_EMAIL_REQUIRED``, ``ACCOUNT_USERNAME_REQUIRED``,
   ``ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE``, ``ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE``.
   This setup had its issues. For example, when email was not required it was
   still available as an optional field, whereas the username field disappeared
-  when not required. Also, for future phone/SMS support, additional settings
-  would be required.  The settings are now all deprecated, and replaced by one
+  when not required. Also, for phone/SMS support, additional settings
+  would have been required.  The settings are now all deprecated, and replaced by one
   new setting: ``ACCOUNT_SIGNUP_FIELDS``, which can be configured to
   e.g. ``['username*', 'email', 'password1*', 'password2*']`` to indicate which
   fields are present and required (``'*'``). This change is performed in a

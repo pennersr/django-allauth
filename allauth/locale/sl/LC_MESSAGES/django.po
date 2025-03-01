@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-21 06:42-0500\n"
+"POT-Creation-Date: 2025-03-01 02:57-0600\n"
 "PO-Revision-Date: 2024-04-20 21:25+0200\n"
 "Last-Translator: Klemen Štrajhar <klemen.strajhar@gmail.com>\n"
 "Language-Team: Bojan Mihelac <bmihelac@mihelac.org>, Lev Predan Kowarski, "
@@ -21,93 +21,119 @@ msgstr ""
 "n%100==4 ? 2 : 3);\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
-#: account/adapter.py:51
+#: account/adapter.py:55
 msgid "This account is currently inactive."
 msgstr "Račun trenutno ni aktiven."
 
-#: account/adapter.py:53
+#: account/adapter.py:57
 #, fuzzy
 #| msgid "You cannot remove your primary email address (%(email)s)."
 msgid "You cannot remove your primary email address."
 msgstr "Primarnega e-poštnega naslova (%(email)s) ni mogoče odstraniti."
 
-#: account/adapter.py:56
+#: account/adapter.py:60
 msgid "This email address is already associated with this account."
 msgstr "E-poštni naslov že pripada vašemu uporabniškemu računu."
 
-#: account/adapter.py:59
+#: account/adapter.py:63
 msgid "The email address and/or password you specified are not correct."
 msgstr "E-poštni naslov in/ali geslo nista pravilna."
 
-#: account/adapter.py:61
+#: account/adapter.py:66
+#, fuzzy
+#| msgid "The username and/or password you specified are not correct."
+msgid "The phone number and/or password you specified are not correct."
+msgstr "Uporabniško ime in/ali geslo nista pravilna."
+
+#: account/adapter.py:68
 msgid "A user is already registered with this email address."
 msgstr "Za ta e-naslov že obstaja registriran uporabnik."
 
-#: account/adapter.py:62
+#: account/adapter.py:69
 msgid "Please type your current password."
 msgstr "Prosimo vpišite trenutno geslo."
 
-#: account/adapter.py:63 mfa/adapter.py:40
+#: account/adapter.py:70 mfa/adapter.py:40
 msgid "Incorrect code."
 msgstr ""
 
-#: account/adapter.py:64
+#: account/adapter.py:71
 #, fuzzy
 #| msgid "Current Password"
 msgid "Incorrect password."
 msgstr "Trenutno geslo"
 
-#: account/adapter.py:65
+#: account/adapter.py:72
 #, fuzzy
 #| msgid "Bad Token"
 msgid "Invalid or expired key."
 msgstr "Napačni žeton"
 
-#: account/adapter.py:66
+#: account/adapter.py:73
+#, fuzzy
+#| msgid "Bad Token"
+msgid "Invalid login."
+msgstr "Napačni žeton"
+
+#: account/adapter.py:74
 msgid "The password reset token was invalid."
 msgstr "Žeton za ponastavitev gesla je bil neveljaven."
 
-#: account/adapter.py:67
+#: account/adapter.py:75
 #, fuzzy, python-format
 #| msgid "Your account has no verified email address."
 msgid "You cannot add more than %d email addresses."
 msgstr "Vaš uporabniški račun nima preverjenega e-poštnega naslova."
 
-#: account/adapter.py:69
+#: account/adapter.py:77
 msgid "Too many failed login attempts. Try again later."
 msgstr "Preveliko število neuspelih prijav. Poskusite znova kasneje."
 
-#: account/adapter.py:71
+#: account/adapter.py:79
 msgid "The email address is not assigned to any user account"
 msgstr "E-poštni naslov ne pripada nobenemu uporabniškemu računu."
 
-#: account/adapter.py:72
+#: account/adapter.py:80
+#, fuzzy
+#| msgid "The email address is not assigned to any user account"
+msgid "The phone number is not assigned to any user account"
+msgstr "E-poštni naslov ne pripada nobenemu uporabniškemu računu."
+
+#: account/adapter.py:81
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary email address must be verified."
 msgstr ""
 
-#: account/adapter.py:74
+#: account/adapter.py:83
 msgid "Username can not be used. Please use other username."
 msgstr ""
 "Uporabniško ime je neveljavno. Prosimo uporabite drugo uporabniško ime."
 
-#: account/adapter.py:77
+#: account/adapter.py:86
 msgid "The username and/or password you specified are not correct."
 msgstr "Uporabniško ime in/ali geslo nista pravilna."
 
-#: account/adapter.py:741
+#: account/adapter.py:91
+msgid "Please select only one."
+msgstr ""
+
+#: account/adapter.py:92
+msgid "The new value must be different from the current one."
+msgstr ""
+
+#: account/adapter.py:763
 #, fuzzy
 #| msgid "Forgot Password?"
 msgid "Use your password"
 msgstr "Ste pozabili geslo?"
 
-#: account/adapter.py:750
+#: account/adapter.py:772
 #, fuzzy
 #| msgid "token secret"
 msgid "Use authenticator app or code"
 msgstr "žeton skrivnost"
 
-#: account/adapter.py:757 templates/mfa/authenticate.html:36
+#: account/adapter.py:779 templates/mfa/authenticate.html:41
 #: templates/mfa/webauthn/reauthenticate.html:15
 #, fuzzy
 #| msgid "secret key"
@@ -122,82 +148,96 @@ msgstr ""
 msgid "Accounts"
 msgstr "Računi"
 
-#: account/forms.py:57 account/forms.py:483
+#: account/fields.py:43
+msgid "Enter a phone number including country code (e.g. +1 for the US)."
+msgstr ""
+
+#: account/fields.py:49 account/fields.py:53 account/forms.py:387
+msgid "Phone"
+msgstr ""
+
+#: account/forms.py:60 account/forms.py:579
 msgid "You must type the same password each time."
 msgstr "Vnesti je potrebno isto geslo."
 
-#: account/forms.py:92 account/forms.py:413 account/forms.py:573
-#: account/forms.py:685
+#: account/forms.py:95 account/forms.py:506 account/forms.py:669
+#: account/forms.py:765
 msgid "Password"
 msgstr "Geslo"
 
-#: account/forms.py:93
+#: account/forms.py:96
 msgid "Remember Me"
 msgstr "Zapomni si me"
 
-#: account/forms.py:103 account/forms.py:270 account/forms.py:499
-#: account/forms.py:591 account/forms.py:702
+#: account/forms.py:107 account/forms.py:330 account/forms.py:595
+#: account/forms.py:687 account/forms.py:782
 msgid "Email address"
 msgstr "E-poštni naslov"
 
-#: account/forms.py:107 account/forms.py:308 account/forms.py:496
-#: account/forms.py:586
+#: account/forms.py:111 account/forms.py:362 account/forms.py:592
+#: account/forms.py:682
 msgid "Email"
 msgstr "E-poštni naslov"
 
-#: account/forms.py:110 account/forms.py:113 account/forms.py:260
-#: account/forms.py:263
+#: account/forms.py:114 account/forms.py:117 account/forms.py:320
+#: account/forms.py:323 account/forms.py:374
 msgid "Username"
 msgstr "Uporabniško ime"
 
-#: account/forms.py:123
+#: account/forms.py:132
 msgid "Username or email"
 msgstr "Uporabniško ime ali e-poštni naslov"
 
-#: account/forms.py:126
+#: account/forms.py:135
 msgctxt "field label"
 msgid "Login"
 msgstr "Prijava"
 
-#: account/forms.py:137
+#: account/forms.py:146
 #, fuzzy
 #| msgid "Forgot Password?"
 msgid "Forgot your password?"
 msgstr "Ste pozabili geslo?"
 
-#: account/forms.py:299
+#: account/forms.py:350
 msgid "Email (again)"
 msgstr "E-pooštni naslov (ponovno)"
 
-#: account/forms.py:303
+#: account/forms.py:355
 msgid "Email address confirmation"
 msgstr "Potrditev e-poštni naslova"
 
-#: account/forms.py:311
+#: account/forms.py:365
 msgid "Email (optional)"
 msgstr "E-poštni naslov (neobvezno)"
 
-#: account/forms.py:370
+#: account/forms.py:377
+#, fuzzy
+#| msgid "Email (optional)"
+msgid "Username (optional)"
+msgstr "E-poštni naslov (neobvezno)"
+
+#: account/forms.py:458
 msgid "You must type the same email each time."
 msgstr "Vnesti je potrebno isti e-poštni naslov."
 
-#: account/forms.py:419 account/forms.py:574
+#: account/forms.py:513 account/forms.py:670
 msgid "Password (again)"
 msgstr "Geslo (ponovno)"
 
-#: account/forms.py:554
+#: account/forms.py:650
 msgid "Current Password"
 msgstr "Trenutno geslo"
 
-#: account/forms.py:556 account/forms.py:638
+#: account/forms.py:652 account/forms.py:718
 msgid "New Password"
 msgstr "Novo geslo"
 
-#: account/forms.py:557 account/forms.py:639
+#: account/forms.py:653 account/forms.py:719
 msgid "New Password (again)"
 msgstr "Novo geslo (ponovno)"
 
-#: account/forms.py:725 account/forms.py:727 mfa/base/forms.py:15
+#: account/forms.py:842 account/forms.py:844 mfa/base/forms.py:15
 #: mfa/base/forms.py:17 mfa/totp/forms.py:13
 msgid "Code"
 msgstr ""
@@ -206,7 +246,7 @@ msgstr ""
 msgid "user"
 msgstr "uporabnik"
 
-#: account/models.py:32 account/models.py:40 account/models.py:147
+#: account/models.py:32 account/models.py:40 account/models.py:148
 msgid "email address"
 msgstr "E-poštni naslov"
 
@@ -222,23 +262,23 @@ msgstr "Primarni"
 msgid "email addresses"
 msgstr "E-poštni naslovi"
 
-#: account/models.py:150
+#: account/models.py:151
 msgid "created"
 msgstr "ustvarjeno"
 
-#: account/models.py:151
+#: account/models.py:152
 msgid "sent"
 msgstr "poslano"
 
-#: account/models.py:152 socialaccount/models.py:69
+#: account/models.py:153 socialaccount/models.py:69
 msgid "key"
 msgstr "ključ"
 
-#: account/models.py:157
+#: account/models.py:158
 msgid "email confirmation"
 msgstr "E-poštna potrditev"
 
-#: account/models.py:158
+#: account/models.py:159
 msgid "email confirmations"
 msgstr "E-poštne potrditve"
 
@@ -303,19 +343,19 @@ msgstr ""
 msgid "Authenticator code"
 msgstr ""
 
-#: mfa/webauthn/forms.py:56
+#: mfa/webauthn/forms.py:59
 #, fuzzy
 #| msgid "Password"
 msgid "Passwordless"
 msgstr "Geslo"
 
-#: mfa/webauthn/forms.py:59
+#: mfa/webauthn/forms.py:62
 msgid ""
 "Enabling passwordless operation allows you to sign in using just this key, "
 "but imposes additional requirements such as biometrics or PIN protection."
 msgstr ""
 
-#: socialaccount/adapter.py:36
+#: socialaccount/adapter.py:35
 #, fuzzy, python-format
 #| msgid ""
 #| "An account already exists with this e-mail address. Please sign in to "
@@ -327,21 +367,21 @@ msgstr ""
 "Uporabniški račun s tem e-poštnim naslovom že obstaja. Prosimo vpišite se v "
 "tobstoječi račun, nato %s račune povežite."
 
-#: socialaccount/adapter.py:40
+#: socialaccount/adapter.py:39
 #, fuzzy
 #| msgid "Bad Token"
 msgid "Invalid token."
 msgstr "Napačni žeton"
 
-#: socialaccount/adapter.py:41
+#: socialaccount/adapter.py:40
 msgid "Your account has no password set up."
 msgstr "Vaš uporabniški račun nima nastavljenega gesla."
 
-#: socialaccount/adapter.py:42
+#: socialaccount/adapter.py:41
 msgid "Your account has no verified email address."
 msgstr "Vaš uporabniški račun nima preverjenega e-poštnega naslova."
 
-#: socialaccount/adapter.py:44
+#: socialaccount/adapter.py:43
 #, fuzzy
 #| msgid ""
 #| "You can sign in to your account using any of the following third party "
@@ -349,7 +389,7 @@ msgstr "Vaš uporabniški račun nima preverjenega e-poštnega naslova."
 msgid "You cannot disconnect your last remaining third-party account."
 msgstr "Vpišete se lahko s pomčjo vaših obstoječih uoporabniških računov:"
 
-#: socialaccount/adapter.py:47
+#: socialaccount/adapter.py:46
 #: templates/socialaccount/messages/account_connected_other.txt:2
 #, fuzzy
 #| msgid "The social account is already connected to a different account."
@@ -466,10 +506,10 @@ msgid "Login"
 msgstr "Prijava"
 
 #: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:19
-#: templates/account/confirm_email_verification_code.html:33
-#: templates/account/confirm_email_verification_code.html:37
-#: templates/account/confirm_login_code.html:32
-#: templates/mfa/authenticate.html:40
+#: templates/account/base_confirm_code.html:42
+#: templates/account/base_confirm_code.html:46
+#: templates/account/password_reset_from_key.html:33
+#: templates/mfa/authenticate.html:28 templates/mfa/authenticate.html:44
 #: templates/mfa/webauthn/signup_form.html:26
 msgid "Cancel"
 msgstr ""
@@ -516,6 +556,20 @@ msgstr "Neaktiven račun"
 msgid "This account is inactive."
 msgstr "Račun ni aktiven."
 
+#: templates/account/base_confirm_code.html:27
+#, python-format
+msgid ""
+"We've sent a code to %(recipient)s. The code expires shortly, so please "
+"enter it soon."
+msgstr ""
+
+#: templates/account/base_confirm_code.html:38
+#: templates/account/email_confirm.html:24
+#: templates/account/reauthenticate.html:18
+#: templates/mfa/reauthenticate.html:18
+msgid "Confirm"
+msgstr "Potrdi"
+
 #: templates/account/base_reauthenticate.html:5
 #: templates/account/base_reauthenticate.html:9
 #, fuzzy
@@ -528,7 +582,7 @@ msgid "Please reauthenticate to safeguard your account."
 msgstr ""
 
 #: templates/account/base_reauthenticate.html:19
-#: templates/mfa/authenticate.html:31
+#: templates/mfa/authenticate.html:37
 msgid "Alternative options"
 msgstr ""
 
@@ -538,29 +592,13 @@ msgstr ""
 msgid "Email Verification"
 msgstr "E-poštna potrditev"
 
-#: templates/account/confirm_email_verification_code.html:9
+#: templates/account/confirm_email_verification_code.html:8
 #, fuzzy
 #| msgid "token secret"
 msgid "Enter Email Verification Code"
 msgstr "žeton skrivnost"
 
-#: templates/account/confirm_email_verification_code.html:15
-#: templates/account/confirm_login_code.html:15
-#, python-format
-msgid ""
-"We’ve sent a code to %(email_link)s. The code expires shortly, so please "
-"enter it soon."
-msgstr ""
-
-#: templates/account/confirm_email_verification_code.html:27
-#: templates/account/email_confirm.html:24
-#: templates/account/reauthenticate.html:18
-#: templates/mfa/reauthenticate.html:18
-msgid "Confirm"
-msgstr "Potrdi"
-
-#: templates/account/confirm_login_code.html:5
-#: templates/account/confirm_login_code.html:27 templates/account/login.html:5
+#: templates/account/confirm_login_code.html:5 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
 #: templates/account/request_login_code.html:5
 #: templates/allauth/layouts/base.html:68 templates/mfa/authenticate.html:6
@@ -571,9 +609,36 @@ msgstr "Potrdi"
 msgid "Sign In"
 msgstr "Prijava"
 
-#: templates/account/confirm_login_code.html:9
+#: templates/account/confirm_login_code.html:8
 msgid "Enter Sign-In Code"
 msgstr ""
+
+#: templates/account/confirm_password_reset_code.html:5
+#: templates/account/email/password_reset_subject.txt:3
+#: templates/account/password_reset.html:4
+#: templates/account/password_reset.html:8
+#: templates/account/password_reset_done.html:6
+#: templates/account/password_reset_done.html:10
+msgid "Password Reset"
+msgstr "Ponastavitev gesla"
+
+#: templates/account/confirm_password_reset_code.html:8
+#, fuzzy
+#| msgid "Password Reset"
+msgid "Enter Password Reset Code"
+msgstr "Ponastavitev gesla"
+
+#: templates/account/confirm_phone_verification_code.html:5
+#, fuzzy
+#| msgid "Re-send Verification"
+msgid "Phone Verification"
+msgstr "Ponovno pošlji verifikacijo"
+
+#: templates/account/confirm_phone_verification_code.html:8
+#, fuzzy
+#| msgid "token secret"
+msgid "Enter Phone Verification Code"
+msgstr "žeton skrivnost"
 
 #: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
@@ -747,6 +812,7 @@ msgid ""
 msgstr ""
 
 #: templates/account/email/login_code_message.txt:9
+#: templates/account/email/password_reset_code_message.txt:9
 #: templates/account/email/unknown_account_message.txt:6
 msgid "This mail can be safely ignored if you did not initiate this action."
 msgstr ""
@@ -768,6 +834,18 @@ msgstr "Geslo je spremenjeno."
 #| msgid "Password (again)"
 msgid "Password Changed"
 msgstr "Geslo (ponovno)"
+
+#: templates/account/email/password_reset_code_message.txt:5
+msgid ""
+"Your password reset code is listed below. Please enter it in your open "
+"browser window."
+msgstr ""
+
+#: templates/account/email/password_reset_code_subject.txt:3
+#, fuzzy
+#| msgid "Password Reset"
+msgid "Password Reset Code"
+msgstr "Ponastavitev gesla"
 
 #: templates/account/email/password_reset_key_message.txt:4
 #, fuzzy
@@ -800,14 +878,6 @@ msgstr "E-poštni naslov za ponastavitev gesla"
 #| msgid "Your password is now changed."
 msgid "Your password has been reset."
 msgstr "Geslo je spremenjeno."
-
-#: templates/account/email/password_reset_subject.txt:3
-#: templates/account/password_reset.html:4
-#: templates/account/password_reset.html:8
-#: templates/account/password_reset_done.html:6
-#: templates/account/password_reset_done.html:10
-msgid "Password Reset"
-msgstr "Ponastavitev gesla"
 
 #: templates/account/email/password_set_message.txt:4
 #, fuzzy
@@ -865,6 +935,7 @@ msgid "Cancel Change"
 msgstr ""
 
 #: templates/account/email_change.html:49
+#: templates/account/phone_change.html:28
 #, fuzzy
 #| msgid "Email"
 msgid "Change to"
@@ -928,7 +999,7 @@ msgid "Sign in with a passkey"
 msgstr ""
 
 #: templates/account/login.html:47 templates/account/request_login_code.html:9
-msgid "Mail me a sign-in code"
+msgid "Send me a sign-in code"
 msgstr ""
 
 #: templates/account/logout.html:4 templates/account/logout.html:8
@@ -972,7 +1043,7 @@ msgstr "Odjavili ste se."
 
 #: templates/account/messages/login_code_sent.txt:2
 #, python-format
-msgid "A sign-in code has been mailed to %(email)s."
+msgid "A sign-in code has been sent to %(recipient)s."
 msgstr ""
 
 #: templates/account/messages/password_changed.txt:2
@@ -1015,11 +1086,11 @@ msgstr ""
 "Vnesite vaš e-potni naslov, na katerega boste prejeli povezavo za "
 "ponastavitev gesla."
 
-#: templates/account/password_reset.html:25
+#: templates/account/password_reset.html:26
 msgid "Reset My Password"
 msgstr "Ponastavi geslo"
 
-#: templates/account/password_reset.html:30
+#: templates/account/password_reset.html:31
 msgid "Please contact us if you have any trouble resetting your password."
 msgstr "V primeru težav pri ponastavljanju gesla, nas kontaktirajte."
 
@@ -1061,6 +1132,19 @@ msgstr "Geslo je spremenjeno."
 msgid "Set Password"
 msgstr "Nastavi geslo"
 
+#: templates/account/phone_change.html:5 templates/account/phone_change.html:9
+#: templates/account/phone_change.html:34
+#, fuzzy
+#| msgid "Email"
+msgid "Change Phone"
+msgstr "E-poštni naslov"
+
+#: templates/account/phone_change.html:18
+#, fuzzy
+#| msgid "Current Password"
+msgid "Current phone"
+msgstr "Trenutno geslo"
+
 #: templates/account/reauthenticate.html:6
 #, fuzzy
 #| msgid "Forgot Password?"
@@ -1068,9 +1152,7 @@ msgid "Enter your password:"
 msgstr "Ste pozabili geslo?"
 
 #: templates/account/request_login_code.html:12
-msgid ""
-"You will receive an email containing a special code for a password-free sign-"
-"in."
+msgid "You will receive a special code for a password-free sign-in."
 msgstr ""
 
 #: templates/account/request_login_code.html:24

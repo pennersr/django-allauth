@@ -54,14 +54,13 @@
             {% endelement %}
             {{ js_data|json_script:"js_data" }}
             {% include "mfa/webauthn/snippets/scripts.html" %}
-            <script>
-        allauth.webauthn.forms.authenticateForm({
-        ids: {
-        authenticate: "mfa_webauthn_authenticate",
-        credential: "{{ webauthn_form.credential.auto_id }}"
-        },
-        data: JSON.parse(document.getElementById('js_data').textContent)
-        })
+            <script data-allauth-onload="allauth.webauthn.forms.authenticateForm" type="application/json">{
+    "ids": {
+        "authenticate": "mfa_webauthn_authenticate",
+        "credential": "{{ webauthn_form.credential.auto_id }}",
+        "data": "js_data"
+    }
+}
             </script>
         {% endif %}
     {% endif %}

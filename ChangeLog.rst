@@ -33,6 +33,9 @@ Note worthy changes
 - The "Forgot your password?" help text can now be more easily customized by
   providing your own ``"account/password_reset_help_text.html"`` template.
 
+- Removed inline scripts, so that it becomes possible to use a strong Content
+  Security Policy.
+
 
 Fixes
 -----

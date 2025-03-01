@@ -33,13 +33,20 @@
     return addOrSignupForm(o, addBtn, passwordlessFn)
   }
 
+  function getData (o) {
+    if (typeof o.ids.data !== 'undefined') {
+      return JSON.parse(document.getElementById(o.ids.data).textContent)
+    }
+    return o.data
+  }
+
   function addOrSignupForm (o, actionBtn, passwordlessFn) {
     const credentialInput = document.getElementById(o.ids.credential)
     const form = credentialInput.closest('form')
     actionBtn.addEventListener('click', async function () {
       const passwordless = passwordlessFn ? passwordlessFn() : undefined
       try {
-        const credential = await createCredentials(o.data.creation_options, passwordless)
+        const credential = await createCredentials(getData(o).creation_options, passwordless)
         credentialInput.value = JSON.stringify(credential)
         form.submit()
       } catch (e) {
@@ -81,7 +88,7 @@
     authenticateBtn.addEventListener('click', async function (e) {
       e.preventDefault()
       try {
-        const credential = await webauthnJSON.get(o.data.request_options)
+        const credential = await webauthnJSON.get(getData(o).request_options)
         credentialInput.value = JSON.stringify(credential)
         form.submit()
       } catch (e) {

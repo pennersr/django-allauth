@@ -33,13 +33,12 @@
     </form>
     {% include "mfa/webauthn/snippets/scripts.html" %}
     {{ js_data|json_script:"js_data" }}
-    <script>
-        allauth.webauthn.forms.signupForm({
-            ids: {
-                signup: "mfa_webauthn_signup",
-                credential: "{{ form.credential.auto_id }}"
-            },
-            data: JSON.parse(document.getElementById('js_data').textContent)
-        })
+    <script data-allauth-onload="allauth.webauthn.forms.signupForm" type="application/json">{
+    "ids": {
+        "signup": "mfa_webauthn_signup",
+        "credential": "{{ form.credential.auto_id }}",
+        "data": "js_data"
+    }
+}
     </script>
 {% endblock %}

@@ -1,5 +1,5 @@
 {% extends "account/base_manage_email.html" %}
-{% load allauth i18n %}
+{% load static allauth i18n %}
 {% block head_title %}
     {% trans "Email Addresses" %}
 {% endblock head_title %}
@@ -74,17 +74,10 @@
     {% endif %}
 {% endblock content %}
 {% block extra_body %}
-    <script>
-(function() {
-  var message = "{% trans 'Do you really want to remove the selected email address?' %}";
-  var actions = document.getElementsByName('action_remove');
-  if (actions.length) {
-    actions[0].addEventListener("click", function(e) {
-      if (! confirm(message)) {
-        e.preventDefault();
-      }
-    });
-  }
-})();
+    <script src="{% static 'account/js/account.js' %}"></script>
+    <script src="{% static 'account/js/onload.js' %}"></script>
+    <script data-allauth-onload="allauth.account.forms.manageEmailForm" type="application/json">{
+    "i18n": {"confirmDelete": "{% trans 'Do you really want to remove the selected email address?' %}"}
+}
     </script>
 {% endblock extra_body %}

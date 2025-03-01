@@ -19,7 +19,7 @@ Example override::
             # Add your own processing here.
 
             # You must return the original result.
-            return super(MyCustomLoginForm, self).login(*args, **kwargs)
+            return super().login(*args, **kwargs)
 
 You have access to the following:
 
@@ -28,6 +28,11 @@ You have access to the following:
 ``settings.py``::
 
     ACCOUNT_FORMS = {'login': 'mysite.forms.MyCustomLoginForm'}
+
+By default, the password field renders a "Forgot your password?" link as the
+help text. By providing a ``"account/password_reset_help_text.html"`` template
+you can customize that text.
+
 
 Signup
 ******
@@ -46,7 +51,7 @@ Example override::
 
             # Ensure you call the parent class's save.
             # .save() returns a User object.
-            user = super(MyCustomSignupForm, self).save(request)
+            user = super().save(request)
 
             # Add your own processing here.
 
@@ -75,7 +80,7 @@ Example override::
 
             # Ensure you call the parent class's save.
             # .save() returns an allauth.account.models.EmailAddress object.
-            email_address_obj = super(MyCustomAddEmailForm, self).save(request)
+            email_address_obj = supern().save(request)
 
             # Add your own processing here.
 
@@ -108,7 +113,7 @@ Example override::
 
             # Ensure you call the parent class's save.
             # .save() does not return anything
-            super(MyCustomChangePasswordForm, self).save()
+            super().save()
 
             # Add your own processing here.
 
@@ -138,7 +143,7 @@ Example override::
 
             # Ensure you call the parent class's save.
             # .save() does not return anything
-            super(MyCustomSetPasswordForm, self).save()
+            super().save()
 
             # Add your own processing here.
 
@@ -167,7 +172,7 @@ Example override::
 
             # Ensure you call the parent class's save.
             # .save() returns a string containing the email address supplied
-            email_address = super(MyCustomResetPasswordForm, self).save(request)
+            email_address = super().save(request)
 
             # Add your own processing here.
 
@@ -202,7 +207,7 @@ Example override::
 
             # Ensure you call the parent class's save.
             # .save() does not return anything
-            super(MyCustomResetPasswordKeyForm, self).save()
+            super().save()
 
 You have access to the following:
 

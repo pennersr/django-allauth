@@ -30,6 +30,9 @@ Note worthy changes
 
 - Headless: OpenID Connect providers now support token authentication.
 
+- The "Forgot your password?" help text can now be more easily customized by
+  providing your own ``"account/password_reset_help_text.html"`` template.
+
 
 Fixes
 -----

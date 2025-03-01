@@ -20,7 +20,7 @@ Example override::
 
             # Ensure you call the parent class's save.
             # .save() returns a User object.
-            user = super(MyCustomSocialSignupForm, self).save(request)
+            user = super().save(request)
 
             # Add your own processing here.
 
@@ -55,7 +55,7 @@ Example override::
 
             # Ensure you call the parent class's save.
             # .save() does not return anything
-            super(MyCustomSocialDisconnectForm, self).save()
+            super().save()
 
             # Add your own processing here if you don't need access to the
             # socialaccount being deleted.

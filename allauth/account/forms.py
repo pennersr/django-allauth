@@ -9,6 +9,8 @@ from django.contrib.auth import (
 )
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.core import exceptions, validators
+from django.template.exceptions import TemplateDoesNotExist
+from django.template.loader import render_to_string
 from django.urls import NoReverseMatch, reverse
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext, gettext_lazy as _, pgettext
@@ -138,6 +140,21 @@ class LoginForm(forms.Form):
         set_form_field_order(self, ["login", "password", "remember"])
         if app_settings.SESSION_REMEMBER is not None:
             del self.fields["remember"]
+        self._setup_password_field()
+
+    def _setup_password_field(self):
+        password_field = app_settings.SIGNUP_FIELDS.get("password1")
+        if not password_field:
+            del self.fields["password"]
+            return
+        try:
+            self.fields["password"].help_text = render_to_string(
+                "account/password_reset_help_text." + app_settings.TEMPLATE_EXTENSION
+            )
+            return
+        except TemplateDoesNotExist:
+            pass
+
         try:
             reset_url = reverse("account_reset_password")
         except NoReverseMatch:
@@ -147,11 +164,6 @@ class LoginForm(forms.Form):
             self.fields["password"].help_text = mark_safe(
                 f'<a href="{reset_url}">{forgot_txt}</a>'
             )  # nosec
-        password_field = app_settings.SIGNUP_FIELDS.get("password1")
-        if not password_field:
-            del self.fields["password"]
-        else:
-            self.fields["password"].required = password_field["required"]
 
     def user_credentials(self) -> dict:
         """

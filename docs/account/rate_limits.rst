@@ -30,6 +30,9 @@ The following actions are available for configuration:
 ``"change_password"`` (default: ``"5/m/user"``)
   Changing the password (for already authenticated users).
 
+``"change_phone"`` (default: ``"1/m/user"``)
+  Changing the phone number.
+
 ``"manage_email"`` (default: ``"10/m/user"``)
   Email management related actions, such as add, remove, change primary.
 

@@ -230,6 +230,8 @@ class AppSettings:
         ret = {
             # Change password view (for users already logged in)
             "change_password": "5/m/user",
+            # Change phone number
+            "change_phone": "1/m/user",
             # Email management (e.g. add, remove, change primary)
             "manage_email": "10/m/user",
             # Request a password reset, global rate limit per IP

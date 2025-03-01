@@ -7,6 +7,9 @@ from allauth.account.adapter import get_adapter
 from allauth.account.internal.flows.code_verification import (
     AbstractCodeVerificationProcess,
 )
+from allauth.account.internal.flows.reauthentication import (
+    raise_if_reauthentication_required,
+)
 from allauth.account.internal.stagekit import stash_login
 from allauth.account.internal.userkit import user_id_to_str
 
@@ -95,6 +98,9 @@ class ChangePhoneVerificationProcess(PhoneVerificationProcess):
 
     @classmethod
     def initiate(cls, request: HttpRequest, phone: str):
+        if app_settings.REAUTHENTICATION_REQUIRED:
+            raise_if_reauthentication_required(request)
+
         state = cls.initial_state(user=request.user, phone=phone)
         process = ChangePhoneVerificationProcess(request, state=state)
         process.send()

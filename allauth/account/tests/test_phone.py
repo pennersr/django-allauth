@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from unittest.mock import patch
+from unittest.mock import ANY
 
 from django.conf import settings
 from django.urls import reverse
@@ -8,6 +8,7 @@ import pytest
 from pytest_django.asserts import assertTemplateUsed
 
 from allauth.account.adapter import get_adapter
+from allauth.account.authentication import AUTHENTICATION_METHODS_SESSION_KEY
 
 
 @pytest.fixture
@@ -137,3 +138,40 @@ def test_login_by_code_enumeration_prevention(
     assert resp["location"] == reverse("account_confirm_login_code")
     assert "code" not in sms_outbox[-1]
     assert "user_id" not in sms_outbox[-1]
+
+
+def test_reauthentication(
+    settings,
+    auth_client,
+    user_with_phone,
+    phone_factory,
+    settings_impacting_urls,
+    user_password,
+):
+    with settings_impacting_urls(
+        ACCOUNT_REAUTHENTICATION_REQUIRED=True,
+        ACCOUNT_LOGIN_METHODS=("phone",),
+        ACCOUNT_SIGNUP_FIELDS=["phone*", "password1*"],
+    ):
+        new_phone = phone_factory()
+        resp = auth_client.post(
+            reverse("account_change_phone"),
+            {"phone": new_phone},
+        )
+        assert resp["location"].startswith(reverse("account_reauthenticate"))
+
+        resp = auth_client.get(reverse("account_reauthenticate"))
+        assertTemplateUsed(resp, "account/reauthenticate.html")
+        resp = auth_client.post(
+            reverse("account_reauthenticate"), data={"password": user_password}
+        )
+        assert resp.status_code == 302
+
+        methods = auth_client.session[AUTHENTICATION_METHODS_SESSION_KEY]
+        assert methods[-1] == {"method": "password", "at": ANY, "reauthenticated": True}
+
+        resp = auth_client.post(
+            reverse("account_change_phone"),
+            {"phone": new_phone},
+        )
+        assert resp["location"].startswith(reverse("account_verify_phone"))

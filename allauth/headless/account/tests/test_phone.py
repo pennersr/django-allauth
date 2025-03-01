@@ -181,3 +181,29 @@ def test_signup(
             content_type="application/json",
         )
         assert resp.json()["status"] == HTTPStatus.OK
+
+
+def test_reauthentication(
+    auth_client,
+    user_with_phone,
+    phone,
+    settings_impacting_urls,
+    headless_reverse,
+    phone_factory,
+    sms_outbox,
+):
+    with settings_impacting_urls(
+        ACCOUNT_REAUTHENTICATION_REQUIRED=True,
+        ACCOUNT_SIGNUP_FIELDS=["phone*"],
+        ACCOUNT_LOGIN_METHODS=("phone",),
+    ):
+        new_phone = phone_factory()
+        resp = auth_client.post(
+            headless_reverse("headless:account:manage_phone"),
+            data={
+                "phone": new_phone,
+            },
+            content_type="application/json",
+        )
+        assert resp.status_code == HTTPStatus.UNAUTHORIZED
+        assert resp.json()["data"]["flows"] == [{"id": "reauthenticate"}]

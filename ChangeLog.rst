@@ -28,6 +28,8 @@ Note worthy changes
   ``GET`` request to ``/_allauth/{client}/v1/auth/provider/signup`` to obtain
   information on the pending signup.
 
+- Headless: OpenID Connect providers now support token authentication.
+
 
 Fixes
 -----

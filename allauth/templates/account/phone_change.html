@@ -1,0 +1,38 @@
+{% extends "account/base_manage_phone.html" %}
+{% load i18n %}
+{% load allauth %}
+{% block head_title %}
+    {% trans "Change Phone" %}
+{% endblock head_title %}
+{% block content %}
+    {% element h1 %}
+        {% trans "Change Phone" %}
+    {% endelement %}
+    {% url 'account_change_phone' as action_url %}
+    {% element form method="post" action=action_url %}
+        {% slot body %}
+            {% csrf_token %}
+            {% if phone %}
+                {% element field id="current_phone" disabled=True type="tel" value=phone %}
+                    {% slot label %}
+                        {% translate "Current phone" %}:
+                    {% endslot %}
+                {% endelement %}
+            {% endif %}
+            {% if new_emailaddress %}
+                {% element field id="new_email" value=new_emailaddress.email disabled=True type="email" %}
+                {% endelement %}
+            {% endif %}
+            {% element field id=form.phone.auto_id name="phone" value=form.phone.value errors=form.phone.errors type="tel" %}
+                {% slot label %}
+                    {% translate "Change to" %}:
+                {% endslot %}
+            {% endelement %}
+        {% endslot %}
+        {% slot actions %}
+            {% element button name="action_add" type="submit" %}
+                {% trans "Change Phone" %}
+            {% endelement %}
+        {% endslot %}
+    {% endelement %}
+{% endblock content %}

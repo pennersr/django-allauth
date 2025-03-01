@@ -12,5 +12,6 @@ Regular Accounts
    decorators
    signals
    email
+   phone
    adapter
    advanced

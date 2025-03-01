@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from allauth.headless.adapter import get_adapter
 from allauth.headless.base.response import APIResponse
 
@@ -32,6 +34,11 @@ class EmailAddressesResponse(APIResponse):
     def __init__(self, request, email_addresses):
         data = [email_address_data(addr) for addr in email_addresses]
         super().__init__(request, data=data)
+
+
+class PhoneNumbersResponse(APIResponse):
+    def __init__(self, request, phone_numbers, status=HTTPStatus.OK):
+        super().__init__(request, data=phone_numbers, status=status)
 
 
 class RequestPasswordResponse(APIResponse):

@@ -37,6 +37,11 @@ def build_urlpatterns(client):
                     views.ManageEmailView.as_api_view(client=client),
                     name="manage_email",
                 ),
+                path(
+                    "phone",
+                    views.ManagePhoneView.as_api_view(client=client),
+                    name="manage_phone",
+                ),
             ]
         )
         auth_patterns.extend(
@@ -74,6 +79,11 @@ def build_urlpatterns(client):
                     "email/verify",
                     views.VerifyEmailView.as_api_view(client=client),
                     name="verify_email",
+                ),
+                path(
+                    "phone/verify",
+                    views.VerifyPhoneView.as_api_view(client=client),
+                    name="verify_phone",
                 ),
             ]
         )

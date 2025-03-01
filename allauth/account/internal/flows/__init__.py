@@ -8,6 +8,7 @@ from allauth.account.internal.flows import (
     password_change,
     password_reset,
     password_reset_by_code,
+    phone_verification,
     reauthentication,
     signup,
 )
@@ -23,6 +24,7 @@ __all__ = [
     "password_change",
     "password_reset",
     "password_reset_by_code",
+    "phone_verification",
     "reauthentication",
     "signup",
 ]

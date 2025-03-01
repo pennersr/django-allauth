@@ -165,13 +165,48 @@ class LoginByCodeStage(LoginStage):
             return None, True
         elif not did_initiate_process and login_by_code_required:
             email = EmailAddress.objects.get_primary_email(self.login.user)
-            if not email:
+            phone = None
+            phone_field = app_settings.SIGNUP_FIELDS.get("phone")
+            if not email and phone_field:
+                phone_verified = get_adapter().get_phone(self.login.user)
+                if phone_verified:
+                    phone = phone_verified[0]
+            if not email and not phone:
                 # No way of contacting the user.. cannot meet the
                 # requirements. Abort.
                 return headed_redirect_response("account_login"), False
             login_by_code.LoginCodeVerificationProcess.initiate(
-                request=self.request, user=self.login.user, email=email, stage=self
+                request=self.request,
+                user=self.login.user,
+                phone=phone,
+                email=email,
+                stage=self,
             )
 
         response = headed_redirect_response("account_confirm_login_code")
+        return response, True
+
+
+class PhoneVerificationStage(LoginStage):
+    key = "verify_phone"
+    urlname = "account_verify_phone"
+
+    def handle(self):
+        from allauth.account.internal.flows import phone_verification
+
+        phone_field = app_settings.SIGNUP_FIELDS.get("phone")
+        if not phone_field:
+            return None, True
+        adapter = get_adapter()
+
+        phone_verified = adapter.get_phone(self.login.user)
+        if phone_verified is None:
+            return None, (not phone_field["required"])
+        phone, verified = phone_verified
+        if verified:
+            return None, True
+        phone_verification.PhoneVerificationStageProcess.initiate(
+            stage=self, phone=phone
+        )
+        response = headed_redirect_response("account_verify_phone")
         return response, True

@@ -12,6 +12,7 @@ class AppSettings:
     class LoginMethod(str, Enum):
         USERNAME = "username"
         EMAIL = "email"
+        PHONE = "phone"
 
     class EmailVerificationMethod(str, Enum):
         # After signing up, keep the user account inactive until the email
@@ -154,6 +155,14 @@ class AppSettings:
         return self._setting("EMAIL_MAX_LENGTH", 254)
 
     @property
+    def PHONE_VERIFICATION_MAX_ATTEMPTS(self):
+        return self._setting("PHONE_VERIFICATION_MAX_ATTEMPTS", 3)
+
+    @property
+    def PHONE_VERIFICATION_TIMEOUT(self):
+        return self._setting("PHONE_VERIFICATION_TIMEOUT", 15 * 60)
+
+    @property
     def UNIQUE_EMAIL(self):
         """
         Enforce uniqueness of email addresses
@@ -221,6 +230,8 @@ class AppSettings:
         ret = {
             # Change password view (for users already logged in)
             "change_password": "5/m/user",
+            # Change phone number
+            "change_phone": "1/m/user",
             # Email management (e.g. add, remove, change primary)
             "manage_email": "10/m/user",
             # Request a password reset, global rate limit per IP

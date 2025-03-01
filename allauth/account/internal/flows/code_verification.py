@@ -1,5 +1,6 @@
 import abc
 import time
+from typing import Any, Dict, Optional
 
 from django.contrib.auth import get_user_model
 
@@ -13,7 +14,7 @@ class AbstractCodeVerificationProcess(abc.ABC):
         timeout: int,
         state: dict,
         user=None,
-    ):
+    ) -> None:
         self._user = user
         self.max_attempts = max_attempts
         self.timeout = timeout
@@ -35,12 +36,17 @@ class AbstractCodeVerificationProcess(abc.ABC):
         return self.state.get("code", "")
 
     @classmethod
-    def initial_state(cls, user, email):
-        state = {
+    def initial_state(
+        cls, user, email: Optional[str] = None, phone: Optional[str] = None
+    ):
+        state: Dict[str, Any] = {
             "at": time.time(),
             "failed_attempts": 0,
-            "email": email,
         }
+        if email:
+            state["email"] = email
+        if phone:
+            state["phone"] = phone
         if user:
             state["user_id"] = user_id_to_str(user)
         return state

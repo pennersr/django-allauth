@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-21 06:42-0500\n"
+"POT-Creation-Date: 2025-03-01 02:57-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Hojiakbar Barotov barotovhojiakbar.me@gmail.com\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,85 +18,111 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: account/adapter.py:51
+#: account/adapter.py:55
 msgid "This account is currently inactive."
 msgstr "Bu akkaunt hozirda faol emas."
 
-#: account/adapter.py:53
+#: account/adapter.py:57
 msgid "You cannot remove your primary email address."
 msgstr "Siz asosiy email manzilingizni olib tashlay olmaysiz."
 
-#: account/adapter.py:56
+#: account/adapter.py:60
 msgid "This email address is already associated with this account."
 msgstr "Bu email manzili allaqachon ushbu akkaunt bilan bog'langan."
 
-#: account/adapter.py:59
+#: account/adapter.py:63
 msgid "The email address and/or password you specified are not correct."
 msgstr "Siz ko'rsatgan email manzili va/yoki parol noto'g'ri."
 
-#: account/adapter.py:61
+#: account/adapter.py:66
+#, fuzzy
+#| msgid "The username and/or password you specified are not correct."
+msgid "The phone number and/or password you specified are not correct."
+msgstr "Siz ko'rsatgan foydalanuvchi nomi va/yoki paroli noto'g'ri."
+
+#: account/adapter.py:68
 msgid "A user is already registered with this email address."
 msgstr "Foydalanuvchi allaqachon ushbu email manzili bilan ro'yxatdan o'tgan."
 
-#: account/adapter.py:62
+#: account/adapter.py:69
 msgid "Please type your current password."
 msgstr "Iltimos, joriy parolingizni kiriting."
 
-#: account/adapter.py:63 mfa/adapter.py:40
+#: account/adapter.py:70 mfa/adapter.py:40
 msgid "Incorrect code."
 msgstr "Noto'g'ri kod."
 
-#: account/adapter.py:64
+#: account/adapter.py:71
 msgid "Incorrect password."
 msgstr "Noto'g'ri parol."
 
-#: account/adapter.py:65
+#: account/adapter.py:72
 msgid "Invalid or expired key."
 msgstr "Yaroqsiz yoki muddati o'tgan kalit."
 
-#: account/adapter.py:66
+#: account/adapter.py:73
+#, fuzzy
+#| msgid "Invalid token."
+msgid "Invalid login."
+msgstr "Token yaroqsiz."
+
+#: account/adapter.py:74
 msgid "The password reset token was invalid."
 msgstr "Parolni tiklash tokeni yaroqsiz."
 
-#: account/adapter.py:67
+#: account/adapter.py:75
 #, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "Siz %d dan ortiq email manzilini qo‘sha olmaysiz."
 
-#: account/adapter.py:69
+#: account/adapter.py:77
 msgid "Too many failed login attempts. Try again later."
 msgstr ""
 "Kirish uchun juda koʻp muvaffaqiyatsiz urinishlar. Keyinroq qayta urinib "
 "ko'ring."
 
-#: account/adapter.py:71
+#: account/adapter.py:79
 msgid "The email address is not assigned to any user account"
 msgstr "Email manzili hech qanday foydalanuvchi akkauntiga ulanmagan"
 
-#: account/adapter.py:72
+#: account/adapter.py:80
+#, fuzzy
+#| msgid "The email address is not assigned to any user account"
+msgid "The phone number is not assigned to any user account"
+msgstr "Email manzili hech qanday foydalanuvchi akkauntiga ulanmagan"
+
+#: account/adapter.py:81
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary email address must be verified."
 msgstr "Asosiy email manzilingiz tasdiqlanishi kerak."
 
-#: account/adapter.py:74
+#: account/adapter.py:83
 msgid "Username can not be used. Please use other username."
 msgstr ""
 "Foydalanuvchi nomidan foydalanib bo'lmaydi. Iltimos, boshqa foydalanuvchi "
 "nomidan foydalaning."
 
-#: account/adapter.py:77
+#: account/adapter.py:86
 msgid "The username and/or password you specified are not correct."
 msgstr "Siz ko'rsatgan foydalanuvchi nomi va/yoki paroli noto'g'ri."
 
-#: account/adapter.py:741
+#: account/adapter.py:91
+msgid "Please select only one."
+msgstr ""
+
+#: account/adapter.py:92
+msgid "The new value must be different from the current one."
+msgstr ""
+
+#: account/adapter.py:763
 msgid "Use your password"
 msgstr "Parolingizdan foydalanish"
 
-#: account/adapter.py:750
+#: account/adapter.py:772
 msgid "Use authenticator app or code"
 msgstr "Autentifikatsiya ilovasi yoki kodidan foydalanish"
 
-#: account/adapter.py:757 templates/mfa/authenticate.html:36
+#: account/adapter.py:779 templates/mfa/authenticate.html:41
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use a security key"
 msgstr "Xavfsizlik kalitidan foydalanish"
@@ -109,80 +135,94 @@ msgstr "Tanlangan email manzillarini tasdiqlangan deb belgilash"
 msgid "Accounts"
 msgstr "Akkauntlar"
 
-#: account/forms.py:57 account/forms.py:483
+#: account/fields.py:43
+msgid "Enter a phone number including country code (e.g. +1 for the US)."
+msgstr ""
+
+#: account/fields.py:49 account/fields.py:53 account/forms.py:387
+msgid "Phone"
+msgstr ""
+
+#: account/forms.py:60 account/forms.py:579
 msgid "You must type the same password each time."
 msgstr "Har safar bir xil parolni kiritishingiz kerak."
 
-#: account/forms.py:92 account/forms.py:413 account/forms.py:573
-#: account/forms.py:685
+#: account/forms.py:95 account/forms.py:506 account/forms.py:669
+#: account/forms.py:765
 msgid "Password"
 msgstr "Parol"
 
-#: account/forms.py:93
+#: account/forms.py:96
 msgid "Remember Me"
 msgstr "Meni Eslab Qolmoq"
 
-#: account/forms.py:103 account/forms.py:270 account/forms.py:499
-#: account/forms.py:591 account/forms.py:702
+#: account/forms.py:107 account/forms.py:330 account/forms.py:595
+#: account/forms.py:687 account/forms.py:782
 msgid "Email address"
 msgstr "Email manzili"
 
-#: account/forms.py:107 account/forms.py:308 account/forms.py:496
-#: account/forms.py:586
+#: account/forms.py:111 account/forms.py:362 account/forms.py:592
+#: account/forms.py:682
 msgid "Email"
 msgstr "Email"
 
-#: account/forms.py:110 account/forms.py:113 account/forms.py:260
-#: account/forms.py:263
+#: account/forms.py:114 account/forms.py:117 account/forms.py:320
+#: account/forms.py:323 account/forms.py:374
 msgid "Username"
 msgstr "Foydalanuvchi nomi"
 
-#: account/forms.py:123
+#: account/forms.py:132
 msgid "Username or email"
 msgstr "Foydalanuvchi nomi yoki email"
 
-#: account/forms.py:126
+#: account/forms.py:135
 msgctxt "field label"
 msgid "Login"
 msgstr "Kirish"
 
-#: account/forms.py:137
+#: account/forms.py:146
 msgid "Forgot your password?"
 msgstr "Parolingiz esdan chiqdimi?"
 
-#: account/forms.py:299
+#: account/forms.py:350
 msgid "Email (again)"
 msgstr "Email (yana)"
 
-#: account/forms.py:303
+#: account/forms.py:355
 msgid "Email address confirmation"
 msgstr "Email manzilini tasdiqlash"
 
-#: account/forms.py:311
+#: account/forms.py:365
 msgid "Email (optional)"
 msgstr "Email (ixtiyoriy)"
 
-#: account/forms.py:370
+#: account/forms.py:377
+#, fuzzy
+#| msgid "Email (optional)"
+msgid "Username (optional)"
+msgstr "Email (ixtiyoriy)"
+
+#: account/forms.py:458
 msgid "You must type the same email each time."
 msgstr "Har safar bir xil email manzilini yozishingiz kerak."
 
-#: account/forms.py:419 account/forms.py:574
+#: account/forms.py:513 account/forms.py:670
 msgid "Password (again)"
 msgstr "Parol (yana)"
 
-#: account/forms.py:554
+#: account/forms.py:650
 msgid "Current Password"
 msgstr "Joriy Parol"
 
-#: account/forms.py:556 account/forms.py:638
+#: account/forms.py:652 account/forms.py:718
 msgid "New Password"
 msgstr "Yangi Parol"
 
-#: account/forms.py:557 account/forms.py:639
+#: account/forms.py:653 account/forms.py:719
 msgid "New Password (again)"
 msgstr "Yangi Parol (yana)"
 
-#: account/forms.py:725 account/forms.py:727 mfa/base/forms.py:15
+#: account/forms.py:842 account/forms.py:844 mfa/base/forms.py:15
 #: mfa/base/forms.py:17 mfa/totp/forms.py:13
 msgid "Code"
 msgstr "Kod"
@@ -191,7 +231,7 @@ msgstr "Kod"
 msgid "user"
 msgstr "foydalanuvchi"
 
-#: account/models.py:32 account/models.py:40 account/models.py:147
+#: account/models.py:32 account/models.py:40 account/models.py:148
 msgid "email address"
 msgstr "email manzili"
 
@@ -207,23 +247,23 @@ msgstr "asosiy"
 msgid "email addresses"
 msgstr "email manzillari"
 
-#: account/models.py:150
+#: account/models.py:151
 msgid "created"
 msgstr "yaratilgan"
 
-#: account/models.py:151
+#: account/models.py:152
 msgid "sent"
 msgstr "jo'natilgan"
 
-#: account/models.py:152 socialaccount/models.py:69
+#: account/models.py:153 socialaccount/models.py:69
 msgid "key"
 msgstr "kalit"
 
-#: account/models.py:157
+#: account/models.py:158
 msgid "email confirmation"
 msgstr "email orqali tasdiqlash"
 
-#: account/models.py:158
+#: account/models.py:159
 msgid "email confirmations"
 msgstr "email orqali tasdiqlash"
 
@@ -291,11 +331,11 @@ msgstr "WebAuthn"
 msgid "Authenticator code"
 msgstr "Autentifikatsiya kodi"
 
-#: mfa/webauthn/forms.py:56
+#: mfa/webauthn/forms.py:59
 msgid "Passwordless"
 msgstr "Parolsiz"
 
-#: mfa/webauthn/forms.py:59
+#: mfa/webauthn/forms.py:62
 msgid ""
 "Enabling passwordless operation allows you to sign in using just this key, "
 "but imposes additional requirements such as biometrics or PIN protection."
@@ -304,7 +344,7 @@ msgstr ""
 "imkonini beradi, lekin biometrik yoki PIN-kod himoyasi kabi qo'shimcha "
 "talablarni qo'yadi."
 
-#: socialaccount/adapter.py:36
+#: socialaccount/adapter.py:35
 #, python-format
 msgid ""
 "An account already exists with this email address. Please sign in to that "
@@ -313,23 +353,23 @@ msgstr ""
 "Ushbu email manzili bilan akkaunt allaqachon mavjud. Iltimos, avval o'sha "
 "akkauntga kiring keyin %s akkauntingizni ulang."
 
-#: socialaccount/adapter.py:40
+#: socialaccount/adapter.py:39
 msgid "Invalid token."
 msgstr "Token yaroqsiz."
 
-#: socialaccount/adapter.py:41
+#: socialaccount/adapter.py:40
 msgid "Your account has no password set up."
 msgstr "Akkauntingizda parol sozlanmagan."
 
-#: socialaccount/adapter.py:42
+#: socialaccount/adapter.py:41
 msgid "Your account has no verified email address."
 msgstr "Akkauntingizda tasdiqlangan email manzili yo'q."
 
-#: socialaccount/adapter.py:44
+#: socialaccount/adapter.py:43
 msgid "You cannot disconnect your last remaining third-party account."
 msgstr "Oxirgi qolgan uchinchi tomon akkauntingizni oʻchira olmaysiz."
 
-#: socialaccount/adapter.py:47
+#: socialaccount/adapter.py:46
 #: templates/socialaccount/messages/account_connected_other.txt:2
 msgid "The third-party account is already connected to a different account."
 msgstr "Uchinchi tomon akkaunti allaqachon boshqa akkauntga ulangan."
@@ -439,10 +479,10 @@ msgid "Login"
 msgstr "Kirish"
 
 #: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:19
-#: templates/account/confirm_email_verification_code.html:33
-#: templates/account/confirm_email_verification_code.html:37
-#: templates/account/confirm_login_code.html:32
-#: templates/mfa/authenticate.html:40
+#: templates/account/base_confirm_code.html:42
+#: templates/account/base_confirm_code.html:46
+#: templates/account/password_reset_from_key.html:33
+#: templates/mfa/authenticate.html:28 templates/mfa/authenticate.html:44
 #: templates/mfa/webauthn/signup_form.html:26
 msgid "Cancel"
 msgstr "Bekor qilish"
@@ -488,6 +528,25 @@ msgstr "Nofaol Akkaunt"
 msgid "This account is inactive."
 msgstr "Bu akkaunt faol emas."
 
+#: templates/account/base_confirm_code.html:27
+#, fuzzy, python-format
+#| msgid ""
+#| "We’ve sent a code to %(email_link)s. The code expires shortly, so please "
+#| "enter it soon."
+msgid ""
+"We've sent a code to %(recipient)s. The code expires shortly, so please "
+"enter it soon."
+msgstr ""
+"Biz %(email_link)s manziliga kod yubordik. Kodning amal qilish muddati tez "
+"orada tugaydi, iltimos tez orada kodni kiriting."
+
+#: templates/account/base_confirm_code.html:38
+#: templates/account/email_confirm.html:24
+#: templates/account/reauthenticate.html:18
+#: templates/mfa/reauthenticate.html:18
+msgid "Confirm"
+msgstr "Tasdiqlash"
+
 #: templates/account/base_reauthenticate.html:5
 #: templates/account/base_reauthenticate.html:9
 msgid "Confirm Access"
@@ -498,7 +557,7 @@ msgid "Please reauthenticate to safeguard your account."
 msgstr "Akkauntingizni himoya qilish uchun qayta autentifikatsiya qiling."
 
 #: templates/account/base_reauthenticate.html:19
-#: templates/mfa/authenticate.html:31
+#: templates/mfa/authenticate.html:37
 msgid "Alternative options"
 msgstr "Muqobil variantlar"
 
@@ -506,29 +565,11 @@ msgstr "Muqobil variantlar"
 msgid "Email Verification"
 msgstr "Emailni Tasdiqlash"
 
-#: templates/account/confirm_email_verification_code.html:9
+#: templates/account/confirm_email_verification_code.html:8
 msgid "Enter Email Verification Code"
 msgstr "Email Tasdiqlash Kodini Kiritish"
 
-#: templates/account/confirm_email_verification_code.html:15
-#: templates/account/confirm_login_code.html:15
-#, python-format
-msgid ""
-"We’ve sent a code to %(email_link)s. The code expires shortly, so please "
-"enter it soon."
-msgstr ""
-"Biz %(email_link)s manziliga kod yubordik. Kodning amal qilish muddati tez "
-"orada tugaydi, iltimos tez orada kodni kiriting."
-
-#: templates/account/confirm_email_verification_code.html:27
-#: templates/account/email_confirm.html:24
-#: templates/account/reauthenticate.html:18
-#: templates/mfa/reauthenticate.html:18
-msgid "Confirm"
-msgstr "Tasdiqlash"
-
-#: templates/account/confirm_login_code.html:5
-#: templates/account/confirm_login_code.html:27 templates/account/login.html:5
+#: templates/account/confirm_login_code.html:5 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
 #: templates/account/request_login_code.html:5
 #: templates/allauth/layouts/base.html:68 templates/mfa/authenticate.html:6
@@ -539,9 +580,36 @@ msgstr "Tasdiqlash"
 msgid "Sign In"
 msgstr "Kirish"
 
-#: templates/account/confirm_login_code.html:9
+#: templates/account/confirm_login_code.html:8
 msgid "Enter Sign-In Code"
 msgstr "Kirish Kodini Kiritish"
+
+#: templates/account/confirm_password_reset_code.html:5
+#: templates/account/email/password_reset_subject.txt:3
+#: templates/account/password_reset.html:4
+#: templates/account/password_reset.html:8
+#: templates/account/password_reset_done.html:6
+#: templates/account/password_reset_done.html:10
+msgid "Password Reset"
+msgstr "Parolni Tiklash"
+
+#: templates/account/confirm_password_reset_code.html:8
+#, fuzzy
+#| msgid "Password Reset"
+msgid "Enter Password Reset Code"
+msgstr "Parolni Tiklash"
+
+#: templates/account/confirm_phone_verification_code.html:5
+#, fuzzy
+#| msgid "Re-send Verification"
+msgid "Phone Verification"
+msgstr "Tekshirishni Qayta Yuborish"
+
+#: templates/account/confirm_phone_verification_code.html:8
+#, fuzzy
+#| msgid "Enter Email Verification Code"
+msgid "Enter Phone Verification Code"
+msgstr "Email Tasdiqlash Kodini Kiritish"
 
 #: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
@@ -719,6 +787,7 @@ msgstr ""
 "kiriting."
 
 #: templates/account/email/login_code_message.txt:9
+#: templates/account/email/password_reset_code_message.txt:9
 #: templates/account/email/unknown_account_message.txt:6
 msgid "This mail can be safely ignored if you did not initiate this action."
 msgstr ""
@@ -736,6 +805,24 @@ msgstr "Parolingiz o'zgartirildi."
 #: templates/account/email/password_changed_subject.txt:3
 msgid "Password Changed"
 msgstr "Parol O'zgartirildi"
+
+#: templates/account/email/password_reset_code_message.txt:5
+#, fuzzy
+#| msgid ""
+#| "Your sign-in code is listed below. Please enter it in your open browser "
+#| "window."
+msgid ""
+"Your password reset code is listed below. Please enter it in your open "
+"browser window."
+msgstr ""
+"Kirish kodingiz quyida keltirilgan. Iltimos, uni ochiq brauzer oynasida "
+"kiriting."
+
+#: templates/account/email/password_reset_code_subject.txt:3
+#, fuzzy
+#| msgid "Password Reset"
+msgid "Password Reset Code"
+msgstr "Parolni Tiklash"
 
 #: templates/account/email/password_reset_key_message.txt:4
 msgid ""
@@ -761,14 +848,6 @@ msgstr "Parolni Tiklash Emaili"
 #: templates/account/email/password_reset_message.txt:4
 msgid "Your password has been reset."
 msgstr "Parolingiz qayta tiklandi."
-
-#: templates/account/email/password_reset_subject.txt:3
-#: templates/account/password_reset.html:4
-#: templates/account/password_reset.html:8
-#: templates/account/password_reset_done.html:6
-#: templates/account/password_reset_done.html:10
-msgid "Password Reset"
-msgstr "Parolni Tiklash"
 
 #: templates/account/email/password_set_message.txt:4
 msgid "Your password has been set."
@@ -820,6 +899,7 @@ msgid "Cancel Change"
 msgstr "O'zgartirishni Bekor Qilish"
 
 #: templates/account/email_change.html:49
+#: templates/account/phone_change.html:28
 msgid "Change to"
 msgstr "-ga o'zgartirmoq"
 
@@ -875,7 +955,9 @@ msgid "Sign in with a passkey"
 msgstr "O'tish kaliti bilan tizimga kirish"
 
 #: templates/account/login.html:47 templates/account/request_login_code.html:9
-msgid "Mail me a sign-in code"
+#, fuzzy
+#| msgid "Mail me a sign-in code"
+msgid "Send me a sign-in code"
 msgstr "Menga kirish kodini yuboring"
 
 #: templates/account/logout.html:4 templates/account/logout.html:8
@@ -918,8 +1000,9 @@ msgid "You have signed out."
 msgstr "Tizimdan chiqdingiz."
 
 #: templates/account/messages/login_code_sent.txt:2
-#, python-format
-msgid "A sign-in code has been mailed to %(email)s."
+#, fuzzy, python-format
+#| msgid "A sign-in code has been mailed to %(email)s."
+msgid "A sign-in code has been sent to %(recipient)s."
 msgstr "Kirish kodi %(email)s manziliga yuborildi."
 
 #: templates/account/messages/password_changed.txt:2
@@ -958,11 +1041,11 @@ msgstr ""
 "Parolni unutdingizmi? Quyida email manzilingizni kiriting, biz sizga uni "
 "qayta o'rnatishga ruxsat beruvchi emailni yuboramiz."
 
-#: templates/account/password_reset.html:25
+#: templates/account/password_reset.html:26
 msgid "Reset My Password"
 msgstr "Parolimni Tiklamoq"
 
-#: templates/account/password_reset.html:30
+#: templates/account/password_reset.html:31
 msgid "Please contact us if you have any trouble resetting your password."
 msgstr ""
 "Agar parolingizni qayta tiklashda muammoga duch kelsangiz, biz bilan "
@@ -1001,14 +1084,29 @@ msgstr "Parolingiz o'zgartirildi."
 msgid "Set Password"
 msgstr "Parol O'rnatish"
 
+#: templates/account/phone_change.html:5 templates/account/phone_change.html:9
+#: templates/account/phone_change.html:34
+#, fuzzy
+#| msgid "Change to"
+msgid "Change Phone"
+msgstr "-ga o'zgartirmoq"
+
+#: templates/account/phone_change.html:18
+#, fuzzy
+#| msgid "Current"
+msgid "Current phone"
+msgstr "Hozirgi"
+
 #: templates/account/reauthenticate.html:6
 msgid "Enter your password:"
 msgstr "Parolingizni kirgizing"
 
 #: templates/account/request_login_code.html:12
-msgid ""
-"You will receive an email containing a special code for a password-free sign-"
-"in."
+#, fuzzy
+#| msgid ""
+#| "You will receive an email containing a special code for a password-free "
+#| "sign-in."
+msgid "You will receive a special code for a password-free sign-in."
 msgstr ""
 "Siz parolsiz kirish uchun maxsus kodni o'z ichiga olgan email xabarini "
 "olasiz."

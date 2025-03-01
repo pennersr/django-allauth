@@ -259,9 +259,10 @@ Available settings:
   remember.
 
 ``ACCOUNT_SIGNUP_FIELDS`` (default: ``['username*', 'email', 'password1*', 'password2*']``)
-  The list of fields to complete in the signup form. Fields marked with an
-  asterisk (e.g. ``'username*'``) are required.  To let the user type in their
-  email address twice to avoid typos, you can add ``'email2'``.  The field
+  The list of fields to complete in the signup form: ``username``, ``email``,
+  ``phone``, ``password1``, ``password2``.. Fields marked with an asterisk
+  (e.g. ``'username*'``) are required.  To let the user type in their email
+  address twice to avoid typos, you can add ``'email2'``.  The field
   ``'password2'`` can be used let the user type in their password twice to avoid
   typos.
 

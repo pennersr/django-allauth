@@ -18,6 +18,7 @@ from allauth.account.adapter import get_adapter
 from allauth.account.forms import (
     AddEmailForm,
     ChangePasswordForm,
+    ChangePhoneForm,
     ConfirmEmailVerificationCodeForm,
     ConfirmLoginCodeForm,
     ConfirmPasswordResetCodeForm,
@@ -29,6 +30,7 @@ from allauth.account.forms import (
     SetPasswordForm,
     SignupForm,
     UserTokenForm,
+    VerifyPhoneForm,
 )
 from allauth.account.internal import flows
 from allauth.account.internal.decorators import (
@@ -52,6 +54,7 @@ from allauth.account.stages import (
     EmailVerificationStage,
     LoginByCodeStage,
     LoginStageController,
+    PhoneVerificationStage,
 )
 from allauth.account.utils import (
     perform_login,
@@ -1033,7 +1036,10 @@ class RequestLoginCodeView(RedirectAuthenticatedUserMixin, NextRedirectMixin, Fo
 
     def form_valid(self, form):
         flows.login_by_code.LoginCodeVerificationProcess.initiate(
-            request=self.request, user=form._user, email=form.cleaned_data["email"]
+            request=self.request,
+            user=form._user,
+            email=form.cleaned_data.get("email"),
+            phone=form.cleaned_data.get("phone"),
         )
         return super().form_valid(form)
 
@@ -1117,13 +1123,152 @@ class ConfirmLoginCodeView(NextRedirectMixin, FormView):
     def get_context_data(self, **kwargs):
         ret = super().get_context_data(**kwargs)
         site = get_current_site(self.request)
+        email = self._process.state.get("email")
+        phone = self._process.state.get("phone")
         ret.update(
             {
                 "site": site,
-                "email": self._process.state["email"],
+                "email": email,
+                "phone": phone,
             }
         )
         return ret
 
 
 confirm_login_code = ConfirmLoginCodeView.as_view()
+
+
+class _BaseVerifyPhoneView(NextRedirectMixin, FormView):
+    form_class = VerifyPhoneForm
+    template_name = (
+        "account/confirm_phone_verification_code." + app_settings.TEMPLATE_EXTENSION
+    )
+
+    def get_form_class(self):
+        return get_form_class(app_settings.FORMS, "verify_phone", self.form_class)
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["code"] = self.process.code
+        return kwargs
+
+    def form_valid(self, form):
+        self.process.finish()
+        return self.respond_process_succeeded(form)
+
+    def form_invalid(self, form):
+        attempts_left = self.process.record_invalid_attempt()
+        if attempts_left:
+            return super().form_invalid(form)
+        self.process.abort()
+        return self.respond_process_failed(form)
+
+    def get_context_data(self, **kwargs):
+        ret = super().get_context_data(**kwargs)
+        site = get_current_site(self.request)
+        ret.update(
+            {
+                "site": site,
+                "phone": self.process.phone,
+            }
+        )
+        return ret
+
+
+@method_decorator(
+    login_stage_required(
+        stage=PhoneVerificationStage.key, redirect_urlname="account_login"
+    ),
+    name="dispatch",
+)
+class _VerifyPhoneSignupView(_BaseVerifyPhoneView):
+    @method_decorator(never_cache)
+    def dispatch(self, request, *args, **kwargs):
+        self.stage = request._login_stage
+        self.process = flows.phone_verification.PhoneVerificationStageProcess.resume(
+            self.stage
+        )
+        if not self.process:
+            return self.stage.abort()
+        return super().dispatch(request, *args, **kwargs)
+
+    def respond_process_succeeded(self, form):
+        return self.stage.exit()
+
+    def respond_process_failed(self, form):
+        adapter = get_adapter(self.request)
+        adapter.add_message(
+            self.request,
+            messages.ERROR,
+            message=adapter.error_messages["too_many_login_attempts"],
+        )
+        return self.stage.abort()
+
+
+class _VerifyPhoneChangeView(_BaseVerifyPhoneView):
+    @method_decorator(never_cache)
+    def dispatch(self, request, *args, **kwargs):
+        self.process = flows.phone_verification.ChangePhoneVerificationProcess.resume(
+            request
+        )
+        if not self.process:
+            return HttpResponseRedirect(reverse("account_change_phone"))
+        return super().dispatch(request, *args, **kwargs)
+
+    def respond_process_succeeded(self, form):
+        return HttpResponseRedirect(reverse("account_change_phone"))
+
+    def respond_process_failed(self, form):
+        return HttpResponseRedirect(reverse("account_change_phone"))
+
+    def get_context_data(self, **kwargs):
+        ret = super().get_context_data(**kwargs)
+        ret.update({"cancel_url": reverse("account_change_phone")})
+        return ret
+
+
+@method_decorator(login_not_required, name="dispatch")
+def verify_phone(request):
+    if request.user.is_authenticated:
+        return _VerifyPhoneChangeView.as_view()(request)
+    return _VerifyPhoneSignupView.as_view()(request)
+
+
+@method_decorator(login_required, name="dispatch")
+@method_decorator(rate_limit(action="change_phone"), name="dispatch")
+class ChangePhoneView(FormView):
+    template_name = "account/phone_change." + app_settings.TEMPLATE_EXTENSION
+    form_class = ChangePhoneForm
+    success_url = reverse_lazy("account_verify_phone")
+
+    def get_form_class(self):
+        return get_form_class(app_settings.FORMS, "change_phone", self.form_class)
+
+    def get_form_kwargs(self):
+        ret = super().get_form_kwargs()
+        self._phone_verified = get_adapter().get_phone(self.request.user)
+        ret["phone"] = self._phone_verified[0] if self._phone_verified else None
+        return ret
+
+    def form_valid(self, form):
+        flows.phone_verification.ChangePhoneVerificationProcess.initiate(
+            self.request, form.cleaned_data["phone"]
+        )
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        ret = super().get_context_data(**kwargs)
+        phone = None
+        phone_verified = False
+        if self._phone_verified:
+            phone, phone_verified = self._phone_verified
+        ret.update(
+            {
+                "phone": phone,
+                "phone_verified": phone_verified,
+            }
+        )
+        return ret
+
+
+change_phone = ChangePhoneView.as_view()

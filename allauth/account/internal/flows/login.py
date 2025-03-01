@@ -45,8 +45,10 @@ def record_authentication(request, method, **extra_data):
     data = {
         "method": method,
         "at": time.time(),
-        **extra_data,
     }
+    for k, v in extra_data.items():
+        if v is not None:
+            data[k] = v
     methods.append(data)
     request.session[AUTHENTICATION_METHODS_SESSION_KEY] = methods
 
@@ -127,6 +129,12 @@ def derive_login_method(login: str) -> LoginMethod:
         try:
             validators.validate_email(login)
             return LoginMethod.EMAIL
+        except exceptions.ValidationError:
+            pass
+    if LoginMethod.PHONE in app_settings.LOGIN_METHODS:
+        try:
+            get_adapter().phone_form_field(required=True).clean(login)
+            return LoginMethod.PHONE
         except exceptions.ValidationError:
             pass
     return LoginMethod.USERNAME

@@ -1,0 +1,14 @@
+{% extends "account/base_confirm_code.html" %}
+{% load i18n %}
+{% load allauth account %}
+{% block head_title %}
+    {% translate "Phone Verification" %}
+{% endblock head_title %}
+{% block title %}
+    {% translate "Enter Phone Verification Code" %}
+{% endblock %}
+{% block recipient %}<a href="tel:{{ phone }}">{{ phone }}</a>{% endblock %}
+{% block action_url %}
+    {% url 'account_verify_phone' %}
+{% endblock %}
+{% block extra_tags %}phone,verification{% endblock %}

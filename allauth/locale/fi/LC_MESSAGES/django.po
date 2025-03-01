@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-21 06:42-0500\n"
+"POT-Creation-Date: 2025-03-01 02:57-0600\n"
 "PO-Revision-Date: 2024-04-20 21:30+0200\n"
 "Last-Translator: Anonymous User <seppo.erviala@iki.fi>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,91 +19,117 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.7.6\n"
 
-#: account/adapter.py:51
+#: account/adapter.py:55
 msgid "This account is currently inactive."
 msgstr "Tämä tili on poistettu käytöstä."
 
-#: account/adapter.py:53
+#: account/adapter.py:57
 #, fuzzy
 #| msgid "You cannot remove your primary email address (%(email)s)."
 msgid "You cannot remove your primary email address."
 msgstr "Et voi poistaa ensisijaista sähköpostiosoitettasi (%(email)s)."
 
-#: account/adapter.py:56
+#: account/adapter.py:60
 msgid "This email address is already associated with this account."
 msgstr "Sähköpostiosoite on jo liitetty tähän tilliin."
 
-#: account/adapter.py:59
+#: account/adapter.py:63
 msgid "The email address and/or password you specified are not correct."
 msgstr "Annettu sähköposti tai salasana ei ole oikein."
 
-#: account/adapter.py:61
+#: account/adapter.py:66
+#, fuzzy
+#| msgid "The username and/or password you specified are not correct."
+msgid "The phone number and/or password you specified are not correct."
+msgstr "Annettu käyttäjänimi tai salasana ei ole oikein."
+
+#: account/adapter.py:68
 msgid "A user is already registered with this email address."
 msgstr "Tämä sähköpostiosoite on jo käytössä."
 
-#: account/adapter.py:62
+#: account/adapter.py:69
 msgid "Please type your current password."
 msgstr "Ole hyvä ja anna nykyinen salasanasi."
 
-#: account/adapter.py:63 mfa/adapter.py:40
+#: account/adapter.py:70 mfa/adapter.py:40
 msgid "Incorrect code."
 msgstr ""
 
-#: account/adapter.py:64
+#: account/adapter.py:71
 #, fuzzy
 #| msgid "Current Password"
 msgid "Incorrect password."
 msgstr "Nykyinen salasana"
 
-#: account/adapter.py:65
+#: account/adapter.py:72
 #, fuzzy
 #| msgid "Bad Token"
 msgid "Invalid or expired key."
 msgstr "Virheellinen tunniste"
 
-#: account/adapter.py:66
+#: account/adapter.py:73
+#, fuzzy
+#| msgid "Bad Token"
+msgid "Invalid login."
+msgstr "Virheellinen tunniste"
+
+#: account/adapter.py:74
 msgid "The password reset token was invalid."
 msgstr "Salasanan uusimistarkiste ei kelpaa."
 
-#: account/adapter.py:67
+#: account/adapter.py:75
 #, fuzzy, python-format
 #| msgid "Your account has no verified email address."
 msgid "You cannot add more than %d email addresses."
 msgstr "Tiliisi ei ole liitetty vahvistettua sähköpostiosoitetta."
 
-#: account/adapter.py:69
+#: account/adapter.py:77
 msgid "Too many failed login attempts. Try again later."
 msgstr ""
 "Liian monta virheellistä kirjautumisyritystä. Yritä myöhemmin uudelleen."
 
-#: account/adapter.py:71
+#: account/adapter.py:79
 msgid "The email address is not assigned to any user account"
 msgstr "Sähköpostiosoite ei vastaa yhtäkään käyttäjätiliä."
 
-#: account/adapter.py:72
+#: account/adapter.py:80
+#, fuzzy
+#| msgid "The email address is not assigned to any user account"
+msgid "The phone number is not assigned to any user account"
+msgstr "Sähköpostiosoite ei vastaa yhtäkään käyttäjätiliä."
+
+#: account/adapter.py:81
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary email address must be verified."
 msgstr "Ensisijaisen sähköpostiosoiteen tulee olla vahvistettu."
 
-#: account/adapter.py:74
+#: account/adapter.py:83
 msgid "Username can not be used. Please use other username."
 msgstr "Käyttäjänimeä ei voi käyttää. Valitse toinen käyttäjänimi."
 
-#: account/adapter.py:77
+#: account/adapter.py:86
 msgid "The username and/or password you specified are not correct."
 msgstr "Annettu käyttäjänimi tai salasana ei ole oikein."
 
-#: account/adapter.py:741
+#: account/adapter.py:91
+msgid "Please select only one."
+msgstr ""
+
+#: account/adapter.py:92
+msgid "The new value must be different from the current one."
+msgstr ""
+
+#: account/adapter.py:763
 #, fuzzy
 #| msgid "Forgot Password?"
 msgid "Use your password"
 msgstr "Salasana unohtunut?"
 
-#: account/adapter.py:750
+#: account/adapter.py:772
 msgid "Use authenticator app or code"
 msgstr ""
 
-#: account/adapter.py:757 templates/mfa/authenticate.html:36
+#: account/adapter.py:779 templates/mfa/authenticate.html:41
 #: templates/mfa/webauthn/reauthenticate.html:15
 #, fuzzy
 #| msgid "secret key"
@@ -120,88 +146,102 @@ msgstr "Ensisijaisen sähköpostiosoiteen tulee olla vahvistettu."
 msgid "Accounts"
 msgstr "Tili"
 
-#: account/forms.py:57 account/forms.py:483
+#: account/fields.py:43
+msgid "Enter a phone number including country code (e.g. +1 for the US)."
+msgstr ""
+
+#: account/fields.py:49 account/fields.py:53 account/forms.py:387
+msgid "Phone"
+msgstr ""
+
+#: account/forms.py:60 account/forms.py:579
 msgid "You must type the same password each time."
 msgstr "Salasanojen tulee olla samat."
 
-#: account/forms.py:92 account/forms.py:413 account/forms.py:573
-#: account/forms.py:685
+#: account/forms.py:95 account/forms.py:506 account/forms.py:669
+#: account/forms.py:765
 msgid "Password"
 msgstr "Salasana"
 
-#: account/forms.py:93
+#: account/forms.py:96
 msgid "Remember Me"
 msgstr "Muista minut"
 
-#: account/forms.py:103 account/forms.py:270 account/forms.py:499
-#: account/forms.py:591 account/forms.py:702
+#: account/forms.py:107 account/forms.py:330 account/forms.py:595
+#: account/forms.py:687 account/forms.py:782
 msgid "Email address"
 msgstr "Sähköpostiosoite"
 
-#: account/forms.py:107 account/forms.py:308 account/forms.py:496
-#: account/forms.py:586
+#: account/forms.py:111 account/forms.py:362 account/forms.py:592
+#: account/forms.py:682
 msgid "Email"
 msgstr "Sähköposti"
 
-#: account/forms.py:110 account/forms.py:113 account/forms.py:260
-#: account/forms.py:263
+#: account/forms.py:114 account/forms.py:117 account/forms.py:320
+#: account/forms.py:323 account/forms.py:374
 msgid "Username"
 msgstr "Käyttäjänimi"
 
-#: account/forms.py:123
+#: account/forms.py:132
 msgid "Username or email"
 msgstr "Käyttäjänimi tai sähköposti"
 
-#: account/forms.py:126
+#: account/forms.py:135
 msgctxt "field label"
 msgid "Login"
 msgstr "Käyttäjätunnus"
 
-#: account/forms.py:137
+#: account/forms.py:146
 #, fuzzy
 #| msgid "Forgot Password?"
 msgid "Forgot your password?"
 msgstr "Salasana unohtunut?"
 
-#: account/forms.py:299
+#: account/forms.py:350
 #, fuzzy
 #| msgid "Email (optional)"
 msgid "Email (again)"
 msgstr "Sähköpostiosoite (valinnainen)"
 
-#: account/forms.py:303
+#: account/forms.py:355
 #, fuzzy
 #| msgid "email confirmation"
 msgid "Email address confirmation"
 msgstr "sähköpostivarmistus"
 
-#: account/forms.py:311
+#: account/forms.py:365
 msgid "Email (optional)"
 msgstr "Sähköpostiosoite (valinnainen)"
 
-#: account/forms.py:370
+#: account/forms.py:377
+#, fuzzy
+#| msgid "Email (optional)"
+msgid "Username (optional)"
+msgstr "Sähköpostiosoite (valinnainen)"
+
+#: account/forms.py:458
 #, fuzzy
 #| msgid "You must type the same password each time."
 msgid "You must type the same email each time."
 msgstr "Salasanojen tulee olla samat."
 
-#: account/forms.py:419 account/forms.py:574
+#: account/forms.py:513 account/forms.py:670
 msgid "Password (again)"
 msgstr "Salasana (uudestaan)"
 
-#: account/forms.py:554
+#: account/forms.py:650
 msgid "Current Password"
 msgstr "Nykyinen salasana"
 
-#: account/forms.py:556 account/forms.py:638
+#: account/forms.py:652 account/forms.py:718
 msgid "New Password"
 msgstr "Uusi salasana"
 
-#: account/forms.py:557 account/forms.py:639
+#: account/forms.py:653 account/forms.py:719
 msgid "New Password (again)"
 msgstr "Uusi salasana (uudestaan)"
 
-#: account/forms.py:725 account/forms.py:727 mfa/base/forms.py:15
+#: account/forms.py:842 account/forms.py:844 mfa/base/forms.py:15
 #: mfa/base/forms.py:17 mfa/totp/forms.py:13
 msgid "Code"
 msgstr ""
@@ -210,7 +250,7 @@ msgstr ""
 msgid "user"
 msgstr "käyttäjä"
 
-#: account/models.py:32 account/models.py:40 account/models.py:147
+#: account/models.py:32 account/models.py:40 account/models.py:148
 msgid "email address"
 msgstr "sähköpostiosoite"
 
@@ -226,23 +266,23 @@ msgstr "ensisijainen"
 msgid "email addresses"
 msgstr "sähköpostiosoitteet"
 
-#: account/models.py:150
+#: account/models.py:151
 msgid "created"
 msgstr "luotu"
 
-#: account/models.py:151
+#: account/models.py:152
 msgid "sent"
 msgstr "lähetetty"
 
-#: account/models.py:152 socialaccount/models.py:69
+#: account/models.py:153 socialaccount/models.py:69
 msgid "key"
 msgstr "avain"
 
-#: account/models.py:157
+#: account/models.py:158
 msgid "email confirmation"
 msgstr "sähköpostivarmistus"
 
-#: account/models.py:158
+#: account/models.py:159
 msgid "email confirmations"
 msgstr "sähköpostivarmistukset"
 
@@ -307,19 +347,19 @@ msgstr ""
 msgid "Authenticator code"
 msgstr ""
 
-#: mfa/webauthn/forms.py:56
+#: mfa/webauthn/forms.py:59
 #, fuzzy
 #| msgid "Password"
 msgid "Passwordless"
 msgstr "Salasana"
 
-#: mfa/webauthn/forms.py:59
+#: mfa/webauthn/forms.py:62
 msgid ""
 "Enabling passwordless operation allows you to sign in using just this key, "
 "but imposes additional requirements such as biometrics or PIN protection."
 msgstr ""
 
-#: socialaccount/adapter.py:36
+#: socialaccount/adapter.py:35
 #, fuzzy, python-format
 #| msgid ""
 #| "An account already exists with this e-mail address. Please sign in to "
@@ -331,21 +371,21 @@ msgstr ""
 "Sähköpostiosoite on jo liitetty olemassaolevaan tiliin. Kirjaudu ensin "
 "kyseiseen tiliin ja liitä %s-tilisi vasta sitten."
 
-#: socialaccount/adapter.py:40
+#: socialaccount/adapter.py:39
 #, fuzzy
 #| msgid "Bad Token"
 msgid "Invalid token."
 msgstr "Virheellinen tunniste"
 
-#: socialaccount/adapter.py:41
+#: socialaccount/adapter.py:40
 msgid "Your account has no password set up."
 msgstr "Tilillesi ei ole asetettu salasanaa."
 
-#: socialaccount/adapter.py:42
+#: socialaccount/adapter.py:41
 msgid "Your account has no verified email address."
 msgstr "Tiliisi ei ole liitetty vahvistettua sähköpostiosoitetta."
 
-#: socialaccount/adapter.py:44
+#: socialaccount/adapter.py:43
 #, fuzzy
 #| msgid ""
 #| "You can sign in to your account using any of the following third party "
@@ -353,7 +393,7 @@ msgstr "Tiliisi ei ole liitetty vahvistettua sähköpostiosoitetta."
 msgid "You cannot disconnect your last remaining third-party account."
 msgstr "Voit kirjautua käyttäen seuraavia kirjautumispalveluita:"
 
-#: socialaccount/adapter.py:47
+#: socialaccount/adapter.py:46
 #: templates/socialaccount/messages/account_connected_other.txt:2
 #, fuzzy
 #| msgid "The social account is already connected to a different account."
@@ -470,10 +510,10 @@ msgid "Login"
 msgstr "Käyttäjätunnus"
 
 #: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:19
-#: templates/account/confirm_email_verification_code.html:33
-#: templates/account/confirm_email_verification_code.html:37
-#: templates/account/confirm_login_code.html:32
-#: templates/mfa/authenticate.html:40
+#: templates/account/base_confirm_code.html:42
+#: templates/account/base_confirm_code.html:46
+#: templates/account/password_reset_from_key.html:33
+#: templates/mfa/authenticate.html:28 templates/mfa/authenticate.html:44
 #: templates/mfa/webauthn/signup_form.html:26
 msgid "Cancel"
 msgstr ""
@@ -520,6 +560,20 @@ msgstr "Tili poissa käytöstä"
 msgid "This account is inactive."
 msgstr "Tämä tili ei ole käytössä."
 
+#: templates/account/base_confirm_code.html:27
+#, python-format
+msgid ""
+"We've sent a code to %(recipient)s. The code expires shortly, so please "
+"enter it soon."
+msgstr ""
+
+#: templates/account/base_confirm_code.html:38
+#: templates/account/email_confirm.html:24
+#: templates/account/reauthenticate.html:18
+#: templates/mfa/reauthenticate.html:18
+msgid "Confirm"
+msgstr "Vahvista"
+
 #: templates/account/base_reauthenticate.html:5
 #: templates/account/base_reauthenticate.html:9
 #, fuzzy
@@ -532,7 +586,7 @@ msgid "Please reauthenticate to safeguard your account."
 msgstr ""
 
 #: templates/account/base_reauthenticate.html:19
-#: templates/mfa/authenticate.html:31
+#: templates/mfa/authenticate.html:37
 msgid "Alternative options"
 msgstr ""
 
@@ -542,27 +596,11 @@ msgstr ""
 msgid "Email Verification"
 msgstr "sähköpostivarmistus"
 
-#: templates/account/confirm_email_verification_code.html:9
+#: templates/account/confirm_email_verification_code.html:8
 msgid "Enter Email Verification Code"
 msgstr ""
 
-#: templates/account/confirm_email_verification_code.html:15
-#: templates/account/confirm_login_code.html:15
-#, python-format
-msgid ""
-"We’ve sent a code to %(email_link)s. The code expires shortly, so please "
-"enter it soon."
-msgstr ""
-
-#: templates/account/confirm_email_verification_code.html:27
-#: templates/account/email_confirm.html:24
-#: templates/account/reauthenticate.html:18
-#: templates/mfa/reauthenticate.html:18
-msgid "Confirm"
-msgstr "Vahvista"
-
-#: templates/account/confirm_login_code.html:5
-#: templates/account/confirm_login_code.html:27 templates/account/login.html:5
+#: templates/account/confirm_login_code.html:5 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
 #: templates/account/request_login_code.html:5
 #: templates/allauth/layouts/base.html:68 templates/mfa/authenticate.html:6
@@ -573,9 +611,36 @@ msgstr "Vahvista"
 msgid "Sign In"
 msgstr "Kirjaudu sisään"
 
-#: templates/account/confirm_login_code.html:9
+#: templates/account/confirm_login_code.html:8
 msgid "Enter Sign-In Code"
 msgstr ""
+
+#: templates/account/confirm_password_reset_code.html:5
+#: templates/account/email/password_reset_subject.txt:3
+#: templates/account/password_reset.html:4
+#: templates/account/password_reset.html:8
+#: templates/account/password_reset_done.html:6
+#: templates/account/password_reset_done.html:10
+msgid "Password Reset"
+msgstr "Salasanan uusiminen"
+
+#: templates/account/confirm_password_reset_code.html:8
+#, fuzzy
+#| msgid "Password Reset"
+msgid "Enter Password Reset Code"
+msgstr "Salasanan uusiminen"
+
+#: templates/account/confirm_phone_verification_code.html:5
+#, fuzzy
+#| msgid "Re-send Verification"
+msgid "Phone Verification"
+msgstr "Lähetä vahvistus uudelleen"
+
+#: templates/account/confirm_phone_verification_code.html:8
+#, fuzzy
+#| msgid "Re-send Verification"
+msgid "Enter Phone Verification Code"
+msgstr "Lähetä vahvistus uudelleen"
 
 #: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
@@ -749,6 +814,7 @@ msgid ""
 msgstr ""
 
 #: templates/account/email/login_code_message.txt:9
+#: templates/account/email/password_reset_code_message.txt:9
 #: templates/account/email/unknown_account_message.txt:6
 msgid "This mail can be safely ignored if you did not initiate this action."
 msgstr ""
@@ -770,6 +836,18 @@ msgstr "Salasanasi on nyt vaihdettu."
 #| msgid "Password (again)"
 msgid "Password Changed"
 msgstr "Salasana (uudestaan)"
+
+#: templates/account/email/password_reset_code_message.txt:5
+msgid ""
+"Your password reset code is listed below. Please enter it in your open "
+"browser window."
+msgstr ""
+
+#: templates/account/email/password_reset_code_subject.txt:3
+#, fuzzy
+#| msgid "Password Reset"
+msgid "Password Reset Code"
+msgstr "Salasanan uusiminen"
 
 #: templates/account/email/password_reset_key_message.txt:4
 #, fuzzy
@@ -803,14 +881,6 @@ msgstr "Salasanan uusimissähköposti"
 #| msgid "Your password is now changed."
 msgid "Your password has been reset."
 msgstr "Salasanasi on nyt vaihdettu."
-
-#: templates/account/email/password_reset_subject.txt:3
-#: templates/account/password_reset.html:4
-#: templates/account/password_reset.html:8
-#: templates/account/password_reset_done.html:6
-#: templates/account/password_reset_done.html:10
-msgid "Password Reset"
-msgstr "Salasanan uusiminen"
 
 #: templates/account/email/password_set_message.txt:4
 #, fuzzy
@@ -870,6 +940,7 @@ msgid "Cancel Change"
 msgstr ""
 
 #: templates/account/email_change.html:49
+#: templates/account/phone_change.html:28
 #, fuzzy
 #| msgid "Email"
 msgid "Change to"
@@ -934,7 +1005,7 @@ msgid "Sign in with a passkey"
 msgstr ""
 
 #: templates/account/login.html:47 templates/account/request_login_code.html:9
-msgid "Mail me a sign-in code"
+msgid "Send me a sign-in code"
 msgstr ""
 
 #: templates/account/logout.html:4 templates/account/logout.html:8
@@ -978,7 +1049,7 @@ msgstr "Kirjauduit ulos."
 
 #: templates/account/messages/login_code_sent.txt:2
 #, python-format
-msgid "A sign-in code has been mailed to %(email)s."
+msgid "A sign-in code has been sent to %(recipient)s."
 msgstr ""
 
 #: templates/account/messages/password_changed.txt:2
@@ -1021,11 +1092,11 @@ msgstr ""
 "Unohditko salasanasi? Anna sähköpostiosoitteesi ja lähetämme sinulle "
 "sähköpostin, jonka avulla voit uusia sen."
 
-#: templates/account/password_reset.html:25
+#: templates/account/password_reset.html:26
 msgid "Reset My Password"
 msgstr "Salasanan uusiminen"
 
-#: templates/account/password_reset.html:30
+#: templates/account/password_reset.html:31
 msgid "Please contact us if you have any trouble resetting your password."
 msgstr "Ota meihin yhteyttä, jos sinulla on ongelmia salasanasi uusimisessa."
 
@@ -1067,6 +1138,19 @@ msgstr "Salasanasi on nyt vaihdettu."
 msgid "Set Password"
 msgstr "Aseta salasana"
 
+#: templates/account/phone_change.html:5 templates/account/phone_change.html:9
+#: templates/account/phone_change.html:34
+#, fuzzy
+#| msgid "Email"
+msgid "Change Phone"
+msgstr "Sähköposti"
+
+#: templates/account/phone_change.html:18
+#, fuzzy
+#| msgid "Current Password"
+msgid "Current phone"
+msgstr "Nykyinen salasana"
+
 #: templates/account/reauthenticate.html:6
 #, fuzzy
 #| msgid "Forgot Password?"
@@ -1074,9 +1158,7 @@ msgid "Enter your password:"
 msgstr "Salasana unohtunut?"
 
 #: templates/account/request_login_code.html:12
-msgid ""
-"You will receive an email containing a special code for a password-free sign-"
-"in."
+msgid "You will receive a special code for a password-free sign-in."
 msgstr ""
 
 #: templates/account/request_login_code.html:24

@@ -1,16 +1,19 @@
-from django.core.exceptions import ImproperlyConfigured, ValidationError
+from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 
 from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
+from allauth.account.fields import PhoneField
 from allauth.account.forms import (
     AddEmailForm,
     BaseSignupForm,
+    ChangePhoneForm,
     ConfirmLoginCodeForm,
     ReauthenticateForm,
     RequestLoginCodeForm,
     ResetPasswordForm,
     UserTokenForm,
+    VerifyPhoneForm,
 )
 from allauth.account.internal import flows
 from allauth.account.internal.textkit import compare_code
@@ -43,46 +46,33 @@ class SignupInput(BaseSignupForm, inputs.Input):
 class LoginInput(inputs.Input):
     username = inputs.CharField(required=False)
     email = inputs.EmailField(required=False)
+    # NOTE: Always require E164, no need to use adapter.phone_form_field
+    phone = PhoneField(required=False)
     password = inputs.CharField()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in ["username", "email", "phone"]:
+            if field not in account_settings.LOGIN_METHODS:
+                del self.fields[field]
+        if len(account_settings.LOGIN_METHODS) == 1:
+            self.fields[next(iter(account_settings.LOGIN_METHODS))].required = True
 
     def clean(self):
         cleaned_data = super().clean()
-        username = None
-        email = None
-
-        if account_settings.LOGIN_METHODS == {account_settings.LoginMethod.USERNAME}:
-            username = cleaned_data.get("username")
-            missing_field = "username"
-        elif account_settings.LOGIN_METHODS == {account_settings.LoginMethod.EMAIL}:
-            email = cleaned_data.get("email")
-            missing_field = "email"
-        elif account_settings.LOGIN_METHODS == {
-            account_settings.LoginMethod.USERNAME,
-            account_settings.LoginMethod.EMAIL,
-        }:
-            username = cleaned_data.get("username")
-            email = cleaned_data.get("email")
-            missing_field = "email"
-            if email and username:
-                raise get_adapter().validation_error("email_or_username")
-        else:
-            raise ImproperlyConfigured(account_settings.LOGIN_METHODS)
-
-        if not email and not username:
-            if not self.errors.get(missing_field):
-                self.add_error(
-                    missing_field, get_adapter().validation_error("required")
-                )
-
+        if self.errors:
+            return cleaned_data
+        credentials = {}
+        for login_method in account_settings.LOGIN_METHODS:
+            value = cleaned_data.get(login_method)
+            if value is not None:
+                credentials[login_method] = value
+        if len(credentials) != 1:
+            raise get_account_adapter().validation_error("invalid_login")
         password = cleaned_data.get("password")
-        if password and (username or email):
-            credentials = {"password": password}
-            if email:
-                credentials["email"] = email
-                auth_method = account_settings.AuthenticationMethod.EMAIL
-            else:
-                credentials["username"] = username
-                auth_method = account_settings.AuthenticationMethod.USERNAME
+        if password:
+            auth_method = next(iter(credentials.keys()))
+            credentials["password"] = password
             user = get_account_adapter().authenticate(context.request, **credentials)
             if user:
                 self.login = Login(user=user, email=credentials.get("email"))
@@ -246,4 +236,12 @@ class RequestLoginCodeInput(RequestLoginCodeForm, inputs.Input):
 
 
 class ConfirmLoginCodeInput(ConfirmLoginCodeForm, inputs.Input):
+    pass
+
+
+class VerifyPhoneInput(VerifyPhoneForm, inputs.Input):
+    pass
+
+
+class ChangePhoneInput(ChangePhoneForm, inputs.Input):
     pass

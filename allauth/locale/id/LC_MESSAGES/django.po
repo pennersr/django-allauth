@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-21 06:42-0500\n"
+"POT-Creation-Date: 2025-03-01 02:57-0600\n"
 "PO-Revision-Date: 2024-09-13 16:21+0000\n"
 "Last-Translator: Reza Almanda <rezaalmanda27@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/allauth/"
@@ -19,82 +19,108 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.8-dev\n"
 
-#: account/adapter.py:51
+#: account/adapter.py:55
 msgid "This account is currently inactive."
 msgstr "Akun ini sedang tidak aktif."
 
-#: account/adapter.py:53
+#: account/adapter.py:57
 msgid "You cannot remove your primary email address."
 msgstr "Anda tidak dapat menghapus alamat email utama Anda."
 
-#: account/adapter.py:56
+#: account/adapter.py:60
 msgid "This email address is already associated with this account."
 msgstr "Alamat e-mail ini sudah terhubung dengan akun ini."
 
-#: account/adapter.py:59
+#: account/adapter.py:63
 msgid "The email address and/or password you specified are not correct."
 msgstr "Alamat e-mail dan/atau kata sandi yang anda masukkan tidak benar."
 
-#: account/adapter.py:61
+#: account/adapter.py:66
+#, fuzzy
+#| msgid "The username and/or password you specified are not correct."
+msgid "The phone number and/or password you specified are not correct."
+msgstr "Nama pengguna dan/atau kata sandi yang anda masukkan tidak benar."
+
+#: account/adapter.py:68
 msgid "A user is already registered with this email address."
 msgstr "Seorang pengguna sudah terdaftar dengan alamat e-mail ini."
 
-#: account/adapter.py:62
+#: account/adapter.py:69
 msgid "Please type your current password."
 msgstr "Silahkan ketik kata sandi Anda saat ini."
 
-#: account/adapter.py:63 mfa/adapter.py:40
+#: account/adapter.py:70 mfa/adapter.py:40
 msgid "Incorrect code."
 msgstr "Kode salah."
 
-#: account/adapter.py:64
+#: account/adapter.py:71
 msgid "Incorrect password."
 msgstr "Kata sandi salah."
 
-#: account/adapter.py:65
+#: account/adapter.py:72
 msgid "Invalid or expired key."
 msgstr "Kunci tidak valid atau kedaluwarsa."
 
-#: account/adapter.py:66
+#: account/adapter.py:73
+#, fuzzy
+#| msgid "Invalid token."
+msgid "Invalid login."
+msgstr "Token Salah."
+
+#: account/adapter.py:74
 msgid "The password reset token was invalid."
 msgstr "Token untuk mengatur ulang kata sandi tidak valid."
 
-#: account/adapter.py:67
+#: account/adapter.py:75
 #, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "Anda tidak dapat menambahkan lebih dari %d alamat e-mail."
 
-#: account/adapter.py:69
+#: account/adapter.py:77
 msgid "Too many failed login attempts. Try again later."
 msgstr "Terlalu banyak percobaan masuk yang gagal. Coba lagi nanti."
 
-#: account/adapter.py:71
+#: account/adapter.py:79
 msgid "The email address is not assigned to any user account"
 msgstr "Alamat e-mail ini tidak terhubung dengan akun pengguna mana pun"
 
-#: account/adapter.py:72
+#: account/adapter.py:80
+#, fuzzy
+#| msgid "The email address is not assigned to any user account"
+msgid "The phone number is not assigned to any user account"
+msgstr "Alamat e-mail ini tidak terhubung dengan akun pengguna mana pun"
+
+#: account/adapter.py:81
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary email address must be verified."
 msgstr "Alamat e-mail utama Anda harus diverifikasi."
 
-#: account/adapter.py:74
+#: account/adapter.py:83
 msgid "Username can not be used. Please use other username."
 msgstr ""
 "Name pengguna tidak dapat digunakan. Silahkan gunakan nama pengguna lain."
 
-#: account/adapter.py:77
+#: account/adapter.py:86
 msgid "The username and/or password you specified are not correct."
 msgstr "Nama pengguna dan/atau kata sandi yang anda masukkan tidak benar."
 
-#: account/adapter.py:741
+#: account/adapter.py:91
+msgid "Please select only one."
+msgstr ""
+
+#: account/adapter.py:92
+msgid "The new value must be different from the current one."
+msgstr ""
+
+#: account/adapter.py:763
 msgid "Use your password"
 msgstr "Gunakan kata sandi Anda"
 
-#: account/adapter.py:750
+#: account/adapter.py:772
 msgid "Use authenticator app or code"
 msgstr "Gunakan aplikasi atau kode autentikator"
 
-#: account/adapter.py:757 templates/mfa/authenticate.html:36
+#: account/adapter.py:779 templates/mfa/authenticate.html:41
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use a security key"
 msgstr "Gunakan kunci keamanan"
@@ -107,80 +133,94 @@ msgstr "Tandai alamat email yang dipilih sebagai terverifikasi"
 msgid "Accounts"
 msgstr "Akun"
 
-#: account/forms.py:57 account/forms.py:483
+#: account/fields.py:43
+msgid "Enter a phone number including country code (e.g. +1 for the US)."
+msgstr ""
+
+#: account/fields.py:49 account/fields.py:53 account/forms.py:387
+msgid "Phone"
+msgstr ""
+
+#: account/forms.py:60 account/forms.py:579
 msgid "You must type the same password each time."
 msgstr "Anda harus mengetikkan kata sandi yang sama setiap kali."
 
-#: account/forms.py:92 account/forms.py:413 account/forms.py:573
-#: account/forms.py:685
+#: account/forms.py:95 account/forms.py:506 account/forms.py:669
+#: account/forms.py:765
 msgid "Password"
 msgstr "Kata sandi"
 
-#: account/forms.py:93
+#: account/forms.py:96
 msgid "Remember Me"
 msgstr "Ingat Saya"
 
-#: account/forms.py:103 account/forms.py:270 account/forms.py:499
-#: account/forms.py:591 account/forms.py:702
+#: account/forms.py:107 account/forms.py:330 account/forms.py:595
+#: account/forms.py:687 account/forms.py:782
 msgid "Email address"
 msgstr "Alamat e-mail"
 
-#: account/forms.py:107 account/forms.py:308 account/forms.py:496
-#: account/forms.py:586
+#: account/forms.py:111 account/forms.py:362 account/forms.py:592
+#: account/forms.py:682
 msgid "Email"
 msgstr "E-mail"
 
-#: account/forms.py:110 account/forms.py:113 account/forms.py:260
-#: account/forms.py:263
+#: account/forms.py:114 account/forms.py:117 account/forms.py:320
+#: account/forms.py:323 account/forms.py:374
 msgid "Username"
 msgstr "Nama pengguna"
 
-#: account/forms.py:123
+#: account/forms.py:132
 msgid "Username or email"
 msgstr "Nama pengguna atau e-mail"
 
-#: account/forms.py:126
+#: account/forms.py:135
 msgctxt "field label"
 msgid "Login"
 msgstr "Masuk"
 
-#: account/forms.py:137
+#: account/forms.py:146
 msgid "Forgot your password?"
 msgstr "Lupa kata sandi Anda?"
 
-#: account/forms.py:299
+#: account/forms.py:350
 msgid "Email (again)"
 msgstr "E-mail (lagi)"
 
-#: account/forms.py:303
+#: account/forms.py:355
 msgid "Email address confirmation"
 msgstr "Konfirmasi alamat e-mail"
 
-#: account/forms.py:311
+#: account/forms.py:365
 msgid "Email (optional)"
 msgstr "E-mail (opsional)"
 
-#: account/forms.py:370
+#: account/forms.py:377
+#, fuzzy
+#| msgid "Email (optional)"
+msgid "Username (optional)"
+msgstr "E-mail (opsional)"
+
+#: account/forms.py:458
 msgid "You must type the same email each time."
 msgstr "Anda harus mengetikkan e-mail yang sama setiap kali."
 
-#: account/forms.py:419 account/forms.py:574
+#: account/forms.py:513 account/forms.py:670
 msgid "Password (again)"
 msgstr "Kata sandi (lagi)"
 
-#: account/forms.py:554
+#: account/forms.py:650
 msgid "Current Password"
 msgstr "Kata sandi saat ini"
 
-#: account/forms.py:556 account/forms.py:638
+#: account/forms.py:652 account/forms.py:718
 msgid "New Password"
 msgstr "Kata sandi baru"
 
-#: account/forms.py:557 account/forms.py:639
+#: account/forms.py:653 account/forms.py:719
 msgid "New Password (again)"
 msgstr "Kata sandi baru (lagi)"
 
-#: account/forms.py:725 account/forms.py:727 mfa/base/forms.py:15
+#: account/forms.py:842 account/forms.py:844 mfa/base/forms.py:15
 #: mfa/base/forms.py:17 mfa/totp/forms.py:13
 msgid "Code"
 msgstr "Kode"
@@ -189,7 +229,7 @@ msgstr "Kode"
 msgid "user"
 msgstr "pengguna"
 
-#: account/models.py:32 account/models.py:40 account/models.py:147
+#: account/models.py:32 account/models.py:40 account/models.py:148
 msgid "email address"
 msgstr "alamat e-mail"
 
@@ -205,23 +245,23 @@ msgstr "utama"
 msgid "email addresses"
 msgstr "alamat e-mail"
 
-#: account/models.py:150
+#: account/models.py:151
 msgid "created"
 msgstr "dibuat"
 
-#: account/models.py:151
+#: account/models.py:152
 msgid "sent"
 msgstr "dikirim"
 
-#: account/models.py:152 socialaccount/models.py:69
+#: account/models.py:153 socialaccount/models.py:69
 msgid "key"
 msgstr "kunci"
 
-#: account/models.py:157
+#: account/models.py:158
 msgid "email confirmation"
 msgstr "konfirmasi e-mail"
 
-#: account/models.py:158
+#: account/models.py:159
 msgid "email confirmations"
 msgstr "konfirmasi e-mail"
 
@@ -290,11 +330,11 @@ msgstr "WebAuthn"
 msgid "Authenticator code"
 msgstr "Kode autentikator"
 
-#: mfa/webauthn/forms.py:56
+#: mfa/webauthn/forms.py:59
 msgid "Passwordless"
 msgstr "Tanpa kata sandi"
 
-#: mfa/webauthn/forms.py:59
+#: mfa/webauthn/forms.py:62
 msgid ""
 "Enabling passwordless operation allows you to sign in using just this key, "
 "but imposes additional requirements such as biometrics or PIN protection."
@@ -303,7 +343,7 @@ msgstr ""
 "dengan menggunakan kunci ini, tetapi memberlakukan persyaratan tambahan "
 "seperti perlindungan biometrik atau PIN."
 
-#: socialaccount/adapter.py:36
+#: socialaccount/adapter.py:35
 #, python-format
 msgid ""
 "An account already exists with this email address. Please sign in to that "
@@ -312,23 +352,23 @@ msgstr ""
 "Akun sudah ada dengan alamat email ini. Silakan masuk ke akun tersebut "
 "terlebih dahulu, lalu hubungkan akun %s Anda."
 
-#: socialaccount/adapter.py:40
+#: socialaccount/adapter.py:39
 msgid "Invalid token."
 msgstr "Token Salah."
 
-#: socialaccount/adapter.py:41
+#: socialaccount/adapter.py:40
 msgid "Your account has no password set up."
 msgstr "Akun Anda tidak memiliki kata sandi."
 
-#: socialaccount/adapter.py:42
+#: socialaccount/adapter.py:41
 msgid "Your account has no verified email address."
 msgstr "Akun Anda tidak memiliki alamat e-mail yang terverifikasi."
 
-#: socialaccount/adapter.py:44
+#: socialaccount/adapter.py:43
 msgid "You cannot disconnect your last remaining third-party account."
 msgstr "Anda tidak dapat memutuskan akun pihak ketiga Anda yang terakhir."
 
-#: socialaccount/adapter.py:47
+#: socialaccount/adapter.py:46
 #: templates/socialaccount/messages/account_connected_other.txt:2
 msgid "The third-party account is already connected to a different account."
 msgstr "Akun pihak ketiga sudah terhubung ke akun yang berbeda."
@@ -438,10 +478,10 @@ msgid "Login"
 msgstr "Masuk"
 
 #: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:19
-#: templates/account/confirm_email_verification_code.html:33
-#: templates/account/confirm_email_verification_code.html:37
-#: templates/account/confirm_login_code.html:32
-#: templates/mfa/authenticate.html:40
+#: templates/account/base_confirm_code.html:42
+#: templates/account/base_confirm_code.html:46
+#: templates/account/password_reset_from_key.html:33
+#: templates/mfa/authenticate.html:28 templates/mfa/authenticate.html:44
 #: templates/mfa/webauthn/signup_form.html:26
 msgid "Cancel"
 msgstr ""
@@ -488,6 +528,20 @@ msgstr "Akun Tidak Aktif"
 msgid "This account is inactive."
 msgstr "Akun ini tidak aktif."
 
+#: templates/account/base_confirm_code.html:27
+#, python-format
+msgid ""
+"We've sent a code to %(recipient)s. The code expires shortly, so please "
+"enter it soon."
+msgstr ""
+
+#: templates/account/base_confirm_code.html:38
+#: templates/account/email_confirm.html:24
+#: templates/account/reauthenticate.html:18
+#: templates/mfa/reauthenticate.html:18
+msgid "Confirm"
+msgstr "Konfirmasi"
+
 #: templates/account/base_reauthenticate.html:5
 #: templates/account/base_reauthenticate.html:9
 #, fuzzy
@@ -500,7 +554,7 @@ msgid "Please reauthenticate to safeguard your account."
 msgstr ""
 
 #: templates/account/base_reauthenticate.html:19
-#: templates/mfa/authenticate.html:31
+#: templates/mfa/authenticate.html:37
 msgid "Alternative options"
 msgstr ""
 
@@ -510,29 +564,13 @@ msgstr ""
 msgid "Email Verification"
 msgstr "konfirmasi e-mail"
 
-#: templates/account/confirm_email_verification_code.html:9
+#: templates/account/confirm_email_verification_code.html:8
 #, fuzzy
 #| msgid "token secret"
 msgid "Enter Email Verification Code"
 msgstr "rahasia token"
 
-#: templates/account/confirm_email_verification_code.html:15
-#: templates/account/confirm_login_code.html:15
-#, python-format
-msgid ""
-"We’ve sent a code to %(email_link)s. The code expires shortly, so please "
-"enter it soon."
-msgstr ""
-
-#: templates/account/confirm_email_verification_code.html:27
-#: templates/account/email_confirm.html:24
-#: templates/account/reauthenticate.html:18
-#: templates/mfa/reauthenticate.html:18
-msgid "Confirm"
-msgstr "Konfirmasi"
-
-#: templates/account/confirm_login_code.html:5
-#: templates/account/confirm_login_code.html:27 templates/account/login.html:5
+#: templates/account/confirm_login_code.html:5 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
 #: templates/account/request_login_code.html:5
 #: templates/allauth/layouts/base.html:68 templates/mfa/authenticate.html:6
@@ -543,9 +581,36 @@ msgstr "Konfirmasi"
 msgid "Sign In"
 msgstr "Masuk"
 
-#: templates/account/confirm_login_code.html:9
+#: templates/account/confirm_login_code.html:8
 msgid "Enter Sign-In Code"
 msgstr ""
+
+#: templates/account/confirm_password_reset_code.html:5
+#: templates/account/email/password_reset_subject.txt:3
+#: templates/account/password_reset.html:4
+#: templates/account/password_reset.html:8
+#: templates/account/password_reset_done.html:6
+#: templates/account/password_reset_done.html:10
+msgid "Password Reset"
+msgstr "Reset Kata Sandi"
+
+#: templates/account/confirm_password_reset_code.html:8
+#, fuzzy
+#| msgid "Password Reset"
+msgid "Enter Password Reset Code"
+msgstr "Reset Kata Sandi"
+
+#: templates/account/confirm_phone_verification_code.html:5
+#, fuzzy
+#| msgid "Re-send Verification"
+msgid "Phone Verification"
+msgstr "Kirim Ulang Verifikasi"
+
+#: templates/account/confirm_phone_verification_code.html:8
+#, fuzzy
+#| msgid "token secret"
+msgid "Enter Phone Verification Code"
+msgstr "rahasia token"
 
 #: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
@@ -719,6 +784,7 @@ msgid ""
 msgstr ""
 
 #: templates/account/email/login_code_message.txt:9
+#: templates/account/email/password_reset_code_message.txt:9
 #: templates/account/email/unknown_account_message.txt:6
 msgid "This mail can be safely ignored if you did not initiate this action."
 msgstr ""
@@ -740,6 +806,18 @@ msgstr "Kata sandi Anda telah diubah."
 #| msgid "Password (again)"
 msgid "Password Changed"
 msgstr "Kata sandi (lagi)"
+
+#: templates/account/email/password_reset_code_message.txt:5
+msgid ""
+"Your password reset code is listed below. Please enter it in your open "
+"browser window."
+msgstr ""
+
+#: templates/account/email/password_reset_code_subject.txt:3
+#, fuzzy
+#| msgid "Password Reset"
+msgid "Password Reset Code"
+msgstr "Reset Kata Sandi"
 
 #: templates/account/email/password_reset_key_message.txt:4
 #, fuzzy
@@ -773,14 +851,6 @@ msgstr "E-mail Reset Kata Sandi"
 #| msgid "Your password is now changed."
 msgid "Your password has been reset."
 msgstr "Kata sandi Anda telah diubah."
-
-#: templates/account/email/password_reset_subject.txt:3
-#: templates/account/password_reset.html:4
-#: templates/account/password_reset.html:8
-#: templates/account/password_reset_done.html:6
-#: templates/account/password_reset_done.html:10
-msgid "Password Reset"
-msgstr "Reset Kata Sandi"
 
 #: templates/account/email/password_set_message.txt:4
 #, fuzzy
@@ -840,6 +910,7 @@ msgid "Cancel Change"
 msgstr ""
 
 #: templates/account/email_change.html:49
+#: templates/account/phone_change.html:28
 #, fuzzy
 #| msgid "Email"
 msgid "Change to"
@@ -904,7 +975,7 @@ msgid "Sign in with a passkey"
 msgstr ""
 
 #: templates/account/login.html:47 templates/account/request_login_code.html:9
-msgid "Mail me a sign-in code"
+msgid "Send me a sign-in code"
 msgstr ""
 
 #: templates/account/logout.html:4 templates/account/logout.html:8
@@ -948,7 +1019,7 @@ msgstr "Anda telah keluar."
 
 #: templates/account/messages/login_code_sent.txt:2
 #, python-format
-msgid "A sign-in code has been mailed to %(email)s."
+msgid "A sign-in code has been sent to %(recipient)s."
 msgstr ""
 
 #: templates/account/messages/password_changed.txt:2
@@ -991,11 +1062,11 @@ msgstr ""
 "Lupa kata sandi Anda? Masukkan alamat e-mail Anda di bawah, dan kami akan "
 "mengirimkan e-mail yang membolehkan Anda untuk mengubahnya."
 
-#: templates/account/password_reset.html:25
+#: templates/account/password_reset.html:26
 msgid "Reset My Password"
 msgstr "Reset Kata Sandi Saya"
 
-#: templates/account/password_reset.html:30
+#: templates/account/password_reset.html:31
 msgid "Please contact us if you have any trouble resetting your password."
 msgstr ""
 "Mohon hubungi kami jika Anda mengalami masalah saat mengubah kata sandi Anda."
@@ -1037,6 +1108,19 @@ msgstr "Kata sandi Anda telah diubah."
 msgid "Set Password"
 msgstr "Setel Kata Sandi"
 
+#: templates/account/phone_change.html:5 templates/account/phone_change.html:9
+#: templates/account/phone_change.html:34
+#, fuzzy
+#| msgid "Email"
+msgid "Change Phone"
+msgstr "E-mail"
+
+#: templates/account/phone_change.html:18
+#, fuzzy
+#| msgid "Current Password"
+msgid "Current phone"
+msgstr "Kata sandi saat ini"
+
 #: templates/account/reauthenticate.html:6
 #, fuzzy
 #| msgid "Forgot Password?"
@@ -1044,9 +1128,7 @@ msgid "Enter your password:"
 msgstr "Lupa Kata Sandi?"
 
 #: templates/account/request_login_code.html:12
-msgid ""
-"You will receive an email containing a special code for a password-free sign-"
-"in."
+msgid "You will receive a special code for a password-free sign-in."
 msgstr ""
 
 #: templates/account/request_login_code.html:24

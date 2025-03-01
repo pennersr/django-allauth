@@ -100,3 +100,4 @@ PASSWORD_HASHERS = [
 
 
 ACCOUNT_LOGIN_BY_CODE_ENABLED = True
+ACCOUNT_ADAPTER = "tests.common.adapters.AccountAdapter"

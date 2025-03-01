@@ -18,6 +18,13 @@
                            href="{{ change_password_url_ }}">Change Password</a>
                     </li>
                 {% endif %}
+                {% url 'account_change_phone' as phone_url_ %}
+                {% if phone_url_ %}
+                    <li class="nav-item">
+                        <a class="{% block nav_class_phone %}nav-link text-white{% endblock %}"
+                           href="{{ phone_url_ }}">Change Phone</a>
+                    </li>
+                {% endif %}
                 {% url 'socialaccount_connections' as connections_url_ %}
                 {% if connections_url_ %}
                     <li class="nav-item">

@@ -43,7 +43,7 @@ export default function Login () {
       </div>
       <Button disabled={response.fetching} onClick={() => submit()}>Login</Button>
       {config.data.account.login_by_code_enabled
-        ? <Link className='btn btn-secondary' to='/account/login/code'>Mail me a sign-in code</Link>
+        ? <Link className='btn btn-secondary' to='/account/login/code'>Send me a sign-in code</Link>
         : null}
       <WebAuthnLoginButton>Sign in with a passkey</WebAuthnLoginButton>
       {hasProviders

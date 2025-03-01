@@ -9,11 +9,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.55\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-21 06:42-0500\n"
+"POT-Creation-Date: 2025-03-01 02:57-0600\n"
 "PO-Revision-Date: 2024-09-25 06:15+0000\n"
 "Last-Translator: Jakub Boukal <www.bagr@gmail.com>\n"
-"Language-Team: Czech <https://hosted.weblate.org/projects/allauth/"
-"django-allauth/cs/>\n"
+"Language-Team: Czech <https://hosted.weblate.org/projects/allauth/django-"
+"allauth/cs/>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,81 +22,107 @@ msgstr ""
 "<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 "X-Generator: Weblate 5.8-dev\n"
 
-#: account/adapter.py:51
+#: account/adapter.py:55
 msgid "This account is currently inactive."
 msgstr "Účet je v tuto chvíli neaktivní."
 
-#: account/adapter.py:53
+#: account/adapter.py:57
 msgid "You cannot remove your primary email address."
 msgstr "Nemůžete odstranit primární e-mailovou adresu."
 
-#: account/adapter.py:56
+#: account/adapter.py:60
 msgid "This email address is already associated with this account."
 msgstr "Tento e-mail je již k tomuto účtu přiřazen."
 
-#: account/adapter.py:59
+#: account/adapter.py:63
 msgid "The email address and/or password you specified are not correct."
 msgstr "Zadaný e-mail nebo heslo není správné."
 
-#: account/adapter.py:61
+#: account/adapter.py:66
+#, fuzzy
+#| msgid "The username and/or password you specified are not correct."
+msgid "The phone number and/or password you specified are not correct."
+msgstr "Zadané uživatelské jméno nebo heslo není správné."
+
+#: account/adapter.py:68
 msgid "A user is already registered with this email address."
 msgstr "Uživatel s tímto e-mailem je již registrován."
 
-#: account/adapter.py:62
+#: account/adapter.py:69
 msgid "Please type your current password."
 msgstr "Prosím, zadejte svoje současné heslo."
 
-#: account/adapter.py:63 mfa/adapter.py:40
+#: account/adapter.py:70 mfa/adapter.py:40
 msgid "Incorrect code."
 msgstr "Nesprávný kód."
 
-#: account/adapter.py:64
+#: account/adapter.py:71
 msgid "Incorrect password."
 msgstr "Nesprávné heslo."
 
-#: account/adapter.py:65
+#: account/adapter.py:72
 msgid "Invalid or expired key."
 msgstr "Neplatný klíč."
 
-#: account/adapter.py:66
+#: account/adapter.py:73
+#, fuzzy
+#| msgid "Invalid token."
+msgid "Invalid login."
+msgstr "Neplatný token."
+
+#: account/adapter.py:74
 msgid "The password reset token was invalid."
 msgstr "Token pro reset hesla není platný."
 
-#: account/adapter.py:67
+#: account/adapter.py:75
 #, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "Nelze přidat více než %d e-mailových adres."
 
-#: account/adapter.py:69
+#: account/adapter.py:77
 msgid "Too many failed login attempts. Try again later."
 msgstr "Příliš mnoho pokusů o přihlášení. Zkuste to prosím později."
 
-#: account/adapter.py:71
+#: account/adapter.py:79
 msgid "The email address is not assigned to any user account"
 msgstr "E-mail není přiřazen k žádnému účtu"
 
-#: account/adapter.py:72
+#: account/adapter.py:80
+#, fuzzy
+#| msgid "The email address is not assigned to any user account"
+msgid "The phone number is not assigned to any user account"
+msgstr "E-mail není přiřazen k žádnému účtu"
+
+#: account/adapter.py:81
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary email address must be verified."
 msgstr "Vaše primární e-mailová adresa musí být ověřena."
 
-#: account/adapter.py:74
+#: account/adapter.py:83
 msgid "Username can not be used. Please use other username."
 msgstr "Toto uživatelské jméno nemůže být zvoleno. Prosím, zvolte si jiné."
 
-#: account/adapter.py:77
+#: account/adapter.py:86
 msgid "The username and/or password you specified are not correct."
 msgstr "Zadané uživatelské jméno nebo heslo není správné."
 
-#: account/adapter.py:741
+#: account/adapter.py:91
+msgid "Please select only one."
+msgstr ""
+
+#: account/adapter.py:92
+msgid "The new value must be different from the current one."
+msgstr ""
+
+#: account/adapter.py:763
 msgid "Use your password"
 msgstr "Zadejte své heslo"
 
-#: account/adapter.py:750
+#: account/adapter.py:772
 msgid "Use authenticator app or code"
 msgstr "Použijte ověřovací aplikaci nebo kód"
 
-#: account/adapter.py:757 templates/mfa/authenticate.html:36
+#: account/adapter.py:779 templates/mfa/authenticate.html:41
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use a security key"
 msgstr "Zadejte tajný klíč"
@@ -109,80 +135,94 @@ msgstr "Označ vybrané e-mailové adresy jako ověřené"
 msgid "Accounts"
 msgstr "Účty"
 
-#: account/forms.py:57 account/forms.py:483
+#: account/fields.py:43
+msgid "Enter a phone number including country code (e.g. +1 for the US)."
+msgstr ""
+
+#: account/fields.py:49 account/fields.py:53 account/forms.py:387
+msgid "Phone"
+msgstr ""
+
+#: account/forms.py:60 account/forms.py:579
 msgid "You must type the same password each time."
 msgstr "Hesla se musí shodovat."
 
-#: account/forms.py:92 account/forms.py:413 account/forms.py:573
-#: account/forms.py:685
+#: account/forms.py:95 account/forms.py:506 account/forms.py:669
+#: account/forms.py:765
 msgid "Password"
 msgstr "Heslo"
 
-#: account/forms.py:93
+#: account/forms.py:96
 msgid "Remember Me"
 msgstr "Zapamatovat"
 
-#: account/forms.py:103 account/forms.py:270 account/forms.py:499
-#: account/forms.py:591 account/forms.py:702
+#: account/forms.py:107 account/forms.py:330 account/forms.py:595
+#: account/forms.py:687 account/forms.py:782
 msgid "Email address"
 msgstr "E-mailová adresa"
 
-#: account/forms.py:107 account/forms.py:308 account/forms.py:496
-#: account/forms.py:586
+#: account/forms.py:111 account/forms.py:362 account/forms.py:592
+#: account/forms.py:682
 msgid "Email"
 msgstr "E-mail"
 
-#: account/forms.py:110 account/forms.py:113 account/forms.py:260
-#: account/forms.py:263
+#: account/forms.py:114 account/forms.py:117 account/forms.py:320
+#: account/forms.py:323 account/forms.py:374
 msgid "Username"
 msgstr "Uživatelské jméno"
 
-#: account/forms.py:123
+#: account/forms.py:132
 msgid "Username or email"
 msgstr "Uživatelské jméno nebo e-mail"
 
-#: account/forms.py:126
+#: account/forms.py:135
 msgctxt "field label"
 msgid "Login"
 msgstr "Přihlášení"
 
-#: account/forms.py:137
+#: account/forms.py:146
 msgid "Forgot your password?"
 msgstr "Zapoměli jste heslo?"
 
-#: account/forms.py:299
+#: account/forms.py:350
 msgid "Email (again)"
 msgstr "E-mail (znovu)"
 
-#: account/forms.py:303
+#: account/forms.py:355
 msgid "Email address confirmation"
 msgstr "Potrvzení e-mailové adresy"
 
-#: account/forms.py:311
+#: account/forms.py:365
 msgid "Email (optional)"
 msgstr "E-mail (nepovinné)"
 
-#: account/forms.py:370
+#: account/forms.py:377
+#, fuzzy
+#| msgid "Email (optional)"
+msgid "Username (optional)"
+msgstr "E-mail (nepovinné)"
+
+#: account/forms.py:458
 msgid "You must type the same email each time."
 msgstr "Vložené e-maily se musí shodovat."
 
-#: account/forms.py:419 account/forms.py:574
+#: account/forms.py:513 account/forms.py:670
 msgid "Password (again)"
 msgstr "Heslo (znovu)"
 
-#: account/forms.py:554
+#: account/forms.py:650
 msgid "Current Password"
 msgstr "Současné heslo"
 
-#: account/forms.py:556 account/forms.py:638
+#: account/forms.py:652 account/forms.py:718
 msgid "New Password"
 msgstr "Nové heslo"
 
-#: account/forms.py:557 account/forms.py:639
+#: account/forms.py:653 account/forms.py:719
 msgid "New Password (again)"
 msgstr "Nové heslo (znovu)"
 
-#: account/forms.py:725 account/forms.py:727 mfa/base/forms.py:15
+#: account/forms.py:842 account/forms.py:844 mfa/base/forms.py:15
 #: mfa/base/forms.py:17 mfa/totp/forms.py:13
 msgid "Code"
 msgstr "Kód"
@@ -191,7 +231,7 @@ msgstr "Kód"
 msgid "user"
 msgstr "uživatel"
 
-#: account/models.py:32 account/models.py:40 account/models.py:147
+#: account/models.py:32 account/models.py:40 account/models.py:148
 msgid "email address"
 msgstr "e-mailová adresa"
 
@@ -207,23 +247,23 @@ msgstr "primární"
 msgid "email addresses"
 msgstr "e-mailové adresy"
 
-#: account/models.py:150
+#: account/models.py:151
 msgid "created"
 msgstr "vytvořeno"
 
-#: account/models.py:151
+#: account/models.py:152
 msgid "sent"
 msgstr "odeslaný"
 
-#: account/models.py:152 socialaccount/models.py:69
+#: account/models.py:153 socialaccount/models.py:69
 msgid "key"
 msgstr "klíč"
 
-#: account/models.py:157
+#: account/models.py:158
 msgid "email confirmation"
 msgstr "Potvrzovací e-mail"
 
-#: account/models.py:158
+#: account/models.py:159
 msgid "email confirmations"
 msgstr "Ověřovací e-maily"
 
@@ -290,11 +330,11 @@ msgstr "WebAuthn"
 msgid "Authenticator code"
 msgstr "Kód autentifikátoru"
 
-#: mfa/webauthn/forms.py:56
+#: mfa/webauthn/forms.py:59
 msgid "Passwordless"
 msgstr "Bez hesla"
 
-#: mfa/webauthn/forms.py:59
+#: mfa/webauthn/forms.py:62
 msgid ""
 "Enabling passwordless operation allows you to sign in using just this key, "
 "but imposes additional requirements such as biometrics or PIN protection."
@@ -302,7 +342,7 @@ msgstr ""
 "Povolení možnosti bez hesla vám umožní přihlásit se pouze pomocí tohoto "
 "klíče, ale klade další požadavky, jako je biometrie nebo ochrana PIN."
 
-#: socialaccount/adapter.py:36
+#: socialaccount/adapter.py:35
 #, python-format
 msgid ""
 "An account already exists with this email address. Please sign in to that "
@@ -311,23 +351,23 @@ msgstr ""
 "Účet s touto e-mailovou adresou již existuje. Prosím přihlaste se nejdříve "
 "pod tímto účtem a potom připojte svůj %s účet."
 
-#: socialaccount/adapter.py:40
+#: socialaccount/adapter.py:39
 msgid "Invalid token."
 msgstr "Neplatný token."
 
-#: socialaccount/adapter.py:41
+#: socialaccount/adapter.py:40
 msgid "Your account has no password set up."
 msgstr "Váš účet nemá nastavené heslo."
 
-#: socialaccount/adapter.py:42
+#: socialaccount/adapter.py:41
 msgid "Your account has no verified email address."
 msgstr "Váš účet nemá žádný ověřený e-mail."
 
-#: socialaccount/adapter.py:44
+#: socialaccount/adapter.py:43
 msgid "You cannot disconnect your last remaining third-party account."
 msgstr "Nemůžete odpojit svůj poslední externí účet."
 
-#: socialaccount/adapter.py:47
+#: socialaccount/adapter.py:46
 #: templates/socialaccount/messages/account_connected_other.txt:2
 msgid "The third-party account is already connected to a different account."
 msgstr "Externí účet je již spojen s jiným účtem."
@@ -437,10 +477,10 @@ msgid "Login"
 msgstr "Přihlášení"
 
 #: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:19
-#: templates/account/confirm_email_verification_code.html:33
-#: templates/account/confirm_email_verification_code.html:37
-#: templates/account/confirm_login_code.html:32
-#: templates/mfa/authenticate.html:40
+#: templates/account/base_confirm_code.html:42
+#: templates/account/base_confirm_code.html:46
+#: templates/account/password_reset_from_key.html:33
+#: templates/mfa/authenticate.html:28 templates/mfa/authenticate.html:44
 #: templates/mfa/webauthn/signup_form.html:26
 msgid "Cancel"
 msgstr "Zrušit"
@@ -486,6 +526,25 @@ msgstr "Neaktivní účet"
 msgid "This account is inactive."
 msgstr "Tento účet není aktivní."
 
+#: templates/account/base_confirm_code.html:27
+#, fuzzy, python-format
+#| msgid ""
+#| "We’ve sent a code to %(email_link)s. The code expires shortly, so please "
+#| "enter it soon."
+msgid ""
+"We've sent a code to %(recipient)s. The code expires shortly, so please "
+"enter it soon."
+msgstr ""
+"Na adresu %(email_link)s jsme poslali ověřovací kód. Jeho platnost brzy "
+"vyprší, zadejte ho prosím včas."
+
+#: templates/account/base_confirm_code.html:38
+#: templates/account/email_confirm.html:24
+#: templates/account/reauthenticate.html:18
+#: templates/mfa/reauthenticate.html:18
+msgid "Confirm"
+msgstr "Potvrdit"
+
 #: templates/account/base_reauthenticate.html:5
 #: templates/account/base_reauthenticate.html:9
 msgid "Confirm Access"
@@ -496,7 +555,7 @@ msgid "Please reauthenticate to safeguard your account."
 msgstr "Pro ochranu účtu se prosím znovu ověřte."
 
 #: templates/account/base_reauthenticate.html:19
-#: templates/mfa/authenticate.html:31
+#: templates/mfa/authenticate.html:37
 msgid "Alternative options"
 msgstr "Alternativní možnosti"
 
@@ -504,29 +563,11 @@ msgstr "Alternativní možnosti"
 msgid "Email Verification"
 msgstr "Ověření e-mailu"
 
-#: templates/account/confirm_email_verification_code.html:9
+#: templates/account/confirm_email_verification_code.html:8
 msgid "Enter Email Verification Code"
 msgstr "Zadejte ověřovací kód e-mailu"
 
-#: templates/account/confirm_email_verification_code.html:15
-#: templates/account/confirm_login_code.html:15
-#, python-format
-msgid ""
-"We’ve sent a code to %(email_link)s. The code expires shortly, so please "
-"enter it soon."
-msgstr ""
-"Na adresu %(email_link)s jsme poslali ověřovací kód. Jeho platnost brzy "
-"vyprší, zadejte ho prosím včas."
-
-#: templates/account/confirm_email_verification_code.html:27
-#: templates/account/email_confirm.html:24
-#: templates/account/reauthenticate.html:18
-#: templates/mfa/reauthenticate.html:18
-msgid "Confirm"
-msgstr "Potvrdit"
-
-#: templates/account/confirm_login_code.html:5
-#: templates/account/confirm_login_code.html:27 templates/account/login.html:5
+#: templates/account/confirm_login_code.html:5 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
 #: templates/account/request_login_code.html:5
 #: templates/allauth/layouts/base.html:68 templates/mfa/authenticate.html:6
@@ -537,9 +578,36 @@ msgstr "Potvrdit"
 msgid "Sign In"
 msgstr "Přihlásit se"
 
-#: templates/account/confirm_login_code.html:9
+#: templates/account/confirm_login_code.html:8
 msgid "Enter Sign-In Code"
 msgstr "Zadejte Ověřovací Kód"
+
+#: templates/account/confirm_password_reset_code.html:5
+#: templates/account/email/password_reset_subject.txt:3
+#: templates/account/password_reset.html:4
+#: templates/account/password_reset.html:8
+#: templates/account/password_reset_done.html:6
+#: templates/account/password_reset_done.html:10
+msgid "Password Reset"
+msgstr "Reset hesla"
+
+#: templates/account/confirm_password_reset_code.html:8
+#, fuzzy
+#| msgid "Password Reset"
+msgid "Enter Password Reset Code"
+msgstr "Reset hesla"
+
+#: templates/account/confirm_phone_verification_code.html:5
+#, fuzzy
+#| msgid "Re-send Verification"
+msgid "Phone Verification"
+msgstr "Znovu zaslat oveřovací e-mail"
+
+#: templates/account/confirm_phone_verification_code.html:8
+#, fuzzy
+#| msgid "Enter Email Verification Code"
+msgid "Enter Phone Verification Code"
+msgstr "Zadejte ověřovací kód e-mailu"
 
 #: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
@@ -719,6 +787,7 @@ msgstr ""
 "Níže najdete váš přihlašovací kód. Zadejte jej do otevřeného okna prohlížeče."
 
 #: templates/account/email/login_code_message.txt:9
+#: templates/account/email/password_reset_code_message.txt:9
 #: templates/account/email/unknown_account_message.txt:6
 msgid "This mail can be safely ignored if you did not initiate this action."
 msgstr ""
@@ -735,6 +804,23 @@ msgstr "Vaše heslo bylo změněno."
 #: templates/account/email/password_changed_subject.txt:3
 msgid "Password Changed"
 msgstr "Heslo změněno"
+
+#: templates/account/email/password_reset_code_message.txt:5
+#, fuzzy
+#| msgid ""
+#| "Your sign-in code is listed below. Please enter it in your open browser "
+#| "window."
+msgid ""
+"Your password reset code is listed below. Please enter it in your open "
+"browser window."
+msgstr ""
+"Níže najdete váš přihlašovací kód. Zadejte jej do otevřeného okna prohlížeče."
+
+#: templates/account/email/password_reset_code_subject.txt:3
+#, fuzzy
+#| msgid "Password Reset"
+msgid "Password Reset Code"
+msgstr "Reset hesla"
 
 #: templates/account/email/password_reset_key_message.txt:4
 msgid ""
@@ -761,14 +847,6 @@ msgstr "E-mail pro reset hesla"
 #: templates/account/email/password_reset_message.txt:4
 msgid "Your password has been reset."
 msgstr "Vaše heslo bylo obnoveno."
-
-#: templates/account/email/password_reset_subject.txt:3
-#: templates/account/password_reset.html:4
-#: templates/account/password_reset.html:8
-#: templates/account/password_reset_done.html:6
-#: templates/account/password_reset_done.html:10
-msgid "Password Reset"
-msgstr "Reset hesla"
 
 #: templates/account/email/password_set_message.txt:4
 msgid "Your password has been set."
@@ -820,6 +898,7 @@ msgid "Cancel Change"
 msgstr "Zrušit změnu"
 
 #: templates/account/email_change.html:49
+#: templates/account/phone_change.html:28
 msgid "Change to"
 msgstr "Změnit na"
 
@@ -873,7 +952,9 @@ msgid "Sign in with a passkey"
 msgstr "Přihlaste se pomocí přístupového klíče"
 
 #: templates/account/login.html:47 templates/account/request_login_code.html:9
-msgid "Mail me a sign-in code"
+#, fuzzy
+#| msgid "Mail me a sign-in code"
+msgid "Send me a sign-in code"
 msgstr "Pošlete mi přihlašovací kód"
 
 #: templates/account/logout.html:4 templates/account/logout.html:8
@@ -916,8 +997,9 @@ msgid "You have signed out."
 msgstr "Právě jste byl odhlášen."
 
 #: templates/account/messages/login_code_sent.txt:2
-#, python-format
-msgid "A sign-in code has been mailed to %(email)s."
+#, fuzzy, python-format
+#| msgid "A sign-in code has been mailed to %(email)s."
+msgid "A sign-in code has been sent to %(recipient)s."
 msgstr "Přihlašovací kód byl zaslán na adresu %(email)s."
 
 #: templates/account/messages/password_changed.txt:2
@@ -956,11 +1038,11 @@ msgstr ""
 "Zapomněli jste heslo? Zadejte prosím svoji e-mailovou adresu a do e-mailové "
 "schránky Vám přijde návod na jeho obnovu."
 
-#: templates/account/password_reset.html:25
+#: templates/account/password_reset.html:26
 msgid "Reset My Password"
 msgstr "Resetovat moje heslo"
 
-#: templates/account/password_reset.html:30
+#: templates/account/password_reset.html:31
 msgid "Please contact us if you have any trouble resetting your password."
 msgstr ""
 "Prosím, kontaktujte nás, pokud máte jakékoliv potíže s resetováním hesla."
@@ -997,14 +1079,29 @@ msgstr "Vaše heslo je nyní změněno."
 msgid "Set Password"
 msgstr "Nastavit heslo"
 
+#: templates/account/phone_change.html:5 templates/account/phone_change.html:9
+#: templates/account/phone_change.html:34
+#, fuzzy
+#| msgid "Change to"
+msgid "Change Phone"
+msgstr "Změnit na"
+
+#: templates/account/phone_change.html:18
+#, fuzzy
+#| msgid "Current"
+msgid "Current phone"
+msgstr "Aktuální"
+
 #: templates/account/reauthenticate.html:6
 msgid "Enter your password:"
 msgstr "Zadejte své heslo:"
 
 #: templates/account/request_login_code.html:12
-msgid ""
-"You will receive an email containing a special code for a password-free sign-"
-"in."
+#, fuzzy
+#| msgid ""
+#| "You will receive an email containing a special code for a password-free "
+#| "sign-in."
+msgid "You will receive a special code for a password-free sign-in."
 msgstr "Obdržíte e-mail obsahující speciální kód pro přihlášení bez hesla."
 
 #: templates/account/request_login_code.html:24

@@ -70,9 +70,13 @@ def user_factory(email_factory, db, user_password, email_verified):
         with_email=True,
         email_verified=email_verified,
         password=None,
+        phone=None,
+        phone_verified=False,
         with_emailaddress=True,
         with_totp=False,
     ):
+        from allauth.account.adapter import get_adapter
+
         if not username:
             username = uuid.uuid4().hex
 
@@ -100,6 +104,8 @@ def user_factory(email_factory, db, user_password, email_verified):
             from allauth.mfa.totp.internal import auth
 
             auth.TOTP.activate(user, auth.generate_totp_secret())
+        if phone:
+            get_adapter().set_phone(user, phone, phone_verified)
         return user
 
     return factory
@@ -413,3 +419,39 @@ def settings_impacting_urls(settings):
         reload_urlconf()
 
     return f
+
+
+@pytest.fixture(autouse=True)
+def clear_phone_stub():
+    from tests.common import phone_stub
+
+    yield
+    phone_stub.clear()
+
+
+@pytest.fixture
+def sms_outbox():
+    from tests.common import phone_stub
+
+    return phone_stub.sms_outbox
+
+
+@pytest.fixture
+def phone_factory():
+    def f():
+        return f"+31{random.randint(1, 10**10):010}"
+
+    return f
+
+
+@pytest.fixture
+def phone(phone_factory):
+    return phone_factory()
+
+
+@pytest.fixture
+def user_with_phone(user, phone):
+    from allauth.account.adapter import get_adapter
+
+    get_adapter().set_phone(user, phone, True)
+    return user

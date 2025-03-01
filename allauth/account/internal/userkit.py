@@ -29,6 +29,8 @@ def user_field(user, field, *args, commit=False):
         v = args[0]
         if v:
             v = v[0:max_length]
+        elif v is None and not field_meta.null:
+            v = ""
         setattr(user, field, v)
         if commit:
             user.save(update_fields=[field])

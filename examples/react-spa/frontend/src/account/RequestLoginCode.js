@@ -25,7 +25,7 @@ export default function RequestLoginCode () {
   }
   return (
     <div>
-      <h1>Mail me a sign-in code</h1>
+      <h1>Send me a sign-in code</h1>
       <p>
         You will receive an email containing a special code for a password-free sign-in.
       </p>

@@ -224,6 +224,8 @@ PASSWORD_HASHERS = [
 ]
 
 
+ACCOUNT_ADAPTER = "tests.common.adapters.AccountAdapter"
+
 SOCIALACCOUNT_QUERY_EMAIL = True
 SOCIALACCOUNT_PROVIDERS = {
     "openid_connect": {

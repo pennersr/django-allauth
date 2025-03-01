@@ -1,6 +1,7 @@
 import html
 import json
 import string
+import typing
 import warnings
 from urllib.parse import urlparse
 
@@ -61,17 +62,22 @@ class DefaultAccountAdapter(BaseAdapter):
         "email_password_mismatch": _(
             "The email address and/or password you specified are not correct."
         ),
+        "phone_password_mismatch": _(
+            "The phone number and/or password you specified are not correct."
+        ),
         "email_taken": _("A user is already registered with this email address."),
         "enter_current_password": _("Please type your current password."),
         "incorrect_code": _("Incorrect code."),
         "incorrect_password": _("Incorrect password."),
         "invalid_or_expired_key": _("Invalid or expired key."),
+        "invalid_login": _("Invalid login."),
         "invalid_password_reset": _("The password reset token was invalid."),
         "max_email_addresses": _("You cannot add more than %d email addresses."),
         "too_many_login_attempts": _(
             "Too many failed login attempts. Try again later."
         ),
         "unknown_email": _("The email address is not assigned to any user account"),
+        "unknown_phone": _("The phone number is not assigned to any user account"),
         "unverified_primary_email": _("Your primary email address must be verified."),
         "username_blacklisted": _(
             "Username can not be used. Please use other username."
@@ -82,6 +88,8 @@ class DefaultAccountAdapter(BaseAdapter):
         "username_taken": AbstractUser._meta.get_field("username").error_messages[
             "unique"
         ],
+        "select_only_one": _("Please select only one."),
+        "same_as_current": _("The new value must be different from the current one."),
     }
 
     def stash_verified_email(self, request, email):
@@ -728,6 +736,7 @@ class DefaultAccountAdapter(BaseAdapter):
     def get_login_stages(self):
         ret = []
         ret.append("allauth.account.stages.LoginByCodeStage")
+        ret.append("allauth.account.stages.PhoneVerificationStage")
         ret.append("allauth.account.stages.EmailVerificationStage")
         if allauth_app_settings.MFA_ENABLED:
             from allauth.mfa import app_settings as mfa_settings
@@ -809,6 +818,12 @@ class DefaultAccountAdapter(BaseAdapter):
         """
         return self._generate_code()
 
+    def generate_phone_verification_code(self) -> str:
+        """
+        Generates a new phone verification code.
+        """
+        return self._generate_code()
+
     def _generate_code(self, length=6):
         forbidden_chars = "0OI18B2ZAEU"
         allowed_chars = string.ascii_uppercase + string.digits
@@ -836,6 +851,57 @@ class DefaultAccountAdapter(BaseAdapter):
             return False
         return method is None or method in value
 
+    def phone_form_field(self, **kwargs):
+        """
+        Returns a form field used to input phone numbers.
+        """
+        from allauth.account.fields import PhoneField
 
-def get_adapter(request=None):
+        return PhoneField(**kwargs)
+
+    def send_unknown_account_sms(self, phone: str, **kwargs):
+        """
+        In case enumeration prevention is enabled, and, a verification code
+        is requested for an unlisted phone number, this method is invoked to
+        send a text explaining that no account is on file.
+        """
+        pass
+
+    def send_verification_code_sms(self, *, user, phone: str, code: str, **kwargs):
+        """
+        Sends a verification code.
+        """
+        raise NotImplementedError
+
+    def set_phone(self, user, phone: str, verified: bool):
+        """
+        Sets the phone number (and verified status) for the given user.
+        """
+        raise NotImplementedError
+
+    def get_phone(self, user) -> typing.Optional[typing.Tuple[str, bool]]:
+        """
+        Returns the phone number stored for the given user. A tuple of the
+        phone number itself, and whether or not the phone number was verified is
+        returned.
+        """
+        raise NotImplementedError
+
+    def set_phone_verified(self, user, phone: str):
+        """
+        Marks the specified phone number for the given user as
+        verified. Note that the user is already expected to have
+        the phone number attached to the account.
+        """
+        raise NotImplementedError
+
+    def get_user_by_phone(self, phone: str):
+        """
+        Looks up a user given the specified phone number. Returns ``None`` if no user
+        was phone.
+        """
+        raise NotImplementedError
+
+
+def get_adapter(request=None) -> DefaultAccountAdapter:
     return import_attribute(app_settings.ADAPTER)(request)

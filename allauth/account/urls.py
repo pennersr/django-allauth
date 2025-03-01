@@ -49,6 +49,21 @@ if not allauth_app_settings.SOCIALACCOUNT_ONLY:
             ),
         ]
     )
+    if "phone" in app_settings.SIGNUP_FIELDS:
+        urlpatterns.extend(
+            [
+                path(
+                    "phone/verify/",
+                    views.verify_phone,
+                    name="account_verify_phone",
+                ),
+                path(
+                    "phone/change/",
+                    views.change_phone,
+                    name="account_change_phone",
+                ),
+            ]
+        )
     if app_settings.PASSWORD_RESET_BY_CODE_ENABLED:
         urlpatterns.extend(
             [

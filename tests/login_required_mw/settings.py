@@ -252,6 +252,7 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 ACCOUNT_LOGIN_BY_CODE_ENABLED = True
+ACCOUNT_ADAPTER = "tests.common.adapters.AccountAdapter"
 
 MFA_SUPPORTED_TYPES = ["totp", "webauthn", "recovery_codes"]
 MFA_PASSKEY_LOGIN_ENABLED = True

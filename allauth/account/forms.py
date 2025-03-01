@@ -1,7 +1,12 @@
 from importlib import import_module
+from typing import Optional
 
 from django import forms
-from django.contrib.auth import get_user_model, password_validation
+from django.contrib.auth import (
+    REDIRECT_FIELD_NAME,
+    get_user_model,
+    password_validation,
+)
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.core import exceptions, validators
 from django.urls import NoReverseMatch, reverse
@@ -14,6 +19,7 @@ from allauth.account.internal.stagekit import LOGIN_SESSION_KEY
 from allauth.account.internal.textkit import compare_code
 from allauth.account.stages import EmailVerificationStage
 from allauth.core import context, ratelimit
+from allauth.core.internal.httpkit import headed_redirect_response
 from allauth.utils import get_username_max_length, set_form_field_order
 
 from . import app_settings
@@ -94,6 +100,7 @@ class LoginForm(forms.Form):
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop("request", None)
         super().__init__(*args, **kwargs)
+        adapter = get_adapter()
         if app_settings.LOGIN_METHODS == {LoginMethod.EMAIL}:
             login_widget = forms.EmailInput(
                 attrs={
@@ -111,11 +118,16 @@ class LoginForm(forms.Form):
                 widget=login_widget,
                 max_length=get_username_max_length(),
             )
+        elif app_settings.LOGIN_METHODS == {LoginMethod.PHONE}:
+            login_field = adapter.phone_form_field(required=True)
         else:
-            assert app_settings.LOGIN_METHODS == {
-                LoginMethod.USERNAME,
-                LoginMethod.EMAIL,
-            }  # nosec
+            assert app_settings.LOGIN_METHODS.issubset(
+                {
+                    LoginMethod.USERNAME,
+                    LoginMethod.EMAIL,
+                    LoginMethod.PHONE,
+                }
+            )  # nosec
             login_widget = forms.TextInput(
                 attrs={"placeholder": _("Username or email"), "autocomplete": "email"}
             )
@@ -135,22 +147,34 @@ class LoginForm(forms.Form):
             self.fields["password"].help_text = mark_safe(
                 f'<a href="{reset_url}">{forgot_txt}</a>'
             )  # nosec
+        password_field = app_settings.SIGNUP_FIELDS.get("password1")
+        if not password_field:
+            del self.fields["password"]
+        else:
+            self.fields["password"].required = password_field["required"]
 
-    def user_credentials(self):
+    def user_credentials(self) -> dict:
         """
         Provides the credentials required to authenticate the user for
         login.
         """
-        credentials = {}
         login = self.cleaned_data["login"]
         method = flows.login.derive_login_method(login)
-        if method == LoginMethod.EMAIL:
-            credentials["email"] = login
-        elif method == LoginMethod.USERNAME:
-            credentials["username"] = login
-        else:
-            raise NotImplementedError()
-        credentials["password"] = self.cleaned_data["password"]
+        credentials = {}
+        credentials[method] = login
+
+        # There are projects using usernames that look like email addresses,
+        # yet, really are usernames. So, if username is a login method, always
+        # give that a shot.
+        if (
+            LoginMethod.USERNAME in app_settings.LOGIN_METHODS
+            and method != LoginMethod.USERNAME
+        ):
+            credentials[LoginMethod.USERNAME] = login
+
+        password = self.cleaned_data.get("password")
+        if password:
+            credentials["password"] = password
         return credentials
 
     def clean_login(self):
@@ -158,10 +182,40 @@ class LoginForm(forms.Form):
         return login.strip()
 
     def clean(self):
-        super(LoginForm, self).clean()
+        super().clean()
         if self._errors:
             return
         credentials = self.user_credentials()
+        if "password" in credentials:
+            return self._clean_with_password(credentials)
+        return self._clean_without_password(
+            credentials.get("email"), credentials.get("phone")
+        )
+
+    def _clean_without_password(self, email: Optional[str], phone: Optional[str]):
+        """
+        If we don't have a password field, we need to replicate the request-login-code
+        behavior.
+        """
+        data = {}
+        if email:
+            data["email"] = email
+        if phone:
+            data["phone"] = phone
+        if not data:
+            self.add_error("login", get_adapter().validation_error("invalid_login"))
+        else:
+            form = RequestLoginCodeForm(data)
+            if not form.is_valid():
+                for field in ["phone", "email"]:
+                    errors = form.errors.get(field) or []  # type: ignore
+                    for error in errors:
+                        self.add_error("login", error)
+            else:
+                self.user = form._user  # type: ignore
+        return self.cleaned_data
+
+    def _clean_with_password(self, credentials: dict):
         adapter = get_adapter(self.request)
         user = adapter.authenticate(self.request, **credentials)
         if user:
@@ -169,7 +223,7 @@ class LoginForm(forms.Form):
             if flows.login.is_login_rate_limited(context.request, login):
                 raise adapter.validation_error("too_many_login_attempts")
             self._login = login
-            self.user = user
+            self.user = user  # type: ignore
         else:
             login_method = flows.login.derive_login_method(
                 login=self.cleaned_data["login"]
@@ -179,6 +233,27 @@ class LoginForm(forms.Form):
 
     def login(self, request, redirect_url=None):
         credentials = self.user_credentials()
+        if "password" in credentials:
+            return self._login_with_password(request, redirect_url, credentials)
+        return self._login_by_code(request, redirect_url, credentials)
+
+    def _login_by_code(self, request, redirect_url, credentials):
+        user = getattr(self, "user", None)
+        phone = credentials.get("phone")
+        email = credentials.get("email")
+        flows.login_by_code.LoginCodeVerificationProcess.initiate(
+            request=request,
+            user=user,
+            phone=phone,
+            email=email,
+        )
+        query = None
+        if redirect_url:
+            query = {}
+            query[REDIRECT_FIELD_NAME] = redirect_url
+        return headed_redirect_response("account_confirm_login_code", query=query)
+
+    def _login_with_password(self, request, redirect_url, credentials):
         login = self._login
         login.redirect_url = redirect_url
         ret = flows.login.perform_password_login(request, credentials, login)
@@ -305,6 +380,13 @@ class BaseSignupForm(_base_signup_form_class()):  # type: ignore[misc]
         else:
             del self.fields["username"]
 
+        phone = self._signup_fields.get("phone")
+        self._has_phone_field = bool(phone)
+        if phone:
+            self.fields["phone"] = forms.CharField(
+                label=_("Phone"), required=phone["required"]
+            )
+
         default_field_order = list(self._signup_fields.keys())
         set_form_field_order(
             self, getattr(self, "field_order", None) or default_field_order
@@ -404,6 +486,10 @@ class BaseSignupForm(_base_signup_form_class()):  # type: ignore[misc]
         adapter = get_adapter()
         user = adapter.new_user(request)
         adapter.save_user(request, user, self)
+        if self._has_phone_field:
+            phone = self.cleaned_data.get("phone")
+            if phone:
+                adapter.set_phone(user, phone, False)
         self.custom_signup(request, user)
         # TODO: Move into adapter `save_user` ?
         setup_user_email(request, user, [EmailAddress(email=email)] if email else [])
@@ -413,16 +499,20 @@ class BaseSignupForm(_base_signup_form_class()):  # type: ignore[misc]
 class SignupForm(BaseSignupForm):
     def __init__(self, *args, **kwargs):
         self.by_passkey = kwargs.pop("by_passkey", False)
-        super(SignupForm, self).__init__(*args, **kwargs)
-        if not self.by_passkey and "password1" in self._signup_fields:
+        super().__init__(*args, **kwargs)
+        password1_field = self._signup_fields.get("password1")
+        if not self.by_passkey and password1_field:
             self.fields["password1"] = PasswordField(
                 label=_("Password"),
                 autocomplete="new-password",
                 help_text=password_validation.password_validators_help_text_html(),
+                required=password1_field["required"],
             )
             if "password2" in self._signup_fields:
                 self.fields["password2"] = PasswordField(
-                    label=_("Password (again)"), autocomplete="new-password"
+                    label=_("Password (again)"),
+                    autocomplete="new-password",
+                    required=password1_field["required"],
                 )
 
         if hasattr(self, "field_order"):
@@ -695,6 +785,43 @@ class RequestLoginCodeForm(forms.Form):
         )
     )
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._has_email = LoginMethod.EMAIL in app_settings.LOGIN_METHODS
+        self._has_phone = LoginMethod.PHONE in app_settings.LOGIN_METHODS
+        if self._has_phone:
+            adapter = get_adapter()
+            self.fields["phone"] = adapter.phone_form_field(
+                required=not self._has_email
+            )
+            self.fields["email"].required = False
+        # Inconsistent, but kept for backwards compatibility: even if email is not a login
+        # method the email field is added. May be used when login is by username.
+        if self._has_phone and not self._has_email:
+            self.fields.pop("email")
+
+    def clean(self):
+        cleaned_data = super().clean()
+        adapter = get_adapter()
+        phone = cleaned_data.get("phone")
+        email = cleaned_data.get("email")
+        if email and phone:
+            raise adapter.validation_error("select_only_one")
+        return cleaned_data
+
+    def clean_phone(self):
+        adapter = get_adapter()
+        phone = self.cleaned_data["phone"]
+        if phone:
+            self._user = adapter.get_user_by_phone(phone)
+            if not self._user and not app_settings.PREVENT_ENUMERATION:
+                raise adapter.validation_error("unknown_phone")
+            if not ratelimit.consume(
+                context.request, action="request_login_code", key=phone.lower()
+            ):
+                raise adapter.validation_error("too_many_login_attempts")
+        return phone
+
     def clean_email(self):
         adapter = get_adapter()
         email = self.cleaned_data["email"]
@@ -702,7 +829,6 @@ class RequestLoginCodeForm(forms.Form):
         if not app_settings.PREVENT_ENUMERATION:
             if not users:
                 raise adapter.validation_error("unknown_email")
-
         if not ratelimit.consume(
             context.request, action="request_login_code", key=email.lower()
         ):
@@ -740,3 +866,21 @@ class ConfirmEmailVerificationCodeForm(BaseConfirmCodeForm):
 
 class ConfirmPasswordResetCodeForm(BaseConfirmCodeForm):
     pass
+
+
+class VerifyPhoneForm(BaseConfirmCodeForm):
+    pass
+
+
+class ChangePhoneForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        self.phone = kwargs.pop("phone")
+        super().__init__(*args, **kwargs)
+        adapter = get_adapter()
+        self.fields["phone"] = adapter.phone_form_field(required=True)
+
+    def clean_phone(self):
+        phone = self.cleaned_data["phone"]
+        if phone == self.phone:
+            raise get_adapter().validation_error("same_as_current")
+        return phone

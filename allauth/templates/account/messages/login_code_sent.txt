@@ -1,2 +1,2 @@
 {% load i18n %}
-{% blocktrans %}A sign-in code has been mailed to {{email}}.{% endblocktrans %}
+{% blocktrans %}A sign-in code has been sent to {{recipient}}.{% endblocktrans %}

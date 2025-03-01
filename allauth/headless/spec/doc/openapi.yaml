@@ -30,6 +30,10 @@ tags:
       well. Also, if django-allauth is configured with `ACCOUNT_CHANGE_EMAIL =
       True`, verifying the email address the user is changing to will cause the
       previous email addres to be removed.
+  - name: "Account: Phone"
+    description: |
+      The API used for manipulating the phone number attached to a given
+      account.
   - name: "Account: Password"
     description: |
       Endpoints that can be used to alter the password for a given account.
@@ -59,6 +63,7 @@ x-tagGroups:
     tags:
       - "Account: Email"
       - "Account: Password"
+      - "Account: Phone"
       - "Account: Providers"
       - "Account: 2FA"
       - "Account: WebAuthn"
@@ -139,9 +144,10 @@ paths:
         - "Authentication: Account"
       summary: Signup
       description: |
-        Whether or not `username`, `email`, or both are required depends on
-        the configuration of django-allauth. Additionally, if a custom signup
-        form is used there may be other custom properties required.
+        Whether or not `username`, `email`, `phone` or combination of those are
+        required depends on the configuration of django-allauth. Additionally,
+        if a custom signup form is used there may be other custom properties
+        required.
       parameters:
         - $ref: "#/components/parameters/Client"
       requestBody:
@@ -252,6 +258,39 @@ paths:
         "409":
           description: |
             Conflict. The email verification (by code) flow is not pending.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConflictResponse"
+  /_allauth/{client}/v1/auth/phone/verify:
+    post:
+      tags:
+        - "Authentication: Account"
+      summary: Verify a phone number
+      description: |
+        Complete the phone number verification process. Note that a status code
+        of 401 does not imply failure. It merely indicates that the phone number
+        verification was successful, yet, the user is still not signed in.
+      parameters:
+        - $ref: "#/components/parameters/Client"
+        - $ref: "#/components/parameters/SessionToken"
+      requestBody:
+        $ref: "#/components/requestBodies/VerifyPhone"
+      responses:
+        "200":
+          $ref: "#/components/responses/Authenticated"
+        "400":
+          description: |
+            An input error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "409":
+          description: |
+            Conflict. The phone verification flow is not pending.
           content:
             application/json:
               schema:
@@ -1065,6 +1104,54 @@ paths:
                 invalid_code:
                   $ref: "#/components/examples/InvalidEmail"
   ######################################################################
+  # Account: Phone
+  ######################################################################
+  /_allauth/{client}/v1/account/phone:
+    get:
+      tags:
+        - "Account: Phone"
+      summary: Get the phone number
+      description: |
+        Retrieves the phone number of the account, if any. Note that while the
+        endpoint returns a list of phone numbers, at most one entry is returned.
+      parameters:
+        - $ref: "#/components/parameters/Client"
+        - $ref: "#/components/parameters/SessionToken"
+      responses:
+        "200":
+          $ref: "#/components/responses/PhoneNumbers"
+        "401":
+          $ref: "#/components/responses/Authentication"
+    post:
+      tags:
+        - "Account: Phone"
+      summary: |
+        Change the phone number
+      description: |
+        Initiate the phone number change process. After posting a new phone
+        number, proceed with the phone verification endpoint to confirm the
+        change of the phone number by posting the verification code.
+      parameters:
+        - $ref: "#/components/parameters/Client"
+        - $ref: "#/components/parameters/SessionToken"
+      requestBody:
+        $ref: "#/components/requestBodies/Phone"
+      responses:
+        "202":
+          description: Phone number change process initiated.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PhoneNumberChangeResponse"
+        "400":
+          description: An input error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          $ref: "#/components/responses/AuthenticationOrReauthentication"
+  ######################################################################
   # Account: 2FA
   ######################################################################
   /_allauth/{client}/v1/account/authenticators:
@@ -1815,6 +1902,17 @@ components:
             required:
               - email
               - primary
+    Phone:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              phone:
+                type: string
+                example: "+314159265359"
+            required:
+              - phone
     ResetPassword:
       content:
         application/json:
@@ -1825,6 +1923,11 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/VerifyEmail"
+    VerifyPhone:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/VerifyPhone"
     UpdateWebAuthn:
       content:
         application/json:
@@ -1971,7 +2074,48 @@ components:
             example: 123
       required:
         - sessions
-
+    PhoneNumber:
+      type: object
+      description: |
+        A phone number.
+      properties:
+        phone:
+          type: string
+          example: "+314159265359"
+        verified:
+          type: boolean
+      required:
+        - phone
+        - verified
+    PhoneNumbersResponse:
+      type: object
+      properties:
+        status:
+          $ref: "#/components/schemas/StatusOK"
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/PhoneNumber"
+      required:
+        - status
+        - data
+    PhoneNumberChangeResponse:
+      type: object
+      properties:
+        status:
+          $ref: "#/components/schemas/StatusAccepted"
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/PhoneNumber"
+      required:
+        - status
+        - data
+      example:
+        status: 202
+        data:
+          - phone: "+314159265359"
+            verified: false
     ReauthenticationResponse:
       type: object
       description: |
@@ -2049,15 +2193,16 @@ components:
         id:
           type: string
           enum:
-            - verify_email
             - login
-            - signup
+            - mfa_authenticate
+            - mfa_reauthenticate
             - provider_redirect
             - provider_signup
             - provider_token
-            - mfa_authenticate
             - reauthenticate
-            - mfa_reauthenticate
+            - signup
+            - verify_email
+            - verify_phone
         provider:
           $ref: "#/components/schemas/Provider"
         is_pending:
@@ -2242,11 +2387,19 @@ components:
         - email
     RequestLoginCode:
       type: object
-      properties:
-        email:
-          $ref: "#/components/schemas/Email"
-      required:
-        - email
+      anyOf:
+        - title: Request login code (phone)
+          properties:
+            phone:
+              $ref: "#/components/schemas/Phone"
+          required:
+            - phone
+        - title: Request login code (email)
+          properties:
+            email:
+              $ref: "#/components/schemas/Email"
+          required:
+            - email
     Reauthenticate:
       type: object
       properties:
@@ -2275,10 +2428,12 @@ components:
       properties:
         email:
           $ref: "#/components/schemas/Email"
-        username:
-          $ref: "#/components/schemas/Username"
         password:
           $ref: "#/components/schemas/Password"
+        phone:
+          $ref: "#/components/schemas/Phone"
+        username:
+          $ref: "#/components/schemas/Username"
       required:
         - password
     Username:
@@ -2291,6 +2446,11 @@ components:
       description: |
         The email address.
       example: email@domain.org
+    Phone:
+      type: string
+      description: |
+        The phone number.
+      example: "+314159265359"
     Login:
       type: object
       properties:
@@ -2311,10 +2471,20 @@ components:
               $ref: "#/components/schemas/Email"
           required:
             - email
+        - title: Login by phone
+          properties:
+            phone:
+              $ref: "#/components/schemas/Phone"
+          required:
+            - phone
     StatusOK:
       type: integer
       enum:
         - 200
+    StatusAccepted:
+      type: integer
+      enum:
+        - 202
     AuthenticatorID:
       type: integer
       description: |
@@ -2414,6 +2584,15 @@ components:
           example: 2f-c4nqd4-e07d9bc694f9f28cd4fe92569d495333
       required:
         - key
+    VerifyPhone:
+      type: object
+      properties:
+        code:
+          type: string
+          description: The phone verification code
+          example: 4S3H82
+      required:
+        - code
     OptionalTimestamp:
       nullable: true
       $ref: "#/components/schemas/Timestamp"
@@ -2914,6 +3093,13 @@ components:
             required:
               - status
               - data
+    PhoneNumbers:
+      description: |
+        List of phone numbers.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/PhoneNumbersResponse"
     ProviderAccounts:
       description: |
         List of third-party provider accounts.

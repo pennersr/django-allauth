@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Any, Dict, List, Mapping, Optional
 
 from django.conf import settings
 
@@ -31,7 +31,7 @@ class MediaWikiProvider(OAuth2Provider):
     oauth2_adapter_class = MediaWikiOAuth2Adapter
 
     @staticmethod
-    def _get_email(data: dict) -> Optional[str]:
+    def _get_email(data: Mapping[str, Any]) -> Optional[str]:
         if data.get("confirmed_email"):
             return data.get("email")
         return None
@@ -39,7 +39,7 @@ class MediaWikiProvider(OAuth2Provider):
     def extract_uid(self, data):
         return str(data["sub"])
 
-    def extract_extra_data(self, data):
+    def extract_extra_data(self, data: Mapping[str, Any]) -> Dict[str, Any]:
         return dict(
             email=self._get_email(data),
             realname=data.get("realname"),
@@ -53,8 +53,11 @@ class MediaWikiProvider(OAuth2Provider):
             name=data.get("realname"),
         )
 
-    def extract_email_addresses(self, data):
-        return [EmailAddress(email=self._get_email(data), verified=True, primary=True)]
+    def extract_email_addresses(self, data: Mapping[str, Any]) -> List[EmailAddress]:
+        # A MediaWiki account may not have email address.
+        if addr := self._get_email(data):
+            return [EmailAddress(email=addr, verified=True, primary=True)]
+        return []
 
 
 provider_classes = [MediaWikiProvider]

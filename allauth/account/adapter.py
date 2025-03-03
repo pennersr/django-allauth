@@ -871,7 +871,7 @@ class DefaultAccountAdapter(BaseAdapter):
         """
         pass
 
-    def send_verification_code_sms(self, *, user, phone: str, code: str, **kwargs):
+    def send_verification_code_sms(self, user, phone: str, code: str, **kwargs):
         """
         Sends a verification code.
         """

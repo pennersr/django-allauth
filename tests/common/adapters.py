@@ -23,7 +23,7 @@ class AccountAdapter(DefaultAccountAdapter):
         User = get_user_model()
         return User.objects.filter(pk=user_id).first()
 
-    def send_verification_code_sms(self, *, user, phone: str, code: str, **kwargs):
+    def send_verification_code_sms(self, user, phone: str, code: str, **kwargs):
         phone_stub.send_verification_code_sms(user, phone, code)
 
     def send_unknown_account_sms(self, phone: str):

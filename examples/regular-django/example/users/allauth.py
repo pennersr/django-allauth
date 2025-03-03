@@ -22,7 +22,7 @@ class AccountAdapter(DefaultAccountAdapter):
     def set_phone_verified(self, user, phone):
         self.set_phone(user, phone, True)
 
-    def send_verification_code_sms(self, *, user, phone: str, code: str, **kwargs):
+    def send_verification_code_sms(self, user, phone: str, code: str, **kwargs):
         messages.add_message(
             self.request,
             messages.WARNING,

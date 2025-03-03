@@ -263,6 +263,7 @@ HEADLESS_FRONTEND_URLS = {
     "account_reset_password": "/spa/password/reset/",
     "account_reset_password_from_key": "/spa/password/reset/{key}/",
     "account_signup": "/spa/signup",
+    "socialaccount_login_error": "/spa/error",
 }
 HEADLESS_SERVE_SPECIFICATION = True
 

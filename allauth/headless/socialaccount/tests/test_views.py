@@ -37,7 +37,7 @@ def test_valid_redirect(client, headless_reverse, db):
     assert resp.status_code == HTTPStatus.FOUND
 
 
-def test_unknown_provider_redirect(client, headless_reverse, db):
+def test_unknown_provider_redirect(client, headless_reverse, db, settings):
     resp = client.post(
         headless_reverse("headless:socialaccount:redirect_to_provider"),
         data={
@@ -46,7 +46,10 @@ def test_unknown_provider_redirect(client, headless_reverse, db):
             "process": AuthProcess.LOGIN,
         },
     )
-    assert resp.status_code == HTTPStatus.OK
+    if getattr(settings, "HEADLESS_ONLY", False):
+        assert resp.status_code == HTTPStatus.FOUND
+    else:
+        assert resp.status_code == HTTPStatus.OK
 
 
 def test_manage_providers(auth_client, user, headless_reverse, provider_id):

@@ -37,6 +37,18 @@ def test_valid_redirect(client, headless_reverse, db):
     assert resp.status_code == HTTPStatus.FOUND
 
 
+def test_unknown_provider_redirect(client, headless_reverse, db):
+    resp = client.post(
+        headless_reverse("headless:socialaccount:redirect_to_provider"),
+        data={
+            "provider": "unknown",
+            "callback_url": "/",
+            "process": AuthProcess.LOGIN,
+        },
+    )
+    assert resp.status_code == HTTPStatus.OK
+
+
 def test_manage_providers(auth_client, user, headless_reverse, provider_id):
     account_to_del = SocialAccount.objects.create(
         user=user, provider=provider_id, uid="p123"

@@ -1,4 +1,5 @@
 from django import forms
+from django.core.exceptions import ObjectDoesNotExist
 
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.core import context
@@ -27,7 +28,10 @@ class RedirectToProviderForm(forms.Form):
 
     def clean_provider(self):
         provider_id = self.cleaned_data["provider"]
-        provider = get_socialaccount_adapter().get_provider(
-            context.request, provider_id
-        )
+        try:
+            provider = get_socialaccount_adapter().get_provider(
+                context.request, provider_id
+            )
+        except ObjectDoesNotExist:
+            raise get_adapter().validation_error("unknown_provider")
         return provider

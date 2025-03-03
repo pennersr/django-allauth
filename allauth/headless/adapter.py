@@ -27,6 +27,7 @@ class DefaultHeadlessAdapter(BaseAdapter):
         "token_required": "`id_token` and/or `access_token` required.",
         "required": Field.default_error_messages["required"],
         "unknown_email": "Unknown email address.",
+        "unknown_provider": "Unknown provider.",
         "invalid_url": "Invalid URL.",
     }
 

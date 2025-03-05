@@ -2408,34 +2408,29 @@ components:
       required:
         - password
     ProviderSignup:
-      type: object
-      properties:
-        email:
-          $ref: "#/components/schemas/Email"
-      required:
-        - email
+      allOf:
+        - $ref: '#/components/schemas/BaseSignup'
     PasskeySignup:
+      allOf:
+        - $ref: '#/components/schemas/BaseSignup'
+    BaseSignup:
       type: object
       properties:
         email:
           $ref: "#/components/schemas/Email"
-        username:
-          $ref: "#/components/schemas/Username"
-      required:
-        - email
-    Signup:
-      type: object
-      properties:
-        email:
-          $ref: "#/components/schemas/Email"
-        password:
-          $ref: "#/components/schemas/Password"
         phone:
           $ref: "#/components/schemas/Phone"
         username:
           $ref: "#/components/schemas/Username"
-      required:
-        - password
+    Signup:
+      allOf:
+        - $ref: '#/components/schemas/BaseSignup'
+        - type: object
+          properties:
+            password:
+              $ref: "#/components/schemas/Password"
+          required:
+            - password
     Username:
       type: string
       description: |

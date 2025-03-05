@@ -3,6 +3,7 @@ from pathlib import Path
 from django.urls import resolve, reverse
 from django.urls.exceptions import Resolver404
 
+from allauth.account import app_settings as account_settings
 from allauth.headless import app_settings
 
 
@@ -24,6 +25,7 @@ def get_schema() -> dict:
     used_tags = drop_unused_paths(spec)
     drop_unused_tags(spec, used_tags)
     drop_unused_tag_groups(spec, used_tags)
+    specify_signup_fields(spec)
     return spec
 
 
@@ -83,3 +85,22 @@ def drop_unused_tag_groups(spec: dict, used_tags: set) -> None:
     for tag_group in tag_groups:
         if any([t in used_tags for t in tag_group["tags"]]):
             spec["x-tagGroups"].append(tag_group)
+
+
+def specify_signup_fields(spec: dict) -> None:
+    base_signup = spec["components"]["schemas"]["BaseSignup"]
+    signup = spec["components"]["schemas"]["Signup"]
+    properties = base_signup["properties"]
+    required_fields = []
+    for field_name in ("email", "phone", "username"):
+        field = account_settings.SIGNUP_FIELDS.get(field_name)
+        if not field:
+            properties.pop(field_name)
+        elif field["required"]:
+            required_fields.append(field_name)
+    base_signup["required"] = required_fields
+    password_field = account_settings.SIGNUP_FIELDS.get("password1")
+    if not password_field:
+        signup["allOf"] = signup["allOf"][:1]
+    elif not password_field["required"]:
+        signup["allOf"][1]["required"].remove("password")

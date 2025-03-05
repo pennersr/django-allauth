@@ -1,4 +1,3 @@
-from importlib import import_module
 from typing import Optional
 
 from django import forms
@@ -17,6 +16,7 @@ from django.utils.translation import gettext, gettext_lazy as _, pgettext
 
 from allauth.account.app_settings import LoginMethod
 from allauth.account.internal import flows
+from allauth.account.internal.flows.signup import base_signup_form_class
 from allauth.account.internal.stagekit import LOGIN_SESSION_KEY
 from allauth.account.internal.textkit import compare_code
 from allauth.account.stages import EmailVerificationStage
@@ -279,55 +279,7 @@ class LoginForm(forms.Form):
         return ret
 
 
-class _DummyCustomSignupForm(forms.Form):
-    def signup(self, request, user):
-        """
-        Invoked at signup time to complete the signup of the user.
-        """
-        pass
-
-
-def _base_signup_form_class():
-    """
-    Currently, we inherit from the custom form, if any. This is all
-    not very elegant, though it serves a purpose:
-
-    - There are two signup forms: one for local accounts, and one for
-      social accounts
-    - Both share a common base (BaseSignupForm)
-
-    - Given the above, how to put in a custom signup form? Which form
-      would your custom form derive from, the local or the social one?
-    """
-    if not app_settings.SIGNUP_FORM_CLASS:
-        return _DummyCustomSignupForm
-    try:
-        fc_module, fc_classname = app_settings.SIGNUP_FORM_CLASS.rsplit(".", 1)
-    except ValueError:
-        raise exceptions.ImproperlyConfigured(
-            "%s does not point to a form class" % app_settings.SIGNUP_FORM_CLASS
-        )
-    try:
-        mod = import_module(fc_module)
-    except ImportError as e:
-        raise exceptions.ImproperlyConfigured(
-            "Error importing form class %s:" ' "%s"' % (fc_module, e)
-        )
-    try:
-        fc_class = getattr(mod, fc_classname)
-    except AttributeError:
-        raise exceptions.ImproperlyConfigured(
-            'Module "%s" does not define a' ' "%s" class' % (fc_module, fc_classname)
-        )
-    if not hasattr(fc_class, "signup"):
-        raise exceptions.ImproperlyConfigured(
-            "The custom signup form must offer"
-            " a `def signup(self, request, user)` method",
-        )
-    return fc_class
-
-
-class BaseSignupForm(_base_signup_form_class()):  # type: ignore[misc]
+class BaseSignupForm(base_signup_form_class()):  # type: ignore[misc]
     username = forms.CharField(
         label=_("Username"),
         min_length=app_settings.USERNAME_MIN_LENGTH,

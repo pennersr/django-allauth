@@ -1,9 +1,11 @@
 from pathlib import Path
 
+from django import forms
 from django.urls import resolve, reverse
 from django.urls.exceptions import Resolver404
 
 from allauth.account import app_settings as account_settings
+from allauth.account.internal.flows.signup import base_signup_form_class
 from allauth.headless import app_settings
 
 
@@ -26,6 +28,7 @@ def get_schema() -> dict:
     drop_unused_tags(spec, used_tags)
     drop_unused_tag_groups(spec, used_tags)
     specify_signup_fields(spec)
+    specify_custom_signup_form(spec)
     return spec
 
 
@@ -104,3 +107,37 @@ def specify_signup_fields(spec: dict) -> None:
         signup["allOf"] = signup["allOf"][:1]
     elif not password_field["required"]:
         signup["allOf"][1]["required"].remove("password")
+
+
+def specify_custom_signup_form(spec: dict) -> None:
+    form_class = base_signup_form_class()
+    base_signup = spec["components"]["schemas"]["BaseSignup"]
+    field_mapping = {
+        forms.CharField: {"type": "string"},
+        forms.IntegerField: {"type": "integer"},
+        forms.FloatField: {"type": "number"},
+        forms.BooleanField: {"type": "boolean"},
+        forms.DateField: {"type": "string", "format": "date"},
+        forms.DateTimeField: {"type": "string", "format": "date-time"},
+        forms.EmailField: {"type": "string", "format": "email"},
+        forms.URLField: {"type": "string", "format": "uri"},
+        forms.DecimalField: {
+            "type": "string",
+            "format": "decimal",
+            "pattern": r"^\d+(\.\d+)?$",
+        },
+    }
+    for field_name, field in form_class.base_fields.items():
+        field_spec = field_mapping.get(type(field), {"type": "string"})
+        if not field_spec:
+            continue
+        field_spec = dict(field_spec)
+        if hasattr(field, "max_length") and field.max_length:
+            field_spec["maxLength"] = field.max_length
+        if hasattr(field, "min_length") and field.min_length:
+            field_spec["minLength"] = field.min_length
+        if hasattr(field, "required") and field.required:
+            base_signup["required"].append(field_name)
+        if hasattr(field, "help_text") and field.help_text:
+            field_spec["description"] = field.help_text
+        base_signup["properties"][field_name] = field_spec

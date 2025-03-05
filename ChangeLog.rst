@@ -36,6 +36,10 @@ Note worthy changes
 - Removed inline scripts, so that it becomes possible to use a strong Content
   Security Policy.
 
+- Headless: The OpenAPI specification now dynamically reflects the
+  ``ACCOUNT_SIGNUP_FIELDS`` configuration, as well as any custom fields you have
+  in ``ACCOUNT_SIGNUP_FORM_CLASS``.
+
 
 Fixes
 -----

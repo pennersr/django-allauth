@@ -1,6 +1,5 @@
-import binascii
 import hmac
-import os
+import secrets
 from hashlib import sha1
 from typing import List, Optional
 
@@ -33,7 +32,7 @@ class RecoveryCodes:
 
     @classmethod
     def generate_seed(self) -> str:
-        key = binascii.hexlify(os.urandom(20)).decode("ascii")
+        key = secrets.token_hex(40)
         return key
 
     def _get_migrated_codes(self) -> Optional[List[str]]:

@@ -65,9 +65,10 @@ class AppleOAuth2Client(OAuth2Client):
             "client_id": self.get_client_id(),
             "code": code,
             "grant_type": "authorization_code",
-            "redirect_uri": self.callback_url,
             "client_secret": client_secret,
         }
+        if self.callback_url:
+            data["redirect_uri"] = self.callback_url
         if pkce_code_verifier:
             data["code_verifier"] = pkce_code_verifier
         self._strip_empty_keys(data)
@@ -90,11 +91,12 @@ class AppleOAuth2Client(OAuth2Client):
         scope = self.scope_delimiter.join(set(scope))
         params = {
             "client_id": self.get_client_id(),
-            "redirect_uri": self.callback_url,
             "response_mode": "form_post",
             "scope": scope,
             "response_type": "code id_token",
         }
+        if self.callback_url:
+            params["redirect_uri"] = self.callback_url
         if self.state:
             params["state"] = self.state
         params.update(extra_params)

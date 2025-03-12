@@ -7,6 +7,7 @@ steps:
   test:
     image: python:${PYTHON_VERSION}-bookworm
     commands:
+      - make ci-install-test
       - pip install tox
       - tox -e "prj${PRJ}-py${PYTHON_VERSION/./}-${DJANGO_VERSION}"
     when:

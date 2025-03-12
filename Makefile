@@ -74,7 +74,7 @@ ci-install-black:
 .PHONY: ci-install-mo
 ci-install-mo:
 	apt-get update
-	apt-get install -y --no-install-recommends gettext
+	apt-get install -y --no-install-recommends gettext xmlsec1 libxmlsec1 libxmlsec1-dev
 	pip install .[mfa,socialaccount,openid,saml]
 
 .PHONY: ci-install-standardjs
@@ -99,6 +99,8 @@ ci-install-isort:
 
 .PHONY: ci-install-mypy
 ci-install-mypy:
+	apt-get update
+	apt-get install -y --no-install-recommends xmlsec1 libxmlsec1 libxmlsec1-dev
 	pip install .[mfa,socialaccount,openid,saml]
 	pip install				\
 	  'django-stubs==5.0.2'			\
@@ -108,3 +110,8 @@ ci-install-mypy:
 	  'pytest-django>=4.5.2'		\
 	  'types-requests==2.32.0.20240602'	\
 	  'python3-saml>=1.15.0,<2.0.0'
+
+.PHONY: ci-install-test
+ci-install-test:
+	apt-get update
+	apt-get install -y --no-install-recommends xmlsec1 libxmlsec1 libxmlsec1-dev

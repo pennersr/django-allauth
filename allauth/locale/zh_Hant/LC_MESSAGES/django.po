@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-01 02:57-0600\n"
-"PO-Revision-Date: 2024-07-03 05:09+0000\n"
-"Last-Translator: hugoalh <hugoalh@users.noreply.hosted.weblate.org>\n"
-"Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
-"allauth/django-allauth/zh_Hant/>\n"
+"PO-Revision-Date: 2025-03-12 17:52+0000\n"
+"Last-Translator: \"Xaver Y.R. Chen\" <yrchen@atcity.org>\n"
+"Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
+"projects/allauth/django-allauth/zh_Hant/>\n"
 "Language: zh_Hant\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.7-dev\n"
+"X-Generator: Weblate 5.10.3-dev\n"
 
 #: account/adapter.py:55
 msgid "This account is currently inactive."
@@ -25,7 +25,7 @@ msgstr "此帳號目前沒有啟用。"
 
 #: account/adapter.py:57
 msgid "You cannot remove your primary email address."
-msgstr "你不能移除你的主要電子郵件地址。"
+msgstr "您不能移除您的主要電子郵件地址。"
 
 #: account/adapter.py:60
 msgid "This email address is already associated with this account."
@@ -33,13 +33,11 @@ msgstr "此電子郵件地址已經與此帳號連結了。"
 
 #: account/adapter.py:63
 msgid "The email address and/or password you specified are not correct."
-msgstr "你提供的電子郵件地址和／或密碼不正確。"
+msgstr "您提供的電子郵件地址和／或密碼不正確。"
 
 #: account/adapter.py:66
-#, fuzzy
-#| msgid "The username and/or password you specified are not correct."
 msgid "The phone number and/or password you specified are not correct."
-msgstr "你提供的使用者名稱和／或密碼不正確。"
+msgstr "您提供的電話號碼和／或密碼不正確。"
 
 #: account/adapter.py:68
 msgid "A user is already registered with this email address."
@@ -47,7 +45,7 @@ msgstr "已經有使用者使用此電子郵件地址註冊。"
 
 #: account/adapter.py:69
 msgid "Please type your current password."
-msgstr "請輸入你目前的密碼。"
+msgstr "請輸入您目前的密碼。"
 
 #: account/adapter.py:70 mfa/adapter.py:40
 msgid "Incorrect code."
@@ -62,10 +60,8 @@ msgid "Invalid or expired key."
 msgstr "無效或已過期的金鑰。"
 
 #: account/adapter.py:73
-#, fuzzy
-#| msgid "Invalid token."
 msgid "Invalid login."
-msgstr "無效的令牌。"
+msgstr "登入無效。"
 
 #: account/adapter.py:74
 msgid "The password reset token was invalid."
@@ -74,7 +70,7 @@ msgstr "密碼重置令牌無效。"
 #: account/adapter.py:75
 #, python-format
 msgid "You cannot add more than %d email addresses."
-msgstr "你不能新增超過 %d 個電子郵件地址。"
+msgstr "您不能新增超過 %d 個電子郵件地址。"
 
 #: account/adapter.py:77
 msgid "Too many failed login attempts. Try again later."
@@ -85,15 +81,13 @@ msgid "The email address is not assigned to any user account"
 msgstr "此電子郵件地址未分配給任何使用者帳號"
 
 #: account/adapter.py:80
-#, fuzzy
-#| msgid "The email address is not assigned to any user account"
 msgid "The phone number is not assigned to any user account"
-msgstr "此電子郵件地址未分配給任何使用者帳號"
+msgstr "此電話未分配給任何使用者帳號"
 
 #: account/adapter.py:81
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary email address must be verified."
-msgstr "你的主要電子郵件地址必須已驗證。"
+msgstr "您的主要電子郵件地址必須已驗證。"
 
 #: account/adapter.py:83
 msgid "Username can not be used. Please use other username."
@@ -101,19 +95,19 @@ msgstr "無法使用此使用者名稱。請使用其他使用者名稱。"
 
 #: account/adapter.py:86
 msgid "The username and/or password you specified are not correct."
-msgstr "你提供的使用者名稱和／或密碼不正確。"
+msgstr "您提供的使用者名稱和／或密碼不正確。"
 
 #: account/adapter.py:91
 msgid "Please select only one."
-msgstr ""
+msgstr "請僅選擇一項。"
 
 #: account/adapter.py:92
 msgid "The new value must be different from the current one."
-msgstr ""
+msgstr "新的輸入值必須不同於目前的內容。"
 
 #: account/adapter.py:763
 msgid "Use your password"
-msgstr "使用你的密碼"
+msgstr "使用您的密碼"
 
 #: account/adapter.py:772
 msgid "Use authenticator app or code"
@@ -121,10 +115,8 @@ msgstr "使用驗證器應用程式或代碼"
 
 #: account/adapter.py:779 templates/mfa/authenticate.html:41
 #: templates/mfa/webauthn/reauthenticate.html:15
-#, fuzzy
-#| msgid "secret key"
 msgid "Use a security key"
-msgstr "secret key"
+msgstr "使用安全金鑰"
 
 #: account/admin.py:23
 msgid "Mark selected email addresses as verified"
@@ -136,15 +128,15 @@ msgstr "帳號"
 
 #: account/fields.py:43
 msgid "Enter a phone number including country code (e.g. +1 for the US)."
-msgstr ""
+msgstr "請輸入包含國家碼的電話號碼 (例如：+1 美國)。"
 
 #: account/fields.py:49 account/fields.py:53 account/forms.py:387
 msgid "Phone"
-msgstr ""
+msgstr "電話"
 
 #: account/forms.py:60 account/forms.py:579
 msgid "You must type the same password each time."
-msgstr "你必須每次輸入相同的密碼。"
+msgstr "您必須每次輸入相同的密碼。"
 
 #: account/forms.py:95 account/forms.py:506 account/forms.py:669
 #: account/forms.py:765
@@ -181,7 +173,7 @@ msgstr "登入"
 
 #: account/forms.py:146
 msgid "Forgot your password?"
-msgstr "忘記你的密碼？"
+msgstr "忘記您的密碼？"
 
 #: account/forms.py:350
 msgid "Email (again)"
@@ -196,14 +188,12 @@ msgid "Email (optional)"
 msgstr "電子郵件（選擇性）"
 
 #: account/forms.py:377
-#, fuzzy
-#| msgid "Email (optional)"
 msgid "Username (optional)"
-msgstr "電子郵件（選擇性）"
+msgstr "使用者名稱（選填）"
 
 #: account/forms.py:458
 msgid "You must type the same email each time."
-msgstr "你必須每次輸入相同的電子郵件。"
+msgstr "您必須每次輸入相同的電子郵件。"
 
 #: account/forms.py:513 account/forms.py:670
 msgid "Password (again)"
@@ -274,23 +264,23 @@ msgstr "無頭"
 msgid ""
 "You cannot add an email address to an account protected by two-factor "
 "authentication."
-msgstr "你不能將電子郵件地址新增至受雙重驗證保護的帳號。"
+msgstr "您不能將電子郵件地址新增至受雙重驗證保護的帳號。"
 
 #: mfa/adapter.py:35
 msgid "You cannot deactivate two-factor authentication."
-msgstr "你不能停用雙重驗證。"
+msgstr "您不能停用雙重驗證。"
 
 #: mfa/adapter.py:38
 msgid ""
 "You cannot generate recovery codes without having two-factor authentication "
 "enabled."
-msgstr "你不能在未啟用雙重驗證下產生復原代碼。"
+msgstr "您不能在未啟用雙重驗證下產生復原代碼。"
 
 #: mfa/adapter.py:42
 msgid ""
 "You cannot activate two-factor authentication until you have verified your "
 "email address."
-msgstr "你不能在驗證你的電子郵件地址之前啟用雙重驗證。"
+msgstr "您不能在驗證您的電子郵件地址之前啟用雙重驗證。"
 
 #: mfa/adapter.py:141
 msgid "Master key"
@@ -303,7 +293,7 @@ msgstr "備份金鑰"
 #: mfa/adapter.py:144
 #, python-brace-format
 msgid "Key nr. {number}"
-msgstr ""
+msgstr "鑰匙編號 {number}"
 
 #: mfa/apps.py:9
 msgid "MFA"
@@ -319,7 +309,7 @@ msgstr "TOTP 驗證器"
 
 #: mfa/models.py:26
 msgid "WebAuthn"
-msgstr "WebAuthn"
+msgstr "網頁身份驗證"
 
 #: mfa/totp/forms.py:11
 msgid "Authenticator code"
@@ -330,28 +320,18 @@ msgid "Passwordless"
 msgstr "無密碼"
 
 #: mfa/webauthn/forms.py:62
-#, fuzzy
-#| msgid ""
-#| "Enabling passwordless operation allows you to sign in using just this key/"
-#| "device, but imposes additional requirements such as biometrics or PIN "
-#| "protection."
 msgid ""
 "Enabling passwordless operation allows you to sign in using just this key, "
 "but imposes additional requirements such as biometrics or PIN protection."
-msgstr ""
-"啟用無密碼操作可以讓你僅使用此金鑰／裝置登入，但會提出其他要求，例如生物辨識"
-"或 PIN 保護。"
+msgstr "啟用無密碼操作後，您可以僅使用此金鑰登入，但會要求額外的保護措施，"
+"如生物識別或 PIN 碼保護。"
 
 #: socialaccount/adapter.py:35
-#, fuzzy, python-format
-#| msgid ""
-#| "An account already exists with this e-mail address. Please sign in to "
-#| "that account first, then connect your %s account."
+#, python-format
 msgid ""
 "An account already exists with this email address. Please sign in to that "
 "account first, then connect your %s account."
-msgstr ""
-"已經有一個帳號與此電子郵件連結了，請先登入該帳號，然後連接你的 %s 帳號。"
+msgstr "已經有一個帳號與此電子郵件連結了，請先登入該帳號，然後連接你的 %s 帳號。"
 
 #: socialaccount/adapter.py:39
 msgid "Invalid token."
@@ -367,14 +347,12 @@ msgstr "您的帳號下沒有驗證過的電子郵件地址。"
 
 #: socialaccount/adapter.py:43
 msgid "You cannot disconnect your last remaining third-party account."
-msgstr "你無法斷開你最後一個的第三方帳戶。"
+msgstr "您無法斷開您最後一個的第三方帳戶。"
 
 #: socialaccount/adapter.py:46
 #: templates/socialaccount/messages/account_connected_other.txt:2
-#, fuzzy
-#| msgid "The social account is already connected to a different account."
 msgid "The third-party account is already connected to a different account."
-msgstr "這個社群網站帳號已經與另一個帳號連結過了。"
+msgstr "該第三方帳號已連結至其他帳戶。"
 
 #: socialaccount/apps.py:9
 msgid "Social Accounts"
@@ -385,10 +363,8 @@ msgid "provider"
 msgstr "提供者"
 
 #: socialaccount/models.py:52
-#, fuzzy
-#| msgid "provider"
 msgid "provider ID"
-msgstr "提供者"
+msgstr "第三方提供者 ID"
 
 #: socialaccount/models.py:56
 msgid "name"
@@ -448,19 +424,19 @@ msgstr "社群帳號"
 
 #: socialaccount/models.py:160
 msgid "token"
-msgstr ""
+msgstr "令牌"
 
 #: socialaccount/models.py:161
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
-msgstr ""
+msgstr "「oauth_token」（OAuth1）或存取 token（OAuth2）"
 
 #: socialaccount/models.py:165
 msgid "token secret"
-msgstr ""
+msgstr "token 密鑰"
 
 #: socialaccount/models.py:166
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
-msgstr ""
+msgstr "「oauth_token_secret」（OAuth1）或刷新 token（OAuth2）"
 
 #: socialaccount/models.py:169
 msgid "expires at"
@@ -476,12 +452,9 @@ msgstr "社群應用程式 Token"
 
 #: socialaccount/providers/douban/views.py:36
 msgid "Invalid profile data"
-msgstr ""
+msgstr "無效的資料"
 
 #: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:16
-#, fuzzy
-#| msgctxt "field label"
-#| msgid "Login"
 msgid "Login"
 msgstr "登入"
 
@@ -492,30 +465,29 @@ msgstr "登入"
 #: templates/mfa/authenticate.html:28 templates/mfa/authenticate.html:44
 #: templates/mfa/webauthn/signup_form.html:26
 msgid "Cancel"
-msgstr ""
+msgstr "取消"
 
 #: socialaccount/providers/oauth/client.py:85
-#, fuzzy, python-format
-#| msgid "Invalid response while obtaining request token from \"%s\"."
+#, python-format
 msgid ""
 "Invalid response while obtaining request token from \"%s\". Response was: %s."
-msgstr "Invalid response while obtaining request token from \"%s\"."
+msgstr "從 \"%s\" 獲取請求令牌時回應無效。回應內容為：%s。"
 
 #: socialaccount/providers/oauth/client.py:119
 #: socialaccount/providers/pocket/client.py:86
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
-msgstr "Invalid response while obtaining access token from \"%s\"."
+msgstr "從 \"%s\" 獲取 access token 時回應無效。"
 
 #: socialaccount/providers/oauth/client.py:140
 #, python-format
 msgid "No request token saved for \"%s\"."
-msgstr "No request token saved for \"%s\"."
+msgstr "未為 \"%s\" 儲存請求 token。"
 
 #: socialaccount/providers/oauth/client.py:191
 #, python-format
 msgid "No access token saved for \"%s\"."
-msgstr "No access token saved for \"%s\"."
+msgstr "未為 \"%s\" 儲存 access token。"
 
 #: socialaccount/providers/oauth/client.py:212
 #, python-format
@@ -525,7 +497,7 @@ msgstr "無權訪問私有資源 \"%s\"。"
 #: socialaccount/providers/pocket/client.py:41
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
-msgstr "Invalid response while obtaining request token from \"%s\"."
+msgstr "從 \"%s\" 獲取 request token 時回應無效。"
 
 #: templates/account/account_inactive.html:5
 #: templates/account/account_inactive.html:9
@@ -541,7 +513,7 @@ msgstr "此帳號未啟用。"
 msgid ""
 "We've sent a code to %(recipient)s. The code expires shortly, so please "
 "enter it soon."
-msgstr ""
+msgstr "我們已經代碼傳送給%(recipient)s．此代碼有效期限極短，請盡速輸入。"
 
 #: templates/account/base_confirm_code.html:38
 #: templates/account/email_confirm.html:24
@@ -552,29 +524,25 @@ msgstr "確認"
 
 #: templates/account/base_reauthenticate.html:5
 #: templates/account/base_reauthenticate.html:9
-#, fuzzy
-#| msgid "Confirm Email Address"
 msgid "Confirm Access"
-msgstr "確認電子郵件"
+msgstr "確認存取權限"
 
 #: templates/account/base_reauthenticate.html:12
 msgid "Please reauthenticate to safeguard your account."
-msgstr ""
+msgstr "請重新認證以保護您的帳號。"
 
 #: templates/account/base_reauthenticate.html:19
 #: templates/mfa/authenticate.html:37
 msgid "Alternative options"
-msgstr ""
+msgstr "替代選項"
 
 #: templates/account/confirm_email_verification_code.html:5
-#, fuzzy
-#| msgid "email confirmation"
 msgid "Email Verification"
-msgstr "電子郵件確認"
+msgstr "電子郵件驗證"
 
 #: templates/account/confirm_email_verification_code.html:8
 msgid "Enter Email Verification Code"
-msgstr ""
+msgstr "輸入電子郵件驗證碼"
 
 #: templates/account/confirm_login_code.html:5 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
@@ -589,7 +557,7 @@ msgstr "登入"
 
 #: templates/account/confirm_login_code.html:8
 msgid "Enter Sign-In Code"
-msgstr ""
+msgstr "輸入登入碼"
 
 #: templates/account/confirm_password_reset_code.html:5
 #: templates/account/email/password_reset_subject.txt:3
@@ -601,22 +569,16 @@ msgid "Password Reset"
 msgstr "密碼重設"
 
 #: templates/account/confirm_password_reset_code.html:8
-#, fuzzy
-#| msgid "Password Reset"
 msgid "Enter Password Reset Code"
-msgstr "密碼重設"
+msgstr "輸入密碼重設代碼"
 
 #: templates/account/confirm_phone_verification_code.html:5
-#, fuzzy
-#| msgid "Re-send Verification"
 msgid "Phone Verification"
-msgstr "重寄驗証信"
+msgstr "電話驗證"
 
 #: templates/account/confirm_phone_verification_code.html:8
-#, fuzzy
-#| msgid "Re-send Verification"
 msgid "Enter Phone Verification Code"
-msgstr "重寄驗証信"
+msgstr "輸入電話驗證代碼"
 
 #: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
@@ -624,7 +586,7 @@ msgstr "電子郵件地址"
 
 #: templates/account/email.html:12
 msgid "The following email addresses are associated with your account:"
-msgstr "下列電子郵件已與你的帳號連結："
+msgstr "下列電子郵件已與您的帳號連結："
 
 #: templates/account/email.html:25
 msgid "Verified"
@@ -682,15 +644,25 @@ msgid ""
 "\n"
 "%(password_reset_url)s"
 msgstr ""
+"您收到此電子郵件是因為您(或其他人)嘗試使用以下電子郵件地址\n"
+"註冊帳戶：\n"
+"\n"
+"%(email)s\n"
+"\n"
+"然而，目前已經有使用該電子郵件地址的帳戶存在。\n"
+"\n"
+"如果您忘記了帳戶，請使用忘記密碼程序來找回您的帳戶：\n"
+"\n"
+"%(password_reset_url)s"
 
 #: templates/account/email/account_already_exists_subject.txt:3
 msgid "Account Already Exists"
-msgstr ""
+msgstr "帳號已存在"
 
 #: templates/account/email/base_message.txt:1
 #, python-format
 msgid "Hello from %(site_name)s!"
-msgstr ""
+msgstr "來自%(site_name)s!的問候！"
 
 #: templates/account/email/base_message.txt:5
 #, python-format
@@ -698,12 +670,14 @@ msgid ""
 "Thank you for using %(site_name)s!\n"
 "%(site_domain)s"
 msgstr ""
+"感謝您使用%(site_name)s。\n"
+"%(site_domain)s"
 
 #: templates/account/email/base_notification.txt:5
 msgid ""
 "You are receiving this mail because the following change was made to your "
 "account:"
-msgstr ""
+msgstr "您收到此封郵件是因為您的帳號已做出以下變更："
 
 #: templates/account/email/base_notification.txt:10
 #, python-format
@@ -715,132 +689,104 @@ msgid ""
 "- Browser: %(user_agent)s\n"
 "- Date: %(timestamp)s"
 msgstr ""
+"如果您沒有進行此變更，請立即採取適當的安全措施。\n"
+"此變更來源：\n"
+"- IP 位址：%(ip)s\n"
+"- 瀏覽器：%(user_agent)s\n"
+"- 日期：%(timestamp)s"
 
 #: templates/account/email/email_changed_message.txt:4
 #, python-format
 msgid "Your email has been changed from %(from_email)s to %(to_email)s."
-msgstr ""
+msgstr "您的 Email 已從 %(from_email)s 修改成 %(to_email)s。"
 
 #: templates/account/email/email_changed_subject.txt:3
-#, fuzzy
-#| msgid "Email address"
 msgid "Email Changed"
-msgstr "電子郵件地址"
+msgstr "電子郵件已更改"
 
 #: templates/account/email/email_confirm_message.txt:4
-#, fuzzy
-#| msgid "Your password has been deleted."
 msgid "Your email has been confirmed."
-msgstr "您的密码已被删除。"
+msgstr "您的電子郵件已確認。"
 
 #: templates/account/email/email_confirm_subject.txt:3
-#, fuzzy
-#| msgid "email confirmation"
 msgid "Email Confirmation"
 msgstr "電子郵件確認"
 
 #: templates/account/email/email_confirmation_message.txt:5
-#, fuzzy, python-format
-#| msgid ""
-#| "User %(user_display)s at %(site_name)s has given this as an email "
-#| "address.\n"
-#| "\n"
-#| "To confirm this is correct, go to %(activate_url)s\n"
+#, python-format
 msgid ""
 "You're receiving this email because user %(user_display)s has given your "
 "email address to register an account on %(site_domain)s."
-msgstr ""
-"網站%(site_name)s上的使用者%(user_display)s將此設為他的電子郵件地址。\n"
-"\n"
-"為了確認這是正確的，請開啟這個連結： %(activate_url)s\n"
+msgstr "您會收到此 Email 是因為使用者 %(user_display)s 提供此 Email "
+"於網站%(site_domain)s 上註冊帳號。"
 
 #: templates/account/email/email_confirmation_message.txt:7
 msgid ""
 "Your email verification code is listed below. Please enter it in your open "
 "browser window."
-msgstr ""
+msgstr "您的 Email 驗證代碼如下所列，請在您已開啟的瀏覽器視窗中輸入。"
 
 #: templates/account/email/email_confirmation_message.txt:9
 #, python-format
 msgid "To confirm this is correct, go to %(activate_url)s"
-msgstr ""
+msgstr "若要確認此操作正確，請前往 %(activate_url)s"
 
 #: templates/account/email/email_confirmation_subject.txt:3
-#, fuzzy
-#| msgid "Confirm Email Address"
 msgid "Please Confirm Your Email Address"
-msgstr "確認電子郵件"
+msgstr "確認您的電子郵件"
 
 #: templates/account/email/email_deleted_message.txt:4
 #, python-format
 msgid "Email address %(deleted_email)s has been removed from your account."
-msgstr ""
+msgstr "電子郵件地址 %(deleted_email)s 已從您的帳戶中移除。"
 
 #: templates/account/email/email_deleted_subject.txt:3
-#, fuzzy
-#| msgid "Remove"
 msgid "Email Removed"
-msgstr "移除"
+msgstr "Email 已移除"
 
 #: templates/account/email/login_code_message.txt:5
 msgid ""
 "Your sign-in code is listed below. Please enter it in your open browser "
 "window."
-msgstr ""
+msgstr "您的登入代碼如下所列，請在您已開啟的瀏覽器視窗中輸入。"
 
 #: templates/account/email/login_code_message.txt:9
 #: templates/account/email/password_reset_code_message.txt:9
 #: templates/account/email/unknown_account_message.txt:6
 msgid "This mail can be safely ignored if you did not initiate this action."
-msgstr ""
+msgstr "若確定非您所為，請忽略此郵件。"
 
 #: templates/account/email/login_code_subject.txt:3
-#, fuzzy
-#| msgid "Sign In"
 msgid "Sign-In Code"
-msgstr "登入"
+msgstr "登入代碼"
 
 #: templates/account/email/password_changed_message.txt:4
-#, fuzzy
-#| msgid "Your password is now changed."
 msgid "Your password has been changed."
 msgstr "您的密碼已變更。"
 
 #: templates/account/email/password_changed_subject.txt:3
-#, fuzzy
-#| msgid "Password (again)"
 msgid "Password Changed"
-msgstr "密碼 (再一次)"
+msgstr "密碼已更改"
 
 #: templates/account/email/password_reset_code_message.txt:5
 msgid ""
 "Your password reset code is listed below. Please enter it in your open "
 "browser window."
-msgstr ""
+msgstr "您的密碼重設代碼如下所列，請在您已開啟的瀏覽器視窗中輸入。"
 
 #: templates/account/email/password_reset_code_subject.txt:3
-#, fuzzy
-#| msgid "Password Reset"
 msgid "Password Reset Code"
-msgstr "密碼重設"
+msgstr "密碼重設代碼"
 
 #: templates/account/email/password_reset_key_message.txt:4
-#, fuzzy
-#| msgid ""
-#| "You're receiving this e-mail because you or someone else has requested a "
-#| "password for your user account at %(site_domain)s.\n"
-#| "It can be safely ignored if you did not request a password reset. Click "
-#| "the link below to reset your password."
 msgid ""
 "You're receiving this email because you or someone else has requested a "
 "password reset for your user account.\n"
 "It can be safely ignored if you did not request a password reset. Click the "
 "link below to reset your password."
 msgstr ""
-"您會收到這封信是因為您或是某人在 %(site_domain)s 這個網站上要求重設您帳號的密"
-"碼。\n"
-"若您沒有要求我們重設密碼，請您直接忽略這封信。若要重設您的密碼，請點擊下面的"
-"連結。"
+"您收到此電子郵件是因為您或其他人已請求重設您的帳戶密碼。\n"
+"如果您沒有請求重設密碼，則可以安全忽略此郵件。請點擊以下連結來重設您的密碼。"
 
 #: templates/account/email/password_reset_key_message.txt:9
 #, python-format
@@ -852,22 +798,16 @@ msgid "Password Reset Email"
 msgstr "密碼重設電子郵件"
 
 #: templates/account/email/password_reset_message.txt:4
-#, fuzzy
-#| msgid "Your password has been deleted."
 msgid "Your password has been reset."
-msgstr "您的密码已被删除。"
+msgstr "您的密碼已被重設。"
 
 #: templates/account/email/password_set_message.txt:4
-#, fuzzy
-#| msgid "Your password has been deleted."
 msgid "Your password has been set."
-msgstr "您的密码已被删除。"
+msgstr "您的密碼已設定完成。"
 
 #: templates/account/email/password_set_subject.txt:3
-#, fuzzy
-#| msgid "Password Reset"
 msgid "Password Set"
-msgstr "密碼重設"
+msgstr "密碼已設定"
 
 #: templates/account/email/unknown_account_message.txt:4
 #, python-format
@@ -876,55 +816,47 @@ msgid ""
 "an account with email %(email)s. However, we do not have any record of such "
 "an account in our database."
 msgstr ""
+"您會收到此封 Email 是因為您/或是有人嘗試使用 %(email)s 此 Email "
+"存取帳號。然而，我們於資料庫中找不到任何關聯的帳號紀錄。"
 
 #: templates/account/email/unknown_account_message.txt:8
 msgid "If it was you, you can sign up for an account using the link below."
-msgstr ""
+msgstr "如果確定是您，您可以透過下列連結註冊一個帳號。"
 
 #: templates/account/email/unknown_account_subject.txt:3
-#, fuzzy
-#| msgid "Account"
 msgid "Unknown Account"
-msgstr "帳號"
+msgstr "未知帳戶"
 
 #: templates/account/email_change.html:5 templates/account/email_change.html:9
-#, fuzzy
-#| msgid "Email Addresses"
 msgid "Email Address"
 msgstr "電子郵件地址"
 
 #: templates/account/email_change.html:21
 #: templates/account/email_change.html:29
-#, fuzzy
-#| msgid "Current Password"
 msgid "Current email"
-msgstr "目前密碼"
+msgstr "目前電子郵件"
 
 #: templates/account/email_change.html:31
 msgid "Changing to"
-msgstr ""
+msgstr "變更為"
 
 #: templates/account/email_change.html:35
 msgid "Your email address is still pending verification."
-msgstr "你的電子郵件地址仍在等待驗證。"
+msgstr "您的電子郵件地址仍在等待驗證。"
 
 #: templates/account/email_change.html:41
 msgid "Cancel Change"
-msgstr ""
+msgstr "取消變更"
 
 #: templates/account/email_change.html:49
 #: templates/account/phone_change.html:28
-#, fuzzy
-#| msgid "Email"
 msgid "Change to"
-msgstr "E-mail"
+msgstr "變更為"
 
 #: templates/account/email_change.html:55
 #: templates/allauth/layouts/base.html:31
-#, fuzzy
-#| msgid "Email"
 msgid "Change Email"
-msgstr "E-mail"
+msgstr "更改電子郵件"
 
 #: templates/account/email_confirm.html:6
 #: templates/account/email_confirm.html:10
@@ -932,52 +864,44 @@ msgid "Confirm Email Address"
 msgstr "確認電子郵件"
 
 #: templates/account/email_confirm.html:16
-#, fuzzy, python-format
-#| msgid ""
-#| "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-"
-#| "mail address for user %(user_display)s."
+#, python-format
 msgid ""
 "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an email "
 "address for user %(user_display)s."
 msgstr ""
-"請確認<a href=\"mailto:%(email)s\">%(email)s</a>是否是使用者 "
-"%(user_display)s 的電子郵件地址。"
+"請確認 <a href=\"mailto:%(email)s\">%(email)s</a> 是使用者 %(user_display)s "
+"所使用的電子郵件地址。"
 
 #: templates/account/email_confirm.html:30
 #: templates/account/messages/email_confirmation_failed.txt:2
-#, fuzzy, python-format
-#| msgid "The social account is already connected to a different account."
+#, python-format
 msgid ""
 "Unable to confirm %(email)s because it is already confirmed by a different "
 "account."
-msgstr "這個社群網站帳號已經與另一個帳號連結過了。"
+msgstr "無法驗證 %(email)s，因為該電子郵件已由其他帳戶驗證。"
 
 #: templates/account/email_confirm.html:36
-#, fuzzy, python-format
-#| msgid ""
-#| "This e-mail confirmation link expired or is invalid. Please <a "
-#| "href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+#, python-format
 msgid ""
 "This email confirmation link expired or is invalid. Please <a "
 "href=\"%(email_url)s\">issue a new email confirmation request</a>."
-msgstr ""
-"電子郵件確認連結已經過期或失效了，請點擊 <a href=\"%(email_url)s\"> 以要求發"
-"送新的電子郵件確認信。"
+msgstr "此電子郵件確認連結已過期或無效。請<a href=\"%(email_url)s\""
+">重新發送電子郵件確認請求</a>。"
 
 #: templates/account/login.html:19
 #, python-format
 msgid ""
 "If you have not created an account yet, then please %(link)ssign "
 "up%(end_link)s first."
-msgstr "若你沒有帳號，請先 %(link)s註冊%(end_link)s 。"
+msgstr "若您沒有帳號，請先 %(link)s註冊%(end_link)s 。"
 
 #: templates/account/login.html:42
 msgid "Sign in with a passkey"
-msgstr ""
+msgstr "使用通行密鑰登入"
 
 #: templates/account/login.html:47 templates/account/request_login_code.html:9
 msgid "Send me a sign-in code"
-msgstr ""
+msgstr "寄給我登入代碼"
 
 #: templates/account/logout.html:4 templates/account/logout.html:8
 #: templates/account/logout.html:21 templates/allauth/layouts/base.html:61
@@ -995,17 +919,17 @@ msgid "You cannot remove your primary email address (%(email)s)."
 msgstr "您不能移除您的主要的電子郵件地址 (%(email)s) 。"
 
 #: templates/account/messages/email_confirmation_sent.txt:2
-#, fuzzy, python-format
+#, python-format
 msgid "Confirmation email sent to %(email)s."
 msgstr "確認信已發至 %(email)s 。"
 
 #: templates/account/messages/email_confirmed.txt:2
 #, python-format
 msgid "You have confirmed %(email)s."
-msgstr "你已確認 %(email)s。"
+msgstr "您已確認 %(email)s。"
 
 #: templates/account/messages/email_deleted.txt:2
-#, fuzzy, python-format
+#, python-format
 msgid "Removed email address %(email)s."
 msgstr "電子郵件地址 %(email)s 已刪除。"
 
@@ -1021,7 +945,7 @@ msgstr "您已登出。"
 #: templates/account/messages/login_code_sent.txt:2
 #, python-format
 msgid "A sign-in code has been sent to %(recipient)s."
-msgstr ""
+msgstr "登入代碼已經寄給 %(recipient)s。"
 
 #: templates/account/messages/password_changed.txt:2
 msgid "Password successfully changed."
@@ -1052,16 +976,11 @@ msgid "Forgot Password?"
 msgstr "忘記密碼了？"
 
 #: templates/account/password_reset.html:14
-#, fuzzy
-#| msgid ""
-#| "Forgotten your password? Enter your e-mail address below, and we'll send "
-#| "you an e-mail allowing you to reset it."
 msgid ""
 "Forgotten your password? Enter your email address below, and we'll send you "
 "an email allowing you to reset it."
-msgstr ""
-"忘記您的密碼了嗎？ 請在下方輸入您的電子郵件，我們會發送一封電子郵件給您，以便"
-"重新設定您的密碼。"
+msgstr "忘記您的密碼了嗎？ "
+"請在下方輸入您的電子郵件，我們會發送一封電子郵件給您，以便重新設定您的密碼。"
 
 #: templates/account/password_reset.html:26
 msgid "Reset My Password"
@@ -1072,21 +991,15 @@ msgid "Please contact us if you have any trouble resetting your password."
 msgstr "如果在重設密碼時碰到問題，請與我們聯絡。"
 
 #: templates/account/password_reset_done.html:16
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for\n"
-#| "verification. Please click on the link inside this e-mail. Please\n"
-#| "contact us if you do not receive it within a few minutes."
 msgid ""
 "We have sent you an email. If you have not received it please check your "
 "spam folder. Otherwise contact us if you do not receive it in a few minutes."
-msgstr ""
-"我們剛剛寄了一封電子郵件確認信給您，\n"
-"請點擊郵件中的連結。您在數分鐘內尚無法收到郵件，請與我們聯絡。"
+msgstr "我們已經寄送了一封電子郵件給您。如果您沒有收到，請檢查您的垃圾郵件資料夾。如"
+"果仍未收到，請在幾分鐘後聯繫我們。"
 
 #: templates/account/password_reset_from_key.html:10
 msgid "Bad Token"
-msgstr "Bad Token"
+msgstr "無效的 token"
 
 #: templates/account/password_reset_from_key.html:18
 #, python-format
@@ -1109,34 +1022,28 @@ msgstr "設定密碼"
 
 #: templates/account/phone_change.html:5 templates/account/phone_change.html:9
 #: templates/account/phone_change.html:34
-#, fuzzy
-#| msgid "Email"
 msgid "Change Phone"
-msgstr "E-mail"
+msgstr "更改電話號碼"
 
 #: templates/account/phone_change.html:18
-#, fuzzy
-#| msgid "Current Password"
 msgid "Current phone"
-msgstr "目前密碼"
+msgstr "目前電話號碼"
 
 #: templates/account/reauthenticate.html:6
-#, fuzzy
-#| msgid "Forgot Password?"
 msgid "Enter your password:"
-msgstr "忘記密碼了？"
+msgstr "輸入您的密碼："
 
 #: templates/account/request_login_code.html:12
 msgid "You will receive a special code for a password-free sign-in."
-msgstr ""
+msgstr "您將會收到一組特殊代碼用於免密碼登入。"
 
 #: templates/account/request_login_code.html:24
 msgid "Request Code"
-msgstr ""
+msgstr "請求代碼"
 
 #: templates/account/request_login_code.html:30
 msgid "Other sign-in options"
-msgstr ""
+msgstr "其他登入選項"
 
 #: templates/account/signup.html:4 templates/account/signup_by_passkey.html:4
 #: templates/socialaccount/signup.html:5
@@ -1157,17 +1064,15 @@ msgstr "已有帳號了嗎？請%(link)s登入%(end_link)s."
 
 #: templates/account/signup.html:39
 msgid "Sign up using a passkey"
-msgstr ""
+msgstr "使用通行密鑰註冊"
 
 #: templates/account/signup_by_passkey.html:8
-#, fuzzy
-#| msgid "Sign Up"
 msgid "Passkey Sign Up"
-msgstr "註冊"
+msgstr "使用通行密鑰註冊"
 
 #: templates/account/signup_by_passkey.html:36
 msgid "Other options"
-msgstr ""
+msgstr "其他選項"
 
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:9
@@ -1183,8 +1088,7 @@ msgid "Note"
 msgstr "注意"
 
 #: templates/account/snippets/already_logged_in.html:7
-#, fuzzy, python-format
-#| msgid "you are already logged in as %(user_display)s."
+#, python-format
 msgid "You are already logged in as %(user_display)s."
 msgstr "您已經以 %(user_display)s 的身份登入了。"
 
@@ -1193,16 +1097,10 @@ msgid "Warning:"
 msgstr "警告："
 
 #: templates/account/snippets/warn_no_email.html:3
-#, fuzzy
-#| msgid ""
-#| "You currently do not have any e-mail address set up. You should really "
-#| "add an e-mail address so you can receive notifications, reset your "
-#| "password, etc."
 msgid ""
 "You currently do not have any email address set up. You should really add an "
 "email address so you can receive notifications, reset your password, etc."
-msgstr ""
-"您尚未設定任何電子郵件。建議您最好設定一個電子郵件，以便您接收通知或重新設定"
+msgstr "您尚未設定任何電子郵件。建議您最好設定一個電子郵件，以便您接收通知或重新設定"
 "密碼等等。"
 
 #: templates/account/verification_sent.html:5
@@ -1213,19 +1111,15 @@ msgid "Verify Your Email Address"
 msgstr "驗證您的電子郵件地址"
 
 #: templates/account/verification_sent.html:12
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for verification. Follow the link provided "
-#| "to finalize the signup process. Please contact us if you do not receive "
-#| "it within a few minutes."
 msgid ""
 "We have sent an email to you for verification. Follow the link provided to "
 "finalize the signup process. If you do not see the verification email in "
 "your main inbox, check your spam folder. Please contact us if you do not "
 "receive the verification email within a few minutes."
 msgstr ""
-"我們剛剛寄了一封電子郵件確認信給您，請點擊郵件中的連結以完成註冊流程。若您在"
-"數分鐘內尚無法收到郵件，請與我們聯絡。"
+"我們已經向您發送了一封電子郵件進行驗證。請按照郵件中的連結完成註冊過程。如果"
+"您在主要收件匣中沒有看到驗證郵件，請檢查您的垃圾郵件資料夾。如果幾分鐘後仍未"
+"收到驗證郵件，請與我們聯繫。"
 
 #: templates/account/verified_email_required.html:13
 msgid ""
@@ -1233,16 +1127,11 @@ msgid ""
 "you are who you claim to be. For this purpose, we require that you\n"
 "verify ownership of your email address. "
 msgstr ""
-"此網站的此部分要求我們驗證你的身份。\n"
+"此網站的此部分要求我們驗證您的身份。\n"
 "為此，\n"
-"我們要求你驗證你的電子郵件地址的所有權。 "
+"我們要求您驗證您的電子郵件地址的所有權。 "
 
 #: templates/account/verified_email_required.html:18
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for\n"
-#| "verification. Please click on the link inside this e-mail. Please\n"
-#| "contact us if you do not receive it within a few minutes."
 msgid ""
 "We have sent an email to you for\n"
 "verification. Please click on the link inside that email. If you do not see "
@@ -1250,28 +1139,26 @@ msgid ""
 "Otherwise\n"
 "contact us if you do not receive it within a few minutes."
 msgstr ""
-"我們剛剛寄了一封電子郵件確認信給您，\n"
-"請點擊郵件中的連結。您在數分鐘內尚無法收到郵件，請與我們聯絡。"
+"我們已經向您發送了一封電子郵件進行驗證。\n"
+"請點擊郵件中的連結。如果您在主要收件匣中沒有看到驗證郵件，請檢查您的垃圾郵件"
+"資料夾。\n"
+"如果幾分鐘後仍未收到，請與我們聯繫。"
 
 #: templates/account/verified_email_required.html:23
-#, fuzzy, python-format
-#| msgid ""
-#| "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change "
-#| "your e-mail address</a>."
+#, python-format
 msgid ""
 "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your "
 "email address</a>."
-msgstr ""
-"<strong>注意：</strong> 您仍能<a href=\"%(email_url)s\">修改您的電子郵件地址 "
+msgstr "<strong>注意：</strong> 您仍能<a href=\"%(email_url)s\">修改您的電子郵件地址 "
 "</a>."
 
 #: templates/allauth/layouts/base.html:18
 msgid "Messages:"
-msgstr ""
+msgstr "訊息："
 
 #: templates/allauth/layouts/base.html:25
 msgid "Menu:"
-msgstr ""
+msgstr "選單："
 
 #: templates/allauth/layouts/base.html:43
 #: templates/socialaccount/connections.html:5
@@ -1282,117 +1169,113 @@ msgstr "帳號連結"
 #: templates/allauth/layouts/base.html:49 templates/mfa/authenticate.html:10
 #: templates/mfa/index.html:5 templates/mfa/index.html:9
 msgid "Two-Factor Authentication"
-msgstr ""
+msgstr "二階段認證"
 
 #: templates/allauth/layouts/base.html:55
 #: templates/usersessions/usersession_list.html:6
 #: templates/usersessions/usersession_list.html:10
 msgid "Sessions"
-msgstr ""
+msgstr "登入階段"
 
 #: templates/mfa/authenticate.html:13
 msgid ""
 "Your account is protected by two-factor authentication. Please enter an "
 "authenticator code:"
-msgstr ""
+msgstr "您的帳號由二階驗證所保護，請輸入驗證器中的代碼："
 
 #: templates/mfa/email/recovery_codes_generated_message.txt:4
 msgid ""
 "A new set of Two-Factor Authentication recovery codes has been generated."
-msgstr ""
+msgstr "新的二階驗證復原代碼已建立。"
 
 #: templates/mfa/email/recovery_codes_generated_subject.txt:3
 msgid "New Recovery Codes Generated"
-msgstr ""
+msgstr "新的復原代碼已建立"
 
 #: templates/mfa/email/totp_activated_message.txt:4
 #: templates/mfa/messages/totp_activated.txt:2
 msgid "Authenticator app activated."
-msgstr ""
+msgstr "驗證器已啟用。"
 
 #: templates/mfa/email/totp_activated_subject.txt:3
 msgid "Authenticator App Activated"
-msgstr ""
+msgstr "驗證器已啟用"
 
 #: templates/mfa/email/totp_deactivated_message.txt:4
 #: templates/mfa/messages/totp_deactivated.txt:2
 msgid "Authenticator app deactivated."
-msgstr ""
+msgstr "驗證器已停用。"
 
 #: templates/mfa/email/totp_deactivated_subject.txt:3
 msgid "Authenticator App Deactivated"
-msgstr ""
+msgstr "驗證器已停用"
 
 #: templates/mfa/email/webauthn_added_message.txt:4
 msgid "A new security key has been added."
-msgstr ""
+msgstr "新的安全金鑰已成功新增。"
 
 #: templates/mfa/email/webauthn_added_subject.txt:3
 msgid "Security Key Added"
-msgstr ""
+msgstr "已新增安全金鑰"
 
 #: templates/mfa/email/webauthn_removed_message.txt:4
-#, fuzzy
-#| msgid "Your password has been deleted."
 msgid "A security key has been removed."
-msgstr "您的密码已被删除。"
+msgstr "安全金鑰已被移除。"
 
 #: templates/mfa/email/webauthn_removed_subject.txt:3
 msgid "Security Key Removed"
-msgstr ""
+msgstr "安全金鑰已移除"
 
 #: templates/mfa/index.html:14 templates/mfa/totp/base.html:4
 msgid "Authenticator App"
-msgstr ""
+msgstr "驗證器"
 
 #: templates/mfa/index.html:19
 msgid "Authentication using an authenticator app is active."
-msgstr ""
+msgstr "已啟用驗證器進行驗證。"
 
 #: templates/mfa/index.html:23
 msgid "An authenticator app is not active."
-msgstr ""
+msgstr "authenticator 驗證器應用程式未啟用。"
 
 #: templates/mfa/index.html:32 templates/mfa/totp/deactivate_form.html:24
 msgid "Deactivate"
-msgstr ""
+msgstr "停用"
 
 #: templates/mfa/index.html:36 templates/mfa/totp/activate_form.html:32
 msgid "Activate"
-msgstr ""
+msgstr "啟用"
 
 #: templates/mfa/index.html:45 templates/mfa/webauthn/authenticator_list.html:8
 #: templates/mfa/webauthn/base.html:4
 msgid "Security Keys"
-msgstr ""
+msgstr "安全金鑰"
 
 #: templates/mfa/index.html:50
 #, python-format
 msgid "You have added %(count)s security key."
 msgid_plural "You have added %(count)s security keys."
-msgstr[0] ""
+msgstr[0] "您已新增 %(count)s 個安全金鑰。"
 
 #: templates/mfa/index.html:54
 #: templates/mfa/webauthn/authenticator_list.html:12
 msgid "No security keys have been added."
-msgstr ""
+msgstr "尚未新增任何安全金鑰。"
 
 #: templates/mfa/index.html:62
 msgid "Manage"
-msgstr ""
+msgstr "管理"
 
 #: templates/mfa/index.html:67 templates/mfa/webauthn/add_form.html:18
 #: templates/mfa/webauthn/authenticator_list.html:70
-#, fuzzy
-#| msgid "add"
 msgid "Add"
-msgstr "Voeg toe"
+msgstr "新增"
 
 #: templates/mfa/index.html:77 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:6
 #: templates/mfa/recovery_codes/index.html:6
 msgid "Recovery Codes"
-msgstr ""
+msgstr "復原碼"
 
 #: templates/mfa/index.html:82 templates/mfa/recovery_codes/index.html:9
 #, python-format
@@ -1400,222 +1283,193 @@ msgid ""
 "There is %(unused_count)s out of %(total_count)s recovery codes available."
 msgid_plural ""
 "There are %(unused_count)s out of %(total_count)s recovery codes available."
-msgstr[0] ""
+msgstr[0] "共有 %(total_count)s 個恢復碼，其中剩餘 %(unused_count)s 個可用。"
 
 #: templates/mfa/index.html:86
 msgid "No recovery codes set up."
-msgstr ""
+msgstr "尚未設定恢復碼。"
 
 #: templates/mfa/index.html:96
 msgid "View"
-msgstr ""
+msgstr "檢視"
 
 #: templates/mfa/index.html:102
 msgid "Download"
-msgstr ""
+msgstr "下載"
 
 #: templates/mfa/index.html:110 templates/mfa/recovery_codes/generate.html:29
 msgid "Generate"
-msgstr ""
+msgstr "產生"
 
 #: templates/mfa/messages/recovery_codes_generated.txt:2
 msgid "A new set of recovery codes has been generated."
-msgstr ""
+msgstr "已產生一組新的恢復碼。"
 
 #: templates/mfa/messages/webauthn_added.txt:2
 msgid "Security key added."
-msgstr ""
+msgstr "已成功新增安全金鑰。"
 
 #: templates/mfa/messages/webauthn_removed.txt:2
 msgid "Security key removed."
-msgstr ""
+msgstr "安全金鑰已成功移除。"
 
 #: templates/mfa/reauthenticate.html:6
 msgid "Enter an authenticator code:"
-msgstr ""
+msgstr "輸入驗證器代碼："
 
 #: templates/mfa/recovery_codes/generate.html:9
 msgid "You are about to generate a new set of recovery codes for your account."
-msgstr ""
+msgstr "您即將為您的帳戶產生一組新的恢復碼。"
 
 #: templates/mfa/recovery_codes/generate.html:11
 msgid "This action will invalidate your existing codes."
-msgstr ""
+msgstr "此操作將使您現有的恢復碼失效。"
 
 #: templates/mfa/recovery_codes/generate.html:13
 msgid "Are you sure?"
-msgstr ""
+msgstr "您確定嗎？"
 
 #: templates/mfa/recovery_codes/index.html:13
 msgid "Unused codes"
-msgstr ""
+msgstr "未使用之代碼"
 
 #: templates/mfa/recovery_codes/index.html:25
 msgid "Download codes"
-msgstr ""
+msgstr "下載代碼"
 
 #: templates/mfa/recovery_codes/index.html:30
 msgid "Generate new codes"
-msgstr ""
+msgstr "產生新的代碼"
 
 #: templates/mfa/totp/activate_form.html:4
 #: templates/mfa/totp/activate_form.html:8
 msgid "Activate Authenticator App"
-msgstr ""
+msgstr "啟用驗證器"
 
 #: templates/mfa/totp/activate_form.html:11
 msgid ""
 "To protect your account with two-factor authentication, scan the QR code "
 "below with your authenticator app. Then, input the verification code "
 "generated by the app below."
-msgstr ""
+msgstr "為了使用雙重驗證保護您的帳戶，請使用您的驗證器應用程式掃描下方的 QR "
+"碼，然後輸入應用程式產生的驗證碼。"
 
 #: templates/mfa/totp/activate_form.html:21
 msgid "Authenticator secret"
-msgstr ""
+msgstr "Authenticator 驗證器密鑰"
 
 #: templates/mfa/totp/activate_form.html:24
 msgid ""
 "You can store this secret and use it to reinstall your authenticator app at "
 "a later time."
-msgstr ""
+msgstr "您可以儲存此密鑰，稍後重新安裝 authenticator 驗證器應用程式時使用。"
 
 #: templates/mfa/totp/deactivate_form.html:5
 #: templates/mfa/totp/deactivate_form.html:9
 msgid "Deactivate Authenticator App"
-msgstr ""
+msgstr "停用驗證器"
 
 #: templates/mfa/totp/deactivate_form.html:12
 msgid ""
 "You are about to deactivate authenticator app based authentication. Are you "
 "sure?"
-msgstr ""
+msgstr "您即將停用基於 authenticator 驗證器應用程式的身份驗證。確定要繼續嗎？"
 
 #: templates/mfa/webauthn/add_form.html:7
-#, fuzzy
-#| msgid "secret key"
 msgid "Add Security Key"
-msgstr "secret key"
+msgstr "新增安全金鑰"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:6
-#, fuzzy
-#| msgid "secret key"
 msgid "Remove Security Key"
-msgstr "secret key"
+msgstr "移除安全金鑰"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:9
-#, fuzzy
-#| msgid "Are you sure you want to sign out?"
 msgid "Are you sure you want to remove this security key?"
-msgstr "您確定要登出嗎？"
+msgstr "您確定要移除此安全金鑰嗎？"
 
 #: templates/mfa/webauthn/authenticator_list.html:21
 msgid "Usage"
-msgstr ""
+msgstr "使用方式"
 
 #: templates/mfa/webauthn/authenticator_list.html:33
 msgid "Passkey"
-msgstr ""
+msgstr "通行密鑰"
 
 #: templates/mfa/webauthn/authenticator_list.html:37
-#, fuzzy
-#| msgid "secret key"
 msgid "Security key"
-msgstr "secret key"
+msgstr "安全金鑰"
 
 #: templates/mfa/webauthn/authenticator_list.html:40
 msgid "This key does not indicate whether it is a passkey."
-msgstr ""
+msgstr "此金鑰無法判斷是否為通行密鑰（Passkey）。"
 
 #: templates/mfa/webauthn/authenticator_list.html:41
-#, fuzzy
-#| msgid "Unverified"
 msgid "Unspecified"
-msgstr "未驗證"
+msgstr "未指定"
 
 #: templates/mfa/webauthn/authenticator_list.html:46
 #, python-format
 msgid "Added on %(created_at)s"
-msgstr ""
+msgstr "新增於 %(created_at)s"
 
 #: templates/mfa/webauthn/authenticator_list.html:48
 #, python-format
 msgid "Last used %(last_used)s"
-msgstr ""
+msgstr "上次使用時間：%(last_used)s"
 
 #: templates/mfa/webauthn/authenticator_list.html:56
 msgid "Edit"
-msgstr ""
+msgstr "編輯"
 
 #: templates/mfa/webauthn/edit_form.html:7
-#, fuzzy
-#| msgid "secret key"
 msgid "Edit Security Key"
-msgstr "secret key"
+msgstr "編輯安全金鑰"
 
 #: templates/mfa/webauthn/edit_form.html:18
 msgid "Save"
-msgstr ""
+msgstr "儲存"
 
 #: templates/mfa/webauthn/signup_form.html:7
-#, fuzzy
-#| msgid "Current Password"
 msgid "Create Passkey"
-msgstr "目前密碼"
+msgstr "建立通行密鑰"
 
 #: templates/mfa/webauthn/signup_form.html:10
 msgid ""
 "You are about to create a passkey for your account. As you can add "
 "additional keys later on, you can use a descriptive name to tell the keys "
 "apart."
-msgstr ""
+msgstr "您即將為您的帳戶建立通行密鑰（Passkey）。由於您可以稍後新增其他金鑰，建議使用"
+"具描述性的名稱來區分不同金鑰。"
 
 #: templates/mfa/webauthn/signup_form.html:21
-#, fuzzy
-#| msgid "created"
 msgid "Create"
-msgstr "已建立"
+msgstr "建立"
 
 #: templates/mfa/webauthn/snippets/scripts.html:2
 msgid "This functionality requires JavaScript."
-msgstr ""
+msgstr "此功能需要JavaScript支援。"
 
 #: templates/socialaccount/authentication_error.html:5
 #: templates/socialaccount/authentication_error.html:9
-#, fuzzy
-#| msgid "Social Network Login Failure"
 msgid "Third-Party Login Failure"
-msgstr "社群網路登入失敗"
+msgstr "第三方帳號登入失敗"
 
 #: templates/socialaccount/authentication_error.html:12
-#, fuzzy
-#| msgid ""
-#| "An error occurred while attempting to login via your social network "
-#| "account."
 msgid ""
 "An error occurred while attempting to login via your third-party account."
-msgstr "當嘗試用您的社群網路帳號登入時發生錯誤。"
+msgstr "當嘗試用您的第三方網路帳號登入時發生錯誤。"
 
 #: templates/socialaccount/connections.html:13
-#, fuzzy
-#| msgid ""
-#| "You can sign in to your account using any of the following third party "
-#| "accounts:"
 msgid ""
 "You can sign in to your account using any of the following third-party "
 "accounts:"
 msgstr "您可以使用下列任何第三方帳號登入您的帳號："
 
 #: templates/socialaccount/connections.html:46
-#, fuzzy
-#| msgid ""
-#| "You currently have no social network accounts connected to this account."
 msgid "You currently have no third-party accounts connected to this account."
-msgstr "您目前沒有任何社群網路帳號與此帳號連結。"
+msgstr "您目前沒有任何帳號與此帳號連結。"
 
 #: templates/socialaccount/connections.html:50
-#, fuzzy
-#| msgid "Add a 3rd Party Account"
 msgid "Add a Third-Party Account"
 msgstr "增加一個第三方帳號"
 
@@ -1623,51 +1477,47 @@ msgstr "增加一個第三方帳號"
 #, python-format
 msgid ""
 "A third-party account from %(provider)s has been connected to your account."
-msgstr ""
+msgstr "來自 %(provider)s 的第三方帳戶已連結至您的帳戶。"
 
 #: templates/socialaccount/email/account_connected_subject.txt:3
-#, fuzzy
-#| msgid "Add a 3rd Party Account"
 msgid "Third-Party Account Connected"
-msgstr "增加一個第三方帳號"
+msgstr "第三方帳號已關聯"
 
 #: templates/socialaccount/email/account_disconnected_message.txt:4
 #, python-format
 msgid ""
 "A third-party account from %(provider)s has been disconnected from your "
 "account."
-msgstr ""
+msgstr "來自 %(provider)s 的第三方帳戶已移除與您的帳戶的連結。"
 
 #: templates/socialaccount/email/account_disconnected_subject.txt:3
-#, fuzzy
-#| msgid "Add a 3rd Party Account"
 msgid "Third-Party Account Disconnected"
-msgstr "增加一個第三方帳號"
+msgstr "第三方帳號已取消關聯"
 
 #: templates/socialaccount/login.html:10
 #, python-format
 msgid "Connect %(provider)s"
-msgstr ""
+msgstr "連接 %(provider)s"
 
 #: templates/socialaccount/login.html:13
 #, python-format
 msgid "You are about to connect a new third-party account from %(provider)s."
-msgstr ""
+msgstr "您即將連結來自 %(provider)s 的新第三方帳戶。"
 
 #: templates/socialaccount/login.html:17
 #, python-format
 msgid "Sign In Via %(provider)s"
-msgstr ""
+msgstr "透過 %(provider)s 登入"
 
 #: templates/socialaccount/login.html:20
 #, python-format
 msgid "You are about to sign in using a third-party account from %(provider)s."
-msgstr ""
+msgstr "您即將使用來自 %(provider)s 的第三方帳戶登入。"
 
 #: templates/socialaccount/login.html:27
 #: templates/socialaccount/login_redirect.html:10
 msgid "Continue"
-msgstr ""
+msgstr "繼續"
 
 #: templates/socialaccount/login_cancelled.html:5
 #: templates/socialaccount/login_cancelled.html:9
@@ -1685,67 +1535,61 @@ msgstr ""
 "</a>重新登入。"
 
 #: templates/socialaccount/messages/account_connected.txt:2
-#, fuzzy
 msgid "The third-party account has been connected."
-msgstr "社群網站帳號已連結。"
+msgstr "第三方帳號已連結。"
 
 #: templates/socialaccount/messages/account_disconnected.txt:2
-#, fuzzy
 msgid "The third-party account has been disconnected."
-msgstr "社群網站帳號已斷開連結。"
+msgstr "第三方帳號連結已中斷。"
 
 #: templates/socialaccount/signup.html:12
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You are about to use your %(provider_name)s account to login to\n"
 "%(site_name)s. As a final step, please complete the following form:"
 msgstr ""
-"您將使用 %(provider_name)s 這個帳號登入\n"
-" %(site_name)s 這個網站。最後一步，請填完下列表單："
+"您即將使用您的 %(provider_name)s 帳戶登入\n"
+"%(site_name)s。作為最後一步，請完成以下表單："
 
 #: templates/socialaccount/snippets/login.html:10
 msgid "Or use a third-party"
-msgstr ""
+msgstr "或是使用第三方"
 
 #: templates/usersessions/messages/sessions_logged_out.txt:2
 msgid "Signed out of all other sessions."
-msgstr ""
+msgstr "登出所有其他登入階段。"
 
 #: templates/usersessions/usersession_list.html:23
 msgid "Started At"
-msgstr ""
+msgstr "開始於"
 
 #: templates/usersessions/usersession_list.html:24
-#, fuzzy
-#| msgid "Email Addresses"
 msgid "IP Address"
-msgstr "電子郵件地址"
+msgstr "IP 地址"
 
 #: templates/usersessions/usersession_list.html:25
 msgid "Browser"
-msgstr ""
+msgstr "瀏覽器"
 
 #: templates/usersessions/usersession_list.html:27
 msgid "Last seen at"
-msgstr ""
+msgstr "最後出現於"
 
 #: templates/usersessions/usersession_list.html:47
-#, fuzzy
-#| msgid "Current Password"
 msgid "Current"
-msgstr "目前密碼"
+msgstr "目前"
 
 #: templates/usersessions/usersession_list.html:60
 msgid "Sign Out Other Sessions"
-msgstr ""
+msgstr "登出其他使用階段"
 
 #: usersessions/apps.py:9
 msgid "User Sessions"
-msgstr ""
+msgstr "使用者會話"
 
 #: usersessions/models.py:92
 msgid "session key"
-msgstr ""
+msgstr "會話金鑰"
 
 #, fuzzy
 #~| msgid "Account Connections"

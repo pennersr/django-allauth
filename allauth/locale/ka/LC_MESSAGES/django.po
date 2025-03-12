@@ -3,20 +3,21 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Nikoloz Naskidashvili <nikoloz2005@gmail.com>, 2021.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-01 02:57-0600\n"
-"PO-Revision-Date: 2024-04-20 21:31+0200\n"
-"Last-Translator: Nikoloz Naskidashvili <nikoloz2005@gmail.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2025-03-12 17:52+0000\n"
+"Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
+"Language-Team: Georgian <https://hosted.weblate.org/projects/allauth/"
+"django-allauth/ka/>\n"
 "Language: ka\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.10.3-dev\n"
 
 #: account/adapter.py:55
 msgid "This account is currently inactive."
@@ -55,22 +56,16 @@ msgid "Incorrect code."
 msgstr ""
 
 #: account/adapter.py:71
-#, fuzzy
-#| msgid "Current Password"
 msgid "Incorrect password."
-msgstr "მიმდინარე პაროლი"
+msgstr "არასწორი პაროლი."
 
 #: account/adapter.py:72
-#, fuzzy
-#| msgid "Bad Token"
 msgid "Invalid or expired key."
-msgstr "შეცდომა, ცუდი კოდი"
+msgstr "არასწორი, ან ვადაამოწურული გასაღები."
 
 #: account/adapter.py:73
-#, fuzzy
-#| msgid "Bad Token"
 msgid "Invalid login."
-msgstr "შეცდომა, ცუდი კოდი"
+msgstr "არასწორი შესვლის მცდელობა."
 
 #: account/adapter.py:74
 msgid "The password reset token was invalid."
@@ -102,7 +97,7 @@ msgstr ""
 #: account/adapter.py:81
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary email address must be verified."
-msgstr "თქვენი პირველადი ელ. ფოსტა უნდა იყოს დადასტურებული"
+msgstr "თქვენი ძირითადი ელფოსტის მისამართი გადამოწმებული უნდა იყოს."
 
 #: account/adapter.py:83
 msgid "Username can not be used. Please use other username."
@@ -122,10 +117,8 @@ msgid "The new value must be different from the current one."
 msgstr ""
 
 #: account/adapter.py:763
-#, fuzzy
-#| msgid "Forgot Password?"
 msgid "Use your password"
-msgstr "დაგავიწყდა პაროლი?"
+msgstr "გამოიყენეთ თქვენი პაროლი"
 
 #: account/adapter.py:772
 #, fuzzy
@@ -274,7 +267,7 @@ msgstr "გაგზავნილი"
 
 #: account/models.py:153 socialaccount/models.py:69
 msgid "key"
-msgstr "კოდი"
+msgstr "გასაღები"
 
 #: account/models.py:158
 msgid "email confirmation"
@@ -370,10 +363,8 @@ msgstr ""
 "მოხერხდება."
 
 #: socialaccount/adapter.py:39
-#, fuzzy
-#| msgid "Bad Token"
 msgid "Invalid token."
-msgstr "შეცდომა, ცუდი კოდი"
+msgstr "არასწორი კოდი."
 
 #: socialaccount/adapter.py:40
 msgid "Your account has no password set up."
@@ -384,14 +375,8 @@ msgid "Your account has no verified email address."
 msgstr "თქვენს ანგარიშს არ აქვს დადასტურებული ელ. ფოსტა."
 
 #: socialaccount/adapter.py:43
-#, fuzzy
-#| msgid ""
-#| "You can sign in to your account using any of the following third party "
-#| "accounts:"
 msgid "You cannot disconnect your last remaining third-party account."
-msgstr ""
-"თქვენ შეგიძლიათ შეხვიდეთ თქვენს ანგარიშში რომელიმე შემდეგი სოციალური "
-"ანგარიშის გამოყენებით:"
+msgstr "თქენს უკანასკნელ მესამე პირების მიერ დამატებულ ანგარიშს ვერ გათიშავთ."
 
 #: socialaccount/adapter.py:46
 #: templates/socialaccount/messages/account_connected_other.txt:2
@@ -437,7 +422,7 @@ msgstr ""
 
 #: socialaccount/models.py:69 templates/mfa/webauthn/authenticator_list.html:18
 msgid "Key"
-msgstr "კოდი"
+msgstr "გასაღები"
 
 #: socialaccount/models.py:81
 msgid "social application"
@@ -520,17 +505,16 @@ msgid "Cancel"
 msgstr ""
 
 #: socialaccount/providers/oauth/client.py:85
-#, fuzzy, python-format
-#| msgid "Invalid response while obtaining request token from \"%s\"."
+#, python-format
 msgid ""
 "Invalid response while obtaining request token from \"%s\". Response was: %s."
-msgstr "არასწორი პასუხი მოთხოვნის მიღებისას \"%s\"-დან."
+msgstr "არასწორი პასუხი მოთხოვნის მიღებისას \"%s\"-დან. მიღებულია პასუხი: %s."
 
 #: socialaccount/providers/oauth/client.py:119
 #: socialaccount/providers/pocket/client.py:86
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
-msgstr "არასწორი პასუხი მოთხოვნის მიღებისას \"%s\"-დან."
+msgstr "არასწორი პასუხი მოთხოვნის წვდომის კოდის მიღებისას \"%s\"-დან."
 
 #: socialaccount/providers/oauth/client.py:140
 #, python-format
@@ -550,7 +534,7 @@ msgstr "\"%s\" - ზე კერძო რესურსებზე წვდ
 #: socialaccount/providers/pocket/client.py:41
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
-msgstr "არასწორი პასუხი მოთხოვნის მიღებისას \"%s\"-დან."
+msgstr "არასწორი პასუხი კოდის მიღებისას \"%s\"-დან."
 
 #: templates/account/account_inactive.html:5
 #: templates/account/account_inactive.html:9
@@ -559,7 +543,7 @@ msgstr "ანგარიში გაუქმებულია"
 
 #: templates/account/account_inactive.html:12
 msgid "This account is inactive."
-msgstr "ეს ანგარიში გაუქმებულია"
+msgstr "ეს ანგარიში გაუქმებულია."
 
 #: templates/account/base_confirm_code.html:27
 #, python-format
@@ -717,7 +701,7 @@ msgstr ""
 #: templates/account/email/base_message.txt:1
 #, python-format
 msgid "Hello from %(site_name)s!"
-msgstr "მოგესალმებით %(site_name)s!-დან"
+msgstr "მოგესალმებით %(site_name)s!-დან!"
 
 #: templates/account/email/base_message.txt:5
 #, python-format
@@ -769,21 +753,13 @@ msgid "Email Confirmation"
 msgstr "ელ. ფოსტის დადასტურება"
 
 #: templates/account/email/email_confirmation_message.txt:5
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this e-mail because user %(user_display)s has given your "
-#| "e-mail address to register an account on %(site_domain)s.\n"
-#| "\n"
-#| "To confirm this is correct, go to %(activate_url)s"
+#, python-format
 msgid ""
 "You're receiving this email because user %(user_display)s has given your "
 "email address to register an account on %(site_domain)s."
 msgstr ""
 "თქვენ იღებთ ამ ელ. წერილს რადგან მომხმარებემა - %(user_display)s მიუთითა "
-"თქვენი ელ.ფოსტის ანგარიში რომ დარეგისტრირდეს შემდეგ საიტზე - "
-"%(site_domain)s.\n"
-"\n"
-"იმისთვის, რომ დაადასტუროთ ეს, გადადით შემდეგ ლინკზე %(activate_url)s"
+"თქვენი ელ.ფოსტის ანგარიში რომ დარეგისტრირდეს შემდეგ საიტზე - %(site_domain)s."
 
 #: templates/account/email/email_confirmation_message.txt:7
 msgid ""
@@ -830,10 +806,8 @@ msgid "Sign-In Code"
 msgstr "შესვლა"
 
 #: templates/account/email/password_changed_message.txt:4
-#, fuzzy
-#| msgid "Your password is now changed."
 msgid "Your password has been changed."
-msgstr "თქვენი პაროლი შეცვლილია"
+msgstr "თქვენი პაროლი შეიცვალა."
 
 #: templates/account/email/password_changed_subject.txt:3
 #, fuzzy
@@ -881,16 +855,12 @@ msgid "Password Reset Email"
 msgstr "პაროლის აღდგენის ელ. წერილი"
 
 #: templates/account/email/password_reset_message.txt:4
-#, fuzzy
-#| msgid "Your password is now changed."
 msgid "Your password has been reset."
-msgstr "თქვენი პაროლი შეცვლილია"
+msgstr "თქვენი პაროლი ჩამოიყარა."
 
 #: templates/account/email/password_set_message.txt:4
-#, fuzzy
-#| msgid "Your password is now changed."
 msgid "Your password has been set."
-msgstr "თქვენი პაროლი შეცვლილია"
+msgstr "თქვენი პაროლი დაყენებულია."
 
 #: templates/account/email/password_set_subject.txt:3
 #, fuzzy
@@ -934,10 +904,8 @@ msgid "Changing to"
 msgstr ""
 
 #: templates/account/email_change.html:35
-#, fuzzy
-#| msgid "Your primary email address must be verified."
 msgid "Your email address is still pending verification."
-msgstr "თქვენი პირველადი ელ. ფოსტა უნდა იყოს დადასტურებული"
+msgstr "თქვენი ელფოსტის მისამართი ჯერ კიდევ ითხოვს გადამოწმებას."
 
 #: templates/account/email_change.html:41
 msgid "Cancel Change"
@@ -976,12 +944,13 @@ msgstr ""
 
 #: templates/account/email_confirm.html:30
 #: templates/account/messages/email_confirmation_failed.txt:2
-#, fuzzy, python-format
-#| msgid "The social account is already connected to a different account."
+#, python-format
 msgid ""
 "Unable to confirm %(email)s because it is already confirmed by a different "
 "account."
-msgstr "ეს სოციალური ანგარიში უკვე მიბმულია სხვა მომხმარებლის ანგარიშთან."
+msgstr ""
+"ელფოსტის %(email)s დადასტურება შეუძლებელია, რადგან ის უკვე დადასტურებულია "
+"სხვა ანგარიშისთვის."
 
 #: templates/account/email_confirm.html:36
 #, fuzzy, python-format
@@ -1066,7 +1035,7 @@ msgstr "პაროლი წარმატებით დაყენებ�
 
 #: templates/account/messages/primary_email_set.txt:2
 msgid "Primary email address set."
-msgstr "პირველადი ელ. ფოსტა წარმატებით დაყენებულია"
+msgstr "ძირითადი ელფოსტის მისამართი დაყენებულია."
 
 #: templates/account/password_change.html:4
 #: templates/account/password_change.html:8
@@ -1105,18 +1074,12 @@ msgid "Please contact us if you have any trouble resetting your password."
 msgstr "გთხოვთ დაგვიკავშირდით თუ გაქვთ პრობლემა პაროლის შეცვლასთან."
 
 #: templates/account/password_reset_done.html:16
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for\n"
-#| "verification. Please click on the link inside this e-mail. Please\n"
-#| "contact us if you do not receive it within a few minutes."
 msgid ""
 "We have sent you an email. If you have not received it please check your "
 "spam folder. Otherwise contact us if you do not receive it in a few minutes."
 msgstr ""
-"ჩვენ გამოგიგზავნეთ ელ. წერილი\n"
-"ვერიფიკაციისთვის. გთხოვთ მიჰყევით მასში მოცემულ ლინკს. გთხოვთ\n"
-"გთხოვთ დაგვიკავშირდით თუ არ მიიღებთ მას რამდენიმე წუთში."
+"ჩვენ ელფოსტა გამოგიგზავნეთ. თუ არ მიგიღიათ, შეამოწმეთ თქვენი სპამის "
+"საქაღალდე. დაგვიკავშირდით, თუ ელფოსტას რამდენიმე წუთში არ მიიღებთ."
 
 #: templates/account/password_reset_from_key.html:10
 msgid "Bad Token"
@@ -1135,7 +1098,7 @@ msgstr ""
 
 #: templates/account/password_reset_from_key_done.html:12
 msgid "Your password is now changed."
-msgstr "თქვენი პაროლი შეცვლილია"
+msgstr "თქვენი პაროლი ახლა შეცვლილია."
 
 #: templates/account/password_set.html:5 templates/account/password_set.html:9
 #: templates/account/password_set.html:21
@@ -1156,10 +1119,8 @@ msgid "Current phone"
 msgstr "მიმდინარე პაროლი"
 
 #: templates/account/reauthenticate.html:6
-#, fuzzy
-#| msgid "Forgot Password?"
 msgid "Enter your password:"
-msgstr "დაგავიწყდა პაროლი?"
+msgstr "შეიყვანეთ თქვენი პაროლი:"
 
 #: templates/account/request_login_code.html:12
 msgid "You will receive a special code for a password-free sign-in."
@@ -1211,7 +1172,7 @@ msgstr "რეგისტრაცია დროებით გაუქმ�
 
 #: templates/account/signup_closed.html:12
 msgid "We are sorry, but the sign up is currently closed."
-msgstr "ბოდიში, რეგისტრაცია დროებით გაუქმებულია"
+msgstr "ბოდიში, რეგისტრაცია დროებით გაუქმებულია."
 
 #: templates/account/snippets/already_logged_in.html:7
 msgid "Note"
@@ -1478,10 +1439,8 @@ msgid "Security key removed."
 msgstr ""
 
 #: templates/mfa/reauthenticate.html:6
-#, fuzzy
-#| msgid "token secret"
 msgid "Enter an authenticator code:"
-msgstr "საიდუმლო კოდი"
+msgstr "შეიყვანეთ ავთენტიკაციის კოდი:"
 
 #: templates/mfa/recovery_codes/generate.html:9
 msgid "You are about to generate a new set of recovery codes for your account."
@@ -1740,9 +1699,9 @@ msgid ""
 "accounts. If this was a mistake, please proceed to <a "
 "href=\"%(login_url)s\">sign in</a>."
 msgstr ""
-"თქვენ გადაწყვიტეთ გააუქმოთ შესვლა ჩვენს საიტზე თქვენი ერთ-ერთი არსებული  "
-"ანგარიშის გამოყენებით. თუ ეს შეცდომა იყო, გთხოვთ <a "
-"href=\"%(login_url)s\">ხელახლა შედით</a>."
+"თქვენ გადაწყვიტეთ გააუქმოთ შესვლა ჩვენს საიტზე თქვენი ერთ-ერთი არსებული "
+"ანგარიშის გამოყენებით. თუ ეს შეცდომა იყო, გთხოვთ <a href=\"%(login_url)s\""
+">ხელახლა შედით</a>."
 
 #: templates/socialaccount/messages/account_connected.txt:2
 #, fuzzy

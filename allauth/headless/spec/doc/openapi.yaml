@@ -1228,7 +1228,7 @@ paths:
           $ref: "#/components/responses/StatusOK"
         "401":
           $ref: "#/components/responses/ReauthenticationRequired"
-  /_allauth/{client}/v1/account/authenticators/recovery_codes:
+  /_allauth/{client}/v1/account/authenticators/recovery-codes:
     get:
       tags:
         - "Account: 2FA"

@@ -68,7 +68,7 @@ def test_login_with_verified_phone_and_password(
     client, settings_impacting_urls, phone, user_with_phone, user_password
 ):
     with settings_impacting_urls(
-        ACCOUNT_SIGNUP_FIELD=["phone*", "password1*"],
+        ACCOUNT_SIGNUP_FIELDS=["phone*", "password1*"],
         ACCOUNT_LOGIN_METHODS=["phone"],
     ):
         resp = client.post(

@@ -11,7 +11,7 @@ following in the ``settings.py`` of your project::
   ACCOUNT_LOGIN_METHODS = {"phone", "email"}
 
   # Add a required phone field to the signup fields.
-  # ACCOUNT_SIGNUP_FIELD = [
+  # ACCOUNT_SIGNUP_FIELDS = [
     'phone*',
     'email*'  # Can be left out if you want to only use 'phone'.
   ]

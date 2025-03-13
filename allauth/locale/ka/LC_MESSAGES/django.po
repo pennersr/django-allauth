@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-01 02:57-0600\n"
+"POT-Creation-Date: 2025-03-13 16:40-0500\n"
 "PO-Revision-Date: 2025-03-12 17:52+0000\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
-"Language-Team: Georgian <https://hosted.weblate.org/projects/allauth/"
-"django-allauth/ka/>\n"
+"Language-Team: Georgian <https://hosted.weblate.org/projects/allauth/django-"
+"allauth/ka/>\n"
 "Language: ka\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -116,17 +116,17 @@ msgstr ""
 msgid "The new value must be different from the current one."
 msgstr ""
 
-#: account/adapter.py:763
+#: account/adapter.py:774
 msgid "Use your password"
 msgstr "გამოიყენეთ თქვენი პაროლი"
 
-#: account/adapter.py:772
+#: account/adapter.py:783
 #, fuzzy
 #| msgid "token secret"
 msgid "Use authenticator app or code"
 msgstr "საიდუმლო კოდი"
 
-#: account/adapter.py:779 templates/mfa/authenticate.html:41
+#: account/adapter.py:790 templates/mfa/authenticate.html:41
 #: templates/mfa/webauthn/reauthenticate.html:15
 #, fuzzy
 #| msgid "secret key"
@@ -147,92 +147,110 @@ msgstr "მომხმარებლის ანგარიშები"
 msgid "Enter a phone number including country code (e.g. +1 for the US)."
 msgstr ""
 
-#: account/fields.py:49 account/fields.py:53 account/forms.py:387
+#: account/fields.py:49 account/fields.py:53 account/forms.py:370
 msgid "Phone"
 msgstr ""
 
-#: account/forms.py:60 account/forms.py:579
+#: account/forms.py:62 account/forms.py:562
 msgid "You must type the same password each time."
 msgstr "თქვენ უნდა აკრიფოთ ერთი და იგივე პაროლი ყოველ ჯერზე."
 
-#: account/forms.py:95 account/forms.py:506 account/forms.py:669
-#: account/forms.py:765
+#: account/forms.py:97 account/forms.py:489 account/forms.py:652
+#: account/forms.py:748
 msgid "Password"
 msgstr "პაროლი"
 
-#: account/forms.py:96
+#: account/forms.py:98
 msgid "Remember Me"
 msgstr "დამიმახსოვრე"
 
-#: account/forms.py:107 account/forms.py:330 account/forms.py:595
-#: account/forms.py:687 account/forms.py:782
+#: account/forms.py:109 account/forms.py:312 account/forms.py:578
+#: account/forms.py:670 account/forms.py:765
 msgid "Email address"
 msgstr "ელ. ფოსტა"
 
-#: account/forms.py:111 account/forms.py:362 account/forms.py:592
-#: account/forms.py:682
+#: account/forms.py:113 account/forms.py:344 account/forms.py:575
+#: account/forms.py:665
 msgid "Email"
 msgstr "ელ. ფოსტა"
 
-#: account/forms.py:114 account/forms.py:117 account/forms.py:320
-#: account/forms.py:323 account/forms.py:374
+#: account/forms.py:116 account/forms.py:119 account/forms.py:302
+#: account/forms.py:305 account/forms.py:356
 msgid "Username"
 msgstr "მომხმარებლის სახელი"
 
-#: account/forms.py:132
-msgid "Username or email"
-msgstr "მომხმარებლის სახელი ან ელ. ფოსტა"
-
-#: account/forms.py:135
+#: account/forms.py:133
 msgctxt "field label"
 msgid "Login"
 msgstr "შესვლა"
 
-#: account/forms.py:146
+#: account/forms.py:152
+#, fuzzy
+#| msgid "Username or email"
+msgid "Username, email or phone"
+msgstr "მომხმარებლის სახელი ან ელ. ფოსტა"
+
+#: account/forms.py:154
+msgid "Username or email"
+msgstr "მომხმარებლის სახელი ან ელ. ფოსტა"
+
+#: account/forms.py:156
+#, fuzzy
+#| msgid "Username or email"
+msgid "Username or phone"
+msgstr "მომხმარებლის სახელი ან ელ. ფოსტა"
+
+#: account/forms.py:158
+#, fuzzy
+#| msgid "Email (optional)"
+msgid "Email or phone"
+msgstr "ელ. ფოსტა (არ არის აუცილებელი)"
+
+#: account/forms.py:181
 #, fuzzy
 #| msgid "Forgot Password?"
 msgid "Forgot your password?"
 msgstr "დაგავიწყდა პაროლი?"
 
-#: account/forms.py:350
+#: account/forms.py:332
 msgid "Email (again)"
 msgstr "ელ. ფოსტა (გაამეორეთ)"
 
-#: account/forms.py:355
+#: account/forms.py:337
 msgid "Email address confirmation"
 msgstr "ელ. ფოსტის დადასტურება"
 
-#: account/forms.py:365
+#: account/forms.py:347
 msgid "Email (optional)"
 msgstr "ელ. ფოსტა (არ არის აუცილებელი)"
 
-#: account/forms.py:377
+#: account/forms.py:359
 #, fuzzy
 #| msgid "Email (optional)"
 msgid "Username (optional)"
 msgstr "ელ. ფოსტა (არ არის აუცილებელი)"
 
-#: account/forms.py:458
+#: account/forms.py:441
 msgid "You must type the same email each time."
 msgstr "თქვენ უნდა ჩაწეროთ ერთი და იგივე ელ. ფოსტა ყოველ ჯერზე."
 
-#: account/forms.py:513 account/forms.py:670
+#: account/forms.py:496 account/forms.py:653
 msgid "Password (again)"
 msgstr "პაროლი (გაამეორეთ)"
 
-#: account/forms.py:650
+#: account/forms.py:633
 msgid "Current Password"
 msgstr "მიმდინარე პაროლი"
 
-#: account/forms.py:652 account/forms.py:718
+#: account/forms.py:635 account/forms.py:701
 msgid "New Password"
 msgstr "ახალი პაროლი"
 
-#: account/forms.py:653 account/forms.py:719
+#: account/forms.py:636 account/forms.py:702
 msgid "New Password (again)"
 msgstr "ახალი პაროლი (გაამეორეთ)"
 
-#: account/forms.py:842 account/forms.py:844 mfa/base/forms.py:15
+#: account/forms.py:825 account/forms.py:827 mfa/base/forms.py:15
 #: mfa/base/forms.py:17 mfa/totp/forms.py:13
 msgid "Code"
 msgstr ""
@@ -654,6 +672,7 @@ msgid "Make Primary"
 msgstr "გახადე პირველადი"
 
 #: templates/account/email.html:47 templates/account/email_change.html:37
+#: templates/account/phone_change.html:24
 msgid "Re-send Verification"
 msgstr "ვერიფიკაციის თავიდან გაგზავნა"
 
@@ -672,7 +691,7 @@ msgstr "ელ. ფოსტის მისამართის დამა�
 msgid "Add Email"
 msgstr "ელ. ფოსტის დამატება"
 
-#: templates/account/email.html:79
+#: templates/account/email.html:80
 msgid "Do you really want to remove the selected email address?"
 msgstr "ნამდვილად გსურთ წაშალოთ არჩეული ელ.ფოსტის მისამართი?"
 
@@ -912,7 +931,7 @@ msgid "Cancel Change"
 msgstr ""
 
 #: templates/account/email_change.html:49
-#: templates/account/phone_change.html:28
+#: templates/account/phone_change.html:32
 #, fuzzy
 #| msgid "Email"
 msgid "Change to"
@@ -1106,7 +1125,7 @@ msgid "Set Password"
 msgstr "პაროლის დაყენება"
 
 #: templates/account/phone_change.html:5 templates/account/phone_change.html:9
-#: templates/account/phone_change.html:34
+#: templates/account/phone_change.html:38
 #, fuzzy
 #| msgid "Email"
 msgid "Change Phone"
@@ -1117,6 +1136,12 @@ msgstr "ელ. ფოსტა"
 #| msgid "Current Password"
 msgid "Current phone"
 msgstr "მიმდინარე პაროლი"
+
+#: templates/account/phone_change.html:22
+#, fuzzy
+#| msgid "Your email address is still pending verification."
+msgid "Your phone number is still pending verification."
+msgstr "თქვენი ელფოსტის მისამართი ჯერ კიდევ ითხოვს გადამოწმებას."
 
 #: templates/account/reauthenticate.html:6
 msgid "Enter your password:"
@@ -1700,8 +1725,8 @@ msgid ""
 "href=\"%(login_url)s\">sign in</a>."
 msgstr ""
 "თქვენ გადაწყვიტეთ გააუქმოთ შესვლა ჩვენს საიტზე თქვენი ერთ-ერთი არსებული "
-"ანგარიშის გამოყენებით. თუ ეს შეცდომა იყო, გთხოვთ <a href=\"%(login_url)s\""
-">ხელახლა შედით</a>."
+"ანგარიშის გამოყენებით. თუ ეს შეცდომა იყო, გთხოვთ <a "
+"href=\"%(login_url)s\">ხელახლა შედით</a>."
 
 #: templates/socialaccount/messages/account_connected.txt:2
 #, fuzzy

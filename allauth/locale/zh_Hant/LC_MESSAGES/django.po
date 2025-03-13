@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-01 02:57-0600\n"
+"POT-Creation-Date: 2025-03-13 16:40-0500\n"
 "PO-Revision-Date: 2025-03-12 17:52+0000\n"
 "Last-Translator: \"Xaver Y.R. Chen\" <yrchen@atcity.org>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
@@ -105,15 +105,15 @@ msgstr "請僅選擇一項。"
 msgid "The new value must be different from the current one."
 msgstr "新的輸入值必須不同於目前的內容。"
 
-#: account/adapter.py:763
+#: account/adapter.py:774
 msgid "Use your password"
 msgstr "使用您的密碼"
 
-#: account/adapter.py:772
+#: account/adapter.py:783
 msgid "Use authenticator app or code"
 msgstr "使用驗證器應用程式或代碼"
 
-#: account/adapter.py:779 templates/mfa/authenticate.html:41
+#: account/adapter.py:790 templates/mfa/authenticate.html:41
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use a security key"
 msgstr "使用安全金鑰"
@@ -130,88 +130,106 @@ msgstr "帳號"
 msgid "Enter a phone number including country code (e.g. +1 for the US)."
 msgstr "請輸入包含國家碼的電話號碼 (例如：+1 美國)。"
 
-#: account/fields.py:49 account/fields.py:53 account/forms.py:387
+#: account/fields.py:49 account/fields.py:53 account/forms.py:370
 msgid "Phone"
 msgstr "電話"
 
-#: account/forms.py:60 account/forms.py:579
+#: account/forms.py:62 account/forms.py:562
 msgid "You must type the same password each time."
 msgstr "您必須每次輸入相同的密碼。"
 
-#: account/forms.py:95 account/forms.py:506 account/forms.py:669
-#: account/forms.py:765
+#: account/forms.py:97 account/forms.py:489 account/forms.py:652
+#: account/forms.py:748
 msgid "Password"
 msgstr "密碼"
 
-#: account/forms.py:96
+#: account/forms.py:98
 msgid "Remember Me"
 msgstr "記住我"
 
-#: account/forms.py:107 account/forms.py:330 account/forms.py:595
-#: account/forms.py:687 account/forms.py:782
+#: account/forms.py:109 account/forms.py:312 account/forms.py:578
+#: account/forms.py:670 account/forms.py:765
 msgid "Email address"
 msgstr "電子郵件地址"
 
-#: account/forms.py:111 account/forms.py:362 account/forms.py:592
-#: account/forms.py:682
+#: account/forms.py:113 account/forms.py:344 account/forms.py:575
+#: account/forms.py:665
 msgid "Email"
 msgstr "電子郵件"
 
-#: account/forms.py:114 account/forms.py:117 account/forms.py:320
-#: account/forms.py:323 account/forms.py:374
+#: account/forms.py:116 account/forms.py:119 account/forms.py:302
+#: account/forms.py:305 account/forms.py:356
 msgid "Username"
 msgstr "使用者名稱"
 
-#: account/forms.py:132
-msgid "Username or email"
-msgstr "使用者名稱或電子郵件"
-
-#: account/forms.py:135
+#: account/forms.py:133
 msgctxt "field label"
 msgid "Login"
 msgstr "登入"
 
-#: account/forms.py:146
+#: account/forms.py:152
+#, fuzzy
+#| msgid "Username or email"
+msgid "Username, email or phone"
+msgstr "使用者名稱或電子郵件"
+
+#: account/forms.py:154
+msgid "Username or email"
+msgstr "使用者名稱或電子郵件"
+
+#: account/forms.py:156
+#, fuzzy
+#| msgid "Username or email"
+msgid "Username or phone"
+msgstr "使用者名稱或電子郵件"
+
+#: account/forms.py:158
+#, fuzzy
+#| msgid "Email (optional)"
+msgid "Email or phone"
+msgstr "電子郵件（選擇性）"
+
+#: account/forms.py:181
 msgid "Forgot your password?"
 msgstr "忘記您的密碼？"
 
-#: account/forms.py:350
+#: account/forms.py:332
 msgid "Email (again)"
 msgstr "電子郵件（再次）"
 
-#: account/forms.py:355
+#: account/forms.py:337
 msgid "Email address confirmation"
 msgstr "電子郵件地址確認"
 
-#: account/forms.py:365
+#: account/forms.py:347
 msgid "Email (optional)"
 msgstr "電子郵件（選擇性）"
 
-#: account/forms.py:377
+#: account/forms.py:359
 msgid "Username (optional)"
 msgstr "使用者名稱（選填）"
 
-#: account/forms.py:458
+#: account/forms.py:441
 msgid "You must type the same email each time."
 msgstr "您必須每次輸入相同的電子郵件。"
 
-#: account/forms.py:513 account/forms.py:670
+#: account/forms.py:496 account/forms.py:653
 msgid "Password (again)"
 msgstr "密碼（再次）"
 
-#: account/forms.py:650
+#: account/forms.py:633
 msgid "Current Password"
 msgstr "目前密碼"
 
-#: account/forms.py:652 account/forms.py:718
+#: account/forms.py:635 account/forms.py:701
 msgid "New Password"
 msgstr "新密碼"
 
-#: account/forms.py:653 account/forms.py:719
+#: account/forms.py:636 account/forms.py:702
 msgid "New Password (again)"
 msgstr "新密碼（再次）"
 
-#: account/forms.py:842 account/forms.py:844 mfa/base/forms.py:15
+#: account/forms.py:825 account/forms.py:827 mfa/base/forms.py:15
 #: mfa/base/forms.py:17 mfa/totp/forms.py:13
 msgid "Code"
 msgstr "代碼"
@@ -323,15 +341,17 @@ msgstr "無密碼"
 msgid ""
 "Enabling passwordless operation allows you to sign in using just this key, "
 "but imposes additional requirements such as biometrics or PIN protection."
-msgstr "啟用無密碼操作後，您可以僅使用此金鑰登入，但會要求額外的保護措施，"
-"如生物識別或 PIN 碼保護。"
+msgstr ""
+"啟用無密碼操作後，您可以僅使用此金鑰登入，但會要求額外的保護措施，如生物識別"
+"或 PIN 碼保護。"
 
 #: socialaccount/adapter.py:35
 #, python-format
 msgid ""
 "An account already exists with this email address. Please sign in to that "
 "account first, then connect your %s account."
-msgstr "已經有一個帳號與此電子郵件連結了，請先登入該帳號，然後連接你的 %s 帳號。"
+msgstr ""
+"已經有一個帳號與此電子郵件連結了，請先登入該帳號，然後連接你的 %s 帳號。"
 
 #: socialaccount/adapter.py:39
 msgid "Invalid token."
@@ -605,6 +625,7 @@ msgid "Make Primary"
 msgstr "設為主要的"
 
 #: templates/account/email.html:47 templates/account/email_change.html:37
+#: templates/account/phone_change.html:24
 msgid "Re-send Verification"
 msgstr "重寄驗証信"
 
@@ -623,7 +644,7 @@ msgstr "增加電子郵件"
 msgid "Add Email"
 msgstr "增加電子郵件"
 
-#: templates/account/email.html:79
+#: templates/account/email.html:80
 msgid "Do you really want to remove the selected email address?"
 msgstr "您真的要移除所選擇電子郵件嗎？"
 
@@ -717,8 +738,9 @@ msgstr "電子郵件確認"
 msgid ""
 "You're receiving this email because user %(user_display)s has given your "
 "email address to register an account on %(site_domain)s."
-msgstr "您會收到此 Email 是因為使用者 %(user_display)s 提供此 Email "
-"於網站%(site_domain)s 上註冊帳號。"
+msgstr ""
+"您會收到此 Email 是因為使用者 %(user_display)s 提供此 Email 於網"
+"站%(site_domain)s 上註冊帳號。"
 
 #: templates/account/email/email_confirmation_message.txt:7
 msgid ""
@@ -816,8 +838,8 @@ msgid ""
 "an account with email %(email)s. However, we do not have any record of such "
 "an account in our database."
 msgstr ""
-"您會收到此封 Email 是因為您/或是有人嘗試使用 %(email)s 此 Email "
-"存取帳號。然而，我們於資料庫中找不到任何關聯的帳號紀錄。"
+"您會收到此封 Email 是因為您/或是有人嘗試使用 %(email)s 此 Email 存取帳號。然"
+"而，我們於資料庫中找不到任何關聯的帳號紀錄。"
 
 #: templates/account/email/unknown_account_message.txt:8
 msgid "If it was you, you can sign up for an account using the link below."
@@ -849,7 +871,7 @@ msgid "Cancel Change"
 msgstr "取消變更"
 
 #: templates/account/email_change.html:49
-#: templates/account/phone_change.html:28
+#: templates/account/phone_change.html:32
 msgid "Change to"
 msgstr "變更為"
 
@@ -885,8 +907,9 @@ msgstr "無法驗證 %(email)s，因為該電子郵件已由其他帳戶驗證�
 msgid ""
 "This email confirmation link expired or is invalid. Please <a "
 "href=\"%(email_url)s\">issue a new email confirmation request</a>."
-msgstr "此電子郵件確認連結已過期或無效。請<a href=\"%(email_url)s\""
-">重新發送電子郵件確認請求</a>。"
+msgstr ""
+"此電子郵件確認連結已過期或無效。請<a href=\"%(email_url)s\">重新發送電子郵件"
+"確認請求</a>。"
 
 #: templates/account/login.html:19
 #, python-format
@@ -979,8 +1002,9 @@ msgstr "忘記密碼了？"
 msgid ""
 "Forgotten your password? Enter your email address below, and we'll send you "
 "an email allowing you to reset it."
-msgstr "忘記您的密碼了嗎？ "
-"請在下方輸入您的電子郵件，我們會發送一封電子郵件給您，以便重新設定您的密碼。"
+msgstr ""
+"忘記您的密碼了嗎？ 請在下方輸入您的電子郵件，我們會發送一封電子郵件給您，以便"
+"重新設定您的密碼。"
 
 #: templates/account/password_reset.html:26
 msgid "Reset My Password"
@@ -994,7 +1018,8 @@ msgstr "如果在重設密碼時碰到問題，請與我們聯絡。"
 msgid ""
 "We have sent you an email. If you have not received it please check your "
 "spam folder. Otherwise contact us if you do not receive it in a few minutes."
-msgstr "我們已經寄送了一封電子郵件給您。如果您沒有收到，請檢查您的垃圾郵件資料夾。如"
+msgstr ""
+"我們已經寄送了一封電子郵件給您。如果您沒有收到，請檢查您的垃圾郵件資料夾。如"
 "果仍未收到，請在幾分鐘後聯繫我們。"
 
 #: templates/account/password_reset_from_key.html:10
@@ -1021,13 +1046,19 @@ msgid "Set Password"
 msgstr "設定密碼"
 
 #: templates/account/phone_change.html:5 templates/account/phone_change.html:9
-#: templates/account/phone_change.html:34
+#: templates/account/phone_change.html:38
 msgid "Change Phone"
 msgstr "更改電話號碼"
 
 #: templates/account/phone_change.html:18
 msgid "Current phone"
 msgstr "目前電話號碼"
+
+#: templates/account/phone_change.html:22
+#, fuzzy
+#| msgid "Your email address is still pending verification."
+msgid "Your phone number is still pending verification."
+msgstr "您的電子郵件地址仍在等待驗證。"
 
 #: templates/account/reauthenticate.html:6
 msgid "Enter your password:"
@@ -1100,7 +1131,8 @@ msgstr "警告："
 msgid ""
 "You currently do not have any email address set up. You should really add an "
 "email address so you can receive notifications, reset your password, etc."
-msgstr "您尚未設定任何電子郵件。建議您最好設定一個電子郵件，以便您接收通知或重新設定"
+msgstr ""
+"您尚未設定任何電子郵件。建議您最好設定一個電子郵件，以便您接收通知或重新設定"
 "密碼等等。"
 
 #: templates/account/verification_sent.html:5
@@ -1149,7 +1181,8 @@ msgstr ""
 msgid ""
 "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your "
 "email address</a>."
-msgstr "<strong>注意：</strong> 您仍能<a href=\"%(email_url)s\">修改您的電子郵件地址 "
+msgstr ""
+"<strong>注意：</strong> 您仍能<a href=\"%(email_url)s\">修改您的電子郵件地址 "
 "</a>."
 
 #: templates/allauth/layouts/base.html:18
@@ -1351,8 +1384,9 @@ msgid ""
 "To protect your account with two-factor authentication, scan the QR code "
 "below with your authenticator app. Then, input the verification code "
 "generated by the app below."
-msgstr "為了使用雙重驗證保護您的帳戶，請使用您的驗證器應用程式掃描下方的 QR "
-"碼，然後輸入應用程式產生的驗證碼。"
+msgstr ""
+"為了使用雙重驗證保護您的帳戶，請使用您的驗證器應用程式掃描下方的 QR 碼，然後"
+"輸入應用程式產生的驗證碼。"
 
 #: templates/mfa/totp/activate_form.html:21
 msgid "Authenticator secret"
@@ -1438,7 +1472,8 @@ msgid ""
 "You are about to create a passkey for your account. As you can add "
 "additional keys later on, you can use a descriptive name to tell the keys "
 "apart."
-msgstr "您即將為您的帳戶建立通行密鑰（Passkey）。由於您可以稍後新增其他金鑰，建議使用"
+msgstr ""
+"您即將為您的帳戶建立通行密鑰（Passkey）。由於您可以稍後新增其他金鑰，建議使用"
 "具描述性的名稱來區分不同金鑰。"
 
 #: templates/mfa/webauthn/signup_form.html:21

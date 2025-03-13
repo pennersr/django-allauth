@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-01 02:57-0600\n"
+"POT-Creation-Date: 2025-03-13 16:40-0500\n"
 "PO-Revision-Date: 2024-11-03 04:02+0000\n"
 "Last-Translator: 황인아 <inahwang@kakao.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/allauth/django-"
@@ -111,15 +111,15 @@ msgstr ""
 msgid "The new value must be different from the current one."
 msgstr ""
 
-#: account/adapter.py:763
+#: account/adapter.py:774
 msgid "Use your password"
 msgstr "비밀번호를 사용하세요"
 
-#: account/adapter.py:772
+#: account/adapter.py:783
 msgid "Use authenticator app or code"
 msgstr "인증 앱 또는 코드를 사용하세요"
 
-#: account/adapter.py:779 templates/mfa/authenticate.html:41
+#: account/adapter.py:790 templates/mfa/authenticate.html:41
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use a security key"
 msgstr "보안키를 사용하세요"
@@ -136,90 +136,108 @@ msgstr "계정"
 msgid "Enter a phone number including country code (e.g. +1 for the US)."
 msgstr ""
 
-#: account/fields.py:49 account/fields.py:53 account/forms.py:387
+#: account/fields.py:49 account/fields.py:53 account/forms.py:370
 msgid "Phone"
 msgstr ""
 
-#: account/forms.py:60 account/forms.py:579
+#: account/forms.py:62 account/forms.py:562
 msgid "You must type the same password each time."
 msgstr "동일한 비밀번호를 입력해야 합니다."
 
-#: account/forms.py:95 account/forms.py:506 account/forms.py:669
-#: account/forms.py:765
+#: account/forms.py:97 account/forms.py:489 account/forms.py:652
+#: account/forms.py:748
 msgid "Password"
 msgstr "비밀번호"
 
-#: account/forms.py:96
+#: account/forms.py:98
 msgid "Remember Me"
 msgstr "아이디 저장"
 
-#: account/forms.py:107 account/forms.py:330 account/forms.py:595
-#: account/forms.py:687 account/forms.py:782
+#: account/forms.py:109 account/forms.py:312 account/forms.py:578
+#: account/forms.py:670 account/forms.py:765
 msgid "Email address"
 msgstr "이메일 주소"
 
-#: account/forms.py:111 account/forms.py:362 account/forms.py:592
-#: account/forms.py:682
+#: account/forms.py:113 account/forms.py:344 account/forms.py:575
+#: account/forms.py:665
 msgid "Email"
 msgstr "이메일"
 
-#: account/forms.py:114 account/forms.py:117 account/forms.py:320
-#: account/forms.py:323 account/forms.py:374
+#: account/forms.py:116 account/forms.py:119 account/forms.py:302
+#: account/forms.py:305 account/forms.py:356
 msgid "Username"
 msgstr "아이디"
 
-#: account/forms.py:132
-msgid "Username or email"
-msgstr "아이디 또는 이메일"
-
-#: account/forms.py:135
+#: account/forms.py:133
 msgctxt "field label"
 msgid "Login"
 msgstr "로그인"
 
-#: account/forms.py:146
+#: account/forms.py:152
+#, fuzzy
+#| msgid "Username or email"
+msgid "Username, email or phone"
+msgstr "아이디 또는 이메일"
+
+#: account/forms.py:154
+msgid "Username or email"
+msgstr "아이디 또는 이메일"
+
+#: account/forms.py:156
+#, fuzzy
+#| msgid "Username or email"
+msgid "Username or phone"
+msgstr "아이디 또는 이메일"
+
+#: account/forms.py:158
+#, fuzzy
+#| msgid "Email (optional)"
+msgid "Email or phone"
+msgstr "이메일 (선택사항)"
+
+#: account/forms.py:181
 msgid "Forgot your password?"
 msgstr "비밀번호를 잊으셨나요?"
 
-#: account/forms.py:350
+#: account/forms.py:332
 msgid "Email (again)"
 msgstr "이메일 (확인)"
 
-#: account/forms.py:355
+#: account/forms.py:337
 msgid "Email address confirmation"
 msgstr "이메일 주소 확인"
 
-#: account/forms.py:365
+#: account/forms.py:347
 msgid "Email (optional)"
 msgstr "이메일 (선택사항)"
 
-#: account/forms.py:377
+#: account/forms.py:359
 #, fuzzy
 #| msgid "Email (optional)"
 msgid "Username (optional)"
 msgstr "이메일 (선택사항)"
 
-#: account/forms.py:458
+#: account/forms.py:441
 msgid "You must type the same email each time."
 msgstr "동일한 이메일을 입력해야 합니다."
 
-#: account/forms.py:513 account/forms.py:670
+#: account/forms.py:496 account/forms.py:653
 msgid "Password (again)"
 msgstr "비밀번호 (확인)"
 
-#: account/forms.py:650
+#: account/forms.py:633
 msgid "Current Password"
 msgstr "현재 비밀번호"
 
-#: account/forms.py:652 account/forms.py:718
+#: account/forms.py:635 account/forms.py:701
 msgid "New Password"
 msgstr "새 비밀번호"
 
-#: account/forms.py:653 account/forms.py:719
+#: account/forms.py:636 account/forms.py:702
 msgid "New Password (again)"
 msgstr "새 비밀번호 (확인)"
 
-#: account/forms.py:842 account/forms.py:844 mfa/base/forms.py:15
+#: account/forms.py:825 account/forms.py:827 mfa/base/forms.py:15
 #: mfa/base/forms.py:17 mfa/totp/forms.py:13
 msgid "Code"
 msgstr "코드"
@@ -632,6 +650,7 @@ msgid "Make Primary"
 msgstr "주 이메일로 지정"
 
 #: templates/account/email.html:47 templates/account/email_change.html:37
+#: templates/account/phone_change.html:24
 msgid "Re-send Verification"
 msgstr "인증 재전송"
 
@@ -650,7 +669,7 @@ msgstr "이메일 주소 추가"
 msgid "Add Email"
 msgstr "이메일 추가"
 
-#: templates/account/email.html:79
+#: templates/account/email.html:80
 msgid "Do you really want to remove the selected email address?"
 msgstr "정말로 선택하신 이메일을 제거하시겠습니까?"
 
@@ -905,7 +924,7 @@ msgid "Cancel Change"
 msgstr "변경 취소"
 
 #: templates/account/email_change.html:49
-#: templates/account/phone_change.html:28
+#: templates/account/phone_change.html:32
 msgid "Change to"
 msgstr "변경"
 
@@ -1083,7 +1102,7 @@ msgid "Set Password"
 msgstr "비밀번호 설정"
 
 #: templates/account/phone_change.html:5 templates/account/phone_change.html:9
-#: templates/account/phone_change.html:34
+#: templates/account/phone_change.html:38
 #, fuzzy
 #| msgid "Change to"
 msgid "Change Phone"
@@ -1094,6 +1113,12 @@ msgstr "변경"
 #| msgid "Current"
 msgid "Current phone"
 msgstr "현재"
+
+#: templates/account/phone_change.html:22
+#, fuzzy
+#| msgid "Your email address is still pending verification."
+msgid "Your phone number is still pending verification."
+msgstr "귀하의 이메일 주소는 아직 검증 중입니다."
 
 #: templates/account/reauthenticate.html:6
 msgid "Enter your password:"

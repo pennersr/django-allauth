@@ -42,13 +42,15 @@ Form Fields
 ***********
 
 For presenting a phone number form field to the user a basic ``<input type="tel">`` field
-is used that requires input in E164 format. There are various external projects that offer more
-elaborate phone number input fields. You can switch over to using the fields provided by those projects
-by overriding the following adapter method:
+is used that requires input in E164 format. There are various external projects
+that offer more elaborate phone number input fields. You can switch over to
+using the fields provided by those projects, or, tweak the phone number
+validaton logic, by overriding the following adapter methods:
 
 .. autoclass:: allauth.account.adapter.DefaultAccountAdapter
 
    .. automethod:: phone_form_field
+   .. automethod:: clean_phone
 
 
 Database Models

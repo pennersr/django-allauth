@@ -362,7 +362,7 @@ class DefaultAccountAdapter(BaseAdapter):
                 raise self.validation_error("username_taken")
         return username
 
-    def clean_email(self, email):
+    def clean_email(self, email: str) -> str:
         """
         Validates an email value. You can hook into this if you want to
         (dynamically) restrict what email addresses can be chosen.
@@ -379,6 +379,13 @@ class DefaultAccountAdapter(BaseAdapter):
             MinimumLengthValidator(min_length).validate(password)
         validate_password(password, user)
         return password
+
+    def clean_phone(self, phone: str) -> str:
+        """
+        Validates a phone number. You can hook into this if you want to
+        (dynamically) restrict what phone numbers can be chosen.
+        """
+        return phone
 
     def validate_unique_email(self, email):
         return email

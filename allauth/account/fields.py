@@ -57,4 +57,5 @@ class PhoneField(forms.CharField):
         value = super().clean(value)
         if value:
             value = value.replace(" ", "").replace("-", "")
+            value = get_adapter().clean_phone(value)
         return value

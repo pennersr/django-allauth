@@ -300,7 +300,7 @@ class BaseSignupForm(base_signup_form_class()):  # type: ignore[misc]
     def __init__(self, *args, **kwargs):
         self._signup_fields = self._get_signup_fields(kwargs)
         self.account_already_exists = False
-        super(BaseSignupForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         username_field = self.fields["username"]
         username_field.max_length = get_username_max_length()
         username_field.validators.append(
@@ -347,7 +347,8 @@ class BaseSignupForm(base_signup_form_class()):  # type: ignore[misc]
         phone = self._signup_fields.get("phone")
         self._has_phone_field = bool(phone)
         if phone:
-            self.fields["phone"] = forms.CharField(
+            adapter = get_adapter()
+            self.fields["phone"] = adapter.phone_form_field(
                 label=_("Phone"), required=phone["required"]
             )
 

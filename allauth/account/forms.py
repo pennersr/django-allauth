@@ -123,15 +123,11 @@ class LoginForm(forms.Form):
         elif app_settings.LOGIN_METHODS == {LoginMethod.PHONE}:
             login_field = adapter.phone_form_field(required=True)
         else:
-            assert app_settings.LOGIN_METHODS.issubset(
-                {
-                    LoginMethod.USERNAME,
-                    LoginMethod.EMAIL,
-                    LoginMethod.PHONE,
-                }
-            )  # nosec
             login_widget = forms.TextInput(
-                attrs={"placeholder": _("Username or email"), "autocomplete": "email"}
+                attrs={
+                    "placeholder": self._get_login_field_placeholder(),
+                    "autocomplete": "email",
+                }
             )
             login_field = forms.CharField(
                 label=pgettext("field label", "Login"), widget=login_widget
@@ -141,6 +137,28 @@ class LoginForm(forms.Form):
         if app_settings.SESSION_REMEMBER is not None:
             del self.fields["remember"]
         self._setup_password_field()
+
+    def _get_login_field_placeholder(self):
+        methods = app_settings.LOGIN_METHODS
+        assert len(methods) > 1  # nosec
+        assert methods.issubset(
+            {
+                LoginMethod.USERNAME,
+                LoginMethod.EMAIL,
+                LoginMethod.PHONE,
+            }
+        )  # nosec
+        if len(methods) == 3:
+            placeholder = _("Username, email or phone")
+        elif methods == {LoginMethod.USERNAME, LoginMethod.EMAIL}:
+            placeholder = _("Username or email")
+        elif methods == {LoginMethod.USERNAME, LoginMethod.PHONE}:
+            placeholder = _("Username or phone")
+        elif methods == {LoginMethod.EMAIL, LoginMethod.PHONE}:
+            placeholder = _("Email or phone")
+        else:
+            raise ValueError(methods)
+        return placeholder
 
     def _setup_password_field(self):
         password_field = app_settings.SIGNUP_FIELDS.get("password1")

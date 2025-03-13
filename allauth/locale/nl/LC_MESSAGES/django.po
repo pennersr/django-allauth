@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-13 16:40-0500\n"
-"PO-Revision-Date: 2025-03-13 21:35+0000\n"
+"PO-Revision-Date: 2025-03-13 22:49+0100\n"
 "Last-Translator: Jos van Leeuwen <jos.van.leeuwen@proton.me>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/allauth/django-"
 "allauth/nl/>\n"
@@ -168,26 +168,20 @@ msgid "Login"
 msgstr "Login"
 
 #: account/forms.py:152
-#, fuzzy
-#| msgid "Username or email"
 msgid "Username, email or phone"
-msgstr "Gebruikersnaam of e-mail"
+msgstr "Gebruikersnaam, e-mail, of telefoonnummer"
 
 #: account/forms.py:154
 msgid "Username or email"
 msgstr "Gebruikersnaam of e-mail"
 
 #: account/forms.py:156
-#, fuzzy
-#| msgid "Username or email"
 msgid "Username or phone"
-msgstr "Gebruikersnaam of e-mail"
+msgstr "Gebruikersnaam of telefoonnummer"
 
 #: account/forms.py:158
-#, fuzzy
-#| msgid "Email (optional)"
 msgid "Email or phone"
-msgstr "E-mail (optioneel)"
+msgstr "E-mail of telefoonnummer"
 
 #: account/forms.py:181
 msgid "Forgot your password?"
@@ -1093,10 +1087,8 @@ msgid "Current phone"
 msgstr "Huidig telefoonnummer"
 
 #: templates/account/phone_change.html:22
-#, fuzzy
-#| msgid "Your email address is still pending verification."
 msgid "Your phone number is still pending verification."
-msgstr "Je e-mailadres wacht op verificatie."
+msgstr "Je telefoonnummer wacht op verificatie."
 
 #: templates/account/reauthenticate.html:6
 msgid "Enter your password:"

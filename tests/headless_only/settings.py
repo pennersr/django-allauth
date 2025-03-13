@@ -176,6 +176,7 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.trainingpeaks",
     "allauth.socialaccount.providers.trello",
     "allauth.socialaccount.providers.tumblr",
+    "allauth.socialaccount.providers.tumblr_oauth2",
     "allauth.socialaccount.providers.twentythreeandme",
     "allauth.socialaccount.providers.twitch",
     "allauth.socialaccount.providers.twitter",

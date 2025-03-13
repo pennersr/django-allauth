@@ -9,6 +9,8 @@ Note worthy changes
 - Added support for resetting passwords by code, instead of a link
   (``ACCOUNT_PASSWORD_RESET_BY_CODE_ENABLED``).
 
+- Added support for Tumblr OAuth2.
+
 - Simplified signup form configuration. The following settings all controlled
   signup form: ``ACCOUNT_EMAIL_REQUIRED``, ``ACCOUNT_USERNAME_REQUIRED``,
   ``ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE``, ``ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE``.

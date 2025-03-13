@@ -126,6 +126,7 @@ Provider Specifics
    tiktok
    trainingpeaks
    trello
+   tumblr_oauth2
    twitch
    twitter_oauth2
    twitter

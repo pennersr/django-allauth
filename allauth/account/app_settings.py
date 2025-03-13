@@ -155,6 +155,10 @@ class AppSettings:
         return self._setting("EMAIL_MAX_LENGTH", 254)
 
     @property
+    def PHONE_VERIFICATION_ENABLED(self):
+        return self._setting("PHONE_VERIFICATION_ENABLED", True)
+
+    @property
     def PHONE_VERIFICATION_MAX_ATTEMPTS(self):
         return self._setting("PHONE_VERIFICATION_MAX_ATTEMPTS", 3)
 

@@ -203,7 +203,7 @@ class PhoneVerificationStage(LoginStage):
         if phone_verified is None:
             return None, (not phone_field["required"])
         phone, verified = phone_verified
-        if verified:
+        if verified or not app_settings.PHONE_VERIFICATION_ENABLED:
             return None, True
         phone_verification.PhoneVerificationStageProcess.initiate(
             stage=self, phone=phone

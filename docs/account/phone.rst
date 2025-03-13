@@ -21,6 +21,23 @@ following in the ``settings.py`` of your project::
   ACCOUNT_ADAPTER = 'project.users.adapter.MyAccountAdapter'
 
 
+Configuration
+=============
+
+Available settings:
+
+``PHONE_VERIFICATION_ENABLED`` (default: ``True``)
+  Whether or not mandatory verification of phone numbers during login/signup takes place.
+
+``ACCOUNT_PHONE_VERIFICATION_MAX_ATTEMPTS`` (default: ``3``)
+  This setting controls the maximum number of attempts the user has at inputting
+  a valid code.
+
+``ACCOUNT_PHONE_VERIFICATION_TIMEOUT`` (default: ``900``)
+  The code that is sent has a limited life span. It expires this many seconds after
+  which it was sent.
+
+
 Form Fields
 ***********
 

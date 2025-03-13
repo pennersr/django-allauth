@@ -1247,7 +1247,17 @@ class ChangePhoneView(FormView):
     def get_form_kwargs(self):
         ret = super().get_form_kwargs()
         self._phone_verified = get_adapter().get_phone(self.request.user)
-        ret["phone"] = self._phone_verified[0] if self._phone_verified else None
+        if (
+            self.request.POST.get("action") == "verify"
+            and self._phone_verified
+            and not self._phone_verified[1]
+        ):
+            # We're (re-)sending the verificaton code, so just feed the existing
+            # phone to the form...
+            ret["data"] = {"phone": self._phone_verified[0]}
+            ret["phone"] = None
+        else:
+            ret["phone"] = self._phone_verified[0] if self._phone_verified else None
         return ret
 
     def form_valid(self, form):

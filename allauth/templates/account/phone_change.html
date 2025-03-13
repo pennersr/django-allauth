@@ -17,10 +17,14 @@
                     {% slot label %}
                         {% translate "Current phone" %}:
                     {% endslot %}
-                {% endelement %}
-            {% endif %}
-            {% if new_emailaddress %}
-                {% element field id="new_email" value=new_emailaddress.email disabled=True type="email" %}
+                    {% if not phone_verified %}
+                        {% slot help_text %}
+                            {% blocktranslate %}Your phone number is still pending verification.{% endblocktranslate %}
+                            {% element button form="verify-phone" type="submit" tags="minor,secondary" %}
+                                {% trans 'Re-send Verification' %}
+                            {% endelement %}
+                        {% endslot %}
+                    {% endif %}
                 {% endelement %}
             {% endif %}
             {% element field id=form.phone.auto_id name="phone" value=form.phone.value errors=form.phone.errors type="tel" %}
@@ -35,4 +39,13 @@
             {% endelement %}
         {% endslot %}
     {% endelement %}
+    {% if not phone_verified %}
+        <form style="display: none"
+              id="verify-phone"
+              method="post"
+              action="{{ action_url }}">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="verify">
+        </form>
+    {% endif %}
 {% endblock content %}

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-13 16:40-0500\n"
+"POT-Creation-Date: 2025-03-14 05:00-0500\n"
 "PO-Revision-Date: 2024-06-15 10:09+0000\n"
 "Last-Translator: Eyal Cherevatsky <5116133+eyalch@users.noreply.github.com>\n"
 "Language-Team: Hebrew <https://hosted.weblate.org/projects/allauth/django-"
@@ -81,13 +81,15 @@ msgid "Too many failed login attempts. Try again later."
 msgstr "יותר מדי ניסיונות התחברות כושלים. אנא נסה שוב מאוחר יותר."
 
 #: account/adapter.py:79
-msgid "The email address is not assigned to any user account"
+#, fuzzy
+#| msgid "The email address is not assigned to any user account"
+msgid "The email address is not assigned to any user account."
 msgstr "כתובת אימייל זו אינה משויכת לאף חשבון"
 
 #: account/adapter.py:80
 #, fuzzy
 #| msgid "The email address is not assigned to any user account"
-msgid "The phone number is not assigned to any user account"
+msgid "The phone number is not assigned to any user account."
 msgstr "כתובת אימייל זו אינה משויכת לאף חשבון"
 
 #: account/adapter.py:81

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-13 16:40-0500\n"
+"POT-Creation-Date: 2025-03-14 05:00-0500\n"
 "PO-Revision-Date: 2024-04-20 21:52+0200\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/django-"
@@ -88,13 +88,15 @@ msgid "Too many failed login attempts. Try again later."
 msgstr "For mange innloggingsforsøk. Vennligst prøv igjen senere."
 
 #: account/adapter.py:79
-msgid "The email address is not assigned to any user account"
+#, fuzzy
+#| msgid "The email address is not assigned to any user account"
+msgid "The email address is not assigned to any user account."
 msgstr "E-postadressen er ikke tilknyttet noen brukerkonto"
 
 #: account/adapter.py:80
 #, fuzzy
 #| msgid "The email address is not assigned to any user account"
-msgid "The phone number is not assigned to any user account"
+msgid "The phone number is not assigned to any user account."
 msgstr "E-postadressen er ikke tilknyttet noen brukerkonto"
 
 #: account/adapter.py:81

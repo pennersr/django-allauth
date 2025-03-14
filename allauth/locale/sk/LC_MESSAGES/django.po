@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-13 16:40-0500\n"
+"POT-Creation-Date: 2025-03-14 05:00-0500\n"
 "PO-Revision-Date: 2024-11-03 04:02+0000\n"
 "Last-Translator: Milan Šalka <salka.milan@googlemail.com>\n"
 "Language-Team: Slovak <https://hosted.weblate.org/projects/allauth/django-"
@@ -83,14 +83,16 @@ msgid "Too many failed login attempts. Try again later."
 msgstr "Príliš veľa neúspešných pokusov o prihlásenie. Skúste neskôr."
 
 #: account/adapter.py:79
-msgid "The email address is not assigned to any user account"
+#, fuzzy
+#| msgid "The email address is not assigned to any user account"
+msgid "The email address is not assigned to any user account."
 msgstr ""
 "Táto e-mailová adresa nie je pridelená k žiadnemu používateľskému kontu"
 
 #: account/adapter.py:80
 #, fuzzy
 #| msgid "The email address is not assigned to any user account"
-msgid "The phone number is not assigned to any user account"
+msgid "The phone number is not assigned to any user account."
 msgstr ""
 "Táto e-mailová adresa nie je pridelená k žiadnemu používateľskému kontu"
 

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-13 16:40-0500\n"
-"PO-Revision-Date: 2025-03-13 23:03+0100\n"
+"POT-Creation-Date: 2025-03-14 05:00-0500\n"
+"PO-Revision-Date: 2025-03-14 11:00+0100\n"
 "Last-Translator: Natalia N <natalian@inbox.ru>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/allauth/django-"
 "allauth/de/>\n"
@@ -79,12 +79,12 @@ msgstr ""
 "Zu viele gescheiterte Anmeldeversuche. Bitte versuche es später erneut."
 
 #: account/adapter.py:79
-msgid "The email address is not assigned to any user account"
-msgstr "Diese E-Mail-Adresse ist keinem Konto zugeordnet"
+msgid "The email address is not assigned to any user account."
+msgstr "Diese E-Mail-Adresse ist keinem Konto zugeordnet."
 
 #: account/adapter.py:80
-msgid "The phone number is not assigned to any user account"
-msgstr "Die Telefonnummer ist keinem Benutzerkonto zugeordnet"
+msgid "The phone number is not assigned to any user account."
+msgstr "Die Telefonnummer ist keinem Benutzerkonto zugeordnet."
 
 #: account/adapter.py:81
 #: templates/account/messages/unverified_primary_email.txt:2
@@ -131,7 +131,9 @@ msgstr "Konten"
 
 #: account/fields.py:43
 msgid "Enter a phone number including country code (e.g. +1 for the US)."
-msgstr "Geben Sie eine Telefonnummer einschließlich Ländervorwahl ein (z. B. +49 für Deutschland)."
+msgstr ""
+"Geben Sie eine Telefonnummer einschließlich Ländervorwahl ein (z. B. +49 für "
+"Deutschland)."
 
 #: account/fields.py:49 account/fields.py:53 account/forms.py:370
 msgid "Phone"
@@ -542,7 +544,9 @@ msgstr "Dieses Konto ist inaktiv."
 msgid ""
 "We've sent a code to %(recipient)s. The code expires shortly, so please "
 "enter it soon."
-msgstr "Wir haben einen Code an %(recipient)s gesendet. Der Code läuft in Kürze ab, bitte geben Sie ihn bald ein."
+msgstr ""
+"Wir haben einen Code an %(recipient)s gesendet. Der Code läuft in Kürze ab, "
+"bitte geben Sie ihn bald ein."
 
 #: templates/account/base_confirm_code.html:38
 #: templates/account/email_confirm.html:24
@@ -812,7 +816,9 @@ msgstr "Passwort geändert"
 msgid ""
 "Your password reset code is listed below. Please enter it in your open "
 "browser window."
-msgstr "Ihre Passwort-Zurücksetzungscode steht unten. Bitte geben Sie ihn in Ihrem geöffneten Browserfenster ein."
+msgstr ""
+"Ihre Passwort-Zurücksetzungscode steht unten. Bitte geben Sie ihn in Ihrem "
+"geöffneten Browserfenster ein."
 
 #: templates/account/email/password_reset_code_subject.txt:3
 msgid "Password Reset Code"

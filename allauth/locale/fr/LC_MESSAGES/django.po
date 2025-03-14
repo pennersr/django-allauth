@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-13 16:40-0500\n"
+"POT-Creation-Date: 2025-03-14 05:00-0500\n"
 "PO-Revision-Date: 2024-10-16 17:16+0000\n"
 "Last-Translator: Laurent FAVOLE <laurentfavole03@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/allauth/django-"
@@ -85,13 +85,15 @@ msgstr ""
 "Trop de tentatives de connexion échouées. Veuillez réessayer ultérieurement."
 
 #: account/adapter.py:79
-msgid "The email address is not assigned to any user account"
+#, fuzzy
+#| msgid "The email address is not assigned to any user account"
+msgid "The email address is not assigned to any user account."
 msgstr "Cette adresse e-mail n'est pas associée à un compte utilisateur"
 
 #: account/adapter.py:80
 #, fuzzy
 #| msgid "The email address is not assigned to any user account"
-msgid "The phone number is not assigned to any user account"
+msgid "The phone number is not assigned to any user account."
 msgstr "Cette adresse e-mail n'est pas associée à un compte utilisateur"
 
 #: account/adapter.py:81

@@ -76,8 +76,8 @@ class DefaultAccountAdapter(BaseAdapter):
         "too_many_login_attempts": _(
             "Too many failed login attempts. Try again later."
         ),
-        "unknown_email": _("The email address is not assigned to any user account"),
-        "unknown_phone": _("The phone number is not assigned to any user account"),
+        "unknown_email": _("The email address is not assigned to any user account."),
+        "unknown_phone": _("The phone number is not assigned to any user account."),
         "unverified_primary_email": _("Your primary email address must be verified."),
         "username_blacklisted": _(
             "Username can not be used. Please use other username."

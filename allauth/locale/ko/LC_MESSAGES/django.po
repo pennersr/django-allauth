@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-13 16:40-0500\n"
+"POT-Creation-Date: 2025-03-14 05:00-0500\n"
 "PO-Revision-Date: 2024-11-03 04:02+0000\n"
 "Last-Translator: 황인아 <inahwang@kakao.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/allauth/django-"
@@ -81,13 +81,15 @@ msgid "Too many failed login attempts. Try again later."
 msgstr "너무 많은 로그인 실패가 감지되었습니다. 잠시 후에 다시 시도하세요."
 
 #: account/adapter.py:79
-msgid "The email address is not assigned to any user account"
+#, fuzzy
+#| msgid "The email address is not assigned to any user account"
+msgid "The email address is not assigned to any user account."
 msgstr "해당 이메일을 가지고 있는 사용자가 없습니다."
 
 #: account/adapter.py:80
 #, fuzzy
 #| msgid "The email address is not assigned to any user account"
-msgid "The phone number is not assigned to any user account"
+msgid "The phone number is not assigned to any user account."
 msgstr "해당 이메일을 가지고 있는 사용자가 없습니다."
 
 #: account/adapter.py:81

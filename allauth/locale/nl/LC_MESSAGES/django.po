@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-13 16:40-0500\n"
-"PO-Revision-Date: 2025-03-13 22:49+0100\n"
+"POT-Creation-Date: 2025-03-14 05:00-0500\n"
+"PO-Revision-Date: 2025-03-14 11:00+0100\n"
 "Last-Translator: Jos van Leeuwen <jos.van.leeuwen@proton.me>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/allauth/django-"
 "allauth/nl/>\n"
@@ -77,12 +77,12 @@ msgid "Too many failed login attempts. Try again later."
 msgstr "Te veel inlogpogingen. Probeer het later nogmaals."
 
 #: account/adapter.py:79
-msgid "The email address is not assigned to any user account"
-msgstr "Dit e-mailadres is niet bij ons bekend"
+msgid "The email address is not assigned to any user account."
+msgstr "Dit e-mailadres is niet bij ons bekend."
 
 #: account/adapter.py:80
-msgid "The phone number is not assigned to any user account"
-msgstr "Het telefoonnummer is niet aan een gebruikersaccount toegewezen"
+msgid "The phone number is not assigned to any user account."
+msgstr "Het telefoonnummer is niet aan een gebruikersaccount toegewezen."
 
 #: account/adapter.py:81
 #: templates/account/messages/unverified_primary_email.txt:2

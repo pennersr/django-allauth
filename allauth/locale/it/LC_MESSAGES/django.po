@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-13 16:40-0500\n"
-"PO-Revision-Date: 2025-03-14 10:58+0100\n"
+"POT-Creation-Date: 2025-03-14 05:00-0500\n"
+"PO-Revision-Date: 2025-03-14 11:01+0100\n"
 "Last-Translator: Laurent FAVOLE <laurentfavole03@gmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/allauth/django-"
 "allauth/it/>\n"
@@ -80,11 +80,11 @@ msgid "Too many failed login attempts. Try again later."
 msgstr "Troppo tentativi di accesso. Riprova più tardi."
 
 #: account/adapter.py:79
-msgid "The email address is not assigned to any user account"
-msgstr "L'indirizzo email non è assegnato a nessun account utente"
+msgid "The email address is not assigned to any user account."
+msgstr "L'indirizzo email non è assegnato a nessun account utente."
 
 #: account/adapter.py:80
-msgid "The phone number is not assigned to any user account"
+msgid "The phone number is not assigned to any user account."
 msgstr "Il numero di telefono non è associato a nessun account utente."
 
 #: account/adapter.py:81
@@ -131,7 +131,9 @@ msgstr "Account"
 
 #: account/fields.py:43
 msgid "Enter a phone number including country code (e.g. +1 for the US)."
-msgstr "Inserisci un numero di telefono comprensivo di prefisso internazionale (es. +39 per l'Italia)."
+msgstr ""
+"Inserisci un numero di telefono comprensivo di prefisso internazionale (es. "
+"+39 per l'Italia)."
 
 #: account/fields.py:49 account/fields.py:53 account/forms.py:370
 msgid "Phone"
@@ -344,7 +346,10 @@ msgstr "Senza password"
 msgid ""
 "Enabling passwordless operation allows you to sign in using just this key, "
 "but imposes additional requirements such as biometrics or PIN protection."
-msgstr "L'abilitazione dell'operazione senza password ti consente di accedere utilizzando solo questa chiave, ma impone requisiti aggiuntivi come l'uso di dati biometrici o la protezione tramite PIN."
+msgstr ""
+"L'abilitazione dell'operazione senza password ti consente di accedere "
+"utilizzando solo questa chiave, ma impone requisiti aggiuntivi come l'uso di "
+"dati biometrici o la protezione tramite PIN."
 
 #: socialaccount/adapter.py:35
 #, python-format
@@ -538,7 +543,9 @@ msgstr "Questo account non è attivo."
 msgid ""
 "We've sent a code to %(recipient)s. The code expires shortly, so please "
 "enter it soon."
-msgstr "Abbiamo inviato un codice a %(recipient)s. Il codice scadrà a breve, quindi inseriscilo al più presto."
+msgstr ""
+"Abbiamo inviato un codice a %(recipient)s. Il codice scadrà a breve, quindi "
+"inseriscilo al più presto."
 
 #: templates/account/base_confirm_code.html:38
 #: templates/account/email_confirm.html:24
@@ -670,11 +677,14 @@ msgid ""
 "\n"
 "%(password_reset_url)s"
 msgstr ""
-"Stai ricevendo questa email perché tu o qualcun altro avete tentato di registrare un account utilizzando l'indirizzo email:  \n"
+"Stai ricevendo questa email perché tu o qualcun altro avete tentato di "
+"registrare un account utilizzando l'indirizzo email:  \n"
 "\n"
 "%(email)s  \n"
 "\n"
-"Tuttavia, esiste già un account associato a questo indirizzo email. Se lo hai dimenticato, utilizza la procedura di recupero password per recuperare il tuo account:  \n"
+"Tuttavia, esiste già un account associato a questo indirizzo email. Se lo "
+"hai dimenticato, utilizza la procedura di recupero password per recuperare "
+"il tuo account:  \n"
 "\n"
 "%(password_reset_url)s"
 
@@ -700,7 +710,9 @@ msgstr ""
 msgid ""
 "You are receiving this mail because the following change was made to your "
 "account:"
-msgstr "Stai ricevendo questa email perché è stata apportata la seguente modifica al tuo account:"
+msgstr ""
+"Stai ricevendo questa email perché è stata apportata la seguente modifica al "
+"tuo account:"
 
 #: templates/account/email/base_notification.txt:10
 #, python-format
@@ -712,7 +724,8 @@ msgid ""
 "- Browser: %(user_agent)s\n"
 "- Date: %(timestamp)s"
 msgstr ""
-"Se non riconosci questa modifica, adotta immediatamente le opportune misure di sicurezza. La modifica al tuo account proviene da:\n"
+"Se non riconosci questa modifica, adotta immediatamente le opportune misure "
+"di sicurezza. La modifica al tuo account proviene da:\n"
 "\n"
 "- Indirizzo IP: %(ip)s\n"
 "- Browser: %(user_agent)s\n"
@@ -748,7 +761,9 @@ msgstr ""
 msgid ""
 "Your email verification code is listed below. Please enter it in your open "
 "browser window."
-msgstr "Il tuo codice di verifica email è riportato di seguito. Inseriscilo nella finestra del browser aperta."
+msgstr ""
+"Il tuo codice di verifica email è riportato di seguito. Inseriscilo nella "
+"finestra del browser aperta."
 
 #: templates/account/email/email_confirmation_message.txt:9
 #, python-format
@@ -772,13 +787,16 @@ msgstr "E-mail rimossa"
 msgid ""
 "Your sign-in code is listed below. Please enter it in your open browser "
 "window."
-msgstr "Il tuo codice di accesso è riportato di seguito. Inseriscilo nella finestra del browser aperta."
+msgstr ""
+"Il tuo codice di accesso è riportato di seguito. Inseriscilo nella finestra "
+"del browser aperta."
 
 #: templates/account/email/login_code_message.txt:9
 #: templates/account/email/password_reset_code_message.txt:9
 #: templates/account/email/unknown_account_message.txt:6
 msgid "This mail can be safely ignored if you did not initiate this action."
-msgstr "Puoi ignorare questa email in sicurezza se non hai avviato questa azione."
+msgstr ""
+"Puoi ignorare questa email in sicurezza se non hai avviato questa azione."
 
 #: templates/account/email/login_code_subject.txt:3
 msgid "Sign-In Code"
@@ -796,7 +814,9 @@ msgstr "Password cambiata"
 msgid ""
 "Your password reset code is listed below. Please enter it in your open "
 "browser window."
-msgstr "Il tuo codice di reimpostazione della password è riportato di seguito. Inseriscilo nella finestra del browser aperta."
+msgstr ""
+"Il tuo codice di reimpostazione della password è riportato di seguito. "
+"Inseriscilo nella finestra del browser aperta."
 
 #: templates/account/email/password_reset_code_subject.txt:3
 msgid "Password Reset Code"
@@ -841,11 +861,16 @@ msgid ""
 "You are receiving this email because you, or someone else, tried to access "
 "an account with email %(email)s. However, we do not have any record of such "
 "an account in our database."
-msgstr "Stai ricevendo questa email perché tu, o qualcun altro, ha tentato di accedere a un account con l'email %(email)s. Tuttavia, non abbiamo alcun record di un account con questa email nel nostro database."
+msgstr ""
+"Stai ricevendo questa email perché tu, o qualcun altro, ha tentato di "
+"accedere a un account con l'email %(email)s. Tuttavia, non abbiamo alcun "
+"record di un account con questa email nel nostro database."
 
 #: templates/account/email/unknown_account_message.txt:8
 msgid "If it was you, you can sign up for an account using the link below."
-msgstr "Se sei stato tu, puoi registrarti per un account utilizzando il link qui sotto."
+msgstr ""
+"Se sei stato tu, puoi registrarti per un account utilizzando il link qui "
+"sotto."
 
 #: templates/account/email/unknown_account_subject.txt:3
 msgid "Unknown Account"
@@ -1224,7 +1249,9 @@ msgstr ""
 #: templates/mfa/email/recovery_codes_generated_message.txt:4
 msgid ""
 "A new set of Two-Factor Authentication recovery codes has been generated."
-msgstr "È stato generato un nuovo set di codici di recupero per l'Autenticazione a Due Fattori."
+msgstr ""
+"È stato generato un nuovo set di codici di recupero per l'Autenticazione a "
+"Due Fattori."
 
 #: templates/mfa/email/recovery_codes_generated_subject.txt:3
 msgid "New Recovery Codes Generated"
@@ -1490,7 +1517,10 @@ msgid ""
 "You are about to create a passkey for your account. As you can add "
 "additional keys later on, you can use a descriptive name to tell the keys "
 "apart."
-msgstr "Stai per creare una passkey per il tuo account. Poiché puoi aggiungere ulteriori chiavi in seguito, puoi utilizzare un nome descrittivo per distinguerle."
+msgstr ""
+"Stai per creare una passkey per il tuo account. Poiché puoi aggiungere "
+"ulteriori chiavi in seguito, puoi utilizzare un nome descrittivo per "
+"distinguerle."
 
 #: templates/mfa/webauthn/signup_form.html:21
 msgid "Create"
@@ -1508,7 +1538,9 @@ msgstr "Errore di Accesso con Account di Terze Parti"
 #: templates/socialaccount/authentication_error.html:12
 msgid ""
 "An error occurred while attempting to login via your third-party account."
-msgstr "Si è verificato un errore durante il tentativo di accesso con il tuo account di terze parti."
+msgstr ""
+"Si è verificato un errore durante il tentativo di accesso con il tuo account "
+"di terze parti."
 
 #: templates/socialaccount/connections.html:13
 msgid ""
@@ -1530,7 +1562,8 @@ msgstr "Aggiungi un account di un Social Network"
 #, python-format
 msgid ""
 "A third-party account from %(provider)s has been connected to your account."
-msgstr "Un account di terze parti da %(provider)s è stato collegato al tuo account."
+msgstr ""
+"Un account di terze parti da %(provider)s è stato collegato al tuo account."
 
 #: templates/socialaccount/email/account_connected_subject.txt:3
 msgid "Third-Party Account Connected"
@@ -1541,7 +1574,9 @@ msgstr "Account di Terze Parti Collegato"
 msgid ""
 "A third-party account from %(provider)s has been disconnected from your "
 "account."
-msgstr "Un account di terze parti da %(provider)s è stato disconnesso dal tuo account."
+msgstr ""
+"Un account di terze parti da %(provider)s è stato disconnesso dal tuo "
+"account."
 
 #: templates/socialaccount/email/account_disconnected_subject.txt:3
 msgid "Third-Party Account Disconnected"

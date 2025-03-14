@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-13 16:40-0500\n"
+"POT-Creation-Date: 2025-03-14 05:00-0500\n"
 "PO-Revision-Date: 2024-04-20 21:40+0200\n"
 "Last-Translator: b'Tuk Bredsdorff <tukodeb@gmail.com>'\n"
 "Language-Team: \n"
@@ -89,13 +89,15 @@ msgid "Too many failed login attempts. Try again later."
 msgstr "Der er for mange mislykkede logonforsøg. Prøv igen senere."
 
 #: account/adapter.py:79
-msgid "The email address is not assigned to any user account"
+#, fuzzy
+#| msgid "The email address is not assigned to any user account"
+msgid "The email address is not assigned to any user account."
 msgstr "Emailadressen er ikke tildelt til nogen brugerkonto"
 
 #: account/adapter.py:80
 #, fuzzy
 #| msgid "The email address is not assigned to any user account"
-msgid "The phone number is not assigned to any user account"
+msgid "The phone number is not assigned to any user account."
 msgstr "Emailadressen er ikke tildelt til nogen brugerkonto"
 
 #: account/adapter.py:81

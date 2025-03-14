@@ -26,7 +26,7 @@ Configuration
 
 Available settings:
 
-``PHONE_VERIFICATION_ENABLED`` (default: ``True``)
+``ACCOUNT_PHONE_VERIFICATION_ENABLED`` (default: ``True``)
   Whether or not mandatory verification of phone numbers during login/signup takes place.
 
 ``ACCOUNT_PHONE_VERIFICATION_MAX_ATTEMPTS`` (default: ``3``)

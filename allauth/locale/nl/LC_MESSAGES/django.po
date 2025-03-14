@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-14 05:00-0500\n"
-"PO-Revision-Date: 2025-03-14 11:00+0100\n"
+"POT-Creation-Date: 2025-03-14 05:44-0500\n"
+"PO-Revision-Date: 2025-03-14 11:45+0100\n"
 "Last-Translator: Jos van Leeuwen <jos.van.leeuwen@proton.me>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/allauth/django-"
 "allauth/nl/>\n"
@@ -1006,6 +1006,11 @@ msgstr "Wachtwoord wijziging geslaagd."
 #: templates/account/messages/password_set.txt:2
 msgid "Password successfully set."
 msgstr "Je wachtwoord is gewijzigd."
+
+#: templates/account/messages/phone_verified.txt:2
+#, python-format
+msgid "You have verified phone number %(phone)s."
+msgstr "Je hebt telefoonnummer %(phone)s geverifieerd."
 
 #: templates/account/messages/primary_email_set.txt:2
 msgid "Primary email address set."

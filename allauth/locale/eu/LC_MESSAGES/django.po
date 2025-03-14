@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-14 05:00-0500\n"
+"POT-Creation-Date: 2025-03-14 05:44-0500\n"
 "PO-Revision-Date: 2024-10-31 18:31+0000\n"
 "Last-Translator: Alain EIguren <alaineigurenzu@proton.me>\n"
 "Language-Team: Basque <https://hosted.weblate.org/projects/allauth/django-"
@@ -1075,6 +1075,11 @@ msgstr "Pasahitza behar bezala aldatu da."
 #: templates/account/messages/password_set.txt:2
 msgid "Password successfully set."
 msgstr "Pasahitza behar bezala zehaztu da."
+
+#: templates/account/messages/phone_verified.txt:2
+#, python-format
+msgid "You have verified phone number %(phone)s."
+msgstr ""
 
 #: templates/account/messages/primary_email_set.txt:2
 msgid "Primary email address set."

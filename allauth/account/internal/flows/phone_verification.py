@@ -1,5 +1,6 @@
 from typing import Optional
 
+from django.contrib import messages
 from django.http import HttpRequest
 
 from allauth.account import app_settings
@@ -12,6 +13,7 @@ from allauth.account.internal.flows.reauthentication import (
 )
 from allauth.account.internal.stagekit import stash_login
 from allauth.account.internal.userkit import user_id_to_str
+from allauth.core import context
 
 
 PHONE_VERIFICATION_STATE_KEY = "phone_verification"
@@ -48,7 +50,14 @@ class PhoneVerificationProcess(AbstractCodeVerificationProcess):
 
     def finish(self):
         phone = self.state["phone"]
-        get_adapter().set_phone_verified(self.user, phone)
+        adapter = get_adapter()
+        adapter.set_phone_verified(self.user, phone)
+        adapter.add_message(
+            context.request,
+            messages.SUCCESS,
+            "account/messages/phone_verified.txt",
+            {"phone": phone},
+        )
 
 
 class PhoneVerificationStageProcess(PhoneVerificationProcess):

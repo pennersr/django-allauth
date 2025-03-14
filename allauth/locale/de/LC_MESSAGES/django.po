@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-14 05:00-0500\n"
-"PO-Revision-Date: 2025-03-14 11:00+0100\n"
+"POT-Creation-Date: 2025-03-14 05:44-0500\n"
+"PO-Revision-Date: 2025-03-14 11:46+0100\n"
 "Last-Translator: Natalia N <natalian@inbox.ru>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/allauth/django-"
 "allauth/de/>\n"
@@ -1012,6 +1012,11 @@ msgstr "Das Passwort wurde geändert."
 #: templates/account/messages/password_set.txt:2
 msgid "Password successfully set."
 msgstr "Das Passwort wurde erfolgreich gesetzt."
+
+#: templates/account/messages/phone_verified.txt:2
+#, python-format
+msgid "You have verified phone number %(phone)s."
+msgstr "Sie haben die Telefonnummer %(phone)s verifiziert."
 
 #: templates/account/messages/primary_email_set.txt:2
 msgid "Primary email address set."

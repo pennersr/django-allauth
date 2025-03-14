@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-14 05:00-0500\n"
+"POT-Creation-Date: 2025-03-14 05:44-0500\n"
 "PO-Revision-Date: 2024-04-20 22:11+0200\n"
 "Last-Translator: Michael Husiev <michael.husiev@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1068,6 +1068,11 @@ msgstr "Пароль успішно змінено."
 #: templates/account/messages/password_set.txt:2
 msgid "Password successfully set."
 msgstr "Пароль успішно встановлено."
+
+#: templates/account/messages/phone_verified.txt:2
+#, python-format
+msgid "You have verified phone number %(phone)s."
+msgstr ""
 
 #: templates/account/messages/primary_email_set.txt:2
 msgid "Primary email address set."

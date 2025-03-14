@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-14 05:00-0500\n"
+"POT-Creation-Date: 2025-03-14 05:44-0500\n"
 "PO-Revision-Date: 2024-12-11 10:35+0100\n"
 "Last-Translator: Amr Essam <amr_esam@ymail.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/allauth/django-"
@@ -1049,6 +1049,11 @@ msgstr "تم تغيير كلمة المرور بنجاح‪."
 #: templates/account/messages/password_set.txt:2
 msgid "Password successfully set."
 msgstr "تم إعداد كلمة المرور بنجاح‪."
+
+#: templates/account/messages/phone_verified.txt:2
+#, python-format
+msgid "You have verified phone number %(phone)s."
+msgstr ""
 
 #: templates/account/messages/primary_email_set.txt:2
 msgid "Primary email address set."

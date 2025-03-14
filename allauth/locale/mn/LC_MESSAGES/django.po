@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-14 05:00-0500\n"
+"POT-Creation-Date: 2025-03-14 05:44-0500\n"
 "PO-Revision-Date: 2024-04-20 21:32+0200\n"
 "Last-Translator: Bilgutei Erdenebayar <beke0130@gmail.com>\n"
 "Language-Team: Mongolian <beke0130@gmail.com>\n"
@@ -1075,6 +1075,11 @@ msgstr "Нууц үг амжилттай өөрчлөгдлөө."
 #: templates/account/messages/password_set.txt:2
 msgid "Password successfully set."
 msgstr "Нууц үгийг амжилттай тохирууллаа."
+
+#: templates/account/messages/phone_verified.txt:2
+#, python-format
+msgid "You have verified phone number %(phone)s."
+msgstr ""
 
 #: templates/account/messages/primary_email_set.txt:2
 msgid "Primary email address set."

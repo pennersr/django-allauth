@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauthrr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-14 05:00-0500\n"
+"POT-Creation-Date: 2025-03-14 05:44-0500\n"
 "PO-Revision-Date: 2024-04-20 21:34+0200\n"
 "Last-Translator: Gilou <contact+dev@gilouweb.com>\n"
 "Language-Team: \n"
@@ -1097,6 +1097,11 @@ msgstr "Parola a fost schimbata cu success."
 #: templates/account/messages/password_set.txt:2
 msgid "Password successfully set."
 msgstr "Parola a fost setata cu success."
+
+#: templates/account/messages/phone_verified.txt:2
+#, python-format
+msgid "You have verified phone number %(phone)s."
+msgstr ""
 
 #: templates/account/messages/primary_email_set.txt:2
 msgid "Primary email address set."

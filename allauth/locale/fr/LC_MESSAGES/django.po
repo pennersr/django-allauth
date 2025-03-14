@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-14 05:00-0500\n"
-"PO-Revision-Date: 2025-03-14 11:07+0100\n"
+"POT-Creation-Date: 2025-03-14 05:44-0500\n"
+"PO-Revision-Date: 2025-03-14 11:46+0100\n"
 "Last-Translator: Laurent FAVOLE <laurentfavole03@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/allauth/django-"
 "allauth/fr/>\n"
@@ -40,7 +40,9 @@ msgstr "L’adresse e-mail ou le mot de passe sont incorrects."
 
 #: account/adapter.py:66
 msgid "The phone number and/or password you specified are not correct."
-msgstr "Le numéro de téléphone et/ou le mot de passe que vous avez spécifié ne sont pas corrects."
+msgstr ""
+"Le numéro de téléphone et/ou le mot de passe que vous avez spécifié ne sont "
+"pas corrects."
 
 #: account/adapter.py:68
 msgid "A user is already registered with this email address."
@@ -132,7 +134,9 @@ msgstr "Comptes"
 
 #: account/fields.py:43
 msgid "Enter a phone number including country code (e.g. +1 for the US)."
-msgstr "Entrez un numéro de téléphone avec l'indicatif du pays (par exemple, +33 pour la France)."
+msgstr ""
+"Entrez un numéro de téléphone avec l'indicatif du pays (par exemple, +33 "
+"pour la France)."
 
 #: account/fields.py:49 account/fields.py:53 account/forms.py:370
 msgid "Phone"
@@ -541,7 +545,9 @@ msgstr "Ce compte est inactif."
 msgid ""
 "We've sent a code to %(recipient)s. The code expires shortly, so please "
 "enter it soon."
-msgstr "Nous avons envoyé un code à %(recipient)s. Le code expirera bientôt, veuillez donc l'entrer rapidement."
+msgstr ""
+"Nous avons envoyé un code à %(recipient)s. Le code expirera bientôt, "
+"veuillez donc l'entrer rapidement."
 
 #: templates/account/base_confirm_code.html:38
 #: templates/account/email_confirm.html:24
@@ -811,7 +817,9 @@ msgstr "Mot de passe modifié"
 msgid ""
 "Your password reset code is listed below. Please enter it in your open "
 "browser window."
-msgstr "Votre code de réinitialisation du mot de passe est indiqué ci-dessous. Veuillez l'entrer dans la fenêtre de votre navigateur ouverte."
+msgstr ""
+"Votre code de réinitialisation du mot de passe est indiqué ci-dessous. "
+"Veuillez l'entrer dans la fenêtre de votre navigateur ouverte."
 
 #: templates/account/email/password_reset_code_subject.txt:3
 msgid "Password Reset Code"
@@ -1006,6 +1014,11 @@ msgstr "Mot de passe modifié avec succès."
 #: templates/account/messages/password_set.txt:2
 msgid "Password successfully set."
 msgstr "Mot de passe défini avec succès."
+
+#: templates/account/messages/phone_verified.txt:2
+#, python-format
+msgid "You have verified phone number %(phone)s."
+msgstr "Vous avez vérifié le numéro de téléphone %(phone)s."
 
 #: templates/account/messages/primary_email_set.txt:2
 msgid "Primary email address set."

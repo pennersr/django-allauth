@@ -80,7 +80,7 @@ class AppSettings:
         """
         warnings.warn(
             "app_settings.EMAIL_REQUIRED is deprecated, use: app_settings.SIGNUP_FIELDS['email']['required']",
-            stacklevel=2,
+            stacklevel=3,
         )
         email = self.SIGNUP_FIELDS.get("email")
         return email and email["required"]
@@ -122,7 +122,7 @@ class AppSettings:
     def AUTHENTICATION_METHOD(self):
         warnings.warn(
             "app_settings.AUTHENTICATION_METHOD is deprecated, use: app_settings.LOGIN_METHODS",
-            stacklevel=2,
+            stacklevel=3,
         )
         methods = self.LOGIN_METHODS
         if self.LoginMethod.EMAIL in methods and self.LoginMethod.USERNAME in methods:
@@ -180,7 +180,7 @@ class AppSettings:
         """
         warnings.warn(
             "app_settings.SIGNUP_EMAIL_ENTER_TWICE is deprecated, use: 'email2' in app_settings.SIGNUP_FIELDS",
-            stacklevel=2,
+            stacklevel=3,
         )
         return "email2" in self.SIGNUP_FIELDS
 
@@ -191,7 +191,7 @@ class AppSettings:
         """
         warnings.warn(
             "app_settings.SIGNUP_PASSWORD_ENTER_TWICE is deprecated, use: 'password2' in app_settings.SIGNUP_FIELDS",
-            stacklevel=2,
+            stacklevel=3,
         )
         return "password2" in self.SIGNUP_FIELDS
 
@@ -315,7 +315,7 @@ class AppSettings:
         """
         warnings.warn(
             "app_settings.USERNAME_REQUIRED is deprecated, use: app_settings.SIGNUP_FIELDS['username']['required']",
-            stacklevel=2,
+            stacklevel=3,
         )
         username = self.SIGNUP_FIELDS.get("username")
         return username and username["required"]

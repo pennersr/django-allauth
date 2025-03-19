@@ -1022,10 +1022,9 @@ msgid "You have signed out."
 msgstr "ログアウトしました。"
 
 #: templates/account/messages/login_code_sent.txt:2
-#, fuzzy, python-format
-#| msgid "A sign-in code has been mailed to %(email)s."
+#, python-format
 msgid "A sign-in code has been sent to %(recipient)s."
-msgstr "ログインコードを %(email)s へ送信しました。"
+msgstr "ログインコードを %(recipient)s へ送信しました。"
 
 #: templates/account/messages/password_changed.txt:2
 msgid "Password successfully changed."

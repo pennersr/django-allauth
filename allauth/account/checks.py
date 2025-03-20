@@ -51,14 +51,17 @@ def settings_check(app_configs, **kwargs):
                 msg="ACCOUNT_EMAIL_VERFICATION_BY_CODE requires ACCOUNT_EMAIL_VERIFICATION = 'mandatory'"
             )
         )
-    # Cross-check SIGNUP_FIELDS against LOGIN_METHODS. E.g. login is by email, email must be required
+    # Cross-check SIGNUP_FIELDS against LOGIN_METHODS. E.g. login is by email, email should be required
     signup_fields = app_settings.SIGNUP_FIELDS
     if not any(
         lm in signup_fields and signup_fields[lm]["required"]
         for lm in app_settings.LOGIN_METHODS
     ):
         ret.append(
-            Critical(msg="ACCOUNT_LOGIN_METHODS conflicts with ACCOUNT_SIGNUP_FIELDS")
+            Warning(
+                msg="ACCOUNT_LOGIN_METHODS conflicts with ACCOUNT_SIGNUP_FIELDS",
+                id="account.W001",
+            )
         )
 
     # If login includes email, email must be unique

@@ -1,7 +1,14 @@
 65.5.1 (unreleased)
 *******************
 
-- ...
+Fixes
+-----
+
+- A check is in place to verify that ``ACCOUNT_LOGIN_METHODS`` is aligned with
+  ``ACCOUNT_SIGNUP_FIELDS``.  The severity level of that check has now been
+  lowered from "critical" to "warning", as there may be valid use cases for
+  configuring a login method that you are not able to sign up with. This check
+  (``account.W001``) can be silenced using Django's ``SILENCED_SYSTEM_CHECKS``.
 
 
 65.5.0 (2025-03-14)

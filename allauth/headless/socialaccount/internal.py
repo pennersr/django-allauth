@@ -23,7 +23,7 @@ def on_authentication_error(
     exception=None,
     extra_context=None,
     state_id=None,
-):
+) -> None:
     """
     Called at a time when it is not clear whether or not this is a headless flow.
     """

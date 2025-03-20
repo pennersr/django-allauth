@@ -20,6 +20,15 @@ def render_authentication_error(
     extra_context=None,
 ):
     try:
+        if extra_context is None:
+            extra_context = {}
+        get_adapter().on_authentication_error(
+            request,
+            provider,
+            error=error,
+            exception=exception,
+            extra_context=extra_context,
+        )
         if allauth_settings.HEADLESS_ENABLED:
             from allauth.headless.socialaccount import internal
 
@@ -31,15 +40,6 @@ def render_authentication_error(
                 extra_context=extra_context,
             )
 
-        if extra_context is None:
-            extra_context = {}
-        get_adapter().on_authentication_error(
-            request,
-            provider,
-            error=error,
-            exception=exception,
-            extra_context=extra_context,
-        )
     except ImmediateHttpResponse as e:
         return e.response
     if error == AuthError.CANCELLED:

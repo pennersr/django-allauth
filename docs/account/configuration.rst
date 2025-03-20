@@ -57,13 +57,14 @@ Available settings:
   Determines the email verification method during signup -- choose
   one of ``"mandatory"``, ``"optional"``, or ``"none"``.
 
-  Setting this to ``"mandatory"`` requires ``ACCOUNT_EMAIL_REQUIRED`` to be ``True``.
-
   When set to ``"mandatory"`` the user is blocked from logging in until the email
   address is verified. Choose ``"optional"`` or ``"none"`` to allow logins
   with an unverified email address. In case of ``"optional"``, the email
   verification mail is still sent, whereas in case of "none" no email
   verification mails are sent.
+
+  Setting this to ``"mandatory"`` requires ``"email*"`` to be listed in
+  ``ACCOUNT_SIGNUP_FIELDS``.
 
 ``ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED`` (default: ``False``)
   Controls whether email verification is performed by means of following a link
@@ -150,8 +151,9 @@ Available settings:
 
 ``ACCOUNT_LOGIN_METHODS`` (default: ``{"username"}``, options: ``"email"`` or ``"username"``)
   Specifies the login method to use -- whether the user logs in by entering
-  their username, email address, or either one of both.  Setting this to include
-  ``"email"`` requires ``ACCOUNT_EMAIL_REQUIRED=True``
+  their username, email address, or either one of both.  Note that the login methods need to
+  align with ``ACCOUNT_SIGNUP_FIELDS``, as specifying a login method that you cannot sign up with
+  typically points to a configuration error.
 
 ``ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION`` (default: ``False``)
   The default behavior is not log users in and to redirect them to

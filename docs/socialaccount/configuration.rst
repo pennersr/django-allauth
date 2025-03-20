@@ -49,7 +49,7 @@ Available settings:
 ``SOCIALACCOUNT_EMAIL_VERIFICATION`` (default: ``ACCOUNT_EMAIL_VERIFICATION``)
   As ``ACCOUNT_EMAIL_VERIFICATION``, but for social accounts.
 
-``SOCIALACCOUNT_EMAIL_REQUIRED`` (default: ``ACCOUNT_EMAIL_REQUIRED``)
+``SOCIALACCOUNT_EMAIL_REQUIRED`` (default: ``"email*" in ACCOUNT_SIGNUP_FIELDS``)
   The user is required to hand over an email address when signing up
   using a social account.
 
@@ -73,7 +73,7 @@ Available settings:
 ``SOCIALACCOUNT_REQUESTS_TIMEOUT`` (default: ``5``)
   The timeout applied when performing upstream requests.
 
-``SOCIALACCOUNT_QUERY_EMAIL`` (default: ``ACCOUNT_EMAIL_REQUIRED``)
+``SOCIALACCOUNT_QUERY_EMAIL`` (default: ``"email*" in ACCOUNT_SIGNUP_FIELDS``)
   Request email address from 3rd party account provider? E.g. using
   OpenID AX, or the Facebook "email" permission.
 

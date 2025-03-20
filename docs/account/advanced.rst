@@ -10,11 +10,11 @@ the field representing the nickname that the user uses to login, and not to
 some unique identifier (possibly including an email address) as is
 the case for Django's ``AbstractBaseUser.USERNAME_FIELD``.
 
-Therefore, if your custom user model does not have a ``username`` field
-(again, not to be mistaken with an email address or user id), you
-will need to set ``ACCOUNT_USER_MODEL_USERNAME_FIELD`` to ``None``. This
-will disable username related functionality in ``allauth``. Remember to
-also set ``ACCOUNT_USERNAME_REQUIRED`` to ``False``.
+Therefore, if your custom user model does not have a ``username`` field (again,
+not to be mistaken with an email address or user id), you will need to set
+``ACCOUNT_USER_MODEL_USERNAME_FIELD`` to ``None``. This will disable username
+related functionality in ``allauth``. Remember to also remove username from
+``ACCOUNT_SIGNUP_FIELDS`` as by default that is present.
 
 Similarly, you will need to set ``ACCOUNT_USER_MODEL_EMAIL_FIELD`` to
 ``None`` or to the proper field (if other than ``email``).
@@ -24,8 +24,7 @@ as the identifying field, and you don't want to collect usernames, you
 need the following in your settings.py::
 
     ACCOUNT_USER_MODEL_USERNAME_FIELD = None
-    ACCOUNT_EMAIL_REQUIRED = True
-    ACCOUNT_USERNAME_REQUIRED = False
+    ACCOUNT_SIGNUP_FIELDS = ['email*', 'password1*', 'password2*']
     ACCOUNT_LOGIN_METHODS = {'email'}
 
 

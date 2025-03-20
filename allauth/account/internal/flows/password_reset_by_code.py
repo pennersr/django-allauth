@@ -1,6 +1,6 @@
 from typing import Optional
 
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponse
 
 from allauth.account import app_settings
 from allauth.account.adapter import get_adapter
@@ -39,9 +39,11 @@ class PasswordResetVerificationProcess(AbstractCodeVerificationProcess):
         self.persist()
         verify_email_indirectly(self.request, self.user, self.state["email"])
 
-    def finish(self):
+    def finish(self) -> Optional[HttpResponse]:
         self.request.session.pop(PASSWORD_RESET_VERIFICATION_SESSION_KEY, None)
-        password_reset.finalize_password_reset(self.request, self.user)
+        return password_reset.finalize_password_reset(
+            self.request, self.user, email=self.state["email"]
+        )
 
     def persist(self):
         self.request.session[PASSWORD_RESET_VERIFICATION_SESSION_KEY] = self.state

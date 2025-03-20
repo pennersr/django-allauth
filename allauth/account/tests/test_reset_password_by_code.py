@@ -13,7 +13,17 @@ def prbc_settings(settings_impacting_urls):
         yield
 
 
-def test_flow(user, client, mailoutbox, get_last_password_reset_code, password_factory):
+@pytest.mark.parametrize("login_on_password_reset", [False, True])
+def test_flow(
+    user,
+    client,
+    mailoutbox,
+    get_last_password_reset_code,
+    password_factory,
+    login_on_password_reset,
+    settings,
+):
+    settings.ACCOUNT_LOGIN_ON_PASSWORD_RESET = login_on_password_reset
     new_password = password_factory()
     assert not user.check_password(new_password)
     resp = client.post(reverse("account_reset_password"), {"email": user.email})
@@ -30,7 +40,11 @@ def test_flow(user, client, mailoutbox, get_last_password_reset_code, password_f
         {"password1": new_password, "password2": new_password},
     )
     assert resp.status_code == HTTPStatus.FOUND
-    assert resp["location"] == reverse("account_password_reset_completed")
+    assert (
+        resp["location"] == settings.LOGIN_REDIRECT_URL
+        if login_on_password_reset
+        else reverse("account_password_reset_completed")
+    )
     user.refresh_from_db()
     assert user.check_password(new_password)
 

@@ -57,7 +57,6 @@ from allauth.account.stages import (
     PhoneVerificationStage,
 )
 from allauth.account.utils import (
-    perform_login,
     send_email_confirmation,
     sync_user_email_addresses,
     user_display,
@@ -693,13 +692,12 @@ class PasswordResetFromKeyView(
 
     def form_valid(self, form):
         form.save()
-        flows.password_reset.finalize_password_reset(self.request, self.reset_user)
-        if app_settings.LOGIN_ON_PASSWORD_RESET:
-            return perform_login(
-                self.request,
-                self.reset_user,
-            )
-        return super(PasswordResetFromKeyView, self).form_valid(form)
+        resp = flows.password_reset.finalize_password_reset(
+            self.request, self.reset_user
+        )
+        if resp:
+            return resp
+        return super().form_valid(form)
 
 
 password_reset_from_key = PasswordResetFromKeyView.as_view()
@@ -756,12 +754,9 @@ class CompletePasswordResetView(
 
     def form_valid(self, form):
         form.save()
-        self._process.finish()
-        if app_settings.LOGIN_ON_PASSWORD_RESET:
-            return perform_login(
-                self.request,
-                self.process.user,
-            )
+        resp = self._process.finish()
+        if resp:
+            return resp
         return super().form_valid(form)
 
 

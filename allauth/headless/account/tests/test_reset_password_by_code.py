@@ -1,8 +1,12 @@
 from http import HTTPStatus
+from unittest.mock import ANY
 
 import pytest
 
 from allauth.account import app_settings
+from allauth.account.internal.flows.login import (
+    AUTHENTICATION_METHODS_SESSION_KEY,
+)
 from allauth.account.models import EmailAddress
 
 
@@ -61,6 +65,7 @@ def test_validating_codes_by_get_limitation_carriers_over_to_post(
     assert resp.status_code == HTTPStatus.CONFLICT
 
 
+@pytest.mark.parametrize("login_on_password_reset", [False, True])
 def test_password_reset_flow(
     client,
     user,
@@ -69,8 +74,10 @@ def test_password_reset_flow(
     settings,
     headless_reverse,
     get_last_password_reset_code,
+    login_on_password_reset,
 ):
     settings.ACCOUNT_EMAIL_NOTIFICATIONS = True
+    settings.ACCOUNT_LOGIN_ON_PASSWORD_RESET = login_on_password_reset
 
     resp = client.post(
         headless_reverse("headless:account:request_password_reset"),
@@ -123,7 +130,17 @@ def test_password_reset_flow(
         },
         content_type="application/json",
     )
-    assert resp.status_code == HTTPStatus.UNAUTHORIZED
+    assert (
+        resp.status_code == HTTPStatus.OK
+        if login_on_password_reset
+        else HTTPStatus.UNAUTHORIZED
+    )
+    if login_on_password_reset:
+        assert client.headless_session()[AUTHENTICATION_METHODS_SESSION_KEY] == [
+            {"method": "password_reset", "at": ANY, "email": user.email}
+        ]
+    else:
+        assert AUTHENTICATION_METHODS_SESSION_KEY not in client.headless_session()
 
     user.refresh_from_db()
     assert user.check_password(password)

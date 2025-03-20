@@ -10,6 +10,9 @@ Fixes
   configuring a login method that you are not able to sign up with. This check
   (``account.W001``) can be silenced using Django's ``SILENCED_SYSTEM_CHECKS``.
 
+- The setting ``ACCOUNT_LOGIN_ON_PASSWORD_RESET = True`` was not respected when using
+  password reset by code.
+
 
 65.5.0 (2025-03-14)
 *******************

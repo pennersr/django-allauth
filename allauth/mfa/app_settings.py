@@ -1,3 +1,7 @@
+from datetime import timedelta
+from typing import Optional
+
+
 class AppSettings:
     def __init__(self, prefix):
         self.prefix = prefix
@@ -92,6 +96,51 @@ class AppSettings:
         return "webauthn" in self.SUPPORTED_TYPES and self._setting(
             "PASSKEY_SIGNUP_ENABLED", False
         )
+
+    @property
+    def TRUST_ENABLED(self) -> bool:
+        return self._setting("TRUST_ENABLED", False)
+
+    @property
+    def TRUST_COOKIE_AGE(self) -> timedelta:
+        age = self._setting("TRUST_COOKIE_AGE", timedelta(days=14))
+        if not isinstance(age, timedelta):
+            age = timedelta(seconds=age)
+        return age
+
+    @property
+    def TRUST_COOKIE_NAME(self) -> str:
+        return self._setting("TRUST_COOKIE_NAME", "mfa_trusted")
+
+    @property
+    def TRUST_COOKIE_DOMAIN(self) -> Optional[str]:
+        from django.conf import settings
+
+        return self._setting("TRUST_COOKIE_DOMAIN", settings.SESSION_COOKIE_DOMAIN)
+
+    @property
+    def TRUST_COOKIE_HTTPONLY(self) -> bool:
+        from django.conf import settings
+
+        return self._setting("TRUST_COOKIE_HTTPONLY", settings.SESSION_COOKIE_HTTPONLY)
+
+    @property
+    def TRUST_COOKIE_PATH(self) -> str:
+        from django.conf import settings
+
+        return self._setting("TRUST_COOKIE_PATH", settings.SESSION_COOKIE_PATH)
+
+    @property
+    def TRUST_COOKIE_SAMESITE(self) -> str:
+        from django.conf import settings
+
+        return self._setting("TRUST_COOKIE_SAMESITE", settings.SESSION_COOKIE_SAMESITE)
+
+    @property
+    def TRUST_COOKIE_SECURE(self) -> Optional[str]:
+        from django.conf import settings
+
+        return self._setting("TRUST_COOKIE_SECURE", settings.SESSION_COOKIE_SECURE)
 
 
 _app_settings = AppSettings("MFA_")

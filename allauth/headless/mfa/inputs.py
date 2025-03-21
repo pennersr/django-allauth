@@ -72,3 +72,7 @@ class LoginWebAuthnInput(LoginWebAuthnForm, inputs.Input):
 
 class SignupWebAuthnInput(BaseSignupForm, inputs.Input):
     pass
+
+
+class TrustInput(inputs.Input):
+    trust = inputs.BooleanField(required=False)

@@ -1,5 +1,6 @@
 from django.urls import include, path
 
+from allauth.headless.constants import Client
 from allauth.headless.mfa import views
 from allauth.mfa import app_settings as mfa_settings
 
@@ -17,6 +18,14 @@ def build_urlpatterns(client):
             name="reauthenticate",
         ),
     ]
+    if mfa_settings.TRUST_ENABLED and client == Client.BROWSER:
+        auth_patterns.append(
+            path(
+                "2fa/trust",
+                views.TrustView.as_api_view(client=client),
+                name="trust",
+            )
+        )
 
     authenticators = []
     if "totp" in mfa_settings.SUPPORTED_TYPES:

@@ -1,6 +1,14 @@
 65.6.0 (unreleased)
 *******************
 
+Note worthy changes
+-------------------
+
+- MFA: Added support for "Trust this browser?" functionality, which presents users with MFA
+  enabled the choice to trust their browser allowing them to skip authenticating
+  per MFA on each login.
+
+
 Fixes
 -----
 

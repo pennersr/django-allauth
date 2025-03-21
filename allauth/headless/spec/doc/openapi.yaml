@@ -635,6 +635,29 @@ paths:
               examples:
                 invalid_code:
                   $ref: "#/components/examples/InvalidAuthenticatorCode"
+  /_allauth/browser/v1/auth/2fa/trust:
+    post:
+      tags:
+        - "Authentication: 2FA"
+      summary: Trust this browser
+      description: |
+        If "Trust this browser?" is enabled (`MFA_TRUST_ENABLED`), the
+        `mfa_trust` flow activates after the user completes the MFA
+        authentication flow, offering to skip MFA for this particular
+        browser. This endpoint is used to complete the `mfa_trust` flow.
+      parameters:
+        - $ref: "#/components/parameters/SessionToken"
+      requestBody:
+        $ref: "#/components/requestBodies/MFATrust"
+      responses:
+        "200":
+          $ref: "#/components/responses/AuthenticatedByPasswordAnd2FA"
+        "400":
+          description: An input error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
   ######################################################################
   # Authentication: WebAuthn
   ######################################################################
@@ -1763,6 +1786,12 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/MFAAuthenticate"
+    MFATrust:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/MFATrust"
     ConfirmLoginCode:
       required: true
       content:
@@ -2320,6 +2349,13 @@ components:
           $ref: "#/components/schemas/AuthenticatorCode"
       required:
         - code
+    MFATrust:
+      type: object
+      properties:
+        trust:
+          type: boolean
+      required:
+        - trust
     ConfirmLoginCode:
       type: object
       properties:

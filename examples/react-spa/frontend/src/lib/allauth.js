@@ -21,17 +21,18 @@ export const AuthProcess = Object.freeze({
 })
 
 export const Flows = Object.freeze({
-  VERIFY_EMAIL: 'verify_email',
   LOGIN: 'login',
   LOGIN_BY_CODE: 'login_by_code',
-  SIGNUP: 'signup',
+  MFA_AUTHENTICATE: 'mfa_authenticate',
+  MFA_REAUTHENTICATE: 'mfa_reauthenticate',
+  MFA_TRUST: 'mfa_trust',
+  MFA_WEBAUTHN_SIGNUP: 'mfa_signup_webauthn',
   PASSWORD_RESET_BY_CODE: 'password_reset_by_code',
   PROVIDER_REDIRECT: 'provider_redirect',
   PROVIDER_SIGNUP: 'provider_signup',
-  MFA_AUTHENTICATE: 'mfa_authenticate',
   REAUTHENTICATE: 'reauthenticate',
-  MFA_REAUTHENTICATE: 'mfa_reauthenticate',
-  MFA_WEBAUTHN_SIGNUP: 'mfa_signup_webauthn'
+  SIGNUP: 'signup',
+  VERIFY_EMAIL: 'verify_email',
 })
 
 export const URLs = Object.freeze({
@@ -62,6 +63,7 @@ export const URLs = Object.freeze({
   // Auth: 2FA
   MFA_AUTHENTICATE: '/auth/2fa/authenticate',
   MFA_REAUTHENTICATE: '/auth/2fa/reauthenticate',
+  MFA_TRUST: '/auth/2fa/trust',
 
   // Auth: Social
   PROVIDER_SIGNUP: '/auth/provider/signup',
@@ -226,6 +228,10 @@ export async function mfaAuthenticate (code) {
 
 export async function mfaReauthenticate (code) {
   return await request('POST', URLs.MFA_REAUTHENTICATE, { code })
+}
+
+export async function mfaTrust (trust) {
+  return await request('POST', URLs.MFA_TRUST, { trust })
 }
 
 export async function activateTOTPAuthenticator (code) {

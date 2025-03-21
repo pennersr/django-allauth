@@ -37,6 +37,7 @@ import AuthenticateWebAuthn from './mfa/AuthenticateWebAuthn'
 import ReauthenticateRecoveryCodes from './mfa/ReauthenticateRecoveryCodes'
 import ReauthenticateTOTP from './mfa/ReauthenticateTOTP'
 import CreateSignupPasskey from './mfa/CreateSignupPasskey'
+import Trust from './mfa/Trust'
 import Reauthenticate from './account/Reauthenticate'
 import Sessions from './usersessions/Sessions'
 import Root from './Root'
@@ -154,6 +155,10 @@ function createRouter (config) {
         {
           path: '/account/authenticate/totp',
           element: <AnonymousRoute><AuthenticateTOTP /></AnonymousRoute>
+        },
+        {
+          path: '/account/2fa/trust',
+          element: <AnonymousRoute><Trust /></AnonymousRoute>
         },
         {
           path: '/account/authenticate/recovery-codes',

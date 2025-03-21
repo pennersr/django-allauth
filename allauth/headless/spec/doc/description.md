@@ -26,6 +26,7 @@ is used.  The paths of all endpoints are documented in the form of
 there may be slight differences in request/response handling.  This is
 documented where applicable.
 
+
 # Scope
 
 The following functionality is all in scope and handled as part of this API:
@@ -41,6 +42,7 @@ The following functionality is all in scope and handled as part of this API:
   - Authentication using an authenticator code
   - (De)activate TOTP
   - (Re)generate recovery codes
+  - "Trust this browser"
 - Third-party providers:
   - Authenticate by performing a browser-level redirect (synchronous request).
   - Authenticate by means of a provider token.
@@ -71,6 +73,7 @@ With single domain, path-based routing, both your frontend and backend are
 served from the same domain, for example `https://app.org`. You will have to
 make sure that some paths are served by the frontend, and others by the backend.
 
+
 ### Sub-domain Routing
 
 With sub-domain based routing, the frontend and backend are served from
@@ -92,6 +95,7 @@ to set the session cookie domain to `project.org`, as those other applications
 could get access to the session cookie. In that case, it is advised to use
 `backend.app.project.org` for the backend, and set the session cookie domain to
 `app.project.org`.
+
 
 # App Usage
 
@@ -147,6 +151,7 @@ properties:
 - Metadata, if any, is returned as part of the `meta` key.
 - Errors, if any, are listed in the `errors` key.
 
+
 # Authentication Flows
 
 In order to become authenticated, the user must complete a flow, potentially
@@ -184,11 +189,13 @@ can either lead to becoming directly authenticated, or, to followup flows:
 - Email verification (`verify_email`).
 - Phone verification (`phone_email`).
 - Two-factor authentication required (TOTP, recovery codes, or WebAuthn) (`mfa_authenticate`).
+- Trust this browser (`mfa_trust`).
 
 While authenticated, re-authentication may be required to safeguard the account when sensitive actions
 are performed. The re-authentication flows are the following:
 - Re-authenticate using password (`reauthenticate`).
 - Re-authenticate using a 2FA authenticator (TOTP, recovery codes, or WebAuthn) (`mfa_reauthenticate`).
+
 
 # Security Considerations
 

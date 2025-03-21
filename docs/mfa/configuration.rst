@@ -58,3 +58,31 @@ Available settings:
   local development and testing. To work around that, you can use this setting.
   Only use this for development, never on production. See commit ``8b979313``
   over at ``fido2``.
+
+``MFA_TRUST_ENABLED`` (default: ``False``)
+  Enables the "Trust this browser?" functionality, which presents users with MFA
+  enabled the choice to trust their browser allowing them to skip authenticating
+  per MFA on each login. This is implemented by handing out a special trust
+  cookie.
+
+``MFA_TRUST_COOKIE_AGE`` (default: ``timedelta(days=14)``)
+  Specifies the period (in seconds, or ``timedelta``) during which MFA is
+  skipped.
+
+``MFA_TRUST_COOKIE_NAME`` (default: ``"mfa_trusted"``)
+  The name of the trust cookie.
+
+``MFA_TRUST_COOKIE_DOMAIN`` (default: ``settings.SESSION_COOKIE_DOMAIN``)
+  The domain of the trust cookie.
+
+``MFA_TRUST_COOKIE_HTTPONLY`` (default: ``settings.SESSION_COOKIE_HTTPONLY``)
+  Whether or not the trust cookie is HTTP only.
+
+``MFA_TRUST_COOKIE_PATH`` (default: ``settings.SESSION_COOKIE_PATH``)
+  The path set on the trust cookie.
+
+``MFA_TRUST_COOKIE_SAMESITE`` (default: ``settings.SESSION_COOKIE_SAMESITE``)
+  The value of the SameSite flag on the trust cookie.
+
+``MFA_TRUST_COOKIE_SECURE`` (default: ``settings.SESSION_COOKIE_SECURE``)
+  Whether to use a secure cookie for the trust cookie.

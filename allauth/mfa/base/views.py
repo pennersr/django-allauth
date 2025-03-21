@@ -1,16 +1,20 @@
 from django.contrib.auth.decorators import login_required
+from django.forms import Form
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
+from django.views.generic.edit import FormView
 
 from allauth.account import app_settings as account_settings
 from allauth.account.internal.decorators import login_stage_required
 from allauth.account.views import BaseReauthenticateView
 from allauth.mfa import app_settings
 from allauth.mfa.base.forms import AuthenticateForm, ReauthenticateForm
+from allauth.mfa.internal.flows import trust as trust_
 from allauth.mfa.models import Authenticator
-from allauth.mfa.stages import AuthenticateStage
+from allauth.mfa.stages import AuthenticateStage, TrustStage
 from allauth.mfa.utils import is_mfa_enabled
 from allauth.mfa.webauthn.forms import AuthenticateWebAuthnForm
 from allauth.mfa.webauthn.internal.flows import auth as webauthn_auth
@@ -150,3 +154,30 @@ class IndexView(TemplateView):
 
 
 index = IndexView.as_view()
+
+
+@method_decorator(
+    login_stage_required(stage=TrustStage.key, redirect_urlname="account_login"),
+    name="dispatch",
+)
+class TrustView(FormView):
+    form_class = Form
+    template_name = "mfa/trust." + account_settings.TEMPLATE_EXTENSION
+
+    def form_valid(self, form):
+        do_trust = self.request.POST.get("action") == "trust"
+        stage = self.request._login_stage
+        response = stage.exit()
+        if do_trust:
+            trust_.trust_browser(self.request, stage.login.user, response)
+        return response
+
+    def get_context_data(self, **kwargs):
+        ret = super().get_context_data(**kwargs)
+        now = timezone.now()
+        ret["trust_from"] = now
+        ret["trust_until"] = now + app_settings.TRUST_COOKIE_AGE
+        return ret
+
+
+trust = TrustView.as_view()

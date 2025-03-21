@@ -26,13 +26,15 @@ from allauth.headless.mfa.inputs import (
     LoginWebAuthnInput,
     ReauthenticateWebAuthnInput,
     SignupWebAuthnInput,
+    TrustInput,
     UpdateWebAuthnInput,
 )
 from allauth.mfa.adapter import DefaultMFAAdapter, get_adapter
 from allauth.mfa.internal.flows import add
+from allauth.mfa.internal.flows.trust import trust_browser
 from allauth.mfa.models import Authenticator
 from allauth.mfa.recovery_codes.internal import flows as recovery_codes_flows
-from allauth.mfa.stages import AuthenticateStage
+from allauth.mfa.stages import AuthenticateStage, TrustStage
 from allauth.mfa.totp.internal import auth as totp_auth, flows as totp_flows
 from allauth.mfa.webauthn.internal import (
     auth as webauthn_auth,
@@ -278,3 +280,15 @@ class SignupWebAuthnView(SignupView):
         )
         self.stage.exit()
         return AuthenticationResponse(request)
+
+
+class TrustView(AuthenticationStageAPIView):
+    input_class = TrustInput
+    stage_class = TrustStage
+
+    def post(self, request, *args, **kwargs):
+        trust = self.input.cleaned_data["trust"]
+        response = self.respond_next_stage()
+        if trust:
+            trust_browser(request, self.stage.login.user, response)
+        return response

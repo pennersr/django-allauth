@@ -1,0 +1,40 @@
+{% extends "mfa/base_entrance.html" %}
+{% load i18n allauth static %}
+{% block head_title %}
+    {% trans "Trust this Browser?" %}
+{% endblock head_title %}
+{% block content %}
+    {% element h1 %}
+        {% trans "Trust this Browser?" %}
+    {% endelement %}
+    {% element p %}
+        {% blocktranslate %}If you choose to trust this browser, you will not be asked for a verification code the next time you sign in.{% endblocktranslate %}
+    {% endelement %}
+    {% url 'mfa_trust' as action_url %}
+    {% element form form=form method="post" action=action_url %}
+        {% slot body %}
+            {% csrf_token %}
+            {% element fields form=form unlabeled=True %}
+            {% endelement %}
+        {% endslot %}
+        {% slot actions %}
+            {% element button_group %}
+                {% element button name="action" value="trust" type="submit" tags="primary,mfa,trust" %}
+                    {% blocktranslate with period=trust_until|timeuntil:trust_from %}Trust for {{ period }}{% endblocktranslate %}
+                {% endelement %}
+                {% element button name="action" value="skip" type="submit" tags="outline,mfa,trust" %}
+                    {% trans "Don't Trust" %}
+                {% endelement %}
+                {% element button type="submit" form="logout-from-stage" tags="outline,mfa,trust,cancel" %}
+                    {% trans "Cancel" %}
+                {% endelement %}
+            {% endelement %}
+        {% endslot %}
+    {% endelement %}
+    <form id="logout-from-stage"
+          method="post"
+          action="{% url 'account_logout' %}">
+        <input type="hidden" name="next" value="{% url 'account_login' %}">
+        {% csrf_token %}
+    </form>
+{% endblock content %}

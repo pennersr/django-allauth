@@ -1,4 +1,5 @@
 import json
+from typing import Optional
 from urllib.parse import parse_qs, quote, urlencode, urlparse, urlunparse
 
 from django import shortcuts
@@ -125,5 +126,11 @@ def headed_redirect_response(viewname, query=None):
         raise
 
 
-def is_headless_request(request: HttpRequest) -> bool:
-    return bool(getattr(getattr(request, "allauth", None), "headless", None))
+def is_headless_request(request: HttpRequest) -> Optional[str]:
+    """
+    Returns the headless client type (app/browser)in case of a headless
+    request.
+    """
+    return getattr(
+        getattr(getattr(request, "allauth", None), "headless", None), "client", None
+    )

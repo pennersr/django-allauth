@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import List, Optional
 
 from allauth.account import app_settings
 from allauth.account.adapter import get_adapter
@@ -85,7 +85,13 @@ class LoginStageController:
             break
         return ret
 
-    def get_stages(self):
+    def get_stage(self, key: str) -> Optional[LoginStage]:
+        try:
+            return next(iter(stage for stage in self.get_stages() if stage.key == key))
+        except StopIteration:
+            return None
+
+    def get_stages(self) -> List[LoginStage]:
         stages = []
         adapter = get_adapter(self.request)
         paths = adapter.get_login_stages()

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-14 05:44-0500\n"
+"POT-Creation-Date: 2025-03-27 08:37-0500\n"
 "PO-Revision-Date: 2025-03-12 17:52+0000\n"
 "Last-Translator: \"Xaver Y.R. Chen\" <yrchen@atcity.org>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
@@ -109,15 +109,15 @@ msgstr "請僅選擇一項。"
 msgid "The new value must be different from the current one."
 msgstr "新的輸入值必須不同於目前的內容。"
 
-#: account/adapter.py:774
+#: account/adapter.py:776
 msgid "Use your password"
 msgstr "使用您的密碼"
 
-#: account/adapter.py:783
+#: account/adapter.py:785
 msgid "Use authenticator app or code"
 msgstr "使用驗證器應用程式或代碼"
 
-#: account/adapter.py:790 templates/mfa/authenticate.html:41
+#: account/adapter.py:792 templates/mfa/authenticate.html:41
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use a security key"
 msgstr "使用安全金鑰"
@@ -487,7 +487,7 @@ msgstr "登入"
 #: templates/account/base_confirm_code.html:46
 #: templates/account/password_reset_from_key.html:33
 #: templates/mfa/authenticate.html:28 templates/mfa/authenticate.html:44
-#: templates/mfa/webauthn/signup_form.html:26
+#: templates/mfa/trust.html:29 templates/mfa/webauthn/signup_form.html:26
 msgid "Cancel"
 msgstr "取消"
 
@@ -1417,6 +1417,25 @@ msgid ""
 "You are about to deactivate authenticator app based authentication. Are you "
 "sure?"
 msgstr "您即將停用基於 authenticator 驗證器應用程式的身份驗證。確定要繼續嗎？"
+
+#: templates/mfa/trust.html:4 templates/mfa/trust.html:8
+msgid "Trust this Browser?"
+msgstr ""
+
+#: templates/mfa/trust.html:11
+msgid ""
+"If you choose to trust this browser, you will not be asked for a "
+"verification code the next time you sign in."
+msgstr ""
+
+#: templates/mfa/trust.html:23
+#, python-format
+msgid "Trust for %(period)s"
+msgstr ""
+
+#: templates/mfa/trust.html:26
+msgid "Don't Trust"
+msgstr ""
 
 #: templates/mfa/webauthn/add_form.html:7
 msgid "Add Security Key"

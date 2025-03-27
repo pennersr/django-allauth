@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-14 05:44-0500\n"
-"PO-Revision-Date: 2025-03-11 11:45+0000\n"
+"POT-Creation-Date: 2025-03-27 08:37-0500\n"
+"PO-Revision-Date: 2025-03-18 23:18+0000\n"
 "Last-Translator: Igor Jerosimić <jerosimic@gmail.com>\n"
 "Language-Team: Serbian (Latin script) <https://hosted.weblate.org/projects/"
 "allauth/django-allauth/sr_Latn/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.10.3-dev\n"
+"X-Generator: Weblate 5.11-dev\n"
 
 #: account/adapter.py:55
 msgid "This account is currently inactive."
@@ -78,16 +78,12 @@ msgid "Too many failed login attempts. Try again later."
 msgstr "Previše neuspelih pokušaja prijavljivanja. Pokušajte ponovo kasnije."
 
 #: account/adapter.py:79
-#, fuzzy
-#| msgid "The email address is not assigned to any user account"
 msgid "The email address is not assigned to any user account."
-msgstr "Adresa e-pošte nije dodeljena bilo kom korisničkom nalogu"
+msgstr "Adresa e-pošte nije dodeljena nijednom korisničkom nalogu."
 
 #: account/adapter.py:80
-#, fuzzy
-#| msgid "The phone number is not assigned to any user account"
 msgid "The phone number is not assigned to any user account."
-msgstr "Broj telefona nije dodeljen nijednom korisničkom nalogu"
+msgstr "Broj telefona nije dodeljen nijednom korisničkom nalogu."
 
 #: account/adapter.py:81
 #: templates/account/messages/unverified_primary_email.txt:2
@@ -111,15 +107,15 @@ msgstr "Molim izaberite samo jedan."
 msgid "The new value must be different from the current one."
 msgstr "Nova vrednost mora da se razlikuje od trenutne."
 
-#: account/adapter.py:774
+#: account/adapter.py:776
 msgid "Use your password"
 msgstr "Koristite svoju lozinku"
 
-#: account/adapter.py:783
+#: account/adapter.py:785
 msgid "Use authenticator app or code"
 msgstr "Koristite autentikator aplikaciju ili kod za autentifikaciju"
 
-#: account/adapter.py:790 templates/mfa/authenticate.html:41
+#: account/adapter.py:792 templates/mfa/authenticate.html:41
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use a security key"
 msgstr "Koristite bezbednosni ključ"
@@ -175,26 +171,20 @@ msgid "Login"
 msgstr "Prijavite se"
 
 #: account/forms.py:152
-#, fuzzy
-#| msgid "Username or email"
 msgid "Username, email or phone"
-msgstr "Korisničko ime ili e-pošta"
+msgstr "Korisničko ime, e-pošta ili telefon"
 
 #: account/forms.py:154
 msgid "Username or email"
 msgstr "Korisničko ime ili e-pošta"
 
 #: account/forms.py:156
-#, fuzzy
-#| msgid "Username or email"
 msgid "Username or phone"
-msgstr "Korisničko ime ili e-pošta"
+msgstr "Korisničko ime ili telefon"
 
 #: account/forms.py:158
-#, fuzzy
-#| msgid "Email (optional)"
 msgid "Email or phone"
-msgstr "E-pošta (opciono)"
+msgstr "E-pošta ili telefon"
 
 #: account/forms.py:181
 msgid "Forgot your password?"
@@ -499,7 +489,7 @@ msgstr "Prijavite se"
 #: templates/account/base_confirm_code.html:46
 #: templates/account/password_reset_from_key.html:33
 #: templates/mfa/authenticate.html:28 templates/mfa/authenticate.html:44
-#: templates/mfa/webauthn/signup_form.html:26
+#: templates/mfa/trust.html:29 templates/mfa/webauthn/signup_form.html:26
 msgid "Cancel"
 msgstr "Otkaži"
 
@@ -1013,7 +1003,7 @@ msgstr "Uspešno ste postavili lozinku."
 #: templates/account/messages/phone_verified.txt:2
 #, python-format
 msgid "You have verified phone number %(phone)s."
-msgstr ""
+msgstr "Potvrdili ste broj telefona %(phone)s."
 
 #: templates/account/messages/primary_email_set.txt:2
 msgid "Primary email address set."
@@ -1096,10 +1086,8 @@ msgid "Current phone"
 msgstr "Trenutni telefon"
 
 #: templates/account/phone_change.html:22
-#, fuzzy
-#| msgid "Your email address is still pending verification."
 msgid "Your phone number is still pending verification."
-msgstr "Vaša adresa e-pošte još uvek čeka verifikaciju."
+msgstr "Vaš telefon još uvek čeka potvrdu."
 
 #: templates/account/reauthenticate.html:6
 msgid "Enter your password:"
@@ -1468,6 +1456,25 @@ msgid ""
 msgstr ""
 "Spremate se da deaktivirate autentifikaciju zasnovanu na autentikator "
 "aplikaciji. Jeste li sigurni?"
+
+#: templates/mfa/trust.html:4 templates/mfa/trust.html:8
+msgid "Trust this Browser?"
+msgstr ""
+
+#: templates/mfa/trust.html:11
+msgid ""
+"If you choose to trust this browser, you will not be asked for a "
+"verification code the next time you sign in."
+msgstr ""
+
+#: templates/mfa/trust.html:23
+#, python-format
+msgid "Trust for %(period)s"
+msgstr ""
+
+#: templates/mfa/trust.html:26
+msgid "Don't Trust"
+msgstr ""
 
 #: templates/mfa/webauthn/add_form.html:7
 msgid "Add Security Key"

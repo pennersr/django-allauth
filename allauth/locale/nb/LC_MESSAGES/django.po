@@ -2,32 +2,29 @@
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-14 05:44-0500\n"
-"PO-Revision-Date: 2024-04-20 21:52+0200\n"
-"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
-"Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/django-"
-"allauth/django-allauth/nb_NO/>\n"
+"POT-Creation-Date: 2025-03-27 08:37-0500\n"
+"PO-Revision-Date: 2025-03-23 17:24+0000\n"
+"Last-Translator: Anders Birkenes <datagutten@datagutten.net>\n"
+"Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/allauth/"
+"django-allauth/nb_NO/>\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.4-dev\n"
+"X-Generator: Weblate 5.11-dev\n"
 
 #: account/adapter.py:55
 msgid "This account is currently inactive."
 msgstr "Denne kontoen er inaktiv."
 
 #: account/adapter.py:57
-#, fuzzy
-#| msgid "You cannot remove your primary email address (%(email)s)."
 msgid "You cannot remove your primary email address."
-msgstr "Du kan ikke fjerne den primær e-postadressen (%(email)s)."
+msgstr "Du kan ikke fjerne den primære e-postadressen."
 
 #: account/adapter.py:60
 msgid "This email address is already associated with this account."
@@ -38,10 +35,8 @@ msgid "The email address and/or password you specified are not correct."
 msgstr "E-postadressen og/eller passordet du oppgav er feil."
 
 #: account/adapter.py:66
-#, fuzzy
-#| msgid "The username and/or password you specified are not correct."
 msgid "The phone number and/or password you specified are not correct."
-msgstr "Brukernavnet og/eller passordet du oppgav er feil."
+msgstr "Telefonnummeret og/eller passordet du oppgav er feil."
 
 #: account/adapter.py:68
 msgid "A user is already registered with this email address."
@@ -53,13 +48,11 @@ msgstr "Vennligst skriv inn ditt passord."
 
 #: account/adapter.py:70 mfa/adapter.py:40
 msgid "Incorrect code."
-msgstr ""
+msgstr "Feil kode."
 
 #: account/adapter.py:71
-#, fuzzy
-#| msgid "Current Password"
 msgid "Incorrect password."
-msgstr "Nåværende passord"
+msgstr "Feil passord."
 
 #: account/adapter.py:72
 #, fuzzy
@@ -68,10 +61,8 @@ msgid "Invalid or expired key."
 msgstr "Ugyldig token"
 
 #: account/adapter.py:73
-#, fuzzy
-#| msgid "Bad Token"
 msgid "Invalid login."
-msgstr "Ugyldig token"
+msgstr "Ugyldig pålogging."
 
 #: account/adapter.py:74
 msgid "The password reset token was invalid."
@@ -114,25 +105,25 @@ msgstr "Brukernavnet og/eller passordet du oppgav er feil."
 
 #: account/adapter.py:91
 msgid "Please select only one."
-msgstr ""
+msgstr "Velg kun en."
 
 #: account/adapter.py:92
 msgid "The new value must be different from the current one."
 msgstr ""
 
-#: account/adapter.py:774
+#: account/adapter.py:776
 #, fuzzy
 #| msgid "Forgot Password?"
 msgid "Use your password"
 msgstr "Glemt passord?"
 
-#: account/adapter.py:783
+#: account/adapter.py:785
 #, fuzzy
 #| msgid "token secret"
 msgid "Use authenticator app or code"
 msgstr "hemmelig nøkkel"
 
-#: account/adapter.py:790 templates/mfa/authenticate.html:41
+#: account/adapter.py:792 templates/mfa/authenticate.html:41
 #: templates/mfa/webauthn/reauthenticate.html:15
 #, fuzzy
 #| msgid "secret key"
@@ -530,7 +521,7 @@ msgstr "Logg inn"
 #: templates/account/base_confirm_code.html:46
 #: templates/account/password_reset_from_key.html:33
 #: templates/mfa/authenticate.html:28 templates/mfa/authenticate.html:44
-#: templates/mfa/webauthn/signup_form.html:26
+#: templates/mfa/trust.html:29 templates/mfa/webauthn/signup_form.html:26
 msgid "Cancel"
 msgstr ""
 
@@ -1579,6 +1570,25 @@ msgid ""
 "sure?"
 msgstr ""
 
+#: templates/mfa/trust.html:4 templates/mfa/trust.html:8
+msgid "Trust this Browser?"
+msgstr ""
+
+#: templates/mfa/trust.html:11
+msgid ""
+"If you choose to trust this browser, you will not be asked for a "
+"verification code the next time you sign in."
+msgstr ""
+
+#: templates/mfa/trust.html:23
+#, python-format
+msgid "Trust for %(period)s"
+msgstr ""
+
+#: templates/mfa/trust.html:26
+msgid "Don't Trust"
+msgstr ""
+
 #: templates/mfa/webauthn/add_form.html:7
 #, fuzzy
 #| msgid "secret key"
@@ -1798,7 +1808,7 @@ msgstr ""
 
 #: templates/socialaccount/snippets/login.html:10
 msgid "Or use a third-party"
-msgstr ""
+msgstr "Eller bruk en tredjepart"
 
 #: templates/usersessions/messages/sessions_logged_out.txt:2
 msgid "Signed out of all other sessions."

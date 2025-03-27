@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-14 05:44-0500\n"
+"POT-Creation-Date: 2025-03-27 08:37-0500\n"
 "PO-Revision-Date: 2024-04-20 21:30+0200\n"
 "Last-Translator: Anonymous User <seppo.erviala@iki.fi>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -121,17 +121,17 @@ msgstr ""
 msgid "The new value must be different from the current one."
 msgstr ""
 
-#: account/adapter.py:774
+#: account/adapter.py:776
 #, fuzzy
 #| msgid "Forgot Password?"
 msgid "Use your password"
 msgstr "Salasana unohtunut?"
 
-#: account/adapter.py:783
+#: account/adapter.py:785
 msgid "Use authenticator app or code"
 msgstr ""
 
-#: account/adapter.py:790 templates/mfa/authenticate.html:41
+#: account/adapter.py:792 templates/mfa/authenticate.html:41
 #: templates/mfa/webauthn/reauthenticate.html:15
 #, fuzzy
 #| msgid "secret key"
@@ -534,7 +534,7 @@ msgstr "Käyttäjätunnus"
 #: templates/account/base_confirm_code.html:46
 #: templates/account/password_reset_from_key.html:33
 #: templates/mfa/authenticate.html:28 templates/mfa/authenticate.html:44
-#: templates/mfa/webauthn/signup_form.html:26
+#: templates/mfa/trust.html:29 templates/mfa/webauthn/signup_form.html:26
 msgid "Cancel"
 msgstr ""
 
@@ -1558,6 +1558,25 @@ msgstr ""
 msgid ""
 "You are about to deactivate authenticator app based authentication. Are you "
 "sure?"
+msgstr ""
+
+#: templates/mfa/trust.html:4 templates/mfa/trust.html:8
+msgid "Trust this Browser?"
+msgstr ""
+
+#: templates/mfa/trust.html:11
+msgid ""
+"If you choose to trust this browser, you will not be asked for a "
+"verification code the next time you sign in."
+msgstr ""
+
+#: templates/mfa/trust.html:23
+#, python-format
+msgid "Trust for %(period)s"
+msgstr ""
+
+#: templates/mfa/trust.html:26
+msgid "Don't Trust"
 msgstr ""
 
 #: templates/mfa/webauthn/add_form.html:7

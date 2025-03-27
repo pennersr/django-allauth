@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-14 05:44-0500\n"
-"PO-Revision-Date: 2025-03-12 17:52+0000\n"
+"POT-Creation-Date: 2025-03-27 08:37-0500\n"
+"PO-Revision-Date: 2025-03-17 09:26+0000\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <https://hosted.weblate.org/projects/allauth/django-"
 "allauth/ka/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10.3-dev\n"
+"X-Generator: Weblate 5.11-dev\n"
 
 #: account/adapter.py:55
 msgid "This account is currently inactive."
@@ -81,20 +81,14 @@ msgid "Too many failed login attempts. Try again later."
 msgstr "შესვლის ძალიან ბევრი წარუმატებელი მცდელობა. მოგვიანებით სცადეთ."
 
 #: account/adapter.py:79
-#, fuzzy
-#| msgid "The email address is not assigned to any user account"
 msgid "The email address is not assigned to any user account."
 msgstr ""
 "ეს ელექტრონული ფოსტის მისამართი არ არის მიბმული რომელიმე მომხმარებლის "
-"ანგარიშზე"
+"ანგარიშზე."
 
 #: account/adapter.py:80
-#, fuzzy
-#| msgid "The email address is not assigned to any user account"
 msgid "The phone number is not assigned to any user account."
-msgstr ""
-"ეს ელექტრონული ფოსტის მისამართი არ არის მიბმული რომელიმე მომხმარებლის "
-"ანგარიშზე"
+msgstr "ეს ტელეფონის ნომერი არ არის მიბმული რომელიმე მომხმარებლის ანგარიშზე."
 
 #: account/adapter.py:81
 #: templates/account/messages/unverified_primary_email.txt:2
@@ -118,17 +112,17 @@ msgstr ""
 msgid "The new value must be different from the current one."
 msgstr ""
 
-#: account/adapter.py:774
+#: account/adapter.py:776
 msgid "Use your password"
 msgstr "გამოიყენეთ თქვენი პაროლი"
 
-#: account/adapter.py:783
+#: account/adapter.py:785
 #, fuzzy
 #| msgid "token secret"
 msgid "Use authenticator app or code"
 msgstr "საიდუმლო კოდი"
 
-#: account/adapter.py:790 templates/mfa/authenticate.html:41
+#: account/adapter.py:792 templates/mfa/authenticate.html:41
 #: templates/mfa/webauthn/reauthenticate.html:15
 #, fuzzy
 #| msgid "secret key"
@@ -520,7 +514,7 @@ msgstr "შესვლა"
 #: templates/account/base_confirm_code.html:46
 #: templates/account/password_reset_from_key.html:33
 #: templates/mfa/authenticate.html:28 templates/mfa/authenticate.html:44
-#: templates/mfa/webauthn/signup_form.html:26
+#: templates/mfa/trust.html:29 templates/mfa/webauthn/signup_form.html:26
 msgid "Cancel"
 msgstr ""
 
@@ -1531,6 +1525,25 @@ msgstr ""
 msgid ""
 "You are about to deactivate authenticator app based authentication. Are you "
 "sure?"
+msgstr ""
+
+#: templates/mfa/trust.html:4 templates/mfa/trust.html:8
+msgid "Trust this Browser?"
+msgstr ""
+
+#: templates/mfa/trust.html:11
+msgid ""
+"If you choose to trust this browser, you will not be asked for a "
+"verification code the next time you sign in."
+msgstr ""
+
+#: templates/mfa/trust.html:23
+#, python-format
+msgid "Trust for %(period)s"
+msgstr ""
+
+#: templates/mfa/trust.html:26
+msgid "Don't Trust"
 msgstr ""
 
 #: templates/mfa/webauthn/add_form.html:7

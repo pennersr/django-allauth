@@ -56,7 +56,7 @@ def test_auth_password_bad_password(headless_reverse, client, user, settings):
 def test_auth_password_success(
     client, user, user_password, settings, headless_reverse, headless_client
 ):
-    settings.ACCOUNT_LOGIN_METHODS = {"email"}
+    settings.ACCOUNT_LOGIN_METHODS = {"email", "username"}
     login_resp = client.post(
         headless_reverse("headless:account:login"),
         data={

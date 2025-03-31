@@ -1,7 +1,12 @@
 65.6.1 (unreleased)
 *******************
 
-- ...
+Fixes
+-----
+
+- Headless: when multiple login methods were enabled (e.g. both username and
+  email), the login endpoint would incorrectly return a 400
+  ``invalid_login``. Fixed.
 
 
 65.6.0 (2025-03-27)

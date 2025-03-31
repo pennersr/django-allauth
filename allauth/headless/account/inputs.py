@@ -65,7 +65,7 @@ class LoginInput(inputs.Input):
         credentials = {}
         for login_method in account_settings.LOGIN_METHODS:
             value = cleaned_data.get(login_method)
-            if value is not None:
+            if value is not None and login_method in self.data.keys():
                 credentials[login_method] = value
         if len(credentials) != 1:
             raise get_account_adapter().validation_error("invalid_login")

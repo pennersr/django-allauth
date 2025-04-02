@@ -23,4 +23,4 @@ class Migration(migrations.Migration):
         ("account", "0005_emailaddress_idx_upper_email"),
     ]
 
-    operations = [migrations.RunPython(forwards)]
+    operations = [migrations.RunPython(forwards, migrations.RunPython.noop)]

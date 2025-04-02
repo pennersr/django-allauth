@@ -122,6 +122,22 @@ matrix:
       PRJ: regular
       DJANGO_VERSION: django51
       PYTHON_VERSION: 3.13
+    - STEP: test
+      PRJ: regular
+      DJANGO_VERSION: django52
+      PYTHON_VERSION: 3.10
+    - STEP: test
+      PRJ: regular
+      DJANGO_VERSION: django52
+      PYTHON_VERSION: 3.11
+    - STEP: test
+      PRJ: regular
+      DJANGO_VERSION: django52
+      PYTHON_VERSION: 3.12
+    - STEP: test
+      PRJ: regular
+      DJANGO_VERSION: django52
+      PYTHON_VERSION: 3.13
     # # Only test main on latest Python
     # - STEP: test
     #   PRJ: regular
@@ -174,6 +190,22 @@ matrix:
       PRJ: headless_only
       DJANGO_VERSION: django51
       PYTHON_VERSION: 3.13
+    - STEP: test
+      PRJ: headless_only
+      DJANGO_VERSION: django52
+      PYTHON_VERSION: 3.10
+    - STEP: test
+      PRJ: headless_only
+      DJANGO_VERSION: django52
+      PYTHON_VERSION: 3.11
+    - STEP: test
+      PRJ: headless_only
+      DJANGO_VERSION: django52
+      PYTHON_VERSION: 3.12
+    - STEP: test
+      PRJ: headless_only
+      DJANGO_VERSION: django52
+      PYTHON_VERSION: 3.13
     # Only test main on latest Python
     # - STEP: test
     #   PRJ: headless_only
@@ -182,5 +214,5 @@ matrix:
     # Only test LoginRequiredMiddleware on latest Python/Django.
     - STEP: test
       PRJ: login_required_mw
-      DJANGO_VERSION: django51
+      DJANGO_VERSION: django52
       PYTHON_VERSION: 3.13

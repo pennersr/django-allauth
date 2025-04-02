@@ -1,6 +1,15 @@
 65.7.0 (unreleased)
 *******************
 
+Note worthy changes
+-------------------
+
+- Officially support Django 5.2.
+
+- Headless: the URL to the OpenID configuration of the provider is now exposed
+  in the provider config
+
+
 Fixes
 -----
 

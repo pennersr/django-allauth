@@ -2588,6 +2588,7 @@ components:
                   - "provider_redirect"
                   - "provider_token"
                 client_id: "123.apps.googleusercontent.com"
+                openid_configuration_url: https://accounts.google.com/.well-known/openid-configuration
           mfa:
             supported_types:
               - "recovery_codes"
@@ -2858,6 +2859,11 @@ components:
           description: |
             The client ID (in case of OAuth2 or OpenID Connect based providers)
           example: 123.apps.googleusercontent.com
+        openid_configuration_url:
+          type: string
+          description: |
+            The OIDC discovery or well-known URL (in case of OAuth2 or OpenID Connect based providers)
+          example: https://accounts.google.com/.well-known/openid-configuration
         flows:
           type: array
           description: |

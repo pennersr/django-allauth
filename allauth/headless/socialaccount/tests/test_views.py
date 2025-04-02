@@ -78,6 +78,7 @@ def test_manage_providers(auth_client, user, headless_reverse, provider_id):
                 "display": "Unittest Server",
                 "provider": {
                     "client_id": "Unittest client_id",
+                    "openid_configuration_url": "https://unittest.example.com/.well-known/openid-configuration",
                     "flows": ["provider_redirect", "provider_token"],
                     "id": provider_id,
                     "name": "Unittest Server",

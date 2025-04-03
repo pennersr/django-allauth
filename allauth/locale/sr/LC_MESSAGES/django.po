@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-27 08:37-0500\n"
-"PO-Revision-Date: 2025-03-24 19:36+0000\n"
+"PO-Revision-Date: 2025-04-01 05:51+0000\n"
 "Last-Translator: Igor Jerosimić <jerosimic@gmail.com>\n"
-"Language-Team: Serbian <https://hosted.weblate.org/projects/allauth/django-"
-"allauth/sr/>\n"
+"Language-Team: Serbian <https://hosted.weblate.org/projects/allauth/"
+"django-allauth/sr/>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1459,22 +1459,24 @@ msgstr ""
 
 #: templates/mfa/trust.html:4 templates/mfa/trust.html:8
 msgid "Trust this Browser?"
-msgstr ""
+msgstr "Верујете овом прегледачу?"
 
 #: templates/mfa/trust.html:11
 msgid ""
 "If you choose to trust this browser, you will not be asked for a "
 "verification code the next time you sign in."
 msgstr ""
+"Ако одлучите да верујете овом прегледачу, од вас се неће тражити "
+"верификациони код следећи пут када се пријавите."
 
 #: templates/mfa/trust.html:23
 #, python-format
 msgid "Trust for %(period)s"
-msgstr ""
+msgstr "Веруј %(period)s"
 
 #: templates/mfa/trust.html:26
 msgid "Don't Trust"
-msgstr ""
+msgstr "Не веруј"
 
 #: templates/mfa/webauthn/add_form.html:7
 msgid "Add Security Key"

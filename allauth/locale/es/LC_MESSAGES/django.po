@@ -7,16 +7,16 @@ msgstr ""
 "Project-Id-Version: 0.61.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-27 08:37-0500\n"
-"PO-Revision-Date: 2024-09-23 09:16+0000\n"
-"Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/allauth/django-"
-"allauth/es/>\n"
+"PO-Revision-Date: 2025-04-18 00:01+0000\n"
+"Last-Translator: Alex <alexcarbi@gmail.com>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/allauth/"
+"django-allauth/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Weblate 5.8-dev\n"
+"X-Generator: Weblate 5.11.1-dev\n"
 
 #: account/adapter.py:55
 msgid "This account is currently inactive."
@@ -37,10 +37,9 @@ msgstr ""
 "correctas."
 
 #: account/adapter.py:66
-#, fuzzy
-#| msgid "The username and/or password you specified are not correct."
 msgid "The phone number and/or password you specified are not correct."
-msgstr "El usuario y/o la contraseña que ha indicado no son correctos."
+msgstr ""
+"El número de teléfono y/o la contraseña que ha indicado no son correctos."
 
 #: account/adapter.py:68
 msgid "A user is already registered with this email address."
@@ -63,10 +62,8 @@ msgid "Invalid or expired key."
 msgstr "Clave no válida o caducada."
 
 #: account/adapter.py:73
-#, fuzzy
-#| msgid "Invalid token."
 msgid "Invalid login."
-msgstr "Token no válido."
+msgstr "Login inválido."
 
 #: account/adapter.py:74
 msgid "The password reset token was invalid."
@@ -82,20 +79,14 @@ msgid "Too many failed login attempts. Try again later."
 msgstr "Demasiados intentos fallidos. Inténtelo más tarde."
 
 #: account/adapter.py:79
-#, fuzzy
-#| msgid "The email address is not assigned to any user account"
 msgid "The email address is not assigned to any user account."
 msgstr ""
 "Esta dirección de correo electrónico no está asignada a ninguna cuenta de "
-"usuario"
+"usuario."
 
 #: account/adapter.py:80
-#, fuzzy
-#| msgid "The email address is not assigned to any user account"
 msgid "The phone number is not assigned to any user account."
-msgstr ""
-"Esta dirección de correo electrónico no está asignada a ninguna cuenta de "
-"usuario"
+msgstr "El número de teléfono no está asignado a ninguna cuenta de usuario."
 
 #: account/adapter.py:81
 #: templates/account/messages/unverified_primary_email.txt:2
@@ -112,11 +103,11 @@ msgstr "El usuario y/o la contraseña que ha indicado no son correctos."
 
 #: account/adapter.py:91
 msgid "Please select only one."
-msgstr ""
+msgstr "Por favor selecciona solo uno."
 
 #: account/adapter.py:92
 msgid "The new value must be different from the current one."
-msgstr ""
+msgstr "El nuevo valor debe ser diferente del actual."
 
 #: account/adapter.py:776
 msgid "Use your password"
@@ -142,11 +133,11 @@ msgstr "Cuentas"
 
 #: account/fields.py:43
 msgid "Enter a phone number including country code (e.g. +1 for the US)."
-msgstr ""
+msgstr "Introduce un número incluyendo el código del país (ej. +34 para ES)."
 
 #: account/fields.py:49 account/fields.py:53 account/forms.py:370
 msgid "Phone"
-msgstr ""
+msgstr "Teléfono"
 
 #: account/forms.py:62 account/forms.py:562
 msgid "You must type the same password each time."
@@ -182,26 +173,20 @@ msgid "Login"
 msgstr "Iniciar sesión"
 
 #: account/forms.py:152
-#, fuzzy
-#| msgid "Username or email"
 msgid "Username, email or phone"
-msgstr "Usuario o correo electrónico"
+msgstr "Usuario, correo o teléfono"
 
 #: account/forms.py:154
 msgid "Username or email"
 msgstr "Usuario o correo electrónico"
 
 #: account/forms.py:156
-#, fuzzy
-#| msgid "Username or email"
 msgid "Username or phone"
-msgstr "Usuario o correo electrónico"
+msgstr "Usuario o teléfono"
 
 #: account/forms.py:158
-#, fuzzy
-#| msgid "Email (optional)"
 msgid "Email or phone"
-msgstr "Correo electrónico (opcional)"
+msgstr "Correo electrónico o teléfono"
 
 #: account/forms.py:181
 msgid "Forgot your password?"
@@ -220,10 +205,8 @@ msgid "Email (optional)"
 msgstr "Correo electrónico (opcional)"
 
 #: account/forms.py:359
-#, fuzzy
-#| msgid "Email (optional)"
 msgid "Username (optional)"
-msgstr "Correo electrónico (opcional)"
+msgstr "Usuario (opcional)"
 
 #: account/forms.py:441
 msgid "You must type the same email each time."
@@ -557,15 +540,12 @@ msgid "This account is inactive."
 msgstr "Esta cuenta está desactivada."
 
 #: templates/account/base_confirm_code.html:27
-#, fuzzy, python-format
-#| msgid ""
-#| "We’ve sent a code to %(email_link)s. The code expires shortly, so please "
-#| "enter it soon."
+#, python-format
 msgid ""
 "We've sent a code to %(recipient)s. The code expires shortly, so please "
 "enter it soon."
 msgstr ""
-"Hemos enviado un código a %(email_link)s. El código caduca en breve, así que "
+"Hemos enviado un código a %(recipient)s. El código caduca en breve, así que "
 "introdúcelo pronto."
 
 #: templates/account/base_confirm_code.html:38
@@ -622,22 +602,16 @@ msgid "Password Reset"
 msgstr "Restablecer Contraseña"
 
 #: templates/account/confirm_password_reset_code.html:8
-#, fuzzy
-#| msgid "Password Reset"
 msgid "Enter Password Reset Code"
-msgstr "Restablecer Contraseña"
+msgstr "Introduce el código · Restablecer Contraseña"
 
 #: templates/account/confirm_phone_verification_code.html:5
-#, fuzzy
-#| msgid "Re-send Verification"
 msgid "Phone Verification"
-msgstr "Reenviar Verificación"
+msgstr "Reenviar Verificación telefónica"
 
 #: templates/account/confirm_phone_verification_code.html:8
-#, fuzzy
-#| msgid "Enter Email Verification Code"
 msgid "Enter Phone Verification Code"
-msgstr "Introduce el código de verificación del correo electrónico"
+msgstr "Introduce el código de verificación del teléfono"
 
 #: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
@@ -846,22 +820,16 @@ msgid "Password Changed"
 msgstr "Contraseña modificada"
 
 #: templates/account/email/password_reset_code_message.txt:5
-#, fuzzy
-#| msgid ""
-#| "Your sign-in code is listed below. Please enter it in your open browser "
-#| "window."
 msgid ""
 "Your password reset code is listed below. Please enter it in your open "
 "browser window."
 msgstr ""
-"Su código de inicio de sesión se enumera a continuación. Introdúzcalo en la "
-"ventana abierta de su navegador."
+"Su código de restablecimiento de contraseña se enumera a continuación. "
+"Introdúzcalo en la ventana abierta de su navegador."
 
 #: templates/account/email/password_reset_code_subject.txt:3
-#, fuzzy
-#| msgid "Password Reset"
 msgid "Password Reset Code"
-msgstr "Restablecer Contraseña"
+msgstr "Código de restablecimiento de contraseña"
 
 #: templates/account/email/password_reset_key_message.txt:4
 msgid ""
@@ -995,8 +963,6 @@ msgid "Sign in with a passkey"
 msgstr "Iniciar sesión con un passkey"
 
 #: templates/account/login.html:47 templates/account/request_login_code.html:9
-#, fuzzy
-#| msgid "Mail me a sign-in code"
 msgid "Send me a sign-in code"
 msgstr "Envíame un código de inicio de sesión"
 
@@ -1040,10 +1006,10 @@ msgid "You have signed out."
 msgstr "Ha cerrado sesión."
 
 #: templates/account/messages/login_code_sent.txt:2
-#, fuzzy, python-format
-#| msgid "A sign-in code has been mailed to %(email)s."
+#, python-format
 msgid "A sign-in code has been sent to %(recipient)s."
-msgstr "Se ha enviado un código de inicio de sesión por correo a %(email)s ."
+msgstr ""
+"Se ha enviado un código de inicio de sesión por correo a %(recipient)s ."
 
 #: templates/account/messages/password_changed.txt:2
 msgid "Password successfully changed."
@@ -1056,7 +1022,7 @@ msgstr "Contraseña establecida con éxito."
 #: templates/account/messages/phone_verified.txt:2
 #, python-format
 msgid "You have verified phone number %(phone)s."
-msgstr ""
+msgstr "Has verificado el número de teléfono %(phone)s."
 
 #: templates/account/messages/primary_email_set.txt:2
 msgid "Primary email address set."
@@ -1131,36 +1097,24 @@ msgstr "Establecer contraseña"
 
 #: templates/account/phone_change.html:5 templates/account/phone_change.html:9
 #: templates/account/phone_change.html:38
-#, fuzzy
-#| msgid "Change to"
 msgid "Change Phone"
-msgstr "Cambiar a"
+msgstr "Cambiar a teléfono"
 
 #: templates/account/phone_change.html:18
-#, fuzzy
-#| msgid "Current"
 msgid "Current phone"
-msgstr "Actual"
+msgstr "Teléfono actual"
 
 #: templates/account/phone_change.html:22
-#, fuzzy
-#| msgid "Your email address is still pending verification."
 msgid "Your phone number is still pending verification."
-msgstr "Su dirección de correo electrónico sigue pendiente de verificación."
+msgstr "Su número de teléfono sigue pendiente de verificación."
 
 #: templates/account/reauthenticate.html:6
 msgid "Enter your password:"
 msgstr "Introduzca su contraseña:"
 
 #: templates/account/request_login_code.html:12
-#, fuzzy
-#| msgid ""
-#| "You will receive an email containing a special code for a password-free "
-#| "sign-in."
 msgid "You will receive a special code for a password-free sign-in."
-msgstr ""
-"Recibirá un correo electrónico que contiene un código especial para iniciar "
-"sesión sin contraseña."
+msgstr "Recibirá un código especial para iniciar sesión sin contraseña."
 
 #: templates/account/request_login_code.html:24
 msgid "Request Code"
@@ -1525,22 +1479,24 @@ msgstr ""
 
 #: templates/mfa/trust.html:4 templates/mfa/trust.html:8
 msgid "Trust this Browser?"
-msgstr ""
+msgstr "Confía en este navegador?"
 
 #: templates/mfa/trust.html:11
 msgid ""
 "If you choose to trust this browser, you will not be asked for a "
 "verification code the next time you sign in."
 msgstr ""
+"Si decides confiar en este navegador, no se te pedirá un código de "
+"verificación la próxima vez que inicies sesión."
 
 #: templates/mfa/trust.html:23
 #, python-format
 msgid "Trust for %(period)s"
-msgstr ""
+msgstr "Confía durante %(period)s"
 
 #: templates/mfa/trust.html:26
 msgid "Don't Trust"
-msgstr ""
+msgstr "No confíes"
 
 #: templates/mfa/webauthn/add_form.html:7
 msgid "Add Security Key"

@@ -1,11 +1,13 @@
 import importlib
 import json
+import os
 import random
 import re
 import sys
 import time
 import uuid
 from contextlib import contextmanager
+from pathlib import Path
 from unittest.mock import Mock, PropertyMock, patch
 
 from django.contrib.auth import get_user_model
@@ -467,3 +469,23 @@ def user_with_phone(user, phone):
 
     get_adapter().set_phone(user, phone, True)
     return user
+
+
+def pytest_ignore_collect(path, config):
+    tests_to_skip = {
+        "tests.account_only.settings": (
+            "headless",
+            "mfa",
+            "usersessions",
+            "socialaccount",
+        ),
+    }
+    dsm = os.getenv("DJANGO_SETTINGS_MODULE")
+    skipped_paths = tests_to_skip.get(dsm)
+    if not skipped_paths:
+        return False
+    for skipped_path in skipped_paths:
+        abs_skipped_path = Path(__file__).parent / skipped_path
+        if abs_skipped_path == Path(path) or abs_skipped_path in Path(path).parents:
+            return True
+    return False

@@ -48,6 +48,9 @@ class BasicTests(TestCase):
 
     def test_templatetag_with_csrf_failure(self):
         # Generate a fictitious GET request
+        if not app_settings.SOCIALACCOUNT_ENABLED:
+            return
+
         from allauth.socialaccount.models import SocialApp
 
         app = SocialApp.objects.create(provider="google")

@@ -39,7 +39,8 @@ Available settings:
 ``HEADLESS_SERVE_SPECIFICATION`` (default: ``False``)
   Whether or not to serve the OpenAPI specification files. When enabled, the
   endpoints ``/_allauth/openapi.yaml``, ``/_allauth/openapi.json`` and
-  ``/_allauth/openapi.html`` become available.
+  ``/_allauth/openapi.html`` become available. This functionality requires
+  ``PyYAML`` to be installed.
 
 ``HEADLESS_SPECIFICATION_TEMPLATE_NAME`` (default: ``"headless/spec/redoc_cdn.html"``)
   The template used to serve the OpenAPI specification in HTML format. Out of the box,

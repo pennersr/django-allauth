@@ -8,17 +8,19 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-27 08:37-0500\n"
-"PO-Revision-Date: 2024-04-20 22:11+0200\n"
-"Last-Translator: Michael Husiev <michael.husiev@gmail.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2025-04-27 05:02+0000\n"
+"Last-Translator: jFel63 <josh.a.macfelder@gmail.com>\n"
+"Language-Team: Ukrainian <https://hosted.weblate.org/projects/allauth/"
+"django-allauth/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
-"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
-"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
-"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 "
+"? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > "
+"14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % "
+"100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+"X-Generator: Weblate 5.12-dev\n"
 
 #: account/adapter.py:55
 msgid "This account is currently inactive."
@@ -37,10 +39,8 @@ msgid "The email address and/or password you specified are not correct."
 msgstr "Вказана адреса електронної пошти та/або пароль неправильні."
 
 #: account/adapter.py:66
-#, fuzzy
-#| msgid "The username and/or password you specified are not correct."
 msgid "The phone number and/or password you specified are not correct."
-msgstr "Вказане ім'я користувача або пароль неправильні."
+msgstr "Вказано невірний номер телефону або пароль."
 
 #: account/adapter.py:68
 msgid "A user is already registered with this email address."
@@ -82,18 +82,13 @@ msgid "Too many failed login attempts. Try again later."
 msgstr "Занадто багато невдалих спроб входу. Спробуйте ще раз пізніше."
 
 #: account/adapter.py:79
-#, fuzzy
-#| msgid "The email address is not assigned to any user account"
 msgid "The email address is not assigned to any user account."
 msgstr ""
-"Ця адреса електронної пошти не призначена для жодного облікового запису"
+"Ця адреса електронної пошти не призначена для жодного облікового запису."
 
 #: account/adapter.py:80
-#, fuzzy
-#| msgid "The email address is not assigned to any user account"
 msgid "The phone number is not assigned to any user account."
-msgstr ""
-"Ця адреса електронної пошти не призначена для жодного облікового запису"
+msgstr "Цей номер телефону не призначено для жодного облікового запису."
 
 #: account/adapter.py:81
 #: templates/account/messages/unverified_primary_email.txt:2
@@ -116,7 +111,7 @@ msgstr ""
 
 #: account/adapter.py:92
 msgid "The new value must be different from the current one."
-msgstr ""
+msgstr "Нове значення має відрізнятись від поточного."
 
 #: account/adapter.py:776
 msgid "Use your password"
@@ -142,10 +137,11 @@ msgstr "Облікові записи"
 #: account/fields.py:43
 msgid "Enter a phone number including country code (e.g. +1 for the US)."
 msgstr ""
+"Введіть номер телефону, включаючи код країни (наприклад +38 для України)."
 
 #: account/fields.py:49 account/fields.py:53 account/forms.py:370
 msgid "Phone"
-msgstr ""
+msgstr "Номер телефону"
 
 #: account/forms.py:62 account/forms.py:562
 msgid "You must type the same password each time."
@@ -181,26 +177,20 @@ msgid "Login"
 msgstr "Вхід"
 
 #: account/forms.py:152
-#, fuzzy
-#| msgid "Username or email"
 msgid "Username, email or phone"
-msgstr "Ім'я користувача або електронна пошта"
+msgstr "Ім'я користувача, електронна пошта або номер телефону"
 
 #: account/forms.py:154
 msgid "Username or email"
 msgstr "Ім'я користувача або електронна пошта"
 
 #: account/forms.py:156
-#, fuzzy
-#| msgid "Username or email"
 msgid "Username or phone"
-msgstr "Ім'я користувача або електронна пошта"
+msgstr "Ім'я користувача або номер телефону"
 
 #: account/forms.py:158
-#, fuzzy
-#| msgid "Email (optional)"
 msgid "Email or phone"
-msgstr "Електронна пошта (необов'язково)"
+msgstr "Електронна пошта або номер телефону"
 
 #: account/forms.py:181
 msgid "Forgot your password?"
@@ -219,10 +209,8 @@ msgid "Email (optional)"
 msgstr "Електронна пошта (необов'язково)"
 
 #: account/forms.py:359
-#, fuzzy
-#| msgid "Email (optional)"
 msgid "Username (optional)"
-msgstr "Електронна пошта (необов'язково)"
+msgstr "Ім'я користувача (необов'язково)"
 
 #: account/forms.py:441
 msgid "You must type the same email each time."
@@ -560,16 +548,13 @@ msgid "This account is inactive."
 msgstr "Цей обліковий запис неактивний."
 
 #: templates/account/base_confirm_code.html:27
-#, fuzzy, python-format
-#| msgid ""
-#| "We’ve sent a code to %(email_link)s. The code expires shortly, so please "
-#| "enter it soon."
+#, python-format
 msgid ""
 "We've sent a code to %(recipient)s. The code expires shortly, so please "
 "enter it soon."
 msgstr ""
-"Ми відправили код на %(email_link)s. Код скоро застаріє, тому будь ласка, "
-"введіть його найближчим часом."
+"Ми відправили код на %(recipient)s. Код скоро застаріє, тому будь ласка, "
+"введіть його якнайшвидше."
 
 #: templates/account/base_confirm_code.html:38
 #: templates/account/email_confirm.html:24
@@ -595,16 +580,12 @@ msgid "Alternative options"
 msgstr "Альтернативні варіанти"
 
 #: templates/account/confirm_email_verification_code.html:5
-#, fuzzy
-#| msgid "Email Confirmation"
 msgid "Email Verification"
-msgstr "Підтвердження Електронної Пошти"
+msgstr "Підтвердження електронної пошти"
 
 #: templates/account/confirm_email_verification_code.html:8
-#, fuzzy
-#| msgid "Enter an authenticator code:"
 msgid "Enter Email Verification Code"
-msgstr "Введіть код з аутентифікаційного додатка:"
+msgstr "Введіть код з підтвердження електронної пошти:"
 
 #: templates/account/confirm_login_code.html:5 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
@@ -631,22 +612,16 @@ msgid "Password Reset"
 msgstr "Відновлення Пароля"
 
 #: templates/account/confirm_password_reset_code.html:8
-#, fuzzy
-#| msgid "Password Reset"
 msgid "Enter Password Reset Code"
-msgstr "Відновлення Пароля"
+msgstr "Введіть код відновлення паролю"
 
 #: templates/account/confirm_phone_verification_code.html:5
-#, fuzzy
-#| msgid "Re-send Verification"
 msgid "Phone Verification"
-msgstr "Надіслати Повторне Підтвердження"
+msgstr "Підтвердження номеру телефона"
 
 #: templates/account/confirm_phone_verification_code.html:8
-#, fuzzy
-#| msgid "Enter an authenticator code:"
 msgid "Enter Phone Verification Code"
-msgstr "Введіть код з аутентифікаційного додатка:"
+msgstr "Введіть код підтвердження номеру телефона:"
 
 #: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
@@ -785,37 +760,28 @@ msgid "Email Confirmation"
 msgstr "Підтвердження Електронної Пошти"
 
 #: templates/account/email/email_confirmation_message.txt:5
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this email because user %(user_display)s has given your "
-#| "email address to register an account on %(site_domain)s.\n"
-#| "\n"
-#| "To confirm this is correct, go to %(activate_url)s"
+#, python-format
 msgid ""
 "You're receiving this email because user %(user_display)s has given your "
 "email address to register an account on %(site_domain)s."
 msgstr ""
 "Ви отримали цей лист, оскільки користувач %(user_display)s вказав вашу "
-"електронну пошту для реєстрації облікового запису на %(site_domain)s.\n"
-"\n"
-"Для підтвердження цього відкрийте %(activate_url)s"
+"електронну пошту для реєстрації облікового запису на %(site_domain)s."
 
 #: templates/account/email/email_confirmation_message.txt:7
-#, fuzzy
-#| msgid ""
-#| "Your sign-in code is listed below. Please enter it in your open browser "
-#| "window."
 msgid ""
 "Your email verification code is listed below. Please enter it in your open "
 "browser window."
 msgstr ""
-"Нижче наведений код для входу. Будь ласка, введіть його у відкритому вікні "
-"браузера."
+"Нижче наведено код підтвердження електронної пошти. Введіть його у "
+"відкритому вікні браузера."
 
 #: templates/account/email/email_confirmation_message.txt:9
 #, python-format
 msgid "To confirm this is correct, go to %(activate_url)s"
 msgstr ""
+"Для підтвердження реєстрації перейдіть за наступним посиланням: "
+"%(activate_url)s"
 
 #: templates/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your Email Address"
@@ -859,22 +825,16 @@ msgid "Password Changed"
 msgstr "Пароль Змінено"
 
 #: templates/account/email/password_reset_code_message.txt:5
-#, fuzzy
-#| msgid ""
-#| "Your sign-in code is listed below. Please enter it in your open browser "
-#| "window."
 msgid ""
 "Your password reset code is listed below. Please enter it in your open "
 "browser window."
 msgstr ""
-"Нижче наведений код для входу. Будь ласка, введіть його у відкритому вікні "
+"Нижче наведений код відновлення паролю. Введіть його у відкритому вікні "
 "браузера."
 
 #: templates/account/email/password_reset_code_subject.txt:3
-#, fuzzy
-#| msgid "Password Reset"
 msgid "Password Reset Code"
-msgstr "Відновлення Пароля"
+msgstr "Код відновлення паролю"
 
 #: templates/account/email/password_reset_key_message.txt:4
 msgid ""
@@ -1056,10 +1016,9 @@ msgid "You have signed out."
 msgstr "Ви вийшли."
 
 #: templates/account/messages/login_code_sent.txt:2
-#, fuzzy, python-format
-#| msgid "A sign-in code has been mailed to %(email)s."
+#, python-format
 msgid "A sign-in code has been sent to %(recipient)s."
-msgstr "Код для входу було надіслано на %(email)s."
+msgstr "Код для входу було надіслано на %(recipient)s."
 
 #: templates/account/messages/password_changed.txt:2
 msgid "Password successfully changed."
@@ -1072,7 +1031,7 @@ msgstr "Пароль успішно встановлено."
 #: templates/account/messages/phone_verified.txt:2
 #, python-format
 msgid "You have verified phone number %(phone)s."
-msgstr ""
+msgstr "Номер телефону %(phone)s підтверджено."
 
 #: templates/account/messages/primary_email_set.txt:2
 msgid "Primary email address set."
@@ -1147,35 +1106,24 @@ msgstr "Встановити Пароль"
 
 #: templates/account/phone_change.html:5 templates/account/phone_change.html:9
 #: templates/account/phone_change.html:38
-#, fuzzy
-#| msgid "Change to"
 msgid "Change Phone"
-msgstr "Зміна на"
+msgstr "Змінити номер телефону"
 
 #: templates/account/phone_change.html:18
-#, fuzzy
-#| msgid "Current"
 msgid "Current phone"
-msgstr "Поточний"
+msgstr "Поточний номер телефону"
 
 #: templates/account/phone_change.html:22
-#, fuzzy
-#| msgid "Your email address is still pending verification."
 msgid "Your phone number is still pending verification."
-msgstr "Ваша адреса електронної пошти ще не підтверджена."
+msgstr "Ваш номер телефону ще не підтверджено."
 
 #: templates/account/reauthenticate.html:6
 msgid "Enter your password:"
 msgstr "Введіть ваш пароль:"
 
 #: templates/account/request_login_code.html:12
-#, fuzzy
-#| msgid ""
-#| "You will receive an email containing a special code for a password-free "
-#| "sign-in."
 msgid "You will receive a special code for a password-free sign-in."
-msgstr ""
-"Ви отримаєте електронного листа з особливим кодом для входу без пароля."
+msgstr "Ви отримаєте особливий код для входу без пароля."
 
 #: templates/account/request_login_code.html:24
 msgid "Request Code"
@@ -1204,22 +1152,16 @@ msgstr ""
 "Вже маєте обліковий запис? Тоді будь ласка, %(link)sувійти%(end_link)s."
 
 #: templates/account/signup.html:39
-#, fuzzy
-#| msgid "Sign in with a passkey"
 msgid "Sign up using a passkey"
-msgstr "Увійти за допомогою пароль-ключа"
+msgstr "Зареєструватися за допомогою ключа доступу"
 
 #: templates/account/signup_by_passkey.html:8
-#, fuzzy
-#| msgid "Sign Up"
 msgid "Passkey Sign Up"
-msgstr "Зареєструватись"
+msgstr "Реєстрація за допомогою ключа доступу"
 
 #: templates/account/signup_by_passkey.html:36
-#, fuzzy
-#| msgid "Other sign-in options"
 msgid "Other options"
-msgstr "Інші варіанти входу"
+msgstr "Інші варіанти"
 
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:9
@@ -1546,7 +1488,7 @@ msgstr ""
 
 #: templates/mfa/trust.html:4 templates/mfa/trust.html:8
 msgid "Trust this Browser?"
-msgstr ""
+msgstr "Довіряти цьому браузеру?"
 
 #: templates/mfa/trust.html:11
 msgid ""
@@ -1557,11 +1499,11 @@ msgstr ""
 #: templates/mfa/trust.html:23
 #, python-format
 msgid "Trust for %(period)s"
-msgstr ""
+msgstr "Довіряти протягом %(period)s"
 
 #: templates/mfa/trust.html:26
 msgid "Don't Trust"
-msgstr ""
+msgstr "Не довіряти"
 
 #: templates/mfa/webauthn/add_form.html:7
 msgid "Add Security Key"
@@ -1618,23 +1560,23 @@ msgid "Save"
 msgstr "Зберегти"
 
 #: templates/mfa/webauthn/signup_form.html:7
-#, fuzzy
-#| msgid "Passkey"
 msgid "Create Passkey"
-msgstr "пароль-ключ"
+msgstr "Створити ключ доступу"
 
 #: templates/mfa/webauthn/signup_form.html:10
+#, fuzzy
 msgid ""
 "You are about to create a passkey for your account. As you can add "
 "additional keys later on, you can use a descriptive name to tell the keys "
 "apart."
 msgstr ""
+"Ви створюєте ключ доступу до вашого облікового запису. Оскільки можна "
+"створити більше за один ключ доступу, ви можете обрати назву для "
+"ідентифікації кожного з них."
 
 #: templates/mfa/webauthn/signup_form.html:21
-#, fuzzy
-#| msgid "created"
 msgid "Create"
-msgstr "створено"
+msgstr "Створити"
 
 #: templates/mfa/webauthn/snippets/scripts.html:2
 msgid "This functionality requires JavaScript."

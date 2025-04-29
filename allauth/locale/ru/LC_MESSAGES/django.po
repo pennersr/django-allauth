@@ -8,18 +8,18 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-27 08:37-0500\n"
-"PO-Revision-Date: 2024-11-22 19:00+0000\n"
-"Last-Translator: Reser21 <is.galyaveev@yandex.ru>\n"
-"Language-Team: Russian <https://hosted.weblate.org/projects/allauth/django-"
-"allauth/ru/>\n"
+"PO-Revision-Date: 2025-04-29 20:32+0000\n"
+"Last-Translator: Anastasia Goryacheva <tyanas.go@gmail.com>\n"
+"Language-Team: Russian <https://hosted.weblate.org/projects/allauth/"
+"django-allauth/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.9-dev\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.12-dev\n"
 
 #: account/adapter.py:55
 msgid "This account is currently inactive."
@@ -38,10 +38,8 @@ msgid "The email address and/or password you specified are not correct."
 msgstr "Указанные вами адрес электронной почты и/или пароль неверны."
 
 #: account/adapter.py:66
-#, fuzzy
-#| msgid "The username and/or password you specified are not correct."
 msgid "The phone number and/or password you specified are not correct."
-msgstr "Имя пользователя и/или пароль неверны."
+msgstr "Номер телефона и/или пароль неверны."
 
 #: account/adapter.py:68
 msgid "A user is already registered with this email address."
@@ -90,10 +88,8 @@ msgid "The email address is not assigned to any user account."
 msgstr "Адрес электронной почты не закреплен ни за одной учетной записью"
 
 #: account/adapter.py:80
-#, fuzzy
-#| msgid "The email address is not assigned to any user account"
 msgid "The phone number is not assigned to any user account."
-msgstr "Адрес электронной почты не закреплен ни за одной учетной записью"
+msgstr "Номер телефона  не привязан ни к одной учетной записи пользователя."
 
 #: account/adapter.py:81
 #: templates/account/messages/unverified_primary_email.txt:2
@@ -110,11 +106,11 @@ msgstr "Имя пользователя и/или пароль неверны."
 
 #: account/adapter.py:91
 msgid "Please select only one."
-msgstr ""
+msgstr "Пожалуйста, выберите только один вариант."
 
 #: account/adapter.py:92
 msgid "The new value must be different from the current one."
-msgstr ""
+msgstr "Новое значение должно отличаться от текущего."
 
 #: account/adapter.py:776
 msgid "Use your password"
@@ -140,10 +136,12 @@ msgstr "Аккаунты"
 #: account/fields.py:43
 msgid "Enter a phone number including country code (e.g. +1 for the US)."
 msgstr ""
+"Введите номер телефона, включая код страны (например, +7 для России или "
+"Казахстана)."
 
 #: account/fields.py:49 account/fields.py:53 account/forms.py:370
 msgid "Phone"
-msgstr ""
+msgstr "Номер телефона"
 
 #: account/forms.py:62 account/forms.py:562
 msgid "You must type the same password each time."
@@ -179,26 +177,20 @@ msgid "Login"
 msgstr "Войти"
 
 #: account/forms.py:152
-#, fuzzy
-#| msgid "Username or email"
 msgid "Username, email or phone"
-msgstr "Имя пользователя или e-mail"
+msgstr "Имя пользователя, электронная почта или номер телефона"
 
 #: account/forms.py:154
 msgid "Username or email"
 msgstr "Имя пользователя или e-mail"
 
 #: account/forms.py:156
-#, fuzzy
-#| msgid "Username or email"
 msgid "Username or phone"
-msgstr "Имя пользователя или e-mail"
+msgstr "Имя пользователя или номер телефона"
 
 #: account/forms.py:158
-#, fuzzy
-#| msgid "Email (optional)"
 msgid "Email or phone"
-msgstr "E-mail (опционально)"
+msgstr "Электронная почта или номер телефона"
 
 #: account/forms.py:181
 msgid "Forgot your password?"
@@ -217,10 +209,8 @@ msgid "Email (optional)"
 msgstr "E-mail (опционально)"
 
 #: account/forms.py:359
-#, fuzzy
-#| msgid "Email (optional)"
 msgid "Username (optional)"
-msgstr "E-mail (опционально)"
+msgstr "Имя пользователя (опционально)"
 
 #: account/forms.py:441
 msgid "You must type the same email each time."
@@ -346,7 +336,7 @@ msgstr "Аутентификатор TOTP"
 
 #: mfa/models.py:26
 msgid "WebAuthn"
-msgstr ""
+msgstr "Ключ WebAuthn"
 
 #: mfa/totp/forms.py:11
 msgid "Authenticator code"
@@ -552,15 +542,12 @@ msgid "This account is inactive."
 msgstr "Этот аккаунт неактивен."
 
 #: templates/account/base_confirm_code.html:27
-#, fuzzy, python-format
-#| msgid ""
-#| "We’ve sent a code to %(email_link)s. The code expires shortly, so please "
-#| "enter it soon."
+#, python-format
 msgid ""
 "We've sent a code to %(recipient)s. The code expires shortly, so please "
 "enter it soon."
 msgstr ""
-"Мы отправили код на адрес %(email_link)s. Срок действия кода скоро истечет, "
+"Мы отправили код на адрес %(recipient)s. Срок действия кода скоро истечет, "
 "поэтому, пожалуйста, введите его как можно скорее."
 
 #: templates/account/base_confirm_code.html:38
@@ -619,22 +606,16 @@ msgid "Password Reset"
 msgstr "Сброс пароля"
 
 #: templates/account/confirm_password_reset_code.html:8
-#, fuzzy
-#| msgid "Password Reset"
 msgid "Enter Password Reset Code"
-msgstr "Сброс пароля"
+msgstr "Введите код для сброса пароля"
 
 #: templates/account/confirm_phone_verification_code.html:5
-#, fuzzy
-#| msgid "Re-send Verification"
 msgid "Phone Verification"
-msgstr "Отправить подтверждение ещё раз"
+msgstr "Подтверждение номера телефона"
 
 #: templates/account/confirm_phone_verification_code.html:8
-#, fuzzy
-#| msgid "Enter Email Verification Code"
 msgid "Enter Phone Verification Code"
-msgstr "Введите код подтверждения электронной почты:"
+msgstr "Введите код подтверждения номера телефона"
 
 #: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
@@ -837,22 +818,16 @@ msgid "Password Changed"
 msgstr "Пароль Изменён"
 
 #: templates/account/email/password_reset_code_message.txt:5
-#, fuzzy
-#| msgid ""
-#| "Your sign-in code is listed below. Please enter it in your open browser "
-#| "window."
 msgid ""
 "Your password reset code is listed below. Please enter it in your open "
 "browser window."
 msgstr ""
-"Ваш регистрационный код указан ниже. Пожалуйста, введите его в открытом окне "
-"вашего браузера."
+"Ваш код для сброса пароля указан ниже. Пожалуйста, введите его в открытом "
+"окне вашего браузера."
 
 #: templates/account/email/password_reset_code_subject.txt:3
-#, fuzzy
-#| msgid "Password Reset"
 msgid "Password Reset Code"
-msgstr "Сброс пароля"
+msgstr "Код для сброса пароля"
 
 #: templates/account/email/password_reset_key_message.txt:4
 msgid ""
@@ -1033,10 +1008,10 @@ msgid "You have signed out."
 msgstr "Вы вышли."
 
 #: templates/account/messages/login_code_sent.txt:2
-#, fuzzy, python-format
-#| msgid "A sign-in code has been mailed to %(email)s."
+#, python-format
 msgid "A sign-in code has been sent to %(recipient)s."
-msgstr "Код для входа был отправлен по электронной почте на адрес %(email)s."
+msgstr ""
+"Код для входа был отправлен по электронной почте на адрес %(recipient)s."
 
 #: templates/account/messages/password_changed.txt:2
 msgid "Password successfully changed."
@@ -1049,7 +1024,7 @@ msgstr "Пароль успешно установлен."
 #: templates/account/messages/phone_verified.txt:2
 #, python-format
 msgid "You have verified phone number %(phone)s."
-msgstr ""
+msgstr "Вы только что подтвердили номер телефона %(phone)s."
 
 #: templates/account/messages/primary_email_set.txt:2
 msgid "Primary email address set."
@@ -1121,36 +1096,24 @@ msgstr "Установить пароль"
 
 #: templates/account/phone_change.html:5 templates/account/phone_change.html:9
 #: templates/account/phone_change.html:38
-#, fuzzy
-#| msgid "Change to"
 msgid "Change Phone"
-msgstr "Изменить на"
+msgstr "Изменить номер телефона"
 
 #: templates/account/phone_change.html:18
-#, fuzzy
-#| msgid "Current"
 msgid "Current phone"
-msgstr "Текущий"
+msgstr "Текущий номер телефона"
 
 #: templates/account/phone_change.html:22
-#, fuzzy
-#| msgid "Your email address is still pending verification."
 msgid "Your phone number is still pending verification."
-msgstr "Ваш адрес электронной почты ожидает подтверждения."
+msgstr "Ваш номер телефона по-прежнему ожидает подтверждения."
 
 #: templates/account/reauthenticate.html:6
 msgid "Enter your password:"
 msgstr "Введите пароль:"
 
 #: templates/account/request_login_code.html:12
-#, fuzzy
-#| msgid ""
-#| "You will receive an email containing a special code for a password-free "
-#| "sign-in."
 msgid "You will receive a special code for a password-free sign-in."
-msgstr ""
-"Вы получите электронное письмо, содержащее специальный код для входа в "
-"систему без пароля."
+msgstr "Вы получите специальный код для входа в систему без пароля."
 
 #: templates/account/request_login_code.html:24
 msgid "Request Code"
@@ -1515,22 +1478,24 @@ msgstr ""
 
 #: templates/mfa/trust.html:4 templates/mfa/trust.html:8
 msgid "Trust this Browser?"
-msgstr ""
+msgstr "Доверять этому браузеру?"
 
 #: templates/mfa/trust.html:11
 msgid ""
 "If you choose to trust this browser, you will not be asked for a "
 "verification code the next time you sign in."
 msgstr ""
+"Если вы решите доверять этому браузеру, у вас не будут запрашивать "
+"проверочный код при следующем входе в систему."
 
 #: templates/mfa/trust.html:23
 #, python-format
 msgid "Trust for %(period)s"
-msgstr ""
+msgstr "Доверять в течение %(period)s"
 
 #: templates/mfa/trust.html:26
 msgid "Don't Trust"
-msgstr ""
+msgstr "Не доверять"
 
 #: templates/mfa/webauthn/add_form.html:7
 msgid "Add Security Key"
@@ -1546,53 +1511,49 @@ msgstr "Вы уверены, что хотите удалить этот клю�
 
 #: templates/mfa/webauthn/authenticator_list.html:21
 msgid "Usage"
-msgstr ""
+msgstr "Использование"
 
 #: templates/mfa/webauthn/authenticator_list.html:33
 msgid "Passkey"
-msgstr ""
+msgstr "Ключ доступа (passkey)"
 
 #: templates/mfa/webauthn/authenticator_list.html:37
-#, fuzzy
 msgid "Security key"
-msgstr "секретный ключ"
+msgstr "Ключ безопасности (Security key)"
 
 #: templates/mfa/webauthn/authenticator_list.html:40
 msgid "This key does not indicate whether it is a passkey."
-msgstr ""
+msgstr "Этот ключ не указывает, является ли он паролем доступа."
 
 #: templates/mfa/webauthn/authenticator_list.html:41
-#, fuzzy
 msgid "Unspecified"
-msgstr "Не подтвержден"
+msgstr "Не указан"
 
 #: templates/mfa/webauthn/authenticator_list.html:46
 #, python-format
 msgid "Added on %(created_at)s"
-msgstr ""
+msgstr "Добавлено %(created_at)s"
 
 #: templates/mfa/webauthn/authenticator_list.html:48
 #, python-format
 msgid "Last used %(last_used)s"
-msgstr ""
+msgstr "Последний раз использовалось %(last_used)s"
 
 #: templates/mfa/webauthn/authenticator_list.html:56
 msgid "Edit"
-msgstr ""
+msgstr "Редактировать"
 
 #: templates/mfa/webauthn/edit_form.html:7
-#, fuzzy
 msgid "Edit Security Key"
-msgstr "секретный ключ"
+msgstr "Редактировать ключ безопасности"
 
 #: templates/mfa/webauthn/edit_form.html:18
 msgid "Save"
-msgstr ""
+msgstr "Сохранить"
 
 #: templates/mfa/webauthn/signup_form.html:7
-#, fuzzy
 msgid "Create Passkey"
-msgstr "Текущий пароль"
+msgstr "Создать ключ доступа (passkey)"
 
 #: templates/mfa/webauthn/signup_form.html:10
 msgid ""
@@ -1600,6 +1561,9 @@ msgid ""
 "additional keys later on, you can use a descriptive name to tell the keys "
 "apart."
 msgstr ""
+"Вы собираетесь создать ключ доступа (passkey) для своей учётной записи. "
+"Поскольку вы сможете добавить дополнительные ключи позже, рекомендуется "
+"использовать описательное название, чтобы различать их."
 
 #: templates/mfa/webauthn/signup_form.html:21
 msgid "Create"

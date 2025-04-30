@@ -202,7 +202,7 @@ msgstr "E-mail (nepovinné)"
 
 #: account/forms.py:181
 msgid "Forgot your password?"
-msgstr "Zapoměli jste heslo?"
+msgstr "Zapomněli jste heslo?"
 
 #: account/forms.py:332
 msgid "Email (again)"

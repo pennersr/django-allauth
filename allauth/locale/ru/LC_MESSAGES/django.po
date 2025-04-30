@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-27 08:37-0500\n"
 "PO-Revision-Date: 2025-04-30 08:46+0000\n"
-"Last-Translator: Anastasia Goryacheva <a.e.goryacheva@gmail.com>\n"
+"Last-Translator: Anastasia Goryacheva <tyanas.go@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/allauth/"
 "django-allauth/ru/>\n"
 "Language: ru\n"
@@ -1525,7 +1525,7 @@ msgstr "Этот ключ не указывает, является ли он п
 
 #: templates/mfa/webauthn/authenticator_list.html:41
 msgid "Unspecified"
-msgstr "Не указан"
+msgstr "Не подтвержден"
 
 #: templates/mfa/webauthn/authenticator_list.html:46
 #, python-format

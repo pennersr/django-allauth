@@ -9,4 +9,3 @@ Common Functionality
    templates
    messages
    admin
-   https

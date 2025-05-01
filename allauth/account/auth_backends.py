@@ -121,7 +121,7 @@ class AuthenticationBackend(ModelBackend):
         we can then unstash this user and proceed pointing the user to the
         account inactive page.
         """
-        global _stash
+        global _stash  # noqa: F824
         ret = getattr(_stash, "user", None)
         _stash.user = user
         return ret

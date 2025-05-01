@@ -1,7 +1,7 @@
 {
   "name": "django-allauth",
   "devDependencies": {
-    "standard": "^17.1.0"
+    "standard": "^17.1.2"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

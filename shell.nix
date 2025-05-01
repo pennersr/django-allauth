@@ -10,6 +10,7 @@ stdenv.mkDerivation {
         python311
         python311Packages.bandit
         python311Packages.mypy
+        python311Packages.nox
         python311Packages.django-stubs
         python311Packages.types-requests
         python311Packages.django

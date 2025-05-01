@@ -1,9 +1,12 @@
+import urllib.error
 from unittest.mock import Mock, patch
 
 from django.contrib.auth import get_user_model
 from django.test import override_settings
 from django.urls import reverse
 
+import pytest
+from openid import fetchers
 from openid.consumer import consumer
 
 from allauth.socialaccount.models import SocialAccount
@@ -12,13 +15,47 @@ from . import views
 from .utils import AXAttribute
 
 
+class TestFetcher(fetchers.Urllib2Fetcher):
+    def fetch(self, url, body=None, headers=None):
+        if url == "https://steamcommunity.com/openid":
+            return fetchers.HTTPResponse(
+                final_url="https://steamcommunity.com/openid",
+                status=200,
+                headers={"content-type": "application/xrds+xml;charset=utf-8"},
+                body='<?xml version="1.0" encoding="UTF-8"?>\n<xrds:XRDS xmlns:xrds="xri://$xrds" xmlns="xri://$xrd*($v*2.0)">\n\t<XRD>\n\t\t<Service priority="0">\n\t\t\t<Type>http://specs.openid.net/auth/2.0/server</Type>\t\t\n\t\t\t<URI>https://steamcommunity.com/openid/login</URI>\n\t\t</Service>\n\t</XRD>\n</xrds:XRDS>',
+            )
+        if url == "https://steamcommunity.com/openid/login":
+            return fetchers.HTTPResponse(
+                final_url="https://steamcommunity.com/openid/login",
+                status=200,
+                headers={"content-type": "text/plain;charset=utf-8"},
+                body="ns:http://specs.openid.net/auth/2.0\nerror_code:unsupported-type\nerror:Associations not supported\n",
+            )
+
+        if url == "https://discovery-failure.com/":
+            raise urllib.error.URLError
+        ret = super().fetch(url, body=body, headers=headers)
+        breakpoint()
+        return ret
+
+
+@pytest.fixture(autouse=True)
+def setup_fetcher():
+    old_fetcher = fetchers.getDefaultFetcher()
+    fetchers.setDefaultFetcher(TestFetcher())
+    yield
+    fetchers.setDefaultFetcher(old_fetcher)
+
+
 def test_discovery_failure(client):
     """
     This used to generate a server 500:
     DiscoveryFailure: No usable OpenID services found
     for http://www.google.com/
     """
-    resp = client.post(reverse("openid_login"), dict(openid="http://www.google.com"))
+    resp = client.post(
+        reverse("openid_login"), dict(openid="https://discovery-failure.com/")
+    )
     assert "openid" in resp.context["form"].errors
 
 

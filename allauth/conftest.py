@@ -472,6 +472,15 @@ def user_with_phone(user, phone):
 
 
 def pytest_ignore_collect(path, config):
+    from tests.common.settings import INSTALLED_SOCIALACCOUNT_APPS
+
+    if "allauth.socialaccount.providers.saml" not in INSTALLED_SOCIALACCOUNT_APPS:
+        if (
+            Path(__file__).parent / "socialaccount" / "providers" / "saml"
+            in Path(path).parents
+        ):
+            return True
+
     tests_to_skip = {
         "tests.account_only.settings": (
             "headless",

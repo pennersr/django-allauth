@@ -34,7 +34,7 @@ Example override::
     MFA_FORMS = {
         'authenticate': 'mysite.forms.MyCustomAuthenticateForm',
         'reauthenticate': 'mysite.forms.MyCustomReauthenticateForm',
-        'authenticate_webauthn: 'mysite.forms.MyCustomAuthenticateWebAuthnForm',
+        'authenticate_webauthn': 'mysite.forms.MyCustomAuthenticateWebAuthnForm',
     }
 
 Activate TOTP

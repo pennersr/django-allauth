@@ -2,7 +2,7 @@ Keycloak
 --------
 
 Starting since version 0.56.0, the builtin Keycloak provider has been removed in
-favor of relying on the OpenID Connect provider as is:
+favor of relying on the :doc:`openid_connect` provider as is:
 
 .. code-block:: python
 
@@ -21,3 +21,8 @@ favor of relying on the OpenID Connect provider as is:
           ]
       }
   }
+
+Additional Authorization Request Parameters
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+See :ref:`oauth2-authorization-request-parameters`.

@@ -48,3 +48,8 @@ This configuration example will create two independent provider instances,
 The OpenID Connect callback URL for each configured server is at
 ``/accounts/oidc/{id}/login/callback/`` where ``{id}`` is the configured app's
 ``provider_id`` value (``my-server`` or ``other-server`` in the above example).
+
+Authentication Request's Optional Parameters
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+See :ref:`oauth2-authentication-optional-parameters`.

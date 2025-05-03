@@ -2,7 +2,7 @@ Apple
 -----
 
 App registration (create an App ID and then a related Service ID here)
-    https://developer.apple.com/account/resources/certificates/list
+    https://developer.apple.com/account/resources/identifiers/list
 
 Private Key registration (be sure to save it)
     https://developer.apple.com/account/resources/authkeys/list

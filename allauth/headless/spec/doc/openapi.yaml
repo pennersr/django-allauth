@@ -2483,31 +2483,32 @@ components:
         The phone number.
       example: "+314159265359"
     Login:
-      type: object
-      properties:
-        password:
-          $ref: "#/components/schemas/Password"
-      required:
-        - password
-      anyOf:
-        - title: Login by username
+      allOf:
+        - type: object
           properties:
-            username:
-              $ref: "#/components/schemas/Username"
+            password:
+              $ref: "#/components/schemas/Password"
           required:
-            - username
-        - title: Login by email
-          properties:
-            email:
-              $ref: "#/components/schemas/Email"
-          required:
-            - email
-        - title: Login by phone
-          properties:
-            phone:
-              $ref: "#/components/schemas/Phone"
-          required:
-            - phone
+            - password
+        - anyOf:
+            - title: Login by username
+              properties:
+                username:
+                  $ref: "#/components/schemas/Username"
+              required:
+                - username
+            - title: Login by email
+              properties:
+                email:
+                  $ref: "#/components/schemas/Email"
+              required:
+                - email
+            - title: Login by phone
+              properties:
+                phone:
+                  $ref: "#/components/schemas/Phone"
+              required:
+                - phone
     StatusOK:
       type: integer
       enum:

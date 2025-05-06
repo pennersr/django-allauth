@@ -70,7 +70,7 @@ def process_auto_signup(request, sociallogin):
             # address. Instead, we're going to send the user an email that
             # the account already exists, and on the outside make it appear
             # as if an email verification mail was sent.
-            resp = prevent_enumeration(request, email)
+            resp = prevent_enumeration(request, email=email)
             return False, resp
     elif app_settings.EMAIL_REQUIRED:
         # Nope, email is required and we don't have it yet...

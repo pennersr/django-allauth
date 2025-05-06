@@ -37,7 +37,7 @@ class PhoneVerificationProcess(AbstractCodeVerificationProcess):
     def phone(self):
         return self.state["phone"]
 
-    def send(self):
+    def send(self) -> None:
         adapter = get_adapter()
         code = adapter.generate_phone_verification_code()
         adapter.send_verification_code_sms(
@@ -85,6 +85,16 @@ class PhoneVerificationStageProcess(PhoneVerificationProcess):
             return None
         process = PhoneVerificationStageProcess(stage)
         return process.abort_if_invalid()
+
+    def send(self) -> None:
+        if not self.stage.login.user:
+            adapter = get_adapter()
+            if self.stage.login.signup:
+                adapter.send_account_already_exists_sms(self.phone)
+            else:
+                adapter.send_unknown_account_sms(self.phone)
+            return
+        return super().send()
 
 
 class ChangePhoneVerificationProcess(PhoneVerificationProcess):

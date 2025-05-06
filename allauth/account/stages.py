@@ -205,12 +205,17 @@ class PhoneVerificationStage(LoginStage):
             return None, True
         adapter = get_adapter()
 
-        phone_verified = adapter.get_phone(self.login.user)
-        if phone_verified is None:
-            return None, (not phone_field["required"])
-        phone, verified = phone_verified
-        if verified or not app_settings.PHONE_VERIFICATION_ENABLED:
-            return None, True
+        if self.login.user:
+            phone_verified = adapter.get_phone(self.login.user)
+            if phone_verified is None:
+                return None, (not phone_field["required"])
+            phone, verified = phone_verified
+            if verified or not app_settings.PHONE_VERIFICATION_ENABLED:
+                return None, True
+        else:
+            phone = self.login.phone
+            if not phone:
+                return None, True
         phone_verification.PhoneVerificationStageProcess.initiate(
             stage=self, phone=phone
         )

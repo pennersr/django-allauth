@@ -28,3 +28,6 @@ class AccountAdapter(DefaultAccountAdapter):
 
     def send_unknown_account_sms(self, phone: str):
         phone_stub.send_unknown_account_sms(phone)
+
+    def send_account_already_exists_sms(self, phone: str):
+        phone_stub.send_account_already_exists_sms(phone)

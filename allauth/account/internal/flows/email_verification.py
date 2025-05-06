@@ -6,7 +6,11 @@ from django.urls import reverse
 
 from allauth.account import app_settings, signals
 from allauth.account.adapter import get_adapter
+from allauth.account.internal.flows.email_verification_by_code import (
+    EmailVerificationProcess,
+)
 from allauth.account.internal.flows.manage_email import emit_email_changed
+from allauth.account.internal.flows.signup import send_unknown_account_mail
 from allauth.account.models import EmailAddress, Login
 from allauth.core import ratelimit
 from allauth.core.exceptions import ImmediateHttpResponse
@@ -166,7 +170,9 @@ def handle_verification_email_rate_limit(request, email: str) -> bool:
     return rl_ok
 
 
-def send_verification_email(request, user, signup=False, email=None) -> bool:
+def send_verification_email(
+    request: HttpRequest, user, signup: bool = False, email=None
+) -> bool:
     """
     Email verification mails are sent:
     a) Explicitly: when a user signs up
@@ -183,53 +189,70 @@ def send_verification_email(request, user, signup=False, email=None) -> bool:
     """
     from allauth.account.utils import user_email
 
-    adapter = get_adapter()
     sent = False
-    email_address = None
-    if not email:
-        email = user_email(user)
-    if not email:
-        email_address = (
-            EmailAddress.objects.filter(user=user).order_by("verified", "pk").first()
-        )
-        if email_address:
-            email = email_address.email
-
-    if email:
-        if email_address is None:
-            try:
-                email_address = EmailAddress.objects.get_for_user(user, email)
-            except EmailAddress.DoesNotExist:
-                pass
-        if email_address is not None:
-            if not email_address.verified:
-                send_email = handle_verification_email_rate_limit(
-                    request, email_address.email
-                )
-                if send_email:
-                    send_email = adapter.should_send_confirmation_mail(
-                        request, email_address, signup
-                    )
-                if send_email:
-                    email_address.send_confirmation(request, signup=signup)
-                    sent = True
-            else:
-                send_email = False
-        else:
-            send_email = True
-            email_address = EmailAddress.objects.add_email(
-                request, user, email, signup=signup, confirm=True
-            )
-            sent = True
-            assert email_address  # nosec
-        # At this point, if we were supposed to send an email we have sent it.
+    send_email = False
+    adapter = get_adapter()
+    if not user:
+        send_email = handle_verification_email_rate_limit(request, email)
         if send_email:
-            adapter.add_message(
-                request,
-                messages.INFO,
-                "account/messages/email_confirmation_sent.txt",
-                {"email": email, "login": not signup, "signup": signup},
+            if signup:
+                adapter.send_account_already_exists_mail(email)
+            else:
+                send_unknown_account_mail(request, email)
+            sent = True
+        EmailVerificationProcess.initiate(
+            request=request,
+            user=None,
+            email=email,
+        )
+    else:
+        email_address = None
+        if not email:
+            email = user_email(user)
+        if not email:
+            email_address = (
+                EmailAddress.objects.filter(user=user)
+                .order_by("verified", "pk")
+                .first()
             )
+            if email_address:
+                email = email_address.email
+
+        if email:
+            if email_address is None:
+                try:
+                    email_address = EmailAddress.objects.get_for_user(user, email)
+                except EmailAddress.DoesNotExist:
+                    pass
+            if email_address is not None:
+                if not email_address.verified:
+                    send_email = handle_verification_email_rate_limit(
+                        request, email_address.email
+                    )
+                    if send_email:
+                        send_email = adapter.should_send_confirmation_mail(
+                            request, email_address, signup
+                        )
+                    if send_email:
+                        email_address.send_confirmation(request, signup=signup)
+                        sent = True
+                else:
+                    send_email = False
+            else:
+                send_email = True
+                email_address = EmailAddress.objects.add_email(
+                    request, user, email, signup=signup, confirm=True
+                )
+                sent = True
+                assert email_address  # nosec
+            # At this point, if we were supposed to send an email we have sent it.
+    if send_email:
+        adapter.add_message(
+            request,
+            messages.INFO,
+            "account/messages/email_confirmation_sent.txt",
+            {"email": email, "login": not signup, "signup": signup},
+        )
     return sent
 
 

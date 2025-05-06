@@ -1,5 +1,7 @@
 import typing
 
+from django.db.utils import IntegrityError
+
 
 db: typing.Dict[int, typing.Tuple[str, bool]] = {}
 sms_outbox: typing.List[typing.Dict] = []
@@ -12,6 +14,9 @@ def clear():
 
 
 def set_phone(user_id, phone: str, verified: bool):
+    for other_user_id, value in db.items():
+        if user_id != other_user_id and value[0] == phone:
+            raise IntegrityError
     db[user_id] = (phone, verified)
 
 
@@ -30,7 +35,11 @@ def send_verification_code_sms(user, phone: str, code: str):
 
 
 def send_unknown_account_sms(phone: str):
-    sms_outbox.append({"phone": phone})
+    sms_outbox.append({"phone": phone, "reason": "unknon"})
+
+
+def send_account_already_exists_sms(phone: str):
+    sms_outbox.append({"phone": phone, "reason": "exists"})
 
 
 def get_user_id_by_phone(phone):

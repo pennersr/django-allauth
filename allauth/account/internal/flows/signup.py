@@ -1,16 +1,16 @@
 from importlib import import_module
+from typing import Optional
 
 from django import forms
-from django.contrib import messages
 from django.core import exceptions
 from django.http import HttpRequest, HttpResponse
 from django.urls import reverse
 
 from allauth.account import app_settings, signals
 from allauth.account.adapter import get_adapter
-from allauth.account.internal.flows import email_verification_by_code
 from allauth.account.internal.flows.login import perform_login
 from allauth.account.models import Login
+from allauth.core import context
 from allauth.core.internal.httpkit import get_frontend_url
 from allauth.utils import build_absolute_uri
 
@@ -63,21 +63,11 @@ def base_signup_form_class():
     return fc_class
 
 
-def prevent_enumeration(request: HttpRequest, email: str) -> HttpResponse:
-    adapter = get_adapter(request)
-    adapter.send_account_already_exists_mail(email)
-    adapter.add_message(
-        request,
-        messages.INFO,
-        "account/messages/email_confirmation_sent.txt",
-        {"email": email, "login": False, "signup": True},
-    )
-    if app_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED:
-        email_verification_by_code.EmailVerificationProcess.initiate(
-            request=request, user=None, email=email
-        )
-    resp = adapter.respond_email_verification_sent(request, None)
-    return resp
+def prevent_enumeration(
+    request: HttpRequest, email: Optional[str] = None, phone: Optional[str] = None
+) -> HttpResponse:
+    login = Login(user=None, email=email, phone=phone, signup=True)
+    return perform_login(context.request, login)
 
 
 def send_unknown_account_mail(request: HttpRequest, email: str) -> None:

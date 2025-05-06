@@ -82,9 +82,10 @@ def perform_password_login(
 def perform_login(request: HttpRequest, login: Login) -> HttpResponse:
     adapter = get_adapter()
     hook_kwargs = _get_login_hook_kwargs(login)
-    response = adapter.pre_login(request, login.user, **hook_kwargs)
-    if response:
-        return response
+    if login.user:
+        response = adapter.pre_login(request, login.user, **hook_kwargs)
+        if response:
+            return response
     return resume_login(request, login)
 
 

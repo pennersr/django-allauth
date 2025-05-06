@@ -73,6 +73,7 @@ class DefaultAccountAdapter(BaseAdapter):
         "invalid_login": _("Invalid login."),
         "invalid_password_reset": _("The password reset token was invalid."),
         "max_email_addresses": _("You cannot add more than %d email addresses."),
+        "phone_taken": _("A user is already registered with this phone number."),
         "too_many_login_attempts": _(
             "Too many failed login attempts. Try again later."
         ),
@@ -878,6 +879,9 @@ class DefaultAccountAdapter(BaseAdapter):
         is requested for an unlisted phone number, this method is invoked to
         send a text explaining that no account is on file.
         """
+        pass
+
+    def send_account_already_exists_sms(self, phone: str) -> None:
         pass
 
     def send_verification_code_sms(self, user, phone: str, code: str, **kwargs):

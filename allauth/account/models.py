@@ -240,6 +240,7 @@ class Login:
     signal_kwargs: Optional[Dict]
     signup: bool
     email: Optional[str]
+    phone: Optional[str]
     state: Dict
     initiated_at: float
     redirect_url: Optional[str]
@@ -254,6 +255,7 @@ class Login:
         email: Optional[str] = None,
         state: Optional[Dict] = None,
         initiated_at: Optional[float] = None,
+        phone: Optional[str] = None,
     ):
         self.user = user
         if not email_verification:
@@ -263,6 +265,7 @@ class Login:
         self.signal_kwargs = signal_kwargs
         self.signup = signup
         self.email = email
+        self.phone = phone
         self.state = {} if state is None else state
         self.initiated_at = initiated_at if initiated_at else time.time()
 
@@ -283,6 +286,7 @@ class Login:
             "signup": self.signup,
             "redirect_url": self.redirect_url,
             "email": self.email,
+            "phone": self.phone,
             "signal_kwargs": signal_kwargs,
             "state": self.state,
             "initiated_at": self.initiated_at,
@@ -314,6 +318,8 @@ class Login:
                 user=user,
                 email_verification=data["email_verification"],
                 redirect_url=data["redirect_url"],
+                email=data["email"],
+                phone=data["phone"],
                 signup=data["signup"],
                 signal_kwargs=signal_kwargs,
                 state=data["state"],

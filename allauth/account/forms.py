@@ -17,9 +17,7 @@ from django.utils.translation import gettext, gettext_lazy as _, pgettext
 from allauth.account.app_settings import LoginMethod
 from allauth.account.internal import flows
 from allauth.account.internal.flows.signup import base_signup_form_class
-from allauth.account.internal.stagekit import LOGIN_SESSION_KEY
 from allauth.account.internal.textkit import compare_code
-from allauth.account.stages import EmailVerificationStage
 from allauth.core import context, ratelimit
 from allauth.core.internal.httpkit import headed_redirect_response
 from allauth.utils import get_username_max_length, set_form_field_order
@@ -433,13 +431,30 @@ class BaseSignupForm(base_signup_form_class()):  # type: ignore[misc]
         return adapter.validate_unique_email(value)
 
     def clean(self):
-        cleaned_data = super(BaseSignupForm, self).clean()
+        cleaned_data = super().clean()
         if "email2" in self._signup_fields:
             email = cleaned_data.get("email")
             email2 = cleaned_data.get("email2")
             if (email and email2) and email != email2:
                 self.add_error("email2", _("You must type the same email each time."))
+
+        if "phone" in self._signup_fields:
+            self._clean_phone()
         return cleaned_data
+
+    def _clean_phone(self):
+        """Intentionally NOT `clean_phone()`:
+        - phone field is optional (depending on ACCOUNT_SIGNUP_FIELDS)
+        - we don't want to have clean_phone() mistakenly called when a project
+          is using a custom signup form with their own `phone` field.
+        """
+        adapter = get_adapter()
+        user = adapter.get_user_by_phone(self.cleaned_data["phone"])
+        if user:
+            if not app_settings.PREVENT_ENUMERATION:
+                self.add_error("phone", adapter.error_messages["phone_taken"])
+            else:
+                self.account_already_exists = True
 
     def custom_signup(self, request, user):
         self.signup(request, user)
@@ -452,11 +467,12 @@ class BaseSignupForm(base_signup_form_class()):  # type: ignore[misc]
         if self.account_already_exists:
             # Don't create a new account, only send an email informing the user
             # that (s)he already has one...
-            email = self.cleaned_data["email"]
-            resp = flows.signup.prevent_enumeration(request, email)
+            email = self.cleaned_data.get("email")
+            phone = None
+            if "phone" in self._signup_fields:
+                phone = self.cleaned_data.get("phone")
+            resp = flows.signup.prevent_enumeration(request, email=email, phone=phone)
             user = None
-            # Fake a login stage.
-            request.session[LOGIN_SESSION_KEY] = EmailVerificationStage.key
         else:
             user = self.save(request)
             resp = None

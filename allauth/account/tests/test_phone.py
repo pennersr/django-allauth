@@ -2,6 +2,7 @@ from http import HTTPStatus
 from unittest.mock import ANY
 
 from django.conf import settings
+from django.test import Client
 from django.urls import reverse
 
 import pytest
@@ -175,3 +176,20 @@ def test_reauthentication(
             {"phone": new_phone},
         )
         assert resp["location"].startswith(reverse("account_verify_phone"))
+
+
+def test_signup_conflict(db, phone, sms_outbox, phone_only_settings):
+    assert len(sms_outbox) == 0
+    client = Client()
+    resp = client.post(reverse("account_signup"), data={"phone": phone})
+    assert resp.status_code == HTTPStatus.FOUND
+    assert len(sms_outbox) == 1
+
+    client = Client()
+    resp = client.post(reverse("account_signup"), data={"phone": phone})
+    assert resp.status_code == HTTPStatus.FOUND
+    assert len(sms_outbox) == 2
+    assert sms_outbox == [
+        {"code": ANY, "phone": phone, "user_id": 1},
+        {"phone": phone, "reason": "exists"},
+    ]

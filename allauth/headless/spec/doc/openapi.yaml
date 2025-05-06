@@ -2407,6 +2407,33 @@ components:
           type: string
           description: |
             The URL to return to after the redirect flow is complete.
+
+            Note that this is not to be mistaken with the callback URL that you
+            configure over at the OAuth provider during the OAuth app/client
+            setup. The flow is as follows:
+
+              1. Your frontend redirects to the headless provider redirect
+                 endpoint in a synchronous (non-XHR) manner, informing allauth
+                 (by means of `callback_url`) where to redirect to after the
+                 provider handshake is completed.
+
+              2. Headless will redirect to the (OAuth) identity provider to
+                 initiate the handshake, passing along a different callback URL
+                 to the provider: one that points to an allauth backend URL.
+                 This is the URL that you need to have setup at your OAuth
+                 app/client configuration. Note that this must be a backend URL
+                 as providers can use POST requests to perform their callbacks,
+                 which is something a frontend would not be able to handle.
+
+              3. After the authorization at the provider is completed, the
+                 provider redirects to the *backend* allauth callback URL, which
+                 will then redirect back to the *frontend* callback URL.
+
+              4. Your frontend is now expected to fetch the current session to
+                 determine what the next course of action is. The user could be
+                 authenticated at this point, or another flow is pending
+                 (e.g. email verification, or, provider signup). In case of
+                 errors a `?error=` is passed to the frontend callback URL.
           example: https://app.project.org/account/provider/callback
         process:
           $ref: "#/components/schemas/Process"

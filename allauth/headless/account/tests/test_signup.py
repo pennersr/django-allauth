@@ -2,6 +2,8 @@ from unittest.mock import ANY, patch
 
 from django.contrib.auth.models import User
 
+import pytest
+
 from allauth.account.models import EmailAddress, EmailConfirmationHMAC
 from allauth.account.signals import user_logged_in
 from allauth.headless.base.response import AuthenticationResponse
@@ -91,6 +93,7 @@ def test_signup_with_email_verification(
     assert addr.verified
 
 
+@pytest.mark.parametrize("email_verification_by_code_enabled", (False, True))
 def test_signup_prevent_enumeration(
     db,
     client,
@@ -101,7 +104,11 @@ def test_signup_prevent_enumeration(
     headless_client,
     user,
     mailoutbox,
+    email_verification_by_code_enabled,
 ):
+    settings.ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED = (
+        email_verification_by_code_enabled
+    )
     settings.ACCOUNT_EMAIL_VERIFICATION = "mandatory"
     settings.ACCOUNT_USERNAME_REQUIRED = False
     settings.ACCOUNT_PREVENT_ENUMERATION = True
@@ -125,6 +132,12 @@ def test_signup_prevent_enumeration(
     assert [f for f in data["data"]["flows"] if f["id"] == Flow.VERIFY_EMAIL][0][
         "is_pending"
     ]
+    resp = client.post(
+        headless_reverse("headless:account:verify_email"),
+        data={"key": "wrong"},
+        content_type="application/json",
+    )
+    assert resp.status_code == 400
 
 
 def test_signup_rate_limit(

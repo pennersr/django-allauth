@@ -6,9 +6,6 @@ from django.urls import reverse
 
 from allauth.account import app_settings, signals
 from allauth.account.adapter import get_adapter
-from allauth.account.internal.flows.email_verification_by_code import (
-    EmailVerificationProcess,
-)
 from allauth.account.internal.flows.manage_email import emit_email_changed
 from allauth.account.internal.flows.signup import send_unknown_account_mail
 from allauth.account.models import EmailAddress, Login
@@ -200,11 +197,16 @@ def send_verification_email(
             else:
                 send_unknown_account_mail(request, email)
             sent = True
-        EmailVerificationProcess.initiate(
-            request=request,
-            user=None,
-            email=email,
-        )
+        if app_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED:
+            from allauth.account.internal.flows.email_verification_by_code import (
+                EmailVerificationProcess,
+            )
+
+            EmailVerificationProcess.initiate(
+                request=request,
+                user=None,
+                email=email,
+            )
     else:
         email_address = None
         if not email:

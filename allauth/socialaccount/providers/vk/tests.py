@@ -13,22 +13,33 @@ class VKTests(OAuth2TestsMixin, TestCase):
         return MockedResponse(
             200,
             """
-{"response": [{"last_name": "Penners", "university_name": "",
-"photo": "http://vk.com/images/camera_c.gif", "sex": 2,
-"photo_medium": "http://vk.com/images/camera_b.gif", "relation": "0",
-"timezone": 1, "photo_big": "http://vk.com/images/camera_a.gif",
-"id": 219004864, "universities": [], "city": "1430", "first_name": "Raymond",
-"faculty_name": "", "online": 1, "counters": {"videos": 0, "online_friends": 0,
-"notes": 0, "audios": 0, "photos": 0, "followers": 0, "groups": 0,
-"user_videos": 0, "albums": 0, "friends": 0}, "home_phone": "", "faculty": 0,
-"nickname": "", "screen_name": "id219004864", "has_mobile": 1,
-"country": "139", "university": 0, "graduation": 0, "activity": "",
-"last_seen": {"time": 1377805189}}]}
+{
+    "user": {
+        "user_id": "1234567890",
+        "first_name": "Ivan",
+        "last_name": "I.",
+        "phone": "79991234567",
+        "avatar": "http://avatar.com/12345678",
+        "email": "ivan_i123@vk.com",
+        "sex": 2,
+        "verified": false,
+        "birthday": "01.01.2000"
+    }
+}
 """,
         )
 
     def get_expected_to_str(self):
-        return "Raymond Penners"
+        return "ivan_i123@vk.com"
 
     def get_login_response_json(self, with_refresh_token=True):
-        return '{"user_id": 219004864, "access_token":"testac"}'
+        return """
+{
+  "access_token": "testac",
+  "refresh_token": "XXXXX",
+  "expires_in": 0,
+  "user_id": 1234567890,
+  "state": "XXX",
+  "scope": "email phone"
+}
+"""

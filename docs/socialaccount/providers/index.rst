@@ -142,6 +142,7 @@ Provider Specifics
    untappd
    vimeo_oauth2
    vimeo
+   vk
    wahoo
    weibo
    weixin

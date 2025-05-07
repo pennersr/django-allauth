@@ -1,7 +1,7 @@
 65.8.0 (unreleased)
 *******************
 
-- ...
+- Fixed VK (a.k.a VK ID) social account provider. Improved its documentation.
 
 
 65.7.0 (2025-04-03)

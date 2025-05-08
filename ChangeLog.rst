@@ -14,6 +14,8 @@ Note worthy changes
   See ``ACCOUNT_EMAIL_VERIFICATION_SUPPORTS_CHANGE`` and
   ``ACCOUNT_PHONE_VERIFICATION_SUPPORTS_CHANGE``.
 
+- Added support for Mailcow OAuth2.
+
 
 65.7.0 (2025-04-03)
 *******************

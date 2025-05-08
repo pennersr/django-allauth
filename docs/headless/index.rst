@@ -7,6 +7,7 @@ Headless
    installation
    configuration
    api
+   cors
    adapter
    tokens
    integrations

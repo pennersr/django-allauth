@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-27 08:37-0500\n"
+"POT-Creation-Date: 2025-05-08 14:14-0500\n"
 "PO-Revision-Date: 2024-06-15 10:09+0000\n"
 "Last-Translator: Eyal Cherevatsky <5116133+eyalch@users.noreply.github.com>\n"
 "Language-Team: Hebrew <https://hosted.weblate.org/projects/allauth/django-"
@@ -76,54 +76,64 @@ msgstr "אסימון איפוס הסיסמה אינו תקין."
 msgid "You cannot add more than %d email addresses."
 msgstr "לא ניתן להוסיף יותר מ-%d כתובות אימייל."
 
-#: account/adapter.py:77
+#: account/adapter.py:76
+#, fuzzy
+#| msgid "A user is already registered with this email address."
+msgid "A user is already registered with this phone number."
+msgstr "משתמש אחר כבר רשום עם כתובת אימייל זו."
+
+#: account/adapter.py:78
 msgid "Too many failed login attempts. Try again later."
 msgstr "יותר מדי ניסיונות התחברות כושלים. אנא נסה שוב מאוחר יותר."
 
-#: account/adapter.py:79
+#: account/adapter.py:80
 #, fuzzy
 #| msgid "The email address is not assigned to any user account"
 msgid "The email address is not assigned to any user account."
 msgstr "כתובת אימייל זו אינה משויכת לאף חשבון"
 
-#: account/adapter.py:80
+#: account/adapter.py:81
 #, fuzzy
 #| msgid "The email address is not assigned to any user account"
 msgid "The phone number is not assigned to any user account."
 msgstr "כתובת אימייל זו אינה משויכת לאף חשבון"
 
-#: account/adapter.py:81
+#: account/adapter.py:82
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary email address must be verified."
 msgstr "עליך לאמת את כתובת האימייל הראשית שלך."
 
-#: account/adapter.py:83
+#: account/adapter.py:84
 msgid "Username can not be used. Please use other username."
 msgstr "לא ניתן להשתמש בשם משתמש זה. אנא בחר שם משתמש אחר."
 
-#: account/adapter.py:86
+#: account/adapter.py:87
 msgid "The username and/or password you specified are not correct."
 msgstr "שם המשתמש ו/או הסיסמה אינם נכונים."
 
-#: account/adapter.py:91
+#: account/adapter.py:92
 msgid "Please select only one."
 msgstr ""
 
-#: account/adapter.py:92
+#: account/adapter.py:93
 msgid "The new value must be different from the current one."
 msgstr ""
 
-#: account/adapter.py:776
+#: account/adapter.py:94
+msgid "Be patient, you are sending too many requests."
+msgstr ""
+
+#: account/adapter.py:778
 msgid "Use your password"
 msgstr "להשתמש בסיסמה"
 
-#: account/adapter.py:785
+#: account/adapter.py:787
 #, fuzzy
 #| msgid "Use your authenticator app"
 msgid "Use authenticator app or code"
 msgstr "להשתמש ביישומון אימות"
 
-#: account/adapter.py:792 templates/mfa/authenticate.html:41
+#: account/adapter.py:794 templates/mfa/authenticate.html:41
 #: templates/mfa/webauthn/reauthenticate.html:15
 #, fuzzy
 #| msgid "secret key"
@@ -142,108 +152,108 @@ msgstr "חשבונות"
 msgid "Enter a phone number including country code (e.g. +1 for the US)."
 msgstr ""
 
-#: account/fields.py:49 account/fields.py:53 account/forms.py:370
+#: account/fields.py:49 account/fields.py:53 account/forms.py:372
 msgid "Phone"
 msgstr ""
 
-#: account/forms.py:62 account/forms.py:562
+#: account/forms.py:64 account/forms.py:574
 msgid "You must type the same password each time."
 msgstr "יש להזין את אותה הסיסמה פעמיים."
 
-#: account/forms.py:97 account/forms.py:489 account/forms.py:652
-#: account/forms.py:748
+#: account/forms.py:99 account/forms.py:501 account/forms.py:664
+#: account/forms.py:760
 msgid "Password"
 msgstr "סיסמה"
 
-#: account/forms.py:98
+#: account/forms.py:100
 msgid "Remember Me"
 msgstr "זכור אותי"
 
-#: account/forms.py:109 account/forms.py:312 account/forms.py:578
-#: account/forms.py:670 account/forms.py:765
+#: account/forms.py:111 account/forms.py:314 account/forms.py:590
+#: account/forms.py:682 account/forms.py:777 account/forms.py:912
 msgid "Email address"
 msgstr "כתובת אימייל"
 
-#: account/forms.py:113 account/forms.py:344 account/forms.py:575
-#: account/forms.py:665
+#: account/forms.py:115 account/forms.py:346 account/forms.py:587
+#: account/forms.py:677 account/forms.py:909
 msgid "Email"
 msgstr "אימייל"
 
-#: account/forms.py:116 account/forms.py:119 account/forms.py:302
-#: account/forms.py:305 account/forms.py:356
+#: account/forms.py:118 account/forms.py:121 account/forms.py:304
+#: account/forms.py:307 account/forms.py:358
 msgid "Username"
 msgstr "שם משתמש"
 
-#: account/forms.py:133
+#: account/forms.py:135
 msgctxt "field label"
 msgid "Login"
 msgstr "כניסה"
 
-#: account/forms.py:152
+#: account/forms.py:154
 #, fuzzy
 #| msgid "Username or email"
 msgid "Username, email or phone"
 msgstr "שם משתמש או אימייל"
 
-#: account/forms.py:154
+#: account/forms.py:156
 msgid "Username or email"
 msgstr "שם משתמש או אימייל"
 
-#: account/forms.py:156
+#: account/forms.py:158
 #, fuzzy
 #| msgid "Username or email"
 msgid "Username or phone"
 msgstr "שם משתמש או אימייל"
 
-#: account/forms.py:158
+#: account/forms.py:160
 #, fuzzy
 #| msgid "Email (optional)"
 msgid "Email or phone"
 msgstr "אימייל (לא חובה)"
 
-#: account/forms.py:181
+#: account/forms.py:183
 msgid "Forgot your password?"
 msgstr "שכחת את סיסמתך?"
 
-#: account/forms.py:332
+#: account/forms.py:334
 msgid "Email (again)"
 msgstr "אימייל (שוב)"
 
-#: account/forms.py:337
+#: account/forms.py:339
 msgid "Email address confirmation"
 msgstr "אישור כתובת אימייל"
 
-#: account/forms.py:347
+#: account/forms.py:349
 msgid "Email (optional)"
 msgstr "אימייל (לא חובה)"
 
-#: account/forms.py:359
+#: account/forms.py:361
 #, fuzzy
 #| msgid "Email (optional)"
 msgid "Username (optional)"
 msgstr "אימייל (לא חובה)"
 
-#: account/forms.py:441
+#: account/forms.py:435
 msgid "You must type the same email each time."
 msgstr "יש להזין את אותו האימייל פעמיים."
 
-#: account/forms.py:496 account/forms.py:653
+#: account/forms.py:508 account/forms.py:665
 msgid "Password (again)"
 msgstr "סיסמה (שוב)"
 
-#: account/forms.py:633
+#: account/forms.py:645
 msgid "Current Password"
 msgstr "סיסמה נוכחית"
 
-#: account/forms.py:635 account/forms.py:701
+#: account/forms.py:647 account/forms.py:713
 msgid "New Password"
 msgstr "סיסמה חדשה"
 
-#: account/forms.py:636 account/forms.py:702
+#: account/forms.py:648 account/forms.py:714
 msgid "New Password (again)"
 msgstr "סיסמה חדשה (שוב)"
 
-#: account/forms.py:825 account/forms.py:827 mfa/base/forms.py:15
+#: account/forms.py:837 account/forms.py:839 mfa/base/forms.py:15
 #: mfa/base/forms.py:17 mfa/totp/forms.py:13
 msgid "Code"
 msgstr "קוד"
@@ -498,8 +508,8 @@ msgid "Login"
 msgstr "כניסה"
 
 #: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:19
-#: templates/account/base_confirm_code.html:42
-#: templates/account/base_confirm_code.html:46
+#: templates/account/base_confirm_code.html:48
+#: templates/account/base_confirm_code.html:52
 #: templates/account/password_reset_from_key.html:33
 #: templates/mfa/authenticate.html:28 templates/mfa/authenticate.html:44
 #: templates/mfa/trust.html:29 templates/mfa/webauthn/signup_form.html:26
@@ -557,12 +567,18 @@ msgid ""
 "enter it soon."
 msgstr "שלחנו קוד ל-%(email_link)s. הקוד יפוג בקרוב, אז נא להזין אותו בהקדם."
 
-#: templates/account/base_confirm_code.html:38
+#: templates/account/base_confirm_code.html:39
 #: templates/account/email_confirm.html:24
 #: templates/account/reauthenticate.html:18
 #: templates/mfa/reauthenticate.html:18
 msgid "Confirm"
 msgstr "אמת"
+
+#: templates/account/base_confirm_code.html:43
+#, fuzzy
+#| msgid "Request Code"
+msgid "Request new code"
+msgstr "בקש קוד"
 
 #: templates/account/base_reauthenticate.html:5
 #: templates/account/base_reauthenticate.html:9
@@ -587,6 +603,12 @@ msgstr "אישור באימייל"
 #: templates/account/confirm_email_verification_code.html:8
 msgid "Enter Email Verification Code"
 msgstr ""
+
+#: templates/account/confirm_email_verification_code.html:16
+#, fuzzy
+#| msgid "email address"
+msgid "Use a different email address"
+msgstr "כתובת אימייל"
 
 #: templates/account/confirm_login_code.html:5 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
@@ -629,6 +651,10 @@ msgstr "שלח אימייל אימות מחדש"
 #| msgid "Re-send Verification"
 msgid "Enter Phone Verification Code"
 msgstr "שלח אימייל אימות מחדש"
+
+#: templates/account/confirm_phone_verification_code.html:15
+msgid "Use a different phone number"
+msgstr ""
 
 #: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
@@ -1019,6 +1045,12 @@ msgstr "הסיסמה שונתה בהצלחה."
 #: templates/account/messages/password_set.txt:2
 msgid "Password successfully set."
 msgstr "הסיסמה נקבעה בהצלחה."
+
+#: templates/account/messages/phone_verification_sent.txt:2
+#, fuzzy, python-format
+#| msgid "A sign-in code has been mailed to %(email)s."
+msgid "A verification code has been sent to %(phone)s."
+msgstr "קוד כניסה נשלח במייל ל-%(email)s."
 
 #: templates/account/messages/phone_verified.txt:2
 #, python-format

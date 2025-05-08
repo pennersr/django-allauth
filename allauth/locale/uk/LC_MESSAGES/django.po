@@ -7,19 +7,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-27 08:37-0500\n"
+"POT-Creation-Date: 2025-05-08 14:14-0500\n"
 "PO-Revision-Date: 2025-04-27 05:02+0000\n"
 "Last-Translator: jFel63 <josh.a.macfelder@gmail.com>\n"
-"Language-Team: Ukrainian <https://hosted.weblate.org/projects/allauth/"
-"django-allauth/uk/>\n"
+"Language-Team: Ukrainian <https://hosted.weblate.org/projects/allauth/django-"
+"allauth/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 "
-"? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > "
-"14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % "
-"100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
+"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
+"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
+"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 "X-Generator: Weblate 5.12-dev\n"
 
 #: account/adapter.py:55
@@ -77,51 +77,61 @@ msgstr "Токен відновлення пароля недійсний."
 msgid "You cannot add more than %d email addresses."
 msgstr "Ви не можете додати більше ніж %d адрес електронної пошти."
 
-#: account/adapter.py:77
+#: account/adapter.py:76
+#, fuzzy
+#| msgid "A user is already registered with this email address."
+msgid "A user is already registered with this phone number."
+msgstr "Користувач з цією адресою електронної пошти вже зареєстрований."
+
+#: account/adapter.py:78
 msgid "Too many failed login attempts. Try again later."
 msgstr "Занадто багато невдалих спроб входу. Спробуйте ще раз пізніше."
 
-#: account/adapter.py:79
+#: account/adapter.py:80
 msgid "The email address is not assigned to any user account."
 msgstr ""
 "Ця адреса електронної пошти не призначена для жодного облікового запису."
 
-#: account/adapter.py:80
+#: account/adapter.py:81
 msgid "The phone number is not assigned to any user account."
 msgstr "Цей номер телефону не призначено для жодного облікового запису."
 
-#: account/adapter.py:81
+#: account/adapter.py:82
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary email address must be verified."
 msgstr "Ваша основна адреса електронної пошти повинна бути підтверджена."
 
-#: account/adapter.py:83
+#: account/adapter.py:84
 msgid "Username can not be used. Please use other username."
 msgstr ""
 "Ім'я користувача не може бути використане. Будь ласка, виберіть інше ім'я "
 "користувача."
 
-#: account/adapter.py:86
+#: account/adapter.py:87
 msgid "The username and/or password you specified are not correct."
 msgstr "Вказане ім'я користувача або пароль неправильні."
 
-#: account/adapter.py:91
+#: account/adapter.py:92
 msgid "Please select only one."
 msgstr ""
 
-#: account/adapter.py:92
+#: account/adapter.py:93
 msgid "The new value must be different from the current one."
 msgstr "Нове значення має відрізнятись від поточного."
 
-#: account/adapter.py:776
+#: account/adapter.py:94
+msgid "Be patient, you are sending too many requests."
+msgstr ""
+
+#: account/adapter.py:778
 msgid "Use your password"
 msgstr "Використовуйте свій пароль"
 
-#: account/adapter.py:785
+#: account/adapter.py:787
 msgid "Use authenticator app or code"
 msgstr "Використовуйте додаток для аутентифікації або код"
 
-#: account/adapter.py:792 templates/mfa/authenticate.html:41
+#: account/adapter.py:794 templates/mfa/authenticate.html:41
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use a security key"
 msgstr "Використовуйте ключ безпеки"
@@ -139,100 +149,100 @@ msgid "Enter a phone number including country code (e.g. +1 for the US)."
 msgstr ""
 "Введіть номер телефону, включаючи код країни (наприклад +38 для України)."
 
-#: account/fields.py:49 account/fields.py:53 account/forms.py:370
+#: account/fields.py:49 account/fields.py:53 account/forms.py:372
 msgid "Phone"
 msgstr "Номер телефону"
 
-#: account/forms.py:62 account/forms.py:562
+#: account/forms.py:64 account/forms.py:574
 msgid "You must type the same password each time."
 msgstr "Вам потрібно вводити один і той самий пароль кожен раз."
 
-#: account/forms.py:97 account/forms.py:489 account/forms.py:652
-#: account/forms.py:748
+#: account/forms.py:99 account/forms.py:501 account/forms.py:664
+#: account/forms.py:760
 msgid "Password"
 msgstr "Пароль"
 
-#: account/forms.py:98
+#: account/forms.py:100
 msgid "Remember Me"
 msgstr "Запам'ятати Мене"
 
-#: account/forms.py:109 account/forms.py:312 account/forms.py:578
-#: account/forms.py:670 account/forms.py:765
+#: account/forms.py:111 account/forms.py:314 account/forms.py:590
+#: account/forms.py:682 account/forms.py:777 account/forms.py:912
 msgid "Email address"
 msgstr "Адреса електронної пошти"
 
-#: account/forms.py:113 account/forms.py:344 account/forms.py:575
-#: account/forms.py:665
+#: account/forms.py:115 account/forms.py:346 account/forms.py:587
+#: account/forms.py:677 account/forms.py:909
 msgid "Email"
 msgstr "Електронна пошта"
 
-#: account/forms.py:116 account/forms.py:119 account/forms.py:302
-#: account/forms.py:305 account/forms.py:356
+#: account/forms.py:118 account/forms.py:121 account/forms.py:304
+#: account/forms.py:307 account/forms.py:358
 msgid "Username"
 msgstr "Ім'я користувача"
 
-#: account/forms.py:133
+#: account/forms.py:135
 msgctxt "field label"
 msgid "Login"
 msgstr "Вхід"
 
-#: account/forms.py:152
+#: account/forms.py:154
 msgid "Username, email or phone"
 msgstr "Ім'я користувача, електронна пошта або номер телефону"
 
-#: account/forms.py:154
+#: account/forms.py:156
 msgid "Username or email"
 msgstr "Ім'я користувача або електронна пошта"
 
-#: account/forms.py:156
+#: account/forms.py:158
 msgid "Username or phone"
 msgstr "Ім'я користувача або номер телефону"
 
-#: account/forms.py:158
+#: account/forms.py:160
 msgid "Email or phone"
 msgstr "Електронна пошта або номер телефону"
 
-#: account/forms.py:181
+#: account/forms.py:183
 msgid "Forgot your password?"
 msgstr "Забули пароль?"
 
-#: account/forms.py:332
+#: account/forms.py:334
 msgid "Email (again)"
 msgstr "Електронна пошта (ще раз)"
 
-#: account/forms.py:337
+#: account/forms.py:339
 msgid "Email address confirmation"
 msgstr "Підтвердження адреси електронної пошти"
 
-#: account/forms.py:347
+#: account/forms.py:349
 msgid "Email (optional)"
 msgstr "Електронна пошта (необов'язково)"
 
-#: account/forms.py:359
+#: account/forms.py:361
 msgid "Username (optional)"
 msgstr "Ім'я користувача (необов'язково)"
 
-#: account/forms.py:441
+#: account/forms.py:435
 msgid "You must type the same email each time."
 msgstr "Ви повинні вводити одну й ту ж електронну пошту кожен раз."
 
-#: account/forms.py:496 account/forms.py:653
+#: account/forms.py:508 account/forms.py:665
 msgid "Password (again)"
 msgstr "Пароль (ще раз)"
 
-#: account/forms.py:633
+#: account/forms.py:645
 msgid "Current Password"
 msgstr "Поточний Пароль"
 
-#: account/forms.py:635 account/forms.py:701
+#: account/forms.py:647 account/forms.py:713
 msgid "New Password"
 msgstr "Новий Пароль"
 
-#: account/forms.py:636 account/forms.py:702
+#: account/forms.py:648 account/forms.py:714
 msgid "New Password (again)"
 msgstr "Новий Пароль (ще раз)"
 
-#: account/forms.py:825 account/forms.py:827 mfa/base/forms.py:15
+#: account/forms.py:837 account/forms.py:839 mfa/base/forms.py:15
 #: mfa/base/forms.py:17 mfa/totp/forms.py:13
 msgid "Code"
 msgstr "Код"
@@ -496,8 +506,8 @@ msgid "Login"
 msgstr "Увійти"
 
 #: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:19
-#: templates/account/base_confirm_code.html:42
-#: templates/account/base_confirm_code.html:46
+#: templates/account/base_confirm_code.html:48
+#: templates/account/base_confirm_code.html:52
 #: templates/account/password_reset_from_key.html:33
 #: templates/mfa/authenticate.html:28 templates/mfa/authenticate.html:44
 #: templates/mfa/trust.html:29 templates/mfa/webauthn/signup_form.html:26
@@ -556,12 +566,18 @@ msgstr ""
 "Ми відправили код на %(recipient)s. Код скоро застаріє, тому будь ласка, "
 "введіть його якнайшвидше."
 
-#: templates/account/base_confirm_code.html:38
+#: templates/account/base_confirm_code.html:39
 #: templates/account/email_confirm.html:24
 #: templates/account/reauthenticate.html:18
 #: templates/mfa/reauthenticate.html:18
 msgid "Confirm"
 msgstr "Підтвердити"
+
+#: templates/account/base_confirm_code.html:43
+#, fuzzy
+#| msgid "Request Code"
+msgid "Request new code"
+msgstr "Запросити Код"
 
 #: templates/account/base_reauthenticate.html:5
 #: templates/account/base_reauthenticate.html:9
@@ -586,6 +602,12 @@ msgstr "Підтвердження електронної пошти"
 #: templates/account/confirm_email_verification_code.html:8
 msgid "Enter Email Verification Code"
 msgstr "Введіть код з підтвердження електронної пошти:"
+
+#: templates/account/confirm_email_verification_code.html:16
+#, fuzzy
+#| msgid "email address"
+msgid "Use a different email address"
+msgstr "адреса електронної пошти"
 
 #: templates/account/confirm_login_code.html:5 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
@@ -622,6 +644,10 @@ msgstr "Підтвердження номеру телефона"
 #: templates/account/confirm_phone_verification_code.html:8
 msgid "Enter Phone Verification Code"
 msgstr "Введіть код підтвердження номеру телефона:"
+
+#: templates/account/confirm_phone_verification_code.html:15
+msgid "Use a different phone number"
+msgstr ""
 
 #: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
@@ -1027,6 +1053,12 @@ msgstr "Пароль успішно змінено."
 #: templates/account/messages/password_set.txt:2
 msgid "Password successfully set."
 msgstr "Пароль успішно встановлено."
+
+#: templates/account/messages/phone_verification_sent.txt:2
+#, fuzzy, python-format
+#| msgid "A sign-in code has been sent to %(recipient)s."
+msgid "A verification code has been sent to %(phone)s."
+msgstr "Код для входу було надіслано на %(recipient)s."
 
 #: templates/account/messages/phone_verified.txt:2
 #, python-format

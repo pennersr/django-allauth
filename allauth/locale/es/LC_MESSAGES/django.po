@@ -6,11 +6,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.61.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-27 08:37-0500\n"
+"POT-Creation-Date: 2025-05-08 14:14-0500\n"
 "PO-Revision-Date: 2025-04-18 00:01+0000\n"
 "Last-Translator: Alex <alexcarbi@gmail.com>\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/allauth/"
-"django-allauth/es/>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/allauth/django-"
+"allauth/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -74,50 +74,60 @@ msgstr "El token para restablecer la contraseña no es válido."
 msgid "You cannot add more than %d email addresses."
 msgstr "No puede añadir más de %d direcciones de correo electrónico."
 
-#: account/adapter.py:77
+#: account/adapter.py:76
+#, fuzzy
+#| msgid "A user is already registered with this email address."
+msgid "A user is already registered with this phone number."
+msgstr "Ya hay registrado un usuario con esta dirección de correo electrónico."
+
+#: account/adapter.py:78
 msgid "Too many failed login attempts. Try again later."
 msgstr "Demasiados intentos fallidos. Inténtelo más tarde."
 
-#: account/adapter.py:79
+#: account/adapter.py:80
 msgid "The email address is not assigned to any user account."
 msgstr ""
 "Esta dirección de correo electrónico no está asignada a ninguna cuenta de "
 "usuario."
 
-#: account/adapter.py:80
+#: account/adapter.py:81
 msgid "The phone number is not assigned to any user account."
 msgstr "El número de teléfono no está asignado a ninguna cuenta de usuario."
 
-#: account/adapter.py:81
+#: account/adapter.py:82
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary email address must be verified."
 msgstr "Su dirección principal de correo electrónico debe ser verificada."
 
-#: account/adapter.py:83
+#: account/adapter.py:84
 msgid "Username can not be used. Please use other username."
 msgstr "No se puede usar este nombre de usuario. Por favor, utilice otro."
 
-#: account/adapter.py:86
+#: account/adapter.py:87
 msgid "The username and/or password you specified are not correct."
 msgstr "El usuario y/o la contraseña que ha indicado no son correctos."
 
-#: account/adapter.py:91
+#: account/adapter.py:92
 msgid "Please select only one."
 msgstr "Por favor selecciona solo uno."
 
-#: account/adapter.py:92
+#: account/adapter.py:93
 msgid "The new value must be different from the current one."
 msgstr "El nuevo valor debe ser diferente del actual."
 
-#: account/adapter.py:776
+#: account/adapter.py:94
+msgid "Be patient, you are sending too many requests."
+msgstr ""
+
+#: account/adapter.py:778
 msgid "Use your password"
 msgstr "Utilice su contraseña"
 
-#: account/adapter.py:785
+#: account/adapter.py:787
 msgid "Use authenticator app or code"
 msgstr "Utiliza la aplicación o el código de autenticación"
 
-#: account/adapter.py:792 templates/mfa/authenticate.html:41
+#: account/adapter.py:794 templates/mfa/authenticate.html:41
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use a security key"
 msgstr "Usar una clave de seguridad"
@@ -135,100 +145,100 @@ msgstr "Cuentas"
 msgid "Enter a phone number including country code (e.g. +1 for the US)."
 msgstr "Introduce un número incluyendo el código del país (ej. +34 para ES)."
 
-#: account/fields.py:49 account/fields.py:53 account/forms.py:370
+#: account/fields.py:49 account/fields.py:53 account/forms.py:372
 msgid "Phone"
 msgstr "Teléfono"
 
-#: account/forms.py:62 account/forms.py:562
+#: account/forms.py:64 account/forms.py:574
 msgid "You must type the same password each time."
 msgstr "Debe escribir la misma contraseña cada vez."
 
-#: account/forms.py:97 account/forms.py:489 account/forms.py:652
-#: account/forms.py:748
+#: account/forms.py:99 account/forms.py:501 account/forms.py:664
+#: account/forms.py:760
 msgid "Password"
 msgstr "Contraseña"
 
-#: account/forms.py:98
+#: account/forms.py:100
 msgid "Remember Me"
 msgstr "Recordarme"
 
-#: account/forms.py:109 account/forms.py:312 account/forms.py:578
-#: account/forms.py:670 account/forms.py:765
+#: account/forms.py:111 account/forms.py:314 account/forms.py:590
+#: account/forms.py:682 account/forms.py:777 account/forms.py:912
 msgid "Email address"
 msgstr "Dirección de correo electrónico"
 
-#: account/forms.py:113 account/forms.py:344 account/forms.py:575
-#: account/forms.py:665
+#: account/forms.py:115 account/forms.py:346 account/forms.py:587
+#: account/forms.py:677 account/forms.py:909
 msgid "Email"
 msgstr "Correo electrónico"
 
-#: account/forms.py:116 account/forms.py:119 account/forms.py:302
-#: account/forms.py:305 account/forms.py:356
+#: account/forms.py:118 account/forms.py:121 account/forms.py:304
+#: account/forms.py:307 account/forms.py:358
 msgid "Username"
 msgstr "Usuario"
 
-#: account/forms.py:133
+#: account/forms.py:135
 msgctxt "field label"
 msgid "Login"
 msgstr "Iniciar sesión"
 
-#: account/forms.py:152
+#: account/forms.py:154
 msgid "Username, email or phone"
 msgstr "Usuario, correo o teléfono"
 
-#: account/forms.py:154
+#: account/forms.py:156
 msgid "Username or email"
 msgstr "Usuario o correo electrónico"
 
-#: account/forms.py:156
+#: account/forms.py:158
 msgid "Username or phone"
 msgstr "Usuario o teléfono"
 
-#: account/forms.py:158
+#: account/forms.py:160
 msgid "Email or phone"
 msgstr "Correo electrónico o teléfono"
 
-#: account/forms.py:181
+#: account/forms.py:183
 msgid "Forgot your password?"
 msgstr "¿Ha olvidado tu contraseña?"
 
-#: account/forms.py:332
+#: account/forms.py:334
 msgid "Email (again)"
 msgstr "Correo electrónico (otra vez)"
 
-#: account/forms.py:337
+#: account/forms.py:339
 msgid "Email address confirmation"
 msgstr "Confirmación de la dirección de correo electrónico"
 
-#: account/forms.py:347
+#: account/forms.py:349
 msgid "Email (optional)"
 msgstr "Correo electrónico (opcional)"
 
-#: account/forms.py:359
+#: account/forms.py:361
 msgid "Username (optional)"
 msgstr "Usuario (opcional)"
 
-#: account/forms.py:441
+#: account/forms.py:435
 msgid "You must type the same email each time."
 msgstr "Debe escribir el mismo correo electrónico cada vez."
 
-#: account/forms.py:496 account/forms.py:653
+#: account/forms.py:508 account/forms.py:665
 msgid "Password (again)"
 msgstr "Contraseña (de nuevo)"
 
-#: account/forms.py:633
+#: account/forms.py:645
 msgid "Current Password"
 msgstr "Contraseña actual"
 
-#: account/forms.py:635 account/forms.py:701
+#: account/forms.py:647 account/forms.py:713
 msgid "New Password"
 msgstr "Nueva contraseña"
 
-#: account/forms.py:636 account/forms.py:702
+#: account/forms.py:648 account/forms.py:714
 msgid "New Password (again)"
 msgstr "Nueva contraseña (de nuevo)"
 
-#: account/forms.py:825 account/forms.py:827 mfa/base/forms.py:15
+#: account/forms.py:837 account/forms.py:839 mfa/base/forms.py:15
 #: mfa/base/forms.py:17 mfa/totp/forms.py:13
 msgid "Code"
 msgstr "Código"
@@ -488,8 +498,8 @@ msgid "Login"
 msgstr "Iniciar sesión"
 
 #: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:19
-#: templates/account/base_confirm_code.html:42
-#: templates/account/base_confirm_code.html:46
+#: templates/account/base_confirm_code.html:48
+#: templates/account/base_confirm_code.html:52
 #: templates/account/password_reset_from_key.html:33
 #: templates/mfa/authenticate.html:28 templates/mfa/authenticate.html:44
 #: templates/mfa/trust.html:29 templates/mfa/webauthn/signup_form.html:26
@@ -548,12 +558,18 @@ msgstr ""
 "Hemos enviado un código a %(recipient)s. El código caduca en breve, así que "
 "introdúcelo pronto."
 
-#: templates/account/base_confirm_code.html:38
+#: templates/account/base_confirm_code.html:39
 #: templates/account/email_confirm.html:24
 #: templates/account/reauthenticate.html:18
 #: templates/mfa/reauthenticate.html:18
 msgid "Confirm"
 msgstr "Confirmar"
+
+#: templates/account/base_confirm_code.html:43
+#, fuzzy
+#| msgid "Request Code"
+msgid "Request new code"
+msgstr "Solicite el código"
 
 #: templates/account/base_reauthenticate.html:5
 #: templates/account/base_reauthenticate.html:9
@@ -576,6 +592,12 @@ msgstr "Verificación del correo electrónico"
 #: templates/account/confirm_email_verification_code.html:8
 msgid "Enter Email Verification Code"
 msgstr "Introduce el código de verificación del correo electrónico"
+
+#: templates/account/confirm_email_verification_code.html:16
+#, fuzzy
+#| msgid "email address"
+msgid "Use a different email address"
+msgstr "dirección de correo electrónico"
 
 #: templates/account/confirm_login_code.html:5 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
@@ -612,6 +634,10 @@ msgstr "Reenviar Verificación telefónica"
 #: templates/account/confirm_phone_verification_code.html:8
 msgid "Enter Phone Verification Code"
 msgstr "Introduce el código de verificación del teléfono"
+
+#: templates/account/confirm_phone_verification_code.html:15
+msgid "Use a different phone number"
+msgstr ""
 
 #: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
@@ -1018,6 +1044,13 @@ msgstr "Contraseña cambiada con éxito."
 #: templates/account/messages/password_set.txt:2
 msgid "Password successfully set."
 msgstr "Contraseña establecida con éxito."
+
+#: templates/account/messages/phone_verification_sent.txt:2
+#, fuzzy, python-format
+#| msgid "A sign-in code has been sent to %(recipient)s."
+msgid "A verification code has been sent to %(phone)s."
+msgstr ""
+"Se ha enviado un código de inicio de sesión por correo a %(recipient)s ."
 
 #: templates/account/messages/phone_verified.txt:2
 #, python-format

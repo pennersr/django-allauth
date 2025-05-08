@@ -9,6 +9,7 @@ def docs(session):
         "sphinx_rtd_theme",
         "djangorestframework>=3.15.2,<4",
         "django-ninja>=1.3.0,<2",
+        "snowballstemmer<3",  # https://github.com/sphinx-doc/sphinx/issues/13533
     )
     session.run("make", "docs")
 

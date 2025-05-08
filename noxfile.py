@@ -3,9 +3,13 @@ import nox
 
 @nox.session
 def docs(session):
-    session.install("Django==5.2")
-    session.install("Sphinx")
-    session.install("sphinx_rtd_theme")
+    session.install(
+        "Django==5.2",
+        "Sphinx",
+        "sphinx_rtd_theme",
+        "djangorestframework>=3.15.2,<4",
+        "django-ninja>=1.3.0,<2",
+    )
     session.run("make", "docs")
 
 

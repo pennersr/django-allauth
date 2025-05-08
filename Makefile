@@ -87,7 +87,7 @@ ci-install-djlint:
 
 .PHONY: ci-install-docs
 ci-install-docs:
-	pip install Django Sphinx sphinx_rtd_theme
+	pip install Django Sphinx sphinx_rtd_theme djangorestframework django-ninja
 
 .PHONY: ci-install-flake8
 ci-install-flake8:

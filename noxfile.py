@@ -5,7 +5,7 @@ import nox
 def docs(session):
     session.install(
         "Django==5.2",
-        "Sphinx",
+        "Sphinx>=7.4.7,<8",
         "sphinx_rtd_theme",
         "djangorestframework>=3.15.2,<4",
         "django-ninja>=1.3.0,<2",

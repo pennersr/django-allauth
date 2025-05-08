@@ -18,7 +18,6 @@ from allauth.socialaccount.providers.base import (
     ProviderAccount,
 )
 from allauth.socialaccount.providers.facebook.constants import (
-    GRAPH_API_URL,
     GRAPH_API_VERSION,
     NONCE_LENGTH,
     NONCE_SESSION_KEY,
@@ -37,16 +36,6 @@ from .locale import get_default_locale_callable
 class FacebookAccount(ProviderAccount):
     def get_profile_url(self):
         return self.account.extra_data.get("link")
-
-    def get_avatar_url(self):
-        uid = self.account.uid
-        # ask for a 600x600 pixel image. We might get smaller but
-        # image will always be highest res possible and square
-        return (
-            GRAPH_API_URL
-            + "/%s/picture?type=square&height=600&width=600&return_ssl_resources=1"
-            % uid
-        )  # noqa
 
 
 class FacebookProvider(OAuth2Provider):

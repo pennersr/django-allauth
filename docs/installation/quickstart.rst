@@ -111,6 +111,7 @@ the ``settings.py`` of your project::
         'allauth.socialaccount.providers.linkedin',
         'allauth.socialaccount.providers.linkedin_oauth2',
         'allauth.socialaccount.providers.mailchimp',
+        'allauth.socialaccount.providers.mailcow',
         'allauth.socialaccount.providers.mailru',
         'allauth.socialaccount.providers.mediawiki',
         'allauth.socialaccount.providers.meetup',

@@ -11,4 +11,7 @@
 {% block action_url %}
     {% url 'account_verify_phone' %}
 {% endblock %}
+{% block change_title %}
+    {% translate "Use a different phone number" %}
+{% endblock %}
 {% block extra_tags %}phone,verification{% endblock %}

@@ -163,6 +163,7 @@ allauth/elements/alert.html                 Display alert messages.
 allauth/elements/badge.html                 Badges for labeling purposes.
 allauth/elements/button.html                A button (``<button>``).
 allauth/elements/button_group.html          A group of related buttons.
+allauth/elements/details.html               Disclosure (``<details>``).
 allauth/elements/field.html                 A single form field.
 allauth/elements/fields.html                The form fields, uses ``{{form.as_p}}`` by default, hence, not rendering the ``field.html``.
 allauth/elements/form.html                  The ``<form>`` container tag.

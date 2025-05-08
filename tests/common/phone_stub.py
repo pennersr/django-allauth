@@ -34,11 +34,11 @@ def send_verification_code_sms(user, phone: str, code: str):
     )
 
 
-def send_unknown_account_sms(phone: str):
+def send_unknown_account_sms(phone: str, **kwargs: typing.Any):
     sms_outbox.append({"phone": phone, "reason": "unknon"})
 
 
-def send_account_already_exists_sms(phone: str):
+def send_account_already_exists_sms(phone: str, **kwargs: typing.Any):
     sms_outbox.append({"phone": phone, "reason": "exists"})
 
 

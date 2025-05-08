@@ -12,6 +12,12 @@ from allauth.account.internal.flows import (
     password_reset,
     password_reset_by_code,
 )
+from allauth.account.internal.flows.email_verification_by_code import (
+    EmailVerificationProcess,
+)
+from allauth.account.internal.flows.phone_verification import (
+    PhoneVerificationStageProcess,
+)
 from allauth.account.stages import (
     EmailVerificationStage,
     LoginStageController,
@@ -19,11 +25,12 @@ from allauth.account.stages import (
 )
 from allauth.account.utils import send_email_confirmation
 from allauth.core import ratelimit
-from allauth.core.exceptions import ImmediateHttpResponse
+from allauth.core.exceptions import ImmediateHttpResponse, RateLimited
 from allauth.decorators import rate_limit
 from allauth.headless.account import response
 from allauth.headless.account.inputs import (
     AddEmailInput,
+    ChangeEmailInput,
     ChangePasswordInput,
     ChangePhoneInput,
     ConfirmLoginCodeInput,
@@ -45,6 +52,7 @@ from allauth.headless.base.response import (
     AuthenticationResponse,
     ConflictResponse,
     ForbiddenResponse,
+    RateLimitResponse,
 )
 from allauth.headless.base.views import APIView, AuthenticatedAPIView
 from allauth.headless.internal import authkit
@@ -219,7 +227,11 @@ class VerifyPhoneView(APIView):
         return super().handle(request, *args, **kwargs)
 
     def get_input_kwargs(self):
-        return {"code": self.process.code}
+        return {
+            "code": self.process.code,
+            "user": self.process.user,
+            "phone": self.process.phone,
+        }
 
     def handle_invalid_input(self, input: VerifyPhoneInput):
         self.process.record_invalid_attempt()
@@ -231,6 +243,43 @@ class VerifyPhoneView(APIView):
         if self.stage:
             response = self.stage.exit()
         return AuthenticationResponse.from_response(request, response)
+
+
+class ResendPhoneVerificationCodeView(APIView):
+    handle_json_input = False
+
+    def post(self, request, *args, **kwargs):
+        process = None
+        stage = LoginStageController.enter(request, PhoneVerificationStage.key)
+        if stage:
+            process = flows.phone_verification.PhoneVerificationStageProcess.resume(
+                stage
+            )
+        if not process or not process.can_resend:
+            return ConflictResponse(request)
+        try:
+            process.resend()
+        except RateLimited:
+            return RateLimitResponse(request)
+        return APIResponse(request)
+
+
+class ResendEmailVerificationCodeView(APIView):
+    handle_json_input = False
+
+    def post(self, request, *args, **kwargs):
+        if not account_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED:
+            return ConflictResponse(request)
+        process = flows.email_verification_by_code.EmailVerificationProcess.resume(
+            request
+        )
+        if not process or not process.can_resend:
+            return ConflictResponse(request)
+        try:
+            process.resend()
+        except RateLimited:
+            return RateLimitResponse(request)
+        return APIResponse(request)
 
 
 class RequestPasswordResetView(APIView):
@@ -322,8 +371,7 @@ class ChangePasswordView(AuthenticatedAPIView):
         return {"user": self.request.user}
 
 
-@method_decorator(rate_limit(action="manage_email"), name="handle")
-class ManageEmailView(AuthenticatedAPIView):
+class ManageEmailView(APIView):
     input_class = {
         "POST": AddEmailInput,
         "PUT": SelectEmailInput,
@@ -331,15 +379,40 @@ class ManageEmailView(AuthenticatedAPIView):
         "PATCH": MarkAsPrimaryEmailInput,
     }
 
+    def dispatch(self, request, *args, **kwargs):
+        self.verification_stage_process = None
+        if request.user.is_authenticated:
+            self.user = request.user
+        elif request.method != "POST":
+            return response.AuthenticationResponse(request)
+        else:
+            self.verification_stage_process = EmailVerificationProcess.resume(request)
+            if (
+                not self.verification_stage_process
+                or not self.verification_stage_process.can_change
+            ):
+                return ConflictResponse(request)
+            self.user = self.verification_stage_process.user
+        resp = ratelimit.consume_or_429(request, action="manage_email", user=self.user)
+        if resp:
+            return resp
+        return super().dispatch(request, *args, **kwargs)
+
     def get(self, request, *args, **kwargs):
         return self._respond_email_list()
 
     def _respond_email_list(self):
-        addrs = manage_email.list_email_addresses(self.request, self.request.user)
+        addrs = manage_email.list_email_addresses(self.request, self.user)
         return response.EmailAddressesResponse(self.request, addrs)
 
     def post(self, request, *args, **kwargs):
-        flows.manage_email.add_email(request, self.input)
+        if self.verification_stage_process:
+            self.verification_stage_process.change_to(
+                email=self.input.cleaned_data["email"],
+                account_already_exists=self.input.account_already_exists,
+            )
+        else:
+            flows.manage_email.add_email(request, self.input)
         return self._respond_email_list()
 
     def delete(self, request, *args, **kwargs):
@@ -359,13 +432,42 @@ class ManageEmailView(AuthenticatedAPIView):
             request, verification_sent=sent
         )
 
+    def get_input_class(self):
+        if self.verification_stage_process:
+            return ChangeEmailInput
+        return super().get_input_class()
+
     def get_input_kwargs(self):
-        return {"user": self.request.user}
+        if self.verification_stage_process:
+            return {"email": self.verification_stage_process.email}
+        return {"user": self.user}
 
 
-@method_decorator(rate_limit(action="change_phone"), name="handle")
-class ManagePhoneView(AuthenticatedAPIView):
+class ManagePhoneView(APIView):
     input_class = ChangePhoneInput
+
+    def dispatch(self, request, *args, **kwargs):
+        self.verification_stage_process = None
+        if request.user.is_authenticated:
+            self.user = request.user
+        elif request.method == "GET":
+            return response.AuthenticationResponse(request)
+        elif request.method == "POST":
+            stage = LoginStageController.enter(request, PhoneVerificationStage.key)
+            if stage:
+                self.verification_stage_process = PhoneVerificationStageProcess.resume(
+                    stage
+                )
+            if (
+                not self.verification_stage_process
+                or not self.verification_stage_process.can_change
+            ):
+                return ConflictResponse(request)
+            self.user = self.verification_stage_process.user
+        resp = ratelimit.consume_or_429(request, action="change_phone", user=self.user)
+        if resp:
+            return resp
+        return super().dispatch(request, *args, **kwargs)
 
     def get(self, request, *args, **kwargs):
         phone_numbers = []
@@ -378,9 +480,15 @@ class ManagePhoneView(AuthenticatedAPIView):
 
     def post(self, request, *args, **kwargs):
         phone = self.input.cleaned_data["phone"]
-        flows.phone_verification.ChangePhoneVerificationProcess.initiate(
-            self.request, phone
-        )
+        if self.verification_stage_process:
+            self.verification_stage_process.change_to(
+                phone=phone, account_already_exists=self.input.account_already_exists
+            )
+        else:
+            flows.phone_verification.ChangePhoneVerificationProcess.initiate(
+                self.request,
+                phone,
+            )
         return response.PhoneNumbersResponse(
             self.request,
             [
@@ -394,10 +502,10 @@ class ManagePhoneView(AuthenticatedAPIView):
 
     def get_input_kwargs(self):
         phone = None
-        phone_verified = get_account_adapter().get_phone(self.request.user)
+        phone_verified = get_account_adapter().get_phone(self.user)
         if phone_verified:
             phone = phone_verified[0]
-        return {"phone": phone}
+        return {"phone": phone, "user": self.user}
 
 
 @method_decorator(rate_limit(action="reauthenticate"), name="handle")

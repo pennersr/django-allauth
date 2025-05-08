@@ -232,6 +232,21 @@ Email Verification
   The code that is emailed has a limited life span. It expires this many seconds after
   which it was sent.
 
+``ACCOUNT_EMAIL_VERIFICATION_SUPPORTS_CHANGE`` (default: ``False``)
+  Whether or not the email can be changed after signup at the email veriication
+  stage.
+
+  **Warning**: If enumeration prevention is turned on, no account is created
+  when a user signs up using an already existing email. If the user then were
+  able to change to a new email address that is not taken, we would have to
+  create an account as we did not do so yet.  Currently, this is not
+  implemented. Changing email address in this scenario is simply not allowed,
+  and therefore, a user paying close attention can deduce that an account
+  already exists. This will be revisited in a future release.
+
+``ACCOUNT_EMAIL_VERIFICATION_SUPPORTS_RESEND`` (default: ``False``)
+  Whether or not the user can request a new email verification code.
+
 
 Reauthentication
 ****************

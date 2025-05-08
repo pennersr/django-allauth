@@ -1,7 +1,18 @@
 65.8.0 (unreleased)
 *******************
 
+Note worthy changes
+-------------------
+
 - Fixed VK (a.k.a VK ID) social account provider. Improved its documentation.
+
+- Added optional support for requesting new email/phone verification codes during
+  signup.  See ``ACCOUNT_EMAIL_VERIFICATION_SUPPORTS_RESEND`` and
+  ``ACCOUNT_PHONE_VERIFICATION_SUPPORTS_RESEND``.
+
+- Added optional support for changing your email or phone at the verification stage while signing up.
+  See ``ACCOUNT_EMAIL_VERIFICATION_SUPPORTS_CHANGE`` and
+  ``ACCOUNT_PHONE_VERIFICATION_SUPPORTS_CHANGE``.
 
 
 65.7.0 (2025-04-03)
@@ -13,7 +24,7 @@ Note worthy changes
 - Officially support Django 5.2.
 
 - Headless: the URL to the OpenID configuration of the provider is now exposed
-  in the provider config.
+  in the provider configuration.
 
 
 Fixes

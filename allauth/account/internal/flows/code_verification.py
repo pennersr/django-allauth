@@ -42,6 +42,8 @@ class AbstractCodeVerificationProcess(abc.ABC):
         state: Dict[str, Any] = {
             "at": time.time(),
             "failed_attempts": 0,
+            "resend_count": 0,
+            "change_count": 0,
         }
         if email:
             state["email"] = email
@@ -76,3 +78,29 @@ class AbstractCodeVerificationProcess(abc.ABC):
 
     @abc.abstractmethod
     def abort(self): ...  # noqa: E704
+
+    def is_resend_quota_reached(self, quota: int) -> bool:
+        return self.state["resend_count"] >= quota
+
+    def is_change_quota_reached(self, quota: int) -> bool:
+        return self.state["change_count"] >= quota
+
+    def record_change(
+        self, *, email: Optional[str] = None, phone: Optional[str] = None
+    ) -> None:
+        self.state["change_count"] += 1
+        if email:
+            self.state["email"] = email
+        if phone:
+            self.state["phone"] = phone
+
+    def record_resend(self):
+        self.state["resend_count"] += 1
+
+    @property
+    def can_resend(self) -> bool:
+        return False
+
+    @property
+    def can_change(self) -> bool:
+        return False

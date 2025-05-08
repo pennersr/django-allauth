@@ -7,6 +7,7 @@ from allauth.account.fields import PhoneField
 from allauth.account.forms import (
     AddEmailForm,
     BaseSignupForm,
+    ChangeEmailForm,
     ChangePhoneForm,
     ConfirmLoginCodeForm,
     ReauthenticateForm,
@@ -244,4 +245,8 @@ class VerifyPhoneInput(VerifyPhoneForm, inputs.Input):
 
 
 class ChangePhoneInput(ChangePhoneForm, inputs.Input):
+    pass
+
+
+class ChangeEmailInput(ChangeEmailForm, inputs.Input):
     pass

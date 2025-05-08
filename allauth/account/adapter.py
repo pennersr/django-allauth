@@ -91,6 +91,7 @@ class DefaultAccountAdapter(BaseAdapter):
         ],
         "select_only_one": _("Please select only one."),
         "same_as_current": _("The new value must be different from the current one."),
+        "rate_limited": _("Be patient, you are sending too many requests."),
     }
 
     def stash_verified_email(self, request, email):
@@ -873,7 +874,7 @@ class DefaultAccountAdapter(BaseAdapter):
 
         return PhoneField(**kwargs)
 
-    def send_unknown_account_sms(self, phone: str, **kwargs):
+    def send_unknown_account_sms(self, phone: str, **kwargs) -> None:
         """
         In case enumeration prevention is enabled, and, a verification code
         is requested for an unlisted phone number, this method is invoked to
@@ -915,7 +916,7 @@ class DefaultAccountAdapter(BaseAdapter):
     def get_user_by_phone(self, phone: str):
         """
         Looks up a user given the specified phone number. Returns ``None`` if no user
-        was phone.
+        was found.
         """
         raise NotImplementedError
 

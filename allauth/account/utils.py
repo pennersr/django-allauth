@@ -2,24 +2,22 @@ import unicodedata
 from collections import OrderedDict
 from typing import List, Optional
 
-from django.conf import settings
 from django.contrib.auth import REDIRECT_FIELD_NAME, get_user_model
 from django.db import models
 from django.db.models import Q
-from django.utils.encoding import force_str
 from django.utils.http import base36_to_int, int_to_base36
 
 from allauth.account import app_settings
 from allauth.account.adapter import get_adapter
 from allauth.account.internal import flows
-from allauth.account.internal.userkit import user_field
+from allauth.account.internal.userkit import default_user_display  # noqa
+from allauth.account.internal.userkit import user_display  # noqa
+from allauth.account.internal.userkit import user_email  # noqa
+from allauth.account.internal.userkit import user_field  # noqa
+from allauth.account.internal.userkit import user_username  # noqa
 from allauth.account.models import Login
 from allauth.core.internal import httpkit
-from allauth.utils import (
-    get_request_param,
-    import_callable,
-    valid_email_or_none,
-)
+from allauth.utils import get_request_param, valid_email_or_none
 
 
 def _unicode_ci_compare(s1, s2) -> bool:
@@ -61,39 +59,6 @@ def get_login_redirect_url(
             ret = get_adapter().get_signup_redirect_url(request)
         else:
             ret = get_adapter().get_login_redirect_url(request)
-    return ret
-
-
-_user_display_callable = None
-
-
-def default_user_display(user) -> str:
-    ret = ""
-    if app_settings.USER_MODEL_USERNAME_FIELD:
-        ret = getattr(user, app_settings.USER_MODEL_USERNAME_FIELD)
-    return ret or force_str(user) or user._meta.verbose_name
-
-
-def user_display(user) -> str:
-    global _user_display_callable
-    if not _user_display_callable:
-        f = getattr(settings, "ACCOUNT_USER_DISPLAY", default_user_display)
-        _user_display_callable = import_callable(f)
-    return _user_display_callable(user)
-
-
-def user_username(user, *args, commit=False):
-    if args and not app_settings.PRESERVE_USERNAME_CASING and args[0]:
-        args = [args[0].lower()]
-    return user_field(user, app_settings.USER_MODEL_USERNAME_FIELD, *args)
-
-
-def user_email(user, *args, commit=False):
-    if args and args[0]:
-        args = [args[0].lower()]
-    ret = user_field(user, app_settings.USER_MODEL_EMAIL_FIELD, *args, commit=commit)
-    if ret:
-        ret = ret.lower()
     return ret
 
 

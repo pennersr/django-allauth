@@ -1,3 +1,4 @@
+from http import HTTPStatus
 from unittest.mock import ANY
 
 from django.contrib.auth.models import User
@@ -234,3 +235,65 @@ def test_signup_with_email_verification(
     assert resp.status_code == 200
     data = resp.json()
     assert data["meta"]["is_authenticated"]
+
+
+@pytest.mark.parametrize("rate_limit_enabled", [(False,), (True,)])
+def test_resend_at_signup(
+    db,
+    client,
+    email_factory,
+    password_factory,
+    settings,
+    headless_reverse,
+    headless_client,
+    get_last_email_verification_code,
+    mailoutbox,
+    rate_limit_enabled,
+    request,
+):
+    if rate_limit_enabled:
+        request.getfixturevalue("enable_cache")
+    settings.ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+    settings.ACCOUNT_USERNAME_REQUIRED = False
+    # This setting should have no affect:
+    settings.ACCOUNT_EMAIL_VERIFICATION_SUPPORTS_RESEND = True
+    settings.ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED = True
+    email = email_factory()
+    resp = client.post(
+        headless_reverse("headless:account:signup"),
+        data={
+            "email": email,
+            "password": password_factory(),
+        },
+        content_type="application/json",
+    )
+    assert resp.status_code == 401
+    assert User.objects.filter(email=email).exists()
+    data = resp.json()
+    flow = next((f for f in data["data"]["flows"] if f.get("is_pending")))
+    assert flow["id"] == "verify_email"
+
+    code = get_last_email_verification_code(client, mailoutbox)
+    resp = client.get(
+        headless_reverse("headless:account:verify_email"),
+        HTTP_X_EMAIL_VERIFICATION_KEY=code,
+    )
+    assert resp.status_code == 200
+    assert resp.json() == {
+        "data": {
+            "email": email,
+            "user": ANY,
+        },
+        "meta": {"is_authenticating": True},
+        "status": HTTPStatus.OK,
+    }
+    resp = client.post(
+        headless_reverse("headless:account:resend_email_verification_code"),
+    )
+    if rate_limit_enabled:
+        assert resp.status_code == HTTPStatus.TOO_MANY_REQUESTS
+    else:
+        assert resp.status_code == HTTPStatus.OK
+
+        new_code = get_last_email_verification_code(client, mailoutbox)
+        assert code != new_code

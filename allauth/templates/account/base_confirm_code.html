@@ -15,7 +15,7 @@
         entrance,{{ extra_tags }}
     {% endsetvar %}
     {% setvar submit_button_tags %}
-        prominent,confirm,{{ extra_tags }}
+        confirm,{{ extra_tags }}
     {% endsetvar %}
     {% setvar recipient %}
         {% block recipient %}{% endblock %}
@@ -26,28 +26,39 @@
     {% element p %}
         {% blocktranslate %}We've sent a code to {{ recipient }}. The code expires shortly, so please enter it soon.{% endblocktranslate %}
     {% endelement %}
-    {% element form form=form method="post" action=action_url tags=form_tags %}
+    {% element form form=verify_form method="post" action=action_url tags=form_tags %}
         {% slot body %}
             {% csrf_token %}
-            {% element fields form=form unlabeled=True %}
+            {% element fields form=verify_form unlabeled=True %}
             {% endelement %}
             {{ redirect_field }}
         {% endslot %}
         {% slot actions %}
-            {% element button type="submit" tags=submit_button_tags %}
-                {% translate "Confirm" %}
+            {% element button_group %}
+                {% element button type="submit" tags=submit_button_tags %}
+                    {% translate "Confirm" %}
+                {% endelement %}
+                {% if can_resend %}
+                    {% element button form="resend" tags="outline,resend" %}
+                        {% translate "Request new code" %}
+                    {% endelement %}
+                {% endif %}
+                {% if cancel_url %}
+                    {% element button href=cancel_url tags="outline,cancel" %}
+                        {% translate "Cancel" %}
+                    {% endelement %}
+                {% else %}
+                    {% element button type="submit" form="logout-from-stage" tags="outline,cancel" %}
+                        {% translate "Cancel" %}
+                    {% endelement %}
+                {% endif %}
             {% endelement %}
-            {% if cancel_url %}
-                {% element button href=cancel_url tags="link,cancel" %}
-                    {% translate "Cancel" %}
-                {% endelement %}
-            {% else %}
-                {% element button type="submit" form="logout-from-stage" tags="link,cancel" %}
-                    {% translate "Cancel" %}
-                {% endelement %}
-            {% endif %}
         {% endslot %}
     {% endelement %}
+    <form id="resend" method="post" action="{{ action_url }}">
+        <input type="hidden" name="action" value="resend">
+        {% csrf_token %}
+    </form>
     {% if not cancel_url %}
         <form id="logout-from-stage"
               method="post"
@@ -55,5 +66,29 @@
             <input type="hidden" name="next" value="{% url 'account_login' %}">
             {% csrf_token %}
         </form>
+    {% endif %}
+    {% setvar summary_ %}
+        {% block change_title %}{% endblock %}
+    {% endsetvar %}
+    {% if can_change %}
+        {% element details open=change_form.errors %}
+            {% slot summary %}
+                {{ summary_ }}
+            {% endslot %}
+            {% slot body %}
+                {% element form form=change_form method="post" action=action_url %}
+                    {% slot body %}
+                        {% csrf_token %}
+                        {% element fields form=change_form unlabeled=True %}
+                        {% endelement %}
+                    {% endslot %}
+                    {% slot actions %}
+                        {% element button name="action" value="change" type="submit" %}
+                            Change
+                        {% endelement %}
+                    {% endslot %}
+                {% endelement %}
+            {% endslot %}
+        {% endelement %}
     {% endif %}
 {% endblock content %}

@@ -23,3 +23,7 @@ class SignupClosedException(Exception):
     """
 
     pass
+
+
+class RateLimited(Exception):
+    pass

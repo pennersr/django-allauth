@@ -111,6 +111,27 @@ class AppSettings:
         return self._setting("EMAIL_VERIFICATION_BY_CODE_TIMEOUT", 15 * 60)
 
     @property
+    def EMAIL_VERIFICATION_MAX_CHANGE_COUNT(self) -> int:
+        """
+        The maximum number of times the email can be changed after signup at
+        the email veriication stage.
+        """
+        v = self._setting("EMAIL_VERIFICATION_SUPPORTS_CHANGE", False)
+        if isinstance(v, bool):
+            v = 2 if v else 0
+        return v
+
+    @property
+    def EMAIL_VERIFICATION_MAX_RESEND_COUNT(self) -> int:
+        """
+        The maximum number of times the user can request a new email verification code.
+        """
+        v = self._setting("EMAIL_VERIFICATION_SUPPORTS_RESEND", False)
+        if isinstance(v, bool):
+            v = 2 if v else 0
+        return v
+
+    @property
     def MAX_EMAIL_ADDRESSES(self):
         return self._setting("MAX_EMAIL_ADDRESSES", None)
 
@@ -161,6 +182,28 @@ class AppSettings:
     @property
     def PHONE_VERIFICATION_MAX_ATTEMPTS(self):
         return self._setting("PHONE_VERIFICATION_MAX_ATTEMPTS", 3)
+
+    @property
+    def PHONE_VERIFICATION_MAX_CHANGE_COUNT(self) -> int:
+        """
+        The maximum number of times the phone number can be changed after
+        signup at the phone number verification stage.
+        """
+        v = self._setting("PHONE_VERIFICATION_SUPPORTS_CHANGE", False)
+        if isinstance(v, bool):
+            v = 2 if v else 0
+        return v
+
+    @property
+    def PHONE_VERIFICATION_MAX_RESEND_COUNT(self) -> int:
+        """
+        The maximum number of times the user can request a new phone number
+        verification code.
+        """
+        v = self._setting("PHONE_VERIFICATION_SUPPORTS_RESEND", False)
+        if isinstance(v, bool):
+            v = 2 if v else 0
+        return v
 
     @property
     def PHONE_VERIFICATION_TIMEOUT(self):
@@ -252,8 +295,10 @@ class AppSettings:
             "request_login_code": "20/m/ip,3/m/key",
             # Logins.
             "login_failed": login_failed_rl,
-            # Confirm email
+            # Verify email (to be renamed to verify_email)
             "confirm_email": confirm_email_rl,
+            # Verify phone
+            "verify_phone": "1/30s/key,3/m/ip",
         }
         ret.update(rls)
         return ret

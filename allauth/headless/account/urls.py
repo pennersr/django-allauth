@@ -81,9 +81,19 @@ def build_urlpatterns(client):
                     name="verify_email",
                 ),
                 path(
+                    "email/verify/resend",
+                    views.ResendEmailVerificationCodeView.as_api_view(client=client),
+                    name="resend_email_verification_code",
+                ),
+                path(
                     "phone/verify",
                     views.VerifyPhoneView.as_api_view(client=client),
                     name="verify_phone",
+                ),
+                path(
+                    "phone/verify/resend",
+                    views.ResendPhoneVerificationCodeView.as_api_view(client=client),
+                    name="resend_phone_verification_code",
                 ),
             ]
         )

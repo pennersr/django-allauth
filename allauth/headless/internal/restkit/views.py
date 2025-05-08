@@ -24,13 +24,17 @@ class RESTView(View):
                 return response
         return super().dispatch(request, *args, **kwargs)
 
+    def get_input_class(self):
+        input_class = self.input_class
+        if isinstance(input_class, dict):
+            input_class = input_class.get(self.request.method)
+        return input_class
+
     def get_input_kwargs(self):
         return {}
 
     def handle_input(self, data):
-        input_class = self.input_class
-        if isinstance(input_class, dict):
-            input_class = input_class.get(self.request.method)
+        input_class = self.get_input_class()
         if not input_class:
             return
         input_kwargs = self.get_input_kwargs()

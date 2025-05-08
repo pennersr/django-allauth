@@ -5,6 +5,8 @@ Members of the scientific commmunity affiliated with CERN (https://home.cern/abo
 can put their applications behind CERN SSO, which supports OIDC and SAML protocols.
 For OIDC, use the regular OpenID Connect configuration:
 
+.. code-block:: python
+
     SOCIALACCOUNT_PROVIDERS = {
         "openid_connect": {
             "APPS": [

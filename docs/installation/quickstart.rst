@@ -213,6 +213,11 @@ Note that you do not necessarily need the URLs provided by
 ``password_change`` (among others), you can use the URLs provided by
 ``allauth``: ``account_login``, ``account_logout``, ``account_set_password``...
 
+**Important**: This project is not designed to work with ``SESSION_ENGINE`` set
+to ``"django.contrib.sessions.backends.signed_cookies"``.  With signed cookies,
+the session data is signed but not encrypted, whereas allauth stores secrets
+(e.g. verification codes) in the session.
+
 
 Post-Installation
 -----------------

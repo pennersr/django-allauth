@@ -4,7 +4,7 @@ GitLab
 The GitLab provider works by default with https://gitlab.com. It allows you
 to connect to your private GitLab server and use GitLab as an OAuth2
 authentication provider as described in GitLab docs at
-http://doc.gitlab.com/ce/integration/oauth_provider.html
+https://docs.gitlab.com/integration/oauth_provider/
 
 The following GitLab settings are available, if unset https://gitlab.com will
 be used, with a ``read_user`` scope.

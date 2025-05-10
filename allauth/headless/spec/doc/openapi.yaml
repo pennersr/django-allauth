@@ -2779,7 +2779,7 @@ components:
                 description: |
                   The name of the input parameter that was incorrect.
               message:
-                type: number
+                type: string
                 example: Enter a valid email address.
                 description: |
                   A human readable error message.

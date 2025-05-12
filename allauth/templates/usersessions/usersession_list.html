@@ -18,40 +18,52 @@
         {% slot body %}
             {% csrf_token %}
             {% element table tags="sessions" %}
-                <thead>
-                    <tr>
-                        <th>{% translate "Started At" %}</th>
-                        <th>{% translate "IP Address" %}</th>
-                        <th>{% translate "Browser" %}</th>
+                {% element thead %}
+                    {% element tr %}
+                        {% element th %}
+                            {% translate "Started At" %}
+                        {% endelement %}
+                        {% element th %}
+                            {% translate "IP Address" %}
+                        {% endelement %}
+                        {% element th %}
+                            {% translate "Browser" %}
+                        {% endelement %}
                         {% if show_last_seen_at %}
-                            <th>{% translate "Last seen at" %}</th>
+                            {% element th %}
+                                {% translate "Last seen at" %}
+                            {% endelement %}
                         {% endif %}
-                    </tr>
-                </thead>
-                <tbody>
+                    {% endelement %}
+                {% endelement %}
+                {% element tbody %}
                     {% for session in sessions %}
-                        <tr>
-                            <td>
+                        {% element tr %}
+                            {% element td %}
                                 <span title="{{ session.created_at }}">{{ session.created_at|naturaltime }}</span>
-                            </td>
-                            <td>{{ session.ip }}</td>
-                            <td>{{ session.user_agent }}</td>
+                            {% endelement %}
+                            {% element td %}
+                                {{ session.ip }}
+                            {% endelement %}
+                            {% element td %}
+                                {{ session.user_agent }}
+                            {% endelement %}
                             {% if show_last_seen_at %}
-                                <td>
+                                {% element td %}
                                     <span title="{{ session.last_seen_at }}">{{ session.last_seen_at|naturaltime }}</span>
-                                </td>
+                                {% endelement %}
                             {% endif %}
-                            <td>
+                            {% element td %}
                                 {% if session.is_current %}
                                     {% element badge tags="session,current" %}
                                         {% translate "Current" %}
                                     {% endelement %}
                                 {% else %}
                                 {% endif %}
-                            </td>
-                        </tr>
+                            {% endelement %}
+                        {% endelement %}
                     {% endfor %}
-                </tbody>
+                {% endelement %}
             {% endelement %}
         {% endslot %}
         {% slot actions %}

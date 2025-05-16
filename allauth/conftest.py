@@ -487,7 +487,9 @@ def pytest_ignore_collect(path, config):
             "mfa",
             "usersessions",
             "socialaccount",
+            "idp",
         ),
+        "tests.headless_only.settings": ("idp",),
     }
     dsm = os.getenv("DJANGO_SETTINGS_MODULE")
     skipped_paths = tests_to_skip.get(dsm)

@@ -17,6 +17,7 @@ Contents
    mfa/index
    usersessions/index
    headless/index
+   idp/index
    common/index
    project/index
    faq

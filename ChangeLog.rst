@@ -4,7 +4,9 @@
 Note worthy changes
 -------------------
 
-- ...
+- Added ``allauth.idp`` to the project, offering out of the box OpenID Connect
+  provider support, as well as integration with Django REST framework and Django
+  Ninja.
 
 
 65.8.0 (2025-05-08)

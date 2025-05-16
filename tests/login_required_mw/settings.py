@@ -2,6 +2,7 @@ from pathlib import Path
 
 from django.contrib.auth.hashers import PBKDF2PasswordHasher
 
+from tests.common.settings import IDP_OIDC_PRIVATE_KEY  # noqa
 from tests.common.settings import INSTALLED_SOCIALACCOUNT_APPS
 
 
@@ -55,7 +56,7 @@ MIDDLEWARE = (
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django.contrib.auth.middleware.LoginRequiredMiddleware",
+    "tests.login_required_mw.middleware.CustomLoginRequiredMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",
@@ -75,6 +76,7 @@ INSTALLED_APPS = (
     "allauth.mfa",
     "allauth.usersessions",
     "allauth.headless",
+    "allauth.idp.oidc",
 ) + INSTALLED_SOCIALACCOUNT_APPS
 
 AUTHENTICATION_BACKENDS = (

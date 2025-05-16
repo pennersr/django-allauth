@@ -1,0 +1,31 @@
+{% extends "allauth/layouts/entrance.html" %}
+{% load i18n %}
+{% load allauth %}
+{% block head_title %}
+    {% trans "Authorize" %}
+{% endblock head_title %}
+{% block content %}
+    {% element h1 %}
+        {% trans "Authorize" %} {{ client.name }}
+    {% endelement %}
+    {% element p %}
+        {% blocktranslate with client_name=client.name site_name=site.name %}{{ client_name }} wants to access your {{ site_name }} account.{% endblocktranslate %}
+    {% endelement %}
+    {% url 'idp:openid_connect:authorize' as authorize_url %}
+    {% element form method="post" action=authorize_url %}
+        {% slot body %}
+            {% csrf_token %}
+            {{ form }}
+        {% endslot %}
+        {% slot actions %}
+            {% element button_group %}
+                {% element button name="action" value="grant" type="submit" tags="primary,consent" %}
+                    {% translate "Authorize" %}
+                {% endelement %}
+                {% element button name="action" value="cancel" type="submit" tags="outline,consent" %}
+                    {% translate "Cancel" %}
+                {% endelement %}
+            {% endelement %}
+        {% endslot %}
+    {% endelement %}
+{% endblock %}

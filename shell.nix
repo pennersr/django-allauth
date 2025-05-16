@@ -18,6 +18,7 @@ stdenv.mkDerivation {
         python311Packages.flake8
         python311Packages.debugpy
         python311Packages.django-ninja
+        python311Packages.oauthlib
         python311Packages.pycodestyle
         python311Packages.pyls-flake8
         python311Packages.pylsp-rope

@@ -5,6 +5,7 @@ from django.urls import resolve, reverse
 from django.urls.exceptions import Resolver404
 
 from allauth.account import app_settings as account_settings
+from allauth.account.fields import EmailField
 from allauth.account.internal.flows.signup import base_signup_form_class
 from allauth.headless import app_settings
 
@@ -120,6 +121,7 @@ def specify_custom_signup_form(spec: dict) -> None:
         forms.DateField: {"type": "string", "format": "date"},
         forms.DateTimeField: {"type": "string", "format": "date-time"},
         forms.EmailField: {"type": "string", "format": "email"},
+        EmailField: {"type": "string", "format": "email"},
         forms.URLField: {"type": "string", "format": "uri"},
         forms.DecimalField: {
             "type": "string",

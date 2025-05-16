@@ -15,6 +15,7 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import gettext, gettext_lazy as _, pgettext
 
 from allauth.account.app_settings import LoginMethod
+from allauth.account.fields import EmailField, PasswordField, SetPasswordField
 from allauth.account.internal import flows
 from allauth.account.internal.flows.manage_email import email_already_exists
 from allauth.account.internal.flows.phone_verification import (
@@ -65,36 +66,6 @@ class PasswordVerificationMixin:
         return cleaned_data
 
 
-class PasswordField(forms.CharField):
-    def __init__(self, *args, **kwargs):
-        render_value = kwargs.pop(
-            "render_value", app_settings.PASSWORD_INPUT_RENDER_VALUE
-        )
-        kwargs["widget"] = forms.PasswordInput(
-            render_value=render_value,
-            attrs={"placeholder": kwargs.get("label")},
-        )
-        autocomplete = kwargs.pop("autocomplete", None)
-        if autocomplete is not None:
-            kwargs["widget"].attrs["autocomplete"] = autocomplete
-        super(PasswordField, self).__init__(*args, **kwargs)
-
-
-class SetPasswordField(PasswordField):
-    def __init__(self, *args, **kwargs):
-        kwargs["autocomplete"] = "new-password"
-        kwargs.setdefault(
-            "help_text", password_validation.password_validators_help_text_html()
-        )
-        super().__init__(*args, **kwargs)
-        self.user = None
-
-    def clean(self, value):
-        value = super().clean(value)
-        value = get_adapter().clean_password(value, user=self.user)
-        return value
-
-
 class LoginForm(forms.Form):
     password = PasswordField(label=_("Password"), autocomplete="current-password")
     remember = forms.BooleanField(label=_("Remember Me"), required=False)
@@ -106,13 +77,7 @@ class LoginForm(forms.Form):
         super().__init__(*args, **kwargs)
         adapter = get_adapter()
         if app_settings.LOGIN_METHODS == {LoginMethod.EMAIL}:
-            login_widget = forms.EmailInput(
-                attrs={
-                    "placeholder": _("Email address"),
-                    "autocomplete": "email",
-                }
-            )
-            login_field = forms.EmailField(label=_("Email"), widget=login_widget)
+            login_field = EmailField()
         elif app_settings.LOGIN_METHODS == {LoginMethod.USERNAME}:
             login_widget = forms.TextInput(
                 attrs={"placeholder": _("Username"), "autocomplete": "username"}
@@ -307,15 +272,7 @@ class BaseSignupForm(base_signup_form_class()):  # type: ignore[misc]
             attrs={"placeholder": _("Username"), "autocomplete": "username"}
         ),
     )
-    email = forms.EmailField(
-        widget=forms.TextInput(
-            attrs={
-                "type": "email",
-                "placeholder": _("Email address"),
-                "autocomplete": "email",
-            }
-        )
-    )
+    email = EmailField()
 
     def __init__(self, *args, **kwargs):
         self._signup_fields = self._get_signup_fields(kwargs)
@@ -330,7 +287,7 @@ class BaseSignupForm(base_signup_form_class()):  # type: ignore[misc]
 
         email2 = self._signup_fields.get("email2")
         if email2:
-            self.fields["email2"] = forms.EmailField(
+            self.fields["email2"] = EmailField(
                 label=_("Email (again)"),
                 required=email2["required"],
                 widget=forms.TextInput(
@@ -583,13 +540,7 @@ class UserForm(forms.Form):
 
 
 class AddEmailForm(UserForm):
-    email = forms.EmailField(
-        label=_("Email"),
-        required=True,
-        widget=forms.TextInput(
-            attrs={"type": "email", "placeholder": _("Email address")}
-        ),
-    )
+    email = EmailField(required=True)
 
     def clean_email(self):
         from allauth.account import signals
@@ -673,17 +624,7 @@ class SetPasswordForm(PasswordVerificationMixin, UserForm):
 
 
 class ResetPasswordForm(forms.Form):
-    email = forms.EmailField(
-        label=_("Email"),
-        required=True,
-        widget=forms.TextInput(
-            attrs={
-                "type": "email",
-                "placeholder": _("Email address"),
-                "autocomplete": "email",
-            }
-        ),
-    )
+    email = EmailField(required=True)
 
     def clean_email(self):
         email = self.cleaned_data["email"].lower()
@@ -771,14 +712,7 @@ class ReauthenticateForm(forms.Form):
 
 
 class RequestLoginCodeForm(forms.Form):
-    email = forms.EmailField(
-        widget=forms.EmailInput(
-            attrs={
-                "placeholder": _("Email address"),
-                "autocomplete": "email",
-            }
-        )
-    )
+    email = EmailField()
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -906,13 +840,7 @@ class ChangePhoneForm(forms.Form):
 
 
 class ChangeEmailForm(forms.Form):
-    email = forms.EmailField(
-        label=_("Email"),
-        required=True,
-        widget=forms.TextInput(
-            attrs={"type": "email", "placeholder": _("Email address")}
-        ),
-    )
+    email = EmailField(required=True)
 
     def __init__(self, *args, **kwargs):
         self.email = kwargs.pop("email", None)

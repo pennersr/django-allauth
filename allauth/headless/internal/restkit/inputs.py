@@ -2,12 +2,13 @@ from django.forms import (
     BooleanField,
     CharField,
     ChoiceField,
-    EmailField,
     Field,
     Form,
     ModelChoiceField,
     ModelMultipleChoiceField,
 )
+
+from allauth.account.fields import EmailField
 
 
 __all__ = [

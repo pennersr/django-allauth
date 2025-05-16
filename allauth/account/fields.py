@@ -7,6 +7,25 @@ from allauth.account import app_settings
 from allauth.account.adapter import get_adapter
 
 
+class EmailField(forms.EmailField):
+    def __init__(self, *args, **kwargs) -> None:
+        kwargs.setdefault("label", _("Email"))
+        kwargs.setdefault(
+            "widget",
+            forms.TextInput(
+                attrs={
+                    "type": "email",
+                    "autocomplete": "email",
+                    "placeholder": _("Email address"),
+                }
+            ),
+        )
+        super().__init__(*args, **kwargs)
+
+    def clean(self, value):
+        return super().clean(value).lower()
+
+
 class PasswordField(forms.CharField):
     def __init__(self, *args, **kwargs):
         render_value = kwargs.pop(

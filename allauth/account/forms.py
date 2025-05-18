@@ -22,7 +22,7 @@ from allauth.account.internal.flows.phone_verification import (
     phone_already_exists,
 )
 from allauth.account.internal.flows.signup import base_signup_form_class
-from allauth.account.internal.textkit import compare_code
+from allauth.core.internal.cryptokit import compare_user_code
 from allauth.core import context, ratelimit
 from allauth.core.internal.httpkit import headed_redirect_response
 from allauth.utils import get_username_max_length, set_form_field_order
@@ -781,7 +781,7 @@ class BaseConfirmCodeForm(forms.Form):
 
     def clean_code(self):
         code = self.cleaned_data.get("code")
-        if not compare_code(actual=code, expected=self.code):
+        if not compare_user_code(actual=code, expected=self.code):
             raise get_adapter().validation_error("incorrect_code")
         return code
 

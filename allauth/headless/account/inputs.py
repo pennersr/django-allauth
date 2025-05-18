@@ -17,7 +17,7 @@ from allauth.account.forms import (
     VerifyPhoneForm,
 )
 from allauth.account.internal import flows
-from allauth.account.internal.textkit import compare_code
+from allauth.core.internal.cryptokit import compare_user_code
 from allauth.account.models import (
     EmailAddress,
     Login,
@@ -99,7 +99,7 @@ class VerifyEmailInput(inputs.Input):
     def clean_key(self):
         key = self.cleaned_data["key"]
         if self.process:
-            if not compare_code(actual=key, expected=self.process.code):
+            if not compare_user_code(actual=key, expected=self.process.code):
                 raise get_account_adapter().validation_error("incorrect_code")
             valid = True
             email_address = self.process.email_address
@@ -140,7 +140,7 @@ class ResetPasswordKeyInput(inputs.Input):
 
     def _clean_key_code(self):
         key = self.cleaned_data["key"]
-        if not compare_code(actual=key, expected=self.code):
+        if not compare_user_code(actual=key, expected=self.code):
             raise get_account_adapter().validation_error("incorrect_code")
         return key
 

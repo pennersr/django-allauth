@@ -14,6 +14,7 @@ from django.contrib.auth import (
     login as django_login,
     logout as django_logout,
 )
+from allauth.core.internal.cryptokit import generate_user_code
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.password_validation import (
     MinimumLengthValidator,
@@ -819,32 +820,25 @@ class DefaultAccountAdapter(BaseAdapter):
         """
         Generates a new login code.
         """
-        return self._generate_code()
+        return generate_user_code()
 
     def generate_password_reset_code(self) -> str:
         """
         Generates a new password reset code.
         """
-        return self._generate_code(length=8)
+        return generate_user_code(length=8)
 
     def generate_email_verification_code(self) -> str:
         """
         Generates a new email verification code.
         """
-        return self._generate_code()
+        return generate_user_code()
 
     def generate_phone_verification_code(self) -> str:
         """
         Generates a new phone verification code.
         """
-        return self._generate_code()
-
-    def _generate_code(self, length=6):
-        forbidden_chars = "0OI18B2ZAEU"
-        allowed_chars = string.ascii_uppercase + string.digits
-        for ch in forbidden_chars:
-            allowed_chars = allowed_chars.replace(ch, "")
-        return get_random_string(length=length, allowed_chars=allowed_chars)
+        return generate_user_code()
 
     def is_login_by_code_required(self, login) -> bool:
         """

@@ -34,6 +34,26 @@ class AppSettings:
     def ROTATE_REFRESH_TOKEN(self) -> bool:
         return self._setting("ROTATE_REFRESH_TOKEN", True)
 
+    @property
+    def DEVICE_CODE_EXPIRES_IN(self) -> int:
+        return self._setting("DEVICE_CODE_EXPIRES_IN", 300)
+
+    @property
+    def DEVICE_CODE_INTERVAL(self) -> int:
+        return self._setting("DEVICE_CODE_INTERVAL", 5)
+
+    @property
+    def RATE_LIMITS(self):
+        rls = self._setting("RATE_LIMITS", {})
+        if rls is False:
+            return {}
+        ret = {
+            # OIDC device user code checks
+            "device_user_code": "5/m/ip"
+        }
+        ret.update(rls)
+        return ret
+
 
 _app_settings = AppSettings("IDP_OIDC_")
 

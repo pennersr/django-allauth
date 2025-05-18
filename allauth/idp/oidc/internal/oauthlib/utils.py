@@ -1,7 +1,7 @@
 from typing import Dict, Tuple
 from urllib.parse import urlparse, urlunparse
 
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.shortcuts import render
 
 from oauthlib.common import quote, urlencode, urlencoded
@@ -45,11 +45,16 @@ def extract_headers(request) -> Dict[str, str]:
         headers["Authorization"] = headers["HTTP_AUTHORIZATION"]
     if "HTTP_ORIGIN" in headers:
         headers["Origin"] = headers["HTTP_ORIGIN"]
+    if "CONTENT_TYPE" in headers:
+        headers["Content-Type"] = headers["CONTENT_TYPE"]
     return headers
 
 
 def convert_response(headers, body, status):
-    response = HttpResponse(content=body, status=status)
+    if isinstance(body, dict):
+        response = JsonResponse(body, status=status)
+    else:
+        response = HttpResponse(content=body, status=status)
     for k, v in headers.items():
         response[k] = v
     return response

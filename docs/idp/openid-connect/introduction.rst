@@ -14,6 +14,8 @@ The following OpenID Connect functionality is supported:
 
 - Implicit grant.
 
+- Device authorization grant
+
 Functionality intentionally not supported:
 
 - Password grant: This is a legacy flow, no longer recommended. For example, it lacks support for MFA.

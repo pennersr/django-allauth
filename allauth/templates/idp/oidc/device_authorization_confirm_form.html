@@ -1,0 +1,34 @@
+{% extends "allauth/layouts/entrance.html" %}
+{% load i18n %}
+{% load allauth %}
+{% block head_title %}
+    {% trans "Authorize" %}
+{% endblock head_title %}
+{% block content %}
+    {% element h1 %}
+        {% trans "Confirm Device" %}
+    {% endelement %}
+    {% element p %}
+        {% blocktranslate with client_name=client.name %}Please confirm the code shown on your {{ client_name }} to authorize this device.{% endblocktranslate %}
+    {% endelement %}
+    {% element field type="text" value=user_code disabled=True %}
+        {% slot label %}
+            {% translate "Code" %}
+        {% endslot %}
+    {% endelement %}
+    {% element form method="post" action=authorization_url %}
+        {% slot body %}
+            {{ form }}
+        {% endslot %}
+        {% slot actions %}
+            {% element button_group %}
+                {% element button name="action" value="confirm" type="submit" tags="primary,consent" %}
+                    {% translate "Confirm" %}
+                {% endelement %}
+                {% element button name="action" value="deny" type="submit" tags="outline,consent" %}
+                    {% translate "Deny" %}
+                {% endelement %}
+            {% endelement %}
+        {% endslot %}
+    {% endelement %}
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "allauth/layouts/entrance.html" %}
+{% load i18n %}
+{% load allauth %}
+{% block head_title %}
+    {% trans "Authorize" %}
+{% endblock head_title %}
+{% block content %}
+    {% element h1 %}
+        {% trans "Device Authorized" %}
+    {% endelement %}
+    {% element p %}
+        {% blocktranslate with client_name=client.name %}You successfully authorized your {{ client_name }} device.{% endblocktranslate %}
+    {% endelement %}
+{% endblock %}

@@ -36,6 +36,11 @@ urlpatterns = [
                                 name="authorization",
                             ),
                             path(
+                                "device",
+                                views.device_authorization,
+                                name="device_authorization",
+                            ),
+                            path(
                                 "api/",
                                 include(
                                     [
@@ -53,6 +58,11 @@ urlpatterns = [
                                             "userinfo",
                                             views.user_info,
                                             name="userinfo",
+                                        ),
+                                        path(
+                                            "device/code",
+                                            views.device_code,
+                                            name="device_code",
                                         ),
                                     ]
                                 ),

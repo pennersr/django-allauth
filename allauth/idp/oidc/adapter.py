@@ -13,6 +13,7 @@ from allauth.account.internal.userkit import (
 )
 from allauth.account.models import EmailAddress
 from allauth.core.internal.adapter import BaseAdapter
+from allauth.core.internal.cryptokit import generate_user_code
 from allauth.idp.oidc import app_settings
 from allauth.utils import import_attribute
 
@@ -42,6 +43,9 @@ class DefaultOIDCAdapter(BaseAdapter):
         The client secret to use for newly created clients.
         """
         return get_random_secret_key()
+
+    def generate_user_code(self) -> str:
+        return generate_user_code(length=8)
 
     def hash_token(self, token: str) -> str:
         """

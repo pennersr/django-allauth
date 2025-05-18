@@ -1,6 +1,7 @@
+from http import HTTPStatus
 from typing import List, Optional
 
-from django.contrib.auth import REDIRECT_FIELD_NAME
+from django.contrib.auth import REDIRECT_FIELD_NAME, get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import PermissionDenied
@@ -13,24 +14,35 @@ from django.http import (
     JsonResponse,
 )
 from django.middleware.csrf import CsrfViewMiddleware
+from django.shortcuts import render
 from django.urls import reverse
 from django.utils.decorators import method_decorator
+from django.utils.http import urlencode
 from django.views import View
 from django.views.decorators.clickjacking import xframe_options_deny
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.edit import FormView
 
 from oauthlib.oauth2.rfc6749 import errors
-from oauthlib.oauth2.rfc6749.errors import OAuth2Error
+from oauthlib.oauth2.rfc6749.errors import InvalidScopeError, OAuth2Error
 
 from allauth.account import app_settings as account_settings
 from allauth.account.internal.decorators import login_not_required
+from allauth.account.internal.userkit import str_to_user_id
 from allauth.core.internal import jwkkit
 from allauth.core.internal.httpkit import add_query_params, del_query_params
 from allauth.idp.oidc import app_settings
 from allauth.idp.oidc.adapter import get_adapter
-from allauth.idp.oidc.forms import AuthorizationForm
-from allauth.idp.oidc.internal.oauthlib.server import get_server
+from allauth.idp.oidc.forms import (
+    AuthorizationForm,
+    ConfirmCodeForm,
+    DeviceAuthorizationForm,
+)
+from allauth.idp.oidc.internal.oauthlib import device_codes
+from allauth.idp.oidc.internal.oauthlib.server import (
+    get_device_server,
+    get_server,
+)
 from allauth.idp.oidc.internal.oauthlib.utils import (
     convert_response,
     extract_params,
@@ -235,12 +247,131 @@ authorization = AuthorizationView.as_view()
 
 @method_decorator(csrf_exempt, name="dispatch")
 @method_decorator(login_not_required, name="dispatch")
+class DeviceCodeView(View):
+    def post(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
+        orequest = extract_params(request)
+        try:
+            headers, data, status = (
+                get_device_server().create_device_authorization_response(*orequest)
+            )
+            if status == HTTPStatus.OK:
+                client_id = request.POST["client_id"]
+                scope: Optional[List[str]] = None
+                if "scope" in request.POST:
+                    scope = request.POST["scope"].split()
+                    client = Client.objects.get(id=client_id)
+                    if not set(scope).issubset(set(client.get_scopes())):
+                        raise InvalidScopeError()
+                device_codes.create(client_id, scope, data)
+        except OAuth2Error as e:
+            return HttpResponse(
+                e.json, content_type="application/json", status=e.status_code
+            )
+        return convert_response(headers, data, status)
+
+
+device_code = DeviceCodeView.as_view()
+
+
+@method_decorator(csrf_exempt, name="dispatch")
+@method_decorator(login_required, name="dispatch")
+class DeviceAuthorizationView(View):
+    def dispatch(self, request, *args, **kwargs):
+        if "code" in request.GET:
+            form = ConfirmCodeForm(request.GET)
+            if form.is_valid():
+                return self._dispatch_authorization(
+                    request,
+                    form.cleaned_data["code"],
+                    form.device_code,
+                    form.client,
+                )
+        else:
+            form = ConfirmCodeForm()
+        context = {
+            "form": form,
+            "autorization_url": reverse("idp:oidc:device_authorization"),
+        }
+        return render(
+            request,
+            "idp/oidc/device_authorization_code_form."
+            + account_settings.TEMPLATE_EXTENSION,
+            context,
+        )
+
+    def _dispatch_authorization(
+        self, request, user_code: str, device_code: str, client: Client
+    ):
+        context = {"user_code": user_code, "client": client}
+        if request.method == "POST":
+            form = DeviceAuthorizationForm(request.POST)
+            if form.is_valid():
+                confirm = form.cleaned_data["action"] == "confirm"
+                device_codes.confirm_or_deny_device_code(
+                    request.user, device_code, confirm=confirm
+                )
+                if confirm:
+                    template_name = "idp/oidc/device_authorization_confirmed."
+                else:
+                    template_name = "idp/oidc/device_authorization_denied."
+                return render(
+                    request,
+                    template_name + account_settings.TEMPLATE_EXTENSION,
+                    context,
+                )
+        else:
+            form = DeviceAuthorizationForm()
+        context["autorization_url"] = (
+            reverse("idp:oidc:device_authorization")
+            + "?"
+            + urlencode({"code": user_code})
+        )
+
+        return render(
+            request,
+            "idp/oidc/device_authorization_confirm_form."
+            + account_settings.TEMPLATE_EXTENSION,
+            context,
+        )
+
+
+device_authorization = DeviceAuthorizationView.as_view()
+
+
+@method_decorator(csrf_exempt, name="dispatch")
+@method_decorator(login_not_required, name="dispatch")
 class TokenView(View):
 
     def post(self, request):
+        if request.POST.get("grant_type") == Client.GrantType.DEVICE_CODE:
+            return self._post_device_token(request)
+        return self._create_token_response(request)
+
+    def _create_token_response(self, request, data: Optional[dict] = None):
         orequest = extract_params(request)
-        oresponse = get_server().create_token_response(*orequest)
+        oresponse = get_server(
+            pre_token=[lambda orequest: self._pre_token(orequest, data)]
+        ).create_token_response(*orequest)
         return convert_response(*oresponse)
+
+    def _pre_token(self, orequest, data: Optional[dict]):
+        if orequest.grant_type == Client.GrantType.DEVICE_CODE:
+            assert data is not None  # nosec
+            if scope := data.get("scope"):
+                orequest.scope = scope
+            orequest.user = get_user_model().objects.get(
+                pk=str_to_user_id(data["user"])
+            )
+
+    def _post_device_token(self, request):
+        try:
+            data = device_codes.poll_device_code(request)
+        except OAuth2Error as e:
+            return HttpResponse(
+                e.json, content_type="application/json", status=e.status_code
+            )
+        else:
+            return self._create_token_response(request, data)
 
 
 token = TokenView.as_view()

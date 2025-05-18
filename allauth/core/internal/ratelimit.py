@@ -153,10 +153,11 @@ def consume(
     key=None,
     user=None,
     dry_run: bool = False,
+    limit_get: bool = False,
     raise_exception: bool = False
 ) -> Optional[RateLimitUsage]:
     usage = RateLimitUsage(usage=[])
-    if request.method == "GET":
+    if (not limit_get) and request.method == "GET":
         return usage
     rates = parse_rates(config.get(action))
     if not rates:

@@ -27,9 +27,19 @@ def oidc_client(db, oidc_client_secret):
 
     client.set_redirect_uris(["https://client/callback"])
     client.set_scopes(["profile", "openid", "email"])
-    client.set_grant_types(
-        ["authorization_code", "client_credentials", "password", "refresh_token"]
-    )
+    client.set_grant_types([g.value for g in Client.GrantType])
+    client.set_response_types(["code", "token"])
+    client.save()
+    return client
+
+
+@pytest.fixture
+def device_client(db):
+    client = Client.objects.create()
+    client.type = Client.Type.PUBLIC
+    client.set_redirect_uris(["https://client/callback"])
+    client.set_scopes(["profile", "openid", "email"])
+    client.set_grant_types([g.value for g in Client.GrantType])
     client.set_response_types(["code", "token"])
     client.save()
     return client

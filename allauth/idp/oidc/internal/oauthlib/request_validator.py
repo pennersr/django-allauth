@@ -40,7 +40,7 @@ class OAuthLibRequestValidator(RequestValidator):
         return set(scopes).issubset(request.client.get_scopes())
 
     def get_default_scopes(self, client_id, request, *args, **kwargs):
-        return []
+        return request.client.get_default_scopes()
 
     def save_authorization_code(self, client_id, code, request, *args, **kwargs):
         # WORKAROUND: docstring says:
@@ -64,7 +64,11 @@ class OAuthLibRequestValidator(RequestValidator):
     def authenticate_client(self, request, *args, **kwargs) -> bool:
         client_id = getattr(request, "client_id", None)
         client_secret = getattr(request, "client_secret", None)
-        if not isinstance(client_id, str) or not isinstance(client_secret, str):
+        if not isinstance(client_id, str):
+            return False
+        if not client_secret and request.grant_type == Client.GrantType.DEVICE_CODE:
+            return self.authenticate_client_id(client_id, request)
+        if not client_secret or not isinstance(client_secret, str):
             return False
         client = self._lookup_client(request, client_id)
         if not client:

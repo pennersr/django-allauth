@@ -4,7 +4,7 @@
 Note worthy changes
 -------------------
 
-- ...
+- IdP: Added support for the device authorization grant.
 
 
 65.9.0 (2025-06-01)

@@ -1,0 +1,25 @@
+{% extends "allauth/layouts/entrance.html" %}
+{% load i18n %}
+{% load allauth %}
+{% block head_title %}
+    {% trans "Authorize" %}
+{% endblock head_title %}
+{% block content %}
+    {% element h1 %}
+        {% trans "Enter Device Code" %}
+    {% endelement %}
+    {% element p %}
+        {% blocktranslate %}Enter the code displayed on your device.{% endblocktranslate %}
+    {% endelement %}
+    {% element form method="get" action=authorization_url %}
+        {% slot body %}
+            {% element fields form=form unlabeled=True %}
+            {% endelement %}
+        {% endslot %}
+        {% slot actions %}
+            {% element button type="submit" tags="primary" %}
+                {% translate "Continue" %}
+            {% endelement %}
+        {% endslot %}
+    {% endelement %}
+{% endblock %}

@@ -21,6 +21,10 @@ Scopes
       profile
       email
 
+Default scopes
+    In case the client does not specify any scope, this are the default scope
+    that will be used. Values are provide line by line.
+
 Grant types
     A list of allowed grant types. Provide one value per line, e.g.::
 

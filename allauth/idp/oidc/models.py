@@ -35,6 +35,7 @@ def _values_to_text(values) -> str:
 class Client(models.Model):
     class GrantType(models.TextChoices):
         AUTHORIZATION_CODE = "authorization_code", _("Authorization code")
+        DEVICE_CODE = "urn:ietf:params:oauth:grant-type:device_code", _("Device code")
         CLIENT_CREDENTIALS = "client_credentials", _("Client credentials")
         REFRESH_TOKEN = "refresh_token", _("Refresh token")
 
@@ -57,6 +58,13 @@ class Client(models.Model):
             "The scope(s) the client is allowed to request. Provide one value per line, e.g.: openid(ENTER)profile(ENTER)email(ENTER)"
         ),
         default="openid",
+    )
+    default_scopes = models.TextField(
+        help_text=_(
+            "In case the client does not specify any scope, these default scopes are used. Provide one value per line, e.g.: openid(ENTER)profile(ENTER)email(ENTER)"
+        ),
+        default="",
+        blank=True,
     )
     type = models.CharField(
         max_length=20, default=Type.CONFIDENTIAL, choices=Type.choices
@@ -116,6 +124,12 @@ class Client(models.Model):
 
     def set_scopes(self, scopes: List[str]) -> None:
         self.scopes = _values_to_text(scopes)
+
+    def get_default_scopes(self) -> List[str]:
+        return _values_from_text(self.default_scopes)
+
+    def set_default_scopes(self, scopes: List[str]) -> None:
+        self.default_scopes = _values_to_text(scopes)
 
     def get_response_types(self) -> List[str]:
         return _values_from_text(self.response_types)

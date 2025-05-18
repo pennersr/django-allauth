@@ -2,8 +2,13 @@ from django import forms
 from django.forms import widgets
 from django.utils.translation import gettext as _
 
+from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.models import EmailAddress
+from allauth.core import context
+from allauth.core.internal import ratelimit
+from allauth.idp.oidc import app_settings
 from allauth.idp.oidc.adapter import get_adapter
+from allauth.idp.oidc.internal.oauthlib import device_codes
 
 
 class AuthorizationForm(forms.Form):
@@ -34,3 +39,34 @@ class AuthorizationForm(forms.Form):
                 choices=[(email, email) for email in emails],
                 required=False,
             )
+
+
+class ConfirmCodeForm(forms.Form):
+    code = forms.CharField(
+        label=_("Code"),
+        required=True,
+        widget=forms.TextInput(
+            attrs={"placeholder": _("Code"), "autocomplete": "one-time-code"},
+        ),
+    )
+
+    def __init__(self, *args, **kwargs):
+        self.code = kwargs.pop("code", None)
+        super().__init__(*args, **kwargs)
+
+    def clean_code(self):
+        code = self.cleaned_data.get("code")
+        if not ratelimit.consume(
+            context.request,
+            action="device_user_code",
+            config=app_settings.RATE_LIMITS,
+            limit_get=True,
+        ):
+            raise get_account_adapter().validation_error("rate_limited")
+
+        self.device_code, self.client = device_codes.validate_user_code(code)
+        return code
+
+
+class DeviceAuthorizationForm(forms.Form):
+    action = forms.CharField(required=False)

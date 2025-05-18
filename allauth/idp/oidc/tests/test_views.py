@@ -31,7 +31,7 @@ def test_cancel_authorization(auth_client, oidc_client):
         )
     )
     assert resp.status_code == HTTPStatus.OK
-    assertTemplateUsed(resp, "idp/openid_connect/authorize_form.html")
+    assertTemplateUsed(resp, "idp/oidc/authorize_form.html")
     resp = auth_client.post(
         reverse("idp:oidc:authorize"),
         {
@@ -69,7 +69,7 @@ def test_authorization_code_flow(
         )
     )
     assert resp.status_code == HTTPStatus.OK
-    assertTemplateUsed(resp, "idp/openid_connect/authorize_form.html")
+    assertTemplateUsed(resp, "idp/oidc/authorize_form.html")
     resp = auth_client.post(
         reverse("idp:oidc:authorize"),
         {
@@ -331,7 +331,7 @@ def test_implicit_grant_flow(auth_client, user, oidc_client, enable_cache):
         )
     )
     assert resp.status_code == HTTPStatus.OK
-    assertTemplateUsed(resp, "idp/openid_connect/authorize_form.html")
+    assertTemplateUsed(resp, "idp/oidc/authorize_form.html")
     resp = auth_client.post(
         reverse("idp:oidc:authorize"),
         {
@@ -505,7 +505,7 @@ def test_authorization_code_flow_with_pkce(
         )
     )
     assert resp.status_code == HTTPStatus.OK
-    assertTemplateUsed(resp, "idp/openid_connect/authorize_form.html")
+    assertTemplateUsed(resp, "idp/oidc/authorize_form.html")
     resp = auth_client.post(
         reverse("idp:oidc:authorize"),
         {

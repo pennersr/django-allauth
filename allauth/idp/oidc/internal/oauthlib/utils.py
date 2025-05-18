@@ -59,7 +59,7 @@ def respond_html_error(request: HttpRequest, error: OAuth2Error) -> HttpResponse
     context = {"error": error}
     return render(
         request,
-        "idp/openid_connect/error." + account_settings.TEMPLATE_EXTENSION,
+        "idp/oidc/error." + account_settings.TEMPLATE_EXTENSION,
         context,
     )
 

@@ -78,7 +78,7 @@ configuration = ConfigurationView.as_view()
 class AuthorizeView(FormView):
     form_class = AuthorizeForm
     template_name = (
-        "idp/openid_connect/authorize_form." + account_settings.TEMPLATE_EXTENSION
+        "idp/oidc/authorize_form." + account_settings.TEMPLATE_EXTENSION
     )
 
     def get(self, request, *args, **kwargs):

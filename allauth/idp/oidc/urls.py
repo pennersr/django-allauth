@@ -27,28 +27,35 @@ urlpatterns = [
         include(
             [
                 path(
-                    "oidc/",
+                    "o/",
                     include(
                         [
-                            path(
-                                "token",
-                                views.token,
-                                name="token",
-                            ),
                             path(
                                 "authorize",
                                 views.authorize,
                                 name="authorize",
                             ),
                             path(
-                                "revoke",
-                                views.revoke,
-                                name="revoke",
-                            ),
-                            path(
-                                "userinfo",
-                                views.user_info,
-                                name="userinfo",
+                                "api/",
+                                include(
+                                    [
+                                        path(
+                                            "token",
+                                            views.token,
+                                            name="token",
+                                        ),
+                                        path(
+                                            "revoke",
+                                            views.revoke,
+                                            name="revoke",
+                                        ),
+                                        path(
+                                            "userinfo",
+                                            views.user_info,
+                                            name="userinfo",
+                                        ),
+                                    ]
+                                ),
                             ),
                         ]
                     ),

@@ -463,15 +463,15 @@ def test_configuration_view(client, oidc_client):
     resp = client.get(reverse("idp:oidc:configuration"))
     assert resp.status_code == HTTPStatus.OK
     assert resp.json() == {
-        "authorization_endpoint": "http://testserver/identity/oidc/authorize",
+        "authorization_endpoint": "http://testserver/identity/o/authorize",
         "id_token_signing_alg_values_supported": ["RS256"],
         "issuer": "http://testserver",
         "jwks_uri": "http://testserver/.well-known/jwks.json",
         "response_types_supported": ["code", "token"],
-        "revocation_endpoint": "http://testserver/identity/oidc/revoke",
+        "revocation_endpoint": "http://testserver/identity/o/api/revoke",
         "subject_types_supported": ["public"],
-        "token_endpoint": "http://testserver/identity/oidc/token",
-        "userinfo_endpoint": "http://testserver/identity/oidc/userinfo",
+        "token_endpoint": "http://testserver/identity/o/api/token",
+        "userinfo_endpoint": "http://testserver/identity/o/api/userinfo",
     }
 
 

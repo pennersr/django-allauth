@@ -23,21 +23,21 @@ The above will enable the following views:
   issued by the OIDC provider. Clients use this to validate ID tokens and access
   tokens.
 
-``/identity/oidc/authorize``
+``/identity/o/authorize``
   The authorization endpoint used to initiate the OAuth2/OIDC flow. It handles
   authentication requests and issues authorization codes or tokens based on the
   request parameters.
 
-``/identity/oidc/revoke``
+``/identity/o/api/revoke``
   Allows clients to revoke access or refresh tokens. This endpoint helps
   maintain security by invalidating credentials that are no longer needed or
   have been compromised.
 
-``/identity/oidc/userinfo``
+``/identity/o/api/userinfo``
   Returns user profile information in a JSON format. This endpoint is typically
   used after a successful authentication to fetch claims about the authenticated
   user.
 
-``/identity/oidc/token``
+``/identity/o/api/token``
   Handles the exchange of authorization codes for tokens, or client credentials
   for access tokens. This is a key component of the token flow in OAuth2/OIDC.

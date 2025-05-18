@@ -77,9 +77,7 @@ configuration = ConfigurationView.as_view()
 @method_decorator(login_not_required, name="dispatch")
 class AuthorizeView(FormView):
     form_class = AuthorizeForm
-    template_name = (
-        "idp/oidc/authorize_form." + account_settings.TEMPLATE_EXTENSION
-    )
+    template_name = "idp/oidc/authorize_form." + account_settings.TEMPLATE_EXTENSION
 
     def get(self, request, *args, **kwargs):
         response = self._login_required(request)

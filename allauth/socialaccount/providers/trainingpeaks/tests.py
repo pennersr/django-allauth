@@ -1,6 +1,6 @@
 """
-    Run just this suite:
-    python manage.py test allauth.socialaccount.providers.trainingpeaks.tests.TrainingPeaksTests
+Run just this suite:
+python manage.py test allauth.socialaccount.providers.trainingpeaks.tests.TrainingPeaksTests
 """
 
 from collections import namedtuple

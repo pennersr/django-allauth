@@ -1,6 +1,5 @@
 import html
 import json
-import string
 import typing
 import warnings
 from urllib.parse import urlparse
@@ -14,7 +13,6 @@ from django.contrib.auth import (
     login as django_login,
     logout as django_logout,
 )
-from allauth.core.internal.cryptokit import generate_user_code
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.password_validation import (
     MinimumLengthValidator,
@@ -37,6 +35,7 @@ from allauth import app_settings as allauth_app_settings
 from allauth.account import app_settings, signals
 from allauth.core import context, ratelimit
 from allauth.core.internal.adapter import BaseAdapter
+from allauth.core.internal.cryptokit import generate_user_code
 from allauth.core.internal.httpkit import (
     headed_redirect_response,
     is_headless_request,

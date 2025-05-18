@@ -17,13 +17,13 @@ from allauth.account.forms import (
     VerifyPhoneForm,
 )
 from allauth.account.internal import flows
-from allauth.core.internal.cryptokit import compare_user_code
 from allauth.account.models import (
     EmailAddress,
     Login,
     get_emailconfirmation_model,
 )
 from allauth.core import context
+from allauth.core.internal.cryptokit import compare_user_code
 from allauth.headless.adapter import get_adapter
 from allauth.headless.internal.restkit import inputs
 

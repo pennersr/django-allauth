@@ -26,7 +26,7 @@ from allauth.core.internal import jwkkit
 from allauth.core.internal.httpkit import add_query_params
 from allauth.idp.oidc import app_settings
 from allauth.idp.oidc.adapter import get_adapter
-from allauth.idp.oidc.forms import AuthorizeForm
+from allauth.idp.oidc.forms import AuthorizationForm
 from allauth.idp.oidc.internal.oauthlib.server import get_server
 from allauth.idp.oidc.internal.oauthlib.utils import (
     convert_response,
@@ -43,7 +43,7 @@ class ConfigurationView(View):
     def get(self, request):
         data = {
             "authorization_endpoint": build_absolute_uri(
-                request, reverse("idp:oidc:authorize")
+                request, reverse("idp:oidc:authorization")
             ),
             "revocation_endpoint": build_absolute_uri(
                 request, reverse("idp:oidc:revoke")
@@ -75,9 +75,9 @@ configuration = ConfigurationView.as_view()
 @method_decorator(xframe_options_deny, name="dispatch")
 @method_decorator(csrf_exempt, name="dispatch")
 @method_decorator(login_not_required, name="dispatch")
-class AuthorizeView(FormView):
-    form_class = AuthorizeForm
-    template_name = "idp/oidc/authorize_form." + account_settings.TEMPLATE_EXTENSION
+class AuthorizationView(FormView):
+    form_class = AuthorizationForm
+    template_name = "idp/oidc/authorization_form." + account_settings.TEMPLATE_EXTENSION
 
     def get(self, request, *args, **kwargs):
         response = self._login_required(request)
@@ -101,7 +101,7 @@ class AuthorizeView(FormView):
         signed_request_info = request.POST.get("request")
         if not signed_request_info:
             return HttpResponseRedirect(
-                reverse("idp:oidc:authorize") + "?" + request.POST.urlencode()
+                reverse("idp:oidc:authorization") + "?" + request.POST.urlencode()
             )
         response = self._login_required(request)
         if response:
@@ -191,7 +191,7 @@ class AuthorizeView(FormView):
         return ret
 
 
-authorize = AuthorizeView.as_view()
+authorization = AuthorizationView.as_view()
 
 
 @method_decorator(csrf_exempt, name="dispatch")

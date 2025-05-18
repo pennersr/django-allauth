@@ -32,8 +32,8 @@ urlpatterns = [
                         [
                             path(
                                 "authorize",
-                                views.authorize,
-                                name="authorize",
+                                views.authorization,
+                                name="authorization",
                             ),
                             path(
                                 "api/",

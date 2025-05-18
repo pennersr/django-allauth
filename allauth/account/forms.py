@@ -22,8 +22,8 @@ from allauth.account.internal.flows.phone_verification import (
     phone_already_exists,
 )
 from allauth.account.internal.flows.signup import base_signup_form_class
-from allauth.core.internal.cryptokit import compare_user_code
 from allauth.core import context, ratelimit
+from allauth.core.internal.cryptokit import compare_user_code
 from allauth.core.internal.httpkit import headed_redirect_response
 from allauth.utils import get_username_max_length, set_form_field_order
 

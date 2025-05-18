@@ -5,7 +5,7 @@ from django.utils.translation import gettext as _
 from allauth.idp.oidc.adapter import get_adapter
 
 
-class AuthorizeForm(forms.Form):
+class AuthorizationForm(forms.Form):
     request = forms.CharField(widget=widgets.HiddenInput)
 
     def __init__(self, *args, **kwargs):

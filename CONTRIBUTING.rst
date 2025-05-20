@@ -19,7 +19,7 @@ Setting Up Your Development Environment
 There are two primary ways to set up your development environment:
 
 Option 1: Standard Python Virtual Environment (Recommended for Beginners)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 1. **Install system dependencies**
 
@@ -64,29 +64,24 @@ Option 1: Standard Python Virtual Environment (Recommended for Beginners)
       # Install development dependencies
       pip install -r requirements-dev.txt
 
-Option 2: Using Nix (Recommended for Advanced Users)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Option 2: Using devenv/Nix (Recommended for Advanced Users)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If you prefer a more isolated and reproducible development environment, you can use Nix:
+If you prefer a more isolated and reproducible development environment, you can use Nix-based `devenv <https://devenv.sh>`_:
 
-1. **Install Nix** (If you don't have it already)
+1. **Install devenv** (If you don't have it already)
 
-   Follow the `official installation instructions <https://nixos.org/download.html>`_.
+   Follow the `official installation instructions <https://devenv.sh/getting-started/>`_.
 
-2. **Launch the Nix shell**
+2. **Activate the developer environment**
 
    .. code-block:: bash
 
       # This will create an isolated environment with all required dependencies
-      nix-shell
+      devenv shell
 
    Note: The first time you run this command, it may take a significant amount of time as it builds all dependencies. Subsequent launches will be much faster.
 
-   For faster startup, you can use:
-
-   .. code-block:: bash
-
-      nix-shell --arg doCheck false
 
 Running Tests
 -------------

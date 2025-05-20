@@ -33,3 +33,13 @@ virtualenv
 /.stfolder
 .direnv/
 examples/react-spa/docker-compose.override.yml
+
+# Devenv
+.devenv*
+devenv.local.nix
+
+# direnv
+.direnv
+
+# pre-commit
+.pre-commit-config.yaml

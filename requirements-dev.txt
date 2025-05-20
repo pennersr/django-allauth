@@ -1,8 +1,6 @@
 # Install the package itself with all extras
--e ".[mfa,openid,steam,socialaccount]"
+-e ".[socialaccount,mfa,idp-oidc,openid,steam,saml]"
 
-# Core packages
-Django>=4.2.16
 Sphinx
 sphinx_rtd_theme
 
@@ -23,8 +21,7 @@ mypy==1.10.0
 # Type stubs
 django-stubs==5.0.2
 types-requests==2.32.0.20240602
-
-# Additional dependencies
+git+https://github.com/oauthlib/oauthlib@dab6a5ae1830ddd8a79c1e9687f63508eae60b57
 Pillow>=9.0
 psycopg2-binary>=2.9.10,<3
 djangorestframework>=3.15.2,<4

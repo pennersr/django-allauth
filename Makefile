@@ -14,7 +14,7 @@ mo:
 
 .PHONY: isort
 isort:
-	isort --check-only --diff .
+	isort --check-only --diff allauth/ tests/
 
 .PHONY: bandit
 bandit:

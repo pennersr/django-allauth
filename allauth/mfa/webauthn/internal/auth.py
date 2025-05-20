@@ -23,8 +23,11 @@ from allauth.mfa.adapter import get_adapter
 from allauth.mfa.models import Authenticator
 
 
-fido2.features.webauthn_json_mapping.enabled = True
-
+try:
+    fido2.features.webauthn_json_mapping.enabled = True  # type:ignore[attr-defined]
+except AttributeError:
+    # https://github.com/Yubico/python-fido2/blob/main/doc/Migration_1-2.adoc
+    pass
 
 STATE_SESSION_KEY = "mfa.webauthn.state"
 EXTENSIONS = {"credProps": True}

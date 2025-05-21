@@ -34,7 +34,8 @@ from django.utils.translation import gettext_lazy as _
 
 from allauth import app_settings as allauth_app_settings
 from allauth.account import app_settings, signals
-from allauth.core import context, ratelimit
+from allauth.core import context
+from allauth.core.internal import ratelimit
 from allauth.core.internal.adapter import BaseAdapter
 from allauth.core.internal.httpkit import (
     headed_redirect_response,
@@ -675,15 +676,30 @@ class DefaultAccountAdapter(BaseAdapter):
 
     def _delete_login_attempts_cached_email(self, request, **credentials):
         cache_key = self._get_login_attempts_cache_key(request, **credentials)
-        ratelimit.clear(request, action="login_failed", key=cache_key)
+        # Here, we wipe the login failed rate limit, completely. This is safe,
+        # as we only do this on a succesful password reset, which is rate limited
+        # on itself (e.g. sending of email etc.).
+        ratelimit.clear(
+            request,
+            config=app_settings.RATE_LIMITS,
+            action="login_failed",
+            key=cache_key,
+        )
+
+    def _rollback_login_failed_rl_usage(self) -> None:
+        usage = getattr(self, "_login_failed_rl_usage", None)
+        if usage:
+            usage.rollback()
 
     def pre_authenticate(self, request, **credentials):
         cache_key = self._get_login_attempts_cache_key(request, **credentials)
-        if not ratelimit.consume(
+        self._login_failed_rl_usage = ratelimit.consume(
             request,
+            config=app_settings.RATE_LIMITS,
             action="login_failed",
             key=cache_key,
-        ):
+        )
+        if not self._login_failed_rl_usage:
             raise self.validation_error("too_many_login_attempts")
 
     def authenticate(self, request, **credentials):
@@ -696,7 +712,12 @@ class DefaultAccountAdapter(BaseAdapter):
         alt_user = AuthenticationBackend.unstash_authenticated_user()
         user = user or alt_user
         if user:
-            self._delete_login_attempts_cached_email(request, **credentials)
+            # On a succesful login, we cannot just wipe the login failed rate
+            # limit. That consists of 2 parts, a per IP limit, and, a per
+            # key(email) limit. Wiping it completely would allow an attacker to
+            # insert periodic successful logins during a brute force
+            # process. So instead, we are rolling back our consumption.
+            self._rollback_login_failed_rl_usage()
         else:
             self.authentication_failed(request, **credentials)
         return user
@@ -731,7 +752,7 @@ class DefaultAccountAdapter(BaseAdapter):
             ]
         )
 
-    def get_client_ip(self, request):
+    def get_client_ip(self, request) -> str:
         x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
         if x_forwarded_for:
             ip = x_forwarded_for.split(",")[0]

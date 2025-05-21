@@ -1,6 +1,23 @@
 import pytest
 
-from allauth.core import ratelimit
+from allauth.core.internal import ratelimit
+
+
+def test_rollback_consume(rf, enable_cache):
+    def consume():
+        request = rf.post("/")
+        config = {"foo": "2/m/ip"}
+        return ratelimit.consume(request, config=config, action="foo")
+
+    usage1 = consume()
+    assert len(usage1.usage) > 0
+    usage2 = consume()
+    assert len(usage2.usage) > 0
+    no_usage = consume()
+    assert no_usage is None
+    usage1.rollback()
+    assert consume()
+    assert not consume()
 
 
 @pytest.mark.parametrize(
@@ -15,7 +32,7 @@ from allauth.core import ratelimit
     ],
 )
 def test_parse(rate, values):
-    rates = ratelimit._parse_rates(rate)
+    rates = ratelimit.parse_rates(rate)
     assert len(rates) == len(values)
     for i, rate in enumerate(rates):
         assert rate.amount == values[i][0]

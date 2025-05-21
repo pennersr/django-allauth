@@ -1,1 +1,1 @@
-django-allauth[mfa,saml,socialaccount,steam]>=65.8.0
+django-allauth[mfa,saml,socialaccount,steam]>=65.8.1

@@ -1,10 +1,18 @@
 65.8.1 (unreleased)
 *******************
 
-Note worthy changes
--------------------
+Fixes
+-----
 
-- ...
+- Fixed a compatibility issue with the newly released fido2 2.0.0 package.
+
+
+Security notice
+---------------
+
+- After a successful login, the rate limits for that login were cleared,
+  allowing a succesful login on a specific IP address to be used as a means to
+  clear the login failed rate limit for that IP address. Fixed.
 
 
 65.8.0 (2025-05-08)

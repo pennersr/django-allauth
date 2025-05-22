@@ -9,3 +9,4 @@ Common Functionality
    templates
    messages
    admin
+   rate_limits

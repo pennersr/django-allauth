@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import Optional
 
 from django import forms
 from django.urls import resolve, reverse
@@ -25,6 +26,7 @@ def get_schema() -> dict:
 
     chroot(spec)
     pin_client(spec)
+    drop_unused_client_parameter(spec)
     used_tags = drop_unused_paths(spec)
     drop_unused_tags(spec, used_tags)
     drop_unused_tag_groups(spec, used_tags)
@@ -46,12 +48,64 @@ def chroot(spec: dict) -> None:
 def pin_client(spec: dict) -> None:
     if len(app_settings.CLIENTS) != 1:
         return
-    client = app_settings.CLIENTS[0]
-    paths = spec["paths"].items()
-    spec["paths"] = {}
-    for path, path_spec in paths:
-        new_path = path.replace("{client}", client)
-        spec["paths"][new_path] = path_spec
+
+    processed_paths = {}
+    client_value = app_settings.CLIENTS[0]
+    http_methods = [
+        "get",
+        "post",
+        "put",
+        "delete",
+        "options",
+        "head",
+        "patch",
+        "trace",
+    ]
+
+    def remove_client_param(parameters: list) -> Optional[list]:
+        filtered = [
+            p
+            for p in parameters
+            if not (
+                isinstance(p, dict)
+                and p.get("$ref") == "#/components/parameters/Client"
+            )
+        ]
+        return filtered or None
+
+    for path_key, path_item in spec["paths"].items():
+        current_path_item = dict(path_item)
+        processed_path_key = path_key.replace("{client}", client_value)
+
+        if "parameters" in current_path_item:
+            new_params = remove_client_param(current_path_item["parameters"])
+            if new_params:
+                current_path_item["parameters"] = new_params
+            else:
+                current_path_item.pop("parameters")
+
+        for method_name in http_methods:
+            if method_name in current_path_item:
+                operation_item = current_path_item[method_name]
+                if isinstance(operation_item, dict) and "parameters" in operation_item:
+                    new_params = remove_client_param(operation_item["parameters"])
+                    if new_params:
+                        operation_item["parameters"] = new_params
+                    else:
+                        operation_item.pop("parameters")
+
+        processed_paths[processed_path_key] = current_path_item
+
+    spec["paths"] = processed_paths
+
+
+def drop_unused_client_parameter(spec: dict) -> None:
+    if len(app_settings.CLIENTS) != 1:
+        return
+
+    if components := spec.get("components"):
+        if parameters := components.get("parameters"):
+            parameters.pop("Client", None)
 
 
 def drop_unused_paths(spec: dict) -> set:

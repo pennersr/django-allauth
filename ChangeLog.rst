@@ -8,6 +8,10 @@ Note worthy changes
   provider support, as well as integration with Django REST framework and Django
   Ninja.
 
+- Headless: the OpenAPI specification now more accurately reflects single client
+  configurations set via ``HEADLESS_CLIENTS``. When a single client is active,
+  the redundant ``{client}`` path parameter and its global definition are
+  removed from the generated schema.
 
 65.8.1 (2025-05-21)
 *******************

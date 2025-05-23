@@ -1,11 +1,17 @@
 import hashlib
 import uuid
+from typing import Any, Dict, Iterable, Literal
 
 from django.contrib.auth import get_user_model
 from django.core.management.utils import get_random_secret_key
 from django.utils.translation import gettext_lazy as _
 
-from allauth.account.internal.userkit import str_to_user_id, user_id_to_str
+from allauth.account.internal.userkit import (
+    str_to_user_id,
+    user_id_to_str,
+    user_username,
+)
+from allauth.account.models import EmailAddress
 from allauth.core.internal.adapter import BaseAdapter
 from allauth.idp.oidc import app_settings
 from allauth.utils import import_attribute
@@ -57,6 +63,43 @@ class DefaultOIDCAdapter(BaseAdapter):
         expose additional information here.
         """
         pass
+
+    def get_claims(
+        self,
+        purpose: Literal["id_token", "userinfo"],
+        user,
+        client,
+        scopes: Iterable,
+        **kwargs,
+    ) -> Dict[str, Any]:
+        """
+        Return the claims to be included in the ID token or userinfo response.
+        """
+        claims = {"sub": self.get_user_sub(client, user)}
+        if "email" in scopes:
+            address = EmailAddress.objects.get_primary(user)
+            if address:
+                claims.update(
+                    {
+                        "email": address.email,
+                        "email_verified": address.verified,
+                    }
+                )
+        if "profile" in scopes:
+            full_name = user.get_full_name()
+            last_name = getattr(user, "last_name", None)
+            first_name = getattr(user, "first_name", None)
+            username = user_username(user)
+            profile_claims = {
+                "name": full_name,
+                "given_name": first_name,
+                "family_name": last_name,
+                "preferred_username": username,
+            }
+            for claim_key, claim_value in profile_claims.items():
+                if claim_value:
+                    claims[claim_key] = claim_value
+        return claims
 
     def get_user_sub(self, client, user) -> str:
         """

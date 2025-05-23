@@ -11,7 +11,6 @@ from allauth.core import context
 from allauth.core.internal import jwkkit
 from allauth.idp.oidc import app_settings
 from allauth.idp.oidc.adapter import get_adapter
-from allauth.idp.oidc.internal.claims import get_claims
 from allauth.idp.oidc.internal.clientkit import (
     is_origin_allowed,
     is_redirect_uri_allowed,
@@ -232,7 +231,9 @@ class OAuthLibRequestValidator(RequestValidator):
         id_token["iss"] = adapter.get_issuer()
         id_token["exp"] = id_token["iat"] + app_settings.ID_TOKEN_EXPIRES_IN
         id_token["jti"] = uuid.uuid4().hex
-        id_token.update(get_claims(request.user, request.client, request.scopes))
+        id_token.update(
+            adapter.get_claims("id_token", request.user, request.client, request.scopes)
+        )
         get_adapter().populate_id_token(id_token, request.client, request.scopes)
         jwk_dict, private_key = jwkkit.load_jwk_from_pem(app_settings.PRIVATE_KEY)
         return jwt.encode(
@@ -270,7 +271,9 @@ class OAuthLibRequestValidator(RequestValidator):
         Token.objects.by_value(token).filter(type__in=types).delete()
 
     def get_userinfo_claims(self, request):
-        return get_claims(request.user, request.client, request.scopes)
+        return get_adapter().get_claims(
+            "userinfo", request.user, request.client, request.scopes
+        )
 
     def get_default_redirect_uri(self, client_id, request, *args, **kwargs):
         # https://openid.net/specs/openid-financial-api-part-1-1_0.html#section-5.2.2

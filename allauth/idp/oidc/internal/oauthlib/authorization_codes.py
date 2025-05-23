@@ -2,6 +2,7 @@ from typing import Optional
 
 from django.core.cache import cache
 
+from allauth.account.models import EmailAddress
 from allauth.idp.oidc import app_settings
 from allauth.idp.oidc.adapter import get_adapter
 from allauth.idp.oidc.models import Client
@@ -21,6 +22,11 @@ def create(client: Client, code: dict, request) -> None:
         "scopes": request.scopes,
         "claims": request.claims,
     }
+    if email := getattr(request, "email", None):
+        # Don't trouble ourselves with keeping track a specific email in case
+        # the primary was chosen.
+        if EmailAddress.objects.get_primary_email(request.user) != email.lower():
+            authorization_code["email"] = email
     code_challenge = getattr(request, "code_challenge", None)
     if code_challenge:
         authorization_code["pkce"] = {
@@ -56,4 +62,5 @@ def validate(client_id: str, code: str, request) -> bool:
         request.code_challenge = pkce["code_challenge"]
         request.code_challenge_method = pkce["code_challenge_method"]
     request.claims = authorization_code["claims"]
+    request.email = authorization_code.get("email")
     return True

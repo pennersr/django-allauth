@@ -1,6 +1,6 @@
 import hashlib
 import uuid
-from typing import Any, Dict, Iterable, Literal
+from typing import Any, Dict, Iterable, Literal, Optional
 
 from django.contrib.auth import get_user_model
 from django.core.management.utils import get_random_secret_key
@@ -70,6 +70,7 @@ class DefaultOIDCAdapter(BaseAdapter):
         user,
         client,
         scopes: Iterable,
+        email: Optional[str] = None,
         **kwargs,
     ) -> Dict[str, Any]:
         """
@@ -77,7 +78,13 @@ class DefaultOIDCAdapter(BaseAdapter):
         """
         claims = {"sub": self.get_user_sub(client, user)}
         if "email" in scopes:
-            address = EmailAddress.objects.get_primary(user)
+            if email:
+                try:
+                    address = EmailAddress.objects.get_for_user(user, email)
+                except EmailAddress.DoesNotExist:
+                    pass
+            else:
+                address = EmailAddress.objects.get_primary(user)
             if address:
                 claims.update(
                     {

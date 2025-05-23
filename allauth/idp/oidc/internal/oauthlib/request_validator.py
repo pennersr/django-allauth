@@ -91,55 +91,55 @@ class OAuthLibRequestValidator(RequestValidator):
         return redirect_uri == authorization_code["redirect_uri"]
 
     def save_bearer_token(self, token: dict, request, *args, **kwargs):
-        """Persist the Bearer token.
+        """
+        https://datatracker.ietf.org/doc/html/rfc6749#section-6
+        > The authorization server MAY issue a new refresh token, in which case
+        > the client MUST discard the old refresh token and replace it with the
+        > new refresh token.  The authorization server MAY revoke the old
+        > refresh token after issuing a new refresh token to the client.  If a
+        > new refresh token is issued, the refresh token scope MUST be
+        > identical to that of the refresh token included by the client in the
+        > request.
 
-        The Bearer token should at minimum be associated with:
-            - a client and it's client_id, if available
-            - a resource owner / user (request.user)
-            - authorized scopes (request.scopes)
-            - an expiration time
-            - a refresh token, if issued
-            - a claims document, if present in request.claims
-
-        The Bearer token dict may hold a number of items::
-
-            {
-                'token_type': 'Bearer',
-                'access_token': 'askfjh234as9sd8',
-                'expires_in': 3600,
-                'scope': 'string of space separated authorized scopes',
-                'refresh_token': '23sdf876234',  # if issued
-                'state': 'given_by_client',  # if supplied by client (implicit ONLY)
-            }
-
-        Note that while "scope" is a string-separated list of authorized scopes,
-        the original list is still available in request.scopes.
-
-        The token dict is passed as a reference so any changes made to the dictionary
-        will go back to the user.  If additional information must return to the client
-        user, and it is only possible to get this information after writing the token
-        to storage, it should be added to the token dictionary.  If the token
-        dictionary must be modified but the changes should not go back to the user,
-        a copy of the dictionary must be made before making the changes.
-
-        Also note that if an Authorization Code grant request included a valid claims
-        parameter (for OpenID Connect) then the request.claims property will contain
-        the claims dict, which should be saved for later use when generating the
-        id_token and/or UserInfo response content.
-
-        :param token: A Bearer token dict.
-        :param request: OAuthlib request.
-        :type request: oauthlib.common.Request
-        :rtype: The default redirect URI for the client
-
-        Method is used by all core grant types issuing Bearer tokens:
-            - Authorization Code Grant
-            - Implicit Grant
-            - Resource Owner Password Credentials Grant (might not associate a client)
-            - Client Credentials grant
+        https://datatracker.ietf.org/doc/html/rfc6749#section-1.5
+        > Refresh tokens are issued to the client by the authorization server and
+        > are used to obtain a new access token when the current access token becomes
+        > invalid or expires, or to obtain additional access tokens with identical or
+        > narrower scope
         """
         adapter = get_adapter()
-        tokens = [
+        refresh_token = token.get("refresh_token")
+        email = getattr(request, "email", None)
+        tokens = []
+        if refresh_token:
+            refresh_token_hash = adapter.hash_token(refresh_token)
+            rt = getattr(request, "refresh_token_instance", None)
+            if rt and not email and "email" in request.scopes:
+                email = rt.get_scope_email()
+            if (
+                rt
+                and not app_settings.ROTATE_REFRESH_TOKEN
+                and refresh_token_hash == rt.hash
+            ):
+                # We reuse our token.
+                pass
+            else:
+                if rt:
+                    # If we have an existing refresh token, drop it, because of:
+                    assert (
+                        app_settings.ROTATE_REFRESH_TOKEN
+                        or refresh_token_hash != rt.hash
+                    )  # nosec[assert_used]
+                    rt.delete()
+                tokens.append(
+                    Token(
+                        client=request.client,
+                        user=request.user,
+                        type=Token.Type.REFRESH_TOKEN,
+                        hash=refresh_token_hash,
+                    )
+                )
+        tokens.append(
             Token(
                 client=request.client,
                 user=request.user,
@@ -147,19 +147,11 @@ class OAuthLibRequestValidator(RequestValidator):
                 hash=adapter.hash_token(token["access_token"]),
                 expires_at=timezone.now() + timedelta(seconds=token["expires_in"]),
             )
-        ]
-        refresh_token = token.get("refresh_token")
-        if refresh_token:
-            tokens.append(
-                Token(
-                    client=request.client,
-                    user=request.user,
-                    type=Token.Type.REFRESH_TOKEN,
-                    hash=adapter.hash_token(refresh_token),
-                )
-            )
+        )
         for t in tokens:
             t.set_scopes(request.scopes)
+            if email:
+                t.set_scope_email(email)
         Token.objects.bulk_create(tokens)
 
     def invalidate_authorization_code(self, client_id, code, request, *args, **kwargs):
@@ -231,8 +223,11 @@ class OAuthLibRequestValidator(RequestValidator):
         id_token["iss"] = adapter.get_issuer()
         id_token["exp"] = id_token["iat"] + app_settings.ID_TOKEN_EXPIRES_IN
         id_token["jti"] = uuid.uuid4().hex
+        email = getattr(request, "email", None)
         id_token.update(
-            adapter.get_claims("id_token", request.user, request.client, request.scopes)
+            adapter.get_claims(
+                "id_token", request.user, request.client, request.scopes, email=email
+            )
         )
         get_adapter().populate_id_token(id_token, request.client, request.scopes)
         jwk_dict, private_key = jwkkit.load_jwk_from_pem(app_settings.PRIVATE_KEY)
@@ -271,8 +266,9 @@ class OAuthLibRequestValidator(RequestValidator):
         Token.objects.by_value(token).filter(type__in=types).delete()
 
     def get_userinfo_claims(self, request):
+        email = request.access_token.get_scope_email()
         return get_adapter().get_claims(
-            "userinfo", request.user, request.client, request.scopes
+            "userinfo", request.user, request.client, request.scopes, email=email
         )
 
     def get_default_redirect_uri(self, client_id, request, *args, **kwargs):
@@ -322,11 +318,11 @@ class OAuthLibRequestValidator(RequestValidator):
         if not token:
             return False
         request.user = token.user
-        request._refresh_token_instance = token
+        request.refresh_token_instance = token
         return True
 
     def get_original_scopes(self, refresh_token, request, *args, **kwargs):
-        return request._refresh_token_instance.get_scopes()
+        return request.refresh_token_instance.get_scopes()
 
     def client_authentication_required(self, request, *args, **kwargs) -> bool:
         if request.client_id and request.client_secret:
@@ -376,3 +372,6 @@ class OAuthLibRequestValidator(RequestValidator):
     def is_origin_allowed(self, client_id, origin, request, *args, **kwargs) -> bool:
         client = self._lookup_client(request, client_id)
         return bool(client and is_origin_allowed(origin, client.get_cors_origins()))
+
+    def rotate_refresh_token(self, request):
+        return app_settings.ROTATE_REFRESH_TOKEN

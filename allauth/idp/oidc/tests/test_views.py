@@ -8,14 +8,41 @@ from django.utils.http import urlencode
 import pytest
 from pytest_django.asserts import assertTemplateUsed
 
+from allauth.account.models import EmailAddress
 from allauth.idp.oidc.adapter import get_adapter
 from allauth.idp.oidc.models import Token
 
 
-@pytest.mark.parametrize("scopes", [("openid",), ("openid", "email")])
-def test_userinfo(client, oidc_client, user, access_token_generator, scopes):
+@pytest.mark.parametrize(
+    "scopes,has_secondary_email,choose_secondary_email",
+    [
+        (("openid",), False, False),
+        (("openid", "email"), False, False),
+        (("openid", "email"), True, True),
+    ],
+)
+def test_userinfo(
+    client,
+    oidc_client,
+    user,
+    access_token_generator,
+    scopes,
+    has_secondary_email,
+    choose_secondary_email,
+    email_factory,
+):
     # Pass along ID token as hint
-    token, _ = access_token_generator(oidc_client, user, scopes=scopes)
+    token, token_instance = access_token_generator(oidc_client, user, scopes=scopes)
+    if has_secondary_email:
+        email = email_factory()
+        EmailAddress.objects.create(
+            user=user, email=email, verified=True, primary=False
+        )
+        token_instance.set_scope_email(email)
+        token_instance.save()
+        expected_email = email if choose_secondary_email else user.email
+    else:
+        expected_email = user.email
     resp = client.get(
         reverse("idp:oidc:userinfo"),
         HTTP_AUTHORIZATION=f"Bearer {token}",
@@ -24,7 +51,7 @@ def test_userinfo(client, oidc_client, user, access_token_generator, scopes):
     data = resp.json()
     assert data["sub"] == get_adapter().get_user_sub(oidc_client, user)
     if "email" in scopes:
-        assert data["email"] == user.email
+        assert data["email"] == expected_email
         assert data["email_verified"] is True
     else:
         assert "email" not in data

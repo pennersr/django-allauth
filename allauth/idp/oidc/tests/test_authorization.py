@@ -9,6 +9,8 @@ import jwt
 import pytest
 from pytest_django.asserts import assertTemplateUsed
 
+from allauth.account.models import EmailAddress
+from allauth.idp.oidc.models import Token
 from allauth.socialaccount.providers.oauth2.utils import (
     generate_code_challenge,
 )
@@ -40,16 +42,33 @@ def test_cancel_authorization(auth_client, oidc_client):
 
 
 @pytest.mark.parametrize(
-    "scopes",
+    "scopes,has_secondary_email,choose_secondary_email",
     [
-        ("openid", "profile", "email"),
-        ("openid", "profile"),
-        ("openid",),
+        (("openid", "profile", "email"), False, False),
+        (("openid", "profile", "email"), True, False),
+        (("openid", "profile", "email"), True, True),
+        (("openid", "profile"), False, False),
+        (("openid",), False, False),
     ],
 )
 def test_authorization_code_flow(
-    auth_client, user, oidc_client, oidc_client_secret, enable_cache, scopes
+    auth_client,
+    user,
+    oidc_client,
+    oidc_client_secret,
+    enable_cache,
+    scopes,
+    has_secondary_email,
+    choose_secondary_email,
+    email_factory,
 ):
+    secondary_email = email_factory()
+    EmailAddress.objects.create(
+        user=user,
+        email=secondary_email,
+        primary=False,
+        verified=True,
+    )
     redirect_uri = oidc_client.get_redirect_uris()[0]
     resp = auth_client.get(
         reverse("idp:oidc:authorization")
@@ -67,13 +86,17 @@ def test_authorization_code_flow(
     )
     assert resp.status_code == HTTPStatus.OK
     assertTemplateUsed(resp, "idp/oidc/authorization_form.html")
+    post_data = {
+        "scopes": scopes,
+        "action": "grant",
+        "request": resp.context["form"]["request"].value(),
+    }
+    expected_email = secondary_email if choose_secondary_email else user.email
+    if has_secondary_email and "email" in scopes:
+        post_data["email"] = expected_email
     resp = auth_client.post(
         reverse("idp:oidc:authorization"),
-        {
-            "scopes": scopes,
-            "action": "grant",
-            "request": resp.context["form"]["request"].value(),
-        },
+        post_data,
     )
     assert resp.status_code == HTTPStatus.FOUND
     redirected_uri = resp["location"]
@@ -103,13 +126,18 @@ def test_authorization_code_flow(
         "id_token",
     }
 
+    access_token = Token.objects.lookup(Token.Type.ACCESS_TOKEN, data["access_token"])
+    assert bool(access_token.get_scope_email()) == bool(
+        "email" in scopes and has_secondary_email and choose_secondary_email
+    )
+
     # ID token
     id_token = data["id_token"]
     decoded = jwt.decode(id_token, options={"verify_signature": False})
     assert decoded["sub"] == str(user.pk)
     assert decoded["nonce"] == "some-nonce"
     if "email" in scopes:
-        assert decoded["email"] == user.email
+        assert decoded["email"] == expected_email
     else:
         assert "email" not in decoded
     if "profile" in scopes:

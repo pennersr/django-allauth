@@ -30,6 +30,10 @@ class AppSettings:
     def AUTHORIZATION_CODE_EXPIRES_IN(self) -> int:
         return self._setting("AUTHORIZATION_CODE_EXPIRES_IN", 60)
 
+    @property
+    def ROTATE_REFRESH_TOKEN(self) -> bool:
+        return self._setting("ROTATE_REFRESH_TOKEN", True)
+
 
 _app_settings = AppSettings("IDP_OIDC_")
 

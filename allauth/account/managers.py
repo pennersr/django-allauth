@@ -101,7 +101,7 @@ class EmailAddressManager(models.Manager):
         addresses = getattr(user, cache_key, None)
         email = email.lower()
         if addresses is None:
-            ret = self.get(user=user, email=email)
+            ret = self.get(user=user, email=email.lower())
             # To avoid additional lookups when e.g.
             # EmailAddress.set_as_primary() starts touching self.user
             ret.user = user

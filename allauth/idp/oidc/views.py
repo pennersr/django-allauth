@@ -150,9 +150,9 @@ class AuthorizationView(FormView):
             params["state"] = state
         return HttpResponseRedirect(add_query_params(redirect_uri, params))
 
-    def get_form_kwargs(self):
+    def get_form_kwargs(self) -> dict:
         ret = super().get_form_kwargs()
-        ret["requested_scopes"] = self._scopes
+        ret.update({"requested_scopes": self._scopes, "user": self.request.user})
         return ret
 
     def get_initial(self):
@@ -172,6 +172,9 @@ class AuthorizationView(FormView):
         credentials = {"user": self.request.user}
         credentials.update(self._request_info)
         try:
+            email = form.cleaned_data.get("email")
+            if email:
+                credentials["email"] = email
             oresponse = get_server().create_authorization_response(
                 *orequest, scopes=scopes, credentials=credentials
             )

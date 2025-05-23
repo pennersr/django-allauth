@@ -73,7 +73,7 @@ def access_token_generator():
 
 @pytest.fixture
 def refresh_token_factory():
-    def f(*, user, client):
+    def f(*, user, client, scopes=None):
         adapter = get_adapter()
         value = uuid.uuid4().hex
         rt = Token.objects.create(
@@ -83,7 +83,9 @@ def refresh_token_factory():
             hash=adapter.hash_token(value),
             expires_at=timezone.now() + timedelta(seconds=60),
         )
-        rt.set_scopes(["openid", "profile"])
+        if scopes is None:
+            scopes = ["openid", "profile"]
+        rt.set_scopes(scopes)
         rt.save()
         return value, rt
 

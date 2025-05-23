@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 from django.conf import settings
 from django.contrib.auth.hashers import check_password, make_password
@@ -182,5 +182,24 @@ class Token(models.Model):
     def get_scopes(self) -> List[str]:
         return _values_from_text(self.scopes)
 
-    def set_scopes(self, scopes: List[str]):
+    def set_scopes(self, scopes: List[str]) -> None:
         self.scopes = _values_to_text(scopes)
+
+    def set_scope_email(self, email: str) -> None:
+        """
+        In case a specific email was chosen to be exposed to the client,
+        store that using this method.
+        """
+        if self.data is None:
+            self.data = {}
+        self.data["email"] = email
+
+    def get_scope_email(self) -> Optional[str]:
+        """
+        Returns the email that was selected when the email scope was
+        granted.  Note that this may e outdated, as the user can change email
+        addresses at any time.
+        """
+        if not isinstance(self.data, dict):
+            return None
+        return self.data.get("email")

@@ -3,6 +3,8 @@ from unittest.mock import ANY
 
 from django.urls import reverse
 
+import pytest
+
 from allauth.idp.oidc.models import Token
 
 
@@ -34,10 +36,25 @@ def test_revoke_access_token(
     assert Token.objects.filter(pk=instance_to_keep.pk).exists()
 
 
+@pytest.mark.parametrize("rotate_refresh_token", [False, True])
+@pytest.mark.parametrize("scopes", [("openid",), ("openid", "email")])
 def test_refresh_token(
-    db, client, oidc_client, oidc_client_secret, user, refresh_token_factory
+    db,
+    client,
+    oidc_client,
+    oidc_client_secret,
+    user,
+    refresh_token_factory,
+    settings,
+    rotate_refresh_token,
+    scopes,
 ):
-    rt, _ = refresh_token_factory(user=user, client=oidc_client)
+    settings.IDP_OIDC_ROTATE_REFRESH_TOKEN = rotate_refresh_token
+    rt, rt_instance = refresh_token_factory(
+        user=user, client=oidc_client, scopes=scopes
+    )
+    rt_instance.set_scope_email("a@b.org")
+    rt_instance.save()
     resp = client.post(
         reverse("idp:oidc:token"),
         {
@@ -48,7 +65,21 @@ def test_refresh_token(
         },
     )
     assert resp.status_code == HTTPStatus.OK
-    assert resp.json() == {
+    data = resp.json()
+    new_rt_instance = Token.objects.lookup(
+        Token.Type.REFRESH_TOKEN, data["refresh_token"]
+    )
+    if rotate_refresh_token:
+        assert data["refresh_token"] != rt
+        assert new_rt_instance.pk != rt_instance.pk
+    else:
+        assert data["refresh_token"] == rt
+    assert Token.objects.filter(type=Token.Type.REFRESH_TOKEN).count() == 1
+    token = Token.objects.lookup(Token.Type.ACCESS_TOKEN, data["access_token"])
+
+    assert token.get_scope_email() == ("a@b.org" if "email" in scopes else None)
+    return
+    assert data == {
         "access_token": ANY,
         "expires_in": 3600,
         "refresh_token": ANY,

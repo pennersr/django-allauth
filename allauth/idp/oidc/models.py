@@ -156,13 +156,14 @@ class Token(models.Model):
     objects = TokenQuerySet.as_manager()
 
     class Type(models.TextChoices):
+        INITIAL_ACCESS_TOKEN = "ia", "Initial access token"
         ACCESS_TOKEN = "at", "Access token"
         REFRESH_TOKEN = "rt", "Refresh token"
         AUTHORIZATION_CODE = "ac", "Authorization code"
 
     type = models.CharField(max_length=2, choices=Type.choices)
     hash = models.CharField(max_length=255)
-    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, blank=True, null=True)
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True
     )

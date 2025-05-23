@@ -125,6 +125,7 @@ class Migration(migrations.Migration):
                     "type",
                     models.CharField(
                         choices=[
+                            ("ia", "Initial access token"),
                             ("at", "Access token"),
                             ("rt", "Refresh token"),
                             ("ac", "Authorization code"),
@@ -143,6 +144,8 @@ class Migration(migrations.Migration):
                 (
                     "client",
                     models.ForeignKey(
+                        blank=True,
+                        null=True,
                         on_delete=django.db.models.deletion.CASCADE,
                         to="allauth_idp_oidc.client",
                     ),

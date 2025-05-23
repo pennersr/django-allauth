@@ -43,9 +43,8 @@ The following actions are available for configuration:
 ``"login_failed"`` (default: ``"10/m/ip,5/5m/key"``)
   Restricts the allowed number of failed login attempts. When exceeded, the user
   is prohibited from logging in for the remainder of the rate limit. Important:
-  while this protects the allauth login view, it does not protect Django's admin
-  login from being brute forced. Note that a successful login will clear this
-  rate limit.
+  while this protects the allauth login view, it does not
+  :doc:`protect Django's admin login from being brute forced <../common/admin>`.
 
 ``"confirm_email"`` (default: ``"1/3m/key"`` (link) or ``"1/10s/key"`` (code))
   Users can request email confirmation mails via the email management view, and,

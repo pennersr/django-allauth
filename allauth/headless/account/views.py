@@ -180,7 +180,8 @@ class VerifyEmailView(APIView):
         key = request.headers.get("x-email-verification-key", "")
         input = self.input_class({"key": key}, process=self.process)
         if not input.is_valid():
-            self.process.record_invalid_attempt()
+            if self.process:
+                self.process.record_invalid_attempt()
             return ErrorResponse(request, input=input)
         if self.process:
             email_address = self.process.email_address

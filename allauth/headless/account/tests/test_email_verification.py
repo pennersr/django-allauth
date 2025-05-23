@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 import pytest
 
 from allauth.account.models import (
@@ -18,7 +20,7 @@ def test_verify_email_other_user(auth_client, user, user_factory, headless_rever
         data={"key": key},
         content_type="application/json",
     )
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
     data = resp.json()
     # We're still authenticated as the user originally logged in, not the
     # other_user.
@@ -26,7 +28,8 @@ def test_verify_email_other_user(auth_client, user, user_factory, headless_rever
 
 
 @pytest.mark.parametrize(
-    "login_on_email_verification,status_code", [(False, 401), (True, 200)]
+    "login_on_email_verification,status_code",
+    [(False, HTTPStatus.UNAUTHORIZED), (True, HTTPStatus.OK)],
 )
 def test_auth_unverified_email(
     client,
@@ -50,7 +53,7 @@ def test_auth_unverified_email(
         },
         content_type="application/json",
     )
-    assert resp.status_code == 401
+    assert resp.status_code == HTTPStatus.UNAUTHORIZED
     data = resp.json()
     flows = data["data"]["flows"]
     assert [f for f in flows if f["id"] == Flow.VERIFY_EMAIL][0]["is_pending"]
@@ -79,15 +82,21 @@ def test_verify_email_bad_key(
         },
         content_type="application/json",
     )
-    assert resp.status_code == 401
+    assert resp.status_code == HTTPStatus.UNAUTHORIZED
+    resp = client.get(
+        headless_reverse("headless:account:verify_email"),
+        data={"key": "bad"},
+        content_type="application/json",
+    )
+    assert resp.status_code == HTTPStatus.BAD_REQUEST
     resp = client.post(
         headless_reverse("headless:account:verify_email"),
         data={"key": "bad"},
         content_type="application/json",
     )
-    assert resp.status_code == 400
+    assert resp.status_code == HTTPStatus.BAD_REQUEST
     assert resp.json() == {
-        "status": 400,
+        "status": HTTPStatus.BAD_REQUEST,
         "errors": [
             {
                 "code": "invalid_or_expired_key",

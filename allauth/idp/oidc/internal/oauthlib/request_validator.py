@@ -375,3 +375,9 @@ class OAuthLibRequestValidator(RequestValidator):
 
     def rotate_refresh_token(self, request):
         return app_settings.ROTATE_REFRESH_TOKEN
+
+    def validate_silent_login(self, request) -> bool:
+        return False
+
+    def validate_silent_authorization(self, request) -> bool:
+        return False

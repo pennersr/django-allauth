@@ -1,10 +1,13 @@
-from typing import List
+from typing import List, Optional
 
+from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import PermissionDenied
 from django.core.signing import BadSignature, Signer
 from django.http import (
+    HttpRequest,
+    HttpResponse,
     HttpResponseForbidden,
     HttpResponseRedirect,
     JsonResponse,
@@ -23,7 +26,7 @@ from oauthlib.oauth2.rfc6749.errors import OAuth2Error
 from allauth.account import app_settings as account_settings
 from allauth.account.internal.decorators import login_not_required
 from allauth.core.internal import jwkkit
-from allauth.core.internal.httpkit import add_query_params
+from allauth.core.internal.httpkit import add_query_params, del_query_params
 from allauth.idp.oidc import app_settings
 from allauth.idp.oidc.adapter import get_adapter
 from allauth.idp.oidc.forms import AuthorizationForm
@@ -124,10 +127,34 @@ class AuthorizationView(FormView):
             return self._respond_with_access_denied()
         return super().post(request, *args, **kwargs)
 
-    def _login_required(self, request):
+    def _login_required(self, request) -> Optional[HttpResponse]:
+        prompts = []
+        prompt = request.GET.get("prompt")
+        if prompt:
+            prompts = prompt.split()
+        if "login" in prompts:
+            return self._handle_login_prompt(request, prompts)
         if request.user.is_authenticated:
             return None
-        return login_required()(None)(request)
+        return login_required()(None)(request)  # type:ignore[misc,type-var]
+
+    def _handle_login_prompt(
+        self, request: HttpRequest, prompts: List[str]
+    ) -> HttpResponse:
+        prompts.remove("login")
+        next_url = request.get_full_path()
+        if prompts:
+            next_url = add_query_params(next_url, {"prompt": " ".join(prompts)})
+        else:
+            next_url = del_query_params(next_url, "prompt")
+        params = {}
+        params[REDIRECT_FIELD_NAME] = next_url
+        path = reverse(
+            "account_reauthenticate"
+            if request.user.is_authenticated
+            else "account_login"
+        )
+        return HttpResponseRedirect(add_query_params(path, params))
 
     def _skip_consent(self):
         scopes = self._request_info["request"].scopes

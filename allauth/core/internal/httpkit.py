@@ -48,6 +48,25 @@ def redirect(to):
         return shortcuts.redirect(f"/{to}")
 
 
+def del_query_params(url: str, *params: str) -> str:
+    parsed_url = urlparse(url)
+    query_params = parse_qs(parsed_url.query, keep_blank_values=True)
+    for param in params:
+        query_params.pop(param, None)
+    encoded_query = urlencode(query_params, doseq=True)
+    new_url = urlunparse(
+        (
+            parsed_url.scheme,
+            parsed_url.netloc,
+            parsed_url.path,
+            parsed_url.params,
+            encoded_query,
+            parsed_url.fragment,
+        )
+    )
+    return new_url
+
+
 def add_query_params(url: str, params: dict) -> str:
     parsed_url = urlparse(url)
     query_params = parse_qs(parsed_url.query)

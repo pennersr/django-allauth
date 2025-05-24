@@ -366,3 +366,37 @@ def test_authorization_code_flow_with_pkce(
         "scope",
         "refresh_token",
     }
+
+
+@pytest.mark.parametrize("client_fixture", ["auth_client", "client"])
+@pytest.mark.parametrize(
+    "prompt,next_prompt", [("login", None), ("login consent", "consent")]
+)
+def test_redirect_to_login_with_prompt_login(
+    request, client_fixture, oidc_client, prompt, next_prompt
+):
+    client = request.getfixturevalue(client_fixture)
+    redirect_uri = oidc_client.get_redirect_uris()[0]
+    resp = client.get(
+        reverse("idp:oidc:authorization")
+        + "?"
+        + urlencode(
+            {
+                "client_id": oidc_client.id,
+                "response_type": "code",
+                "redirect_uri": redirect_uri,
+                "prompt": prompt,
+            }
+        )
+    )
+    assert resp.status_code == HTTPStatus.FOUND
+    parts = urlparse(resp["location"])
+    assert parts.path == reverse(
+        "account_login" if client_fixture == "client" else "account_reauthenticate"
+    )
+    params = parse_qs(parts.query)
+    params = parse_qs(urlparse(params["next"][0]).query)
+    if next_prompt:
+        assert params["prompt"][0] == next_prompt
+    else:
+        assert "prompt" not in params

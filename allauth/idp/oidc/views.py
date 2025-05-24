@@ -88,9 +88,16 @@ class AuthorizationView(FormView):
             return response
         orequest = extract_params(self.request)
         try:
-            self._scopes, self._request_info = (
-                get_server().validate_authorization_request(*orequest)
+            server = get_server()
+            self._scopes, self._request_info = server.validate_authorization_request(
+                *orequest
             )
+            if "none" in self._request_info.get("prompt", ()):
+                oresponse = server.create_authorization_response(
+                    *orequest, scopes=self._scopes
+                )
+                return convert_response(*oresponse)
+
         # Errors that should be shown to the user on the provider website
         except errors.FatalClientError as e:
             return respond_html_error(request, e)
@@ -134,6 +141,8 @@ class AuthorizationView(FormView):
             prompts = prompt.split()
         if "login" in prompts:
             return self._handle_login_prompt(request, prompts)
+        if "none" in prompts:
+            return None
         if request.user.is_authenticated:
             return None
         return login_required()(None)(request)  # type:ignore[misc,type-var]

@@ -377,7 +377,17 @@ class OAuthLibRequestValidator(RequestValidator):
         return app_settings.ROTATE_REFRESH_TOKEN
 
     def validate_silent_login(self, request) -> bool:
+        if context.request.user.is_authenticated:
+            request.user = context.request.user
+            return True
         return False
 
     def validate_silent_authorization(self, request) -> bool:
-        return False
+        granted_scopes = set()
+        tokens = Token.objects.valid().filter(
+            user=context.request.user,
+            type__in=[Token.Type.REFRESH_TOKEN, Token.Type.ACCESS_TOKEN],
+        )
+        for token in tokens.iterator():
+            granted_scopes.update(token.get_scopes())
+        return set(request.scopes).issubset(granted_scopes)

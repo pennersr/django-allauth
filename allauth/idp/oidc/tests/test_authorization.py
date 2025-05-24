@@ -400,3 +400,43 @@ def test_redirect_to_login_with_prompt_login(
         assert params["prompt"][0] == next_prompt
     else:
         assert "prompt" not in params
+
+
+@pytest.mark.parametrize(
+    "client_fixture,scope,error",
+    [
+        ("auth_client", "openid", None),
+        ("auth_client", "openid profile", "consent_required"),
+        ("client", "openid", "login_required"),
+    ],
+)
+def test_prompt_none(
+    request,
+    client_fixture,
+    scope,
+    error,
+    oidc_client,
+    user,
+    access_token_generator,
+):
+    access_token_generator(oidc_client, user, scopes=["openid"])
+    client = request.getfixturevalue(client_fixture)
+    redirect_uri = oidc_client.get_redirect_uris()[0]
+    resp = client.get(
+        reverse("idp:oidc:authorization")
+        + "?"
+        + urlencode(
+            {
+                "client_id": oidc_client.id,
+                "response_type": "code",
+                "scope": scope,
+                "redirect_uri": redirect_uri,
+                "prompt": "none",
+            }
+        )
+    )
+    assert resp.status_code == HTTPStatus.FOUND
+    if error:
+        assert resp["location"] == "https://client/callback?error=" + error
+    else:
+        assert resp["location"].startswith("https://client/callback?code=")

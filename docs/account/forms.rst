@@ -80,7 +80,7 @@ Example override::
 
             # Ensure you call the parent class's save.
             # .save() returns an allauth.account.models.EmailAddress object.
-            email_address_obj = supern().save(request)
+            email_address_obj = super().save(request)
 
             # Add your own processing here.
 

@@ -1522,6 +1522,13 @@ components:
   # Components: Examples
   ######################################################################
   examples:
+    User:
+      value: &user-example
+        id: 123
+        display: Magic Wizard
+        has_usable_password: true
+        email: email@domain.org
+        username: wizard
     AuthenticatedByPassword:
       summary: |
         Authenticated by password.
@@ -1529,11 +1536,7 @@ components:
         status: 200
         data:
           user:
-            id: 123
-            display: wizard
-            has_usable_password: true
-            email: email@domain.org
-            username: wizard
+            <<: *user-example
           methods:
             - method: password
               at: 1711555057.065702
@@ -1549,11 +1552,7 @@ components:
         status: 200
         data:
           user:
-            id: 123
-            display: wizard
-            has_usable_password: true
-            email: email@domain.org
-            username: wizard
+            <<: *user-example
           methods:
             - method: code
               at: 1711555057.065702
@@ -1569,11 +1568,7 @@ components:
         status: 200
         data:
           user:
-            id: 123
-            display: Magic Wizard
-            has_usable_password: true
-            email: email@domain.org
-            username: wizard
+            <<: *user-example
           methods:
             - method: password
               at: 1711555057.065702
@@ -1787,11 +1782,7 @@ components:
         status: 401
         data:
           user:
-            id: 123
-            display: wizard
-            has_usable_password: true
-            email: email@domain.org
-            username: wizard
+            <<: *user-example
           methods:
             - method: password
               at: 1711555057.065702
@@ -3295,11 +3286,7 @@ components:
                 status: 401
                 data:
                   user:
-                    id: 123
-                    display: wizard
-                    has_usable_password: true
-                    email: email@domain.org
-                    username: wizard
+                    <<: *user-example
                   methods:
                     - method: password
                       at: 1711555057.065702

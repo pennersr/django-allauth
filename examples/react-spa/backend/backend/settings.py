@@ -14,7 +14,7 @@ SECRET_KEY = "dummy-secret-key"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "backend"]
+ALLOWED_HOSTS = ["localhost", "backend", "127.0.0.1"]
 
 
 # Application definition

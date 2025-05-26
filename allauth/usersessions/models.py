@@ -1,4 +1,5 @@
 from importlib import import_module
+from typing import List
 
 from django.conf import settings
 from django.contrib.auth import get_user
@@ -20,7 +21,7 @@ if not allauth_settings.USERSESSIONS_ENABLED:
 
 
 class UserSessionManager(models.Manager):
-    def purge_and_list(self, user):
+    def purge_and_list(self, user) -> List["UserSession"]:
         ret = []
         sessions = UserSession.objects.filter(user=user)
         for session in sessions.iterator():
@@ -28,7 +29,7 @@ class UserSessionManager(models.Manager):
                 ret.append(session)
         return ret
 
-    def create_from_request(self, request):
+    def create_from_request(self, request: HttpRequest):
         if not request.user.is_authenticated:
             raise ValueError()
         if not request.session.session_key:

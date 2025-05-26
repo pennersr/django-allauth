@@ -11,6 +11,7 @@ session_client_changed = Signal()
 
 def on_user_logged_in(sender, **kwargs):
     request = kwargs["request"]
+    UserSession.objects.purge_and_list(request.user)
     UserSession.objects.create_from_request(request)
 
 

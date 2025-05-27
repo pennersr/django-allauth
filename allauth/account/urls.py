@@ -27,11 +27,6 @@ if not allauth_app_settings.SOCIALACCOUNT_ONLY:
                 views.email_verification_sent,
                 name="account_email_verification_sent",
             ),
-            re_path(
-                r"^confirm-email/(?P<key>[-:\w]+)/$",
-                views.confirm_email,
-                name="account_confirm_email",
-            ),
             path(
                 "password/change/",
                 views.password_change,
@@ -49,6 +44,14 @@ if not allauth_app_settings.SOCIALACCOUNT_ONLY:
             ),
         ]
     )
+    if not app_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED:
+        urlpatterns.append(
+            re_path(
+                r"^confirm-email/(?P<key>[-:\w]+)/$",
+                views.confirm_email,
+                name="account_confirm_email",
+            )
+        )
     if "phone" in app_settings.SIGNUP_FIELDS:
         urlpatterns.extend(
             [

@@ -1,12 +1,15 @@
-from typing import Any, Dict, Optional
+from typing import Any, Dict, List, Optional
 
 from django.core.exceptions import ImproperlyConfigured, PermissionDenied
+from django.http import HttpResponse
 
+from allauth.account.models import EmailAddress
 from allauth.account.utils import get_next_redirect_url, get_request_param
 from allauth.core import context
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.internal import statekit
+from allauth.socialaccount.models import SocialLogin
 from allauth.socialaccount.providers.base.constants import AuthProcess
 
 
@@ -25,31 +28,31 @@ class Provider:
     # access/id-token.
     supports_token_authentication = False
 
-    def __init__(self, request, app=None):
+    def __init__(self, request, app=None) -> None:
         self.request = request
         if self.uses_apps and app is None:
             raise ValueError("missing: app")
         self.app = app
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
     @classmethod
-    def get_slug(cls):
+    def get_slug(cls) -> str:
         return cls.slug or cls.id
 
-    def get_login_url(self, request, next=None, **kwargs):
+    def get_login_url(self, request, next=None, **kwargs) -> str:
         """
         Builds the URL to redirect to when initiating a login for this
         provider.
         """
         raise NotImplementedError("get_login_url() for " + self.name)
 
-    def redirect_from_request(self, request):
+    def redirect_from_request(self, request) -> HttpResponse:
         kwargs = self.get_redirect_from_request_kwargs(request)
         return self.redirect(request, **kwargs)
 
-    def get_redirect_from_request_kwargs(self, request):
+    def get_redirect_from_request_kwargs(self, request) -> dict:
         kwargs = {}
         next_url = get_next_redirect_url(request)
         if next_url:
@@ -57,20 +60,22 @@ class Provider:
         kwargs["process"] = get_request_param(request, "process", AuthProcess.LOGIN)
         return kwargs
 
-    def redirect(self, request, process, next_url=None, data=None, **kwargs):
+    def redirect(
+        self, request, process, next_url=None, data=None, **kwargs
+    ) -> HttpResponse:
         """
         Initiate a redirect to the provider.
         """
         raise NotImplementedError()
 
-    def verify_token(self, request, token):
+    def verify_token(self, request, token) -> SocialLogin:
         """
         Verifies the token, returning a `SocialLogin` instance when valid.
         Raises a `ValidationError` otherwise.
         """
         raise NotImplementedError()
 
-    def media_js(self, request):
+    def media_js(self, request) -> str:
         """
         Some providers may require extra scripts (e.g. a Facebook connect)
         """
@@ -79,10 +84,10 @@ class Provider:
     def wrap_account(self, social_account):
         return self.account_class(social_account)
 
-    def get_settings(self):
+    def get_settings(self) -> dict:
         return app_settings.PROVIDERS.get(self.id, {})
 
-    def sociallogin_from_response(self, request, response):
+    def sociallogin_from_response(self, request, response) -> SocialLogin:
         """
         Instantiates and populates a `SocialLogin` model based on the data
         retrieved in `response`. The method does NOT save the model to the
@@ -124,7 +129,7 @@ class Provider:
         email = self.cleanup_email_addresses(
             common_fields.get("email"),
             email_addresses,
-            email_verified=common_fields.get("email_verified"),
+            email_verified=bool(common_fields.get("email_verified")),
         )
         if email:
             common_fields["email"] = email
@@ -138,7 +143,7 @@ class Provider:
         adapter.populate_user(request, sociallogin, common_fields)
         return sociallogin
 
-    def extract_uid(self, data):
+    def extract_uid(self, data) -> str:
         """
         Extracts the unique user ID from `data`
         """
@@ -146,7 +151,7 @@ class Provider:
             "The provider must implement the `extract_uid()` method"
         )
 
-    def extract_extra_data(self, data):
+    def extract_extra_data(self, data) -> dict:
         """
         Extracts fields from `data` that will be stored in
         `SocialAccount`'s `extra_data` JSONField, such as email address, first
@@ -156,7 +161,7 @@ class Provider:
         """
         return data
 
-    def extract_common_fields(self, data):
+    def extract_common_fields(self, data) -> dict:
         """
         Extracts fields from `data` that will be used to populate the
         `User` model in the `SOCIALACCOUNT_ADAPTER`'s `populate_user()`
@@ -173,9 +178,6 @@ class Provider:
     def cleanup_email_addresses(
         self, email: Optional[str], addresses: list, email_verified: bool = False
     ) -> Optional[str]:
-        # Avoid loading models before adapters have been registered.
-        from allauth.account.models import EmailAddress
-
         # Move user.email over to EmailAddress
         if email and email.lower() not in [a.email.lower() for a in addresses]:
             addresses.insert(
@@ -194,7 +196,7 @@ class Provider:
             email = addresses[0].email
         return email
 
-    def extract_email_addresses(self, data):
+    def extract_email_addresses(self, data) -> List[EmailAddress]:
         """
         For example:
 

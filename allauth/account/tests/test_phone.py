@@ -287,3 +287,12 @@ def test_change_to_already_existing_phone(
     )
     assert resp.status_code == HTTPStatus.FOUND
     assert get_adapter().get_phone(new_user) == (new_phone2, True)
+
+
+def test_signup_invalid_phone(db, client, sms_outbox, phone_only_settings):
+    assert len(sms_outbox) == 0
+    resp = client.post(reverse("account_signup"), data={"phone": "notaphone"})
+    assert resp.status_code == HTTPStatus.OK
+    assert resp.context["form"].errors == {
+        "phone": ["Enter a phone number including country code (e.g. +1 for the US)."]
+    }

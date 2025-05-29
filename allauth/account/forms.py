@@ -402,12 +402,13 @@ class BaseSignupForm(base_signup_form_class()):  # type: ignore[misc]
           is using a custom signup form with their own `phone` field.
         """
         adapter = get_adapter()
-        user = adapter.get_user_by_phone(self.cleaned_data["phone"])
-        if user:
-            if not app_settings.PREVENT_ENUMERATION:
-                self.add_error("phone", adapter.error_messages["phone_taken"])
-            else:
-                self.account_already_exists = True
+        if phone := self.cleaned_data.get("phone"):
+            user = adapter.get_user_by_phone(phone)
+            if user:
+                if not app_settings.PREVENT_ENUMERATION:
+                    self.add_error("phone", adapter.error_messages["phone_taken"])
+                else:
+                    self.account_already_exists = True
 
     def custom_signup(self, request, user):
         self.signup(request, user)

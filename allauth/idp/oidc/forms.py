@@ -28,7 +28,7 @@ class AuthorizationForm(forms.Form):
             .order_by("-primary", "email")
             .values_list("email", flat=True)
         )
-        if "email" in requested_scopes and len(emails) > 0:
+        if "email" in requested_scopes and len(emails) > 1:
             self.fields["email"] = forms.ChoiceField(
                 label=_("Email"),
                 choices=[(email, email) for email in emails],

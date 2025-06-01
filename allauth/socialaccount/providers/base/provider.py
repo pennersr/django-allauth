@@ -1,15 +1,13 @@
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, Optional
 
 from django.core.exceptions import ImproperlyConfigured, PermissionDenied
 from django.http import HttpResponse
 
-from allauth.account.models import EmailAddress
 from allauth.account.utils import get_next_redirect_url, get_request_param
 from allauth.core import context
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.internal import statekit
-from allauth.socialaccount.models import SocialLogin
 from allauth.socialaccount.providers.base.constants import AuthProcess
 
 
@@ -68,7 +66,7 @@ class Provider:
         """
         raise NotImplementedError()
 
-    def verify_token(self, request, token) -> SocialLogin:
+    def verify_token(self, request, token):
         """
         Verifies the token, returning a `SocialLogin` instance when valid.
         Raises a `ValidationError` otherwise.
@@ -87,7 +85,7 @@ class Provider:
     def get_settings(self) -> dict:
         return app_settings.PROVIDERS.get(self.id, {})
 
-    def sociallogin_from_response(self, request, response) -> SocialLogin:
+    def sociallogin_from_response(self, request, response):
         """
         Instantiates and populates a `SocialLogin` model based on the data
         retrieved in `response`. The method does NOT save the model to the
@@ -178,6 +176,9 @@ class Provider:
     def cleanup_email_addresses(
         self, email: Optional[str], addresses: list, email_verified: bool = False
     ) -> Optional[str]:
+        # Avoid loading models before adapters have been registered.
+        from allauth.account.models import EmailAddress
+
         # Move user.email over to EmailAddress
         if email and email.lower() not in [a.email.lower() for a in addresses]:
             addresses.insert(
@@ -196,7 +197,7 @@ class Provider:
             email = addresses[0].email
         return email
 
-    def extract_email_addresses(self, data) -> List[EmailAddress]:
+    def extract_email_addresses(self, data):
         """
         For example:
 

@@ -8,17 +8,17 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-05-08 14:14-0500\n"
-"PO-Revision-Date: 2025-04-01 05:51+0000\n"
+"PO-Revision-Date: 2025-05-11 01:13+0000\n"
 "Last-Translator: Igor Jerosimić <jerosimic@gmail.com>\n"
-"Language-Team: Serbian <https://hosted.weblate.org/projects/allauth/django-"
-"allauth/sr/>\n"
+"Language-Team: Serbian <https://hosted.weblate.org/projects/allauth/"
+"django-allauth/sr/>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.11-dev\n"
+"X-Generator: Weblate 5.12-dev\n"
 
 #: account/adapter.py:55
 msgid "This account is currently inactive."
@@ -74,10 +74,8 @@ msgid "You cannot add more than %d email addresses."
 msgstr "Не можете додати више од %d адреса е-поште."
 
 #: account/adapter.py:76
-#, fuzzy
-#| msgid "A user is already registered with this email address."
 msgid "A user is already registered with this phone number."
-msgstr "Корисник је већ регистрован на овој адреси е-поште."
+msgstr "Корисник је већ регистрован са овим бројем телефона."
 
 #: account/adapter.py:78
 msgid "Too many failed login attempts. Try again later."
@@ -115,7 +113,7 @@ msgstr "Нова вредност мора да се разликује од т�
 
 #: account/adapter.py:94
 msgid "Be patient, you are sending too many requests."
-msgstr ""
+msgstr "Будите стрпљиви, шаљете превише захтева."
 
 #: account/adapter.py:778
 msgid "Use your password"
@@ -561,10 +559,8 @@ msgid "Confirm"
 msgstr "Потврди"
 
 #: templates/account/base_confirm_code.html:43
-#, fuzzy
-#| msgid "Request Code"
 msgid "Request new code"
-msgstr "Захтевај код"
+msgstr "Захтевај нови код"
 
 #: templates/account/base_reauthenticate.html:5
 #: templates/account/base_reauthenticate.html:9
@@ -589,10 +585,8 @@ msgid "Enter Email Verification Code"
 msgstr "Унесите потврдни код е-поште"
 
 #: templates/account/confirm_email_verification_code.html:16
-#, fuzzy
-#| msgid "email address"
 msgid "Use a different email address"
-msgstr "адреса е-поште"
+msgstr "Користи другу адресу е-поште"
 
 #: templates/account/confirm_login_code.html:5 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
@@ -632,7 +626,7 @@ msgstr "Унесите потврдни код за телефон"
 
 #: templates/account/confirm_phone_verification_code.html:15
 msgid "Use a different phone number"
-msgstr ""
+msgstr "Користи други број телефона"
 
 #: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
@@ -661,7 +655,7 @@ msgstr "Постави за примарни"
 #: templates/account/email.html:47 templates/account/email_change.html:37
 #: templates/account/phone_change.html:24
 msgid "Re-send Verification"
-msgstr "Поновно пошаљи верификацију"
+msgstr "Поново пошаљи потврду"
 
 #: templates/account/email.html:50
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:16
@@ -1027,10 +1021,9 @@ msgid "Password successfully set."
 msgstr "Успешно сте поставили лозинку."
 
 #: templates/account/messages/phone_verification_sent.txt:2
-#, fuzzy, python-format
-#| msgid "A sign-in code has been sent to %(recipient)s."
+#, python-format
 msgid "A verification code has been sent to %(phone)s."
-msgstr "Код за регистрацију је послат на %(recipient)s."
+msgstr "Код за потврду је послат на %(phone)s."
 
 #: templates/account/messages/phone_verified.txt:2
 #, python-format
@@ -1473,8 +1466,8 @@ msgid ""
 "You can store this secret and use it to reinstall your authenticator app at "
 "a later time."
 msgstr ""
-"Можете да сачувате ову тајну и да је користите за поновно подесите "
-"апликације за аутентификацију касније."
+"Можете да сачувате ову тајну и да је користите да поново подесите апликације "
+"за аутентификацију касније."
 
 #: templates/mfa/totp/deactivate_form.html:5
 #: templates/mfa/totp/deactivate_form.html:9

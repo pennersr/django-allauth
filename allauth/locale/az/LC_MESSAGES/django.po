@@ -10,24 +10,24 @@ msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-05-08 14:14-0500\n"
-"PO-Revision-Date: 2024-04-20 22:02+0200\n"
-"Last-Translator: Jeyhun Piriyev <jeihunpiriyev@gmail.com>\n"
-"Language-Team: Azerbaijani (Azerbaijan)\n"
+"PO-Revision-Date: 2025-05-14 16:01+0000\n"
+"Last-Translator: Elchin Aliyev <elchin.f.aliyev@gmail.com>\n"
+"Language-Team: Azerbaijani <https://hosted.weblate.org/projects/allauth/"
+"django-allauth/az/>\n"
 "Language: az\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.12-dev\n"
 
 #: account/adapter.py:55
 msgid "This account is currently inactive."
 msgstr "Bu hesab hazırda aktiv deyil."
 
 #: account/adapter.py:57
-#, fuzzy
-#| msgid "You cannot remove your primary email address (%(email)s)."
 msgid "You cannot remove your primary email address."
-msgstr "Siz əsas e-poçt ünvanınızı (%(email)s) silə bilməzsiniz."
+msgstr "Siz əsas e-poçt ünvanınızı silə bilməzsiniz."
 
 #: account/adapter.py:60
 msgid "This email address is already associated with this account."
@@ -35,13 +35,11 @@ msgstr "Bu e-poçt ünvanı artıq bu hesabla əlaqələndirilib."
 
 #: account/adapter.py:63
 msgid "The email address and/or password you specified are not correct."
-msgstr "Göstərdiyiniz e-poçt ünvanı və/və ya şifrə düzgün deyil."
+msgstr "Göstərdiyiniz e-poçt ünvanı və ya şifrə düzgün deyil."
 
 #: account/adapter.py:66
-#, fuzzy
-#| msgid "The username and/or password you specified are not correct."
 msgid "The phone number and/or password you specified are not correct."
-msgstr "Göstərdiyiniz istifadəçi adı və/yaxud şifrə düzgün deyil."
+msgstr "Göstərdiyiniz istifadəçi adı və yaxud şifrə düzgün deyil."
 
 #: account/adapter.py:68
 msgid "A user is already registered with this email address."
@@ -60,16 +58,12 @@ msgid "Incorrect password."
 msgstr "Yanlış şifrə."
 
 #: account/adapter.py:72
-#, fuzzy
-#| msgid "Bad Token"
 msgid "Invalid or expired key."
-msgstr "Yanlış Token"
+msgstr "Etibarsız və ya müddəti bitmiş açar."
 
 #: account/adapter.py:73
-#, fuzzy
-#| msgid "Bad Token"
 msgid "Invalid login."
-msgstr "Yanlış Token"
+msgstr "Etibarsız giriş."
 
 #: account/adapter.py:74
 msgid "The password reset token was invalid."
@@ -81,26 +75,20 @@ msgid "You cannot add more than %d email addresses."
 msgstr "Siz %d-dən çox e-poçt ünvanı əlavə edə bilməzsiniz."
 
 #: account/adapter.py:76
-#, fuzzy
-#| msgid "A user is already registered with this email address."
 msgid "A user is already registered with this phone number."
-msgstr "İstifadəçi artıq bu e-poçt ünvanı ilə qeydiyyatdan keçib."
+msgstr "Bu telefon nömrəsi ilə artıq bir istifadəçi qeydiyyatdan keçib."
 
 #: account/adapter.py:78
 msgid "Too many failed login attempts. Try again later."
 msgstr "Həddindən artıq uğursuz giriş cəhdi. Biraz sonra yenidən cəhd edin."
 
 #: account/adapter.py:80
-#, fuzzy
-#| msgid "The email address is not assigned to any user account"
 msgid "The email address is not assigned to any user account."
-msgstr "E-poçt ünvanı heç bir istifadəçi hesabına təyin edilməyib"
+msgstr "Bu e-poçt ünvanı heç bir istifadəçi hesabına aid deyil."
 
 #: account/adapter.py:81
-#, fuzzy
-#| msgid "The email address is not assigned to any user account"
 msgid "The phone number is not assigned to any user account."
-msgstr "E-poçt ünvanı heç bir istifadəçi hesabına təyin edilməyib"
+msgstr "Bu telefon nömrəsi heç bir istifadəçi hesabına aid deyil."
 
 #: account/adapter.py:82
 #: templates/account/messages/unverified_primary_email.txt:2
@@ -119,11 +107,11 @@ msgstr "Göstərdiyiniz istifadəçi adı və/yaxud şifrə düzgün deyil."
 
 #: account/adapter.py:92
 msgid "Please select only one."
-msgstr ""
+msgstr "Zəhmət olmasa, yalnız birini seçin."
 
 #: account/adapter.py:93
 msgid "The new value must be different from the current one."
-msgstr ""
+msgstr "Yeni dəyər cari dəyərdən fərqli olmalıdır."
 
 #: account/adapter.py:94
 msgid "Be patient, you are sending too many requests."

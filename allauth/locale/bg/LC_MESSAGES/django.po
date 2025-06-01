@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-05-08 14:14-0500\n"
-"PO-Revision-Date: 2025-05-04 09:12+0000\n"
+"PO-Revision-Date: 2025-05-20 18:49+0000\n"
 "Last-Translator: Ilia Iliev <p3sh0tr4mv4y4@gmail.com>\n"
-"Language-Team: Bulgarian <https://hosted.weblate.org/projects/allauth/django-"
-"allauth/bg/>\n"
+"Language-Team: Bulgarian <https://hosted.weblate.org/projects/allauth/"
+"django-allauth/bg/>\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -73,10 +73,8 @@ msgid "You cannot add more than %d email addresses."
 msgstr "Не можете да добавяте повече от %d e-mail адреса."
 
 #: account/adapter.py:76
-#, fuzzy
-#| msgid "A user is already registered with this email address."
 msgid "A user is already registered with this phone number."
-msgstr "Вече има регистриран потребител с този имейл адрес."
+msgstr "Вече има регистриран потребител с този телефонен номер."
 
 #: account/adapter.py:78
 msgid "Too many failed login attempts. Try again later."
@@ -114,7 +112,7 @@ msgstr "Новата стойност трябва да е различна от
 
 #: account/adapter.py:94
 msgid "Be patient, you are sending too many requests."
-msgstr ""
+msgstr "Бъдете търпеливи, изпращате твърде много трафик."
 
 #: account/adapter.py:778
 msgid "Use your password"
@@ -558,10 +556,8 @@ msgid "Confirm"
 msgstr "Потвърди"
 
 #: templates/account/base_confirm_code.html:43
-#, fuzzy
-#| msgid "Request Code"
 msgid "Request new code"
-msgstr "Поискай ключ"
+msgstr "Поискай нов ключ"
 
 #: templates/account/base_reauthenticate.html:5
 #: templates/account/base_reauthenticate.html:9
@@ -586,10 +582,8 @@ msgid "Enter Email Verification Code"
 msgstr "Въведете код за потвърждение от имейла"
 
 #: templates/account/confirm_email_verification_code.html:16
-#, fuzzy
-#| msgid "email address"
 msgid "Use a different email address"
-msgstr "e-mail адрес"
+msgstr "Използвайте друг e-mail адрес"
 
 #: templates/account/confirm_login_code.html:5 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
@@ -629,7 +623,7 @@ msgstr "Въведете код за потвърждение от телефо�
 
 #: templates/account/confirm_phone_verification_code.html:15
 msgid "Use a different phone number"
-msgstr ""
+msgstr "Използвайте друг телефонен номер"
 
 #: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
@@ -1027,10 +1021,9 @@ msgid "Password successfully set."
 msgstr "Паролата беше запазена успешно."
 
 #: templates/account/messages/phone_verification_sent.txt:2
-#, fuzzy, python-format
-#| msgid "A sign-in code has been sent to %(recipient)s."
+#, python-format
 msgid "A verification code has been sent to %(phone)s."
-msgstr "Ключ за влизане беше изпратен на %(recipient)s."
+msgstr "Ключ за верификация беше изпратен на %(phone)s."
 
 #: templates/account/messages/phone_verified.txt:2
 #, python-format

@@ -8,18 +8,18 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-05-08 14:14-0500\n"
-"PO-Revision-Date: 2025-04-27 05:02+0000\n"
-"Last-Translator: jFel63 <josh.a.macfelder@gmail.com>\n"
-"Language-Team: Ukrainian <https://hosted.weblate.org/projects/allauth/django-"
-"allauth/uk/>\n"
+"PO-Revision-Date: 2025-06-01 20:59+0200\n"
+"Last-Translator: Artem <artem@molotov.work>\n"
+"Language-Team: Ukrainian <https://hosted.weblate.org/projects/allauth/"
+"django-allauth/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
-"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
-"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
-"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 "
+"? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > "
+"14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % "
+"100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 "X-Generator: Weblate 5.12-dev\n"
 
 #: account/adapter.py:55
@@ -63,10 +63,8 @@ msgid "Invalid or expired key."
 msgstr "Недійсний або прострочений ключ."
 
 #: account/adapter.py:73
-#, fuzzy
-#| msgid "Invalid token."
 msgid "Invalid login."
-msgstr "Недійсний токен."
+msgstr "Недійсне назвище."
 
 #: account/adapter.py:74
 msgid "The password reset token was invalid."
@@ -78,10 +76,8 @@ msgid "You cannot add more than %d email addresses."
 msgstr "Ви не можете додати більше ніж %d адрес електронної пошти."
 
 #: account/adapter.py:76
-#, fuzzy
-#| msgid "A user is already registered with this email address."
 msgid "A user is already registered with this phone number."
-msgstr "Користувач з цією адресою електронної пошти вже зареєстрований."
+msgstr "Користувач з таким тел. номером вже зареєстрований."
 
 #: account/adapter.py:78
 msgid "Too many failed login attempts. Try again later."
@@ -113,7 +109,7 @@ msgstr "Вказане ім'я користувача або пароль неп
 
 #: account/adapter.py:92
 msgid "Please select only one."
-msgstr ""
+msgstr "Будь ласка, оберіть лише одне."
 
 #: account/adapter.py:93
 msgid "The new value must be different from the current one."
@@ -121,7 +117,7 @@ msgstr "Нове значення має відрізнятись від пот�
 
 #: account/adapter.py:94
 msgid "Be patient, you are sending too many requests."
-msgstr ""
+msgstr "Будьте терплячі, ви надсилаєте забагато запитів."
 
 #: account/adapter.py:778
 msgid "Use your password"
@@ -574,10 +570,8 @@ msgid "Confirm"
 msgstr "Підтвердити"
 
 #: templates/account/base_confirm_code.html:43
-#, fuzzy
-#| msgid "Request Code"
 msgid "Request new code"
-msgstr "Запросити Код"
+msgstr "Запросити новий код"
 
 #: templates/account/base_reauthenticate.html:5
 #: templates/account/base_reauthenticate.html:9
@@ -604,10 +598,8 @@ msgid "Enter Email Verification Code"
 msgstr "Введіть код з підтвердження електронної пошти:"
 
 #: templates/account/confirm_email_verification_code.html:16
-#, fuzzy
-#| msgid "email address"
 msgid "Use a different email address"
-msgstr "адреса електронної пошти"
+msgstr "Використайте іншу адресу ел. пошти"
 
 #: templates/account/confirm_login_code.html:5 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
@@ -647,7 +639,7 @@ msgstr "Введіть код підтвердження номеру телеф
 
 #: templates/account/confirm_phone_verification_code.html:15
 msgid "Use a different phone number"
-msgstr ""
+msgstr "Використайте інший тел. номер"
 
 #: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
@@ -996,8 +988,6 @@ msgid "Sign in with a passkey"
 msgstr "Увійти за допомогою пароль-ключа"
 
 #: templates/account/login.html:47 templates/account/request_login_code.html:9
-#, fuzzy
-#| msgid "Mail me a sign-in code"
 msgid "Send me a sign-in code"
 msgstr "Надішліть мені код для входу"
 
@@ -1055,10 +1045,9 @@ msgid "Password successfully set."
 msgstr "Пароль успішно встановлено."
 
 #: templates/account/messages/phone_verification_sent.txt:2
-#, fuzzy, python-format
-#| msgid "A sign-in code has been sent to %(recipient)s."
+#, python-format
 msgid "A verification code has been sent to %(phone)s."
-msgstr "Код для входу було надіслано на %(recipient)s."
+msgstr "Код підтвердження надіслано на %(phone)s."
 
 #: templates/account/messages/phone_verified.txt:2
 #, python-format
@@ -1527,6 +1516,8 @@ msgid ""
 "If you choose to trust this browser, you will not be asked for a "
 "verification code the next time you sign in."
 msgstr ""
+"Якщо оберете довіряти цьому переглядачу, то при наступному вході у вас не "
+"запитуватимуть код підтвердження входу."
 
 #: templates/mfa/trust.html:23
 #, python-format
@@ -1596,15 +1587,13 @@ msgid "Create Passkey"
 msgstr "Створити ключ доступу"
 
 #: templates/mfa/webauthn/signup_form.html:10
-#, fuzzy
 msgid ""
 "You are about to create a passkey for your account. As you can add "
 "additional keys later on, you can use a descriptive name to tell the keys "
 "apart."
 msgstr ""
-"Ви створюєте ключ доступу до вашого облікового запису. Оскільки можна "
-"створити більше за один ключ доступу, ви можете обрати назву для "
-"ідентифікації кожного з них."
+"Ви створюєте ключ доступу для вашої обліковки. Оскільки можна створити "
+"більше одного ключа доступу, ви можете обрати назву для кожного з них."
 
 #: templates/mfa/webauthn/signup_form.html:21
 msgid "Create"

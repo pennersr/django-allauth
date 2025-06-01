@@ -8,17 +8,17 @@ msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-05-08 14:14-0500\n"
-"PO-Revision-Date: 2025-03-19 18:38+0000\n"
-"Last-Translator: David D Lowe <daviddlowe.flimm@gmail.com>\n"
-"Language-Team: Arabic <https://hosted.weblate.org/projects/allauth/django-"
-"allauth/ar/>\n"
+"PO-Revision-Date: 2025-05-23 07:13+0000\n"
+"Last-Translator: Usama Khalil <usamafoad@gmail.com>\n"
+"Language-Team: Arabic <https://hosted.weblate.org/projects/allauth/"
+"django-allauth/ar/>\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Weblate 5.11-dev\n"
+"X-Generator: Weblate 5.12-dev\n"
 
 #: account/adapter.py:55
 msgid "This account is currently inactive."
@@ -26,7 +26,7 @@ msgstr "هذا الحساب غير نشط حاليا."
 
 #: account/adapter.py:57
 msgid "You cannot remove your primary email address."
-msgstr "لا يمكنك إزالة عنوان البريد الإلكتروني الرئيسي الخاص بك."
+msgstr "لا يمكنك إزالة عنوان بريدك الإلكتروني الرئيسي."
 
 #: account/adapter.py:60
 msgid "This email address is already associated with this account."
@@ -74,10 +74,8 @@ msgid "You cannot add more than %d email addresses."
 msgstr "لا يمكنك إضافة أكثر من %d بريد إلكتروني."
 
 #: account/adapter.py:76
-#, fuzzy
-#| msgid "A user is already registered with this email address."
 msgid "A user is already registered with this phone number."
-msgstr "هنالك مستخدم مسجل سابقا يستخدم عنوان البريد الإلكتروني نفسه."
+msgstr "تم تسجيل مستخدم بالفعل برقم الهاتف هذا."
 
 #: account/adapter.py:78
 msgid "Too many failed login attempts. Try again later."
@@ -114,7 +112,7 @@ msgstr "يجب أن تكون القيمة الجديدة مختلفة عن ال�
 
 #: account/adapter.py:94
 msgid "Be patient, you are sending too many requests."
-msgstr ""
+msgstr "كن صبوراً، فأنت ترسل عدداً كبيراً جداً من الطلبات."
 
 #: account/adapter.py:778
 msgid "Use your password"
@@ -336,7 +334,7 @@ msgstr "أداة مصادقة TOTP"
 
 #: mfa/models.py:26
 msgid "WebAuthn"
-msgstr "WebAuthn"
+msgstr "مصادقة الويب"
 
 #: mfa/totp/forms.py:11
 msgid "Authenticator code"
@@ -555,10 +553,8 @@ msgid "Confirm"
 msgstr "تأكيد"
 
 #: templates/account/base_confirm_code.html:43
-#, fuzzy
-#| msgid "Request Code"
 msgid "Request new code"
-msgstr "كود الطلب"
+msgstr "طلب كود جديد"
 
 #: templates/account/base_reauthenticate.html:5
 #: templates/account/base_reauthenticate.html:9
@@ -583,10 +579,8 @@ msgid "Enter Email Verification Code"
 msgstr "الرجاء إدخال الكود المبعوث إلى بريدك الالكتروني"
 
 #: templates/account/confirm_email_verification_code.html:16
-#, fuzzy
-#| msgid "email address"
 msgid "Use a different email address"
-msgstr "عنوان بريد إلكتروني"
+msgstr "استخدم بريد إلكتروني آخر"
 
 #: templates/account/confirm_login_code.html:5 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
@@ -626,7 +620,7 @@ msgstr "الرجاء إدخال الكود للتأكيد من رقم الهات
 
 #: templates/account/confirm_phone_verification_code.html:15
 msgid "Use a different phone number"
-msgstr ""
+msgstr "استخدم رقم هاتف آخر"
 
 #: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
@@ -698,8 +692,8 @@ msgstr ""
 "\n"
 "%(email)s\n"
 "\n"
-"لكن حسابا مربوطا بهذا البريد موجود بالفعل. في حال نسيت هذا، يمكنك استخدام "
-"رابط\n"
+"لكن حسابا مربوطا بهذا البريد موجود بالفعل. \n"
+"في حال نسيت هذا، يمكنك استخدام رابط\n"
 "إعادة ضبط كلمة المرور لاستعادة حسابك:\n"
 "\n"
 "%(password_reset_url)s"
@@ -738,10 +732,11 @@ msgid ""
 "- Browser: %(user_agent)s\n"
 "- Date: %(timestamp)s"
 msgstr ""
-"0 إذا لم تتعرف على هذا التغيير، فيرجى اتخاذ الاحتياطات الأمنية المناسبة على "
-"الفور. ينشأ التغيير في حسابك من:.\n"
-"- عنوان IP: %(ip)s.\n"
-"- المتصفح: %(user_agent)s.\n"
+"إذا لم تتعرف على هذا التغيير، فيرجى اتخاذ الاحتياطات الأمنية المناسبة على "
+"الفور. التغيير في حسابك ناتج عن:\n"
+"\n"
+"- عنوان IP: %(ip)s\n"
+"- المتصفح: %(user_agent)s\n"
 "- التاريخ: %(timestamp)s"
 
 #: templates/account/email/email_changed_message.txt:4
@@ -1015,10 +1010,9 @@ msgid "Password successfully set."
 msgstr "تم إعداد كلمة المرور بنجاح‪."
 
 #: templates/account/messages/phone_verification_sent.txt:2
-#, fuzzy, python-format
-#| msgid "A sign-in code has been sent to %(recipient)s."
+#, python-format
 msgid "A verification code has been sent to %(phone)s."
-msgstr "تم إرسال كود تسجيل الدخول إلى %(recipient)s."
+msgstr "تم إرسال رمز التحقق إلى %(phone)s."
 
 #: templates/account/messages/phone_verified.txt:2
 #, python-format
@@ -1085,7 +1079,7 @@ msgstr ""
 
 #: templates/account/password_reset_from_key_done.html:12
 msgid "Your password is now changed."
-msgstr "تم تغيير كلمة المرور الخاصة بك."
+msgstr "تم تغيير كلمة مرورك الآن."
 
 #: templates/account/password_set.html:5 templates/account/password_set.html:9
 #: templates/account/password_set.html:21
@@ -1205,7 +1199,8 @@ msgid ""
 "verify ownership of your email address. "
 msgstr ""
 "تتطلب هذه الصفحة توثيق هويتك.\n"
-"لهذا نطلب منك توثيق ملكية بريدك الإلكتروني. "
+"لهذا نطلب منك توثيق ملكية\n"
+" بريدك الإلكتروني. "
 
 #: templates/account/verified_email_required.html:18
 msgid ""
@@ -1276,7 +1271,7 @@ msgstr "تم تفعيل تطبيق المصادقة."
 
 #: templates/mfa/email/totp_activated_subject.txt:3
 msgid "Authenticator App Activated"
-msgstr "تم تفعيل تطبيق المصادقة."
+msgstr "تم تفعيل تطبيق المصادقة"
 
 #: templates/mfa/email/totp_deactivated_message.txt:4
 #: templates/mfa/messages/totp_deactivated.txt:2
@@ -1469,22 +1464,24 @@ msgstr ""
 
 #: templates/mfa/trust.html:4 templates/mfa/trust.html:8
 msgid "Trust this Browser?"
-msgstr ""
+msgstr "هل تثق بهذا المتصفح؟"
 
 #: templates/mfa/trust.html:11
 msgid ""
 "If you choose to trust this browser, you will not be asked for a "
 "verification code the next time you sign in."
 msgstr ""
+"إذا اخترت الوثوق بهذا المتصفح، فلن يُطلب منك رمز التحقق في المرة التالية التي "
+"تقوم فيها بتسجيل الدخول."
 
 #: templates/mfa/trust.html:23
 #, python-format
 msgid "Trust for %(period)s"
-msgstr ""
+msgstr "الثقة لفترة %(period)s"
 
 #: templates/mfa/trust.html:26
 msgid "Don't Trust"
-msgstr ""
+msgstr "لا تثق"
 
 #: templates/mfa/webauthn/add_form.html:7
 msgid "Add Security Key"

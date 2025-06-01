@@ -1,4 +1,4 @@
-65.9.0 (unreleased)
+65.9.0 (2025-06-01)
 *******************
 
 Note worthy changes
@@ -12,6 +12,7 @@ Note worthy changes
   configurations set via ``HEADLESS_CLIENTS``. When a single client is active,
   the redundant ``{client}`` path parameter and its global definition are
   removed from the generated schema.
+
 
 65.8.1 (2025-05-21)
 *******************

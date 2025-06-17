@@ -258,9 +258,9 @@ class OAuthLibRequestValidator(RequestValidator):
 
     def revoke_token(self, token, token_type_hint, request, *args, **kwargs):
         if token_type_hint == "access_token":  # nosec
-            types = Token.Type.ACCESS_TOKEN
+            types = [Token.Type.ACCESS_TOKEN]
         elif token_type_hint == "refresh_token":  # nosec
-            types = Token.Type.REFRESH_TOKEN
+            types = [Token.Type.REFRESH_TOKEN]
         else:
             types = [Token.Type.ACCESS_TOKEN, Token.Type.REFRESH_TOKEN]
         Token.objects.by_value(token).filter(type__in=types).delete()

@@ -51,6 +51,20 @@ def settings_check(app_configs, **kwargs):
                 msg="ACCOUNT_EMAIL_VERFICATION_BY_CODE requires ACCOUNT_EMAIL_VERIFICATION = 'mandatory'"
             )
         )
+
+    # Often made mistake: ACCOUNT_SIGNUP_FIELDS = [..., "password", ...]
+    signup_fields = getattr(settings, "ACCOUNT_SIGNUP_FIELDS", None)
+    for wrong_field, right_field in [
+        ("password", "password1"),
+        ("password*", "password1*"),
+    ]:
+        if signup_fields and wrong_field in signup_fields:
+            ret.append(
+                Critical(
+                    msg=f"'{wrong_field}' is not a valid field for ACCOUNT_SIGNUP_FIELDS, use '{right_field}'",
+                )
+            )
+
     # Cross-check SIGNUP_FIELDS against LOGIN_METHODS. E.g. login is by email, email should be required
     signup_fields = app_settings.SIGNUP_FIELDS
     if not any(

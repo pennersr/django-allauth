@@ -1,8 +1,13 @@
 from typing import Any, Dict, Optional
 
-from django.core.exceptions import ImproperlyConfigured, PermissionDenied
+from django.core.exceptions import (
+    ImproperlyConfigured,
+    PermissionDenied,
+    ValidationError,
+)
 from django.http import HttpResponse
 
+from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.utils import get_next_redirect_url, get_request_param
 from allauth.core import context
 from allauth.socialaccount import app_settings
@@ -131,10 +136,20 @@ class Provider:
         )
         if email:
             common_fields["email"] = email
+        phone = common_fields.get("phone")
+        if phone:
+            try:
+                phone = (
+                    get_account_adapter().phone_form_field(required=True).clean(phone)
+                )
+            except ValidationError:
+                phone = None
         sociallogin = SocialLogin(
             provider=self,
             account=socialaccount,
             email_addresses=email_addresses,
+            phone=phone,
+            phone_verified=common_fields.get("phone_verified", False),
         )
         user = sociallogin.user = adapter.new_user(request, sociallogin)
         user.set_unusable_password()

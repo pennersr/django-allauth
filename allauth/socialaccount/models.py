@@ -9,6 +9,7 @@ from django.utils.translation import gettext_lazy as _
 
 import allauth.app_settings
 from allauth import app_settings as allauth_settings
+from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.models import EmailAddress
 from allauth.account.utils import (
     filter_users_by_email,
@@ -209,6 +210,8 @@ class SocialLogin:
     email_addresses: List[EmailAddress]
     state: Dict
     _did_authenticate_by_email: Optional[str]
+    phone: Optional[str]
+    phone_verified: bool
 
     def __init__(
         self,
@@ -217,6 +220,8 @@ class SocialLogin:
         token: Optional[SocialToken] = None,
         email_addresses: Optional[List[EmailAddress]] = None,
         provider=None,
+        phone: Optional[str] = None,
+        phone_verified: bool = False,
     ):
         self.provider = provider
         if token:
@@ -227,6 +232,8 @@ class SocialLogin:
             self.account = account
         self.email_addresses = email_addresses if email_addresses else []
         self.state = {}
+        self.phone = phone
+        self.phone_verified = phone_verified
 
     def connect(self, request, user) -> None:
         self.user = user
@@ -256,6 +263,8 @@ class SocialLogin:
             user=serialize_instance(self.user),
             state=self.state,
             email_addresses=[serialize_instance(ea) for ea in self.email_addresses],
+            phone=self.phone,
+            phone_verified=self.phone_verified,
         )
         if self.token:
             ret["token"] = serialize_instance(self.token)
@@ -284,6 +293,8 @@ class SocialLogin:
         ret.user = user
         ret.email_addresses = email_addresses
         ret.state = data["state"]
+        ret.phone = data.get("phone")
+        ret.phone_verified = data.get("phone_verified", False)
         return ret
 
     def save(self, request, connect: bool = False) -> None:
@@ -303,6 +314,10 @@ class SocialLogin:
             pass
         else:
             setup_user_email(request, user, self.email_addresses)
+        if self.phone:
+            account_adapter = get_account_adapter()
+            if account_adapter._has_phone_impl:
+                account_adapter.set_phone(user, self.phone, self.phone_verified)
 
     @property
     def is_existing(self) -> bool:

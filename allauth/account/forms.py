@@ -439,10 +439,6 @@ class BaseSignupForm(base_signup_form_class()):  # type: ignore[misc]
         adapter = get_adapter()
         user = adapter.new_user(request)
         adapter.save_user(request, user, self)
-        if self._has_phone_field:
-            phone = self.cleaned_data.get("phone")
-            if phone:
-                adapter.set_phone(user, phone, False)
         self.custom_signup(request, user)
         # TODO: Move into adapter `save_user` ?
         setup_user_email(request, user, [EmailAddress(email=email)] if email else [])

@@ -33,12 +33,16 @@ class DummyProvider(Provider):
 
     def extract_common_fields(self, data):
         ret = {}
-        if data.get("first_name"):
-            ret["first_name"] = data.get("first_name")
-        if data.get("last_name"):
-            ret["last_name"] = data.get("last_name")
-        if data.get("username"):
-            ret["username"] = data.get("username")
+        if first_name := data.get("first_name"):
+            ret["first_name"] = first_name
+        if last_name := data.get("last_name"):
+            ret["last_name"] = last_name
+        if username := data.get("username"):
+            ret["username"] = username
+        if phone := data.get("phone"):
+            ret["phone"] = phone
+        if phone_verified := data.get("phone_verified"):
+            ret["phone_verified"] = phone_verified
         return ret
 
     def redirect(self, request, process, next_url=None, data=None, **kwargs):

@@ -337,9 +337,11 @@ class DefaultAccountAdapter(BaseAdapter):
             user.set_unusable_password()
         self.populate_username(request, user)
         if commit:
-            # Ability not to commit makes it easier to derive from
-            # this adapter by adding
             user.save()
+        if form._has_phone_field:
+            phone = form.cleaned_data.get("phone")
+            if phone:
+                self.set_phone(user, phone, False)
         return user
 
     def clean_username(self, username, shallow=False):
@@ -911,6 +913,23 @@ class DefaultAccountAdapter(BaseAdapter):
         Sends a verification code.
         """
         raise NotImplementedError
+
+    @property
+    def _has_phone_impl(self) -> bool:
+        """
+        Checks whether the phone number adapter is fully implemented.
+        """
+        methods = (
+            "send_verification_code_sms",
+            "set_phone",
+            "get_phone",
+            "set_phone_verified",
+            "get_user_by_phone",
+        )
+        return all(
+            getattr(self.__class__, method) != getattr(DefaultAccountAdapter, method)
+            for method in methods
+        )
 
     def set_phone(self, user, phone: str, verified: bool):
         """

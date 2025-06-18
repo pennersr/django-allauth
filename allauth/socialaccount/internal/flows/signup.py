@@ -42,6 +42,14 @@ def process_auto_signup(request, sociallogin):
     auto_signup = get_adapter().is_auto_signup_allowed(request, sociallogin)
     if not auto_signup:
         return False, None
+    auto_signup, resp = process_auto_signup_email(request, sociallogin)
+    if not auto_signup:
+        return False, resp
+    auto_signup, resp = process_auto_signup_phone(request, sociallogin)
+    return auto_signup, resp
+
+
+def process_auto_signup_email(request, sociallogin):
     email = None
     if sociallogin.email_addresses:
         email = sociallogin.email_addresses[0].email
@@ -50,7 +58,7 @@ def process_auto_signup(request, sociallogin):
         assessment = assess_unique_email(email)
         if assessment is True:
             # Auto signup is fine.
-            pass
+            auto_signup = True
         elif assessment is False:
             # Oops, another user already has this address.  We cannot simply
             # connect this social account to the existing user. Reason is
@@ -75,7 +83,24 @@ def process_auto_signup(request, sociallogin):
     elif app_settings.EMAIL_REQUIRED:
         # Nope, email is required and we don't have it yet...
         auto_signup = False
+    else:
+        auto_signup = True
     return auto_signup, None
+
+
+def process_auto_signup_phone(request, sociallogin):
+    # At this point, email is not required, or, we have a unique email.  Let's
+    # check the phone number.
+    phone_field = account_settings.SIGNUP_FIELDS.get("phone")
+    if not phone_field or not phone_field["required"]:
+        return True, None
+    if not sociallogin.phone:
+        return False, None
+    # If the phone is already taken?
+    existing_user = get_account_adapter().get_user_by_phone(sociallogin.phone)
+    if existing_user:
+        return False, None
+    return True, None
 
 
 def process_signup(request, sociallogin):

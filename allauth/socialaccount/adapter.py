@@ -103,10 +103,11 @@ class DefaultSocialAccountAdapter(BaseAdapter):
         """
         u = sociallogin.user
         u.set_unusable_password()
+        account_adapter = get_account_adapter()
         if form:
-            get_account_adapter().save_user(request, u, form)
+            account_adapter.save_user(request, u, form)
         else:
-            get_account_adapter().populate_username(request, u)
+            account_adapter.populate_username(request, u)
         sociallogin.save(request)
         return u
 

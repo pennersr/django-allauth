@@ -10,3 +10,5 @@ class AuthenticateForm(forms.Form):
     username = forms.CharField(required=False)
     first_name = forms.CharField(required=False)
     last_name = forms.CharField(required=False)
+    phone = forms.CharField(required=False)
+    phone_verified = forms.BooleanField(required=False)

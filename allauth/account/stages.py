@@ -1,3 +1,4 @@
+import logging
 from typing import List, Optional
 
 from allauth.account import app_settings
@@ -6,6 +7,9 @@ from allauth.account.app_settings import EmailVerificationMethod
 from allauth.account.models import EmailAddress
 from allauth.core.internal.httpkit import headed_redirect_response
 from allauth.utils import import_callable
+
+
+logger = logging.getLogger(__name__)
 
 
 class LoginStage:
@@ -117,7 +121,11 @@ class LoginStageController:
                     clear_login(self.request)
                 return response
             else:
-                assert cont  # nosec
+                if not cont:
+                    # So, on our stages is aborting without actually giving
+                    # a response.
+                    logger.error("Login stage aborted, redirecting to login")
+                    return headed_redirect_response("account_login")
                 self.set_handled(stage.key)
         clear_login(self.request)
 

@@ -6,6 +6,10 @@ Note worthy changes
 
 - IdP: Added support for the device authorization grant.
 
+- Headless: custom user payloads can now be properly reflected in the OpenAPI
+  specification by provider a user ``dataclass``. See the newly introduced
+  ``get_user_dataclass()`` and ``user_as_dataclass()`` adapter methods.
+
 
 Fixes
 -----

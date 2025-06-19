@@ -1,5 +1,5 @@
 import datetime
-from typing import Tuple
+from typing import Any, Dict, Tuple
 
 from django import forms
 
@@ -24,8 +24,8 @@ FIELD_MAPPING = {
 }
 
 
-def spec_for_field(field: forms.Field) -> dict:
-    field_spec = FIELD_MAPPING.get(type(field), {"type": "string"})
+def spec_for_field(field: forms.Field) -> Dict[str, Any]:
+    field_spec: Dict[str, Any] = FIELD_MAPPING.get(type(field), {"type": "string"})
     field_spec = dict(field_spec)
     if hasattr(field, "max_length") and field.max_length:
         field_spec["maxLength"] = field.max_length

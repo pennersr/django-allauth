@@ -14,10 +14,7 @@ from django.utils.translation import gettext_lazy as _
 
 from allauth.account import app_settings, signals
 from allauth.account.adapter import get_adapter
-from allauth.account.managers import (
-    EmailAddressManager,
-    EmailConfirmationManager,
-)
+from allauth.account.managers import EmailAddressManager, EmailConfirmationManager
 
 
 class EmailAddress(models.Model):

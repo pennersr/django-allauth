@@ -4,9 +4,7 @@ from django.http import HttpRequest
 
 from ninja.security.base import AuthBase
 
-from allauth.headless.internal.sessionkit import (
-    authenticate_by_x_session_token,
-)
+from allauth.headless.internal.sessionkit import authenticate_by_x_session_token
 
 
 class XSessionTokenAuth(AuthBase):

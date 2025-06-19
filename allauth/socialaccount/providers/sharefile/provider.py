@@ -1,8 +1,6 @@
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
-from allauth.socialaccount.providers.sharefile.views import (
-    ShareFileOAuth2Adapter,
-)
+from allauth.socialaccount.providers.sharefile.views import ShareFileOAuth2Adapter
 
 
 class ShareFileAccount(ProviderAccount):

@@ -10,10 +10,7 @@ from asgiref.sync import iscoroutinefunction
 from allauth.account.adapter import get_adapter
 from allauth.account.internal import flows
 from allauth.core import context
-from allauth.core.exceptions import (
-    ImmediateHttpResponse,
-    ReauthenticationRequired,
-)
+from allauth.core.exceptions import ImmediateHttpResponse, ReauthenticationRequired
 
 
 @sync_and_async_middleware

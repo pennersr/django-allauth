@@ -39,10 +39,7 @@ from allauth.idp.oidc.forms import (
     DeviceAuthorizationForm,
 )
 from allauth.idp.oidc.internal.oauthlib import device_codes
-from allauth.idp.oidc.internal.oauthlib.server import (
-    get_device_server,
-    get_server,
-)
+from allauth.idp.oidc.internal.oauthlib.server import get_device_server, get_server
 from allauth.idp.oidc.internal.oauthlib.utils import (
     convert_response,
     extract_params,

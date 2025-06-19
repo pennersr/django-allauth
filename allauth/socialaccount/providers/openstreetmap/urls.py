@@ -1,6 +1,5 @@
 from allauth.socialaccount.providers.oauth.urls import default_urlpatterns
-
-from .provider import OpenStreetMapProvider
+from allauth.socialaccount.providers.openstreetmap.provider import OpenStreetMapProvider
 
 
 urlpatterns = default_urlpatterns(OpenStreetMapProvider)

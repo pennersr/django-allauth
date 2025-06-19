@@ -22,10 +22,7 @@ from allauth.socialaccount.models import SocialToken
 from allauth.socialaccount.providers.base import ProviderException
 from allauth.socialaccount.providers.base.constants import AuthError
 from allauth.socialaccount.providers.base.views import BaseLoginView
-from allauth.socialaccount.providers.oauth2.client import (
-    OAuth2Client,
-    OAuth2Error,
-)
+from allauth.socialaccount.providers.oauth2.client import OAuth2Client, OAuth2Error
 from allauth.utils import build_absolute_uri, get_request_param
 
 

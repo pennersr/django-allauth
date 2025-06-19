@@ -1,7 +1,5 @@
 from allauth.socialaccount.providers.base import ProviderAccount
-from allauth.socialaccount.providers.nextcloud.views import (
-    NextCloudOAuth2Adapter,
-)
+from allauth.socialaccount.providers.nextcloud.views import NextCloudOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 

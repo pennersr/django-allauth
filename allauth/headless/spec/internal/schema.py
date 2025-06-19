@@ -8,10 +8,7 @@ from allauth.account import app_settings as account_settings
 from allauth.account.internal.flows.signup import base_signup_form_class
 from allauth.headless import app_settings
 from allauth.headless.adapter import get_adapter
-from allauth.headless.spec.internal.openapikit import (
-    spec_for_dataclass,
-    spec_for_field,
-)
+from allauth.headless.spec.internal.openapikit import spec_for_dataclass, spec_for_field
 
 
 def get_schema() -> dict:

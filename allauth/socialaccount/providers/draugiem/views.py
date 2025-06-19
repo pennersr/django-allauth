@@ -12,9 +12,9 @@ from allauth.socialaccount.helpers import (
     render_authentication_error,
 )
 from allauth.socialaccount.models import SocialLogin, SocialToken
+from allauth.socialaccount.providers.draugiem.provider import DraugiemProvider
 
 from ..base import AuthError
-from .provider import DraugiemProvider
 
 
 class DraugiemApiError(Exception):

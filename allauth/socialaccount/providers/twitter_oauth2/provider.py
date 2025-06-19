@@ -1,8 +1,6 @@
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
-from allauth.socialaccount.providers.twitter_oauth2.views import (
-    TwitterOAuth2Adapter,
-)
+from allauth.socialaccount.providers.twitter_oauth2.views import TwitterOAuth2Adapter
 
 
 class TwitterOAuth2Account(ProviderAccount):

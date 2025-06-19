@@ -6,10 +6,7 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2CallbackView,
     OAuth2LoginView,
 )
-from allauth.socialaccount.providers.snapchat.constants import (
-    PROVIDER_ID,
-    Scope,
-)
+from allauth.socialaccount.providers.snapchat.constants import PROVIDER_ID, Scope
 
 
 class SnapchatOAuth2Adapter(OAuth2Adapter):

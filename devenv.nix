@@ -12,6 +12,7 @@
     pkgs.python312Packages.pylsp-rope
     pkgs.python312Packages.python-lsp-server
     pkgs.python312Packages.xmlsec
+    pkgs.python312Packages.build
   ];
 
   # https://devenv.sh/languages/

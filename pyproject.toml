@@ -1,8 +1,112 @@
 [build-system]
-requires = ['setuptools>=40.8.0']
-build-backend = 'setuptools.build_meta'
+requires = ["setuptools>=75.3.0"]
+build-backend = "setuptools.build_meta"
 
+[project]
+name = "django-allauth"
+dynamic = ["version"]
+authors = [
+  {name = "Raymond Penners", email = "raymond.penners@intenct.nl"},
+]
+description = "Integrated set of Django applications addressing authentication, registration, account management as well as 3rd party (social) account authentication."
+readme = "README.rst"
+license = {text = "MIT"}
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Environment :: Web Environment",
+    "Topic :: Internet",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Framework :: Django",
+    "Framework :: Django :: 4.2",
+    "Framework :: Django :: 5.0",
+    "Framework :: Django :: 5.1",
+    "Framework :: Django :: 5.2",
+]
+requires-python = ">= 3.8"
+dependencies = [
+    "Django >= 4.2.16",
+    "asgiref >= 3.8.1",
+]
+
+[project.optional-dependencies]
+idp-oidc = [
+    "oauthlib >= 3.3.0,<4",
+    "pyjwt[crypto] >= 2.0,<3",
+]
+mfa = [
+    "qrcode >= 7.0.0,<9",
+    "fido2 >= 1.1.2,<3",
+]
+openid = [
+    "python3-openid >= 3.0.8,<4",
+]
+saml = [
+    "python3-saml>=1.15.0,<2.0.0",
+]
+steam = [
+    "python3-openid >= 3.0.8,<4",
+]
+socialaccount = [
+    "oauthlib >= 3.3.0,<4",
+    "requests >= 2.0.0,<3",
+    "pyjwt[crypto] >= 2.0,<3",
+]
+
+
+[project.urls]
+Homepage = "https://allauth.org"
+Documentation = "https://docs.allauth.org/en/latest/"
+"Release notes" = "https://codeberg.org/allauth/django-allauth/src/branch/main/ChangeLog.rst"
+Source = "https://codeberg.org/allauth/django-allauth"
+Tracker = "https://codeberg.org/allauth/django-allauth/issues"
+Funding = "https://github.com/sponsors/pennersr"
 
 [tool.bandit]
 exclude_dirs = ["tests", "allauth/conftest.py"]
 exclude = ["test_*"]
+
+[tool.isort]
+profile = "black"
+known_first_party = ["allauth"]
+indent = 4
+combine_star = true
+combine_as_imports = true
+include_trailing_comma = true
+multi_line_output = 3
+lines_after_imports = 2
+known_django = ["django"]
+extra_standard_library = [
+  "types", "requests"
+]
+sections = ["FUTURE", "STDLIB", "DJANGO", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
+
+[tool.mypy]
+mypy_path = "."
+plugins = [
+    "mypy_django_plugin.main"
+]
+strict_optional = true
+disable_error_code = [
+  "import-untyped",
+  "import-not-found"
+]
+
+[tool.django-stubs]
+django_settings_module = "tests.projects.regular.settings"
+
+[tool.setuptools.dynamic]
+version = {attr = "allauth.__version__"}
+
+[tool.setuptools.packages.find]
+include = ["allauth"]

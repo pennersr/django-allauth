@@ -138,10 +138,7 @@ class EmailVerificationStage(LoginStage):
         return app_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED
 
     def handle(self):
-        from allauth.account.utils import (
-            has_verified_email,
-            send_email_confirmation,
-        )
+        from allauth.account.utils import has_verified_email, send_email_confirmation
 
         response, cont = None, True
         login = self.login

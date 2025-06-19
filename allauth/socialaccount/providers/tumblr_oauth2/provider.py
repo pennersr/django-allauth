@@ -1,8 +1,6 @@
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
-from allauth.socialaccount.providers.tumblr_oauth2.views import (
-    TumblrOAuth2Adapter,
-)
+from allauth.socialaccount.providers.tumblr_oauth2.views import TumblrOAuth2Adapter
 
 
 class TumblrAccount(ProviderAccount):

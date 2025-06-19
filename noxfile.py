@@ -111,8 +111,8 @@ def test(session, django, project):
         "run",
         "-m",
         "pytest",
-        f"--ds=tests.{project}.settings",
-        "allauth/",
+        f"--ds=tests.projects.{project}.settings",
+        "tests/",
     )
     if run_coveralls:
         session.run("coveralls", "--service=github")

@@ -1,8 +1,0 @@
-include AUTHORS
-include LICENSE
-include README.rst
-include ChangeLog.rst
-include allauth/headless/spec/doc/openapi.yaml
-include allauth/headless/spec/doc/description.md
-recursive-include allauth *.html *.txt *.xml *.po *.mo *.js
-recursive-include docs Makefile conf.py *.rst

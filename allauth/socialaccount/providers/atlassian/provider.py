@@ -1,7 +1,6 @@
+from allauth.socialaccount.providers.atlassian.views import AtlassianOAuth2Adapter
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
-
-from .views import AtlassianOAuth2Adapter
 
 
 class AtlassianAccount(ProviderAccount):

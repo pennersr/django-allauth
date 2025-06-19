@@ -9,10 +9,7 @@ from django.urls import reverse
 from allauth.account import app_settings, signals
 from allauth.account.adapter import get_adapter
 from allauth.account.app_settings import LoginMethod
-from allauth.account.internal.flows.login import (
-    perform_login,
-    record_authentication,
-)
+from allauth.account.internal.flows.login import perform_login, record_authentication
 from allauth.account.internal.flows.signup import send_unknown_account_mail
 from allauth.account.models import EmailAddress, Login
 from allauth.core.internal.httpkit import get_frontend_url

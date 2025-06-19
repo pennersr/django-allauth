@@ -10,10 +10,7 @@ from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.decorators import reauthentication_required
 from allauth.account.internal.decorators import login_stage_required
-from allauth.account.mixins import (
-    NextRedirectMixin,
-    RedirectAuthenticatedUserMixin,
-)
+from allauth.account.mixins import NextRedirectMixin, RedirectAuthenticatedUserMixin
 from allauth.account.models import Login
 from allauth.account.views import BaseReauthenticateView
 from allauth.mfa.internal.flows.add import redirect_if_add_not_allowed

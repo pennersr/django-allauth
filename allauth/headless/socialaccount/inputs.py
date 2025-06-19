@@ -3,9 +3,7 @@ from django.core.exceptions import ValidationError
 from allauth.core import context
 from allauth.headless.adapter import get_adapter
 from allauth.headless.internal.restkit import inputs
-from allauth.socialaccount.adapter import (
-    get_adapter as get_socialaccount_adapter,
-)
+from allauth.socialaccount.adapter import get_adapter as get_socialaccount_adapter
 from allauth.socialaccount.forms import SignupForm
 from allauth.socialaccount.internal.flows.connect import validate_disconnect
 from allauth.socialaccount.models import SocialAccount, SocialApp

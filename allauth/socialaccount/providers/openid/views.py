@@ -18,10 +18,10 @@ from allauth.socialaccount.helpers import (
     render_authentication_error,
 )
 from allauth.socialaccount.models import SocialLogin
+from allauth.socialaccount.providers.openid.provider import OpenIDProvider
 
 from ..base import AuthError
 from .forms import LoginForm
-from .provider import OpenIDProvider
 from .utils import AXAttributes, DBOpenIDStore, JSONSafeSession, SRegFields
 
 

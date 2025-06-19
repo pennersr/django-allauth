@@ -52,9 +52,7 @@ class BaseAuthenticationResponse(APIResponse):
             ):
                 ret.append({"id": Flow.SIGNUP})
             if allauth_settings.SOCIALACCOUNT_ENABLED:
-                from allauth.headless.socialaccount.response import (
-                    provider_flows,
-                )
+                from allauth.headless.socialaccount.response import provider_flows
 
                 ret.extend(provider_flows(request))
             if allauth_settings.MFA_ENABLED:

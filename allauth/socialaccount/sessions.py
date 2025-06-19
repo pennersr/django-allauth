@@ -51,7 +51,7 @@ class LoginSession:
             path=urlparse(response.url).path,
             secure=settings.SESSION_COOKIE_SECURE,
             httponly=None,
-            **kwargs
+            **kwargs,
         )
 
     def delete(self):

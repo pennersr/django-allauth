@@ -1,8 +1,5 @@
 from allauth.account.stages import LoginStage
-from allauth.core.internal.httpkit import (
-    headed_redirect_response,
-    is_headless_request,
-)
+from allauth.core.internal.httpkit import headed_redirect_response, is_headless_request
 from allauth.mfa import app_settings
 from allauth.mfa.internal.flows import trust
 from allauth.mfa.models import Authenticator

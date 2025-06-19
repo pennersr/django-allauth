@@ -35,10 +35,7 @@ from allauth.account.forms import (
     VerifyPhoneForm,
 )
 from allauth.account.internal import flows
-from allauth.account.internal.decorators import (
-    login_not_required,
-    login_stage_required,
-)
+from allauth.account.internal.decorators import login_not_required, login_stage_required
 from allauth.account.mixins import (
     AjaxCapableProcessFormViewMixin,
     CloseableSignupMixin,

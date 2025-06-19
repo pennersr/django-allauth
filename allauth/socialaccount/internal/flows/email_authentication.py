@@ -27,8 +27,6 @@ def wipe_password(request, user, email: str):
     # Also wipe any other sessions (upstream integrators may hook up to the
     # ending of the sessions to trigger e.g. backchannel logout.
     if allauth_settings.USERSESSIONS_ENABLED:
-        from allauth.usersessions.internal.flows.sessions import (
-            end_other_sessions,
-        )
+        from allauth.usersessions.internal.flows.sessions import end_other_sessions
 
         end_other_sessions(request, user)

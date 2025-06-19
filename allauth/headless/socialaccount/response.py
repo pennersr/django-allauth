@@ -2,9 +2,7 @@ from allauth.headless.account.response import email_address_data
 from allauth.headless.adapter import get_adapter
 from allauth.headless.base.response import APIResponse
 from allauth.headless.constants import Client, Flow
-from allauth.socialaccount.adapter import (
-    get_adapter as get_socialaccount_adapter,
-)
+from allauth.socialaccount.adapter import get_adapter as get_socialaccount_adapter
 from allauth.socialaccount.internal.flows import signup
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 

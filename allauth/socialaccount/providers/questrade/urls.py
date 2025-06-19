@@ -1,6 +1,5 @@
 from allauth.socialaccount.providers.oauth2.urls import default_urlpatterns
-
-from .provider import QuestradeProvider
+from allauth.socialaccount.providers.questrade.provider import QuestradeProvider
 
 
 urlpatterns = default_urlpatterns(QuestradeProvider)

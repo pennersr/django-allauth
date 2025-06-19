@@ -1,11 +1,7 @@
 from typing import Optional
 
 from django import forms
-from django.contrib.auth import (
-    REDIRECT_FIELD_NAME,
-    get_user_model,
-    password_validation,
-)
+from django.contrib.auth import REDIRECT_FIELD_NAME, get_user_model, password_validation
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.core import exceptions, validators
 from django.template.exceptions import TemplateDoesNotExist
@@ -18,9 +14,7 @@ from allauth.account.app_settings import LoginMethod
 from allauth.account.fields import EmailField, PasswordField, SetPasswordField
 from allauth.account.internal import flows
 from allauth.account.internal.flows.manage_email import email_already_exists
-from allauth.account.internal.flows.phone_verification import (
-    phone_already_exists,
-)
+from allauth.account.internal.flows.phone_verification import phone_already_exists
 from allauth.account.internal.flows.signup import base_signup_form_class
 from allauth.core import context, ratelimit
 from allauth.core.internal.cryptokit import compare_user_code

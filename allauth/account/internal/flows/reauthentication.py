@@ -11,10 +11,7 @@ from allauth.account import app_settings
 from allauth.account.authentication import get_authentication_records
 from allauth.account.internal.flows.login import record_authentication
 from allauth.core.exceptions import ReauthenticationRequired
-from allauth.core.internal.httpkit import (
-    deserialize_request,
-    serialize_request,
-)
+from allauth.core.internal.httpkit import deserialize_request, serialize_request
 from allauth.utils import import_callable
 
 

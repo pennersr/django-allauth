@@ -1,8 +1,6 @@
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.fxa.constants import PROVIDER_ID
-from allauth.socialaccount.providers.fxa.views import (
-    FirefoxAccountsOAuth2Adapter,
-)
+from allauth.socialaccount.providers.fxa.views import FirefoxAccountsOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 

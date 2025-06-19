@@ -8,9 +8,7 @@ from allauth.account.internal.flows import password_reset
 from allauth.account.internal.flows.code_verification import (
     AbstractCodeVerificationProcess,
 )
-from allauth.account.internal.flows.email_verification import (
-    verify_email_indirectly,
-)
+from allauth.account.internal.flows.email_verification import verify_email_indirectly
 from allauth.account.internal.flows.signup import send_unknown_account_mail
 
 

@@ -3,10 +3,7 @@ from django.forms import ValidationError
 from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.internal.flows.manage_email import assess_unique_email
-from allauth.account.internal.flows.signup import (
-    complete_signup,
-    prevent_enumeration,
-)
+from allauth.account.internal.flows.signup import complete_signup, prevent_enumeration
 from allauth.account.utils import user_username
 from allauth.core.exceptions import SignupClosedException
 from allauth.core.internal.httpkit import headed_redirect_response

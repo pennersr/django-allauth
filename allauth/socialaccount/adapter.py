@@ -1,10 +1,7 @@
 import functools
 import warnings
 
-from django.core.exceptions import (
-    ImproperlyConfigured,
-    MultipleObjectsReturned,
-)
+from django.core.exceptions import ImproperlyConfigured, MultipleObjectsReturned
 from django.db.models import Q
 from django.urls import reverse
 from django.utils.crypto import get_random_string
@@ -13,10 +10,7 @@ from django.utils.translation import gettext_lazy as _
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.utils import user_email, user_field, user_username
 from allauth.core.internal.adapter import BaseAdapter
-from allauth.core.internal.modelkit import (
-    deserialize_instance,
-    serialize_instance,
-)
+from allauth.core.internal.modelkit import deserialize_instance, serialize_instance
 from allauth.utils import import_attribute, valid_email_or_none
 
 from . import app_settings

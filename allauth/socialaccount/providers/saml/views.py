@@ -1,12 +1,7 @@
 import binascii
 import logging
 
-from django.http import (
-    HttpRequest,
-    HttpResponse,
-    HttpResponseRedirect,
-    JsonResponse,
-)
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views import View
@@ -22,19 +17,11 @@ from allauth.socialaccount.helpers import (
     complete_social_login,
     render_authentication_error,
 )
-from allauth.socialaccount.providers.base.constants import (
-    AuthError,
-    AuthProcess,
-)
+from allauth.socialaccount.providers.base.constants import AuthError, AuthProcess
 from allauth.socialaccount.providers.base.views import BaseLoginView
 from allauth.socialaccount.sessions import LoginSession
 
-from .utils import (
-    build_auth,
-    build_saml_config,
-    decode_relay_state,
-    get_app_or_404,
-)
+from .utils import build_auth, build_saml_config, decode_relay_state, get_app_or_404
 
 
 logger = logging.getLogger(__name__)

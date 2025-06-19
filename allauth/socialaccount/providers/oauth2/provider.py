@@ -10,9 +10,7 @@ from allauth.socialaccount.helpers import render_authentication_error
 from allauth.socialaccount.providers.base import Provider
 from allauth.socialaccount.providers.base.constants import AuthAction
 from allauth.socialaccount.providers.oauth2.client import OAuth2Error
-from allauth.socialaccount.providers.oauth2.utils import (
-    generate_code_challenge,
-)
+from allauth.socialaccount.providers.oauth2.utils import generate_code_challenge
 from allauth.socialaccount.providers.oauth2.views import OAuth2Adapter
 
 

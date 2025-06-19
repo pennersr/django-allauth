@@ -4,10 +4,7 @@ from django.shortcuts import render
 from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.utils import perform_login
-from allauth.core.exceptions import (
-    ImmediateHttpResponse,
-    SignupClosedException,
-)
+from allauth.core.exceptions import ImmediateHttpResponse, SignupClosedException
 from allauth.socialaccount import app_settings, signals
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.internal.flows.connect import connect, do_connect
@@ -93,5 +90,5 @@ def record_authentication(request, sociallogin):
         **{
             "provider": sociallogin.account.provider,
             "uid": sociallogin.account.uid,
-        }
+        },
     )

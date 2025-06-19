@@ -36,10 +36,7 @@ from allauth.mfa.models import Authenticator
 from allauth.mfa.recovery_codes.internal import flows as recovery_codes_flows
 from allauth.mfa.stages import AuthenticateStage, TrustStage
 from allauth.mfa.totp.internal import auth as totp_auth, flows as totp_flows
-from allauth.mfa.webauthn.internal import (
-    auth as webauthn_auth,
-    flows as webauthn_flows,
-)
+from allauth.mfa.webauthn.internal import auth as webauthn_auth, flows as webauthn_flows
 from allauth.mfa.webauthn.stages import PasskeySignupStage
 
 

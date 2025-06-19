@@ -9,9 +9,7 @@ from allauth.account.adapter import get_adapter
 from allauth.account.internal.flows.code_verification import (
     AbstractCodeVerificationProcess,
 )
-from allauth.account.internal.flows.email_verification import (
-    send_verification_email,
-)
+from allauth.account.internal.flows.email_verification import send_verification_email
 from allauth.account.internal.stagekit import clear_login
 from allauth.account.internal.userkit import did_user_login, user_email
 from allauth.account.models import EmailAddress, EmailConfirmationMixin

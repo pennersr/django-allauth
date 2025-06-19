@@ -29,7 +29,7 @@ def consume(
     key=None,
     user=None,
     dry_run: bool = False,
-    raise_exception: bool = False
+    raise_exception: bool = False,
 ) -> bool:
     from allauth.account import app_settings
 

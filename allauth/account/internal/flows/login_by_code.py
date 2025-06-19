@@ -7,16 +7,9 @@ from allauth.account.adapter import get_adapter
 from allauth.account.internal.flows.code_verification import (
     AbstractCodeVerificationProcess,
 )
-from allauth.account.internal.flows.email_verification import (
-    verify_email_indirectly,
-)
-from allauth.account.internal.flows.login import (
-    perform_login,
-    record_authentication,
-)
-from allauth.account.internal.flows.phone_verification import (
-    verify_phone_indirectly,
-)
+from allauth.account.internal.flows.email_verification import verify_email_indirectly
+from allauth.account.internal.flows.login import perform_login, record_authentication
+from allauth.account.internal.flows.phone_verification import verify_phone_indirectly
 from allauth.account.internal.flows.signup import send_unknown_account_mail
 from allauth.account.internal.stagekit import clear_login, stash_login
 from allauth.account.models import Login
@@ -115,7 +108,7 @@ class LoginCodeVerificationProcess(AbstractCodeVerificationProcess):
         user,
         email: Optional[str] = None,
         phone: Optional[str] = None,
-        stage=None
+        stage=None,
     ):
         initial_state = cls.initial_state(user=user, email=email, phone=phone)
         initial_state["initiated_by_user"] = stage is None

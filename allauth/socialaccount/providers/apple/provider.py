@@ -69,9 +69,7 @@ class AppleProvider(OAuth2Provider):
         return scopes
 
     def verify_token(self, request, token):
-        from allauth.socialaccount.providers.apple.views import (
-            AppleOAuth2Adapter,
-        )
+        from allauth.socialaccount.providers.apple.views import AppleOAuth2Adapter
 
         id_token = token.get("id_token")
         if not id_token:

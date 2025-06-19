@@ -5,12 +5,7 @@ from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
 from django.core.files.base import ContentFile
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models import FileField
-from django.db.models.fields import (
-    BinaryField,
-    DateField,
-    DateTimeField,
-    TimeField,
-)
+from django.db.models.fields import BinaryField, DateField, DateTimeField, TimeField
 from django.utils import dateparse
 from django.utils.encoding import force_bytes, force_str
 

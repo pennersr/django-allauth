@@ -6,10 +6,7 @@ from django.core.exceptions import ImproperlyConfigured
 import jwt
 
 from allauth.socialaccount.adapter import get_adapter
-from allauth.socialaccount.providers.oauth2.client import (
-    OAuth2Client,
-    OAuth2Error,
-)
+from allauth.socialaccount.providers.oauth2.client import OAuth2Client, OAuth2Error
 
 
 def jwt_encode(*args, **kwargs):

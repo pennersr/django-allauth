@@ -1,12 +1,7 @@
 from allauth.socialaccount import app_settings
-from allauth.socialaccount.providers.base import (
-    ProviderAccount,
-    ProviderException,
-)
+from allauth.socialaccount.providers.base import ProviderAccount, ProviderException
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
-from allauth.socialaccount.providers.quickbooks.views import (
-    QuickBooksOAuth2Adapter,
-)
+from allauth.socialaccount.providers.quickbooks.views import QuickBooksOAuth2Adapter
 
 
 class QuickBooksAccount(ProviderAccount):

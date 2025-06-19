@@ -11,10 +11,7 @@ from allauth.socialaccount.helpers import (
 from allauth.socialaccount.models import SocialLogin, SocialToken
 from allauth.socialaccount.providers.base.constants import AuthError
 from allauth.socialaccount.providers.base.views import BaseLoginView
-from allauth.socialaccount.providers.oauth.client import (
-    OAuthClient,
-    OAuthError,
-)
+from allauth.socialaccount.providers.oauth.client import OAuthClient, OAuthError
 
 
 logger = logging.getLogger(__name__)

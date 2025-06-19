@@ -1,8 +1,6 @@
 from allauth.account.models import EmailAddress
 from allauth.socialaccount import app_settings
-from allauth.socialaccount.providers.authentiq.views import (
-    AuthentiqOAuth2Adapter,
-)
+from allauth.socialaccount.providers.authentiq.views import AuthentiqOAuth2Adapter
 from allauth.socialaccount.providers.base import AuthAction, ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 

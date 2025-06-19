@@ -9,10 +9,7 @@ from django.shortcuts import render, resolve_url
 
 from allauth.account.internal.flows import reauthentication
 from allauth.account.models import EmailAddress
-from allauth.account.utils import (
-    get_next_redirect_url,
-    send_email_confirmation,
-)
+from allauth.account.utils import get_next_redirect_url, send_email_confirmation
 from allauth.core.exceptions import ReauthenticationRequired
 from allauth.core.internal import httpkit
 

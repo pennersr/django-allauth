@@ -129,7 +129,7 @@ class SAMLProvider(Provider):
             next_url,
             data,
             state_id=auth.get_last_request_id(),
-            **kwargs
+            **kwargs,
         )
         return HttpResponseRedirect(redirect)
 

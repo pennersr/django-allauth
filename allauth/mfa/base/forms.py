@@ -3,10 +3,7 @@ from django.utils.translation import gettext_lazy as _
 
 from allauth.core import context
 from allauth.mfa.adapter import get_adapter
-from allauth.mfa.base.internal.flows import (
-    check_rate_limit,
-    post_authentication,
-)
+from allauth.mfa.base.internal.flows import check_rate_limit, post_authentication
 from allauth.mfa.models import Authenticator
 
 

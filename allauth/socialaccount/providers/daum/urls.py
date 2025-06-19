@@ -1,6 +1,5 @@
+from allauth.socialaccount.providers.daum.provider import DaumProvider
 from allauth.socialaccount.providers.oauth2.urls import default_urlpatterns
-
-from .provider import DaumProvider
 
 
 urlpatterns = default_urlpatterns(DaumProvider)

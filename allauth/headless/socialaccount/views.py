@@ -19,9 +19,7 @@ from allauth.headless.socialaccount.response import (
     SocialAccountsResponse,
     SocialLoginResponse,
 )
-from allauth.socialaccount.adapter import (
-    get_adapter as get_socialaccount_adapter,
-)
+from allauth.socialaccount.adapter import get_adapter as get_socialaccount_adapter
 from allauth.socialaccount.helpers import render_authentication_error
 from allauth.socialaccount.internal import flows
 from allauth.socialaccount.models import SocialAccount

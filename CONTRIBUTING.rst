@@ -97,10 +97,10 @@ Using pytest directly
    pytest allauth/
 
    # Run tests with a specific Django settings module
-   pytest --ds=tests.regular.settings allauth/
+   pytest --ds=tests.projects.regular.settings tests/
 
    # Run a specific test file
-   pytest allauth/account/tests/test_login.py
+   pytest tests/apps/account/test_login.py
 
 Note, if you are using MacOS, using pip and get this error when run tests:
 
@@ -131,7 +131,7 @@ Nox automates testing across different Python and Django versions:
    nox -x --session "test-3.11"
 
    # Run tests for specific environment
-   nox -x --session "test-3.11" --python 3.11 -- --ds=tests.regular.settings allauth/account/tests/test_login.py
+   nox -x --session "test-3.11" --python 3.11 -- --ds=tests.projects.regular.settings tests/apps/account/test_login.py
 
 Run Code Quality Checks
 ~~~~~~~~~~~~~~~~~~~~~~~

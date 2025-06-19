@@ -1,9 +1,7 @@
 """Customise Provider classes for MailChimp API v3."""
 
 from allauth.socialaccount.providers.base import ProviderAccount
-from allauth.socialaccount.providers.mailchimp.views import (
-    MailChimpOAuth2Adapter,
-)
+from allauth.socialaccount.providers.mailchimp.views import MailChimpOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 

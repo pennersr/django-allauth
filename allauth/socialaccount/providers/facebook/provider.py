@@ -23,9 +23,7 @@ from allauth.socialaccount.providers.facebook.constants import (
     NONCE_SESSION_KEY,
     PROVIDER_ID,
 )
-from allauth.socialaccount.providers.facebook.views import (
-    FacebookOAuth2Adapter,
-)
+from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.client import OAuth2Error
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 from allauth.utils import import_callable

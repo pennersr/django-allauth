@@ -11,14 +11,9 @@ from allauth.account.internal.flows.reauthentication import (
 )
 from allauth.account.models import Login
 from allauth.mfa import signals
-from allauth.mfa.base.internal.flows import (
-    delete_and_cleanup,
-    post_authentication,
-)
+from allauth.mfa.base.internal.flows import delete_and_cleanup, post_authentication
 from allauth.mfa.models import Authenticator
-from allauth.mfa.recovery_codes.internal.flows import (
-    auto_generate_recovery_codes,
-)
+from allauth.mfa.recovery_codes.internal.flows import auto_generate_recovery_codes
 from allauth.mfa.webauthn.internal import auth
 
 

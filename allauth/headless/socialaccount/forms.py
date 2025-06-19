@@ -4,9 +4,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.core import context
 from allauth.headless.adapter import get_adapter
-from allauth.socialaccount.adapter import (
-    get_adapter as get_socialaccount_adapter,
-)
+from allauth.socialaccount.adapter import get_adapter as get_socialaccount_adapter
 from allauth.socialaccount.providers.base.constants import AuthProcess
 
 

@@ -37,10 +37,7 @@ from allauth.core import context
 from allauth.core.internal import ratelimit
 from allauth.core.internal.adapter import BaseAdapter
 from allauth.core.internal.cryptokit import generate_user_code
-from allauth.core.internal.httpkit import (
-    headed_redirect_response,
-    is_headless_request,
-)
+from allauth.core.internal.httpkit import headed_redirect_response, is_headless_request
 from allauth.utils import generate_unique_username, import_attribute
 
 
@@ -484,7 +481,7 @@ class DefaultAccountAdapter(BaseAdapter):
         signal_kwargs,
         email,
         signup,
-        redirect_url
+        redirect_url,
     ):
         if not user.is_active:
             return self.respond_user_inactive(request, user)
@@ -498,7 +495,7 @@ class DefaultAccountAdapter(BaseAdapter):
         signal_kwargs,
         email,
         signup,
-        redirect_url
+        redirect_url,
     ):
         from .utils import get_login_redirect_url
 

@@ -7,6 +7,7 @@ In your ``settings.py``, include::
       ...
 
       # Required
+      'allauth',
       'allauth.account',
       'allauth.headless',
 

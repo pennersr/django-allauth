@@ -1535,8 +1535,7 @@ components:
       value:
         status: 200
         data:
-          user:
-            <<: *user-example
+          user: *user-example
           methods:
             - method: password
               at: 1711555057.065702
@@ -1551,8 +1550,7 @@ components:
       value:
         status: 200
         data:
-          user:
-            <<: *user-example
+          user: *user-example
           methods:
             - method: code
               at: 1711555057.065702
@@ -1567,8 +1565,7 @@ components:
       value:
         status: 200
         data:
-          user:
-            <<: *user-example
+          user: *user-example
           methods:
             - method: password
               at: 1711555057.065702
@@ -1781,8 +1778,7 @@ components:
       value:
         status: 401
         data:
-          user:
-            <<: *user-example
+          user: *user-example
           methods:
             - method: password
               at: 1711555057.065702
@@ -3285,8 +3281,7 @@ components:
               value:
                 status: 401
                 data:
-                  user:
-                    <<: *user-example
+                  user: *user-example
                   methods:
                     - method: password
                       at: 1711555057.065702

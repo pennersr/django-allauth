@@ -1,14 +1,17 @@
 from pathlib import Path
 from typing import Optional
 
-from django import forms
 from django.urls import resolve, reverse
 from django.urls.exceptions import Resolver404
 
 from allauth.account import app_settings as account_settings
-from allauth.account.fields import EmailField
 from allauth.account.internal.flows.signup import base_signup_form_class
 from allauth.headless import app_settings
+from allauth.headless.adapter import get_adapter
+from allauth.headless.spec.internal.openapikit import (
+    spec_for_dataclass,
+    spec_for_field,
+)
 
 
 def get_schema() -> dict:
@@ -24,6 +27,7 @@ def get_schema() -> dict:
 
     spec["info"]["description"] = description
 
+    specify_user(spec)
     chroot(spec)
     pin_client(spec)
     drop_unused_client_parameter(spec)
@@ -167,33 +171,18 @@ def specify_signup_fields(spec: dict) -> None:
 def specify_custom_signup_form(spec: dict) -> None:
     form_class = base_signup_form_class()
     base_signup = spec["components"]["schemas"]["BaseSignup"]
-    field_mapping = {
-        forms.CharField: {"type": "string"},
-        forms.IntegerField: {"type": "integer"},
-        forms.FloatField: {"type": "number"},
-        forms.BooleanField: {"type": "boolean"},
-        forms.DateField: {"type": "string", "format": "date"},
-        forms.DateTimeField: {"type": "string", "format": "date-time"},
-        forms.EmailField: {"type": "string", "format": "email"},
-        EmailField: {"type": "string", "format": "email"},
-        forms.URLField: {"type": "string", "format": "uri"},
-        forms.DecimalField: {
-            "type": "string",
-            "format": "decimal",
-            "pattern": r"^\d+(\.\d+)?$",
-        },
-    }
     for field_name, field in form_class.base_fields.items():
-        field_spec = field_mapping.get(type(field), {"type": "string"})
-        if not field_spec:
-            continue
-        field_spec = dict(field_spec)
-        if hasattr(field, "max_length") and field.max_length:
-            field_spec["maxLength"] = field.max_length
-        if hasattr(field, "min_length") and field.min_length:
-            field_spec["minLength"] = field.min_length
-        if hasattr(field, "required") and field.required:
+        is_required = hasattr(field, "required") and field.required
+        field_spec = spec_for_field(field)
+        if is_required:
             base_signup["required"].append(field_name)
-        if hasattr(field, "help_text") and field.help_text:
-            field_spec["description"] = field.help_text
         base_signup["properties"][field_name] = field_spec
+
+
+def specify_user(spec: dict) -> None:
+    dc = get_adapter().get_user_dataclass()
+    schema, example = spec_for_dataclass(dc)
+    spec["components"]["schemas"]["User"] = schema
+    example_value = spec["components"]["examples"]["User"]["value"]
+    example_value.clear()
+    example_value.update(example)

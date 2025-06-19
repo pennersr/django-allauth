@@ -18,8 +18,8 @@ Fixes
   with third-party provider signups. For example, whether or not the phone
   number is required was not respected during signup. Fixed.
 
-- IdP: Revoking tokens faild to revoke the token when a single `token_type_hint`
-  was passed, fixed.
+- IdP: Token revocation failed when a single ``token_type_hint`` was passed,
+  fixed.
 
 
 65.9.0 (2025-06-01)

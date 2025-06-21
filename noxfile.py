@@ -1,3 +1,5 @@
+import os
+
 import nox
 
 
@@ -96,6 +98,14 @@ def test(session, django, project):
         ".[mfa,openid,socialaccount,steam]",  # SAML is disabled in CI
     )
     session.run("/bin/sh", "-c", "cd allauth; python ../manage.py compilemessages")
+    run_coveralls = (
+        os.environ.get("GITHUB_TOKEN")
+        and project == "regular"
+        and django == "5.2"
+        and session.python == "3.13"
+    )
+    if run_coveralls:
+        session.install("coveralls")
     session.run(
         "coverage",
         "run",
@@ -104,6 +114,8 @@ def test(session, django, project):
         f"--ds=tests.{project}.settings",
         "allauth/",
     )
+    if run_coveralls:
+        session.run("coveralls", "--service=github")
     if django == "5.1" and session.python == "3.13":
         session.install(
             "django-stubs==5.1.3",

@@ -50,3 +50,11 @@ def test_list_settings_based_apps(db, settings):
     app = apps[0]
     assert not app.pk
     assert app.client_id == "org-slug"
+
+
+def test_get_signup_form_initial_data(sociallogin_factory):
+    sociallogin = sociallogin_factory(email="a@b.com")
+    # it should pick up sociallogin.email_addresses
+    sociallogin.user.email = ""
+    initial_data = get_adapter().get_signup_form_initial_data(sociallogin)
+    assert initial_data["email"] == "a@b.com"

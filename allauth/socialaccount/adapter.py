@@ -163,8 +163,11 @@ class DefaultSocialAccountAdapter(BaseAdapter):
 
     def get_signup_form_initial_data(self, sociallogin):
         user = sociallogin.user
+        email = user_email(user)
+        if not email and len(sociallogin.email_addresses) > 0:
+            email = sociallogin.email_addresses[0].email
         initial = {
-            "email": user_email(user) or "",
+            "email": email or "",
             "username": user_username(user) or "",
             "first_name": user_field(user, "first_name") or "",
             "last_name": user_field(user, "last_name") or "",

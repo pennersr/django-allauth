@@ -29,5 +29,8 @@ email_added = Signal()
 # Provides the arguments "request", "user", "email_address"
 email_removed = Signal()
 
+# Provides the arguments "request", "user", "method", and additional method dependent kwargs.
+authentication_step_completed = Signal()
+
 # Internal/private signal.
 _add_email = Signal()

@@ -44,7 +44,7 @@ def post_authentication(
         extra_data["reauthenticated"] = True
     if passwordless:
         extra_data["passwordless"] = True
-    record_authentication(request, "mfa", **extra_data)
+    record_authentication(request, authenticator.user, "mfa", **extra_data)
 
 
 def check_rate_limit(user) -> Callable[[], None]:

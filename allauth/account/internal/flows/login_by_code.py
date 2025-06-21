@@ -34,7 +34,9 @@ class LoginCodeVerificationProcess(AbstractCodeVerificationProcess):
         email = self.state.get("email")
         phone = self.state.get("phone")
         user = self.user
-        record_authentication(self.request, method="code", email=email, phone=phone)
+        record_authentication(
+            self.request, user, method="code", email=email, phone=phone
+        )
         if email:
             verify_email_indirectly(self.request, user, email)
         if phone:

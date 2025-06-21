@@ -19,7 +19,9 @@ STATE_SESSION_KEY = "account_reauthentication_state"
 
 
 def reauthenticate_by_password(request: HttpRequest) -> None:
-    record_authentication(request, method="password", reauthenticated=True)
+    record_authentication(
+        request, request.user, method="password", reauthenticated=True
+    )
 
 
 def stash_and_reauthenticate(

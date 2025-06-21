@@ -10,6 +10,9 @@ Note worthy changes
   specification by provider a user ``dataclass``. See the newly introduced
   ``get_user_dataclass()`` and ``user_as_dataclass()`` adapter methods.
 
+- Added a new signal (``authentication_step_completed``) that is emitted when an
+  individual authentication step is completed.
+
 
 Fixes
 -----

@@ -9,13 +9,14 @@ from allauth.account import app_settings
 from allauth.account.adapter import get_adapter
 from allauth.account.app_settings import LoginMethod
 from allauth.account.models import Login
+from allauth.account.signals import authentication_step_completed
 from allauth.core.exceptions import ImmediateHttpResponse
 
 
 AUTHENTICATION_METHODS_SESSION_KEY = "account_authentication_methods"
 
 
-def record_authentication(request, method, **extra_data):
+def record_authentication(request, user, method, **extra_data):
     """Here we keep a log of all authentication methods used within the current
     session.  Important to note is that having entries here does not imply that
     a user is fully signed in. For example, consider a case where a user
@@ -51,6 +52,9 @@ def record_authentication(request, method, **extra_data):
             data[k] = v
     methods.append(data)
     request.session[AUTHENTICATION_METHODS_SESSION_KEY] = methods
+    authentication_step_completed.send(
+        sender=user.__class__, request=request, method=method, user=user, **extra_data
+    )
 
 
 def _get_login_hook_kwargs(login: Login) -> Dict[str, Any]:
@@ -75,7 +79,7 @@ def perform_password_login(
         for field in ["email", "username"]
         if credentials.get(field)
     }
-    record_authentication(request, method="password", **extra_data)
+    record_authentication(request, login.user, method="password", **extra_data)
     return perform_login(request, login)
 
 

@@ -4,6 +4,11 @@ Signals
 There are several signals emitted during authentication flows. You can
 hook to them for your own needs.
 
+- ``allauth.account.signals.authentication_step_completed(request, user, method, **kwargs)``
+    Sent when an authentication step was completed. Note that this does not
+    imply that the user is fully signed in. For example, consider a case where a
+    user authenticates using a password, but still needs to complete the 2FA
+    challenge.
 
 - ``allauth.account.signals.user_logged_in(request, user)``
     Sent when a user logs in.

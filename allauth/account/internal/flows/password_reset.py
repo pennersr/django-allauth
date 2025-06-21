@@ -31,7 +31,7 @@ def perform_password_reset_login(
         extra_data["phone"] = phone
     elif email:
         extra_data["email"] = email
-    record_authentication(request, method="password_reset", **extra_data)
+    record_authentication(request, user, method="password_reset", **extra_data)
     login = Login(user=user, email=email)
     return perform_login(request, login)
 

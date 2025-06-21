@@ -297,3 +297,45 @@ def test_resend_at_signup(
 
         new_code = get_last_email_verification_code(client, mailoutbox)
         assert code != new_code
+
+
+def test_add_resend_verify_email(
+    auth_client,
+    user,
+    email_factory,
+    headless_reverse,
+    settings_impacting_urls,
+    get_last_email_verification_code,
+    mailoutbox,
+):
+    with settings_impacting_urls(
+        ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED=True,
+        ACCOUNT_EMAIL_VERIFICATION_SUPPORTS_RESEND=True,
+    ):
+        new_email = email_factory()
+        resp = auth_client.post(
+            headless_reverse("headless:account:manage_email"),
+            data={"email": new_email},
+            content_type="application/json",
+        )
+        assert resp.status_code == HTTPStatus.OK
+        assert len(resp.json()["data"]) == 2
+        assert len(mailoutbox) == 1
+        assert not EmailAddress.objects.filter(email=new_email, verified=False).exists()
+        code = get_last_email_verification_code(auth_client, mailoutbox)
+        resp = auth_client.put(
+            headless_reverse("headless:account:manage_email"),
+            data={"email": new_email},
+            content_type="application/json",
+        )
+        assert resp.status_code == HTTPStatus.OK
+        assert len(mailoutbox) == 2
+
+        code2 = get_last_email_verification_code(auth_client, mailoutbox)
+        assert code != code2
+        resp = auth_client.post(
+            headless_reverse("headless:account:verify_email"),
+            data={"key": code2},
+            content_type="application/json",
+        )
+        assert EmailAddress.objects.filter(email=new_email, verified=True).exists()

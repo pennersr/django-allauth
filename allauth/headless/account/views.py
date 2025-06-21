@@ -40,9 +40,9 @@ from allauth.headless.account.inputs import (
     ReauthenticateInput,
     RequestLoginCodeInput,
     RequestPasswordResetInput,
+    ResendEmailVerificationInput,
     ResetPasswordInput,
     ResetPasswordKeyInput,
-    SelectEmailInput,
     SignupInput,
     VerifyEmailInput,
     VerifyPhoneInput,
@@ -375,7 +375,7 @@ class ChangePasswordView(AuthenticatedAPIView):
 class ManageEmailView(APIView):
     input_class = {
         "POST": AddEmailInput,
-        "PUT": SelectEmailInput,
+        "PUT": ResendEmailVerificationInput,
         "DELETE": DeleteEmailInput,
         "PATCH": MarkAsPrimaryEmailInput,
     }
@@ -428,7 +428,16 @@ class ManageEmailView(APIView):
 
     def put(self, request, *args, **kwargs):
         addr = self.input.cleaned_data["email"]
-        sent = send_email_confirmation(request, request.user, email=addr.email)
+        if process := self.input.process:
+            sent = False
+            if process.can_resend:
+                try:
+                    self.input.process.resend()
+                    sent = True
+                except RateLimited:
+                    pass
+        else:
+            sent = send_email_confirmation(request, request.user, email=addr.email)
         return response.RequestEmailVerificationResponse(
             request, verification_sent=sent
         )

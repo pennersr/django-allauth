@@ -224,6 +224,21 @@ class MarkAsPrimaryEmailInput(SelectEmailInput):
         return email
 
 
+class ResendEmailVerificationInput(SelectEmailInput):
+    def clean_email(self):
+        if not account_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED:
+            self.process = None
+            return super().clean_email()
+        email = self.cleaned_data["email"]
+        validate_email(email)
+        self.process = flows.email_verification_by_code.EmailVerificationProcess.resume(
+            context.request
+        )
+        if not self.process:
+            raise get_adapter().validation_error("unknown_email")
+        return self.process.email_address
+
+
 class ReauthenticateInput(ReauthenticateForm, inputs.Input):
     pass
 

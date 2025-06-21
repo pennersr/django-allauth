@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.urls import NoReverseMatch, reverse
 from django.utils.decorators import sync_and_async_middleware
 
-from asgiref.sync import iscoroutinefunction
+from asgiref.sync import iscoroutinefunction, sync_to_async
 
 from allauth.account.adapter import get_adapter
 from allauth.account.internal import flows
@@ -76,10 +76,19 @@ def _should_redirect_accounts(request, response) -> bool:
     return True
 
 
+@sync_to_async
+def _async_get_user(request):
+    return request.user
+
+
 async def _aredirect_accounts(request) -> HttpResponseRedirect:
     email_path = reverse("account_email")
     login_path = reverse("account_login")
-    user = await request.auser()
+    if hasattr(request, "auser"):
+        user = await request.auser()
+    else:
+        # Django <5
+        user = await _async_get_user(request)
     return HttpResponseRedirect(email_path if user.is_authenticated else login_path)
 
 

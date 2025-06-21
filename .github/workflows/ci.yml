@@ -7,112 +7,67 @@ on:
     branches: [ main ]
 
 jobs:
-  testenv:
-    runs-on: ubuntu-22.04
-    strategy:
-      fail-fast: false
-      matrix:
-        project: ['regular', 'headless_only', 'login_required_mw']
-        python-version: ['3.8', '3.9', '3.10', '3.11', '3.12', '3.13']
-        django-version: ['4.2', '5.0', '5.1', '5.2']
-        exclude:
-          - python-version: '3.8'
-            django-version: '5.0'
-
-          - python-version: '3.9'
-            django-version: '5.0'
-
-          - python-version: '3.8'
-            django-version: '5.1'
-
-          - python-version: '3.9'
-            django-version: '5.1'
-
-          - python-version: '3.8'
-            django-version: '5.2'
-
-          - python-version: '3.9'
-            django-version: '5.2'
-
-          - python-version: '3.8'
-            django-version: 'main'
-
-          - python-version: '3.9'
-            django-version: 'main'
-
-          # Only test LoginRequiredMiddleware on latest Python/Django.
-          - project: 'login_required_mw'
-            python-version: '3.8'
-          - project: 'login_required_mw'
-            python-version: '3.9'
-          - project: 'login_required_mw'
-            python-version: '3.10'
-          - project: 'login_required_mw'
-            python-version: '3.11'
-          - project: 'login_required_mw'
-            python-version: '3.12'
-          - project: 'login_required_mw'
-            django-version: 'main'
-          - project: 'login_required_mw'
-            django-version: '4.2'
-          - project: 'login_required_mw'
-            django-version: '5.0'
-          - project: 'login_required_mw'
-            django-version: '5.1'
-
-
-    steps:
-    - uses: actions/checkout@v4
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v5
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Updating package list
-      run: sudo apt-get update
-    - name: Install xmlsec
-      run: sudo apt-get install -y xmlsec1 libxmlsec1-dev
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install tox tox-gh-actions coveralls
-    - name: Tox Test
-      run: tox
-      env:
-        PYTHON_VER: ${{ matrix.python-version }}
-        DJANGO: ${{ matrix.django-version }}
-        PRJ: ${{ matrix.project }}
-    - name: Coverage (Coveralls)
-      if: ${{ success() && matrix.django-version == '5.1' && matrix.python-version == '3.13' && matrix.project == 'regular' }}
-      run: coveralls --service=github
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  extra:
-    runs-on: ubuntu-22.04
+  test:
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
-        extra-env: ['docs', 'bandit', 'black', 'isort', 'flake8', 'mypy', 'standardjs', 'djlint', 'compilemessages']
+        python-version: [3.8, 3.13]
+    container:
+      image: python:${{ matrix.python-version }}-bookworm
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      if: ${{ matrix.extra-env == 'standardjs' }}
-      with:
-        node-version: '8'
-    - name: Set up Python 3.11
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.11'
-    - name: Updating package list
-      run: sudo apt-get update
-    - name: Install xmlsec
-      run: sudo apt-get install -y xmlsec1 libxmlsec1-dev
-    - name: Install gettext
-      run: sudo apt-get install -y gettext
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install tox
-    - name: Tox Test
-      run: tox
-      env:
-        TOXENV: ${{ matrix.extra-env }}
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends gettext make
+      - name: Install nox
+        run: pip install nox
+      - name: Run tests
+        run: nox -x --session "test-${{ matrix.python-version }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  docs:
+    runs-on: ubuntu-22.04
+    needs: []
+    strategy:
+      matrix:
+        python-version: [3.13]
+    container:
+      image: python:3.13-bookworm
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install nox
+        run: pip install nox
+      - name: Build docs
+        run: nox -x --session "docs"
+
+  lint:
+    runs-on: ubuntu-22.04
+    needs: []
+    strategy:
+      matrix:
+        python-version: [3.13]
+    container:
+      image: python:3.13-bookworm
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install nox
+        run: pip install nox
+      - name: Run linter
+        run: nox -x -t lint
+
+  standardjs:
+    runs-on: ubuntu-24.04
+    needs: []
+    strategy:
+      matrix:
+        python-version: [3.13]
+    container:
+      image: node:22-bookworm
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install standardjs dependencies
+        run: make ci-install-standardjs
+      - name: Run standardjs
+        run: make standardjs

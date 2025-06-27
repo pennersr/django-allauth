@@ -8,8 +8,8 @@ from allauth.socialaccount.providers.base import ProviderException
 from allauth.socialaccount.providers.linkedin_oauth2.provider import (
     LinkedInOAuth2Provider,
 )
-from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import MockedResponse
+from tests.apps.socialaccount.base import OAuth2TestsMixin
+from tests.mocking import MockedResponse
 
 
 class LinkedInOAuth2Tests(OAuth2TestsMixin, TestCase):

@@ -2,8 +2,8 @@ from django.test import TestCase
 
 from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount.providers.gitea.provider import GiteaProvider
-from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import MockedResponse
+from tests.apps.socialaccount.base import OAuth2TestsMixin
+from tests.mocking import MockedResponse
 
 
 class GiteaTests(OAuth2TestsMixin, TestCase):

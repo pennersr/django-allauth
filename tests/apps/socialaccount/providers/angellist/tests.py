@@ -1,8 +1,8 @@
 from django.test import TestCase
 
 from allauth.socialaccount.providers.angellist.provider import AngelListProvider
-from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import MockedResponse
+from tests.apps.socialaccount.base import OAuth2TestsMixin
+from tests.mocking import MockedResponse
 
 
 class AngelListTests(OAuth2TestsMixin, TestCase):

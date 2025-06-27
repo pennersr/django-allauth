@@ -5,8 +5,8 @@ from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount.providers.bitbucket_oauth2.provider import (
     BitbucketOAuth2Provider,
 )
-from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import MockedResponse
+from tests.apps.socialaccount.base import OAuth2TestsMixin
+from tests.mocking import MockedResponse
 
 
 @override_settings(SOCIALACCOUNT_QUERY_EMAIL=True, SOCIALACCOUNT_STORE_TOKENS=True)

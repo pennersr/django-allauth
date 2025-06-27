@@ -2,8 +2,8 @@ from django.test import TestCase
 
 from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount.providers.openstreetmap.provider import OpenStreetMapProvider
-from allauth.socialaccount.tests import OAuthTestsMixin
-from allauth.tests import MockedResponse
+from tests.apps.socialaccount.base import OAuthTestsMixin
+from tests.mocking import MockedResponse
 
 
 class OpenStreetMapTests(OAuthTestsMixin, TestCase):

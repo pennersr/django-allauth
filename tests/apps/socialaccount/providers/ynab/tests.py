@@ -7,8 +7,8 @@ from django.urls import reverse
 
 from allauth.socialaccount.models import SocialToken
 from allauth.socialaccount.providers.ynab.provider import YNABProvider
-from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import MockedResponse, mocked_response
+from tests.apps.socialaccount.base import OAuth2TestsMixin
+from tests.mocking import MockedResponse, mocked_response
 
 
 @override_settings(

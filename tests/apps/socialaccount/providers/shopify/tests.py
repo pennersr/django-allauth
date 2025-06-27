@@ -8,8 +8,8 @@ from django.utils.http import urlencode
 
 from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount.providers.shopify.provider import ShopifyProvider
-from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import MockedResponse, mocked_response
+from tests.apps.socialaccount.base import OAuth2TestsMixin
+from tests.mocking import MockedResponse, mocked_response
 
 
 class ShopifyTests(OAuth2TestsMixin, TestCase):

@@ -5,8 +5,8 @@ from allauth.account.models import EmailAddress
 from allauth.account.utils import user_email, user_username
 from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount.providers.discord.provider import DiscordProvider
-from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import MockedResponse
+from tests.apps.socialaccount.base import OAuth2TestsMixin
+from tests.mocking import MockedResponse
 
 
 class DiscordTests(OAuth2TestsMixin, TestCase):

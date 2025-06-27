@@ -1,8 +1,8 @@
 from django.test import TestCase
 
 from allauth.socialaccount.providers.sharefile.provider import ShareFileProvider
-from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import MockedResponse
+from tests.apps.socialaccount.base import OAuth2TestsMixin
+from tests.mocking import MockedResponse
 
 
 class ShareFileTests(OAuth2TestsMixin, TestCase):

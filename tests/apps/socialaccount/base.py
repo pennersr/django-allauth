@@ -20,7 +20,7 @@ from allauth.account.utils import user_email, user_username
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.models import SocialAccount, SocialApp
-from allauth.tests import MockedResponse, mocked_response
+from tests.mocking import MockedResponse, mocked_response
 
 
 def setup_app(provider_id):

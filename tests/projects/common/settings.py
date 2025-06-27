@@ -1,3 +1,4 @@
+from pathlib import Path
 from typing import Tuple
 
 
@@ -171,3 +172,20 @@ HxD4lATnNILRfRTdPgu8IYS3/A4LoXjjhsPmx8NQ6PwnKnseFtQMBKQsX2HVfMVP
 vOZ+KpqzUW/vig+SalRbQMIR
 -----END PRIVATE KEY-----
 """
+
+
+TEMPLATES = [
+    {
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [Path(__file__).parent / "templates"],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+            ],
+        },
+    },
+]

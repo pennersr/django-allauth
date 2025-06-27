@@ -6,8 +6,8 @@ from django.test.utils import override_settings
 
 from allauth.socialaccount.providers.authentiq.provider import AuthentiqProvider
 from allauth.socialaccount.providers.authentiq.views import AuthentiqOAuth2Adapter
-from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import MockedResponse
+from tests.apps.socialaccount.base import OAuth2TestsMixin
+from tests.mocking import MockedResponse
 
 
 class AuthentiqTests(OAuth2TestsMixin, TestCase):

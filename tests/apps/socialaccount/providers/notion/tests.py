@@ -5,8 +5,8 @@ from django.urls import reverse
 from django.utils.http import urlencode
 
 from allauth.socialaccount.providers.notion.provider import NotionProvider
-from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import MockedResponse, mocked_response
+from tests.apps.socialaccount.base import OAuth2TestsMixin
+from tests.mocking import MockedResponse, mocked_response
 
 
 class NotionTests(OAuth2TestsMixin, TestCase):

@@ -1,8 +1,7 @@
-from pathlib import Path
-
 from django.contrib.auth.hashers import PBKDF2PasswordHasher
 
 from tests.projects.common.settings import IDP_OIDC_PRIVATE_KEY  # noqa
+from tests.projects.common.settings import TEMPLATES  # noqa
 from tests.projects.common.settings import INSTALLED_SOCIALACCOUNT_APPS
 
 
@@ -28,22 +27,6 @@ DATABASES = {
 
 ROOT_URLCONF = "tests.projects.login_required_mw.urls"
 LOGIN_URL = "/accounts/login/"
-
-TEMPLATES = [
-    {
-        "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [Path(__file__).parent / "templates"],
-        "APP_DIRS": True,
-        "OPTIONS": {
-            "context_processors": [
-                "django.template.context_processors.debug",
-                "django.template.context_processors.request",
-                "django.contrib.auth.context_processors.auth",
-                "django.contrib.messages.context_processors.messages",
-            ],
-        },
-    },
-]
 
 CACHES = {
     "default": {

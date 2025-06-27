@@ -22,8 +22,8 @@ from allauth.socialaccount.models import SocialAccount, SocialToken
 from allauth.socialaccount.providers.apple.client import jwt_encode
 from allauth.socialaccount.providers.google.provider import GoogleProvider
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
-from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import mocked_response
+from tests.apps.socialaccount.base import OAuth2TestsMixin
+from tests.mocking import mocked_response
 
 
 @pytest.fixture

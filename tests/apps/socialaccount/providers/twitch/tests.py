@@ -6,8 +6,8 @@ from allauth.socialaccount.models import SocialToken
 from allauth.socialaccount.providers.oauth2.client import OAuth2Error
 from allauth.socialaccount.providers.twitch.provider import TwitchProvider
 from allauth.socialaccount.providers.twitch.views import TwitchOAuth2Adapter
-from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import MockedResponse, mocked_response
+from tests.apps.socialaccount.base import OAuth2TestsMixin
+from tests.mocking import MockedResponse, mocked_response
 
 
 class TwitchTests(OAuth2TestsMixin, TestCase):

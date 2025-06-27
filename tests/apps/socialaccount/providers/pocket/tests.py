@@ -4,8 +4,8 @@ from django.test import TestCase
 from django.urls import reverse
 
 from allauth.socialaccount.providers.pocket.provider import PocketProvider
-from allauth.socialaccount.tests import OAuthTestsMixin
-from allauth.tests import MockedResponse, mocked_response
+from tests.apps.socialaccount.base import OAuthTestsMixin
+from tests.mocking import MockedResponse, mocked_response
 
 
 class PocketOAuthTests(OAuthTestsMixin, TestCase):

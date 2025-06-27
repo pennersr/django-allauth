@@ -1,8 +1,8 @@
 from django.test import TestCase
 
 from allauth.socialaccount.providers.clever.provider import CleverProvider
-from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import MockedResponse
+from tests.apps.socialaccount.base import OAuth2TestsMixin
+from tests.mocking import MockedResponse
 
 
 class CleverOAuth2Tests(OAuth2TestsMixin, TestCase):

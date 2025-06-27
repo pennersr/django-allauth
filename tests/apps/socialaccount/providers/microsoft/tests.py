@@ -5,8 +5,8 @@ from django.test import TestCase
 from allauth.socialaccount.providers.microsoft.provider import MicrosoftGraphProvider
 from allauth.socialaccount.providers.microsoft.views import _check_errors
 from allauth.socialaccount.providers.oauth2.client import OAuth2Error
-from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import MockedResponse
+from tests.apps.socialaccount.base import OAuth2TestsMixin
+from tests.mocking import MockedResponse
 
 
 class MicrosoftGraphTests(OAuth2TestsMixin, TestCase):

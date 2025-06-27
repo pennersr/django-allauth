@@ -5,8 +5,8 @@ from django.test import TestCase
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount.providers.github.provider import GitHubProvider
-from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import MockedResponse
+from tests.apps.socialaccount.base import OAuth2TestsMixin
+from tests.mocking import MockedResponse
 
 
 class GitHubTests(OAuth2TestsMixin, TestCase):

@@ -6,8 +6,8 @@ from allauth.account import app_settings as account_settings
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount.providers.disqus.provider import DisqusProvider
-from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import MockedResponse
+from tests.apps.socialaccount.base import OAuth2TestsMixin
+from tests.mocking import MockedResponse
 
 
 @override_settings(

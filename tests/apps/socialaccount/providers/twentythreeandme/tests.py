@@ -3,8 +3,8 @@ from django.test import TestCase
 from allauth.socialaccount.providers.twentythreeandme.provider import (
     TwentyThreeAndMeProvider,
 )
-from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import MockedResponse
+from tests.apps.socialaccount.base import OAuth2TestsMixin
+from tests.mocking import MockedResponse
 
 
 class TwentyThreeAndMeTests(OAuth2TestsMixin, TestCase):

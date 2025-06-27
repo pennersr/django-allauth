@@ -62,7 +62,7 @@ class BasicTests(TestCase):
         request = self.factory.get("/tests/test_403_csrf.html")
         # Simulate a CSRF failure by calling the View directly
         # This template is using the `provider_login_url` templatetag
-        response = csrf.csrf_failure(request, template_name="tests/test_403_csrf.html")
+        response = csrf.csrf_failure(request, template_name="test_403_csrf.html")
         # Ensure that CSRF failures with this template
         # tag succeed with the expected 403 response
         self.assertEqual(response.status_code, 403)

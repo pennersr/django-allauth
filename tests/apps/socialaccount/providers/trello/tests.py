@@ -1,8 +1,8 @@
 from django.test import TestCase
 
 from allauth.socialaccount.providers.trello.provider import TrelloProvider
-from allauth.socialaccount.tests import OAuthTestsMixin
-from allauth.tests import MockedResponse
+from tests.apps.socialaccount.base import OAuthTestsMixin
+from tests.mocking import MockedResponse
 
 
 class TrelloTests(OAuthTestsMixin, TestCase):

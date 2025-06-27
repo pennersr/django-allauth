@@ -11,7 +11,7 @@ from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.internal import statekit
 from allauth.socialaccount.models import SocialAccount, SocialLogin, SocialToken
 from allauth.socialaccount.providers.base.constants import AuthProcess
-from allauth.tests import MockedResponse, mocked_response
+from tests.mocking import MockedResponse, mocked_response
 
 
 @pytest.fixture

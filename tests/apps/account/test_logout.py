@@ -7,7 +7,7 @@ from django.urls import reverse
 
 from allauth.account import app_settings
 from allauth.account.signals import user_logged_out
-from allauth.tests import Mock
+from tests.mocking import Mock
 
 
 test_username_validators = [

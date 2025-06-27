@@ -2,8 +2,8 @@ from django.test import TestCase
 from django.test.utils import override_settings
 
 from allauth.socialaccount.providers.globus.provider import GlobusProvider
-from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import MockedResponse
+from tests.apps.socialaccount.base import OAuth2TestsMixin
+from tests.mocking import MockedResponse
 
 
 class GlobusTests(OAuth2TestsMixin, TestCase):

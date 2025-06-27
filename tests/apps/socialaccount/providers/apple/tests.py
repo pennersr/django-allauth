@@ -16,8 +16,8 @@ from allauth.socialaccount.providers.apple.apple_session import (
 )
 from allauth.socialaccount.providers.apple.client import jwt_encode
 from allauth.socialaccount.providers.apple.provider import AppleProvider
-from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import MockedResponse, mocked_response
+from tests.apps.socialaccount.base import OAuth2TestsMixin
+from tests.mocking import MockedResponse, mocked_response
 
 
 # Generated on https://mkjwk.org/, used to sign and verify the apple id_token

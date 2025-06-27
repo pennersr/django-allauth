@@ -15,8 +15,8 @@ from allauth.socialaccount.providers.amazon_cognito.utils import (
 from allauth.socialaccount.providers.amazon_cognito.views import (
     AmazonCognitoOAuth2Adapter,
 )
-from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import MockedResponse
+from tests.apps.socialaccount.base import OAuth2TestsMixin
+from tests.mocking import MockedResponse
 
 
 def _get_mocked_claims():

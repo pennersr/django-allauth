@@ -16,6 +16,10 @@ Note worthy changes
 - MFA: Added a setting (``MFA_ALLOW_UNVERIFIED_EMAIL``) to allow unverified
   email addresses in combination with MFA.
 
+- Soundcloud: as per https://developers.soundcloud.com/blog/urn-num-to-string,
+  the provider now uses the user ``urn`` instead of the ``id`` as the ID for
+  social accounts.
+
 
 Fixes
 -----

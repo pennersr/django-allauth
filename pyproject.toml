@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=75.3.0"]
+requires = ["setuptools>=75.3.0", "setuptools-scm>=8"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -108,5 +108,7 @@ django_settings_module = "tests.projects.regular.settings"
 [tool.setuptools.dynamic]
 version = {attr = "allauth.__version__"}
 
+[tool.setuptools_scm]
+
 [tool.setuptools.packages.find]
-include = ["allauth"]
+include = ["allauth*"]

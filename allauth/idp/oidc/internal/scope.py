@@ -45,6 +45,6 @@ def is_scope_granted(
         if not method:
             return False
         scope = scope.get(method)
-    granted_scope = token.get_scopes()
+    granted_scope = token.get_scopes() if token else []
     assert scope is not None  # nosec
     return _is_scope_granted(scope, granted_scope)

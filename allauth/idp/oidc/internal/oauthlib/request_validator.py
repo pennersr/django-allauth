@@ -395,3 +395,24 @@ class OAuthLibRequestValidator(RequestValidator):
         for token in tokens.iterator():
             granted_scopes.update(token.get_scopes())
         return set(request.scopes).issubset(granted_scopes)
+
+    def validate_jwt_bearer_token(self, token, scopes, request):
+        if scopes:
+            # We don't have scope for the ID token
+            return False
+        try:
+            jwk_dict, private_key = jwkkit.load_jwk_from_pem(app_settings.PRIVATE_KEY)
+            payload = jwt.decode(
+                token,
+                key=private_key.public_key(),
+                algorithms=["RS256"],
+                options={
+                    "verify_signature": True,
+                    "verify_iss": True,
+                    "verify_aud": False,
+                    "verify_exp": True,
+                },
+            )
+        except jwt.PyJWTError:
+            return False
+        return self.validate_client_id(payload["aud"], request)

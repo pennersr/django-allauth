@@ -19,6 +19,24 @@ Note worthy changes
 - Soundcloud: as per https://developers.soundcloud.com/blog/urn-num-to-string,
   the provider now uses the user ``urn`` instead of the ``id`` as the ID for
   social accounts.
+  
+  This is backward incompatible, consider migrating existing Soundcloud SocialAccount manually.
+
+  This can be done with::
+
+    from django.db.models import F, Value
+    from django.db.models.functions import Concat
+
+    from allauth.socialaccount.models import SocialAccount
+
+
+    SocialAccount.objects.filter(
+        provider="soundcloud"
+    ).exclude(
+        uid__startswith="soundcloud:users:"
+    ).update(
+        uid=Concat(Value("soundcloud:users:"), F("uid"))
+    )
 
 
 Fixes

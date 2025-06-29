@@ -1,6 +1,7 @@
 from typing import List, Optional, Tuple
 
 from django.contrib import messages
+from django.contrib.auth.base_user import AbstractBaseUser
 from django.http import HttpRequest
 
 from allauth.account import app_settings, signals
@@ -8,6 +9,7 @@ from allauth.account.adapter import get_adapter
 from allauth.account.internal.flows.reauthentication import (
     raise_if_reauthentication_required,
 )
+from allauth.account.internal.userkit import user_email
 from allauth.account.models import EmailAddress
 
 
@@ -57,13 +59,6 @@ def add_email(request: HttpRequest, form):
         raise_if_reauthentication_required(request)
 
     email_address = form.save(request)
-    adapter = get_adapter(request)
-    adapter.add_message(
-        request,
-        messages.INFO,
-        "account/messages/email_confirmation_sent.txt",
-        {"email": form.cleaned_data["email"]},
-    )
     if email_address.pk:
         signals.email_added.send(
             sender=EmailAddress,
@@ -114,7 +109,11 @@ def mark_as_primary(request: HttpRequest, email_address: EmailAddress):
     return success
 
 
-def emit_email_changed(request, from_email_address, to_email_address) -> None:
+def emit_email_changed(
+    request: HttpRequest,
+    from_email_address: Optional[EmailAddress],
+    to_email_address: EmailAddress,
+) -> None:
     user = to_email_address.user
     signals.email_changed.send(
         sender=EmailAddress,
@@ -135,7 +134,9 @@ def emit_email_changed(request, from_email_address, to_email_address) -> None:
         )
 
 
-def assess_unique_email(email: str, user=None) -> Optional[bool]:
+def assess_unique_email(
+    email: str, user: Optional[AbstractBaseUser] = None
+) -> Optional[bool]:
     """
     True -- email is unique
     False -- email is already in use
@@ -180,8 +181,10 @@ def assess_unique_email(email: str, user=None) -> Optional[bool]:
         return False
 
 
-def list_email_addresses(request, user) -> List[EmailAddress]:
-    addresses = list(EmailAddress.objects.filter(user=user))
+def list_email_addresses(
+    request: HttpRequest, user: AbstractBaseUser
+) -> List[EmailAddress]:
+    addresses = list(EmailAddress.objects.filter(user_id=user.pk))
     if (
         app_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED
         and request.user.is_authenticated
@@ -200,7 +203,7 @@ def list_email_addresses(request, user) -> List[EmailAddress]:
 
 
 def email_already_exists(
-    email: str, user=None, always_raise: bool = False
+    email: str, user: Optional[AbstractBaseUser] = None, always_raise: bool = False
 ) -> Tuple[str, bool]:
     """
     Throws a validation error (if allowed by enumeration prevention rules).
@@ -221,3 +224,28 @@ def email_already_exists(
     if already_exists and always_raise:
         raise adapter.validation_error("email_taken")
     return (email, already_exists)
+
+
+def sync_user_email_address(user: AbstractBaseUser) -> Optional[EmailAddress]:
+    """
+    Keep user.email in sync with user.emailaddress_set.
+
+    Under some circumstances the user.email may not have ended up as
+    an EmailAddress record, e.g. in the case of manually created admin
+    users.
+    """
+    email = user_email(user)
+    if email:
+        return sync_email_address(user, email)
+    return None
+
+
+def sync_email_address(user: AbstractBaseUser, email: str) -> Optional[EmailAddress]:
+    if not EmailAddress.objects.filter(user_id=user.pk, email=email).exists():
+        # get_or_create() to gracefully handle races
+        address, _ = EmailAddress.objects.get_or_create(
+            user=user, email=email, defaults={"primary": False, "verified": False}
+        )
+    else:
+        address = None
+    return address

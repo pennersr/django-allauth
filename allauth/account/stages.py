@@ -4,6 +4,9 @@ from typing import List, Optional
 from allauth.account import app_settings
 from allauth.account.adapter import get_adapter
 from allauth.account.app_settings import EmailVerificationMethod
+from allauth.account.internal.flows.email_verification import (
+    send_verification_email_at_login,
+)
 from allauth.account.models import EmailAddress
 from allauth.core.internal.httpkit import headed_redirect_response
 from allauth.utils import import_callable
@@ -138,7 +141,7 @@ class EmailVerificationStage(LoginStage):
         return app_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED
 
     def handle(self):
-        from allauth.account.utils import has_verified_email, send_email_confirmation
+        from allauth.account.utils import has_verified_email
 
         response, cont = None, True
         login = self.login
@@ -148,14 +151,10 @@ class EmailVerificationStage(LoginStage):
         elif email_verification == EmailVerificationMethod.OPTIONAL:
             # In case of OPTIONAL verification: send on signup.
             if not has_verified_email(login.user, login.email) and login.signup:
-                send_email_confirmation(
-                    self.request, login.user, signup=login.signup, email=login.email
-                )
+                send_verification_email_at_login(self.request, login)
         elif email_verification == EmailVerificationMethod.MANDATORY:
             if not has_verified_email(login.user, login.email):
-                send_email_confirmation(
-                    self.request, login.user, signup=login.signup, email=login.email
-                )
+                send_verification_email_at_login(self.request, login)
                 response = get_adapter().respond_email_verification_sent(
                     self.request, login.user
                 )

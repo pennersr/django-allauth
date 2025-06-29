@@ -12,7 +12,7 @@ from django.db.models.constraints import UniqueConstraint
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-from allauth.account import app_settings, signals
+from allauth.account import app_settings
 from allauth.account.adapter import get_adapter
 from allauth.account.managers import EmailAddressManager, EmailConfirmationManager
 
@@ -122,21 +122,15 @@ class EmailAddress(models.Model):
 
 class EmailConfirmationMixin:
     def confirm(self, request) -> Optional[EmailAddress]:
+        from allauth.account.internal.flows.email_verification import (
+            mark_email_address_as_verified,
+        )
+
         email_address = self.email_address  # type: ignore[attr-defined]
-        if not email_address.verified:
-            confirmed = get_adapter().confirm_email(request, email_address)
-            if confirmed:
-                return email_address
-        return None
+        return mark_email_address_as_verified(request, email_address)
 
     def send(self, request=None, signup=False) -> None:
         get_adapter().send_confirmation_mail(request, self, signup)
-        signals.email_confirmation_sent.send(
-            sender=self.__class__,
-            request=request,
-            confirmation=self,
-            signup=signup,
-        )
 
 
 class EmailConfirmation(EmailConfirmationMixin, models.Model):
@@ -328,11 +322,7 @@ class Login:
 
 def get_emailconfirmation_model():
     if app_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED:
-        from allauth.account.internal.flows.email_verification_by_code import (
-            EmailVerificationModel,
-        )
-
-        return EmailVerificationModel
+        raise NotImplementedError
     elif app_settings.EMAIL_CONFIRMATION_HMAC:
         model = EmailConfirmationHMAC
     else:

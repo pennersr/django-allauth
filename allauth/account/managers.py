@@ -35,6 +35,10 @@ class EmailAddressManager(models.Manager):
         Adds an email address the user wishes to change to, replacing his
         current email address once confirmed.
         """
+        from allauth.account.internal.flows.email_verification import (
+            send_verification_email_to_address,
+        )
+
         instance = self.get_new(user)
         email = email.lower()
         if not instance:
@@ -47,17 +51,21 @@ class EmailAddressManager(models.Manager):
             instance.primary = False
             instance.save()
         if send_verification:
-            instance.send_confirmation(request)
+            send_verification_email_to_address(request, instance)
         return instance
 
     def add_email(self, request, user, email, confirm=False, signup=False):
+        from allauth.account.internal.flows.email_verification import (
+            send_verification_email_to_address,
+        )
+
         email = email.lower()
         email_address, created = self.get_or_create(
             user=user, email=email, defaults={"email": email}
         )
 
         if created and confirm:
-            email_address.send_confirmation(request, signup=signup)
+            send_verification_email_to_address(request, email_address)
 
         return email_address
 

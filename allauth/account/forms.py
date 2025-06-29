@@ -13,7 +13,10 @@ from django.utils.translation import gettext, gettext_lazy as _, pgettext
 from allauth.account.app_settings import LoginMethod
 from allauth.account.fields import EmailField, PasswordField, SetPasswordField
 from allauth.account.internal import flows
-from allauth.account.internal.flows.manage_email import email_already_exists
+from allauth.account.internal.flows.manage_email import (
+    email_already_exists,
+    sync_user_email_address,
+)
 from allauth.account.internal.flows.phone_verification import phone_already_exists
 from allauth.account.internal.flows.signup import base_signup_form_class
 from allauth.core import context, ratelimit
@@ -27,7 +30,6 @@ from .models import EmailAddress, Login
 from .utils import (
     filter_users_by_email,
     setup_user_email,
-    sync_user_email_addresses,
     url_str_to_user_pk,
     user_email,
     user_username,
@@ -37,7 +39,7 @@ from .utils import (
 class EmailAwarePasswordResetTokenGenerator(PasswordResetTokenGenerator):
     def _make_hash_value(self, user, timestamp):
         ret = super()._make_hash_value(user, timestamp)
-        sync_user_email_addresses(user)
+        sync_user_email_address(user)
         email = user_email(user)
         emails = set([email] if email else [])
         emails.update(
@@ -571,7 +573,9 @@ class AddEmailForm(UserForm):
             email_address = EmailAddress(
                 user=self.user, email=self.cleaned_data["email"]
             )
-            email_address.send_confirmation(request)
+            flows.email_verification.send_verification_email_to_address(
+                request, email_address
+            )
             return email_address
         elif app_settings.CHANGE_EMAIL:
             return EmailAddress.objects.add_new_email(

@@ -8,8 +8,11 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, resolve_url
 
 from allauth.account.internal.flows import reauthentication
+from allauth.account.internal.flows.email_verification import (
+    send_verification_email_for_user,
+)
 from allauth.account.models import EmailAddress
-from allauth.account.utils import get_next_redirect_url, send_email_confirmation
+from allauth.account.utils import get_next_redirect_url
 from allauth.core.exceptions import ReauthenticationRequired
 from allauth.core.internal import httpkit
 
@@ -35,7 +38,7 @@ def verified_email_required(
             if not EmailAddress.objects.filter(
                 user=request.user, verified=True
             ).exists():
-                send_email_confirmation(request, request.user)
+                send_verification_email_for_user(request, request.user)
                 return render(request, "account/verified_email_required.html")
             return view_func(request, *args, **kwargs)
 

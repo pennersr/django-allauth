@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
@@ -193,7 +195,7 @@ class SignupTests(TestCase):
 
         with context.request_context(request):
             resp = signup(request)
-        self.assertEqual(resp.status_code, 302)
+        self.assertEqual(resp.status_code, HTTPStatus.FOUND)
         self.assertEqual(
             resp["location"], get_adapter().get_signup_redirect_url(request)
         )
@@ -289,7 +291,7 @@ def test_prevent_enumeration_with_mandatory_verification(
             "password2": "johndoe",
         },
     )
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     assert resp["location"] == reverse("account_email_verification_sent")
     assertTemplateUsed(resp, "account/email/account_already_exists_message.txt")
     assertTemplateUsed(resp, "account/messages/email_confirmation_sent.txt")
@@ -311,7 +313,7 @@ def test_prevent_enumeration_off(settings, user_factory, email_factory):
             "password2": "johndoe",
         },
     )
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
     assert resp.context["form"].errors == {
         "email": ["A user is already registered with this email address."]
     }
@@ -332,7 +334,7 @@ def test_prevent_enumeration_strictly(settings, user_factory, email_factory):
             "password2": "johndoe",
         },
     )
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     assert resp["location"] == settings.LOGIN_REDIRECT_URL
     assert EmailAddress.objects.filter(email="john@example.org").count() == 2
 
@@ -352,7 +354,7 @@ def test_prevent_enumeration_on(settings, user_factory, email_factory):
             "password2": "johndoe",
         },
     )
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
     assert resp.context["form"].errors == {
         "email": ["A user is already registered with this email address."]
     }
@@ -386,7 +388,7 @@ def test_signup_user_model_no_email(settings, client, password_factory, db, mail
             "password2": password,
         },
     )
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     email = EmailAddress.objects.get(email=email)
     assert email.primary
     assert not email.verified
@@ -406,7 +408,7 @@ def test_email_lower_case(db, settings):
             "password2": "johndoe",
         },
     )
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     assert EmailAddress.objects.filter(email="john@doe.org").count() == 1
 
 
@@ -424,7 +426,7 @@ def test_does_not_create_user_when_honeypot_filled_out(client, db, settings):
     )
 
     assert not get_user_model().objects.all().exists()
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
 
 
 def test_create_user_when_honeypot_not_filled_out(client, db, settings):
@@ -440,4 +442,4 @@ def test_create_user_when_honeypot_not_filled_out(client, db, settings):
         },
     )
     assert get_user_model().objects.filter(username="johndoe").count() == 1
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND

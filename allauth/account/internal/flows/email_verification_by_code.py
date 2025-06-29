@@ -1,5 +1,3 @@
-from contextlib import contextmanager
-from contextvars import ContextVar
 from typing import Optional
 
 from django.utils.functional import cached_property
@@ -9,51 +7,13 @@ from allauth.account.adapter import get_adapter
 from allauth.account.internal.flows.code_verification import (
     AbstractCodeVerificationProcess,
 )
-from allauth.account.internal.flows.email_verification import send_verification_email
 from allauth.account.internal.stagekit import clear_login
 from allauth.account.internal.userkit import did_user_login, user_email
-from allauth.account.models import EmailAddress, EmailConfirmationMixin
+from allauth.account.models import EmailAddress
 from allauth.core import context
 
 
 EMAIL_VERIFICATION_CODE_SESSION_KEY = "account_email_verification_code"
-
-process_var = ContextVar[Optional["EmailVerificationProcess"]]("process", default=None)
-
-
-@contextmanager
-def with_process(process: "EmailVerificationProcess"):
-    token = process_var.set(process)
-    try:
-        yield
-    finally:
-        process_var.reset(token)
-
-
-class EmailVerificationModel(EmailConfirmationMixin):
-    def __init__(self, email_address: EmailAddress, key: Optional[str] = None) -> None:
-        self.email_address = email_address
-        if not key:
-            process = process_var.get()
-            if not process:
-                process = EmailVerificationProcess.initiate(
-                    request=context.request,
-                    user=email_address.user,
-                    email=email_address.email,
-                )
-            key = process.code
-        self.key = key
-
-    @classmethod
-    def create(cls, email_address: EmailAddress) -> "EmailVerificationModel":
-        return EmailVerificationModel(email_address)
-
-    @classmethod
-    def from_key(cls, key):
-        raise NotImplementedError
-
-    def key_expired(self):
-        raise NotImplementedError
 
 
 class EmailVerificationProcess(AbstractCodeVerificationProcess):
@@ -77,40 +37,41 @@ class EmailVerificationProcess(AbstractCodeVerificationProcess):
         self.request.session.pop(EMAIL_VERIFICATION_CODE_SESSION_KEY, None)
         clear_login(self.request)
 
-    def send(self, change: bool = False) -> None:
-        if not self.user or self.state.get("account_already_exists"):
-            user = None
-        else:
-            user = self.user
-        signup = did_user_login(user) if user else True
-        with with_process(self):
-            send_verification_email(
-                context.request,
-                user,
-                signup=signup,
-                email=self.email,
-                raise_rate_limit_exception=True,
-                skip_enumeration_mails=(not change),
-            )
+    def send(self, skip_enumeration_mails: bool = False) -> None:
+        from allauth.account.internal.flows.email_verification import (
+            send_verification_email_to_address,
+        )
+
+        email_address = self.email_address
+        signup = did_user_login(email_address.user) if email_address.user_id else True
+        self.did_send = send_verification_email_to_address(
+            self.request,
+            email_address,
+            signup=signup,
+            process=self,
+            skip_enumeration_mails=skip_enumeration_mails,
+        )
 
     @cached_property
     def email_address(self) -> EmailAddress:
-        user = self.user
         email = self.state["email"]
+        if not self.user or self.state.get("account_already_exists"):
+            return EmailAddress(email=email)
         try:
-            email_address = EmailAddress.objects.get_for_user(user, email)
+            email_address = EmailAddress.objects.get_for_user(self.user, email)
         except EmailAddress.DoesNotExist:
-            email_address = EmailAddress(user=user, email=email)
+            email_address = EmailAddress(user=self.user, email=email)
         return email_address
 
     def finish(self) -> Optional[EmailAddress]:
+        from allauth.account.internal.flows.email_verification import (
+            mark_email_address_as_verified,
+        )
+
         if not self.user or self.state.get("account_already_exists"):
             raise ValueError
-        verification = EmailVerificationModel(
-            self.email_address, key=self.state["code"]
-        )
         self.request.session.pop(EMAIL_VERIFICATION_CODE_SESSION_KEY, None)
-        return verification.confirm(self.request)
+        return mark_email_address_as_verified(self.request, self.email_address)
 
     def generate_code(self) -> None:
         self.state["code"] = get_adapter().generate_email_verification_code()
@@ -120,6 +81,7 @@ class EmailVerificationProcess(AbstractCodeVerificationProcess):
         state = cls.initial_state(user, email)
         process = EmailVerificationProcess(request=request, user=user, state=state)
         process.generate_code()
+        process.send()
         process.persist()
         return process
 
@@ -155,7 +117,7 @@ class EmailVerificationProcess(AbstractCodeVerificationProcess):
             )
             user_email(self.user, email, commit=True)
         self.record_change(email=email)
-        self.send(change=True)
+        self.send()
         self.persist()
 
     @property
@@ -166,6 +128,10 @@ class EmailVerificationProcess(AbstractCodeVerificationProcess):
 
     def resend(self) -> None:
         self.generate_code()
-        self.send()
+        self.send(skip_enumeration_mails=True)
         self.record_resend()
         self.persist()
+
+    @property
+    def key(self):
+        return self.code

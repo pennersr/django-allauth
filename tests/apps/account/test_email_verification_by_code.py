@@ -48,12 +48,12 @@ def test_signup(
     )
     assert get_user_model().objects.filter(username="johndoe").count() == 1
     code = get_last_email_verification_code(client, mailoutbox)
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     assert resp["location"] == reverse("account_email_verification_sent")
     resp = client.get(reverse("account_email_verification_sent"))
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
     resp = client.post(reverse("account_email_verification_sent"), data={"code": code})
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     assert resp["location"] == expected_url
 
 
@@ -70,21 +70,21 @@ def test_signup_prevent_enumeration(
             "password2": password,
         },
     )
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     assert resp["location"] == reverse("account_email_verification_sent")
     assert not get_user_model().objects.filter(username="johndoe").exists()
     assert mailoutbox[0].subject == "[example.com] Account Already Exists"
     resp = client.get(reverse("account_email_verification_sent"))
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
     resp = client.post(reverse("account_email_verification_sent"), data={"code": ""})
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
     assert resp.context["form"].errors == {"code": ["This field is required."]}
     resp = client.post(reverse("account_email_verification_sent"), data={"code": "123"})
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
     assert resp.context["form"].errors == {"code": ["Incorrect code."]}
     # Max attempts
     resp = client.post(reverse("account_email_verification_sent"), data={"code": "456"})
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     assert resp["location"] == reverse("account_login")
 
 
@@ -98,6 +98,7 @@ def test_add_or_change_email(
     mailoutbox,
 ):
     settings.ACCOUNT_CHANGE_EMAIL = change_email
+    settings.ACCOUNT_EMAIL_VERIFICATION_SUPPORTS_RESEND = True
     email = "additional@email.org"
     assert EmailAddress.objects.filter(user=user).count() == 1
     with patch("allauth.account.signals.email_added") as email_added_signal:
@@ -111,16 +112,23 @@ def test_add_or_change_email(
     assert EmailAddress.objects.filter(email=email).count() == 0
     code = get_last_email_verification_code(auth_client, mailoutbox)
     resp = auth_client.get(reverse("account_email_verification_sent"))
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
+    resp = auth_client.post(
+        reverse("account_email_verification_sent"), {"action": "resend"}
+    )
+    assert EmailAddress.objects.filter(email=email).count() == 0
+    assert resp.status_code == HTTPStatus.FOUND
+    code2 = get_last_email_verification_code(auth_client, mailoutbox)
+    assert code != code2
     with patch("allauth.account.signals.email_added") as email_added_signal:
         with patch("allauth.account.signals.email_changed") as email_changed_signal:
             with patch(
                 "allauth.account.signals.email_confirmed"
             ) as email_confirmed_signal:
                 resp = auth_client.post(
-                    reverse("account_email_verification_sent"), data={"code": code}
+                    reverse("account_email_verification_sent"), data={"code": code2}
                 )
-                assert resp.status_code == 302
+                assert resp.status_code == HTTPStatus.FOUND
                 assert resp["location"] == settings.LOGIN_REDIRECT_URL
                 assert email_added_signal.send.called
                 assert email_confirmed_signal.send.called
@@ -142,7 +150,7 @@ def test_email_verification_login_redirect(
             "password2": password,
         },
     )
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     assert resp["location"] == reverse("account_email_verification_sent")
     resp = client.get(reverse("account_login"))
     assert resp["location"] == reverse("account_email_verification_sent")
@@ -169,10 +177,10 @@ def test_email_verification_rate_limits(
             },
         )
         if attempt == 0:
-            assert resp.status_code == 302
+            assert resp.status_code == HTTPStatus.FOUND
             assert resp["location"] == reverse("account_email_verification_sent")
         else:
-            assert resp.status_code == 200
+            assert resp.status_code == HTTPStatus.OK
             assert resp.context["form"].errors == {
                 "__all__": ["Too many failed login attempts. Try again later."]
             }

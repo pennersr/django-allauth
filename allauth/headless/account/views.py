@@ -12,6 +12,9 @@ from allauth.account.internal.flows import (
     password_reset,
     password_reset_by_code,
 )
+from allauth.account.internal.flows.email_verification import (
+    send_verification_email_to_address,
+)
 from allauth.account.internal.flows.email_verification_by_code import (
     EmailVerificationProcess,
 )
@@ -23,7 +26,6 @@ from allauth.account.stages import (
     LoginStageController,
     PhoneVerificationStage,
 )
-from allauth.account.utils import send_email_confirmation
 from allauth.core import ratelimit
 from allauth.core.exceptions import ImmediateHttpResponse, RateLimited
 from allauth.decorators import rate_limit
@@ -437,7 +439,7 @@ class ManageEmailView(APIView):
                 except RateLimited:
                     pass
         else:
-            sent = send_email_confirmation(request, request.user, email=addr.email)
+            sent = send_verification_email_to_address(request, addr)
         return response.RequestEmailVerificationResponse(
             request, verification_sent=sent
         )

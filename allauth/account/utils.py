@@ -218,30 +218,6 @@ def setup_user_email(request, user, addresses):
     return primary
 
 
-def send_email_confirmation(request, user, signup=False, email=None) -> bool:
-    return flows.email_verification.send_verification_email(
-        request, user, signup=signup, email=email
-    )
-
-
-def sync_user_email_addresses(user):
-    """
-    Keep user.email in sync with user.emailaddress_set.
-
-    Under some circumstances the user.email may not have ended up as
-    an EmailAddress record, e.g. in the case of manually created admin
-    users.
-    """
-    from .models import EmailAddress
-
-    email = user_email(user)
-    if email and not EmailAddress.objects.filter(user=user, email=email).exists():
-        # get_or_create() to gracefully handle races
-        EmailAddress.objects.get_or_create(
-            user=user, email=email, defaults={"primary": False, "verified": False}
-        )
-
-
 def filter_users_by_username(*username):
     if app_settings.PRESERVE_USERNAME_CASING:
         qlist = [

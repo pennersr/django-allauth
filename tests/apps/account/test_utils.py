@@ -100,6 +100,8 @@ class UtilsTests(TestCase):
             site.save()
         u = get_user_model().objects.create(username="test", email="user@example.com")
         request = RequestFactory().get("/")
+        SessionMiddleware(lambda request: None).process_request(request)
+        MessageMiddleware(lambda request: None).process_request(request)
         EmailAddress.objects.add_email(request, u, u.email, confirm=True)
         self.assertTrue(mail.outbox[0].subject[1:].startswith(site_name))
 

@@ -18,11 +18,15 @@ def test_add_new_email(rf, user, settings):
     settings.ACCOUNT_CHANGE_EMAIL = True
     request = rf.get("/")
     assert EmailAddress.objects.filter(user=user).count() == 1
-    new_email = EmailAddress.objects.add_new_email(request, user, "new@email.org")
+    new_email = EmailAddress.objects.add_new_email(
+        request, user, "new@email.org", send_verification=False
+    )
     assert not new_email.verified
     assert not new_email.primary
     assert EmailAddress.objects.filter(user=user).count() == 2
-    EmailAddress.objects.add_new_email(request, user, "new2@email.org")
+    EmailAddress.objects.add_new_email(
+        request, user, "new2@email.org", send_verification=False
+    )
     assert EmailAddress.objects.filter(user=user).count() == 2
     new_email.refresh_from_db()
     assert new_email.email == "new2@email.org"

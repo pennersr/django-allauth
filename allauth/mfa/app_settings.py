@@ -16,6 +16,10 @@ class AppSettings:
         return self._setting("ADAPTER", "allauth.mfa.adapter.DefaultMFAAdapter")
 
     @property
+    def ALLOW_UNVERIFIED_EMAIL(self) -> bool:
+        return self._setting("ALLOW_UNVERIFIED_EMAIL", False)
+
+    @property
     def FORMS(self):
         return self._setting("FORMS", {})
 

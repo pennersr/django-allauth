@@ -13,6 +13,9 @@ Note worthy changes
 - Added a new signal (``authentication_step_completed``) that is emitted when an
   individual authentication step is completed.
 
+- MFA: Added a setting (``MFA_ALLOW_UNVERIFIED_EMAIL``) to allow unverified
+  email addresses in combination with MFA.
+
 
 Fixes
 -----

@@ -7,6 +7,15 @@ Available settings:
   Specifies the adapter class to use, allowing you to alter certain
   default behavior.
 
+``MFA_ALLOW_UNVERIFIED_EMAIL`` (default: ``False``)
+  By default, an account that has an unverified email address is not allowed to
+  turn on MFA. Additionally, accounts that have MFA turned on cannot add a new
+  (unverified) email address. The rationale is that if this were allowed, it
+  would allow an attacker to signup without verifying and then turn on MFA to
+  prevent the real owner of the account from ever gaining access.  If the risk
+  of this scenario is manageable for your project, you can allow unverified email
+  address in combination with MFA by changing this setting.
+
 ``MFA_FORMS``
   Used to override forms. Defaults to::
 

@@ -54,20 +54,27 @@ def test_index(auth_client, user_with_totp):
     assert "authenticators" in resp.context
 
 
+@pytest.mark.parametrize("allowed", [False, True])
 def test_add_email_not_allowed(
     auth_client,
     user_with_totp,
+    settings,
+    allowed,
 ):
+    settings.MFA_ALLOW_UNVERIFIED_EMAIL = allowed
     resp = auth_client.post(
         reverse("account_email"),
         {"action_add": "", "email": "change-to@this.org"},
     )
-    assert resp.status_code == HTTPStatus.OK
-    assert resp.context["form"].errors == {
-        "email": [
-            "You cannot add an email address to an account protected by two-factor authentication."
-        ]
-    }
+    if allowed:
+        assert resp.status_code == HTTPStatus.FOUND
+    else:
+        assert resp.status_code == HTTPStatus.OK
+        assert resp.context["form"].errors == {
+            "email": [
+                "You cannot add an email address to an account protected by two-factor authentication."
+            ]
+        }
 
 
 def test_add_email_allowed_when_verification_by_code(

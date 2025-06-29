@@ -152,9 +152,17 @@ def test_list_keys(auth_client):
 
 @pytest.mark.parametrize("email_verified", [False])
 @pytest.mark.parametrize("method", ["get", "post"])
+@pytest.mark.parametrize("allowed", [True, False])
 def test_add_with_unverified_email(
-    auth_client, user, webauthn_registration_bypass, reauthentication_bypass, method
+    auth_client,
+    user,
+    webauthn_registration_bypass,
+    reauthentication_bypass,
+    method,
+    allowed,
+    settings,
 ):
+    settings.MFA_ALLOW_UNVERIFIED_EMAIL = allowed
     with webauthn_registration_bypass(user, False) as credential:
         if method == "get":
             resp = auth_client.get(reverse("mfa_add_webauthn"))
@@ -162,7 +170,10 @@ def test_add_with_unverified_email(
             resp = auth_client.post(
                 reverse("mfa_add_webauthn"), data={"credential": credential}
             )
-        assert resp["location"] == reverse("mfa_index")
+        if allowed:
+            assert resp["location"].startswith(reverse("account_reauthenticate"))
+        else:
+            assert resp["location"] == reverse("mfa_index")
 
 
 def test_passkey_signup(client, db, webauthn_registration_bypass):

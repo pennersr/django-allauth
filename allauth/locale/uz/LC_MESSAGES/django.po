@@ -3,20 +3,21 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Hojiakbar Barotov barotovhojiakbar.me@gmail.com, 2024.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-05-08 14:14-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Hojiakbar Barotov barotovhojiakbar.me@gmail.com\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: Uzbek\n"
+"PO-Revision-Date: 2025-06-09 11:01+0000\n"
+"Last-Translator: ONVETI <qjkbest@gmail.com>\n"
+"Language-Team: Uzbek <https://hosted.weblate.org/projects/allauth/"
+"django-allauth/uz/>\n"
+"Language: uz\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.12-dev\n"
 
 #: account/adapter.py:55
 msgid "This account is currently inactive."
@@ -120,24 +121,24 @@ msgstr ""
 
 #: account/adapter.py:93
 msgid "The new value must be different from the current one."
-msgstr ""
+msgstr "Yangi qiymat hozirgi qiymatdan farq qilishi kerak."
 
 #: account/adapter.py:94
 msgid "Be patient, you are sending too many requests."
-msgstr ""
+msgstr "Sabrli bo'ling, siz judayam koʻp soʻrov yuboryapsiz."
 
 #: account/adapter.py:778
 msgid "Use your password"
-msgstr "Parolingizdan foydalanish"
+msgstr "Parolingizdan foydalaning"
 
 #: account/adapter.py:787
 msgid "Use authenticator app or code"
-msgstr "Autentifikatsiya ilovasi yoki kodidan foydalanish"
+msgstr "Autentifikatsiya ilovasi yoki kodidan foydalaning"
 
 #: account/adapter.py:794 templates/mfa/authenticate.html:41
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use a security key"
-msgstr "Xavfsizlik kalitidan foydalanish"
+msgstr "Xavfsizlik kodidan foydalaning"
 
 #: account/admin.py:23
 msgid "Mark selected email addresses as verified"
@@ -145,15 +146,17 @@ msgstr "Tanlangan email manzillarini tasdiqlangan deb belgilash"
 
 #: account/apps.py:11
 msgid "Accounts"
-msgstr "Akkauntlar"
+msgstr "Hisoblar"
 
 #: account/fields.py:43
 msgid "Enter a phone number including country code (e.g. +1 for the US)."
 msgstr ""
+"Telefon raqamini mamlakat kodi bilan birga kiriting (masalan, UZ uchun +998, "
+")."
 
 #: account/fields.py:49 account/fields.py:53 account/forms.py:372
 msgid "Phone"
-msgstr ""
+msgstr "Telefon"
 
 #: account/forms.py:64 account/forms.py:574
 msgid "You must type the same password each time."

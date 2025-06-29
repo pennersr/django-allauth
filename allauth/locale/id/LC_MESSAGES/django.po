@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-05-08 14:14-0500\n"
-"PO-Revision-Date: 2024-09-13 16:21+0000\n"
-"Last-Translator: Reza Almanda <rezaalmanda27@gmail.com>\n"
+"PO-Revision-Date: 2025-06-05 15:41+0000\n"
+"Last-Translator: Nyong Onta 11 <nyongonta11@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/allauth/"
 "django-allauth/id/>\n"
 "Language: id\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.8-dev\n"
+"X-Generator: Weblate 5.12-dev\n"
 
 #: account/adapter.py:55
 msgid "This account is currently inactive."
@@ -36,10 +36,8 @@ msgid "The email address and/or password you specified are not correct."
 msgstr "Alamat e-mail dan/atau kata sandi yang anda masukkan tidak benar."
 
 #: account/adapter.py:66
-#, fuzzy
-#| msgid "The username and/or password you specified are not correct."
 msgid "The phone number and/or password you specified are not correct."
-msgstr "Nama pengguna dan/atau kata sandi yang anda masukkan tidak benar."
+msgstr "Nomor ponsel dan/atau kata sandi yang anda masukkan tidak benar."
 
 #: account/adapter.py:68
 msgid "A user is already registered with this email address."
@@ -62,10 +60,8 @@ msgid "Invalid or expired key."
 msgstr "Kunci tidak valid atau kedaluwarsa."
 
 #: account/adapter.py:73
-#, fuzzy
-#| msgid "Invalid token."
 msgid "Invalid login."
-msgstr "Token Salah."
+msgstr "login tidak valid."
 
 #: account/adapter.py:74
 msgid "The password reset token was invalid."
@@ -80,23 +76,21 @@ msgstr "Anda tidak dapat menambahkan lebih dari %d alamat e-mail."
 #, fuzzy
 #| msgid "A user is already registered with this email address."
 msgid "A user is already registered with this phone number."
-msgstr "Seorang pengguna sudah terdaftar dengan alamat e-mail ini."
+msgstr "Seorang pengguna sudah terdaftar dengan alamat ponsel ini."
 
 #: account/adapter.py:78
 msgid "Too many failed login attempts. Try again later."
 msgstr "Terlalu banyak percobaan masuk yang gagal. Coba lagi nanti."
 
 #: account/adapter.py:80
-#, fuzzy
-#| msgid "The email address is not assigned to any user account"
 msgid "The email address is not assigned to any user account."
-msgstr "Alamat e-mail ini tidak terhubung dengan akun pengguna mana pun"
+msgstr "Alamat e-mail ini tidak terhubung dengan akun pengguna mana pun."
 
 #: account/adapter.py:81
 #, fuzzy
 #| msgid "The email address is not assigned to any user account"
 msgid "The phone number is not assigned to any user account."
-msgstr "Alamat e-mail ini tidak terhubung dengan akun pengguna mana pun"
+msgstr "Alamat ponsel ini tidak terhubung dengan akun pengguna mana pun."
 
 #: account/adapter.py:82
 #: templates/account/messages/unverified_primary_email.txt:2
@@ -113,16 +107,18 @@ msgid "The username and/or password you specified are not correct."
 msgstr "Nama pengguna dan/atau kata sandi yang anda masukkan tidak benar."
 
 #: account/adapter.py:92
+#, fuzzy
 msgid "Please select only one."
-msgstr ""
+msgstr "Silakan pilih satu saja."
 
 #: account/adapter.py:93
+#, fuzzy
 msgid "The new value must be different from the current one."
-msgstr ""
+msgstr "Nilai yang baru harus berbeda dari nilai saat ini."
 
 #: account/adapter.py:94
 msgid "Be patient, you are sending too many requests."
-msgstr ""
+msgstr "Bersabarlah, Anda mengirim terlalu banyak permintaan."
 
 #: account/adapter.py:778
 msgid "Use your password"
@@ -146,12 +142,14 @@ msgid "Accounts"
 msgstr "Akun"
 
 #: account/fields.py:43
+#, fuzzy
 msgid "Enter a phone number including country code (e.g. +1 for the US)."
-msgstr ""
+msgstr "Masukkan nomor telepon termasuk kode negara (misalnya +1 untuk AS)."
 
 #: account/fields.py:49 account/fields.py:53 account/forms.py:372
+#, fuzzy
 msgid "Phone"
-msgstr ""
+msgstr "Ponsel"
 
 #: account/forms.py:64 account/forms.py:574
 msgid "You must type the same password each time."
@@ -187,26 +185,22 @@ msgid "Login"
 msgstr "Masuk"
 
 #: account/forms.py:154
-#, fuzzy
-#| msgid "Username or email"
 msgid "Username, email or phone"
-msgstr "Nama pengguna atau e-mail"
+msgstr "Nama, email, atau ponsel"
 
 #: account/forms.py:156
 msgid "Username or email"
 msgstr "Nama pengguna atau e-mail"
 
 #: account/forms.py:158
-#, fuzzy
-#| msgid "Username or email"
 msgid "Username or phone"
-msgstr "Nama pengguna atau e-mail"
+msgstr "Nama pengguna atau ponsel"
 
 #: account/forms.py:160
 #, fuzzy
 #| msgid "Email (optional)"
 msgid "Email or phone"
-msgstr "E-mail (opsional)"
+msgstr "E-mail atau ponsel"
 
 #: account/forms.py:183
 msgid "Forgot your password?"
@@ -228,7 +222,7 @@ msgstr "E-mail (opsional)"
 #, fuzzy
 #| msgid "Email (optional)"
 msgid "Username (optional)"
-msgstr "E-mail (opsional)"
+msgstr "Nama (opsional)"
 
 #: account/forms.py:435
 msgid "You must type the same email each time."
@@ -513,15 +507,18 @@ msgstr "Masuk"
 #: templates/account/password_reset_from_key.html:33
 #: templates/mfa/authenticate.html:28 templates/mfa/authenticate.html:44
 #: templates/mfa/trust.html:29 templates/mfa/webauthn/signup_form.html:26
+#, fuzzy
 msgid "Cancel"
-msgstr ""
+msgstr "Batalkan"
 
 #: socialaccount/providers/oauth/client.py:85
 #, fuzzy, python-format
 #| msgid "Invalid response while obtaining request token from \"%s\"."
 msgid ""
 "Invalid response while obtaining request token from \"%s\". Response was: %s."
-msgstr "Respon tidak valid saat meminta token request dari \"%s\"."
+msgstr ""
+"Respons tidak valid saat memperoleh token permintaan dari \"%s\". Responsnya "
+"adalah: %s."
 
 #: socialaccount/providers/oauth/client.py:119
 #: socialaccount/providers/pocket/client.py:86
@@ -559,11 +556,13 @@ msgid "This account is inactive."
 msgstr "Akun ini tidak aktif."
 
 #: templates/account/base_confirm_code.html:27
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "We've sent a code to %(recipient)s. The code expires shortly, so please "
 "enter it soon."
 msgstr ""
+"Kami telah mengirimkan kode ke %(penerima)s. Kode tersebut akan segera "
+"kedaluwarsa, jadi harap segera masukkan."
 
 #: templates/account/base_confirm_code.html:39
 #: templates/account/email_confirm.html:24
@@ -573,24 +572,27 @@ msgid "Confirm"
 msgstr "Konfirmasi"
 
 #: templates/account/base_confirm_code.html:43
+#, fuzzy
 msgid "Request new code"
-msgstr ""
+msgstr "minta kode baru"
 
 #: templates/account/base_reauthenticate.html:5
 #: templates/account/base_reauthenticate.html:9
 #, fuzzy
 #| msgid "Confirm Email Address"
 msgid "Confirm Access"
-msgstr "Konfirmasi Alamat E-mail"
+msgstr "Konfirmasi Akses"
 
 #: templates/account/base_reauthenticate.html:12
+#, fuzzy
 msgid "Please reauthenticate to safeguard your account."
-msgstr ""
+msgstr "Harap autentikasi ulang untuk menjaga keamanan akun Anda."
 
 #: templates/account/base_reauthenticate.html:19
 #: templates/mfa/authenticate.html:37
+#, fuzzy
 msgid "Alternative options"
-msgstr ""
+msgstr "Pilihan alternatif"
 
 #: templates/account/confirm_email_verification_code.html:5
 #, fuzzy
@@ -602,13 +604,13 @@ msgstr "konfirmasi e-mail"
 #, fuzzy
 #| msgid "token secret"
 msgid "Enter Email Verification Code"
-msgstr "rahasia token"
+msgstr "Masukkan Kode Verifikasi Email"
 
 #: templates/account/confirm_email_verification_code.html:16
 #, fuzzy
 #| msgid "email address"
 msgid "Use a different email address"
-msgstr "alamat e-mail"
+msgstr "gunakan alamat email yang berbeda"
 
 #: templates/account/confirm_login_code.html:5 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
@@ -622,8 +624,9 @@ msgid "Sign In"
 msgstr "Masuk"
 
 #: templates/account/confirm_login_code.html:8
+#, fuzzy
 msgid "Enter Sign-In Code"
-msgstr ""
+msgstr "masukkan kode masuk"
 
 #: templates/account/confirm_password_reset_code.html:5
 #: templates/account/email/password_reset_subject.txt:3
@@ -638,23 +641,23 @@ msgstr "Reset Kata Sandi"
 #, fuzzy
 #| msgid "Password Reset"
 msgid "Enter Password Reset Code"
-msgstr "Reset Kata Sandi"
+msgstr "Masukkan Kode Reset Kata Sandi"
 
 #: templates/account/confirm_phone_verification_code.html:5
 #, fuzzy
 #| msgid "Re-send Verification"
 msgid "Phone Verification"
-msgstr "Kirim Ulang Verifikasi"
+msgstr "Verifikasi ponsel"
 
 #: templates/account/confirm_phone_verification_code.html:8
 #, fuzzy
 #| msgid "token secret"
 msgid "Enter Phone Verification Code"
-msgstr "rahasia token"
+msgstr "Masukan kode verifikasi ponsel"
 
 #: templates/account/confirm_phone_verification_code.html:15
 msgid "Use a different phone number"
-msgstr ""
+msgstr "Gunakan nomor ponsel berbeda"
 
 #: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
@@ -721,10 +724,22 @@ msgid ""
 "\n"
 "%(password_reset_url)s"
 msgstr ""
+"Anda menerima email ini karena Anda atau orang lain mencoba mendaftar akun "
+"menggunakan alamat email:\n"
+"\n"
+"%(email)s\n"
+"\n"
+"Namun, akun yang menggunakan alamat email tersebut sudah ada. Jika Anda lupa "
+"tentang hal ini, silakan gunakan prosedur lupa kata sandi untuk memulihkan "
+"akun Anda:\n"
+"Akun kamu\n"
+"\n"
+"%(password_reset_url)s"
 
 #: templates/account/email/account_already_exists_subject.txt:3
+#, fuzzy
 msgid "Account Already Exists"
-msgstr ""
+msgstr "Akun sudah ada"
 
 #: templates/account/email/base_message.txt:1
 #, python-format
@@ -741,13 +756,15 @@ msgstr ""
 "%(site_domain)s"
 
 #: templates/account/email/base_notification.txt:5
+#, fuzzy
 msgid ""
 "You are receiving this mail because the following change was made to your "
 "account:"
 msgstr ""
+"Anda menerima email ini karena perubahan berikut dilakukan pada akun Anda:"
 
 #: templates/account/email/base_notification.txt:10
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "If you do not recognize this change then please take proper security "
 "precautions immediately. The change to your account originates from:\n"
@@ -756,29 +773,35 @@ msgid ""
 "- Browser: %(user_agent)s\n"
 "- Date: %(timestamp)s"
 msgstr ""
+"Jika Anda tidak mengenali perubahan ini, harap segera ambil tindakan "
+"pencegahan keamanan yang tepat. Perubahan pada akun Anda berasal dari:\n"
+"\n"
+"- Alamat IP: %(ip)s\n"
+"- Peramban: %(user_agent)s\n"
+"- Tanggal: %(timestamp)s"
 
 #: templates/account/email/email_changed_message.txt:4
-#, python-format
+#, fuzzy, python-format
 msgid "Your email has been changed from %(from_email)s to %(to_email)s."
-msgstr ""
+msgstr "Email Anda telah diubah dari %(from_email)s menjadi %(to_email)s."
 
 #: templates/account/email/email_changed_subject.txt:3
 #, fuzzy
 #| msgid "Email address"
 msgid "Email Changed"
-msgstr "Alamat e-mail"
+msgstr "email berubah"
 
 #: templates/account/email/email_confirm_message.txt:4
 #, fuzzy
 #| msgid "You have confirmed %(email)s."
 msgid "Your email has been confirmed."
-msgstr "Anda telah mengkonfirmasi %(email)s."
+msgstr "Email Anda telah dikonfirmasi."
 
 #: templates/account/email/email_confirm_subject.txt:3
 #, fuzzy
 #| msgid "email confirmation"
 msgid "Email Confirmation"
-msgstr "konfirmasi e-mail"
+msgstr "Konfirmasi Email"
 
 #: templates/account/email/email_confirmation_message.txt:5
 #, fuzzy, python-format
@@ -791,54 +814,60 @@ msgid ""
 "You're receiving this email because user %(user_display)s has given your "
 "email address to register an account on %(site_domain)s."
 msgstr ""
-"Anda menerima e-mail ini karena pengguna %(user_display)s telah memberikan "
-"alamat e-mail Anda untuk mendaftarkan akun di %(site_domain)s.\n"
-"\n"
-"Untuk mengkonfirmasi bahwa ini benar, kunjungi %(activate_url)s"
+"Anda menerima email ini karena pengguna %(user_display)s telah memberikan "
+"alamat email Anda untuk mendaftar akun di %(site_domain)s."
 
 #: templates/account/email/email_confirmation_message.txt:7
+#, fuzzy
 msgid ""
 "Your email verification code is listed below. Please enter it in your open "
 "browser window."
 msgstr ""
+"Kode verifikasi email Anda tercantum di bawah ini. Masukkan kode tersebut di "
+"jendela browser yang terbuka."
 
 #: templates/account/email/email_confirmation_message.txt:9
-#, python-format
+#, fuzzy, python-format
 msgid "To confirm this is correct, go to %(activate_url)s"
-msgstr ""
+msgstr "Untuk mengonfirmasi kebenarannya, kunjungi %(activate_url)s"
 
 #: templates/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your Email Address"
 msgstr "Mohon Konfirmasi Alamat E-mail Anda"
 
 #: templates/account/email/email_deleted_message.txt:4
-#, python-format
+#, fuzzy, python-format
 msgid "Email address %(deleted_email)s has been removed from your account."
-msgstr ""
+msgstr "Alamat email %(deleted_email)s telah dihapus dari akun Anda."
 
 #: templates/account/email/email_deleted_subject.txt:3
 #, fuzzy
 #| msgid "Remove"
 msgid "Email Removed"
-msgstr "Hapus"
+msgstr "Email Dihapus"
 
 #: templates/account/email/login_code_message.txt:5
+#, fuzzy
 msgid ""
 "Your sign-in code is listed below. Please enter it in your open browser "
 "window."
 msgstr ""
+"Kode masuk Anda tercantum di bawah ini. Masukkan kode tersebut di jendela "
+"browser yang terbuka."
 
 #: templates/account/email/login_code_message.txt:9
 #: templates/account/email/password_reset_code_message.txt:9
 #: templates/account/email/unknown_account_message.txt:6
+#, fuzzy
 msgid "This mail can be safely ignored if you did not initiate this action."
 msgstr ""
+"Email ini dapat diabaikan dengan aman jika Anda tidak memulai tindakan ini."
 
 #: templates/account/email/login_code_subject.txt:3
 #, fuzzy
 #| msgid "Sign In"
 msgid "Sign-In Code"
-msgstr "Masuk"
+msgstr "Kode Masuk"
 
 #: templates/account/email/password_changed_message.txt:4
 #, fuzzy
@@ -850,7 +879,7 @@ msgstr "Kata sandi Anda telah diubah."
 #, fuzzy
 #| msgid "Password (again)"
 msgid "Password Changed"
-msgstr "Kata sandi (lagi)"
+msgstr "Kata Sandi Telah Diubah"
 
 #: templates/account/email/password_reset_code_message.txt:5
 msgid ""

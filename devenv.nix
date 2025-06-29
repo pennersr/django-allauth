@@ -7,6 +7,7 @@
     pkgs.twine
     pkgs.woodpecker-cli
     pkgs.xmlsec
+    pkgs.gettext
 
     pkgs.python312Packages.pyls-flake8
     pkgs.python312Packages.pylsp-rope

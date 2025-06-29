@@ -9,16 +9,16 @@ msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-05-08 14:14-0500\n"
-"PO-Revision-Date: 2024-10-26 18:15+0000\n"
+"PO-Revision-Date: 2025-06-17 17:01+0000\n"
 "Last-Translator: Emirhan Soytaş <emrhns61@hotmail.com>\n"
-"Language-Team: Turkish <https://hosted.weblate.org/projects/allauth/django-"
-"allauth/tr/>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/allauth/"
+"django-allauth/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.8.2-dev\n"
+"X-Generator: Weblate 5.12.1\n"
 
 #: account/adapter.py:55
 msgid "This account is currently inactive."
@@ -38,10 +38,8 @@ msgid "The email address and/or password you specified are not correct."
 msgstr "Girdiğiniz e-posta adresi ve/veya şifre doğru değil."
 
 #: account/adapter.py:66
-#, fuzzy
-#| msgid "The username and/or password you specified are not correct."
 msgid "The phone number and/or password you specified are not correct."
-msgstr "Girdiğiniz kullanıcı adı ve/veya şifre doğru değil."
+msgstr "Girdiğiniz telefon numarası ve/veya şifre doğru değil."
 
 #: account/adapter.py:68
 msgid "A user is already registered with this email address."
@@ -64,10 +62,8 @@ msgid "Invalid or expired key."
 msgstr "Geçersiz veya süresi geçmiş anahtar."
 
 #: account/adapter.py:73
-#, fuzzy
-#| msgid "Invalid token."
 msgid "Invalid login."
-msgstr "Geçersiz jeton."
+msgstr "Geçersiz giriş."
 
 #: account/adapter.py:74
 msgid "The password reset token was invalid."
@@ -79,26 +75,20 @@ msgid "You cannot add more than %d email addresses."
 msgstr "%d adetten fazla e-posta adresi ekleyemezsiniz."
 
 #: account/adapter.py:76
-#, fuzzy
-#| msgid "A user is already registered with this email address."
 msgid "A user is already registered with this phone number."
-msgstr "Bu e-posta adresiyle bir kullanıcı zaten kayıtlı."
+msgstr "Bu telefon numarası ile bir kullanıcı zaten kayıtlı."
 
 #: account/adapter.py:78
 msgid "Too many failed login attempts. Try again later."
 msgstr "Çok fazla hatalı giriş yapıldı. Lütfen daha sonra tekrar deneyin."
 
 #: account/adapter.py:80
-#, fuzzy
-#| msgid "The email address is not assigned to any user account"
 msgid "The email address is not assigned to any user account."
-msgstr "Bu e-posta adresi hiçbir kullanıcı hesabıyla ilişkili değil"
+msgstr "Bu e-posta adresi hiçbir kullanıcı hesabıyla ilişkili değil."
 
 #: account/adapter.py:81
-#, fuzzy
-#| msgid "The email address is not assigned to any user account"
 msgid "The phone number is not assigned to any user account."
-msgstr "Bu e-posta adresi hiçbir kullanıcı hesabıyla ilişkili değil"
+msgstr "Bu telefon numarası hiçbir kullanıcı hesabıyla ilişkili değil."
 
 #: account/adapter.py:82
 #: templates/account/messages/unverified_primary_email.txt:2
@@ -115,15 +105,15 @@ msgstr "Girdiğiniz kullanıcı adı ve/veya şifre doğru değil."
 
 #: account/adapter.py:92
 msgid "Please select only one."
-msgstr ""
+msgstr "Lütfen sadece bir adet seçin."
 
 #: account/adapter.py:93
 msgid "The new value must be different from the current one."
-msgstr ""
+msgstr "Yeni değer, geçerli değerden farklı olmalıdır."
 
 #: account/adapter.py:94
 msgid "Be patient, you are sending too many requests."
-msgstr ""
+msgstr "Sabırlı olunuz, çok fazla istek göndermektesiniz."
 
 #: account/adapter.py:778
 msgid "Use your password"
@@ -148,11 +138,11 @@ msgstr "Hesaplar"
 
 #: account/fields.py:43
 msgid "Enter a phone number including country code (e.g. +1 for the US)."
-msgstr ""
+msgstr "Ülke kodu(ABD için +1 gibi, vb.) içeren bir telefon numarası giriniz."
 
 #: account/fields.py:49 account/fields.py:53 account/forms.py:372
 msgid "Phone"
-msgstr ""
+msgstr "Telefon Numarası"
 
 #: account/forms.py:64 account/forms.py:574
 msgid "You must type the same password each time."
@@ -188,26 +178,20 @@ msgid "Login"
 msgstr "Giriş Yap"
 
 #: account/forms.py:154
-#, fuzzy
-#| msgid "Username or email"
 msgid "Username, email or phone"
-msgstr "Kullanıcı adı ya da e-posta adresi"
+msgstr "Kullanıcı adı, e-posta adresi veya telefon numarası"
 
 #: account/forms.py:156
 msgid "Username or email"
 msgstr "Kullanıcı adı ya da e-posta adresi"
 
 #: account/forms.py:158
-#, fuzzy
-#| msgid "Username or email"
 msgid "Username or phone"
-msgstr "Kullanıcı adı ya da e-posta adresi"
+msgstr "Kullanıcı adı veya telefon numarası"
 
 #: account/forms.py:160
-#, fuzzy
-#| msgid "Email (optional)"
 msgid "Email or phone"
-msgstr "E-posta adresi (zorunlu değil)"
+msgstr "E-posta adresi veya telefon numarası"
 
 #: account/forms.py:183
 msgid "Forgot your password?"
@@ -226,10 +210,8 @@ msgid "Email (optional)"
 msgstr "E-posta adresi (zorunlu değil)"
 
 #: account/forms.py:361
-#, fuzzy
-#| msgid "Email (optional)"
 msgid "Username (optional)"
-msgstr "E-posta adresi (zorunlu değil)"
+msgstr "Kullanıcı adı (zorunlu değil)"
 
 #: account/forms.py:435
 msgid "You must type the same email each time."
@@ -560,15 +542,12 @@ msgid "This account is inactive."
 msgstr "Bu hesap etkin değil."
 
 #: templates/account/base_confirm_code.html:27
-#, fuzzy, python-format
-#| msgid ""
-#| "We’ve sent a code to %(email_link)s. The code expires shortly, so please "
-#| "enter it soon."
+#, python-format
 msgid ""
 "We've sent a code to %(recipient)s. The code expires shortly, so please "
 "enter it soon."
 msgstr ""
-"%(email_link)s adresine bir kod gönderdik. Gönderilen kodun süresi kısa "
+"%(recipient)s kullanıcısına bir kod gönderdik. Gönderilen kodun süresi kısa "
 "zamanda dolacağından dolayı lütfen hızlı davranınız."
 
 #: templates/account/base_confirm_code.html:39
@@ -579,10 +558,8 @@ msgid "Confirm"
 msgstr "Onayla"
 
 #: templates/account/base_confirm_code.html:43
-#, fuzzy
-#| msgid "Request Code"
 msgid "Request new code"
-msgstr "İstek Kodu"
+msgstr "Yeni kod iste"
 
 #: templates/account/base_reauthenticate.html:5
 #: templates/account/base_reauthenticate.html:9
@@ -607,10 +584,8 @@ msgid "Enter Email Verification Code"
 msgstr "E-Posta Onay Kodu Gir"
 
 #: templates/account/confirm_email_verification_code.html:16
-#, fuzzy
-#| msgid "email address"
 msgid "Use a different email address"
-msgstr "e-posta adresi"
+msgstr "Farklı bir e-posta adresi kullanınız"
 
 #: templates/account/confirm_login_code.html:5 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
@@ -637,26 +612,20 @@ msgid "Password Reset"
 msgstr "Şifre Sıfırlama"
 
 #: templates/account/confirm_password_reset_code.html:8
-#, fuzzy
-#| msgid "Password Reset"
 msgid "Enter Password Reset Code"
-msgstr "Şifre Sıfırlama"
+msgstr "Şifre Sıfırlama Kodu Giriniz"
 
 #: templates/account/confirm_phone_verification_code.html:5
-#, fuzzy
-#| msgid "Re-send Verification"
 msgid "Phone Verification"
-msgstr "Tekrar Doğrula"
+msgstr "Telefon Numarası Doğrulama"
 
 #: templates/account/confirm_phone_verification_code.html:8
-#, fuzzy
-#| msgid "Enter Email Verification Code"
 msgid "Enter Phone Verification Code"
-msgstr "E-Posta Onay Kodu Gir"
+msgstr "Telefon Numarası Onay Kodu Gir"
 
 #: templates/account/confirm_phone_verification_code.html:15
 msgid "Use a different phone number"
-msgstr ""
+msgstr "Farklı bir telefon numarası kullanınız"
 
 #: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
@@ -862,22 +831,16 @@ msgid "Password Changed"
 msgstr "Şifre Değiştirildi"
 
 #: templates/account/email/password_reset_code_message.txt:5
-#, fuzzy
-#| msgid ""
-#| "Your sign-in code is listed below. Please enter it in your open browser "
-#| "window."
 msgid ""
 "Your password reset code is listed below. Please enter it in your open "
 "browser window."
 msgstr ""
-"Giriş kodunuz alt kısımda belirtilmiştir. Kodu, açık olan tarayıcı sekmenize "
-"giriniz."
+"Şifre sıfırlama kodunuz alt kısımda belirtilmiştir. Kodu, açık olan tarayıcı "
+"sekmenize giriniz."
 
 #: templates/account/email/password_reset_code_subject.txt:3
-#, fuzzy
-#| msgid "Password Reset"
 msgid "Password Reset Code"
-msgstr "Şifre Sıfırlama"
+msgstr "Şifre Sıfırlama Kodu"
 
 #: templates/account/email/password_reset_key_message.txt:4
 msgid ""
@@ -1013,10 +976,8 @@ msgid "Sign in with a passkey"
 msgstr "Geçiş anahtarı ile giriş yap"
 
 #: templates/account/login.html:47 templates/account/request_login_code.html:9
-#, fuzzy
-#| msgid "Mail me a sign-in code"
 msgid "Send me a sign-in code"
-msgstr "Bana giriş kodu maili gönder"
+msgstr "Bana giriş kodu gönder"
 
 #: templates/account/logout.html:4 templates/account/logout.html:8
 #: templates/account/logout.html:21 templates/allauth/layouts/base.html:61
@@ -1058,10 +1019,9 @@ msgid "You have signed out."
 msgstr "Çıkış yaptınız."
 
 #: templates/account/messages/login_code_sent.txt:2
-#, fuzzy, python-format
-#| msgid "A sign-in code has been mailed to %(email)s."
+#, python-format
 msgid "A sign-in code has been sent to %(recipient)s."
-msgstr "%(email)s e-posta adresine bir giriş kodu gönderildi."
+msgstr "%(recipient)s kullanıcısına bir giriş kodu gönderildi."
 
 #: templates/account/messages/password_changed.txt:2
 msgid "Password successfully changed."
@@ -1072,15 +1032,14 @@ msgid "Password successfully set."
 msgstr "Şifre başarıyla belirlendi."
 
 #: templates/account/messages/phone_verification_sent.txt:2
-#, fuzzy, python-format
-#| msgid "A sign-in code has been mailed to %(email)s."
+#, python-format
 msgid "A verification code has been sent to %(phone)s."
-msgstr "%(email)s e-posta adresine bir giriş kodu gönderildi."
+msgstr "%(phone)s nolu numaraya bir giriş kodu gönderildi."
 
 #: templates/account/messages/phone_verified.txt:2
 #, python-format
 msgid "You have verified phone number %(phone)s."
-msgstr ""
+msgstr "%(phone)s nolu telefon numaranızı onayladınız."
 
 #: templates/account/messages/primary_email_set.txt:2
 msgid "Primary email address set."
@@ -1155,35 +1114,24 @@ msgstr "Şifre Belirle"
 
 #: templates/account/phone_change.html:5 templates/account/phone_change.html:9
 #: templates/account/phone_change.html:38
-#, fuzzy
-#| msgid "Change to"
 msgid "Change Phone"
-msgstr "Şuna değiştir"
+msgstr "Telefon Numarası Değiştir"
 
 #: templates/account/phone_change.html:18
-#, fuzzy
-#| msgid "Current"
 msgid "Current phone"
-msgstr "Şu anki"
+msgstr "Geçerli Telefon Numarası"
 
 #: templates/account/phone_change.html:22
-#, fuzzy
-#| msgid "Your email address is still pending verification."
 msgid "Your phone number is still pending verification."
-msgstr "E-posta adresiniz hala onay aşamasındadır."
+msgstr "Telefon numaranız hala onay aşamasındadır."
 
 #: templates/account/reauthenticate.html:6
 msgid "Enter your password:"
 msgstr "Şifrenizi giriniz:"
 
 #: templates/account/request_login_code.html:12
-#, fuzzy
-#| msgid ""
-#| "You will receive an email containing a special code for a password-free "
-#| "sign-in."
 msgid "You will receive a special code for a password-free sign-in."
-msgstr ""
-"Şifresiz giriş yapabilmenizi sağlayan kodu içeren bir e-posta alacaksınız."
+msgstr "Şifresiz giriş yapabilmenizi sağlayan bir kod alacaksınız."
 
 #: templates/account/request_login_code.html:24
 msgid "Request Code"
@@ -1545,22 +1493,24 @@ msgstr ""
 
 #: templates/mfa/trust.html:4 templates/mfa/trust.html:8
 msgid "Trust this Browser?"
-msgstr ""
+msgstr "Bu tarayıcıya güveniyor musun?"
 
 #: templates/mfa/trust.html:11
 msgid ""
 "If you choose to trust this browser, you will not be asked for a "
 "verification code the next time you sign in."
 msgstr ""
+"Bu tarayıcıya güvenmeyi seçerseniz bir sonraki girişinizde onay kodu "
+"gerekmeyecektir."
 
 #: templates/mfa/trust.html:23
 #, python-format
 msgid "Trust for %(period)s"
-msgstr ""
+msgstr "%(period)s için güven"
 
 #: templates/mfa/trust.html:26
 msgid "Don't Trust"
-msgstr ""
+msgstr "Güvenme"
 
 #: templates/mfa/webauthn/add_form.html:7
 msgid "Add Security Key"

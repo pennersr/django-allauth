@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-05-08 14:14-0500\n"
-"PO-Revision-Date: 2025-03-23 17:24+0000\n"
+"PO-Revision-Date: 2025-06-15 19:17+0000\n"
 "Last-Translator: Anders Birkenes <datagutten@datagutten.net>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/allauth/"
 "django-allauth/nb_NO/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11-dev\n"
+"X-Generator: Weblate 5.12-dev\n"
 
 #: account/adapter.py:55
 msgid "This account is currently inactive."
@@ -55,10 +55,8 @@ msgid "Incorrect password."
 msgstr "Feil passord."
 
 #: account/adapter.py:72
-#, fuzzy
-#| msgid "Bad Token"
 msgid "Invalid or expired key."
-msgstr "Ugyldig token"
+msgstr "Ugyldig eller utgått token."
 
 #: account/adapter.py:73
 msgid "Invalid login."
@@ -66,13 +64,12 @@ msgstr "Ugyldig pålogging."
 
 #: account/adapter.py:74
 msgid "The password reset token was invalid."
-msgstr "Nøkkelen for passordgjenopprettelse var ugyldig."
+msgstr "Nøkkelen for tilbakestilling av passord var ugyldig."
 
 #: account/adapter.py:75
-#, fuzzy, python-format
-#| msgid "Your account has no verified email address."
+#, python-format
 msgid "You cannot add more than %d email addresses."
-msgstr "Din konto har ingen verifisert e-postadresse."
+msgstr "Du kan ikke legge til mer enn %d epostadresser."
 
 #: account/adapter.py:76
 #, fuzzy
@@ -85,16 +82,12 @@ msgid "Too many failed login attempts. Try again later."
 msgstr "For mange innloggingsforsøk. Vennligst prøv igjen senere."
 
 #: account/adapter.py:80
-#, fuzzy
-#| msgid "The email address is not assigned to any user account"
 msgid "The email address is not assigned to any user account."
-msgstr "E-postadressen er ikke tilknyttet noen brukerkonto"
+msgstr "Epostadressen er ikke tilknyttet noen brukerkonto."
 
 #: account/adapter.py:81
-#, fuzzy
-#| msgid "The email address is not assigned to any user account"
 msgid "The phone number is not assigned to any user account."
-msgstr "E-postadressen er ikke tilknyttet noen brukerkonto"
+msgstr "Telefonnummeret er ikke tilknyttet noen brukerkonto."
 
 #: account/adapter.py:82
 #: templates/account/messages/unverified_primary_email.txt:2
@@ -125,7 +118,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Forgot Password?"
 msgid "Use your password"
-msgstr "Glemt passord?"
+msgstr "Bruk passord"
 
 #: account/adapter.py:787
 #, fuzzy
@@ -141,10 +134,8 @@ msgid "Use a security key"
 msgstr "hemmelig nøkkel"
 
 #: account/admin.py:23
-#, fuzzy
-#| msgid "Your primary email address must be verified."
 msgid "Mark selected email addresses as verified"
-msgstr "Din primære e-postadresse må være verifisert."
+msgstr "Marker den valgte epostadressen som bekreftet"
 
 #: account/apps.py:11
 msgid "Accounts"
@@ -214,10 +205,8 @@ msgid "Email or phone"
 msgstr "E-post (valgfritt)"
 
 #: account/forms.py:183
-#, fuzzy
-#| msgid "Forgot Password?"
 msgid "Forgot your password?"
-msgstr "Glemt passord?"
+msgstr "Glemt ditt passord?"
 
 #: account/forms.py:334
 msgid "Email (again)"
@@ -364,10 +353,8 @@ msgid "Authenticator code"
 msgstr ""
 
 #: mfa/webauthn/forms.py:59
-#, fuzzy
-#| msgid "Password"
 msgid "Passwordless"
-msgstr "Passord"
+msgstr "Passordløs"
 
 #: mfa/webauthn/forms.py:62
 msgid ""
@@ -388,10 +375,8 @@ msgstr ""
 "den kontoen først for så å koble til din %s konto."
 
 #: socialaccount/adapter.py:39
-#, fuzzy
-#| msgid "Bad Token"
 msgid "Invalid token."
-msgstr "Ugyldig token"
+msgstr "Ugyldig token."
 
 #: socialaccount/adapter.py:40
 msgid "Your account has no password set up."
@@ -402,13 +387,8 @@ msgid "Your account has no verified email address."
 msgstr "Din konto har ingen verifisert e-postadresse."
 
 #: socialaccount/adapter.py:43
-#, fuzzy
-#| msgid ""
-#| "You can sign in to your account using any of the following third party "
-#| "accounts:"
 msgid "You cannot disconnect your last remaining third-party account."
-msgstr ""
-"Du kan logge inn på din konto ved å bruke en av følgende tredjeparts kontoer:"
+msgstr "Du kan ikke koble fra din siste gjenværende tredjpartskonto."
 
 #: socialaccount/adapter.py:46
 #: templates/socialaccount/messages/account_connected_other.txt:2
@@ -536,11 +516,10 @@ msgid "Cancel"
 msgstr ""
 
 #: socialaccount/providers/oauth/client.py:85
-#, fuzzy, python-format
-#| msgid "Invalid response while obtaining request token from \"%s\"."
+#, python-format
 msgid ""
 "Invalid response while obtaining request token from \"%s\". Response was: %s."
-msgstr "Ugyldig respons ved henting av forespørselsnøkkel fra \"%s\"."
+msgstr "Ugyldig svar ved henting av token fra \"%s\". Svaret var: %s."
 
 #: socialaccount/providers/oauth/client.py:119
 #: socialaccount/providers/pocket/client.py:86
@@ -651,13 +630,11 @@ msgstr ""
 #: templates/account/password_reset_done.html:6
 #: templates/account/password_reset_done.html:10
 msgid "Password Reset"
-msgstr "Passordgjenopprettelse"
+msgstr "Tilbakestilling av passord"
 
 #: templates/account/confirm_password_reset_code.html:8
-#, fuzzy
-#| msgid "Password Reset"
 msgid "Enter Password Reset Code"
-msgstr "Passordgjenopprettelse"
+msgstr "Skriv inn kode for tilbakestilling av passord"
 
 #: templates/account/confirm_phone_verification_code.html:5
 #, fuzzy
@@ -746,14 +723,9 @@ msgid "Account Already Exists"
 msgstr ""
 
 #: templates/account/email/base_message.txt:1
-#, fuzzy, python-format
-#| msgid ""
-#| "Thank you from %(site_name)s!\n"
-#| "%(site_domain)s"
+#, python-format
 msgid "Hello from %(site_name)s!"
-msgstr ""
-"Takk fra %(site_name)s!\n"
-"%(site_domain)s"
+msgstr "Hei fra %(site_name)s!"
 
 #: templates/account/email/base_message.txt:5
 #, python-format
@@ -805,24 +777,13 @@ msgid "Email Confirmation"
 msgstr "e-postbekreftelse"
 
 #: templates/account/email/email_confirmation_message.txt:5
-#, fuzzy, python-format
-#| msgid ""
-#| "Hello from %(site_name)s!\n"
-#| "\n"
-#| "You're receiving this e-mail because user %(user_display)s has given "
-#| "yours as an e-mail address to connect their account.\n"
-#| "\n"
-#| "To confirm this is correct, go to %(activate_url)s\n"
+#, python-format
 msgid ""
 "You're receiving this email because user %(user_display)s has given your "
 "email address to register an account on %(site_domain)s."
 msgstr ""
-"Hei fra %(site_name)s!\n"
-"\n"
-"Du mottar denne e-postadressen fordi %(user_display)s har gitt din e-"
-"postkonto for å koble til sin brukerkonto.\n"
-"\n"
-"For å bekrefte at dette stemmer, gå til %(activate_url)s\n"
+"Du mottar denne eposten fordi %(user_display)s har oppgitt din e-postadresse "
+"for å opprette en konto på %(site_domain)s."
 
 #: templates/account/email/email_confirmation_message.txt:7
 msgid ""
@@ -887,32 +848,20 @@ msgid ""
 msgstr ""
 
 #: templates/account/email/password_reset_code_subject.txt:3
-#, fuzzy
-#| msgid "Password Reset"
 msgid "Password Reset Code"
-msgstr "Passordgjenopprettelse"
+msgstr "Kode for tilbakestilling av passord"
 
 #: templates/account/email/password_reset_key_message.txt:4
-#, fuzzy
-#| msgid ""
-#| "Hello from %(site_name)s!\n"
-#| "\n"
-#| "You're receiving this e-mail because you or someone else has requested a "
-#| "password for your user account.\n"
-#| "It can be safely ignored if you did not request a password reset. Click "
-#| "the link below to reset your password."
 msgid ""
 "You're receiving this email because you or someone else has requested a "
 "password reset for your user account.\n"
 "It can be safely ignored if you did not request a password reset. Click the "
 "link below to reset your password."
 msgstr ""
-"Hei fra %(site_name)s!\n"
-"\n"
-"Du mottar denne e-postadressen fordi du eller noen andre har etterspurt et "
-"passord for din brukerkonto.\n"
-"Meldingen kan trygt ignoreres om du ikke foretok denne etterspørselen. Klikk "
-"på linken nedenfor for å gjennopprette ditt passord."
+"Du mottar denne e-posten fordi du eller noen andre har bedt om tilbakestille "
+"passordet for din brukerkonto.\n"
+"Meldingen kan trygt ignoreres om du ikke har bedt om å tilbakestille "
+"passord. Klikk på linken nedenfor for å tilbakestille ditt passord."
 
 #: templates/account/email/password_reset_key_message.txt:9
 #, python-format
@@ -939,7 +888,7 @@ msgstr "Ditt passord er endret."
 #, fuzzy
 #| msgid "Password Reset"
 msgid "Password Set"
-msgstr "Passordgjenopprettelse"
+msgstr "Passord satt"
 
 #: templates/account/email/unknown_account_message.txt:4
 #, python-format
@@ -1019,12 +968,13 @@ msgstr ""
 
 #: templates/account/email_confirm.html:30
 #: templates/account/messages/email_confirmation_failed.txt:2
-#, fuzzy, python-format
-#| msgid "The social account is already connected to a different account."
+#, python-format
 msgid ""
 "Unable to confirm %(email)s because it is already confirmed by a different "
 "account."
-msgstr "Tredjepartskonten er allerede tilknytet til en annen konto."
+msgstr ""
+"Kan ikke bekrefte %(email)s fordi den allerede er bekreftet for en annen "
+"konto."
 
 #: templates/account/email_confirm.html:36
 #, fuzzy, python-format
@@ -1044,7 +994,7 @@ msgid ""
 "If you have not created an account yet, then please %(link)ssign "
 "up%(end_link)s first."
 msgstr ""
-"Om du enda ikke har laget en konto, vennligst %(link)sregistrer "
+"Hvis du ikke har opprettet en konto enda, kan du %(link)sregistrere "
 "deg%(end_link)s først."
 
 #: templates/account/login.html:42
@@ -1092,7 +1042,7 @@ msgstr "Logget inn som %(name)s."
 
 #: templates/account/messages/logged_out.txt:2
 msgid "You have signed out."
-msgstr "Du har logget ut."
+msgstr "Du er logget ut."
 
 #: templates/account/messages/login_code_sent.txt:2
 #, python-format
@@ -1110,7 +1060,7 @@ msgstr "Passordet er satt."
 #: templates/account/messages/phone_verification_sent.txt:2
 #, python-format
 msgid "A verification code has been sent to %(phone)s."
-msgstr ""
+msgstr "En bekreftelseskode er sendt til %(phone)s."
 
 #: templates/account/messages/phone_verified.txt:2
 #, python-format
@@ -1138,38 +1088,29 @@ msgid "Forgot Password?"
 msgstr "Glemt passord?"
 
 #: templates/account/password_reset.html:14
-#, fuzzy
-#| msgid ""
-#| "Forgotten your password? Enter your e-mail address below, and we'll send "
-#| "you an e-mail allowing you to reset it."
 msgid ""
 "Forgotten your password? Enter your email address below, and we'll send you "
 "an email allowing you to reset it."
 msgstr ""
-"Glemt ditt passord? Skriv inn din e-postadresse nedenfor, så sender vi deg "
-"en e-post for å lage et nytt."
+"Glemt passordet ditt? Skriv inn e-postadressen din, så får du en epost som "
+"lar deg tilbakestille passordet."
 
 #: templates/account/password_reset.html:26
 msgid "Reset My Password"
-msgstr "Gjenopprett mitt passord"
+msgstr "Tilbakestill passord"
 
 #: templates/account/password_reset.html:31
 msgid "Please contact us if you have any trouble resetting your password."
-msgstr "Vennligst kontakt oss om du har problemer med passordgjenopprettelsen."
+msgstr "Ta kontakt hvis du har problemer med å tilbakestille passordet ditt."
 
 #: templates/account/password_reset_done.html:16
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for\n"
-#| "verification. Please click on the link inside this e-mail. Please\n"
-#| "contact us if you do not receive it within a few minutes."
 msgid ""
 "We have sent you an email. If you have not received it please check your "
 "spam folder. Otherwise contact us if you do not receive it in a few minutes."
 msgstr ""
-"Vi har send en e-post til deg for\n"
-"verifikasjon. Vennligst klikk på linken i e-posten. Vennligst kontakt oss om "
-"du ikke mottar den innen et par minutter."
+"Vi har sendt deg en e-post. Hvis du ikke har mottatt den, vennligst sjekk "
+"søppelpostmappen din. Ellers kontakt oss hvis du ikke mottar den i løpet av "
+"noen få minutter."
 
 #: templates/account/password_reset_from_key.html:10
 msgid "Bad Token"
@@ -1183,8 +1124,8 @@ msgid ""
 "a>."
 msgstr ""
 "Passordgjenopprettelseslinken er ugyldig – muligens fordi den allerede er "
-"brukt. Vennligst etterspør en <a href=\"%(passwd_reset_url)s\">ny "
-"passordgjennopprettelse</a>."
+"brukt.  Vennligst etterspør en <a href=\"%(passwd_reset_url)s\">ny "
+"tilbakestilling av passord</a>."
 
 #: templates/account/password_reset_from_key_done.html:12
 msgid "Your password is now changed."
@@ -1218,7 +1159,7 @@ msgstr "Din primære e-postadresse må være verifisert."
 #, fuzzy
 #| msgid "Forgot Password?"
 msgid "Enter your password:"
-msgstr "Glemt passord?"
+msgstr "Skriv inn passordet ditt:"
 
 #: templates/account/request_login_code.html:12
 msgid "You will receive a special code for a password-free sign-in."
@@ -1337,11 +1278,6 @@ msgstr ""
 "av dette, må du verifisere ditt eierskap av din e-postadresse. "
 
 #: templates/account/verified_email_required.html:18
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for\n"
-#| "verification. Please click on the link inside this e-mail. Please\n"
-#| "contact us if you do not receive it within a few minutes."
 msgid ""
 "We have sent an email to you for\n"
 "verification. Please click on the link inside that email. If you do not see "
@@ -1349,21 +1285,18 @@ msgid ""
 "Otherwise\n"
 "contact us if you do not receive it within a few minutes."
 msgstr ""
-"Vi har send en e-post til deg for\n"
-"verifikasjon. Vennligst klikk på linken i e-posten. Vennligst kontakt oss om "
-"du ikke mottar den innen et par minutter."
+"Vi har sendt deg en epost for bekreftelse.\n"
+"Hvis du ikke har mottatt den, vennligst sjekk søppelpostmappen din.\n"
+"Ellers kontakt oss hvis du ikke mottar den i løpet av noen få minutter."
 
 #: templates/account/verified_email_required.html:23
-#, fuzzy, python-format
-#| msgid ""
-#| "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change "
-#| "your e-mail address</a>."
+#, python-format
 msgid ""
 "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your "
 "email address</a>."
 msgstr ""
-"<stron>Merk:</strong> du kan fremdeles <a href=\"%(email_url)s\">endre din "
-"your e-postadresse</a>."
+"<strong>Merk:</strong> du kan fortsatt <a href=\"%(email_url)s\">endre din "
+"e-postadresse</a>."
 
 #: templates/allauth/layouts/base.html:18
 msgid "Messages:"
@@ -1535,10 +1468,8 @@ msgid "Security key removed."
 msgstr ""
 
 #: templates/mfa/reauthenticate.html:6
-#, fuzzy
-#| msgid "token secret"
 msgid "Enter an authenticator code:"
-msgstr "hemmelig nøkkel"
+msgstr "Skriv inn en godkjenningskode:"
 
 #: templates/mfa/recovery_codes/generate.html:9
 msgid "You are about to generate a new set of recovery codes for your account."
@@ -1663,7 +1594,7 @@ msgstr "Ikke verifisert"
 #: templates/mfa/webauthn/authenticator_list.html:46
 #, python-format
 msgid "Added on %(created_at)s"
-msgstr ""
+msgstr "Lagt til %(created_at)s"
 
 #: templates/mfa/webauthn/authenticator_list.html:48
 #, python-format

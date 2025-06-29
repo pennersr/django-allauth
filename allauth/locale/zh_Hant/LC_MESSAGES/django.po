@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-05-08 14:14-0500\n"
-"PO-Revision-Date: 2025-03-12 17:52+0000\n"
+"PO-Revision-Date: 2025-06-17 17:01+0000\n"
 "Last-Translator: \"Xaver Y.R. Chen\" <yrchen@atcity.org>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
 "projects/allauth/django-allauth/zh_Hant/>\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.10.3-dev\n"
+"X-Generator: Weblate 5.12.1\n"
 
 #: account/adapter.py:55
 msgid "This account is currently inactive."
-msgstr "此帳號目前沒有啟用。"
+msgstr "此帳號目前未啟用。"
 
 #: account/adapter.py:57
 msgid "You cannot remove your primary email address."
@@ -73,31 +73,25 @@ msgid "You cannot add more than %d email addresses."
 msgstr "您不能新增超過 %d 個電子郵件地址。"
 
 #: account/adapter.py:76
-#, fuzzy
-#| msgid "A user is already registered with this email address."
 msgid "A user is already registered with this phone number."
-msgstr "已經有使用者使用此電子郵件地址註冊。"
+msgstr "已經有使用者使用此電話號碼註冊。"
 
 #: account/adapter.py:78
 msgid "Too many failed login attempts. Try again later."
-msgstr "登入嘗試失敗次數過多。請稍後再試。"
+msgstr "登入嘗試失敗次數過多，請稍後再試。"
 
 #: account/adapter.py:80
-#, fuzzy
-#| msgid "The email address is not assigned to any user account"
 msgid "The email address is not assigned to any user account."
-msgstr "此電子郵件地址未分配給任何使用者帳號"
+msgstr "此電子郵件地址未分配給任何使用者帳號。"
 
 #: account/adapter.py:81
-#, fuzzy
-#| msgid "The phone number is not assigned to any user account"
 msgid "The phone number is not assigned to any user account."
-msgstr "此電話未分配給任何使用者帳號"
+msgstr "此電話未分配給任何使用者帳號。"
 
 #: account/adapter.py:82
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary email address must be verified."
-msgstr "您的主要電子郵件地址必須已驗證。"
+msgstr "您必須驗證您的主要電子郵件地址。"
 
 #: account/adapter.py:84
 msgid "Username can not be used. Please use other username."
@@ -117,7 +111,7 @@ msgstr "新的輸入值必須不同於目前的內容。"
 
 #: account/adapter.py:94
 msgid "Be patient, you are sending too many requests."
-msgstr ""
+msgstr "請稍候，您已經送出過多次的請求。"
 
 #: account/adapter.py:778
 msgid "Use your password"
@@ -182,26 +176,20 @@ msgid "Login"
 msgstr "登入"
 
 #: account/forms.py:154
-#, fuzzy
-#| msgid "Username or email"
 msgid "Username, email or phone"
-msgstr "使用者名稱或電子郵件"
+msgstr "使用者名稱、電子郵件或電話號碼"
 
 #: account/forms.py:156
 msgid "Username or email"
 msgstr "使用者名稱或電子郵件"
 
 #: account/forms.py:158
-#, fuzzy
-#| msgid "Username or email"
 msgid "Username or phone"
-msgstr "使用者名稱或電子郵件"
+msgstr "使用者名稱或電話號碼"
 
 #: account/forms.py:160
-#, fuzzy
-#| msgid "Email (optional)"
 msgid "Email or phone"
-msgstr "電子郵件（選擇性）"
+msgstr "電子郵件或電話號碼"
 
 #: account/forms.py:183
 msgid "Forgot your password?"
@@ -209,7 +197,7 @@ msgstr "忘記您的密碼？"
 
 #: account/forms.py:334
 msgid "Email (again)"
-msgstr "電子郵件（再次）"
+msgstr "電子郵件(再次輸入)"
 
 #: account/forms.py:339
 msgid "Email address confirmation"
@@ -229,7 +217,7 @@ msgstr "您必須每次輸入相同的電子郵件。"
 
 #: account/forms.py:508 account/forms.py:665
 msgid "Password (again)"
-msgstr "密碼（再次）"
+msgstr "密碼(再次輸入)"
 
 #: account/forms.py:645
 msgid "Current Password"
@@ -241,7 +229,7 @@ msgstr "新密碼"
 
 #: account/forms.py:648 account/forms.py:714
 msgid "New Password (again)"
-msgstr "新密碼（再次）"
+msgstr "新密碼(再次輸入)"
 
 #: account/forms.py:837 account/forms.py:839 mfa/base/forms.py:15
 #: mfa/base/forms.py:17 mfa/totp/forms.py:13
@@ -381,7 +369,7 @@ msgstr "您的帳號下沒有驗證過的電子郵件地址。"
 
 #: socialaccount/adapter.py:43
 msgid "You cannot disconnect your last remaining third-party account."
-msgstr "您無法斷開您最後一個的第三方帳戶。"
+msgstr "您無法切斷您最後一個的第三方帳號關聯。"
 
 #: socialaccount/adapter.py:46
 #: templates/socialaccount/messages/account_connected_other.txt:2
@@ -418,7 +406,7 @@ msgstr "秘密金鑰"
 
 #: socialaccount/models.py:66
 msgid "API secret, client secret, or consumer secret"
-msgstr "API 秘密、客戶秘密或消費者秘密"
+msgstr "API 秘文、客戶秘文或消費者秘文"
 
 #: socialaccount/models.py:69 templates/mfa/webauthn/authenticator_list.html:18
 msgid "Key"
@@ -557,10 +545,8 @@ msgid "Confirm"
 msgstr "確認"
 
 #: templates/account/base_confirm_code.html:43
-#, fuzzy
-#| msgid "Request Code"
 msgid "Request new code"
-msgstr "請求代碼"
+msgstr "請求新的代碼"
 
 #: templates/account/base_reauthenticate.html:5
 #: templates/account/base_reauthenticate.html:9
@@ -585,10 +571,8 @@ msgid "Enter Email Verification Code"
 msgstr "輸入電子郵件驗證碼"
 
 #: templates/account/confirm_email_verification_code.html:16
-#, fuzzy
-#| msgid "email address"
 msgid "Use a different email address"
-msgstr "電子郵件地址"
+msgstr "使用不同的電子郵件地址"
 
 #: templates/account/confirm_login_code.html:5 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
@@ -628,7 +612,7 @@ msgstr "輸入電話驗證代碼"
 
 #: templates/account/confirm_phone_verification_code.html:15
 msgid "Use a different phone number"
-msgstr ""
+msgstr "使用不同的電話號碼"
 
 #: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
@@ -781,7 +765,7 @@ msgstr "您的 Email 驗證代碼如下所列，請在您已開啟的瀏覽器�
 #: templates/account/email/email_confirmation_message.txt:9
 #, python-format
 msgid "To confirm this is correct, go to %(activate_url)s"
-msgstr "若要確認此操作正確，請前往 %(activate_url)s"
+msgstr "若確認無誤，請前往 %(activate_url)s"
 
 #: templates/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your Email Address"
@@ -1009,15 +993,14 @@ msgid "Password successfully set."
 msgstr "密碼設定完成。"
 
 #: templates/account/messages/phone_verification_sent.txt:2
-#, fuzzy, python-format
-#| msgid "A sign-in code has been sent to %(recipient)s."
+#, python-format
 msgid "A verification code has been sent to %(phone)s."
-msgstr "登入代碼已經寄給 %(recipient)s。"
+msgstr "登入代碼已經寄給 %(phone)s。"
 
 #: templates/account/messages/phone_verified.txt:2
 #, python-format
 msgid "You have verified phone number %(phone)s."
-msgstr ""
+msgstr "您已完成驗證電話號碼 %(phone)s 。"
 
 #: templates/account/messages/primary_email_set.txt:2
 msgid "Primary email address set."
@@ -1096,10 +1079,8 @@ msgid "Current phone"
 msgstr "目前電話號碼"
 
 #: templates/account/phone_change.html:22
-#, fuzzy
-#| msgid "Your email address is still pending verification."
 msgid "Your phone number is still pending verification."
-msgstr "您的電子郵件地址仍在等待驗證。"
+msgstr "您的電話號碼仍在等待驗證。"
 
 #: templates/account/reauthenticate.html:6
 msgid "Enter your password:"
@@ -1452,22 +1433,22 @@ msgstr "您即將停用基於 authenticator 驗證器應用程式的身份驗證
 
 #: templates/mfa/trust.html:4 templates/mfa/trust.html:8
 msgid "Trust this Browser?"
-msgstr ""
+msgstr "信任此瀏覽器？"
 
 #: templates/mfa/trust.html:11
 msgid ""
 "If you choose to trust this browser, you will not be asked for a "
 "verification code the next time you sign in."
-msgstr ""
+msgstr "如果您選擇信任此瀏覽器，下次登入時將不會要求輸入驗證碼。"
 
 #: templates/mfa/trust.html:23
 #, python-format
 msgid "Trust for %(period)s"
-msgstr ""
+msgstr "於 %(period)s 期間信任"
 
 #: templates/mfa/trust.html:26
 msgid "Don't Trust"
-msgstr ""
+msgstr "不要信任"
 
 #: templates/mfa/webauthn/add_form.html:7
 msgid "Add Security Key"
@@ -1552,7 +1533,7 @@ msgstr "第三方帳號登入失敗"
 #: templates/socialaccount/authentication_error.html:12
 msgid ""
 "An error occurred while attempting to login via your third-party account."
-msgstr "當嘗試用您的第三方網路帳號登入時發生錯誤。"
+msgstr "嘗試使用您的第三方帳號登入時發生錯誤。"
 
 #: templates/socialaccount/connections.html:13
 msgid ""
@@ -1562,32 +1543,32 @@ msgstr "您可以使用下列任何第三方帳號登入您的帳號："
 
 #: templates/socialaccount/connections.html:46
 msgid "You currently have no third-party accounts connected to this account."
-msgstr "您目前沒有任何帳號與此帳號連結。"
+msgstr "您目前沒有任何第三方帳號與此帳號連結。"
 
 #: templates/socialaccount/connections.html:50
 msgid "Add a Third-Party Account"
-msgstr "增加一個第三方帳號"
+msgstr "新增一個第三方帳號"
 
 #: templates/socialaccount/email/account_connected_message.txt:4
 #, python-format
 msgid ""
 "A third-party account from %(provider)s has been connected to your account."
-msgstr "來自 %(provider)s 的第三方帳戶已連結至您的帳戶。"
+msgstr "來自 %(provider)s 的第三方帳號已連結至您的帳號。"
 
 #: templates/socialaccount/email/account_connected_subject.txt:3
 msgid "Third-Party Account Connected"
-msgstr "第三方帳號已關聯"
+msgstr "已連接第三方帳號"
 
 #: templates/socialaccount/email/account_disconnected_message.txt:4
 #, python-format
 msgid ""
 "A third-party account from %(provider)s has been disconnected from your "
 "account."
-msgstr "來自 %(provider)s 的第三方帳戶已移除與您的帳戶的連結。"
+msgstr "已移除來自 %(provider)s 的第三方帳戶與您的帳戶關聯。"
 
 #: templates/socialaccount/email/account_disconnected_subject.txt:3
 msgid "Third-Party Account Disconnected"
-msgstr "第三方帳號已取消關聯"
+msgstr "已取消第三方帳號關聯"
 
 #: templates/socialaccount/login.html:10
 #, python-format
@@ -1607,7 +1588,7 @@ msgstr "透過 %(provider)s 登入"
 #: templates/socialaccount/login.html:20
 #, python-format
 msgid "You are about to sign in using a third-party account from %(provider)s."
-msgstr "您即將使用來自 %(provider)s 的第三方帳戶登入。"
+msgstr "您即將使用來自 %(provider)s 的第三方帳號登入。"
 
 #: templates/socialaccount/login.html:27
 #: templates/socialaccount/login_redirect.html:10
@@ -1617,7 +1598,7 @@ msgstr "繼續"
 #: templates/socialaccount/login_cancelled.html:5
 #: templates/socialaccount/login_cancelled.html:9
 msgid "Login Cancelled"
-msgstr "登入取消了"
+msgstr "登入已取消"
 
 #: templates/socialaccount/login_cancelled.html:13
 #, python-format
@@ -1631,11 +1612,11 @@ msgstr ""
 
 #: templates/socialaccount/messages/account_connected.txt:2
 msgid "The third-party account has been connected."
-msgstr "第三方帳號已連結。"
+msgstr "已建立第三方帳號關聯。"
 
 #: templates/socialaccount/messages/account_disconnected.txt:2
 msgid "The third-party account has been disconnected."
-msgstr "第三方帳號連結已中斷。"
+msgstr "已中斷第三方帳號關聯。"
 
 #: templates/socialaccount/signup.html:12
 #, python-format

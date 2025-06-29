@@ -18,7 +18,7 @@ class SoundCloudTests(OAuth2TestsMixin, TestCase):
             "public_favorites_count": 0,
             "followings_count": 1,
             "full_name": "",
-            "id": 22341947,
+            "urn": "soundcloud:users:22341947",
             "city": null,
             "track_count": 0,
             "playlist_count": 0,

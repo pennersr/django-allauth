@@ -18,7 +18,7 @@ class SoundCloudProvider(OAuth2Provider):
     oauth2_adapter_class = SoundCloudOAuth2Adapter
 
     def extract_uid(self, data):
-        return str(data["id"])
+        return str(data["urn"])
 
     def extract_common_fields(self, data):
         return dict(

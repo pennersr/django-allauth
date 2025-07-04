@@ -308,3 +308,20 @@ def test_change_to_already_existing_email(
     email_address = EmailAddress.objects.filter(user=new_user).get()
     assert email_address.verified
     assert email_address.email == "new2@user.org"
+
+
+def test_verified_email_decorator__unverified(
+    auth_client, mailoutbox, get_last_email_verification_code
+):
+    EmailAddress.objects.all().update(verified=False)
+    resp = auth_client.get(reverse("tests_account_check_verified_email"))
+    assert resp.status_code == HTTPStatus.FOUND
+    assert resp["location"].startswith(reverse("account_email_verification_sent"))
+    code = get_last_email_verification_code(auth_client, mailoutbox)
+    resp = auth_client.post(
+        reverse("account_email_verification_sent"),
+        data={"code": code, "next": reverse("tests_account_check_verified_email")},
+        follow=True,
+    )
+    assert resp.status_code == HTTPStatus.OK
+    assert resp.content == b"VERIFIED"

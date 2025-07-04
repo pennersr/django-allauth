@@ -19,7 +19,7 @@ Note worthy changes
 - Soundcloud: as per https://developers.soundcloud.com/blog/urn-num-to-string,
   the provider now uses the user ``urn`` instead of the ``id`` as the ID for
   social accounts.
-  
+
   This is backward incompatible, consider migrating existing Soundcloud SocialAccount manually.
 
   This can be done with::
@@ -48,6 +48,9 @@ Fixes
 
 - IdP: Token revocation failed when a single ``token_type_hint`` was passed,
   fixed.
+
+- The ``verified_email_required`` decorator did not support email verification
+  by code, fixed.
 
 
 65.9.0 (2025-06-01)

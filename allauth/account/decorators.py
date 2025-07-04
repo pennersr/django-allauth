@@ -6,7 +6,9 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, resolve_url
+from django.urls import reverse
 
+from allauth.account import app_settings
 from allauth.account.internal.flows import reauthentication
 from allauth.account.internal.flows.email_verification import (
     send_verification_email_for_user,
@@ -39,6 +41,12 @@ def verified_email_required(
                 user=request.user, verified=True
             ).exists():
                 send_verification_email_for_user(request, request.user)
+                if app_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED:
+                    url = httpkit.add_query_params(
+                        reverse("account_email_verification_sent"),
+                        {REDIRECT_FIELD_NAME: request.get_full_path()},
+                    )
+                    return HttpResponseRedirect(url)
                 return render(request, "account/verified_email_required.html")
             return view_func(request, *args, **kwargs)
 

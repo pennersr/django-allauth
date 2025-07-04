@@ -1,4 +1,5 @@
 from datetime import timedelta
+from http import HTTPStatus
 from unittest.mock import Mock
 
 from django.contrib.auth import SESSION_KEY, get_user_model
@@ -60,11 +61,11 @@ def test_login_on_verification(
             "password2": password,
         },
     )
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     assert resp["location"] == reverse("account_email_verification_sent")
 
     resp = client.get(resp["location"])
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
 
     email = EmailAddress.objects.get(email="a@a.com")
     key = EmailConfirmationHMAC(email).key
@@ -120,7 +121,7 @@ def test_email_verification_mandatory(settings, db, client, mailoutbox, enable_c
         },
         follow=True,
     )
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
     assert mailoutbox[0].to == ["john@example.com"]
     assert mailoutbox[0].body.find("http://") > 0
     assert len(mailoutbox) == 1
@@ -334,10 +335,10 @@ def test_email_verification_login_redirect(client, db, settings, password_factor
             "password2": password,
         },
     )
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     assert resp["location"] == reverse("account_email_verification_sent")
     resp = client.get(reverse("account_login"))
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
 
 
 def test_email_verification_redirect_url(client, db, settings, user_password):
@@ -354,9 +355,23 @@ def test_email_verification_redirect_url(client, db, settings, user_password):
             "password2": user_password,
         },
     )
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     assert resp["location"] == reverse("account_email_verification_sent")
     confirmation = EmailConfirmationHMAC(EmailAddress.objects.get(email=email))
     resp = client.get(reverse("account_confirm_email", args=[confirmation.key]))
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     assert resp["location"] == "/foobar"
+
+
+def test_verified_email_decorator__unverified(auth_client):
+    EmailAddress.objects.all().update(verified=False)
+    resp = auth_client.get(reverse("tests_account_check_verified_email"))
+    assert resp.status_code == HTTPStatus.OK
+    assertTemplateUsed(resp, "account/verified_email_required.html")
+
+
+def test_verified_email_decorator__verified(auth_client):
+    EmailAddress.objects.all().update(verified=True)
+    resp = auth_client.get(reverse("tests_account_check_verified_email"))
+    assert resp.status_code == HTTPStatus.OK
+    assert resp.content == b"VERIFIED"

@@ -864,7 +864,7 @@ class EmailVerificationSentView(TemplateView):
     template_name = "account/verification_sent." + app_settings.TEMPLATE_EXTENSION
 
 
-class ConfirmEmailVerificationCodeView(FormView):
+class ConfirmEmailVerificationCodeView(NextRedirectMixin, FormView):
     template_name = (
         "account/confirm_email_verification_code." + app_settings.TEMPLATE_EXTENSION
     )
@@ -962,11 +962,15 @@ class ConfirmEmailVerificationCodeView(FormView):
                 messages.ERROR,
                 message=adapter.error_messages["rate_limited"],
             )
-        return HttpResponseRedirect(reverse("account_email_verification_sent"))
+        return HttpResponseRedirect(
+            self.passthrough_next_url(reverse("account_email_verification_sent"))
+        )
 
     def _change_form_valid(self, form):
         self._process.change_to(form.cleaned_data["email"], form.account_already_exists)
-        return HttpResponseRedirect(reverse("account_email_verification_sent"))
+        return HttpResponseRedirect(
+            self.passthrough_next_url(reverse("account_email_verification_sent"))
+        )
 
     def _verify_form_valid(self, form):
         email_address = self._process.finish()
@@ -974,7 +978,10 @@ class ConfirmEmailVerificationCodeView(FormView):
             if not email_address:
                 return self.stage.abort()
             return self.stage.exit()
-        if not email_address:
+        url = self.get_next_url()
+        if url:
+            pass
+        elif not email_address:
             url = reverse("account_email")
         else:
             url = get_adapter(self.request).get_email_verification_redirect_url(
@@ -1262,11 +1269,15 @@ class _BaseVerifyPhoneView(NextRedirectMixin, FormView):
                 messages.ERROR,
                 message=adapter.error_messages["rate_limited"],
             )
-        return HttpResponseRedirect(reverse("account_verify_phone"))
+        return HttpResponseRedirect(
+            self.passthrough_next_url(reverse("account_verify_phone"))
+        )
 
     def _change_form_valid(self, form):
         self.process.change_to(form.cleaned_data["phone"], form.account_already_exists)
-        return HttpResponseRedirect(reverse("account_verify_phone"))
+        return HttpResponseRedirect(
+            self.passthrough_next_url(reverse("account_verify_phone"))
+        )
 
     def _verify_form_valid(self, form):
         self.process.finish()

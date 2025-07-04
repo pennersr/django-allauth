@@ -13,7 +13,7 @@ Contents
    introduction/index
    installation/index
    account/index
-   socialaccount/index
+   Third-Party Accounts <socialaccount/index>
    mfa/index
    usersessions/index
    headless/index

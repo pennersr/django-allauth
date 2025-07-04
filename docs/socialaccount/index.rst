@@ -1,5 +1,5 @@
-Social Accounts
-===============
+Third-Party ("Social") Accounts
+===============================
 
 .. toctree::
    :maxdepth: 1

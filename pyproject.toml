@@ -112,3 +112,6 @@ version = {attr = "allauth.__version__"}
 
 [tool.setuptools.packages.find]
 include = ["allauth*"]
+
+[tool.setuptools.package-data]
+"*" = ["*.mo"]

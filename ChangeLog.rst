@@ -50,7 +50,8 @@ Fixes
   fixed.
 
 - The ``verified_email_required`` decorator did not support email verification
-  by code, fixed.
+  by code. Additionally, it did not rate limit verification emails
+  in case of GET requests. Both are fixed.
 
 
 65.9.0 (2025-06-01)

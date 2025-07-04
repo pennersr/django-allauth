@@ -14,9 +14,10 @@ from allauth.account.internal.flows.manage_email import (
 )
 from allauth.account.internal.flows.signup import send_unknown_account_mail
 from allauth.account.models import EmailAddress, Login
-from allauth.core import ratelimit
 from allauth.core.exceptions import ImmediateHttpResponse
+from allauth.core.internal import ratelimit
 from allauth.core.internal.httpkit import get_frontend_url
+from allauth.core.ratelimit import respond_429
 from allauth.utils import build_absolute_uri
 
 
@@ -152,12 +153,16 @@ def consume_email_verification_rate_limit(
     dry_run: bool = False,
     raise_exception: bool = False,
 ) -> bool:
-    return ratelimit.consume(
-        request,
-        action="confirm_email",
-        key=email.lower(),
-        dry_run=dry_run,
-        raise_exception=raise_exception,
+    return bool(
+        ratelimit.consume(
+            request,
+            config=app_settings.RATE_LIMITS,
+            action="confirm_email",
+            key=email.lower(),
+            dry_run=dry_run,
+            raise_exception=raise_exception,
+            limit_get=True,
+        )
     )
 
 
@@ -178,7 +183,7 @@ def handle_verification_email_rate_limit(
         request, email, raise_exception=raise_exception
     )
     if not rl_ok and app_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED:
-        raise ImmediateHttpResponse(ratelimit.respond_429(request))
+        raise ImmediateHttpResponse(respond_429(request))
     return rl_ok
 
 

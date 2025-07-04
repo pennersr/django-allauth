@@ -31,6 +31,11 @@ def consume(
     dry_run: bool = False,
     raise_exception: bool = False,
 ) -> bool:
+    """
+    TODO: We ened to deprecate this module and keep rate limiting internal
+    to allauth. This method is using `allauth.account.app_settings` as a
+    hard-coded source of settings, which is bad for reusability elsewhere.
+    """
     from allauth.account import app_settings
 
     usage = _impl.consume(

@@ -220,7 +220,7 @@ class DefaultSocialAccountAdapter(BaseAdapter):
             assert not provider_class.uses_apps  # nosec
             return provider_class(request, app=None)
         else:
-            raise ImproperlyConfigured(f"unknown provider: {app.provider}")
+            raise ImproperlyConfigured(f"unknown provider: {provider}")
 
     def list_apps(self, request, provider=None, client_id=None):
         """SocialApp's can be setup in the database, or, via

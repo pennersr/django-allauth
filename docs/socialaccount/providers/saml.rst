@@ -132,6 +132,8 @@ via the Django admin as well:
                             "want_name_id": False,
                             "want_name_id_encrypted": False,
                             "x509cert": "MIIEvQIBADANB...oddbXECo=",
+                            "metadata_valid_until": None,
+                            "metadata_cache_duration": None
                         },
                         "contact_person": {
                             "technical": {

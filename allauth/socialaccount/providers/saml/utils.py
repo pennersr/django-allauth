@@ -114,6 +114,8 @@ def build_saml_config(request, provider_config, org):
         "wantNameId": avd.get("want_name_id", False),
         "wantAttributeStatement": avd.get("want_attribute_statement", True),
         "allowRepeatAttributeName": avd.get("allow_repeat_attribute_name", True),
+        "metadataValidUntil": avd.get("metadata_valid_until", None),
+        "metadataCacheDuration": avd.get("metadata_cache_duration", None),
     }
     saml_config = {
         "strict": avd.get("strict", True),

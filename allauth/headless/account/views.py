@@ -387,7 +387,7 @@ class ManageEmailView(APIView):
         if request.user.is_authenticated:
             self.user = request.user
         elif request.method != "POST":
-            return response.AuthenticationResponse(request)
+            return AuthenticationResponse(request)
         else:
             self.verification_stage_process = EmailVerificationProcess.resume(request)
             if (
@@ -463,7 +463,7 @@ class ManagePhoneView(APIView):
         if request.user.is_authenticated:
             self.user = request.user
         elif request.method == "GET":
-            return response.AuthenticationResponse(request)
+            return AuthenticationResponse(request)
         elif request.method == "POST":
             stage = LoginStageController.enter(request, PhoneVerificationStage.key)
             if stage:

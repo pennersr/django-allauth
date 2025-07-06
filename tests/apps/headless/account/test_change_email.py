@@ -12,6 +12,13 @@ def test_list_email(auth_client, user, headless_reverse):
     assert len(resp.json()["data"]) == 1
 
 
+def test_list_email_anon(db, client, headless_reverse):
+    resp = client.get(
+        headless_reverse("headless:account:manage_email"),
+    )
+    assert resp.status_code == HTTPStatus.UNAUTHORIZED
+
+
 def test_remove_email(auth_client, user, email_factory, headless_reverse):
     addr = EmailAddress.objects.create(email=email_factory(), user=user)
     assert EmailAddress.objects.filter(user=user).count() == 2

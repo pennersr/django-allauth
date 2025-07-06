@@ -367,3 +367,16 @@ def test_resend_at_signup(
             old_code = sms_outbox[0]["code"]
             new_code = sms_outbox[1]["code"]
             assert old_code != new_code
+
+
+def test_manage_phone_anon_no_500(
+    client, db, settings_impacting_urls, headless_reverse
+):
+    with settings_impacting_urls(
+        ACCOUNT_SIGNUP_FIELDS=["phone*"],
+        ACCOUNT_LOGIN_METHODS=("phone",),
+    ):
+        resp = client.get(
+            headless_reverse("headless:account:manage_phone"),
+        )
+        assert resp.status_code == HTTPStatus.UNAUTHORIZED

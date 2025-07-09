@@ -9,8 +9,6 @@ from urllib.parse import urlsplit
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ImproperlyConfigured, ValidationError
-from django.core.validators import validate_email
-from django.db.models.fields import EmailField
 from django.utils.encoding import force_str
 
 from allauth import app_settings
@@ -109,18 +107,6 @@ def generate_unique_username(txts, regex=None):
                 pass
     # This really should not happen
     raise NotImplementedError("Unable to find a unique username")
-
-
-def valid_email_or_none(email):
-    ret = None
-    try:
-        if email:
-            validate_email(email)
-            if len(email) <= EmailField().max_length:
-                ret = email.lower()
-    except ValidationError:
-        pass
-    return ret
 
 
 def import_attribute(path):

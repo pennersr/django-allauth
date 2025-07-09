@@ -19,10 +19,6 @@ class BasicTests(TestCase):
         for input, username in examples:
             self.assertEqual(utils.generate_unique_username([input]), username)
 
-    def test_email_validation(self):
-        s = "this.email.address.is.a.bit.too.long.but.should.still.validate@example.com"  # noqa
-        self.assertEqual(s, utils.valid_email_or_none(s))
-
     def test_build_absolute_uri(self):
         request = None
         if not app_settings.SITES_ENABLED:

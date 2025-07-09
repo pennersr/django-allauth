@@ -7,7 +7,7 @@ from openid.extensions.ax import FetchResponse
 from openid.extensions.sreg import SRegResponse
 from openid.store.interface import OpenIDStore as OIDStore
 
-from allauth.utils import valid_email_or_none
+from allauth.account.internal.emailkit import valid_email_or_none
 
 from .models import OpenIDNonce, OpenIDStore
 

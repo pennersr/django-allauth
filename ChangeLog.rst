@@ -1,5 +1,5 @@
 65.10.0 (unreleased)
-*******************
+********************
 
 Note worthy changes
 -------------------
@@ -40,6 +40,9 @@ Fixes
 - The ``verified_email_required`` decorator did not support email verification
   by code. Additionally, it did not rate limit verification emails
   in case of GET requests. Both are fixed.
+
+- The account adapter ``clean_email()`` method was not called when a social account
+  auto signup took place, fixed.
 
 
 65.9.0 (2025-06-01)

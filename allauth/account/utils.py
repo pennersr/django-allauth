@@ -10,6 +10,7 @@ from django.utils.http import base36_to_int, int_to_base36
 from allauth.account import app_settings
 from allauth.account.adapter import get_adapter
 from allauth.account.internal import flows
+from allauth.account.internal.emailkit import valid_email_or_none
 from allauth.account.internal.userkit import default_user_display  # noqa
 from allauth.account.internal.userkit import user_display  # noqa
 from allauth.account.internal.userkit import user_email  # noqa
@@ -17,7 +18,7 @@ from allauth.account.internal.userkit import user_field  # noqa
 from allauth.account.internal.userkit import user_username  # noqa
 from allauth.account.models import Login
 from allauth.core.internal import httpkit
-from allauth.utils import get_request_param, valid_email_or_none
+from allauth.utils import get_request_param
 
 
 def _unicode_ci_compare(s1, s2) -> bool:

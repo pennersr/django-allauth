@@ -1,6 +1,7 @@
 import typing
 
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
 
 from allauth.account.adapter import DefaultAccountAdapter
 from tests.projects.common import phone_stub
@@ -44,3 +45,8 @@ class AccountAdapter(DefaultAccountAdapter):
                 message_template = args[2]
         messagesoutbox.append(dict(message=message, message_template=message_template))
         return super().add_message(*args, **kwargs)
+
+    def clean_email(self, email):
+        if email == "invalid@test.email":
+            raise ValidationError("testing")
+        return email

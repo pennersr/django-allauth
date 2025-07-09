@@ -9,5 +9,5 @@ class ResourceView(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [TokenPermission.has_scope(["view-resource"])]
 
-    def get(request, *args, **kwargs):
-        return Response({"resource": "ok"})
+    def get(self, request, *args, **kwargs):
+        return Response({"resource": "ok", "user_id": request.user.pk})

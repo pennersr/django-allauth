@@ -39,4 +39,6 @@ class TokenAuth(AuthBase):
             return None
         if not is_scope_granted(self.scope, ctx.access_token, request.method):
             return None
+        if user := ctx.access_token:
+            request.user = user
         return ctx.access_token

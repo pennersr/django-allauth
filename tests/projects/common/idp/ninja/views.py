@@ -8,4 +8,4 @@ api = NinjaAPI()
 
 @api.get("/resource", auth=[TokenAuth(scope=["view-resource"])])
 def resource(request):
-    return {"resource": "ok", "user_id": request.user.pk}
+    return {"resource": "ok", "user_email": request.user.email}

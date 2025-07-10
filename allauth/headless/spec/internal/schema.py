@@ -1,11 +1,12 @@
 from pathlib import Path
 from typing import Optional
 
-from django.urls import resolve, reverse
+from django.urls import reverse
 from django.urls.exceptions import Resolver404
 
 from allauth.account import app_settings as account_settings
 from allauth.account.internal.flows.signup import base_signup_form_class
+from allauth.core.internal.urlkit import script_aware_resolve
 from allauth.headless import app_settings
 from allauth.headless.adapter import get_adapter
 from allauth.headless.spec.internal.openapikit import spec_for_dataclass, spec_for_field
@@ -116,7 +117,7 @@ def drop_unused_paths(spec: dict) -> set:
         found_path = False
         for client in app_settings.CLIENTS:
             try:
-                resolve(path.replace("{client}", client))
+                script_aware_resolve(path.replace("{client}", client))
                 found_path = True
                 break
             except Resolver404:

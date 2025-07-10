@@ -57,6 +57,9 @@ class ConfigurationView(View):
             "authorization_endpoint": build_absolute_uri(
                 request, reverse("idp:oidc:authorization")
             ),
+            "device_authorization_endpoint": build_absolute_uri(
+                request, reverse("idp:oidc:device_code")
+            ),
             "revocation_endpoint": build_absolute_uri(
                 request, reverse("idp:oidc:revoke")
             ),

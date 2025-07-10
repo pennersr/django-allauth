@@ -167,6 +167,7 @@ def test_configuration_view(client, oidc_client):
     assert resp.status_code == HTTPStatus.OK
     assert resp.json() == {
         "authorization_endpoint": "http://testserver/identity/o/authorize",
+        "device_authorization_endpoint": "http://testserver/identity/o/api/device/code",
         "id_token_signing_alg_values_supported": ["RS256"],
         "issuer": "http://testserver",
         "jwks_uri": "http://testserver/.well-known/jwks.json",

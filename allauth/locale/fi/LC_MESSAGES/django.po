@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-25 06:10-0500\n"
+"POT-Creation-Date: 2025-07-10 06:19-0500\n"
 "PO-Revision-Date: 2025-06-25 12:00+0200\n"
 "Last-Translator: Juho Enala <juho.enala@gmail.com>\n"
 "Language-Team: Finnish <fi@li.org>\n"
@@ -146,7 +146,7 @@ msgstr "Merkitse valitut sähköpostiosoitteet vahvistetuiksi"
 msgid "Accounts"
 msgstr "Tili"
 
-#: account/fields.py:12 account/forms.py:297 idp/oidc/forms.py:38
+#: account/fields.py:12 account/forms.py:299 idp/oidc/forms.py:38
 msgid "Email"
 msgstr "Sähköposti"
 
@@ -158,90 +158,90 @@ msgstr "Sähköpostiosoite"
 msgid "Enter a phone number including country code (e.g. +1 for the US)."
 msgstr "Anna puhelinnumero maakoodilla (esim. +358 Suomelle)."
 
-#: account/fields.py:68 account/fields.py:72 account/forms.py:323
+#: account/fields.py:68 account/fields.py:72 account/forms.py:325
 msgid "Phone"
 msgstr "Puhelin"
 
-#: account/forms.py:59 account/forms.py:522
+#: account/forms.py:61 account/forms.py:524
 msgid "You must type the same password each time."
 msgstr "Salasanojen tulee olla samat."
 
-#: account/forms.py:64 account/forms.py:449 account/forms.py:606
-#: account/forms.py:692
+#: account/forms.py:66 account/forms.py:451 account/forms.py:610
+#: account/forms.py:696
 msgid "Password"
 msgstr "Salasana"
 
-#: account/forms.py:65
+#: account/forms.py:67
 msgid "Remember Me"
 msgstr "Muista minut"
 
-#: account/forms.py:77 account/forms.py:80 account/forms.py:263
-#: account/forms.py:266 account/forms.py:309
+#: account/forms.py:79 account/forms.py:82 account/forms.py:265
+#: account/forms.py:268 account/forms.py:311
 msgid "Username"
 msgstr "Käyttäjänimi"
 
-#: account/forms.py:94
+#: account/forms.py:96
 msgctxt "field label"
 msgid "Login"
 msgstr "Käyttäjätunnus"
 
-#: account/forms.py:113
+#: account/forms.py:115
 msgid "Username, email or phone"
 msgstr "Käyttäjänimi, sähköposti tai puhelin"
 
-#: account/forms.py:115
+#: account/forms.py:117
 msgid "Username or email"
 msgstr "Käyttäjänimi tai sähköposti"
 
-#: account/forms.py:117
+#: account/forms.py:119
 msgid "Username or phone"
 msgstr "Käyttäjänimi tai puhelin"
 
-#: account/forms.py:119
+#: account/forms.py:121
 msgid "Email or phone"
 msgstr "Sähköposti tai puhelin"
 
-#: account/forms.py:142
+#: account/forms.py:144
 msgid "Forgot your password?"
 msgstr "Unohditko salasanasi?"
 
-#: account/forms.py:285
+#: account/forms.py:287
 msgid "Email (again)"
 msgstr "Sähköposti (uudestaan)"
 
-#: account/forms.py:290
+#: account/forms.py:292
 msgid "Email address confirmation"
 msgstr "Sähköpostiosoitteen vahvistus"
 
-#: account/forms.py:300
+#: account/forms.py:302
 msgid "Email (optional)"
 msgstr "Sähköpostiosoite (valinnainen)"
 
-#: account/forms.py:312
+#: account/forms.py:314
 msgid "Username (optional)"
 msgstr "Käyttäjänimi (valinnainen)"
 
-#: account/forms.py:386
+#: account/forms.py:388
 msgid "You must type the same email each time."
 msgstr "Sinun täytyy kirjoittaa sama sähköposti joka kerta."
 
-#: account/forms.py:456 account/forms.py:607
+#: account/forms.py:458 account/forms.py:611
 msgid "Password (again)"
 msgstr "Salasana (uudestaan)"
 
-#: account/forms.py:587
+#: account/forms.py:591
 msgid "Current Password"
 msgstr "Nykyinen salasana"
 
-#: account/forms.py:589 account/forms.py:645
+#: account/forms.py:593 account/forms.py:649
 msgid "New Password"
 msgstr "Uusi salasana"
 
-#: account/forms.py:590 account/forms.py:646
+#: account/forms.py:594 account/forms.py:650
 msgid "New Password (again)"
 msgstr "Uusi salasana (uudestaan)"
 
-#: account/forms.py:763 account/forms.py:765 idp/oidc/forms.py:46
+#: account/forms.py:767 account/forms.py:769 idp/oidc/forms.py:46
 #: idp/oidc/forms.py:49 mfa/base/forms.py:12 mfa/base/forms.py:14
 #: mfa/totp/forms.py:13
 #: templates/idp/oidc/device_authorization_confirm_form.html:16
@@ -252,7 +252,7 @@ msgstr "Koodi"
 msgid "user"
 msgstr "käyttäjä"
 
-#: account/models.py:29 account/models.py:37 account/models.py:145
+#: account/models.py:29 account/models.py:37 account/models.py:139
 msgid "email address"
 msgstr "sähköpostiosoite"
 
@@ -268,23 +268,23 @@ msgstr "ensisijainen"
 msgid "email addresses"
 msgstr "sähköpostiosoitteet"
 
-#: account/models.py:148
+#: account/models.py:142
 msgid "created"
 msgstr "luotu"
 
-#: account/models.py:149
+#: account/models.py:143
 msgid "sent"
 msgstr "lähetetty"
 
-#: account/models.py:150 socialaccount/models.py:70
+#: account/models.py:144 socialaccount/models.py:70
 msgid "key"
 msgstr "avain"
 
-#: account/models.py:155
+#: account/models.py:149
 msgid "email confirmation"
 msgstr "sähköpostivarmistus"
 
-#: account/models.py:156
+#: account/models.py:150
 msgid "email confirmations"
 msgstr "sähköpostivarmistukset"
 
@@ -342,8 +342,8 @@ msgstr ""
 
 #: idp/oidc/models.py:58
 msgid ""
-"The scope(s) the client is allowed to request. Provide one value per line, "
-"e.g.: openid(ENTER)profile(ENTER)email(ENTER)"
+"The scope(s) the client is allowed to request. Provide one value per line, e."
+"g.: openid(ENTER)profile(ENTER)email(ENTER)"
 msgstr ""
 
 #: idp/oidc/models.py:64
@@ -456,7 +456,7 @@ msgstr ""
 "avaimella, mutta vaatii lisätoimenpiteitä kuten biometrista tunnistusta tai "
 "PIN-koodia."
 
-#: socialaccount/adapter.py:29
+#: socialaccount/adapter.py:30
 #, python-format
 msgid ""
 "An account already exists with this email address. Please sign in to that "
@@ -465,23 +465,23 @@ msgstr ""
 "Sähköpostiosoite on jo liitetty olemassaolevaan tiliin. Kirjaudu ensin "
 "kyseiseen tiliin ja liitä %s-tilisi vasta sitten."
 
-#: socialaccount/adapter.py:33
+#: socialaccount/adapter.py:34
 msgid "Invalid token."
 msgstr "Virheellinen tunniste."
 
-#: socialaccount/adapter.py:34
+#: socialaccount/adapter.py:35
 msgid "Your account has no password set up."
 msgstr "Tilillesi ei ole asetettu salasanaa."
 
-#: socialaccount/adapter.py:35
+#: socialaccount/adapter.py:36
 msgid "Your account has no verified email address."
 msgstr "Tiliisi ei ole liitetty vahvistettua sähköpostiosoitetta."
 
-#: socialaccount/adapter.py:37
+#: socialaccount/adapter.py:38
 msgid "You cannot disconnect your last remaining third-party account."
 msgstr "Et voi irrottaa viimeistä jäljellä olevaa kolmannen osapuolen tiliäsi."
 
-#: socialaccount/adapter.py:40
+#: socialaccount/adapter.py:41
 #: templates/socialaccount/messages/account_connected_other.txt:2
 msgid "The third-party account is already connected to a different account."
 msgstr "Kolmannen osapuolen tili on jo liitetty toiseen tiliin."

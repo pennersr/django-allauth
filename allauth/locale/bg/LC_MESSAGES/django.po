@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-08 14:14-0500\n"
+"POT-Creation-Date: 2025-07-10 06:19-0500\n"
 "PO-Revision-Date: 2025-05-20 18:49+0000\n"
 "Last-Translator: Ilia Iliev <p3sh0tr4mv4y4@gmail.com>\n"
-"Language-Team: Bulgarian <https://hosted.weblate.org/projects/allauth/"
-"django-allauth/bg/>\n"
+"Language-Team: Bulgarian <https://hosted.weblate.org/projects/allauth/django-"
+"allauth/bg/>\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,115 +19,127 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.12-dev\n"
 
-#: account/adapter.py:55
+#: account/adapter.py:53
 msgid "This account is currently inactive."
 msgstr "Този акаунт в момента е неактивен."
 
-#: account/adapter.py:57
+#: account/adapter.py:55
 msgid "You cannot remove your primary email address."
 msgstr "Не можете да премахнете основния си имейл адрес."
 
-#: account/adapter.py:60
+#: account/adapter.py:58
 msgid "This email address is already associated with this account."
 msgstr "Този имейл адрес вече е свързан с този акаунт."
 
-#: account/adapter.py:63
+#: account/adapter.py:61
 msgid "The email address and/or password you specified are not correct."
 msgstr "E-mail адресът и/или паролата, които въведохте, са грешни."
 
-#: account/adapter.py:66
+#: account/adapter.py:64
 msgid "The phone number and/or password you specified are not correct."
 msgstr "Телефонният номер и/или паролата, които въведохте, са грешни."
 
-#: account/adapter.py:68
+#: account/adapter.py:66
 msgid "A user is already registered with this email address."
 msgstr "Вече има регистриран потребител с този имейл адрес."
 
-#: account/adapter.py:69
+#: account/adapter.py:67
 msgid "Please type your current password."
 msgstr "Моля, въведете вашата текуща парола."
 
-#: account/adapter.py:70 mfa/adapter.py:40
+#: account/adapter.py:68 mfa/adapter.py:40
 msgid "Incorrect code."
 msgstr "Неправилен код."
 
-#: account/adapter.py:71
+#: account/adapter.py:69
 msgid "Incorrect password."
 msgstr "Грешна парола."
 
-#: account/adapter.py:72
+#: account/adapter.py:70
 msgid "Invalid or expired key."
 msgstr "Грешен или изтекъл ключ."
 
-#: account/adapter.py:73
+#: account/adapter.py:71
 msgid "Invalid login."
 msgstr "Невалиден вход."
 
-#: account/adapter.py:74
+#: account/adapter.py:72
 msgid "The password reset token was invalid."
 msgstr "Невалиден код за възстановяване на парола."
 
-#: account/adapter.py:75
+#: account/adapter.py:73
 #, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "Не можете да добавяте повече от %d e-mail адреса."
 
-#: account/adapter.py:76
+#: account/adapter.py:74
 msgid "A user is already registered with this phone number."
 msgstr "Вече има регистриран потребител с този телефонен номер."
 
-#: account/adapter.py:78
+#: account/adapter.py:76
 msgid "Too many failed login attempts. Try again later."
 msgstr "Твърде много неуспешни опити за влизане. Опитайте отново по-късно."
 
-#: account/adapter.py:80
+#: account/adapter.py:78
 msgid "The email address is not assigned to any user account."
 msgstr "Няма потребител с този e-mail адрес."
 
-#: account/adapter.py:81
+#: account/adapter.py:79
 msgid "The phone number is not assigned to any user account."
 msgstr "Няма потребител с този телефонен номер."
 
-#: account/adapter.py:82
+#: account/adapter.py:80
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary email address must be verified."
 msgstr "Основният ви e-mail адрес трябва да бъде потвърден."
 
-#: account/adapter.py:84
+#: account/adapter.py:82
 msgid "Username can not be used. Please use other username."
 msgstr ""
 "Това потребителско име не може да бъде използвано. Моля, изберете друго."
 
-#: account/adapter.py:87
+#: account/adapter.py:85
 msgid "The username and/or password you specified are not correct."
 msgstr "Потребителското име и/или паролата, които въведохте, са грешни."
 
-#: account/adapter.py:92
+#: account/adapter.py:90
 msgid "Please select only one."
 msgstr "Моля изберете само една опция."
 
-#: account/adapter.py:93
+#: account/adapter.py:91
 msgid "The new value must be different from the current one."
 msgstr "Новата стойност трябва да е различна от настоящата."
 
-#: account/adapter.py:94
+#: account/adapter.py:92
 msgid "Be patient, you are sending too many requests."
 msgstr "Бъдете търпеливи, изпращате твърде много трафик."
 
-#: account/adapter.py:778
+#: account/adapter.py:805
 msgid "Use your password"
 msgstr "Използвайте парола"
 
-#: account/adapter.py:787
+#: account/adapter.py:814
 msgid "Use authenticator app or code"
 msgstr "Използвайте апликация за автентикация или код"
 
-#: account/adapter.py:794 templates/mfa/authenticate.html:41
+#: account/adapter.py:821 templates/mfa/authenticate.html:41
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use a security key"
 msgstr "Използвайте код за сигурност"
 
-#: account/admin.py:23
+#: account/admin.py:30
+#, fuzzy, python-brace-format
+#| msgid "Mark selected email addresses as verified"
+msgid "Marked {email} as verified."
+msgstr "Изберете имейл адресите като верифицирани"
+
+#: account/admin.py:36
+#, fuzzy, python-brace-format
+#| msgid "Your primary email address must be verified."
+msgid "Failed to mark {email} as verified."
+msgstr "Основният ви e-mail адрес трябва да бъде потвърден."
+
+#: account/admin.py:42
 msgid "Mark selected email addresses as verified"
 msgstr "Изберете имейл адресите като верифицирани"
 
@@ -135,151 +147,240 @@ msgstr "Изберете имейл адресите като верифицир
 msgid "Accounts"
 msgstr "Акаунти"
 
-#: account/fields.py:43
-msgid "Enter a phone number including country code (e.g. +1 for the US)."
-msgstr "Въведете телефонен номер с код на държавата (+359 за България)."
-
-#: account/fields.py:49 account/fields.py:53 account/forms.py:372
-msgid "Phone"
-msgstr "Телефон"
-
-#: account/forms.py:64 account/forms.py:574
-msgid "You must type the same password each time."
-msgstr "Трябва да въведете една и съща парола."
-
-#: account/forms.py:99 account/forms.py:501 account/forms.py:664
-#: account/forms.py:760
-msgid "Password"
-msgstr "Парола"
-
-#: account/forms.py:100
-msgid "Remember Me"
-msgstr "Запомни ме"
-
-#: account/forms.py:111 account/forms.py:314 account/forms.py:590
-#: account/forms.py:682 account/forms.py:777 account/forms.py:912
-msgid "Email address"
-msgstr "E-mail адрес"
-
-#: account/forms.py:115 account/forms.py:346 account/forms.py:587
-#: account/forms.py:677 account/forms.py:909
+#: account/fields.py:12 account/forms.py:299 idp/oidc/forms.py:38
 msgid "Email"
 msgstr "E-mail"
 
-#: account/forms.py:118 account/forms.py:121 account/forms.py:304
-#: account/forms.py:307 account/forms.py:358
+#: account/fields.py:19
+msgid "Email address"
+msgstr "E-mail адрес"
+
+#: account/fields.py:62
+msgid "Enter a phone number including country code (e.g. +1 for the US)."
+msgstr "Въведете телефонен номер с код на държавата (+359 за България)."
+
+#: account/fields.py:68 account/fields.py:72 account/forms.py:325
+msgid "Phone"
+msgstr "Телефон"
+
+#: account/forms.py:61 account/forms.py:524
+msgid "You must type the same password each time."
+msgstr "Трябва да въведете една и съща парола."
+
+#: account/forms.py:66 account/forms.py:451 account/forms.py:610
+#: account/forms.py:696
+msgid "Password"
+msgstr "Парола"
+
+#: account/forms.py:67
+msgid "Remember Me"
+msgstr "Запомни ме"
+
+#: account/forms.py:79 account/forms.py:82 account/forms.py:265
+#: account/forms.py:268 account/forms.py:311
 msgid "Username"
 msgstr "Потребителско име"
 
-#: account/forms.py:135
+#: account/forms.py:96
 msgctxt "field label"
 msgid "Login"
 msgstr "Акаунт"
 
-#: account/forms.py:154
+#: account/forms.py:115
 msgid "Username, email or phone"
 msgstr "Потребителско име, e-mail или телефонен номер"
 
-#: account/forms.py:156
+#: account/forms.py:117
 msgid "Username or email"
 msgstr "Потребителско име или e-mail"
 
-#: account/forms.py:158
+#: account/forms.py:119
 msgid "Username or phone"
 msgstr "Потребителско име или телефон"
 
-#: account/forms.py:160
+#: account/forms.py:121
 msgid "Email or phone"
 msgstr "E-mail или телефонен номер"
 
-#: account/forms.py:183
+#: account/forms.py:144
 msgid "Forgot your password?"
 msgstr "Забрави си паролата?"
 
-#: account/forms.py:334
+#: account/forms.py:287
 msgid "Email (again)"
 msgstr "E-mail (отново)"
 
-#: account/forms.py:339
+#: account/forms.py:292
 msgid "Email address confirmation"
 msgstr "Потвърждение на e-mail адрес"
 
-#: account/forms.py:349
+#: account/forms.py:302
 msgid "Email (optional)"
 msgstr "E-mail (опционален)"
 
-#: account/forms.py:361
+#: account/forms.py:314
 msgid "Username (optional)"
 msgstr "Потребителско име(по избор)"
 
-#: account/forms.py:435
+#: account/forms.py:388
 msgid "You must type the same email each time."
 msgstr "Трябва да въведете един и същ email."
 
-#: account/forms.py:508 account/forms.py:665
+#: account/forms.py:458 account/forms.py:611
 msgid "Password (again)"
 msgstr "Парола (отново)"
 
-#: account/forms.py:645
+#: account/forms.py:591
 msgid "Current Password"
 msgstr "Текуща парола"
 
-#: account/forms.py:647 account/forms.py:713
+#: account/forms.py:593 account/forms.py:649
 msgid "New Password"
 msgstr "Нова парола"
 
-#: account/forms.py:648 account/forms.py:714
+#: account/forms.py:594 account/forms.py:650
 msgid "New Password (again)"
 msgstr "Нова парола (отново)"
 
-#: account/forms.py:837 account/forms.py:839 mfa/base/forms.py:15
-#: mfa/base/forms.py:17 mfa/totp/forms.py:13
+#: account/forms.py:767 account/forms.py:769 idp/oidc/forms.py:46
+#: idp/oidc/forms.py:49 mfa/base/forms.py:12 mfa/base/forms.py:14
+#: mfa/totp/forms.py:13
+#: templates/idp/oidc/device_authorization_confirm_form.html:16
 msgid "Code"
 msgstr "Код"
 
-#: account/models.py:26
+#: account/models.py:23
 msgid "user"
 msgstr "потребител"
 
-#: account/models.py:32 account/models.py:40 account/models.py:148
+#: account/models.py:29 account/models.py:37 account/models.py:139
 msgid "email address"
 msgstr "e-mail адрес"
 
-#: account/models.py:34
+#: account/models.py:31
 msgid "verified"
 msgstr "потвърден"
 
-#: account/models.py:35
+#: account/models.py:32
 msgid "primary"
 msgstr "основен"
 
-#: account/models.py:41
+#: account/models.py:38
 msgid "email addresses"
 msgstr "email адреси"
 
-#: account/models.py:151
+#: account/models.py:142
 msgid "created"
 msgstr "създадено"
 
-#: account/models.py:152
+#: account/models.py:143
 msgid "sent"
 msgstr "изпратено"
 
-#: account/models.py:153 socialaccount/models.py:69
+#: account/models.py:144 socialaccount/models.py:70
 msgid "key"
 msgstr "ключ"
 
-#: account/models.py:158
+#: account/models.py:149
 msgid "email confirmation"
 msgstr "email потвърждение"
 
-#: account/models.py:159
+#: account/models.py:150
 msgid "email confirmations"
 msgstr "email потвърждения"
 
 #: headless/apps.py:7
 msgid "Headless"
 msgstr "Скрит режим"
+
+#: idp/oidc/adapter.py:30
+msgid "View your user ID"
+msgstr ""
+
+#: idp/oidc/adapter.py:31
+#, fuzzy
+#| msgid "Verify Your Email Address"
+msgid "View your email address"
+msgstr "Потвърдете вашия e-mail адрес"
+
+#: idp/oidc/adapter.py:32
+msgid "View your basic profile information"
+msgstr ""
+
+#: idp/oidc/forms.py:26
+#, fuzzy
+#| msgid "User Sessions"
+msgid "Grant permissions"
+msgstr "Потребителски сесии"
+
+#: idp/oidc/models.py:37
+#, fuzzy
+#| msgid "Authenticator code"
+msgid "Authorization code"
+msgstr "Автентикиращ код"
+
+#: idp/oidc/models.py:38
+#, fuzzy
+#| msgid "Recovery codes"
+msgid "Device code"
+msgstr "Кодове за възстановяване"
+
+#: idp/oidc/models.py:39
+msgid "Client credentials"
+msgstr ""
+
+#: idp/oidc/models.py:40
+msgid "Refresh token"
+msgstr ""
+
+#: idp/oidc/models.py:43
+msgid "Confidential"
+msgstr ""
+
+#: idp/oidc/models.py:44
+msgid "Public"
+msgstr ""
+
+#: idp/oidc/models.py:58
+msgid ""
+"The scope(s) the client is allowed to request. Provide one value per line, e."
+"g.: openid(ENTER)profile(ENTER)email(ENTER)"
+msgstr ""
+
+#: idp/oidc/models.py:64
+msgid ""
+"In case the client does not specify any scope, these default scopes are "
+"used. Provide one value per line, e.g.: "
+"openid(ENTER)profile(ENTER)email(ENTER)"
+msgstr ""
+
+#: idp/oidc/models.py:75
+msgid ""
+"A list of allowed grant types. Provide one value per line, e.g.: "
+"authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
+msgstr ""
+
+#: idp/oidc/models.py:86
+msgid "A list of allowed origins for cross-origin requests, one per line."
+msgstr ""
+
+#: idp/oidc/models.py:94
+msgid ""
+"A list of allowed response types. Provide one value per line, e.g.: "
+"code(ENTER)id_token token(ENTER)"
+msgstr ""
+
+#: idp/oidc/models.py:107
+#, fuzzy
+#| msgid "client id"
+msgid "client"
+msgstr "id на клиент"
+
+#: idp/oidc/models.py:108
+#, fuzzy
+#| msgid "client id"
+msgid "clients"
+msgstr "id на клиент"
 
 #: mfa/adapter.py:32
 msgid ""
@@ -342,11 +443,11 @@ msgstr "WebAuthn"
 msgid "Authenticator code"
 msgstr "Автентикиращ код"
 
-#: mfa/webauthn/forms.py:59
+#: mfa/webauthn/forms.py:56
 msgid "Passwordless"
 msgstr "Без парола"
 
-#: mfa/webauthn/forms.py:62
+#: mfa/webauthn/forms.py:59
 msgid ""
 "Enabling passwordless operation allows you to sign in using just this key, "
 "but imposes additional requirements such as biometrics or PIN protection."
@@ -354,7 +455,7 @@ msgstr ""
 "Включвайки режим без парола Ви позволява да се вписвате чрез ключ, но има "
 "допълнителни изисквания например биометрични данни или защита с ПИН код."
 
-#: socialaccount/adapter.py:35
+#: socialaccount/adapter.py:30
 #, python-format
 msgid ""
 "An account already exists with this email address. Please sign in to that "
@@ -363,23 +464,23 @@ msgstr ""
 "Вече съществува акаунт с този имейл адрес. Моля, първо влезте в този акаунт "
 "и тогава свържете вашия %s акаунт."
 
-#: socialaccount/adapter.py:39
+#: socialaccount/adapter.py:34
 msgid "Invalid token."
 msgstr "Грешен код."
 
-#: socialaccount/adapter.py:40
+#: socialaccount/adapter.py:35
 msgid "Your account has no password set up."
 msgstr "Вашият акаунт няма парола."
 
-#: socialaccount/adapter.py:41
+#: socialaccount/adapter.py:36
 msgid "Your account has no verified email address."
 msgstr "Вашият акаунт няма потвърден e-mail адрес."
 
-#: socialaccount/adapter.py:43
+#: socialaccount/adapter.py:38
 msgid "You cannot disconnect your last remaining third-party account."
 msgstr "Не можете да прекъснете последната си връзка към външен акаунт."
 
-#: socialaccount/adapter.py:46
+#: socialaccount/adapter.py:41
 #: templates/socialaccount/messages/account_connected_other.txt:2
 msgid "The third-party account is already connected to a different account."
 msgstr "Този акаунт вече е свързан с друг акаунт."
@@ -388,95 +489,95 @@ msgstr "Този акаунт вече е свързан с друг акаун�
 msgid "Social Accounts"
 msgstr "Социални акаунти"
 
-#: socialaccount/models.py:44 socialaccount/models.py:97
+#: socialaccount/models.py:45 socialaccount/models.py:98
 msgid "provider"
 msgstr "доставчик"
 
-#: socialaccount/models.py:52
+#: socialaccount/models.py:53
 msgid "provider ID"
 msgstr "Идентификатор на доставчик"
 
-#: socialaccount/models.py:56
+#: socialaccount/models.py:57
 msgid "name"
 msgstr "име"
 
-#: socialaccount/models.py:58
+#: socialaccount/models.py:59
 msgid "client id"
 msgstr "id на клиент"
 
-#: socialaccount/models.py:60
+#: socialaccount/models.py:61
 msgid "App ID, or consumer key"
 msgstr "ID на приложение, или ключ на консуматор"
 
-#: socialaccount/models.py:63
+#: socialaccount/models.py:64
 msgid "secret key"
 msgstr "таен ключ"
 
-#: socialaccount/models.py:66
+#: socialaccount/models.py:67
 msgid "API secret, client secret, or consumer secret"
 msgstr "таен ключ на API, клиент или консуматор"
 
-#: socialaccount/models.py:69 templates/mfa/webauthn/authenticator_list.html:18
+#: socialaccount/models.py:70 templates/mfa/webauthn/authenticator_list.html:18
 msgid "Key"
 msgstr "Ключ"
 
-#: socialaccount/models.py:81
+#: socialaccount/models.py:82
 msgid "social application"
 msgstr "социално приложение"
 
-#: socialaccount/models.py:82
+#: socialaccount/models.py:83
 msgid "social applications"
 msgstr "социални приложения"
 
-#: socialaccount/models.py:117
+#: socialaccount/models.py:118
 msgid "uid"
 msgstr "УИД"
 
-#: socialaccount/models.py:119
+#: socialaccount/models.py:120
 msgid "last login"
 msgstr "последно влизане"
 
-#: socialaccount/models.py:120
+#: socialaccount/models.py:121
 msgid "date joined"
 msgstr "дата на регистрация"
 
-#: socialaccount/models.py:121
+#: socialaccount/models.py:122
 msgid "extra data"
 msgstr "допълнителни данни"
 
-#: socialaccount/models.py:125
+#: socialaccount/models.py:126
 msgid "social account"
 msgstr "социален акаунт"
 
-#: socialaccount/models.py:126
+#: socialaccount/models.py:127
 msgid "social accounts"
 msgstr "социални акаунти"
 
-#: socialaccount/models.py:160
+#: socialaccount/models.py:161
 msgid "token"
 msgstr "код"
 
-#: socialaccount/models.py:161
+#: socialaccount/models.py:162
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr "\"oauth_token\" (OAuth1) или access token (OAuth2)"
 
-#: socialaccount/models.py:165
+#: socialaccount/models.py:166
 msgid "token secret"
 msgstr "таен код"
 
-#: socialaccount/models.py:166
+#: socialaccount/models.py:167
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr "\"oauth_token_secret\" (OAuth1) или refresh token (OAuth2)"
 
-#: socialaccount/models.py:169
+#: socialaccount/models.py:170
 msgid "expires at"
 msgstr "изтича"
 
-#: socialaccount/models.py:174
+#: socialaccount/models.py:175
 msgid "social application token"
 msgstr "код на социално приложение"
 
-#: socialaccount/models.py:175
+#: socialaccount/models.py:176
 msgid "social application tokens"
 msgstr "кодове на социални приложения"
 
@@ -492,35 +593,36 @@ msgstr "Влизане"
 #: templates/account/base_confirm_code.html:48
 #: templates/account/base_confirm_code.html:52
 #: templates/account/password_reset_from_key.html:33
+#: templates/idp/oidc/authorization_form.html:26
 #: templates/mfa/authenticate.html:28 templates/mfa/authenticate.html:44
 #: templates/mfa/trust.html:29 templates/mfa/webauthn/signup_form.html:26
 msgid "Cancel"
 msgstr "Откажи"
 
-#: socialaccount/providers/oauth/client.py:85
+#: socialaccount/providers/oauth/client.py:84
 #, python-format
 msgid ""
 "Invalid response while obtaining request token from \"%s\". Response was: %s."
 msgstr ""
 "Грешен отговор при получаване на код за заявка от \"%s\". Отговорът беше: %s."
 
-#: socialaccount/providers/oauth/client.py:119
+#: socialaccount/providers/oauth/client.py:118
 #: socialaccount/providers/pocket/client.py:86
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr "Грешен отговор при получаване на код за достъп от \"%s\"."
 
-#: socialaccount/providers/oauth/client.py:140
+#: socialaccount/providers/oauth/client.py:139
 #, python-format
 msgid "No request token saved for \"%s\"."
 msgstr "Няма запазен код за заявка за \"%s\"."
 
-#: socialaccount/providers/oauth/client.py:191
+#: socialaccount/providers/oauth/client.py:190
 #, python-format
 msgid "No access token saved for \"%s\"."
 msgstr "Няма запазен код за достъп за \"%s\"."
 
-#: socialaccount/providers/oauth/client.py:212
+#: socialaccount/providers/oauth/client.py:211
 #, python-format
 msgid "No access to private resources at \"%s\"."
 msgstr "Няма достъп до лични данни при \"%s\"."
@@ -551,6 +653,7 @@ msgstr ""
 #: templates/account/base_confirm_code.html:39
 #: templates/account/email_confirm.html:24
 #: templates/account/reauthenticate.html:18
+#: templates/idp/oidc/device_authorization_confirm_form.html:26
 #: templates/mfa/reauthenticate.html:18
 msgid "Confirm"
 msgstr "Потвърди"
@@ -970,7 +1073,7 @@ msgstr "Изпрати ми ключ за влизане"
 
 #: templates/account/logout.html:4 templates/account/logout.html:8
 #: templates/account/logout.html:21 templates/allauth/layouts/base.html:61
-#: templates/usersessions/usersession_list.html:64
+#: templates/usersessions/usersession_list.html:76
 msgid "Sign Out"
 msgstr "Изход"
 
@@ -1265,6 +1368,76 @@ msgstr "Двустепенна автентикация"
 #: templates/usersessions/usersession_list.html:10
 msgid "Sessions"
 msgstr "Сесии"
+
+#: templates/idp/oidc/authorization_form.html:5
+#: templates/idp/oidc/authorization_form.html:9
+#: templates/idp/oidc/authorization_form.html:23
+#: templates/idp/oidc/device_authorization_code_form.html:5
+#: templates/idp/oidc/device_authorization_confirm_form.html:5
+#: templates/idp/oidc/device_authorization_confirmed.html:5
+#: templates/idp/oidc/device_authorization_denied.html:5
+msgid "Authorize"
+msgstr ""
+
+#: templates/idp/oidc/authorization_form.html:12
+#, python-format
+msgid "%(client_name)s wants to access your %(site_name)s account."
+msgstr ""
+
+#: templates/idp/oidc/device_authorization_code_form.html:9
+#, fuzzy
+#| msgid "Enter Sign-In Code"
+msgid "Enter Device Code"
+msgstr "Въведете код за влизане"
+
+#: templates/idp/oidc/device_authorization_code_form.html:12
+msgid "Enter the code displayed on your device."
+msgstr ""
+
+#: templates/idp/oidc/device_authorization_code_form.html:21
+#: templates/socialaccount/login.html:27
+#: templates/socialaccount/login_redirect.html:10
+msgid "Continue"
+msgstr "Продължи"
+
+#: templates/idp/oidc/device_authorization_confirm_form.html:9
+#, fuzzy
+#| msgid "Confirm Access"
+msgid "Confirm Device"
+msgstr "Потвърждение на достъпа"
+
+#: templates/idp/oidc/device_authorization_confirm_form.html:12
+#, python-format
+msgid ""
+"Please confirm the code shown on your %(client_name)s to authorize this "
+"device."
+msgstr ""
+
+#: templates/idp/oidc/device_authorization_confirm_form.html:29
+msgid "Deny"
+msgstr ""
+
+#: templates/idp/oidc/device_authorization_confirmed.html:9
+msgid "Device Authorized"
+msgstr ""
+
+#: templates/idp/oidc/device_authorization_confirmed.html:12
+#, python-format
+msgid "You successfully authorized your %(client_name)s device."
+msgstr ""
+
+#: templates/idp/oidc/device_authorization_denied.html:9
+msgid "Device Denied"
+msgstr ""
+
+#: templates/idp/oidc/device_authorization_denied.html:12
+#, python-format
+msgid "Authorization for your %(client_name)s device has been denied."
+msgstr ""
+
+#: templates/idp/oidc/error.html:5 templates/idp/oidc/error.html:9
+msgid "Error"
+msgstr ""
 
 #: templates/mfa/authenticate.html:13
 msgid ""
@@ -1642,11 +1815,6 @@ msgstr "Влизане с %(provider)s"
 msgid "You are about to sign in using a third-party account from %(provider)s."
 msgstr "Предстои да влезете с акаунт на %(provider)s."
 
-#: templates/socialaccount/login.html:27
-#: templates/socialaccount/login_redirect.html:10
-msgid "Continue"
-msgstr "Продължи"
-
 #: templates/socialaccount/login_cancelled.html:5
 #: templates/socialaccount/login_cancelled.html:9
 msgid "Login Cancelled"
@@ -1687,27 +1855,27 @@ msgstr "Или използвайте трета страна"
 msgid "Signed out of all other sessions."
 msgstr "Излезнахте от всички останали сесии."
 
-#: templates/usersessions/usersession_list.html:23
+#: templates/usersessions/usersession_list.html:24
 msgid "Started At"
 msgstr "Започнато на"
 
-#: templates/usersessions/usersession_list.html:24
+#: templates/usersessions/usersession_list.html:27
 msgid "IP Address"
 msgstr "IP Адрес"
 
-#: templates/usersessions/usersession_list.html:25
+#: templates/usersessions/usersession_list.html:30
 msgid "Browser"
 msgstr "Браузър"
 
-#: templates/usersessions/usersession_list.html:27
+#: templates/usersessions/usersession_list.html:34
 msgid "Last seen at"
 msgstr "Последно видян на"
 
-#: templates/usersessions/usersession_list.html:47
+#: templates/usersessions/usersession_list.html:59
 msgid "Current"
 msgstr "Текуща"
 
-#: templates/usersessions/usersession_list.html:60
+#: templates/usersessions/usersession_list.html:72
 msgid "Sign Out Other Sessions"
 msgstr "Отпиши други сесии"
 
@@ -1715,7 +1883,7 @@ msgstr "Отпиши други сесии"
 msgid "User Sessions"
 msgstr "Потребителски сесии"
 
-#: usersessions/models.py:92
+#: usersessions/models.py:93
 msgid "session key"
 msgstr "сесиен ключ"
 

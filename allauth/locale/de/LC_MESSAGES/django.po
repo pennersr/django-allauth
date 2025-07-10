@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-08 14:14-0500\n"
+"POT-Creation-Date: 2025-07-10 06:19-0500\n"
 "PO-Revision-Date: 2025-03-14 11:46+0100\n"
 "Last-Translator: Natalia N <natalian@inbox.ru>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/allauth/django-"
@@ -20,118 +20,130 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.7.1-dev\n"
 
-#: account/adapter.py:55
+#: account/adapter.py:53
 msgid "This account is currently inactive."
 msgstr "Dieses Konto ist derzeit inaktiv."
 
-#: account/adapter.py:57
+#: account/adapter.py:55
 msgid "You cannot remove your primary email address."
 msgstr "Du kannst deine primäre E-Mail-Adresse nicht löschen."
 
-#: account/adapter.py:60
+#: account/adapter.py:58
 msgid "This email address is already associated with this account."
 msgstr "Diese E-Mail-Adresse wird bereits in diesem Konto verwendet."
 
-#: account/adapter.py:63
+#: account/adapter.py:61
 msgid "The email address and/or password you specified are not correct."
 msgstr "Die E-Mail-Adresse und/oder das Passwort sind leider falsch."
 
-#: account/adapter.py:66
+#: account/adapter.py:64
 msgid "The phone number and/or password you specified are not correct."
 msgstr "Die angegebene Telefonnummer und/oder das Passwort sind leider falsch."
 
-#: account/adapter.py:68
+#: account/adapter.py:66
 msgid "A user is already registered with this email address."
 msgstr "Es ist bereits jemand mit dieser E-Mail-Adresse registriert."
 
-#: account/adapter.py:69
+#: account/adapter.py:67
 msgid "Please type your current password."
 msgstr "Bitte gib dein aktuelles Passwort ein."
 
-#: account/adapter.py:70 mfa/adapter.py:40
+#: account/adapter.py:68 mfa/adapter.py:40
 msgid "Incorrect code."
 msgstr "Falscher Code."
 
-#: account/adapter.py:71
+#: account/adapter.py:69
 msgid "Incorrect password."
 msgstr "Falsches Passwort."
 
-#: account/adapter.py:72
+#: account/adapter.py:70
 msgid "Invalid or expired key."
 msgstr "Falsches oder abgelaufenes Token."
 
-#: account/adapter.py:73
+#: account/adapter.py:71
 msgid "Invalid login."
 msgstr "Ungültige Anmeldung."
 
-#: account/adapter.py:74
+#: account/adapter.py:72
 msgid "The password reset token was invalid."
 msgstr "Das Sicherheits-Token zum Zurücksetzen des Passwortes war ungültig."
 
-#: account/adapter.py:75
+#: account/adapter.py:73
 #, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "Du kannst nicht mehr als %d E-Mail-Adressen hinzufügen."
 
-#: account/adapter.py:76
+#: account/adapter.py:74
 #, fuzzy
 #| msgid "A user is already registered with this email address."
 msgid "A user is already registered with this phone number."
 msgstr "Es ist bereits jemand mit dieser E-Mail-Adresse registriert."
 
-#: account/adapter.py:78
+#: account/adapter.py:76
 msgid "Too many failed login attempts. Try again later."
 msgstr ""
 "Zu viele gescheiterte Anmeldeversuche. Bitte versuche es später erneut."
 
-#: account/adapter.py:80
+#: account/adapter.py:78
 msgid "The email address is not assigned to any user account."
 msgstr "Diese E-Mail-Adresse ist keinem Konto zugeordnet."
 
-#: account/adapter.py:81
+#: account/adapter.py:79
 msgid "The phone number is not assigned to any user account."
 msgstr "Die Telefonnummer ist keinem Benutzerkonto zugeordnet."
 
-#: account/adapter.py:82
+#: account/adapter.py:80
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary email address must be verified."
 msgstr "Deine primäre E-Mailadresse muss bestätigt werden."
 
-#: account/adapter.py:84
+#: account/adapter.py:82
 msgid "Username can not be used. Please use other username."
 msgstr ""
 "Anmeldename kann nicht verwendet werden. Bitte wähle einen anderen Namen."
 
-#: account/adapter.py:87
+#: account/adapter.py:85
 msgid "The username and/or password you specified are not correct."
 msgstr "Der Anmeldename und/oder das Passwort sind leider falsch."
 
-#: account/adapter.py:92
+#: account/adapter.py:90
 msgid "Please select only one."
 msgstr "Bitte wähle nur eine aus."
 
-#: account/adapter.py:93
+#: account/adapter.py:91
 msgid "The new value must be different from the current one."
 msgstr "Die neue Wert muss sich vom aktuellen unterscheiden."
 
-#: account/adapter.py:94
+#: account/adapter.py:92
 msgid "Be patient, you are sending too many requests."
 msgstr ""
 
-#: account/adapter.py:778
+#: account/adapter.py:805
 msgid "Use your password"
 msgstr "Verwenden Sie Ihr Passwort"
 
-#: account/adapter.py:787
+#: account/adapter.py:814
 msgid "Use authenticator app or code"
 msgstr "Verwenden Sie eine Authentifizierungs-App oder einen Code"
 
-#: account/adapter.py:794 templates/mfa/authenticate.html:41
+#: account/adapter.py:821 templates/mfa/authenticate.html:41
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use a security key"
 msgstr "Verwenden Sie einen Sicherheitsschlüssel"
 
-#: account/admin.py:23
+#: account/admin.py:30
+#, fuzzy, python-brace-format
+#| msgid "Mark selected email addresses as verified"
+msgid "Marked {email} as verified."
+msgstr "Markierte E-Mail-Adressen als verifiziert kennzeichnen"
+
+#: account/admin.py:36
+#, fuzzy, python-brace-format
+#| msgid "Your primary email address must be verified."
+msgid "Failed to mark {email} as verified."
+msgstr "Deine primäre E-Mailadresse muss bestätigt werden."
+
+#: account/admin.py:42
 msgid "Mark selected email addresses as verified"
 msgstr "Markierte E-Mail-Adressen als verifiziert kennzeichnen"
 
@@ -139,153 +151,242 @@ msgstr "Markierte E-Mail-Adressen als verifiziert kennzeichnen"
 msgid "Accounts"
 msgstr "Konten"
 
-#: account/fields.py:43
+#: account/fields.py:12 account/forms.py:299 idp/oidc/forms.py:38
+msgid "Email"
+msgstr "E-Mail"
+
+#: account/fields.py:19
+msgid "Email address"
+msgstr "E-Mail-Adresse"
+
+#: account/fields.py:62
 msgid "Enter a phone number including country code (e.g. +1 for the US)."
 msgstr ""
 "Geben Sie eine Telefonnummer einschließlich Ländervorwahl ein (z. B. +49 für "
 "Deutschland)."
 
-#: account/fields.py:49 account/fields.py:53 account/forms.py:372
+#: account/fields.py:68 account/fields.py:72 account/forms.py:325
 msgid "Phone"
 msgstr "Telefon"
 
-#: account/forms.py:64 account/forms.py:574
+#: account/forms.py:61 account/forms.py:524
 msgid "You must type the same password each time."
 msgstr "Du musst zweimal das selbe Passwort eingeben."
 
-#: account/forms.py:99 account/forms.py:501 account/forms.py:664
-#: account/forms.py:760
+#: account/forms.py:66 account/forms.py:451 account/forms.py:610
+#: account/forms.py:696
 msgid "Password"
 msgstr "Passwort"
 
-#: account/forms.py:100
+#: account/forms.py:67
 msgid "Remember Me"
 msgstr "Angemeldet bleiben"
 
-#: account/forms.py:111 account/forms.py:314 account/forms.py:590
-#: account/forms.py:682 account/forms.py:777 account/forms.py:912
-msgid "Email address"
-msgstr "E-Mail-Adresse"
-
-#: account/forms.py:115 account/forms.py:346 account/forms.py:587
-#: account/forms.py:677 account/forms.py:909
-msgid "Email"
-msgstr "E-Mail"
-
-#: account/forms.py:118 account/forms.py:121 account/forms.py:304
-#: account/forms.py:307 account/forms.py:358
+#: account/forms.py:79 account/forms.py:82 account/forms.py:265
+#: account/forms.py:268 account/forms.py:311
 msgid "Username"
 msgstr "Anmeldename"
 
-#: account/forms.py:135
+#: account/forms.py:96
 msgctxt "field label"
 msgid "Login"
 msgstr "Anmeldung"
 
-#: account/forms.py:154
+#: account/forms.py:115
 msgid "Username, email or phone"
 msgstr "Anmeldename, E-Mail oder Telefon"
 
-#: account/forms.py:156
+#: account/forms.py:117
 msgid "Username or email"
 msgstr "Anmeldename oder E-Mail"
 
-#: account/forms.py:158
+#: account/forms.py:119
 msgid "Username or phone"
 msgstr "Anmeldename oder Telefon"
 
-#: account/forms.py:160
+#: account/forms.py:121
 msgid "Email or phone"
 msgstr "E-Mail oder Telefon"
 
-#: account/forms.py:183
+#: account/forms.py:144
 msgid "Forgot your password?"
 msgstr "Passwort vergessen?"
 
-#: account/forms.py:334
+#: account/forms.py:287
 msgid "Email (again)"
 msgstr "E-Mail (wiederholen)"
 
-#: account/forms.py:339
+#: account/forms.py:292
 msgid "Email address confirmation"
 msgstr "Bestätigung der E-Mail-Adresse"
 
-#: account/forms.py:349
+#: account/forms.py:302
 msgid "Email (optional)"
 msgstr "E-Mail (optional)"
 
-#: account/forms.py:361
+#: account/forms.py:314
 msgid "Username (optional)"
 msgstr "Anmeldename (optional)"
 
-#: account/forms.py:435
+#: account/forms.py:388
 msgid "You must type the same email each time."
 msgstr "Du musst zweimal dieselbe E-Mail-Adresse eingeben."
 
-#: account/forms.py:508 account/forms.py:665
+#: account/forms.py:458 account/forms.py:611
 msgid "Password (again)"
 msgstr "Passwort (Wiederholung)"
 
-#: account/forms.py:645
+#: account/forms.py:591
 msgid "Current Password"
 msgstr "Aktuelles Passwort"
 
-#: account/forms.py:647 account/forms.py:713
+#: account/forms.py:593 account/forms.py:649
 msgid "New Password"
 msgstr "Neues Passwort"
 
-#: account/forms.py:648 account/forms.py:714
+#: account/forms.py:594 account/forms.py:650
 msgid "New Password (again)"
 msgstr "Neues Passwort (Wiederholung)"
 
-#: account/forms.py:837 account/forms.py:839 mfa/base/forms.py:15
-#: mfa/base/forms.py:17 mfa/totp/forms.py:13
+#: account/forms.py:767 account/forms.py:769 idp/oidc/forms.py:46
+#: idp/oidc/forms.py:49 mfa/base/forms.py:12 mfa/base/forms.py:14
+#: mfa/totp/forms.py:13
+#: templates/idp/oidc/device_authorization_confirm_form.html:16
 msgid "Code"
 msgstr "Code"
 
-#: account/models.py:26
+#: account/models.py:23
 msgid "user"
 msgstr "Benutzer"
 
-#: account/models.py:32 account/models.py:40 account/models.py:148
+#: account/models.py:29 account/models.py:37 account/models.py:139
 msgid "email address"
 msgstr "E-Mail-Adresse"
 
-#: account/models.py:34
+#: account/models.py:31
 msgid "verified"
 msgstr "bestätigt"
 
-#: account/models.py:35
+#: account/models.py:32
 msgid "primary"
 msgstr "Primär"
 
-#: account/models.py:41
+#: account/models.py:38
 msgid "email addresses"
 msgstr "E-Mail-Adressen"
 
-#: account/models.py:151
+#: account/models.py:142
 msgid "created"
 msgstr "Erstellt"
 
-#: account/models.py:152
+#: account/models.py:143
 msgid "sent"
 msgstr "Gesendet"
 
-#: account/models.py:153 socialaccount/models.py:69
+#: account/models.py:144 socialaccount/models.py:70
 msgid "key"
 msgstr "Schlüssel"
 
-#: account/models.py:158
+#: account/models.py:149
 msgid "email confirmation"
 msgstr "E-Mail-Bestätigung"
 
-#: account/models.py:159
+#: account/models.py:150
 msgid "email confirmations"
 msgstr "E-Mail-Bestätigungen"
 
 #: headless/apps.py:7
 msgid "Headless"
 msgstr "Kopflos"
+
+#: idp/oidc/adapter.py:30
+msgid "View your user ID"
+msgstr ""
+
+#: idp/oidc/adapter.py:31
+#, fuzzy
+#| msgid "Verify Your Email Address"
+msgid "View your email address"
+msgstr "Bestätige deine E-Mail-Adresse"
+
+#: idp/oidc/adapter.py:32
+msgid "View your basic profile information"
+msgstr ""
+
+#: idp/oidc/forms.py:26
+#, fuzzy
+#| msgid "User Sessions"
+msgid "Grant permissions"
+msgstr "Benutzersitzungen"
+
+#: idp/oidc/models.py:37
+#, fuzzy
+#| msgid "Authenticator code"
+msgid "Authorization code"
+msgstr "Authentifizierungscode"
+
+#: idp/oidc/models.py:38
+#, fuzzy
+#| msgid "Recovery codes"
+msgid "Device code"
+msgstr "Wiederherstellungs-Codes"
+
+#: idp/oidc/models.py:39
+msgid "Client credentials"
+msgstr ""
+
+#: idp/oidc/models.py:40
+msgid "Refresh token"
+msgstr ""
+
+#: idp/oidc/models.py:43
+msgid "Confidential"
+msgstr ""
+
+#: idp/oidc/models.py:44
+msgid "Public"
+msgstr ""
+
+#: idp/oidc/models.py:58
+msgid ""
+"The scope(s) the client is allowed to request. Provide one value per line, e."
+"g.: openid(ENTER)profile(ENTER)email(ENTER)"
+msgstr ""
+
+#: idp/oidc/models.py:64
+msgid ""
+"In case the client does not specify any scope, these default scopes are "
+"used. Provide one value per line, e.g.: "
+"openid(ENTER)profile(ENTER)email(ENTER)"
+msgstr ""
+
+#: idp/oidc/models.py:75
+msgid ""
+"A list of allowed grant types. Provide one value per line, e.g.: "
+"authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
+msgstr ""
+
+#: idp/oidc/models.py:86
+msgid "A list of allowed origins for cross-origin requests, one per line."
+msgstr ""
+
+#: idp/oidc/models.py:94
+msgid ""
+"A list of allowed response types. Provide one value per line, e.g.: "
+"code(ENTER)id_token token(ENTER)"
+msgstr ""
+
+#: idp/oidc/models.py:107
+#, fuzzy
+#| msgid "client id"
+msgid "client"
+msgstr "Client-ID"
+
+#: idp/oidc/models.py:108
+#, fuzzy
+#| msgid "client id"
+msgid "clients"
+msgstr "Client-ID"
 
 #: mfa/adapter.py:32
 msgid ""
@@ -348,11 +449,11 @@ msgstr "WebAuthn"
 msgid "Authenticator code"
 msgstr "Authentifizierungscode"
 
-#: mfa/webauthn/forms.py:59
+#: mfa/webauthn/forms.py:56
 msgid "Passwordless"
 msgstr "Passwortlos"
 
-#: mfa/webauthn/forms.py:62
+#: mfa/webauthn/forms.py:59
 msgid ""
 "Enabling passwordless operation allows you to sign in using just this key, "
 "but imposes additional requirements such as biometrics or PIN protection."
@@ -361,7 +462,7 @@ msgstr ""
 "diesem Schlüssel anmelden, müssen aber zusätzliche Anforderungen erfüllen, "
 "wie z. B. biometrische Daten oder PIN-Schutz."
 
-#: socialaccount/adapter.py:35
+#: socialaccount/adapter.py:30
 #, python-format
 msgid ""
 "An account already exists with this email address. Please sign in to that "
@@ -370,23 +471,23 @@ msgstr ""
 "Es existiert bereits ein Konto mit dieser E-Mail-Adresse. Bitte melde dich "
 "zuerst mit diesem Konto an, und verknüpfe es dann mit deinem %s-Konto."
 
-#: socialaccount/adapter.py:39
+#: socialaccount/adapter.py:34
 msgid "Invalid token."
 msgstr "Falsches Token."
 
-#: socialaccount/adapter.py:40
+#: socialaccount/adapter.py:35
 msgid "Your account has no password set up."
 msgstr "Für dein Konto wurde noch kein Passwort festgelegt."
 
-#: socialaccount/adapter.py:41
+#: socialaccount/adapter.py:36
 msgid "Your account has no verified email address."
 msgstr "Dein Konto hat keine bestätigte E-Mail-Adresse."
 
-#: socialaccount/adapter.py:43
+#: socialaccount/adapter.py:38
 msgid "You cannot disconnect your last remaining third-party account."
 msgstr "Sie können Ihr letztes verbleibendes Drittanbieterkonto nicht trennen."
 
-#: socialaccount/adapter.py:46
+#: socialaccount/adapter.py:41
 #: templates/socialaccount/messages/account_connected_other.txt:2
 msgid "The third-party account is already connected to a different account."
 msgstr ""
@@ -397,95 +498,95 @@ msgstr ""
 msgid "Social Accounts"
 msgstr "Konto"
 
-#: socialaccount/models.py:44 socialaccount/models.py:97
+#: socialaccount/models.py:45 socialaccount/models.py:98
 msgid "provider"
 msgstr "Anbieter"
 
-#: socialaccount/models.py:52
+#: socialaccount/models.py:53
 msgid "provider ID"
 msgstr "Anbieter-ID"
 
-#: socialaccount/models.py:56
+#: socialaccount/models.py:57
 msgid "name"
 msgstr "Name"
 
-#: socialaccount/models.py:58
+#: socialaccount/models.py:59
 msgid "client id"
 msgstr "Client-ID"
 
-#: socialaccount/models.py:60
+#: socialaccount/models.py:61
 msgid "App ID, or consumer key"
 msgstr "App-ID oder 'Consumer key'"
 
-#: socialaccount/models.py:63
+#: socialaccount/models.py:64
 msgid "secret key"
 msgstr "Geheimer Schlüssel"
 
-#: socialaccount/models.py:66
+#: socialaccount/models.py:67
 msgid "API secret, client secret, or consumer secret"
 msgstr "'API secret', 'client secret' oder 'consumer secret'"
 
-#: socialaccount/models.py:69 templates/mfa/webauthn/authenticator_list.html:18
+#: socialaccount/models.py:70 templates/mfa/webauthn/authenticator_list.html:18
 msgid "Key"
 msgstr "Schlüssel"
 
-#: socialaccount/models.py:81
+#: socialaccount/models.py:82
 msgid "social application"
 msgstr "Soziale Anwendung"
 
-#: socialaccount/models.py:82
+#: socialaccount/models.py:83
 msgid "social applications"
 msgstr "Soziale Anwendungen"
 
-#: socialaccount/models.py:117
+#: socialaccount/models.py:118
 msgid "uid"
 msgstr "UID"
 
-#: socialaccount/models.py:119
+#: socialaccount/models.py:120
 msgid "last login"
 msgstr "Letzte Anmeldung"
 
-#: socialaccount/models.py:120
+#: socialaccount/models.py:121
 msgid "date joined"
 msgstr "Registrierdatum"
 
-#: socialaccount/models.py:121
+#: socialaccount/models.py:122
 msgid "extra data"
 msgstr "Weitere Daten"
 
-#: socialaccount/models.py:125
+#: socialaccount/models.py:126
 msgid "social account"
 msgstr "Soziales Konto"
 
-#: socialaccount/models.py:126
+#: socialaccount/models.py:127
 msgid "social accounts"
 msgstr "Soziale Konten"
 
-#: socialaccount/models.py:160
+#: socialaccount/models.py:161
 msgid "token"
 msgstr "Token"
 
-#: socialaccount/models.py:161
+#: socialaccount/models.py:162
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr "\"oauth_token\" (OAuth1) oder \"access token\" (OAuth2)"
 
-#: socialaccount/models.py:165
+#: socialaccount/models.py:166
 msgid "token secret"
 msgstr "Geheimes Token"
 
-#: socialaccount/models.py:166
+#: socialaccount/models.py:167
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr "\"oauth_token_secret\" (OAuth1) oder \"refresh token\" (OAuth2)"
 
-#: socialaccount/models.py:169
+#: socialaccount/models.py:170
 msgid "expires at"
 msgstr "Läuft ab"
 
-#: socialaccount/models.py:174
+#: socialaccount/models.py:175
 msgid "social application token"
 msgstr "Token für soziale Anwendung"
 
-#: socialaccount/models.py:175
+#: socialaccount/models.py:176
 msgid "social application tokens"
 msgstr "Tokens für soziale Anwendungen"
 
@@ -501,12 +602,13 @@ msgstr "Anmeldung"
 #: templates/account/base_confirm_code.html:48
 #: templates/account/base_confirm_code.html:52
 #: templates/account/password_reset_from_key.html:33
+#: templates/idp/oidc/authorization_form.html:26
 #: templates/mfa/authenticate.html:28 templates/mfa/authenticate.html:44
 #: templates/mfa/trust.html:29 templates/mfa/webauthn/signup_form.html:26
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: socialaccount/providers/oauth/client.py:85
+#: socialaccount/providers/oauth/client.py:84
 #, python-format
 msgid ""
 "Invalid response while obtaining request token from \"%s\". Response was: %s."
@@ -514,23 +616,23 @@ msgstr ""
 "Ungültige Antwort von \"%s\" als Anfrageschlüssel erbeten wurde. Die Antwort "
 "war: %s."
 
-#: socialaccount/providers/oauth/client.py:119
+#: socialaccount/providers/oauth/client.py:118
 #: socialaccount/providers/pocket/client.py:86
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr "Ungültige Antwort von \"%s\" als Zugangsschlüssel erbeten wurde."
 
-#: socialaccount/providers/oauth/client.py:140
+#: socialaccount/providers/oauth/client.py:139
 #, python-format
 msgid "No request token saved for \"%s\"."
 msgstr "Kein Request-Token gespeichert für \"%s\"."
 
-#: socialaccount/providers/oauth/client.py:191
+#: socialaccount/providers/oauth/client.py:190
 #, python-format
 msgid "No access token saved for \"%s\"."
 msgstr "Kein Access-Token gespeichert für \"%s\"."
 
-#: socialaccount/providers/oauth/client.py:212
+#: socialaccount/providers/oauth/client.py:211
 #, python-format
 msgid "No access to private resources at \"%s\"."
 msgstr "Kein Zugriff zu privaten Daten auf \"%s\"."
@@ -561,6 +663,7 @@ msgstr ""
 #: templates/account/base_confirm_code.html:39
 #: templates/account/email_confirm.html:24
 #: templates/account/reauthenticate.html:18
+#: templates/idp/oidc/device_authorization_confirm_form.html:26
 #: templates/mfa/reauthenticate.html:18
 msgid "Confirm"
 msgstr "Bestätigen"
@@ -989,7 +1092,7 @@ msgstr "Anmeldecode senden"
 
 #: templates/account/logout.html:4 templates/account/logout.html:8
 #: templates/account/logout.html:21 templates/allauth/layouts/base.html:61
-#: templates/usersessions/usersession_list.html:64
+#: templates/usersessions/usersession_list.html:76
 msgid "Sign Out"
 msgstr "Abmelden"
 
@@ -1288,6 +1391,76 @@ msgstr "Zwei-Faktor-Authentifizierung"
 #: templates/usersessions/usersession_list.html:10
 msgid "Sessions"
 msgstr "Sitzungen"
+
+#: templates/idp/oidc/authorization_form.html:5
+#: templates/idp/oidc/authorization_form.html:9
+#: templates/idp/oidc/authorization_form.html:23
+#: templates/idp/oidc/device_authorization_code_form.html:5
+#: templates/idp/oidc/device_authorization_confirm_form.html:5
+#: templates/idp/oidc/device_authorization_confirmed.html:5
+#: templates/idp/oidc/device_authorization_denied.html:5
+msgid "Authorize"
+msgstr ""
+
+#: templates/idp/oidc/authorization_form.html:12
+#, python-format
+msgid "%(client_name)s wants to access your %(site_name)s account."
+msgstr ""
+
+#: templates/idp/oidc/device_authorization_code_form.html:9
+#, fuzzy
+#| msgid "Enter Sign-In Code"
+msgid "Enter Device Code"
+msgstr "Anmeldecode eingeben"
+
+#: templates/idp/oidc/device_authorization_code_form.html:12
+msgid "Enter the code displayed on your device."
+msgstr ""
+
+#: templates/idp/oidc/device_authorization_code_form.html:21
+#: templates/socialaccount/login.html:27
+#: templates/socialaccount/login_redirect.html:10
+msgid "Continue"
+msgstr "Fortfahren"
+
+#: templates/idp/oidc/device_authorization_confirm_form.html:9
+#, fuzzy
+#| msgid "Confirm Access"
+msgid "Confirm Device"
+msgstr "Zugriff bestätigen"
+
+#: templates/idp/oidc/device_authorization_confirm_form.html:12
+#, python-format
+msgid ""
+"Please confirm the code shown on your %(client_name)s to authorize this "
+"device."
+msgstr ""
+
+#: templates/idp/oidc/device_authorization_confirm_form.html:29
+msgid "Deny"
+msgstr ""
+
+#: templates/idp/oidc/device_authorization_confirmed.html:9
+msgid "Device Authorized"
+msgstr ""
+
+#: templates/idp/oidc/device_authorization_confirmed.html:12
+#, python-format
+msgid "You successfully authorized your %(client_name)s device."
+msgstr ""
+
+#: templates/idp/oidc/device_authorization_denied.html:9
+msgid "Device Denied"
+msgstr ""
+
+#: templates/idp/oidc/device_authorization_denied.html:12
+#, python-format
+msgid "Authorization for your %(client_name)s device has been denied."
+msgstr ""
+
+#: templates/idp/oidc/error.html:5 templates/idp/oidc/error.html:9
+msgid "Error"
+msgstr ""
 
 #: templates/mfa/authenticate.html:13
 msgid ""
@@ -1671,11 +1844,6 @@ msgstr "Anmelden über %(provider)s"
 msgid "You are about to sign in using a third-party account from %(provider)s."
 msgstr "Du bist dabei, dich mit einem Konto von %(provider)s anzumelden."
 
-#: templates/socialaccount/login.html:27
-#: templates/socialaccount/login_redirect.html:10
-msgid "Continue"
-msgstr "Fortfahren"
-
 #: templates/socialaccount/login_cancelled.html:5
 #: templates/socialaccount/login_cancelled.html:9
 msgid "Login Cancelled"
@@ -1718,27 +1886,27 @@ msgstr "Oder Drittanbieter verwenden"
 msgid "Signed out of all other sessions."
 msgstr "Von allen anderen Sitzungen abgemeldet."
 
-#: templates/usersessions/usersession_list.html:23
+#: templates/usersessions/usersession_list.html:24
 msgid "Started At"
 msgstr "Gestartet um"
 
-#: templates/usersessions/usersession_list.html:24
+#: templates/usersessions/usersession_list.html:27
 msgid "IP Address"
 msgstr "IP-Adresse"
 
-#: templates/usersessions/usersession_list.html:25
+#: templates/usersessions/usersession_list.html:30
 msgid "Browser"
 msgstr "Browser"
 
-#: templates/usersessions/usersession_list.html:27
+#: templates/usersessions/usersession_list.html:34
 msgid "Last seen at"
 msgstr "Zuletzt gesehen um"
 
-#: templates/usersessions/usersession_list.html:47
+#: templates/usersessions/usersession_list.html:59
 msgid "Current"
 msgstr "Aktuell"
 
-#: templates/usersessions/usersession_list.html:60
+#: templates/usersessions/usersession_list.html:72
 msgid "Sign Out Other Sessions"
 msgstr "Andere Sitzungen abmelden"
 
@@ -1746,7 +1914,7 @@ msgstr "Andere Sitzungen abmelden"
 msgid "User Sessions"
 msgstr "Benutzersitzungen"
 
-#: usersessions/models.py:92
+#: usersessions/models.py:93
 msgid "session key"
 msgstr "Sitzungsschlüssel"
 

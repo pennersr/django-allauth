@@ -3,6 +3,7 @@ from django.urls import reverse
 
 from allauth.account.internal.decorators import login_not_required
 from allauth.socialaccount.adapter import get_adapter
+from allauth.socialaccount.internal import jwtkit
 from allauth.socialaccount.models import SocialApp, SocialToken
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
@@ -48,14 +49,41 @@ class OpenIDConnectOAuth2Adapter(OAuth2Adapter):
         return self.openid_config["userinfo_endpoint"]
 
     def complete_login(self, request, app, token: SocialToken, **kwargs):
+        id_token_str = kwargs["response"].get("id_token")
+        fetch_userinfo = app.settings.get("fetch_userinfo", True)
+        data = {}
+        if fetch_userinfo or (not id_token_str):
+            data["userinfo"] = self._fetch_user_info(token.token)
+        if id_token_str:
+            data["id_token"] = self._decode_id_token(app, id_token_str)
+        return self.get_provider().sociallogin_from_response(request, data)
+
+    def _fetch_user_info(self, access_token: str) -> dict:
         response = (
             get_adapter()
             .get_requests_session()
-            .get(self.profile_url, headers={"Authorization": "Bearer " + token.token})
+            .get(self.profile_url, headers={"Authorization": "Bearer " + access_token})
         )
         response.raise_for_status()
-        extra_data = response.json()
-        return self.get_provider().sociallogin_from_response(request, extra_data)
+        return response.json()
+
+    def _decode_id_token(self, app: SocialApp, id_token: str) -> dict:
+        """
+        If the token was received by direct communication protected by
+        TLS between this library and Google, we are allowed to skip checking the
+        token signature according to the OpenID Connect Core 1.0 specification.
+
+        https://openid.net/specs/openid-connect-core-1_0.html#IDTokenValidation
+        """
+        verify_signature = not self.did_fetch_access_token
+        return jwtkit.verify_and_decode(
+            credential=id_token,
+            keys_url=self.openid_config["jwks_uri"],
+            issuer=self.openid_config["issuer"],
+            audience=app.client_id,
+            lookup_kid=jwtkit.lookup_kid_pem_x509_certificate,
+            verify_signature=verify_signature,
+        )
 
     def get_callback_url(self, request, app):
         callback_url = reverse(

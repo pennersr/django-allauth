@@ -14,6 +14,8 @@ from django.test.utils import override_settings
 from django.urls import reverse
 from django.utils.http import urlencode
 
+import jwt
+
 import allauth.app_settings
 from allauth.account.models import EmailAddress
 from allauth.account.utils import user_email, user_username
@@ -397,6 +399,8 @@ class OpenIDConnectTests(OAuth2TestsMixin):
         "authorization_endpoint": "/login",
         "userinfo_endpoint": "/userinfo",
         "token_endpoint": "/token",
+        "jwks_uri": "/jwks",
+        "issuer": "https://issuer.example.com",
     }
     userinfo_content = {
         "picture": "https://secure.gravatar.com/avatar/123",
@@ -405,13 +409,23 @@ class OpenIDConnectTests(OAuth2TestsMixin):
         "identities": [],
         "name": "Ness",
     }
-    extra_data = {
-        "picture": "https://secure.gravatar.com/avatar/123",
+    id_token = {
         "email": "ness@some.oidc.server.onett.example",
         "sub": 2187,
-        "identities": [],
-        "name": "Ness",
+        "preferred_username": "wizard",
+        "iss": "https://issuer.example.com",
+        "aud": "app123id",
     }
+
+    def get_id_token(self) -> dict:
+        return self.id_token
+
+    def get_login_response_json(self, with_refresh_token=True) -> str:
+        data = json.loads(
+            super().get_login_response_json(with_refresh_token=with_refresh_token)
+        )
+        data["id_token"] = jwt.encode(self.get_id_token(), "secret")
+        return json.dumps(data)
 
     def mocked_response(self, *responses):
         return mocked_response(*responses, callback=self._mocked_responses)
@@ -445,7 +459,10 @@ class OpenIDConnectTests(OAuth2TestsMixin):
         resp = self.login()
         self.assertRedirects(resp, "/accounts/profile/", fetch_redirect_response=False)
         sa = SocialAccount.objects.get(provider=self.app.provider_id)
-        self.assertDictEqual(sa.extra_data, self.extra_data)
+        expected_data = {"id_token": self.id_token}
+        if self.app.settings.get("fetch_userinfo", True):
+            expected_data["userinfo"] = self.userinfo_content
+        self.assertDictEqual(sa.extra_data, expected_data)
 
     def test_404_on_unknown_provider_id(self):
         """

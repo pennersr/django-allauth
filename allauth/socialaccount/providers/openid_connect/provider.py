@@ -1,4 +1,5 @@
 import requests
+from typing import Dict, Optional
 
 from django.urls import reverse
 from django.utils.http import urlencode
@@ -14,8 +15,19 @@ from allauth.socialaccount.providers.openid_connect.views import (
 )
 
 
+def _pick_data(data: dict) -> dict:
+    # Prefer userinfo, it likely has more info compared to the ID token.
+    if userinfo := data.get("userinfo"):
+        return userinfo
+    elif id_token := data.get("id_token"):
+        return id_token
+    # For backwards compatibility with <65.11
+    return data
+
+
 class OpenIDConnectProviderAccount(ProviderAccount):
-    pass
+    def get_user_data(self) -> Optional[Dict]:
+        return _pick_data(self.account.extra_data)
 
 
 class OpenIDConnectProvider(OAuth2Provider):
@@ -62,9 +74,11 @@ class OpenIDConnectProvider(OAuth2Provider):
         return ["openid", "profile", "email"]
 
     def extract_uid(self, data):
+        data = _pick_data(data)
         return str(data["sub"])
 
     def extract_common_fields(self, data):
+        data = _pick_data(data)
         return dict(
             email=data.get("email"),
             username=data.get("preferred_username"),
@@ -76,6 +90,7 @@ class OpenIDConnectProvider(OAuth2Provider):
         )
 
     def extract_email_addresses(self, data):
+        data = _pick_data(data)
         addresses = []
         email = data.get("email")
         if email:

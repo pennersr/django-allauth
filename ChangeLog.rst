@@ -4,7 +4,12 @@
 Note worthy changes
 -------------------
 
-- ...
+- OpenID Connect: using ``fetch_userinfo=False`` you can now skip the additional
+  call to the userinfo endpoint. Instead, the ID token will be used.  The ID
+  token and userinfo (when present) are now stored in
+  ``SocialAccount.extra_data``, below the respective ``"id_token"`` and
+  ``"userinfo"`` keys. Compatibility with ``extra_data`` from existing accounts
+  that do not have this new structure is retained.
 
 
 65.10.0 (2025-07-10)

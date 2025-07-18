@@ -1,5 +1,5 @@
 import datetime
-from typing import Any, Dict, Tuple
+from typing import Any, Dict, Tuple, Union, get_args, get_origin
 
 from django import forms
 
@@ -36,33 +36,47 @@ def spec_for_field(field: forms.Field) -> Dict[str, Any]:
     return field_spec
 
 
+def unwrap_optional_type(typ):
+    if get_origin(typ) is not Union:
+        return typ, True
+    args = get_args(typ)
+    if len(args) != 2 or type(None) not in args:
+        return typ, True
+    return args[0], False
+
+
 def spec_for_dataclass(dc) -> Tuple[dict, dict]:
     example = {}
     props = {}
+    required = []
     for field_id, field in dc.__dataclass_fields__.items():
-        example[field_id] = field.metadata["example"]
-        descriptor = {
-            "description": field.metadata["description"],
-            "example": field.metadata["example"],
-        }
-        if field.type is str:
+        descriptor = {}
+        if description := field.metadata.get("description"):
+            descriptor["description"] = description
+        if exa := field.metadata.get("example"):
+            descriptor["example"] = exa
+            example[field_id] = exa
+        field_type, req = unwrap_optional_type(field.type)
+        if req:
+            required.append(field_id)
+        if field_type is str:
             descriptor.update({"type": "string"})
-        elif field.type is int:
+        elif field_type is int:
             descriptor.update({"type": "integer"})
-        elif field.type is float:
+        elif field_type is float:
             descriptor.update({"type": "number", "format": "float"})
-        elif field.type is bool:
+        elif field_type is bool:
             descriptor.update({"type": "boolean"})
-        elif field.type is datetime.datetime:
+        elif field_type is datetime.datetime:
             descriptor.update({"type": "string", "format": "date-time"})
-        elif field.type is datetime.date:
+        elif field_type is datetime.date:
             descriptor.update({"type": "string", "format": "date"})
-        elif field.type is list:
+        elif field_type is list:
             descriptor.update({"type": "array"})
-        elif field.type is dict:
+        elif field_type is dict:
             descriptor.update({"type": "object"})
         else:
             descriptor.update({"type": "string"})
         props[field_id] = descriptor
-    schema = {"type": "object", "properties": props}
+    schema = {"type": "object", "properties": props, "required": required}
     return schema, example

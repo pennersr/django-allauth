@@ -834,7 +834,7 @@ paths:
         You initiate the passkey signup flow by inputting (`POST`) the required properties (e.g. email)
         similar to the regular account signup, except that the `password` is to be left out.
         The user will then be required to verify the email address, after which WebAuthn credential
-        creation options can be retrieved (`GET`) and used to actualy complete (`PUT`) the flow.
+        creation options can be retrieved (`GET`) and used to actually complete (`PUT`) the flow.
       requestBody:
         $ref: "#/components/requestBodies/PasskeySignup"
       responses:
@@ -1057,7 +1057,7 @@ paths:
         - "Account: Email"
       summary: List email addresses
       description: |
-        Retrieves the list of email addreses of the account.
+        Retrieves the list of email addresses of the account.
       parameters:
         - $ref: "#/components/parameters/Client"
         - $ref: "#/components/parameters/SessionToken"

@@ -2214,7 +2214,7 @@ components:
           enum:
             - 401
         data:
-          $ref: "#/components/schemas/Authenticated"
+          $ref: "#/components/schemas/ReauthenticationRequired"
         meta:
           $ref: "#/components/schemas/AuthenticatedMeta"
       required:
@@ -2313,6 +2313,25 @@ components:
       required:
         - user
         - methods
+    ReauthenticationRequired:
+      properties:
+        flows:
+          type: array
+          items:
+            $ref: '#/components/schemas/Flow'
+        user:
+          $ref: '#/components/schemas/User'
+        methods:
+          type: array
+          description: |
+            A list of methods used to authenticate.
+          items:
+            $ref: '#/components/schemas/AuthenticationMethod'
+      required:
+        - flows
+        - user
+        - methods
+      type: object
     AuthenticationMethod:
       oneOf:
         - type: object
@@ -3322,6 +3341,17 @@ components:
         The response indicates reauthentication is required.
       content:
         application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/components/schemas/ReauthenticationResponse'
+              status:
+                type: string
+                example: ok
+            required:
+              - data
+              - status
           examples:
             reauthentication_required:
               summary: |

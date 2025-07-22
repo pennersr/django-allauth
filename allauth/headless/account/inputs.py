@@ -37,7 +37,9 @@ class SignupInput(BaseSignupForm, inputs.Input):
 
     def clean_password(self):
         password = self.cleaned_data["password"]
-        return get_account_adapter().clean_password(password)
+        if password:
+            return get_account_adapter().clean_password(password)
+        return password
 
 
 class LoginInput(inputs.Input):

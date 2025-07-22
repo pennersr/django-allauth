@@ -1,3 +1,4 @@
+from http import HTTPStatus
 from unittest.mock import ANY, patch
 
 from django.contrib.auth.models import User
@@ -34,7 +35,7 @@ def test_signup(
             },
             content_type="application/json",
         )
-        assert resp.status_code == 200
+        assert resp.status_code == HTTPStatus.OK
         assert User.objects.filter(username="wizard").exists()
     finally:
         user_logged_in.disconnect(on_user_logged_in)
@@ -61,7 +62,7 @@ def test_signup_with_email_verification(
         },
         content_type="application/json",
     )
-    assert resp.status_code == 401
+    assert resp.status_code == HTTPStatus.UNAUTHORIZED
     assert User.objects.filter(email=email).exists()
     data = resp.json()
     flow = next((f for f in data["data"]["flows"] if f.get("is_pending")))
@@ -72,21 +73,21 @@ def test_signup_with_email_verification(
         headless_reverse("headless:account:verify_email"),
         HTTP_X_EMAIL_VERIFICATION_KEY=key,
     )
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
     assert resp.json() == {
         "data": {
             "email": email,
             "user": ANY,
         },
         "meta": {"is_authenticating": True},
-        "status": 200,
+        "status": HTTPStatus.OK,
     }
     resp = client.post(
         headless_reverse("headless:account:verify_email"),
         data={"key": key},
         content_type="application/json",
     )
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
     data = resp.json()
     assert data["meta"]["is_authenticated"]
     addr.refresh_from_db()
@@ -122,7 +123,7 @@ def test_signup_prevent_enumeration(
     )
     assert len(mailoutbox) == 1
     assert "an account using that email address already exists" in mailoutbox[0].body
-    assert resp.status_code == 401
+    assert resp.status_code == HTTPStatus.UNAUTHORIZED
     data = resp.json()
     assert [f for f in data["data"]["flows"] if f["id"] == Flow.VERIFY_EMAIL][0][
         "is_pending"
@@ -137,7 +138,7 @@ def test_signup_prevent_enumeration(
         data={"key": "wrong"},
         content_type="application/json",
     )
-    assert resp.status_code == 400
+    assert resp.status_code == HTTPStatus.BAD_REQUEST
 
 
 def test_signup_rate_limit(
@@ -161,7 +162,7 @@ def test_signup_rate_limit(
             },
             content_type="application/json",
         )
-        expected_status = 429 if attempt else 200
+        expected_status = HTTPStatus.TOO_MANY_REQUESTS if attempt else HTTPStatus.OK
         assert resp.status_code == expected_status
         assert resp.json()["status"] == expected_status
 
@@ -188,7 +189,7 @@ def test_signup_closed(
             },
             content_type="application/json",
         )
-    assert resp.status_code == 403
+    assert resp.status_code == HTTPStatus.FORBIDDEN
     assert not User.objects.filter(username="wizard").exists()
 
 
@@ -210,5 +211,31 @@ def test_signup_while_logged_in(
         },
         content_type="application/json",
     )
-    assert resp.status_code == 409
-    assert resp.json() == {"status": 409}
+    assert resp.status_code == HTTPStatus.CONFLICT
+    assert resp.json() == {"status": HTTPStatus.CONFLICT}
+
+
+def test_signup_without_password(
+    db,
+    client,
+    email_factory,
+    password_factory,
+    headless_reverse,
+    headless_client,
+    settings_impacting_urls,
+):
+    with settings_impacting_urls(
+        ACCOUNT_LOGIN_BY_CODE_ENABLED=True,
+        ACCOUNT_EMAIL_VERIFICATION="mandatory",
+        ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED=True,
+        ACCOUNT_SIGNUP_FIELDS=["email*", "password1"],
+    ):
+        resp = client.post(
+            headless_reverse("headless:account:signup"),
+            data={
+                "username": "wizard",
+                "email": email_factory(),
+            },
+            content_type="application/json",
+        )
+        assert resp.status_code == HTTPStatus.UNAUTHORIZED

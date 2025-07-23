@@ -14,6 +14,7 @@
  In case you add a new provider:
 
 - [ ] Make sure unit tests are available.
-- [ ] Add an entry of your provider in `test_settings.py::INSTALLED_APPS` and `docs/installation.rst::INSTALLED_APPS`.
-- [ ] Add documentation to `docs/providers/<provider name>.rst` and `docs/providers/index.rst` Provider Specifics toctree.
-- [ ] Add an entry to the list of supported providers over at `docs/overview.rst`.
+- [ ] Ensure your provider is tested by adding an entry over at `tests/projects/common/settings.py::INSTALLED_SOCIALACCOUNT_APPS`.
+- [ ] Provide provider specific documentation at `docs/socialaccount/providers/<provider name>.rst`.
+- [ ] Link to your provider specific documentation at `docs/insocialaccount/providers/index.rst`.
+- [ ] Add an entry for your provider in the quickstart, over at `docs/installation/quickstart.rst::INSTALLED_APPS`.

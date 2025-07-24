@@ -10,7 +10,7 @@ App registration
 To register an app on Twitter you will need a Twitter account. With an account, you
 can create a new app via::
 
-    https://apps.twitter.com/app/new
+    https://apps.x.com/app/new
 
 In the app creation form fill in the development callback URL::
 
@@ -37,7 +37,7 @@ in the admin. Add a social app on the admin page::
 
 Use the twitter keys tab of your application to fill in the form. It's located::
 
-    https://apps.twitter.com/app/{{yourappid}}/keys
+    https://apps.x.com/app/{{yourappid}}/keys
 
 The configuration is as follows:
 

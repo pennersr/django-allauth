@@ -16,7 +16,7 @@ class AngelListTests(OAuth2TestsMixin, TestCase):
 "angellist_url":"https://angel.co/dsxtst",
 "image":"https://angel.co/images/shared/nopic.png",
 "email":"raymond.penners@example.com","blog_url":null,
-"online_bio_url":null,"twitter_url":"https://twitter.com/dsxtst",
+"online_bio_url":null,"twitter_url":"https://x.com/dsxtst",
 "facebook_url":null,"linkedin_url":null,"aboutme_url":null,
 "github_url":null,"dribbble_url":null,"behance_url":null,
 "what_ive_built":null,"locations":[],"roles":[],"skills":[],

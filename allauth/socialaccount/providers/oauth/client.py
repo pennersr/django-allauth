@@ -23,8 +23,8 @@ def get_token_prefix(url):
 
     Example:
 
-        The request token url ``http://twitter.com/oauth/request_token``
-        returns ``twitter.com``
+        The request token url ``http://x.com/oauth/request_token``
+        returns ``x.com``
 
     """
     return urlparse(url).netloc

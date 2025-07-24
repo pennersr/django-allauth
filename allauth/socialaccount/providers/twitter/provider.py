@@ -12,7 +12,7 @@ class TwitterAccount(ProviderAccount):
         ret = None
         screen_name = self.get_screen_name()
         if screen_name:
-            ret = "http://twitter.com/" + screen_name
+            ret = "http://x.com/" + screen_name
         return ret
 
     def get_avatar_url(self):
@@ -37,9 +37,9 @@ class TwitterProvider(OAuthProvider):
 
     def get_auth_url(self, request, action):
         if action == AuthAction.REAUTHENTICATE:
-            url = "https://api.twitter.com/oauth/authorize"
+            url = "https://api.x.com/oauth/authorize"
         else:
-            url = "https://api.twitter.com/oauth/authenticate"
+            url = "https://api.x.com/oauth/authenticate"
         return url
 
     def extract_uid(self, data):

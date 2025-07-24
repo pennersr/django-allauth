@@ -12,7 +12,7 @@ class TwitterAPI(OAuth):
     Verifying twitter credentials
     """
 
-    _base_url = "https://api.twitter.com/1.1/account/verify_credentials.json"
+    _base_url = "https://api.x.com/1.1/account/verify_credentials.json"
     url = _base_url + "?include_email=true" if QUERY_EMAIL else _base_url
 
     def get_user_info(self):
@@ -22,11 +22,11 @@ class TwitterAPI(OAuth):
 
 class TwitterOAuthAdapter(OAuthAdapter):
     provider_id = "twitter"
-    request_token_url = "https://api.twitter.com/oauth/request_token"  # nosec
-    access_token_url = "https://api.twitter.com/oauth/access_token"  # nosec
+    request_token_url = "https://api.x.com/oauth/request_token"  # nosec
+    access_token_url = "https://api.x.com/oauth/access_token"  # nosec
     # Issue #42 -- this one authenticates over and over again...
     # authorize_url = 'https://api.twitter.com/oauth/authorize'
-    authorize_url = "https://api.twitter.com/oauth/authenticate"
+    authorize_url = "https://api.x.com/oauth/authenticate"
 
     def complete_login(self, request, app, token, response):
         client = TwitterAPI(request, app.client_id, app.secret, self.request_token_url)

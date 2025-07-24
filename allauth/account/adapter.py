@@ -335,7 +335,7 @@ class DefaultAccountAdapter(BaseAdapter):
         self.populate_username(request, user)
         if commit:
             user.save()
-        if form._has_phone_field:
+        if getattr(form, "_has_phone_field", False):
             phone = form.cleaned_data.get("phone")
             if phone:
                 self.set_phone(user, phone, False)

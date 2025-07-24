@@ -1,5 +1,5 @@
-MailChimp (OAuth2)
-------------------
+MailChimp (OAuth 2)
+-------------------
 
 MailChimp has a simple API for working with your own data and a `good library`_
 already exists for this use. However, to allow other MailChimp users to use an

@@ -31,7 +31,7 @@ class TwitterAccount(ProviderAccount):
 
 class TwitterProvider(OAuthProvider):
     id = "twitter"
-    name = "Twitter"
+    name = "X"
     account_class = TwitterAccount
     oauth_adapter_class = TwitterOAuthAdapter
 

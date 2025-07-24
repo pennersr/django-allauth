@@ -19,7 +19,7 @@ class TwitterOAuth2Account(ProviderAccount):
 
 class TwitterOAuth2Provider(OAuth2Provider):
     id = "twitter_oauth2"
-    name = "Twitter"
+    name = "X"
     account_class = TwitterOAuth2Account
     oauth2_adapter_class = TwitterOAuth2Adapter
     pkce_enabled_default = True

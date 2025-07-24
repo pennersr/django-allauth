@@ -1,5 +1,5 @@
-Tumblr OAuth2
---------------
+Tumblr (OAuth 2)
+----------------
 
 You will need to create a Tumblr app and configure the Tumblr provider for
 your Django application via the admin interface.

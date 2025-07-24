@@ -138,8 +138,6 @@ Provider Specifics
    trello
    tumblr_oauth2
    twitch
-   twitter_oauth2
-   twitter
    untappd
    vimeo_oauth2
    vimeo
@@ -148,6 +146,8 @@ Provider Specifics
    weibo
    weixin
    windowslive
+   twitter
+   twitter_oauth2
    xing
    yahoo
    yandex

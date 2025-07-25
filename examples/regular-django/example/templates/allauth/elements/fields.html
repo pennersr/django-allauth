@@ -4,8 +4,10 @@
         {% slot label %}
             {{ bound_field.label }}
         {% endslot %}
-        {% slot help_text %}
-            {{ bound_field.field.help_text }}
-        {% endslot %}
+        {% if bound_field.field.help_text %}
+            {% slot help_text %}
+                {{ bound_field.field.help_text }}
+            {% endslot %}
+        {% endif %}
     {% endelement %}
 {% endfor %}

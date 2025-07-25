@@ -8,17 +8,17 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-10 06:19-0500\n"
-"PO-Revision-Date: 2025-05-11 01:13+0000\n"
+"PO-Revision-Date: 2025-07-13 18:01+0000\n"
 "Last-Translator: Igor Jerosimić <jerosimic@gmail.com>\n"
-"Language-Team: Serbian <https://hosted.weblate.org/projects/allauth/django-"
-"allauth/sr/>\n"
+"Language-Team: Serbian <https://hosted.weblate.org/projects/allauth/"
+"django-allauth/sr/>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.12-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: account/adapter.py:53
 msgid "This account is currently inactive."
@@ -129,16 +129,14 @@ msgid "Use a security key"
 msgstr "Користите безбедносни кључ"
 
 #: account/admin.py:30
-#, fuzzy, python-brace-format
-#| msgid "Mark selected email addresses as verified"
+#, python-brace-format
 msgid "Marked {email} as verified."
-msgstr "Означите изабране адресе е-поште као верификоване"
+msgstr "Означите {email} као верификован."
 
 #: account/admin.py:36
-#, fuzzy, python-brace-format
-#| msgid "Your primary email address must be verified."
+#, python-brace-format
 msgid "Failed to mark {email} as verified."
-msgstr "Ваша примарна адреса е-поште мора бити потврђена."
+msgstr "Није успело верификовање {email}."
 
 #: account/admin.py:42
 msgid "Mark selected email addresses as verified"
@@ -297,57 +295,51 @@ msgstr "Без главе"
 
 #: idp/oidc/adapter.py:30
 msgid "View your user ID"
-msgstr ""
+msgstr "Погледајте свој кориснички ИД"
 
 #: idp/oidc/adapter.py:31
-#, fuzzy
-#| msgid "Verify Your Email Address"
 msgid "View your email address"
-msgstr "Потврдите Вашу адресу е-поште"
+msgstr "Погледајте своју адресу е-поште"
 
 #: idp/oidc/adapter.py:32
 msgid "View your basic profile information"
-msgstr ""
+msgstr "Погледајте основне информације о свом профилу"
 
 #: idp/oidc/forms.py:26
-#, fuzzy
-#| msgid "User Sessions"
 msgid "Grant permissions"
-msgstr "Корисничке сесије"
+msgstr "Додели дозволе"
 
 #: idp/oidc/models.py:37
-#, fuzzy
-#| msgid "Authenticator code"
 msgid "Authorization code"
-msgstr "Aутентикатор код"
+msgstr "Код ауторизације"
 
 #: idp/oidc/models.py:38
-#, fuzzy
-#| msgid "Recovery codes"
 msgid "Device code"
-msgstr "Кодови за опоравак"
+msgstr "Код уређаја"
 
 #: idp/oidc/models.py:39
 msgid "Client credentials"
-msgstr ""
+msgstr "Акредитиви клијента"
 
 #: idp/oidc/models.py:40
 msgid "Refresh token"
-msgstr ""
+msgstr "Освежи токен"
 
 #: idp/oidc/models.py:43
 msgid "Confidential"
-msgstr ""
+msgstr "Поверљиво"
 
 #: idp/oidc/models.py:44
 msgid "Public"
-msgstr ""
+msgstr "Јавно"
 
 #: idp/oidc/models.py:58
 msgid ""
 "The scope(s) the client is allowed to request. Provide one value per line, e."
 "g.: openid(ENTER)profile(ENTER)email(ENTER)"
 msgstr ""
+"Опсег(зи) које клијент може да захтева. Наведите једну вредност по реду, нпр:"
+" openid(ENTER)profile(ENTER)email(ENTER)"
 
 #: idp/oidc/models.py:64
 msgid ""
@@ -355,34 +347,39 @@ msgid ""
 "used. Provide one value per line, e.g.: "
 "openid(ENTER)profile(ENTER)email(ENTER)"
 msgstr ""
+"У случају да клијент не наведе опсег, користе се ови подразумевани опсези. "
+"Наведите по једну вредност по реду, нпр: "
+"openid(ENTER)profile(ENTER)email(ENTER)"
 
 #: idp/oidc/models.py:75
 msgid ""
 "A list of allowed grant types. Provide one value per line, e.g.: "
 "authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 msgstr ""
+"Листа дозвољених типова одобрења. Наведите једну вредност по реду, нпр: "
+"authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 
 #: idp/oidc/models.py:86
 msgid "A list of allowed origins for cross-origin requests, one per line."
 msgstr ""
+"Листа дозвољених порекла за захтеве из различитог порекла, по једно у сваком "
+"реду."
 
 #: idp/oidc/models.py:94
 msgid ""
 "A list of allowed response types. Provide one value per line, e.g.: "
 "code(ENTER)id_token token(ENTER)"
 msgstr ""
+"Листа дозвољених типова одговора. Наведите једну вредност по реду, нпр: "
+"code(ENTER)id_token token(ENTER)"
 
 #: idp/oidc/models.py:107
-#, fuzzy
-#| msgid "client id"
 msgid "client"
-msgstr "ид клијента"
+msgstr "клијент"
 
 #: idp/oidc/models.py:108
-#, fuzzy
-#| msgid "client id"
 msgid "clients"
-msgstr "ид клијента"
+msgstr "клијенти"
 
 #: mfa/adapter.py:32
 msgid ""
@@ -1379,22 +1376,20 @@ msgstr "Сесије"
 #: templates/idp/oidc/device_authorization_confirmed.html:5
 #: templates/idp/oidc/device_authorization_denied.html:5
 msgid "Authorize"
-msgstr ""
+msgstr "Овласти"
 
 #: templates/idp/oidc/authorization_form.html:12
 #, python-format
 msgid "%(client_name)s wants to access your %(site_name)s account."
-msgstr ""
+msgstr "%(client_name)s жели да приступи вашем %(site_name)s налогу."
 
 #: templates/idp/oidc/device_authorization_code_form.html:9
-#, fuzzy
-#| msgid "Enter Sign-In Code"
 msgid "Enter Device Code"
-msgstr "Унесите код за пријаву"
+msgstr "Унесите код уређаја"
 
 #: templates/idp/oidc/device_authorization_code_form.html:12
 msgid "Enter the code displayed on your device."
-msgstr ""
+msgstr "Унесите код приказан на вашем уређају."
 
 #: templates/idp/oidc/device_authorization_code_form.html:21
 #: templates/socialaccount/login.html:27
@@ -1403,10 +1398,8 @@ msgid "Continue"
 msgstr "Настави"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:9
-#, fuzzy
-#| msgid "Confirm Access"
 msgid "Confirm Device"
-msgstr "Потврди приступ"
+msgstr "Потврди уређај"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:12
 #, python-format
@@ -1414,32 +1407,34 @@ msgid ""
 "Please confirm the code shown on your %(client_name)s to authorize this "
 "device."
 msgstr ""
+"Молимо вас да потврдите код приказан на вашем %(client_name)s налогу да "
+"бисте овластили овај уређај."
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:29
 msgid "Deny"
-msgstr ""
+msgstr "Одбиј"
 
 #: templates/idp/oidc/device_authorization_confirmed.html:9
 msgid "Device Authorized"
-msgstr ""
+msgstr "Уређај је овлашћен"
 
 #: templates/idp/oidc/device_authorization_confirmed.html:12
 #, python-format
 msgid "You successfully authorized your %(client_name)s device."
-msgstr ""
+msgstr "Успешно сте овластили свој %(client_name)s уређај."
 
 #: templates/idp/oidc/device_authorization_denied.html:9
 msgid "Device Denied"
-msgstr ""
+msgstr "Уређај одбијен"
 
 #: templates/idp/oidc/device_authorization_denied.html:12
 #, python-format
 msgid "Authorization for your %(client_name)s device has been denied."
-msgstr ""
+msgstr "Овлашћење за ваш %(client_name)s уређај је одбијено."
 
 #: templates/idp/oidc/error.html:5 templates/idp/oidc/error.html:9
 msgid "Error"
-msgstr ""
+msgstr "Грешка"
 
 #: templates/mfa/authenticate.html:13
 msgid ""

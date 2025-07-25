@@ -9,16 +9,16 @@ msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-10 06:19-0500\n"
-"PO-Revision-Date: 2025-06-17 17:01+0000\n"
+"PO-Revision-Date: 2025-07-18 20:02+0000\n"
 "Last-Translator: Emirhan Soytaş <emrhns61@hotmail.com>\n"
-"Language-Team: Turkish <https://hosted.weblate.org/projects/allauth/django-"
-"allauth/tr/>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/allauth/"
+"django-allauth/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.12.1\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: account/adapter.py:53
 msgid "This account is currently inactive."
@@ -129,16 +129,14 @@ msgid "Use a security key"
 msgstr "Güvenlik anahtarı kullan"
 
 #: account/admin.py:30
-#, fuzzy, python-brace-format
-#| msgid "Mark selected email addresses as verified"
+#, python-brace-format
 msgid "Marked {email} as verified."
-msgstr "Seçili e-posta adreslerini doğrulanmış olarak işaretle"
+msgstr "{email} mail adresi, doğrulanmış olarak işaretlendi."
 
 #: account/admin.py:36
-#, fuzzy, python-brace-format
-#| msgid "Your primary email address must be verified."
+#, python-brace-format
 msgid "Failed to mark {email} as verified."
-msgstr "Birincil e-posta adresinizin doğrulanması gerekmektedir."
+msgstr "{email} mail adresini doğrulanmış olarak işaretlerken hata alındı."
 
 #: account/admin.py:42
 msgid "Mark selected email addresses as verified"
@@ -296,57 +294,51 @@ msgstr "Gözetimsiz"
 
 #: idp/oidc/adapter.py:30
 msgid "View your user ID"
-msgstr ""
+msgstr "Kullanıcı ID'ni görüntüle"
 
 #: idp/oidc/adapter.py:31
-#, fuzzy
-#| msgid "Verify Your Email Address"
 msgid "View your email address"
-msgstr "E-posta Adresinizi Doğrulayın"
+msgstr "E-posta adresini görüntüle"
 
 #: idp/oidc/adapter.py:32
 msgid "View your basic profile information"
-msgstr ""
+msgstr "Temel profil bilgini görüntüle"
 
 #: idp/oidc/forms.py:26
-#, fuzzy
-#| msgid "User Sessions"
 msgid "Grant permissions"
-msgstr "Kullanıcı Oturumları"
+msgstr "İzin tanımla"
 
 #: idp/oidc/models.py:37
-#, fuzzy
-#| msgid "Authenticator code"
 msgid "Authorization code"
-msgstr "Doğrulayıcı kodu"
+msgstr "Yetki kodu"
 
 #: idp/oidc/models.py:38
-#, fuzzy
-#| msgid "Recovery codes"
 msgid "Device code"
-msgstr "Kurtarma kodları"
+msgstr "Cihaz kodu"
 
 #: idp/oidc/models.py:39
 msgid "Client credentials"
-msgstr ""
+msgstr "İstemci bilgileri"
 
 #: idp/oidc/models.py:40
 msgid "Refresh token"
-msgstr ""
+msgstr "Yenileme token'i"
 
 #: idp/oidc/models.py:43
 msgid "Confidential"
-msgstr ""
+msgstr "Gizli"
 
 #: idp/oidc/models.py:44
 msgid "Public"
-msgstr ""
+msgstr "Genel"
 
 #: idp/oidc/models.py:58
 msgid ""
 "The scope(s) the client is allowed to request. Provide one value per line, e."
 "g.: openid(ENTER)profile(ENTER)email(ENTER)"
 msgstr ""
+"İstemcinin istek atmaya izni olduğu kapsam(lar). Her satır için bir değer "
+"giriniz, örneğin: openid(ENTER)profile(ENTER)email(ENTER)"
 
 #: idp/oidc/models.py:64
 msgid ""
@@ -354,34 +346,40 @@ msgid ""
 "used. Provide one value per line, e.g.: "
 "openid(ENTER)profile(ENTER)email(ENTER)"
 msgstr ""
+"İstemcinin herhangi bir kapsam belirtmediği durumlarda bu varsayılan "
+"kapsamlar kullanılır. Her satır için bir değer giriniz, örneğin: "
+"openid(ENTER)profile(ENTER)email(ENTER)"
 
 #: idp/oidc/models.py:75
 msgid ""
 "A list of allowed grant types. Provide one value per line, e.g.: "
 "authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 msgstr ""
+"İzin verilen yetkilendirme türlerinin listesi. Her satır için bir değer "
+"giriniz, örneğin: "
+"authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 
 #: idp/oidc/models.py:86
 msgid "A list of allowed origins for cross-origin requests, one per line."
 msgstr ""
+"Çapraz kaynak istekleri (cross-origin requests) için izin verilen "
+"kaynakların listesi, her bir satır için tek değer girilir."
 
 #: idp/oidc/models.py:94
 msgid ""
 "A list of allowed response types. Provide one value per line, e.g.: "
 "code(ENTER)id_token token(ENTER)"
 msgstr ""
+"İzin verilen yanıt türlerinin listesi. Her satır için tek değer giriniz, "
+"örneğin: code(ENTER)id_token token(ENTER)"
 
 #: idp/oidc/models.py:107
-#, fuzzy
-#| msgid "client id"
 msgid "client"
-msgstr "istemci kimlik numarası"
+msgstr "istemci"
 
 #: idp/oidc/models.py:108
-#, fuzzy
-#| msgid "client id"
 msgid "clients"
-msgstr "istemci kimlik numarası"
+msgstr "istemciler"
 
 #: mfa/adapter.py:32
 msgid ""
@@ -1390,22 +1388,22 @@ msgstr "Oturumlar"
 #: templates/idp/oidc/device_authorization_confirmed.html:5
 #: templates/idp/oidc/device_authorization_denied.html:5
 msgid "Authorize"
-msgstr ""
+msgstr "Yetkilendir"
 
 #: templates/idp/oidc/authorization_form.html:12
 #, python-format
 msgid "%(client_name)s wants to access your %(site_name)s account."
 msgstr ""
+"%(client_name)s isimli istemci, %(site_name)s isimli hesabınıza erişim talep "
+"etmektedir."
 
 #: templates/idp/oidc/device_authorization_code_form.html:9
-#, fuzzy
-#| msgid "Enter Sign-In Code"
 msgid "Enter Device Code"
-msgstr "Giriş Kodunu Gir"
+msgstr "Cihaz Kodu Gir"
 
 #: templates/idp/oidc/device_authorization_code_form.html:12
 msgid "Enter the code displayed on your device."
-msgstr ""
+msgstr "Cihazınızda gözüken kodu giriniz."
 
 #: templates/idp/oidc/device_authorization_code_form.html:21
 #: templates/socialaccount/login.html:27
@@ -1414,10 +1412,8 @@ msgid "Continue"
 msgstr "İlerle"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:9
-#, fuzzy
-#| msgid "Confirm Access"
 msgid "Confirm Device"
-msgstr "Erişim Doğrulama"
+msgstr "Cihazı Onayla"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:12
 #, python-format
@@ -1425,32 +1421,35 @@ msgid ""
 "Please confirm the code shown on your %(client_name)s to authorize this "
 "device."
 msgstr ""
+"Lütfen bu cihazı yetkilendirmek için %(client_name)s isimli istemcinizde "
+"gözüken kodu onaylayınız."
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:29
 msgid "Deny"
-msgstr ""
+msgstr "Reddet"
 
 #: templates/idp/oidc/device_authorization_confirmed.html:9
 msgid "Device Authorized"
-msgstr ""
+msgstr "Cihaz Yetkilendirildi"
 
 #: templates/idp/oidc/device_authorization_confirmed.html:12
 #, python-format
 msgid "You successfully authorized your %(client_name)s device."
-msgstr ""
+msgstr "%(client_name)s isimli cihazınızı başarıyla yetkilendirdiniz."
 
 #: templates/idp/oidc/device_authorization_denied.html:9
 msgid "Device Denied"
-msgstr ""
+msgstr "Cihaz Reddedildi"
 
 #: templates/idp/oidc/device_authorization_denied.html:12
 #, python-format
 msgid "Authorization for your %(client_name)s device has been denied."
 msgstr ""
+"%(client_name)s isimli cihazınız için istenilen yetkilendirme reddedildi."
 
 #: templates/idp/oidc/error.html:5 templates/idp/oidc/error.html:9
 msgid "Error"
-msgstr ""
+msgstr "Hata"
 
 #: templates/mfa/authenticate.html:13
 msgid ""

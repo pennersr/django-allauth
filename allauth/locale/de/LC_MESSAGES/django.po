@@ -9,16 +9,16 @@ msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-10 06:19-0500\n"
-"PO-Revision-Date: 2025-03-14 11:46+0100\n"
-"Last-Translator: Natalia N <natalian@inbox.ru>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/allauth/django-"
-"allauth/de/>\n"
+"PO-Revision-Date: 2025-07-12 07:01+0000\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/allauth/"
+"django-allauth/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.7.1-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: account/adapter.py:53
 msgid "This account is currently inactive."
@@ -74,10 +74,8 @@ msgid "You cannot add more than %d email addresses."
 msgstr "Du kannst nicht mehr als %d E-Mail-Adressen hinzufügen."
 
 #: account/adapter.py:74
-#, fuzzy
-#| msgid "A user is already registered with this email address."
 msgid "A user is already registered with this phone number."
-msgstr "Es ist bereits jemand mit dieser E-Mail-Adresse registriert."
+msgstr "Es ist bereits ein Benutzer mit dieser Rufnummer registriert."
 
 #: account/adapter.py:76
 msgid "Too many failed login attempts. Try again later."
@@ -132,10 +130,9 @@ msgid "Use a security key"
 msgstr "Verwenden Sie einen Sicherheitsschlüssel"
 
 #: account/admin.py:30
-#, fuzzy, python-brace-format
-#| msgid "Mark selected email addresses as verified"
+#, python-brace-format
 msgid "Marked {email} as verified."
-msgstr "Markierte E-Mail-Adressen als verifiziert kennzeichnen"
+msgstr "{email} als verifiziert markieren."
 
 #: account/admin.py:36
 #, fuzzy, python-brace-format
@@ -314,22 +311,16 @@ msgid "View your basic profile information"
 msgstr ""
 
 #: idp/oidc/forms.py:26
-#, fuzzy
-#| msgid "User Sessions"
 msgid "Grant permissions"
-msgstr "Benutzersitzungen"
+msgstr "Berechtigungen erteilen"
 
 #: idp/oidc/models.py:37
-#, fuzzy
-#| msgid "Authenticator code"
 msgid "Authorization code"
-msgstr "Authentifizierungscode"
+msgstr "Autorisierungscode"
 
 #: idp/oidc/models.py:38
-#, fuzzy
-#| msgid "Recovery codes"
 msgid "Device code"
-msgstr "Wiederherstellungs-Codes"
+msgstr "Gerätecode"
 
 #: idp/oidc/models.py:39
 msgid "Client credentials"
@@ -337,15 +328,15 @@ msgstr ""
 
 #: idp/oidc/models.py:40
 msgid "Refresh token"
-msgstr ""
+msgstr "Token auffrischen"
 
 #: idp/oidc/models.py:43
 msgid "Confidential"
-msgstr ""
+msgstr "Vertraulich"
 
 #: idp/oidc/models.py:44
 msgid "Public"
-msgstr ""
+msgstr "Öffentlich"
 
 #: idp/oidc/models.py:58
 msgid ""
@@ -377,16 +368,12 @@ msgid ""
 msgstr ""
 
 #: idp/oidc/models.py:107
-#, fuzzy
-#| msgid "client id"
 msgid "client"
-msgstr "Client-ID"
+msgstr "Client"
 
 #: idp/oidc/models.py:108
-#, fuzzy
-#| msgid "client id"
 msgid "clients"
-msgstr "Client-ID"
+msgstr "Clients"
 
 #: mfa/adapter.py:32
 msgid ""
@@ -669,10 +656,8 @@ msgid "Confirm"
 msgstr "Bestätigen"
 
 #: templates/account/base_confirm_code.html:43
-#, fuzzy
-#| msgid "Request Code"
 msgid "Request new code"
-msgstr "Code anfordern"
+msgstr "Neuen Code anfordern"
 
 #: templates/account/base_reauthenticate.html:5
 #: templates/account/base_reauthenticate.html:9
@@ -697,10 +682,8 @@ msgid "Enter Email Verification Code"
 msgstr "Geben Sie den E-Mail-Bestätigungscode ein"
 
 #: templates/account/confirm_email_verification_code.html:16
-#, fuzzy
-#| msgid "email address"
 msgid "Use a different email address"
-msgstr "E-Mail-Adresse"
+msgstr "Andere E-Mail-Adresse verwenden"
 
 #: templates/account/confirm_login_code.html:5 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
@@ -1400,7 +1383,7 @@ msgstr "Sitzungen"
 #: templates/idp/oidc/device_authorization_confirmed.html:5
 #: templates/idp/oidc/device_authorization_denied.html:5
 msgid "Authorize"
-msgstr ""
+msgstr "Autorisieren"
 
 #: templates/idp/oidc/authorization_form.html:12
 #, python-format
@@ -1408,10 +1391,8 @@ msgid "%(client_name)s wants to access your %(site_name)s account."
 msgstr ""
 
 #: templates/idp/oidc/device_authorization_code_form.html:9
-#, fuzzy
-#| msgid "Enter Sign-In Code"
 msgid "Enter Device Code"
-msgstr "Anmeldecode eingeben"
+msgstr "Gerätecode eingeben"
 
 #: templates/idp/oidc/device_authorization_code_form.html:12
 msgid "Enter the code displayed on your device."
@@ -1424,10 +1405,8 @@ msgid "Continue"
 msgstr "Fortfahren"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:9
-#, fuzzy
-#| msgid "Confirm Access"
 msgid "Confirm Device"
-msgstr "Zugriff bestätigen"
+msgstr "Gerät bestätigen"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:12
 #, python-format
@@ -1438,11 +1417,11 @@ msgstr ""
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:29
 msgid "Deny"
-msgstr ""
+msgstr "Ablehnen"
 
 #: templates/idp/oidc/device_authorization_confirmed.html:9
 msgid "Device Authorized"
-msgstr ""
+msgstr "Gerät autorisiert"
 
 #: templates/idp/oidc/device_authorization_confirmed.html:12
 #, python-format
@@ -1451,7 +1430,7 @@ msgstr ""
 
 #: templates/idp/oidc/device_authorization_denied.html:9
 msgid "Device Denied"
-msgstr ""
+msgstr "Gerät abgelehnt"
 
 #: templates/idp/oidc/device_authorization_denied.html:12
 #, python-format
@@ -1460,7 +1439,7 @@ msgstr ""
 
 #: templates/idp/oidc/error.html:5 templates/idp/oidc/error.html:9
 msgid "Error"
-msgstr ""
+msgstr "Fehler"
 
 #: templates/mfa/authenticate.html:13
 msgid ""
@@ -1678,7 +1657,7 @@ msgstr ""
 
 #: templates/mfa/trust.html:4 templates/mfa/trust.html:8
 msgid "Trust this Browser?"
-msgstr ""
+msgstr "Diesem Browser vertrauen?"
 
 #: templates/mfa/trust.html:11
 msgid ""
@@ -1693,7 +1672,7 @@ msgstr ""
 
 #: templates/mfa/trust.html:26
 msgid "Don't Trust"
-msgstr ""
+msgstr "Nicht vertrauen"
 
 #: templates/mfa/webauthn/add_form.html:7
 msgid "Add Security Key"

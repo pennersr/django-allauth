@@ -12,7 +12,7 @@ def settings_check(app_configs, **kwargs):
         except ImportError:
             ret.append(
                 Critical(
-                    msg="HEADLESS_SERVE_SPECIFICATION requires PyYAML to be installed"
+                    msg="HEADLESS_SERVE_SPECIFICATION requires the django-allauth[headless-spec] extra to be installed"
                 )
             )
     return ret

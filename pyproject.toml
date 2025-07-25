@@ -40,6 +40,9 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+headless-spec = [
+    "PyYAML >= 6,<7",
+]
 idp-oidc = [
     "oauthlib >= 3.3.0,<4",
     "pyjwt[crypto] >= 2.0,<3",

@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-10 06:19-0500\n"
-"PO-Revision-Date: 2025-03-14 11:46+0100\n"
+"POT-Creation-Date: 2025-07-25 13:23-0500\n"
+"PO-Revision-Date: 2025-07-25 20:25+0200\n"
 "Last-Translator: Laurent FAVOLE <laurentfavole03@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/allauth/django-"
 "allauth/fr/>\n"
@@ -1228,7 +1228,6 @@ msgid "Set Password"
 msgstr "Définir un mot de passe"
 
 #: templates/account/phone_change.html:5 templates/account/phone_change.html:9
-#: templates/account/phone_change.html:38
 msgid "Change Phone"
 msgstr "Changer de numéro de téléphone"
 
@@ -1239,6 +1238,11 @@ msgstr "Numéro de téléphone actuel"
 #: templates/account/phone_change.html:22
 msgid "Your phone number is still pending verification."
 msgstr "Votre numéro de téléphone est toujours en attente de vérification."
+
+#: templates/account/phone_change.html:38
+msgctxt "action"
+msgid "Change Phone"
+msgstr "Changer de numéro de téléphone"
 
 #: templates/account/reauthenticate.html:6
 msgid "Enter your password:"

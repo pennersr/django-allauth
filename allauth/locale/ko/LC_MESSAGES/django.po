@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-10 06:19-0500\n"
+"POT-Creation-Date: 2025-07-25 13:23-0500\n"
 "PO-Revision-Date: 2024-11-03 04:02+0000\n"
 "Last-Translator: 황인아 <inahwang@kakao.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/allauth/django-"
@@ -1244,7 +1244,6 @@ msgid "Set Password"
 msgstr "비밀번호 설정"
 
 #: templates/account/phone_change.html:5 templates/account/phone_change.html:9
-#: templates/account/phone_change.html:38
 #, fuzzy
 #| msgid "Change to"
 msgid "Change Phone"
@@ -1261,6 +1260,13 @@ msgstr "현재"
 #| msgid "Your email address is still pending verification."
 msgid "Your phone number is still pending verification."
 msgstr "귀하의 이메일 주소는 아직 검증 중입니다."
+
+#: templates/account/phone_change.html:38
+#, fuzzy
+#| msgid "Change to"
+msgctxt "action"
+msgid "Change Phone"
+msgstr "변경"
 
 #: templates/account/reauthenticate.html:6
 msgid "Enter your password:"

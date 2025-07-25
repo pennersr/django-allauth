@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-10 06:19-0500\n"
+"POT-Creation-Date: 2025-07-25 13:23-0500\n"
 "PO-Revision-Date: 2024-04-20 21:32+0200\n"
 "Last-Translator: Bilgutei Erdenebayar <beke0130@gmail.com>\n"
 "Language-Team: Mongolian <beke0130@gmail.com>\n"
@@ -1286,7 +1286,6 @@ msgid "Set Password"
 msgstr "Нууц үг тохируулах"
 
 #: templates/account/phone_change.html:5 templates/account/phone_change.html:9
-#: templates/account/phone_change.html:38
 #, fuzzy
 #| msgid "Email"
 msgid "Change Phone"
@@ -1303,6 +1302,13 @@ msgstr "Одоогын Нууц Үг"
 #| msgid "Your primary email address must be verified."
 msgid "Your phone number is still pending verification."
 msgstr "Таны үндсэн имэйл хаягийг баталгаажуулсан байх ёстой."
+
+#: templates/account/phone_change.html:38
+#, fuzzy
+#| msgid "Email"
+msgctxt "action"
+msgid "Change Phone"
+msgstr "Имэйл хаяг"
 
 #: templates/account/reauthenticate.html:6
 #, fuzzy

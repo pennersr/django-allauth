@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.55\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-10 06:19-0500\n"
+"POT-Creation-Date: 2025-07-25 13:23-0500\n"
 "PO-Revision-Date: 2024-09-25 06:15+0000\n"
 "Last-Translator: Jakub Boukal <www.bagr@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/allauth/django-"
@@ -1241,7 +1241,6 @@ msgid "Set Password"
 msgstr "Nastavit heslo"
 
 #: templates/account/phone_change.html:5 templates/account/phone_change.html:9
-#: templates/account/phone_change.html:38
 #, fuzzy
 #| msgid "Change to"
 msgid "Change Phone"
@@ -1258,6 +1257,13 @@ msgstr "Aktuální"
 #| msgid "Your email address is still pending verification."
 msgid "Your phone number is still pending verification."
 msgstr "Vaše primární e-mailová adresa stále čeká na ověření."
+
+#: templates/account/phone_change.html:38
+#, fuzzy
+#| msgid "Change to"
+msgctxt "action"
+msgid "Change Phone"
+msgstr "Změnit na"
 
 #: templates/account/reauthenticate.html:6
 msgid "Enter your password:"

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-10 06:19-0500\n"
-"PO-Revision-Date: 2025-06-25 12:00+0200\n"
+"POT-Creation-Date: 2025-07-25 13:23-0500\n"
+"PO-Revision-Date: 2025-07-25 20:25+0200\n"
 "Last-Translator: Juho Enala <juho.enala@gmail.com>\n"
 "Language-Team: Finnish <fi@li.org>\n"
 "Language: fi\n"
@@ -1207,7 +1207,6 @@ msgid "Set Password"
 msgstr "Aseta salasana"
 
 #: templates/account/phone_change.html:5 templates/account/phone_change.html:9
-#: templates/account/phone_change.html:38
 msgid "Change Phone"
 msgstr "Vaihda puhelinnumero"
 
@@ -1218,6 +1217,11 @@ msgstr "Nykyinen puhelin"
 #: templates/account/phone_change.html:22
 msgid "Your phone number is still pending verification."
 msgstr "Puhelinnumerosi vahvistus on vielä kesken."
+
+#: templates/account/phone_change.html:38
+msgctxt "action"
+msgid "Change Phone"
+msgstr "Vaihda puhelinnumero"
 
 #: templates/account/reauthenticate.html:6
 msgid "Enter your password:"

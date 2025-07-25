@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-10 06:19-0500\n"
-"PO-Revision-Date: 2025-06-19 16:05+0000\n"
+"POT-Creation-Date: 2025-07-25 13:23-0500\n"
+"PO-Revision-Date: 2025-07-25 20:27+0200\n"
 "Last-Translator: Bojan Mihelac <bmihelac@mihelac.org>\n"
 "Language-Team: Slovenian <https://hosted.weblate.org/projects/allauth/django-"
 "allauth/sl/>\n"
@@ -1211,7 +1211,6 @@ msgid "Set Password"
 msgstr "Nastavi geslo"
 
 #: templates/account/phone_change.html:5 templates/account/phone_change.html:9
-#: templates/account/phone_change.html:38
 msgid "Change Phone"
 msgstr "Spremeni telefon"
 
@@ -1222,6 +1221,11 @@ msgstr "Trenutni telefon"
 #: templates/account/phone_change.html:22
 msgid "Your phone number is still pending verification."
 msgstr "Vaša telefonska številka je še vedno v verifikaciji."
+
+#: templates/account/phone_change.html:38
+msgctxt "action"
+msgid "Change Phone"
+msgstr "Spremeni telefon"
 
 #: templates/account/reauthenticate.html:6
 msgid "Enter your password:"

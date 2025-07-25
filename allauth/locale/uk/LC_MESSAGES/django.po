@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-10 06:19-0500\n"
-"PO-Revision-Date: 2025-06-01 20:59+0200\n"
+"POT-Creation-Date: 2025-07-25 13:23-0500\n"
+"PO-Revision-Date: 2025-07-25 20:27+0200\n"
 "Last-Translator: Artem <artem@molotov.work>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/allauth/django-"
 "allauth/uk/>\n"
@@ -1229,7 +1229,6 @@ msgid "Set Password"
 msgstr "Встановити Пароль"
 
 #: templates/account/phone_change.html:5 templates/account/phone_change.html:9
-#: templates/account/phone_change.html:38
 msgid "Change Phone"
 msgstr "Змінити номер телефону"
 
@@ -1240,6 +1239,11 @@ msgstr "Поточний номер телефону"
 #: templates/account/phone_change.html:22
 msgid "Your phone number is still pending verification."
 msgstr "Ваш номер телефону ще не підтверджено."
+
+#: templates/account/phone_change.html:38
+msgctxt "action"
+msgid "Change Phone"
+msgstr "Змінити номер телефону"
 
 #: templates/account/reauthenticate.html:6
 msgid "Enter your password:"

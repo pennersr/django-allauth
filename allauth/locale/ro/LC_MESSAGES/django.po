@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauthrr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-10 06:19-0500\n"
+"POT-Creation-Date: 2025-07-25 13:23-0500\n"
 "PO-Revision-Date: 2024-04-20 21:34+0200\n"
 "Last-Translator: Gilou <contact+dev@gilouweb.com>\n"
 "Language-Team: \n"
@@ -1313,7 +1313,6 @@ msgid "Set Password"
 msgstr "Seteaza parola"
 
 #: templates/account/phone_change.html:5 templates/account/phone_change.html:9
-#: templates/account/phone_change.html:38
 #, fuzzy
 #| msgid "Email"
 msgid "Change Phone"
@@ -1332,6 +1331,13 @@ msgid "Your phone number is still pending verification."
 msgstr ""
 "Adresa de e-mail trebuie mai intai confirmata inainte de a o seta ca adresa "
 "principala. Acceseaza link-ul din e-mailul de verificare."
+
+#: templates/account/phone_change.html:38
+#, fuzzy
+#| msgid "Email"
+msgctxt "action"
+msgid "Change Phone"
+msgstr "E-mail"
 
 #: templates/account/reauthenticate.html:6
 #, fuzzy

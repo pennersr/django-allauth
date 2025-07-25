@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-10 06:19-0500\n"
-"PO-Revision-Date: 2025-05-23 07:13+0000\n"
+"POT-Creation-Date: 2025-07-25 13:23-0500\n"
+"PO-Revision-Date: 2025-07-25 20:23+0200\n"
 "Last-Translator: Usama Khalil <usamafoad@gmail.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/allauth/django-"
 "allauth/ar/>\n"
@@ -1190,7 +1190,6 @@ msgid "Set Password"
 msgstr "تعيين كلمة مرور"
 
 #: templates/account/phone_change.html:5 templates/account/phone_change.html:9
-#: templates/account/phone_change.html:38
 msgid "Change Phone"
 msgstr "تغيير الهاتف"
 
@@ -1201,6 +1200,11 @@ msgstr "رقم الهاتف الحالي"
 #: templates/account/phone_change.html:22
 msgid "Your phone number is still pending verification."
 msgstr "ما زال رقم الهاتف الخاص بك بانتظار التوثيق."
+
+#: templates/account/phone_change.html:38
+msgctxt "action"
+msgid "Change Phone"
+msgstr "تغيير الهاتف"
 
 #: templates/account/reauthenticate.html:6
 msgid "Enter your password:"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-10 06:19-0500\n"
+"POT-Creation-Date: 2025-07-25 13:23-0500\n"
 "PO-Revision-Date: 2025-06-15 19:17+0000\n"
 "Last-Translator: Anders Birkenes <datagutten@datagutten.net>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/allauth/"
@@ -1236,7 +1236,6 @@ msgid "Set Password"
 msgstr "Sett passord"
 
 #: templates/account/phone_change.html:5 templates/account/phone_change.html:9
-#: templates/account/phone_change.html:38
 #, fuzzy
 #| msgid "Email"
 msgid "Change Phone"
@@ -1253,6 +1252,13 @@ msgstr "Nåværende passord"
 #| msgid "Your primary email address must be verified."
 msgid "Your phone number is still pending verification."
 msgstr "Din primære e-postadresse må være verifisert."
+
+#: templates/account/phone_change.html:38
+#, fuzzy
+#| msgid "Email"
+msgctxt "action"
+msgid "Change Phone"
+msgstr "E-post"
 
 #: templates/account/reauthenticate.html:6
 #, fuzzy

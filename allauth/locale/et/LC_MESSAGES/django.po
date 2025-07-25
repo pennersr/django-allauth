@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-10 06:19-0500\n"
+"POT-Creation-Date: 2025-07-25 13:23-0500\n"
 "PO-Revision-Date: 2024-04-20 21:55+0200\n"
 "Last-Translator: Gregor Grigorjan <gregor@grigorjan.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1272,7 +1272,6 @@ msgid "Set Password"
 msgstr "Sea salasõna"
 
 #: templates/account/phone_change.html:5 templates/account/phone_change.html:9
-#: templates/account/phone_change.html:38
 #, fuzzy
 #| msgid "Change to"
 msgid "Change Phone"
@@ -1289,6 +1288,13 @@ msgstr "Praegune"
 #| msgid "Your email address is still pending verification."
 msgid "Your phone number is still pending verification."
 msgstr "Su e-posti aadress on endiselt kinnitamata."
+
+#: templates/account/phone_change.html:38
+#, fuzzy
+#| msgid "Change to"
+msgctxt "action"
+msgid "Change Phone"
+msgstr "Uus e-post"
 
 #: templates/account/reauthenticate.html:6
 msgid "Enter your password:"

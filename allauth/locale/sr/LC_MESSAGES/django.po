@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-10 06:19-0500\n"
-"PO-Revision-Date: 2025-07-13 18:01+0000\n"
+"POT-Creation-Date: 2025-07-25 13:23-0500\n"
+"PO-Revision-Date: 2025-07-25 20:27+0200\n"
 "Last-Translator: Igor Jerosimić <jerosimic@gmail.com>\n"
-"Language-Team: Serbian <https://hosted.weblate.org/projects/allauth/"
-"django-allauth/sr/>\n"
+"Language-Team: Serbian <https://hosted.weblate.org/projects/allauth/django-"
+"allauth/sr/>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -338,8 +338,8 @@ msgid ""
 "The scope(s) the client is allowed to request. Provide one value per line, e."
 "g.: openid(ENTER)profile(ENTER)email(ENTER)"
 msgstr ""
-"Опсег(зи) које клијент може да захтева. Наведите једну вредност по реду, нпр:"
-" openid(ENTER)profile(ENTER)email(ENTER)"
+"Опсег(зи) које клијент може да захтева. Наведите једну вредност по реду, "
+"нпр: openid(ENTER)profile(ENTER)email(ENTER)"
 
 #: idp/oidc/models.py:64
 msgid ""
@@ -1202,7 +1202,6 @@ msgid "Set Password"
 msgstr "Постави лозинку"
 
 #: templates/account/phone_change.html:5 templates/account/phone_change.html:9
-#: templates/account/phone_change.html:38
 msgid "Change Phone"
 msgstr "Промени телефон"
 
@@ -1213,6 +1212,11 @@ msgstr "Тренутни телефон"
 #: templates/account/phone_change.html:22
 msgid "Your phone number is still pending verification."
 msgstr "Ваш телефон још увек чека потврду."
+
+#: templates/account/phone_change.html:38
+msgctxt "action"
+msgid "Change Phone"
+msgstr "Промени телефон"
 
 #: templates/account/reauthenticate.html:6
 msgid "Enter your password:"

@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-10 06:19-0500\n"
-"PO-Revision-Date: 2025-07-12 07:01+0000\n"
+"POT-Creation-Date: 2025-07-25 13:23-0500\n"
+"PO-Revision-Date: 2025-07-25 20:24+0200\n"
 "Last-Translator: Antonis Christofides <invoices@antonischristofides.com>\n"
-"Language-Team: Greek <https://hosted.weblate.org/projects/allauth/"
-"django-allauth/el/>\n"
+"Language-Team: Greek <https://hosted.weblate.org/projects/allauth/django-"
+"allauth/el/>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1216,8 +1216,8 @@ msgid ""
 "a>."
 msgstr ""
 "Ο σύνδεσμος επαναφοράς συνθηματικού δεν ήταν έγκυρος, πιθανόν να έχει ήδη "
-"χρησιμοποιηθεί.  Παρακαλούμε ζητήστε εκ νέου <a href=\"%(passwd_reset_url)s\""
-">επαναφορά συνθηματικού</a>."
+"χρησιμοποιηθεί.  Παρακαλούμε ζητήστε εκ νέου <a "
+"href=\"%(passwd_reset_url)s\">επαναφορά συνθηματικού</a>."
 
 #: templates/account/password_reset_from_key_done.html:12
 msgid "Your password is now changed."
@@ -1229,7 +1229,6 @@ msgid "Set Password"
 msgstr "Ορισμός Συνθηματικού"
 
 #: templates/account/phone_change.html:5 templates/account/phone_change.html:9
-#: templates/account/phone_change.html:38
 msgid "Change Phone"
 msgstr "Αλλαγή τηλεφώνου"
 
@@ -1240,6 +1239,11 @@ msgstr "Τρέχον τηλέφωνο"
 #: templates/account/phone_change.html:22
 msgid "Your phone number is still pending verification."
 msgstr "Ο αριθμός τηλεφώνου σας εκκρεμεί ακόμη προς επαλήθευση."
+
+#: templates/account/phone_change.html:38
+msgctxt "action"
+msgid "Change Phone"
+msgstr "Αλλαγή τηλεφώνου"
 
 #: templates/account/reauthenticate.html:6
 msgid "Enter your password:"

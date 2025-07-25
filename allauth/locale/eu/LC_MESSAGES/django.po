@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-10 06:19-0500\n"
+"POT-Creation-Date: 2025-07-25 13:23-0500\n"
 "PO-Revision-Date: 2024-10-31 18:31+0000\n"
 "Last-Translator: Alain EIguren <alaineigurenzu@proton.me>\n"
 "Language-Team: Basque <https://hosted.weblate.org/projects/allauth/django-"
@@ -1290,7 +1290,6 @@ msgid "Set Password"
 msgstr "Pasahitza zehaztu"
 
 #: templates/account/phone_change.html:5 templates/account/phone_change.html:9
-#: templates/account/phone_change.html:38
 #, fuzzy
 #| msgid "Email"
 msgid "Change Phone"
@@ -1307,6 +1306,13 @@ msgstr "Oraingo pasahitza"
 #| msgid "Your primary email address must be verified."
 msgid "Your phone number is still pending verification."
 msgstr "Zure email nagusiak egiaztatuta egon behar du."
+
+#: templates/account/phone_change.html:38
+#, fuzzy
+#| msgid "Email"
+msgctxt "action"
+msgid "Change Phone"
+msgstr "Emaila"
 
 #: templates/account/reauthenticate.html:6
 #, fuzzy

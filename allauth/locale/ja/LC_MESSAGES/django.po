@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-10 06:19-0500\n"
-"PO-Revision-Date: 2025-06-29 14:23+0200\n"
+"POT-Creation-Date: 2025-07-25 13:23-0500\n"
+"PO-Revision-Date: 2025-07-25 20:25+0200\n"
 "Last-Translator: SATOH Fumiyasu <fumiyas@osstech.co.jp>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/allauth/django-"
 "allauth/ja/>\n"
@@ -1202,7 +1202,6 @@ msgid "Set Password"
 msgstr "パスワード設定"
 
 #: templates/account/phone_change.html:5 templates/account/phone_change.html:9
-#: templates/account/phone_change.html:38
 msgid "Change Phone"
 msgstr "電話番号を変更する"
 
@@ -1213,6 +1212,11 @@ msgstr "現在の電話番号"
 #: templates/account/phone_change.html:22
 msgid "Your phone number is still pending verification."
 msgstr "あなたの電話番号はまだ確認されていません。"
+
+#: templates/account/phone_change.html:38
+msgctxt "action"
+msgid "Change Phone"
+msgstr "電話番号を変更する"
 
 #: templates/account/reauthenticate.html:6
 msgid "Enter your password:"

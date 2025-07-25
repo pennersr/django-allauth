@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-10 06:19-0500\n"
+"POT-Creation-Date: 2025-07-25 13:23-0500\n"
 "PO-Revision-Date: 2024-04-20 21:45+0200\n"
 "Last-Translator: Tamás Makó <tom@greenplug.hu>\n"
 "Language-Team: \n"
@@ -1277,7 +1277,6 @@ msgid "Set Password"
 msgstr "Jelszó beállítása"
 
 #: templates/account/phone_change.html:5 templates/account/phone_change.html:9
-#: templates/account/phone_change.html:38
 #, fuzzy
 #| msgid "Email"
 msgid "Change Phone"
@@ -1294,6 +1293,13 @@ msgstr "Jelenlegi jelszó"
 #| msgid "Your primary email address must be verified."
 msgid "Your phone number is still pending verification."
 msgstr "Az elsődleges email címet ellenőriznunk kell."
+
+#: templates/account/phone_change.html:38
+#, fuzzy
+#| msgid "Email"
+msgctxt "action"
+msgid "Change Phone"
+msgstr "Email"
 
 #: templates/account/reauthenticate.html:6
 #, fuzzy

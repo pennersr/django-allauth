@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-10 06:19-0500\n"
+"POT-Creation-Date: 2025-07-25 13:23-0500\n"
 "PO-Revision-Date: 2024-04-20 21:51+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1314,7 +1314,6 @@ msgid "Set Password"
 msgstr "Uzstādīt paroli"
 
 #: templates/account/phone_change.html:5 templates/account/phone_change.html:9
-#: templates/account/phone_change.html:38
 #, fuzzy
 #| msgid "Email"
 msgid "Change Phone"
@@ -1331,6 +1330,13 @@ msgstr "Šobrīdējā parole"
 #| msgid "Your primary email address must be verified."
 msgid "Your phone number is still pending verification."
 msgstr "Jūsu primārajai e-pasta adresei jābūt apstiprinātai."
+
+#: templates/account/phone_change.html:38
+#, fuzzy
+#| msgid "Email"
+msgctxt "action"
+msgid "Change Phone"
+msgstr "E-pasts"
 
 #: templates/account/reauthenticate.html:6
 #, fuzzy

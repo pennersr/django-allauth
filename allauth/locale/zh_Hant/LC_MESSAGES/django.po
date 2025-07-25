@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-10 06:19-0500\n"
-"PO-Revision-Date: 2025-06-17 17:01+0000\n"
+"POT-Creation-Date: 2025-07-25 13:23-0500\n"
+"PO-Revision-Date: 2025-07-25 20:27+0200\n"
 "Last-Translator: \"Xaver Y.R. Chen\" <yrchen@atcity.org>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
 "projects/allauth/django-allauth/zh_Hant/>\n"
@@ -1173,7 +1173,6 @@ msgid "Set Password"
 msgstr "設定密碼"
 
 #: templates/account/phone_change.html:5 templates/account/phone_change.html:9
-#: templates/account/phone_change.html:38
 msgid "Change Phone"
 msgstr "更改電話號碼"
 
@@ -1184,6 +1183,11 @@ msgstr "目前電話號碼"
 #: templates/account/phone_change.html:22
 msgid "Your phone number is still pending verification."
 msgstr "您的電話號碼仍在等待驗證。"
+
+#: templates/account/phone_change.html:38
+msgctxt "action"
+msgid "Change Phone"
+msgstr "更改電話號碼"
 
 #: templates/account/reauthenticate.html:6
 msgid "Enter your password:"

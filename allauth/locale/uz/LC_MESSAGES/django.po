@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-10 06:19-0500\n"
+"POT-Creation-Date: 2025-07-25 13:23-0500\n"
 "PO-Revision-Date: 2025-06-09 11:01+0000\n"
 "Last-Translator: ONVETI <qjkbest@gmail.com>\n"
 "Language-Team: Uzbek <https://hosted.weblate.org/projects/allauth/django-"
@@ -1249,7 +1249,6 @@ msgid "Set Password"
 msgstr "Parol O'rnatish"
 
 #: templates/account/phone_change.html:5 templates/account/phone_change.html:9
-#: templates/account/phone_change.html:38
 #, fuzzy
 #| msgid "Change to"
 msgid "Change Phone"
@@ -1266,6 +1265,13 @@ msgstr "Hozirgi"
 #| msgid "Your email address is still pending verification."
 msgid "Your phone number is still pending verification."
 msgstr "email manzilingiz hali tasdiqlanishi kutilmoqda."
+
+#: templates/account/phone_change.html:38
+#, fuzzy
+#| msgid "Change to"
+msgctxt "action"
+msgid "Change Phone"
+msgstr "-ga o'zgartirmoq"
 
 #: templates/account/reauthenticate.html:6
 msgid "Enter your password:"

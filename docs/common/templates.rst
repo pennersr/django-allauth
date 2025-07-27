@@ -10,9 +10,8 @@ styling options out there, and the look and feel typically should be adjusted to
 match the branding of your project. Therefore it is recommended that you copy all
 templates over to your own project and adjust them as you see fit.
 
-Having said that, over time the years the complexity of authentication grew
-considerably. For example, with features such as third party account providers
-and two-factor authentication adjusting the templates involves a lot more than
+Having said that, with features such as third party account providers
+and two-factor authentication, adjusting the templates involves a lot more than
 just styling a ``login.html`` and a ``signup.html`` template. Therefore, a
 mechanism is included that allows you to adjust the look and feel of all
 templates by only overriding a few core templates.  This approach allows you to

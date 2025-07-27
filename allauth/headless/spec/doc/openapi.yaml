@@ -669,6 +669,8 @@ paths:
       parameters:
         - $ref: "#/components/parameters/Client"
         - $ref: "#/components/parameters/SessionToken"
+      requestBody:
+        $ref: '#/components/requestBodies/MFAAuthenticate'
       responses:
         "200":
           $ref: "#/components/responses/AuthenticatedByPasswordAnd2FA"
@@ -1306,6 +1308,8 @@ paths:
               examples:
                 invalid_code:
                   $ref: "#/components/examples/InvalidAuthenticatorCode"
+        "401":
+          $ref: "#/components/responses/ReauthenticationRequired"
         "409":
           $ref: "#/components/responses/AddAuthenticatorConflict"
     delete:
@@ -1371,6 +1375,7 @@ paths:
       parameters:
         - $ref: "#/components/parameters/Client"
         - $ref: "#/components/parameters/SessionToken"
+        - $ref: "#/components/parameters/PasswordLess"
       description: |
         Returns the WebAuthn credential creation options, that can be
         processed using `parseCreationOptionsFromJSON()` on the frontend.
@@ -1964,10 +1969,7 @@ components:
             type: object
             properties:
               email:
-                type: string
-                description: |
-                  An email address.
-                example: email@domain.org
+                $ref: '#/components/schemas/Email'
             required:
               - email
     MarkPrimaryEmail:
@@ -2282,6 +2284,7 @@ components:
           type: string
           enum:
             - login
+            - login_by_code
             - mfa_authenticate
             - mfa_reauthenticate
             - provider_redirect
@@ -2297,6 +2300,11 @@ components:
           type: boolean
           enum:
             - true
+        types:
+          type: array
+          description: Matches `settings.MFA_SUPPORTED_TYPES`.
+          items:
+            $ref: "#/components/schemas/AuthenticatorType"
       required:
         - id
     Authenticated:
@@ -2802,6 +2810,7 @@ components:
       enum:
         - recovery_codes
         - totp
+        - webauthn
       description: |
         The type of authenticator.
     Password:
@@ -3123,10 +3132,21 @@ components:
     SessionToken:
       in: header
       name: X-Session-Token
+      required: false
       description: |
         Session token. Only needed when `client` is equal to `app`.
       schema:
         type: string
+    PasswordLess:
+      in: query
+      name: passwordless
+      required: false
+      schema:
+        type: boolean
+      allowEmptyValue: true
+      description: |
+        When present (regardless of its value), enables passwordless sign-in via a WebAuthn credential (Passkey),
+        but may enforce additional multi-factor authentication (MFA) requirements. Omit the parameter to disable.
   ######################################################################
   # Components: Responses
   ######################################################################
@@ -3347,8 +3367,8 @@ components:
               data:
                 $ref: '#/components/schemas/ReauthenticationResponse'
               status:
-                type: string
-                example: ok
+                type: integer
+                example: 200
             required:
               - data
               - status
@@ -3451,6 +3471,12 @@ components:
             properties:
               status:
                 $ref: "#/components/schemas/StatusOK"
+              meta:
+                properties:
+                  recovery_codes_generated:
+                    description: Whether or not recovery codes where generated automatically.
+                    type: boolean
+                type: object
               data:
                 $ref: "#/components/schemas/TOTPAuthenticator"
             required:

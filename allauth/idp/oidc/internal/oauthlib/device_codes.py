@@ -82,7 +82,6 @@ def confirm_or_deny_device_code(user, device_code: str, confirm: bool) -> bool:
         return False
     data["granted"] = confirm
     data["user"] = user_id_to_str(user)
-    update_device_state(device_code, data)
     return update_device_state(device_code, data)
 
 

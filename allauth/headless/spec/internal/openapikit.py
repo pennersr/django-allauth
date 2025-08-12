@@ -1,3 +1,4 @@
+import dataclasses
 import datetime
 from typing import Any, Dict, Tuple, Union, get_args, get_origin
 
@@ -75,6 +76,10 @@ def spec_for_dataclass(dc) -> Tuple[dict, dict]:
             descriptor.update({"type": "array"})
         elif field_type is dict:
             descriptor.update({"type": "object"})
+        elif dataclasses.is_dataclass(field_type):
+            nested_schema, nested_exmple = spec_for_dataclass(field_type)
+            descriptor.update(nested_schema)
+            descriptor["example"] = nested_exmple
         else:
             descriptor.update({"type": "string"})
         props[field_id] = descriptor

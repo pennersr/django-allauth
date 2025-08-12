@@ -5,6 +5,17 @@ from allauth.headless.spec.internal.openapikit import spec_for_dataclass
 
 
 @dataclass
+class NestedDataClass:
+    string: str
+    integer: int = field(
+        metadata={
+            "description": "Some nested int",
+            "example": 42,
+        }
+    )
+
+
+@dataclass
 class ExampleDataclass:
     optional_integer: Optional[int]
     integer: int
@@ -16,6 +27,7 @@ class ExampleDataclass:
             "example": "3.14",
         }
     )
+    nested: Optional[NestedDataClass]
 
 
 def test_spec_for_dataclass():
@@ -40,6 +52,24 @@ def test_spec_for_dataclass():
                 },
                 "string": {
                     "type": "string",
+                },
+                "nested": {
+                    "example": {"integer": 42},
+                    "properties": {
+                        "string": {
+                            "type": "string",
+                        },
+                        "integer": {
+                            "description": "Some nested int",
+                            "example": 42,
+                            "type": "integer",
+                        },
+                    },
+                    "required": [
+                        "string",
+                        "integer",
+                    ],
+                    "type": "object",
                 },
             },
             "required": [

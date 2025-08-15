@@ -11,16 +11,16 @@ msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-25 13:23-0500\n"
-"PO-Revision-Date: 2025-07-25 20:25+0200\n"
-"Last-Translator: Laurent FAVOLE <laurentfavole03@gmail.com>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/allauth/django-"
-"allauth/fr/>\n"
+"PO-Revision-Date: 2025-08-01 18:02+0000\n"
+"Last-Translator: Laurent FAVOLE <lfavole@users.noreply.hosted.weblate.org>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/allauth/"
+"django-allauth/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.8-rc\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: account/adapter.py:53
 msgid "This account is currently inactive."
@@ -78,10 +78,8 @@ msgid "You cannot add more than %d email addresses."
 msgstr "Vous ne pouvez pas ajouter plus de %d adresses e-mail."
 
 #: account/adapter.py:74
-#, fuzzy
-#| msgid "A user is already registered with this email address."
 msgid "A user is already registered with this phone number."
-msgstr "Un autre utilisateur utilise déjà cette adresse e-mail."
+msgstr "Un autre utilisateur utilise déjà ce numéro de téléphone."
 
 #: account/adapter.py:76
 msgid "Too many failed login attempts. Try again later."
@@ -119,7 +117,7 @@ msgstr "La nouvelle valeur doit être différente de l'actuelle."
 
 #: account/adapter.py:92
 msgid "Be patient, you are sending too many requests."
-msgstr ""
+msgstr "Soyez patient, vous envoyez trop de requêtes."
 
 #: account/adapter.py:805
 msgid "Use your password"
@@ -135,10 +133,9 @@ msgid "Use a security key"
 msgstr "Utilisez une clé secrète"
 
 #: account/admin.py:30
-#, fuzzy, python-brace-format
-#| msgid "Mark selected email addresses as verified"
+#, python-brace-format
 msgid "Marked {email} as verified."
-msgstr "Marquer les adresses e-mail sélectionnées comme vérifiées"
+msgstr "{email} marquée comme vérifiée."
 
 #: account/admin.py:36
 #, fuzzy, python-brace-format
@@ -304,51 +301,43 @@ msgstr "Headless"
 
 #: idp/oidc/adapter.py:30
 msgid "View your user ID"
-msgstr ""
+msgstr "Voir votre identifiant utilisateur"
 
 #: idp/oidc/adapter.py:31
-#, fuzzy
-#| msgid "Verify Your Email Address"
 msgid "View your email address"
-msgstr "Vérifiez votre adresse e-mail"
+msgstr "Voir votre adresse e-mail"
 
 #: idp/oidc/adapter.py:32
 msgid "View your basic profile information"
-msgstr ""
+msgstr "Voir les informations basiques de votre profil"
 
 #: idp/oidc/forms.py:26
-#, fuzzy
-#| msgid "User Sessions"
 msgid "Grant permissions"
-msgstr "Sessions utilisateur"
+msgstr "Donner les permissions"
 
 #: idp/oidc/models.py:37
-#, fuzzy
-#| msgid "Authenticator code"
 msgid "Authorization code"
-msgstr "Code de l'authentificateur"
+msgstr "Code d'autorisation"
 
 #: idp/oidc/models.py:38
-#, fuzzy
-#| msgid "Recovery codes"
 msgid "Device code"
-msgstr "Codes de récupération"
+msgstr "Code de l'appareil"
 
 #: idp/oidc/models.py:39
 msgid "Client credentials"
-msgstr ""
+msgstr "Identifiants client"
 
 #: idp/oidc/models.py:40
 msgid "Refresh token"
-msgstr ""
+msgstr "Jeton d'actualisation"
 
 #: idp/oidc/models.py:43
 msgid "Confidential"
-msgstr ""
+msgstr "Confidentiel"
 
 #: idp/oidc/models.py:44
 msgid "Public"
-msgstr ""
+msgstr "Public"
 
 #: idp/oidc/models.py:58
 msgid ""

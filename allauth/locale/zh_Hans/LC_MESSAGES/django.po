@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-25 13:23-0500\n"
-"PO-Revision-Date: 2024-07-23 14:40+0000\n"
-"Last-Translator: Zhuo Cheng <chengz21@mails.tsinghua.edu.cn>\n"
-"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
-"allauth/django-allauth/zh_Hans/>\n"
+"PO-Revision-Date: 2025-08-12 14:02+0000\n"
+"Last-Translator: Tangyuan <47830915@qq.com>\n"
+"Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
+"projects/allauth/django-allauth/zh_Hans/>\n"
 "Language: zh_Hans\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.7-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: account/adapter.py:53
 msgid "This account is currently inactive."
@@ -25,25 +25,23 @@ msgstr "此账号当前未激活。"
 
 #: account/adapter.py:55
 msgid "You cannot remove your primary email address."
-msgstr "您不能删除您的主Email地址 (%(email)s)。"
+msgstr "您不能删除您的主要电子邮件地址 (%(email)s)。"
 
 #: account/adapter.py:58
 msgid "This email address is already associated with this account."
-msgstr "此Email地址已关联到这个账号。"
+msgstr "此电子邮件地址已关联到这个账号。"
 
 #: account/adapter.py:61
 msgid "The email address and/or password you specified are not correct."
-msgstr "您提供的Email地址或密码不正确。"
+msgstr "您提供的电子邮件地址和/或密码不正确。"
 
 #: account/adapter.py:64
-#, fuzzy
-#| msgid "The username and/or password you specified are not correct."
 msgid "The phone number and/or password you specified are not correct."
-msgstr "您提供的用户名或密码不正确。"
+msgstr "您输入的电话号码和/或密码不正确。"
 
 #: account/adapter.py:66
 msgid "A user is already registered with this email address."
-msgstr "此email地址已被其他用户注册。"
+msgstr "此电子邮件地址已被其他用户注册。"
 
 #: account/adapter.py:67
 msgid "Please type your current password."
@@ -62,10 +60,8 @@ msgid "Invalid or expired key."
 msgstr "令牌无效或过期。"
 
 #: account/adapter.py:71
-#, fuzzy
-#| msgid "Invalid token."
 msgid "Invalid login."
-msgstr "令牌无效。"
+msgstr "登录无效。"
 
 #: account/adapter.py:72
 msgid "The password reset token was invalid."
@@ -74,34 +70,28 @@ msgstr "您重置密码的token是无效的。"
 #: account/adapter.py:73
 #, python-format
 msgid "You cannot add more than %d email addresses."
-msgstr "您不能添加超过%d个Email地址。"
+msgstr "您不能添加超过%d个电子邮件地址。"
 
 #: account/adapter.py:74
-#, fuzzy
-#| msgid "A user is already registered with this email address."
 msgid "A user is already registered with this phone number."
-msgstr "此email地址已被其他用户注册。"
+msgstr "此电话号码已被其他用户注册。"
 
 #: account/adapter.py:76
 msgid "Too many failed login attempts. Try again later."
 msgstr "登录失败次数过多，请稍后重试。"
 
 #: account/adapter.py:78
-#, fuzzy
-#| msgid "The email address is not assigned to any user account"
 msgid "The email address is not assigned to any user account."
-msgstr "此email地址未分配给任何用户账号"
+msgstr "此电子邮件地址未分配给任何用户账号。"
 
 #: account/adapter.py:79
-#, fuzzy
-#| msgid "The email address is not assigned to any user account"
 msgid "The phone number is not assigned to any user account."
-msgstr "此email地址未分配给任何用户账号"
+msgstr "此电话号码未分配给任何用户账号。"
 
 #: account/adapter.py:80
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary email address must be verified."
-msgstr "您的主Email地址必须被验证。"
+msgstr "您的主要电子邮件地址必须被验证。"
 
 #: account/adapter.py:82
 msgid "Username can not be used. Please use other username."
@@ -113,15 +103,15 @@ msgstr "您提供的用户名或密码不正确。"
 
 #: account/adapter.py:90
 msgid "Please select only one."
-msgstr ""
+msgstr "请仅选择一项。"
 
 #: account/adapter.py:91
 msgid "The new value must be different from the current one."
-msgstr ""
+msgstr "新的输入值必须不同于当前的内容。"
 
 #: account/adapter.py:92
 msgid "Be patient, you are sending too many requests."
-msgstr ""
+msgstr "请稍等，您已经提交过多次请求。"
 
 #: account/adapter.py:805
 msgid "Use your password"
@@ -137,20 +127,18 @@ msgid "Use a security key"
 msgstr "使用安全密钥"
 
 #: account/admin.py:30
-#, fuzzy, python-brace-format
-#| msgid "Mark selected email addresses as verified"
+#, python-brace-format
 msgid "Marked {email} as verified."
-msgstr "将选定的email地址标注为已验证"
+msgstr "已将 {email} 标记为已验证。"
 
 #: account/admin.py:36
-#, fuzzy, python-brace-format
-#| msgid "Your primary email address must be verified."
+#, python-brace-format
 msgid "Failed to mark {email} as verified."
-msgstr "您的主Email地址必须被验证。"
+msgstr "标记 {email} 为已验证失败。"
 
 #: account/admin.py:42
 msgid "Mark selected email addresses as verified"
-msgstr "将选定的email地址标注为已验证"
+msgstr "将选中的电子邮件地址标记为已验证"
 
 #: account/apps.py:11
 msgid "Accounts"
@@ -158,19 +146,19 @@ msgstr "账户"
 
 #: account/fields.py:12 account/forms.py:299 idp/oidc/forms.py:38
 msgid "Email"
-msgstr "Email"
+msgstr "电子邮件"
 
 #: account/fields.py:19
 msgid "Email address"
-msgstr "Email地址"
+msgstr "电子邮件地址"
 
 #: account/fields.py:62
 msgid "Enter a phone number including country code (e.g. +1 for the US)."
-msgstr ""
+msgstr "请输入包含国家/地区代码的电话号码（例如，美国为 +1）。"
 
 #: account/fields.py:68 account/fields.py:72 account/forms.py:325
 msgid "Phone"
-msgstr ""
+msgstr "电话号码"
 
 #: account/forms.py:61 account/forms.py:524
 msgid "You must type the same password each time."
@@ -196,26 +184,20 @@ msgid "Login"
 msgstr "登录"
 
 #: account/forms.py:115
-#, fuzzy
-#| msgid "Username or email"
 msgid "Username, email or phone"
-msgstr "用户名或email"
+msgstr "用户名、电子邮件或电话号码"
 
 #: account/forms.py:117
 msgid "Username or email"
 msgstr "用户名或email"
 
 #: account/forms.py:119
-#, fuzzy
-#| msgid "Username or email"
 msgid "Username or phone"
-msgstr "用户名或email"
+msgstr "用户名或电话号码"
 
 #: account/forms.py:121
-#, fuzzy
-#| msgid "Email (optional)"
 msgid "Email or phone"
-msgstr "Email （选填项）"
+msgstr "电子邮件或电话号码"
 
 #: account/forms.py:144
 msgid "Forgot your password?"
@@ -223,25 +205,23 @@ msgstr "忘记密码？"
 
 #: account/forms.py:287
 msgid "Email (again)"
-msgstr "Email （再次输入）"
+msgstr "电子邮件（再次输入）"
 
 #: account/forms.py:292
 msgid "Email address confirmation"
-msgstr "Email地址确认"
+msgstr "电子邮件地址确认"
 
 #: account/forms.py:302
 msgid "Email (optional)"
-msgstr "Email （选填项）"
+msgstr "电子邮件 （选填项）"
 
 #: account/forms.py:314
-#, fuzzy
-#| msgid "Email (optional)"
 msgid "Username (optional)"
-msgstr "Email （选填项）"
+msgstr "用户名（选填项）"
 
 #: account/forms.py:388
 msgid "You must type the same email each time."
-msgstr "每次输入的Email必须相同。"
+msgstr "每次输入的电子邮件必须相同。"
 
 #: account/forms.py:458 account/forms.py:611
 msgid "Password (again)"
@@ -272,7 +252,7 @@ msgstr "用户"
 
 #: account/models.py:29 account/models.py:37 account/models.py:139
 msgid "email address"
-msgstr "Email地址"
+msgstr "电子邮件地址"
 
 #: account/models.py:31
 msgid "verified"
@@ -280,11 +260,11 @@ msgstr "已验证"
 
 #: account/models.py:32
 msgid "primary"
-msgstr "首选Email"
+msgstr "主要"
 
 #: account/models.py:38
 msgid "email addresses"
-msgstr "Email地址"
+msgstr "电子邮件地址"
 
 #: account/models.py:142
 msgid "created"
@@ -300,11 +280,11 @@ msgstr "密钥"
 
 #: account/models.py:149
 msgid "email confirmation"
-msgstr "Email确认"
+msgstr "电子邮件确认"
 
 #: account/models.py:150
 msgid "email confirmations"
-msgstr "Email确认"
+msgstr "电子邮件确认"
 
 #: headless/apps.py:7
 msgid "Headless"
@@ -312,13 +292,11 @@ msgstr "无头"
 
 #: idp/oidc/adapter.py:30
 msgid "View your user ID"
-msgstr ""
+msgstr "查看您的用户 ID"
 
 #: idp/oidc/adapter.py:31
-#, fuzzy
-#| msgid "Verify Your Email Address"
 msgid "View your email address"
-msgstr "验证您的Email地址"
+msgstr "查看您的电子邮件地址"
 
 #: idp/oidc/adapter.py:32
 msgid "View your basic profile information"
@@ -403,7 +381,7 @@ msgstr "客户端ID"
 msgid ""
 "You cannot add an email address to an account protected by two-factor "
 "authentication."
-msgstr "您不能在开启了两步验证的账户中添加Email地址。"
+msgstr "您不能在开启了两步验证的账户中添加电子邮件地址。"
 
 #: mfa/adapter.py:35
 msgid "You cannot deactivate two-factor authentication."

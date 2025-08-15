@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-25 13:23-0500\n"
-"PO-Revision-Date: 2025-04-07 16:01+0000\n"
+"PO-Revision-Date: 2025-08-04 13:01+0000\n"
 "Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese (Portugal) <https://hosted.weblate.org/projects/"
 "allauth/django-allauth/pt_PT/>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: account/adapter.py:53
 msgid "This account is currently inactive."
@@ -67,10 +67,8 @@ msgid "Invalid or expired key."
 msgstr "Chave inválida ou expirada."
 
 #: account/adapter.py:71
-#, fuzzy
-#| msgid "Bad Token"
 msgid "Invalid login."
-msgstr "Código errado"
+msgstr "Login inválido."
 
 #: account/adapter.py:72
 msgid "The password reset token was invalid."
@@ -94,16 +92,12 @@ msgstr ""
 "tarde."
 
 #: account/adapter.py:78
-#, fuzzy
-#| msgid "The email address is not assigned to any user account"
 msgid "The email address is not assigned to any user account."
-msgstr "O endereço de email não está associado a nenhuma conta"
+msgstr "O endereço de email não está associado a nenhuma conta."
 
 #: account/adapter.py:79
-#, fuzzy
-#| msgid "The email address is not assigned to any user account"
 msgid "The phone number is not assigned to any user account."
-msgstr "O endereço de email não está associado a nenhuma conta"
+msgstr "O número de telefone não está associado a nenhuma conta."
 
 #: account/adapter.py:80
 #: templates/account/messages/unverified_primary_email.txt:2
@@ -121,15 +115,15 @@ msgstr ""
 
 #: account/adapter.py:90
 msgid "Please select only one."
-msgstr ""
+msgstr "Por favor, selecione apenas um."
 
 #: account/adapter.py:91
 msgid "The new value must be different from the current one."
-msgstr ""
+msgstr "O valor novo deve ser diferente do atual."
 
 #: account/adapter.py:92
 msgid "Be patient, you are sending too many requests."
-msgstr ""
+msgstr "Seja paciente, está a enviar muitos requerimentos."
 
 #: account/adapter.py:805
 msgid "Use your password"
@@ -145,16 +139,14 @@ msgid "Use a security key"
 msgstr "Use uma chave de segurança"
 
 #: account/admin.py:30
-#, fuzzy, python-brace-format
-#| msgid "Mark selected email addresses as verified"
+#, python-brace-format
 msgid "Marked {email} as verified."
-msgstr "Marcar endereços de e-mail selecionados como verificados"
+msgstr "Marcado {email} como verificado."
 
 #: account/admin.py:36
-#, fuzzy, python-brace-format
-#| msgid "Your primary email address must be verified."
+#, python-brace-format
 msgid "Failed to mark {email} as verified."
-msgstr "O seu endereço de email primário tem de ser verificado."
+msgstr "Marcar {email} como verificado falhou."
 
 #: account/admin.py:42
 msgid "Mark selected email addresses as verified"
@@ -175,10 +167,12 @@ msgstr "Endereço de email"
 #: account/fields.py:62
 msgid "Enter a phone number including country code (e.g. +1 for the US)."
 msgstr ""
+"Digite um número de telefone incluindo o código do país (por exemplo, +351 "
+"para Portugal)."
 
 #: account/fields.py:68 account/fields.py:72 account/forms.py:325
 msgid "Phone"
-msgstr ""
+msgstr "Telefone"
 
 #: account/forms.py:61 account/forms.py:524
 msgid "You must type the same password each time."
@@ -320,7 +314,7 @@ msgstr ""
 
 #: idp/oidc/adapter.py:30
 msgid "View your user ID"
-msgstr ""
+msgstr "Visualizar o seu ID de utilizador"
 
 #: idp/oidc/adapter.py:31
 #, fuzzy
@@ -330,7 +324,7 @@ msgstr "Verifique o seu endereço de email"
 
 #: idp/oidc/adapter.py:32
 msgid "View your basic profile information"
-msgstr ""
+msgstr "Ver as suas informações básicas de perfil"
 
 #: idp/oidc/forms.py:26
 #, fuzzy
@@ -352,25 +346,27 @@ msgstr "Códigos de recuperação"
 
 #: idp/oidc/models.py:39
 msgid "Client credentials"
-msgstr ""
+msgstr "Credenciais de cliente"
 
 #: idp/oidc/models.py:40
 msgid "Refresh token"
-msgstr ""
+msgstr "Atualizar o token"
 
 #: idp/oidc/models.py:43
 msgid "Confidential"
-msgstr ""
+msgstr "Confidencial"
 
 #: idp/oidc/models.py:44
 msgid "Public"
-msgstr ""
+msgstr "Público"
 
 #: idp/oidc/models.py:58
 msgid ""
 "The scope(s) the client is allowed to request. Provide one value per line, e."
 "g.: openid(ENTER)profile(ENTER)email(ENTER)"
 msgstr ""
+"O(s) escopo(s) que o cliente pode solicitar. Fornecer um valor por linha, "
+"por exemplo: openid(ENTER)profile(ENTER)email(ENTER)"
 
 #: idp/oidc/models.py:64
 msgid ""
@@ -378,12 +374,17 @@ msgid ""
 "used. Provide one value per line, e.g.: "
 "openid(ENTER)profile(ENTER)email(ENTER)"
 msgstr ""
+"Caso o cliente não especifique qualquer escopo, esses escopos predefinidos "
+"são usados. Forneça um valor por linha, por exemplo: "
+"openid(ENTER)profile(ENTER)email(ENTER)"
 
 #: idp/oidc/models.py:75
 msgid ""
 "A list of allowed grant types. Provide one value per line, e.g.: "
 "authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 msgstr ""
+"Uma lista de tipos de concessão permitidos. Forneça um valor por linha, por "
+"exemplo: author_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 
 #: idp/oidc/models.py:86
 msgid "A list of allowed origins for cross-origin requests, one per line."
@@ -394,6 +395,8 @@ msgid ""
 "A list of allowed response types. Provide one value per line, e.g.: "
 "code(ENTER)id_token token(ENTER)"
 msgstr ""
+"Uma lista de tipos de resposta permitidos. Forneça um valor por linha, por "
+"exemplo: code(ENTER)id_token token(ENTER)"
 
 #: idp/oidc/models.py:107
 #, fuzzy
@@ -462,7 +465,7 @@ msgstr "Autenticador TOTP"
 
 #: mfa/models.py:26
 msgid "WebAuthn"
-msgstr ""
+msgstr "WebAuthn"
 
 #: mfa/totp/forms.py:11
 msgid "Authenticator code"
@@ -673,6 +676,8 @@ msgid ""
 "We've sent a code to %(recipient)s. The code expires shortly, so please "
 "enter it soon."
 msgstr ""
+"Enviamos um código para %(recipient)s. O código expira brevemente, então por "
+"favor insira-o logo."
 
 #: templates/account/base_confirm_code.html:39
 #: templates/account/email_confirm.html:24
@@ -753,14 +758,12 @@ msgid "Phone Verification"
 msgstr "Re-enviar verificação"
 
 #: templates/account/confirm_phone_verification_code.html:8
-#, fuzzy
-#| msgid "Enter an authenticator code:"
 msgid "Enter Phone Verification Code"
-msgstr "Introduza um código do autenticador:"
+msgstr "Digite o código de verificação do telefone"
 
 #: templates/account/confirm_phone_verification_code.html:15
 msgid "Use a different phone number"
-msgstr ""
+msgstr "Use um número de telefone diferente"
 
 #: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
@@ -897,20 +900,13 @@ msgid "Email Confirmation"
 msgstr "Confirmação de e-mail"
 
 #: templates/account/email/email_confirmation_message.txt:5
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this email because user %(user_display)s has given your "
-#| "email address to register an account on %(site_domain)s.\n"
-#| "\n"
-#| "To confirm this is correct, go to %(activate_url)s"
+#, python-format
 msgid ""
 "You're receiving this email because user %(user_display)s has given your "
 "email address to register an account on %(site_domain)s."
 msgstr ""
 "Está a receber este email porque o utilizador %(user_display)s forneceu o "
-"seu endereço de email para criar uma conta em %(site_domain)s.\n"
-"\n"
-"Para confirmar que isto está certo, vá a %(activate_url)s"
+"seu endereço de email para criar uma conta em %(site_domain)s."
 
 #: templates/account/email/email_confirmation_message.txt:7
 msgid ""
@@ -923,7 +919,7 @@ msgstr ""
 #: templates/account/email/email_confirmation_message.txt:9
 #, python-format
 msgid "To confirm this is correct, go to %(activate_url)s"
-msgstr ""
+msgstr "Para confirmar que isto é correto, vá para %(activate_url)s"
 
 #: templates/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your Email Address"
@@ -969,6 +965,8 @@ msgid ""
 "Your password reset code is listed below. Please enter it in your open "
 "browser window."
 msgstr ""
+"O seu código de redefinição de palavra-passe está listado abaixo. Por favor, "
+"insira-o na janela do navegador aberto."
 
 #: templates/account/email/password_reset_code_subject.txt:3
 #, fuzzy
@@ -985,7 +983,7 @@ msgid ""
 msgstr ""
 "Está a receber este email porque você, ou alguém, pediu para redefinir a "
 "palavra-passe da sua conta.\n"
-"Pode ignorar este email em segurança, caso não tenha feito tal pedido.\n"
+"Pode ignorar este email com segurança, caso não tenha feito tal pedido. "
 "Clique na ligação abaixo para redefinir a sua palavra-passe."
 
 #: templates/account/email/password_reset_key_message.txt:9
@@ -1108,7 +1106,7 @@ msgstr "Entrar com uma chave de segurança"
 
 #: templates/account/login.html:47 templates/account/request_login_code.html:9
 msgid "Send me a sign-in code"
-msgstr ""
+msgstr "Envie-me um código de login"
 
 #: templates/account/logout.html:4 templates/account/logout.html:8
 #: templates/account/logout.html:21 templates/allauth/layouts/base.html:61
@@ -1152,7 +1150,7 @@ msgstr "Terminou a sessão."
 #: templates/account/messages/login_code_sent.txt:2
 #, python-format
 msgid "A sign-in code has been sent to %(recipient)s."
-msgstr ""
+msgstr "Um código de login foi enviado para %(recipient)s."
 
 #: templates/account/messages/password_changed.txt:2
 msgid "Password successfully changed."
@@ -1165,12 +1163,12 @@ msgstr "Palavra-passe definida com sucesso."
 #: templates/account/messages/phone_verification_sent.txt:2
 #, python-format
 msgid "A verification code has been sent to %(phone)s."
-msgstr ""
+msgstr "Um código de verificação foi enviado para %(phone)s."
 
 #: templates/account/messages/phone_verified.txt:2
 #, python-format
 msgid "You have verified phone number %(phone)s."
-msgstr ""
+msgstr "Você verificou o número de telefone %(phone)s."
 
 #: templates/account/messages/primary_email_set.txt:2
 msgid "Primary email address set."
@@ -1234,7 +1232,7 @@ msgstr ""
 
 #: templates/account/password_reset_from_key_done.html:12
 msgid "Your password is now changed."
-msgstr "A sua palavra-passe foi alterada."
+msgstr "A sua palavra-passe está alterada."
 
 #: templates/account/password_set.html:5 templates/account/password_set.html:9
 #: templates/account/password_set.html:21
@@ -1254,10 +1252,8 @@ msgid "Current phone"
 msgstr "Palavra-passe atual"
 
 #: templates/account/phone_change.html:22
-#, fuzzy
-#| msgid "Your email address is still pending verification:"
 msgid "Your phone number is still pending verification."
-msgstr "O seu endereço de email ainda tem a verificação pendente:"
+msgstr "O seu número de telefone continua pendente de verificação."
 
 #: templates/account/phone_change.html:38
 #, fuzzy
@@ -1272,7 +1268,7 @@ msgstr "Insira a sua palavra-passe:"
 
 #: templates/account/request_login_code.html:12
 msgid "You will receive a special code for a password-free sign-in."
-msgstr ""
+msgstr "Receberá um código especial para um login sem palavra-passe."
 
 #: templates/account/request_login_code.html:24
 msgid "Request Code"
@@ -1379,11 +1375,11 @@ msgid ""
 "Otherwise\n"
 "contact us if you do not receive it within a few minutes."
 msgstr ""
-"Enviámos-lhe um email para verificação.\n"
-"Clique na ligação que está nesse email.\n"
-"Se não encontrar o email de verificação na sua caixa de entrada, verifique a "
-"pasta do spam.\n"
-"Contacte-nos se não o receber dentro dos próximos minutos."
+"Enviámos-lhe um email para.\n"
+"verificação. Clique na ligação que está nesse email. Se não encontrar o "
+"email de verificação na sua caixa de entrada, verifique a sua pasta do spam. "
+"Caso contrário,\n"
+"contacte-nos se não o receber dentro dos próximos minutos."
 
 #: templates/account/verified_email_required.html:23
 #, python-format
@@ -1427,12 +1423,12 @@ msgstr "Sessões"
 #: templates/idp/oidc/device_authorization_confirmed.html:5
 #: templates/idp/oidc/device_authorization_denied.html:5
 msgid "Authorize"
-msgstr ""
+msgstr "Autorizar"
 
 #: templates/idp/oidc/authorization_form.html:12
 #, python-format
 msgid "%(client_name)s wants to access your %(site_name)s account."
-msgstr ""
+msgstr "%(client_name)s quer aceder a sua conta %(site_name)s."
 
 #: templates/idp/oidc/device_authorization_code_form.html:9
 #, fuzzy
@@ -1442,7 +1438,7 @@ msgstr "Insira o código de entrada"
 
 #: templates/idp/oidc/device_authorization_code_form.html:12
 msgid "Enter the code displayed on your device."
-msgstr ""
+msgstr "Digite o código exibido no seu dispositivo."
 
 #: templates/idp/oidc/device_authorization_code_form.html:21
 #: templates/socialaccount/login.html:27
@@ -1462,32 +1458,34 @@ msgid ""
 "Please confirm the code shown on your %(client_name)s to authorize this "
 "device."
 msgstr ""
+"Por favor, confirme o código exibido no seu %(client_name)s para autorizar "
+"este dispositivo."
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:29
 msgid "Deny"
-msgstr ""
+msgstr "Rejeitar"
 
 #: templates/idp/oidc/device_authorization_confirmed.html:9
 msgid "Device Authorized"
-msgstr ""
+msgstr "Dispositivo autorizado"
 
 #: templates/idp/oidc/device_authorization_confirmed.html:12
 #, python-format
 msgid "You successfully authorized your %(client_name)s device."
-msgstr ""
+msgstr "Você autorizou com sucesso o seu dispositivo %(client_name)s."
 
 #: templates/idp/oidc/device_authorization_denied.html:9
 msgid "Device Denied"
-msgstr ""
+msgstr "Dispositivo rejeitado"
 
 #: templates/idp/oidc/device_authorization_denied.html:12
 #, python-format
 msgid "Authorization for your %(client_name)s device has been denied."
-msgstr ""
+msgstr "A autorização para o seu dispositivo %(client_name)s foi rejeitado."
 
 #: templates/idp/oidc/error.html:5 templates/idp/oidc/error.html:9
 msgid "Error"
-msgstr ""
+msgstr "Erro"
 
 #: templates/mfa/authenticate.html:13
 msgid ""
@@ -1707,22 +1705,24 @@ msgstr ""
 
 #: templates/mfa/trust.html:4 templates/mfa/trust.html:8
 msgid "Trust this Browser?"
-msgstr ""
+msgstr "Confiar neste navegador?"
 
 #: templates/mfa/trust.html:11
 msgid ""
 "If you choose to trust this browser, you will not be asked for a "
 "verification code the next time you sign in."
 msgstr ""
+"Se optar por confiar neste navegador, não será solicitado um código de "
+"verificação na próxima vez que entrar."
 
 #: templates/mfa/trust.html:23
 #, python-format
 msgid "Trust for %(period)s"
-msgstr ""
+msgstr "Confiança por %(period)s"
 
 #: templates/mfa/trust.html:26
 msgid "Don't Trust"
-msgstr ""
+msgstr "Não confiar"
 
 #: templates/mfa/webauthn/add_form.html:7
 msgid "Add Security Key"

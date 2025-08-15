@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-25 13:23-0500\n"
-"PO-Revision-Date: 2025-07-25 20:25+0200\n"
+"PO-Revision-Date: 2025-08-07 02:02+0000\n"
 "Last-Translator: SATOH Fumiyasu <fumiyas@osstech.co.jp>\n"
-"Language-Team: Japanese <https://hosted.weblate.org/projects/allauth/django-"
-"allauth/ja/>\n"
+"Language-Team: Japanese <https://hosted.weblate.org/projects/allauth/"
+"django-allauth/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.12-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: account/adapter.py:53
 msgid "This account is currently inactive."
@@ -41,7 +41,7 @@ msgstr "入力された電話番号もしくはパスワードが正しくあり
 
 #: account/adapter.py:66
 msgid "A user is already registered with this email address."
-msgstr "他のアカウントがこのメールアドレスを登録済みです。"
+msgstr "ほかのユーザーがこのメールアドレスでアカウント登録済みです。"
 
 #: account/adapter.py:67
 msgid "Please type your current password."
@@ -74,7 +74,7 @@ msgstr "メールアドレスは %d 個までしか登録できません。"
 
 #: account/adapter.py:74
 msgid "A user is already registered with this phone number."
-msgstr "他のアカウントがこの電話番号を登録済みです。"
+msgstr "ほかのユーザーがこの電話番号を登録済みです。"
 
 #: account/adapter.py:76
 msgid "Too many failed login attempts. Try again later."
@@ -95,7 +95,7 @@ msgstr "メインのメールアドレスは確認済みでなければいけま
 
 #: account/adapter.py:82
 msgid "Username can not be used. Please use other username."
-msgstr "このユーザー名は使用できません。他のユーザー名を選んでください。"
+msgstr "このユーザー名は使用できません。ほかのユーザー名を選んでください。"
 
 #: account/adapter.py:85
 msgid "The username and/or password you specified are not correct."
@@ -103,15 +103,15 @@ msgstr "入力されたユーザー名もしくはパスワードが正しくあ
 
 #: account/adapter.py:90
 msgid "Please select only one."
-msgstr ""
+msgstr "1つだけ選択してください。"
 
 #: account/adapter.py:91
 msgid "The new value must be different from the current one."
-msgstr ""
+msgstr "現在値と異なる値にしてください。"
 
 #: account/adapter.py:92
 msgid "Be patient, you are sending too many requests."
-msgstr ""
+msgstr "あなたは大量のリクエストを送信しています。しばらくお待ちください。"
 
 #: account/adapter.py:805
 msgid "Use your password"
@@ -119,7 +119,7 @@ msgstr "パスワードを使用する"
 
 #: account/adapter.py:814
 msgid "Use authenticator app or code"
-msgstr "認証アプリまたは認証コードを利用する"
+msgstr "認証アプリまたは認証コードを使用する"
 
 #: account/adapter.py:821 templates/mfa/authenticate.html:41
 #: templates/mfa/webauthn/reauthenticate.html:15
@@ -127,16 +127,14 @@ msgid "Use a security key"
 msgstr "セキュリティキーを使用する"
 
 #: account/admin.py:30
-#, fuzzy, python-brace-format
-#| msgid "Mark selected email addresses as verified"
+#, python-brace-format
 msgid "Marked {email} as verified."
-msgstr "確認済みにするメールアドレスを選択"
+msgstr "{email} を確認済みにしました。"
 
 #: account/admin.py:36
-#, fuzzy, python-brace-format
-#| msgid "Your primary email address must be verified."
+#, python-brace-format
 msgid "Failed to mark {email} as verified."
-msgstr "メインのメールアドレスは確認済みでなければいけません。"
+msgstr "{email} を確認済みに変更する処理が失敗しました。"
 
 #: account/admin.py:42
 msgid "Mark selected email addresses as verified"
@@ -156,11 +154,11 @@ msgstr "メールアドレス"
 
 #: account/fields.py:62
 msgid "Enter a phone number including country code (e.g. +1 for the US)."
-msgstr ""
+msgstr "電話番号を国番号付きで入力してください (日本なら国番号 +81)。"
 
 #: account/fields.py:68 account/fields.py:72 account/forms.py:325
 msgid "Phone"
-msgstr ""
+msgstr "電話番号"
 
 #: account/forms.py:61 account/forms.py:524
 msgid "You must type the same password each time."
@@ -294,57 +292,51 @@ msgstr "ヘッドレス"
 
 #: idp/oidc/adapter.py:30
 msgid "View your user ID"
-msgstr ""
+msgstr "あなたのユーザー ID を表示"
 
 #: idp/oidc/adapter.py:31
-#, fuzzy
-#| msgid "Verify Your Email Address"
 msgid "View your email address"
-msgstr "メールアドレスを確認してください"
+msgstr "あなたのメールアドレスを表示"
 
 #: idp/oidc/adapter.py:32
 msgid "View your basic profile information"
-msgstr ""
+msgstr "あなたの基本ユーザー情報を表示"
 
 #: idp/oidc/forms.py:26
-#, fuzzy
-#| msgid "User Sessions"
 msgid "Grant permissions"
-msgstr "ユーザーセッション"
+msgstr "認可パーミッション"
 
 #: idp/oidc/models.py:37
-#, fuzzy
-#| msgid "Authenticator code"
 msgid "Authorization code"
-msgstr "認証アプリコード"
+msgstr "認可コード"
 
 #: idp/oidc/models.py:38
-#, fuzzy
-#| msgid "Recovery codes"
 msgid "Device code"
-msgstr "リカバリーコード"
+msgstr "デバイスコード"
 
 #: idp/oidc/models.py:39
 msgid "Client credentials"
-msgstr ""
+msgstr "クライアントクレデンシャル"
 
 #: idp/oidc/models.py:40
 msgid "Refresh token"
-msgstr ""
+msgstr "リフレッシュトークン"
 
 #: idp/oidc/models.py:43
 msgid "Confidential"
-msgstr ""
+msgstr "クレデンシャル"
 
 #: idp/oidc/models.py:44
 msgid "Public"
-msgstr ""
+msgstr "公開"
 
 #: idp/oidc/models.py:58
 msgid ""
 "The scope(s) the client is allowed to request. Provide one value per line, e."
 "g.: openid(ENTER)profile(ENTER)email(ENTER)"
 msgstr ""
+"許可するクライアントスコープ。行ごとに区切ってスコープを入力してください。(例"
+": openid(改行)profile(改行)email(改行))"
 
 #: idp/oidc/models.py:64
 msgid ""
@@ -352,34 +344,36 @@ msgid ""
 "used. Provide one value per line, e.g.: "
 "openid(ENTER)profile(ENTER)email(ENTER)"
 msgstr ""
+"クライアントがスコープを指定しない場合、この既定のスコープが使用されます。行"
+"ごとに区切って入力してください。(例: openid(改行)profile(改行)email(改行))"
 
 #: idp/oidc/models.py:75
 msgid ""
 "A list of allowed grant types. Provide one value per line, e.g.: "
 "authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 msgstr ""
+"許可する認可タイプの一覧。行ごとに区切って入力してください。(例: "
+"authorization_code(改行)client_credentials(改行)refresh_token(改行))"
 
 #: idp/oidc/models.py:86
 msgid "A list of allowed origins for cross-origin requests, one per line."
-msgstr ""
+msgstr "オリジン間リクエストで許可するリクエスト元の一覧。行ごとに区切って入力してく"
+"ださい。"
 
 #: idp/oidc/models.py:94
 msgid ""
 "A list of allowed response types. Provide one value per line, e.g.: "
 "code(ENTER)id_token token(ENTER)"
-msgstr ""
+msgstr "許可する応答タイプの一覧。行ごとに区切って入力してください。(例: code(改行)"
+"id_token token(改行))"
 
 #: idp/oidc/models.py:107
-#, fuzzy
-#| msgid "client id"
 msgid "client"
-msgstr "クライアント ID"
+msgstr "クライアント"
 
 #: idp/oidc/models.py:108
-#, fuzzy
-#| msgid "client id"
 msgid "clients"
-msgstr "クライアント ID"
+msgstr "クライアント"
 
 #: mfa/adapter.py:32
 msgid ""
@@ -478,7 +472,7 @@ msgstr "唯一残っている外部アカウントとの接続は解除できま
 #: socialaccount/adapter.py:41
 #: templates/socialaccount/messages/account_connected_other.txt:2
 msgid "The third-party account is already connected to a different account."
-msgstr "この外部アカウントは他のアカウントに接続されています。"
+msgstr "この外部アカウントはほかのアカウントに接続されています。"
 
 #: socialaccount/apps.py:9
 msgid "Social Accounts"
@@ -793,8 +787,8 @@ msgid ""
 "\n"
 "%(password_reset_url)s"
 msgstr ""
-"このメールを受信しているのは、あなたまたは誰かが次のメールアドレスを使用して"
-"アカウントの登録を試みたためです:\n"
+"あなた (もしくはほかの誰か) "
+"が次のメールアドレスを使用してアカウントの登録を試みました:\n"
 "\n"
 "%(email)s\n"
 "\n"
@@ -947,8 +941,8 @@ msgid ""
 "It can be safely ignored if you did not request a password reset. Click the "
 "link below to reset your password."
 msgstr ""
-"このメールは、あなた (もしくは別の誰か) がパスワードの再設定を行おうとしたた"
-"めに送られました。\n"
+"このメールは、あなた (もしくはほかの誰か) "
+"がパスワードの再設定を行おうとしたために送られました。\n"
 "パスワードの再設定を要求したのがあなたではない場合、このメールは無視してくだ"
 "さい。\n"
 "パスワードを再設定するためには、以下のリンクをクリックしてください。"
@@ -981,9 +975,9 @@ msgid ""
 "an account with email %(email)s. However, we do not have any record of such "
 "an account in our database."
 msgstr ""
-"このメールは、あなたまたは他の誰かが %(email)s のメールアドレスを持つアカウン"
-"トにアクセスしようとしたために送信されています。ただし、私たちのデータベース"
-"にはそのようなアカウントの記録はありません。"
+"あなた (もしくはほかの誰か) がメールアドレス %(email)s "
+"を持つアカウントにアクセスしようとしたため、この通知メールを送りました。ただ"
+"し、私たちのデータベースには該当するアカウント情報がありませんでした。"
 
 #: templates/account/email/unknown_account_message.txt:8
 msgid "If it was you, you can sign up for an account using the link below."
@@ -1132,7 +1126,7 @@ msgstr "確認コードを %(phone)s へ送信しました。"
 #: templates/account/messages/phone_verified.txt:2
 #, python-format
 msgid "You have verified phone number %(phone)s."
-msgstr ""
+msgstr "あなたの電話番号 %(phone)s を照合しました。"
 
 #: templates/account/messages/primary_email_set.txt:2
 msgid "Primary email address set."
@@ -1378,22 +1372,21 @@ msgstr "セッション"
 #: templates/idp/oidc/device_authorization_confirmed.html:5
 #: templates/idp/oidc/device_authorization_denied.html:5
 msgid "Authorize"
-msgstr ""
+msgstr "認可する"
 
 #: templates/idp/oidc/authorization_form.html:12
 #, python-format
 msgid "%(client_name)s wants to access your %(site_name)s account."
-msgstr ""
+msgstr "%(client_name)s があなたの %(site_name)s "
+"アカウントへのアクセスを要求しています。"
 
 #: templates/idp/oidc/device_authorization_code_form.html:9
-#, fuzzy
-#| msgid "Enter Sign-In Code"
 msgid "Enter Device Code"
-msgstr "ログインコードを入力"
+msgstr "デバイスコードの入力"
 
 #: templates/idp/oidc/device_authorization_code_form.html:12
 msgid "Enter the code displayed on your device."
-msgstr ""
+msgstr "あなたのデバイスに表示されたコードを入力してください。"
 
 #: templates/idp/oidc/device_authorization_code_form.html:21
 #: templates/socialaccount/login.html:27
@@ -1402,43 +1395,41 @@ msgid "Continue"
 msgstr "続ける"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:9
-#, fuzzy
-#| msgid "Confirm Access"
 msgid "Confirm Device"
-msgstr "アクセス確認"
+msgstr "デバイスの確認"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:12
 #, python-format
 msgid ""
 "Please confirm the code shown on your %(client_name)s to authorize this "
 "device."
-msgstr ""
+msgstr "あなたの %(client_name)s に表示されたデバイス認可用のコードをご確認ください。"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:29
 msgid "Deny"
-msgstr ""
+msgstr "拒否する"
 
 #: templates/idp/oidc/device_authorization_confirmed.html:9
 msgid "Device Authorized"
-msgstr ""
+msgstr "デバイスが認可されました"
 
 #: templates/idp/oidc/device_authorization_confirmed.html:12
 #, python-format
 msgid "You successfully authorized your %(client_name)s device."
-msgstr ""
+msgstr "あなたの %(client_name)s デバイスを認可しました。"
 
 #: templates/idp/oidc/device_authorization_denied.html:9
 msgid "Device Denied"
-msgstr ""
+msgstr "デバイスは拒否されました"
 
 #: templates/idp/oidc/device_authorization_denied.html:12
 #, python-format
 msgid "Authorization for your %(client_name)s device has been denied."
-msgstr ""
+msgstr "あなたの %(client_name)s デバイスの認可は拒否されました。"
 
 #: templates/idp/oidc/error.html:5 templates/idp/oidc/error.html:9
 msgid "Error"
-msgstr ""
+msgstr "エラー"
 
 #: templates/mfa/authenticate.html:13
 msgid ""
@@ -1646,22 +1637,23 @@ msgstr "認証アプリによる認証を無効化しようとしています。
 
 #: templates/mfa/trust.html:4 templates/mfa/trust.html:8
 msgid "Trust this Browser?"
-msgstr ""
+msgstr "このブラウザを信頼しますか?"
 
 #: templates/mfa/trust.html:11
 msgid ""
 "If you choose to trust this browser, you will not be asked for a "
 "verification code the next time you sign in."
-msgstr ""
+msgstr "このブラウザを信頼すると、次回のログイン時に確認コードの入力が不要になります"
+"。"
 
 #: templates/mfa/trust.html:23
 #, python-format
 msgid "Trust for %(period)s"
-msgstr ""
+msgstr "信頼する (%(period)s)"
 
 #: templates/mfa/trust.html:26
 msgid "Don't Trust"
-msgstr ""
+msgstr "信頼しない"
 
 #: templates/mfa/webauthn/add_form.html:7
 msgid "Add Security Key"
@@ -1842,7 +1834,7 @@ msgstr "外部アカウントを使用する"
 
 #: templates/usersessions/messages/sessions_logged_out.txt:2
 msgid "Signed out of all other sessions."
-msgstr "他のすべてのセッションからログアウトしました。"
+msgstr "ほかのすべてのセッションをログアウトしました。"
 
 #: templates/usersessions/usersession_list.html:24
 msgid "Started At"
@@ -1866,7 +1858,7 @@ msgstr "現在の"
 
 #: templates/usersessions/usersession_list.html:72
 msgid "Sign Out Other Sessions"
-msgstr "他のセッションをログアウト"
+msgstr "ほかのセッションをログアウト"
 
 #: usersessions/apps.py:9
 msgid "User Sessions"

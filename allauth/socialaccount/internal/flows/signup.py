@@ -127,6 +127,9 @@ def process_signup(request, sociallogin):
 
 
 def complete_social_signup(request, sociallogin):
+    from allauth.socialaccount.internal.flows.login import record_authentication
+
+    record_authentication(request, sociallogin)
     return complete_signup(
         request,
         user=sociallogin.user,

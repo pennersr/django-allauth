@@ -1,5 +1,7 @@
-from unittest.mock import patch
+from http import HTTPStatus
+from unittest.mock import ANY, patch
 
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 from django.urls import reverse
@@ -8,6 +10,7 @@ import pytest
 from pytest_django.asserts import assertFormError, assertRedirects
 
 from allauth.account import app_settings as account_settings
+from allauth.account.authentication import AUTHENTICATION_METHODS_SESSION_KEY
 from allauth.account.models import EmailAddress
 from allauth.account.utils import user_email, user_username
 from allauth.core import context
@@ -308,7 +311,7 @@ def test_social_account_taken_at_signup(
         reverse("socialaccount_signup"),
         data={"username": "me1", "email": "me1@example.com"},
     )
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     assert User.objects.count() == 1
     assert SocialAccount.objects.count() == 1
 
@@ -447,3 +450,22 @@ def test_signup_closed(
         resp = setup_sociallogin_flow(client, sociallogin)
     assert b"Sign Up Closed" in resp.content
     assert not get_user_model().objects.exists()
+
+
+def test_authentication_records(client, db):
+    resp = client.post(reverse("dummy_login"))
+    assert resp.status_code == HTTPStatus.FOUND
+    resp = client.post(
+        resp["location"],
+        {"id": "123", "email": "a@b.com", "email_verified": True},
+    )
+    assert resp.status_code == HTTPStatus.FOUND
+    assert resp["location"] == settings.LOGIN_REDIRECT_URL
+    assert client.session[AUTHENTICATION_METHODS_SESSION_KEY] == [
+        {
+            "at": ANY,
+            "method": "socialaccount",
+            "provider": "dummy",
+            "uid": "123",
+        }
+    ]

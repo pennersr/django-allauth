@@ -68,7 +68,7 @@ ci-install-standardjs:
 
 .PHONY: clean
 clean:
-	-rm -rf build/
+	-rm -rf build/ django_allauth.egg-info/
 
 .PHONY: dist
 dist: clean mo

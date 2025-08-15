@@ -5,11 +5,29 @@ Note worthy changes
 -------------------
 
 - OpenID Connect: using ``fetch_userinfo=False`` you can now skip the additional
-  call to the userinfo endpoint. Instead, the ID token will be used.  The ID
-  token and userinfo (when present) are now stored in
+  call to the userinfo endpoint. Instead, the ID token will be used.
+
+
+Fixes
+-----
+
+- Headless: passwordless signup was not supported, fixed.
+
+- Headless: when serializing the user nested dataclasses, as well as optional
+  types ended up as ``string`` type, fixed.
+
+- When signing up with a social account no authentication record was added to
+  the session, fixed.
+
+
+Backwards incompatible changes
+------------------------------
+
+- OpenID Connect: the ID token and userinfo (when present) are now stored in
   ``SocialAccount.extra_data``, below the respective ``"id_token"`` and
   ``"userinfo"`` keys. Compatibility with ``extra_data`` from existing accounts
-  that do not have this new structure is retained.
+  that do not have this new structure is retained. However, if your own project
+  expects ``extra_data`` to be in a certain format this change may impact you.
 
 
 65.10.0 (2025-07-10)

@@ -1,0 +1,1750 @@
+# DJANGO-ALLAUTH.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the django-allauth package.
+#
+# Translators:
+# Jean Patrick Prenis <patrickprenice@gmail.com>, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: django-allauth\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-08-19 12:00+0000\n"
+"PO-Revision-Date: 2025-08-19 12:00+0000\n"
+"Last-Translator: Jean Patrick Prenis <patrickprenice@gmail.com>\n"
+"Language-Team: kreyòl ayisyen\n"
+"Language: ht\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: account/adapter.py:53
+msgid "This account is currently inactive."
+msgstr "Kont sa a pa aktif kounye a."
+
+#: account/adapter.py:55
+msgid "You cannot remove your primary email address."
+msgstr "Ou pa ka retire adrès imel prensipal ou."
+
+#: account/adapter.py:58
+msgid "This email address is already associated with this account."
+msgstr "Adrès imel sa a deja asosye ak kont sa a."
+
+#: account/adapter.py:61
+msgid "The email address and/or password you specified are not correct."
+msgstr "Adrès imel la/oswa modpas ou mete a pa kòrèk."
+
+#: account/adapter.py:64
+msgid "The phone number and/or password you specified are not correct."
+msgstr "Nimewo telefòn lan/oswa modpas ou mete a pa kòrèk."
+
+#: account/adapter.py:66
+msgid "A user is already registered with this email address."
+msgstr "Gen yon itilizatè ki deja anrejistre ak adrès imel sa a."
+
+#: account/adapter.py:67
+msgid "Please type your current password."
+msgstr "Tanpri antre modpas ou genyen kounye a."
+
+#: mfa/adapter.py:40 account/adapter.py:68
+msgid "Incorrect code."
+msgstr "Kòd la pa kòrèk."
+
+#: account/adapter.py:69
+msgid "Incorrect password."
+msgstr "Modpas pa kòrèk."
+
+#: account/adapter.py:70
+msgid "Invalid or expired key."
+msgstr "Kle a pa valab oswa li ekspire."
+
+#: account/adapter.py:71
+msgid "Invalid login."
+msgstr "Koneksyon pa valab."
+
+#: account/adapter.py:72
+msgid "The password reset token was invalid."
+msgstr "Kòd pou renityalizasyon modpas la pa t valab."
+
+#: account/adapter.py:73
+#, python-format
+msgid "You cannot add more than %d email addresses."
+msgstr "Ou pa ka ajoute plis pase %d adrès imel."
+
+#: account/adapter.py:74
+msgid "A user is already registered with this phone number."
+msgstr "Gen yon itilizatè ki deja anrejistre ak nimewo telefòn sa a."
+
+#: account/adapter.py:76
+msgid "Too many failed login attempts. Try again later."
+msgstr "Twòp tantativ koneksyon ki echwe. Eseye ankò pita."
+
+#: account/adapter.py:78
+msgid "The email address is not assigned to any user account."
+msgstr "Adrès imel la pa asosye ak okenn kont itilizatè."
+
+#: account/adapter.py:79
+msgid "The phone number is not assigned to any user account."
+msgstr "Nimewo telefòn nan pa asosye ak okenn kont itilizatè."
+
+#: account/adapter.py:80 templates/account/messages/unverified_primary_email.txt:2
+msgid "Your primary email address must be verified."
+msgstr "Fòk ou verifye adrès imel prensipal ou."
+
+#: account/adapter.py:82
+msgid "Username can not be used. Please use other username."
+msgstr "Non itilizatè sa a pa ka itilize. Tanpri chwazi yon lòt non."
+
+#: account/adapter.py:85
+msgid "The username and/or password you specified are not correct."
+msgstr "Non itilizatè sa/oswa modpas ou mete a pa kòrèk."
+
+#: account/adapter.py:90
+msgid "Please select only one."
+msgstr "Tanpri chwazi sèlman youn."
+
+#: account/adapter.py:91
+msgid "The new value must be different from the current one."
+msgstr "Nouvo valè a dwe diferan de sa ki egziste kounye a."
+
+#: account/adapter.py:92
+msgid "Be patient, you are sending too many requests."
+msgstr "Pran pasyans, ou ap voye twòp demann."
+
+#: account/adapter.py:805
+msgid "Use your password"
+msgstr "Sèvi ak modpas ou"
+
+#: account/adapter.py:814
+msgid "Use authenticator app or code"
+msgstr "Sèvi ak aplikasyon oswa kòd otantifikasyon"
+
+#: account/adapter.py:821 templates/mfa/authenticate.html:41 templates/mfa/webauthn/reauthenticate.html:15
+msgid "Use a security key"
+msgstr "Sèvi ak yon kle sekirite"
+
+#: account/admin.py:30
+#, python-brace-format
+msgid "Marked {email} as verified."
+msgstr "Makee {email} ou kòm verifye."
+
+#: account/admin.py:36
+#, python-brace-format
+msgid "Failed to mark {email} as verified."
+msgstr "Echwe pou make {email} ou a kòm verifye."
+
+#: account/admin.py:42
+msgid "Mark selected email addresses as verified"
+msgstr "Make adrès imel ou chwazi yo kòm verifye"
+
+#: account/apps.py:11
+msgid "Accounts"
+msgstr "Kont yo"
+
+#: account/fields.py:12 account/forms.py:299 idp/oidc/forms.py:38
+msgid "Email"
+msgstr "Imel"
+
+#: account/fields.py:19
+msgid "Email address"
+msgstr "Adrès imel"
+
+#: account/fields.py:62
+msgid "Enter a phone number including country code (e.g. +1 for the US)."
+msgstr "Antre yon nimewo telefòn ansanm ak kòd peyi a (egzanp: +1 pou US)."
+
+#: account/fields.py:68 account/fields.py:72 account/forms.py:325
+msgid "Phone"
+msgstr "Telefòn"
+
+#: account/forms.py:61 account/forms.py:524
+msgid "You must type the same password each time."
+msgstr "Ou dwe antre menm modpas la chak fwa."
+
+#: account/forms.py:66 account/forms.py:451 account/forms.py:610 account/forms.py:696
+msgid "Password"
+msgstr "Modpas"
+
+#: account/forms.py:67
+msgid "Remember Me"
+msgstr "Sonje mwen"
+
+#: account/forms.py:79 account/forms.py:82 account/forms.py:265 account/forms.py:268 account/forms.py:311
+msgid "Username"
+msgstr "Non itilizatè"
+
+#: account/forms.py:96
+msgctxt "field label"
+msgid "Login"
+msgstr "Konekte"
+
+#: account/forms.py:115
+msgid "Username, email or phone"
+msgstr "Non itilizatè, imel oswa telefòn"
+
+#: account/forms.py:117
+msgid "Username or email"
+msgstr "Non itilizatè oswa imel"
+
+#: account/forms.py:119
+msgid "Username or phone"
+msgstr "Non itilizatè oswa telefòn"
+
+#: account/forms.py:121
+msgid "Email or phone"
+msgstr "Imel oswa telefòn"
+
+#: account/forms.py:144
+msgid "Forgot your password?"
+msgstr "Bliye modpas ou?"
+
+#: account/forms.py:287
+msgid "Email (again)"
+msgstr "Imel (ankò)"
+
+#: account/forms.py:292
+msgid "Email address confirmation"
+msgstr "Konfimasyon adrès imel"
+
+#: account/forms.py:302
+msgid "Email (optional)"
+msgstr "Imel (opsyonèl)"
+
+#: account/forms.py:314
+msgid "Username (optional)"
+msgstr "Non itilizatè (opsyonèl)"
+
+#: account/forms.py:388
+msgid "You must type the same email each time."
+msgstr "Ou dwe antre menm imel la chak fwa."
+
+#: account/forms.py:458 account/forms.py:611
+msgid "Password (again)"
+msgstr "Modpas (ankò)"
+
+#: account/forms.py:591
+msgid "Current Password"
+msgstr "Modpas aktyèl"
+
+#: account/forms.py:593 account/forms.py:649
+msgid "New Password"
+msgstr "Nouvo modpas"
+
+#: account/forms.py:594 account/forms.py:650
+msgid "New Password (again)"
+msgstr "Nouvo modpas (ankò)"
+
+#: account/forms.py:767 account/forms.py:769 idp/oidc/forms.py:46
+#: idp/oidc/forms.py:49 mfa/base/forms.py:12 mfa/base/forms.py:14
+#: mfa/totp/forms.py:13
+#: templates/idp/oidc/device_authorization_confirm_form.html:16
+msgid "Code"
+msgstr "Kòd"
+
+#: account/models.py:23
+msgid "user"
+msgstr "itilizatè"
+
+#: account/models.py:29 account/models.py:37 account/models.py:139
+msgid "email address"
+msgstr "adrès imel"
+
+#: account/models.py:31
+msgid "verified"
+msgstr "verifye"
+
+#: account/models.py:32
+msgid "primary"
+msgstr "prensipal"
+
+#: account/models.py:38
+msgid "email addresses"
+msgstr "adrès imel yo"
+
+#: account/models.py:142
+msgid "created"
+msgstr "kreye"
+
+#: account/models.py:143
+msgid "sent"
+msgstr "voye"
+
+#: account/models.py:144 socialaccount/models.py:70
+msgid "key"
+msgstr "kle"
+
+#: account/models.py:149
+msgid "email confirmation"
+msgstr "konfimasyon imel"
+
+#: account/models.py:150
+msgid "email confirmations"
+msgstr "konfimasyon imel yo"
+
+#: headless/apps.py:7
+msgid "Headless"
+msgstr "Headless"
+
+#: idp/oidc/adapter.py:30
+msgid "View your user ID"
+msgstr "Gade ID itilizatè ou"
+
+#: idp/oidc/adapter.py:31
+msgid "View your email address"
+msgstr "Gade adrès imel ou"
+
+#: idp/oidc/adapter.py:32
+msgid "View your basic profile information"
+msgstr "Gade enfòmasyon debaz pwofil ou"
+
+#: idp/oidc/forms.py:26
+msgid "Grant permissions"
+msgstr "Bay otorizasyon"
+
+#: idp/oidc/models.py:37
+msgid "Authorization code"
+msgstr "Kòd otorizasyon"
+
+#: idp/oidc/models.py:38
+msgid "Device code"
+msgstr "Kòd aparèy"
+
+#: idp/oidc/models.py:39
+msgid "Client credentials"
+msgstr "Idantifikasyon kliyan"
+
+#: idp/oidc/models.py:40
+msgid "Refresh token"
+msgstr "Token renouvle"
+
+#: idp/oidc/models.py:43
+msgid "Confidential"
+msgstr "Konfidansyèl"
+
+#: idp/oidc/models.py:44
+msgid "Public"
+msgstr "Piblik"
+
+#: idp/oidc/models.py:58
+msgid ""
+"The scope(s) the client is allowed to request. Provide one value per line, e."
+"g.: openid(ENTER)profile(ENTER)email(ENTER)"
+msgstr "Domèn kliyan an gen dwa mande yo. Mete yon valè pa liy, egzanp: openid(ANTRE)profile(ANTRE)email(ANTRE)"
+
+#: idp/oidc/models.py:64
+msgid ""
+"In case the client does not specify any scope, these default scopes are "
+"used. Provide one value per line, e.g.: "
+"openid(ENTER)profile(ENTER)email(ENTER)"
+msgstr "Si kliyan an pa presize okenn domèn, sistèm nan ap itilize domèn sa yo pa default. Mete yon valè pa liy, egzanp: openid(ANTRE)profile(ANTRE)email(ANTRE)"
+
+#: idp/oidc/models.py:75
+msgid ""
+"A list of allowed grant types. Provide one value per line, e.g.: "
+"authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
+msgstr "Yon lis kalite otorizasyon ki pèmèt yo. Mete yon valè pa liy, egzanp: authorization_code(ANTRE)client_credentials(ANTRE)refresh_token(ANTRE)"
+
+#: idp/oidc/models.py:86
+msgid "A list of allowed origins for cross-origin requests, one per line."
+msgstr "Yon lis sous ki otorize pou demann atravè orijin, youn pa liy."
+
+#: idp/oidc/models.py:94
+msgid ""
+"A list of allowed response types. Provide one value per line, e.g.: "
+"code(ENTER)id_token token(ENTER)"
+msgstr "Yon lis kalite repons ki pèmèt yo. Mete yon valè pa liy, egzanp: code(ANTRE)id_token token(ANTRE)"
+
+#: idp/oidc/models.py:107
+msgid "client"
+msgstr "kliyan"
+
+#: idp/oidc/models.py:108
+msgid "clients"
+msgstr "kliyan yo"
+
+#: mfa/adapter.py:32
+msgid ""
+"You cannot add an email address to an account protected by two-factor "
+"authentication."
+msgstr "Ou pa ka ajoute yon adrès imel nan yon kont ki pwoteje ak otantifikasyon de etap."
+
+#: mfa/adapter.py:35
+msgid "You cannot deactivate two-factor authentication."
+msgstr "Ou pa ka dezaktive otantifikasyon de etap."
+
+#: mfa/adapter.py:38
+msgid ""
+"You cannot generate recovery codes without having two-factor authentication "
+"enabled."
+msgstr "Ou pa ka jenere kòd rekiperasyon san ou pa aktive otantifikasyon de etap."
+
+#: mfa/adapter.py:42
+msgid ""
+"You cannot activate two-factor authentication until you have verified your "
+"email address."
+msgstr "Ou pa ka aktive otantifikasyon de etap jiskaske ou verifye adrès imel ou."
+
+#: mfa/adapter.py:141
+msgid "Master key"
+msgstr "Kle prensipal"
+
+#: mfa/adapter.py:143
+msgid "Backup key"
+msgstr "Kle sovgad"
+
+#: mfa/adapter.py:144
+#, python-brace-format
+msgid "Key nr. {number}"
+msgstr "Kle nimewo {number}"
+
+#: mfa/apps.py:9
+msgid "MFA"
+msgstr "MFA"
+
+#: mfa/models.py:24
+msgid "Recovery codes"
+msgstr "Kòd rekiperasyon"
+
+#: mfa/models.py:25
+msgid "TOTP Authenticator"
+msgstr "Otantifikatè TOTP"
+
+#: mfa/models.py:26
+msgid "WebAuthn"
+msgstr "WebAuthn"
+
+#: mfa/totp/forms.py:11
+msgid "Authenticator code"
+msgstr "Kòd otantifikatè"
+
+#: mfa/webauthn/forms.py:56
+msgid "Passwordless"
+msgstr "San modpas"
+
+#: mfa/webauthn/forms.py:59
+msgid ""
+"Enabling passwordless operation allows you to sign in using just this key, "
+"but imposes additional requirements such as biometrics or PIN protection."
+msgstr "Lè ou aktive koneksyon san modpas, ou ka konekte sèlman ak kle sa a, men sa mande kondisyon siplemantè tankou biyometrik oswa pwoteksyon PIN."
+
+#: socialaccount/adapter.py:30
+#, python-format
+msgid ""
+"An account already exists with this email address. Please sign in to that "
+"account first, then connect your %s account."
+msgstr "Gen yon kont ki deja egziste ak adrès imel sa a. Tanpri konekte sou kont sa a an premye, epi apre sa konekte kont %s ou a."
+
+#: socialaccount/adapter.py:34
+msgid "Invalid token."
+msgstr "Token pa valab."
+
+#: socialaccount/adapter.py:35
+msgid "Your account has no password set up."
+msgstr "Kont ou a pa gen okenn modpas ki konfigire."
+
+#: socialaccount/adapter.py:36
+msgid "Your account has no verified email address."
+msgstr "Kont ou a pa gen okenn adrès imel ki verifye."
+
+#: socialaccount/adapter.py:38
+msgid "You cannot disconnect your last remaining third-party account."
+msgstr "Ou pa ka dekonekte dènye kont twazyèm pati ki rete a."
+
+#: socialaccount/adapter.py:41 templates/socialaccount/messages/account_connected_other.txt:2
+msgid "The third-party account is already connected to a different account."
+msgstr "Kont twazyèm pati a deja konekte ak yon lòt kont."
+
+#: socialaccount/apps.py:9
+msgid "Social Accounts"
+msgstr "Kont Sosyal yo"
+
+#: socialaccount/models.py:45 socialaccount/models.py:98
+msgid "provider"
+msgstr "founisè"
+
+#: socialaccount/models.py:53
+msgid "provider ID"
+msgstr "ID founisè"
+
+#: socialaccount/models.py:57
+msgid "name"
+msgstr "non"
+
+#: socialaccount/models.py:59
+msgid "client id"
+msgstr "id kliyan"
+
+#: socialaccount/models.py:61
+msgid "App ID, or consumer key"
+msgstr "ID aplikasyon oswa kle konsomatè"
+
+#: socialaccount/models.py:64
+msgid "secret key"
+msgstr "kle sekrè"
+
+#: socialaccount/models.py:67
+msgid "API secret, client secret, or consumer secret"
+msgstr "Sekrè API, sekrè kliyan, oswa sekrè konsomatè"
+
+#: socialaccount/models.py:70 templates/mfa/webauthn/authenticator_list.html:18
+msgid "Key"
+msgstr "Kle"
+
+#: socialaccount/models.py:82
+msgid "social application"
+msgstr "aplikasyon sosyal"
+
+#: socialaccount/models.py:83
+msgid "social applications"
+msgstr "aplikasyon sosyal yo"
+
+#: socialaccount/models.py:118
+msgid "uid"
+msgstr "uid"
+
+#: socialaccount/models.py:120
+msgid "last login"
+msgstr "dènye koneksyon"
+
+#: socialaccount/models.py:121
+msgid "date joined"
+msgstr "dat enskripsyon"
+
+#: socialaccount/models.py:122
+msgid "extra data"
+msgstr "done siplemantè"
+
+#: socialaccount/models.py:126
+msgid "social account"
+msgstr "kont sosyal"
+
+#: socialaccount/models.py:127
+msgid "social accounts"
+msgstr "kont sosyal yo"
+
+#: socialaccount/models.py:161
+msgid "token"
+msgstr "token"
+
+#: socialaccount/models.py:162
+msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
+msgstr "\"oauth_token\" (OAuth1) oswa token aksè (OAuth2)"
+
+#: socialaccount/models.py:166
+msgid "token secret"
+msgstr "token sekrè"
+
+#: socialaccount/models.py:167
+msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
+msgstr "\"oauth_token_secret\" (OAuth1) oswa token rafrechisman (OAuth2)"
+
+#: socialaccount/models.py:170
+msgid "expires at"
+msgstr "ekspire nan"
+
+#: socialaccount/models.py:175
+msgid "social application token"
+msgstr "token aplikasyon sosyal"
+
+#: socialaccount/models.py:176
+msgid "social application tokens"
+msgstr "token aplikasyon sosyal yo"
+
+#: socialaccount/providers/douban/views.py:36
+msgid "Invalid profile data"
+msgstr "Done pwofil pa valab"
+
+#: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:16
+msgid "Login"
+msgstr "Konekte"
+
+#: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:19
+#: templates/account/base_confirm_code.html:48
+#: templates/account/base_confirm_code.html:52
+#: templates/account/password_reset_from_key.html:33
+#: templates/idp/oidc/authorization_form.html:26
+#: templates/mfa/authenticate.html:28 templates/mfa/authenticate.html:44
+#: templates/mfa/trust.html:29 templates/mfa/webauthn/signup_form.html:26
+msgid "Cancel"
+msgstr "Anile"
+
+#: socialaccount/providers/oauth/client.py:84
+#, python-format
+msgid ""
+"Invalid response while obtaining request token from \"%s\". Response was: %s."
+msgstr "Repons pa valab pandan w t ap jwenn token demann nan nan \"%s\". Repons lan te: %s."
+
+#: socialaccount/providers/oauth/client.py:118
+#: socialaccount/providers/pocket/client.py:86
+#, python-format
+msgid "Invalid response while obtaining access token from \"%s\"."
+msgstr "Repons pa valab pandan w t ap jwenn token aksè nan \"%s\"."
+
+#: socialaccount/providers/oauth/client.py:139
+#, python-format
+msgid "No request token saved for \"%s\"."
+msgstr "Pa gen okenn token demann ki sove pou \"%s\"."
+
+#: socialaccount/providers/oauth/client.py:190
+#, python-format
+msgid "No access token saved for \"%s\"."
+msgstr "Pa gen okenn token aksè ki sove pou \"%s\"."
+
+#: socialaccount/providers/oauth/client.py:211
+#, python-format
+msgid "No access to private resources at \"%s\"."
+msgstr "Pa gen aksè ak resous prive nan \"%s\"."
+
+#: socialaccount/providers/pocket/client.py:41
+#, python-format
+msgid "Invalid response while obtaining request token from \"%s\"."
+msgstr "Repons pa valab pandan w t ap jwenn token demann nan nan \"%s\"."
+
+#: templates/account/account_inactive.html:5
+#: templates/account/account_inactive.html:9
+msgid "Account Inactive"
+msgstr "Kont Inaktif"
+
+#: templates/account/account_inactive.html:12
+msgid "This account is inactive."
+msgstr "Kont sa a inaktif."
+
+#: templates/account/base_confirm_code.html:27
+#, python-format
+msgid ""
+"We've sent a code to %(recipient)s. The code expires shortly, so please "
+"enter it soon."
+msgstr "Nou voye yon kòd bay %(recipient)s. Kòd la ap ekspire byento, tanpri antre li rapid."
+
+#: templates/account/base_confirm_code.html:39
+#: templates/account/email_confirm.html:24
+#: templates/account/reauthenticate.html:18
+#: templates/idp/oidc/device_authorization_confirm_form.html:26
+#: templates/mfa/reauthenticate.html:18
+msgid "Confirm"
+msgstr "Konfime"
+
+#: templates/account/base_confirm_code.html:43
+msgid "Request new code"
+msgstr "Mande yon nouvo kòd"
+
+#: templates/account/base_reauthenticate.html:5
+#: templates/account/base_reauthenticate.html:9
+msgid "Confirm Access"
+msgstr "Konfime Aksè"
+
+#: templates/account/base_reauthenticate.html:12
+msgid "Please reauthenticate to safeguard your account."
+msgstr "Tanpri reotantifye pou pwoteje kont ou."
+
+#: templates/account/base_reauthenticate.html:19
+#: templates/mfa/authenticate.html:37
+msgid "Alternative options"
+msgstr "Opsyon altènatif"
+
+#: templates/account/confirm_email_verification_code.html:5
+msgid "Email Verification"
+msgstr "Verifikasyon Imel"
+
+#: templates/account/confirm_email_verification_code.html:8
+msgid "Enter Email Verification Code"
+msgstr "Antre Kòd Verifikasyon Imel"
+
+#: templates/account/confirm_email_verification_code.html:16
+msgid "Use a different email address"
+msgstr "Itilize yon lòt adrès imel"
+
+#: templates/account/confirm_login_code.html:5 templates/account/login.html:5
+#: templates/account/login.html:9 templates/account/login.html:31
+#: templates/account/request_login_code.html:5
+#: templates/allauth/layouts/base.html:68 templates/mfa/authenticate.html:6
+#: templates/mfa/authenticate.html:24 templates/openid/login.html:5
+#: templates/openid/login.html:9 templates/openid/login.html:20
+#: templates/socialaccount/login.html:5
+#: templates/socialaccount/login_redirect.html:5
+msgid "Sign In"
+msgstr "Konekte"
+
+#: templates/account/confirm_login_code.html:8
+msgid "Enter Sign-In Code"
+msgstr "Antre Kòd Koneksyon"
+
+#: templates/account/confirm_password_reset_code.html:5
+#: templates/account/email/password_reset_subject.txt:3
+#: templates/account/password_reset.html:4
+#: templates/account/password_reset.html:8
+#: templates/account/password_reset_done.html:6
+#: templates/account/password_reset_done.html:10
+msgid "Password Reset"
+msgstr "Reyajiste Modpas"
+
+#: templates/account/confirm_password_reset_code.html:8
+msgid "Enter Password Reset Code"
+msgstr "Antre Kòd Reyajisteman Modpas"
+
+#: templates/account/confirm_phone_verification_code.html:5
+msgid "Phone Verification"
+msgstr "Verifikasyon Telefòn"
+
+#: templates/account/confirm_phone_verification_code.html:8
+msgid "Enter Phone Verification Code"
+msgstr "Antre Kòd Verifikasyon Telefòn"
+
+#: templates/account/confirm_phone_verification_code.html:15
+msgid "Use a different phone number"
+msgstr "Itilize yon lòt nimewo telefòn"
+
+#: templates/account/email.html:4 templates/account/email.html:8
+msgid "Email Addresses"
+msgstr "Adrès Imel yo"
+
+#: templates/account/email.html:12
+msgid "The following email addresses are associated with your account:"
+msgstr "Adrès imel sa yo asosye ak kont ou:"
+
+#: templates/account/email.html:25
+msgid "Verified"
+msgstr "Verifye"
+
+#: templates/account/email.html:29
+msgid "Unverified"
+msgstr "Pa verifye"
+
+#: templates/account/email.html:34
+msgid "Primary"
+msgstr "Prensipal"
+
+#: templates/account/email.html:44
+msgid "Make Primary"
+msgstr "Fè Prensipal"
+
+#: templates/account/email.html:47 templates/account/email_change.html:37
+#: templates/account/phone_change.html:24
+msgid "Re-send Verification"
+msgstr "Re-voye Verifikasyon"
+
+#: templates/account/email.html:50
+#: templates/mfa/webauthn/authenticator_confirm_delete.html:16
+#: templates/mfa/webauthn/authenticator_list.html:60
+#: templates/socialaccount/connections.html:40
+msgid "Remove"
+msgstr "Retire"
+
+#: templates/account/email.html:59
+msgid "Add Email Address"
+msgstr "Ajoute Adrès Imel"
+
+#: templates/account/email.html:70
+msgid "Add Email"
+msgstr "Ajoute Imel"
+
+#: templates/account/email.html:80
+msgid "Do you really want to remove the selected email address?"
+msgstr "Èske ou vrèman vle retire adrès imel ou chwazi a?"
+
+#: templates/account/email/account_already_exists_message.txt:4
+#, python-format
+msgid ""
+"You are receiving this email because you or someone else tried to signup for "
+"an\n"
+"account using email address:\n"
+"\n"
+"%(email)s\n"
+"\n"
+"However, an account using that email address already exists.  In case you "
+"have\n"
+"forgotten about this, please use the password forgotten procedure to "
+"recover\n"
+"your account:\n"
+"\n"
+"%(password_reset_url)s"
+msgstr "Ou resevwa imel sa a paske ou oswa yon lòt moun te eseye kreye yon kont ak adrès imel:\n\n%(email)s\n\n Men, gen deja yon kont ki egziste ak adrès imel sa a. Si ou bliye sa, tanpri sèvi ak pwosedi modpas bliye a pou rekipere kont ou:\n\n%(password_reset_url)s"
+
+#: templates/account/email/account_already_exists_subject.txt:3
+msgid "Account Already Exists"
+msgstr "Kont la Deja Egziste"
+
+#: templates/account/email/base_message.txt:1 
+#, python-format
+msgid "Hello from %(site_name)s!"
+msgstr "Bonjou soti nan %(site_name)s!"
+
+#: templates/account/email/base_message.txt:5
+#, python-format
+msgid ""
+"Thank you for using %(site_name)s!\n"
+"%(site_domain)s"
+msgstr "Mèsi paske w ap itilize %(site_name)s!\n%(site_domain)s"
+
+#: templates/account/email/base_notification.txt:5
+msgid ""
+"You are receiving this mail because the following change was made to your "
+"account:"
+msgstr "Ou resevwa mesaj sa a paske gen yon chanjman ki fèt nan kont ou:"
+
+#: templates/account/email/base_notification.txt:10
+#, python-format
+msgid ""
+"If you do not recognize this change then please take proper security "
+"precautions immediately. The change to your account originates from:\n"
+"\n"
+"- IP address: %(ip)s\n"
+"- Browser: %(user_agent)s\n"
+"- Date: %(timestamp)s"
+msgstr "Si ou pa rekonèt chanjman sa a, tanpri pran prekosyon sekirite nesesè yo touswit. Chanjman nan kont ou a sòti nan:\n\n- Adrès IP: %(ip)s\n- Navigatè: %(user_agent)s\n- Dat: %(timestamp)s"
+
+#: templates/account/email/email_changed_message.txt:4
+#, python-format
+msgid "Your email has been changed from %(from_email)s to %(to_email)s."
+msgstr "Adrès imel ou te chanje soti nan %(from_email)s pou vin %(to_email)s."
+
+#: templates/account/email/email_changed_subject.txt:3
+msgid "Email Changed"
+msgstr "Imel Chanje"
+
+#: templates/account/email/email_confirm_message.txt:4
+msgid "Your email has been confirmed."
+msgstr "Imel ou konfime."
+
+#: templates/account/email/email_confirm_subject.txt:3
+msgid "Email Confirmation"
+msgstr "Konfimasyon Imel"
+
+#: templates/account/email/email_confirmation_message.txt:5
+#, python-format
+msgid ""
+"You're receiving this email because user %(user_display)s has given your "
+"email address to register an account on %(site_domain)s."
+msgstr "Ou resevwa imel sa a paske itilizatè %(user_display)s te bay adrès imel ou pou anrejistre yon kont sou %(site_domain)s."
+
+#: templates/account/email/email_confirmation_message.txt:7
+msgid ""
+"Your email verification code is listed below. Please enter it in your open "
+"browser window."
+msgstr "Kòd verifikasyon imel ou an ekri anba a. Tanpri antre li nan fenèt navigatè ki ouvè a."
+
+#: templates/account/email/email_confirmation_message.txt:9
+#, python-format
+msgid "To confirm this is correct, go to %(activate_url)s"
+msgstr "Pou konfime sa, ale sou %(activate_url)s"
+
+#: templates/account/email/email_confirmation_subject.txt:3
+msgid "Please Confirm Your Email Address"
+msgstr "Tanpri Konfime Adrès Imel Ou"
+
+#: templates/account/email/email_deleted_message.txt:4
+#, python-format
+msgid "Email address %(deleted_email)s has been removed from your account."
+msgstr "Adrès imel %(deleted_email)s te retire nan kont ou."
+
+#: templates/account/email/email_deleted_subject.txt:3
+msgid "Email Removed"
+msgstr "Imel Retire"
+
+#: templates/account/email/login_code_message.txt:5
+msgid ""
+"Your sign-in code is listed below. Please enter it in your open browser "
+"window."
+msgstr "Kòd koneksyon ou an ekri anba a. Tanpri antre li nan fenèt navigatè ki ouvè a."
+
+#: templates/account/email/login_code_message.txt:9
+#: templates/account/email/password_reset_code_message.txt:9
+#: templates/account/email/unknown_account_message.txt:6
+msgid "This mail can be safely ignored if you did not initiate this action."
+msgstr "Ou ka inyore imel sa a san pwoblèm si se pa ou ki te inisye aksyon sa a."
+
+#: templates/account/email/login_code_subject.txt:3
+msgid "Sign-In Code"
+msgstr "Kòd Koneksyon"
+
+#: templates/account/email/password_changed_message.txt:4
+msgid "Your password has been changed."
+msgstr "Modpas ou chanje."
+
+#: templates/account/email/password_changed_subject.txt:3
+msgid "Password Changed"
+msgstr "Modpas Chanje"
+
+#: templates/account/email/password_reset_code_message.txt:5
+msgid ""
+"Your password reset code is listed below. Please enter it in your open "
+"browser window."
+msgstr "Kòd re-inisyalizasyon modpas ou an ekri anba a. Tanpri antre li nan fenèt navigatè ki ouvè a."
+
+#: templates/account/email/password_reset_code_subject.txt:3
+msgid "Password Reset Code"
+msgstr "Kòd Reyinisyalize Modpas"
+
+#: templates/account/email/password_reset_key_message.txt:4
+msgid ""
+"You're receiving this email because you or someone else has requested a "
+"password reset for your user account.\n"
+"It can be safely ignored if you did not request a password reset. Click the "
+"link below to reset your password."
+msgstr "Ou resevwa imel sa a paske ou oswa yon lòt moun te mande yon reyinisyalizasyon modpas pou kont ou.\nOu ka inyore mesaj sa a si ou pa t fè demann sa a. Klike sou lyen ki anba a pou reyinisyalize modpas ou."
+
+#: templates/account/email/password_reset_key_message.txt:9
+#, python-format
+msgid "In case you forgot, your username is %(username)s."
+msgstr "Si ou bliye, non itilizatè ou se %(username)s."
+
+#: templates/account/email/password_reset_key_subject.txt:3
+msgid "Password Reset Email"
+msgstr "Imel Reyinisyalizasyon Modpas"
+
+#: templates/account/email/password_reset_message.txt:4
+msgid "Your password has been reset."
+msgstr "Yo reyinisyalize modpas ou."
+
+#: templates/account/email/password_set_message.txt:4
+msgid "Your password has been set."
+msgstr "Modpas ou defini."
+
+#: templates/account/email/password_set_subject.txt:3
+msgid "Password Set"
+msgstr "Modpas Mete"
+
+#: templates/account/email/unknown_account_message.txt:4
+#, python-format
+msgid ""
+"You are receiving this email because you, or someone else, tried to access "
+"an account with email %(email)s. However, we do not have any record of such "
+"an account in our database."
+msgstr "Ou resevwa imel sa a paske ou oswa yon lòt moun te eseye konekte nan yon kont ak imel %(email)s. Men, nou pa gen okenn dosye ki koresponn ak kont sa a nan baz done nou an."
+
+#: templates/account/email/unknown_account_message.txt:8
+msgid "If it was you, you can sign up for an account using the link below."
+msgstr "Si se ou menm, ou ka kreye yon kont avèk lyen ki anba a."
+
+#: templates/account/email/unknown_account_subject.txt:3
+msgid "Unknown Account"
+msgstr "Kont Enkonu"
+
+#: templates/account/email_change.html:5 templates/account/email_change.html:9 
+msgid "Email Address"
+msgstr "Adrès Imèl"
+
+#: templates/account/email_change.html:21
+#: templates/account/email_change.html:29
+msgid "Current email"
+msgstr "Imèl aktyèl"
+
+#: templates/account/email_change.html:31
+msgid "Changing to"
+msgstr "Chanje pou"
+
+#: templates/account/email_change.html:35
+msgid "Your email address is still pending verification."
+msgstr "Adrès imèl ou a toujou ap tann verifikasyon."
+
+#: templates/account/email_change.html:41
+msgid "Cancel Change"
+msgstr "Anile Chanjman"
+
+#: templates/account/email_change.html:49
+#: templates/account/phone_change.html:32
+msgid "Change to"
+msgstr "Chanje pou"
+
+#: templates/account/email_change.html:55
+#: templates/allauth/layouts/base.html:31
+msgid "Change Email"
+msgstr "Chanje Imèl"
+
+#: templates/account/email_confirm.html:6
+#: templates/account/email_confirm.html:10
+msgid "Confirm Email Address"
+msgstr "Konfime Adrès Imèl"
+
+#: templates/account/email_confirm.html:16
+#, python-format
+msgid ""
+"Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an email "
+"address for user %(user_display)s."
+msgstr "Tanpri konfime ke <a href=\"mailto:%(email)s\">%(email)s</a> se yon adrès imèl pou itilizatè %(user_display)s."
+
+#: templates/account/email_confirm.html:30
+#: templates/account/messages/email_confirmation_failed.txt:2
+#, python-format
+msgid ""
+"Unable to confirm %(email)s because it is already confirmed by a different "
+"account."
+msgstr "Nou pa ka konfime %(email)s paske li deja konfime pa yon lòt kont."
+
+#: templates/account/email_confirm.html:36
+#, python-format
+msgid ""
+"This email confirmation link expired or is invalid. Please <a "
+"href=\"%(email_url)s\">issue a new email confirmation request</a>."
+msgstr "Lyen konfimasyon imèl sa a ekspire oswa li pa valab. Tanpri <a href=\"%(email_url)s\">fè yon nouvo demann konfimasyon imèl</a>."
+
+#: templates/account/login.html:19
+#, python-format
+msgid ""
+"If you have not created an account yet, then please %(link)ssign "
+"up%(end_link)s first."
+msgstr "Si ou poko kreye yon kont, tanpri %(link)senskri%(end_link)s an premye."
+
+#: templates/account/login.html:42
+msgid "Sign in with a passkey"
+msgstr "Konekte ak yon kle pas"
+
+#: templates/account/login.html:47 templates/account/request_login_code.html:9
+msgid "Send me a sign-in code"
+msgstr "Voye yon kòd koneksyon ban mwen"
+
+#: templates/account/logout.html:4 templates/account/logout.html:8
+#: templates/account/logout.html:21 templates/allauth/layouts/base.html:61
+#: templates/usersessions/usersession_list.html:76
+msgid "Sign Out"
+msgstr "Dekonekte"
+
+#: templates/account/logout.html:11
+msgid "Are you sure you want to sign out?"
+msgstr "Èske ou sèten ou vle dekonekte?"
+
+#: templates/account/messages/cannot_delete_primary_email.txt:2
+#, python-format
+msgid "You cannot remove your primary email address (%(email)s)."
+msgstr "Ou pa ka retire adrès imèl prensipal ou a (%(email)s)."
+
+#: templates/account/messages/email_confirmation_sent.txt:2
+#, python-format
+msgid "Confirmation email sent to %(email)s."
+msgstr "Yon imèl konfimasyon te voye bay %(email)s."
+
+#: templates/account/messages/email_confirmed.txt:2
+#, python-format
+msgid "You have confirmed %(email)s."
+msgstr "Ou konfime %(email)s."
+
+#: templates/account/messages/email_deleted.txt:2
+#, python-format
+msgid "Removed email address %(email)s."
+msgstr "Adrès imèl %(email)s te retire."
+
+#: templates/account/messages/logged_in.txt:4
+#, python-format
+msgid "Successfully signed in as %(name)s."
+msgstr "Ou konekte avèk siksè kòm %(name)s."
+
+#: templates/account/messages/logged_out.txt:2
+msgid "You have signed out."
+msgstr "Ou dekonekte."
+
+#: templates/account/messages/login_code_sent.txt:2
+#, python-format
+msgid "A sign-in code has been sent to %(recipient)s."
+msgstr "Yon kòd koneksyon te voye bay %(recipient)s."
+
+#: templates/account/messages/password_changed.txt:2
+msgid "Password successfully changed."
+msgstr "Modpas chanje avèk siksè."
+
+#: templates/account/messages/password_set.txt:2
+msgid "Password successfully set."
+msgstr "Modpas mete avèk siksè."
+
+#: templates/account/messages/phone_verification_sent.txt:2
+#, python-format
+msgid "A verification code has been sent to %(phone)s."
+msgstr "Yon kòd verifikasyon te voye bay %(phone)s."
+
+#: templates/account/messages/phone_verified.txt:2
+#, python-format
+msgid "You have verified phone number %(phone)s."
+msgstr "Ou verifye nimewo telefòn %(phone)s."
+
+#: templates/account/messages/primary_email_set.txt:2 
+msgid "Primary email address set."
+msgstr "Adrès imel prensipal la mete."
+
+#: templates/account/password_change.html:4
+#: templates/account/password_change.html:8
+#: templates/account/password_change.html:20
+#: templates/account/password_reset_from_key.html:5
+#: templates/account/password_reset_from_key.html:12
+#: templates/account/password_reset_from_key.html:30
+#: templates/account/password_reset_from_key_done.html:5
+#: templates/account/password_reset_from_key_done.html:9
+#: templates/allauth/layouts/base.html:37
+msgid "Change Password"
+msgstr "Chanje modpas"
+
+#: templates/account/password_change.html:22
+msgid "Forgot Password?"
+msgstr "Ou bliye modpas ou?"
+
+#: templates/account/password_reset.html:14
+msgid ""
+"Forgotten your password? Enter your email address below, and we'll send you "
+"an email allowing you to reset it."
+msgstr "Ou bliye modpas ou? Mete adrès imel ou anba a, n ap voye yon imel pou ou pou w ka rekipere l."
+
+#: templates/account/password_reset.html:26
+msgid "Reset My Password"
+msgstr "Reyajiste modpas mwen"
+
+#: templates/account/password_reset.html:31
+msgid "Please contact us if you have any trouble resetting your password."
+msgstr "Tanpri kontakte nou si w rankontre pwoblèm pou reyajiste modpas ou."
+
+#: templates/account/password_reset_done.html:16
+msgid ""
+"We have sent you an email. If you have not received it please check your "
+"spam folder. Otherwise contact us if you do not receive it in a few minutes."
+msgstr "Nou voye yon imel pou ou. Si ou poko resevwa li, tanpri gade nan dosye spam ou. Sinon kontakte nou si ou poko jwenn li apre kèk minit."
+
+#: templates/account/password_reset_from_key.html:10
+msgid "Bad Token"
+msgstr "Move kòd"
+
+#: templates/account/password_reset_from_key.html:18
+#, python-format
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
+"a>."
+msgstr "Lyèn pou reyajiste modpas la pa valab, petèt paske li te deja itilize. Tanpri mande yon <a href=\"%(passwd_reset_url)s\">nouvo reyajistreman modpas</a>."
+
+#: templates/account/password_reset_from_key_done.html:12
+msgid "Your password is now changed."
+msgstr "Modpas ou chanje kounye a."
+
+#: templates/account/password_set.html:5 templates/account/password_set.html:9
+#: templates/account/password_set.html:21
+msgid "Set Password"
+msgstr "Mete modpas"
+
+#: templates/account/phone_change.html:5 templates/account/phone_change.html:9
+msgid "Change Phone"
+msgstr "Chanje nimewo"
+
+#: templates/account/phone_change.html:18
+msgid "Current phone"
+msgstr "Nimewo aktyèl"
+
+#: templates/account/phone_change.html:22
+msgid "Your phone number is still pending verification."
+msgstr "Nimewo telefòn ou toujou ap tann verifikasyon."
+
+#: templates/account/phone_change.html:38
+msgctxt "action"
+msgid "Change Phone"
+msgstr "Chanje nimewo"
+
+#: templates/account/reauthenticate.html:6
+msgid "Enter your password:"
+msgstr "Antre modpas ou:"
+
+#: templates/account/request_login_code.html:12
+msgid "You will receive a special code for a password-free sign-in."
+msgstr "Ou pral resevwa yon kòd espesyal pou konekte san modpas."
+
+#: templates/account/request_login_code.html:24
+msgid "Request Code"
+msgstr "Mande kòd"
+
+#: templates/account/request_login_code.html:30
+msgid "Other sign-in options"
+msgstr "Lòt opsyon pou konekte"
+
+#: templates/account/signup.html:4 templates/account/signup_by_passkey.html:4
+#: templates/socialaccount/signup.html:5
+msgid "Signup"
+msgstr "Enskri"
+
+#: templates/account/signup.html:8 templates/account/signup.html:30
+#: templates/account/signup_by_passkey.html:29
+#: templates/allauth/layouts/base.html:74 templates/socialaccount/signup.html:9
+#: templates/socialaccount/signup.html:25
+msgid "Sign Up"
+msgstr "Enskri"
+
+#: templates/account/signup.html:17 templates/account/signup_by_passkey.html:17
+#, python-format
+msgid "Already have an account? Then please %(link)ssign in%(end_link)s."
+msgstr "Ou deja gen yon kont? Tanpri %(link)skonekte%(end_link)s."
+
+#: templates/account/signup.html:39 
+msgid "Sign up using a passkey"
+msgstr "Enskri ak yon kle dijital"
+
+#: templates/account/signup_by_passkey.html:8
+msgid "Passkey Sign Up"
+msgstr "Enskripsyon ak kle dijital"
+
+#: templates/account/signup_by_passkey.html:36
+msgid "Other options"
+msgstr "Lòt opsyon"
+
+#: templates/account/signup_closed.html:5
+#: templates/account/signup_closed.html:9
+msgid "Sign Up Closed"
+msgstr "Enskripsyon Fèmen"
+
+#: templates/account/signup_closed.html:12
+msgid "We are sorry, but the sign up is currently closed."
+msgstr "Nou regrèt, men enskripsyon yo fèmen kounye a."
+
+#: templates/account/snippets/already_logged_in.html:7
+msgid "Note"
+msgstr "Nòt"
+
+#: templates/account/snippets/already_logged_in.html:7
+#, python-format
+msgid "You are already logged in as %(user_display)s."
+msgstr "Ou deja konekte kòm %(user_display)s."
+
+#: templates/account/snippets/warn_no_email.html:3
+msgid "Warning:"
+msgstr "Avètisman :"
+
+#: templates/account/snippets/warn_no_email.html:3
+msgid ""
+"You currently do not have any email address set up. You should really add an "
+"email address so you can receive notifications, reset your password, etc."
+msgstr "Ou poko mete okenn adrès imel. Ou ta dwe ajoute yon adrès imel pou resevwa notifikasyon, rekipere modpas ou, elatriye."
+
+#: templates/account/verification_sent.html:5
+#: templates/account/verification_sent.html:9
+#: templates/account/verified_email_required.html:5
+#: templates/account/verified_email_required.html:9
+msgid "Verify Your Email Address"
+msgstr "Verifye Adrès Imèl Ou"
+
+#: templates/account/verification_sent.html:12
+msgid ""
+"We have sent an email to you for verification. Follow the link provided to "
+"finalize the signup process. If you do not see the verification email in "
+"your main inbox, check your spam folder. Please contact us if you do not "
+"receive the verification email within a few minutes."
+msgstr "Nou voye yon imel pou verifye. Swiv lyen ki ladan pou finalize enskripsyon an. Si ou pa jwenn imel la nan bwat prensipal ou, gade nan dosye spam la. Tanpri kontakte nou si ou pa jwenn imel la nan kèk minit."
+
+#: templates/account/verified_email_required.html:13
+msgid ""
+"This part of the site requires us to verify that\n"
+"you are who you claim to be. For this purpose, we require that you\n"
+"verify ownership of your email address. "
+msgstr "Pati sa a nan sit la mande pou nou verifye ke ou se moun ou di ou ye a. Pou rezon sa a, nou mande pou ou verifye ke adrès imel ou se pou ou."
+
+#: templates/account/verified_email_required.html:18
+msgid ""
+"We have sent an email to you for\n"
+"verification. Please click on the link inside that email. If you do not see "
+"the verification email in your main inbox, check your spam folder. "
+"Otherwise\n"
+"contact us if you do not receive it within a few minutes."
+msgstr "Nou voye yon imel ba ou pou verifye. Tanpri klike sou lyen ki ladan imel sa a. Si ou pa wè li nan bwat prensipal ou, gade nan dosye spam la. Sinon, kontakte nou si ou pa jwenn li nan kèk minit."
+
+#: templates/account/verified_email_required.html:23
+#, python-format
+msgid ""
+"<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your "
+"email address</a>."
+msgstr "<strong>Nòt :</strong> ou toujou ka <a href=\"%(email_url)s\">chanje adrès imel ou</a>."
+
+#: templates/allauth/layouts/base.html:18
+msgid "Messages:"
+msgstr "Mesaj :"
+
+#: templates/allauth/layouts/base.html:25
+msgid "Menu:"
+msgstr "Meni :"
+
+#: templates/allauth/layouts/base.html:43
+#: templates/socialaccount/connections.html:5
+#: templates/socialaccount/connections.html:9
+msgid "Account Connections"
+msgstr "Koneksyon Kont"
+
+#: templates/allauth/layouts/base.html:49 templates/mfa/authenticate.html:10
+#: templates/mfa/index.html:5 templates/mfa/index.html:9
+msgid "Two-Factor Authentication"
+msgstr "Otentifikasyon De Faktè"
+
+#: templates/allauth/layouts/base.html:55
+#: templates/usersessions/usersession_list.html:6
+#: templates/usersessions/usersession_list.html:10
+msgid "Sessions"
+msgstr "Sesyon"
+
+#: templates/idp/oidc/authorization_form.html:5
+#: templates/idp/oidc/authorization_form.html:9
+#: templates/idp/oidc/authorization_form.html:23
+#: templates/idp/oidc/device_authorization_code_form.html:5
+#: templates/idp/oidc/device_authorization_confirm_form.html:5
+#: templates/idp/oidc/device_authorization_confirmed.html:5
+#: templates/idp/oidc/device_authorization_denied.html:5
+msgid "Authorize"
+msgstr "Otorize"
+
+#: templates/idp/oidc/authorization_form.html:12
+#, python-format
+msgid "%(client_name)s wants to access your %(site_name)s account."
+msgstr "%(client_name)s vle jwenn aksè nan kont %(site_name)s ou."
+
+#: templates/idp/oidc/device_authorization_code_form.html:9
+msgid "Enter Device Code"
+msgstr "Antre Kòd Aparèy la"
+
+#: templates/idp/oidc/device_authorization_code_form.html:12 
+msgid "Enter the code displayed on your device."
+msgstr "Antre kòd ki parèt sou aparèy ou a."
+
+#: templates/idp/oidc/device_authorization_code_form.html:21
+#: templates/socialaccount/login.html:27
+#: templates/socialaccount/login_redirect.html:10
+msgid "Continue"
+msgstr "Kontinye"
+
+#: templates/idp/oidc/device_authorization_confirm_form.html:9
+msgid "Confirm Device"
+msgstr "Konfime Aparèy"
+
+#: templates/idp/oidc/device_authorization_confirm_form.html:12
+#, python-format
+msgid ""
+"Please confirm the code shown on your %(client_name)s to authorize this "
+"device."
+msgstr "Tanpri konfime kòd ki montre sou %(client_name)s ou a pou otorize aparèy sa a."
+
+#: templates/idp/oidc/device_authorization_confirm_form.html:29
+msgid "Deny"
+msgstr "Refize"
+
+#: templates/idp/oidc/device_authorization_confirmed.html:9
+msgid "Device Authorized"
+msgstr "Aparèy Ototorize"
+
+#: templates/idp/oidc/device_authorization_confirmed.html:12
+#, python-format
+msgid "You successfully authorized your %(client_name)s device."
+msgstr "Ou fin otorize aparèy %(client_name)s ou a avèk siksè."
+
+#: templates/idp/oidc/device_authorization_denied.html:9
+msgid "Device Denied"
+msgstr "Aparèy Refize"
+
+#: templates/idp/oidc/device_authorization_denied.html:12
+#, python-format
+msgid "Authorization for your %(client_name)s device has been denied."
+msgstr "Otorizasyon pou aparèy %(client_name)s ou a te refize."
+
+#: templates/idp/oidc/error.html:5 templates/idp/oidc/error.html:9
+msgid "Error"
+msgstr "Erè"
+
+#: templates/mfa/authenticate.html:13
+msgid ""
+"Your account is protected by two-factor authentication. Please enter an "
+"authenticator code:"
+msgstr "Kont ou pwoteje ak otantifikasyon de-faktè. Tanpri antre yon kòd otantifikatè:"
+
+#: templates/mfa/email/recovery_codes_generated_message.txt:4
+msgid ""
+"A new set of Two-Factor Authentication recovery codes has been generated."
+msgstr "Yo fin kreye yon nouvo seri kòd rekiperasyon pou Otantifikasyon De-Faktè."
+
+#: templates/mfa/email/recovery_codes_generated_subject.txt:3
+msgid "New Recovery Codes Generated"
+msgstr "Nouvo Kòd Rekiperasyon Kreye"
+
+#: templates/mfa/email/totp_activated_message.txt:4
+#: templates/mfa/messages/totp_activated.txt:2
+msgid "Authenticator app activated."
+msgstr "Aplikasyon otantifikatè aktive."
+
+#: templates/mfa/email/totp_activated_subject.txt:3
+msgid "Authenticator App Activated"
+msgstr "Aplikasyon Otantifikatè Aktive"
+
+#: templates/mfa/email/totp_deactivated_message.txt:4
+#: templates/mfa/messages/totp_deactivated.txt:2
+msgid "Authenticator app deactivated."
+msgstr "Aplikasyon otantifikatè dezaktive."
+
+#: templates/mfa/email/totp_deactivated_subject.txt:3
+msgid "Authenticator App Deactivated"
+msgstr "Aplikasyon Otantifikatè Dezaktive"
+
+#: templates/mfa/email/webauthn_added_message.txt:4
+msgid "A new security key has been added."
+msgstr "Yo te ajoute yon nouvo kle sekirite."
+
+#: templates/mfa/email/webauthn_added_subject.txt:3
+msgid "Security Key Added"
+msgstr "Kle Sekirite Ajoute"
+
+#: templates/mfa/email/webauthn_removed_message.txt:4
+msgid "A security key has been removed."
+msgstr "Yo te retire yon kle sekirite."
+
+#: templates/mfa/email/webauthn_removed_subject.txt:3
+msgid "Security Key Removed"
+msgstr "Kle Sekirite Retire"
+
+#: templates/mfa/index.html:14 templates/mfa/totp/base.html:4
+msgid "Authenticator App"
+msgstr "Aplikasyon Otantifikatè"
+
+#: templates/mfa/index.html:19
+msgid "Authentication using an authenticator app is active."
+msgstr "Otantifikasyon ak yon aplikasyon otantifikatè aktive."
+
+#: templates/mfa/index.html:23
+msgid "An authenticator app is not active."
+msgstr "Pa gen aplikasyon otantifikatè ki aktive."
+
+#: templates/mfa/index.html:32 templates/mfa/totp/deactivate_form.html:24
+msgid "Deactivate"
+msgstr "Dezaktive"
+
+#: templates/mfa/index.html:36 templates/mfa/totp/activate_form.html:32
+msgid "Activate"
+msgstr "Aktive"
+
+#: templates/mfa/index.html:45 templates/mfa/webauthn/authenticator_list.html:8
+#: templates/mfa/webauthn/base.html:4
+msgid "Security Keys"
+msgstr "Kle Sekirite"
+
+#: templates/mfa/index.html:50
+#, python-format
+msgid "You have added %(count)s security key."
+msgid_plural "You have added %(count)s security keys."
+msgstr[0] "Ou te ajoute %(count)s kle sekirite."
+msgstr[1] "Ou te ajoute %(count)s kle sekirite."
+
+#: templates/mfa/index.html:54
+#: templates/mfa/webauthn/authenticator_list.html:12
+msgid "No security keys have been added."
+msgstr "Pa gen okenn kle sekirite ki te ajoute."
+
+#: templates/mfa/index.html:62
+msgid "Manage"
+msgstr "Jere"
+
+#: templates/mfa/index.html:67 templates/mfa/webauthn/add_form.html:18
+#: templates/mfa/webauthn/authenticator_list.html:70
+msgid "Add"
+msgstr "Ajoute"
+
+#: templates/mfa/index.html:77 templates/mfa/recovery_codes/base.html:4 
+#: templates/mfa/recovery_codes/generate.html:6
+#: templates/mfa/recovery_codes/index.html:6
+msgid "Recovery Codes"
+msgstr "Kòd Rekiperasyon"
+
+#: templates/mfa/index.html:82 templates/mfa/recovery_codes/index.html:9
+#, python-format
+msgid ""
+"There is %(unused_count)s out of %(total_count)s recovery codes available."
+msgid_plural ""
+"There are %(unused_count)s out of %(total_count)s recovery codes available."
+msgstr[0] "Gen %(unused_count)s sou %(total_count)s kòd rekiperasyon ki disponib."
+msgstr[1] "Gen %(unused_count)s sou %(total_count)s kòd rekiperasyon ki disponib."
+
+#: templates/mfa/index.html:86
+msgid "No recovery codes set up."
+msgstr "Pa gen kòd rekiperasyon ki mete."
+
+#: templates/mfa/index.html:96
+msgid "View"
+msgstr "Gade"
+
+#: templates/mfa/index.html:102
+msgid "Download"
+msgstr "Telechaje"
+
+#: templates/mfa/index.html:110 templates/mfa/recovery_codes/generate.html:29
+msgid "Generate"
+msgstr "Jenere"
+
+#: templates/mfa/messages/recovery_codes_generated.txt:2
+msgid "A new set of recovery codes has been generated."
+msgstr "Yo te jenere yon nouvo seri kòd rekiperasyon."
+
+#: templates/mfa/messages/webauthn_added.txt:2
+msgid "Security key added."
+msgstr "Kle sekirite ajoute."
+
+#: templates/mfa/messages/webauthn_removed.txt:2
+msgid "Security key removed."
+msgstr "Kle sekirite retire."
+
+#: templates/mfa/reauthenticate.html:6
+msgid "Enter an authenticator code:"
+msgstr "Antre yon kòd otantifikatè:"
+
+#: templates/mfa/recovery_codes/generate.html:9
+msgid "You are about to generate a new set of recovery codes for your account."
+msgstr "Ou pral jenere yon nouvo seri kòd rekiperasyon pou kont ou."
+
+#: templates/mfa/recovery_codes/generate.html:11
+msgid "This action will invalidate your existing codes."
+msgstr "Aksyon sa a ap fè kòd ou genyen yo vin pa valab."
+
+#: templates/mfa/recovery_codes/generate.html:13
+msgid "Are you sure?"
+msgstr "Èske ou sèten?"
+
+#: templates/mfa/recovery_codes/index.html:13
+msgid "Unused codes"
+msgstr "Kòd ki poko itilize"
+
+#: templates/mfa/recovery_codes/index.html:25
+msgid "Download codes"
+msgstr "Telechaje kòd yo"
+
+#: templates/mfa/recovery_codes/index.html:30
+msgid "Generate new codes"
+msgstr "Jenere nouvo kòd"
+
+#: templates/mfa/totp/activate_form.html:4
+#: templates/mfa/totp/activate_form.html:8
+msgid "Activate Authenticator App"
+msgstr "Aktive Aplikasyon Otantifikatè"
+
+#: templates/mfa/totp/activate_form.html:11
+msgid ""
+"To protect your account with two-factor authentication, scan the QR code "
+"below with your authenticator app. Then, input the verification code "
+"generated by the app below."
+msgstr "Pou pwoteje kont ou ak otantifikasyon de-faktè, eskane kòd QR ki anba a ak aplikasyon otantifikatè ou. Apre sa, antre kòd verifikasyon aplikasyon an jenere a anba a."
+
+#: templates/mfa/totp/activate_form.html:21
+msgid "Authenticator secret"
+msgstr "Secrè otantifikatè"
+
+#: templates/mfa/totp/activate_form.html:24
+msgid ""
+"You can store this secret and use it to reinstall your authenticator app at "
+"a later time."
+msgstr "Ou ka estoke sekrè sa a epi sèvi avè l pou re-enstale aplikasyon otantifikatè ou yon lòt lè."
+
+#: templates/mfa/totp/deactivate_form.html:5
+#: templates/mfa/totp/deactivate_form.html:9
+msgid "Deactivate Authenticator App"
+msgstr "Dezaktive Aplikasyon Otantifikatè"
+
+#: templates/mfa/totp/deactivate_form.html:12
+msgid ""
+"You are about to deactivate authenticator app based authentication. Are you "
+"sure?"
+msgstr "Ou pral dezaktive otantifikasyon ki baze sou aplikasyon otantifikatè. Èske ou sèten?"
+
+#: templates/mfa/trust.html:4 templates/mfa/trust.html:8
+msgid "Trust this Browser?"
+msgstr "Fè konfyans navigatè sa a?"
+
+#: templates/mfa/trust.html:11
+msgid ""
+"If you choose to trust this browser, you will not be asked for a "
+"verification code the next time you sign in."
+msgstr "Si ou chwazi fè konfyans navigatè sa a, yo pap mande ou yon kòd verifikasyon pwochen fwa ou konekte."
+
+#: templates/mfa/trust.html:23
+#, python-format
+msgid "Trust for %(period)s"
+msgstr "Fè konfyans pandan %(period)s"
+
+#: templates/mfa/trust.html:26
+msgid "Don't Trust"
+msgstr "Pa Fè Konfyans"
+
+#: templates/mfa/webauthn/add_form.html:7
+msgid "Add Security Key"
+msgstr "Ajoute Kle Sekirite"
+
+#: templates/mfa/webauthn/authenticator_confirm_delete.html:6
+msgid "Remove Security Key"
+msgstr "Retire Kle Sekirite"
+
+#: templates/mfa/webauthn/authenticator_confirm_delete.html:9
+msgid "Are you sure you want to remove this security key?"
+msgstr "Èske ou sèten ou vle retire kle sekirite sa a?"
+
+#: templates/mfa/webauthn/authenticator_list.html:21
+msgid "Usage"
+msgstr "Itilizasyon"
+
+#: templates/mfa/webauthn/authenticator_list.html:33
+msgid "Passkey"
+msgstr "Kle Pase"
+
+#: templates/mfa/webauthn/authenticator_list.html:37
+msgid "Security key"
+msgstr "Kle Sekirite"
+
+#: templates/mfa/webauthn/authenticator_list.html:40
+msgid "This key does not indicate whether it is a passkey."
+msgstr "Kle sa a pa endike si li se yon kle pase."
+
+#: templates/mfa/webauthn/authenticator_list.html:41
+msgid "Unspecified"
+msgstr "Pa Espesifye"
+
+#: templates/mfa/webauthn/authenticator_list.html:46
+#, python-format
+msgid "Added on %(created_at)s"
+msgstr "Ajoute nan %(created_at)s"
+
+#: templates/mfa/webauthn/authenticator_list.html:48
+#, python-format
+msgid "Last used %(last_used)s"
+msgstr "Dènye itilizasyon %(last_used)s"
+
+#: templates/mfa/webauthn/authenticator_list.html:56
+msgid "Edit"
+msgstr "Modifye"
+
+#: templates/mfa/webauthn/edit_form.html:7
+msgid "Edit Security Key"
+msgstr "Modifye Kle Sekirite"
+
+#: templates/mfa/webauthn/edit_form.html:18
+msgid "Save"
+msgstr "Sove"
+
+#: templates/mfa/webauthn/signup_form.html:7
+msgid "Create Passkey"
+msgstr "Kreye Kle Pase"
+
+#: templates/mfa/webauthn/signup_form.html:10
+msgid ""
+"You are about to create a passkey for your account. As you can add "
+"additional keys later on, you can use a descriptive name to tell the keys "
+"apart."
+msgstr "Ou pral kreye yon kle pase pou kont ou. Paske ou ka ajoute lòt kle pita, ou ka itilize yon non ki dekri yo pou distenge kle yo youn ak lòt."
+
+#: templates/mfa/webauthn/signup_form.html:21
+msgid "Create"
+msgstr "Kreye"
+
+#: templates/mfa/webauthn/snippets/scripts.html:2 
+msgid "This functionality requires JavaScript."
+msgstr "Fonksyonalite sa a mande JavaScript."
+
+#: templates/socialaccount/authentication_error.html:5
+#: templates/socialaccount/authentication_error.html:9
+msgid "Third-Party Login Failure"
+msgstr "Echèk Koneksyon Twazyèm Pati"
+
+#: templates/socialaccount/authentication_error.html:12
+msgid "An error occurred while attempting to login via your third-party account."
+msgstr "Gen yon erè ki rive pandan wap eseye konekte ak kont twazyèm pati ou a."
+
+#: templates/socialaccount/connections.html:13
+msgid "You can sign in to your account using any of the following third-party accounts:"
+msgstr "Ou ka konekte nan kont ou a itilize nenpòt nan kont twazyèm pati ki anba yo:"
+
+#: templates/socialaccount/connections.html:46
+msgid "You currently have no third-party accounts connected to this account."
+msgstr "Kounye a, ou pa gen okenn kont twazyèm pati konekte ak kont sa a."
+
+#: templates/socialaccount/connections.html:50
+msgid "Add a Third-Party Account"
+msgstr "Ajoute yon Kont Twazyèm Pati"
+
+#: templates/socialaccount/email/account_connected_message.txt:4
+#, python-format
+msgid "A third-party account from %(provider)s has been connected to your account."
+msgstr "Yon kont twazyèm pati soti nan %(provider)s konekte ak kont ou a."
+
+#: templates/socialaccount/email/account_connected_subject.txt:3
+msgid "Third-Party Account Connected"
+msgstr "Kont Twazyèm Pati Konekte"
+
+#: templates/socialaccount/email/account_disconnected_message.txt:4
+#, python-format
+msgid "A third-party account from %(provider)s has been disconnected from your account."
+msgstr "Yon kont twazyèm pati soti nan %(provider)s dekonèkte soti nan kont ou a."
+
+#: templates/socialaccount/email/account_disconnected_subject.txt:3
+msgid "Third-Party Account Disconnected"
+msgstr "Kont Twazyèm Pati Dekonèkte"
+
+#: templates/socialaccount/login.html:10
+#, python-format
+msgid "Connect %(provider)s"
+msgstr "Konekte %(provider)s"
+
+#: templates/socialaccount/login.html:13
+#, python-format
+msgid "You are about to connect a new third-party account from %(provider)s."
+msgstr "Ou pral konekte yon nouvo kont twazyèm pati soti nan %(provider)s."
+
+#: templates/socialaccount/login.html:17
+#, python-format
+msgid "Sign In Via %(provider)s"
+msgstr "Konekte atravè %(provider)s"
+
+#: templates/socialaccount/login.html:20
+#, python-format
+msgid "You are about to sign in using a third-party account from %(provider)s."
+msgstr "Ou pral konekte itilize yon kont twazyèm pati soti nan %(provider)s."
+
+#: templates/socialaccount/login_cancelled.html:5
+#: templates/socialaccount/login_cancelled.html:9
+msgid "Login Cancelled"
+msgstr "Koneksyon Anile"
+
+#: templates/socialaccount/login_cancelled.html:13
+#, python-format
+msgid "You decided to cancel logging in to our site using one of your existing accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s\">sign in</a>."
+msgstr "Ou deside anile koneksyon nan sit nou an itilize youn nan kont ou deja genyen yo. Si sa te yon erè, tanpri kontinye pou <a href=\"%(login_url)s\">konekte</a>."
+
+#: templates/socialaccount/messages/account_connected.txt:2
+msgid "The third-party account has been connected."
+msgstr "Kont twazyèm pati a konekte."
+
+#: templates/socialaccount/messages/account_disconnected.txt:2
+msgid "The third-party account has been disconnected."
+msgstr "Kont twazyèm pati a dekonèkte."
+
+#: templates/socialaccount/signup.html:12
+#, python-format
+msgid "You are about to use your %(provider_name)s account to login to\n%(site_name)s. As a final step, please complete the following form:"
+msgstr "Ou pral itilize kont %(provider_name)s ou a pou konekte nan\n%(site_name)s. Kòm dènye etap, tanpri ranpli fòm sa a:"
+
+#: templates/socialaccount/snippets/login.html:10
+msgid "Or use a third-party"
+msgstr "Oswa itilize yon twazyèm pati"
+
+#: templates/usersessions/messages/sessions_logged_out.txt:2
+msgid "Signed out of all other sessions."
+msgstr "Dekonekte nan tout lòt sesyon yo."
+
+#: templates/usersessions/usersession_list.html:24
+msgid "Started At"
+msgstr "Kòmanse Lè"
+
+#: templates/usersessions/usersession_list.html:27
+msgid "IP Address"
+msgstr "Adrès IP"
+
+#: templates/usersessions/usersession_list.html:30
+msgid "Browser"
+msgstr "Navigatè"
+
+#: templates/usersessions/usersession_list.html:34
+msgid "Last seen at"
+msgstr "Dènye fwa wè nan"
+
+#: templates/usersessions/usersession_list.html:59
+msgid "Current"
+msgstr "Kouran"
+
+#: templates/usersessions/usersession_list.html:72
+msgid "Sign Out Other Sessions"
+msgstr "Dekonekte Lòt Sesyon"
+
+#: usersessions/apps.py:9
+msgid "User Sessions"
+msgstr "Sesyon Itilizatè"
+
+#: usersessions/models.py:93
+msgid "session key"
+msgstr "kle sesyon"

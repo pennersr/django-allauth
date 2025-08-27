@@ -230,12 +230,15 @@ def test_signup_without_password(
         ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED=True,
         ACCOUNT_SIGNUP_FIELDS=["email*", "password1"],
     ):
+        email = email_factory()
         resp = client.post(
             headless_reverse("headless:account:signup"),
             data={
                 "username": "wizard",
-                "email": email_factory(),
+                "email": email,
             },
             content_type="application/json",
         )
         assert resp.status_code == HTTPStatus.UNAUTHORIZED
+        user = User.objects.get(email=email)
+        assert not user.check_password("")

@@ -326,12 +326,18 @@ class DefaultAccountAdapter(BaseAdapter):
             user_field(user, "first_name", first_name)
         if last_name:
             user_field(user, "last_name", last_name)
+
         if "password1" in data:
-            user.set_password(data["password1"])
+            password = data["password1"]
         elif "password" in data:
-            user.set_password(data["password"])
+            password = data["password"]
+        else:
+            password = None
+        if password:
+            user.set_password(password)
         else:
             user.set_unusable_password()
+
         self.populate_username(request, user)
         if commit:
             user.save()

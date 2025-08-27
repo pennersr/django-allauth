@@ -7,6 +7,18 @@ Note worthy changes
 - ...
 
 
+65.11.1 (2025-08-27)
+********************
+
+Security notice
+---------------
+
+- If you configured password to be optional (e.g. using ``ACCOUNT_SIGNUP_FIELDS
+  = ["email*", "password1"]``), then accounts would be created having a blank
+  password instead of an unusable password. If you were using this configuration
+  then you may need to manually set an unusable password for accounts created.
+
+
 65.11.0 (2025-08-15)
 ********************
 

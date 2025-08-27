@@ -443,3 +443,28 @@ def test_create_user_when_honeypot_not_filled_out(client, db, settings):
     )
     assert get_user_model().objects.filter(username="johndoe").count() == 1
     assert resp.status_code == HTTPStatus.FOUND
+
+
+def test_signup_without_password(
+    db,
+    client,
+    email_factory,
+    settings_impacting_urls,
+):
+    with settings_impacting_urls(
+        ACCOUNT_LOGIN_BY_CODE_ENABLED=True,
+        ACCOUNT_EMAIL_VERIFICATION="mandatory",
+        ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED=True,
+        ACCOUNT_SIGNUP_FIELDS=["email*", "password1"],
+    ):
+        email = email_factory()
+        resp = client.post(
+            reverse("account_signup"),
+            data={
+                "username": "wizard",
+                "email": email,
+            },
+        )
+        assert resp.status_code == HTTPStatus.FOUND
+        user = get_user_model().objects.get(email=email)
+        assert not user.check_password("")

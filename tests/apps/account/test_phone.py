@@ -37,6 +37,7 @@ def test_signup(db, client, phone, sms_outbox, phone_only_settings):
     phone2, phone_verified = adapter.get_phone(user)
     assert phone_verified
     assert phone == phone2
+    assert not user.check_password("")
 
 
 def test_signup_invalid_attempts(db, client, phone, sms_outbox, phone_only_settings):

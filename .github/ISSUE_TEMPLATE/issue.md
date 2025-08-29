@@ -1,5 +1,5 @@
 ---
-name: Issue
+name: "Issue (when not using Codeberg)"
 about: "\U0001F6D1 Please use https://codeberg.org/allauth/django-allauth/issues"
 title: ''
 labels: ''

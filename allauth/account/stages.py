@@ -4,6 +4,7 @@ from typing import List, Optional
 from allauth.account import app_settings
 from allauth.account.adapter import get_adapter
 from allauth.account.app_settings import EmailVerificationMethod
+from allauth.account.internal.constants import LoginStageKey
 from allauth.account.internal.flows.email_verification import (
     send_verification_email_at_login,
 )
@@ -134,7 +135,7 @@ class LoginStageController:
 
 
 class EmailVerificationStage(LoginStage):
-    key = "verify_email"
+    key = LoginStageKey.VERIFY_EMAIL
     urlname = "account_email_verification_sent"
 
     def is_resumable(self, request):
@@ -162,7 +163,7 @@ class EmailVerificationStage(LoginStage):
 
 
 class LoginByCodeStage(LoginStage):
-    key = "login_by_code"
+    key = LoginStageKey.LOGIN_BY_CODE
     urlname = "account_confirm_login_code"
 
     def handle(self):
@@ -198,7 +199,7 @@ class LoginByCodeStage(LoginStage):
 
 
 class PhoneVerificationStage(LoginStage):
-    key = "verify_phone"
+    key = LoginStageKey.VERIFY_PHONE
     urlname = "account_verify_phone"
 
     def handle(self):

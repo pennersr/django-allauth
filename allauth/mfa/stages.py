@@ -1,6 +1,7 @@
 from allauth.account.stages import LoginStage
 from allauth.core.internal.httpkit import headed_redirect_response, is_headless_request
 from allauth.mfa import app_settings
+from allauth.mfa.internal.constants import LoginStageKey
 from allauth.mfa.internal.flows import trust
 from allauth.mfa.models import Authenticator
 from allauth.mfa.utils import is_mfa_enabled
@@ -8,8 +9,7 @@ from allauth.mfa.webauthn.internal.flows import did_use_passwordless_login
 
 
 class AuthenticateStage(LoginStage):
-    # NOTE: Duplicated in `allauth.headless.constants.Flow.MFA_AUTHENTICATE`.
-    key = "mfa_authenticate"
+    key = LoginStageKey.MFA_AUTHENTICATE
     urlname = "mfa_authenticate"
 
     def handle(self):
@@ -32,7 +32,7 @@ class AuthenticateStage(LoginStage):
 
 
 class TrustStage(LoginStage):
-    key = "mfa_trust"
+    key = LoginStageKey.MFA_TRUST
     urlname = "mfa_trust"
 
     def handle(self):

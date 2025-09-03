@@ -4,14 +4,17 @@ import re
 import string
 import unicodedata
 from collections import OrderedDict
+from typing import Optional
 from urllib.parse import urlsplit
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ImproperlyConfigured, ValidationError
+from django.http import HttpRequest
 from django.utils.encoding import force_str
 
 from allauth import app_settings
+from allauth.core import context
 
 
 # Magic number 7: if you run into collisions with this number, then you are
@@ -148,13 +151,18 @@ def set_form_field_order(form, field_order):
     form.fields = fields
 
 
-def build_absolute_uri(request, location, protocol=None):
+def build_absolute_uri(
+    request: Optional[HttpRequest], location: str, protocol: Optional[str] = None
+) -> str:
     """request.build_absolute_uri() helper
 
     Like request.build_absolute_uri, but gracefully handling
     the case where request is None.
     """
     from .account import app_settings as account_settings
+
+    if request is None:
+        request = context.request
 
     if request is None:
         if not app_settings.SITES_ENABLED:

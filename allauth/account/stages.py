@@ -135,7 +135,7 @@ class LoginStageController:
 
 
 class EmailVerificationStage(LoginStage):
-    key = LoginStageKey.VERIFY_EMAIL
+    key = LoginStageKey.VERIFY_EMAIL.value
     urlname = "account_email_verification_sent"
 
     def is_resumable(self, request):
@@ -163,7 +163,7 @@ class EmailVerificationStage(LoginStage):
 
 
 class LoginByCodeStage(LoginStage):
-    key = LoginStageKey.LOGIN_BY_CODE
+    key = LoginStageKey.LOGIN_BY_CODE.value
     urlname = "account_confirm_login_code"
 
     def handle(self):
@@ -199,7 +199,7 @@ class LoginByCodeStage(LoginStage):
 
 
 class PhoneVerificationStage(LoginStage):
-    key = LoginStageKey.VERIFY_PHONE
+    key = LoginStageKey.VERIFY_PHONE.value
     urlname = "account_verify_phone"
 
     def handle(self):

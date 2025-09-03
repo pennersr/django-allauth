@@ -4,7 +4,7 @@ from allauth.mfa.internal.constants import LoginStageKey
 
 
 class PasskeySignupStage(LoginStage):
-    key = LoginStageKey.MFA_SIGNUP_WEBAUTHN
+    key = LoginStageKey.MFA_SIGNUP_WEBAUTHN.value
     urlname = "mfa_signup_webauthn"
 
     def handle(self):

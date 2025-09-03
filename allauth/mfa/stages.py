@@ -9,7 +9,7 @@ from allauth.mfa.webauthn.internal.flows import did_use_passwordless_login
 
 
 class AuthenticateStage(LoginStage):
-    key = LoginStageKey.MFA_AUTHENTICATE
+    key = LoginStageKey.MFA_AUTHENTICATE.value
     urlname = "mfa_authenticate"
 
     def handle(self):
@@ -32,7 +32,7 @@ class AuthenticateStage(LoginStage):
 
 
 class TrustStage(LoginStage):
-    key = LoginStageKey.MFA_TRUST
+    key = LoginStageKey.MFA_TRUST.value
     urlname = "mfa_trust"
 
     def handle(self):

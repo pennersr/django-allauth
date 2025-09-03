@@ -4,7 +4,7 @@
 Note worthy changes
 -------------------
 
-- ...
+- Updated vk urls
 
 
 65.11.1 (2025-08-27)

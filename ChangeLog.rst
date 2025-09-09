@@ -4,7 +4,8 @@
 Fixes
 -----
 
-- ...
+- OpenID Connect: the OpenID Connect provider was using the wrong key lookup
+  mechanism, resulting in login failures.
 
 
 65.11.1 (2025-08-27)

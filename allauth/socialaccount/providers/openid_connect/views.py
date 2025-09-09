@@ -81,7 +81,7 @@ class OpenIDConnectOAuth2Adapter(OAuth2Adapter):
             keys_url=self.openid_config["jwks_uri"],
             issuer=self.openid_config["issuer"],
             audience=app.client_id,
-            lookup_kid=jwtkit.lookup_kid_pem_x509_certificate,
+            lookup_kid=jwtkit.lookup_kid_jwk,
             verify_signature=verify_signature,
         )
 

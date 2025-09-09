@@ -4,7 +4,17 @@
 Note worthy changes
 -------------------
 
-- Updated vk urls
+- Updated VK urls from "vk.com" to "vk.ru".
+
+
+65.11.2 (2025-09-09)
+********************
+
+Fixes
+-----
+
+- OpenID Connect: the OpenID Connect provider was using the wrong key lookup
+  mechanism, resulting in login failures.
 
 
 65.11.1 (2025-08-27)

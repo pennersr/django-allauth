@@ -73,6 +73,7 @@ the ``settings.py`` of your project::
         'allauth.socialaccount.providers.daum',
         'allauth.socialaccount.providers.digitalocean',
         'allauth.socialaccount.providers.dingtalk',
+        'allauth.socialaccount.providers.discogs',
         'allauth.socialaccount.providers.discord',
         'allauth.socialaccount.providers.disqus',
         'allauth.socialaccount.providers.douban',

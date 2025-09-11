@@ -65,6 +65,7 @@ Provider Specifics
    daum
    digitalocean
    dingtalk
+   discogs
    discord
    doximity
    draugiem

@@ -6,6 +6,8 @@ Note worthy changes
 
 - Updated VK urls from "vk.com" to "vk.ru".
 
+- Added new socialaccount provider: Discogs.
+
 
 65.11.2 (2025-09-09)
 ********************

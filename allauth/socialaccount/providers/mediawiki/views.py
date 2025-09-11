@@ -1,5 +1,4 @@
-from django.conf import settings
-
+from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
@@ -8,28 +7,21 @@ from allauth.socialaccount.providers.oauth2.views import (
 )
 
 
-provider_settings: dict = getattr(settings, "SOCIALACCOUNT_PROVIDERS", {}).get(
-    "mediawiki", {}
-)
-
-
 class MediaWikiOAuth2Adapter(OAuth2Adapter):
     provider_id = "mediawiki"
-    REST_API = provider_settings.get(
-        "REST_API", "https://meta.wikimedia.org/w/rest.php"
-    )
+    settings = app_settings.PROVIDERS.get(provider_id, {})
+    REST_API = settings.get("REST_API", "https://meta.wikimedia.org/w/rest.php")
     access_token_url = REST_API + "/oauth2/access_token"
     authorize_url = REST_API + "/oauth2/authorize"
     profile_url = REST_API + "/oauth2/resource/profile"
+    # Allow custom User-Agent per Wikimedia policy.
+    headers = {"User-Agent": settings.get("USER_AGENT", "django-allauth")}
 
     def complete_login(self, request, app, token, **kwargs):
+        headers = {"Authorization": f"Bearer {token.token}"}
+        headers.update(self.headers)
         resp = (
-            get_adapter()
-            .get_requests_session()
-            .get(
-                self.profile_url,
-                headers={"Authorization": "Bearer {token}".format(token=token.token)},
-            )
+            get_adapter().get_requests_session().get(self.profile_url, headers=headers)
         )
         resp.raise_for_status()
         extra_data = resp.json()

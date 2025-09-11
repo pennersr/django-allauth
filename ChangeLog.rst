@@ -8,6 +8,9 @@ Note worthy changes
 
 - Added new socialaccount provider: Discogs.
 
+- MediaWiki: you can now setup a custom user agent to avoid getting blocked,
+  see: https://phabricator.wikimedia.org/T400119
+
 
 65.11.2 (2025-09-09)
 ********************

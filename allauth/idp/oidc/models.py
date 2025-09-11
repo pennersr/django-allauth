@@ -8,6 +8,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from allauth.idp.oidc.adapter import get_adapter
+from allauth.idp.oidc.internal.clientkit import _validate_uri_wildcard_format
 
 
 def default_client_id() -> str:
@@ -88,6 +89,14 @@ class Client(models.Model):
         default="",
         verbose_name="CORS allowed origins",
     )
+    allow_uri_wildcards = models.BooleanField(
+        default=False,
+        help_text=_(
+            "Allow wildcards (*) in redirect URIs and CORS origins. "
+            "When enabled, URIs can contain a single asterisk to match subdomains."
+        ),
+        verbose_name="Allow URI wildcards",
+    )
     response_types = models.TextField(
         default="code",
         help_text=_(
@@ -148,6 +157,23 @@ class Client(models.Model):
 
     def check_secret(self, secret: str) -> bool:
         return check_password(secret, self.secret)
+
+    def clean_redirect_uris(self):
+        uris = self.get_redirect_uris()
+        for uri in uris:
+            _validate_uri_wildcard_format(uri, self.allow_uri_wildcards)
+        return uris
+
+    def clean_cors_origins(self):
+        origins = self.get_cors_origins()
+        for origin in origins:
+            _validate_uri_wildcard_format(origin, self.allow_uri_wildcards)
+        return origins
+
+    def clean(self):
+        # the django admin doesn't call full_clean, so we need to call them here
+        self.clean_redirect_uris()
+        self.clean_cors_origins()
 
     def __str__(self) -> str:
         return self.id

@@ -15,10 +15,11 @@ class ClientAdmin(admin.ModelAdmin):
         "type",
         "owner",
         "skip_consent",
+        "allow_uri_wildcards",
         "created_at",
     )
     readonly_fields = ("secret", "created_at")
-    list_filter = ("type", "skip_consent")
+    list_filter = ("type", "skip_consent", "allow_uri_wildcards")
 
     def save_model(self, request, obj, form, change):
         if not change:

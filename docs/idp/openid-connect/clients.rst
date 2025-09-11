@@ -38,6 +38,15 @@ CORS origins
 Redirect URIs
     A list of allowed redirect (callback) URLs, one per line.
 
+Allow URI wildcards
+    When enabled, allows the use of wildcards (*) in redirect URIs and CORS origins.
+    This is particularly useful for supporting deploy previews from services like
+    Cloudflare Pages or Netlify, where preview URLs may contain dynamic subdomains
+    (e.g., ``https://*.project.pages.dev``). When wildcards are enabled:
+
+    - URIs can contain a single asterisk (*)
+    - Only the hostname portion of the URI is allowed to contain a wildcard
+
 Response types
     A list of allowed response types. Provide one value per line, e.g.::
 

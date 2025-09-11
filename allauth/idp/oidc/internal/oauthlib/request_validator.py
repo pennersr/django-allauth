@@ -29,7 +29,11 @@ class OAuthLibRequestValidator(RequestValidator):
         return True
 
     def validate_redirect_uri(self, client_id, redirect_uri, request, *args, **kwargs):
-        return is_redirect_uri_allowed(redirect_uri, request.client.get_redirect_uris())
+        return is_redirect_uri_allowed(
+            redirect_uri,
+            request.client.get_redirect_uris(),
+            request.client.allow_uri_wildcards,
+        )
 
     def validate_response_type(
         self, client_id, response_type, client, request, *args, **kwargs
@@ -375,7 +379,12 @@ class OAuthLibRequestValidator(RequestValidator):
 
     def is_origin_allowed(self, client_id, origin, request, *args, **kwargs) -> bool:
         client = self._lookup_client(request, client_id)
-        return bool(client and is_origin_allowed(origin, client.get_cors_origins()))
+        return bool(
+            client
+            and is_origin_allowed(
+                origin, client.get_cors_origins(), client.allow_uri_wildcards
+            )
+        )
 
     def rotate_refresh_token(self, request):
         return app_settings.ROTATE_REFRESH_TOKEN

@@ -11,6 +11,10 @@ Note worthy changes
 - MediaWiki: you can now setup a custom user agent to avoid getting blocked,
   see: https://phabricator.wikimedia.org/T400119
 
+- IdP: Added optional support for wildcards in redirect URIs and CORS origins.
+  To support this, a new field was added to the ``Client`` model. Therefore, you
+  need to run migrations for the ``allauth.idp.oidc`` app.
+
 
 65.11.2 (2025-09-09)
 ********************

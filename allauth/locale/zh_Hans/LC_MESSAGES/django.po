@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-25 13:23-0500\n"
-"PO-Revision-Date: 2025-08-12 14:02+0000\n"
-"Last-Translator: Tangyuan <47830915@qq.com>\n"
+"PO-Revision-Date: 2025-09-02 15:01+0000\n"
+"Last-Translator: Yin Yichen <1619225317@qq.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/allauth/django-allauth/zh_Hans/>\n"
 "Language: zh_Hans\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.13-dev\n"
+"X-Generator: Weblate 5.13.1-dev\n"
 
 #: account/adapter.py:53
 msgid "This account is currently inactive."
@@ -300,7 +300,7 @@ msgstr "查看您的电子邮件地址"
 
 #: idp/oidc/adapter.py:32
 msgid "View your basic profile information"
-msgstr ""
+msgstr "查看您的基本个人资料信息"
 
 #: idp/oidc/forms.py:26
 #, fuzzy

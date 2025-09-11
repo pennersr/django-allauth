@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-25 13:23-0500\n"
-"PO-Revision-Date: 2025-08-01 18:02+0000\n"
-"Last-Translator: Laurent FAVOLE <lfavole@users.noreply.hosted.weblate.org>\n"
+"PO-Revision-Date: 2025-09-09 09:01+0000\n"
+"Last-Translator: \"David D.\" <dadu042@users.noreply.hosted.weblate.org>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/allauth/"
 "django-allauth/fr/>\n"
 "Language: fr\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.13-dev\n"
+"X-Generator: Weblate 5.14-dev\n"
 
 #: account/adapter.py:53
 msgid "This account is currently inactive."
@@ -138,10 +138,9 @@ msgid "Marked {email} as verified."
 msgstr "{email} marquée comme vérifiée."
 
 #: account/admin.py:36
-#, fuzzy, python-brace-format
-#| msgid "Your primary email address must be verified."
+#, python-brace-format
 msgid "Failed to mark {email} as verified."
-msgstr "Votre adresse e-mail principale doit être vérifiée."
+msgstr "Échec à marquer {email} comme vérifiée."
 
 #: account/admin.py:42
 msgid "Mark selected email addresses as verified"
@@ -344,6 +343,9 @@ msgid ""
 "The scope(s) the client is allowed to request. Provide one value per line, e."
 "g.: openid(ENTER)profile(ENTER)email(ENTER)"
 msgstr ""
+"Le(s) domaine(s) d’application que le client est autorisé à demander. "
+"Fournissez une valeur par ligne, par exemple : "
+"openid(ENTER)profile(ENTER)email(ENTER)"
 
 #: idp/oidc/models.py:64
 msgid ""
@@ -361,24 +363,24 @@ msgstr ""
 #: idp/oidc/models.py:86
 msgid "A list of allowed origins for cross-origin requests, one per line."
 msgstr ""
+"Une liste des origines autorisées pour les demandes d’origine croisée, une "
+"par ligne."
 
 #: idp/oidc/models.py:94
 msgid ""
 "A list of allowed response types. Provide one value per line, e.g.: "
 "code(ENTER)id_token token(ENTER)"
 msgstr ""
+"Une liste des types de réponse autorisés. Fournissez une valeur par ligne, "
+"par exemple : code(ENTER)id_token token(ENTER)"
 
 #: idp/oidc/models.py:107
-#, fuzzy
-#| msgid "client id"
 msgid "client"
-msgstr "id client"
+msgstr "client"
 
 #: idp/oidc/models.py:108
-#, fuzzy
-#| msgid "client id"
 msgid "clients"
-msgstr "id client"
+msgstr "clients"
 
 #: mfa/adapter.py:32
 msgid ""
@@ -659,10 +661,8 @@ msgid "Confirm"
 msgstr "Confirmer"
 
 #: templates/account/base_confirm_code.html:43
-#, fuzzy
-#| msgid "Request Code"
 msgid "Request new code"
-msgstr "Demander un code"
+msgstr "Demander nouveau code"
 
 #: templates/account/base_reauthenticate.html:5
 #: templates/account/base_reauthenticate.html:9
@@ -687,10 +687,8 @@ msgid "Enter Email Verification Code"
 msgstr "Saisissez le code de vérification reçu par mail"
 
 #: templates/account/confirm_email_verification_code.html:16
-#, fuzzy
-#| msgid "email address"
 msgid "Use a different email address"
-msgstr "adresse e-mail"
+msgstr "Utiliser une adresse e-mail différente"
 
 #: templates/account/confirm_login_code.html:5 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
@@ -730,7 +728,7 @@ msgstr "Entrez le code de vérification du téléphone"
 
 #: templates/account/confirm_phone_verification_code.html:15
 msgid "Use a different phone number"
-msgstr ""
+msgstr "Utiliser un numéro de téléphone différent"
 
 #: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
@@ -1134,10 +1132,9 @@ msgid "Password successfully set."
 msgstr "Mot de passe défini avec succès."
 
 #: templates/account/messages/phone_verification_sent.txt:2
-#, fuzzy, python-format
-#| msgid "A sign-in code has been sent to %(recipient)s."
+#, python-format
 msgid "A verification code has been sent to %(phone)s."
-msgstr "Un code de connexion a été envoyé à %(recipient)s."
+msgstr "Un code de vérification a été envoyé à %(phone)s."
 
 #: templates/account/messages/phone_verified.txt:2
 #, python-format
@@ -1397,22 +1394,20 @@ msgstr "Sessions"
 #: templates/idp/oidc/device_authorization_confirmed.html:5
 #: templates/idp/oidc/device_authorization_denied.html:5
 msgid "Authorize"
-msgstr ""
+msgstr "Autoriser"
 
 #: templates/idp/oidc/authorization_form.html:12
 #, python-format
 msgid "%(client_name)s wants to access your %(site_name)s account."
-msgstr ""
+msgstr "%(client_name)s veut accéder à votre compte %(site_name)s."
 
 #: templates/idp/oidc/device_authorization_code_form.html:9
-#, fuzzy
-#| msgid "Enter Sign-In Code"
 msgid "Enter Device Code"
-msgstr "Entrez le code de connexion"
+msgstr "Entrer code d’appareil"
 
 #: templates/idp/oidc/device_authorization_code_form.html:12
 msgid "Enter the code displayed on your device."
-msgstr ""
+msgstr "Entrez le code affiché sur votre appareil."
 
 #: templates/idp/oidc/device_authorization_code_form.html:21
 #: templates/socialaccount/login.html:27
@@ -1421,10 +1416,8 @@ msgid "Continue"
 msgstr "Continuer"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:9
-#, fuzzy
-#| msgid "Confirm Access"
 msgid "Confirm Device"
-msgstr "Confirmer l'accès"
+msgstr "Confirmer l'appareil"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:12
 #, python-format
@@ -1432,32 +1425,34 @@ msgid ""
 "Please confirm the code shown on your %(client_name)s to authorize this "
 "device."
 msgstr ""
+"Veuillez confirmer le code affiché sur votre %(client_name)s pour autoriser "
+"cet appareil."
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:29
 msgid "Deny"
-msgstr ""
+msgstr "Renier"
 
 #: templates/idp/oidc/device_authorization_confirmed.html:9
 msgid "Device Authorized"
-msgstr ""
+msgstr "Appareil autorisé"
 
 #: templates/idp/oidc/device_authorization_confirmed.html:12
 #, python-format
 msgid "You successfully authorized your %(client_name)s device."
-msgstr ""
+msgstr "Vous avez autorisé avec succès votre appareil %(client_name)s."
 
 #: templates/idp/oidc/device_authorization_denied.html:9
 msgid "Device Denied"
-msgstr ""
+msgstr "Appareil refusé"
 
 #: templates/idp/oidc/device_authorization_denied.html:12
 #, python-format
 msgid "Authorization for your %(client_name)s device has been denied."
-msgstr ""
+msgstr "L’autorisation pour votre appareil %(client_name)s a été refusée."
 
 #: templates/idp/oidc/error.html:5 templates/idp/oidc/error.html:9
 msgid "Error"
-msgstr ""
+msgstr "Erreur"
 
 #: templates/mfa/authenticate.html:13
 msgid ""
@@ -1677,22 +1672,24 @@ msgstr ""
 
 #: templates/mfa/trust.html:4 templates/mfa/trust.html:8
 msgid "Trust this Browser?"
-msgstr ""
+msgstr "Faire confiance à ce navigateur ?"
 
 #: templates/mfa/trust.html:11
 msgid ""
 "If you choose to trust this browser, you will not be asked for a "
 "verification code the next time you sign in."
 msgstr ""
+"Si vous choisissez de faire confiance à ce navigateur, aucun code de "
+"vérification ne vous sera demandé lors de votre prochaine connexion."
 
 #: templates/mfa/trust.html:23
 #, python-format
 msgid "Trust for %(period)s"
-msgstr ""
+msgstr "Faire confiance pendant %(period)s"
 
 #: templates/mfa/trust.html:26
 msgid "Don't Trust"
-msgstr ""
+msgstr "Ne pas faire confiance"
 
 #: templates/mfa/webauthn/add_form.html:7
 msgid "Add Security Key"

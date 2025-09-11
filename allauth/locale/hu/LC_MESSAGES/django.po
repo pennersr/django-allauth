@@ -23,10 +23,8 @@ msgid "This account is currently inactive."
 msgstr "A felhasználó jelenleg nem aktív."
 
 #: account/adapter.py:55
-#, fuzzy
-#| msgid "You cannot remove your primary email address (%(email)s)."
 msgid "You cannot remove your primary email address."
-msgstr "Az elsődleges email cím (%(email)s) nem törölhető."
+msgstr "Az elsődleges email címed nem törölhető."
 
 #: account/adapter.py:58
 msgid "This email address is already associated with this account."
@@ -37,10 +35,8 @@ msgid "The email address and/or password you specified are not correct."
 msgstr "A megadott email vagy a jelszó hibás."
 
 #: account/adapter.py:64
-#, fuzzy
-#| msgid "The username and/or password you specified are not correct."
 msgid "The phone number and/or password you specified are not correct."
-msgstr "A megadott felhasználó vagy a jelszó hibás."
+msgstr "Hibás az általad megadott telefonszám vagy jelszó."
 
 #: account/adapter.py:66
 msgid "A user is already registered with this email address."
@@ -52,57 +48,44 @@ msgstr "Kérlek add meg az aktuális jelszavadat!"
 
 #: account/adapter.py:68 mfa/adapter.py:40
 msgid "Incorrect code."
-msgstr ""
+msgstr "Hibás kód."
 
 #: account/adapter.py:69
-#, fuzzy
-#| msgid "Current Password"
 msgid "Incorrect password."
-msgstr "Jelenlegi jelszó"
+msgstr "Hibás jelszó"
 
 #: account/adapter.py:70
-#, fuzzy
-#| msgid "Bad Token"
 msgid "Invalid or expired key."
-msgstr "Hibás token"
+msgstr "Érvénytelen vagy lejárt kulcs."
 
 #: account/adapter.py:71
-#, fuzzy
-#| msgid "Bad Token"
 msgid "Invalid login."
-msgstr "Hibás token"
+msgstr "Érvénytelen belépési kísérlet."
 
 #: account/adapter.py:72
 msgid "The password reset token was invalid."
-msgstr ""
+msgstr "A jelszó visszaállító token érvénytelen."
 
 #: account/adapter.py:73
-#, fuzzy, python-format
-#| msgid "Your account has no verified email address."
+#, python-format
 msgid "You cannot add more than %d email addresses."
-msgstr "A felhasználódnak nincs ellenőrzött email címe."
+msgstr "Nem adhatsz hozzá több mint %d email címet."
 
 #: account/adapter.py:74
-#, fuzzy
-#| msgid "A user is already registered with this email address."
 msgid "A user is already registered with this phone number."
-msgstr "Egy felhasználó már regisztrált ezzel az email címmel."
+msgstr "Ezzel a telefonszámmal már van regisztrált felhasználó."
 
 #: account/adapter.py:76
 msgid "Too many failed login attempts. Try again later."
-msgstr ""
+msgstr "Túl sok sikertelen belépési kísérlet. Próbáld újra később."
 
 #: account/adapter.py:78
-#, fuzzy
-#| msgid "The email address is not assigned to any user account"
 msgid "The email address is not assigned to any user account."
 msgstr "Az email cím nincs hozzárendelve egyetlen felhasználóhoz sem"
 
 #: account/adapter.py:79
-#, fuzzy
-#| msgid "The email address is not assigned to any user account"
 msgid "The phone number is not assigned to any user account."
-msgstr "Az email cím nincs hozzárendelve egyetlen felhasználóhoz sem"
+msgstr "A telefonszám cím nincs hozzárendelve egyetlen felhasználóhoz sem"
 
 #: account/adapter.py:80
 #: templates/account/messages/unverified_primary_email.txt:2
@@ -119,48 +102,42 @@ msgstr "A megadott felhasználó vagy a jelszó hibás."
 
 #: account/adapter.py:90
 msgid "Please select only one."
-msgstr ""
+msgstr "Kérlek csak egyet válassz!"
 
 #: account/adapter.py:91
 msgid "The new value must be different from the current one."
-msgstr ""
+msgstr "Az új értéknek különböznie kell a jelenlegitől."
 
 #: account/adapter.py:92
 msgid "Be patient, you are sending too many requests."
-msgstr ""
+msgstr "Légy türelemmel, túl sok kérést küldtél."
 
 #: account/adapter.py:805
-#, fuzzy
-#| msgid "Forgot Password?"
 msgid "Use your password"
-msgstr "Elfelejtett jelszó?"
+msgstr "Használd a jelszavadat"
 
 #: account/adapter.py:814
 msgid "Use authenticator app or code"
-msgstr ""
+msgstr "Használj hitelesítő alkalmazást vagy kódot"
 
 #: account/adapter.py:821 templates/mfa/authenticate.html:41
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use a security key"
-msgstr ""
+msgstr "Használj biztonsági kulcsot"
 
 #: account/admin.py:30
-#, fuzzy, python-brace-format
-#| msgid "Your primary email address must be verified."
+#, python-brace-format
 msgid "Marked {email} as verified."
-msgstr "Az elsődleges email címet ellenőriznunk kell."
+msgstr "{email} ellenőrzöttként megjelölve."
 
 #: account/admin.py:36
-#, fuzzy, python-brace-format
-#| msgid "Your primary email address must be verified."
+#, python-brace-format
 msgid "Failed to mark {email} as verified."
-msgstr "Az elsődleges email címet ellenőriznunk kell."
+msgstr "Nem sikerült {email}-t ellenőrzöttként megjelölni."
 
 #: account/admin.py:42
-#, fuzzy
-#| msgid "Your primary email address must be verified."
 msgid "Mark selected email addresses as verified"
-msgstr "Az elsődleges email címet ellenőriznunk kell."
+msgstr "Kijelölt email címek megjelölése ellenőrzöttként"
 
 #: account/apps.py:11
 msgid "Accounts"
@@ -176,11 +153,11 @@ msgstr "Email"
 
 #: account/fields.py:62
 msgid "Enter a phone number including country code (e.g. +1 for the US)."
-msgstr ""
+msgstr "Adj meg egy telefonszámot az országkóddal együtt (pl. +36 ha Magyarország)."
 
 #: account/fields.py:68 account/fields.py:72 account/forms.py:325
 msgid "Phone"
-msgstr ""
+msgstr "Telefonszám"
 
 #: account/forms.py:61 account/forms.py:524
 msgid "You must type the same password each time."
@@ -206,60 +183,44 @@ msgid "Login"
 msgstr "Bejelentkezés"
 
 #: account/forms.py:115
-#, fuzzy
-#| msgid "Username or email"
 msgid "Username, email or phone"
-msgstr "Felhasználó azonosító vagy email"
+msgstr "Felhasználónév, email vagy telefonszám"
 
 #: account/forms.py:117
 msgid "Username or email"
-msgstr "Felhasználó azonosító vagy email"
+msgstr "Felhasználónév vagy email"
 
 #: account/forms.py:119
-#, fuzzy
-#| msgid "Username or email"
 msgid "Username or phone"
-msgstr "Felhasználó azonosító vagy email"
+msgstr "Felhasználónév vagy telefonszám"
 
 #: account/forms.py:121
-#, fuzzy
-#| msgid "Email (optional)"
 msgid "Email or phone"
-msgstr "Email (nem kötelező)"
+msgstr "Email vagy telefonszám"
 
 #: account/forms.py:144
-#, fuzzy
-#| msgid "Forgot Password?"
 msgid "Forgot your password?"
-msgstr "Elfelejtett jelszó?"
+msgstr "Elfelejtetted a jelszavad?"
 
 #: account/forms.py:287
-#, fuzzy
-#| msgid "Email (optional)"
 msgid "Email (again)"
-msgstr "Email (nem kötelező)"
+msgstr "Email (ismét)"
 
 #: account/forms.py:292
-#, fuzzy
-#| msgid "Email address"
 msgid "Email address confirmation"
-msgstr "Email"
+msgstr "Email cím megerősítése"
 
 #: account/forms.py:302
 msgid "Email (optional)"
 msgstr "Email (nem kötelező)"
 
 #: account/forms.py:314
-#, fuzzy
-#| msgid "Email (optional)"
 msgid "Username (optional)"
-msgstr "Email (nem kötelező)"
+msgstr "Felhasználónév (nem kötelező)"
 
 #: account/forms.py:388
-#, fuzzy
-#| msgid "You must type the same password each time."
 msgid "You must type the same email each time."
-msgstr "Ugyanazt a jelszót kell megadni mindannyiszor."
+msgstr "Mindig ugyanazt az email címet kell begépelned."
 
 #: account/forms.py:458 account/forms.py:611
 msgid "Password (again)"
@@ -282,343 +243,308 @@ msgstr "Új jelszó (ismét)"
 #: mfa/totp/forms.py:13
 #: templates/idp/oidc/device_authorization_confirm_form.html:16
 msgid "Code"
-msgstr ""
+msgstr "Kód"
 
 #: account/models.py:23
 msgid "user"
-msgstr ""
+msgstr "felhasználó"
 
 #: account/models.py:29 account/models.py:37 account/models.py:139
 msgid "email address"
-msgstr ""
+msgstr "email cím"
 
 #: account/models.py:31
 msgid "verified"
-msgstr ""
+msgstr "megerősített"
 
 #: account/models.py:32
 msgid "primary"
-msgstr ""
+msgstr "elsődleges"
 
 #: account/models.py:38
 msgid "email addresses"
-msgstr ""
+msgstr "email címek"
 
 #: account/models.py:142
 msgid "created"
-msgstr ""
+msgstr "létrehozva"
 
 #: account/models.py:143
 msgid "sent"
-msgstr ""
+msgstr "elküldve"
 
 #: account/models.py:144 socialaccount/models.py:70
 msgid "key"
-msgstr ""
+msgstr "kulcs"
 
 #: account/models.py:149
 msgid "email confirmation"
-msgstr ""
+msgstr "email megerősítés"
 
 #: account/models.py:150
 msgid "email confirmations"
-msgstr ""
+msgstr "email megerősítések"
 
 #: headless/apps.py:7
 msgid "Headless"
-msgstr ""
+msgstr "Fej nélküli"
 
 #: idp/oidc/adapter.py:30
 msgid "View your user ID"
-msgstr ""
+msgstr "Felhasználói azonosító megtekintése"
 
 #: idp/oidc/adapter.py:31
-#, fuzzy
-#| msgid "Verify Your Email Address"
 msgid "View your email address"
-msgstr "Ellenőrizd az emailedet"
+msgstr "Email cím megtekintése"
 
 #: idp/oidc/adapter.py:32
 msgid "View your basic profile information"
-msgstr ""
+msgstr "Alapvető profil információk megtekintése"
 
 #: idp/oidc/forms.py:26
 msgid "Grant permissions"
-msgstr ""
+msgstr "Engedélyek megadása"
 
 #: idp/oidc/models.py:37
 msgid "Authorization code"
-msgstr ""
+msgstr "Engedélyezési kód"
 
 #: idp/oidc/models.py:38
 msgid "Device code"
-msgstr ""
+msgstr "Készülék kód"
 
 #: idp/oidc/models.py:39
 msgid "Client credentials"
-msgstr ""
+msgstr "Kliens hitelesítő adatok"
 
 #: idp/oidc/models.py:40
 msgid "Refresh token"
-msgstr ""
+msgstr "Frissítési token"
 
 #: idp/oidc/models.py:43
 msgid "Confidential"
-msgstr ""
+msgstr "Titkos"
 
 #: idp/oidc/models.py:44
 msgid "Public"
-msgstr ""
+msgstr "Publikus"
 
 #: idp/oidc/models.py:58
-msgid ""
-"The scope(s) the client is allowed to request. Provide one value per line, e."
-"g.: openid(ENTER)profile(ENTER)email(ENTER)"
-msgstr ""
-
-#: idp/oidc/models.py:64
-msgid ""
-"In case the client does not specify any scope, these default scopes are "
-"used. Provide one value per line, e.g.: "
-"openid(ENTER)profile(ENTER)email(ENTER)"
-msgstr ""
-
-#: idp/oidc/models.py:75
-msgid ""
-"A list of allowed grant types. Provide one value per line, e.g.: "
-"authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
-msgstr ""
-
-#: idp/oidc/models.py:86
-msgid "A list of allowed origins for cross-origin requests, one per line."
-msgstr ""
-
 #: idp/oidc/models.py:94
 msgid ""
 "A list of allowed response types. Provide one value per line, e.g.: "
 "code(ENTER)id_token token(ENTER)"
 msgstr ""
+"A megengedett válasz-típusok listája. Soronként egy érték, pl.: "
+"code(ENTER)id_token token(ENTER)"
 
 #: idp/oidc/models.py:107
 msgid "client"
-msgstr ""
+msgstr "kliens"
 
 #: idp/oidc/models.py:108
 msgid "clients"
-msgstr ""
+msgstr "kliensek"
 
 #: mfa/adapter.py:32
 msgid ""
 "You cannot add an email address to an account protected by two-factor "
 "authentication."
 msgstr ""
+"Nem adhatsz email címet egy olyan fiókhoz, amit kétlépcsős azonosítás véd."
 
 #: mfa/adapter.py:35
 msgid "You cannot deactivate two-factor authentication."
-msgstr ""
+msgstr "Nem kapcsolhatod ki a kétlépcsős azonosítást."
 
 #: mfa/adapter.py:38
 msgid ""
 "You cannot generate recovery codes without having two-factor authentication "
 "enabled."
 msgstr ""
+"Nem generálhatsz helyreállítási kódokat anélkül, hogy a kétlépcsős azonosítás be lenne kapcsolva."
 
 #: mfa/adapter.py:42
 msgid ""
 "You cannot activate two-factor authentication until you have verified your "
 "email address."
 msgstr ""
+"Nem aktiválhatod a kétlépcsős azonosítást addig, amíg nem igazolod az email címedet."
 
 #: mfa/adapter.py:141
 msgid "Master key"
-msgstr ""
+msgstr "Fő kulcs"
 
 #: mfa/adapter.py:143
 msgid "Backup key"
-msgstr ""
+msgstr "Biztonsági kulcs"
 
 #: mfa/adapter.py:144
 #, python-brace-format
 msgid "Key nr. {number}"
-msgstr ""
+msgstr "Kulcs sz. {number}"
 
 #: mfa/apps.py:9
 msgid "MFA"
-msgstr ""
+msgstr "MFA"
 
 #: mfa/models.py:24
 msgid "Recovery codes"
-msgstr ""
+msgstr "Helyreállítási kódok"
 
 #: mfa/models.py:25
 msgid "TOTP Authenticator"
-msgstr ""
+msgstr "TOTP hitelesítő"
 
 #: mfa/models.py:26
 msgid "WebAuthn"
-msgstr ""
+msgstr "WebAuthn"
 
 #: mfa/totp/forms.py:11
 msgid "Authenticator code"
-msgstr ""
+msgstr "Hitelesítő kód"
 
 #: mfa/webauthn/forms.py:56
-#, fuzzy
-#| msgid "Password"
 msgid "Passwordless"
-msgstr "Jelszó"
+msgstr "Jelszó nélküli"
 
 #: mfa/webauthn/forms.py:59
 msgid ""
 "Enabling passwordless operation allows you to sign in using just this key, "
 "but imposes additional requirements such as biometrics or PIN protection."
 msgstr ""
+"A jelszó nélküli működés engedélyezése lehetővé teszi, hogy csak ezzel a kulccsal jelentkezz be, "
+"de további követelményeket támaszt, mint a biometrikus vagy PIN védelem."
 
 #: socialaccount/adapter.py:30
-#, fuzzy, python-format
-#| msgid ""
-#| "An account already exists with this e-mail address. Please sign in to "
-#| "that account first, then connect your %s account."
 msgid ""
 "An account already exists with this email address. Please sign in to that "
 "account first, then connect your %s account."
 msgstr ""
-"Ezzel az email címmel már létezik egy felhasználó . Először jelentkezz be, "
-"majd kapcsold össze a(z) %s felhasználóval."
+"Ezzel az email címmel már van fiók létrehozva. Először jelentkezz be abba a fiókba, "
+"majd kapcsold össze a(z) %s fiókoddal."
 
 #: socialaccount/adapter.py:34
-#, fuzzy
-#| msgid "Bad Token"
 msgid "Invalid token."
-msgstr "Hibás token"
+msgstr "Érvénytelen token."
 
 #: socialaccount/adapter.py:35
 msgid "Your account has no password set up."
-msgstr "A felhasználódnak nincs beállított jelszava."
+msgstr "A fiókodhoz nincs beállítva jelszó."
 
 #: socialaccount/adapter.py:36
 msgid "Your account has no verified email address."
-msgstr "A felhasználódnak nincs ellenőrzött email címe."
+msgstr "A fiókodhoz nem tartozik ellenőrzött email cím."
 
 #: socialaccount/adapter.py:38
-#, fuzzy
-#| msgid ""
-#| "You can sign in to your account using any of the following third party "
-#| "accounts:"
 msgid "You cannot disconnect your last remaining third-party account."
-msgstr "Az alábbi felhasználói fiókok bármelyikét használhatod belépéshez:"
+msgstr "Nem választhatod le az utolsó megmaradt külső fiókodat."
 
 #: socialaccount/adapter.py:41
-#: templates/socialaccount/messages/account_connected_other.txt:2
-#, fuzzy
-#| msgid "The social account is already connected to a different account."
 msgid "The third-party account is already connected to a different account."
-msgstr "A közösségi felhasználó már egy másik felhasználóhoz tartozik."
+msgstr "Ez a külső fiók már egy másik fiókhoz van kapcsolva."
 
 #: socialaccount/apps.py:9
 msgid "Social Accounts"
-msgstr "Közösségi Felhasználók"
+msgstr "Közösségi Fiókok"
 
 #: socialaccount/models.py:45 socialaccount/models.py:98
 msgid "provider"
-msgstr ""
+msgstr "szolgáltató"
 
 #: socialaccount/models.py:53
 msgid "provider ID"
-msgstr ""
+msgstr "szolgáltató azonosítója"
 
 #: socialaccount/models.py:57
 msgid "name"
-msgstr ""
+msgstr "név"
 
 #: socialaccount/models.py:59
 msgid "client id"
-msgstr ""
+msgstr "kliens azonosító"
 
 #: socialaccount/models.py:61
 msgid "App ID, or consumer key"
-msgstr ""
+msgstr "Alkalmazás azonosító, vagy fogyasztói kulcs"
 
 #: socialaccount/models.py:64
 msgid "secret key"
-msgstr ""
+msgstr "titkos kulcs"
 
 #: socialaccount/models.py:67
 msgid "API secret, client secret, or consumer secret"
-msgstr ""
+msgstr "API titkos kulcs, kliens titkos kulcs, vagy fogyasztói titkos kulcs"
 
 #: socialaccount/models.py:70 templates/mfa/webauthn/authenticator_list.html:18
 msgid "Key"
-msgstr ""
+msgstr "Kulcs"
 
 #: socialaccount/models.py:82
 msgid "social application"
-msgstr ""
+msgstr "közösségi alkalmazás"
 
 #: socialaccount/models.py:83
 msgid "social applications"
-msgstr ""
+msgstr "közösségi alkalmazások"
 
 #: socialaccount/models.py:118
 msgid "uid"
-msgstr ""
+msgstr "uid"
 
 #: socialaccount/models.py:120
 msgid "last login"
-msgstr ""
+msgstr "utolsó belépés"
 
 #: socialaccount/models.py:121
 msgid "date joined"
-msgstr ""
+msgstr "csatlakozás dátuma"
 
 #: socialaccount/models.py:122
 msgid "extra data"
-msgstr ""
+msgstr "további adatok"
 
 #: socialaccount/models.py:126
 msgid "social account"
-msgstr ""
+msgstr "közösségi fiók"
 
 #: socialaccount/models.py:127
 msgid "social accounts"
-msgstr ""
+msgstr "közösségi fiókok"
 
 #: socialaccount/models.py:161
 msgid "token"
-msgstr ""
+msgstr "token"
 
 #: socialaccount/models.py:162
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
-msgstr ""
+msgstr "\"oauth_token\" (OAuth1) vagy hozzáférési token (OAuth2)"
 
 #: socialaccount/models.py:166
 msgid "token secret"
-msgstr ""
+msgstr "titkos kulcs token"
 
 #: socialaccount/models.py:167
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
-msgstr ""
+msgstr "\"oauth_token_secret\" (OAuth1) vagy frissítő token (OAuth2)"
 
 #: socialaccount/models.py:170
 msgid "expires at"
-msgstr ""
+msgstr "lejárat ideje"
 
 #: socialaccount/models.py:175
 msgid "social application token"
-msgstr ""
+msgstr "közösségi alkalmazás token"
 
 #: socialaccount/models.py:176
 msgid "social application tokens"
-msgstr ""
+msgstr "közösségi alkalmazás tokenek"
 
 #: socialaccount/providers/douban/views.py:36
 msgid "Invalid profile data"
-msgstr ""
+msgstr "Érvénytelen profil adatok"
 
 #: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:16
-#, fuzzy
-#| msgctxt "field label"
-#| msgid "Login"
 msgid "Login"
 msgstr "Bejelentkezés"
 
@@ -630,48 +556,49 @@ msgstr "Bejelentkezés"
 #: templates/mfa/authenticate.html:28 templates/mfa/authenticate.html:44
 #: templates/mfa/trust.html:29 templates/mfa/webauthn/signup_form.html:26
 msgid "Cancel"
-msgstr ""
+msgstr "Mégsem"
 
 #: socialaccount/providers/oauth/client.py:84
 #, python-format
 msgid ""
 "Invalid response while obtaining request token from \"%s\". Response was: %s."
 msgstr ""
+"Érvénytelen válasz a hozzáférési kulcs lekérésekor innen: \"%s\". A válasz: %s."
 
 #: socialaccount/providers/oauth/client.py:118
 #: socialaccount/providers/pocket/client.py:86
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
-msgstr ""
+msgstr "Érvénytelen válasz a hozzáférési token lekérésekor innen: \"%s\"."
 
 #: socialaccount/providers/oauth/client.py:139
 #, python-format
 msgid "No request token saved for \"%s\"."
-msgstr ""
+msgstr "Nincs mentett hozzáférési kulcs ehhez: \"%s\"."
 
 #: socialaccount/providers/oauth/client.py:190
 #, python-format
 msgid "No access token saved for \"%s\"."
-msgstr ""
+msgstr "Nincs mentett hozzáférési token ehhez: \"%s\"."
 
 #: socialaccount/providers/oauth/client.py:211
 #, python-format
 msgid "No access to private resources at \"%s\"."
-msgstr ""
+msgstr "Nincs hozzáférés a privát adatokhoz itt: \"%s\"."
 
 #: socialaccount/providers/pocket/client.py:41
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
-msgstr ""
+msgstr "Érvénytelen válasz a hozzáférési kulcs lekérésekor innen: \"%s\"."
 
 #: templates/account/account_inactive.html:5
 #: templates/account/account_inactive.html:9
 msgid "Account Inactive"
-msgstr "Felhasználó nem aktív"
+msgstr "Inaktív fiók"
 
 #: templates/account/account_inactive.html:12
 msgid "This account is inactive."
-msgstr "A felhasználó nem aktív."
+msgstr "Ez a fiók inaktív."
 
 #: templates/account/base_confirm_code.html:27
 #, python-format
@@ -679,6 +606,7 @@ msgid ""
 "We've sent a code to %(recipient)s. The code expires shortly, so please "
 "enter it soon."
 msgstr ""
+"Egy kódot küldtünk a(z) %(recipient)s címre. A kód csak rövid ideig érvényes, ezért kérlek, add meg minél előbb."
 
 #: templates/account/base_confirm_code.html:39
 #: templates/account/email_confirm.html:24
@@ -690,37 +618,33 @@ msgstr "Megerősítés"
 
 #: templates/account/base_confirm_code.html:43
 msgid "Request new code"
-msgstr ""
+msgstr "Új kód kérése"
 
 #: templates/account/base_reauthenticate.html:5
 #: templates/account/base_reauthenticate.html:9
-#, fuzzy
-#| msgid "Confirm Email Address"
 msgid "Confirm Access"
-msgstr "Email cím megerősítése"
+msgstr "Hozzáférés megerősítése"
 
 #: templates/account/base_reauthenticate.html:12
 msgid "Please reauthenticate to safeguard your account."
-msgstr ""
+msgstr "Kérlek hitelesítsd magad újra, hogy megóvd a fiókodat."
 
 #: templates/account/base_reauthenticate.html:19
 #: templates/mfa/authenticate.html:37
 msgid "Alternative options"
-msgstr ""
+msgstr "Más lehetőségek"
 
 #: templates/account/confirm_email_verification_code.html:5
-#, fuzzy
-#| msgid "Email address"
 msgid "Email Verification"
-msgstr "Email"
+msgstr "Email ellenőrzése"
 
 #: templates/account/confirm_email_verification_code.html:8
 msgid "Enter Email Verification Code"
-msgstr ""
+msgstr "Add meg az email ellenőrző kódot"
 
 #: templates/account/confirm_email_verification_code.html:16
 msgid "Use a different email address"
-msgstr ""
+msgstr "Másik email cím használata"
 
 #: templates/account/confirm_login_code.html:5 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
@@ -735,7 +659,7 @@ msgstr "Belépés"
 
 #: templates/account/confirm_login_code.html:8
 msgid "Enter Sign-In Code"
-msgstr ""
+msgstr "Add meg a belépési kódot"
 
 #: templates/account/confirm_password_reset_code.html:5
 #: templates/account/email/password_reset_subject.txt:3
@@ -744,29 +668,23 @@ msgstr ""
 #: templates/account/password_reset_done.html:6
 #: templates/account/password_reset_done.html:10
 msgid "Password Reset"
-msgstr "Új jelszó kérése"
+msgstr "Jelszó visszaállítása"
 
 #: templates/account/confirm_password_reset_code.html:8
-#, fuzzy
-#| msgid "Password Reset"
 msgid "Enter Password Reset Code"
-msgstr "Új jelszó kérése"
+msgstr "Add meg a jelszó visszaállító kódot"
 
 #: templates/account/confirm_phone_verification_code.html:5
-#, fuzzy
-#| msgid "Re-send Verification"
 msgid "Phone Verification"
-msgstr "Ellenőrzés újraküldése"
+msgstr "Telefonszám ellenőrzés"
 
 #: templates/account/confirm_phone_verification_code.html:8
-#, fuzzy
-#| msgid "Re-send Verification"
 msgid "Enter Phone Verification Code"
-msgstr "Ellenőrzés újraküldése"
+msgstr "Add meg a telefonszám ellenőrző kódot"
 
 #: templates/account/confirm_phone_verification_code.html:15
 msgid "Use a different phone number"
-msgstr ""
+msgstr "Másik telefonszám használata"
 
 #: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
@@ -774,15 +692,15 @@ msgstr "Email címek"
 
 #: templates/account/email.html:12
 msgid "The following email addresses are associated with your account:"
-msgstr "A következő email címek tartoznak a felhasználódhoz:"
+msgstr "A következő email címek vannak a fiókodhoz rendelve:"
 
 #: templates/account/email.html:25
 msgid "Verified"
-msgstr "Ellenőrzött"
+msgstr "Ellenőrizve"
 
 #: templates/account/email.html:29
 msgid "Unverified"
-msgstr "Nem ellenőrzött"
+msgstr "Nincs ellenőrizve"
 
 #: templates/account/email.html:34
 msgid "Primary"
@@ -802,19 +720,19 @@ msgstr "Ellenőrzés újraküldése"
 #: templates/mfa/webauthn/authenticator_list.html:60
 #: templates/socialaccount/connections.html:40
 msgid "Remove"
-msgstr "Töröl"
+msgstr "Eltávolítás"
 
 #: templates/account/email.html:59
 msgid "Add Email Address"
-msgstr "Új email cím"
+msgstr "Email cím hozzáadása"
 
 #: templates/account/email.html:70
 msgid "Add Email"
-msgstr "Új email"
+msgstr "Email hozzáadása"
 
 #: templates/account/email.html:80
 msgid "Do you really want to remove the selected email address?"
-msgstr "Tényleg törölni akarod a kijelölt email címet?"
+msgstr "Valóban el akarod távolítani a kijelölt email címet?"
 
 #: templates/account/email/account_already_exists_message.txt:4
 #, python-format
@@ -833,15 +751,22 @@ msgid ""
 "\n"
 "%(password_reset_url)s"
 msgstr ""
+"Azért kaptad ezt az emailt, mert te (vagy valaki más) megpróbáltál regisztrálni egy fiókot a következő email címmel:\n"
+"\n"
+"%(email)s\n"
+"\n"
+"Azonban a megadott email címmel már létezik fiók. Amennyiben elfelejtetted a jelszavadat, kérjük használd a jelszó visszaállító funkciót a fiókod helyreállításához:\n"
+"\n"
+"%(password_reset_url)s"
 
 #: templates/account/email/account_already_exists_subject.txt:3
 msgid "Account Already Exists"
-msgstr ""
+msgstr "A fiók már létezik"
 
 #: templates/account/email/base_message.txt:1
 #, python-format
 msgid "Hello from %(site_name)s!"
-msgstr ""
+msgstr "Üdvözlet a(z) %(site_name)s-tól!"
 
 #: templates/account/email/base_message.txt:5
 #, python-format
@@ -849,12 +774,14 @@ msgid ""
 "Thank you for using %(site_name)s!\n"
 "%(site_domain)s"
 msgstr ""
+"Köszönjük, hogy a(z) %(site_name)s-t használod!\n"
+"%(site_domain)s"
 
 #: templates/account/email/base_notification.txt:5
 msgid ""
 "You are receiving this mail because the following change was made to your "
 "account:"
-msgstr ""
+msgstr "Azért kapod ezt az emailt, mert a következő változtatás történt a fiókodban:"
 
 #: templates/account/email/base_notification.txt:10
 #, python-format
@@ -866,160 +793,127 @@ msgid ""
 "- Browser: %(user_agent)s\n"
 "- Date: %(timestamp)s"
 msgstr ""
+"Ha nem ismersz rá erre a változtatásra, kérjük, azonnal tedd meg a megfelelő biztonsági óvintézkedéseket. A fiókod innen lett megváltoztatva:\n"
+"\n"
+"- IP cím: %(ip)s\n"
+"- Böngésző: %(user_agent)s\n"
+"- Dátum: %(timestamp)s"
 
 #: templates/account/email/email_changed_message.txt:4
 #, python-format
 msgid "Your email has been changed from %(from_email)s to %(to_email)s."
-msgstr ""
+msgstr "Az email címed megváltozott a(z) %(from_email)s-ról a(z) %(to_email)s-ra."
 
 #: templates/account/email/email_changed_subject.txt:3
-#, fuzzy
-#| msgid "Email address"
 msgid "Email Changed"
-msgstr "Email"
+msgstr "Az email megváltozott"
 
 #: templates/account/email/email_confirm_message.txt:4
-#, fuzzy
-#| msgid "You have confirmed %(email)s."
 msgid "Your email has been confirmed."
-msgstr "A(z) %(email)s cím visszaigazolása megtörtént."
+msgstr "Email címed megerősítve."
 
 #: templates/account/email/email_confirm_subject.txt:3
-#, fuzzy
-#| msgid "Email address"
 msgid "Email Confirmation"
-msgstr "Email"
+msgstr "Email megerősítése"
 
 #: templates/account/email/email_confirmation_message.txt:5
-#, fuzzy, python-format
-#| msgid ""
-#| "User %(user_display)s at %(site_name)s has given this as an email "
-#| "address.\n"
-#| "\n"
-#| "To confirm this is correct, go to %(activate_url)s\n"
+#, python-format
 msgid ""
 "You're receiving this email because user %(user_display)s has given your "
 "email address to register an account on %(site_domain)s."
 msgstr ""
-"A(z) %(user_display)s felhasználó a(z) %(site_name)s oldalon ezt az email "
-"címet adta meg.\n"
-"\n"
-"Megerősítéshez látogasd meg ezt az oldalt %(activate_url)s\n"
+"Azért kaptad ezt az emailt, mert a(z) %(user_display)s felhasználó megadta az email címedet, "
+"hogy regisztráljon egy fiókot a(z) %(site_domain)s oldalon."
 
 #: templates/account/email/email_confirmation_message.txt:7
 msgid ""
 "Your email verification code is listed below. Please enter it in your open "
 "browser window."
-msgstr ""
+msgstr "Az email ellenőrző kódod alább található. Kérlek add meg a nyitott böngészőablakban."
 
 #: templates/account/email/email_confirmation_message.txt:9
 #, python-format
 msgid "To confirm this is correct, go to %(activate_url)s"
-msgstr ""
+msgstr "A megerősítéshez menj erre a címre: %(activate_url)s"
 
 #: templates/account/email/email_confirmation_subject.txt:3
-#, fuzzy
-#| msgid "Confirm Email Address"
 msgid "Please Confirm Your Email Address"
-msgstr "Email cím megerősítése"
+msgstr "Kérlek, erősítsd meg az email címedet"
 
 #: templates/account/email/email_deleted_message.txt:4
 #, python-format
 msgid "Email address %(deleted_email)s has been removed from your account."
-msgstr ""
+msgstr "A(z) %(deleted_email)s email cím eltávolítva a fiókodból."
 
 #: templates/account/email/email_deleted_subject.txt:3
-#, fuzzy
-#| msgid "Remove"
 msgid "Email Removed"
-msgstr "Töröl"
+msgstr "Email eltávolítva"
 
 #: templates/account/email/login_code_message.txt:5
 msgid ""
 "Your sign-in code is listed below. Please enter it in your open browser "
 "window."
-msgstr ""
+msgstr "A belépési kódod alább található. Kérlek add meg a nyitott böngészőablakban."
 
 #: templates/account/email/login_code_message.txt:9
 #: templates/account/email/password_reset_code_message.txt:9
 #: templates/account/email/unknown_account_message.txt:6
 msgid "This mail can be safely ignored if you did not initiate this action."
-msgstr ""
+msgstr "Ezt az emailt nyugodtan figyelmen kívül hagyhatod, ha nem te kezdeményezted ezt a műveletet."
 
 #: templates/account/email/login_code_subject.txt:3
-#, fuzzy
-#| msgid "Sign In"
 msgid "Sign-In Code"
-msgstr "Belépés"
+msgstr "Belépési kód"
 
 #: templates/account/email/password_changed_message.txt:4
-#, fuzzy
-#| msgid "Your password is now changed."
 msgid "Your password has been changed."
 msgstr "A jelszavad megváltozott."
 
 #: templates/account/email/password_changed_subject.txt:3
-#, fuzzy
-#| msgid "Password (again)"
 msgid "Password Changed"
-msgstr "Jelszó (ismét)"
+msgstr "Jelszó megváltozott"
 
 #: templates/account/email/password_reset_code_message.txt:5
 msgid ""
 "Your password reset code is listed below. Please enter it in your open "
 "browser window."
-msgstr ""
+msgstr "A jelszó visszaállító kódod alább található. Kérlek add meg a nyitott böngészőablakban."
 
 #: templates/account/email/password_reset_code_subject.txt:3
-#, fuzzy
-#| msgid "Password Reset"
 msgid "Password Reset Code"
-msgstr "Új jelszó kérése"
+msgstr "Jelszó visszaállító kód"
 
 #: templates/account/email/password_reset_key_message.txt:4
-#, fuzzy
-#| msgid ""
-#| "You're receiving this e-mail because you or someone else has requested a "
-#| "password for your user account at %(site_domain)s.\n"
-#| "It can be safely ignored if you did not request a password reset. Click "
-#| "the link below to reset your password."
 msgid ""
 "You're receiving this email because you or someone else has requested a "
 "password reset for your user account.\n"
 "It can be safely ignored if you did not request a password reset. Click the "
 "link below to reset your password."
 msgstr ""
-"Azért kaptad ezt a levelet, mert te vagy valaki más jelszócserét kért a(z) "
-"%(site_domain)s oldalon.\n"
-"Nyugodtan hagyd levelünket figyelmen kívül, ha nem te kérted. A jelszó "
-"cseréjéhez kövesd az alábbi linket."
+"Azért kaptad ezt az emailt, mert te (vagy valaki más) jelszó visszaállítást kértél a fiókodhoz.\n"
+"Nyugodtan figyelmen kívül hagyhatod ezt a levelet, ha nem te kérted a jelszó visszaállítást. "
+"A jelszavad visszaállításához kattints az alábbi linkre."
 
 #: templates/account/email/password_reset_key_message.txt:9
 #, python-format
 msgid "In case you forgot, your username is %(username)s."
-msgstr "Ha esetleg nem emlékeznél pontosan, a felhasználód %(username)s."
+msgstr "Ha elfelejtetted volna, a felhasználóneved: %(username)s."
 
 #: templates/account/email/password_reset_key_subject.txt:3
 msgid "Password Reset Email"
-msgstr "Jelszó csere email"
+msgstr "Jelszó visszaállító email"
 
 #: templates/account/email/password_reset_message.txt:4
-#, fuzzy
-#| msgid "Your password is now changed."
 msgid "Your password has been reset."
-msgstr "A jelszavad megváltozott."
+msgstr "A jelszavad visszaállítva."
 
 #: templates/account/email/password_set_message.txt:4
-#, fuzzy
-#| msgid "Your password is now changed."
 msgid "Your password has been set."
-msgstr "A jelszavad megváltozott."
+msgstr "A jelszavad beállítva."
 
 #: templates/account/email/password_set_subject.txt:3
-#, fuzzy
-#| msgid "Password Reset"
 msgid "Password Set"
-msgstr "Új jelszó kérése"
+msgstr "Jelszó beállítva"
 
 #: templates/account/email/unknown_account_message.txt:4
 #, python-format
@@ -1028,57 +922,46 @@ msgid ""
 "an account with email %(email)s. However, we do not have any record of such "
 "an account in our database."
 msgstr ""
+"Azért kapod ezt az emailt, mert te, vagy valaki más megpróbált hozzáférni a(z) %(email)s email címmel rendelkező fiókhoz. Azonban az adatbázisunkban nincs ilyen fiók."
 
 #: templates/account/email/unknown_account_message.txt:8
 msgid "If it was you, you can sign up for an account using the link below."
-msgstr ""
+msgstr "Ha te voltál, az alábbi linken regisztrálhatsz egy fiókot."
 
 #: templates/account/email/unknown_account_subject.txt:3
-#, fuzzy
-#| msgid "Account"
 msgid "Unknown Account"
-msgstr "Felhasználó"
+msgstr "Ismeretlen fiók"
 
 #: templates/account/email_change.html:5 templates/account/email_change.html:9
-#, fuzzy
-#| msgid "Email Addresses"
 msgid "Email Address"
-msgstr "Email címek"
+msgstr "Email cím"
 
 #: templates/account/email_change.html:21
 #: templates/account/email_change.html:29
-#, fuzzy
-#| msgid "Current Password"
 msgid "Current email"
-msgstr "Jelenlegi jelszó"
+msgstr "Jelenlegi email"
 
 #: templates/account/email_change.html:31
 msgid "Changing to"
-msgstr ""
+msgstr "Változás erre:"
 
 #: templates/account/email_change.html:35
-#, fuzzy
-#| msgid "Your primary email address must be verified."
 msgid "Your email address is still pending verification."
-msgstr "Az elsődleges email címet ellenőriznunk kell."
+msgstr "Az email címed még megerősítésre vár."
 
 #: templates/account/email_change.html:41
 msgid "Cancel Change"
-msgstr ""
+msgstr "Változtatás visszavonása"
 
 #: templates/account/email_change.html:49
 #: templates/account/phone_change.html:32
-#, fuzzy
-#| msgid "Email"
 msgid "Change to"
-msgstr "Email"
+msgstr "Változtatás erre:"
 
 #: templates/account/email_change.html:55
 #: templates/allauth/layouts/base.html:31
-#, fuzzy
-#| msgid "Email"
 msgid "Change Email"
-msgstr "Email"
+msgstr "Email csere"
 
 #: templates/account/email_confirm.html:6
 #: templates/account/email_confirm.html:10
@@ -1086,37 +969,31 @@ msgid "Confirm Email Address"
 msgstr "Email cím megerősítése"
 
 #: templates/account/email_confirm.html:16
-#, fuzzy, python-format
-#| msgid ""
-#| "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-"
-#| "mail address for user %(user_display)s."
+#, python-format
 msgid ""
 "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an email "
 "address for user %(user_display)s."
 msgstr ""
 "Kérlek erősítsd meg, hogy a(z) <a href=\"mailto:%(email)s\">%(email)s</a> "
-"email a(z) %(user_display)s felhasználóhoz tartozik."
+"email cím a(z) %(user_display)s felhasználóhoz tartozik."
 
 #: templates/account/email_confirm.html:30
 #: templates/account/messages/email_confirmation_failed.txt:2
-#, fuzzy, python-format
+#, python-format
 #| msgid "The social account is already connected to a different account."
 msgid ""
 "Unable to confirm %(email)s because it is already confirmed by a different "
 "account."
-msgstr "A közösségi felhasználó már egy másik felhasználóhoz tartozik."
+msgstr "Nem lehet megerősíteni a(z) %(email)s-t, mert már egy másik fiók megerősítette."
 
 #: templates/account/email_confirm.html:36
-#, fuzzy, python-format
-#| msgid ""
-#| "This e-mail confirmation link expired or is invalid. Please <a "
-#| "href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+#, python-format
 msgid ""
 "This email confirmation link expired or is invalid. Please <a "
 "href=\"%(email_url)s\">issue a new email confirmation request</a>."
 msgstr ""
-"Az email visszaigazolás címe már lejárt vagy érvénytelen. <a "
-"href=\"\"%(email_url)s\">Itt kérhetsz újat</a>.\""
+"Ez az email megerősítő link lejárt vagy érvénytelen. Kérlek <a "
+"href=\"%(email_url)s\">kérj egy új email megerősítő linket</a>."
 
 #: templates/account/login.html:19
 #, python-format
@@ -1124,22 +1001,21 @@ msgid ""
 "If you have not created an account yet, then please %(link)ssign "
 "up%(end_link)s first."
 msgstr ""
-"Ha még nem rendelkezel felhasználóval, akkor először "
-"%(link)sregisztrálnod%(end_link)s kell."
+"Ha még nem hoztál létre fiókot, akkor kérlek, először %(link)sregisztrálj%(end_link)s."
 
 #: templates/account/login.html:42
 msgid "Sign in with a passkey"
-msgstr ""
+msgstr "Belépés passkey-jel"
 
 #: templates/account/login.html:47 templates/account/request_login_code.html:9
 msgid "Send me a sign-in code"
-msgstr ""
+msgstr "Küldj nekem egy belépési kódot"
 
 #: templates/account/logout.html:4 templates/account/logout.html:8
 #: templates/account/logout.html:21 templates/allauth/layouts/base.html:61
 #: templates/usersessions/usersession_list.html:76
 msgid "Sign Out"
-msgstr "Kilépés"
+msgstr "Kijelentkezés"
 
 #: templates/account/logout.html:11
 msgid "Are you sure you want to sign out?"
@@ -1172,12 +1048,12 @@ msgstr "Sikeres bejelentkezés, mint %(name)s."
 
 #: templates/account/messages/logged_out.txt:2
 msgid "You have signed out."
-msgstr "Sikeresen kijelentkezés."
+msgstr "Sikeresen kijelentkeztél."
 
 #: templates/account/messages/login_code_sent.txt:2
 #, python-format
 msgid "A sign-in code has been sent to %(recipient)s."
-msgstr ""
+msgstr "Egy belépési kód lett elküldve a(z) %(recipient)s címre."
 
 #: templates/account/messages/password_changed.txt:2
 msgid "Password successfully changed."
@@ -1190,12 +1066,12 @@ msgstr "Jelszó sikeresen beállítva."
 #: templates/account/messages/phone_verification_sent.txt:2
 #, python-format
 msgid "A verification code has been sent to %(phone)s."
-msgstr ""
+msgstr "Ellenőrző kódot küldtünk a(z) %(phone)s telefonszámra."
 
 #: templates/account/messages/phone_verified.txt:2
 #, python-format
 msgid "You have verified phone number %(phone)s."
-msgstr ""
+msgstr "Megerősítetted a(z) %(phone)s telefonszámot."
 
 #: templates/account/messages/primary_email_set.txt:2
 msgid "Primary email address set."
@@ -1218,16 +1094,12 @@ msgid "Forgot Password?"
 msgstr "Elfelejtett jelszó?"
 
 #: templates/account/password_reset.html:14
-#, fuzzy
-#| msgid ""
-#| "Forgotten your password? Enter your e-mail address below, and we'll send "
-#| "you an e-mail allowing you to reset it."
 msgid ""
 "Forgotten your password? Enter your email address below, and we'll send you "
 "an email allowing you to reset it."
 msgstr ""
 "Elfelejtetted a jelszavadat? Add meg az email címedet és küldünk egy linket, "
-"ahol újat kérhetsz."
+"ahol új jelszót kérhetsz."
 
 #: templates/account/password_reset.html:26
 msgid "Reset My Password"
@@ -1240,18 +1112,13 @@ msgstr ""
 "beállításával."
 
 #: templates/account/password_reset_done.html:16
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for\n"
-#| "verification. Please click on the link inside this e-mail. Please\n"
-#| "contact us if you do not receive it within a few minutes."
 msgid ""
 "We have sent you an email. If you have not received it please check your "
 "spam folder. Otherwise contact us if you do not receive it in a few minutes."
 msgstr ""
 "Elküldtük az ellenőrző emailt.\n"
-"Az ellenőrzéshez kövesd a benne található címet! Kérlek vedd fel \n"
-"velünk a kapcsolatot, ha az email nem érkezik meg perceken belül!"
+"Ha nem találod a beérkezett levelek között, kérlek nézd meg a spam mappában is. "
+"Ellenkező esetben vedd fel velünk a kapcsolatot, ha pár percen belül nem kapod meg."
 
 #: templates/account/password_reset_from_key.html:10
 msgid "Bad Token"
@@ -1264,8 +1131,7 @@ msgid ""
 "used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
 "a>."
 msgstr ""
-"Az új jelszó kérő cím érvénytelen vagy már felhasználták. <a "
-"href=\"%(passwd_reset_url)s\">Itt tudsz</a> újat kérni."
+"A új jelszó kérő link érvénytelen volt, vagy már fel lett használva. <a href=\"%(passwd_reset_url)s\">Itt tudsz újat kérni</a>."
 
 #: templates/account/password_reset_from_key_done.html:12
 msgid "Your password is now changed."
@@ -1277,47 +1143,37 @@ msgid "Set Password"
 msgstr "Jelszó beállítása"
 
 #: templates/account/phone_change.html:5 templates/account/phone_change.html:9
-#, fuzzy
-#| msgid "Email"
 msgid "Change Phone"
-msgstr "Email"
+msgstr "Telefonszám csere"
 
 #: templates/account/phone_change.html:18
-#, fuzzy
-#| msgid "Current Password"
 msgid "Current phone"
-msgstr "Jelenlegi jelszó"
+msgstr "Jelenlegi telefonszám"
 
 #: templates/account/phone_change.html:22
-#, fuzzy
-#| msgid "Your primary email address must be verified."
 msgid "Your phone number is still pending verification."
-msgstr "Az elsődleges email címet ellenőriznunk kell."
+msgstr "A telefonszámod még megerősítésre vár."
 
 #: templates/account/phone_change.html:38
-#, fuzzy
-#| msgid "Email"
 msgctxt "action"
 msgid "Change Phone"
-msgstr "Email"
+msgstr "Telefonszám megváltoztatása"
 
 #: templates/account/reauthenticate.html:6
-#, fuzzy
-#| msgid "Forgot Password?"
 msgid "Enter your password:"
-msgstr "Elfelejtett jelszó?"
+msgstr "Add meg a jelszavadat:"
 
 #: templates/account/request_login_code.html:12
 msgid "You will receive a special code for a password-free sign-in."
-msgstr ""
+msgstr "Egy speciális kódot fogsz kapni a jelszó nélküli belépéshez."
 
 #: templates/account/request_login_code.html:24
 msgid "Request Code"
-msgstr ""
+msgstr "Kód kérése"
 
 #: templates/account/request_login_code.html:30
 msgid "Other sign-in options"
-msgstr ""
+msgstr "Egyéb belépési lehetőségek"
 
 #: templates/account/signup.html:4 templates/account/signup_by_passkey.html:4
 #: templates/socialaccount/signup.html:5
@@ -1329,26 +1185,24 @@ msgstr "Regisztráció"
 #: templates/allauth/layouts/base.html:74 templates/socialaccount/signup.html:9
 #: templates/socialaccount/signup.html:25
 msgid "Sign Up"
-msgstr "Regisztráció"
+msgstr "Regisztrálás"
 
 #: templates/account/signup.html:17 templates/account/signup_by_passkey.html:17
 #, python-format
 msgid "Already have an account? Then please %(link)ssign in%(end_link)s."
-msgstr "Van már felhasználód? Akkor %(link)sitt jelentkezz be%(end_link)s!"
+msgstr "Van már fiókod? Akkor kérlek %(link)slépj be%(end_link)s."
 
 #: templates/account/signup.html:39
 msgid "Sign up using a passkey"
-msgstr ""
+msgstr "Regisztráció passkey használatával"
 
 #: templates/account/signup_by_passkey.html:8
-#, fuzzy
-#| msgid "Sign Up"
 msgid "Passkey Sign Up"
-msgstr "Regisztráció"
+msgstr "Passkey regisztráció"
 
 #: templates/account/signup_by_passkey.html:36
 msgid "Other options"
-msgstr ""
+msgstr "Egyéb lehetőségek"
 
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:9
@@ -1364,8 +1218,6 @@ msgid "Note"
 msgstr "Megjegyzés"
 
 #: templates/account/snippets/already_logged_in.html:7
-#, fuzzy, python-format
-#| msgid "you are already logged in as %(user_display)s."
 msgid "You are already logged in as %(user_display)s."
 msgstr "Már bejelentkeztél, mint %(user_display)s."
 
@@ -1374,17 +1226,12 @@ msgid "Warning:"
 msgstr "Figyelem:"
 
 #: templates/account/snippets/warn_no_email.html:3
-#, fuzzy
-#| msgid ""
-#| "You currently do not have any e-mail address set up. You should really "
-#| "add an e-mail address so you can receive notifications, reset your "
-#| "password, etc."
 msgid ""
 "You currently do not have any email address set up. You should really add an "
 "email address so you can receive notifications, reset your password, etc."
 msgstr ""
-"Jelenleg nincs egyetlen email címed sem beállítva. Nagyon fontos lenne, "
-"hiszen csak így kaphatsz értesítéseket és így tudod a jelszavadat "
+"Jelenleg nem adtál meg egyetlen email címet sem. Nagyon fontos, hogy megadj egy email címet, "
+"mert csak így kaphatsz értesítéseket és csak így tudod a jelszavadat "
 "megváltoztatni."
 
 #: templates/account/verification_sent.html:5
@@ -1395,11 +1242,6 @@ msgid "Verify Your Email Address"
 msgstr "Ellenőrizd az emailedet"
 
 #: templates/account/verification_sent.html:12
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for verification. Follow the link provided "
-#| "to finalize the signup process. Please contact us if you do not receive "
-#| "it within a few minutes."
 msgid ""
 "We have sent an email to you for verification. Follow the link provided to "
 "finalize the signup process. If you do not see the verification email in "
@@ -1407,15 +1249,10 @@ msgid ""
 "receive the verification email within a few minutes."
 msgstr ""
 "Elküldtük az ellenőrző emailt. A regisztráció befejezéséhez kövesd a benne "
-"található linket! Kérlek vedd fel velünk a kapcsolatot, ha az email nem "
-"érkezik meg perceken belül!"
+"található linket! Kérlek vedd fel velünk a kapcsolatot, ha az email pár percen belül nem "
+"érkezik meg!"
 
 #: templates/account/verified_email_required.html:13
-#, fuzzy
-#| msgid ""
-#| "This part of the site requires us to verify that\n"
-#| "you are who you claim to be. For this purpose, we require that you\n"
-#| "verify ownership of your e-mail address. "
 msgid ""
 "This part of the site requires us to verify that\n"
 "you are who you claim to be. For this purpose, we require that you\n"
@@ -1423,14 +1260,9 @@ msgid ""
 msgstr ""
 "Az oldal ezen része megköveteli, hogy ellenőrizzük\n"
 "a felhasználó azonosságát. Ezért most arra kérünk, \n"
-"hogy ellenőrizd a hozzáférésedet az email címedhez. "
+"hogy erősítsd meg a hozzáférésedet az email címedhez. "
 
 #: templates/account/verified_email_required.html:18
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for\n"
-#| "verification. Please click on the link inside this e-mail. Please\n"
-#| "contact us if you do not receive it within a few minutes."
 msgid ""
 "We have sent an email to you for\n"
 "verification. Please click on the link inside that email. If you do not see "
@@ -1439,14 +1271,11 @@ msgid ""
 "contact us if you do not receive it within a few minutes."
 msgstr ""
 "Elküldtük az ellenőrző emailt.\n"
-"Az ellenőrzéshez kövesd a benne található címet! Kérlek vedd fel \n"
-"velünk a kapcsolatot, ha az email nem érkezik meg perceken belül!"
+"Kérlek, kövesd a benne található linket! Ha nem találod a beérkezett levelek között, "
+"nézd meg a spam mappában is. Ellenkező esetben vedd fel velünk a kapcsolatot, ha pár percen belül nem kapod meg."
 
 #: templates/account/verified_email_required.html:23
-#, fuzzy, python-format
-#| msgid ""
-#| "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change "
-#| "your e-mail address</a>."
+#, python-format
 msgid ""
 "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your "
 "email address</a>."
@@ -1456,11 +1285,11 @@ msgstr ""
 
 #: templates/allauth/layouts/base.html:18
 msgid "Messages:"
-msgstr ""
+msgstr "Üzenetek:"
 
 #: templates/allauth/layouts/base.html:25
 msgid "Menu:"
-msgstr ""
+msgstr "Menü:"
 
 #: templates/allauth/layouts/base.html:43
 #: templates/socialaccount/connections.html:5
@@ -1471,13 +1300,13 @@ msgstr "Egyéb felhasználói fiókok"
 #: templates/allauth/layouts/base.html:49 templates/mfa/authenticate.html:10
 #: templates/mfa/index.html:5 templates/mfa/index.html:9
 msgid "Two-Factor Authentication"
-msgstr ""
+msgstr "Kétlépcsős azonosítás"
 
 #: templates/allauth/layouts/base.html:55
 #: templates/usersessions/usersession_list.html:6
 #: templates/usersessions/usersession_list.html:10
 msgid "Sessions"
-msgstr ""
+msgstr "Munkamenetek"
 
 #: templates/idp/oidc/authorization_form.html:5
 #: templates/idp/oidc/authorization_form.html:9
@@ -1487,170 +1316,166 @@ msgstr ""
 #: templates/idp/oidc/device_authorization_confirmed.html:5
 #: templates/idp/oidc/device_authorization_denied.html:5
 msgid "Authorize"
-msgstr ""
+msgstr "Engedélyezés"
 
 #: templates/idp/oidc/authorization_form.html:12
 #, python-format
 msgid "%(client_name)s wants to access your %(site_name)s account."
-msgstr ""
+msgstr "A(z) %(client_name)s hozzáférést kér a(z) %(site_name)s fiókodhoz."
 
 #: templates/idp/oidc/device_authorization_code_form.html:9
-#, fuzzy
-#| msgid "Password Reset"
 msgid "Enter Device Code"
-msgstr "Új jelszó kérése"
+msgstr "Eszközkód megadása"
 
 #: templates/idp/oidc/device_authorization_code_form.html:12
 msgid "Enter the code displayed on your device."
-msgstr ""
+msgstr "Add meg a készülékeden megjelenő kódot."
 
 #: templates/idp/oidc/device_authorization_code_form.html:21
 #: templates/socialaccount/login.html:27
 #: templates/socialaccount/login_redirect.html:10
 msgid "Continue"
-msgstr ""
+msgstr "Folytatás"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:9
-#, fuzzy
-#| msgid "Confirm Email Address"
 msgid "Confirm Device"
-msgstr "Email cím megerősítése"
+msgstr "Eszköz megerősítése"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:12
 #, python-format
 msgid ""
 "Please confirm the code shown on your %(client_name)s to authorize this "
 "device."
-msgstr ""
+msgstr "Kérlek erősítsd meg a %(client_name)s-n megjelenő kódot, hogy engedélyezd ezt az eszközt."
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:29
 msgid "Deny"
-msgstr ""
+msgstr "Elutasítás"
 
 #: templates/idp/oidc/device_authorization_confirmed.html:9
 msgid "Device Authorized"
-msgstr ""
+msgstr "Eszköz engedélyezve"
 
 #: templates/idp/oidc/device_authorization_confirmed.html:12
 #, python-format
 msgid "You successfully authorized your %(client_name)s device."
-msgstr ""
+msgstr "Sikeresen engedélyezted a(z) %(client_name)s eszközödet."
 
 #: templates/idp/oidc/device_authorization_denied.html:9
 msgid "Device Denied"
-msgstr ""
+msgstr "Eszköz elutasítva"
 
 #: templates/idp/oidc/device_authorization_denied.html:12
 #, python-format
 msgid "Authorization for your %(client_name)s device has been denied."
-msgstr ""
+msgstr "A(z) %(client_name)s eszközöd engedélyezése elutasítva."
 
 #: templates/idp/oidc/error.html:5 templates/idp/oidc/error.html:9
 msgid "Error"
-msgstr ""
+msgstr "Hiba"
 
 #: templates/mfa/authenticate.html:13
 msgid ""
 "Your account is protected by two-factor authentication. Please enter an "
 "authenticator code:"
 msgstr ""
+"A fiókod kétlépcsős azonosítással védett. Kérlek add meg az azonosító kódot:"
 
 #: templates/mfa/email/recovery_codes_generated_message.txt:4
 msgid ""
 "A new set of Two-Factor Authentication recovery codes has been generated."
 msgstr ""
+"Legeneráltuk az új kétlépcsős azonosító visszaállító kódokat."
 
 #: templates/mfa/email/recovery_codes_generated_subject.txt:3
 msgid "New Recovery Codes Generated"
-msgstr ""
+msgstr "Új visszaállító kódok legenerálva"
 
 #: templates/mfa/email/totp_activated_message.txt:4
 #: templates/mfa/messages/totp_activated.txt:2
 msgid "Authenticator app activated."
-msgstr ""
+msgstr "Azosító alkalmazás aktiválva."
 
 #: templates/mfa/email/totp_activated_subject.txt:3
 msgid "Authenticator App Activated"
-msgstr ""
+msgstr "Azonosító alkalmazás aktiválva"
 
 #: templates/mfa/email/totp_deactivated_message.txt:4
 #: templates/mfa/messages/totp_deactivated.txt:2
 msgid "Authenticator app deactivated."
-msgstr ""
+msgstr "Azosító alkalmazás deaktiválva."
 
 #: templates/mfa/email/totp_deactivated_subject.txt:3
 msgid "Authenticator App Deactivated"
-msgstr ""
+msgstr "Azonosító alkalmazás deaktiválva"
 
 #: templates/mfa/email/webauthn_added_message.txt:4
 msgid "A new security key has been added."
-msgstr ""
+msgstr "Egy új biztonsági kulcs lett hozzáadva."
 
 #: templates/mfa/email/webauthn_added_subject.txt:3
 msgid "Security Key Added"
-msgstr ""
+msgstr "Biztonsági kulcs hozzáadva"
 
 #: templates/mfa/email/webauthn_removed_message.txt:4
-#, fuzzy
-#| msgid "You have confirmed %(email)s."
 msgid "A security key has been removed."
-msgstr "A(z) %(email)s cím visszaigazolása megtörtént."
+msgstr "Egy biztonsági kulcs el lett távolítva."
 
 #: templates/mfa/email/webauthn_removed_subject.txt:3
 msgid "Security Key Removed"
-msgstr ""
+msgstr "Biztonsági kulcs eltávolítva"
 
 #: templates/mfa/index.html:14 templates/mfa/totp/base.html:4
 msgid "Authenticator App"
-msgstr ""
+msgstr "Azonosító alkalmazás"
 
 #: templates/mfa/index.html:19
 msgid "Authentication using an authenticator app is active."
-msgstr ""
+msgstr "Azonosítás azonosító alkalmazással aktív."
 
 #: templates/mfa/index.html:23
 msgid "An authenticator app is not active."
-msgstr ""
+msgstr "Azonosító alkalmazás nem aktív."
 
 #: templates/mfa/index.html:32 templates/mfa/totp/deactivate_form.html:24
 msgid "Deactivate"
-msgstr ""
+msgstr "Kikapcsolás"
 
 #: templates/mfa/index.html:36 templates/mfa/totp/activate_form.html:32
 msgid "Activate"
-msgstr ""
+msgstr "Bekapcsolás"
 
 #: templates/mfa/index.html:45 templates/mfa/webauthn/authenticator_list.html:8
 #: templates/mfa/webauthn/base.html:4
 msgid "Security Keys"
-msgstr ""
+msgstr "Biztonsági kulcsok"
 
 #: templates/mfa/index.html:50
 #, python-format
 msgid "You have added %(count)s security key."
 msgid_plural "You have added %(count)s security keys."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Hozzáadtál %(count)s biztonsági kulcsot."
+msgstr[1] "Hozzáadtál %(count)s biztonsági kulcsot."
 
 #: templates/mfa/index.html:54
 #: templates/mfa/webauthn/authenticator_list.html:12
 msgid "No security keys have been added."
-msgstr ""
+msgstr "Nincs hozzáadott biztonsági kulcs."
 
 #: templates/mfa/index.html:62
 msgid "Manage"
-msgstr ""
+msgstr "Kezelés"
 
 #: templates/mfa/index.html:67 templates/mfa/webauthn/add_form.html:18
 #: templates/mfa/webauthn/authenticator_list.html:70
 msgid "Add"
-msgstr ""
+msgstr "Hozzáadás"
 
 #: templates/mfa/index.html:77 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:6
 #: templates/mfa/recovery_codes/index.html:6
 msgid "Recovery Codes"
-msgstr ""
+msgstr "Helyreállítási kódok"
 
 #: templates/mfa/index.html:82 templates/mfa/recovery_codes/index.html:9
 #, python-format
@@ -1658,69 +1483,69 @@ msgid ""
 "There is %(unused_count)s out of %(total_count)s recovery codes available."
 msgid_plural ""
 "There are %(unused_count)s out of %(total_count)s recovery codes available."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(unused_count)s van, a rendelkezésre álló %(total_count)s helyreállítási kódból."
+msgstr[1] "%(unused_count)s van, a rendelkezésre álló %(total_count)s helyreállítási kódból."
 
 #: templates/mfa/index.html:86
 msgid "No recovery codes set up."
-msgstr ""
+msgstr "Nincs beállított helyreállítási kód."
 
 #: templates/mfa/index.html:96
 msgid "View"
-msgstr ""
+msgstr "Megtekintés"
 
 #: templates/mfa/index.html:102
 msgid "Download"
-msgstr ""
+msgstr "Letöltés"
 
 #: templates/mfa/index.html:110 templates/mfa/recovery_codes/generate.html:29
 msgid "Generate"
-msgstr ""
+msgstr "Generálás"
 
 #: templates/mfa/messages/recovery_codes_generated.txt:2
 msgid "A new set of recovery codes has been generated."
-msgstr ""
+msgstr "Új helyreállítási kódok lettek generálva."
 
 #: templates/mfa/messages/webauthn_added.txt:2
 msgid "Security key added."
-msgstr ""
+msgstr "Biztonsági kulcs hozzáadva."
 
 #: templates/mfa/messages/webauthn_removed.txt:2
 msgid "Security key removed."
-msgstr ""
+msgstr "Biztonsági kulcs eltávolítva."
 
 #: templates/mfa/reauthenticate.html:6
 msgid "Enter an authenticator code:"
-msgstr ""
+msgstr "Add meg a hitelesítő kódot:"
 
 #: templates/mfa/recovery_codes/generate.html:9
 msgid "You are about to generate a new set of recovery codes for your account."
-msgstr ""
+msgstr "Új helyreállítási kódokat fogsz generálni a fiókodhoz."
 
 #: templates/mfa/recovery_codes/generate.html:11
 msgid "This action will invalidate your existing codes."
-msgstr ""
+msgstr "Ez a művelet érvényteleníti a meglévő kódjaidat."
 
 #: templates/mfa/recovery_codes/generate.html:13
 msgid "Are you sure?"
-msgstr ""
+msgstr "Biztos vagy benne?"
 
 #: templates/mfa/recovery_codes/index.html:13
 msgid "Unused codes"
-msgstr ""
+msgstr "Felhasználatlan kódok"
 
 #: templates/mfa/recovery_codes/index.html:25
 msgid "Download codes"
-msgstr ""
+msgstr "Kódok letöltése"
 
 #: templates/mfa/recovery_codes/index.html:30
 msgid "Generate new codes"
-msgstr ""
+msgstr "Új kódok generálása"
 
 #: templates/mfa/totp/activate_form.html:4
 #: templates/mfa/totp/activate_form.html:8
 msgid "Activate Authenticator App"
-msgstr ""
+msgstr "Hitelesítő alkalmazás bekapcsolása"
 
 #: templates/mfa/totp/activate_form.html:11
 msgid ""
@@ -1728,216 +1553,192 @@ msgid ""
 "below with your authenticator app. Then, input the verification code "
 "generated by the app below."
 msgstr ""
+"Ahhoz, hogy kétlépcsős azonosítással védd a fiókodat, olvasd be az alábbi QR kódot a hitelesítő alkalmazásoddal. Ezután add meg az alkalmazás által generált ellenőrző kódot."
 
 #: templates/mfa/totp/activate_form.html:21
 msgid "Authenticator secret"
-msgstr ""
+msgstr "Hitelesítő titkos kód"
 
 #: templates/mfa/totp/activate_form.html:24
 msgid ""
 "You can store this secret and use it to reinstall your authenticator app at "
 "a later time."
-msgstr ""
+msgstr "Ezt a titkos kódot elmentheted, és később felhasználhatod a hitelesítő alkalmazás újra-telepítésére."
 
 #: templates/mfa/totp/deactivate_form.html:5
 #: templates/mfa/totp/deactivate_form.html:9
 msgid "Deactivate Authenticator App"
-msgstr ""
+msgstr "Hitelesítő alkalmazás kikapcsolása"
 
 #: templates/mfa/totp/deactivate_form.html:12
 msgid ""
 "You are about to deactivate authenticator app based authentication. Are you "
 "sure?"
-msgstr ""
+msgstr "A hitelesítő alkalmazáson alapuló azonosítás kikapcsolására készülsz. Biztos vagy benne?"
 
 #: templates/mfa/trust.html:4 templates/mfa/trust.html:8
 msgid "Trust this Browser?"
-msgstr ""
+msgstr "Megbízol ebben a böngészőben?"
 
 #: templates/mfa/trust.html:11
 msgid ""
 "If you choose to trust this browser, you will not be asked for a "
 "verification code the next time you sign in."
-msgstr ""
+msgstr "Ha megbízol ebben a böngészőben, a következő belépéskor nem fogunk tőled ellenőrző kódot kérni."
 
 #: templates/mfa/trust.html:23
 #, python-format
 msgid "Trust for %(period)s"
-msgstr ""
+msgstr "Megbízok, a következő időtartamra: %(period)s"
 
 #: templates/mfa/trust.html:26
 msgid "Don't Trust"
-msgstr ""
+msgstr "Nem bízok meg"
 
 #: templates/mfa/webauthn/add_form.html:7
 msgid "Add Security Key"
-msgstr ""
+msgstr "Biztonsági kulcs hozzáadása"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:6
 msgid "Remove Security Key"
-msgstr ""
+msgstr "Biztonsági kulcs eltávolítása"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:9
-#, fuzzy
-#| msgid "Are you sure you want to sign out?"
 msgid "Are you sure you want to remove this security key?"
-msgstr "Biztosan kijelentkezel?"
+msgstr "Biztos, hogy el akarod távolítani ezt a biztonsági kulcsot?"
 
 #: templates/mfa/webauthn/authenticator_list.html:21
 msgid "Usage"
-msgstr ""
+msgstr "Használat"
 
 #: templates/mfa/webauthn/authenticator_list.html:33
 msgid "Passkey"
-msgstr ""
+msgstr "Passkey"
 
 #: templates/mfa/webauthn/authenticator_list.html:37
 msgid "Security key"
-msgstr ""
+msgstr "Biztonsági kulcs"
 
 #: templates/mfa/webauthn/authenticator_list.html:40
 msgid "This key does not indicate whether it is a passkey."
-msgstr ""
+msgstr "Ez a kulcs nem jelzi, hogy passkey-e"
 
 #: templates/mfa/webauthn/authenticator_list.html:41
-#, fuzzy
-#| msgid "Unverified"
 msgid "Unspecified"
-msgstr "Nem ellenőrzött"
+msgstr "Nincs megadva"
 
 #: templates/mfa/webauthn/authenticator_list.html:46
 #, python-format
 msgid "Added on %(created_at)s"
-msgstr ""
+msgstr "Hozzáadva: %(created_at)s"
 
 #: templates/mfa/webauthn/authenticator_list.html:48
 #, python-format
 msgid "Last used %(last_used)s"
-msgstr ""
+msgstr "Utoljára használva: %(last_used)s"
 
 #: templates/mfa/webauthn/authenticator_list.html:56
 msgid "Edit"
-msgstr ""
+msgstr "Szerkesztés"
 
 #: templates/mfa/webauthn/edit_form.html:7
 msgid "Edit Security Key"
-msgstr ""
+msgstr "Biztonsági kulcs szerkesztése"
 
 #: templates/mfa/webauthn/edit_form.html:18
 msgid "Save"
-msgstr ""
+msgstr "Mentés"
 
 #: templates/mfa/webauthn/signup_form.html:7
-#, fuzzy
-#| msgid "Current Password"
 msgid "Create Passkey"
-msgstr "Jelenlegi jelszó"
+msgstr "Passkey létrehozása"
 
 #: templates/mfa/webauthn/signup_form.html:10
 msgid ""
 "You are about to create a passkey for your account. As you can add "
 "additional keys later on, you can use a descriptive name to tell the keys "
 "apart."
-msgstr ""
+msgstr "Egy passkey-t fogsz létrehozni a fiókodhoz. "
+"Mivel később további kulcsokat is hozzáadhatsz, "
+"használj egy jól leíró nevet a kulcsok megkülönböztetéséhez."
 
 #: templates/mfa/webauthn/signup_form.html:21
 msgid "Create"
-msgstr ""
+msgstr "Létrehozás"
 
 #: templates/mfa/webauthn/snippets/scripts.html:2
 msgid "This functionality requires JavaScript."
-msgstr ""
+msgstr "Ez a funkció JavaScriptet igényel."
 
 #: templates/socialaccount/authentication_error.html:5
 #: templates/socialaccount/authentication_error.html:9
-#, fuzzy
-#| msgid "Social Network Login Failure"
 msgid "Third-Party Login Failure"
-msgstr "Közösségi hálózat bejelentkezési hiba"
+msgstr "Külső szolgáltatónál történt bejelentkezési hiba"
 
 #: templates/socialaccount/authentication_error.html:12
-#, fuzzy
-#| msgid ""
-#| "An error occurred while attempting to login via your social network "
-#| "account."
 msgid ""
 "An error occurred while attempting to login via your third-party account."
-msgstr ""
-"Hiba történt, miközben megpróbáltunk bejelentkezni a közösségi "
-"felhasználóddal."
+msgstr "Hiba történt miközben megpróbáltál bejelentkezni a külső fiókoddal."
 
 #: templates/socialaccount/connections.html:13
-#, fuzzy
-#| msgid ""
-#| "You can sign in to your account using any of the following third party "
-#| "accounts:"
 msgid ""
 "You can sign in to your account using any of the following third-party "
 "accounts:"
-msgstr "Az alábbi felhasználói fiókok bármelyikét használhatod belépéshez:"
+msgstr "Az alábbi külső fiókok bármelyikét használhatod a belépéshez:"
 
 #: templates/socialaccount/connections.html:46
-#, fuzzy
-#| msgid ""
-#| "You currently have no social network accounts connected to this account."
 msgid "You currently have no third-party accounts connected to this account."
-msgstr "Jelenleg nincs közösségi felhasználó a fiókodhoz rendelve."
+msgstr "Jelenleg nincs külső fiók kapcsolva ehhez a fiókhoz."
 
 #: templates/socialaccount/connections.html:50
-#, fuzzy
-#| msgid "Add a 3rd Party Account"
 msgid "Add a Third-Party Account"
-msgstr "Új közösségi felhasználó hozzáadása"
+msgstr "Külső fiók hozzáadása"
 
 #: templates/socialaccount/email/account_connected_message.txt:4
 #, python-format
 msgid ""
 "A third-party account from %(provider)s has been connected to your account."
-msgstr ""
+msgstr "Egy külső fiók a(z) %(provider)s szolgáltatótól lett kapcsolva a fiókodhoz."
 
 #: templates/socialaccount/email/account_connected_subject.txt:3
-#, fuzzy
-#| msgid "Add a 3rd Party Account"
 msgid "Third-Party Account Connected"
-msgstr "Új közösségi felhasználó hozzáadása"
+msgstr "Külső fiók hozzákapcsolva"
 
 #: templates/socialaccount/email/account_disconnected_message.txt:4
 #, python-format
 msgid ""
 "A third-party account from %(provider)s has been disconnected from your "
 "account."
-msgstr ""
+msgstr "Egy külső fiók a(z) %(provider)s szolgáltatótól lett leválasztva a fiókodról."
 
 #: templates/socialaccount/email/account_disconnected_subject.txt:3
-#, fuzzy
-#| msgid "Add a 3rd Party Account"
 msgid "Third-Party Account Disconnected"
-msgstr "Új közösségi felhasználó hozzáadása"
+msgstr "Külső fiók leválasztva"
 
 #: templates/socialaccount/login.html:10
 #, python-format
 msgid "Connect %(provider)s"
-msgstr ""
+msgstr "Kapcsolódás a(z) %(provider)s-hoz"
 
 #: templates/socialaccount/login.html:13
 #, python-format
 msgid "You are about to connect a new third-party account from %(provider)s."
-msgstr ""
+msgstr "Egy új %(provider)s fiókot fogsz hozzákapcsolni."
 
 #: templates/socialaccount/login.html:17
 #, python-format
 msgid "Sign In Via %(provider)s"
-msgstr ""
+msgstr "Bejelentkezés a(z) %(provider)s-on keresztül"
 
 #: templates/socialaccount/login.html:20
 #, python-format
 msgid "You are about to sign in using a third-party account from %(provider)s."
-msgstr ""
+msgstr "A(z) %(provider)s szolgáltató külső fiókjával fogsz bejelentkezni."
 
 #: templates/socialaccount/login_cancelled.html:5
 #: templates/socialaccount/login_cancelled.html:9
 msgid "Login Cancelled"
-msgstr "Bejelentkezés leállítva"
+msgstr "Bejelentkezés megszakítva"
 
 #: templates/socialaccount/login_cancelled.html:13
 #, python-format
@@ -1946,20 +1747,15 @@ msgid ""
 "accounts. If this was a mistake, please proceed to <a "
 "href=\"%(login_url)s\">sign in</a>."
 msgstr ""
-"Ha a bejelntkezési folyamatot véletlenül állítottad le, <a "
-"href=\"%(login_url)s\">itt újra megpróbálhatod</a>."
+"Úgy döntöttél, megszakítod a bejelentkezést az oldalunkra a meglévő fiókjaid egyikével. Ha ez nem volt szándékos, kérlek <a href=\"%(login_url)s\">lépj be</a>."
 
 #: templates/socialaccount/messages/account_connected.txt:2
-#, fuzzy
-#| msgid "The social account has been connected."
 msgid "The third-party account has been connected."
-msgstr "A közösségi felhasználó hozzárendelve."
+msgstr "Külső fiók hozzákapcsolva."
 
 #: templates/socialaccount/messages/account_disconnected.txt:2
-#, fuzzy
-#| msgid "The social account has been disconnected."
 msgid "The third-party account has been disconnected."
-msgstr "A közösségi felhasználó kapcsolat törölve."
+msgstr "Külső fiók leválasztva."
 
 #: templates/socialaccount/signup.html:12
 #, python-format
@@ -1967,56 +1763,49 @@ msgid ""
 "You are about to use your %(provider_name)s account to login to\n"
 "%(site_name)s. As a final step, please complete the following form:"
 msgstr ""
-"A(z) %(provider_name)s felhasználódat használod a (z) %(site_name)s "
-"bejelentkezés\n"
-"Utolsó lépésként kérlek töltsd ki az alábbi adatlapot:"
+"A(z) %(provider_name)s fiókodat fogod használni a(z) %(site_name)s oldalra való bejelentkezéshez.\n"
+"Utolsó lépésként kérlek, töltsd ki az alábbi űrlapot:"
 
 #: templates/socialaccount/snippets/login.html:10
 msgid "Or use a third-party"
-msgstr ""
+msgstr "Vagy használj egy külső szolgáltatót"
 
 #: templates/usersessions/messages/sessions_logged_out.txt:2
 msgid "Signed out of all other sessions."
-msgstr ""
+msgstr "Kijelentkezve az összes többi munkamenetből."
 
 #: templates/usersessions/usersession_list.html:24
 msgid "Started At"
-msgstr ""
+msgstr "Kezdés időpontja"
 
 #: templates/usersessions/usersession_list.html:27
-#, fuzzy
-#| msgid "Email Addresses"
 msgid "IP Address"
-msgstr "Email címek"
+msgstr "IP cím"
 
 #: templates/usersessions/usersession_list.html:30
 msgid "Browser"
-msgstr ""
+msgstr "Böngésző"
 
 #: templates/usersessions/usersession_list.html:34
 msgid "Last seen at"
-msgstr ""
+msgstr "Utoljára ekkor volt aktív"
 
 #: templates/usersessions/usersession_list.html:59
-#, fuzzy
-#| msgid "Current Password"
 msgid "Current"
-msgstr "Jelenlegi jelszó"
+msgstr "Jelenlegi"
 
 #: templates/usersessions/usersession_list.html:72
 msgid "Sign Out Other Sessions"
-msgstr ""
+msgstr "Kijelentkezés a többi munkamenetből"
 
 #: usersessions/apps.py:9
 msgid "User Sessions"
-msgstr ""
+msgstr "Felhasználói munkamenetek"
 
 #: usersessions/models.py:93
 msgid "session key"
-msgstr ""
+msgstr "munkamenet kulcs"
 
-#, fuzzy
-#~| msgid "Account Connections"
 #~ msgid "Account Connection"
 #~ msgstr "Egyéb felhasználói fiókok"
 
@@ -2024,36 +1813,11 @@ msgstr ""
 #~ msgid "Password must be a minimum of {0} characters."
 #~ msgstr "A jelszónak minimum {0} hosszúnak kell lennnie."
 
-#, fuzzy, python-format
-#~| msgid ""
-#~| "You're receiving this e-mail because you or someone else has requested a "
-#~| "password for your user account at %(site_domain)s.\n"
-#~| "It can be safely ignored if you did not request a password reset. Click "
-#~| "the link below to reset your password."
-#~ msgid ""
-#~ "You are receiving this email because you or someone else has requested a\n"
-#~ "password for your user account. However, we do not have any record of a "
-#~ "user\n"
-#~ "with email %(email)s in our database.\n"
-#~ "\n"
-#~ "This mail can be safely ignored if you did not request a password reset.\n"
-#~ "\n"
-#~ "If it was you, you can sign up for an account using the link below."
-#~ msgstr ""
-#~ "Azért kaptad ezt a levelet, mert te vagy valaki más jelszócserét kért "
-#~ "a(z) %(site_domain)s oldalon.\n"
-#~ "Nyugodtan hagyd levelünket figyelmen kívül, ha nem te kérted. A jelszó "
-#~ "cseréjéhez kövesd az alábbi linket."
-
-#, fuzzy
-#~| msgid "The following email addresses are associated with your account:"
 #~ msgid "The following email address is associated with your account:"
 #~ msgstr "A következő email címek tartoznak a felhasználódhoz:"
 
-#, fuzzy
-#~| msgid "Confirm Email Address"
 #~ msgid "Change Email Address"
-#~ msgstr "Email cím megerősítése"
+#~ msgstr "Email cím megváltoztatása"
 
 #, python-format
 #~ msgid ""
@@ -2093,17 +1857,15 @@ msgstr ""
 #~ msgid "This username is already taken. Please choose another."
 #~ msgstr "Ez a felhasználói azonosító már foglalt. Kérlek válassz másikat!"
 
-#, fuzzy
-#~| msgid "Sign In"
 #~ msgid "Shopify Sign In"
-#~ msgstr "Belépés"
+#~ msgstr "Shopify Belépés"
 
 #~ msgid ""
 #~ "You have confirmed that <a href=\"mailto:%(email)s\">%(email)s</a> is an "
 #~ "e-mail address for user %(user_display)s."
 #~ msgstr ""
-#~ "Sikeresen visszaigazolás. A(z) <a href=\"mailto:%(email)s\">%(email)s</a> "
+#~ "Sikeres visszaigazolás. A(z) <a href=\"mailto:%(email)s\">%(email)s</a> "
 #~ "email a(z) %(user_display)s felhasználóhoz tartozik."
 
 #~ msgid "Thanks for using our site!"
-#~ msgstr "Köszönjük, hogy az oldalunkat használja!"
+#~ msgstr "Köszönjük, hogy az oldalunkat használod!"

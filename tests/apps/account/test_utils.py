@@ -126,6 +126,14 @@ def test_is_safe_url_no_wildcard():
         assert not get_adapter().is_safe_url("http://other_host/")
 
 
+def test_is_safe_url_subdomain(settings):
+    settings.ALLOWED_HOSTS = [".example.com", "testserver"]
+    with context.request_context(RequestFactory().get("/")):
+        assert get_adapter().is_safe_url("http://bla.example.com")
+        assert get_adapter().is_safe_url("http://example.com")
+        assert not get_adapter().is_safe_url("http://not-example.com")
+
+
 @override_settings(ALLOWED_HOSTS=["*"])
 def test_is_safe_url_wildcard():
     with context.request_context(RequestFactory().get("/")):

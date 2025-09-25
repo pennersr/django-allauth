@@ -22,6 +22,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import FieldDoesNotExist
 from django.core.mail import EmailMessage, EmailMultiAlternatives
 from django.http import HttpResponse, HttpResponseRedirect
+from django.http.request import validate_host
 from django.shortcuts import resolve_url
 from django.template import TemplateDoesNotExist
 from django.template.loader import render_to_string
@@ -598,11 +599,15 @@ class DefaultAccountAdapter(BaseAdapter):
         }
         allowed_hosts.update(trusted_hosts)
 
-        # Handle wildcard case
-        if "*" in allowed_hosts:
-            parsed_host = urlparse(url).netloc
-            allowed_host = {parsed_host} if parsed_host else None
-            return url_has_allowed_host_and_scheme(url, allowed_hosts=allowed_host)
+        # ALLOWED_HOSTS supports wildcards, and subdomains using a '.' prefix.
+        # But, `url_has_allowed_host_and_scheme()` doesn't support that. So,
+        # let's check the domain using the ALLOWED_HOSTS logic, and if valid,
+        # add it as allowed so that we can then call
+        # `url_has_allowed_host_and_scheme()`.
+        parsed_host = urlparse(url).netloc
+        if parsed_host:
+            if validate_host(parsed_host, allowed_hosts):
+                allowed_hosts.add(parsed_host)
 
         return url_has_allowed_host_and_scheme(url, allowed_hosts=allowed_hosts)
 

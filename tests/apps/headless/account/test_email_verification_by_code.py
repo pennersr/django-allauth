@@ -4,6 +4,7 @@ from unittest.mock import ANY
 from django.contrib.auth.models import User
 
 import pytest
+from pytest_django.asserts import assertTemplateNotUsed, assertTemplateUsed
 
 from allauth.account import app_settings
 from allauth.account.models import EmailAddress
@@ -42,9 +43,9 @@ def test_email_verification_rate_limits_login(
             ][0]
             assert flow["id"] == Flow.VERIFY_EMAIL
         else:
-            assert resp.status_code == 400
+            assert resp.status_code == HTTPStatus.BAD_REQUEST
             assert resp.json() == {
-                "status": 400,
+                "status": HTTPStatus.BAD_REQUEST,
                 "errors": [
                     {
                         "message": "Too many failed login attempts. Try again later.",
@@ -100,7 +101,7 @@ def test_email_verification_rate_limits_submitting_codes(
             )
         if i < app_settings.EMAIL_VERIFICATION_BY_CODE_MAX_ATTEMPTS:
             assert resp.json() == {
-                "status": 400,
+                "status": HTTPStatus.BAD_REQUEST,
                 "errors": [
                     {
                         "message": "Incorrect code.",
@@ -109,7 +110,7 @@ def test_email_verification_rate_limits_submitting_codes(
                     }
                 ],
             }
-            assert resp.status_code == 400
+            assert resp.status_code == HTTPStatus.BAD_REQUEST
         else:
             assert resp.status_code == 409
 
@@ -136,6 +137,9 @@ def test_add_email(
     )
     assert resp.status_code == HTTPStatus.OK
 
+    assertTemplateNotUsed(resp, "account/email/email_confirmation_signup_message.txt")
+    assertTemplateUsed(resp, "account/email/email_confirmation_message.txt")
+
     # It's in the response, albeit unverified.
     assert len(resp.json()["data"]) == 2
     email_map = {addr["email"]: addr for addr in resp.json()["data"]}
@@ -147,9 +151,9 @@ def test_add_email(
         data={"key": "key"},
         content_type="application/json",
     )
-    assert resp.status_code == 400
+    assert resp.status_code == HTTPStatus.BAD_REQUEST
     assert resp.json() == {
-        "status": 400,
+        "status": HTTPStatus.BAD_REQUEST,
         "errors": [
             {"message": "Incorrect code.", "code": "incorrect_code", "param": "key"}
         ],
@@ -204,6 +208,8 @@ def test_signup_with_email_verification(
         },
         content_type="application/json",
     )
+    assertTemplateUsed(resp, "account/email/email_confirmation_signup_message.txt")
+
     assert resp.status_code == HTTPStatus.UNAUTHORIZED
     assert User.objects.filter(email=email).exists()
     data = resp.json()

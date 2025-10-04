@@ -43,7 +43,9 @@ class EmailVerificationProcess(AbstractCodeVerificationProcess):
         )
 
         email_address = self.email_address
-        signup = did_user_login(email_address.user) if email_address.user_id else True
+        signup = (
+            (not did_user_login(email_address.user)) if email_address.user_id else True
+        )
         self.did_send = send_verification_email_to_address(
             self.request,
             email_address,

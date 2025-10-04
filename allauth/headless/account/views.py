@@ -420,7 +420,10 @@ class ManageEmailView(APIView):
 
     def delete(self, request, *args, **kwargs):
         addr = self.input.cleaned_data["email"]
-        flows.manage_email.delete_email(request, addr)
+        if addr.pk:
+            flows.manage_email.delete_email(request, addr)
+        else:
+            self.input.process.abort()
         return self._respond_email_list()
 
     def patch(self, request, *args, **kwargs):

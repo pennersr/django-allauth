@@ -68,7 +68,9 @@ def add_email(request: HttpRequest, form):
         )
 
 
-def can_mark_as_primary(email_address: EmailAddress):
+def can_mark_as_primary(email_address: EmailAddress) -> bool:
+    if not email_address.pk:
+        return False
     return (
         email_address.verified
         or not EmailAddress.objects.filter(

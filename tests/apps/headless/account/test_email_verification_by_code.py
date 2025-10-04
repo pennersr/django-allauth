@@ -36,7 +36,7 @@ def test_email_verification_rate_limits_login(
             content_type="application/json",
         )
         if attempt == 0:
-            assert resp.status_code == 401
+            assert resp.status_code == HTTPStatus.UNAUTHORIZED
             flow = [
                 flow for flow in resp.json()["data"]["flows"] if flow.get("is_pending")
             ][0]
@@ -80,7 +80,7 @@ def test_email_verification_rate_limits_submitting_codes(
         },
         content_type="application/json",
     )
-    assert resp.status_code == 401
+    assert resp.status_code == HTTPStatus.UNAUTHORIZED
     flow = [flow for flow in resp.json()["data"]["flows"] if flow.get("is_pending")][0]
     assert flow["id"] == Flow.VERIFY_EMAIL
 
@@ -134,7 +134,7 @@ def test_add_email(
         data={"email": new_email},
         content_type="application/json",
     )
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
 
     # It's in the response, albeit unverified.
     assert len(resp.json()["data"]) == 2
@@ -162,7 +162,7 @@ def test_add_email(
         data={"key": code},
         content_type="application/json",
     )
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
     assert resp.json()["data"]["user"]["email"] == new_email
 
     # ACCOUNT_CHANGE_EMAIL = True, so the other one is gone.
@@ -204,7 +204,7 @@ def test_signup_with_email_verification(
         },
         content_type="application/json",
     )
-    assert resp.status_code == 401
+    assert resp.status_code == HTTPStatus.UNAUTHORIZED
     assert User.objects.filter(email=email).exists()
     data = resp.json()
     flow = next((f for f in data["data"]["flows"] if f.get("is_pending")))
@@ -215,14 +215,14 @@ def test_signup_with_email_verification(
         headless_reverse("headless:account:verify_email"),
         HTTP_X_EMAIL_VERIFICATION_KEY=code,
     )
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
     assert resp.json() == {
         "data": {
             "email": email,
             "user": ANY,
         },
         "meta": {"is_authenticating": True},
-        "status": 200,
+        "status": HTTPStatus.OK,
     }
     resp = client.post(
         headless_reverse("headless:account:verify_email"),
@@ -232,7 +232,7 @@ def test_signup_with_email_verification(
     addr = EmailAddress.objects.get(email=email)
     assert addr.verified
 
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
     data = resp.json()
     assert data["meta"]["is_authenticated"]
 
@@ -267,7 +267,7 @@ def test_resend_at_signup(
         },
         content_type="application/json",
     )
-    assert resp.status_code == 401
+    assert resp.status_code == HTTPStatus.UNAUTHORIZED
     assert User.objects.filter(email=email).exists()
     data = resp.json()
     flow = next((f for f in data["data"]["flows"] if f.get("is_pending")))
@@ -278,7 +278,7 @@ def test_resend_at_signup(
         headless_reverse("headless:account:verify_email"),
         HTTP_X_EMAIL_VERIFICATION_KEY=code,
     )
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
     assert resp.json() == {
         "data": {
             "email": email,
@@ -339,3 +339,41 @@ def test_add_resend_verify_email(
             content_type="application/json",
         )
         assert EmailAddress.objects.filter(email=new_email, verified=True).exists()
+
+
+def test_remove_unverified_email(
+    auth_client,
+    user,
+    email_factory,
+    headless_reverse,
+    settings,
+    get_last_email_verification_code,
+    mailoutbox,
+):
+    settings.ACCOUNT_AUTHENTICATION_METHOD = "email"
+    settings.ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED = True
+    settings.ACCOUNT_CHANGE_EMAIL = True
+    new_email = email_factory()
+
+    # Let's add an email...
+    resp = auth_client.post(
+        headless_reverse("headless:account:manage_email"),
+        data={"email": new_email},
+        content_type="application/json",
+    )
+    assert resp.status_code == HTTPStatus.OK
+
+    # It's in the response, albeit unverified.
+    assert len(resp.json()["data"]) == 2
+    email_map = {addr["email"]: addr for addr in resp.json()["data"]}
+    assert not email_map[new_email]["verified"]
+
+    # Delete the pending email.
+    resp = auth_client.delete(
+        headless_reverse("headless:account:manage_email"),
+        data={"email": new_email},
+        content_type="application/json",
+    )
+    assert resp.status_code == HTTPStatus.OK
+    assert len(resp.json()["data"]) == 1
+    assert new_email not in {addr["email"] for addr in resp.json()["data"]}

@@ -15,6 +15,11 @@ Note worthy changes
   To support this, a new field was added to the ``Client`` model. Therefore, you
   need to run migrations for the ``allauth.idp.oidc`` app.
 
+- Headless: an email address that was in the process of being verified by code
+  was presented in the list of email address, but could not be deleted. Now, a
+  ``DELETE`` will actually abort the process, effectively removing the pending
+  email address from the list.
+
 
 65.11.2 (2025-09-09)
 ********************

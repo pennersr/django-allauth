@@ -87,6 +87,8 @@ class EmailVerificationProcess(AbstractCodeVerificationProcess):
 
     @classmethod
     def resume(cls, request) -> Optional["EmailVerificationProcess"]:
+        if not app_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED:
+            return None
         state = request.session.get(EMAIL_VERIFICATION_CODE_SESSION_KEY)
         if not state:
             return None

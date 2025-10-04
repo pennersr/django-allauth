@@ -119,6 +119,8 @@ class DefaultAccountAdapter(BaseAdapter):
         """
         from allauth.account.models import EmailAddress
 
+        if not email_address.pk:
+            return True
         has_other = (
             EmailAddress.objects.filter(user_id=email_address.user_id)
             .exclude(pk=email_address.pk)

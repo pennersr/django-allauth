@@ -200,12 +200,29 @@ class SelectEmailInput(inputs.Input):
         super().__init__(*args, **kwargs)
 
     def clean_email(self):
+        self.process = None
         email = self.cleaned_data["email"]
         validate_email(email)
+
+        # Select a database backed email...
         try:
             return EmailAddress.objects.get_for_user(user=self.user, email=email)
         except EmailAddress.DoesNotExist:
-            raise get_adapter().validation_error("unknown_email")
+            pass
+
+        # Or, if email verification by code is active, try the pending email
+        request = context.request
+        self.process = flows.email_verification_by_code.EmailVerificationProcess.resume(
+            request
+        )
+        if self.process:
+            email_address = self.process.email_address
+            if email_address.email.lower() == email.lower() and (
+                request.user.is_anonymous or email_address.user_id == request.user.pk
+            ):
+                return email_address
+
+        raise get_adapter().validation_error("unknown_email")
 
 
 class DeleteEmailInput(SelectEmailInput):
@@ -227,18 +244,7 @@ class MarkAsPrimaryEmailInput(SelectEmailInput):
 
 
 class ResendEmailVerificationInput(SelectEmailInput):
-    def clean_email(self):
-        if not account_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED:
-            self.process = None
-            return super().clean_email()
-        email = self.cleaned_data["email"]
-        validate_email(email)
-        self.process = flows.email_verification_by_code.EmailVerificationProcess.resume(
-            context.request
-        )
-        if not self.process:
-            raise get_adapter().validation_error("unknown_email")
-        return self.process.email_address
+    pass
 
 
 class ReauthenticateInput(ReauthenticateForm, inputs.Input):

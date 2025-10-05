@@ -9,16 +9,16 @@ msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-25 13:23-0500\n"
-"PO-Revision-Date: 2025-07-25 20:24+0200\n"
-"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/allauth/django-"
-"allauth/de/>\n"
+"PO-Revision-Date: 2025-09-24 20:01+0000\n"
+"Last-Translator: Jean-Marc  Burri <gometzler@gmail.com>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/allauth/"
+"django-allauth/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.13-dev\n"
+"X-Generator: Weblate 5.14-dev\n"
 
 #: account/adapter.py:53
 msgid "This account is currently inactive."
@@ -1126,10 +1126,9 @@ msgid "Password successfully set."
 msgstr "Das Passwort wurde erfolgreich gesetzt."
 
 #: templates/account/messages/phone_verification_sent.txt:2
-#, fuzzy, python-format
-#| msgid "A sign-in code has been sent to %(recipient)s."
+#, python-format
 msgid "A verification code has been sent to %(phone)s."
-msgstr "Ein Anmeldecode wurde an %(recipient)s gesendet."
+msgstr "Ein Verifizierungscode wurde an %(phone)s gesendet."
 
 #: templates/account/messages/phone_verified.txt:2
 #, python-format

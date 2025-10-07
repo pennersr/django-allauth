@@ -177,3 +177,20 @@ def test_configuration_view(client, oidc_client):
         "token_endpoint": "http://testserver/identity/o/api/token",
         "userinfo_endpoint": "http://testserver/identity/o/api/userinfo",
     }
+
+
+def test_post_userinfo(
+    client,
+    oidc_client,
+    user,
+    access_token_generator,
+):
+    # Pass along ID token as hint
+    token, token_instance = access_token_generator(oidc_client, user)
+    resp = client.post(
+        reverse("idp:oidc:userinfo"),
+        HTTP_AUTHORIZATION=f"Bearer {token}",
+    )
+    assert resp.status_code == HTTPStatus.OK
+    data = resp.json()
+    assert data["sub"] == get_adapter().get_user_sub(oidc_client, user)

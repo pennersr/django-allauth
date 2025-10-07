@@ -377,10 +377,20 @@ class TokenView(View):
 token = TokenView.as_view()
 
 
+@method_decorator(csrf_exempt, name="dispatch")
 @method_decorator(login_not_required, name="dispatch")
 class UserInfoView(View):
+    """
+    The UserInfo Endpoint MUST support the use of the HTTP GET and HTTP POST methods
+    """
 
-    def get(self, request):
+    def get(self, request: HttpRequest) -> HttpResponse:
+        return self._respond(request)
+
+    def post(self, request: HttpRequest) -> HttpResponse:
+        return self._respond(request)
+
+    def _respond(self, request: HttpRequest) -> HttpResponse:
         orequest = extract_params(request)
         try:
             oresponse = get_server().create_userinfo_response(*orequest)

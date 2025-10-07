@@ -1,6 +1,7 @@
-from typing import Dict, Tuple
+from typing import Dict, Optional, Tuple
 from urllib.parse import urlparse, urlunparse
 
+from django.forms import Form
 from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.shortcuts import render
 
@@ -60,8 +61,13 @@ def convert_response(headers, body, status):
     return response
 
 
-def respond_html_error(request: HttpRequest, error: OAuth2Error) -> HttpResponse:
-    context = {"error": error}
+def respond_html_error(
+    request: HttpRequest,
+    *,
+    error: Optional[OAuth2Error] = None,
+    form: Optional[Form] = None,
+) -> HttpResponse:
+    context = {"error": error, "error_form": form}
     return render(
         request,
         "idp/oidc/error." + account_settings.TEMPLATE_EXTENSION,

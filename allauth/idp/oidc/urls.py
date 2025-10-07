@@ -41,6 +41,11 @@ urlpatterns = [
                                 name="device_authorization",
                             ),
                             path(
+                                "logout",
+                                views.logout,
+                                name="logout",
+                            ),
+                            path(
                                 "api/",
                                 include(
                                     [

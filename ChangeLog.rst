@@ -4,7 +4,7 @@
 Note worthy changes
 -------------------
 
-- ...
+- IdP: Added support for RP-Initiated Logout.
 
 
 65.12.0 (2025-10-05)

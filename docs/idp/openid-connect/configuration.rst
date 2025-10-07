@@ -32,3 +32,9 @@ Available settings:
 ``IDP_OIDC_ROTATE_REFRESH_TOKEN`` (default: ``True``)
   When access tokens are refreshed the old refresh token can be kept
   (``False``) or replaced (``True``) with a new one (rotated).
+
+``IDP_OIDC_RP_INITIATED_LOGOUT_ASKS_FOR_OP_LOGOUT`` (default: ``True``)
+  During the RP initiated logout, the OIDC specification recommends that the end
+  user is asked whether or not to logout of the OP as well. When this setting is
+  ``True``, the end user is always asked. When ``False``, the user is only asked
+  if needed according to the specification.

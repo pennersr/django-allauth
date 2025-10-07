@@ -16,6 +16,7 @@ from allauth.idp.oidc.internal.clientkit import (
     is_redirect_uri_allowed,
 )
 from allauth.idp.oidc.internal.oauthlib import authorization_codes
+from allauth.idp.oidc.internal.tokens import decode_jwt_token
 from allauth.idp.oidc.models import Client, Token
 
 
@@ -170,9 +171,13 @@ class OAuthLibRequestValidator(RequestValidator):
             return False
         sub = None
         if id_token_hint:
-            try:
-                payload = self._decode_id_token(request.client, id_token_hint)
-            except jwt.PyJWTError:
+            payload = decode_jwt_token(
+                id_token_hint,
+                client_id=request.client.id,
+                verify_exp=True,
+                verify_iss=True,
+            )
+            if payload is None:
                 return False
             sub = payload.get("sub")
             session_sub = get_adapter().get_user_sub(
@@ -285,21 +290,6 @@ class OAuthLibRequestValidator(RequestValidator):
         # So, don't support a default.
         return None
 
-    def _decode_id_token(self, client, id_token: str):
-        jwk_dict, private_key = jwkkit.load_jwk_from_pem(app_settings.PRIVATE_KEY)
-        return jwt.decode(
-            id_token,
-            audience=client.id,
-            key=private_key.public_key(),
-            algorithms=["RS256"],
-            options={
-                "verify_signature": True,
-                "verify_iss": True,
-                "verify_aud": True,
-                "verify_exp": True,
-            },
-        )
-
     def validate_user(self, username, password, client, request, *args, **kwargs):
         """
         Note that this bypasses MFA, which is why the password grant is not
@@ -409,19 +399,7 @@ class OAuthLibRequestValidator(RequestValidator):
         if scopes:
             # We don't have scope for the ID token
             return False
-        try:
-            jwk_dict, private_key = jwkkit.load_jwk_from_pem(app_settings.PRIVATE_KEY)
-            payload = jwt.decode(
-                token,
-                key=private_key.public_key(),
-                algorithms=["RS256"],
-                options={
-                    "verify_signature": True,
-                    "verify_iss": True,
-                    "verify_aud": False,
-                    "verify_exp": True,
-                },
-            )
-        except jwt.PyJWTError:
+        payload = decode_jwt_token(token, verify_iss=True, verify_exp=True)
+        if payload is None:
             return False
         return self.validate_client_id(payload["aud"], request)

@@ -8,7 +8,11 @@
     {% element h1 %}
         {% trans "Error" %}
     {% endelement %}
-    {% element p %}
-        {{ error.description }}
-    {% endelement %}
+    {% if error_form %}
+        {{ error_form.errors }}
+    {% else %}
+        {% element p %}
+            {{ error.description }}
+        {% endelement %}
+    {% endif %}
 {% endblock %}

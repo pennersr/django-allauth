@@ -27,6 +27,7 @@ from oauthlib.oauth2.rfc6749 import errors
 from oauthlib.oauth2.rfc6749.errors import InvalidScopeError, OAuth2Error
 
 from allauth.account import app_settings as account_settings
+from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.internal.decorators import login_not_required
 from allauth.account.internal.userkit import str_to_user_id
 from allauth.core.internal import jwkkit
@@ -37,7 +38,9 @@ from allauth.idp.oidc.forms import (
     AuthorizationForm,
     ConfirmCodeForm,
     DeviceAuthorizationForm,
+    RPInitiatedLogoutForm,
 )
+from allauth.idp.oidc.internal import flows
 from allauth.idp.oidc.internal.oauthlib import device_codes
 from allauth.idp.oidc.internal.oauthlib.server import get_device_server, get_server
 from allauth.idp.oidc.internal.oauthlib.utils import (
@@ -48,6 +51,19 @@ from allauth.idp.oidc.internal.oauthlib.utils import (
 )
 from allauth.idp.oidc.models import Client
 from allauth.utils import build_absolute_uri
+
+
+def _enforce_csrf(request) -> Optional[HttpResponseForbidden]:
+    """
+    Scenario: view is CSRF exempt, but, if this is not a client initial POST
+    request, we do want a properly CSRF protected view.
+    """
+    reason = CsrfViewMiddleware(
+        get_response=lambda req: HttpResponseForbidden()
+    ).process_view(request, None, (), {})
+    if reason:
+        return HttpResponseForbidden(f"CSRF Failed: {reason}")
+    return None
 
 
 @method_decorator(login_not_required, name="dispatch")
@@ -66,6 +82,9 @@ class ConfigurationView(View):
             "token_endpoint": build_absolute_uri(request, reverse("idp:oidc:token")),
             "userinfo_endpoint": build_absolute_uri(
                 request, reverse("idp:oidc:userinfo")
+            ),
+            "end_session_endpoint": build_absolute_uri(
+                request, reverse("idp:oidc:logout")
             ),
             "jwks_uri": build_absolute_uri(request, reverse("idp:oidc:jwks")),
             "issuer": get_adapter().get_issuer(),
@@ -112,7 +131,7 @@ class AuthorizationView(FormView):
 
         # Errors that should be shown to the user on the provider website
         except errors.FatalClientError as e:
-            return respond_html_error(request, e)
+            return respond_html_error(request, error=e)
         except errors.OAuth2Error as e:
             return HttpResponseRedirect(e.in_uri(e.redirect_uri))
         if self._request_info["request"].client.skip_consent:
@@ -129,13 +148,9 @@ class AuthorizationView(FormView):
         if response:
             return response
 
-        # This view is CSRF exempt, but, if this is not a client initial POST
-        # request, we do want a properly CSRF protected view.
-        reason = CsrfViewMiddleware(get_response=lambda req: None).process_view(
-            request, None, (), {}
-        )
-        if reason:
-            return HttpResponseForbidden(f"CSRF Failed: {reason}")
+        csrf_resp = _enforce_csrf(request)
+        if csrf_resp:
+            return csrf_resp
 
         try:
             signer = Signer()
@@ -229,7 +244,7 @@ class AuthorizationView(FormView):
             return convert_response(*oresponse)
 
         except errors.FatalClientError as e:
-            return respond_html_error(self.request, e)
+            return respond_html_error(self.request, error=e)
 
     def get_context_data(self, **kwargs):
         ret = super().get_context_data(**kwargs)
@@ -427,3 +442,90 @@ class RevokeView(View):
 
 
 revoke = RevokeView.as_view()
+
+
+@method_decorator(csrf_exempt, name="dispatch")
+@method_decorator(login_not_required, name="dispatch")
+class LogoutView(FormView):
+    """
+    https://openid.net/specs/openid-connect-rpinitiated-1_0.html
+    """
+
+    form_class = RPInitiatedLogoutForm
+    template_name = "idp/oidc/logout." + account_settings.TEMPLATE_EXTENSION
+
+    def get(self, request):
+        form = self.form_class(request.GET)
+        if not form.is_valid():
+            return self.form_invalid(form)
+        if not self._must_ask(form):
+            return self._handle(form, True)
+        return self.render_to_response(self.get_context_data(form=form))
+
+    def form_invalid(self, form):
+        return respond_html_error(self.request, form=form)
+
+    def form_valid(self, form) -> HttpResponse:
+        ask = self._must_ask(form)
+        action = form.cleaned_data["action"]
+        if ask:
+            # If we're supposed to ask, we need to ensure this POST request does
+            # NOT come from the RP, but from the actual user visitting the logout
+            # page.
+            csrf_token = self.request.POST.get("csrfmiddlewaretoken", "")
+            if not csrf_token or not action:
+                return self.render_to_response(self.get_context_data(form=form))
+            csrf_resp = _enforce_csrf(self.request)
+            if csrf_resp:
+                return csrf_resp
+            op_logout = action != "stay"
+        else:
+            op_logout = True
+        return self._handle(form, op_logout)
+
+    def _handle(
+        self, form: RPInitiatedLogoutForm, op_logout: bool
+    ) -> HttpResponseRedirect:
+        cleaned_data = form.cleaned_data
+        flows.rp_initiated_logout(
+            self.request,
+            from_op=op_logout,
+            client=cleaned_data["client"],
+            post_logout_redirect_uri=cleaned_data["post_logout_redirect_uri"],
+        )
+        redirect_uri = cleaned_data["post_logout_redirect_uri"]
+        if redirect_uri:
+            state = cleaned_data["state"]
+            if state:
+                redirect_uri = add_query_params(redirect_uri, {"state": state})
+        else:
+            redirect_uri = get_account_adapter().get_logout_redirect_url(self.request)
+        return HttpResponseRedirect(redirect_uri)
+
+    def _must_ask(self, form: RPInitiatedLogoutForm) -> bool:
+        """
+        At the Logout Endpoint, the OP SHOULD ask the End-User whether to
+        log out of the OP as well. Furthermore, the OP MUST ask the End-User
+        this question if an id_token_hint was not provided or if the supplied ID
+        Token does not belong to the current OP session with the RP and/or
+        currently logged in End-User. If the End-User says "yes", then the OP
+        MUST log out the End-User.
+        """
+        if self.request.user.is_anonymous:
+            return False
+        if app_settings.RP_INITIATED_LOGOUT_ASKS_FOR_OP_LOGOUT:
+            return True
+        id_token_hint = form.cleaned_data["id_token_hint"]
+        sub = None
+        if id_token_hint:
+            sub = id_token_hint.get("sub")
+        client = form.cleaned_data.get("client")
+        if not id_token_hint or not client or not sub:
+            return True
+        user_hint = get_adapter().get_user_by_sub(client, sub)
+        if not user_hint or (user_hint.pk != self.request.user.pk):
+            return True
+        return False
+
+
+logout = LogoutView.as_view()

@@ -54,6 +54,19 @@ class AppSettings:
         ret.update(rls)
         return ret
 
+    @property
+    def RP_INITIATED_LOGOUT_ASKS_FOR_OP_LOGOUT(self):
+        """
+        At https://openid.net/specs/openid-connect-rpinitiated-1_0.html
+
+        > 2. RP-Initiated Logout':
+        > At the Logout Endpoint, the OP SHOULD ask the End-User whether to
+        > log out of the OP as well.
+
+        This setting controls whether the OP always asks.
+        """
+        return self._setting("RP_INITIATED_LOGOUT_ASKS_FOR_OP_LOGOUT", True)
+
 
 _app_settings = AppSettings("IDP_OIDC_")
 

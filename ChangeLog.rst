@@ -8,6 +8,9 @@ Note worthy changes
 
 - Headless: added JWT token strategy.
 
+- Added support for "Trust this browser?" functionality for logging in by code.
+  See ``ACCOUNT_LOGIN_BY_CODE_TRUST_ENABLED``.
+
 
 Backwards incompatible changes
 ------------------------------

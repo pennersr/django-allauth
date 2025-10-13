@@ -77,7 +77,7 @@ def trust_browser(
 
 
 def is_trusted_browser(request: HttpRequest, user: AbstractUser) -> bool:
-    if not app_settings.TRUST_ENABLED:
+    if not app_settings._TRUST_STAGE_ENABLED:
         return False
     trusts = decode_trust_cookie(request)
     fingerprint = create_config_fingerprint(user)

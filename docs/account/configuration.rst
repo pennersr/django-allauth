@@ -101,6 +101,10 @@ Login
   Login".  This setting controls whether or not this method of logging in is
   enabled.
 
+``ACCOUNT_LOGIN_BY_CODE_TRUST_ENABLED`` (default: ``False``)
+  Indicates whether the MFA "Trust this browser?" functionality is to be enabled
+  for logging in by code. Note that this requires the MFA app to be installed.
+
 ``ACCOUNT_LOGIN_BY_CODE_MAX_ATTEMPTS`` (default: ``3``)
   This setting controls the maximum number of attempts the user has at inputting
   a valid code.

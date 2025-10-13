@@ -1,6 +1,7 @@
 import logging
 from typing import List, Optional
 
+from allauth import app_settings as allauth_settings
 from allauth.account import app_settings
 from allauth.account.adapter import get_adapter
 from allauth.account.app_settings import EmailVerificationMethod
@@ -174,6 +175,8 @@ class LoginByCodeStage(LoginStage):
         if not did_initiate_process and not login_by_code_required:
             # Didn't initiate login by code process, but not required, so continue.
             return None, True
+        elif self._is_trusted():
+            return None, True
         elif not did_initiate_process and login_by_code_required:
             email = EmailAddress.objects.get_primary_email(self.login.user)
             phone = None
@@ -193,9 +196,20 @@ class LoginByCodeStage(LoginStage):
                 email=email,
                 stage=self,
             )
-
+        self.state["login_by_code_required"] = True
         response = headed_redirect_response("account_confirm_login_code")
         return response, True
+
+    def _is_trusted(self) -> bool:
+        if (
+            not app_settings.LOGIN_BY_CODE_TRUST_ENABLED
+            or not allauth_settings.MFA_ENABLED
+        ):
+            return False
+
+        from allauth.mfa.internal.flows import trust
+
+        return trust.is_trusted_browser(self.request, self.login.user)
 
 
 class PhoneVerificationStage(LoginStage):

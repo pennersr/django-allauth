@@ -546,6 +546,10 @@ class AppSettings:
         return self._setting("LOGIN_BY_CODE_ENABLED", False)
 
     @property
+    def LOGIN_BY_CODE_TRUST_ENABLED(self):
+        return self._setting("LOGIN_BY_CODE_TRUST_ENABLED", False)
+
+    @property
     def LOGIN_BY_CODE_MAX_ATTEMPTS(self):
         return self._setting("LOGIN_BY_CODE_MAX_ATTEMPTS", 3)
 

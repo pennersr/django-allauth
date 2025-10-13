@@ -1,3 +1,5 @@
+from allauth.account import app_settings as account_settings
+from allauth.account.internal.constants import LoginStageKey as AccountLoginStageKey
 from allauth.account.stages import LoginStage
 from allauth.core.internal.httpkit import headed_redirect_response, is_headless_request
 from allauth.mfa import app_settings
@@ -36,11 +38,17 @@ class TrustStage(LoginStage):
     urlname = "mfa_trust"
 
     def handle(self):
+        lbc_stage = self.controller.get_stage(AccountLoginStageKey.LOGIN_BY_CODE)
         auth_stage = self.controller.get_stage(AuthenticateStage.key)
+
         if (
             not app_settings.TRUST_ENABLED
             or not auth_stage
             or not auth_stage.state.get("authentication_required")
+        ) and (
+            not account_settings.LOGIN_BY_CODE_TRUST_ENABLED
+            or not lbc_stage
+            or not lbc_stage.state.get("login_by_code_required")
         ):
             return None, True
         client = is_headless_request(self.request)

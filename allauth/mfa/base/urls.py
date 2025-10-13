@@ -12,5 +12,5 @@ urlpatterns: List[Union[URLPattern, URLResolver]] = [
     path("reauthenticate/", views.reauthenticate, name="mfa_reauthenticate"),
 ]
 
-if app_settings.TRUST_ENABLED:
+if app_settings._TRUST_STAGE_ENABLED:
     urlpatterns.append(path("trust/", views.trust, name="mfa_trust"))

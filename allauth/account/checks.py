@@ -171,4 +171,15 @@ def settings_check(app_configs, **kwargs):
                     f"settings.{field} is deprecated, use: settings.ACCOUNT_SIGNUP_FIELDS = {repr(signup_fields_converted)}"
                 )
             )
+
+    if (
+        not allauth_app_settings.MFA_ENABLED
+        and app_settings.LOGIN_BY_CODE_TRUST_ENABLED
+    ):
+        ret.append(
+            Critical(
+                msg="ACCOUNT_LOGIN_BY_CODE_TRUST_ENABLED requires MFA to be enabled"
+            )
+        )
+
     return ret

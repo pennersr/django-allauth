@@ -1,0 +1,8 @@
+[tools]
+python = "3.14"
+
+[env]
+_.python.venv = ".venv"
+
+[tasks.install]
+run = ["python -m venv .venv", ".venv/bin/pip install -r requirements-dev.txt"]

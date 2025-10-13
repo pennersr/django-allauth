@@ -46,7 +46,11 @@ mypy:
 
 .PHONY: validate-api-spec
 validate-api-spec:
-	swagger-cli validate allauth/headless/spec/doc/openapi.yaml
+	@if command -v swagger-cli >/dev/null 2>&1; then			\
+		swagger-cli validate allauth/headless/spec/doc/openapi.yaml;	\
+	else									\
+		echo "WARNING: swagger-cli not found in PATH.";			\
+	fi
 
 .PHONY: ci
 ci:

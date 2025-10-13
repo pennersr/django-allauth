@@ -20,6 +20,7 @@ from django.core.cache import cache
 from django.core.exceptions import ImproperlyConfigured
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
+from django.template.exceptions import TemplateDoesNotExist
 
 from allauth.core.exceptions import RateLimited
 
@@ -183,7 +184,17 @@ def consume(
 def handler429(request) -> HttpResponse:
     from allauth.account import app_settings
 
-    return render(request, "429." + app_settings.TEMPLATE_EXTENSION, status=429)
+    try:
+        return render(request, "429." + app_settings.TEMPLATE_EXTENSION, status=429)
+    except TemplateDoesNotExist:
+        content = """<html>
+    <head><title>Too Many Requests</title></head>
+    <body>
+        <h1>429 Too Many Requests</h1>
+        <p>You have sent too many requests. Please try again later.</p>
+    </body>
+</html>"""
+        return HttpResponse(content=content, content_type="text/html", status=429)
 
 
 def clear(request, *, config: dict, action: str, key=None, user=None):

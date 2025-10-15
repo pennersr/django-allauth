@@ -6,6 +6,15 @@ Note worthy changes
 
 - IdP: Added support for RP-Initiated Logout.
 
+- Headless: added JWT token strategy.
+
+
+Backwards incompatible changes
+------------------------------
+
+- Headless now requires the ``headless`` extra to be installed. For example:
+  ``pip install django-allauth[headless]``.
+
 
 65.12.1 (2025-10-16)
 ********************

@@ -1,6 +1,11 @@
 Installation
 ============
 
+In order to use the headless functionality you need to install the
+``headless`` extra as follows::
+
+  pip install "django-allauth[headless]"
+
 In your ``settings.py``, include::
 
   INSTALLED_APPS = [

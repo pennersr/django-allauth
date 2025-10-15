@@ -5,6 +5,7 @@ from allauth.headless import app_settings
 from allauth.headless.account import urls as account_urls
 from allauth.headless.base import urls as base_urls
 from allauth.headless.constants import Client
+from allauth.headless.tokens import urls as tokens_urls
 
 
 def build_urlpatterns(client):
@@ -54,6 +55,17 @@ def build_urlpatterns(client):
                 include(
                     (usersessions_urls.build_urlpatterns(client), "headless"),
                     namespace="usersessions",
+                ),
+            )
+        )
+
+    if client == Client.APP:
+        patterns.append(
+            path(
+                "",
+                include(
+                    (tokens_urls.build_urlpatterns(client), "headless"),
+                    namespace="tokens",
                 ),
             )
         )

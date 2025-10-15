@@ -40,6 +40,9 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+headless = [
+    "pyjwt[crypto] >= 2.0,<3",
+]
 headless-spec = [
     "PyYAML >= 6,<7",
 ]

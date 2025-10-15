@@ -70,6 +70,9 @@ x-tagGroups:
   - name: Sessions
     tags:
       - "Sessions"
+  - name: Tokens
+    tags:
+      - "Tokens"
 paths:
   ######################################################################
   # Base
@@ -1472,6 +1475,29 @@ paths:
         "401":
           $ref: "#/components/responses/Unauthenticated"
   ######################################################################
+  # Tokens
+  ######################################################################
+  /_allauth/app/v1/tokens/refresh:
+    get:
+      tags:
+        - "Tokens"
+      summary: |
+        Refresh the access token
+      description: |
+        Used to retrieve a new access token. Depending on `settings.HEADLESS_JWT_ROTATE_REFRESH_TOKEN`,
+        a new refresh token is returned as well.
+      requestBody:
+        $ref: "#/components/requestBodies/RefreshToken"
+      responses:
+        "200":
+          $ref: "#/components/responses/RefreshToken"
+        "400":
+          description: The refresh token is invalid or expired.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  ######################################################################
   # Account: Password
   ######################################################################
   /_allauth/{client}/v1/account/password/change:
@@ -1916,6 +1942,16 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/Reauthenticate"
+    RefreshToken:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              refresh_token:
+                $ref: "#/components/schemas/RefreshToken"
+            required:
+              - refresh_token
     RequestPassword:
       description: Request password.
       required: true
@@ -2643,6 +2679,16 @@ components:
       description: |
         The phone number.
       example: "+314159265359"
+    AccessToken:
+      type: string
+      description: |
+        The access token.
+      example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdW
+    RefreshToken:
+      type: string
+      description: |
+        The refresh token.
+      example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.QV30
     Login:
       allOf:
         - type: object
@@ -3408,6 +3454,27 @@ components:
             required:
               - status
               - data
+    RefreshToken:
+      description: A new access token (and optionally new refresh token).
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                $ref: "#/components/schemas/StatusOK"
+              data:
+                type: object
+                properties:
+                  access_token:
+                    $ref: "#/components/schemas/AccessToken"
+                  refresh_token:
+                    $ref: "#/components/schemas/RefreshToken"
+                required:
+                  - access_token
+            required:
+              - data
+              - status
     Sessions:
       description: |
         List of sessions.

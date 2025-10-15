@@ -15,7 +15,7 @@ def test_access_token(
     headless_client,
 ):
     settings.HEADLESS_TOKEN_STRATEGY = (
-        "tests.apps.headless.test_tokens.DummyAccessTokenStrategy"
+        "tests.apps.headless.tokens.test_tokens.DummyAccessTokenStrategy"
     )
     resp = client.post(
         headless_reverse("headless:account:login"),

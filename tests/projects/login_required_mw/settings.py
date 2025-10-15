@@ -1,5 +1,6 @@
 from django.contrib.auth.hashers import PBKDF2PasswordHasher
 
+from tests.projects.common.settings import HEADLESS_JWT_PRIVATE_KEY  # noqa
 from tests.projects.common.settings import IDP_OIDC_PRIVATE_KEY  # noqa
 from tests.projects.common.settings import TEMPLATES  # noqa
 from tests.projects.common.settings import INSTALLED_SOCIALACCOUNT_APPS

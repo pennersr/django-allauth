@@ -3,8 +3,11 @@ import typing
 from django.http import HttpRequest
 
 from rest_framework import authentication
+from rest_framework.exceptions import AuthenticationFailed
 
+from allauth.headless import app_settings
 from allauth.headless.internal.sessionkit import authenticate_by_x_session_token
+from allauth.headless.tokens.strategies.jwt.internal import validate_access_token
 
 
 class XSessionTokenAuthentication(authentication.BaseAuthentication):
@@ -26,3 +29,22 @@ class XSessionTokenAuthentication(authentication.BaseAuthentication):
         from e.g. the ``Authorization`` header.
         """
         return request.headers.get("X-Session-Token")
+
+
+class JWTTokenAuthentication(authentication.TokenAuthentication):
+
+    @property
+    def keyword(self) -> str:
+        """
+        See: ``settings.HEADLESS_JWT_AUTHORIZATION_HEADER_SCHEME``.
+        """
+        return app_settings.JWT_AUTHORIZATION_HEADER_SCHEME
+
+    def authenticate_credentials(self, key: str):
+        """
+        Validates the given access token.
+        """
+        user_payload = validate_access_token(key)
+        if user_payload is None:
+            raise AuthenticationFailed("Invalid token.")
+        return user_payload

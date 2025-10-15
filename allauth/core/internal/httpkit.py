@@ -153,3 +153,15 @@ def is_headless_request(request: HttpRequest) -> Optional[str]:
     return getattr(
         getattr(getattr(request, "allauth", None), "headless", None), "client", None
     )
+
+
+def get_authorization_credential(
+    request: HttpRequest, auth_scheme: str
+) -> Optional[str]:
+    auth = request.META.get("HTTP_AUTHORIZATION")
+    if not auth:
+        return None
+    parts = auth.split()
+    if not parts or len(parts) != 2 or parts[0].lower() != auth_scheme.lower():
+        return None
+    return parts[1]

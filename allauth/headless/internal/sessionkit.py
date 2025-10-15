@@ -1,8 +1,9 @@
-import typing
 from importlib import import_module
+from typing import Optional, Tuple
 
 from django.conf import settings
 from django.contrib.auth import SESSION_KEY, get_user_model
+from django.contrib.sessions.backends.base import SessionBase
 
 from allauth.headless import app_settings
 from allauth.headless.constants import Client
@@ -30,7 +31,7 @@ def expose_session_token(request):
             return new_token
 
 
-def authenticate_by_x_session_token(token: str) -> typing.Optional[typing.Tuple]:
+def authenticate_by_x_session_token(token: str) -> Optional[Tuple]:
     session = app_settings.TOKEN_STRATEGY.lookup_session(token)
     if not session:
         return None
@@ -42,4 +43,10 @@ def authenticate_by_x_session_token(token: str) -> typing.Optional[typing.Tuple]
             user = get_user_model().objects.filter(pk=user_id).first()
             if user and user.is_active:
                 return (user, session)
+    return None
+
+
+def lookup_session(session_key: str) -> Optional[SessionBase]:
+    if session_store().exists(session_key):
+        return session_store(session_key)
     return None

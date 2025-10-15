@@ -44,6 +44,30 @@ class AppSettings:
     def FRONTEND_URLS(self):
         return self._setting("FRONTEND_URLS", {})
 
+    @property
+    def JWT_PRIVATE_KEY(self) -> str:
+        return self._setting("JWT_PRIVATE_KEY", "")
+
+    @property
+    def JWT_ACCESS_TOKEN_EXPIRES_IN(self) -> int:
+        return self._setting("JWT_ACCESS_TOKEN_EXPIRES_IN", 300)
+
+    @property
+    def JWT_REFRESH_TOKEN_EXPIRES_IN(self) -> int:
+        return self._setting("JWT_ACCESS_TOKEN_EXPIRES_IN", 86400)
+
+    @property
+    def JWT_AUTHORIZATION_HEADER_SCHEME(self) -> str:
+        return "Bearer"
+
+    @property
+    def JWT_STATEFUL_VALIDATION_ENABLED(self) -> bool:
+        return self._setting("JWT_STATEFUL_VALIDATION_ENABLED", False)
+
+    @property
+    def JWT_ROTATE_REFRESH_TOKEN(self) -> bool:
+        return self._setting("JWT_ROTATE_REFRESH_TOKEN", True)
+
 
 _app_settings = AppSettings("HEADLESS_")
 

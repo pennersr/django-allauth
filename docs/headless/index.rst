@@ -9,6 +9,5 @@ Headless
    api
    cors
    adapter
-   tokens
-   integrations
+   token-strategies/index
    faq

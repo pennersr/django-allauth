@@ -1,20 +1,25 @@
-Integrations
-============
+Session Tokens
+==============
+
+Introduction
+------------
 
 When using allauth headless in non-browser contexts, such as mobile apps, a
 session token is used to keep track of the authentication state. This session
 token is handed over by the app by providing the ``X-Session-Token`` request
 header.
 
-Once a user authenticates, you can hand out your own type of token by setting up
-a specific :doc:`tokens`. However, if you do not have any requirements that
-prescribe a specific token strategy, you can also opt to use the same
-authentication strategy that allauth is using. In order to do so, integration
-with Django Ninja and Django REST framework is offered out of the box.
+If you do not have any requirements that prescribe a specific token strategy,
+the simplest way forward is to use the ``X-Session-Token`` authentication
+mechanism for your own APIs as well.  In order to do so, integration with Django
+Ninja and Django REST framework is offered out of the box.
 
+
+Securing Your API Endpoints
+-----------------------------
 
 Django Ninja
-------------
+~~~~~~~~~~~~
 
 For Django Ninja, the following security class is available:
 
@@ -35,10 +40,8 @@ An example on how to use that security class in your own code is listed below:
         ...
 
 
-
-
 Django REST framework
----------------------
+~~~~~~~~~~~~~~~~~~~~~
 
 For Django REST framework, the following authentication class is available:
 

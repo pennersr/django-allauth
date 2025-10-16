@@ -7,6 +7,18 @@ Note worthy changes
 - IdP: Added support for RP-Initiated Logout.
 
 
+65.12.1 (2025-10-16)
+********************
+
+Security notice
+---------------
+
+- There was a flaw in the email verification process when using
+  ``ACCOUNT_CHANGE_EMAIL = True``.  If you are using this configuration, you are
+  advised to upgrade as soon as possible.  Note that the default value is
+  ``False``.
+
+
 65.12.0 (2025-10-05)
 ********************
 

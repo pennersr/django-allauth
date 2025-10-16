@@ -1,7 +1,7 @@
 from datetime import timedelta
 from typing import Optional
 
-from django.db import models
+from django.db import models, transaction
 from django.db.models import Q
 from django.http import HttpRequest
 from django.utils import timezone
@@ -39,17 +39,12 @@ class EmailAddressManager(models.Manager):
             send_verification_email_to_address,
         )
 
-        instance = self.get_new(user)
-        email = email.lower()
-        if not instance:
+        with transaction.atomic():
+            instance = self.get_new(user)
+            if instance:
+                instance.delete()
+            email = email.lower()
             instance = self.create(user=user, email=email)
-        else:
-            # Apparently, the user was already in the process of changing his
-            # email.  Reuse that temporary email address.
-            instance.email = email
-            instance.verified = False
-            instance.primary = False
-            instance.save()
         if send_verification:
             send_verification_email_to_address(request, instance)
         return instance

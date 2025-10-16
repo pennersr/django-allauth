@@ -28,5 +28,5 @@ def test_add_new_email(rf, user, settings):
         request, user, "new2@email.org", send_verification=False
     )
     assert EmailAddress.objects.filter(user=user).count() == 2
-    new_email.refresh_from_db()
-    assert new_email.email == "new2@email.org"
+    assert not EmailAddress.objects.filter(pk=new_email.pk).exists()
+    assert EmailAddress.objects.filter(email="new2@email.org", verified=False).exists()

@@ -1,4 +1,5 @@
 import json
+from http import HTTPStatus
 from unittest.mock import patch
 
 from django.contrib.auth import get_user_model
@@ -206,7 +207,7 @@ def test_delete_email_changes_user_email(user_factory, client, email_factory):
         reverse("account_email"),
         {"action_remove": "", "email": first_email.email},
     )
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     user.refresh_from_db()
     assert user_email(user) == other_verified_email.email
 
@@ -222,7 +223,7 @@ def test_delete_email_wipes_user_email(user_factory, client):
         reverse("account_email"),
         {"action_remove": "", "email": first_email.email},
     )
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     user.refresh_from_db()
     assert user_email(user) == ""
 
@@ -239,14 +240,14 @@ def test_change_email(user_factory, client, settings, mailoutbox):
         reverse("account_email"),
         {"action_add": "", "email": "change-to@this.org"},
     )
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     assert len(mailoutbox) == 1
     assert mailoutbox[0].subject == "[example.com] Please Confirm Your Email Address"
     new_email = EmailAddress.objects.get(email="change-to@this.org")
     key = EmailConfirmationHMAC(new_email).key
     with patch("allauth.account.signals.email_changed.send") as email_changed_mock:
         resp = client.post(reverse("account_confirm_email", args=[key]))
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     assert not EmailAddress.objects.filter(pk=current_email.pk).exists()
     assert EmailAddress.objects.filter(user=user).count() == 1
     new_email.refresh_from_db()
@@ -279,7 +280,7 @@ def test_add_with_reauthentication(auth_client, user, user_password, settings):
         {"action_add": "", "email": "john3@example.org"},
     )
     assert not EmailAddress.objects.filter(email="john3@example.org").exists()
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     assert (
         resp["location"]
         == reverse("account_reauthenticate") + "?next=%2Faccounts%2Femail%2F"
@@ -287,7 +288,7 @@ def test_add_with_reauthentication(auth_client, user, user_password, settings):
     resp = auth_client.post(resp["location"], {"password": user_password})
     assert EmailAddress.objects.filter(email="john3@example.org").exists()
     assertTemplateUsed(resp, "account/messages/email_confirmation_sent.txt")
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     assert resp["location"] == reverse("account_email")
 
 
@@ -310,7 +311,7 @@ def test_add_not_allowed(
         {"action_add": "", "email": email},
     )
     if prevent_enumeration:
-        assert resp.status_code == 302
+        assert resp.status_code == HTTPStatus.FOUND
         email_address = EmailAddress.objects.get(
             email=email,
             user=user,
@@ -321,11 +322,11 @@ def test_add_not_allowed(
         key = EmailConfirmationHMAC(email_address).key
         resp = auth_client.post(reverse("account_confirm_email", args=[key]))
         assertTemplateUsed(resp, "account/messages/email_confirmation_failed.txt")
-        assert resp.status_code == 302
+        assert resp.status_code == HTTPStatus.FOUND
         email_address.refresh_from_db()
         assert not email_address.verified
     else:
-        assert resp.status_code == 200
+        assert resp.status_code == HTTPStatus.OK
         assert resp.context["form"].errors == {
             "email": ["A user is already registered with this email address."]
         }
@@ -440,3 +441,63 @@ def test_set_primary_requires_reauthentication(auth_client, user, settings):
     secondary.refresh_from_db()
     assert primary.primary
     assert not secondary.primary
+
+
+def test_change_email_links_restrict_email(user_factory, client, settings, mailoutbox):
+    settings.ACCOUNT_CHANGE_EMAIL = True
+    settings.ACCOUNT_EMAIL_CONFIRMATION_HMAC = True
+    settings.ACCOUNT_EMAIL_NOTIFICATIONS = False
+
+    user = user_factory(email_verified=True)
+    client.force_login(user)
+
+    # Change the email...
+    resp = client.post(
+        reverse("account_email"),
+        {"action_add": "", "email": "change-to@this.org"},
+    )
+    assert resp.status_code == HTTPStatus.FOUND
+
+    # Extract the verification link from the outbox.
+    assert len(mailoutbox) == 1
+    assert mailoutbox[-1].to[0] == "change-to@this.org"
+    assert mailoutbox[-1].subject == "[example.com] Please Confirm Your Email Address"
+    verify_link_1 = (
+        mailoutbox[-1].body[mailoutbox[-1].body.find("http://") :].split()[0]
+    )
+
+    # Without verifying, change it once more.
+    resp = client.post(
+        reverse("account_email"),
+        {"action_add": "", "email": "change-to@that.org"},
+    )
+    assert resp.status_code == HTTPStatus.FOUND
+
+    # And, extract the 2nd link.
+    assert len(mailoutbox) == 2
+    assert mailoutbox[-1].to[0] == "change-to@that.org"
+    assert mailoutbox[-1].subject == "[example.com] Please Confirm Your Email Address"
+    verify_link_2 = (
+        mailoutbox[-1].body[mailoutbox[-1].body.find("http://") :].split()[0]
+    )
+
+    # Try and verify the first link. That should no longer be possible.
+    resp = client.post(verify_link_1)
+    assert resp.status_code == HTTPStatus.NOT_FOUND
+
+    # Confirm that the POST above had no effect.
+    assert EmailAddress.objects.filter(user=user).count() == 2
+    email_address = EmailAddress.objects.get(user=user, verified=True)
+    assert email_address.email == user.email
+    email_address = EmailAddress.objects.get(user=user, verified=False)
+    assert email_address.email == "change-to@that.org"
+
+    # Use the 2nd verification link
+    resp = client.post(verify_link_2)
+    assert resp.status_code == HTTPStatus.FOUND
+
+    # That one works.
+    assert EmailAddress.objects.filter(user=user).count() == 1
+    email_address = EmailAddress.objects.get(user=user)
+    assert email_address.verified
+    assert email_address.email == "change-to@that.org"

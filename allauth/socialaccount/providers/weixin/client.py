@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from http import HTTPStatus
 
 from django.utils.http import urlencode
 
@@ -45,7 +46,7 @@ class WeixinOAuth2Client(OAuth2Client):
             .request(self.access_token_method, url, params=params, data=data)
         )
         access_token = None
-        if resp.status_code == 200:
+        if resp.status_code == HTTPStatus.OK:
             access_token = resp.json()
         if not access_token or "access_token" not in access_token:
             raise OAuth2Error("Error retrieving access token: %s" % resp.content)

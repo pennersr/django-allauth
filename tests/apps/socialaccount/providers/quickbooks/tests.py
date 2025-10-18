@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 
 from allauth.socialaccount.providers.quickbooks.provider import QuickBooksOAuth2Provider
@@ -10,7 +12,7 @@ class QuickBooksOAuth2Tests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         return MockedResponse(
-            200,
+            HTTPStatus.OK,
             """
 {       "sub": "d8752092-0f2b-4b6e-86ef-6b72f2457a00",
         "emailVerified": true,

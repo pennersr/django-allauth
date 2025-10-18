@@ -5,6 +5,7 @@ Inspired by:
     http://github.com/facebook/tornado/blob/master/tornado/auth.py
 """
 
+from http import HTTPStatus
 from urllib.parse import parse_qsl, urlparse
 
 from django.http import HttpResponseRedirect
@@ -78,7 +79,7 @@ class OAuthClient:
             rt_url = self.request_token_url + "?" + urlencode(get_params)
             oauth = OAuth1(self.consumer_key, client_secret=self.consumer_secret)
             response = get_adapter().get_requests_session().post(url=rt_url, auth=oauth)
-            if response.status_code not in [200, 201]:
+            if response.status_code not in [HTTPStatus.OK, HTTPStatus.CREATED]:
                 raise OAuthError(
                     _(
                         "Invalid response while obtaining request token"
@@ -113,7 +114,7 @@ class OAuthClient:
             if oauth_verifier:
                 at_url = at_url + "?" + urlencode({"oauth_verifier": oauth_verifier})
             response = get_adapter().get_requests_session().post(url=at_url, auth=oauth)
-            if response.status_code not in [200, 201]:
+            if response.status_code not in [HTTPStatus.OK, HTTPStatus.CREATED]:
                 raise OAuthError(
                     _("Invalid response while obtaining access token" ' from "%s".')
                     % get_token_prefix(self.request_token_url)
@@ -206,7 +207,7 @@ class OAuth:
         response = getattr(get_adapter().get_requests_session(), method.lower())(
             url, auth=oauth, headers=headers, params=params
         )
-        if response.status_code != 200:
+        if response.status_code != HTTPStatus.OK:
             raise OAuthError(
                 _('No access to private resources at "%s".')
                 % get_token_prefix(self.request_token_url)

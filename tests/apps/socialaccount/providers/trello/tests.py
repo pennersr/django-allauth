@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 
 from allauth.socialaccount.providers.trello.provider import TrelloProvider
@@ -11,7 +13,7 @@ class TrelloTests(OAuthTestsMixin, TestCase):
     def get_mocked_response(self):
         return [
             MockedResponse(
-                200,
+                HTTPStatus.OK,
                 r"""
 {"id": "123", "email": "raymond.penners@example.com", "username": "pennersr", "name": "Raymond"}
         """,

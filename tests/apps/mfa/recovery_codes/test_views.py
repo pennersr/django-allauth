@@ -1,3 +1,4 @@
+from http import HTTPStatus
 from unittest.mock import ANY
 
 from django.conf import settings
@@ -26,7 +27,7 @@ def test_download_recovery_codes(auth_client, user_with_recovery_codes, user_pas
     resp = auth_client.get(reverse("mfa_download_recovery_codes"))
     assert resp["location"].startswith(reverse("account_reauthenticate"))
     resp = auth_client.post(resp["location"], {"password": user_password})
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     resp = auth_client.get(resp["location"])
     assert resp["content-disposition"] == 'attachment; filename="recovery-codes.txt"'
 
@@ -35,7 +36,7 @@ def test_view_recovery_codes(auth_client, user_with_recovery_codes, user_passwor
     resp = auth_client.get(reverse("mfa_view_recovery_codes"))
     assert resp["location"].startswith(reverse("account_reauthenticate"))
     resp = auth_client.post(resp["location"], {"password": user_password})
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     resp = auth_client.get(resp["location"])
     assert len(resp.context["unused_codes"]) == app_settings.RECOVERY_CODE_COUNT
 
@@ -52,7 +53,7 @@ def test_generate_recovery_codes(
     resp = auth_client.get(reverse("mfa_generate_recovery_codes"))
     assert resp["location"].startswith(reverse("account_reauthenticate"))
     resp = auth_client.post(resp["location"], {"password": user_password})
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     resp = auth_client.post(resp["location"])
     assert resp["location"] == reverse("mfa_view_recovery_codes")
 
@@ -72,7 +73,7 @@ def test_recovery_codes_login(
         reverse("account_login"),
         {"login": user_with_totp.username, "password": user_password},
     )
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     assert resp["location"] == reverse("mfa_authenticate")
     resp = client.get(reverse("mfa_authenticate"))
     assert resp.context["request"].user.is_anonymous
@@ -87,7 +88,7 @@ def test_recovery_codes_login(
         reverse("mfa_authenticate"),
         {"code": rc.wrap().get_unused_codes()[0]},
     )
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     assert resp["location"] == settings.LOGIN_REDIRECT_URL
     assert client.session[AUTHENTICATION_METHODS_SESSION_KEY] == [
         {"method": "password", "at": ANY, "username": user_with_totp.username},

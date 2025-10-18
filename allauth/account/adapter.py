@@ -2,6 +2,7 @@ import html
 import json
 import typing
 import warnings
+from http import HTTPStatus
 from urllib.parse import urlparse
 
 from django.conf import settings
@@ -439,16 +440,16 @@ class DefaultAccountAdapter(BaseAdapter):
         status = response.status_code
 
         if redirect_to:
-            status = 200
+            status = HTTPStatus.OK
             resp["location"] = redirect_to
         if form:
             if request.method == "POST":
                 if form.is_valid():
-                    status = 200
+                    status = HTTPStatus.OK
                 else:
-                    status = 400
+                    status = HTTPStatus.BAD_REQUEST
             else:
-                status = 200
+                status = HTTPStatus.OK
             resp["form"] = self.ajax_response_form(form)
             if hasattr(response, "render"):
                 response.render()

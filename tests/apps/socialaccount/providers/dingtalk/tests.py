@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 
 from allauth.socialaccount.providers.dingtalk.provider import DingTalkProvider
@@ -10,7 +12,7 @@ class DingTalkTests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         return MockedResponse(
-            200,
+            HTTPStatus.OK,
             """{
             "nick": "aiden",
             "unionId": "hTaCSb1nM4RXii6jaQvHZqQiEiE",

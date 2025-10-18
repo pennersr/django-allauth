@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 
 from allauth.socialaccount.providers.salesforce.provider import SalesforceProvider
@@ -30,7 +32,7 @@ class SalesforceTests(OAuth2TestsMixin, TestCase):
             active="true",
             is_app_installed="true",
         )
-        return MockedResponse(200, userinfo)
+        return MockedResponse(HTTPStatus.OK, userinfo)
 
     def get_expected_to_str(self):
         return "raymond.penners@gmail.com"

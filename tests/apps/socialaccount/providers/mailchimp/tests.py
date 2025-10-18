@@ -1,5 +1,7 @@
 """Test MailChimp OAuth2 v3 Flow."""
 
+from http import HTTPStatus
+
 from django.test import TestCase
 
 from allauth.socialaccount.providers.mailchimp.provider import MailChimpProvider
@@ -15,7 +17,7 @@ class MailChimpTests(OAuth2TestsMixin, TestCase):
     def get_mocked_response(self):
         """Test authentication with an non-null avatar."""
         return MockedResponse(
-            200,
+            HTTPStatus.OK,
             """{
             "dc": "usX",
             "role": "owner",

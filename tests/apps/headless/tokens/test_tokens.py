@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from allauth.headless.tokens.sessions import SessionTokenStrategy
 
 
@@ -26,7 +28,7 @@ def test_access_token(
         content_type="application/json",
     )
     data = resp.json()
-    assert data["status"] == 200
+    assert data["status"] == HTTPStatus.OK
     if headless_client == "app":
         assert data["meta"]["access_token"] == f"at-user-{user.pk}"
     else:

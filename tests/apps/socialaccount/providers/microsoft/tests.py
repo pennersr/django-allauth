@@ -1,4 +1,5 @@
 import json
+from http import HTTPStatus
 
 from django.test import TestCase
 
@@ -30,13 +31,13 @@ class MicrosoftGraphTests(OAuth2TestsMixin, TestCase):
             "mailNickname": "annew"
         }
         """  # noqa
-        return MockedResponse(200, response_data)
+        return MockedResponse(HTTPStatus.OK, response_data)
 
     def get_expected_to_str(self):
         return "annew@CIE493742.onmicrosoft.com"
 
     def test_invalid_data(self):
-        response = MockedResponse(200, json.dumps({}))
+        response = MockedResponse(HTTPStatus.OK, json.dumps({}))
         with self.assertRaises(OAuth2Error):
             # No id, raises
             _check_errors(response)
@@ -48,14 +49,14 @@ class MicrosoftGraphTests(OAuth2TestsMixin, TestCase):
                 "message": "Access token validation failure. Invalid audience.",
             }
         }
-        response = MockedResponse(401, json.dumps(data))
+        response = MockedResponse(HTTPStatus.UNAUTHORIZED, json.dumps(data))
 
         with self.assertRaises(OAuth2Error):
             # no id, 4xx code, raises with message
             _check_errors(response)
 
     def test_invalid_response(self):
-        response = MockedResponse(200, "invalid json data")
+        response = MockedResponse(HTTPStatus.OK, "invalid json data")
         with self.assertRaises(OAuth2Error):
             # bad json, raises
             _check_errors(response)

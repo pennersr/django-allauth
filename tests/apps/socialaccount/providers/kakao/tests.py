@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 
 from allauth.socialaccount.providers.kakao.provider import KakaoProvider
@@ -58,4 +60,4 @@ class KakaoTests(OAuth2TestsMixin, TestCase):
     def get_mocked_response(self, data=None):
         if data is None:
             data = self.kakao_data
-        return MockedResponse(200, data)
+        return MockedResponse(HTTPStatus.OK, data)

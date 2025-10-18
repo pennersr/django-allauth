@@ -1,3 +1,4 @@
+from http import HTTPStatus
 from unittest.mock import ANY
 
 from django.conf import settings
@@ -36,7 +37,7 @@ def test_reauthenticate(
     auth_client, passkey, user_with_recovery_codes, webauthn_authentication_bypass
 ):
     resp = auth_client.get(reverse("mfa_view_recovery_codes"))
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     assert resp["location"].startswith(reverse("account_reauthenticate"))
     resp = auth_client.get(reverse("mfa_reauthenticate"))
     assertTemplateUsed(resp, "mfa/reauthenticate.html")
@@ -61,7 +62,7 @@ def test_get_passkey_login_challenge(client, db):
     resp = client.get(
         reverse("mfa_login_webauthn"), HTTP_X_REQUESTED_WITH="XMLHttpRequest"
     )
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
     assert resp["content-type"] == "application/json"
     data = resp.json()
     assert data == {
@@ -183,7 +184,7 @@ def test_passkey_signup(client, db, webauthn_registration_bypass):
     )
     assert resp["location"] == reverse("mfa_signup_webauthn")
     resp = client.post(resp["location"])
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
     user = get_user_model().objects.get(email="pass@key.org")
     with webauthn_registration_bypass(user, True) as credential:
         resp = client.post(
@@ -199,13 +200,13 @@ def test_webauthn_login(
         reverse("account_login"),
         {"login": user_with_passkey.username, "password": user_password},
     )
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     assert resp["location"] == reverse("mfa_authenticate")
     with webauthn_authentication_bypass(passkey) as credential:
         resp = client.get(reverse("mfa_authenticate"))
-        assert resp.status_code == 200
+        assert resp.status_code == HTTPStatus.OK
         resp = client.post(reverse("mfa_authenticate"), {"credential": credential})
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     assert resp["location"] == settings.LOGIN_REDIRECT_URL
     assert client.session[AUTHENTICATION_METHODS_SESSION_KEY] == [
         {"method": "password", "at": ANY, "username": user_with_passkey.username},

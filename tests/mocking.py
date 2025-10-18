@@ -1,5 +1,6 @@
 import json
 import requests
+from http import HTTPStatus
 from unittest.mock import Mock
 
 
@@ -49,7 +50,7 @@ class mocked_response:
                 if self.responses:
                     resp = self.responses.pop(0)
                     if isinstance(resp, dict):
-                        resp = MockedResponse(200, resp)
+                        resp = MockedResponse(HTTPStatus.OK, resp)
                     return resp
                 return f(*args, **kwargs)
 

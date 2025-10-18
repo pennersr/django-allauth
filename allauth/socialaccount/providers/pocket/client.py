@@ -1,3 +1,4 @@
+from http import HTTPStatus
 from urllib.parse import urlencode
 
 from django.http import HttpResponseRedirect
@@ -36,7 +37,7 @@ class PocketOAuthClient(OAuthClient):
                     headers=headers,
                 )
             )
-            if response.status_code != 200:
+            if response.status_code != HTTPStatus.OK:
                 raise OAuthError(
                     _("Invalid response while obtaining request token" ' from "%s".')
                     % get_token_prefix(self.request_token_url)
@@ -81,7 +82,7 @@ class PocketOAuthClient(OAuthClient):
                 .get_requests_session()
                 .post(url=url, headers=headers, json=data)
             )
-            if response.status_code != 200:
+            if response.status_code != HTTPStatus.OK:
                 raise OAuthError(
                     _("Invalid response while obtaining access token" ' from "%s".')
                     % get_token_prefix(self.request_token_url)

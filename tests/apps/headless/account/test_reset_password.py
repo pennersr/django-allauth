@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.urls import reverse
 
 import pytest
@@ -15,7 +17,7 @@ def test_password_reset_flow(
         },
         content_type="application/json",
     )
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
     assert len(mailoutbox) == 1
     body = mailoutbox[0].body
     # Extract URL for `password_reset_from_key` view
@@ -32,9 +34,9 @@ def test_password_reset_flow(
         },
         content_type="application/json",
     )
-    assert resp.status_code == 400
+    assert resp.status_code == HTTPStatus.BAD_REQUEST
     assert resp.json() == {
-        "status": 400,
+        "status": HTTPStatus.BAD_REQUEST,
         "errors": [
             {
                 "code": "password_too_short",
@@ -55,7 +57,7 @@ def test_password_reset_flow(
         },
         content_type="application/json",
     )
-    assert resp.status_code == 401
+    assert resp.status_code == HTTPStatus.UNAUTHORIZED
 
     user.refresh_from_db()
     assert user.check_password(password)
@@ -82,9 +84,9 @@ def test_password_reset_flow_wrong_key(
             },
             content_type="application/json",
         )
-    assert resp.status_code == 400
+    assert resp.status_code == HTTPStatus.BAD_REQUEST
     assert resp.json() == {
-        "status": 400,
+        "status": HTTPStatus.BAD_REQUEST,
         "errors": [
             {
                 "param": "key",
@@ -105,7 +107,7 @@ def test_password_reset_flow_unknown_user(
         },
         content_type="application/json",
     )
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
     assert len(mailoutbox) == 1
     body = mailoutbox[0].body
     if getattr(settings, "HEADLESS_ONLY", False):
@@ -124,7 +126,9 @@ def test_reset_password_rate_limit(
             data={"email": user.email},
             content_type="application/json",
         )
-        expected_status = 200 if attempt == 0 else 429
+        expected_status = (
+            HTTPStatus.OK if attempt == 0 else HTTPStatus.TOO_MANY_REQUESTS
+        )
         assert resp.status_code == expected_status
         assert resp.json()["status"] == expected_status
 
@@ -147,6 +151,8 @@ def test_password_reset_key_rate_limit(
             },
             content_type="application/json",
         )
-        expected_status = 429 if attempt else 400
+        expected_status = (
+            HTTPStatus.TOO_MANY_REQUESTS if attempt else HTTPStatus.BAD_REQUEST
+        )
         assert resp.status_code == expected_status
         assert resp.json()["status"] == expected_status

@@ -1,3 +1,4 @@
+from http import HTTPStatus
 from json import loads
 
 from django.test import TestCase
@@ -18,13 +19,13 @@ class LinkedInOAuth2Tests(OAuth2TestsMixin, TestCase):
     def get_mocked_response(self):
         return [
             MockedResponse(
-                200,
+                HTTPStatus.OK,
                 """
             {}
             """,
             ),
             MockedResponse(
-                200,
+                HTTPStatus.OK,
                 """
 {
   "profilePicture": {

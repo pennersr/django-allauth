@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.urls import reverse
@@ -15,7 +17,7 @@ class TwitchTests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         return MockedResponse(
-            200,
+            HTTPStatus.OK,
             """
         {
           "data": [{
@@ -38,24 +40,26 @@ class TwitchTests(OAuth2TestsMixin, TestCase):
         return "dallas"
 
     def test_response_over_400_raises_OAuth2Error(self):
-        resp_mock = MockedResponse(400, '{"error": "Invalid token"}')
+        resp_mock = MockedResponse(HTTPStatus.BAD_REQUEST, '{"error": "Invalid token"}')
         expected_error = "Twitch API Error: Invalid token ()"
 
         self.check_for_error(resp_mock, expected_error)
 
     def test_empty_or_missing_data_key_raises_OAuth2Error(self):
-        resp_mock = MockedResponse(200, '{"data": []}')
+        resp_mock = MockedResponse(HTTPStatus.OK, '{"data": []}')
         expected_error = "Invalid data from Twitch API: {'data': []}"
 
         self.check_for_error(resp_mock, expected_error)
 
-        resp_mock = MockedResponse(200, '{"missing_data": "key"}')
+        resp_mock = MockedResponse(HTTPStatus.OK, '{"missing_data": "key"}')
         expected_error = "Invalid data from Twitch API: {'missing_data': 'key'}"
 
         self.check_for_error(resp_mock, expected_error)
 
     def test_missing_twitch_id_raises_OAuth2Error(self):
-        resp_mock = MockedResponse(200, '{"data": [{"login": "fake_twitch"}]}')
+        resp_mock = MockedResponse(
+            HTTPStatus.OK, '{"data": [{"login": "fake_twitch"}]}'
+        )
         expected_error = "Invalid data from Twitch API: {'login': 'fake_twitch'}"
 
         self.check_for_error(resp_mock, expected_error)

@@ -1,4 +1,5 @@
 import copy
+from http import HTTPStatus
 from unittest.mock import ANY
 
 import pytest
@@ -12,7 +13,7 @@ import pytest
             True,
             {"current_password": "wrong", "new_password": "{password_factory}"},
             {
-                "status": 400,
+                "status": HTTPStatus.BAD_REQUEST,
                 "errors": [
                     {
                         "param": "current_password",
@@ -21,7 +22,7 @@ import pytest
                     }
                 ],
             },
-            400,
+            HTTPStatus.BAD_REQUEST,
         ),
         # Happy flow, regular password change
         (
@@ -31,14 +32,14 @@ import pytest
                 "new_password": "{password_factory}",
             },
             {
-                "status": 200,
+                "status": HTTPStatus.OK,
                 "meta": {"is_authenticated": True},
                 "data": {
                     "user": ANY,
                     "methods": [],
                 },
             },
-            200,
+            HTTPStatus.OK,
         ),
         # New password does not match constraints
         (
@@ -48,7 +49,7 @@ import pytest
                 "new_password": "a",
             },
             {
-                "status": 400,
+                "status": HTTPStatus.BAD_REQUEST,
                 "errors": [
                     {
                         "param": "new_password",
@@ -57,7 +58,7 @@ import pytest
                     }
                 ],
             },
-            400,
+            HTTPStatus.BAD_REQUEST,
         ),
         # New password not empty
         (
@@ -67,7 +68,7 @@ import pytest
                 "new_password": "",
             },
             {
-                "status": 400,
+                "status": HTTPStatus.BAD_REQUEST,
                 "errors": [
                     {
                         "param": "new_password",
@@ -76,7 +77,7 @@ import pytest
                     }
                 ],
             },
-            400,
+            HTTPStatus.BAD_REQUEST,
         ),
         # Current password not blank
         (
@@ -86,7 +87,7 @@ import pytest
                 "new_password": "{password_factory}",
             },
             {
-                "status": 400,
+                "status": HTTPStatus.BAD_REQUEST,
                 "errors": [
                     {
                         "param": "current_password",
@@ -95,7 +96,7 @@ import pytest
                     }
                 ],
             },
-            400,
+            HTTPStatus.BAD_REQUEST,
         ),
         # Current password missing
         (
@@ -104,7 +105,7 @@ import pytest
                 "new_password": "{password_factory}",
             },
             {
-                "status": 400,
+                "status": HTTPStatus.BAD_REQUEST,
                 "errors": [
                     {
                         "param": "current_password",
@@ -113,7 +114,7 @@ import pytest
                     }
                 ],
             },
-            400,
+            HTTPStatus.BAD_REQUEST,
         ),
         # Current password not set, happy flow
         (
@@ -123,14 +124,14 @@ import pytest
                 "new_password": "{password_factory}",
             },
             {
-                "status": 200,
+                "status": HTTPStatus.OK,
                 "meta": {"is_authenticated": True},
                 "data": {
                     "user": ANY,
                     "methods": [],
                 },
             },
-            200,
+            HTTPStatus.OK,
         ),
         # Current password not set, current_password absent
         (
@@ -139,14 +140,14 @@ import pytest
                 "new_password": "{password_factory}",
             },
             {
-                "status": 200,
+                "status": HTTPStatus.OK,
                 "meta": {"is_authenticated": True},
                 "data": {
                     "user": ANY,
                     "methods": [],
                 },
             },
-            200,
+            HTTPStatus.OK,
         ),
     ],
 )
@@ -182,11 +183,11 @@ def test_change_password(
     )
     assert resp.status_code == status_code
     resp_json = resp.json()
-    if headless_client == "app" and resp.status_code == 200:
+    if headless_client == "app" and resp.status_code == HTTPStatus.OK:
         response_data["meta"]["session_token"] = ANY
     assert resp_json == response_data
     user.refresh_from_db()
-    if resp.status_code == 200:
+    if resp.status_code == HTTPStatus.OK:
         assert user.check_password(request_data["new_password"])
         assert len(mailoutbox) == 1
     else:
@@ -215,6 +216,8 @@ def test_change_password_rate_limit(
             content_type="application/json",
         )
         user_password = new_password
-        expected_status = 200 if attempt == 0 else 429
+        expected_status = (
+            HTTPStatus.OK if attempt == 0 else HTTPStatus.TOO_MANY_REQUESTS
+        )
         assert resp.status_code == expected_status
         assert resp.json()["status"] == expected_status

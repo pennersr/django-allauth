@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import RequestFactory, TestCase
 from django.utils.http import base36_to_int, int_to_base36
 from django.views import csrf
@@ -61,4 +63,4 @@ class BasicTests(TestCase):
         response = csrf.csrf_failure(request, template_name="test_403_csrf.html")
         # Ensure that CSRF failures with this template
         # tag succeed with the expected 403 response
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, HTTPStatus.FORBIDDEN)

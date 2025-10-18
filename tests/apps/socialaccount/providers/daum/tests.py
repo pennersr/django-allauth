@@ -1,4 +1,5 @@
 import json
+from http import HTTPStatus
 
 from django.test import TestCase
 
@@ -18,10 +19,10 @@ class DaumTests(OAuth2TestsMixin, TestCase):
         result["bigImagePath"] = "https://img1.daumcdn.net/thumb/"
         result["openProfile"] = "https://img1.daumcdn.net/thumb/"
         body = {}
-        body["code"] = 200
+        body["code"] = HTTPStatus.OK
         body["message"] = "OK"
         body["result"] = result
-        return MockedResponse(200, json.dumps(body))
+        return MockedResponse(HTTPStatus.OK, json.dumps(body))
 
     def get_expected_to_str(self):
         return "xncbf"

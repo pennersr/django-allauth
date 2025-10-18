@@ -1,4 +1,5 @@
 import json
+from http import HTTPStatus
 
 from django.test import TestCase
 
@@ -16,7 +17,7 @@ class GitLabTests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         return MockedResponse(
-            200,
+            HTTPStatus.OK,
             """
             {
                 "avatar_url": "https://secure.gravatar.com/avatar/123",
@@ -56,11 +57,11 @@ class GitLabTests(OAuth2TestsMixin, TestCase):
 
     def test_valid_response(self):
         data = {"id": 12345}
-        response = MockedResponse(200, json.dumps(data))
+        response = MockedResponse(HTTPStatus.OK, json.dumps(data))
         self.assertEqual(_check_errors(response), data)
 
     def test_invalid_data(self):
-        response = MockedResponse(200, json.dumps({}))
+        response = MockedResponse(HTTPStatus.OK, json.dumps({}))
         with self.assertRaises(OAuth2Error):
             # No id, raises
             _check_errors(response)
@@ -71,7 +72,7 @@ class GitLabTests(OAuth2TestsMixin, TestCase):
             "Service in order to perform this action. Please access GitLab "
             "from a web browser to accept these terms."
         )
-        response = MockedResponse(403, body)
+        response = MockedResponse(HTTPStatus.FORBIDDEN, body)
 
         # GitLab allow users to login with their API and provides
         # an error requiring the user to accept the Terms of Service.
@@ -82,20 +83,20 @@ class GitLabTests(OAuth2TestsMixin, TestCase):
 
     def test_error_response(self):
         body = "403 Forbidden"
-        response = MockedResponse(403, body)
+        response = MockedResponse(HTTPStatus.FORBIDDEN, body)
 
         with self.assertRaises(OAuth2Error):
             # no id, 4xx code, raises
             _check_errors(response)
 
     def test_invalid_response(self):
-        response = MockedResponse(200, json.dumps({}))
+        response = MockedResponse(HTTPStatus.OK, json.dumps({}))
         with self.assertRaises(OAuth2Error):
             # No id, raises
             _check_errors(response)
 
     def test_bad_response(self):
-        response = MockedResponse(400, json.dumps({}))
+        response = MockedResponse(HTTPStatus.BAD_REQUEST, json.dumps({}))
         with self.assertRaises(OAuth2Error):
             # bad json, raises
             _check_errors(response)

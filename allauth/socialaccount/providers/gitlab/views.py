@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from allauth.core import context
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
@@ -11,7 +13,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 def _check_errors(response):
     #  403 error's are presented as user-facing errors
-    if response.status_code == 403:
+    if response.status_code == HTTPStatus.FORBIDDEN:
         msg = response.content
         raise OAuth2Error("Invalid data from GitLab API: %r" % (msg))
 
@@ -20,7 +22,7 @@ def _check_errors(response):
     except ValueError:  # JSONDecodeError on py3
         raise OAuth2Error("Invalid JSON from GitLab API: %r" % (response.text))
 
-    if response.status_code >= 400 or "error" in data:
+    if response.status_code >= HTTPStatus.BAD_REQUEST or "error" in data:
         # For errors, we expect the following format:
         # {"error": "error_name", "error_description": "Oops!"}
         # For example, if the token is not valid, we will get:

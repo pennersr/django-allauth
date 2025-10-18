@@ -1,5 +1,6 @@
 import base64
 import json
+from http import HTTPStatus
 
 from django.urls import reverse
 
@@ -24,7 +25,7 @@ def telegram_app(settings):
 
 def test_login(client, db, telegram_app):
     resp = client.post(reverse("telegram_login"))
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     assert resp["location"].startswith(
         "https://oauth.telegram.org/auth?origin=http%3A%2F%2Ftestserver%2F&bot_id=123&request_access=write&embed=0&return_to=http%3A%2F%2Ftestserver%2Faccounts%2Ftelegram%2Flogin%2Fcallback%2F%3Fstate%3D"
     )
@@ -32,7 +33,7 @@ def test_login(client, db, telegram_app):
 
 def test_callback_get(client, db, telegram_app):
     resp = client.get(reverse("telegram_callback"))
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
     assertTemplateUsed(resp, "telegram/callback.html")
 
 
@@ -55,5 +56,5 @@ def test_callback(client, db, telegram_app, sociallogin_setup_state):
         "tgAuthResult": auth_result,
     }
     resp = client.post(reverse("telegram_callback") + f"?state={state}", post_data)
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     assert SocialAccount.objects.filter(uid="123").exists()

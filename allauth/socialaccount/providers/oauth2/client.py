@@ -1,4 +1,5 @@
 import requests
+from http import HTTPStatus
 from urllib.parse import parse_qsl
 
 from django.utils.http import urlencode
@@ -90,7 +91,7 @@ class OAuth2Client:
         )
 
         access_token = None
-        if resp.status_code in [200, 201]:
+        if resp.status_code in [HTTPStatus.OK, HTTPStatus.CREATED]:
             # Weibo sends json via 'text/plain;charset=UTF-8'
             if (
                 resp.headers["content-type"].split(";")[0] == "application/json"

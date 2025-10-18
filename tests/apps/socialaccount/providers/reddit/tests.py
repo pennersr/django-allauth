@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 
 from allauth.socialaccount.providers.reddit.provider import RedditProvider
@@ -11,7 +13,7 @@ class RedditTests(OAuth2TestsMixin, TestCase):
     def get_mocked_response(self):
         return [
             MockedResponse(
-                200,
+                HTTPStatus.OK,
                 """{
         "name": "wayward710"}""",
             )

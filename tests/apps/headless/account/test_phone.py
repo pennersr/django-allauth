@@ -95,7 +95,7 @@ def test_change_phone(
                     "verified": True,
                 },
             ],
-            "status": 200,
+            "status": HTTPStatus.OK,
         }
 
 

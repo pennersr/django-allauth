@@ -14,7 +14,9 @@ def email_address_data(addr):
 
 class RequestEmailVerificationResponse(APIResponse):
     def __init__(self, request, verification_sent):
-        super().__init__(request, status=200 if verification_sent else 403)
+        super().__init__(
+            request, status=HTTPStatus.OK if verification_sent else HTTPStatus.FORBIDDEN
+        )
 
 
 class VerifyEmailResponse(APIResponse):

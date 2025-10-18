@@ -1,5 +1,7 @@
 """Test Eventbrite OAuth2 v3 Flow."""
 
+from http import HTTPStatus
+
 from django.test import TestCase
 
 from allauth.socialaccount.providers.eventbrite.provider import EventbriteProvider
@@ -15,7 +17,7 @@ class EventbriteTests(OAuth2TestsMixin, TestCase):
     def get_mocked_response(self):
         """Test authentication with an non-null image_id"""
         return MockedResponse(
-            200,
+            HTTPStatus.OK,
             """{
             "emails": [{
                 "email": "test@example.com",

@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.client import OAuth2Error
 from allauth.socialaccount.providers.oauth2.views import (
@@ -28,7 +30,7 @@ class CleverOAuth2Adapter(OAuth2Adapter):
                 self.identity_url, headers={"Authorization": "Bearer {}".format(token)}
             )
         )
-        if resp.status_code != 200:
+        if resp.status_code != HTTPStatus.OK:
             raise OAuth2Error()
         resp = resp.json()
         user_id = resp["data"]["id"]

@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
@@ -18,5 +20,5 @@ def test_adapter_pre_login(settings, user, user_password, client):
         reverse("account_login"),
         {"login": user.username, "password": user_password},
     )
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     assert resp["location"] == "/foo"

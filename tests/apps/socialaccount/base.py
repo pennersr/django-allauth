@@ -5,6 +5,7 @@ import random
 import requests
 import uuid
 import warnings
+from http import HTTPStatus
 from urllib.parse import parse_qs, urlparse
 
 from django.conf import settings
@@ -104,7 +105,7 @@ class OAuthTestsMixin:
     def login(self, resp_mocks, process="login"):
         with mocked_response(
             MockedResponse(
-                200,
+                HTTPStatus.OK,
                 "oauth_token=token&oauth_token_secret=psst",
                 {"content-type": "text/html"},
             )
@@ -124,7 +125,7 @@ class OAuthTestsMixin:
 
     def get_access_token_response(self):
         return MockedResponse(
-            200,
+            HTTPStatus.OK,
             "oauth_token=token&oauth_token_secret=psst",
             {"content-type": "text/html"},
         )
@@ -352,7 +353,9 @@ class OAuth2TestsMixin:
             resp_mocks = [resp_mock]
 
         with self.mocked_response(
-            MockedResponse(200, response_json, {"content-type": "application/json"}),
+            MockedResponse(
+                HTTPStatus.OK, response_json, {"content-type": "application/json"}
+            ),
             *resp_mocks,
         ):
             resp = self.client.get(complete_url, self.get_complete_parameters(q))
@@ -450,9 +453,9 @@ class OpenIDConnectTests(OAuth2TestsMixin):
 
     def _mocked_responses(self, url, *args, **kwargs):
         if url.endswith("/.well-known/openid-configuration"):
-            return MockedResponse(200, json.dumps(self.oidc_info_content))
+            return MockedResponse(HTTPStatus.OK, json.dumps(self.oidc_info_content))
         elif url.endswith("/userinfo"):
-            return MockedResponse(200, json.dumps(self.userinfo_content))
+            return MockedResponse(HTTPStatus.OK, json.dumps(self.userinfo_content))
 
     @override_settings(SOCIALACCOUNT_AUTO_SIGNUP=True)
     def test_login_auto_signup(self):
@@ -485,7 +488,7 @@ class OpenIDConnectTests(OAuth2TestsMixin):
 
         resp = self.client.post(login_url)
 
-        self.assertEqual(resp.status_code, 404)
+        self.assertEqual(resp.status_code, HTTPStatus.NOT_FOUND)
 
         # same with the callback endpoint - inlining OpenIDConnectProvider.get_callback_url
         callback_url = reverse(
@@ -500,4 +503,4 @@ class OpenIDConnectTests(OAuth2TestsMixin):
         # note: callback is a GET endpoint
         resp = self.client.get(callback_url)
 
-        self.assertEqual(resp.status_code, 404)
+        self.assertEqual(resp.status_code, HTTPStatus.NOT_FOUND)

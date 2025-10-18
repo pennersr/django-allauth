@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 from django.test.utils import override_settings
 
@@ -21,7 +23,7 @@ class NextCloudTests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         return MockedResponse(
-            200,
+            HTTPStatus.OK,
             """
 {
   "ocs": {

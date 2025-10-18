@@ -189,7 +189,7 @@ def test_reauthentication(
         resp = auth_client.post(
             reverse("account_reauthenticate"), data={"password": user_password}
         )
-        assert resp.status_code == 302
+        assert resp.status_code == HTTPStatus.FOUND
 
         methods = auth_client.session[AUTHENTICATION_METHODS_SESSION_KEY]
         assert methods[-1] == {"method": "password", "at": ANY, "reauthenticated": True}

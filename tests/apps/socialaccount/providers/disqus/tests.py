@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.contrib.auth.models import User
 from django.test import TestCase
 from django.test.utils import override_settings
@@ -22,7 +24,7 @@ class DisqusTests(OAuth2TestsMixin, TestCase):
         self, name="Raymond Penners", email="raymond.penners@example.com"
     ):
         return MockedResponse(
-            200,
+            HTTPStatus.OK,
             """
               {"response": {"name": "%s",
                "avatar": {

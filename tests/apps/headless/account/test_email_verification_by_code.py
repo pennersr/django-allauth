@@ -112,7 +112,7 @@ def test_email_verification_rate_limits_submitting_codes(
             }
             assert resp.status_code == HTTPStatus.BAD_REQUEST
         else:
-            assert resp.status_code == 409
+            assert resp.status_code == HTTPStatus.CONFLICT
 
 
 def test_add_email(
@@ -178,7 +178,7 @@ def test_add_email(
         data={"key": code},
         content_type="application/json",
     )
-    assert resp.status_code == 409
+    assert resp.status_code == HTTPStatus.CONFLICT
 
 
 @pytest.mark.parametrize("login_on_email_verification", [False, True])

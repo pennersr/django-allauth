@@ -1,4 +1,5 @@
 import json
+from http import HTTPStatus
 
 from django.test import TestCase
 
@@ -17,25 +18,29 @@ class BattleNetTests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         data = {"battletag": self._battletag, "id": self._uid}
-        return MockedResponse(200, json.dumps(data))
+        return MockedResponse(HTTPStatus.OK, json.dumps(data))
 
     def get_expected_to_str(self):
         return self._battletag
 
     def test_valid_response_no_battletag(self):
         data = {"id": 12345}
-        response = MockedResponse(200, json.dumps(data))
+        response = MockedResponse(HTTPStatus.OK, json.dumps(data))
         self.assertEqual(_check_errors(response), data)
 
     def test_invalid_data(self):
-        response = MockedResponse(200, json.dumps({}))
+        response = MockedResponse(HTTPStatus.OK, json.dumps({}))
         with self.assertRaises(OAuth2Error):
             # No id, raises
             _check_errors(response)
 
     def test_profile_invalid_response(self):
-        data = {"code": 403, "type": "Forbidden", "detail": "Account Inactive"}
-        response = MockedResponse(401, json.dumps(data))
+        data = {
+            "code": HTTPStatus.FORBIDDEN,
+            "type": "Forbidden",
+            "detail": "Account Inactive",
+        }
+        response = MockedResponse(HTTPStatus.UNAUTHORIZED, json.dumps(data))
 
         with self.assertRaises(OAuth2Error):
             # no id, 4xx code, raises
@@ -43,7 +48,7 @@ class BattleNetTests(OAuth2TestsMixin, TestCase):
 
     def test_error_response(self):
         body = json.dumps({"error": "invalid_token"})
-        response = MockedResponse(400, body)
+        response = MockedResponse(HTTPStatus.BAD_REQUEST, body)
 
         with self.assertRaises(OAuth2Error):
             # no id, 4xx code, raises
@@ -56,7 +61,7 @@ class BattleNetTests(OAuth2TestsMixin, TestCase):
             _check_errors(response)
 
     def test_invalid_response(self):
-        response = MockedResponse(200, "invalid json data")
+        response = MockedResponse(HTTPStatus.OK, "invalid json data")
         with self.assertRaises(OAuth2Error):
             # bad json, raises
             _check_errors(response)

@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 
 from allauth.socialaccount.models import SocialAccount
@@ -13,7 +15,7 @@ class FlickrTests(OAuthTestsMixin, TestCase):
         #
         return [
             MockedResponse(
-                200,
+                HTTPStatus.OK,
                 r"""
  {"stat": "ok",
   "user": {
@@ -23,7 +25,7 @@ class FlickrTests(OAuthTestsMixin, TestCase):
 """,
             ),  # noqa
             MockedResponse(
-                200,
+                HTTPStatus.OK,
                 r"""
 {"person": {"username": {"_content": "pennersr"}, "photosurl": {"_content":
  "http://www.flickr.com/photos/12345678@N00/"},
@@ -70,7 +72,7 @@ class FlickrWithoutRealNameTests(OAuthTestsMixin, TestCase):
         #
         return [
             MockedResponse(
-                200,
+                HTTPStatus.OK,
                 r"""
  {"stat": "ok",
   "user": {
@@ -80,7 +82,7 @@ class FlickrWithoutRealNameTests(OAuthTestsMixin, TestCase):
 """,
             ),  # noqa
             MockedResponse(
-                200,
+                HTTPStatus.OK,
                 r"""
 {"person": {"username": {"_content": "pennersr"}, "photosurl": {"_content":
  "http://www.flickr.com/photos/12345678@N00/"},

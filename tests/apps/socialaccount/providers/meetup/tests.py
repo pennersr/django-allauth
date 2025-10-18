@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 
 from allauth.socialaccount.providers.meetup.provider import MeetupProvider
@@ -10,7 +12,7 @@ class MeetupTests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         return MockedResponse(
-            200,
+            HTTPStatus.OK,
             """
         {"id": 1, "lang": "en_US", "city": "Bhubaneswar",
         "photo": {

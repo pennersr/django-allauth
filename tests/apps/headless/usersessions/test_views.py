@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from allauth.usersessions.models import UserSession
 
 
@@ -11,9 +13,9 @@ def test_flow(client, user, user_password, headless_reverse, settings):
         },
         content_type="application/json",
     )
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
     resp = client.get(headless_reverse("headless:usersessions:sessions"))
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
     data = resp.json()
     assert len(data["data"]) == 1
     session_pk = data["data"][0]["id"]
@@ -23,5 +25,5 @@ def test_flow(client, user, user_password, headless_reverse, settings):
         data={"sessions": [session_pk]},
         content_type="application/json",
     )
-    assert resp.status_code == 401
+    assert resp.status_code == HTTPStatus.UNAUTHORIZED
     assert not UserSession.objects.filter(pk=session_pk).exists()

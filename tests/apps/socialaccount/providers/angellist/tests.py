@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 
 from allauth.socialaccount.providers.angellist.provider import AngelListProvider
@@ -10,7 +12,7 @@ class AngelListTests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         return MockedResponse(
-            200,
+            HTTPStatus.OK,
             """
 {"name":"pennersr","id":424732,"bio":"","follower_count":0,
 "angellist_url":"https://angel.co/dsxtst",

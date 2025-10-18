@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 from django.test.utils import override_settings
 
@@ -11,7 +13,7 @@ class PinterestTests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         return MockedResponse(
-            200,
+            HTTPStatus.OK,
             """
             {
                 "data": {
@@ -39,7 +41,7 @@ class PinterestTests(OAuth2TestsMixin, TestCase):
         self.provider_id = PinterestProvider.id
         resp = self.login(
             MockedResponse(
-                200,
+                HTTPStatus.OK,
                 """
                 {
                     "account_type": "BUSINESS",
@@ -50,4 +52,4 @@ class PinterestTests(OAuth2TestsMixin, TestCase):
                 """,
             ),
         )
-        assert resp.status_code == 302
+        assert resp.status_code == HTTPStatus.FOUND

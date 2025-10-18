@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from allauth.headless.base.response import APIResponse
 from allauth.mfa import app_settings as mfa_settings
 
@@ -61,7 +63,7 @@ class TOTPNotFoundResponse(APIResponse):
                 "secret": secret,
                 "totp_url": totp_url,
             },
-            status=404,
+            status=HTTPStatus.NOT_FOUND,
         )
 
 
@@ -85,7 +87,7 @@ class AuthenticatorResponse(APIResponse):
 
 class RecoveryCodesNotFoundResponse(APIResponse):
     def __init__(self, request):
-        super().__init__(request, status=404)
+        super().__init__(request, status=HTTPStatus.NOT_FOUND)
 
 
 class RecoveryCodesResponse(APIResponse):

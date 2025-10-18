@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 from django.test.utils import override_settings
 
@@ -12,7 +14,7 @@ class GlobusTests(OAuth2TestsMixin, TestCase):
     @override_settings(SOCIALACCOUNT_QUERY_EMAIL=True)
     def get_mocked_response(self):
         return MockedResponse(
-            200,
+            HTTPStatus.OK,
             """
         {
             "identity_provider_display_name": "University of Gozorpazorp",

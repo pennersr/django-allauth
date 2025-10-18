@@ -1,3 +1,4 @@
+from http import HTTPStatus
 from typing import Optional
 
 from allauth.socialaccount import app_settings
@@ -42,7 +43,7 @@ class GitHubOAuth2Adapter(OAuth2Adapter):
             get_adapter().get_requests_session().get(self.emails_url, headers=headers)
         )
         # https://api.github.com/user/emails -- 404 is documented to occur.
-        if resp.status_code == 404:
+        if resp.status_code == HTTPStatus.NOT_FOUND:
             return None
         resp.raise_for_status()
         return resp.json()

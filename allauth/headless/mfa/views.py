@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.core.exceptions import ValidationError
 
 from allauth.account.internal.stagekit import get_pending_stage
@@ -44,7 +46,7 @@ def _validate_can_add_authenticator(request):
     try:
         add.validate_can_add_authenticator(request.user)
     except ValidationError as e:
-        return ErrorResponse(request, status=409, exception=e)
+        return ErrorResponse(request, status=HTTPStatus.CONFLICT, exception=e)
 
 
 class AuthenticateView(AuthenticationStageAPIView):

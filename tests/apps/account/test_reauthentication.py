@@ -1,3 +1,4 @@
+from http import HTTPStatus
 from unittest.mock import ANY
 
 from django.urls import reverse
@@ -36,9 +37,9 @@ def test_user_with_mfa_only(
             continue
         resp = client.get(reverse(urlname) + "?next=/foo")
         if urlname in expected_method_urlnames:
-            assert resp.status_code == 200
+            assert resp.status_code == HTTPStatus.OK
         else:
-            assert resp.status_code == 302
+            assert resp.status_code == HTTPStatus.FOUND
             assert "next=%2Ffoo" in resp["location"]
 
 
@@ -54,7 +55,7 @@ def test_reauthentication(settings, auth_client, user_password):
     resp = auth_client.post(
         reverse("account_reauthenticate"), data={"password": user_password}
     )
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     resp = auth_client.post(
         reverse("account_email"),
         {"action_add": "", "email": "john3@example.org"},

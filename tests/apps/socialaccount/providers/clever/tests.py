@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 
 from allauth.socialaccount.providers.clever.provider import CleverProvider
@@ -11,7 +13,7 @@ class CleverOAuth2Tests(OAuth2TestsMixin, TestCase):
     def get_mocked_response(self):
         return [
             MockedResponse(
-                200,
+                HTTPStatus.OK,
                 """{
             "type": "user",
             "data": {
@@ -37,7 +39,7 @@ class CleverOAuth2Tests(OAuth2TestsMixin, TestCase):
         }""",
             ),
             MockedResponse(
-                200,
+                HTTPStatus.OK,
                 """{
                 "data": {
                 "id": "62027798269867124d10259e",

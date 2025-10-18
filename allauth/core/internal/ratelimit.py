@@ -14,6 +14,7 @@ import hashlib
 import time
 from collections import namedtuple
 from dataclasses import dataclass
+from http import HTTPStatus
 from typing import Dict, List, Optional, Tuple, Union
 
 from django.core.cache import cache
@@ -185,7 +186,11 @@ def handler429(request) -> HttpResponse:
     from allauth.account import app_settings
 
     try:
-        return render(request, "429." + app_settings.TEMPLATE_EXTENSION, status=429)
+        return render(
+            request,
+            "429." + app_settings.TEMPLATE_EXTENSION,
+            status=HTTPStatus.TOO_MANY_REQUESTS,
+        )
     except TemplateDoesNotExist:
         content = """<html>
     <head><title>Too Many Requests</title></head>
@@ -194,7 +199,11 @@ def handler429(request) -> HttpResponse:
         <p>You have sent too many requests. Please try again later.</p>
     </body>
 </html>"""
-        return HttpResponse(content=content, content_type="text/html", status=429)
+        return HttpResponse(
+            content=content,
+            content_type="text/html",
+            status=HTTPStatus.TOO_MANY_REQUESTS,
+        )
 
 
 def clear(request, *, config: dict, action: str, key=None, user=None):

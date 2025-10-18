@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 
 from allauth.socialaccount.models import SocialAccount
@@ -11,7 +13,7 @@ class GiteaTests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         return MockedResponse(
-            200,
+            HTTPStatus.OK,
             """
             {
                 "id": 4940,
@@ -47,7 +49,7 @@ class GiteaTests(OAuth2TestsMixin, TestCase):
             "login": "giteauser",
             "username": null
         }"""
-        self.login(MockedResponse(200, data))
+        self.login(MockedResponse(HTTPStatus.OK, data))
         socialaccount = SocialAccount.objects.get(uid="4940")
         self.assertIsNone(socialaccount.extra_data.get("name"))
         account = socialaccount.get_provider_account()

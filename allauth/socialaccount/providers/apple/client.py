@@ -1,4 +1,5 @@
 import time
+from http import HTTPStatus
 from urllib.parse import parse_qsl, quote, urlencode
 
 from django.core.exceptions import ImproperlyConfigured
@@ -74,7 +75,7 @@ class AppleOAuth2Client(OAuth2Client):
             .request(self.access_token_method, url, data=data, headers=self.headers)
         )
         access_token = None
-        if resp.status_code in [200, 201]:
+        if resp.status_code in [HTTPStatus.OK, HTTPStatus.CREATED]:
             try:
                 access_token = resp.json()
             except ValueError:

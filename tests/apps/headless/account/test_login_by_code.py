@@ -1,4 +1,5 @@
 import time
+from http import HTTPStatus
 
 from allauth.account.internal.stagekit import LOGIN_SESSION_KEY
 from allauth.account.models import EmailAddress
@@ -12,7 +13,7 @@ def test_login_by_code(headless_reverse, user, client, mailoutbox):
         data={"email": user.email},
         content_type="application/json",
     )
-    assert resp.status_code == 401
+    assert resp.status_code == HTTPStatus.UNAUTHORIZED
     data = resp.json()
     assert [f for f in data["data"]["flows"] if f["id"] == Flow.LOGIN_BY_CODE][0][
         "is_pending"
@@ -24,7 +25,7 @@ def test_login_by_code(headless_reverse, user, client, mailoutbox):
         data={"code": code},
         content_type="application/json",
     )
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
     data = resp.json()
     assert data["meta"]["is_authenticated"]
 
@@ -39,11 +40,11 @@ def test_login_by_code_rate_limit(
             data={"email": user.email},
             content_type="application/json",
         )
-        expected_code = 400 if attempt else 401
+        expected_code = HTTPStatus.BAD_REQUEST if attempt else HTTPStatus.UNAUTHORIZED
         assert resp.status_code == expected_code
         data = resp.json()
         assert data["status"] == expected_code
-        if expected_code == 400:
+        if expected_code == HTTPStatus.BAD_REQUEST:
             assert data["errors"] == [
                 {
                     "code": "too_many_login_attempts",
@@ -60,7 +61,7 @@ def test_login_by_code_max_attemps(headless_reverse, user, client, settings):
         data={"email": user.email},
         content_type="application/json",
     )
-    assert resp.status_code == 401
+    assert resp.status_code == HTTPStatus.UNAUTHORIZED
     for i in range(3):
         resp = client.post(
             headless_reverse("headless:account:confirm_login_code"),
@@ -72,15 +73,19 @@ def test_login_by_code_max_attemps(headless_reverse, user, client, settings):
             data={"code": "wrong"},
             content_type="application/json",
         )
-        assert session_resp.status_code == 401
+        assert session_resp.status_code == HTTPStatus.UNAUTHORIZED
         pending_flows = [
             f for f in session_resp.json()["data"]["flows"] if f.get("is_pending")
         ]
         if i >= 1:
-            assert resp.status_code == 409 if i >= 2 else 400
+            assert (
+                resp.status_code == HTTPStatus.CONFLICT
+                if i >= 2
+                else HTTPStatus.BAD_REQUEST
+            )
             assert len(pending_flows) == 0
         else:
-            assert resp.status_code == 400
+            assert resp.status_code == HTTPStatus.BAD_REQUEST
             assert len(pending_flows) == 1
 
 
@@ -100,7 +105,7 @@ def test_login_by_code_required(
         },
         content_type="application/json",
     )
-    assert resp.status_code == 401
+    assert resp.status_code == HTTPStatus.UNAUTHORIZED
     pending_flow = [f for f in resp.json()["data"]["flows"] if f.get("is_pending")][0][
         "id"
     ]
@@ -111,7 +116,7 @@ def test_login_by_code_required(
         data={"code": code},
         content_type="application/json",
     )
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
     data = resp.json()
     assert data["meta"]["is_authenticated"]
     email_address.refresh_from_db()
@@ -124,7 +129,7 @@ def test_login_by_code_expired(headless_reverse, user, client, mailoutbox):
         data={"email": user.email},
         content_type="application/json",
     )
-    assert resp.status_code == 401
+    assert resp.status_code == HTTPStatus.UNAUTHORIZED
     data = resp.json()
     assert [f for f in data["data"]["flows"] if f["id"] == Flow.LOGIN_BY_CODE][0][
         "is_pending"
@@ -147,4 +152,4 @@ def test_login_by_code_expired(headless_reverse, user, client, mailoutbox):
         data={"code": code},
         content_type="application/json",
     )
-    assert resp.status_code == 409
+    assert resp.status_code == HTTPStatus.CONFLICT

@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.contrib.auth.models import User
 from django.test import TestCase
 
@@ -12,7 +14,7 @@ class StravaTests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         return MockedResponse(
-            200,
+            HTTPStatus.OK,
             """{
                 "id": 32641234,
                 "username": null,
@@ -43,7 +45,7 @@ class StravaTests(OAuth2TestsMixin, TestCase):
         """Profile including realistic avatar URL
         user ID set to 0 to test edge case where id would be missing"""
         return MockedResponse(
-            200,
+            HTTPStatus.OK,
             """{
                 "id": 0,
                 "username": null,

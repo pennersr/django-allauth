@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 
 from allauth.socialaccount.providers.windowslive.provider import WindowsLiveProvider
@@ -10,7 +12,7 @@ class WindowsLiveTests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         return MockedResponse(
-            200,
+            HTTPStatus.OK,
             """
         {
           "first_name": "James",

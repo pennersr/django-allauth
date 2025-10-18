@@ -1,3 +1,4 @@
+from http import HTTPStatus
 from urllib.parse import parse_qs, urlencode, urlparse
 
 from django.test import TestCase
@@ -19,7 +20,7 @@ class PocketOAuthTests(OAuthTestsMixin, TestCase):
 
     def get_access_token_response(self):
         return MockedResponse(
-            200,
+            HTTPStatus.OK,
             """
         {"access_token":"5678defg-5678-defg-5678-defg56",
         "username":"name@example.com"}
@@ -29,7 +30,7 @@ class PocketOAuthTests(OAuthTestsMixin, TestCase):
     def login(self, resp_mocks, process="login"):
         with mocked_response(
             MockedResponse(
-                200,
+                HTTPStatus.OK,
                 """
                 {"code": "dcba4321-dcba-4321-dcba-4321dc"}
                 """,

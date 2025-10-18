@@ -1,3 +1,4 @@
+from http import HTTPStatus
 from unittest.mock import patch
 
 from django.urls import reverse
@@ -41,10 +42,10 @@ def test_connect_with_reauthentication(
     settings.ACCOUNT_REAUTHENTICATION_REQUIRED = True
     resp = provider_callback_response(auth_client, process="connect")
     assert not SocialAccount.objects.filter(user=user).exists()
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     assert resp["location"] == reverse("account_reauthenticate")
     resp = auth_client.post(resp["location"], {"password": user_password})
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     assert resp["location"] == reverse("socialaccount_connections")
     assert SocialAccount.objects.filter(user=user).exists()
 
@@ -55,7 +56,7 @@ def test_connect(
     settings.ACCOUNT_EMAIL_NOTIFICATIONS = True
     settings.ACCOUNT_REAUTHENTICATION_REQUIRED = False
     resp = provider_callback_response(auth_client, process="connect")
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     assert SocialAccount.objects.filter(user=user).exists()
     assert resp["location"] == reverse("socialaccount_connections")
     assert len(mailoutbox) == 1

@@ -1,3 +1,4 @@
+from http import HTTPStatus
 from unittest.mock import ANY
 
 import pytest
@@ -12,9 +13,9 @@ def test_auth_password_input_error(headless_reverse, client):
         data={},
         content_type="application/json",
     )
-    assert resp.status_code == 400
+    assert resp.status_code == HTTPStatus.BAD_REQUEST
     assert resp.json() == {
-        "status": 400,
+        "status": HTTPStatus.BAD_REQUEST,
         "errors": [
             {
                 "message": "This field is required.",
@@ -40,9 +41,9 @@ def test_auth_password_bad_password(headless_reverse, client, user, settings):
         },
         content_type="application/json",
     )
-    assert resp.status_code == 400
+    assert resp.status_code == HTTPStatus.BAD_REQUEST
     assert resp.json() == {
-        "status": 400,
+        "status": HTTPStatus.BAD_REQUEST,
         "errors": [
             {
                 "param": "password",
@@ -65,12 +66,12 @@ def test_auth_password_success(
         },
         content_type="application/json",
     )
-    assert login_resp.status_code == 200
+    assert login_resp.status_code == HTTPStatus.OK
     session_resp = client.get(
         headless_reverse("headless:account:current_session"),
         content_type="application/json",
     )
-    assert session_resp.status_code == 200
+    assert session_resp.status_code == HTTPStatus.OK
     for resp in [login_resp, session_resp]:
         extra_meta = {}
         if headless_client == "app" and resp == login_resp:
@@ -78,7 +79,7 @@ def test_auth_password_success(
             # exposed only at that moment.
             extra_meta["session_token"] = ANY
         assert resp.json() == {
-            "status": 200,
+            "status": HTTPStatus.OK,
             "data": {
                 "user": {
                     "id": user.pk,
@@ -99,7 +100,9 @@ def test_auth_password_success(
         }
 
 
-@pytest.mark.parametrize("is_active,status_code", [(False, 401), (True, 200)])
+@pytest.mark.parametrize(
+    "is_active,status_code", [(False, HTTPStatus.UNAUTHORIZED), (True, HTTPStatus.OK)]
+)
 def test_auth_password_user_inactive(
     client, user, user_password, settings, status_code, is_active, headless_reverse
 ):
@@ -135,7 +138,7 @@ def test_login_failed_rate_limit(
             },
             content_type="application/json",
         )
-        assert resp.status_code == 400
+        assert resp.status_code == HTTPStatus.BAD_REQUEST
         assert resp.json()["errors"] == [
             (
                 {
@@ -172,7 +175,7 @@ def test_login_rate_limit(
             },
             content_type="application/json",
         )
-        expected_status = 429 if attempt else 200
+        expected_status = HTTPStatus.TOO_MANY_REQUESTS if attempt else HTTPStatus.OK
         assert resp.status_code == expected_status
 
 
@@ -188,7 +191,7 @@ def test_login_already_logged_in(
         },
         content_type="application/json",
     )
-    assert resp.status_code == 409
+    assert resp.status_code == HTTPStatus.CONFLICT
 
 
 def test_custom_post_login_response(
@@ -210,6 +213,6 @@ def test_custom_post_login_response(
             },
             content_type="application/json",
         )
-        assert login_resp.status_code == 200
+        assert login_resp.status_code == HTTPStatus.OK
     finally:
         user_logged_in.disconnect(on_user_logged_in)

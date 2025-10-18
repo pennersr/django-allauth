@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 
 from allauth.socialaccount.providers.atlassian.provider import AtlassianProvider
@@ -28,7 +30,7 @@ class AtlassianTests(OAuth2TestsMixin, TestCase):
                 "location": "Sydney"
             }
         }"""
-        return MockedResponse(200, response_data)
+        return MockedResponse(HTTPStatus.OK, response_data)
 
     def get_expected_to_str(self):
         return "mia@example.com"

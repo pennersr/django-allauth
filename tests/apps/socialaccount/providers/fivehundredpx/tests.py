@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 
 from allauth.socialaccount.providers.fivehundredpx.provider import FiveHundredPxProvider
@@ -11,7 +13,7 @@ class FiveHundredPxTests(OAuthTestsMixin, TestCase):
     def get_mocked_response(self):
         return [
             MockedResponse(
-                200,
+                HTTPStatus.OK,
                 """{
           "user":  {
             "id": 5751454,

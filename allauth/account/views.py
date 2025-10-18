@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
@@ -257,7 +259,7 @@ class ConfirmEmailView(NextRedirectMixin, LogoutFunctionalityMixin, TemplateView
         ctx = self.get_context_data()
         if not self.object and get_adapter().is_ajax(self.request):
             resp = HttpResponse()
-            resp.status_code = 400
+            resp.status_code = HTTPStatus.BAD_REQUEST
         else:
             resp = self.render_to_response(ctx)
         return _ajax_response(self.request, resp, data=self.get_ajax_data())

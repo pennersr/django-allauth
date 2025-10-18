@@ -13,6 +13,8 @@ Resources:
     https://us.battle.net/en/forum/15051532/
 """
 
+from http import HTTPStatus
+
 from django.conf import settings
 
 from allauth.socialaccount.adapter import get_adapter
@@ -40,7 +42,7 @@ def _check_errors(response):
     except ValueError:  # JSONDecodeError on py3
         raise OAuth2Error("Invalid JSON from Battle.net API: %r" % (response.text))
 
-    if response.status_code >= 400 or "error" in data:
+    if response.status_code >= HTTPStatus.BAD_REQUEST or "error" in data:
         # For errors, we expect the following format:
         # {"error": "error_name", "error_description": "Oops!"}
         # For example, if the token is not valid, we will get:

@@ -1,4 +1,5 @@
 import json
+from http import HTTPStatus
 
 from django.conf import settings
 from django.urls import reverse
@@ -30,11 +31,11 @@ def test_ajax_headers(db, client, headers, ajax_expected):
         **headers,
     )
     if ajax_expected:
-        assert resp.status_code == 200
+        assert resp.status_code == HTTPStatus.OK
         assert resp.json()["location"] == settings.LOGIN_REDIRECT_URL
         assert resp.json()["location"] == settings.LOGIN_REDIRECT_URL
     else:
-        assert resp.status_code == 302
+        assert resp.status_code == HTTPStatus.FOUND
         assertRedirects(
             resp, settings.LOGIN_REDIRECT_URL, fetch_redirect_response=False
         )
@@ -57,7 +58,7 @@ def test_ajax_login_fail(client, db):
         {},
         HTTP_X_REQUESTED_WITH="XMLHttpRequest",
     )
-    assert resp.status_code == 400
+    assert resp.status_code == HTTPStatus.BAD_REQUEST
     json.loads(resp.content.decode("utf8"))
     # TODO: Actually test something
 
@@ -69,6 +70,6 @@ def test_ajax_login_success(settings, user, user_password, client):
         {"login": user.username, "password": user_password},
         HTTP_X_REQUESTED_WITH="XMLHttpRequest",
     )
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
     data = json.loads(resp.content.decode("utf8"))
     assert data["location"] == "/accounts/profile/"

@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 
 from allauth.socialaccount.providers.eveonline.provider import EveOnlineProvider
@@ -10,7 +12,7 @@ class EveOnlineTests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         return MockedResponse(
-            200,
+            HTTPStatus.OK,
             """
         {
             "CharacterID": 273042051,

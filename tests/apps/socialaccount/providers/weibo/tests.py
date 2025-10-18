@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 
 from allauth.socialaccount.providers.weibo.provider import WeiboProvider
@@ -10,7 +12,7 @@ class WeiboTests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         return MockedResponse(
-            200,
+            HTTPStatus.OK,
             """
 {"bi_followers_count": 0,
  "domain": "", "avatar_large": "http://tp3.sinaimg.cn/3195025850/180/0/0",

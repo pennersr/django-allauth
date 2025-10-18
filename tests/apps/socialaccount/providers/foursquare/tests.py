@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 
 from allauth.socialaccount.providers.foursquare.provider import FoursquareProvider
@@ -10,7 +12,7 @@ class FoursquareTests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         return MockedResponse(
-            200,
+            HTTPStatus.OK,
             """
 {"notifications": [{"item": {"unreadCount": 0}, "type": "notificationTray"}],
                                 "meta": {"code": 200},

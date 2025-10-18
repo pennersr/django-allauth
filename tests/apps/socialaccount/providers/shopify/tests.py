@@ -1,4 +1,5 @@
 import json
+from http import HTTPStatus
 from urllib.parse import parse_qs, urlparse
 
 from django.test import TestCase
@@ -22,7 +23,9 @@ class ShopifyTests(OAuth2TestsMixin, TestCase):
             with_refresh_token=with_refresh_token
         )
         with mocked_response(
-            MockedResponse(200, response_json, {"content-type": "application/json"}),
+            MockedResponse(
+                HTTPStatus.OK, response_json, {"content-type": "application/json"}
+            ),
             resp_mock,
         ):
             resp = self.client.get(
@@ -42,7 +45,7 @@ class ShopifyTests(OAuth2TestsMixin, TestCase):
             + urlencode({"process": process, "shop": "test"})
         )
         resp = self.client.post(url)
-        self.assertEqual(resp.status_code, 302)
+        self.assertEqual(resp.status_code, HTTPStatus.FOUND)
         p = urlparse(resp["location"])
         q = parse_qs(p.query)
         resp = self._complete_shopify_login(q, resp, resp_mock, with_refresh_token)
@@ -50,7 +53,7 @@ class ShopifyTests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         return MockedResponse(
-            200,
+            HTTPStatus.OK,
             """
         {
             "shop": {
@@ -82,7 +85,7 @@ class ShopifyEmbeddedTests(ShopifyTests):
             + "?"
             + urlencode({"process": process, "shop": "test"}),
         )
-        self.assertEqual(resp.status_code, 200)  # No re-direct, JS must do it
+        self.assertEqual(resp.status_code, HTTPStatus.OK)  # No re-direct, JS must do it
         actual_content = resp.content.decode("utf8")
         self.assertTrue(
             "script" in actual_content,

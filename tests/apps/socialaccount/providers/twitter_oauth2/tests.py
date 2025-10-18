@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 
 from allauth.socialaccount.providers.twitter_oauth2.provider import (
@@ -12,7 +14,7 @@ class TwitterOAuth2Tests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         return MockedResponse(
-            200,
+            HTTPStatus.OK,
             """{
                 "data": {
                     "created_at": "2020-09-02T13:39:14.000Z",

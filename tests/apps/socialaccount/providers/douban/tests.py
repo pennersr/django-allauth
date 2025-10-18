@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 
 from allauth.socialaccount.providers.douban.provider import DoubanProvider
@@ -10,7 +12,7 @@ class DoubanTests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         return MockedResponse(
-            200,
+            HTTPStatus.OK,
             """
             {"name": "guoqiao",
              "created": "2009-02-18 01:07:52",

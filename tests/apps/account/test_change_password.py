@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.urls import reverse, reverse_lazy
 
 import pytest
@@ -8,33 +10,33 @@ def test_change_unusable_password_redirects_to_set(client, user, user_password):
     user.save()
     client.force_login(user)
     resp = client.get(reverse("account_change_password"))
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     assert resp["location"] == reverse("account_set_password")
 
 
 def test_set_usable_password_redirects_to_change(auth_client, user):
     resp = auth_client.get(reverse("account_set_password"))
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     assert resp["location"] == reverse("account_change_password")
 
 
 @pytest.mark.parametrize(
     "logout,next_url,redirect_chain",
     [
-        (False, "", [(reverse_lazy("account_change_password"), 302)]),
-        (False, "/foo", [("/foo", 302)]),
+        (False, "", [(reverse_lazy("account_change_password"), HTTPStatus.FOUND)]),
+        (False, "/foo", [("/foo", HTTPStatus.FOUND)]),
         (
             True,
             "",
             [
-                (reverse_lazy("account_change_password"), 302),
+                (reverse_lazy("account_change_password"), HTTPStatus.FOUND),
                 (
                     "/accounts/login/?next=/accounts/password/change/",
-                    302,
+                    HTTPStatus.FOUND,
                 ),
             ],
         ),
-        (True, "/foo", [("/foo", 302)]),
+        (True, "/foo", [("/foo", HTTPStatus.FOUND)]),
     ],
 )
 def test_set_password(
@@ -59,20 +61,20 @@ def test_set_password(
 @pytest.mark.parametrize(
     "logout,next_url,redirect_chain",
     [
-        (False, "", [(reverse_lazy("account_change_password"), 302)]),
-        (False, "/foo", [("/foo", 302)]),
+        (False, "", [(reverse_lazy("account_change_password"), HTTPStatus.FOUND)]),
+        (False, "/foo", [("/foo", HTTPStatus.FOUND)]),
         (
             True,
             "",
             [
-                (reverse_lazy("account_change_password"), 302),
+                (reverse_lazy("account_change_password"), HTTPStatus.FOUND),
                 (
                     "/accounts/login/?next=/accounts/password/change/",
-                    302,
+                    HTTPStatus.FOUND,
                 ),
             ],
         ),
-        (True, "/foo", [("/foo", 302)]),
+        (True, "/foo", [("/foo", HTTPStatus.FOUND)]),
     ],
 )
 def test_change_password(

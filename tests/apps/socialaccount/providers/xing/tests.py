@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 
 from allauth.socialaccount.providers.xing.provider import XingProvider
@@ -11,7 +13,7 @@ class XingTests(OAuthTestsMixin, TestCase):
     def get_mocked_response(self):
         return [
             MockedResponse(
-                200,
+                HTTPStatus.OK,
                 """
 {"users":[{"id":"20493333_1cd028","active_email":"raymond.penners@example.com",
 "badges":[],"birth_date":{"year":null,"month":null,"day":null},

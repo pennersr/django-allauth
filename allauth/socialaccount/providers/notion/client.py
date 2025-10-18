@@ -1,3 +1,4 @@
+from http import HTTPStatus
 from requests.auth import HTTPBasicAuth
 from urllib.parse import parse_qsl
 
@@ -33,7 +34,7 @@ class NotionOAuth2Client(OAuth2Client):
             )
         )
         access_token = None
-        if resp.status_code in [200, 201]:
+        if resp.status_code in [HTTPStatus.OK, HTTPStatus.CREATED]:
             try:
                 access_token = resp.json()
             except ValueError:

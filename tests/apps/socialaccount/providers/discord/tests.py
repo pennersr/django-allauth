@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 
@@ -14,7 +16,7 @@ class DiscordTests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         return MockedResponse(
-            200,
+            HTTPStatus.OK,
             """{
             "id": "80351110224678912",
             "username": "nelly",
@@ -59,7 +61,7 @@ class OldDiscordTests(DiscordTests, TestCase):
 
     def get_mocked_response(self):
         return MockedResponse(
-            200,
+            HTTPStatus.OK,
             """{
             "id": "80351110224678912",
             "username": "Nelly",

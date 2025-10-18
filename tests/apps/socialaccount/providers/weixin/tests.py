@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 
 from allauth.socialaccount.providers.weixin.provider import WeixinProvider
@@ -10,7 +12,7 @@ class WeixinTests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         return MockedResponse(
-            200,
+            HTTPStatus.OK,
             """
 {"access_token":
  "OezXcEiiBSKSxW0eoylIeO5cPxb4Ks1RpbXGMv9uiV35032zNHGzXcld-EKsSScE3gRZMrUU78skCbp1ShtZnR0dQB8Wr_LUf7FA-H97Lnd2HgQah_GnkQex-vPFsGEwPPcNAV6q1Vz3uRNgL0MUFg",

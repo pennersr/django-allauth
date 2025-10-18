@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 
 from allauth.socialaccount.providers.coinbase.provider import CoinbaseProvider
@@ -10,7 +12,7 @@ class CoinbaseTests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         return MockedResponse(
-            200,
+            HTTPStatus.OK,
             """{
           "id": "9da7a204-544e-5fd1-9a12-61176c5d4cd8",
           "name": "User One",

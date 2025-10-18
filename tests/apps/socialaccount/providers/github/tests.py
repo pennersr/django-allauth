@@ -1,3 +1,4 @@
+from http import HTTPStatus
 from unittest.mock import patch
 
 from django.test import TestCase
@@ -15,7 +16,7 @@ class GitHubTests(OAuth2TestsMixin, TestCase):
     def get_mocked_response(self):
         return [
             MockedResponse(
-                200,
+                HTTPStatus.OK,
                 """
         {
             "type":"User",
@@ -49,7 +50,7 @@ class GitHubTests(OAuth2TestsMixin, TestCase):
         }""",
             ),
             MockedResponse(
-                200,
+                HTTPStatus.OK,
                 """
             [{
               "email": "octocat@github.com",
@@ -68,7 +69,7 @@ class GitHubTests(OAuth2TestsMixin, TestCase):
         """String conversion when GitHub responds with empty name"""
         mocks = [
             MockedResponse(
-                200,
+                HTTPStatus.OK,
                 """
         {
             "type": "User",
@@ -79,7 +80,7 @@ class GitHubTests(OAuth2TestsMixin, TestCase):
         """,
             ),
             MockedResponse(
-                200,
+                HTTPStatus.OK,
                 """
         [
           {

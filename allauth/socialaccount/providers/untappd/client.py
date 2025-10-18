@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.client import OAuth2Client, OAuth2Error
@@ -45,7 +47,7 @@ class UntappdOAuth2Client(OAuth2Client):
             )
         )
         access_token = None
-        if resp.status_code == 200:
+        if resp.status_code == HTTPStatus.OK:
             access_token = resp.json()["response"]
         if not access_token or "access_token" not in access_token:
             raise OAuth2Error("Error retrieving access token: %s" % resp.content)

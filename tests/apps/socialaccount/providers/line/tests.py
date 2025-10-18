@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 
 from allauth.socialaccount.providers.line.provider import LineProvider
@@ -10,7 +12,7 @@ class LineTests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         return MockedResponse(
-            200,
+            HTTPStatus.OK,
             """
 {
 "userId": "u7d47d26a6bab09b95695ff02d1a36e38",

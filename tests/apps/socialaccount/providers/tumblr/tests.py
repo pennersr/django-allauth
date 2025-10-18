@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 
 from allauth.socialaccount.providers.tumblr.provider import TumblrProvider
@@ -11,7 +13,7 @@ class TumblrTests(OAuthTestsMixin, TestCase):
     def get_mocked_response(self):
         return [
             MockedResponse(
-                200,
+                HTTPStatus.OK,
                 """
 {
    "meta": {

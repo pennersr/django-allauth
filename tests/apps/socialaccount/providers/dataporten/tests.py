@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 
 from allauth.socialaccount.providers.dataporten.provider import DataportenProvider
@@ -35,7 +37,7 @@ class DataportenTest(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         return MockedResponse(
-            status_code=200,
+            status_code=HTTPStatus.OK,
             content="""{
                 "user": {
                     "userid": "76a7a061-3c55-430d-8ee0-6f82ec42501f",

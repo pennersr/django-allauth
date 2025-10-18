@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 
 from allauth.socialaccount.providers.hubspot.provider import HubspotProvider
@@ -10,7 +12,7 @@ class HubspotTests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         return MockedResponse(
-            200,
+            HTTPStatus.OK,
             """{
                     "token": "CNye4dqFMBICAAEYhOKlDZZ_z6IVKI_xMjIUgmFsNQzgBjNE9YBmhAhNOtfN0ak6BAAAAEFCFIIwn2EVRLpvJI9hP4tbIeKHw7ZXSgNldTFSAFoA",
                     "user": "m@acme.com",

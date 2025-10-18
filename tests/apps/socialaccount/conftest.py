@@ -1,5 +1,6 @@
 import time
 from contextlib import contextmanager
+from http import HTTPStatus
 from unittest.mock import patch
 
 from django.urls import reverse
@@ -80,7 +81,9 @@ def provider_callback_response():
                 "token_endpoint": "/",
                 "userinfo_endpoint": "/",
             },
-            MockedResponse(200, "access_token=456", {"content-type": "dummy"}),
+            MockedResponse(
+                HTTPStatus.OK, "access_token=456", {"content-type": "dummy"}
+            ),
             {
                 "sub": "sub123",
             },

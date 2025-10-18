@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from allauth.mfa.models import Authenticator
 
 
@@ -8,7 +10,7 @@ def test_get_recovery_codes_requires_reauth(
         type=Authenticator.Type.RECOVERY_CODES, user=user_with_recovery_codes
     )
     resp = auth_client.get(headless_reverse("headless:mfa:manage_recovery_codes"))
-    assert resp.status_code == 401
+    assert resp.status_code == HTTPStatus.UNAUTHORIZED
     data = resp.json()
     assert data["meta"]["is_authenticated"]
     resp = auth_client.post(
@@ -16,7 +18,7 @@ def test_get_recovery_codes_requires_reauth(
         data={"code": rc.wrap().get_unused_codes()[0]},
         content_type="application/json",
     )
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
 
 
 def test_get_recovery_codes(
@@ -27,7 +29,7 @@ def test_get_recovery_codes(
 ):
     with reauthentication_bypass():
         resp = auth_client.get(headless_reverse("headless:mfa:manage_recovery_codes"))
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
     data = resp.json()
     assert data["data"]["type"] == "recovery_codes"
     assert len(data["data"]["unused_codes"]) == 10
@@ -48,13 +50,13 @@ def test_generate_recovery_codes(
 ):
     with reauthentication_bypass():
         resp = auth_client.get(headless_reverse("headless:mfa:manage_recovery_codes"))
-    assert resp.status_code == 404
+    assert resp.status_code == HTTPStatus.NOT_FOUND
     with reauthentication_bypass():
         resp = auth_client.post(
             headless_reverse("headless:mfa:manage_recovery_codes"),
             content_type="application/json",
         )
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
     data = resp.json()
     assert data["data"]["type"] == "recovery_codes"
     assert len(data["data"]["unused_codes"]) == 10

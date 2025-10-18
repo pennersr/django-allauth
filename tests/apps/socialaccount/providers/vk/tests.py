@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 
 from allauth.socialaccount.providers.vk.provider import VKProvider
@@ -10,7 +12,7 @@ class VKTests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self, verified_email=True):
         return MockedResponse(
-            200,
+            HTTPStatus.OK,
             """
 {
     "user": {

@@ -1,4 +1,5 @@
 import json
+from http import HTTPStatus
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
@@ -39,7 +40,9 @@ def test_reset_password_unknown_account(client, settings):
     )
     assert len(mail.outbox) == 1
     assert mail.outbox[0].to == ["unknown@example.org"]
-    assert resp.redirect_chain == [(reverse("account_reset_password_done"), 302)]
+    assert resp.redirect_chain == [
+        (reverse("account_reset_password_done"), HTTPStatus.FOUND)
+    ]
 
 
 @pytest.mark.django_db
@@ -103,7 +106,7 @@ class ResetPasswordTests(TestCase):
         user.refresh_from_db()
         self.assertFalse(user.check_password(pwd))
         self.assertTrue(user.has_usable_password())
-        self.assertEqual(resp.status_code, 302)
+        self.assertEqual(resp.status_code, HTTPStatus.FOUND)
 
     def test_password_forgotten_username_hint(self):
         user = self._request_new_password()
@@ -322,7 +325,7 @@ def test_password_reset_flow(client, user, mailoutbox, settings):
         {"password1": "newpass123", "password2": "newpass123"},
         HTTP_X_REQUESTED_WITH="XMLHttpRequest",
     )
-    assert response.status_code == 400
+    assert response.status_code == HTTPStatus.BAD_REQUEST
     data = json.loads(response.content.decode("utf8"))
     assert "invalid" in data["form"]["errors"][0]
 
@@ -339,7 +342,7 @@ def test_reset_password_from_key_next_url(
     if next_url:
         query = "?" + urlencode({"next": next_url})
     resp = client.get(url + query)
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     assert (
         resp["location"]
         == reverse(
@@ -353,5 +356,5 @@ def test_reset_password_from_key_next_url(
     if next_url:
         data["next"] = next_url
     resp = client.post(resp["location"], data)
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     assert resp["location"] == expected_location

@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 
 from allauth.socialaccount.providers.lichess.provider import LichessProvider
@@ -11,7 +13,7 @@ class LichessTests(OAuth2TestsMixin, TestCase):
     def get_mocked_response(self):
         return [
             MockedResponse(
-                200,
+                HTTPStatus.OK,
                 """
 {
   "id": "george",
@@ -82,7 +84,7 @@ class LichessTests(OAuth2TestsMixin, TestCase):
 }
 """,
             ),
-            MockedResponse(200, """{"email":"george@example.com"}"""),
+            MockedResponse(HTTPStatus.OK, """{"email":"george@example.com"}"""),
         ]
 
     def get_expected_to_str(self):

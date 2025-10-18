@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 
 from allauth.socialaccount.providers.dwolla.provider import DwollaProvider
@@ -10,7 +12,7 @@ class DwollaTests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         return MockedResponse(
-            200,
+            HTTPStatus.OK,
             """{
             "id": "123",
             "_links":{"account":{"href":"http://localhost"}},

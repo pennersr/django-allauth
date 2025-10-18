@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 
 from allauth.socialaccount.providers.yahoo.provider import YahooProvider
@@ -21,7 +23,7 @@ class YahooTests(OAuth2TestsMixin, TestCase):
          "picture": "http://example.com/janedoe/me.jpg"
         }
         """  # noqa
-        return MockedResponse(200, response_data)
+        return MockedResponse(HTTPStatus.OK, response_data)
 
     def get_expected_to_str(self):
         return "janedoe@example.com"

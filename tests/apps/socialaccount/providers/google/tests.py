@@ -1,5 +1,6 @@
 import json
 import time
+from http import HTTPStatus
 from importlib import import_module
 from unittest.mock import Mock, patch
 
@@ -273,7 +274,7 @@ def test_login_by_token(db, client, settings_with_google_provider):
                         reverse("google_login_by_token"),
                         {"credential": "dummy", "g_csrf_token": "csrf"},
                     )
-                    assert resp.status_code == 302
+                    assert resp.status_code == HTTPStatus.FOUND
                     socialaccount = SocialAccount.objects.get(uid="123sub")
                     assert socialaccount.user.email == "raymond@example.com"
 

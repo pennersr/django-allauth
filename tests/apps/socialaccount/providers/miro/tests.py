@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 
 from allauth.socialaccount.providers.miro.provider import MiroProvider
@@ -10,7 +12,7 @@ class MiroTests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         return MockedResponse(
-            200,
+            HTTPStatus.OK,
             """{
                 "type" : "user",
                 "id" : "5298357290348572584",

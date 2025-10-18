@@ -96,7 +96,7 @@ def test_password_grant_is_blocked(
         },
     )
     # We don't crash, but also don't grant.
-    assert resp.status_code == 400
+    assert resp.status_code == HTTPStatus.BAD_REQUEST
     assert resp.json() == {
         "error": "invalid_grant",
         "error_description": "Invalid credentials given.",

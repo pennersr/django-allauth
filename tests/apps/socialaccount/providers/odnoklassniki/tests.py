@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 
 from allauth.socialaccount.providers.odnoklassniki.provider import OdnoklassnikiProvider
@@ -10,7 +12,7 @@ class OdnoklassnikiTests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self, verified_email=True):
         return MockedResponse(
-            200,
+            HTTPStatus.OK,
             """
 {"uid":"561999209121","birthday":"1999-09-09","age":33,"first_name":"Ivan",
 "last_name":"Petrov","name":"Ivan Petrov","locale":"en","gender":"male",

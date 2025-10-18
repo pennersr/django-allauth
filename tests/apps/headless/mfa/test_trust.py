@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 import pytest
 
 from allauth.headless.constants import Client, Flow
@@ -31,7 +33,7 @@ def test_auth_unverified_email_and_mfa(
         )
 
         # TOTP is the next stage
-        assert resp.status_code == 401
+        assert resp.status_code == HTTPStatus.UNAUTHORIZED
         data = resp.json()
         assert [f for f in data["data"]["flows"] if f["id"] == Flow.MFA_AUTHENTICATE][
             0
@@ -45,10 +47,10 @@ def test_auth_unverified_email_and_mfa(
 
         if headless_client == Client.APP:
             # App client does not support trust
-            assert resp.status_code == 200
+            assert resp.status_code == HTTPStatus.OK
         else:
             # Trust stage is pending
-            assert resp.status_code == 401
+            assert resp.status_code == HTTPStatus.UNAUTHORIZED
             data = resp.json()
             assert [f for f in data["data"]["flows"] if f["id"] == Flow.MFA_TRUST][0][
                 "is_pending"
@@ -62,11 +64,11 @@ def test_auth_unverified_email_and_mfa(
             )
 
             # Logout
-            assert resp.status_code == 200
+            assert resp.status_code == HTTPStatus.OK
             resp = client.delete(
                 headless_reverse("headless:account:current_session"),
             )
-            assert resp.status_code == 401
+            assert resp.status_code == HTTPStatus.UNAUTHORIZED
 
             # Login
             resp = client.post(
@@ -79,4 +81,6 @@ def test_auth_unverified_email_and_mfa(
             )
 
             # Trust used?
-            assert resp.status_code == (200 if trust else 401)
+            assert resp.status_code == (
+                HTTPStatus.OK if trust else HTTPStatus.UNAUTHORIZED
+            )

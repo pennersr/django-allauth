@@ -1,3 +1,6 @@
+from http import HTTPStatus
+
+
 def test_reauthenticate(
     auth_client, user, user_password, headless_reverse, headless_client
 ):
@@ -5,7 +8,7 @@ def test_reauthenticate(
         headless_reverse("headless:account:current_session"),
         content_type="application/json",
     )
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
     data = resp.json()
     method_count = len(data["data"]["methods"])
 
@@ -16,13 +19,13 @@ def test_reauthenticate(
         },
         content_type="application/json",
     )
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
 
     resp = auth_client.get(
         headless_reverse("headless:account:current_session"),
         content_type="application/json",
     )
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
     data = resp.json()
     assert len(data["data"]["methods"]) == method_count + 1
     last_method = data["data"]["methods"][-1]
@@ -47,6 +50,6 @@ def test_reauthenticate_rate_limit(
             },
             content_type="application/json",
         )
-        expected_status = 429 if attempt else 200
+        expected_status = HTTPStatus.TOO_MANY_REQUESTS if attempt else HTTPStatus.OK
         assert resp.status_code == expected_status
         assert resp.json()["status"] == expected_status

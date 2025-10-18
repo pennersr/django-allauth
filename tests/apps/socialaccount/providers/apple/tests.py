@@ -1,5 +1,6 @@
 import json
 import time
+from http import HTTPStatus
 from importlib import import_module
 from urllib.parse import parse_qs, urlparse
 
@@ -169,7 +170,7 @@ class AppleTests(OAuth2TestsMixin, TestCase):
         key request in order to verify the authenticity of the id_token.
         """
         return MockedResponse(
-            200, KEY_SERVER_RESP_JSON, {"content-type": "application/json"}
+            HTTPStatus.OK, KEY_SERVER_RESP_JSON, {"content-type": "application/json"}
         )
 
     def get_expected_to_str(self):
@@ -213,7 +214,9 @@ class AppleTests(OAuth2TestsMixin, TestCase):
             with_refresh_token=with_refresh_token
         )
         with mocked_response(
-            MockedResponse(200, response_json, {"content-type": "application/json"}),
+            MockedResponse(
+                HTTPStatus.OK, response_json, {"content-type": "application/json"}
+            ),
             resp_mock,
         ):
             resp = self.client.post(

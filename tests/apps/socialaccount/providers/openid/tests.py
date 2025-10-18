@@ -1,4 +1,5 @@
 import urllib.error
+from http import HTTPStatus
 from unittest.mock import Mock, patch
 
 from django.contrib.auth import get_user_model
@@ -19,14 +20,14 @@ class TestFetcher(fetchers.Urllib2Fetcher):
         if url == "https://steamcommunity.com/openid":
             return fetchers.HTTPResponse(
                 final_url="https://steamcommunity.com/openid",
-                status=200,
+                status=HTTPStatus.OK,
                 headers={"content-type": "application/xrds+xml;charset=utf-8"},
                 body='<?xml version="1.0" encoding="UTF-8"?>\n<xrds:XRDS xmlns:xrds="xri://$xrds" xmlns="xri://$xrd*($v*2.0)">\n\t<XRD>\n\t\t<Service priority="0">\n\t\t\t<Type>http://specs.openid.net/auth/2.0/server</Type>\t\t\n\t\t\t<URI>https://steamcommunity.com/openid/login</URI>\n\t\t</Service>\n\t</XRD>\n</xrds:XRDS>',
             )
         if url == "https://steamcommunity.com/openid/login":
             return fetchers.HTTPResponse(
                 final_url="https://steamcommunity.com/openid/login",
-                status=200,
+                status=HTTPStatus.OK,
                 headers={"content-type": "text/plain;charset=utf-8"},
                 body="ns:http://specs.openid.net/auth/2.0\nerror_code:unsupported-type\nerror:Associations not supported\n",
             )

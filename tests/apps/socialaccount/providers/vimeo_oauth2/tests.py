@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 
 from allauth.socialaccount.providers.vimeo_oauth2.provider import VimeoOAuth2Provider
@@ -10,7 +12,7 @@ class VimeoOAuth2Tests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         return MockedResponse(
-            200,
+            HTTPStatus.OK,
             """{
             "uri": "/users/12345",
             "name": "AllAuth",

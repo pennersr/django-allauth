@@ -1,4 +1,5 @@
 import os
+from http import HTTPStatus
 from types import SimpleNamespace
 
 from django.http import HttpResponseRedirect
@@ -60,7 +61,7 @@ def _should_redirect_accounts(request, response) -> bool:
     management overview or the login page, depending on whether or not the user
     is authenticated.
     """
-    if response.status_code != 404:
+    if response.status_code != HTTPStatus.NOT_FOUND:
         return False
     try:
         login_path = reverse("account_login")

@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from allauth.account.models import EmailAddress, get_emailconfirmation_model
 from allauth.headless.constants import Flow
 
@@ -24,7 +26,7 @@ def test_auth_unverified_email_and_mfa(
         },
         content_type="application/json",
     )
-    assert resp.status_code == 401
+    assert resp.status_code == HTTPStatus.UNAUTHORIZED
     data = resp.json()
     assert [f for f in data["data"]["flows"] if f["id"] == Flow.VERIFY_EMAIL][0][
         "is_pending"
@@ -36,7 +38,7 @@ def test_auth_unverified_email_and_mfa(
         data={"key": key},
         content_type="application/json",
     )
-    assert resp.status_code == 401
+    assert resp.status_code == HTTPStatus.UNAUTHORIZED
     flows = [
         {"id": "login"},
         {"id": "login_by_code"},
@@ -67,16 +69,16 @@ def test_auth_unverified_email_and_mfa(
     assert resp.json() == {
         "data": {"flows": flows},
         "meta": {"is_authenticated": False},
-        "status": 401,
+        "status": HTTPStatus.UNAUTHORIZED,
     }
     resp = client.post(
         headless_reverse("headless:mfa:authenticate"),
         data={"code": "bad"},
         content_type="application/json",
     )
-    assert resp.status_code == 400
+    assert resp.status_code == HTTPStatus.BAD_REQUEST
     assert resp.json() == {
-        "status": 400,
+        "status": HTTPStatus.BAD_REQUEST,
         "errors": [
             {"message": "Incorrect code.", "code": "incorrect_code", "param": "code"}
         ],
@@ -88,7 +90,7 @@ def test_auth_unverified_email_and_mfa(
             data={"code": "bad"},
             content_type="application/json",
         )
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
 
 
 def test_dangling_mfa_is_logged_out(
@@ -110,12 +112,12 @@ def test_dangling_mfa_is_logged_out(
         },
         content_type="application/json",
     )
-    assert resp.status_code == 401
+    assert resp.status_code == HTTPStatus.UNAUTHORIZED
     data = resp.json()
     flow = [f for f in data["data"]["flows"] if f["id"] == Flow.MFA_AUTHENTICATE][0]
     assert flow["is_pending"]
     assert flow["types"] == ["totp"]
     resp = client.delete(headless_reverse("headless:account:current_session"))
     data = resp.json()
-    assert resp.status_code == 401
+    assert resp.status_code == HTTPStatus.UNAUTHORIZED
     assert all(not f.get("is_pending") for f in data["data"]["flows"])

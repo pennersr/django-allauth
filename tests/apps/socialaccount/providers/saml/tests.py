@@ -1,3 +1,4 @@
+from http import HTTPStatus
 from unittest.mock import Mock, patch
 from urllib.parse import parse_qs, urlparse
 
@@ -78,7 +79,7 @@ def test_acs(
         reverse("saml_acs", kwargs={"organization_slug": "org"}), data=data
     )
     finish_url = reverse("saml_finish_acs", kwargs={"organization_slug": "org"})
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     assert resp["location"] == finish_url
     resp = client.get(finish_url)
     if idp_initiated and advanced.get("reject_idp_initiated_sso", True):
@@ -100,7 +101,7 @@ def test_acs_error(client, db, saml_settings):
     resp = client.post(
         reverse("saml_acs", kwargs={"organization_slug": "org"}), data=data
     )
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     resp = client.get(resp["location"])
     assert "socialaccount/authentication_error.html" in (t.name for t in resp.templates)
 
@@ -110,7 +111,7 @@ def test_acs_get(client, db, saml_settings):
     the FinishACSView.
     """
     resp = client.get(reverse("saml_acs", kwargs={"organization_slug": "org"}))
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     resp = client.get(resp["location"])
     assert "socialaccount/authentication_error.html" in (t.name for t in resp.templates)
 
@@ -118,12 +119,12 @@ def test_acs_get(client, db, saml_settings):
 def test_sls_get(client, db, saml_settings):
     """SLS expects POST"""
     resp = client.get(reverse("saml_sls", kwargs={"organization_slug": "org"}))
-    assert resp.status_code == 400
+    assert resp.status_code == HTTPStatus.BAD_REQUEST
 
 
 def test_login_on_get(client, db, saml_settings):
     resp = client.get(reverse("saml_login", kwargs={"organization_slug": "org"}))
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
     assertTemplateUsed(resp, "socialaccount/login.html")
 
 
@@ -132,7 +133,7 @@ def test_login(client, db, saml_settings):
         reverse("saml_login", kwargs={"organization_slug": "org"})
         + "?process=connect&next=/foo"
     )
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     location = resp["location"]
     assert location.startswith("https://dev-123.us.auth0.com/samlp/456?SAMLRequest=")
     resp_query = parse_qs(urlparse(location).query)
@@ -151,7 +152,7 @@ def test_metadata(
     saml_settings,
 ):
     resp = client.get(reverse("saml_metadata", kwargs={"organization_slug": "org"}))
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
     assert resp.content.startswith(
         b'<?xml version="1.0"?>\n<md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata'
     )
@@ -165,7 +166,7 @@ def test_sls(auth_client, db, saml_settings, user_factory, sls_saml_request):
             + urlencode({"SAMLRequest": sls_saml_request})
         )
         assert logout_mock.call_count == 1
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     assert resp["location"].startswith(
         "https://dev-123.us.auth0.com/samlp/456?SAMLResponse="
     )

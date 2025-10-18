@@ -1,4 +1,5 @@
 import json
+from http import HTTPStatus
 from unittest.mock import ANY, patch
 
 from django.conf import settings
@@ -310,7 +311,7 @@ class LoginTests(TestCase):
     def test_account_authenticated_login_redirects_is_false(self):
         self._create_user_and_login()
         resp = self.client.get(reverse("account_login"))
-        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(resp.status_code, HTTPStatus.OK)
 
 
 def test_login_password_forgotten_link_not_present(client, db):
@@ -335,14 +336,14 @@ def test_login_while_authenticated(settings, client, user_factory):
     redirect_url = settings.LOGIN_REDIRECT_URL
 
     resp = client.post(reverse("account_login"), {"login": "john", "password": "doe"})
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     assert resp["location"] == redirect_url
     resp = client.post(reverse("account_login"), {"login": "jane", "password": "doe"})
-    assert resp.status_code == 302
+    assert resp.status_code == HTTPStatus.FOUND
     assert resp["location"] == redirect_url
 
 
 def test_login_page(client, db):
     resp = client.get(reverse("account_login"))
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
     assertTemplateUsed(resp, "account/login.html")

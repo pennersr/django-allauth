@@ -1,4 +1,5 @@
 import copy
+from http import HTTPStatus
 from unittest.mock import ANY, patch
 
 from django.contrib.auth import get_user_model
@@ -98,7 +99,7 @@ def test_email_authentication(
 
 def test_login_cancelled(client):
     resp = client.get(reverse("socialaccount_login_cancelled"))
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
     assertTemplateUsed(resp, "socialaccount/login_cancelled.html")
 
 

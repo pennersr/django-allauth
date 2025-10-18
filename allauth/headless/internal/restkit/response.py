@@ -41,7 +41,9 @@ class APIResponse(JsonResponse):
 
 
 class ErrorResponse(APIResponse):
-    def __init__(self, request, exception=None, input=None, status=400):
+    def __init__(
+        self, request, exception=None, input=None, status=HTTPStatus.BAD_REQUEST
+    ):
         errors = []
         if exception is not None:
             error_datas = ErrorList(exception.error_list).get_json_data()

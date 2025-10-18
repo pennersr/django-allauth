@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 
 from allauth.socialaccount.providers.spotify.provider import SpotifyOAuth2Provider
@@ -10,7 +12,7 @@ class SpotifyOAuth2Tests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         return MockedResponse(
-            200,
+            HTTPStatus.OK,
             """{
           "birthdate": "1937-06-01",
           "country": "SE",

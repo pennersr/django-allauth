@@ -4,6 +4,7 @@ python manage.py test allauth.socialaccount.providers.trainingpeaks.tests.Traini
 """
 
 from collections import namedtuple
+from http import HTTPStatus
 
 from django.test import TestCase
 from django.test.utils import override_settings
@@ -21,7 +22,7 @@ class TrainingPeaksTests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         return MockedResponse(
-            200,
+            HTTPStatus.OK,
             """{
                 "Id": 123456,
                 "FirstName": "John",

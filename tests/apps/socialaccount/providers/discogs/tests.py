@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 
 from allauth.socialaccount.models import SocialAccount
@@ -12,7 +14,7 @@ class DiscogsTests(OAuthTestsMixin, TestCase):
     def get_mocked_response(self):
         return [
             MockedResponse(
-                200,
+                HTTPStatus.OK,
                 r'{"id": 5788917, "username": "veljkoj", '
                 r'"resource_url": "https://api.discogs.com/users/veljkoj", '
                 r'"consumer_name": "myapp"}',

@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 
 from allauth.socialaccount.providers.snapchat.provider import SnapchatProvider
@@ -10,7 +12,7 @@ class SnapchatOAuth2Tests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         return MockedResponse(
-            200,
+            HTTPStatus.OK,
             """{
                   "data":{
                       "me":{

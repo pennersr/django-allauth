@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 
 from allauth.socialaccount.providers.feedly.provider import FeedlyProvider
@@ -10,7 +12,7 @@ class FeedlyTests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         return MockedResponse(
-            200,
+            HTTPStatus.OK,
             """
 {
   "id": "c805fcbf-3acf-4302-a97e-d82f9d7c897f",

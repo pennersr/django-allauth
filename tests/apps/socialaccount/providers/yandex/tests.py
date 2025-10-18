@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 
 from allauth.socialaccount.providers.yandex.provider import YandexProvider
@@ -28,7 +30,7 @@ class YandexTests(OAuth2TestsMixin, TestCase):
     def get_mocked_response(self, data=None):
         if data is None:
             data = self.yandex_data
-        return MockedResponse(200, data)
+        return MockedResponse(HTTPStatus.OK, data)
 
     def get_expected_to_str(self):
         return "test@yandex.ru"

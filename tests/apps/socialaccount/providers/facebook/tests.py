@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.test.client import RequestFactory
@@ -50,7 +52,7 @@ class FacebookTests(OAuth2TestsMixin, TestCase):
     def get_mocked_response(self, data=None):
         if data is None:
             data = self.facebook_data
-        return MockedResponse(200, data)
+        return MockedResponse(HTTPStatus.OK, data)
 
     def get_expected_to_str(self):
         return "raymond.penners"

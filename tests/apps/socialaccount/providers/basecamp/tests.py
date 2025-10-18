@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 
 from allauth.socialaccount.providers.basecamp.provider import BasecampProvider
@@ -10,7 +12,7 @@ class BasecampTests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         return MockedResponse(
-            200,
+            HTTPStatus.OK,
             """
         {
             "expires_at": "2012-03-22T16:56:48-05:00",

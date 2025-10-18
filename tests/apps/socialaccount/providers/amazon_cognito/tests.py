@@ -1,4 +1,5 @@
 import json
+from http import HTTPStatus
 
 from django.test import TestCase, override_settings
 
@@ -39,7 +40,7 @@ class AmazonCognitoTestCase(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         mocked_payload = json.dumps(_get_mocked_claims())
-        return MockedResponse(status_code=200, content=mocked_payload)
+        return MockedResponse(status_code=HTTPStatus.OK, content=mocked_payload)
 
     def get_expected_to_str(self):
         return "johndoe"
@@ -62,7 +63,9 @@ class AmazonCognitoTestCase(OAuth2TestsMixin, TestCase):
         mocked_claims = _get_mocked_claims()
         mocked_claims["email_verified"] = True
         mocked_payload = json.dumps(mocked_claims)
-        mocked_response = MockedResponse(status_code=200, content=mocked_payload)
+        mocked_response = MockedResponse(
+            status_code=HTTPStatus.OK, content=mocked_payload
+        )
 
         self.login(mocked_response)
 

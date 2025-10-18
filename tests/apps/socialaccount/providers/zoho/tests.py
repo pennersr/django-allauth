@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 
 from allauth.socialaccount.providers.zoho.provider import ZohoProvider
@@ -10,7 +12,7 @@ class ZohoTests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         return MockedResponse(
-            200,
+            HTTPStatus.OK,
             """
 {"First_Name":"John","Email":"jdoe@example.com",
 "Last_Name":"Doe","Display_Name":"JDoee","ZUID":1234567}

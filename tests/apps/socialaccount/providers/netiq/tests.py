@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 
 from allauth.socialaccount.providers.netiq.provider import NetIQProvider
@@ -10,7 +12,7 @@ class NetIQTests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         return MockedResponse(
-            200,
+            HTTPStatus.OK,
             """
             {
                 "sub": "d4c094dd899ab0408fb9d4c094dd899a",

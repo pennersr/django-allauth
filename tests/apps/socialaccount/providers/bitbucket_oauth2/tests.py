@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 from django.test.utils import override_settings
 
@@ -85,10 +87,10 @@ class BitbucketOAuth2Tests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         return [
-            MockedResponse(200, self.response_data),
-            MockedResponse(200, self.email_response_data),
-            MockedResponse(200, self.response_data),
-            MockedResponse(200, self.email_response_data),
+            MockedResponse(HTTPStatus.OK, self.response_data),
+            MockedResponse(HTTPStatus.OK, self.email_response_data),
+            MockedResponse(HTTPStatus.OK, self.response_data),
+            MockedResponse(HTTPStatus.OK, self.email_response_data),
         ]
 
     def get_expected_to_str(self):

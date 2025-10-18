@@ -1,5 +1,6 @@
 import binascii
 import logging
+from http import HTTPStatus
 
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
@@ -155,7 +156,7 @@ class SLSView(SAMLViewMixin, View):
                 % (", ".join(errors), error_reason)
             )
             resp = HttpResponse(error_reason, content_type="text/plain")
-            resp.status_code = 400
+            resp.status_code = HTTPStatus.BAD_REQUEST
             return resp
         if not redirect_to:
             redirect_to = account_adapter.get_logout_redirect_url(request)
@@ -180,7 +181,7 @@ class MetadataView(SAMLViewMixin, View):
 
         if len(errors) > 0:
             resp = JsonResponse({"errors": errors})
-            resp.status_code = 500
+            resp.status_code = HTTPStatus.INTERNAL_SERVER_ERROR
             return resp
 
         return HttpResponse(content=metadata, content_type="text/xml")

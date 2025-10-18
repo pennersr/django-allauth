@@ -1,3 +1,4 @@
+from http import HTTPStatus
 from unittest.mock import ANY
 
 from django.contrib.auth import get_user_model
@@ -34,7 +35,7 @@ def test_passkey_login_get_options(client, headless_client, headless_reverse, db
             "meta": {"session_token": ANY},
         }
     assert data == {
-        "status": 200,
+        "status": HTTPStatus.OK,
         "data": {"request_options": {"publicKey": ANY}},
         **meta,
     }
@@ -49,7 +50,7 @@ def test_reauthenticate(
 ):
     # View recovery codes, confirm webauthn reauthentication is an option
     resp = auth_client.get(headless_reverse("headless:mfa:manage_recovery_codes"))
-    assert resp.status_code == 401
+    assert resp.status_code == HTTPStatus.UNAUTHORIZED
     assert Flow.MFA_REAUTHENTICATE in [
         flow["id"] for flow in resp.json()["data"]["flows"]
     ]
@@ -58,7 +59,7 @@ def test_reauthenticate(
     with webauthn_authentication_bypass(passkey):
         resp = auth_client.get(headless_reverse("headless:mfa:reauthenticate_webauthn"))
         data = resp.json()
-        assert data["status"] == 200
+        assert data["status"] == HTTPStatus.OK
         assert data["data"]["request_options"] == ANY
 
     # Reauthenticate
@@ -68,9 +69,9 @@ def test_reauthenticate(
             data={"credential": credential},
             content_type="application/json",
         )
-        assert resp.status_code == 200
+        assert resp.status_code == HTTPStatus.OK
     resp = auth_client.get(headless_reverse("headless:mfa:manage_recovery_codes"))
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
 
 
 def test_update_authenticator(
@@ -83,14 +84,14 @@ def test_update_authenticator(
         content_type="application/json",
     )
     # Reauthentication required
-    assert resp.status_code == 401
+    assert resp.status_code == HTTPStatus.UNAUTHORIZED
     with reauthentication_bypass():
         resp = auth_client.put(
             headless_reverse("headless:mfa:manage_webauthn"),
             data=data,
             content_type="application/json",
         )
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
     passkey.refresh_from_db()
     assert passkey.wrap().name == "Renamed!"
 
@@ -105,14 +106,14 @@ def test_delete_authenticator(
         content_type="application/json",
     )
     # Reauthentication required
-    assert resp.status_code == 401
+    assert resp.status_code == HTTPStatus.UNAUTHORIZED
     with reauthentication_bypass():
         resp = auth_client.delete(
             headless_reverse("headless:mfa:manage_webauthn"),
             data=data,
             content_type="application/json",
         )
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
     assert not Authenticator.objects.filter(pk=passkey.pk).exists()
 
 
@@ -127,16 +128,20 @@ def test_add_authenticator(
 ):
     resp = auth_client.get(headless_reverse("headless:mfa:manage_webauthn"))
     # Reauthentication required
-    assert resp.status_code == 401 if email_verified else 409
+    assert (
+        resp.status_code == HTTPStatus.UNAUTHORIZED
+        if email_verified
+        else HTTPStatus.CONFLICT
+    )
 
     with reauthentication_bypass():
         resp = auth_client.get(headless_reverse("headless:mfa:manage_webauthn"))
         if email_verified:
-            assert resp.status_code == 200
+            assert resp.status_code == HTTPStatus.OK
             data = resp.json()
             assert data["data"]["creation_options"] == ANY
         else:
-            assert resp.status_code == 409
+            assert resp.status_code == HTTPStatus.CONFLICT
 
         with webauthn_registration_bypass(user, False) as credential:
             resp = auth_client.post(
@@ -148,10 +153,10 @@ def test_add_authenticator(
                 type=Authenticator.Type.WEBAUTHN, user=user
             ).count()
             if email_verified:
-                assert resp.status_code == 200
+                assert resp.status_code == HTTPStatus.OK
                 assert webauthn_count == 1
             else:
-                assert resp.status_code == 409
+                assert resp.status_code == HTTPStatus.CONFLICT
                 assert webauthn_count == 0
 
 
@@ -171,7 +176,7 @@ def test_2fa_login(
         },
         content_type="application/json",
     )
-    assert resp.status_code == 401
+    assert resp.status_code == HTTPStatus.UNAUTHORIZED
     data = resp.json()
     pending_flows = [f for f in data["data"]["flows"] if f.get("is_pending")]
     assert len(pending_flows) == 1
@@ -190,7 +195,7 @@ def test_2fa_login(
             content_type="application/json",
         )
     data = resp.json()
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
     assert data["data"]["user"]["id"] == passkey.user_id
     assert client.headless_session()[AUTHENTICATION_METHODS_SESSION_KEY] == [
         {"method": "password", "at": ANY, "username": passkey.user.username},
@@ -222,7 +227,7 @@ def test_passkey_signup(
     )
 
     # Email verification kicks in.
-    assert resp.status_code == 401
+    assert resp.status_code == HTTPStatus.UNAUTHORIZED
     pending_flows = [
         flow for flow in resp.json()["data"]["flows"] if flow.get("is_pending")
     ]
@@ -237,7 +242,7 @@ def test_passkey_signup(
         data={"key": code},
         content_type="application/json",
     )
-    assert resp.status_code == 401
+    assert resp.status_code == HTTPStatus.UNAUTHORIZED
 
     # Now, the webauthn signup flow is pending.
     pending_flows = [
@@ -263,7 +268,7 @@ def test_passkey_signup(
 
     # Signed up successfully.
     data = resp.json()
-    assert resp.status_code == 200
+    assert resp.status_code == HTTPStatus.OK
     assert data["meta"]["is_authenticated"]
     authenticator = Authenticator.objects.get(user=user)
     assert authenticator.wrap().name == "Some key"

@@ -1,3 +1,4 @@
+from http import HTTPStatus
 from urllib.parse import parse_qs, urlparse
 
 from django.test import TestCase
@@ -15,7 +16,7 @@ class NotionTests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         return MockedResponse(
-            200,
+            HTTPStatus.OK,
             """
             {
                 "workspace_id": "workspace-abc",
@@ -85,7 +86,9 @@ class NotionTests(OAuth2TestsMixin, TestCase):
             resp_mocks = [resp_mock]
 
         with mocked_response(
-            MockedResponse(200, response_json, {"content-type": "application/json"}),
+            MockedResponse(
+                HTTPStatus.OK, response_json, {"content-type": "application/json"}
+            ),
             *resp_mocks,
         ):
             resp = self.client.get(complete_url, self.get_complete_parameters(q))

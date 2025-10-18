@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 
 from allauth.socialaccount.providers.bitly.provider import BitlyProvider
@@ -10,7 +12,7 @@ class BitlyTests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         return MockedResponse(
-            200,
+            HTTPStatus.OK,
             """{
             "data": {
                 "apiKey": "R_f6397a37e765574f2e198dba5bb59522",

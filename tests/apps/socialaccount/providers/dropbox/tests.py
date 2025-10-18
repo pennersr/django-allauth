@@ -1,4 +1,5 @@
 import json
+from http import HTTPStatus
 
 from django.test import TestCase
 
@@ -34,7 +35,7 @@ class DropboxOAuth2Tests(OAuth2TestsMixin, TestCase):
             ),
             "referral_link": "https://db.tt/ASDfAsDf",
         }
-        return MockedResponse(200, json.dumps(payload))
+        return MockedResponse(HTTPStatus.OK, json.dumps(payload))
 
     def get_expected_to_str(self):
         return "allauth@example.com"

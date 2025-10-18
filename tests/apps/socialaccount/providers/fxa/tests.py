@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 
 from allauth.socialaccount.providers.fxa.provider import FirefoxAccountsProvider
@@ -10,7 +12,7 @@ class FirefoxAccountsTests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         return MockedResponse(
-            200,
+            HTTPStatus.OK,
             """
         {
             "uid":"6d940dd41e636cc156074109b8092f96",

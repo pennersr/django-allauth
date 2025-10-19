@@ -1,4 +1,5 @@
 import html
+import ipaddress
 import json
 import typing
 import warnings
@@ -20,7 +21,7 @@ from django.contrib.auth.password_validation import (
     validate_password,
 )
 from django.contrib.sites.shortcuts import get_current_site
-from django.core.exceptions import FieldDoesNotExist
+from django.core.exceptions import FieldDoesNotExist, PermissionDenied
 from django.core.mail import EmailMessage, EmailMultiAlternatives
 from django.http import HttpResponse, HttpResponseRedirect
 from django.http.request import validate_host
@@ -775,10 +776,17 @@ class DefaultAccountAdapter(BaseAdapter):
     def get_client_ip(self, request) -> str:
         x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
         if x_forwarded_for:
-            ip = x_forwarded_for.split(",")[0]
+            ip_value = x_forwarded_for.split(",")[0]
         else:
-            ip = request.META.get("REMOTE_ADDR")
-        return ip
+            ip_value = request.META["REMOTE_ADDR"]
+
+        # Try to parse the value as an IP address to make sure it's a valid one.
+        try:
+            ip_addr = ipaddress.ip_address(ip_value)
+        except ValueError:
+            raise PermissionDenied(f"Invalid IP address: {ip_value!r}")
+        else:
+            return str(ip_addr)
 
     def get_http_user_agent(self, request):
         return request.META.get("HTTP_USER_AGENT", "Unspecified")

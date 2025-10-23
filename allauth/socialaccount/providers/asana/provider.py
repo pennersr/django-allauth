@@ -14,7 +14,10 @@ class AsanaProvider(OAuth2Provider):
     oauth2_adapter_class = AsanaOAuth2Adapter
 
     def extract_uid(self, data):
-        return str(data["id"])
+        if "gid" not in data:
+            # `id` is legacy: https://developers.asana.com/reference/getuser
+            return str(data["id"])
+        return str(data["gid"])
 
     def extract_common_fields(self, data):
         return dict(email=data.get("email"), name=data.get("name"))

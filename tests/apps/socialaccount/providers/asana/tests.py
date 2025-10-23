@@ -16,7 +16,7 @@ class AsanaTests(OAuth2TestsMixin, TestCase):
             """
 {"data": {"photo": null, "workspaces": [{"id": 31337, "name": "example.com"},
 {"id": 3133777, "name": "Personal Projects"}], "email": "test@example.com",
-"name": "Test Name", "id": 43748387}}""",
+"name": "Test Name", "gid": 43748387}}""",
         )
 
     def get_expected_to_str(self):

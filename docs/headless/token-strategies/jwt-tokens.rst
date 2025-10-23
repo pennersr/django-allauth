@@ -78,8 +78,19 @@ Available settings:
   as well. The original refresh token is invalidated.
 
 
+Customization
+-------------
+
+You can customize the behavior of the JWT token strategy by creating a custom
+class deriving from ``JWTTokenStrategy``, and pointing
+``settings.HEADLESS_TOKEN_STRATEGY`` to that class.
+
+.. autoclass:: allauth.headless.tokens.strategies.jwt.JWTTokenStrategy
+   :members: get_claims
+
+
 Securing Your API Endpoints
------------------------------
+---------------------------
 
 Django Ninja
 ~~~~~~~~~~~~

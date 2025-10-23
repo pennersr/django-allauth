@@ -145,17 +145,24 @@ def decode_token(token: str, use: str) -> Optional[Dict[str, Any]]:
         return payload
 
 
-def create_token(use: str, *, sub: str, sid: str) -> Tuple[str, Dict[str, Any]]:
+def create_token(
+    token_use: str, *, sub: str, sid: str, claims: Optional[Dict[str, Any]] = None
+) -> Tuple[str, Dict[str, Any]]:
     jwk_dict, private_key = jwkkit.load_jwk_from_pem(app_settings.JWT_PRIVATE_KEY)
     now = int(time.time())
-    payload = {
-        "iat": now,
-        "exp": now + app_settings.JWT_ACCESS_TOKEN_EXPIRES_IN,
-        "sid": sid,
-        "jti": str(uuid.uuid4()),
-        "token_use": use,
-        "sub": sub,
-    }
+    payload = {}
+    if claims is not None:
+        payload.update(claims)
+    payload.update(
+        {
+            "iat": now,
+            "exp": now + app_settings.JWT_ACCESS_TOKEN_EXPIRES_IN,
+            "sid": sid,
+            "jti": str(uuid.uuid4()),
+            "token_use": token_use,
+            "sub": sub,
+        }
+    )
     return (
         jwt.encode(
             payload,
@@ -182,12 +189,12 @@ def create_refresh_token(user, session: SessionBase) -> str:
     return token
 
 
-def create_access_token(user, session: SessionBase) -> str:
+def create_access_token(user, session: SessionBase, claims: Dict[str, Any]) -> str:
     assert user.is_authenticated  # nosec
     assert session.session_key  # nosec
     sid = session_key_to_sid(session.session_key)
     sub = user_id_to_str(user)
-    return create_token("access", sub=sub, sid=sid)[0]
+    return create_token("access", sub=sub, sid=sid, claims=claims)[0]
 
 
 def invalidate_refresh_token(session: SessionBase, token: Dict[str, Any]) -> None:

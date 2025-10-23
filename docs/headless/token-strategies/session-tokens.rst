@@ -16,7 +16,7 @@ Ninja and Django REST framework is offered out of the box.
 
 
 Securing Your API Endpoints
------------------------------
+---------------------------
 
 Django Ninja
 ~~~~~~~~~~~~

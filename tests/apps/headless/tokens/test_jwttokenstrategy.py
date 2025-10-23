@@ -3,7 +3,22 @@ from http import HTTPStatus
 from django.test.client import Client
 from django.urls import reverse, reverse_lazy
 
+import jwt
 import pytest
+
+from allauth.headless.tokens.strategies.jwt import JWTTokenStrategy
+
+
+class CustomJWTTokenStrategy(JWTTokenStrategy):
+    def get_claims(self, user):
+        return {"email": user.email}
+
+
+@pytest.fixture
+def custom_jwt_token_strategy(settings):
+    settings.HEADLESS_TOKEN_STRATEGY = (
+        "tests.apps.headless.tokens.test_jwttokenstrategy.CustomJWTTokenStrategy"
+    )
 
 
 @pytest.fixture
@@ -32,16 +47,26 @@ def obtain_tokens(user, user_password, headless_reverse):
 
 @pytest.mark.parametrize("rotate", [False, True])
 def test_rotate_refresh_token(
-    headless_client, headless_reverse, client, rotate, settings, obtain_tokens
+    headless_client,
+    headless_reverse,
+    client,
+    user,
+    rotate,
+    settings,
+    obtain_tokens,
+    custom_jwt_token_strategy,
 ):
     if headless_client == "browser":
         return
-    settings.HEADLESS_TOKEN_STRATEGY = (
-        "allauth.headless.tokens.strategies.jwt.JWTTokenStrategy"
-    )
     settings.HEADLESS_JWT_ROTATE_REFRESH_TOKEN = rotate
 
-    _, refresh_token = obtain_tokens(client)
+    access_token, refresh_token = obtain_tokens(client)
+
+    # Check our custom claim
+    access_token_data = jwt.decode(
+        access_token, algorithms=["RS256"], options={"verify_signature": False}
+    )
+    assert access_token_data["email"] == user.email
 
     # Let's refresh
     resp = Client().post(
@@ -51,6 +76,13 @@ def test_rotate_refresh_token(
     )
     assert resp.status_code == HTTPStatus.OK
     data = resp.json()["data"]
+
+    # Check our custom claim in the new access token
+    access_token = data["access_token"]
+    access_token_data = jwt.decode(
+        access_token, algorithms=["RS256"], options={"verify_signature": False}
+    )
+    assert access_token_data["email"] == user.email
 
     new_refresh_token = data.get("refresh_token")
     assert bool(new_refresh_token) == rotate

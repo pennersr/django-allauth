@@ -54,14 +54,30 @@ class JWTTokenStrategy(AbstractTokenStrategy):
         return sessionkit.lookup_session(session_token)
 
     def create_access_token(self, request: HttpRequest) -> Optional[str]:
-        return internal.create_access_token(request.user, request.session)
+        claims = self.get_claims(request.user)
+        return internal.create_access_token(request.user, request.session, claims)
+
+    def get_claims(self, user) -> Dict[str, Any]:
+        """
+        Returns additional claims to be included in the access token.  Note that
+        the following claims are reserved and will be automatically set by allauth regardless of what you return:
+         - ``iat``
+         - ``exp``
+         - ``sid``
+         - ``jti``
+         - ``token_use``
+         - ``sub``
+        """
+        return {}
 
     def refresh_token(self, refresh_token: str) -> Optional[Tuple[str, str]]:
         user_session_payload = internal.validate_refresh_token(refresh_token)
         if user_session_payload is None:
             return None
         user, session, payload = user_session_payload
-        access_token = internal.create_access_token(user, session)
+        access_token = internal.create_access_token(
+            user, session, self.get_claims(user)
+        )
         if app_settings.JWT_ROTATE_REFRESH_TOKEN:
             internal.invalidate_refresh_token(session, payload)
             next_refresh_token = internal.create_refresh_token(user, session)

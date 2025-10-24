@@ -873,7 +873,7 @@ class DefaultAccountAdapter(BaseAdapter):
         """
         return generate_user_code()
 
-    def generate_phone_verification_code(self) -> str:
+    def generate_phone_verification_code(self, phone: str = None) -> str:
         """
         Generates a new phone verification code.
         """

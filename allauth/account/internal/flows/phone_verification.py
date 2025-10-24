@@ -45,7 +45,7 @@ class PhoneVerificationProcess(AbstractCodeVerificationProcess):
             raise_exception=True,
         )
         adapter = get_adapter()
-        code = adapter.generate_phone_verification_code()
+        code = adapter.generate_phone_verification_code(phone=self.phone)
         self.state["code"] = code
         self.send_sms(skip_enumeration_sms)
         get_adapter().add_message(

@@ -2,6 +2,7 @@ from http import HTTPStatus
 
 import pytest
 
+from allauth.account.internal.flows.login import AUTHENTICATION_METHODS_SESSION_KEY
 from allauth.mfa.models import Authenticator
 
 
@@ -47,6 +48,43 @@ def test_deactivate_totp(
     with reauthentication_bypass():
         resp = auth_client.delete(headless_reverse("headless:mfa:manage_totp"))
     assert resp.status_code == HTTPStatus.OK
+    assert not Authenticator.objects.filter(user=user_with_totp).exists()
+
+
+def test_deactivate_totp_with_reauthenticate(
+    auth_client,
+    user_with_totp,
+    headless_reverse,
+    totp_validation_bypass,
+):
+    # Let's ensure the session require reauthentication by having an old `at`.
+    session = auth_client.headless_session()
+    session[AUTHENTICATION_METHODS_SESSION_KEY] = [{"at": 0}]
+    session.save()
+
+    # Attempt to deactivate, should not be allowed.
+    resp = auth_client.delete(headless_reverse("headless:mfa:manage_totp"))
+    assert resp.status_code == HTTPStatus.UNAUTHORIZED
+    assert resp.json()["data"]["flows"] == [
+        {"id": "reauthenticate"},
+        {"id": "mfa_reauthenticate", "types": ["totp"]},
+    ]
+    assert Authenticator.objects.filter(user=user_with_totp).exists()
+
+    # Now, reauthenticate...
+    with totp_validation_bypass():
+        resp = auth_client.post(
+            headless_reverse("headless:mfa:reauthenticate"),
+            data={"code": "42"},
+            content_type="application/json",
+        )
+    assert resp.status_code == HTTPStatus.OK
+
+    # ... and try again.
+    resp = auth_client.delete(headless_reverse("headless:mfa:manage_totp"))
+    assert resp.status_code == HTTPStatus.OK
+
+    # Success
     assert not Authenticator.objects.filter(user=user_with_totp).exists()
 
 

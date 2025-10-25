@@ -54,7 +54,7 @@ class AppSettings:
 
     @property
     def JWT_REFRESH_TOKEN_EXPIRES_IN(self) -> int:
-        return self._setting("JWT_ACCESS_TOKEN_EXPIRES_IN", 86400)
+        return self._setting("JWT_REFRESH_TOKEN_EXPIRES_IN", 86400)
 
     @property
     def JWT_AUTHORIZATION_HEADER_SCHEME(self) -> str:

@@ -73,7 +73,9 @@ class LoginCodeVerificationProcess(AbstractCodeVerificationProcess):
     def send_by_phone(self, phone):
         adapter = get_adapter()
         if self.user:
-            code = adapter.generate_phone_verification_code()
+            code = adapter._generate_phone_verification_code_compat(
+                user=self.user, phone=phone
+            )
             adapter.send_verification_code_sms(user=self.user, phone=phone, code=code)
             self.state["code"] = code
         else:

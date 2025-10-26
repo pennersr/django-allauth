@@ -1,4 +1,5 @@
 import html
+import inspect
 import ipaddress
 import json
 import typing
@@ -882,11 +883,22 @@ class DefaultAccountAdapter(BaseAdapter):
         """
         return generate_user_code()
 
-    def generate_phone_verification_code(self) -> str:
+    def generate_phone_verification_code(self, *, user, phone: str) -> str:
         """
         Generates a new phone verification code.
         """
         return generate_user_code()
+
+    def _generate_phone_verification_code_compat(self, *, user, phone: str) -> str:
+        sig = inspect.signature(self.generate_phone_verification_code)
+        if len(sig.parameters) == 0:
+            warnings.warn(
+                "generate_phone_verification_code(self) is deprecated, use generate_phone_verification_code(self, *, user, phone)",
+                DeprecationWarning,
+            )
+            return self.generate_phone_verification_code()  # type: ignore[call-arg]
+
+        return self.generate_phone_verification_code(user=user, phone=phone)
 
     def is_login_by_code_required(self, login) -> bool:
         """

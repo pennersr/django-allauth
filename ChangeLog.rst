@@ -11,6 +11,9 @@ Note worthy changes
 - Added support for "Trust this browser?" functionality for logging in by code.
   See ``ACCOUNT_LOGIN_BY_CODE_TRUST_ENABLED``.
 
+- OpenID Connect: to avoid issues with client IDs containing colons,
+  ``client_secret_post`` is now preferred above ``client_secret_basic``.
+
 
 Backwards incompatible changes
 ------------------------------

@@ -202,7 +202,7 @@ Email Verification
   an alternative to setting this to True.
 
 ``ACCOUNT_EMAIL_CONFIRMATION_HMAC`` (default: ``True``)
-  In order to verify an email address a key is mailed identifying the
+  In order to verify an email address, a key is mailed identifying the
   email address to be verified. In previous versions, a record was
   stored in the database for each ongoing email confirmation, keeping
   track of these keys. Current versions use HMAC based keys that do not
@@ -237,7 +237,7 @@ Email Verification
   which it was sent.
 
 ``ACCOUNT_EMAIL_VERIFICATION_SUPPORTS_CHANGE`` (default: ``False``)
-  Whether or not the email can be changed after signup at the email veriication
+  Whether or not the email can be changed after signup at the email verification
   stage.
 
   **Warning**: If enumeration prevention is turned on, no account is created

@@ -15,11 +15,28 @@ Note worthy changes
   ``client_secret_post`` is now preferred above ``client_secret_basic``.
 
 
+Security notice
+---------------
+
+- Both Okta and NetIQ were using ``preferred_username`` as the identifier for
+  third-party provider accounts.  That value may be mutable and should therefore
+  be avoided for authorization decisions.  The providers are now using ``sub``
+  instead.
+
+
 Backwards incompatible changes
 ------------------------------
 
 - Headless now requires the ``headless`` extra to be installed. For example:
   ``pip install django-allauth[headless]``.
+
+- Okta and NetIQ: see the security notice on Okta and NetIQ. Already existing
+  ``SocialAccount`` records will no longer be found due to the switch to
+  ``sub``.  You will need to manually handle this situation. Either, by
+  populating ``SocialAccount.uid`` based on ``sub`` located in
+  ``SocialAccount.extra_data``,or, if you are absolutely certain the security
+  notice is of no concern for your use case, by setting ``"uid_field":
+  "preferred_username"`` in the relevant ``SocialApp.settings``.
 
 
 65.12.1 (2025-10-16)

@@ -18,7 +18,8 @@ class OktaProvider(OAuth2Provider):
         return ["openid", "profile", "email", "offline_access"]
 
     def extract_uid(self, data):
-        return str(data["preferred_username"])
+        uid_field = self.app.settings.get("uid_field", "sub")
+        return str(data[uid_field])
 
     def extract_extra_data(self, data):
         return data

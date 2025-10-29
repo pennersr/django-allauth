@@ -18,10 +18,6 @@ class WindowsLiveProvider(OAuth2Provider):
     oauth2_adapter_class = WindowsLiveOAuth2Adapter
 
     def get_default_scope(self):
-        """
-        Doc on scopes available at
-        http://msdn.microsoft.com/en-us/library/dn631845.aspx
-        """
         return ["wl.basic", "wl.emails"]
 
     def extract_uid(self, data):

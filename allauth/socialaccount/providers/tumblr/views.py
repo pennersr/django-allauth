@@ -7,7 +7,7 @@ from allauth.socialaccount.providers.oauth.views import (
 
 
 class TumblrAPI(OAuth):
-    url = "http://api.tumblr.com/v2/user/info"
+    url = "https://api.tumblr.com/v2/user/info"
 
     def get_user_info(self):
         data = self.query(self.url).json()

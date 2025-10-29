@@ -111,8 +111,8 @@ class SocialAccount(models.Model):
     # identity URLs are supposed to be short anyway, at least for the
     # old spec.
     #
-    # [1] http://code.djangoproject.com/ticket/2495.
-    # [2] http://openid.net/specs/openid-authentication-1_1.html#limits
+    # [1] https://code.djangoproject.com/ticket/2495.
+    # [2] https://openid.net/specs/openid-authentication-1_1.html#limits
 
     uid = models.CharField(
         verbose_name=_("uid"), max_length=app_settings.UID_MAX_LENGTH

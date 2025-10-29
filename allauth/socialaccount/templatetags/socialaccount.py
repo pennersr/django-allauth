@@ -13,7 +13,7 @@ register = template.Library()
 def provider_login_url(context, provider, **params):
     """
     {% provider_login_url "facebook" next=bla %}
-    {% provider_login_url "openid" openid="http://me.yahoo.com" next=bla %}
+    {% provider_login_url "openid" openid="https://me.yahoo.com" next=bla %}
     """
     request = context.get("request")
     if isinstance(provider, str):

@@ -7,7 +7,7 @@ from allauth.socialaccount.providers.oauth.views import (
 
 
 class VimeoAPI(OAuth):
-    url = "http://vimeo.com/api/rest/v2?method=vimeo.people.getInfo"
+    url = "https://vimeo.com/api/rest/v2?method=vimeo.people.getInfo"
 
     def get_user_info(self):
         url = self.url

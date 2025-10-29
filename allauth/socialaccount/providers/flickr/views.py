@@ -26,9 +26,9 @@ class FlickrAPI(OAuth):
 
 class FlickrOAuthAdapter(OAuthAdapter):
     provider_id = "flickr"
-    request_token_url = "http://www.flickr.com/services/oauth/request_token"  # nosec
-    access_token_url = "http://www.flickr.com/services/oauth/access_token"  # nosec
-    authorize_url = "http://www.flickr.com/services/oauth/authorize"
+    request_token_url = "https://www.flickr.com/services/oauth/request_token"  # nosec
+    access_token_url = "https://www.flickr.com/services/oauth/access_token"  # nosec
+    authorize_url = "https://www.flickr.com/services/oauth/authorize"
 
     def complete_login(self, request, app, token, response):
         client = FlickrAPI(request, app.client_id, app.secret, self.request_token_url)

@@ -9,9 +9,6 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 class OrcidOAuth2Adapter(OAuth2Adapter):
     provider_id = "orcid"
-    # http://support.orcid.org/knowledgebase/articles/335483-the-public-
-    # client-orcid-api
-
     member_api_default = False
     base_domain_default = "orcid.org"
 

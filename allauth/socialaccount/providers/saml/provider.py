@@ -51,7 +51,7 @@ class SAMLProvider(Provider):
         return data.get_attributes()
 
     def extract_uid(self, data):
-        """http://docs.oasis-open.org/security/saml-subject-id-attr/v1.0/csprd01/saml-subject-id-attr-v1.0-csprd01.html
+        """https://docs.oasis-open.org/security/saml-subject-id-attr/v1.0/csprd01/saml-subject-id-attr-v1.0-csprd01.html
 
         Quotes:
 

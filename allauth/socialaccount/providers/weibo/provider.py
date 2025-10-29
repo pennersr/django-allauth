@@ -6,7 +6,7 @@ from allauth.socialaccount.providers.weibo.views import WeiboOAuth2Adapter
 class WeiboAccount(ProviderAccount):
     def get_profile_url(self):
         # profile_url = "u/3195025850"
-        return "http://www.weibo.com/" + self.account.extra_data.get("profile_url")
+        return "https://www.weibo.com/" + self.account.extra_data.get("profile_url")
 
     def get_avatar_url(self):
         return self.account.extra_data.get("avatar_large")

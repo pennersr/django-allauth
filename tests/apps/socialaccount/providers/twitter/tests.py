@@ -43,5 +43,5 @@ class TwitterTests(OAuthTestsMixin, TestCase):
             tw_account.get_avatar_url(),
             "http://pbs.twimg.com/profile_images/793142149/r.png",
         )
-        self.assertEqual(tw_account.get_profile_url(), "http://x.com/pennersr")
+        self.assertEqual(tw_account.get_profile_url(), "https://x.com/pennersr")
         self.assertEqual(tw_account.to_str(), "pennersr")

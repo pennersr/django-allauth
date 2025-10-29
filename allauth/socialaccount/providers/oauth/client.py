@@ -1,8 +1,8 @@
 """
 Parts derived from socialregistration and authorized by: alen, pinda
 Inspired by:
-    http://github.com/leah/python-oauth/blob/master/oauth/example/client.py
-    http://github.com/facebook/tornado/blob/master/tornado/auth.py
+    https://github.com/leah/python-oauth/blob/master/oauth/example/client.py
+    https://github.com/facebook/tornado/blob/master/tornado/auth.py
 """
 
 from http import HTTPStatus
@@ -24,7 +24,7 @@ def get_token_prefix(url):
 
     Example:
 
-        The request token url ``http://x.com/oauth/request_token``
+        The request token url ``https://x.com/oauth/request_token``
         returns ``x.com``
 
     """
@@ -108,7 +108,7 @@ class OAuthClient:
             )
             at_url = self.access_token_url
             # Passing along oauth_verifier is required according to:
-            # http://groups.google.com/group/twitter-development-talk/browse_frm/thread/472500cfe9e7cdb9#
+            # https://groups.google.com/group/twitter-development-talk/browse_frm/thread/472500cfe9e7cdb9#
             # Though, the custom oauth_callback seems to work without it?
             oauth_verifier = get_request_param(self.request, "oauth_verifier")
             if oauth_verifier:

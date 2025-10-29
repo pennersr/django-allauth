@@ -5,11 +5,11 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 class BaiduAccount(ProviderAccount):
     def get_profile_url(self):
-        return "http://www.baidu.com/p/" + self.account.extra_data.get("uname")
+        return "https://www.baidu.com/p/" + self.account.extra_data.get("uname")
 
     def get_avatar_url(self):
         return (
-            "http://tb.himg.baidu.com/sys/portraitn/item/"
+            "https://tb.himg.baidu.com/sys/portraitn/item/"
             + self.account.extra_data.get("portrait")
         )
 

@@ -7,6 +7,10 @@ installing the package::
 
     $ pip install "django-allauth[saml]"
 
+Note that it will use some python wrappers for ``xml``. System packages may need
+to be installed (see `dependencies of Python3-SAML
+<https://github.com/SAML-Toolkits/python3-saml?tab=readme-ov-file#dependencies>`_).
+
 When you need to support SAML based authentication, often you need to support
 multiple organizations, each having their own SAML based Identity Provider
 (IdP). The way this translates to allauth is as follows:
@@ -27,7 +31,7 @@ multiple organizations, each having their own SAML based Identity Provider
 
 - For each user signing in via the SAML provider, a ``SocialAccount`` record is
   created. Here, the combination of ``SocialAccount.provider`` and
-  ``SocialAccount.uid`` is expected to be unique. The ``uid`` identitifer is the
+  ``SocialAccount.uid`` is expected to be unique. The ``uid`` identifier is the
   SAML account ID which is locally unique within the IdP. Therefore, if you are
   using multiple IdP's ``SocialAccount.provider`` cannot be set to
   ``"saml"``. Instead, the IdP entity ID would be a good candidate.
@@ -173,7 +177,7 @@ Guidelines
 
 - Most SAML IdPs require TLS (formerly SSL) to be used, making testing with
   ``runserver`` challenging. Make sure to configure Django to use HTTPS.
-- If using a reverse proxy, be sure to set Django settings 
+- If using a reverse proxy, be sure to set Django settings
   ``USE_X_FORWARDED_HOST = True``,
   ``SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')``, and
   ``SECURE_SSL_REDIRECT = True``. In your web server's reverse proxy
@@ -191,4 +195,3 @@ Guidelines
   to inspect the SAML messages being exchanged. SAML Tracer is also useful for
   looking up the IdP SAML values to map to ``uid``, ``email``, and ``email_verified``
   in the ``attribute_mapping`` configuration.
-  

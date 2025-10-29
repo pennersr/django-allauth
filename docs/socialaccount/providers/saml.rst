@@ -156,6 +156,14 @@ via the Django admin as well:
     }
 
 
+The ``advanced`` configuration corresponds to the SP. In particular, the ``x509cert``
+is the public cert of the SP and ``private_key`` is the corresponding private key
+(this should remain secret, do not commit it or revoke it).
+By setting them, the messages are automatically signed. In order to use encryption,
+the attributes ``want_assertion_encrypted`` or ``want_name_id_encrypted`` should be
+set to ``True``. Encryption will use the same certificate as the signing. If signing
+or encryption are active, they will automatically appear in the metadata URL.
+
 In your templates, you can construct login URLs using the following template tag::
 
     {% load socialaccount %}

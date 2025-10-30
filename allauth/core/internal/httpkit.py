@@ -15,6 +15,9 @@ from django.urls import NoReverseMatch, reverse
 from allauth import app_settings as allauth_settings
 
 
+HTTP_USER_AGENT_MAX_LENGTH = 200
+
+
 def serialize_request(request):
     return json.dumps(
         {

@@ -24,7 +24,7 @@ from django.contrib.auth.password_validation import (
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import FieldDoesNotExist, PermissionDenied
 from django.core.mail import EmailMessage, EmailMultiAlternatives
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.http.request import validate_host
 from django.shortcuts import resolve_url
 from django.template import TemplateDoesNotExist
@@ -41,7 +41,11 @@ from allauth.core import context
 from allauth.core.internal import ratelimit
 from allauth.core.internal.adapter import BaseAdapter
 from allauth.core.internal.cryptokit import generate_user_code
-from allauth.core.internal.httpkit import headed_redirect_response, is_headless_request
+from allauth.core.internal.httpkit import (
+    HTTP_USER_AGENT_MAX_LENGTH,
+    headed_redirect_response,
+    is_headless_request,
+)
 from allauth.utils import generate_unique_username, import_attribute
 
 
@@ -789,7 +793,7 @@ class DefaultAccountAdapter(BaseAdapter):
         else:
             return str(ip_addr)
 
-    def get_http_user_agent(self, request):
+    def get_http_user_agent(self, request: HttpRequest) -> str:
         return request.META.get("HTTP_USER_AGENT", "Unspecified")
 
     def generate_emailconfirmation_key(self, email):
@@ -859,7 +863,9 @@ class DefaultAccountAdapter(BaseAdapter):
         ctx = {
             "timestamp": timezone.now(),
             "ip": self.get_client_ip(self.request),
-            "user_agent": self.get_http_user_agent(self.request),
+            "user_agent": self.get_http_user_agent(self.request)[
+                :HTTP_USER_AGENT_MAX_LENGTH
+            ],
         }
         if context:
             ctx.update(context)

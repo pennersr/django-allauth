@@ -11,6 +11,7 @@ from django.utils.translation import gettext_lazy as _
 from allauth import app_settings as allauth_settings
 from allauth.account.adapter import get_adapter
 from allauth.core import context
+from allauth.core.internal.httpkit import HTTP_USER_AGENT_MAX_LENGTH
 from allauth.core.internal.sessionkit import get_session_user
 
 
@@ -92,7 +93,7 @@ class UserSession(models.Model):
     session_key = models.CharField(
         _("session key"), max_length=40, unique=True, editable=False
     )
-    user_agent = models.CharField(max_length=200)
+    user_agent = models.CharField(max_length=HTTP_USER_AGENT_MAX_LENGTH)
     data = models.JSONField(default=dict)
 
     def __str__(self):

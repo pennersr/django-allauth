@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
+from django.views.decorators.cache import never_cache
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 
@@ -50,6 +51,7 @@ generate_recovery_codes = GenerateRecoveryCodesView.as_view()
 
 
 @method_decorator(login_required, name="dispatch")
+@method_decorator(never_cache, name="dispatch")
 class DownloadRecoveryCodesView(TemplateView):
     template_name = "mfa/recovery_codes/download.txt"
     content_type = "text/plain"

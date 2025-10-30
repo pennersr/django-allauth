@@ -49,7 +49,7 @@ class NotionProvider(OAuth2Provider):
     def extract_email_addresses(self, data):
         user = data["owner"]["user"]
         email = user["person"]["email"]
-        return [EmailAddress(email=email, verified=True, primary=True)]
+        return [EmailAddress(email=email, verified=False, primary=True)]
 
 
 provider_classes = [NotionProvider]

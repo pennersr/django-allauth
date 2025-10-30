@@ -17,10 +17,9 @@ def get_uri(request: HttpRequest) -> str:
     We have to search for them and properly escape.
     """
     parsed = list(urlparse(request.get_full_path()))
-    unsafe = set(c for c in parsed[4]).difference(urlencoded)
-    for c in unsafe:
-        parsed[4] = parsed[4].replace(c, quote(c, safe=b""))
-
+    query = parsed[4]
+    encoded_query = quote(query, safe="".join(urlencoded))
+    parsed[4] = encoded_query
     return urlunparse(parsed)
 
 

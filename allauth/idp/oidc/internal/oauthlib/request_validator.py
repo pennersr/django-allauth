@@ -260,6 +260,8 @@ class OAuthLibRequestValidator(RequestValidator):
         instance = Token.objects.lookup(Token.Type.ACCESS_TOKEN, token)
         if not instance:
             return False
+        if not instance.user or not instance.user.is_active:
+            return False
         granted_scopes = instance.get_scopes()
         if not set(scopes).issubset(set(granted_scopes)):
             return False
@@ -314,6 +316,8 @@ class OAuthLibRequestValidator(RequestValidator):
             Token.Type.REFRESH_TOKEN, refresh_token
         )
         if not token:
+            return False
+        if not token.user or not token.user.is_active:
             return False
         request.user = token.user
         request.refresh_token_instance = token

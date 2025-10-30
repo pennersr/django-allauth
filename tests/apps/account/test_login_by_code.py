@@ -180,3 +180,25 @@ def test_trust_flow(
             if action == "trust"
             else reverse("account_confirm_login_code")
         )
+
+
+def test_trust_while_already_register(
+    client, user, user_password, settings_impacting_urls, settings, mailoutbox
+):
+    if not allauth_settings.MFA_ENABLED:
+        return
+
+    with settings_impacting_urls(
+        ACCOUNT_SIGNUP_FIELDS=["email*", "password*"],
+        ACCOUNT_LOGIN_BY_CODE_TRUST_ENABLED=True,
+        ACCOUNT_LOGIN_BY_CODE_REQUIRED=True,
+        ACCOUNT_PREVENT_ENUMERATION=True,
+        ACCOUNT_EMAIL_VERIFICATION="mandatory",
+    ):
+        resp = client.post(
+            reverse("account_signup"),
+            {"email": user.email, "password": user_password},
+        )
+        assert resp.status_code == HTTPStatus.FOUND
+        assert resp["location"] == reverse("account_confirm_login_code")
+        assert mailoutbox[0].subject == "[example.com] Account Already Exists"

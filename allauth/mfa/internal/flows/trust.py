@@ -2,7 +2,7 @@ import time
 from dataclasses import dataclass
 from typing import List
 
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractBaseUser
 from django.core.signing import BadSignature, Signer
 from django.http import HttpRequest, HttpResponse
 from django.utils.crypto import salted_hmac
@@ -17,7 +17,7 @@ class IssuedTrust:
     at: int
 
 
-def create_config_fingerprint(user: AbstractUser) -> str:
+def create_config_fingerprint(user: AbstractBaseUser) -> str:
     """
     If the user changes anything about his security setup, we want to invalidate
     any trust that was issued before.
@@ -60,7 +60,7 @@ def encode_trust_cookie(trusts: List[IssuedTrust]) -> str:
 
 
 def trust_browser(
-    request: HttpRequest, user: AbstractUser, response: HttpResponse
+    request: HttpRequest, user: AbstractBaseUser, response: HttpResponse
 ) -> None:
     fingerprint = create_config_fingerprint(user)
     trusts = decode_trust_cookie(request)
@@ -76,7 +76,7 @@ def trust_browser(
     )
 
 
-def is_trusted_browser(request: HttpRequest, user: AbstractUser) -> bool:
+def is_trusted_browser(request: HttpRequest, user: AbstractBaseUser) -> bool:
     if not app_settings._TRUST_STAGE_ENABLED:
         return False
     trusts = decode_trust_cookie(request)

@@ -79,13 +79,19 @@ class LoginCodeVerificationProcess(AbstractCodeVerificationProcess):
             adapter.send_verification_code_sms(user=self.user, phone=phone, code=code)
             self.state["code"] = code
         else:
-            adapter.send_unknown_account_sms(phone)
+            if self.stage.login.signup:
+                adapter.send_account_already_exists_sms(phone)
+            else:
+                adapter.send_unknown_account_sms(phone)
         self.add_sent_message({"recipient": phone, "phone": phone})
 
     def send_by_email(self, email):
         adapter = get_adapter()
         if not self.user:
-            send_unknown_account_mail(self.request, email)
+            if self.stage.login.signup:
+                adapter.send_account_already_exists_mail(email)
+            else:
+                send_unknown_account_mail(self.request, email)
         else:
             code = adapter.generate_login_code()
             context = {

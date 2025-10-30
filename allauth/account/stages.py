@@ -9,7 +9,7 @@ from allauth.account.internal.constants import LoginStageKey
 from allauth.account.internal.flows.email_verification import (
     send_verification_email_at_login,
 )
-from allauth.account.models import EmailAddress
+from allauth.account.models import EmailAddress, Login
 from allauth.core.internal.httpkit import headed_redirect_response
 from allauth.utils import import_callable
 
@@ -20,6 +20,7 @@ logger = logging.getLogger(__name__)
 class LoginStage:
     key: str  # Set in subclasses
     urlname: Optional[str] = None
+    login: Login
 
     def __init__(self, controller, request, login):
         if not self.key:
@@ -178,7 +179,9 @@ class LoginByCodeStage(LoginStage):
         elif self._is_trusted():
             return None, True
         elif not did_initiate_process and login_by_code_required:
-            email = EmailAddress.objects.get_primary_email(self.login.user)
+            email = self.login.email or EmailAddress.objects.get_primary_email(
+                self.login.user
+            )
             phone = None
             phone_field = app_settings.SIGNUP_FIELDS.get("phone")
             if not email and phone_field:
@@ -204,6 +207,7 @@ class LoginByCodeStage(LoginStage):
         if (
             not app_settings.LOGIN_BY_CODE_TRUST_ENABLED
             or not allauth_settings.MFA_ENABLED
+            or self.login.user is None
         ):
             return False
 

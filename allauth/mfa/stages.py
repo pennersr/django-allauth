@@ -22,6 +22,8 @@ class AuthenticateStage(LoginStage):
         return response, cont
 
     def _should_handle(self, request) -> bool:
+        if self.login.user is None:
+            return False
         if not is_mfa_enabled(
             self.login.user, [Authenticator.Type.TOTP, Authenticator.Type.WEBAUTHN]
         ):

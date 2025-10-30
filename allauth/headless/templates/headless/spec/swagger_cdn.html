@@ -8,7 +8,9 @@
     </head>
     <body>
         <div id="swagger-ui"></div>
-        <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui-bundle.js"></script>
+        <script crossorigin="anonymous"
+                integrity="sha384-9CJCDqW5gKboEGedI4f6FbRtGJUQDktyO4ALxunoU7Zh2AaMp93UH1iVtC0SzT9/"
+                src="//cdn.jsdelivr.net/npm/swagger-ui-dist@5.30.0/swagger-ui-bundle.js"></script>
         <script>
         const config = {
             url: "{% url 'headless:openapi_json' %}",

@@ -73,6 +73,7 @@ def trust_browser(
         domain=app_settings.TRUST_COOKIE_DOMAIN,
         secure=app_settings.TRUST_COOKIE_SECURE,
         httponly=app_settings.TRUST_COOKIE_HTTPONLY,
+        samesite=app_settings.TRUST_COOKIE_SAMESITE,
     )
 
 

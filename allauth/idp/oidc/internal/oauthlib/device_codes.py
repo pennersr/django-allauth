@@ -1,6 +1,8 @@
 import time
-from typing import List, Optional, Tuple
+from typing import Dict, List, Optional, Tuple
 
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import AbstractBaseUser
 from django.core.cache import cache
 from django.http import HttpRequest
 
@@ -17,7 +19,7 @@ from oauthlib.oauth2.rfc8628.errors import (
 )
 
 from allauth.account.adapter import get_adapter as get_account_adapter
-from allauth.account.internal.userkit import user_id_to_str
+from allauth.account.internal.userkit import str_to_user_id, user_id_to_str
 from allauth.core.internal.cryptokit import compare_user_code
 from allauth.idp.oidc.models import Client
 
@@ -95,7 +97,7 @@ def update_device_state(device_code: str, data: dict) -> bool:
 
 def poll_device_code(
     request: HttpRequest,
-) -> dict:
+) -> Tuple[AbstractBaseUser, Dict]:
     client_id = request.POST.get("client_id")
     device_code = request.POST.get("device_code")
     if not client_id or not device_code:
@@ -121,4 +123,8 @@ def poll_device_code(
         raise AccessDenied
     assert granted is True  # nosec
     cache.delete(cache_key)
-    return data
+
+    user = get_user_model().objects.filter(pk=str_to_user_id(data["user"])).first()
+    if user is None or not user.is_active:
+        raise AccessDenied
+    return user, data

@@ -1,8 +1,9 @@
 from http import HTTPStatus
 from typing import List, Optional
 
-from django.contrib.auth import REDIRECT_FIELD_NAME, get_user_model
+from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import PermissionDenied
 from django.core.signing import BadSignature, Signer
@@ -29,7 +30,6 @@ from oauthlib.oauth2.rfc6749.errors import InvalidScopeError, OAuth2Error
 from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.internal.decorators import login_not_required
-from allauth.account.internal.userkit import str_to_user_id
 from allauth.core.internal import jwkkit
 from allauth.core.internal.httpkit import add_query_params, del_query_params
 from allauth.idp.oidc import app_settings
@@ -362,31 +362,38 @@ class TokenView(View):
             return self._post_device_token(request)
         return self._create_token_response(request)
 
-    def _create_token_response(self, request, data: Optional[dict] = None):
+    def _create_token_response(
+        self,
+        request,
+        *,
+        user: Optional[AbstractBaseUser] = None,
+        data: Optional[dict] = None,
+    ):
         orequest = extract_params(request)
         oresponse = get_server(
-            pre_token=[lambda orequest: self._pre_token(orequest, data)]
+            pre_token=[lambda orequest: self._pre_token(orequest, user, data)]
         ).create_token_response(*orequest)
         return convert_response(*oresponse)
 
-    def _pre_token(self, orequest, data: Optional[dict]):
+    def _pre_token(
+        self, orequest, user: Optional[AbstractBaseUser], data: Optional[dict]
+    ):
         if orequest.grant_type == Client.GrantType.DEVICE_CODE:
+            assert user is not None  # nosec
             assert data is not None  # nosec
             if scope := data.get("scope"):
                 orequest.scope = scope
-            orequest.user = get_user_model().objects.get(
-                pk=str_to_user_id(data["user"])
-            )
+            orequest.user = user
 
     def _post_device_token(self, request):
         try:
-            data = device_codes.poll_device_code(request)
+            user, data = device_codes.poll_device_code(request)
         except OAuth2Error as e:
             return HttpResponse(
                 e.json, content_type="application/json", status=e.status_code
             )
         else:
-            return self._create_token_response(request, data)
+            return self._create_token_response(request, user=user, data=data)
 
 
 token = TokenView.as_view()

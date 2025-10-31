@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-25 13:23-0500\n"
-"PO-Revision-Date: 2025-03-17 09:26+0000\n"
+"PO-Revision-Date: 2025-10-20 04:54+0000\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
-"Language-Team: Georgian <https://hosted.weblate.org/projects/allauth/django-"
-"allauth/ka/>\n"
+"Language-Team: Georgian <https://hosted.weblate.org/projects/allauth/"
+"django-allauth/ka/>\n"
 "Language: ka\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11-dev\n"
+"X-Generator: Weblate 5.14-dev\n"
 
 #: account/adapter.py:53
 msgid "This account is currently inactive."
@@ -140,16 +140,14 @@ msgid "Use a security key"
 msgstr "საიდუმლო კოდი"
 
 #: account/admin.py:30
-#, fuzzy, python-brace-format
-#| msgid "Your primary email address must be verified."
+#, python-brace-format
 msgid "Marked {email} as verified."
-msgstr "თქვენი პირველადი ელ. ფოსტა უნდა იყოს დადასტურებული"
+msgstr "{email} დაინიშნა, როგორც გადამოწმებული."
 
 #: account/admin.py:36
-#, fuzzy, python-brace-format
-#| msgid "Your primary email address must be verified."
+#, python-brace-format
 msgid "Failed to mark {email} as verified."
-msgstr "თქვენი ძირითადი ელფოსტის მისამართი გადამოწმებული უნდა იყოს."
+msgstr "{email}-ის გადამოწმებულად დანიშვნა ჩავარდა."
 
 #: account/admin.py:42
 #, fuzzy

@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-25 13:23-0500\n"
-"PO-Revision-Date: 2025-09-24 20:01+0000\n"
-"Last-Translator: Jean-Marc  Burri <gometzler@gmail.com>\n"
+"PO-Revision-Date: 2025-10-31 09:40+0000\n"
+"Last-Translator: sowinski <philipp.sowinski@gmail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/allauth/"
 "django-allauth/de/>\n"
 "Language: de\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.14.1-dev\n"
 
 #: account/adapter.py:53
 msgid "This account is currently inactive."
@@ -1667,11 +1667,13 @@ msgid ""
 "If you choose to trust this browser, you will not be asked for a "
 "verification code the next time you sign in."
 msgstr ""
+"Wenn Sie diesem Browser vertrauen, brauchen Sie beim nächsten Anmelden "
+"keinen Bestätigungscode."
 
 #: templates/mfa/trust.html:23
 #, python-format
 msgid "Trust for %(period)s"
-msgstr ""
+msgstr "Für %(period)s vertrauen"
 
 #: templates/mfa/trust.html:26
 msgid "Don't Trust"

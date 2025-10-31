@@ -39,10 +39,10 @@ Overall
   or disabled email verification, enumeration can only be prevented by allowing
   the signup to go through, resulting in multiple accounts sharing same email
   address (although only one of the accounts can ever have it verified). When
-  enumeration is set to ``True``, email address uniqueness takes precedence over
-  enumeration prevention, and the issue of multiple accounts having the same
-  email address will be avoided, thus leaking information. Set it to
-  ``"strict"`` to allow for signups to go through.
+  enumeration prevention is set to ``True``, email address uniqueness takes
+  precedence over enumeration prevention, and the issue of multiple accounts
+  having the same email address will be avoided, thus leaking information. Set
+  it to ``"strict"`` to allow for signups to go through.
 
 ``ACCOUNT_RATE_LIMITS`` (default: ``{...}``)
   In order to be secure out of the box various rate limits are in place.

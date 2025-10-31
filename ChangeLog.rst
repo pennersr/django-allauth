@@ -1,4 +1,4 @@
-65.13.0 (unreleased)
+65.13.0 (2025-10-31)
 ********************
 
 Note worthy changes
@@ -23,6 +23,11 @@ Security notice
   be avoided for authorization decisions.  The providers are now using ``sub``
   instead.
 
+- IdP: marking a user as ``is_active=False`` after having handed tokens for that
+  user while the account was still active had no effect. Fixed -- the
+  access/refresh tokens are now rejected. Thanks to Joshua Rogers for reporting
+  this and the previous issue.
+
 
 Backwards incompatible changes
 ------------------------------
@@ -31,8 +36,8 @@ Backwards incompatible changes
   ``pip install django-allauth[headless]``.
 
 - Okta and NetIQ: see the security notice on Okta and NetIQ. Already existing
-  ``SocialAccount`` records will no longer be found due to the switch to
-  ``sub``.  You will need to manually handle this situation. Either, by
+  ``SocialAccount`` records will no longer be linked due to the switch to
+  ``sub``.  You will need to manually handle this situation either, by
   populating ``SocialAccount.uid`` based on ``sub`` located in
   ``SocialAccount.extra_data``,or, if you are absolutely certain the security
   notice is of no concern for your use case, by setting ``"uid_field":

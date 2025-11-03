@@ -4,7 +4,7 @@ from django.contrib.sessions.backends.base import SessionBase
 from django.http import HttpRequest
 
 from allauth.headless.internal import sessionkit
-from allauth.headless.tokens.base import AbstractTokenStrategy
+from allauth.headless.tokens.strategies.base import AbstractTokenStrategy
 
 
 class SessionTokenStrategy(AbstractTokenStrategy):

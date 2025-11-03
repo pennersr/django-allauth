@@ -1,6 +1,6 @@
 from http import HTTPStatus
 
-from allauth.headless.tokens.sessions import SessionTokenStrategy
+from allauth.headless.tokens.strategies.sessions import SessionTokenStrategy
 
 
 class DummyAccessTokenStrategy(SessionTokenStrategy):

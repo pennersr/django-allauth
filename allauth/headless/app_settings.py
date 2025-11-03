@@ -21,7 +21,8 @@ class AppSettings:
         from allauth.utils import import_attribute
 
         path = self._setting(
-            "TOKEN_STRATEGY", "allauth.headless.tokens.sessions.SessionTokenStrategy"
+            "TOKEN_STRATEGY",
+            "allauth.headless.tokens.strategies.sessions.SessionTokenStrategy",
         )
         cls = import_attribute(path)
         return cls()

@@ -6,7 +6,7 @@ from django.http import HttpRequest
 from allauth.core.internal.httpkit import get_authorization_credential
 from allauth.headless import app_settings
 from allauth.headless.internal import sessionkit
-from allauth.headless.tokens.base import AbstractTokenStrategy
+from allauth.headless.tokens.strategies.base import AbstractTokenStrategy
 from allauth.headless.tokens.strategies.jwt import internal
 
 

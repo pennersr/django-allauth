@@ -47,6 +47,6 @@ Available settings:
   Redoc (``"headless/spec/redoc_cdn.html"``) and Swagger (
   (``"headless/spec/swagger_cdn.html"``) are available.
 
-``HEADLESS_TOKEN_STRATEGY`` (default: ``"allauth.headless.tokens.sessions.SessionTokenStrategy"``)
+``HEADLESS_TOKEN_STRATEGY`` (default: ``"allauth.headless.tokens.strategies.sessions.SessionTokenStrategy"``)
   If you need to change the way tokens are created and handled, you can plug in your own
   :doc:`./tokens`.

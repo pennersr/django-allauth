@@ -13,28 +13,17 @@ Resources:
     https://partner.steamgames.com/doc/features/auth#website
 """
 
-from django.urls import reverse
+from django.utils.decorators import method_decorator
 
-from allauth.socialaccount.providers.openid.views import (
-    OpenIDCallbackView,
-    OpenIDLoginView,
-)
+from allauth.account.internal.decorators import login_not_required
+from allauth.socialaccount.providers.base.views import BaseLoginView
+from allauth.socialaccount.providers.openid.views import OpenIDCallbackView
 from allauth.socialaccount.providers.steam.provider import SteamOpenIDProvider
 
 
-STEAM_OPENID_URL = "https://steamcommunity.com/openid"
-
-
-class SteamOpenIDLoginView(OpenIDLoginView):
-    provider_class = SteamOpenIDProvider
-
-    def get_form(self):
-        items = dict(list(self.request.GET.items()) + list(self.request.POST.items()))
-        items["openid"] = STEAM_OPENID_URL
-        return self.form_class(items)
-
-    def get_callback_url(self):
-        return reverse(steam_callback)
+@method_decorator(login_not_required, name="dispatch")
+class SteamOpenIDLoginView(BaseLoginView):
+    provider_id = SteamOpenIDProvider.id
 
 
 class SteamOpenIDCallbackView(OpenIDCallbackView):

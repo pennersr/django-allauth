@@ -274,25 +274,29 @@ class SocialLogin:
     def deserialize(cls, data: Dict[str, Any]) -> "SocialLogin":
         from allauth.socialaccount.providers.base.provider import Provider
 
+        if not isinstance(data, dict):
+            raise ValueError()
+
         deserialize_instance = get_adapter().deserialize_instance
-        provider = Provider.deserialize(data["provider"])
-        account = deserialize_instance(SocialAccount, data["account"])
-        user = deserialize_instance(get_user_model(), data["user"])
-        if "token" in data:
-            token = deserialize_instance(SocialToken, data["token"])
+        provider = Provider.deserialize(data.get("provider"))
+        account = deserialize_instance(SocialAccount, data.get("account"))
+        user = deserialize_instance(get_user_model(), data.get("user"))
+        if token_data := data.get("token"):
+            token = deserialize_instance(SocialToken, token_data)
         else:
             token = None
         email_addresses = []
-        for ea in data["email_addresses"]:
-            email_address = deserialize_instance(EmailAddress, ea)
-            email_addresses.append(email_address)
+        if eas := data.get("email_addresses"):
+            for ea in eas:
+                email_address = deserialize_instance(EmailAddress, ea)
+                email_addresses.append(email_address)
         ret = cls()
         ret.provider = provider
         ret.token = token
         ret.account = account
         ret.user = user
         ret.email_addresses = email_addresses
-        ret.state = data["state"]
+        ret.state = data.get("state") or {}
         ret.phone = data.get("phone")
         ret.phone_verified = data.get("phone_verified", False)
         return ret

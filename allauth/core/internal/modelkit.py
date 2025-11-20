@@ -50,6 +50,8 @@ def serialize_instance(instance):
 
 
 def deserialize_instance(model, data):
+    if not isinstance(data, dict):
+        raise ValueError()
     ret = model()
     for k, v in data.items():
         is_db_value = False

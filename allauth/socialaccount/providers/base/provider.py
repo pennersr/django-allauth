@@ -276,11 +276,19 @@ class Provider:
         return ret
 
     @classmethod
-    def deserialize(cls, data: Dict[str, Any]) -> "Provider":
+    def deserialize(cls, data: Any) -> "Provider":
+        if not isinstance(data, dict):
+            raise ValueError()
+        provider = data.get("id")
+        if not isinstance(provider, str):
+            raise ValueError()
+        client_id = data.get("app.client_id")
+        if client_id is not None and not isinstance(client_id, str):
+            raise ValueError()
         return get_adapter().get_provider(
             context.request,
-            provider=data["id"],
-            client_id=data.get("app.client_id"),
+            provider=provider,
+            client_id=client_id,
         )
 
 

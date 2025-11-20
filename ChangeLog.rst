@@ -4,7 +4,9 @@
 Fixes
 -----
 
-- ...
+- Pending social signups stored in the session by allauth versions prior to
+  65.5.0 are not resumable by newer versions. This could cause 500s while
+  upgrading, fixed.
 
 
 65.13.0 (2025-10-31)

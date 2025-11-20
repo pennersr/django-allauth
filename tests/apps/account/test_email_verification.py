@@ -24,7 +24,7 @@ from allauth.account.models import (
 from allauth.account.signals import user_logged_in
 
 
-class TestEmailVerificationAdapter(DefaultAccountAdapter):
+class SignupRedirectEmailVerificationAdapter(DefaultAccountAdapter):
     SIGNUP_REDIRECT_URL = "/foobar"
 
     def get_signup_redirect_url(self, request):
@@ -37,9 +37,9 @@ class TestEmailVerificationAdapter(DefaultAccountAdapter):
         (None, "", app_settings.SIGNUP_REDIRECT_URL),
         (None, "?next=/foo", "/foo"),
         (
-            "tests.apps.account.test_email_verification.TestEmailVerificationAdapter",
+            "tests.apps.account.test_email_verification.SignupRedirectEmailVerificationAdapter",
             "",
-            TestEmailVerificationAdapter.SIGNUP_REDIRECT_URL,
+            SignupRedirectEmailVerificationAdapter.SIGNUP_REDIRECT_URL,
         ),
     ],
 )

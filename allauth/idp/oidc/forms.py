@@ -115,7 +115,9 @@ class RPInitiatedLogoutForm(forms.Form):
 
     # OPTIONAL. URI to which the RP is requesting that the End-User's User Agent
     # be redirected after a logout has been performed.
-    post_logout_redirect_uri = forms.URLField(required=False, widget=forms.HiddenInput)
+    post_logout_redirect_uri = forms.URLField(
+        assume_scheme="https", required=False, widget=forms.HiddenInput
+    )
 
     # OPTIONAL. Opaque value used by the RP to maintain state between the logout
     # request and the callback to the endpoint specified by the

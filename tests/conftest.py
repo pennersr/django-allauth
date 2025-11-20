@@ -471,13 +471,13 @@ def user_with_phone(user, phone):
     return user
 
 
-def pytest_ignore_collect(path, config):
+def pytest_ignore_collect(collection_path, config):
     from tests.projects.common.settings import INSTALLED_SOCIALACCOUNT_APPS
 
     if "allauth.socialaccount.providers.saml" not in INSTALLED_SOCIALACCOUNT_APPS:
         if (
             Path(__file__).parent / "apps" / "socialaccount" / "providers" / "saml"
-            in Path(path).parents
+            in collection_path.parents
         ):
             return True
 
@@ -497,7 +497,10 @@ def pytest_ignore_collect(path, config):
         return False
     for skipped_path in skipped_paths:
         abs_skipped_path = Path(__file__).parent / "apps" / skipped_path
-        if abs_skipped_path == Path(path) or abs_skipped_path in Path(path).parents:
+        if (
+            abs_skipped_path == collection_path
+            or abs_skipped_path in collection_path.parents
+        ):
             return True
     return False
 

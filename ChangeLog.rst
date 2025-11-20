@@ -1,10 +1,10 @@
-65.13.1 (unreleased)
+65.13.1 (2025-11-20)
 ********************
 
 Note worthy changes
 -------------------
 
-- Django 6.0 is now offically supported.
+- Django 6.0 is now officially supported.
 
 
 Fixes

@@ -4,7 +4,6 @@ from django.utils.safestring import mark_safe
 
 class LoginForm(forms.Form):
     openid = forms.URLField(
-        assume_scheme="https",
         label=("OpenID"),
         help_text=mark_safe(
             'Get an <a href="http://openidexplained.com/get">OpenID</a>'

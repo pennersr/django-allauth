@@ -1,6 +1,12 @@
 65.13.1 (unreleased)
 ********************
 
+Note worthy changes
+-------------------
+
+- Django 6.0 is now offically supported.
+
+
 Fixes
 -----
 

@@ -49,15 +49,17 @@ def djlint(session):
 
 
 DJANGO_PYTHON_REQ = {
-    "4.2.20": ("3.8", "3.9", "3.10", "3.11"),
-    "5.0": ("3.10", "3.11", "3.12"),
-    "5.1": ("3.10", "3.11", "3.12"),
-    "5.2": ("3.10", "3.11", "3.12", "3.13"),
+    "4.2.20": ("3.8", "3.9", "3.10", "3.11", "3.12"),
+    # 5.0 is EOL
+    # "5.0": ("3.10", "3.11", "3.12"),
+    "5.1": ("3.10", "3.11", "3.12", "3.13"),
+    "5.2": ("3.10", "3.11", "3.12", "3.13", "3.14"),
+    "6.0": ("3.12", "3.13", "3.14"),
 }
 DJANGO_LTS = "5.2"
 
 
-@nox.session(python=["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"])
+@nox.session(python=["3.8", "3.9", "3.10", "3.11", "3.12", "3.13", "3.14"])
 @nox.parametrize("django", list(DJANGO_PYTHON_REQ.keys()))
 @nox.parametrize(
     "project", ["regular", "headless_only", "account_only", "login_required_mw"]
@@ -80,7 +82,7 @@ def test(session, django, project):
         print(f"Skipping: Django {django} does not support python{session.python}")
         return
     session.install(
-        f"django=={django}",
+        f"django~={(django + '.0') if django != '6.0' else '6.0rc1'}",
         "pytest>=8.3.5,<9",
         "pytest-asyncio==0.23.8",
         "pytest-django>=4.11,<5",
@@ -102,7 +104,7 @@ def test(session, django, project):
         os.environ.get("GITHUB_TOKEN")
         and project == "regular"
         and django == "5.2"
-        and session.python == "3.13"
+        and session.python == "3.14"
     )
     if run_coveralls:
         session.install("coveralls")
@@ -116,9 +118,9 @@ def test(session, django, project):
     )
     if run_coveralls:
         session.run("coveralls", "--service=github")
-    if django == "5.1" and session.python == "3.13":
+    if django == "5.2" and session.python == "3.14":
         session.install(
-            "django-stubs==5.1.3",
-            "types-requests==2.32.0.20240602",
+            "django-stubs~=5.2.7",
+            "types-requests==2.32.4.20250913",
         )
         session.run("mypy", "allauth")

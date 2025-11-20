@@ -60,7 +60,7 @@ def _enforce_csrf(request) -> Optional[HttpResponseForbidden]:
     """
     reason = CsrfViewMiddleware(
         get_response=lambda req: HttpResponseForbidden()
-    ).process_view(request, None, (), {})
+    ).process_view(request, lambda *args, **kwargs: HttpResponse(), (), {})
     if reason:
         return HttpResponseForbidden(f"CSRF Failed: {reason}")
     return None

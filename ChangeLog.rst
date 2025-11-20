@@ -4,6 +4,9 @@
 Fixes
 -----
 
+- Internal imports related to headless token strategies were causing (harmless)
+  deprecation warnings, fixed.
+
 - Pending social signups stored in the session by allauth versions prior to
   65.5.0 are not resumable by newer versions. This could cause 500s while
   upgrading, fixed.

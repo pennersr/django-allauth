@@ -17,6 +17,9 @@ Fixes
   65.5.0 are not resumable by newer versions. This could cause 500s while
   upgrading, fixed.
 
+- Headless: the reauthentication-required response in the OpenAPI specification
+  was wrongly nested and did not match the actual implementation, fixed.
+
 
 65.13.0 (2025-10-31)
 ********************

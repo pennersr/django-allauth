@@ -3408,16 +3408,7 @@ components:
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              data:
-                $ref: '#/components/schemas/ReauthenticationResponse'
-              status:
-                type: integer
-                example: 200
-            required:
-              - data
-              - status
+            $ref: "#/components/schemas/ReauthenticationResponse"
           examples:
             reauthentication_required:
               summary: |

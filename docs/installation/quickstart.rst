@@ -109,8 +109,8 @@ the ``settings.py`` of your project::
         'allauth.socialaccount.providers.lemonldap',
         "allauth.socialaccount.providers.lichess",
         'allauth.socialaccount.providers.line',
-        'allauth.socialaccount.providers.linkedin',
-        'allauth.socialaccount.providers.linkedin_oauth2',
+        #'allauth.socialaccount.providers.linkedin', # LinkedIn is now OpenID Connect compliant (module depreciated)
+        #'allauth.socialaccount.providers.linkedin_oauth2', # LinkedIn is now OpenID Connect compliant (module depreciated)
         'allauth.socialaccount.providers.mailchimp',
         'allauth.socialaccount.providers.mailcow',
         'allauth.socialaccount.providers.mailru',

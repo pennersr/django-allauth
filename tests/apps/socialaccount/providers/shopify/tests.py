@@ -127,16 +127,21 @@ class ShopifyPerUserAccessTests(ShopifyTests):
     def get_login_response_json(self, with_refresh_token=True):
         response_data = {
             "access_token": "testac",
-            "scope": "write_orders,read_customers",
-            "expires_in": 86399,
-            "associated_user_scope": "write_orders",
+            "account_number": None,
             "associated_user": {
-                "id": 902541635,
-                "first_name": "Jon",
-                "last_name": "Smith",
-                "email": "jon@example.com",
                 "account_owner": True,
+                "collaborator": False,
+                "email": "john@example.com",
+                "email_verified": True,
+                "first_name": "John",
+                "id": 902541635,
+                "last_name": "Smith",
+                "locale": "en",
             },
+            "associated_user_scope": "read_products,read_customers,read_inventory,write_merchant_managed_fulfillment_orders,write_third_party_fulfillment_orders,read_orders,write_assigned_fulfillment_orders",
+            "expires_in": 86381,
+            "scope": "read_products,read_customers,read_inventory,write_merchant_managed_fulfillment_orders,write_third_party_fulfillment_orders,read_orders,write_assigned_fulfillment_orders",
+            "session": None,
         }
         if with_refresh_token:
             response_data["refresh_token"] = "testrf"
@@ -160,6 +165,6 @@ class ShopifyPerUserAccessTests(ShopifyTests):
         self.assertIsNotNone(social_account)
         self.assertTrue("associated_user" in social_account.extra_data)
 
-        self.assertEqual(social_account.user.email, "jon@example.com")
-        self.assertEqual(social_account.user.first_name, "Jon")
+        self.assertEqual(social_account.user.email, "john@example.com")
+        self.assertEqual(social_account.user.first_name, "John")
         self.assertEqual(social_account.user.last_name, "Smith")

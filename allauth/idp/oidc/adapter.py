@@ -60,11 +60,22 @@ class DefaultOIDCAdapter(BaseAdapter):
         """
         return self.request.build_absolute_uri("/").rstrip("/")
 
-    def populate_id_token(self, id_token: dict, client, scopes, **kwargs) -> None:
+    def populate_id_token(
+        self, id_token: dict, client, scopes: Iterable[str], **kwargs
+    ) -> None:
         """
         This method can be used to alter the ID token payload. It is already populated
         with basic values. Depending on the client and requested scopes, you can
         expose additional information here.
+        """
+        pass
+
+    def populate_access_token(
+        self, access_token: dict, *, client, scopes: Iterable[str], user, **kwargs
+    ) -> None:
+        """
+        This method can be used to alter the JWT access token payload. It is already
+        populated with basic values.
         """
         pass
 
@@ -73,7 +84,7 @@ class DefaultOIDCAdapter(BaseAdapter):
         purpose: Literal["id_token", "userinfo"],
         user,
         client,
-        scopes: Iterable,
+        scopes: Iterable[str],
         email: Optional[str] = None,
         **kwargs,
     ) -> Dict[str, Any]:

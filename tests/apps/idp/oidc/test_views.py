@@ -5,6 +5,7 @@ from urllib.parse import parse_qs, urlparse
 from django.urls import reverse
 from django.utils.http import urlencode
 
+import jwt
 import pytest
 from pytest_django.asserts import assertTemplateUsed
 
@@ -57,7 +58,11 @@ def test_userinfo(
         assert "email" not in data
 
 
-def test_client_credentials(client, oidc_client, oidc_client_secret):
+@pytest.mark.parametrize("access_token_format", ["jwt", "opaque"])
+def test_client_credentials(
+    client, oidc_client, oidc_client_secret, access_token_format, settings
+):
+    settings.IDP_OIDC_ACCESS_TOKEN_FORMAT = access_token_format
     resp = client.post(
         reverse("idp:oidc:token"),
         data={
@@ -78,6 +83,17 @@ def test_client_credentials(client, oidc_client, oidc_client_secret):
     token = Token.objects.lookup(Token.Type.ACCESS_TOKEN, data["access_token"])
     assert token.client == oidc_client
     assert token.get_scopes() == ["profile", "email"]
+
+    if access_token_format == "jwt":
+        decoded = jwt.decode(data["access_token"], options={"verify_signature": False})
+        assert decoded == {
+            "client_id": oidc_client.id,
+            "exp": ANY,
+            "iat": ANY,
+            "iss": "http://testserver",
+            "jti": ANY,
+            "scope": "profile email",
+        }
 
 
 def test_password_grant_is_blocked(

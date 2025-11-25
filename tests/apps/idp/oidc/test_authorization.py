@@ -1,4 +1,5 @@
 from http import HTTPStatus
+from unittest.mock import ANY
 from urllib.parse import parse_qs, urlparse
 
 from django.test import Client
@@ -40,13 +41,14 @@ def test_cancel_authorization(auth_client, oidc_client):
 
 
 @pytest.mark.parametrize(
-    "scopes,has_secondary_email,choose_secondary_email",
+    "access_token_format,scopes,has_secondary_email,choose_secondary_email",
     [
-        (("openid", "profile", "email"), False, False),
-        (("openid", "profile", "email"), True, False),
-        (("openid", "profile", "email"), True, True),
-        (("openid", "profile"), False, False),
-        (("openid",), False, False),
+        ("opaque", ("openid", "profile", "email"), False, False),
+        ("opaque", ("openid", "profile", "email"), True, False),
+        ("opaque", ("openid", "profile", "email"), True, True),
+        ("opaque", ("openid", "profile"), False, False),
+        ("opaque", ("openid",), False, False),
+        ("jwt", ("openid",), False, False),
     ],
 )
 def test_authorization_code_flow(
@@ -59,7 +61,10 @@ def test_authorization_code_flow(
     has_secondary_email,
     choose_secondary_email,
     email_factory,
+    settings,
+    access_token_format,
 ):
+    settings.IDP_OIDC_ACCESS_TOKEN_FORMAT = access_token_format
     secondary_email = email_factory()
     EmailAddress.objects.create(
         user=user,
@@ -128,6 +133,19 @@ def test_authorization_code_flow(
     assert bool(access_token.get_scope_email()) == bool(
         "email" in scopes and has_secondary_email and choose_secondary_email
     )
+
+    # Access token
+    if access_token_format == "jwt":
+        decoded = jwt.decode(data["access_token"], options={"verify_signature": False})
+        assert decoded == {
+            "client_id": oidc_client.id,
+            "exp": ANY,
+            "iat": ANY,
+            "iss": "http://testserver",
+            "jti": ANY,
+            "scope": " ".join(scopes),
+            "sub": str(user.pk),
+        }
 
     # ID token
     id_token = data["id_token"]

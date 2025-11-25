@@ -6,6 +6,10 @@ Available settings:
 ``IDP_OIDC_ACCESS_TOKEN_EXPIRES_IN`` (default: 3600)
   The time (in seconds) after which access tokens expire.
 
+``IDP_OIDC_ACCESS_TOKEN_FORMAT`` (default: ``"opaque"``)
+  The format of issued access tokens. This can be ``"opaque"`` for randomized
+  strings, or, ``"jwt"`` for JWT based access tokens.
+
 ``IDP_OIDC_ADAPTER`` (default: ``"allauth.idp.oidc.adapter.DefaultOIDCAdapter"``)
   Specifies the adapter class to use, allowing you to alter certain
   default behavior.

@@ -10,6 +10,9 @@ Note worthy changes
 - Shopify: if ``email_verified`` is present in the user payload, it will be used
   to mark the email address retrieved as verified accordingly.
 
+- IdP: added support for JWT based access tokens (see
+  ``IDP_OIDC_ACCESS_TOKEN_FORMAT``).
+
 
 65.13.1 (2025-11-20)
 ********************

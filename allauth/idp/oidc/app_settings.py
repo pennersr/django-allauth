@@ -27,6 +27,10 @@ class AppSettings:
         return self._setting("ACCESS_TOKEN_EXPIRES_IN", 3600)
 
     @property
+    def ACCESS_TOKEN_FORMAT(self) -> str:
+        return self._setting("ACCESS_TOKEN_FORMAT", "opaque")
+
+    @property
     def AUTHORIZATION_CODE_EXPIRES_IN(self) -> int:
         return self._setting("AUTHORIZATION_CODE_EXPIRES_IN", 60)
 

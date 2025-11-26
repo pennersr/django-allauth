@@ -153,3 +153,33 @@ def test_login_by_code_expired(headless_reverse, user, client, mailoutbox):
         content_type="application/json",
     )
     assert resp.status_code == HTTPStatus.CONFLICT
+
+
+def test_post_login_code_when_flow_not_pending(
+    db,
+    client,
+    settings_impacting_urls,
+    headless_reverse,
+    mailoutbox,
+    get_last_email_verification_code,
+):
+    with settings_impacting_urls(
+        ACCOUNT_LOGIN_METHODS={"email"},
+        ACCOUNT_SIGNUP_FIELDS=["email*"],
+        ACCOUNT_EMAIL_VERIFICATION="mandatory",
+        ACCOUNT_LOGIN_BY_CODE_ENABLED=True,
+        ACCOUNT_LOGIN_BY_CODE_REQUIRED=False,
+        ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED=True,
+    ):
+        resp = client.post(
+            headless_reverse("headless:account:signup"),
+            data={"email": "user@email.org"},
+            content_type="application/json",
+        )
+        assert resp.status_code == HTTPStatus.UNAUTHORIZED
+        resp = client.post(
+            headless_reverse("headless:account:confirm_login_code"),
+            data={"code": "123"},
+            content_type="application/json",
+        )
+        assert resp.status_code == HTTPStatus.CONFLICT

@@ -10,6 +10,7 @@ from openid.consumer import consumer
 from openid.consumer.discover import DiscoveryFailure
 from openid.extensions.ax import AttrInfo, FetchRequest
 from openid.extensions.sreg import SRegRequest
+from openid.message import InvalidOpenIDNamespace
 
 from allauth.account.internal.decorators import login_not_required
 from allauth.socialaccount.app_settings import QUERY_EMAIL
@@ -135,7 +136,10 @@ class OpenIDCallbackView(View):
         provider = self.provider = self.provider_class(request)
         endpoint = request.GET.get("openid.op_endpoint", "")
         client = self.get_client(provider, endpoint)
-        response = self.get_openid_response(client)
+        try:
+            response = self.get_openid_response(client)
+        except InvalidOpenIDNamespace as e:
+            return render_authentication_error(self.request, self.provider, exception=e)
 
         if response.status == consumer.SUCCESS:
             login = provider.sociallogin_from_response(request, response)

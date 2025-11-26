@@ -4,7 +4,10 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.utils.http import urlencode
 
+from openid.consumer.discover import DiscoveryFailure
+
 from allauth.socialaccount.adapter import get_adapter
+from allauth.socialaccount.helpers import render_authentication_error
 from allauth.socialaccount.providers.openid.provider import (
     OpenIDAccount,
     OpenIDProvider,
@@ -110,9 +113,12 @@ class SteamOpenIDProvider(OpenIDProvider):
 
     def redirect(self, request, process, next_url=None, data=None, **kwargs):
         endpoint = STEAM_OPENID_URL
-        client = _openid_consumer(request, self, endpoint)
         realm = self.get_realm(request)
-        auth_request = client.begin(endpoint)
+        try:
+            client = _openid_consumer(request, self, endpoint)
+            auth_request = client.begin(endpoint)
+        except (UnicodeDecodeError, DiscoveryFailure) as e:
+            return render_authentication_error(request, self, exception=e)
 
         self.stash_redirect_state(request, process, next_url, data, **kwargs)
 

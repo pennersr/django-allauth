@@ -32,7 +32,6 @@ class JWTTokenStrategy(AbstractTokenStrategy):
         return user_payload[1]
 
     def create_session_token(self, request: HttpRequest) -> str:
-        assert request.user.is_authenticated  # nosec
         if not request.session.session_key:
             request.session.save()
         key = request.session.session_key

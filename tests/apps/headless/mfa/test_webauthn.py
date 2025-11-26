@@ -272,3 +272,13 @@ def test_passkey_signup(
     assert data["meta"]["is_authenticated"]
     authenticator = Authenticator.objects.get(user=user)
     assert authenticator.wrap().name == "Some key"
+
+
+def test_get_login_webauthn_doesnt_crash_with_jwt(
+    db, client, headless_reverse, settings
+):
+    settings.HEADLESS_TOKEN_STRATEGY = (
+        "tests.apps.headless.tokens.test_jwttokenstrategy.CustomJWTTokenStrategy"
+    )
+    resp = client.get(headless_reverse("headless:mfa:login_webauthn"))
+    assert resp.status_code == HTTPStatus.OK

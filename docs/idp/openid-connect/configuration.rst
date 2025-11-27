@@ -42,3 +42,8 @@ Available settings:
   user is asked whether or not to logout of the OP as well. When this setting is
   ``True``, the end user is always asked. When ``False``, the user is only asked
   if needed according to the specification.
+
+``IDP_OIDC_USERINFO_ENDPOINT`` (default: ``None``)
+  This setting can be used to point the ``userinfo_endpoint`` value as returned
+  in the ".well-known/openid-configuration" to a custom URL.  Setting this
+  disables the built-in userinfo endpoint.

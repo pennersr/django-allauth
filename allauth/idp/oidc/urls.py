@@ -1,9 +1,39 @@
 from django.urls import include, path
 
-from allauth.idp.oidc import views
+from allauth.idp.oidc import app_settings, views
 
 
 app_name = "oidc"
+
+
+_api_urlpatterns = [
+    path(
+        "token",
+        views.token,
+        name="token",
+    ),
+    path(
+        "revoke",
+        views.revoke,
+        name="revoke",
+    ),
+    path(
+        "device/code",
+        views.device_code,
+        name="device_code",
+    ),
+]
+
+if not app_settings.USERINFO_ENDPOINT:
+    _api_urlpatterns.append(
+        path(
+            "userinfo",
+            views.user_info,
+            name="userinfo",
+        )
+    )
+
+
 urlpatterns = [
     path(
         ".well-known/",
@@ -45,33 +75,7 @@ urlpatterns = [
                                 views.logout,
                                 name="logout",
                             ),
-                            path(
-                                "api/",
-                                include(
-                                    [
-                                        path(
-                                            "token",
-                                            views.token,
-                                            name="token",
-                                        ),
-                                        path(
-                                            "revoke",
-                                            views.revoke,
-                                            name="revoke",
-                                        ),
-                                        path(
-                                            "userinfo",
-                                            views.user_info,
-                                            name="userinfo",
-                                        ),
-                                        path(
-                                            "device/code",
-                                            views.device_code,
-                                            name="device_code",
-                                        ),
-                                    ]
-                                ),
-                            ),
+                            path("api/", include(_api_urlpatterns)),
                         ]
                     ),
                 )

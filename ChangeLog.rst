@@ -13,6 +13,9 @@ Note worthy changes
 - IdP: added support for JWT based access tokens (see
   ``IDP_OIDC_ACCESS_TOKEN_FORMAT``).
 
+- IdP: added support for pointing to a custom userinfo endpoint (see
+  ``IDP_OIDC_USERINFO_ENDPOINT``)
+
 
 65.13.1 (2025-11-20)
 ********************

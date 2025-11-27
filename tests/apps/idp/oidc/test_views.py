@@ -179,22 +179,34 @@ def test_jwks_view(client):
     }
 
 
-def test_configuration_view(client, oidc_client):
-    resp = client.get(reverse("idp:oidc:configuration"))
-    assert resp.status_code == HTTPStatus.OK
-    assert resp.json() == {
-        "authorization_endpoint": "http://testserver/identity/o/authorize",
-        "device_authorization_endpoint": "http://testserver/identity/o/api/device/code",
-        "end_session_endpoint": "http://testserver/identity/o/logout",
-        "id_token_signing_alg_values_supported": ["RS256"],
-        "issuer": "http://testserver",
-        "jwks_uri": "http://testserver/.well-known/jwks.json",
-        "response_types_supported": ["code", "token"],
-        "revocation_endpoint": "http://testserver/identity/o/api/revoke",
-        "subject_types_supported": ["public"],
-        "token_endpoint": "http://testserver/identity/o/api/token",
-        "userinfo_endpoint": "http://testserver/identity/o/api/userinfo",
-    }
+@pytest.mark.parametrize("custom_userinfo_endpoint", [False, True])
+def test_configuration_view(
+    client, oidc_client, custom_userinfo_endpoint, settings_impacting_urls
+):
+    with settings_impacting_urls(
+        IDP_OIDC_USERINFO_ENDPOINT=(
+            "https://remote/userinfo" if custom_userinfo_endpoint else None
+        )
+    ):
+        resp = client.get(reverse("idp:oidc:configuration"))
+        assert resp.status_code == HTTPStatus.OK
+        assert resp.json() == {
+            "authorization_endpoint": "http://testserver/identity/o/authorize",
+            "device_authorization_endpoint": "http://testserver/identity/o/api/device/code",
+            "end_session_endpoint": "http://testserver/identity/o/logout",
+            "id_token_signing_alg_values_supported": ["RS256"],
+            "issuer": "http://testserver",
+            "jwks_uri": "http://testserver/.well-known/jwks.json",
+            "response_types_supported": ["code", "token"],
+            "revocation_endpoint": "http://testserver/identity/o/api/revoke",
+            "subject_types_supported": ["public"],
+            "token_endpoint": "http://testserver/identity/o/api/token",
+            "userinfo_endpoint": (
+                "https://remote/userinfo"
+                if custom_userinfo_endpoint
+                else "http://testserver/identity/o/api/userinfo"
+            ),
+        }
 
 
 def test_post_userinfo(

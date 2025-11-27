@@ -69,6 +69,11 @@ def _enforce_csrf(request) -> Optional[HttpResponseForbidden]:
 @method_decorator(login_not_required, name="dispatch")
 class ConfigurationView(View):
     def get(self, request):
+        userinfo_endpoint = app_settings.USERINFO_ENDPOINT
+        if not userinfo_endpoint:
+            userinfo_endpoint = build_absolute_uri(
+                request, reverse("idp:oidc:userinfo")
+            )
         data = {
             "authorization_endpoint": build_absolute_uri(
                 request, reverse("idp:oidc:authorization")
@@ -80,9 +85,7 @@ class ConfigurationView(View):
                 request, reverse("idp:oidc:revoke")
             ),
             "token_endpoint": build_absolute_uri(request, reverse("idp:oidc:token")),
-            "userinfo_endpoint": build_absolute_uri(
-                request, reverse("idp:oidc:userinfo")
-            ),
+            "userinfo_endpoint": userinfo_endpoint,
             "end_session_endpoint": build_absolute_uri(
                 request, reverse("idp:oidc:logout")
             ),

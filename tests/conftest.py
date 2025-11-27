@@ -413,6 +413,8 @@ def settings_impacting_urls(settings):
                 "allauth.headless.socialaccount.urls",
                 "allauth.headless.usersessions.urls",
                 "allauth.headless.mfa.urls",
+                "allauth.idp.urls",
+                "allauth.idp.oidc.urls",
             ]:
                 if urlconf in sys.modules:
                     importlib.reload(sys.modules[urlconf])

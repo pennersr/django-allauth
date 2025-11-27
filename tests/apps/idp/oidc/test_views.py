@@ -93,6 +93,7 @@ def test_client_credentials(
             "iss": "http://testserver",
             "jti": ANY,
             "scope": "profile email",
+            "token_use": "access",
         }
 
 

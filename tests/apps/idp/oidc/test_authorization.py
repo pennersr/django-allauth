@@ -145,6 +145,7 @@ def test_authorization_code_flow(
             "jti": ANY,
             "scope": " ".join(scopes),
             "sub": str(user.pk),
+            "token_use": "access",
         }
 
     # ID token

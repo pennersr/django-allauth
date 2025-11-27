@@ -17,7 +17,8 @@ from allauth.idp.oidc.internal.oauthlib.request_validator import (
 )
 
 
-def generate_opaque_access_token(request):
+def generate_opaque_token(request):
+    # 160 bit token is recommended, oauthlib uses less.
     # oauch.io -- at oautlib's default, we get:
     #    Out of 11 valid authorization responses, the
     #    average calculated entropy for the access tokens was 144,3 (±7,1) bits
@@ -33,6 +34,7 @@ def generate_jwt_access_token(request) -> str:
         "iat": iat,
         "exp": iat + app_settings.ACCESS_TOKEN_EXPIRES_IN,
         "jti": uuid.uuid4().hex,
+        "token_use": "access",
     }
     # Client credentials has no user.
     if request.user is not None:
@@ -51,18 +53,22 @@ def generate_jwt_access_token(request) -> str:
 def generate_access_token(request) -> str:
     fmt = app_settings.ACCESS_TOKEN_FORMAT
     if fmt == "opaque":
-        return generate_opaque_access_token(request)
+        return generate_opaque_token(request)
     elif fmt == "jwt":
         return generate_jwt_access_token(request)
     else:
         raise ValueError(fmt)
 
 
+def generate_refresh_token(request) -> str:
+    return generate_opaque_token(request)
+
+
 class OAuthLibServer(Server):
     def __init__(self, **kwargs):
         super().__init__(
-            # 160 bit token is recommended, oauthlib uses less.
             token_generator=generate_access_token,
+            refresh_token_generator=generate_refresh_token,
             request_validator=OAuthLibRequestValidator(),
             token_expires_in=app_settings.ACCESS_TOKEN_EXPIRES_IN,
             **kwargs,

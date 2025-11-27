@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import HttpResponseRedirect
@@ -85,6 +87,12 @@ class LoginErrorView(TemplateView):
     template_name = (
         f"socialaccount/authentication_error.{account_settings.TEMPLATE_EXTENSION}"
     )
+
+    def get(self, request, *args, **kwargs):
+        return self.render_to_response(
+            self.get_context_data(**kwargs),
+            status=HTTPStatus.UNAUTHORIZED,
+        )
 
 
 login_error = LoginErrorView.as_view()

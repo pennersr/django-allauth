@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -56,6 +58,7 @@ def render_authentication_error(
         request,
         f"socialaccount/authentication_error.{account_settings.TEMPLATE_EXTENSION}",
         context,
+        status=HTTPStatus.UNAUTHORIZED,
     )
 
 

@@ -132,6 +132,7 @@ class OAuthTestsMixin:
 
     def test_authentication_error(self):
         resp = self.client.get(reverse(f"{self.provider.id}_callback"))
+        assert resp.status_code == HTTPStatus.UNAUTHORIZED
         template_ext = getattr(settings, "ACCOUNT_TEMPLATE_EXTENSION", "html")
         self.assertTemplateUsed(
             resp, f"socialaccount/authentication_error.{template_ext}"

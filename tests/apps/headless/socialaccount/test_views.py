@@ -49,7 +49,7 @@ def test_unknown_provider_redirect(client, headless_reverse, db, settings):
     if getattr(settings, "HEADLESS_ONLY", False):
         assert resp.status_code == HTTPStatus.FOUND
     else:
-        assert resp.status_code == HTTPStatus.OK
+        assert resp.status_code == HTTPStatus.UNAUTHORIZED
 
 
 def test_manage_providers(auth_client, user, headless_reverse, provider_id):

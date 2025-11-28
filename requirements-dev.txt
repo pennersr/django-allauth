@@ -1,5 +1,5 @@
 # Install the package itself with all extras
--e ".[headless,socialaccount,mfa,idp-oidc,openid,steam,saml]"
+-e .[headless,socialaccount,mfa,idp-oidc,openid,steam,saml]
 
 Sphinx
 sphinx_rtd_theme

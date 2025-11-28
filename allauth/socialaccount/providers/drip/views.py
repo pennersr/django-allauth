@@ -19,7 +19,7 @@ class DripOAuth2Adapter(OAuth2Adapter):
 
     def complete_login(self, request, app, token, **kwargs):
         """Complete login, ensuring correct OAuth header."""
-        headers = {"Authorization": "Bearer {0}".format(token.token)}
+        headers = {"Authorization": f"Bearer {token.token}"}
         response = (
             get_adapter().get_requests_session().get(self.profile_url, headers=headers)
         )

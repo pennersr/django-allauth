@@ -106,7 +106,7 @@ class AjaxCapableProcessFormViewMixin:
 
 class CloseableSignupMixin:
     template_name_signup_closed = (
-        "account/signup_closed." + app_settings.TEMPLATE_EXTENSION
+        f"account/signup_closed.{app_settings.TEMPLATE_EXTENSION}"
     )
 
     def dispatch(self, request, *args, **kwargs):

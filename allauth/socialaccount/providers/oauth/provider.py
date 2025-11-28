@@ -18,9 +18,9 @@ class OAuthProvider(Provider):
     supports_redirect = True
 
     def get_login_url(self, request, **kwargs):
-        url = reverse(self.id + "_login")
+        url = reverse(f"{self.id}_login")
         if kwargs:
-            url = url + "?" + urlencode(kwargs)
+            url = f"{url}?{urlencode(kwargs)}"
         return url
 
     def get_auth_params(self):
@@ -68,7 +68,7 @@ class OAuthProvider(Provider):
         return kwargs
 
     def redirect(self, request, process, next_url=None, data=None, **kwargs):
-        callback_url = reverse(self.id + "_callback")
+        callback_url = reverse(f"{self.id}_callback")
         oauth_adapter = self.get_oauth_adapter(request)
         action = kwargs.pop("action", AuthAction.AUTHENTICATE)
         auth_url = self.get_auth_url(request, action) or oauth_adapter.authorize_url

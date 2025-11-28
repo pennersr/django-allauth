@@ -20,7 +20,7 @@ class SlackOAuth2Adapter(OAuth2Adapter):
 
     def get_data(self, token):
         # Verify the user first
-        hed = {"Authorization": "Bearer " + token}
+        hed = {"Authorization": f"Bearer {token}"}
         resp = get_adapter().get_requests_session().get(self.identity_url, headers=hed)
         resp = resp.json()
 

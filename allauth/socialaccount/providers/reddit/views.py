@@ -19,7 +19,7 @@ class RedditAdapter(OAuth2Adapter):
     headers = {"User-Agent": settings.get("USER_AGENT", "django-allauth-header")}
 
     def complete_login(self, request, app, token, **kwargs):
-        headers = {"Authorization": "bearer " + token.token}
+        headers = {"Authorization": f"bearer {token.token}"}
         headers.update(self.headers)
         extra_data = (
             get_adapter().get_requests_session().get(self.profile_url, headers=headers)

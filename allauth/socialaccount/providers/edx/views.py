@@ -14,15 +14,15 @@ class EdxOAuth2Adapter(OAuth2Adapter):
     settings = app_settings.PROVIDERS.get(provider_id, {})
     provider_base_url = settings.get("EDX_URL", provider_default_url)
 
-    access_token_url = "{0}/oauth2/access_token".format(provider_base_url)
-    authorize_url = "{0}/oauth2/authorize/".format(provider_base_url)
-    profile_url = "{0}/api/user/v1/me".format(provider_base_url)
+    access_token_url = f"{provider_base_url}/oauth2/access_token"
+    authorize_url = f"{provider_base_url}/oauth2/authorize/"
+    profile_url = f"{provider_base_url}/api/user/v1/me"
     account_url = "{0}/api/user/v1/accounts/{1}"
     supports_state = False
     redirect_uri_protocol = "https"
 
     def complete_login(self, request, app, token, **kwargs):
-        headers = {"Authorization": "Bearer {0}".format(token.token)}
+        headers = {"Authorization": f"Bearer {token.token}"}
         response = (
             get_adapter().get_requests_session().get(self.profile_url, headers=headers)
         )

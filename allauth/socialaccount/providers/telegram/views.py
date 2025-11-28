@@ -59,7 +59,7 @@ class CallbackView(View):
                 extra_context={"state_id": state_id},
             )
         hash = data.pop("hash")
-        payload = "\n".join(sorted(["{}={}".format(k, v) for k, v in data.items()]))
+        payload = "\n".join(sorted([f"{k}={v}" for k, v in data.items()]))
         token = provider.app.secret
         token_sha256 = hashlib.sha256(token.encode()).digest()
         expected_hash = hmac.new(

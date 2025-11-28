@@ -55,8 +55,7 @@ class SteamTests(TestCase):
             begin.side_effect = discovery_failure
 
             resp = self.client.post(reverse(views.steam_login))
+            template_ext = getattr(settings, "ACCOUNT_TEMPLATE_EXTENSION", "html")
             self.assertTemplateUsed(
-                resp,
-                "socialaccount/authentication_error.%s"
-                % getattr(settings, "ACCOUNT_TEMPLATE_EXTENSION", "html"),
+                resp, f"socialaccount/authentication_error.{template_ext}"
             )

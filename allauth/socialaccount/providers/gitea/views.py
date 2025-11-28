@@ -15,14 +15,14 @@ class GiteaOAuth2Adapter(OAuth2Adapter):
         web_url = settings.get("GITEA_URL").rstrip("/")
     else:
         web_url = "https://gitea.com"
-    api_url = "{0}/api/v1".format(web_url)
+    api_url = f"{web_url}/api/v1"
 
-    access_token_url = "{0}/login/oauth/access_token".format(web_url)
-    authorize_url = "{0}/login/oauth/authorize".format(web_url)
-    profile_url = "{0}/user".format(api_url)
+    access_token_url = f"{web_url}/login/oauth/access_token"
+    authorize_url = f"{web_url}/login/oauth/authorize"
+    profile_url = f"{api_url}/user"
 
     def complete_login(self, request, app, token, **kwargs):
-        headers = {"Authorization": "token {}".format(token.token)}
+        headers = {"Authorization": f"token {token.token}"}
         resp = (
             get_adapter().get_requests_session().get(self.profile_url, headers=headers)
         )

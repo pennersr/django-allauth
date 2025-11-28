@@ -41,19 +41,19 @@ def base_signup_form_class():
         fc_module, fc_classname = app_settings.SIGNUP_FORM_CLASS.rsplit(".", 1)
     except ValueError:
         raise exceptions.ImproperlyConfigured(
-            "%s does not point to a form class" % app_settings.SIGNUP_FORM_CLASS
+            f"{app_settings.SIGNUP_FORM_CLASS} does not point to a form class"
         )
     try:
         mod = import_module(fc_module)
     except ImportError as e:
         raise exceptions.ImproperlyConfigured(
-            "Error importing form class %s:" ' "%s"' % (fc_module, e)
+            f'Error importing form class {fc_module}: "{e}"'
         )
     try:
         fc_class = getattr(mod, fc_classname)
     except AttributeError:
         raise exceptions.ImproperlyConfigured(
-            'Module "%s" does not define a' ' "%s" class' % (fc_module, fc_classname)
+            f'Module "{fc_module}" does not define a "{fc_classname}" class'
         )
     if not hasattr(fc_class, "signup"):
         raise exceptions.ImproperlyConfigured(

@@ -23,7 +23,7 @@ class AuthentiqOAuth2Adapter(OAuth2Adapter):
     profile_url = urljoin(provider_url, "userinfo")
 
     def complete_login(self, request, app, token, **kwargs):
-        auth = {"Authorization": "Bearer " + token.token}
+        auth = {"Authorization": f"Bearer {token.token}"}
         resp = get_adapter().get_requests_session().get(self.profile_url, headers=auth)
         resp.raise_for_status()
         extra_data = resp.json()

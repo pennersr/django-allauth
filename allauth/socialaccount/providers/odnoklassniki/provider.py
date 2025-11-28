@@ -7,7 +7,7 @@ from allauth.socialaccount.providers.odnoklassniki.views import (
 
 class OdnoklassnikiAccount(ProviderAccount):
     def get_profile_url(self):
-        return "https://ok.ru/profile/" + self.account.extra_data["uid"]
+        return f"https://ok.ru/profile/{self.account.extra_data['uid']}"
 
     def get_avatar_url(self):
         ret = None

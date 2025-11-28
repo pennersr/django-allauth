@@ -150,5 +150,5 @@ def test_is_safe_url_relative_path():
 def test_redirect_noreversematch(auth_client):
     # We used to call `django.shortcuts.redirect()` as is, but that one throws a
     # `NoReverseMatch`, resulting in 500s.
-    resp = auth_client.post(reverse("account_logout") + "?next=badurlname")
+    resp = auth_client.post(f"{reverse('account_logout')}?next=badurlname")
     assert resp["location"] == "/badurlname"

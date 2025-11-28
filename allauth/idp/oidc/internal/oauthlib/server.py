@@ -83,7 +83,7 @@ class DeviceOAuthLibServer(DeviceApplicationServer):
         super().__init__(
             request_validator=OAuthLibRequestValidator(),
             verification_uri=verification_uri,
-            verification_uri_complete=verification_uri + "?code={user_code}",
+            verification_uri_complete=f"{verification_uri}?code={{user_code}}",
             interval=app_settings.DEVICE_CODE_INTERVAL,
             user_code_generator=lambda: get_adapter().generate_user_code(),
         )

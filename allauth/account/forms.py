@@ -130,7 +130,7 @@ class LoginForm(forms.Form):
             return
         try:
             self.fields["password"].help_text = render_to_string(
-                "account/password_reset_help_text." + app_settings.TEMPLATE_EXTENSION
+                f"account/password_reset_help_text.{app_settings.TEMPLATE_EXTENSION}"
             )
             return
         except TemplateDoesNotExist:
@@ -221,7 +221,7 @@ class LoginForm(forms.Form):
             login_method = flows.login.derive_login_method(
                 login=self.cleaned_data["login"]
             )
-            raise adapter.validation_error("%s_password_mismatch" % login_method.value)
+            raise adapter.validation_error(f"{login_method.value}_password_mismatch")
         return self.cleaned_data
 
     def login(self, request, redirect_url=None):

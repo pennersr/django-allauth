@@ -21,10 +21,7 @@ class SlackProvider(OAuth2Provider):
         if not (team_id and user_id):
             team_id = data.get("team").get("id")
             user_id = data.get("user").get("id")
-        return "%s_%s" % (
-            str(team_id),
-            str(user_id),
-        )
+        return f"{team_id!s}_{user_id!s}"
 
     def extract_common_fields(self, data):
         user = data.get("user", {})

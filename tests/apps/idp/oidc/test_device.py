@@ -75,7 +75,7 @@ def test_device_flow(
         "client_id": device_client.id,
     }
     if with_scope:
-        payload["scope"] = " ".join(["openid", "email"])
+        payload["scope"] = "openid email"
     resp = client.post(
         reverse("idp:oidc:device_code"),
         data=urlencode(payload),
@@ -93,7 +93,7 @@ def test_device_flow(
     }
     assert (
         data["verification_uri_complete"]
-        == data["verification_uri"] + "?code=" + data["user_code"]
+        == f"{data['verification_uri']}?code={data['user_code']}"
     )
 
     resp = client.post(
@@ -114,7 +114,7 @@ def test_device_flow(
     assertTemplateUsed(resp, "idp/oidc/device_authorization_code_form.html")
     assert resp.context["form"].errors == {}
 
-    resp = auth_client.get(data["verification_uri"] + "?code=wrong")
+    resp = auth_client.get(f"{data['verification_uri']}?code=wrong")
     assert resp.status_code == HTTPStatus.OK
     assertTemplateUsed(resp, "idp/oidc/device_authorization_code_form.html")
     assert resp.context["form"].errors == {"code": ["Incorrect code."]}

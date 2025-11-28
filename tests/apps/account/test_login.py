@@ -208,7 +208,7 @@ class LoginTests(TestCase):
         resp = self.client.get(url)
         self.assertTemplateUsed(
             resp,
-            "account/password_reset_from_key.%s" % app_settings.TEMPLATE_EXTENSION,
+            f"account/password_reset_from_key.{app_settings.TEMPLATE_EXTENSION}",
         )
         self.assertFalse("token_fail" in resp.context_data)
 

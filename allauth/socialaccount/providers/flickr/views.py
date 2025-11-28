@@ -14,13 +14,13 @@ class FlickrAPI(OAuth):
     def get_user_info(self):
         default_params = {"nojsoncallback": "1", "format": "json"}
         p = dict({"method": "flickr.test.login"}, **default_params)
-        u = self.query(self.api_url + "?" + urlencode(p)).json()
+        u = self.query(f"{self.api_url}?{urlencode(p)}").json()
 
         p = dict(
             {"method": "flickr.people.getInfo", "user_id": u["user"]["id"]},
             **default_params,
         )
-        user = self.query(self.api_url + "?" + urlencode(p)).json()
+        user = self.query(f"{self.api_url}?{urlencode(p)}").json()
         return user
 
 

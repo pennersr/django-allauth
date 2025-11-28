@@ -27,7 +27,7 @@ class DataportenOAuth2Adapter(OAuth2Adapter):
             extract_uid(), extract_extra_data(), and extract_common_fields()
         """
         # The authentication header
-        headers = {"Authorization": "Bearer " + token.token}
+        headers = {"Authorization": f"Bearer {token.token}"}
 
         # Userinfo endpoint, for documentation see:
         # https://docs.dataporten.no/docs/oauth-authentication/

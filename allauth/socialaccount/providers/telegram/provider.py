@@ -18,7 +18,7 @@ class TelegramProvider(Provider):
     def get_login_url(self, request, **kwargs):
         url = reverse("telegram_login")
         if kwargs:
-            url = url + "?" + urlencode(kwargs)
+            url = f"{url}?{urlencode(kwargs)}"
         return url
 
     def extract_uid(self, data):
@@ -49,7 +49,7 @@ class TelegramProvider(Provider):
     def redirect(self, request, process, next_url=None, data=None, **kwargs):
         state = self.stash_redirect_state(request, process, next_url, data, **kwargs)
         return_to = request.build_absolute_uri(
-            reverse("telegram_callback") + "?" + urlencode({"state": state})
+            f"{reverse('telegram_callback')}?{urlencode({'state': state})}"
         )
         url = "https://oauth.telegram.org/auth?" + urlencode(
             {

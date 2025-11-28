@@ -39,7 +39,7 @@ class NotionProvider(OAuth2Provider):
         """
         user_id = data["owner"]["user"]["id"]
         workspace_id = data["workspace_id"]
-        return "user-%s_workspace-%s" % (user_id, workspace_id)
+        return f"user-{user_id}_workspace-{workspace_id}"
 
     def extract_common_fields(self, data):
         user = data["owner"]["user"]

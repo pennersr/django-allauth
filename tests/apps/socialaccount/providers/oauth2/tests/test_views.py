@@ -32,7 +32,7 @@ def test_samesite_strict(
         assertTemplateUsed(resp, "socialaccount/login_redirect.html")
         assert (
             resp.context["redirect_to"]
-            == reverse("google_callback") + query + "&_redir="
+            == f"{reverse('google_callback')}{query}&_redir="
         )
     else:
         assertTemplateUsed(resp, "socialaccount/authentication_error.html")

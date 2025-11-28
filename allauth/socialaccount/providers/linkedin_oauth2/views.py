@@ -24,7 +24,7 @@ class LinkedInOAuth2Adapter(OAuth2Adapter):
 
         headers = {}
         headers.update(self.get_provider().get_settings().get("HEADERS", {}))
-        headers["Authorization"] = " ".join(["Bearer", token.token])
+        headers["Authorization"] = f"Bearer {token.token}"
 
         info = {}
         if app_settings.QUERY_EMAIL:
@@ -38,7 +38,7 @@ class LinkedInOAuth2Adapter(OAuth2Adapter):
             if resp.ok:
                 info = resp.json()
 
-        url = self.profile_url + "?projection=(%s)" % ",".join(fields)
+        url = f"{self.profile_url}?projection=({','.join(fields)})"
         resp = get_adapter().get_requests_session().get(url, headers=headers)
         resp.raise_for_status()
         info.update(resp.json())

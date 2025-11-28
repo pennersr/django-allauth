@@ -35,7 +35,7 @@ def test_user_with_mfa_only(
     for urlname in ["account_reauthenticate", "mfa_reauthenticate"]:
         if urlname == "mfa_reauthenticate" and not allauth_settings.MFA_ENABLED:
             continue
-        resp = client.get(reverse(urlname) + "?next=/foo")
+        resp = client.get(f"{reverse(urlname)}?next=/foo")
         if urlname in expected_method_urlnames:
             assert resp.status_code == HTTPStatus.OK
         else:

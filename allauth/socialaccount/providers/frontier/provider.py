@@ -1,5 +1,4 @@
 import hashlib
-from urllib.parse import urlencode
 
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.providers.base import ProviderAccount
@@ -12,12 +11,10 @@ class FrontierAccount(ProviderAccount):
         return None
 
     def get_avatar_url(self):
-        return "https://www.gravatar.com/avatar/%s?%s" % (
-            hashlib.sha256(
-                self.account.extra_data.get("email").lower().encode("utf-8")
-            ).hexdigest(),
-            urlencode({"d": "mp"}),
-        )
+        email_hash = hashlib.sha256(
+            self.account.extra_data.get("email").lower().encode("utf-8")
+        ).hexdigest()
+        return f"https://www.gravatar.com/avatar/{email_hash}?d=mp"
 
 
 class FrontierProvider(OAuth2Provider):

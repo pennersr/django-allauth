@@ -11,9 +11,9 @@ class MediaWikiOAuth2Adapter(OAuth2Adapter):
     provider_id = "mediawiki"
     settings = app_settings.PROVIDERS.get(provider_id, {})
     REST_API = settings.get("REST_API", "https://meta.wikimedia.org/w/rest.php")
-    access_token_url = REST_API + "/oauth2/access_token"
-    authorize_url = REST_API + "/oauth2/authorize"
-    profile_url = REST_API + "/oauth2/resource/profile"
+    access_token_url = f"{REST_API}/oauth2/access_token"
+    authorize_url = f"{REST_API}/oauth2/authorize"
+    profile_url = f"{REST_API}/oauth2/resource/profile"
     # Allow custom User-Agent per Wikimedia policy.
     headers = {"User-Agent": settings.get("USER_AGENT", "django-allauth")}
 

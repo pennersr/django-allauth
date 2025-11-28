@@ -38,13 +38,13 @@ class PocketOAuthTests(OAuthTestsMixin, TestCase):
             )
         ):
             resp = self.client.post(
-                reverse(self.provider.id + "_login")
+                reverse(f"{self.provider.id}_login")
                 + "?"
                 + urlencode(dict(process=process))
             )
         p = urlparse(resp["location"])
         q = parse_qs(p.query)
-        complete_url = reverse(self.provider.id + "_callback")
+        complete_url = reverse(f"{self.provider.id}_callback")
         self.assertGreater(q["redirect_uri"][0].find(complete_url), 0)
         with mocked_response(self.get_access_token_response(), *resp_mocks):
             resp = self.client.get(complete_url)

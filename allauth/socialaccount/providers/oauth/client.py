@@ -76,7 +76,7 @@ class OAuthClient:
             get_params["oauth_callback"] = build_absolute_uri(
                 self.request, self.callback_url
             )
-            rt_url = self.request_token_url + "?" + urlencode(get_params)
+            rt_url = f"{self.request_token_url}?{urlencode(get_params)}"
             oauth = OAuth1(self.consumer_key, client_secret=self.consumer_secret)
             response = get_adapter().get_requests_session().post(url=rt_url, auth=oauth)
             if response.status_code not in [HTTPStatus.OK, HTTPStatus.CREATED]:
@@ -89,7 +89,7 @@ class OAuthClient:
                 )
             self.request_token = dict(parse_qsl(response.text))
             self.request.session[
-                "oauth_%s_request_token" % get_token_prefix(self.request_token_url)
+                f"oauth_{get_token_prefix(self.request_token_url)}_request_token"
             ] = self.request_token
         return self.request_token
 
@@ -112,17 +112,17 @@ class OAuthClient:
             # Though, the custom oauth_callback seems to work without it?
             oauth_verifier = get_request_param(self.request, "oauth_verifier")
             if oauth_verifier:
-                at_url = at_url + "?" + urlencode({"oauth_verifier": oauth_verifier})
+                at_url = f"{at_url}?{urlencode({'oauth_verifier': oauth_verifier})}"
             response = get_adapter().get_requests_session().post(url=at_url, auth=oauth)
             if response.status_code not in [HTTPStatus.OK, HTTPStatus.CREATED]:
                 raise OAuthError(
-                    _("Invalid response while obtaining access token" ' from "%s".')
+                    _('Invalid response while obtaining access token from "%s".')
                     % get_token_prefix(self.request_token_url)
                 )
             self.access_token = dict(parse_qsl(response.text))
 
             self.request.session[
-                "oauth_%s_access_token" % get_token_prefix(self.request_token_url)
+                f"oauth_{get_token_prefix(self.request_token_url)}_access_token"
             ] = self.access_token
         return self.access_token
 
@@ -133,7 +133,7 @@ class OAuthClient:
         """
         try:
             return self.request.session[
-                "oauth_%s_request_token" % get_token_prefix(self.request_token_url)
+                f"oauth_{get_token_prefix(self.request_token_url)}_request_token"
             ]
         except KeyError:
             raise OAuthError(
@@ -161,7 +161,7 @@ class OAuthClient:
             "oauth_callback": self.request.build_absolute_uri(self.callback_url),
         }
         params.update(extra_params)
-        url = authorization_url + "?" + urlencode(params)
+        url = f"{authorization_url}?{urlencode(params)}"
         return HttpResponseRedirect(url)
 
 
@@ -184,7 +184,7 @@ class OAuth:
         """
         try:
             return self.request.session[
-                "oauth_%s_access_token" % get_token_prefix(self.request_token_url)
+                f"oauth_{get_token_prefix(self.request_token_url)}_access_token"
             ]
         except KeyError:
             raise OAuthError(

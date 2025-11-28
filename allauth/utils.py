@@ -174,11 +174,7 @@ def build_absolute_uri(
         site = Site.objects.get_current()
         bits = urlsplit(location)
         if not (bits.scheme and bits.netloc):
-            uri = "{proto}://{domain}{url}".format(
-                proto=account_settings.DEFAULT_HTTP_PROTOCOL,
-                domain=site.domain,
-                url=location,
-            )
+            uri = f"{account_settings.DEFAULT_HTTP_PROTOCOL}://{site.domain}{location}"
         else:
             uri = location
     else:
@@ -194,7 +190,7 @@ def build_absolute_uri(
         protocol = account_settings.DEFAULT_HTTP_PROTOCOL
     # (end NOTE)
     if protocol:
-        uri = protocol + ":" + uri.partition(":")[2]
+        uri = f"{protocol}:{uri.partition(':')[2]}"
     return uri
 
 

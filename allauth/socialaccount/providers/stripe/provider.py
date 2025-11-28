@@ -9,7 +9,7 @@ class StripeAccount(ProviderAccount):
         email = self.account.extra_data.get("email")
         business = self.account.extra_data.get("business_name")
         if business:
-            return "%s (%s)" % (email or default, business)
+            return f"{email or default} ({business})"
         else:
             return email or default
 

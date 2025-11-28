@@ -18,7 +18,7 @@ class EveOnlineOAuth2Adapter(OAuth2Adapter):
             .get_requests_session()
             .get(
                 self.profile_url,
-                headers={"Authorization": "Bearer " + token.token},
+                headers={"Authorization": f"Bearer {token.token}"},
             )
         )
         extra_data = resp.json()

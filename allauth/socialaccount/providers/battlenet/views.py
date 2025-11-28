@@ -40,7 +40,7 @@ def _check_errors(response):
     try:
         data = response.json()
     except ValueError:  # JSONDecodeError on py3
-        raise OAuth2Error("Invalid JSON from Battle.net API: %r" % (response.text))
+        raise OAuth2Error(f"Invalid JSON from Battle.net API: {response.text!r}")
 
     if response.status_code >= HTTPStatus.BAD_REQUEST or "error" in data:
         # For errors, we expect the following format:
@@ -55,14 +55,14 @@ def _check_errors(response):
         error = data.get("error", "") or data.get("type", "")
         desc = data.get("error_description", "") or data.get("detail", "")
 
-        raise OAuth2Error("Battle.net error: %s (%s)" % (error, desc))
+        raise OAuth2Error(f"Battle.net error: {error} ({desc})")
 
     # The expected output from the API follows this format:
     # {"id": 12345, "battletag": "Example#12345"}
     # The battletag is optional.
     if "id" not in data:
         # If the id is not present, the output is not usable (no UID)
-        raise OAuth2Error("Invalid data from Battle.net API: %r" % (data))
+        raise OAuth2Error(f"Invalid data from Battle.net API: {data!r}")
 
     return data
 
@@ -120,15 +120,15 @@ class BattleNetOAuth2Adapter(OAuth2Adapter):
 
     @property
     def access_token_url(self):
-        return self.battlenet_base_url + "/token"
+        return f"{self.battlenet_base_url}/token"
 
     @property
     def authorize_url(self):
-        return self.battlenet_base_url + "/authorize"
+        return f"{self.battlenet_base_url}/authorize"
 
     @property
     def profile_url(self):
-        return self.battlenet_base_url + "/userinfo"
+        return f"{self.battlenet_base_url}/userinfo"
 
     def complete_login(self, request, app, token, **kwargs):
         response = (
@@ -136,7 +136,7 @@ class BattleNetOAuth2Adapter(OAuth2Adapter):
             .get_requests_session()
             .get(
                 self.profile_url,
-                headers={"authorization": "Bearer %s" % (token.token)},
+                headers={"authorization": f"Bearer {token.token}"},
             )
         )
         data = _check_errors(response)
@@ -151,7 +151,7 @@ class BattleNetOAuth2Adapter(OAuth2Adapter):
         region = request.GET.get("region", "").lower()
         # Pass the region down to the callback URL if we specified it
         if region and region in self.valid_regions:
-            r += "?region=%s" % (region)
+            r += f"?region={region}"
         return r
 
 

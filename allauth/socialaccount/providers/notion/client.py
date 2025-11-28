@@ -19,7 +19,7 @@ class NotionOAuth2Client(OAuth2Client):
         }
         if self.state:
             params["state"] = self.state
-        return "%s?%s" % (authorization_url, urlencode(params))
+        return f"{authorization_url}?{urlencode(params)}"
 
     def get_access_token(self, code, pkce_code_verifier=None):
         resp = (
@@ -40,5 +40,5 @@ class NotionOAuth2Client(OAuth2Client):
             except ValueError:
                 access_token = dict(parse_qsl(resp.text))
         if not access_token or "access_token" not in access_token:
-            raise OAuth2Error("Error retrieving access token: %s" % resp.content)
+            raise OAuth2Error(f"Error retrieving access token: {resp.content}")
         return access_token

@@ -28,7 +28,7 @@ class SnapchatOAuth2Adapter(OAuth2Adapter):
         )
 
         hed = {
-            "Authorization": "Bearer " + token,
+            "Authorization": f"Bearer {token}",
             "Content-Type": "application/json;charset=UTF-8",
         }
         if Scope.BITMOJI in provider_scope:

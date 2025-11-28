@@ -53,7 +53,7 @@ class AuthenticateView(FormView):
     def get_context_data(self, **kwargs):
         ret = super().get_context_data(**kwargs)
         ret["action_url"] = (
-            reverse("dummy_authenticate") + "?" + urlencode({"state": self.state_id})
+            f"{reverse('dummy_authenticate')}?{urlencode({'state': self.state_id})}"
         )
         return ret
 

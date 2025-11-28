@@ -19,7 +19,7 @@ class BattleNetProvider(OAuth2Provider):
         uid = str(data["id"])
         if data.get("region") == "cn":
             # China is on a different account system. UIDs can clash with US.
-            return uid + "-cn"
+            return f"{uid}-cn"
         return uid
 
     def extract_common_fields(self, data):

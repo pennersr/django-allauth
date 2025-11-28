@@ -166,7 +166,7 @@ def test_userinfo_access_token_as_query(
     # Pass along ID token as hint
     token, _ = access_token_generator(oidc_client, user, scopes=["openid"])
     resp = client.get(
-        reverse("idp:oidc:userinfo") + "?" + urlencode({"access_token": token}),
+        f"{reverse('idp:oidc:userinfo')}?{urlencode({'access_token': token})}",
     )
     assert resp.status_code == HTTPStatus.UNAUTHORIZED
 

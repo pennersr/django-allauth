@@ -101,14 +101,13 @@ class GoogleTests(OAuth2TestsMixin, TestCase):
             "exp": time.time() - 1,
             "aud": "foo",
         }
+        template_ext = getattr(settings, "ACCOUNT_TEMPLATE_EXTENSION", "html")
         for key, value in wrong_claim_values.items():
             with self.subTest(key):
                 self.identity_overwrites = {key: value}
                 resp = self.login(resp_mock=None)
                 self.assertTemplateUsed(
-                    resp,
-                    "socialaccount/authentication_error.%s"
-                    % getattr(settings, "ACCOUNT_TEMPLATE_EXTENSION", "html"),
+                    resp, f"socialaccount/authentication_error.{template_ext}"
                 )
 
     def test_username_based_on_email(self):

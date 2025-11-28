@@ -15,15 +15,15 @@ class OktaOAuth2Adapter(OAuth2Adapter):
 
     @property
     def access_token_url(self):
-        return "https://{}/oauth2/v1/token".format(self.okta_base_url)
+        return f"https://{self.okta_base_url}/oauth2/v1/token"
 
     @property
     def authorize_url(self):
-        return "https://{}/oauth2/v1/authorize".format(self.okta_base_url)
+        return f"https://{self.okta_base_url}/oauth2/v1/authorize"
 
     @property
     def userinfo_url(self):
-        return "https://{}/oauth2/v1/userinfo".format(self.okta_base_url)
+        return f"https://{self.okta_base_url}/oauth2/v1/userinfo"
 
     @property
     def access_token_method(self):
@@ -46,7 +46,7 @@ class OktaOAuth2Adapter(OAuth2Adapter):
             .get_requests_session()
             .get(
                 self.userinfo_url,
-                headers={"Authorization": "Bearer {}".format(token.token)},
+                headers={"Authorization": f"Bearer {token.token}"},
             )
         )
 

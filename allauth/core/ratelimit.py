@@ -59,7 +59,7 @@ def respond_429(request) -> HttpResponse:
         return RateLimitResponse(request)
 
     try:
-        handler429 = import_callable(settings.ROOT_URLCONF + ".handler429")
+        handler429 = import_callable(f"{settings.ROOT_URLCONF}.handler429")
         handler429 = import_callable(handler429)
     except (ImportError, AttributeError):
         handler429 = _impl.handler429

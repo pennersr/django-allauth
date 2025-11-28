@@ -65,7 +65,7 @@ def do_element(parser, token):
     tag_name, args, kwargs = parse_tag(token, parser)
     usage = f'{{% {tag_name} "element" argument=value %}} ... {{% end{tag_name} %}}'
     if len(args) > 1:
-        raise template.TemplateSyntaxError("Usage: %s" % usage)
+        raise template.TemplateSyntaxError(f"Usage: {usage}")
 
     parser.delete_first_token()
     return ElementNode(nodelist, args[0], kwargs)
@@ -130,7 +130,7 @@ def do_setvar(parser, token):
     if len(bits) != 2:
         tag_name = bits[0]
         usage = f'{{% {tag_name} "setvar" var %}} ... {{% end{tag_name} %}}'
-        raise template.TemplateSyntaxError("Usage: %s" % usage)
+        raise template.TemplateSyntaxError(f"Usage: {usage}")
     parser.delete_first_token()
     return SetVarNode(nodelist, bits[1])
 

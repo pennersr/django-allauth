@@ -176,7 +176,7 @@ class SocialToken(models.Model):
         verbose_name_plural = _("social application tokens")
 
     def __str__(self):
-        return "%s (%s)" % (self._meta.verbose_name, self.pk)
+        return f"{self._meta.verbose_name} ({self.pk})"
 
 
 class SocialLogin:

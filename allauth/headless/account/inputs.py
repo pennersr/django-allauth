@@ -80,7 +80,7 @@ class LoginInput(inputs.Input):
                         "too_many_login_attempts"
                     )
             else:
-                error_code = "%s_password_mismatch" % auth_method.value
+                error_code = f"{auth_method.value}_password_mismatch"
                 self.add_error(
                     "password", get_account_adapter().validation_error(error_code)
                 )

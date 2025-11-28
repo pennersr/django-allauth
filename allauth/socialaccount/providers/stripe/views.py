@@ -13,7 +13,7 @@ class StripeOAuth2Adapter(OAuth2Adapter):
     profile_url = "https://api.stripe.com/v1/accounts/%s"
 
     def complete_login(self, request, app, token, response, **kwargs):
-        headers = {"Authorization": "Bearer {0}".format(token.token)}
+        headers = {"Authorization": f"Bearer {token.token}"}
         resp = (
             get_adapter()
             .get_requests_session()

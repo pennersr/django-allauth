@@ -34,7 +34,7 @@ class PatreonOAuth2Adapter(OAuth2Adapter):
             .get_requests_session()
             .get(
                 self.profile_url,
-                headers={"Authorization": "Bearer " + token.token},
+                headers={"Authorization": f"Bearer {token.token}"},
             )
         )
         extra_data = resp.json().get("data")
@@ -52,7 +52,7 @@ class PatreonOAuth2Adapter(OAuth2Adapter):
                     .get_requests_session()
                     .get(
                         member_url,
-                        headers={"Authorization": "Bearer " + token.token},
+                        headers={"Authorization": f"Bearer {token.token}"},
                     )
                 )
                 pledge_title = resp_member.json()["included"][0]["attributes"]["title"]

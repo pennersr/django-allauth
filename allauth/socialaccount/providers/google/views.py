@@ -109,7 +109,7 @@ class GoogleOAuth2Adapter(OAuth2Adapter):
             .get_requests_session()
             .get(
                 self.identity_url,
-                headers={"Authorization": "Bearer {}".format(access_token)},
+                headers={"Authorization": f"Bearer {access_token}"},
             )
         )
         if not resp.ok:

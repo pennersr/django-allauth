@@ -10,8 +10,8 @@ class DataportenAccount(ProviderAccount):
         """
         # Documentation for user profile photos can be found here:
         # https://docs.dataporten.no/docs/oauth-authentication/
-        base_url = "https://api.dataporten.no/userinfo/v1/user/media/"
-        return base_url + self.account.extra_data["profilephoto"]
+        photo = self.account.extra_data["profilephoto"]
+        return f"https://api.dataporten.no/userinfo/v1/user/media/{photo}"
 
 
 class DataportenProvider(OAuth2Provider):

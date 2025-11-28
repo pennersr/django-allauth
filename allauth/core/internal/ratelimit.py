@@ -57,7 +57,7 @@ def parse_duration(duration) -> Union[int, float]:
     value = duration[0:-1]
     unit_map = {"s": 1, "m": 60, "h": 3600, "d": 86400}
     if unit not in unit_map:
-        raise ValueError("Invalid duration unit: %s" % unit)
+        raise ValueError(f"Invalid duration unit: {unit}")
     if len(value) == 0:
         value = 1
     else:
@@ -188,7 +188,7 @@ def handler429(request) -> HttpResponse:
     try:
         return render(
             request,
-            "429." + app_settings.TEMPLATE_EXTENSION,
+            f"429.{app_settings.TEMPLATE_EXTENSION}",
             status=HTTPStatus.TOO_MANY_REQUESTS,
         )
     except TemplateDoesNotExist:

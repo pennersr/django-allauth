@@ -55,6 +55,6 @@ def test_callback(client, db, telegram_app, sociallogin_setup_state):
     post_data = {
         "tgAuthResult": auth_result,
     }
-    resp = client.post(reverse("telegram_callback") + f"?state={state}", post_data)
+    resp = client.post(f"{reverse('telegram_callback')}?state={state}", post_data)
     assert resp.status_code == HTTPStatus.FOUND
     assert SocialAccount.objects.filter(uid="123").exists()

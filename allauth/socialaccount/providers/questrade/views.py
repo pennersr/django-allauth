@@ -20,8 +20,8 @@ class QuestradeOAuth2Adapter(OAuth2Adapter):
             get_adapter()
             .get_requests_session()
             .get(
-                "{}v1/accounts".format(api_server),
-                headers={"Authorization": "Bearer {}".format(token.token)},
+                f"{api_server}v1/accounts",
+                headers={"Authorization": f"Bearer {token.token}"},
             )
         )
         resp.raise_for_status()

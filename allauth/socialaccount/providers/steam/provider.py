@@ -75,7 +75,7 @@ class SteamOpenIDProvider(OpenIDProvider):
     def get_login_url(self, request, **kwargs):
         url = reverse("steam_login")
         if kwargs:
-            url += "?" + urlencode(kwargs)
+            url += f"?{urlencode(kwargs)}"
         return url
 
     def sociallogin_from_response(self, request, response):

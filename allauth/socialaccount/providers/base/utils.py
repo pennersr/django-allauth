@@ -8,7 +8,7 @@ def respond_to_login_on_get(request, provider):
     if (not app_settings.LOGIN_ON_GET) and request.method == "GET":
         return render(
             request,
-            "socialaccount/login." + account_app_settings.TEMPLATE_EXTENSION,
+            f"socialaccount/login.{account_app_settings.TEMPLATE_EXTENSION}",
             {
                 "provider": provider,
                 "process": request.GET.get("process"),

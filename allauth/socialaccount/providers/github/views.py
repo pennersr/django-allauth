@@ -16,18 +16,18 @@ class GitHubOAuth2Adapter(OAuth2Adapter):
 
     if "GITHUB_URL" in settings:
         web_url = settings.get("GITHUB_URL").rstrip("/")
-        api_url = "{0}/api/v3".format(web_url)
+        api_url = f"{web_url}/api/v3"
     else:
         web_url = "https://github.com"
         api_url = "https://api.github.com"
 
-    access_token_url = "{0}/login/oauth/access_token".format(web_url)
-    authorize_url = "{0}/login/oauth/authorize".format(web_url)
-    profile_url = "{0}/user".format(api_url)
-    emails_url = "{0}/user/emails".format(api_url)
+    access_token_url = f"{web_url}/login/oauth/access_token"
+    authorize_url = f"{web_url}/login/oauth/authorize"
+    profile_url = f"{api_url}/user"
+    emails_url = f"{api_url}/user/emails"
 
     def complete_login(self, request, app, token, **kwargs):
-        headers = {"Authorization": "token {}".format(token.token)}
+        headers = {"Authorization": f"token {token.token}"}
         resp = (
             get_adapter().get_requests_session().get(self.profile_url, headers=headers)
         )

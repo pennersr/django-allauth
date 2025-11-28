@@ -18,7 +18,7 @@ from allauth.utils import get_form_class
 @method_decorator(reauthentication_required, name="dispatch")
 class GenerateRecoveryCodesView(FormView):
     form_class = GenerateRecoveryCodesForm
-    template_name = "mfa/recovery_codes/generate." + account_settings.TEMPLATE_EXTENSION
+    template_name = f"mfa/recovery_codes/generate.{account_settings.TEMPLATE_EXTENSION}"
     success_url = reverse_lazy("mfa_view_recovery_codes")
 
     def form_valid(self, form):
@@ -81,7 +81,7 @@ download_recovery_codes = DownloadRecoveryCodesView.as_view()
 
 @method_decorator(login_required, name="dispatch")
 class ViewRecoveryCodesView(TemplateView):
-    template_name = "mfa/recovery_codes/index." + account_settings.TEMPLATE_EXTENSION
+    template_name = f"mfa/recovery_codes/index.{account_settings.TEMPLATE_EXTENSION}"
 
     def get_context_data(self, **kwargs):
         ret = super().get_context_data(**kwargs)

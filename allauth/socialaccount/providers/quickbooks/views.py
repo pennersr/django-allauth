@@ -25,7 +25,7 @@ class QuickBooksOAuth2Adapter(OAuth2Adapter):
         return self.get_provider().sociallogin_from_response(request, extra_data)
 
     def get_user_info(self, token):
-        auth_header = "Bearer " + token.token
+        auth_header = f"Bearer {token.token}"
         headers = {
             "Accept": "application/json",
             "Authorization": auth_header,

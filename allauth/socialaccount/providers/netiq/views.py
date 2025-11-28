@@ -14,15 +14,15 @@ class NetIQOAuth2Adapter(OAuth2Adapter):
 
     @property
     def access_token_url(self):
-        return "{}/nidp/oauth/nam/token".format(self.provider_base_url)
+        return f"{self.provider_base_url}/nidp/oauth/nam/token"
 
     @property
     def authorize_url(self):
-        return "{}/nidp/oauth/nam/authz".format(self.provider_base_url)
+        return f"{self.provider_base_url}/nidp/oauth/nam/authz"
 
     @property
     def userinfo_url(self):
-        return "{}/nidp/oauth/nam/userinfo".format(self.provider_base_url)
+        return f"{self.provider_base_url}/nidp/oauth/nam/userinfo"
 
     def complete_login(self, request, app, token, **kwargs):
         """
@@ -40,7 +40,7 @@ class NetIQOAuth2Adapter(OAuth2Adapter):
             .get_requests_session()
             .get(
                 self.userinfo_url,
-                headers={"Authorization": "Bearer {}".format(token.token)},
+                headers={"Authorization": f"Bearer {token.token}"},
             )
         )
 

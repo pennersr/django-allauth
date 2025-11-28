@@ -84,7 +84,7 @@ class LoginView(
     FormView,
 ):
     form_class = LoginForm
-    template_name = "account/login." + app_settings.TEMPLATE_EXTENSION
+    template_name = f"account/login.{app_settings.TEMPLATE_EXTENSION}"
     success_url = None
 
     @method_decorator(rate_limit(action="login"))
@@ -151,7 +151,7 @@ class SignupView(
     AjaxCapableProcessFormViewMixin,
     FormView,
 ):
-    template_name = "account/signup." + app_settings.TEMPLATE_EXTENSION
+    template_name = f"account/signup.{app_settings.TEMPLATE_EXTENSION}"
     form_class = SignupForm
 
     @method_decorator(rate_limit(action="signup"))
@@ -233,7 +233,7 @@ signup = SignupView.as_view()
 
 
 class SignupByPasskeyView(SignupView):
-    template_name = "account/signup_by_passkey." + app_settings.TEMPLATE_EXTENSION
+    template_name = f"account/signup_by_passkey.{app_settings.TEMPLATE_EXTENSION}"
 
     def get_form_kwargs(self):
         ret = super().get_form_kwargs()
@@ -246,7 +246,7 @@ signup_by_passkey = SignupByPasskeyView.as_view()
 
 @method_decorator(login_not_required, name="dispatch")
 class ConfirmEmailView(NextRedirectMixin, LogoutFunctionalityMixin, TemplateView):
-    template_name = "account/email_confirm." + app_settings.TEMPLATE_EXTENSION
+    template_name = f"account/email_confirm.{app_settings.TEMPLATE_EXTENSION}"
 
     def get(self, *args, **kwargs):
         try:
@@ -349,8 +349,10 @@ confirm_email = ConfirmEmailView.as_view()
 @method_decorator(rate_limit(action="manage_email"), name="dispatch")
 class EmailView(AjaxCapableProcessFormViewMixin, FormView):
     template_name = (
-        "account/email_change." if app_settings.CHANGE_EMAIL else "account/email."
-    ) + app_settings.TEMPLATE_EXTENSION
+        f"account/email_change.{app_settings.TEMPLATE_EXTENSION}"
+        if app_settings.CHANGE_EMAIL
+        else f"account/email.{app_settings.TEMPLATE_EXTENSION}"
+    )
     form_class = AddEmailForm
     success_url = reverse_lazy("account_email")
 
@@ -490,7 +492,7 @@ email = EmailView.as_view()
 @method_decorator(login_required, name="dispatch")
 @method_decorator(rate_limit(action="change_password"), name="dispatch")
 class PasswordChangeView(AjaxCapableProcessFormViewMixin, NextRedirectMixin, FormView):
-    template_name = "account/password_change." + app_settings.TEMPLATE_EXTENSION
+    template_name = f"account/password_change.{app_settings.TEMPLATE_EXTENSION}"
     form_class = ChangePasswordForm
 
     def get_form_class(self):
@@ -534,7 +536,7 @@ password_change = PasswordChangeView.as_view()
     name="dispatch",
 )
 class PasswordSetView(AjaxCapableProcessFormViewMixin, NextRedirectMixin, FormView):
-    template_name = "account/password_set." + app_settings.TEMPLATE_EXTENSION
+    template_name = f"account/password_set.{app_settings.TEMPLATE_EXTENSION}"
     form_class = SetPasswordForm
 
     def get_form_class(self):
@@ -572,7 +574,7 @@ password_set = PasswordSetView.as_view()
 
 @method_decorator(login_not_required, name="dispatch")
 class PasswordResetView(NextRedirectMixin, AjaxCapableProcessFormViewMixin, FormView):
-    template_name = "account/password_reset." + app_settings.TEMPLATE_EXTENSION
+    template_name = f"account/password_reset.{app_settings.TEMPLATE_EXTENSION}"
     form_class = ResetPasswordForm
     success_url = reverse_lazy("account_reset_password_done")
 
@@ -610,7 +612,7 @@ password_reset = PasswordResetView.as_view()
 
 @method_decorator(login_not_required, name="dispatch")
 class PasswordResetDoneView(TemplateView):
-    template_name = "account/password_reset_done." + app_settings.TEMPLATE_EXTENSION
+    template_name = f"account/password_reset_done.{app_settings.TEMPLATE_EXTENSION}"
 
 
 password_reset_done = PasswordResetDoneView.as_view()
@@ -624,7 +626,7 @@ class PasswordResetFromKeyView(
     LogoutFunctionalityMixin,
     FormView,
 ):
-    template_name = "account/password_reset_from_key." + app_settings.TEMPLATE_EXTENSION
+    template_name = f"account/password_reset_from_key.{app_settings.TEMPLATE_EXTENSION}"
     form_class = ResetPasswordKeyForm
     success_url = reverse_lazy("account_reset_password_from_key_done")
     reset_url_key = "set-password"
@@ -711,7 +713,7 @@ password_reset_from_key = PasswordResetFromKeyView.as_view()
 @method_decorator(login_not_required, name="dispatch")
 class PasswordResetFromKeyDoneView(TemplateView):
     template_name = (
-        "account/password_reset_from_key_done." + app_settings.TEMPLATE_EXTENSION
+        f"account/password_reset_from_key_done.{app_settings.TEMPLATE_EXTENSION}"
     )
 
 
@@ -724,7 +726,7 @@ class CompletePasswordResetView(
     NextRedirectMixin,
     FormView,
 ):
-    template_name = "account/password_reset_from_key." + app_settings.TEMPLATE_EXTENSION
+    template_name = f"account/password_reset_from_key.{app_settings.TEMPLATE_EXTENSION}"
     form_class = ResetPasswordKeyForm
     success_url = reverse_lazy("account_password_reset_completed")
 
@@ -770,7 +772,7 @@ complete_password_reset = CompletePasswordResetView.as_view()
 
 class ConfirmPasswordResetCodeView(NextRedirectMixin, FormView):
     template_name = (
-        "account/confirm_password_reset_code." + app_settings.TEMPLATE_EXTENSION
+        f"account/confirm_password_reset_code.{app_settings.TEMPLATE_EXTENSION}"
     )
     form_class = ConfirmPasswordResetCodeForm
 
@@ -826,7 +828,7 @@ confirm_password_reset_code = ConfirmPasswordResetCodeView.as_view()
 
 
 class LogoutView(NextRedirectMixin, LogoutFunctionalityMixin, TemplateView):
-    template_name = "account/logout." + app_settings.TEMPLATE_EXTENSION
+    template_name = f"account/logout.{app_settings.TEMPLATE_EXTENSION}"
 
     def get(self, *args, **kwargs):
         if app_settings.LOGOUT_ON_GET:
@@ -855,7 +857,7 @@ logout = LogoutView.as_view()
 
 @method_decorator(login_not_required, name="dispatch")
 class AccountInactiveView(TemplateView):
-    template_name = "account/account_inactive." + app_settings.TEMPLATE_EXTENSION
+    template_name = f"account/account_inactive.{app_settings.TEMPLATE_EXTENSION}"
 
 
 account_inactive = AccountInactiveView.as_view()
@@ -863,12 +865,12 @@ account_inactive = AccountInactiveView.as_view()
 
 @method_decorator(login_not_required, name="dispatch")
 class EmailVerificationSentView(TemplateView):
-    template_name = "account/verification_sent." + app_settings.TEMPLATE_EXTENSION
+    template_name = f"account/verification_sent.{app_settings.TEMPLATE_EXTENSION}"
 
 
 class ConfirmEmailVerificationCodeView(NextRedirectMixin, FormView):
     template_name = (
-        "account/confirm_email_verification_code." + app_settings.TEMPLATE_EXTENSION
+        f"account/confirm_email_verification_code.{app_settings.TEMPLATE_EXTENSION}"
     )
     form_class = ConfirmEmailVerificationCodeForm
 
@@ -1080,7 +1082,7 @@ class BaseReauthenticateView(NextRedirectMixin, FormView):
 @method_decorator(login_required, name="dispatch")
 class ReauthenticateView(BaseReauthenticateView):
     form_class = ReauthenticateForm
-    template_name = "account/reauthenticate." + app_settings.TEMPLATE_EXTENSION
+    template_name = f"account/reauthenticate.{app_settings.TEMPLATE_EXTENSION}"
 
     def get_form_class(self):
         return get_form_class(app_settings.FORMS, "reauthenticate", self.form_class)
@@ -1100,7 +1102,7 @@ reauthenticate = ReauthenticateView.as_view()
 
 class RequestLoginCodeView(RedirectAuthenticatedUserMixin, NextRedirectMixin, FormView):
     form_class = RequestLoginCodeForm
-    template_name = "account/request_login_code." + app_settings.TEMPLATE_EXTENSION
+    template_name = f"account/request_login_code.{app_settings.TEMPLATE_EXTENSION}"
 
     def get_form_class(self):
         return get_form_class(app_settings.FORMS, "request_login_code", self.form_class)
@@ -1149,7 +1151,7 @@ def _login_by_code_urlname():
 )
 class ConfirmLoginCodeView(NextRedirectMixin, FormView):
     form_class = ConfirmLoginCodeForm
-    template_name = "account/confirm_login_code." + app_settings.TEMPLATE_EXTENSION
+    template_name = f"account/confirm_login_code.{app_settings.TEMPLATE_EXTENSION}"
 
     @method_decorator(never_cache)
     def dispatch(self, request, *args, **kwargs):
@@ -1213,7 +1215,7 @@ confirm_login_code = ConfirmLoginCodeView.as_view()
 class _BaseVerifyPhoneView(NextRedirectMixin, FormView):
     form_class = VerifyPhoneForm
     template_name = (
-        "account/confirm_phone_verification_code." + app_settings.TEMPLATE_EXTENSION
+        f"account/confirm_phone_verification_code.{app_settings.TEMPLATE_EXTENSION}"
     )
 
     @cached_property
@@ -1383,7 +1385,7 @@ def verify_phone(request):
 @method_decorator(login_required, name="dispatch")
 @method_decorator(rate_limit(action="change_phone"), name="dispatch")
 class ChangePhoneView(FormView):
-    template_name = "account/phone_change." + app_settings.TEMPLATE_EXTENSION
+    template_name = f"account/phone_change.{app_settings.TEMPLATE_EXTENSION}"
     form_class = ChangePhoneForm
     success_url = reverse_lazy("account_verify_phone")
 

@@ -12,9 +12,9 @@ class GlobusOAuth2Adapter(OAuth2Adapter):
 
     provider_base_url = "https://auth.globus.org/v2/oauth2"
 
-    access_token_url = "{0}/token".format(provider_base_url)
-    authorize_url = "{0}/authorize".format(provider_base_url)
-    profile_url = "{0}/userinfo".format(provider_base_url)
+    access_token_url = f"{provider_base_url}/token"
+    authorize_url = f"{provider_base_url}/authorize"
+    profile_url = f"{provider_base_url}/userinfo"
 
     def complete_login(self, request, app, token, response):
         extra_data = (
@@ -24,7 +24,7 @@ class GlobusOAuth2Adapter(OAuth2Adapter):
                 self.profile_url,
                 params={"access_token": token.token},
                 headers={
-                    "Authorization": "Bearer " + token.token,
+                    "Authorization": f"Bearer {token.token}",
                 },
             )
         )

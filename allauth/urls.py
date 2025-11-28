@@ -22,7 +22,7 @@ def build_provider_urlpatterns() -> List[Union[URLPattern, URLResolver]]:
         cls for cls in provider_classes if cls.id != "openid_connect"
     ] + [cls for cls in provider_classes if cls.id == "openid_connect"]
     for provider_class in provider_classes:
-        prov_mod = import_module(provider_class.get_package() + ".urls")
+        prov_mod = import_module(f"{provider_class.get_package()}.urls")
         prov_urlpatterns = getattr(prov_mod, "urlpatterns", None)
         if prov_urlpatterns:
             provider_urlpatterns += prov_urlpatterns

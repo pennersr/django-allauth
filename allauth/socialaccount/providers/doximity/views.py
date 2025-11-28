@@ -13,7 +13,7 @@ class DoximityOAuth2Adapter(OAuth2Adapter):
     profile_url = "https://www.doximity.com/api/v1/users/current"
 
     def complete_login(self, request, app, token, **kwargs):
-        headers = {"Authorization": "Bearer %s" % token.token}
+        headers = {"Authorization": f"Bearer {token.token}"}
         resp = (
             get_adapter().get_requests_session().get(self.profile_url, headers=headers)
         )

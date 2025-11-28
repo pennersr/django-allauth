@@ -39,20 +39,20 @@ class FeishuOAuth2Adapter(OAuth2Adapter):
                 self.user_info_url,
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer " + token.token,
+                    "Authorization": f"Bearer {token.token}",
                 },
             )
         )
         resp.raise_for_status()
         extra_data = resp.json()
         if extra_data["code"] != 0:
-            raise OAuth2Error("Error retrieving code: %s" % resp.content)
+            raise OAuth2Error(f"Error retrieving code: {resp.content}")
         extra_data = extra_data["data"]
 
         return self.get_provider().sociallogin_from_response(request, extra_data)
 
     def get_client(self, request, app):
-        callback_url = reverse(self.provider_id + "_callback")
+        callback_url = reverse(f"{self.provider_id}_callback")
         protocol = self.redirect_uri_protocol or app_settings.DEFAULT_HTTP_PROTOCOL
         callback_url = build_absolute_uri(request, callback_url, protocol=protocol)
         client = FeishuOAuth2Client(

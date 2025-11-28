@@ -30,7 +30,7 @@ def login(request):
     redirect_url = request.build_absolute_uri(reverse(callback))
     # Draugiem mandates a weak hashing algorithm.
     redirect_url_hash = md5(
-        (app.secret + redirect_url).encode("utf-8")
+        f"{app.secret}{redirect_url}".encode("utf-8")
     ).hexdigest()  # nosec
     params = {
         "app": app.client_id,
@@ -38,7 +38,7 @@ def login(request):
         "redirect": redirect_url,
     }
     SocialLogin.stash_state(request)
-    return HttpResponseRedirect("%s?%s" % (AUTHORIZE_URL, urlencode(params)))
+    return HttpResponseRedirect(f"{AUTHORIZE_URL}?{urlencode(params)}")
 
 
 @csrf_exempt

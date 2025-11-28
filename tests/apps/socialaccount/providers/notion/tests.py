@@ -65,15 +65,13 @@ class NotionTests(OAuth2TestsMixin, TestCase):
 
     def login(self, resp_mock=None, process="login", with_refresh_token=True):
         resp = self.client.post(
-            reverse(self.provider.id + "_login")
-            + "?"
-            + urlencode(dict(process=process))
+            f"{reverse(f'{self.provider.id}_login')}?{urlencode(dict(process=process))}"
         )
 
         p = urlparse(resp["location"])
         q = parse_qs(p.query)
 
-        complete_url = reverse(self.provider.id + "_callback")
+        complete_url = reverse(f"{self.provider.id}_callback")
         response_json = self.get_login_response_json(
             with_refresh_token=with_refresh_token
         )

@@ -140,7 +140,7 @@ def test_flow(
         "/headless/ninja/resource",
     ]:
         resp = Client(HTTP_AUTHORIZATION=f"Bearer {access_token}").get(
-            url + "?userinfo"
+            f"{url}?userinfo"
         )
         assert resp.status_code == HTTPStatus.OK
         assert resp.json() == {"resource": "ok", "user_email": user.email}
@@ -166,7 +166,7 @@ def test_flow(
         "/headless/ninja/resource",
     ]:
         resp = Client(HTTP_AUTHORIZATION=f"Bearer {access_token}").get(
-            url + "?userinfo"
+            f"{url}?userinfo"
         )
         assert resp.status_code == HTTPStatus.OK
         assert resp.json() == {"resource": "ok", "user_email": user.email}

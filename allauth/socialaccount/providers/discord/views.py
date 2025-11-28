@@ -14,7 +14,7 @@ class DiscordOAuth2Adapter(OAuth2Adapter):
 
     def complete_login(self, request, app, token, **kwargs):
         headers = {
-            "Authorization": "Bearer {0}".format(token.token),
+            "Authorization": f"Bearer {token.token}",
             "Content-Type": "application/json",
         }
         extra_data = (

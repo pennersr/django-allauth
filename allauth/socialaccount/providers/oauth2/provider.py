@@ -20,13 +20,13 @@ class OAuth2Provider(Provider):
     supports_redirect = True
 
     def get_login_url(self, request, **kwargs):
-        url = reverse(self.id + "_login")
+        url = reverse(f"{self.id}_login")
         if kwargs:
-            url = url + "?" + urlencode(kwargs)
+            url = f"{url}?{urlencode(kwargs)}"
         return url
 
     def get_callback_url(self):
-        return reverse(self.id + "_callback")
+        return reverse(f"{self.id}_callback")
 
     def get_pkce_params(self) -> dict:
         enabled = self.app.settings.get("oauth_pkce_enabled")

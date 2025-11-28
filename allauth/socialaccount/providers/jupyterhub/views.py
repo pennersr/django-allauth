@@ -14,12 +14,12 @@ class JupyterHubOAuth2Adapter(OAuth2Adapter):
     settings = app_settings.PROVIDERS.get(provider_id, {})
     provider_base_url = settings.get("API_URL", "")
 
-    access_token_url = "{0}/hub/api/oauth2/token".format(provider_base_url)
-    authorize_url = "{0}/hub/api/oauth2/authorize".format(provider_base_url)
-    profile_url = "{0}/hub/api/user".format(provider_base_url)
+    access_token_url = f"{provider_base_url}/hub/api/oauth2/token"
+    authorize_url = f"{provider_base_url}/hub/api/oauth2/authorize"
+    profile_url = f"{provider_base_url}/hub/api/user"
 
     def complete_login(self, request, app, token: SocialToken, **kwargs):
-        headers = {"Authorization": "Bearer {0}".format(token.token)}
+        headers = {"Authorization": f"Bearer {token.token}"}
 
         extra_data = (
             get_adapter().get_requests_session().get(self.profile_url, headers=headers)

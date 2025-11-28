@@ -176,6 +176,7 @@ def test_callback_error(client, db):
             raise InvalidOpenIDNamespace("Invalid OpenID Namespace 'http://evil.com'")
 
         complete.side_effect = raise_invalid_openid_namespace
+        template_ext = getattr(settings, "ACCOUNT_TEMPLATE_EXTENSION", "html")
         with patch(
             "allauth.socialaccount.providers.openid.utils.SRegResponse"
         ) as sr_mock:
@@ -190,7 +191,5 @@ def test_callback_error(client, db):
                 ax_mock.return_value = {AXAttribute.PERSON_FIRST_NAME: ["raymond"]}
                 resp = client.post(reverse("openid_callback"))
                 assertTemplateUsed(
-                    resp,
-                    "socialaccount/authentication_error.%s"
-                    % getattr(settings, "ACCOUNT_TEMPLATE_EXTENSION", "html"),
+                    resp, f"socialaccount/authentication_error.{template_ext}"
                 )

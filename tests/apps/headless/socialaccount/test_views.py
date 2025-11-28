@@ -212,7 +212,7 @@ def test_auth_error_headless_request(
     headless requests.
     """
     state = sociallogin_setup_state(client, headless=True, next="/foo")
-    resp = client.get(reverse("google_callback") + f"?state={state}")
+    resp = client.get(f"{reverse('google_callback')}?state={state}")
     assert resp["location"] == "/foo?error=unknown&error_process=login"
 
 
@@ -240,7 +240,7 @@ def test_auth_error_headless_state_request_headless_only(
     state = sociallogin_setup_state(client, headless=True, next="/foo")
     settings.HEADLESS_ONLY = True
     settings.HEADLESS_FRONTEND_URLS = {"socialaccount_login_error": "/3rdparty/failure"}
-    resp = client.get(reverse("google_callback") + f"?state={state}")
+    resp = client.get(f"{reverse('google_callback')}?state={state}")
     assert resp["location"] == "/foo?error=unknown&error_process=login"
 
 
@@ -370,7 +370,7 @@ def test_connect(user, auth_client, sociallogin_setup_state, headless_reverse, d
         auth_client, process="connect", next="/foo", headless=True
     )
     resp = auth_client.post(
-        reverse("dummy_authenticate") + f"?state={state}",
+        f"{reverse('dummy_authenticate')}?state={state}",
         data={
             "id": 123,
         },
@@ -389,7 +389,7 @@ def test_connect_reauthentication_required(
         auth_client, process="connect", next="/foo", headless=True
     )
     resp = auth_client.post(
-        reverse("dummy_authenticate") + f"?state={state}",
+        f"{reverse('dummy_authenticate')}?state={state}",
         data={
             "id": 123,
         },
@@ -411,7 +411,7 @@ def test_connect_already_connected(
         auth_client, process=AuthProcess.CONNECT, next="/foo", headless=True
     )
     resp = auth_client.post(
-        reverse("dummy_authenticate") + f"?state={state}",
+        f"{reverse('dummy_authenticate')}?state={state}",
         data={
             "id": 123,
         },

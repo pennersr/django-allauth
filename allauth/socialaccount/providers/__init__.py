@@ -37,7 +37,7 @@ class ProviderRegistry:
         if not self.loaded:
             for app_config in apps.get_app_configs():
                 try:
-                    module_name = app_config.name + ".provider"
+                    module_name = f"{app_config.name}.provider"
                     provider_module = importlib.import_module(module_name)
                 except ImportError as e:
                     if e.name != module_name:

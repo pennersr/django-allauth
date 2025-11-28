@@ -54,7 +54,7 @@ def render_authentication_error(
     context.update(extra_context)
     return render(
         request,
-        "socialaccount/authentication_error." + account_settings.TEMPLATE_EXTENSION,
+        f"socialaccount/authentication_error.{account_settings.TEMPLATE_EXTENSION}",
         context,
     )
 

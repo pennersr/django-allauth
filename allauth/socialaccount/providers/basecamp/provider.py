@@ -33,7 +33,7 @@ class BasecampProvider(OAuth2Provider):
             username=data.get("email_address"),
             first_name=data.get("first_name"),
             last_name=data.get("last_name"),
-            name="%s %s" % (data.get("first_name"), data.get("last_name")),
+            name=f"{data.get('first_name')} {data.get('last_name')}",
         )
 
 

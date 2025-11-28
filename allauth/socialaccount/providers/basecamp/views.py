@@ -15,7 +15,7 @@ class BasecampOAuth2Adapter(OAuth2Adapter):
     profile_url = "https://launchpad.37signals.com/authorization.json"
 
     def complete_login(self, request, app, token, **kwargs):
-        headers = {"Authorization": "Bearer {0}".format(token.token)}
+        headers = {"Authorization": f"Bearer {token.token}"}
         resp = (
             get_adapter().get_requests_session().get(self.profile_url, headers=headers)
         )

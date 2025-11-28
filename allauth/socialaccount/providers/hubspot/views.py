@@ -22,7 +22,7 @@ class HubspotOAuth2Adapter(OAuth2Adapter):
         response = (
             get_adapter()
             .get_requests_session()
-            .get("{0}/{1}".format(self.profile_url, token.token), headers=headers)
+            .get(f"{self.profile_url}/{token.token}", headers=headers)
         )
         response.raise_for_status()
         extra_data = response.json()

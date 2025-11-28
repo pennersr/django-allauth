@@ -14,18 +14,16 @@ class ShareFileOAuth2Adapter(OAuth2Adapter):
     apicp = settings.get("APICP", "sharefile.com")
 
     provider_default_url = settings.get("DEFAULT_URL", "https://secure.sharefile.com")
-    provider_default_api_url = "https://{}.sf-api.com".format(subdomain)
+    provider_default_api_url = f"https://{subdomain}.sf-api.com"
     provider_api_version = "v3"
 
-    access_token_url = "https://{}.{}/oauth/token".format(subdomain, apicp)
-    refresh_token_url = "https://{}.{}/oauth/token".format(subdomain, apicp)
-    authorize_url = "{}/oauth/authorize".format(provider_default_url)
-    profile_url = "{}/sf/{}/Users".format(
-        provider_default_api_url, provider_api_version
-    )
+    access_token_url = f"https://{subdomain}.{apicp}/oauth/token"
+    refresh_token_url = f"https://{subdomain}.{apicp}/oauth/token"
+    authorize_url = f"{provider_default_url}/oauth/authorize"
+    profile_url = f"{provider_default_api_url}/sf/{provider_api_version}/Users"
 
     def complete_login(self, request, app, token, response):
-        headers = {"Authorization": "Bearer {}".format(token.token)}
+        headers = {"Authorization": f"Bearer {token.token}"}
         extra_data = (
             get_adapter()
             .get_requests_session()

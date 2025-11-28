@@ -12,17 +12,17 @@ class PaypalOAuth2Adapter(OAuth2Adapter):
     @property
     def authorize_url(self):
         path = "webapps/auth/protocol/openidconnect/v1/authorize"
-        return "https://www.{0}/{1}".format(self._get_endpoint(), path)
+        return f"https://www.{self._get_endpoint()}/{path}"
 
     @property
     def access_token_url(self):
         path = "v1/identity/openidconnect/tokenservice"
-        return "https://api.{0}/{1}".format(self._get_endpoint(), path)
+        return f"https://api.{self._get_endpoint()}/{path}"
 
     @property
     def profile_url(self):
         path = "v1/identity/openidconnect/userinfo"
-        return "https://api.{0}/{1}".format(self._get_endpoint(), path)
+        return f"https://api.{self._get_endpoint()}/{path}"
 
     def _get_endpoint(self):
         settings = self.get_provider().get_settings()

@@ -81,7 +81,7 @@ class AppleOAuth2Client(OAuth2Client):
             except ValueError:
                 access_token = dict(parse_qsl(resp.text))
         if not access_token or "access_token" not in access_token:
-            raise OAuth2Error("Error retrieving access token: %s" % resp.content)
+            raise OAuth2Error(f"Error retrieving access token: {resp.content}")
         return access_token
 
     def get_redirect_url(self, authorization_url, scope, extra_params):
@@ -96,4 +96,4 @@ class AppleOAuth2Client(OAuth2Client):
         if self.state:
             params["state"] = self.state
         params.update(extra_params)
-        return "%s?%s" % (authorization_url, urlencode(params, quote_via=quote))
+        return f"{authorization_url}?{urlencode(params, quote_via=quote)}"

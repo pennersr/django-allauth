@@ -8,7 +8,7 @@ class AppSettings:
     def _setting(self, name, dflt):
         from allauth.utils import get_setting
 
-        return get_setting(self.prefix + name, dflt)
+        return get_setting(f"{self.prefix}{name}", dflt)
 
     @property
     def ADAPTER(self):

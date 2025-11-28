@@ -54,15 +54,15 @@ class OpenIDConnectProvider(OAuth2Provider):
 
     def get_login_url(self, request, **kwargs):
         url = reverse(
-            self.app.provider + "_login", kwargs={"provider_id": self.app.provider_id}
+            f"{self.app.provider}_login", kwargs={"provider_id": self.app.provider_id}
         )
         if kwargs:
-            url = url + "?" + urlencode(kwargs)
+            url = f"{url}?{urlencode(kwargs)}"
         return url
 
     def get_callback_url(self):
         return reverse(
-            self.app.provider + "_callback",
+            f"{self.app.provider}_callback",
             kwargs={"provider_id": self.app.provider_id},
         )
 

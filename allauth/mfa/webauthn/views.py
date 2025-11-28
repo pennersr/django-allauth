@@ -30,7 +30,7 @@ from allauth.mfa.webauthn.stages import PasskeySignupStage
 @method_decorator(reauthentication_required, name="dispatch")
 class AddWebAuthnView(FormView):
     form_class = AddWebAuthnForm
-    template_name = "mfa/webauthn/add_form." + account_settings.TEMPLATE_EXTENSION
+    template_name = f"mfa/webauthn/add_form.{account_settings.TEMPLATE_EXTENSION}"
 
     def get_context_data(self, **kwargs):
         ret = super().get_context_data()
@@ -64,7 +64,7 @@ add_webauthn = AddWebAuthnView.as_view()
 @method_decorator(login_required, name="dispatch")
 class ListWebAuthnView(ListView):
     template_name = (
-        "mfa/webauthn/authenticator_list." + account_settings.TEMPLATE_EXTENSION
+        f"mfa/webauthn/authenticator_list.{account_settings.TEMPLATE_EXTENSION}"
     )
     context_object_name = "authenticators"
 
@@ -130,7 +130,7 @@ login_webauthn = LoginWebAuthnView.as_view()
 @method_decorator(login_required, name="dispatch")
 class ReauthenticateWebAuthnView(BaseReauthenticateView):
     form_class = ReauthenticateWebAuthnForm
-    template_name = "mfa/webauthn/reauthenticate." + account_settings.TEMPLATE_EXTENSION
+    template_name = f"mfa/webauthn/reauthenticate.{account_settings.TEMPLATE_EXTENSION}"
 
     def get_form_kwargs(self):
         ret = super().get_form_kwargs()
@@ -162,7 +162,7 @@ reauthenticate_webauthn = ReauthenticateWebAuthnView.as_view()
 @method_decorator(reauthentication_required, name="dispatch")
 class EditWebAuthnView(NextRedirectMixin, UpdateView):
     form_class = EditWebAuthnForm
-    template_name = "mfa/webauthn/edit_form." + account_settings.TEMPLATE_EXTENSION
+    template_name = f"mfa/webauthn/edit_form.{account_settings.TEMPLATE_EXTENSION}"
     success_url = reverse_lazy("mfa_list_webauthn")
 
     def get_queryset(self):
@@ -182,7 +182,7 @@ edit_webauthn = EditWebAuthnView.as_view()
 )
 class SignupWebAuthnView(FormView):
     form_class = SignupWebAuthnForm
-    template_name = "mfa/webauthn/signup_form." + account_settings.TEMPLATE_EXTENSION
+    template_name = f"mfa/webauthn/signup_form.{account_settings.TEMPLATE_EXTENSION}"
 
     def get_context_data(self, **kwargs):
         ret = super().get_context_data()

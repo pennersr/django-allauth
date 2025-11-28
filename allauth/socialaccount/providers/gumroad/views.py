@@ -12,8 +12,8 @@ class GumroadOAuth2Adapter(OAuth2Adapter):
 
     settings = app_settings.PROVIDERS.get(provider_id, {})
     provider_base_url = settings.get("GUMROAD_URL")
-    access_token_url = "{0}/oauth/token".format(provider_base_url)
-    authorize_url = "{0}/oauth/authorize".format(provider_base_url)
+    access_token_url = f"{provider_base_url}/oauth/token"
+    authorize_url = f"{provider_base_url}/oauth/authorize"
     profile_url = "https://api.gumroad.com/v2/user"
 
     def complete_login(self, request, app, token, response):

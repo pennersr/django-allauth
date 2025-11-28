@@ -92,7 +92,7 @@ class DraugiemTests(TestCase):
     def test_login_redirect(self):
         response = self.client.get(reverse(views.login))
         redirect_url = reverse(views.callback)
-        full_redirect_url = "http://testserver" + redirect_url
+        full_redirect_url = f"http://testserver{redirect_url}"
         secret = self.app.secret + full_redirect_url
         redirect_url_hash = md5(secret.encode("utf-8")).hexdigest()
         params = {
@@ -102,7 +102,7 @@ class DraugiemTests(TestCase):
         }
         self.assertRedirects(
             response,
-            "%s?%s" % (views.AUTHORIZE_URL, urlencode(params)),
+            f"{views.AUTHORIZE_URL}?{urlencode(params)}",
             fetch_redirect_response=False,
         )
 

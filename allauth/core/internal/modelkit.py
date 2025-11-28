@@ -81,8 +81,7 @@ def deserialize_instance(model, data):
                         v = f.from_db_value(v, None, None)
                     except Exception:
                         raise ImproperlyConfigured(
-                            "Unable to auto serialize field '{}', custom"
-                            " serialization override required".format(k)
+                            f"Unable to auto serialize field '{k}', custom serialization override required"
                         )
             except FieldDoesNotExist:
                 pass

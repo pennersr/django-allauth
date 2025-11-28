@@ -79,7 +79,7 @@ class OAuthCallbackView(OAuthView):
         gets redirected back to from the service provider
         """
         provider = self.adapter.get_provider()
-        login_done_url = reverse(self.adapter.provider_id + "_callback")
+        login_done_url = reverse(f"{self.adapter.provider_id}_callback")
         client = self.adapter._get_client(request, login_done_url)
         if not client.is_valid():
             if "denied" in request.GET:

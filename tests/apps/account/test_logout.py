@@ -36,7 +36,7 @@ class LogoutTests(TestCase):
     def test_logout_view_on_post(self):
         c, resp = self._logout_view("get")
         self.assertTemplateUsed(
-            resp, "account/logout.%s" % app_settings.TEMPLATE_EXTENSION
+            resp, f"account/logout.{app_settings.TEMPLATE_EXTENSION}"
         )
 
         receiver_mock = Mock()

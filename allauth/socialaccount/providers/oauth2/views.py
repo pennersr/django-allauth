@@ -53,7 +53,7 @@ class OAuth2Adapter:
         raise NotImplementedError
 
     def get_callback_url(self, request, app):
-        callback_url = reverse(self.provider_id + "_callback")
+        callback_url = reverse(f"{self.provider_id}_callback")
         protocol = self.redirect_uri_protocol
         return build_absolute_uri(request, callback_url, protocol)
 
@@ -170,7 +170,7 @@ class OAuth2CallbackView(OAuth2View):
         redirect_to = add_query_params(redirect_to, {"_redir": ""})
         return render(
             request,
-            "socialaccount/login_redirect." + account_settings.TEMPLATE_EXTENSION,
+            f"socialaccount/login_redirect.{account_settings.TEMPLATE_EXTENSION}",
             {
                 "provider": provider,
                 "redirect_to": redirect_to,

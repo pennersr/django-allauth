@@ -15,7 +15,7 @@ from allauth.account.stages import LoginByCodeStage
 @pytest.fixture
 def request_login_by_code(mailoutbox):
     def f(client, email):
-        resp = client.get(reverse("account_request_login_code") + "?next=/foo")
+        resp = client.get(f"{reverse('account_request_login_code')}?next=/foo")
         assert resp.status_code == HTTPStatus.OK
         assert b'value="/foo"' in resp.content
         resp = client.post(
@@ -23,7 +23,7 @@ def request_login_by_code(mailoutbox):
         )
         assert resp.status_code == HTTPStatus.FOUND
         assert (
-            resp["location"] == reverse("account_confirm_login_code") + "?next=%2Ffoo"
+            resp["location"] == f"{reverse('account_confirm_login_code')}?next=%2Ffoo"
         )
         assert len(mailoutbox) == 1
         code = client.session[LOGIN_SESSION_KEY]["state"]["stages"][
@@ -38,7 +38,7 @@ def request_login_by_code(mailoutbox):
 
 def test_login_by_code(client, user, request_login_by_code):
     code = request_login_by_code(client, user.email)
-    code_with_ws = " " + code[0:3] + " " + code[3:]
+    code_with_ws = f" {code[0:3]} {code[3:]}"
     resp = client.post(
         reverse("account_confirm_login_code"),
         data={"code": code_with_ws, "next": "/foo"},

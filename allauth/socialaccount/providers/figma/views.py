@@ -19,7 +19,7 @@ class FigmaOAuth2Adapter(OAuth2Adapter):
             .get_requests_session()
             .get(
                 self.userinfo_url,
-                headers={"Authorization": "Bearer {0}".format(token.token)},
+                headers={"Authorization": f"Bearer {token.token}"},
             )
         )
         resp.raise_for_status()

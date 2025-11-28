@@ -21,7 +21,7 @@ class TwitterOAuth2Adapter(OAuth2Adapter):
         fields = self.get_provider().get_fields()
         headers = {}
         headers.update(self.get_provider().get_settings().get("HEADERS", {}))
-        headers["Authorization"] = " ".join(["Bearer", token.token])
+        headers["Authorization"] = f"Bearer {token.token}"
 
         resp = (
             get_adapter()

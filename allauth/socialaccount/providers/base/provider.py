@@ -50,7 +50,7 @@ class Provider:
         Builds the URL to redirect to when initiating a login for this
         provider.
         """
-        raise NotImplementedError("get_login_url() for " + self.name)
+        raise NotImplementedError(f"get_login_url() for {self.name}")
 
     def redirect_from_request(self, request) -> HttpResponse:
         kwargs = self.get_redirect_from_request_kwargs(request)

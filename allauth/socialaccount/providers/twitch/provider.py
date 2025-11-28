@@ -5,7 +5,7 @@ from allauth.socialaccount.providers.twitch.views import TwitchOAuth2Adapter
 
 class TwitchAccount(ProviderAccount):
     def get_profile_url(self):
-        return "https://twitch.tv/" + self.account.extra_data.get("login")
+        return f"https://twitch.tv/{self.account.extra_data.get('login')}"
 
     def get_avatar_url(self):
         # We're using `logo` as a failback for legacy profiles retrieved

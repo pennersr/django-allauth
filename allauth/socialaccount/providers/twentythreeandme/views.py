@@ -13,7 +13,7 @@ class TwentyThreeAndMeOAuth2Adapter(OAuth2Adapter):
     profile_url = "https://api.23andme.com/1/user/"
 
     def complete_login(self, request, app, token, **kwargs):
-        headers = {"Authorization": "Bearer {0}".format(token.token)}
+        headers = {"Authorization": f"Bearer {token.token}"}
         resp = (
             get_adapter().get_requests_session().get(self.profile_url, headers=headers)
         )

@@ -222,7 +222,7 @@ def setup_user_email(request, user, addresses):
 def filter_users_by_username(*username):
     if app_settings.PRESERVE_USERNAME_CASING:
         qlist = [
-            Q(**{app_settings.USER_MODEL_USERNAME_FIELD + "__iexact": u})
+            Q(**{f"{app_settings.USER_MODEL_USERNAME_FIELD}__iexact": u})
             for u in username
         ]
         q = qlist[0]
@@ -232,8 +232,9 @@ def filter_users_by_username(*username):
     else:
         ret = get_user_model()._default_manager.filter(
             **{
-                app_settings.USER_MODEL_USERNAME_FIELD
-                + "__in": [u.lower() for u in username]
+                f"{app_settings.USER_MODEL_USERNAME_FIELD}__in": [
+                    u.lower() for u in username
+                ]
             }
         )
     return ret

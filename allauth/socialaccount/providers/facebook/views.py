@@ -34,14 +34,14 @@ logger = logging.getLogger(__name__)
 
 class FacebookOAuth2Adapter(OAuth2Adapter):
     provider_id = PROVIDER_ID
-    provider_default_auth_url = "https://www.facebook.com/{}/dialog/oauth".format(
-        GRAPH_API_VERSION
+    provider_default_auth_url = (
+        f"https://www.facebook.com/{GRAPH_API_VERSION}/dialog/oauth"
     )
 
     settings = app_settings.PROVIDERS.get(provider_id, {})
     scope_delimiter = ","
     authorize_url = settings.get("AUTHORIZE_URL", provider_default_auth_url)
-    access_token_url = GRAPH_API_URL + "/oauth/access_token"
+    access_token_url = f"{GRAPH_API_URL}/oauth/access_token"
     access_token_method = "GET"  # nosec
     expires_in_key = "expires_in"
 

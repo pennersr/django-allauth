@@ -13,9 +13,9 @@ class AgaveAdapter(OAuth2Adapter):
     settings = app_settings.PROVIDERS.get(provider_id, {})
     provider_base_url = settings.get("API_URL", "https://public.agaveapi.co")
 
-    access_token_url = "{0}/token".format(provider_base_url)
-    authorize_url = "{0}/authorize".format(provider_base_url)
-    profile_url = "{0}/profiles/v2/me".format(provider_base_url)
+    access_token_url = f"{provider_base_url}/token"
+    authorize_url = f"{provider_base_url}/authorize"
+    profile_url = f"{provider_base_url}/profiles/v2/me"
 
     def complete_login(self, request, app, token, response):
         extra_data = (
@@ -25,7 +25,7 @@ class AgaveAdapter(OAuth2Adapter):
                 self.profile_url,
                 params={"access_token": token.token},
                 headers={
-                    "Authorization": "Bearer " + token.token,
+                    "Authorization": f"Bearer {token.token}",
                 },
             )
         )

@@ -158,7 +158,7 @@ class ResetPasswordTests(TestCase):
         # We should receive the token_fail context_data
         self.assertTemplateUsed(
             resp,
-            "account/password_reset_from_key.%s" % app_settings.TEMPLATE_EXTENSION,
+            f"account/password_reset_from_key.{app_settings.TEMPLATE_EXTENSION}",
         )
 
         self.assertTrue(resp.context_data["token_fail"])
@@ -196,7 +196,7 @@ class ResetPasswordTests(TestCase):
         url = resp.url
         resp = self.client.get(url)
         self.assertTemplateUsed(
-            resp, "account/password_reset_from_key.%s" % app_settings.TEMPLATE_EXTENSION
+            resp, f"account/password_reset_from_key.{app_settings.TEMPLATE_EXTENSION}"
         )
         self.assertFalse("token_fail" in resp.context_data)
 
@@ -223,7 +223,7 @@ class ResetPasswordTests(TestCase):
         resp = self.client.get(url)
         self.assertTemplateUsed(
             resp,
-            "account/password_reset_from_key.%s" % app_settings.TEMPLATE_EXTENSION,
+            f"account/password_reset_from_key.{app_settings.TEMPLATE_EXTENSION}",
         )
         self.assertTrue("token_fail" in resp.context_data)
 
@@ -287,7 +287,7 @@ def test_password_reset_flow(client, user, mailoutbox, settings):
     resp = client.get(url)
     assertTemplateUsed(
         resp,
-        "account/password_reset_from_key.%s" % app_settings.TEMPLATE_EXTENSION,
+        f"account/password_reset_from_key.{app_settings.TEMPLATE_EXTENSION}",
     )
     assert "token_fail" not in resp.context_data
 
@@ -305,7 +305,7 @@ def test_password_reset_flow(client, user, mailoutbox, settings):
     resp = client.post(url, {"password1": "newpass123", "password2": "newpass123"})
     assertTemplateUsed(
         resp,
-        "account/password_reset_from_key.%s" % app_settings.TEMPLATE_EXTENSION,
+        f"account/password_reset_from_key.{app_settings.TEMPLATE_EXTENSION}",
     )
     assert resp.context_data["token_fail"]
 
@@ -313,7 +313,7 @@ def test_password_reset_flow(client, user, mailoutbox, settings):
     response = client.get(url)
     assertTemplateUsed(
         response,
-        "account/password_reset_from_key.%s" % app_settings.TEMPLATE_EXTENSION,
+        f"account/password_reset_from_key.{app_settings.TEMPLATE_EXTENSION}",
     )
     assert response.context_data["token_fail"]
 
@@ -340,7 +340,7 @@ def test_reset_password_from_key_next_url(
     url = password_reset_url(user)
     query = ""
     if next_url:
-        query = "?" + urlencode({"next": next_url})
+        query = f"?{urlencode({'next': next_url})}"
     resp = client.get(url + query)
     assert resp.status_code == HTTPStatus.FOUND
     assert (

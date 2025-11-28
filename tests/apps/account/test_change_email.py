@@ -283,7 +283,7 @@ def test_add_with_reauthentication(auth_client, user, user_password, settings):
     assert resp.status_code == HTTPStatus.FOUND
     assert (
         resp["location"]
-        == reverse("account_reauthenticate") + "?next=%2Faccounts%2Femail%2F"
+        == f"{reverse('account_reauthenticate')}?next=%2Faccounts%2Femail%2F"
     )
     resp = auth_client.post(resp["location"], {"password": user_password})
     assert EmailAddress.objects.filter(email="john3@example.org").exists()

@@ -13,7 +13,7 @@ class TwitterAPI(OAuth):
     """
 
     _base_url = "https://api.x.com/1.1/account/verify_credentials.json"
-    url = _base_url + "?include_email=true" if QUERY_EMAIL else _base_url
+    url = f"{_base_url}?include_email=true" if QUERY_EMAIL else _base_url
 
     def get_user_info(self):
         user = self.query(self.url).json()

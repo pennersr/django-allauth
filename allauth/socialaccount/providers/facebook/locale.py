@@ -63,9 +63,9 @@ def get_default_locale_callable():
             lang_map = fb_locales.get(lang)
             if lang_map is not None:
                 if reg in lang_map["regs"]:
-                    chosen = lang + "_" + reg
+                    chosen = f"{lang}_{reg}"
                 else:
-                    chosen = lang + "_" + lang_map["default"]
+                    chosen = f"{lang}_{lang_map['default']}"
         return chosen
 
     return default_locale

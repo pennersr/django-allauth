@@ -19,7 +19,7 @@ class ShopifyOAuth2Adapter(OAuth2Adapter):
     def _shop_domain(self):
         shop = self.request.GET.get("shop", "")
         if "." not in shop:
-            shop = "{}.myshopify.com".format(shop)
+            shop = f"{shop}.myshopify.com"
         # Ensure the provided hostname parameter is a valid hostname,
         # ends with myshopify.com, and does not contain characters
         # other than letters (a-z), numbers (0-9), dots, and hyphens.
@@ -31,7 +31,7 @@ class ShopifyOAuth2Adapter(OAuth2Adapter):
 
     def _shop_url(self, path):
         shop = self._shop_domain()
-        return "https://{}{}".format(shop, path)
+        return f"https://{shop}{path}"
 
     @property
     def access_token_url(self):
@@ -46,7 +46,7 @@ class ShopifyOAuth2Adapter(OAuth2Adapter):
         return self._shop_url("/admin/shop.json")
 
     def complete_login(self, request, app, token, **kwargs):
-        headers = {"X-Shopify-Access-Token": "{token}".format(token=token.token)}
+        headers = {"X-Shopify-Access-Token": f"{token.token}"}
         response = (
             get_adapter().get_requests_session().get(self.profile_url, headers=headers)
         )
@@ -79,12 +79,10 @@ class ShopifyOAuth2LoginView(OAuth2LoginView):
             See Also:
             https://help.shopify.com/api/sdks/embedded-app-sdk/getting-started#oauth
             """
-            js = "".join(
-                (
-                    "<!DOCTYPE html><html><head>" '<script type="text/javascript">',
-                    'window.top.location.href = "{url}";'.format(url=response.url),
-                    "</script></head><body></body></html>",
-                )
+            js = (
+                '<!DOCTYPE html><html><head><script type="text/javascript">'
+                f'window.top.location.href = "{response.url}";'
+                "</script></head><body></body></html>"
             )
             response = HttpResponse(content=js)
             # Because this view will be within shopify's iframe

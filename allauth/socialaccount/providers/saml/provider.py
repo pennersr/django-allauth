@@ -44,7 +44,7 @@ class SAMLProvider(Provider):
     def get_login_url(self, request, **kwargs):
         url = reverse("saml_login", kwargs={"organization_slug": self.app.client_id})
         if kwargs:
-            url = url + "?" + urlencode(kwargs)
+            url = f"{url}?{urlencode(kwargs)}"
         return url
 
     def extract_extra_data(self, data):

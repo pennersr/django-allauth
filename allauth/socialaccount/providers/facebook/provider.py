@@ -60,21 +60,16 @@ class FacebookProvider(OAuth2Provider):
     def get_login_url(self, request, **kwargs):
         method = kwargs.pop("method", self.get_method())
         if method == "js_sdk":
-            next = "'%s'" % escapejs(kwargs.get(REDIRECT_FIELD_NAME) or "")
-            process = "'%s'" % escapejs(kwargs.get("process") or AuthProcess.LOGIN)
-            action = "'%s'" % escapejs(kwargs.get("action") or AuthAction.AUTHENTICATE)
-            scope = "'%s'" % escapejs(kwargs.get("scope", ""))
-            js = "allauth.facebook.login(%s, %s, %s, %s)" % (
-                next,
-                action,
-                process,
-                scope,
-            )
-            ret = "javascript:%s" % (quote(js),)
+            next = f"'{escapejs(kwargs.get(REDIRECT_FIELD_NAME) or '')}'"
+            process = f"'{escapejs(kwargs.get('process') or AuthProcess.LOGIN)}'"
+            action = f"'{escapejs(kwargs.get('action') or AuthAction.AUTHENTICATE)}'"
+            scope = f"'{escapejs(kwargs.get('scope', ''))}'"
+            js = f"allauth.facebook.login({next}, {action}, {process}, {scope})"
+            ret = f"javascript:{quote(js)}"
         elif method == "oauth2":
             ret = super(FacebookProvider, self).get_login_url(request, **kwargs)
         else:
-            raise RuntimeError("Invalid method specified: %s" % method)
+            raise RuntimeError(f"Invalid method specified: {method}")
         return ret
 
     def _get_locale_callable(self):

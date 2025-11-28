@@ -81,8 +81,9 @@ def test(session, django, project):
     if session.python not in DJANGO_PYTHON_REQ[django]:
         print(f"Skipping: Django {django} does not support python{session.python}")
         return
+    django_version = f"{django}.0" if django != "6.0" else "6.0rc1"
     session.install(
-        f"django~={(django + '.0') if django != '6.0' else '6.0rc1'}",
+        f"django~={django_version}",
         "pytest>=8.3.5,<9",
         "pytest-asyncio==0.23.8",
         "pytest-django>=4.11,<5",

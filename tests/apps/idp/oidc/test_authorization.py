@@ -288,7 +288,7 @@ def test_authorization_post_redirects_anon_to_get(db, client):
     }
     resp = client.post(reverse("idp:oidc:authorization"), data=payload, follow=True)
     assert resp.status_code == HTTPStatus.OK
-    url = reverse("idp:oidc:authorization") + "?" + urlencode(payload)
+    url = f"{reverse('idp:oidc:authorization')}?{urlencode(payload)}"
     assert resp.redirect_chain == [
         (url, HTTPStatus.FOUND),
         (
@@ -454,6 +454,6 @@ def test_prompt_none(
     )
     assert resp.status_code == HTTPStatus.FOUND
     if error:
-        assert resp["location"] == "https://client/callback?error=" + error
+        assert resp["location"] == f"https://client/callback?error={error}"
     else:
         assert resp["location"].startswith("https://client/callback?code=")

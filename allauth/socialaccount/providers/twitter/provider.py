@@ -12,7 +12,7 @@ class TwitterAccount(ProviderAccount):
         ret = None
         screen_name = self.get_screen_name()
         if screen_name:
-            ret = "https://x.com/" + screen_name
+            ret = f"https://x.com/{screen_name}"
         return ret
 
     def get_avatar_url(self):

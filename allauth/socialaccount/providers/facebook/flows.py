@@ -38,7 +38,7 @@ def complete_login(request, provider, token):
         get_adapter()
         .get_requests_session()
         .get(
-            GRAPH_API_URL + "/me",
+            f"{GRAPH_API_URL}/me",
             params={
                 "fields": ",".join(provider.get_fields()),
                 "access_token": token.token,
@@ -61,7 +61,7 @@ def get_app_token(provider):
             get_adapter()
             .get_requests_session()
             .get(
-                GRAPH_API_URL + "/oauth/access_token",
+                f"{GRAPH_API_URL}/oauth/access_token",
                 params={
                     "client_id": app.client_id,
                     "client_secret": app.secret,
@@ -83,7 +83,7 @@ def inspect_token(provider, input_token):
         get_adapter()
         .get_requests_session()
         .get(
-            GRAPH_API_URL + "/debug_token",
+            f"{GRAPH_API_URL}/debug_token",
             params={"input_token": input_token, "access_token": app_token},
         )
     )
@@ -110,7 +110,7 @@ def verify_token(
             get_adapter()
             .get_requests_session()
             .get(
-                GRAPH_API_URL + "/oauth/access_token_info",
+                f"{GRAPH_API_URL}/oauth/access_token_info",
                 params={
                     "client_id": app.client_id,
                     "access_token": access_token,
@@ -128,7 +128,7 @@ def verify_token(
             get_adapter()
             .get_requests_session()
             .get(
-                GRAPH_API_URL + "/oauth/access_token",
+                f"{GRAPH_API_URL}/oauth/access_token",
                 params={
                     "grant_type": "fb_exchange_token",
                     "client_id": app.client_id,

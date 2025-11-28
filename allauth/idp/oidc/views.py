@@ -114,7 +114,7 @@ configuration = ConfigurationView.as_view()
 @method_decorator(login_not_required, name="dispatch")
 class AuthorizationView(FormView):
     form_class = AuthorizationForm
-    template_name = "idp/oidc/authorization_form." + account_settings.TEMPLATE_EXTENSION
+    template_name = f"idp/oidc/authorization_form.{account_settings.TEMPLATE_EXTENSION}"
 
     def get(self, request, *args, **kwargs):
         response = self._login_required(request)
@@ -145,7 +145,7 @@ class AuthorizationView(FormView):
         signed_request_info = request.POST.get("request")
         if not signed_request_info:
             return HttpResponseRedirect(
-                reverse("idp:oidc:authorization") + "?" + request.POST.urlencode()
+                f"{reverse('idp:oidc:authorization')}?{request.POST.urlencode()}"
             )
         response = self._login_required(request)
         if response:
@@ -312,8 +312,7 @@ class DeviceAuthorizationView(View):
         }
         return render(
             request,
-            "idp/oidc/device_authorization_code_form."
-            + account_settings.TEMPLATE_EXTENSION,
+            f"idp/oidc/device_authorization_code_form.{account_settings.TEMPLATE_EXTENSION}",
             context,
         )
 
@@ -329,14 +328,10 @@ class DeviceAuthorizationView(View):
                     request.user, device_code, confirm=confirm
                 )
                 if confirm:
-                    template_name = "idp/oidc/device_authorization_confirmed."
+                    template_name = f"idp/oidc/device_authorization_confirmed.{account_settings.TEMPLATE_EXTENSION}"
                 else:
-                    template_name = "idp/oidc/device_authorization_denied."
-                return render(
-                    request,
-                    template_name + account_settings.TEMPLATE_EXTENSION,
-                    context,
-                )
+                    template_name = f"idp/oidc/device_authorization_denied.{account_settings.TEMPLATE_EXTENSION}"
+                return render(request, template_name, context)
         else:
             form = DeviceAuthorizationForm()
         context["autorization_url"] = (
@@ -347,8 +342,7 @@ class DeviceAuthorizationView(View):
 
         return render(
             request,
-            "idp/oidc/device_authorization_confirm_form."
-            + account_settings.TEMPLATE_EXTENSION,
+            f"idp/oidc/device_authorization_confirm_form.{account_settings.TEMPLATE_EXTENSION}",
             context,
         )
 
@@ -462,7 +456,7 @@ class LogoutView(FormView):
     """
 
     form_class = RPInitiatedLogoutForm
-    template_name = "idp/oidc/logout." + account_settings.TEMPLATE_EXTENSION
+    template_name = f"idp/oidc/logout.{account_settings.TEMPLATE_EXTENSION}"
 
     def get(self, request):
         form = self.form_class(request.GET)

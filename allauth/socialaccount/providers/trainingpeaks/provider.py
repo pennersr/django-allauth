@@ -27,7 +27,7 @@ class TrainingPeaksProvider(OAuth2Provider):
         firstname = data.get("FirstName")
         lastname = data.get("LastName")
         # fallback username as there is actually no Username in response
-        username = firstname.strip().lower() + "." + lastname.strip().lower()
+        username = f"{firstname.strip().lower()}.{lastname.strip().lower()}"
         name = " ".join(part for part in (firstname, lastname) if part)
         extra_common.update(
             username=data.get("username", username),

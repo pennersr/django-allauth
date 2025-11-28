@@ -25,7 +25,7 @@ class DummyProvider(Provider):
     def get_login_url(self, request, **kwargs):
         url = reverse("dummy_login")
         if kwargs:
-            url = url + "?" + urlencode(kwargs)
+            url = f"{url}?{urlencode(kwargs)}"
         return url
 
     def extract_uid(self, data):
@@ -54,7 +54,7 @@ class DummyProvider(Provider):
             **kwargs,
         )
         return HttpResponseRedirect(
-            reverse("dummy_authenticate") + "?" + urlencode({"state": state_id})
+            f"{reverse('dummy_authenticate')}?{urlencode({'state': state_id})}"
         )
 
     def extract_email_addresses(self, data):

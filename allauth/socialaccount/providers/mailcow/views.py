@@ -12,9 +12,9 @@ class MailcowAdapter(OAuth2Adapter):
     provider_id = "mailcow"
     settings = app_settings.PROVIDERS.get(provider_id, {})
     server = settings.get("SERVER", "https://hosted.mailcow.de")
-    access_token_url = "{0}/oauth/token".format(server)
-    authorize_url = "{0}/oauth/authorize".format(server)
-    profile_url = "{0}/oauth/profile".format(server)
+    access_token_url = f"{server}/oauth/token"
+    authorize_url = f"{server}/oauth/authorize"
+    profile_url = f"{server}/oauth/profile"
 
     def complete_login(self, request, app, token, **kwargs):
         code = get_request_param(request, "code")

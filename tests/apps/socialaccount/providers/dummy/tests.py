@@ -10,7 +10,7 @@ from allauth.socialaccount.models import SocialAccount
 def test_login(client, db):
     resp = client.post(reverse("dummy_login"))
     assert resp.status_code == HTTPStatus.FOUND
-    assert resp["location"].startswith(reverse("dummy_authenticate") + "?state=")
+    assert resp["location"].startswith(f"{reverse('dummy_authenticate')}?state=")
     resp = client.post(
         resp["location"],
         {"id": "123", "email": "a@b.com", "email_verified": True},

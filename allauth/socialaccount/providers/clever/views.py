@@ -26,9 +26,7 @@ class CleverOAuth2Adapter(OAuth2Adapter):
         resp = (
             get_adapter()
             .get_requests_session()
-            .get(
-                self.identity_url, headers={"Authorization": "Bearer {}".format(token)}
-            )
+            .get(self.identity_url, headers={"Authorization": f"Bearer {token}"})
         )
         if resp.status_code != HTTPStatus.OK:
             raise OAuth2Error()
@@ -38,8 +36,8 @@ class CleverOAuth2Adapter(OAuth2Adapter):
             get_adapter()
             .get_requests_session()
             .get(
-                "{}/{}".format(self.user_details_url, user_id),
-                headers={"Authorization": "Bearer {}".format(token)},
+                f"{self.user_details_url}/{user_id}",
+                headers={"Authorization": f"Bearer {token}"},
             )
         )
         user_details.raise_for_status()

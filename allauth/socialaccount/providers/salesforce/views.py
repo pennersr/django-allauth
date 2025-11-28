@@ -15,15 +15,15 @@ class SalesforceOAuth2Adapter(OAuth2Adapter):
 
     @property
     def authorize_url(self):
-        return "{}/services/oauth2/authorize".format(self.base_url)
+        return f"{self.base_url}/services/oauth2/authorize"
 
     @property
     def access_token_url(self):
-        return "{}/services/oauth2/token".format(self.base_url)
+        return f"{self.base_url}/services/oauth2/token"
 
     @property
     def userinfo_url(self):
-        return "{}/services/oauth2/userinfo".format(self.base_url)
+        return f"{self.base_url}/services/oauth2/userinfo"
 
     def complete_login(self, request, app, token, **kwargs):
         resp = (

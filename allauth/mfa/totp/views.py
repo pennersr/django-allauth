@@ -23,7 +23,7 @@ from allauth.utils import get_form_class
 @method_decorator(reauthentication_required, name="dispatch")
 class ActivateTOTPView(FormView):
     form_class = ActivateTOTPForm
-    template_name = "mfa/totp/activate_form." + account_settings.TEMPLATE_EXTENSION
+    template_name = f"mfa/totp/activate_form.{account_settings.TEMPLATE_EXTENSION}"
 
     def dispatch(self, request, *args, **kwargs):
         if is_mfa_enabled(request.user, [Authenticator.Type.TOTP]):
@@ -74,7 +74,7 @@ activate_totp = ActivateTOTPView.as_view()
 @method_decorator(login_required, name="dispatch")
 class DeactivateTOTPView(FormView):
     form_class = DeactivateTOTPForm
-    template_name = "mfa/totp/deactivate_form." + account_settings.TEMPLATE_EXTENSION
+    template_name = f"mfa/totp/deactivate_form.{account_settings.TEMPLATE_EXTENSION}"
     success_url = reverse_lazy("mfa_index")
 
     def dispatch(self, request, *args, **kwargs):

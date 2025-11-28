@@ -159,7 +159,7 @@ class DefaultAccountAdapter(BaseAdapter):
         prefix = app_settings.EMAIL_SUBJECT_PREFIX
         if prefix is None:
             site = get_current_site(context.request)
-            prefix = "[{name}] ".format(name=site.name)
+            prefix = f"[{site.name}] "
         return prefix + force_str(subject)
 
     def get_from_email(self):
@@ -175,7 +175,7 @@ class DefaultAccountAdapter(BaseAdapter):
         email that is to be sent, e.g. "account/email/email_confirmation"
         """
         to = [email] if isinstance(email, str) else email
-        subject = render_to_string("{0}_subject.txt".format(template_prefix), context)
+        subject = render_to_string(f"{template_prefix}_subject.txt", context)
         # remove superfluous line breaks
         subject = " ".join(subject.splitlines()).strip()
         subject = self.format_email_subject(subject)
@@ -186,7 +186,7 @@ class DefaultAccountAdapter(BaseAdapter):
         html_ext = app_settings.TEMPLATE_EXTENSION
         for ext in [html_ext, "txt"]:
             try:
-                template_name = "{0}_message.{1}".format(template_prefix, ext)
+                template_name = f"{template_prefix}_message.{ext}"
                 bodies[ext] = render_to_string(
                     template_name,
                     context,
@@ -557,7 +557,7 @@ class DefaultAccountAdapter(BaseAdapter):
                 elif not backend and hasattr(b, "get_user"):
                     # Pick the first valid one
                     backend = b
-            backend_path = ".".join([backend.__module__, backend.__class__.__name__])
+            backend_path = f"{backend.__module__}.{backend.__class__.__name__}"
             user.backend = backend_path
         django_login(request, user)
 
@@ -698,7 +698,7 @@ class DefaultAccountAdapter(BaseAdapter):
     def _get_login_attempts_cache_key(self, request, **credentials):
         site = get_current_site(request)
         login = credentials.get("email", credentials.get("username", "")).lower()
-        return "{site}:{login}".format(site=site.domain, login=login)
+        return f"{site.domain}:{login}"
 
     def _delete_login_attempts_cached_email(self, request, **credentials):
         cache_key = self._get_login_attempts_cache_key(request, **credentials)

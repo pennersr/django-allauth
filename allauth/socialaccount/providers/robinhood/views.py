@@ -27,7 +27,7 @@ class RobinhoodOAuth2Adapter(OAuth2Adapter):
             .get_requests_session()
             .get(
                 self.profile_url,
-                headers={"Authorization": "Bearer %s" % token.token},
+                headers={"Authorization": f"Bearer {token.token}"},
             )
         )
         extra_data = response.json()

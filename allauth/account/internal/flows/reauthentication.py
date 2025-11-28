@@ -40,7 +40,7 @@ def suspend_request(request: HttpRequest, redirect_to: str) -> HttpResponseRedir
     if request.method == "POST":
         request.session[STATE_SESSION_KEY] = {"request": serialize_request(request)}
     return HttpResponseRedirect(
-        redirect_to + "?" + urlencode({REDIRECT_FIELD_NAME: path})
+        f"{redirect_to}?{urlencode({REDIRECT_FIELD_NAME: path})}"
     )
 
 

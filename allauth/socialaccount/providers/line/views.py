@@ -42,7 +42,7 @@ class LineOAuth2Adapter(OAuth2Adapter):
             payload = {"client_id": app.client_id, "id_token": token.token}
             resp = get_adapter().get_requests_session().post(self.id_token_url, payload)
         else:
-            headers = {"Authorization": "Bearer {0}".format(token.token)}
+            headers = {"Authorization": f"Bearer {token.token}"}
             resp = (
                 get_adapter()
                 .get_requests_session()

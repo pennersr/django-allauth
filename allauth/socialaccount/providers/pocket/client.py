@@ -39,12 +39,12 @@ class PocketOAuthClient(OAuthClient):
             )
             if response.status_code != HTTPStatus.OK:
                 raise OAuthError(
-                    _("Invalid response while obtaining request token" ' from "%s".')
+                    _('Invalid response while obtaining request token from "%s".')
                     % get_token_prefix(self.request_token_url)
                 )
             self.request_token = response.json()["code"]
             self.request.session[
-                "oauth_%s_request_token" % get_token_prefix(self.request_token_url)
+                f"oauth_{get_token_prefix(self.request_token_url)}_request_token"
             ] = self.request_token
         return self.request_token
 
@@ -59,7 +59,7 @@ class PocketOAuthClient(OAuthClient):
             "redirect_uri": self.request.build_absolute_uri(self.callback_url),
         }
         params.update(extra_params)
-        url = authorization_url + "?" + urlencode(params)
+        url = f"{authorization_url}?{urlencode(params)}"
         return HttpResponseRedirect(url)
 
     def get_access_token(self):
@@ -84,7 +84,7 @@ class PocketOAuthClient(OAuthClient):
             )
             if response.status_code != HTTPStatus.OK:
                 raise OAuthError(
-                    _("Invalid response while obtaining access token" ' from "%s".')
+                    _('Invalid response while obtaining access token from "%s".')
                     % get_token_prefix(self.request_token_url)
                 )
             r = response.json()
@@ -95,6 +95,6 @@ class PocketOAuthClient(OAuthClient):
             }
 
             self.request.session[
-                "oauth_%s_access_token" % get_token_prefix(self.request_token_url)
+                f"oauth_{get_token_prefix(self.request_token_url)}_access_token"
             ] = self.access_token
         return self.access_token

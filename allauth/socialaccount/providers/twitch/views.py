@@ -17,7 +17,7 @@ class TwitchOAuth2Adapter(OAuth2Adapter):
 
     def complete_login(self, request, app, token, **kwargs):
         headers = {
-            "Authorization": "Bearer {}".format(token.token),
+            "Authorization": f"Bearer {token.token}",
             "Client-ID": app.client_id,
         }
         response = (
@@ -28,15 +28,15 @@ class TwitchOAuth2Adapter(OAuth2Adapter):
         if response.status_code >= HTTPStatus.BAD_REQUEST:
             error = data.get("error", "")
             message = data.get("message", "")
-            raise OAuth2Error("Twitch API Error: %s (%s)" % (error, message))
+            raise OAuth2Error(f"Twitch API Error: {error} ({message})")
 
         try:
             user_info = data.get("data", [])[0]
         except IndexError:
-            raise OAuth2Error("Invalid data from Twitch API: %s" % (data))
+            raise OAuth2Error(f"Invalid data from Twitch API: {data}")
 
         if "id" not in user_info:
-            raise OAuth2Error("Invalid data from Twitch API: %s" % (user_info))
+            raise OAuth2Error(f"Invalid data from Twitch API: {user_info}")
 
         return self.get_provider().sociallogin_from_response(request, user_info)
 

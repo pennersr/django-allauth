@@ -150,7 +150,7 @@ class EmailConfirmation(EmailConfirmationMixin, models.Model):
         verbose_name_plural = _("email confirmations")
 
     def __str__(self):
-        return "confirmation for %s" % self.email_address
+        return f"confirmation for {self.email_address}"
 
     @classmethod
     def create(cls, email_address):

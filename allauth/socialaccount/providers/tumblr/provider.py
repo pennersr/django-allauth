@@ -5,7 +5,7 @@ from allauth.socialaccount.providers.tumblr.views import TumblrOAuthAdapter
 
 class TumblrAccount(ProviderAccount):
     def get_profile_url_(self):
-        return "https://%s.tumblr.com/" % self.account.extra_data.get("name")
+        return f"https://{self.account.extra_data.get('name')}.tumblr.com/"
 
 
 class TumblrProvider(OAuthProvider):

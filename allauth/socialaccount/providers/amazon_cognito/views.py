@@ -30,19 +30,19 @@ class AmazonCognitoOAuth2Adapter(OAuth2Adapter):
 
     @property
     def access_token_url(self):
-        return "{}/oauth2/token".format(self.domain)
+        return f"{self.domain}/oauth2/token"
 
     @property
     def authorize_url(self):
-        return "{}/oauth2/authorize".format(self.domain)
+        return f"{self.domain}/oauth2/authorize"
 
     @property
     def profile_url(self):
-        return "{}/oauth2/userInfo".format(self.domain)
+        return f"{self.domain}/oauth2/userInfo"
 
     def complete_login(self, request, app, token: SocialToken, **kwargs):
         headers = {
-            "Authorization": "Bearer {}".format(token.token),
+            "Authorization": f"Bearer {token.token}",
         }
         extra_data = (
             get_adapter().get_requests_session().get(self.profile_url, headers=headers)

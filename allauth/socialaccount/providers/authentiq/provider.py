@@ -66,7 +66,7 @@ class AuthentiqProvider(OAuth2Provider):
             if app_settings.EMAIL_VERIFICATION:
                 modifiers += "s"
             if modifiers:
-                scope.add(Scope.EMAIL + "~" + modifiers)
+                scope.add(f"{Scope.EMAIL}~{modifiers}")
                 scope.remove(Scope.EMAIL)
         return list(scope)
 

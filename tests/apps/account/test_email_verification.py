@@ -127,7 +127,7 @@ def test_email_verification_mandatory(settings, db, client, mailoutbox, enable_c
     assert len(mailoutbox) == 1
     assertTemplateUsed(
         resp,
-        "account/verification_sent.%s" % app_settings.TEMPLATE_EXTENSION,
+        f"account/verification_sent.{app_settings.TEMPLATE_EXTENSION}",
     )
     # Attempt to login, unverified
     for attempt in [1, 2]:
@@ -145,7 +145,7 @@ def test_email_verification_mandatory(settings, db, client, mailoutbox, enable_c
 
         assertTemplateUsed(
             resp,
-            "account/verification_sent." + app_settings.TEMPLATE_EXTENSION,
+            f"account/verification_sent.{app_settings.TEMPLATE_EXTENSION}",
         )
         # Attempt 1: no mail is sent due to cool-down ,
         # but there was already a mail in the outbox.
@@ -166,9 +166,7 @@ def test_email_verification_mandatory(settings, db, client, mailoutbox, enable_c
         email_address__user__username="johndoe"
     )[:1].get()
     resp = client.get(reverse("account_confirm_email", args=[confirmation.key]))
-    assertTemplateUsed(
-        resp, "account/email_confirm.%s" % app_settings.TEMPLATE_EXTENSION
-    )
+    assertTemplateUsed(resp, f"account/email_confirm.{app_settings.TEMPLATE_EXTENSION}")
     client.post(reverse("account_confirm_email", args=[confirmation.key]))
     resp = client.post(
         reverse("account_login"),

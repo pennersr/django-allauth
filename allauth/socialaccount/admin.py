@@ -43,7 +43,7 @@ class SocialAccountAdmin(admin.ModelAdmin):
 
     def get_search_fields(self, request):
         base_fields = get_adapter().get_user_search_fields()
-        return list(map(lambda a: "user__" + a, base_fields))
+        return list(map(lambda a: f"user__{a}", base_fields))
 
 
 class SocialTokenAdmin(admin.ModelAdmin):
@@ -58,7 +58,7 @@ class SocialTokenAdmin(admin.ModelAdmin):
         max_chars = 40
         ret = token.token
         if len(ret) > max_chars:
-            ret = ret[0:max_chars] + "...(truncated)"
+            ret = f"{ret[0:max_chars]}...(truncated)"
         return ret
 
     truncated_token.short_description = "Token"  # type: ignore[attr-defined]

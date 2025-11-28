@@ -65,7 +65,7 @@ class OAuthTestsMixin:
     def test_login(self):
         resp_mocks = self.get_mocked_response()
         if resp_mocks is None:
-            warnings.warn("Cannot test provider %s, no oauth mock" % self.provider.id)
+            warnings.warn(f"Cannot test provider {self.provider.id}, no oauth mock")
             return
         resp = self.login(resp_mocks)
         self.assertRedirects(resp, reverse("socialaccount_signup"))
@@ -96,7 +96,7 @@ class OAuthTestsMixin:
     def test_auto_signup(self):
         resp_mocks = self.get_mocked_response()
         if not resp_mocks:
-            warnings.warn("Cannot test provider %s, no oauth mock" % self.provider.id)
+            warnings.warn(f"Cannot test provider {self.provider.id}, no oauth mock")
             return
         resp = self.login(resp_mocks)
         self.assertRedirects(resp, "/accounts/profile/", fetch_redirect_response=False)
@@ -111,13 +111,13 @@ class OAuthTestsMixin:
             )
         ):
             resp = self.client.post(
-                reverse(self.provider.id + "_login")
+                reverse(f"{self.provider.id}_login")
                 + "?"
                 + urlencode(dict(process=process))
             )
         p = urlparse(resp["location"])
         q = parse_qs(p.query)
-        complete_url = reverse(self.provider.id + "_callback")
+        complete_url = reverse(f"{self.provider.id}_callback")
         self.assertGreater(q["oauth_callback"][0].find(complete_url), 0)
         with mocked_response(self.get_access_token_response(), *resp_mocks):
             resp = self.client.get(complete_url)
@@ -131,11 +131,10 @@ class OAuthTestsMixin:
         )
 
     def test_authentication_error(self):
-        resp = self.client.get(reverse(self.provider.id + "_callback"))
+        resp = self.client.get(reverse(f"{self.provider.id}_callback"))
+        template_ext = getattr(settings, "ACCOUNT_TEMPLATE_EXTENSION", "html")
         self.assertTemplateUsed(
-            resp,
-            "socialaccount/authentication_error.%s"
-            % getattr(settings, "ACCOUNT_TEMPLATE_EXTENSION", "html"),
+            resp, f"socialaccount/authentication_error.{template_ext}"
         )
 
 
@@ -145,7 +144,7 @@ def create_oauth_tests(provider):
     class Class(OAuthTestsMixin, TestCase):
         provider_id = provider.id
 
-    Class.__name__ = "OAuthTests_" + provider.id
+    Class.__name__ = f"OAuthTests_{provider.id}"
     return Class
 
 
@@ -219,7 +218,7 @@ class OAuth2TestsMixin:
     def test_login(self):
         resp_mock = self.get_mocked_response()
         if not resp_mock:
-            warnings.warn("Cannot test provider %s, no oauth mock" % self.provider.id)
+            warnings.warn(f"Cannot test provider {self.provider.id}, no oauth mock")
             return
         resp = self.login(
             resp_mock,
@@ -239,9 +238,7 @@ class OAuth2TestsMixin:
         ):
             resp_mock = self.get_mocked_response()
             if not resp_mock:
-                warnings.warn(
-                    "Cannot test provider %s, no oauth mock" % self.provider.id
-                )
+                warnings.warn(f"Cannot test provider {self.provider.id}, no oauth mock")
                 return
             resp = self.login(
                 resp_mock,
@@ -260,9 +257,7 @@ class OAuth2TestsMixin:
         ):
             resp_mock = self.get_mocked_response()
             if not resp_mock:
-                warnings.warn(
-                    "Cannot test provider %s, no oauth mock" % self.provider.id
-                )
+                warnings.warn(f"Cannot test provider {self.provider.id}, no oauth mock")
                 return
 
             resp = self.login(
@@ -390,10 +385,9 @@ class OAuth2TestsMixin:
 
     def test_authentication_error(self):
         resp = self.client.get(self.provider.get_callback_url())
+        template_ext = getattr(settings, "ACCOUNT_TEMPLATE_EXTENSION", "html")
         self.assertTemplateUsed(
-            resp,
-            "socialaccount/authentication_error.%s"
-            % getattr(settings, "ACCOUNT_TEMPLATE_EXTENSION", "html"),
+            resp, f"socialaccount/authentication_error.{template_ext}"
         )
 
 
@@ -478,11 +472,10 @@ class OpenIDConnectTests(OAuth2TestsMixin):
         # do not want to use the configured provider's ID, so let's inline
         # OpenIDConnectProvider.get_login_url
         login_url = reverse(
-            self.app.provider + "_login",
+            f"{self.app.provider}_login",
             kwargs={
                 # intentionally invalidate the ID
-                "provider_id": self.app.provider_id
-                + "-invalid"
+                "provider_id": f"{self.app.provider_id}-invalid"
             },
         )
 
@@ -492,11 +485,10 @@ class OpenIDConnectTests(OAuth2TestsMixin):
 
         # same with the callback endpoint - inlining OpenIDConnectProvider.get_callback_url
         callback_url = reverse(
-            self.app.provider + "_callback",
+            f"{self.app.provider}_callback",
             kwargs={
                 # intentionally invalidate the ID
-                "provider_id": self.app.provider_id
-                + "-invalid"
+                "provider_id": f"{self.app.provider_id}-invalid"
             },
         )
 

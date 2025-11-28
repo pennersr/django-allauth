@@ -28,7 +28,7 @@ from allauth.utils import get_form_class
 class AuthenticateView(TemplateView):
     form_class = AuthenticateForm
     webauthn_form_class = AuthenticateWebAuthnForm
-    template_name = "mfa/authenticate." + account_settings.TEMPLATE_EXTENSION
+    template_name = f"mfa/authenticate.{account_settings.TEMPLATE_EXTENSION}"
 
     def dispatch(self, request, *args, **kwargs):
         self.stage = request._login_stage
@@ -116,7 +116,7 @@ authenticate = AuthenticateView.as_view()
 @method_decorator(login_required, name="dispatch")
 class ReauthenticateView(BaseReauthenticateView):
     form_class = ReauthenticateForm
-    template_name = "mfa/reauthenticate." + account_settings.TEMPLATE_EXTENSION
+    template_name = f"mfa/reauthenticate.{account_settings.TEMPLATE_EXTENSION}"
 
     def get_form_kwargs(self):
         ret = super().get_form_kwargs()
@@ -136,7 +136,7 @@ reauthenticate = ReauthenticateView.as_view()
 
 @method_decorator(login_required, name="dispatch")
 class IndexView(TemplateView):
-    template_name = "mfa/index." + account_settings.TEMPLATE_EXTENSION
+    template_name = f"mfa/index.{account_settings.TEMPLATE_EXTENSION}"
 
     def get_context_data(self, **kwargs):
         ret = super().get_context_data(**kwargs)
@@ -162,7 +162,7 @@ index = IndexView.as_view()
 )
 class TrustView(FormView):
     form_class = Form
-    template_name = "mfa/trust." + account_settings.TEMPLATE_EXTENSION
+    template_name = f"mfa/trust.{account_settings.TEMPLATE_EXTENSION}"
 
     def form_valid(self, form):
         do_trust = self.request.POST.get("action") == "trust"

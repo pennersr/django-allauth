@@ -14,7 +14,7 @@ from allauth.usersessions.models import UserSession
 @method_decorator(login_required, name="dispatch")
 class ListUserSessionsView(FormView):
     template_name = (
-        "usersessions/usersession_list." + account_settings.TEMPLATE_EXTENSION
+        f"usersessions/usersession_list.{account_settings.TEMPLATE_EXTENSION}"
     )
     form_class = ManageUserSessionsForm
     success_url = reverse_lazy("usersessions_list")

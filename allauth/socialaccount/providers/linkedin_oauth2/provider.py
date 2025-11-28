@@ -16,9 +16,7 @@ def _extract_name_field(data, field_name):
             preferred_locale = v.get(
                 "preferredLocale", {"country": "US", "language": "en"}
             )
-            locale_key = "_".join(
-                [preferred_locale["language"], preferred_locale["country"]]
-            )
+            locale_key = f"{preferred_locale['language']}_{preferred_locale['country']}"
             if locale_key in localized:
                 ret = localized.get(locale_key)
             elif localized:
@@ -46,7 +44,7 @@ class LinkedInOAuth2Account(ProviderAccount):
         first_name = _extract_name_field(self.account.extra_data, "firstName")
         last_name = _extract_name_field(self.account.extra_data, "lastName")
         if first_name or last_name:
-            ret = " ".join([first_name, last_name]).strip()
+            ret = f"{first_name} {last_name}".strip()
         return ret
 
     def get_avatar_url(self):

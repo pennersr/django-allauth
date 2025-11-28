@@ -69,7 +69,7 @@ def respond_html_error(
     context = {"error": error, "error_form": form}
     return render(
         request,
-        "idp/oidc/error." + account_settings.TEMPLATE_EXTENSION,
+        f"idp/oidc/error.{account_settings.TEMPLATE_EXTENSION}",
         context,
     )
 

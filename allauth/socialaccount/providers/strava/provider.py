@@ -7,7 +7,7 @@ class StravaAccount(ProviderAccount):
     def get_profile_url(self):
         id = self.account.extra_data.get("id")
         if id:
-            return "https://www.strava.com/athletes/{}".format(id)
+            return f"https://www.strava.com/athletes/{id}"
         return None
 
     def get_avatar_url(self):

@@ -17,11 +17,11 @@ class OrcidOAuth2Adapter(OAuth2Adapter):
     base_domain = settings.get("BASE_DOMAIN", base_domain_default)
     member_api = settings.get("MEMBER_API", member_api_default)
 
-    api_domain = "{0}.{1}".format("api" if member_api else "pub", base_domain)
+    api_domain = f"{'api' if member_api else 'pub'}.{base_domain}"
 
-    authorize_url = "https://{0}/oauth/authorize".format(base_domain)
-    access_token_url = "https://{0}/oauth/token".format(api_domain)
-    profile_url = "https://{0}/v3.0/%s/record".format(api_domain)
+    authorize_url = f"https://{base_domain}/oauth/authorize"
+    access_token_url = f"https://{api_domain}/oauth/token"
+    profile_url = f"https://{api_domain}/v3.0/%s/record"
 
     def complete_login(self, request, app, token, **kwargs):
         params = {}

@@ -38,7 +38,7 @@ class OpenIDProvider(Provider):
     def get_login_url(self, request, **kwargs):
         url = reverse("openid_login")
         if kwargs:
-            url += "?" + urlencode(kwargs)
+            url += f"?{urlencode(kwargs)}"
         return url
 
     def get_brands(self):

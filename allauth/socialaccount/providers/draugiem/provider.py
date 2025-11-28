@@ -29,9 +29,9 @@ class DraugiemProvider(Provider):
     account_class = DraugiemAccount
 
     def get_login_url(self, request, **kwargs):
-        url = reverse(self.id + "_login")
+        url = reverse(f"{self.id}_login")
         if kwargs:
-            url = url + "?" + urlencode(kwargs)
+            url = f"{url}?{urlencode(kwargs)}"
         return url
 
     def extract_uid(self, data):

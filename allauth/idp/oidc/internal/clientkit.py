@@ -32,7 +32,7 @@ def _validate_uri_wildcard_format(uri: str, allow_uri_wildcards: bool) -> None:
             parsed = urlparse(uri)
         except ValueError as e:
             # it's possible for this to happen with wildcards in ports
-            raise ValidationError(_("Invalid URI: {}".format(e)))
+            raise ValidationError(_(f"Invalid URI: {e}"))
 
         if "*" in parsed.scheme or "*" in parsed.path or "*" in parsed.query:
             raise ValidationError(

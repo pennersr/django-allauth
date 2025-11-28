@@ -20,7 +20,7 @@ class HubicOAuth2Adapter(OAuth2Adapter):
             .get_requests_session()
             .get(
                 self.profile_url,
-                headers={"Authorization": "%s %s" % (token_type, token.token)},
+                headers={"Authorization": f"{token_type} {token.token}"},
             )
         )
         extra_data = resp.json()

@@ -13,7 +13,7 @@ class UtilTests(TestCase):
         self.assertEqual("test", str(sa))
 
     def socialaccount_str_custom_formatter(socialaccount):
-        return "A custom str builder for {}".format(socialaccount.user)
+        return f"A custom str builder for {socialaccount.user}"
 
     @override_settings(
         SOCIALACCOUNT_SOCIALACCOUNT_STR=socialaccount_str_custom_formatter

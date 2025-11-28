@@ -136,9 +136,7 @@ def apple_post_callback(request, finish_endpoint_name="apple_finish_callback"):
         apple_session.store[key] = get_request_param(request, key, "")
 
     url = build_absolute_uri(request, reverse(finish_endpoint_name))
-    response = HttpResponseRedirect(
-        "{url}?{query}".format(url=url, query=urlencode(url_params))
-    )
+    response = HttpResponseRedirect(f"{url}?{urlencode(url_params)}")
     apple_session.save(response)
     return response
 

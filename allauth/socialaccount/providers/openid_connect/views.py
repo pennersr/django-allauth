@@ -62,7 +62,7 @@ class OpenIDConnectOAuth2Adapter(OAuth2Adapter):
         response = (
             get_adapter()
             .get_requests_session()
-            .get(self.profile_url, headers={"Authorization": "Bearer " + access_token})
+            .get(self.profile_url, headers={"Authorization": f"Bearer {access_token}"})
         )
         response.raise_for_status()
         return response.json()

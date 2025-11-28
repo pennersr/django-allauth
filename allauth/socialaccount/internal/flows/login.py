@@ -56,7 +56,7 @@ def complete_login(request, sociallogin, raises=False):
             raise
         return render(
             request,
-            "account/signup_closed." + account_settings.TEMPLATE_EXTENSION,
+            f"account/signup_closed.{account_settings.TEMPLATE_EXTENSION}",
         )
     except ImmediateHttpResponse as e:
         if raises:

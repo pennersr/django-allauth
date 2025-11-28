@@ -11,7 +11,7 @@ class PinterestAccount(ProviderAccount):
         # v5 extra_data not same as v1
         username = self.get_username()
         if username:
-            return "https://www.pinterest.com/{}/".format(username)
+            return f"https://www.pinterest.com/{username}/"
         return self.account.extra_data.get("url")
 
     def get_avatar_url(self):

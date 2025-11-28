@@ -18,7 +18,7 @@ class ZohoOAuth2Adapter(OAuth2Adapter):
             .get_requests_session()
             .get(
                 self.profile_url,
-                headers={"Authorization": "Bearer {}".format(token.token)},
+                headers={"Authorization": f"Bearer {token.token}"},
             )
         )
         resp.raise_for_status()

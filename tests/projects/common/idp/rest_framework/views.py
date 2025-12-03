@@ -10,4 +10,13 @@ class ResourceView(APIView):
     permission_classes = [TokenPermission.has_scope(["view-resource"])]
 
     def get(self, request, *args, **kwargs):
-        return Response({"resource": "ok", "user_email": request.user.email})
+        return Response(
+            {
+                "resource": "ok",
+                "user_email": (
+                    request.user.email
+                    if request.user and request.user.is_authenticated
+                    else None
+                ),
+            }
+        )

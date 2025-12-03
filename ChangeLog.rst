@@ -16,6 +16,10 @@ Note worthy changes
 - IdP: added support for pointing to a custom userinfo endpoint (see
   ``IDP_OIDC_USERINFO_ENDPOINT``)
 
+- For OpenID Connect proviers, you can now configure the field to be used as the
+  account ID to be used by setting ``"uid_field"`` in the relevant
+  ``SocialApp.settings``.
+
 
 65.13.1 (2025-11-20)
 ********************

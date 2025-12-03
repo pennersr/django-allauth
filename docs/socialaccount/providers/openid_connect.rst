@@ -32,6 +32,8 @@ standalone OpenID Connect provider:
                         # If omitted, a method from the the server's
                         # token auth methods list is used
                         "token_auth_method": "client_secret_basic",
+                        # The field to be used as the account ID.
+                        "uid_field": "sub",
                     },
                 },
                 {

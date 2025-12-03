@@ -75,7 +75,7 @@ class OpenIDConnectProvider(OAuth2Provider):
 
     def extract_uid(self, data):
         data = _pick_data(data)
-        return str(data["sub"])
+        return str(data[self.app.settings.get("uid_field", "sub")])
 
     def extract_common_fields(self, data):
         data = _pick_data(data)

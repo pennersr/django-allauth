@@ -38,9 +38,10 @@ class FeishuOAuth2Client(OAuth2Client):
         url = self.app_access_token_url
 
         # TODO: Proper exception handling
-        resp = get_adapter().get_requests_session().request("POST", url, data=data)
-        resp.raise_for_status()
-        access_token = resp.json()
+        with get_adapter().get_requests_session() as sess:
+            resp = sess.request("POST", url, data=data)
+            resp.raise_for_status()
+            access_token = resp.json()
         if not access_token or "app_access_token" not in access_token:
             raise OAuth2Error(f"Error retrieving app access token: {resp.content}")
         return access_token["app_access_token"]
@@ -60,19 +61,16 @@ class FeishuOAuth2Client(OAuth2Client):
         if data and pkce_code_verifier:
             data["code_verifier"] = pkce_code_verifier
         # TODO: Proper exception handling
-        resp = (
-            get_adapter()
-            .get_requests_session()
-            .request(
+        with get_adapter().get_requests_session() as sess:
+            resp = sess.request(
                 self.access_token_method,
                 url,
                 params=params,
                 data=json.dumps(data),
                 headers={"Content-Type": "application/json"},
             )
-        )
-        resp.raise_for_status()
-        access_token = resp.json()
+            resp.raise_for_status()
+            access_token = resp.json()
         if (
             not access_token
             or "data" not in access_token

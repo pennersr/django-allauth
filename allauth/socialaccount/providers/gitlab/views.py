@@ -67,12 +67,9 @@ class GitLabOAuth2Adapter(OAuth2Adapter):
         return self._build_url(f"/api/{self.provider_api_version}/user")
 
     def complete_login(self, request, app, token, response):
-        response = (
-            get_adapter()
-            .get_requests_session()
-            .get(self.profile_url, params={"access_token": token.token})
-        )
-        data = _check_errors(response)
+        with get_adapter().get_requests_session() as sess:
+            response = sess.get(self.profile_url, params={"access_token": token.token})
+            data = _check_errors(response)
         return self.get_provider().sociallogin_from_response(request, data)
 
 

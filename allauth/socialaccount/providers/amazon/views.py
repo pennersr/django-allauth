@@ -13,13 +13,10 @@ class AmazonOAuth2Adapter(OAuth2Adapter):
     profile_url = "https://api.amazon.com/user/profile"
 
     def complete_login(self, request, app, token, **kwargs):
-        response = (
-            get_adapter()
-            .get_requests_session()
-            .get(self.profile_url, params={"access_token": token.token})
-        )
-        response.raise_for_status()
-        extra_data = response.json()
+        with get_adapter().get_requests_session() as sess:
+            response = sess.get(self.profile_url, params={"access_token": token.token})
+            response.raise_for_status()
+            extra_data = response.json()
         if "Profile" in extra_data:
             extra_data = {
                 "user_id": extra_data["Profile"]["CustomerId"],

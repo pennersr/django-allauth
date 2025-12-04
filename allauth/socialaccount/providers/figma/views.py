@@ -14,16 +14,11 @@ class FigmaOAuth2Adapter(OAuth2Adapter):
     userinfo_url = "https://api.figma.com/v1/me"
 
     def complete_login(self, request, app, token, **kwargs):
-        resp = (
-            get_adapter()
-            .get_requests_session()
-            .get(
-                self.userinfo_url,
-                headers={"Authorization": f"Bearer {token.token}"},
-            )
-        )
-        resp.raise_for_status()
-        extra_data = resp.json()
+        headers = {"Authorization": f"Bearer {token.token}"}
+        with get_adapter().get_requests_session() as sess:
+            resp = sess.get(self.userinfo_url, headers=headers)
+            resp.raise_for_status()
+            extra_data = resp.json()
         return self.get_provider().sociallogin_from_response(request, extra_data)
 
 

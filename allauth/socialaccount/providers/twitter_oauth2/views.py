@@ -19,22 +19,18 @@ class TwitterOAuth2Adapter(OAuth2Adapter):
 
     def get_user_info(self, token):
         fields = self.get_provider().get_fields()
-        headers = {}
-        headers.update(self.get_provider().get_settings().get("HEADERS", {}))
-        headers["Authorization"] = f"Bearer {token.token}"
-
-        resp = (
-            get_adapter()
-            .get_requests_session()
-            .get(
+        headers = {
+            **self.get_provider().get_settings().get("HEADERS", {}),
+            "Authorization": f"Bearer {token.token}",
+        }
+        with get_adapter().get_requests_session() as sess:
+            resp = sess.get(
                 url=self.profile_url,
                 params={"user.fields": ",".join(fields)},
                 headers=headers,
             )
-        )
-        resp.raise_for_status()
-        data = resp.json()["data"]
-        return data
+            resp.raise_for_status()
+            return resp.json()["data"]
 
 
 oauth2_login = OAuth2LoginView.adapter_view(TwitterOAuth2Adapter)

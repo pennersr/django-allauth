@@ -24,11 +24,11 @@ class AuthentiqOAuth2Adapter(OAuth2Adapter):
 
     def complete_login(self, request, app, token, **kwargs):
         auth = {"Authorization": f"Bearer {token.token}"}
-        resp = get_adapter().get_requests_session().get(self.profile_url, headers=auth)
-        resp.raise_for_status()
-        extra_data = resp.json()
-        login = self.get_provider().sociallogin_from_response(request, extra_data)
-        return login
+        with get_adapter().get_requests_session() as sess:
+            resp = sess.get(self.profile_url, headers=auth)
+            resp.raise_for_status()
+            extra_data = resp.json()
+        return self.get_provider().sociallogin_from_response(request, extra_data)
 
 
 oauth2_login = OAuth2LoginView.adapter_view(AuthentiqOAuth2Adapter)

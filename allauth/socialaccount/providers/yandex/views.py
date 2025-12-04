@@ -13,17 +13,12 @@ class YandexOAuth2Adapter(OAuth2Adapter):
     profile_url = "https://login.yandex.ru/info"
 
     def complete_login(self, request, app, token, **kwargs):
-        resp = (
-            get_adapter()
-            .get_requests_session()
-            .get(
-                self.profile_url,
-                params={"format": "json"},
-                headers={"Authorization": f"OAuth {token.token}"},
-            )
-        )
-        resp.raise_for_status()
-        extra_data = resp.json()
+        headers = {"Authorization": f"OAuth {token.token}"}
+        with get_adapter().get_requests_session() as sess:
+            params = {"format": "json"}
+            resp = sess.get(self.profile_url, params=params, headers=headers)
+            resp.raise_for_status()
+            extra_data = resp.json()
         return self.get_provider().sociallogin_from_response(request, extra_data)
 
 

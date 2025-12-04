@@ -13,13 +13,10 @@ class SpotifyOAuth2Adapter(OAuth2Adapter):
     profile_url = "https://api.spotify.com/v1/me"
 
     def complete_login(self, request, app, token, **kwargs):
-        extra_data = (
-            get_adapter()
-            .get_requests_session()
-            .get(self.profile_url, params={"access_token": token.token})
-        )
-
-        return self.get_provider().sociallogin_from_response(request, extra_data.json())
+        with get_adapter().get_requests_session() as sess:
+            resp = sess.get(self.profile_url, params={"access_token": token.token})
+            extra_data = resp.json()
+        return self.get_provider().sociallogin_from_response(request, extra_data)
 
 
 oauth_login = OAuth2LoginView.adapter_view(SpotifyOAuth2Adapter)

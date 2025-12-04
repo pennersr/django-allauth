@@ -35,18 +35,16 @@ class SnapchatOAuth2Adapter(OAuth2Adapter):
             data = {"query": "{ me { externalId displayName bitmoji { avatar id } } }"}
         else:
             data = {"query": "{ me { externalId displayName } }"}
-        resp = (
-            get_adapter()
-            .get_requests_session()
-            .post(self.identity_url, headers=hed, json=data)
-        )
-        resp.raise_for_status()
-        resp = resp.json()
 
-        if not resp.get("data"):
+        with get_adapter().get_requests_session() as sess:
+            resp = sess.post(self.identity_url, headers=hed, json=data)
+            resp.raise_for_status()
+            data = resp.json()
+
+        if not data.get("data"):
             raise OAuth2Error()
 
-        return resp
+        return data
 
 
 oauth2_login = OAuth2LoginView.adapter_view(SnapchatOAuth2Adapter)

@@ -20,12 +20,9 @@ class JupyterHubOAuth2Adapter(OAuth2Adapter):
 
     def complete_login(self, request, app, token: SocialToken, **kwargs):
         headers = {"Authorization": f"Bearer {token.token}"}
-
-        extra_data = (
-            get_adapter().get_requests_session().get(self.profile_url, headers=headers)
-        )
-
-        user_profile = extra_data.json()
+        with get_adapter().get_requests_session() as sess:
+            resp = sess.get(self.profile_url, headers=headers)
+            user_profile = resp.json()
 
         return self.get_provider().sociallogin_from_response(request, user_profile)
 

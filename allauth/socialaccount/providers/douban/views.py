@@ -18,10 +18,9 @@ class DoubanOAuth2Adapter(OAuth2Adapter):
 
     def complete_login(self, request, app, token, **kwargs):
         headers = {"Authorization": f"Bearer {token.token}"}
-        resp = (
-            get_adapter().get_requests_session().get(self.profile_url, headers=headers)
-        )
-        extra_data = resp.json()
+        with get_adapter().get_requests_session() as sess:
+            resp = sess.get(self.profile_url, headers=headers)
+            extra_data = resp.json()
         """
         Douban may return data like this:
 

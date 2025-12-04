@@ -18,13 +18,10 @@ class DingTalkOAuth2Client(OAuth2Client):
         if self.access_token_method == "GET":  # nosec
             params = data
             data = None
-        resp = (
-            get_adapter()
-            .get_requests_session()
-            .request(self.access_token_method, url, params=params, json=data)
-        )
-        resp.raise_for_status()
-        access_token = resp.json()
+        with get_adapter().get_requests_session() as sess:
+            resp = sess.request(self.access_token_method, url, params=params, json=data)
+            resp.raise_for_status()
+            access_token = resp.json()
         if not access_token or "accessToken" not in access_token:
             raise OAuth2Error(f"Error retrieving access token: {resp.content}")
 

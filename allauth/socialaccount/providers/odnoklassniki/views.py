@@ -59,10 +59,9 @@ class OdnoklassnikiOAuth2Adapter(OAuth2Adapter):
             ("".join(check_list) + suffix).encode("utf-8")
         ).hexdigest()  # nosec
 
-        response = (
-            get_adapter().get_requests_session().get(self.profile_url, params=data)
-        )
-        extra_data = response.json()
+        with get_adapter().get_requests_session() as sess:
+            response = sess.get(self.profile_url, params=data)
+            extra_data = response.json()
         return self.get_provider().sociallogin_from_response(request, extra_data)
 
 

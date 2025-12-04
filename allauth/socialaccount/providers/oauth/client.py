@@ -78,16 +78,17 @@ class OAuthClient:
             )
             rt_url = f"{self.request_token_url}?{urlencode(get_params)}"
             oauth = OAuth1(self.consumer_key, client_secret=self.consumer_secret)
-            response = get_adapter().get_requests_session().post(url=rt_url, auth=oauth)
-            if response.status_code not in [HTTPStatus.OK, HTTPStatus.CREATED]:
-                raise OAuthError(
-                    _(
-                        "Invalid response while obtaining request token"
-                        ' from "%s". Response was: %s.'
+            with get_adapter().get_requests_session() as sess:
+                response = sess.post(url=rt_url, auth=oauth)
+                if response.status_code not in [HTTPStatus.OK, HTTPStatus.CREATED]:
+                    raise OAuthError(
+                        _(
+                            "Invalid response while obtaining request token"
+                            ' from "%s". Response was: %s.'
+                        )
+                        % (get_token_prefix(self.request_token_url), response.text)
                     )
-                    % (get_token_prefix(self.request_token_url), response.text)
-                )
-            self.request_token = dict(parse_qsl(response.text))
+                self.request_token = dict(parse_qsl(response.text))
             self.request.session[
                 f"oauth_{get_token_prefix(self.request_token_url)}_request_token"
             ] = self.request_token
@@ -113,13 +114,14 @@ class OAuthClient:
             oauth_verifier = get_request_param(self.request, "oauth_verifier")
             if oauth_verifier:
                 at_url = f"{at_url}?{urlencode({'oauth_verifier': oauth_verifier})}"
-            response = get_adapter().get_requests_session().post(url=at_url, auth=oauth)
-            if response.status_code not in [HTTPStatus.OK, HTTPStatus.CREATED]:
-                raise OAuthError(
-                    _('Invalid response while obtaining access token from "%s".')
-                    % get_token_prefix(self.request_token_url)
-                )
-            self.access_token = dict(parse_qsl(response.text))
+            with get_adapter().get_requests_session() as sess:
+                response = sess.post(url=at_url, auth=oauth)
+                if response.status_code not in [HTTPStatus.OK, HTTPStatus.CREATED]:
+                    raise OAuthError(
+                        _('Invalid response while obtaining access token from "%s".')
+                        % get_token_prefix(self.request_token_url)
+                    )
+                self.access_token = dict(parse_qsl(response.text))
 
             self.request.session[
                 f"oauth_{get_token_prefix(self.request_token_url)}_access_token"
@@ -204,13 +206,14 @@ class OAuth:
             resource_owner_key=access_token["oauth_token"],
             resource_owner_secret=access_token["oauth_token_secret"],
         )
-        response = getattr(get_adapter().get_requests_session(), method.lower())(
-            url, auth=oauth, headers=headers, params=params
-        )
-        if response.status_code != HTTPStatus.OK:
-            raise OAuthError(
-                _('No access to private resources at "%s".')
-                % get_token_prefix(self.request_token_url)
+        with get_adapter().get_requests_session() as sess:
+            response = sess.request(
+                url, method=method.lower(), auth=oauth, headers=headers, params=params
             )
+            if response.status_code != HTTPStatus.OK:
+                raise OAuthError(
+                    _('No access to private resources at "%s".')
+                    % get_token_prefix(self.request_token_url)
+                )
 
         return response

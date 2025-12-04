@@ -29,37 +29,27 @@ class PatreonOAuth2Adapter(OAuth2Adapter):
     )
 
     def complete_login(self, request, app, token, **kwargs):
-        resp = (
-            get_adapter()
-            .get_requests_session()
-            .get(
-                self.profile_url,
-                headers={"Authorization": f"Bearer {token.token}"},
-            )
-        )
-        extra_data = resp.json().get("data")
+        headers = {"Authorization": f"Bearer {token.token}"}
+        with get_adapter().get_requests_session() as sess:
+            resp = sess.get(self.profile_url, headers=headers)
+            extra_data = resp.json().get("data")
 
-        if USE_API_V2:
-            # Extract tier/pledge level for Patreon API v2:
-            try:
-                member_id = extra_data["relationships"]["memberships"]["data"][0]["id"]
-                member_url = (
-                    "{0}/members/{1}?include="
-                    "currently_entitled_tiers&fields%5Btier%5D=title"
-                ).format(API_URL, member_id)
-                resp_member = (
-                    get_adapter()
-                    .get_requests_session()
-                    .get(
-                        member_url,
-                        headers={"Authorization": f"Bearer {token.token}"},
-                    )
-                )
-                pledge_title = resp_member.json()["included"][0]["attributes"]["title"]
-                extra_data["pledge_level"] = pledge_title
-            except (KeyError, IndexError):
-                extra_data["pledge_level"] = None
-                pass
+            if USE_API_V2:
+                # Extract tier/pledge level for Patreon API v2:
+                try:
+                    memberships = extra_data["relationships"]["memberships"]
+                    member_id = memberships["data"][0]["id"]
+                    member_url = (
+                        "{0}/members/{1}?include="
+                        "currently_entitled_tiers&fields%5Btier%5D=title"
+                    ).format(API_URL, member_id)
+                    resp_member = sess.get(member_url, headers=headers)
+                    resp_data = resp_member.json()
+                    pledge_title = resp_data["included"][0]["attributes"]["title"]
+                    extra_data["pledge_level"] = pledge_title
+                except (KeyError, IndexError):
+                    extra_data["pledge_level"] = None
+                    pass
 
         return self.get_provider().sociallogin_from_response(request, extra_data)
 

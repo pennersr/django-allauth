@@ -21,41 +21,33 @@ class LichessOAuth2Adapter(OAuth2Adapter):
     email_address_url = f"{provider_base_url}/api/account/email"
 
     def complete_login(self, request, app, token, response):
-        profile_res = (
-            get_adapter()
-            .get_requests_session()
-            .get(
+        headers = {"Authorization": f"Bearer {token.token}"}
+        with get_adapter().get_requests_session() as sess:
+            profile_res = sess.get(
                 self.profile_url,
                 params={"access_token": token.token},
-                headers={"Authorization": f"Bearer {token.token}"},
+                headers=headers,
             )
-        )
+            profile_res.raise_for_status()
+            extra_data = profile_res.json()
 
-        profile_res.raise_for_status()
-        extra_data = profile_res.json()
-
-        user_profile = extra_data["result"] if "result" in extra_data else extra_data
-
-        # retrieve email address if requested
-        if QUERY_EMAIL:
-            email_data = (
-                get_adapter()
-                .get_requests_session()
-                .get(
-                    self.email_address_url,
-                    headers={"Authorization": f"Bearer {token.token}"},
-                )
+            user_profile = (
+                extra_data["result"] if "result" in extra_data else extra_data
             )
 
-            email_data.raise_for_status()
-            email_data = email_data.json()
+            # retrieve email address if requested
+            if QUERY_EMAIL:
+                email_resp = sess.get(self.email_address_url, headers=headers)
 
-            # extract email address from response
+                email_resp.raise_for_status()
+                email_data = email_resp.json()
 
-            email = email_data.get("email", None)
+                # extract email address from response
 
-            if email:
-                user_profile["email"] = email
+                email = email_data.get("email", None)
+
+                if email:
+                    user_profile["email"] = email
 
         return self.get_provider().sociallogin_from_response(request, user_profile)
 

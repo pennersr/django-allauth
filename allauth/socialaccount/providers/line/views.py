@@ -38,18 +38,15 @@ class LineOAuth2Adapter(OAuth2Adapter):
 
     def complete_login(self, request, app, token, **kwargs):
         settings = app_settings.PROVIDERS.get(self.provider_id, {})
-        if "email" in settings.get("SCOPE", ""):
-            payload = {"client_id": app.client_id, "id_token": token.token}
-            resp = get_adapter().get_requests_session().post(self.id_token_url, payload)
-        else:
-            headers = {"Authorization": f"Bearer {token.token}"}
-            resp = (
-                get_adapter()
-                .get_requests_session()
-                .get(self.profile_url, headers=headers)
-            )
-        resp.raise_for_status()
-        extra_data = resp.json()
+        with get_adapter().get_requests_session() as sess:
+            if "email" in settings.get("SCOPE", ""):
+                payload = {"client_id": app.client_id, "id_token": token.token}
+                resp = sess.post(self.id_token_url, payload)
+            else:
+                headers = {"Authorization": f"Bearer {token.token}"}
+                resp = sess.get(self.profile_url, headers=headers)
+            resp.raise_for_status()
+            extra_data = resp.json()
         return self.get_provider().sociallogin_from_response(request, extra_data)
 
 

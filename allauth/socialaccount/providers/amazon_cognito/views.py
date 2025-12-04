@@ -44,12 +44,11 @@ class AmazonCognitoOAuth2Adapter(OAuth2Adapter):
         headers = {
             "Authorization": f"Bearer {token.token}",
         }
-        extra_data = (
-            get_adapter().get_requests_session().get(self.profile_url, headers=headers)
-        )
-        extra_data.raise_for_status()
-
-        return self.get_provider().sociallogin_from_response(request, extra_data.json())
+        with get_adapter().get_requests_session() as sess:
+            response = sess.get(self.profile_url, headers=headers)
+            response.raise_for_status()
+            extra_data = response.json()
+        return self.get_provider().sociallogin_from_response(request, extra_data)
 
 
 oauth2_login = OAuth2LoginView.adapter_view(AmazonCognitoOAuth2Adapter)

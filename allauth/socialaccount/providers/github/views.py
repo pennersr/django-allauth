@@ -28,25 +28,23 @@ class GitHubOAuth2Adapter(OAuth2Adapter):
 
     def complete_login(self, request, app, token, **kwargs):
         headers = {"Authorization": f"token {token.token}"}
-        resp = (
-            get_adapter().get_requests_session().get(self.profile_url, headers=headers)
-        )
-        resp.raise_for_status()
-        extra_data = resp.json()
+        with get_adapter().get_requests_session() as sess:
+            resp = sess.get(self.profile_url, headers=headers)
+            resp.raise_for_status()
+            extra_data = resp.json()
         if app_settings.QUERY_EMAIL:
             if emails := self.get_emails(headers):
                 extra_data["emails"] = emails
         return self.get_provider().sociallogin_from_response(request, extra_data)
 
     def get_emails(self, headers) -> Optional[list]:
-        resp = (
-            get_adapter().get_requests_session().get(self.emails_url, headers=headers)
-        )
-        # https://api.github.com/user/emails -- 404 is documented to occur.
-        if resp.status_code == HTTPStatus.NOT_FOUND:
-            return None
-        resp.raise_for_status()
-        return resp.json()
+        with get_adapter().get_requests_session() as sess:
+            resp = sess.get(self.emails_url, headers=headers)
+            # https://api.github.com/user/emails -- 404 is documented to occur.
+            if resp.status_code == HTTPStatus.NOT_FOUND:
+                return None
+            resp.raise_for_status()
+            return resp.json()
 
 
 oauth2_login = OAuth2LoginView.adapter_view(GitHubOAuth2Adapter)

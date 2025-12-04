@@ -32,15 +32,12 @@ class PaypalOAuth2Adapter(OAuth2Adapter):
             return "sandbox.paypal.com"
 
     def complete_login(self, request, app, token, **kwargs):
-        response = (
-            get_adapter()
-            .get_requests_session()
-            .post(
+        with get_adapter().get_requests_session() as sess:
+            response = sess.post(
                 self.profile_url,
                 params={"schema": "openid", "access_token": token.token},
             )
-        )
-        extra_data = response.json()
+            extra_data = response.json()
         return self.get_provider().sociallogin_from_response(request, extra_data)
 
 

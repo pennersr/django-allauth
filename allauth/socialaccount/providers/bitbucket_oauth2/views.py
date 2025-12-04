@@ -15,12 +15,9 @@ class BitbucketOAuth2Adapter(OAuth2Adapter):
     emails_url = "https://api.bitbucket.org/2.0/user/emails"
 
     def complete_login(self, request, app, token, **kwargs):
-        resp = (
-            get_adapter()
-            .get_requests_session()
-            .get(self.profile_url, params={"access_token": token.token})
-        )
-        extra_data = resp.json()
+        with get_adapter().get_requests_session() as sess:
+            resp = sess.get(self.profile_url, params={"access_token": token.token})
+            extra_data = resp.json()
         if app_settings.QUERY_EMAIL:
             if email := self.get_email(token):
                 extra_data["email"] = email
@@ -28,12 +25,9 @@ class BitbucketOAuth2Adapter(OAuth2Adapter):
 
     def get_email(self, token) -> str:
         """Fetches email address from email API endpoint"""
-        resp = (
-            get_adapter()
-            .get_requests_session()
-            .get(self.emails_url, params={"access_token": token.token})
-        )
-        emails = resp.json().get("values", [])
+        with get_adapter().get_requests_session() as sess:
+            resp = sess.get(self.emails_url, params={"access_token": token.token})
+            emails = resp.json().get("values", [])
         email = ""
         try:
             email = emails[0].get("email")

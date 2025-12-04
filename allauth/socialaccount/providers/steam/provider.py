@@ -52,9 +52,10 @@ def request_steam_account_summary(api_key, steam_id):
     method = "ISteamUser/GetPlayerSummaries/v0002/"
     params = {"key": api_key, "steamids": steam_id}
 
-    resp = get_adapter().get_requests_session().get(api_base + method, params=params)
-    resp.raise_for_status()
-    data = resp.json()
+    with get_adapter().get_requests_session() as sess:
+        resp = sess.get(api_base + method, params=params)
+        resp.raise_for_status()
+        data = resp.json()
 
     playerlist = data.get("response", {}).get("players", [])
     return playerlist[0] if playerlist else {"steamid": steam_id}

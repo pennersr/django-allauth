@@ -20,15 +20,13 @@ class TwitchOAuth2Adapter(OAuth2Adapter):
             "Authorization": f"Bearer {token.token}",
             "Client-ID": app.client_id,
         }
-        response = (
-            get_adapter().get_requests_session().get(self.profile_url, headers=headers)
-        )
-
-        data = response.json()
-        if response.status_code >= HTTPStatus.BAD_REQUEST:
-            error = data.get("error", "")
-            message = data.get("message", "")
-            raise OAuth2Error(f"Twitch API Error: {error} ({message})")
+        with get_adapter().get_requests_session() as sess:
+            response = sess.get(self.profile_url, headers=headers)
+            data = response.json()
+            if response.status_code >= HTTPStatus.BAD_REQUEST:
+                error = data.get("error", "")
+                message = data.get("message", "")
+                raise OAuth2Error(f"Twitch API Error: {error} ({message})")
 
         try:
             user_info = data.get("data", [])[0]

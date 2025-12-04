@@ -16,16 +16,11 @@ class QuestradeOAuth2Adapter(OAuth2Adapter):
         api_server = kwargs.get("response", {}).get(
             "api_server", "https://api01.iq.questrade.com/"
         )
-        resp = (
-            get_adapter()
-            .get_requests_session()
-            .get(
-                f"{api_server}v1/accounts",
-                headers={"Authorization": f"Bearer {token.token}"},
-            )
-        )
-        resp.raise_for_status()
-        data = resp.json()
+        headers = {"Authorization": f"Bearer {token.token}"}
+        with get_adapter().get_requests_session() as sess:
+            resp = sess.get(f"{api_server}v1/accounts", headers=headers)
+            resp.raise_for_status()
+            data = resp.json()
         data.update(kwargs)
         return self.get_provider().sociallogin_from_response(request, data)
 

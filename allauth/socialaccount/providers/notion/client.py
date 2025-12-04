@@ -22,23 +22,20 @@ class NotionOAuth2Client(OAuth2Client):
         return f"{authorization_url}?{urlencode(params)}"
 
     def get_access_token(self, code, pkce_code_verifier=None):
-        resp = (
-            get_adapter()
-            .get_requests_session()
-            .request(
+        with get_adapter().get_requests_session() as sess:
+            resp = sess.request(
                 self.access_token_method,
                 self.access_token_url,
                 auth=HTTPBasicAuth(self.consumer_key, self.consumer_secret),
                 json={"code": code, "grant_type": "authorization_code"},
                 headers=self.headers,
             )
-        )
-        access_token = None
-        if resp.status_code in [HTTPStatus.OK, HTTPStatus.CREATED]:
-            try:
-                access_token = resp.json()
-            except ValueError:
-                access_token = dict(parse_qsl(resp.text))
-        if not access_token or "access_token" not in access_token:
-            raise OAuth2Error(f"Error retrieving access token: {resp.content}")
-        return access_token
+            access_token = None
+            if resp.status_code in [HTTPStatus.OK, HTTPStatus.CREATED]:
+                try:
+                    access_token = resp.json()
+                except ValueError:
+                    access_token = dict(parse_qsl(resp.text))
+            if not access_token or "access_token" not in access_token:
+                raise OAuth2Error(f"Error retrieving access token: {resp.content}")
+            return access_token

@@ -19,17 +19,16 @@ class RedditAdapter(OAuth2Adapter):
     headers = {"User-Agent": settings.get("USER_AGENT", "django-allauth-header")}
 
     def complete_login(self, request, app, token, **kwargs):
-        headers = {"Authorization": f"bearer {token.token}"}
-        headers.update(self.headers)
-        extra_data = (
-            get_adapter().get_requests_session().get(self.profile_url, headers=headers)
-        )
+        headers = {"Authorization": f"bearer {token.token}", **self.headers}
+        with get_adapter().get_requests_session() as sess:
+            resp = sess.get(self.profile_url, headers=headers)
 
-        # This only here because of weird response from the test suite
-        if isinstance(extra_data, list):
-            extra_data = extra_data[0]
+            # This only here because of weird response from the test suite
+            if isinstance(resp, list):
+                resp = resp[0]
 
-        return self.get_provider().sociallogin_from_response(request, extra_data.json())
+            extra_data = resp.json()
+        return self.get_provider().sociallogin_from_response(request, extra_data)
 
 
 oauth2_login = OAuth2LoginView.adapter_view(RedditAdapter)

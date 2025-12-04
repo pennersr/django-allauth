@@ -23,23 +23,16 @@ class EdxOAuth2Adapter(OAuth2Adapter):
 
     def complete_login(self, request, app, token, **kwargs):
         headers = {"Authorization": f"Bearer {token.token}"}
-        response = (
-            get_adapter().get_requests_session().get(self.profile_url, headers=headers)
-        )
-        extra_data = response.json()
-
-        if extra_data.get("email", None) is None:
-            response = (
-                get_adapter()
-                .get_requests_session()
-                .get(
-                    self.account_url.format(
-                        self.provider_base_url, extra_data["username"]
-                    ),
-                    headers=headers,
-                )
-            )
+        with get_adapter().get_requests_session() as sess:
+            response = sess.get(self.profile_url, headers=headers)
             extra_data = response.json()
+
+            if extra_data.get("email", None) is None:
+                account_url = self.account_url.format(
+                    self.provider_base_url, extra_data["username"]
+                )
+                response = sess.get(account_url, headers=headers)
+                extra_data = response.json()
 
         return self.get_provider().sociallogin_from_response(request, extra_data)
 

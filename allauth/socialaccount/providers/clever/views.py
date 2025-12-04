@@ -22,27 +22,18 @@ class CleverOAuth2Adapter(OAuth2Adapter):
         return self.get_provider().sociallogin_from_response(request, extra_data)
 
     def get_data(self, token):
-        # Verify the user first
-        resp = (
-            get_adapter()
-            .get_requests_session()
-            .get(self.identity_url, headers={"Authorization": f"Bearer {token}"})
-        )
-        if resp.status_code != HTTPStatus.OK:
-            raise OAuth2Error()
-        resp = resp.json()
-        user_id = resp["data"]["id"]
-        user_details = (
-            get_adapter()
-            .get_requests_session()
-            .get(
-                f"{self.user_details_url}/{user_id}",
-                headers={"Authorization": f"Bearer {token}"},
-            )
-        )
-        user_details.raise_for_status()
-        user_details = user_details.json()
-        return user_details
+        headers = {"Authorization": f"Bearer {token}"}
+        with get_adapter().get_requests_session() as sess:
+            # Verify the user first
+            resp = sess.get(self.identity_url, headers=headers)
+            if resp.status_code != HTTPStatus.OK:
+                raise OAuth2Error()
+            resp = resp.json()
+            user_id = resp["data"]["id"]
+            details_url = f"{self.user_details_url}/{user_id}"
+            resp = sess.get(details_url, headers=headers)
+            resp.raise_for_status()
+            return resp.json()
 
 
 oauth2_login = OAuth2LoginView.adapter_view(CleverOAuth2Adapter)

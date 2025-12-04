@@ -15,13 +15,10 @@ class StocktwitsOAuth2Adapter(OAuth2Adapter):
 
     def complete_login(self, request, app, token, **kwargs):
         user_id = kwargs.get("response").get("user_id")
-        resp = (
-            get_adapter()
-            .get_requests_session()
-            .get(self.profile_url.format(user=user_id))
-        )
-        resp.raise_for_status()
-        extra_data = resp.json()
+        with get_adapter().get_requests_session() as sess:
+            resp = sess.get(self.profile_url.format(user=user_id))
+            resp.raise_for_status()
+            extra_data = resp.json()
         return self.get_provider().sociallogin_from_response(request, extra_data)
 
 

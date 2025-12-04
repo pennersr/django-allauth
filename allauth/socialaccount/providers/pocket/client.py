@@ -28,21 +28,18 @@ class PocketOAuthClient(OAuthClient):
                 "consumer_key": self.consumer_key,
                 "redirect_uri": redirect_url,
             }
-            response = (
-                get_adapter()
-                .get_requests_session()
-                .post(
+            with get_adapter().get_requests_session() as sess:
+                response = sess.post(
                     url=self.request_token_url,
                     json=data,
                     headers=headers,
                 )
-            )
-            if response.status_code != HTTPStatus.OK:
-                raise OAuthError(
-                    _('Invalid response while obtaining request token from "%s".')
-                    % get_token_prefix(self.request_token_url)
-                )
-            self.request_token = response.json()["code"]
+                if response.status_code != HTTPStatus.OK:
+                    raise OAuthError(
+                        _('Invalid response while obtaining request token from "%s".')
+                        % get_token_prefix(self.request_token_url)
+                    )
+                self.request_token = response.json()["code"]
             self.request.session[
                 f"oauth_{get_token_prefix(self.request_token_url)}_request_token"
             ] = self.request_token
@@ -77,17 +74,14 @@ class PocketOAuthClient(OAuthClient):
                 "consumer_key": self.consumer_key,
                 "code": request_token,
             }
-            response = (
-                get_adapter()
-                .get_requests_session()
-                .post(url=url, headers=headers, json=data)
-            )
-            if response.status_code != HTTPStatus.OK:
-                raise OAuthError(
-                    _('Invalid response while obtaining access token from "%s".')
-                    % get_token_prefix(self.request_token_url)
-                )
-            r = response.json()
+            with get_adapter().get_requests_session() as sess:
+                response = sess.post(url=url, headers=headers, json=data)
+                if response.status_code != HTTPStatus.OK:
+                    raise OAuthError(
+                        _('Invalid response while obtaining access token from "%s".')
+                        % get_token_prefix(self.request_token_url)
+                    )
+                r = response.json()
             self.access_token = {
                 "oauth_token": request_token,
                 "oauth_token_secret": r["access_token"],

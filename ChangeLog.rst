@@ -27,6 +27,8 @@ Fixes
 - IdP: Access tokens without a user attached (client credentials) were no longer
   recognized in DRF/Ninja endpoints.
 
+- `requests` sessions are now disposed of after use to avoid resource leaks.
+
 
 65.13.1 (2025-11-20)
 ********************

@@ -73,16 +73,11 @@ class MicrosoftGraphOAuth2Adapter(OAuth2Adapter):
 
     def complete_login(self, request, app, token, **kwargs):
         headers = {"Authorization": f"Bearer {token.token}"}
-        response = (
-            get_adapter()
-            .get_requests_session()
-            .get(
-                self.profile_url,
-                params=self.profile_url_params,
-                headers=headers,
+        with get_adapter().get_requests_session() as sess:
+            response = sess.get(
+                self.profile_url, params=self.profile_url_params, headers=headers
             )
-        )
-        extra_data = _check_errors(response)
+            extra_data = _check_errors(response)
         return self.get_provider().sociallogin_from_response(request, extra_data)
 
 

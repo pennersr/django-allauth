@@ -18,11 +18,10 @@ class AtlassianOAuth2Adapter(OAuth2Adapter):
             "Authorization": f"Bearer {token.token}",
             "Accept": "application/json",
         }
-        response = (
-            get_adapter().get_requests_session().get(self.profile_url, headers=headers)
-        )
-        response.raise_for_status()
-        data = response.json()
+        with get_adapter().get_requests_session() as sess:
+            response = sess.get(self.profile_url, headers=headers)
+            response.raise_for_status()
+            data = response.json()
         return self.get_provider().sociallogin_from_response(request, data)
 
 

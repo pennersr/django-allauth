@@ -39,17 +39,14 @@ class NextCloudOAuth2Adapter(OAuth2Adapter):
 
     def get_user_info(self, token: SocialToken, user_id):
         headers = {"Authorization": f"Bearer {token.token}"}
-        resp = (
-            get_adapter()
-            .get_requests_session()
-            .get(
+        with get_adapter().get_requests_session() as sess:
+            resp = sess.get(
                 f"{self.profile_url}{user_id}",
                 params={"format": "json"},
                 headers=headers,
             )
-        )
-        resp.raise_for_status()
-        data = resp.json()["ocs"]["data"]
+            resp.raise_for_status()
+            data = resp.json()["ocs"]["data"]
         return data
 
 

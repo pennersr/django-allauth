@@ -47,10 +47,9 @@ class ShopifyOAuth2Adapter(OAuth2Adapter):
 
     def complete_login(self, request, app, token, **kwargs):
         headers = {"X-Shopify-Access-Token": f"{token.token}"}
-        response = (
-            get_adapter().get_requests_session().get(self.profile_url, headers=headers)
-        )
-        extra_data = response.json()
+        with get_adapter().get_requests_session() as sess:
+            response = sess.get(self.profile_url, headers=headers)
+            extra_data = response.json()
         associated_user = kwargs["response"].get("associated_user")
         if associated_user:
             extra_data["associated_user"] = associated_user

@@ -14,17 +14,16 @@ class BoxOAuth2Adapter(OAuth2Adapter):
     redirect_uri_protocol = None
 
     def complete_login(self, request, app, token, **kwargs):
-        extra_data = (
-            get_adapter()
-            .get_requests_session()
-            .get(self.profile_url, params={"access_token": token.token})
-        )
+        with get_adapter().get_requests_session() as sess:
+            resp = sess.get(self.profile_url, params={"access_token": token.token})
 
-        # This only here because of weird response from the test suite
-        if isinstance(extra_data, list):
-            extra_data = extra_data[0]
+            # This only here because of weird response from the test suite
+            if isinstance(resp, list):
+                resp = resp[0]
 
-        return self.get_provider().sociallogin_from_response(request, extra_data.json())
+            extra_data = resp.json()
+
+        return self.get_provider().sociallogin_from_response(request, extra_data)
 
 
 oauth_login = OAuth2LoginView.adapter_view(BoxOAuth2Adapter)

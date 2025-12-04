@@ -31,34 +31,23 @@ class DataportenOAuth2Adapter(OAuth2Adapter):
 
         # Userinfo endpoint, for documentation see:
         # https://docs.dataporten.no/docs/oauth-authentication/
-        userinfo_response = (
-            get_adapter()
-            .get_requests_session()
-            .get(
-                self.profile_url,
-                headers=headers,
-            )
-        )
-        # Raise exception for 4xx and 5xx response codes
-        userinfo_response.raise_for_status()
-
-        # The endpoint returns json-data and it needs to be decoded
-        extra_data = userinfo_response.json()["user"]
+        with get_adapter().get_requests_session() as sess:
+            resp = sess.get(self.profile_url, headers=headers)
+            resp.raise_for_status()
+            response_json = resp.json()
+            extra_data = response_json["user"]
 
         # Finally test that the audience property matches the client id
         # for validification reasons, as instructed by the Dataporten docs
         # if the userinfo-response is used for authentication
-        if userinfo_response.json()["audience"] != app.client_id:
+        if response_json["audience"] != app.client_id:
             raise ProviderException(
                 "Dataporten returned a user with an audience field \
                  which does not correspond to the client id of the \
                  application."
             )
 
-        return self.get_provider().sociallogin_from_response(
-            request,
-            extra_data,
-        )
+        return self.get_provider().sociallogin_from_response(request, extra_data)
 
 
 oauth2_login = OAuth2LoginView.adapter_view(DataportenOAuth2Adapter)

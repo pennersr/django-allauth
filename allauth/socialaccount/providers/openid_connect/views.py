@@ -22,9 +22,10 @@ class OpenIDConnectOAuth2Adapter(OAuth2Adapter):
     def openid_config(self):
         if not hasattr(self, "_openid_config"):
             server_url = self.get_provider().server_url
-            resp = get_adapter().get_requests_session().get(server_url)
-            resp.raise_for_status()
-            self._openid_config = resp.json()
+            with get_adapter().get_requests_session() as sess:
+                resp = sess.get(server_url)
+                resp.raise_for_status()
+                self._openid_config = resp.json()
         return self._openid_config
 
     @property
@@ -59,12 +60,10 @@ class OpenIDConnectOAuth2Adapter(OAuth2Adapter):
         return self.get_provider().sociallogin_from_response(request, data)
 
     def _fetch_user_info(self, access_token: str) -> dict:
-        response = (
-            get_adapter()
-            .get_requests_session()
-            .get(self.profile_url, headers={"Authorization": f"Bearer {access_token}"})
-        )
-        response.raise_for_status()
+        headers = {"Authorization": f"Bearer {access_token}"}
+        with get_adapter().get_requests_session() as sess:
+            response = sess.get(self.profile_url, headers=headers)
+            response.raise_for_status()
         return response.json()
 
     def _decode_id_token(self, app: SocialApp, id_token: str) -> dict:

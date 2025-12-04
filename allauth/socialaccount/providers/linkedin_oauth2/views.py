@@ -22,26 +22,25 @@ class LinkedInOAuth2Adapter(OAuth2Adapter):
     def get_user_info(self, token):
         fields = self.get_provider().get_profile_fields()
 
-        headers = {}
-        headers.update(self.get_provider().get_settings().get("HEADERS", {}))
-        headers["Authorization"] = f"Bearer {token.token}"
+        headers = {
+            **self.get_provider().get_settings().get("HEADERS", {}),
+            "Authorization": f"Bearer {token.token}",
+        }
 
         info = {}
-        if app_settings.QUERY_EMAIL:
-            resp = (
-                get_adapter()
-                .get_requests_session()
-                .get(self.email_url, headers=headers)
-            )
-            # If this response goes wrong, that is not a blocker in order to
-            # continue.
-            if resp.ok:
-                info = resp.json()
+        with get_adapter().get_requests_session() as sess:
+            if app_settings.QUERY_EMAIL:
+                sess = get_adapter().get_requests_session()
+                resp = sess.get(self.email_url, headers=headers)
+                # If this response goes wrong, that is not a blocker in order to
+                # continue.
+                if resp.ok:
+                    info = resp.json()
 
-        url = f"{self.profile_url}?projection=({','.join(fields)})"
-        resp = get_adapter().get_requests_session().get(url, headers=headers)
-        resp.raise_for_status()
-        info.update(resp.json())
+            url = f"{self.profile_url}?projection=({','.join(fields)})"
+            resp = sess.get(url, headers=headers)
+            resp.raise_for_status()
+            info.update(resp.json())
         return info
 
 

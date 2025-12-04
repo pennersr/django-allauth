@@ -13,18 +13,14 @@ class CILogonOAuth2Adapter(OAuth2Adapter):
     profile_url = "https://cilogon.org/oauth2/userinfo"
 
     def complete_login(self, request, app, token, **kwargs):
-        resp = (
-            get_adapter()
-            .get_requests_session()
-            .get(
+        with get_adapter().get_requests_session() as sess:
+            resp = sess.get(
                 self.profile_url,
                 params={"access_token": token.token, "alt": "json"},
             )
-        )
-        resp.raise_for_status()
-        extra_data = resp.json()
-        login = self.get_provider().sociallogin_from_response(request, extra_data)
-        return login
+            resp.raise_for_status()
+            extra_data = resp.json()
+        return self.get_provider().sociallogin_from_response(request, extra_data)
 
 
 oauth2_login = OAuth2LoginView.adapter_view(CILogonOAuth2Adapter)

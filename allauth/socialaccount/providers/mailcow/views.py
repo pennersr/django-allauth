@@ -22,12 +22,10 @@ class MailcowAdapter(OAuth2Adapter):
         return self.get_provider().sociallogin_from_response(request, extra_data)
 
     def get_user_info(self, access_token, code):
-        resp = (
-            get_adapter()
-            .get_requests_session()
-            .get(self.profile_url, params={"access_token": access_token, "code": code})
-        )
-        resp.raise_for_status()
+        with get_adapter().get_requests_session() as sess:
+            params = {"access_token": access_token, "code": code}
+            resp = sess.get(self.profile_url, params=params)
+            resp.raise_for_status()
         return resp.json()
 
 

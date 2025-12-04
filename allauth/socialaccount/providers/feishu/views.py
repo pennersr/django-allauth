@@ -32,19 +32,14 @@ class FeishuOAuth2Adapter(OAuth2Adapter):
         return url
 
     def complete_login(self, request, app, token, **kwargs):
-        resp = (
-            get_adapter()
-            .get_requests_session()
-            .get(
-                self.user_info_url,
-                headers={
-                    "Content-Type": "application/json",
-                    "Authorization": f"Bearer {token.token}",
-                },
-            )
-        )
-        resp.raise_for_status()
-        extra_data = resp.json()
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {token.token}",
+        }
+        with get_adapter().get_requests_session() as sess:
+            resp = sess.get(self.user_info_url, headers=headers)
+            resp.raise_for_status()
+            extra_data = resp.json()
         if extra_data["code"] != 0:
             raise OAuth2Error(f"Error retrieving code: {resp.content}")
         extra_data = extra_data["data"]

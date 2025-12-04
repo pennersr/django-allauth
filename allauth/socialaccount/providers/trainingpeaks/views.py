@@ -45,11 +45,10 @@ class TrainingPeaksOAuth2Adapter(OAuth2Adapter):
 
     def complete_login(self, request, app, token, **kwargs):
         headers = {"Authorization": f"Bearer {token.token}"}
-        response = (
-            get_adapter().get_requests_session().get(self.profile_url, headers=headers)
-        )
-        response.raise_for_status()
-        extra_data = response.json()
+        with get_adapter().get_requests_session() as sess:
+            response = sess.get(self.profile_url, headers=headers)
+            response.raise_for_status()
+            extra_data = response.json()
         return self.get_provider().sociallogin_from_response(request, extra_data)
 
 

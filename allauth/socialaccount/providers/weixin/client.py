@@ -40,14 +40,11 @@ class WeixinOAuth2Client(OAuth2Client):
         if data and pkce_code_verifier:
             data["code_verifier"] = pkce_code_verifier
         # TODO: Proper exception handling
-        resp = (
-            get_adapter()
-            .get_requests_session()
-            .request(self.access_token_method, url, params=params, data=data)
-        )
-        access_token = None
-        if resp.status_code == HTTPStatus.OK:
-            access_token = resp.json()
-        if not access_token or "access_token" not in access_token:
-            raise OAuth2Error(f"Error retrieving access token: {resp.content}")
-        return access_token
+        with get_adapter().get_requests_session() as sess:
+            resp = sess.request(self.access_token_method, url, params=params, data=data)
+            access_token = None
+            if resp.status_code == HTTPStatus.OK:
+                access_token = resp.json()
+            if not access_token or "access_token" not in access_token:
+                raise OAuth2Error(f"Error retrieving access token: {resp.content}")
+            return access_token

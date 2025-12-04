@@ -13,12 +13,9 @@ class MeetupOAuth2Adapter(OAuth2Adapter):
     profile_url = "https://api.meetup.com/2/member/self"
 
     def complete_login(self, request, app, token, **kwargs):
-        resp = (
-            get_adapter()
-            .get_requests_session()
-            .get(self.profile_url, params={"access_token": token.token})
-        )
-        extra_data = resp.json()
+        with get_adapter().get_requests_session() as sess:
+            resp = sess.get(self.profile_url, params={"access_token": token.token})
+            extra_data = resp.json()
         return self.get_provider().sociallogin_from_response(request, extra_data)
 
 

@@ -22,15 +22,10 @@ class RobinhoodOAuth2Adapter(OAuth2Adapter):
         return "https://api.robinhood.com/user/id/"
 
     def complete_login(self, request, app, token, **kwargs):
-        response = (
-            get_adapter()
-            .get_requests_session()
-            .get(
-                self.profile_url,
-                headers={"Authorization": f"Bearer {token.token}"},
-            )
-        )
-        extra_data = response.json()
+        headers = {"Authorization": f"Bearer {token.token}"}
+        with get_adapter().get_requests_session() as sess:
+            response = sess.get(self.profile_url, headers=headers)
+            extra_data = response.json()
         return self.get_provider().sociallogin_from_response(request, extra_data)
 
 

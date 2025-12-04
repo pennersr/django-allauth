@@ -15,16 +15,11 @@ class StackExchangeOAuth2Adapter(OAuth2Adapter):
     def complete_login(self, request, app, token, **kwargs):
         provider = self.get_provider()
         site = provider.get_site()
-        resp = (
-            get_adapter()
-            .get_requests_session()
-            .get(
-                self.profile_url,
-                params={"access_token": token.token, "key": app.key, "site": site},
-            )
-        )
-        resp.raise_for_status()
-        extra_data = resp.json()["items"][0]
+        with get_adapter().get_requests_session() as sess:
+            params = {"access_token": token.token, "key": app.key, "site": site}
+            resp = sess.get(self.profile_url, params=params)
+            resp.raise_for_status()
+            extra_data = resp.json()["items"][0]
         return self.get_provider().sociallogin_from_response(request, extra_data)
 
 

@@ -13,16 +13,11 @@ class InstagramOAuth2Adapter(OAuth2Adapter):
     profile_url = "https://graph.instagram.com/me"
 
     def complete_login(self, request, app, token, **kwargs):
-        resp = (
-            get_adapter()
-            .get_requests_session()
-            .get(
-                self.profile_url,
-                params={"access_token": token.token, "fields": ["id", "username"]},
-            )
-        )
-        resp.raise_for_status()
-        extra_data = resp.json()
+        with get_adapter().get_requests_session() as sess:
+            params = {"access_token": token.token, "fields": ["id", "username"]}
+            resp = sess.get(self.profile_url, params=params)
+            resp.raise_for_status()
+            extra_data = resp.json()
         return self.get_provider().sociallogin_from_response(request, extra_data)
 
 

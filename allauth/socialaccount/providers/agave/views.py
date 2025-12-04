@@ -18,21 +18,13 @@ class AgaveAdapter(OAuth2Adapter):
     profile_url = f"{provider_base_url}/profiles/v2/me"
 
     def complete_login(self, request, app, token, response):
-        extra_data = (
-            get_adapter()
-            .get_requests_session()
-            .get(
+        with get_adapter().get_requests_session() as sess:
+            extra_data = sess.get(
                 self.profile_url,
                 params={"access_token": token.token},
-                headers={
-                    "Authorization": f"Bearer {token.token}",
-                },
+                headers={"Authorization": f"Bearer {token.token}"},
             )
-        )
-
-        user_profile = (
-            extra_data.json()["result"] if "result" in extra_data.json() else {}
-        )
+            user_profile = extra_data.json().get("result", {})
 
         return self.get_provider().sociallogin_from_response(request, user_profile)
 

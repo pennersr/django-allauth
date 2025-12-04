@@ -19,13 +19,11 @@ class LemonLDAPOAuth2Adapter(OAuth2Adapter):
     profile_url = f"{provider_base_url}/oauth2/userinfo"
 
     def complete_login(self, request, app, token: SocialToken, **kwargs):
-        response = (
-            get_adapter()
-            .get_requests_session()
-            .post(self.profile_url, headers={"Authorization": f"Bearer {token.token}"})
-        )
-        response.raise_for_status()
-        extra_data = response.json()
+        headers = {"Authorization": f"Bearer {token.token}"}
+        with get_adapter().get_requests_session() as sess:
+            response = sess.post(self.profile_url, headers=headers)
+            response.raise_for_status()
+            extra_data = response.json()
         extra_data["id"] = extra_data["sub"]
         del extra_data["sub"]
 

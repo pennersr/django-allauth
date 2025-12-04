@@ -15,15 +15,10 @@ class HubicOAuth2Adapter(OAuth2Adapter):
 
     def complete_login(self, request, app, token, **kwargs):
         token_type = kwargs["response"]["token_type"]
-        resp = (
-            get_adapter()
-            .get_requests_session()
-            .get(
-                self.profile_url,
-                headers={"Authorization": f"{token_type} {token.token}"},
-            )
-        )
-        extra_data = resp.json()
+        headers = {"Authorization": f"{token_type} {token.token}"}
+        with get_adapter().get_requests_session() as sess:
+            resp = sess.get(self.profile_url, headers=headers)
+            extra_data = resp.json()
         return self.get_provider().sociallogin_from_response(request, extra_data)
 
 

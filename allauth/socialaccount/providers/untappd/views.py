@@ -17,13 +17,10 @@ class UntappdOAuth2Adapter(OAuth2Adapter):
     user_info_url = "https://api.untappd.com/v4/user/info/"
 
     def complete_login(self, request, app, token, **kwargs):
-        resp = (
-            get_adapter()
-            .get_requests_session()
-            .get(self.user_info_url, params={"access_token": token.token})
-        )
-        extra_data = resp.json()
-        # TODO: get and store the email from the user info json
+        with get_adapter().get_requests_session() as sess:
+            resp = sess.get(self.user_info_url, params={"access_token": token.token})
+            extra_data = resp.json()
+            # TODO: get and store the email from the user info json
         return self.get_provider().sociallogin_from_response(request, extra_data)
 
 

@@ -77,10 +77,8 @@ class OAuth2Client:
         if data and pkce_code_verifier:
             data["code_verifier"] = pkce_code_verifier
         # TODO: Proper exception handling
-        resp = (
-            get_adapter()
-            .get_requests_session()
-            .request(
+        with get_adapter().get_requests_session() as sess:
+            resp = sess.request(
                 self.access_token_method,
                 url,
                 params=params,
@@ -88,21 +86,19 @@ class OAuth2Client:
                 headers=self.headers,
                 auth=auth,
             )
-        )
-
-        access_token = None
-        if resp.status_code in [HTTPStatus.OK, HTTPStatus.CREATED]:
-            # Weibo sends json via 'text/plain;charset=UTF-8'
-            if (
-                resp.headers["content-type"].split(";")[0] == "application/json"
-                or resp.text[:2] == '{"'
-            ):
-                access_token = resp.json()
-            else:
-                access_token = dict(parse_qsl(resp.text))
-        if not access_token or "access_token" not in access_token:
-            raise OAuth2Error(f"Error retrieving access token: {resp.content}")
-        return access_token
+            access_token = None
+            if resp.status_code in [HTTPStatus.OK, HTTPStatus.CREATED]:
+                # Weibo sends json via 'text/plain;charset=UTF-8'
+                if (
+                    resp.headers["content-type"].split(";")[0] == "application/json"
+                    or resp.text[:2] == '{"'
+                ):
+                    access_token = resp.json()
+                else:
+                    access_token = dict(parse_qsl(resp.text))
+            if not access_token or "access_token" not in access_token:
+                raise OAuth2Error(f"Error retrieving access token: {resp.content}")
+            return access_token
 
     def _strip_empty_keys(self, params):
         """Added because the Dropbox OAuth2 flow doesn't

@@ -37,11 +37,10 @@ class VKOAuth2Adapter(OAuth2Adapter):
             "access_token": token.token,
             "client_id": app.client_id,
         }
-        resp = (
-            get_adapter().get_requests_session().post(self.profile_url, data=req_data)
-        )
-        resp.raise_for_status()
-        resp_data = resp.json()
+        with get_adapter().get_requests_session() as sess:
+            resp = sess.post(self.profile_url, data=req_data)
+            resp.raise_for_status()
+            resp_data = resp.json()
         if "error" in resp_data or "user" not in resp_data:
             raise RequestException(
                 "Could not get basic data for user being authenticated"

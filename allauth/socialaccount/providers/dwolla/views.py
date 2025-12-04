@@ -39,19 +39,15 @@ class DwollaOAuth2Adapter(OAuth2Adapter):
     authorize_url = AUTH_URL
 
     def complete_login(self, request, app, token, response, **kwargs):
-        resp = (
-            get_adapter()
-            .get_requests_session()
-            .get(
+        with get_adapter().get_requests_session() as sess:
+            resp = sess.get(
                 response["_links"]["account"]["href"],
                 headers={
                     "authorization": f"Bearer {token.token}",
                     "accept": "application/vnd.dwolla.v1.hal+json",
                 },
             )
-        )
-
-        extra_data = resp.json()
+            extra_data = resp.json()
 
         return self.get_provider().sociallogin_from_response(request, extra_data)
 

@@ -35,20 +35,17 @@ class UntappdOAuth2Client(OAuth2Client):
         settings = app_settings.PROVIDERS.get(UntappdProvider.id, {})
         headers = {"User-Agent": settings.get("USER_AGENT", "django-allauth")}
         # TODO: Proper exception handling
-        resp = (
-            get_adapter()
-            .get_requests_session()
-            .request(
+        with get_adapter().get_requests_session() as sess:
+            resp = sess.request(
                 self.access_token_method,
                 url,
                 params=params,
                 data=data,
                 headers=headers,
             )
-        )
-        access_token = None
-        if resp.status_code == HTTPStatus.OK:
-            access_token = resp.json()["response"]
-        if not access_token or "access_token" not in access_token:
-            raise OAuth2Error(f"Error retrieving access token: {resp.content}")
-        return access_token
+            access_token = None
+            if resp.status_code == HTTPStatus.OK:
+                access_token = resp.json()["response"]
+            if not access_token or "access_token" not in access_token:
+                raise OAuth2Error(f"Error retrieving access token: {resp.content}")
+            return access_token

@@ -24,16 +24,11 @@ class WeixinOAuth2Adapter(OAuth2Adapter):
 
     def complete_login(self, request, app, token, **kwargs):
         openid = kwargs.get("response", {}).get("openid")
-        resp = (
-            get_adapter()
-            .get_requests_session()
-            .get(
-                self.profile_url,
-                params={"access_token": token.token, "openid": openid},
-            )
-        )
-        resp.raise_for_status()
-        extra_data = resp.json()
+        with get_adapter().get_requests_session() as sess:
+            params = {"access_token": token.token, "openid": openid}
+            resp = sess.get(self.profile_url, params=params)
+            resp.raise_for_status()
+            extra_data = resp.json()
         nickname = extra_data.get("nickname")
         if nickname:
             extra_data["nickname"] = nickname.encode("raw_unicode_escape").decode(

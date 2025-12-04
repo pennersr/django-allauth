@@ -13,11 +13,6 @@ class WindowsLiveOAuth2Adapter(OAuth2Adapter):
     profile_url = "https://apis.live.net/v5.0/me"
 
     def complete_login(self, request, app, token, **kwargs):
-        headers = {"Authorization": f"Bearer {token.token}"}
-        resp = (
-            get_adapter().get_requests_session().get(self.profile_url, headers=headers)
-        )
-
         # example of what's returned (in python format):
         # {'first_name': 'James', 'last_name': 'Smith',
         #  'name': 'James Smith', 'locale': 'en_US', 'gender': None,
@@ -27,8 +22,11 @@ class WindowsLiveOAuth2Adapter(OAuth2Adapter):
         #  'updated_time': '2014-02-07T00:35:27+0000',
         #  'id': '83605e110af6ff98'}
 
-        resp.raise_for_status()
-        extra_data = resp.json()
+        with get_adapter().get_requests_session() as sess:
+            headers = {"Authorization": f"Bearer {token.token}"}
+            resp = sess.get(self.profile_url, headers=headers)
+            resp.raise_for_status()
+            extra_data = resp.json()
         return self.get_provider().sociallogin_from_response(request, extra_data)
 
 

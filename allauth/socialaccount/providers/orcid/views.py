@@ -28,16 +28,11 @@ class OrcidOAuth2Adapter(OAuth2Adapter):
         if self.member_api:
             params["access_token"] = token.token
 
-        resp = (
-            get_adapter()
-            .get_requests_session()
-            .get(
-                self.profile_url % kwargs["response"]["orcid"],
-                params=params,
-                headers={"accept": "application/orcid+json"},
-            )
-        )
-        extra_data = resp.json()
+        headers = {"accept": "application/orcid+json"}
+        with get_adapter().get_requests_session() as sess:
+            url = self.profile_url % kwargs["response"]["orcid"]
+            resp = sess.get(url, params=params, headers=headers)
+            extra_data = resp.json()
         return self.get_provider().sociallogin_from_response(request, extra_data)
 
 

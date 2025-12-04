@@ -52,9 +52,10 @@ def fetch_key(credential, keys_url, lookup):
     # {'alg': 'RS256', 'kid': '0ad1fec78504f447bae65bcf5afaedb65eec9e81', 'typ': 'JWT'}
     kid = header["kid"]
     alg = header["alg"]
-    response = get_adapter().get_requests_session().get(keys_url)
-    response.raise_for_status()
-    keys_data = response.json()
+    with get_adapter().get_requests_session() as sess:
+        response = sess.get(keys_url)
+        response.raise_for_status()
+        keys_data = response.json()
     key = lookup(keys_data, kid)
     if not key:
         raise OAuth2Error(f"Invalid 'kid': '{kid}'")

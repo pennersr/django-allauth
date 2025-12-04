@@ -33,9 +33,10 @@ class QuickBooksOAuth2Adapter(OAuth2Adapter):
         }
         is_sandbox = self.get_provider().get_settings().get("SANDBOX", False)
         url = self.profile_test if is_sandbox else self.profile_url
-        resp = get_adapter().get_requests_session().get(url, headers=headers)
-        resp.raise_for_status()
-        return resp.json()
+        with get_adapter().get_requests_session() as sess:
+            resp = sess.get(url, headers=headers)
+            resp.raise_for_status()
+            return resp.json()
 
 
 oauth2_login = OAuth2LoginView.adapter_view(QuickBooksOAuth2Adapter)

@@ -18,13 +18,11 @@ class MediaWikiOAuth2Adapter(OAuth2Adapter):
     headers = {"User-Agent": settings.get("USER_AGENT", "django-allauth")}
 
     def complete_login(self, request, app, token, **kwargs):
-        headers = {"Authorization": f"Bearer {token.token}"}
-        headers.update(self.headers)
-        resp = (
-            get_adapter().get_requests_session().get(self.profile_url, headers=headers)
-        )
-        resp.raise_for_status()
-        extra_data = resp.json()
+        headers = {"Authorization": f"Bearer {token.token}", **self.headers}
+        with get_adapter().get_requests_session() as sess:
+            resp = sess.get(self.profile_url, headers=headers)
+            resp.raise_for_status()
+            extra_data = resp.json()
         return self.get_provider().sociallogin_from_response(request, extra_data)
 
 

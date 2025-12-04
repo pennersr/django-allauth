@@ -131,15 +131,10 @@ class BattleNetOAuth2Adapter(OAuth2Adapter):
         return f"{self.battlenet_base_url}/userinfo"
 
     def complete_login(self, request, app, token, **kwargs):
-        response = (
-            get_adapter()
-            .get_requests_session()
-            .get(
-                self.profile_url,
-                headers={"authorization": f"Bearer {token.token}"},
-            )
-        )
-        data = _check_errors(response)
+        headers = {"authorization": f"Bearer {token.token}"}
+        with get_adapter().get_requests_session() as sess:
+            response = sess.get(self.profile_url, headers=headers)
+            data = _check_errors(response)
 
         # Add the region to the data so that we can have it in `extra_data`.
         data["region"] = self.battlenet_region

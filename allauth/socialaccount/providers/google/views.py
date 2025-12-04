@@ -104,17 +104,12 @@ class GoogleOAuth2Adapter(OAuth2Adapter):
         return _verify_and_decode(app, id_token, verify_signature=verify_signature)
 
     def _fetch_user_info(self, access_token):
-        resp = (
-            get_adapter()
-            .get_requests_session()
-            .get(
-                self.identity_url,
-                headers={"Authorization": f"Bearer {access_token}"},
-            )
-        )
-        if not resp.ok:
-            raise OAuth2Error("Request to user info failed")
-        return resp.json()
+        headers = {"Authorization": f"Bearer {access_token}"}
+        with get_adapter().get_requests_session() as sess:
+            resp = sess.get(self.identity_url, headers=headers)
+            if not resp.ok:
+                raise OAuth2Error("Request to user info failed")
+            return resp.json()
 
 
 oauth2_login = OAuth2LoginView.adapter_view(GoogleOAuth2Adapter)

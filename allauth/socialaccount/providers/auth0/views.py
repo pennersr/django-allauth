@@ -18,12 +18,9 @@ class Auth0OAuth2Adapter(OAuth2Adapter):
     profile_url = f"{provider_base_url}/userinfo"
 
     def complete_login(self, request, app, token, response):
-        extra_data = (
-            get_adapter()
-            .get_requests_session()
-            .get(self.profile_url, params={"access_token": token.token})
-            .json()
-        )
+        with get_adapter().get_requests_session() as sess:
+            resp = sess.get(self.profile_url, params={"access_token": token.token})
+            extra_data = resp.json()
         return self.get_provider().sociallogin_from_response(request, extra_data)
 
 

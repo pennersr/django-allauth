@@ -69,11 +69,10 @@ class AppleOAuth2Client(OAuth2Client):
         if pkce_code_verifier:
             data["code_verifier"] = pkce_code_verifier
         self._strip_empty_keys(data)
-        resp = (
-            get_adapter()
-            .get_requests_session()
-            .request(self.access_token_method, url, data=data, headers=self.headers)
-        )
+        with get_adapter().get_requests_session() as sess:
+            resp = sess.request(
+                self.access_token_method, url, data=data, headers=self.headers
+            )
         access_token = None
         if resp.status_code in [HTTPStatus.OK, HTTPStatus.CREATED]:
             try:

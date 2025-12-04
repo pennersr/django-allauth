@@ -14,21 +14,15 @@ class DisqusOAuth2Adapter(OAuth2Adapter):
     scope_delimiter = ","
 
     def complete_login(self, request, app, token, **kwargs):
-        resp = (
-            get_adapter()
-            .get_requests_session()
-            .get(
-                self.profile_url,
-                params={
-                    "access_token": token.token,
-                    "api_key": app.client_id,
-                    "api_secret": app.secret,
-                },
-            )
-        )
-        resp.raise_for_status()
-
-        extra_data = resp.json().get("response")
+        with get_adapter().get_requests_session() as sess:
+            params = {
+                "access_token": token.token,
+                "api_key": app.client_id,
+                "api_secret": app.secret,
+            }
+            resp = sess.get(self.profile_url, params=params)
+            resp.raise_for_status()
+            extra_data = resp.json().get("response")
 
         login = self.get_provider().sociallogin_from_response(request, extra_data)
         return login

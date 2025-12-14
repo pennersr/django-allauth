@@ -36,14 +36,15 @@ class SocialAppAdmin(admin.ModelAdmin):
 
 
 class SocialAccountAdmin(admin.ModelAdmin):
-    search_fields = []
+    search_fields = ["uid"]
     raw_id_fields = ("user",)
     list_display = ("user", "uid", "provider")
     list_filter = ("provider",)
 
     def get_search_fields(self, request):
-        base_fields = get_adapter().get_user_search_fields()
-        return list(map(lambda a: f"user__{a}", base_fields))
+        search_fields = super().get_search_fields(request)
+        user_search_fields = get_adapter().get_user_search_fields()
+        return search_fields + list(map(lambda a: f"user__{a}", user_search_fields))
 
 
 class SocialTokenAdmin(admin.ModelAdmin):

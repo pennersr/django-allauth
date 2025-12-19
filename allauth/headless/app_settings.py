@@ -59,7 +59,7 @@ class AppSettings:
 
     @property
     def JWT_AUTHORIZATION_HEADER_SCHEME(self) -> str:
-        return "Bearer"
+        return self._setting("JWT_AUTHORIZATION_HEADER_SCHEME", "Bearer")
 
     @property
     def JWT_STATEFUL_VALIDATION_ENABLED(self) -> bool:

@@ -20,7 +20,7 @@ from allauth.socialaccount.providers.saml.utils import build_saml_config
 @pytest.mark.parametrize(
     "idp_initiated,adv_settings,state_kwargs,relay_state, expected_url",
     [
-        (False, {}, {}, "/not/here", settings.LOGIN_REDIRECT_URL),
+        (False, {"strict": True}, {}, "/not/here", settings.LOGIN_REDIRECT_URL),
         (False, {}, {"next": "/here"}, "/not/here", "/here"),
         (
             False,

@@ -46,30 +46,28 @@ def saml_settings(settings):
 @pytest.fixture
 def acs_saml_response_factory():
     def factory(in_response_to=None):
-        xml = f"""<samlp:Response xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="123"  InResponseTo="{in_response_to or ''}"  Version="2.0" IssueInstant="2023-07-08T08:24:14.141Z"  Destination="https://allauth.org/accounts/org/acs/">
-  <saml:Issuer xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">urn:dev-123.us.auth0.com
-  </saml:Issuer>
+        xml = f"""<samlp:Response xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="id123"  InResponseTo="{in_response_to or ''}"  Version="2.0" IssueInstant="2023-07-08T08:24:14.141Z"  Destination="http://example.com/accounts/saml/org/acs/">
+  <saml:Issuer xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">urn:dev-123.us.auth0.com</saml:Issuer>
   <samlp:Status>
     <samlp:StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:Success"/>
   </samlp:Status>
-  <saml:Assertion xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" Version="2.0" ID="123" IssueInstant="2023-07-08T08:24:14.094Z">
-    <saml:Issuer>urn:dev-123.us.auth0.com
-    </saml:Issuer>
+  <saml:Assertion xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" Version="2.0" ID="id321" IssueInstant="2023-07-08T08:24:14.094Z">
+    <saml:Issuer>urn:dev-123.us.auth0.com</saml:Issuer>
     <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
       <SignedInfo>
         <CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
         <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/>
-        <Reference URI="#123">
+        <Reference URI="#id321">
           <Transforms>
             <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
             <Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
           </Transforms>
           <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
-          <DigestValue>123
+          <DigestValue>A321
           </DigestValue>
         </Reference>
       </SignedInfo>
-      <SignatureValue>If7dFg...
+      <SignatureValue>MTIz
       </SignatureValue>
       <KeyInfo>
         <X509Data>
@@ -82,13 +80,12 @@ def acs_saml_response_factory():
       <saml:NameID Format="urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified">google-oauth2|108204123456789
       </saml:NameID>
       <saml:SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer">
-        <saml:SubjectConfirmationData NotOnOrAfter="2023-07-08T09:24:14.094Z" Recipient="https://allauth.org/accounts/org/acs/" InResponseTo="ONELOGIN_f293b01d18bb0ac85a611b35e0c898af582bcfdd"/>
+        <saml:SubjectConfirmationData NotOnOrAfter="2123-07-08T09:24:14.094Z" Recipient="http://example.com/accounts/saml/org/acs/" InResponseTo="id321"/>
       </saml:SubjectConfirmation>
     </saml:Subject>
-    <saml:Conditions NotBefore="2023-07-08T08:24:14.094Z" NotOnOrAfter="2023-07-08T09:24:14.094Z">
+    <saml:Conditions NotBefore="2023-07-08T08:24:14.094Z" NotOnOrAfter="2123-07-08T09:24:14.094Z">
       <saml:AudienceRestriction>
-        <saml:Audience>https://allauth.org/accounts/org/metadata/
-        </saml:Audience>
+        <saml:Audience>http://example.com/accounts/saml/org/metadata/</saml:Audience>
       </saml:AudienceRestriction>
     </saml:Conditions>
     <saml:AuthnStatement AuthnInstant="2023-07-08T08:24:14.094Z" SessionIndex="_qPrYdL0O8w3vdb8eCEY5ZtHe76LA8-JU">

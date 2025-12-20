@@ -324,7 +324,7 @@ def user_with_passkey(user, passkey):
 @pytest.fixture
 def sociallogin_setup_state():
     def setup(client, process=None, next_url=None, **kwargs):
-        state_id = "123"
+        state_id = "id321"
         session = client.session
         state = {"process": process or AuthProcess.LOGIN, **kwargs}
         if next_url:

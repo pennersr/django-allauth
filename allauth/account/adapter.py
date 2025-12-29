@@ -25,7 +25,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import FieldDoesNotExist, PermissionDenied
 from django.core.mail import EmailMessage, EmailMultiAlternatives
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
-from django.http.request import validate_host
+from django.http.request import split_domain_port, validate_host
 from django.shortcuts import resolve_url
 from django.template import TemplateDoesNotExist
 from django.template.loader import render_to_string
@@ -787,6 +787,13 @@ class DefaultAccountAdapter(BaseAdapter):
 
         # Try to parse the value as an IP address to make sure it's a valid one.
         try:
+            domain, port = split_domain_port(ip_value)
+            if port and domain:
+                ip_value = domain
+                # If Django splits off the port of an IPv6 address, the domain
+                # has brackets.
+                if ip_value[0] == "[" and ip_value[-1] == "]":
+                    ip_value = ip_value[1:-1]
             ip_addr = ipaddress.ip_address(ip_value)
         except ValueError:
             raise PermissionDenied(f"Invalid IP address: {ip_value!r}")

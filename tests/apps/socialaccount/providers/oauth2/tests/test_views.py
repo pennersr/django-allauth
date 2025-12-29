@@ -1,3 +1,5 @@
+import copy
+
 from django.urls import reverse
 
 import pytest
@@ -42,6 +44,7 @@ def test_samesite_strict(
 def test_config_from_app_settings(
     google_provider_settings, rf, db, settings, pkce_enabled
 ):
+    settings.SOCIALACCOUNT_PROVIDERS = copy.deepcopy(settings.SOCIALACCOUNT_PROVIDERS)
     settings.SOCIALACCOUNT_PROVIDERS["google"]["APPS"][0]["settings"] = {
         "scope": ["this", "that"],
         "auth_params": {"x": "y"},
@@ -59,6 +62,7 @@ def test_config_from_app_settings(
 def test_config_from_provider_config(
     google_provider_settings, rf, db, settings, pkce_enabled
 ):
+    settings.SOCIALACCOUNT_PROVIDERS = copy.deepcopy(settings.SOCIALACCOUNT_PROVIDERS)
     settings.SOCIALACCOUNT_PROVIDERS["google"]["SCOPE"] = ["some-scope"]
     settings.SOCIALACCOUNT_PROVIDERS["google"]["AUTH_PARAMS"] = {"auth": "param"}
     settings.SOCIALACCOUNT_PROVIDERS["google"]["OAUTH_PKCE_ENABLED"] = pkce_enabled

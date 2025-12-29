@@ -23,7 +23,7 @@ jobs:
     container:
       image: python:${{ matrix.python-version }}-${{ matrix.debian-version }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Install dependencies
         run: |
           apt-get update
@@ -44,7 +44,7 @@ jobs:
     container:
       image: python:3.14-trixie
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Install nox
         run: pip install nox
       - name: Build docs
@@ -59,7 +59,7 @@ jobs:
     container:
       image: python:3.14-trixie
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Install nox
         run: pip install nox
       - name: Run linter
@@ -74,7 +74,7 @@ jobs:
     container:
       image: node:22-trixie
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Install standardjs dependencies
         run: make ci-install-standardjs
       - name: Run standardjs

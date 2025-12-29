@@ -16,8 +16,8 @@ Note worthy changes
 - IdP: added support for pointing to a custom userinfo endpoint (see
   ``IDP_OIDC_USERINFO_ENDPOINT``)
 
-- For OpenID Connect providers, you can now configure the field to be used as the
-  account ID to be used by setting ``"uid_field"`` in the relevant
+- For OpenID Connect providers, you can now configure the field to be used as
+  the account ID by setting ``"uid_field"`` in the relevant
   ``SocialApp.settings``.
 
 
@@ -27,7 +27,7 @@ Fixes
 - IdP: Access tokens without a user attached (client credentials) were no longer
   recognized in DRF/Ninja endpoints.
 
-- `requests` sessions are now disposed of after use to avoid resource leaks.
+- ``requests`` sessions are now disposed of after use to avoid resource leaks.
 
 
 65.13.1 (2025-11-20)

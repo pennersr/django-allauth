@@ -230,3 +230,37 @@ def test_access_token_query_counts(
     with django_assert_num_queries(query_count):
         resp = Client(HTTP_AUTHORIZATION=f"Bearer {access_token}").get(url)
         assert resp.status_code == (HTTPStatus.OK)
+
+
+@pytest.mark.parametrize("settings_scheme", ["Bearer", "Token", "JWT"])
+@pytest.mark.parametrize("request_scheme", ["Bearer", "Token", "JWT"])
+def test_custom_authorization_header_scheme(
+    headless_client,
+    headless_reverse,
+    client,
+    settings,
+    obtain_tokens,
+    settings_scheme,
+    request_scheme,
+):
+    """Test that JWT_AUTHORIZATION_HEADER_SCHEME setting is respected."""
+    if headless_client == "browser":
+        return
+
+    # Set authorization header scheme in settings
+    settings.HEADLESS_JWT_AUTHORIZATION_HEADER_SCHEME = settings_scheme
+    settings.HEADLESS_TOKEN_STRATEGY = (
+        "allauth.headless.tokens.strategies.jwt.JWTTokenStrategy"
+    )
+
+    access_token, _ = obtain_tokens(client)
+
+    # Make request with the specified scheme
+    at_client = Client(HTTP_AUTHORIZATION=f"{request_scheme} {access_token}")
+    resp = at_client.get(headless_reverse("headless:account:current_session"))
+
+    # Should succeed only when request scheme matches settings scheme
+    if settings_scheme == request_scheme:
+        assert resp.status_code == HTTPStatus.OK
+    else:
+        assert resp.status_code == HTTPStatus.UNAUTHORIZED

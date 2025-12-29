@@ -1,3 +1,4 @@
+import sys
 from http import HTTPStatus
 
 from django.core.exceptions import PermissionDenied
@@ -44,10 +45,17 @@ def test_adapter_pre_login(settings, user, user_password, client):
         ("2001:db8::1:0", "2001:db8::1:0"),
         ("[2001:db8::1:0]:12345", "2001:db8::1:0"),
         ("::abc:7:def", "::abc:7:def"),
-        ("fe80::1234%1", "fe80::1234%1"),
         ("::1", "::1"),
         ("[::1]:12345", "::1"),
-    ],
+    ]
+    + (
+        [
+            # not supported by ipaddress py3.8
+            ("fe80::1234%1", "fe80::1234%1"),
+        ]
+        if sys.version_info >= (3, 9)
+        else []
+    ),
 )
 def test_get_client_ip_vs_x_forwarded_for(rf, x_forwarded_for, expected_ip):
     request = rf.get("/", HTTP_X_FORWARDED_FOR=x_forwarded_for)

@@ -1478,7 +1478,7 @@ paths:
   # Tokens
   ######################################################################
   /_allauth/app/v1/tokens/refresh:
-    get:
+    post:
       tags:
         - "Tokens"
       summary: |

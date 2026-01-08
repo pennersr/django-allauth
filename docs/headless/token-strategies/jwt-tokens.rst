@@ -42,8 +42,16 @@ Configuration
 
 Available settings:
 
+``HEADLESS_JWT_ALGORITHM`` (default: ``"RS256"``)
+  The algorithm used to sign the tokens. For asymmetric algorithms (e.g. ``"RS256"``),
+  the ``HEADLESS_JWT_PRIVATE_KEY`` is used as the RSA private key. For symmetric
+  algorithms (e.g. ``"HS256"``), ``HEADLESS_JWT_PRIVATE_KEY`` is used as the
+  secret. In case a symmetric algorithm is used and the private key is not
+  configured, ``settings.SECRET_KEY`` is used as a fallback.
+
 ``HEADLESS_JWT_PRIVATE_KEY`` (default: ``""``)
-  The private key used to sign the JWT tokens. It can be generated using the following command::
+  The private key (or secret) used to sign the JWT tokens. For asymmetric
+  algorithms, it can be generated using the following command::
 
     openssl genpkey -algorithm RSA -out private_key.pem -pkeyopt rsa_keygen_bits:2048
 

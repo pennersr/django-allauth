@@ -4,6 +4,7 @@ import hashlib
 import secrets
 import time
 import uuid
+from dataclasses import dataclass
 from typing import Any, Dict, Optional, Tuple
 
 from django.conf import settings
@@ -19,6 +20,14 @@ from allauth.core.internal import jwkkit
 from allauth.core.internal.sessionkit import get_session_user
 from allauth.headless import app_settings
 from allauth.headless.internal.sessionkit import lookup_session
+
+
+@dataclass
+class JWTConfig:
+    signing_key: Any
+    verifying_key: Any
+    algorithm: str
+    jwk_dict: Optional[Dict[str, Any]] = None
 
 
 def validate_access_token(token: str) -> Optional[Tuple[Any, Dict[str, Any]]]:
@@ -119,13 +128,42 @@ def get_token_session(payload: Dict[str, Any]) -> Optional[SessionBase]:
     return session
 
 
+def _get_jwt_config() -> JWTConfig:
+    algorithm = app_settings.JWT_ALGORITHM
+    jwk_dict = None
+    if algorithm.startswith("HS"):
+        key = app_settings.JWT_PRIVATE_KEY or settings.SECRET_KEY
+        signing_key = key
+        verifying_key = key
+    elif algorithm.startswith("RS"):
+        jwk_dict, signing_key = jwkkit.load_jwk_from_pem(app_settings.JWT_PRIVATE_KEY)
+        verifying_key = signing_key.public_key()
+    else:
+        raise ValueError(f"Unsupported JWT algorithm: {algorithm}")
+    return JWTConfig(
+        signing_key=signing_key,
+        verifying_key=verifying_key,
+        algorithm=algorithm,
+        jwk_dict=jwk_dict,
+    )
+
+
+def get_jwt_headers(config: JWTConfig) -> Dict[str, Any]:
+    headers = {}
+    if config.jwk_dict:
+        kid = config.jwk_dict.get("kid")
+        if kid:
+            headers["kid"] = kid
+    return headers
+
+
 def decode_token(token: str, use: str) -> Optional[Dict[str, Any]]:
+    config = _get_jwt_config()
     try:
-        jwk_dict, private_key = jwkkit.load_jwk_from_pem(app_settings.JWT_PRIVATE_KEY)
         payload = jwt.decode(
             token,
-            key=private_key.public_key(),
-            algorithms=["RS256"],
+            key=config.verifying_key,
+            algorithms=[config.algorithm],
             options={
                 "verify_signature": True,
                 "verify_iss": False,
@@ -153,7 +191,7 @@ def create_token(
     claims: Optional[Dict[str, Any]] = None,
     expires_in: int,
 ) -> Tuple[str, Dict[str, Any]]:
-    jwk_dict, private_key = jwkkit.load_jwk_from_pem(app_settings.JWT_PRIVATE_KEY)
+    config = _get_jwt_config()
     now = int(time.time())
     payload = {}
     if claims is not None:
@@ -168,12 +206,13 @@ def create_token(
             "sub": sub,
         }
     )
+    headers = get_jwt_headers(config)
     return (
         jwt.encode(
             payload,
-            private_key,
-            algorithm="RS256",
-            headers={"kid": jwk_dict["kid"]},
+            config.signing_key,
+            algorithm=config.algorithm,
+            headers=headers,
         ),
         payload,
     )

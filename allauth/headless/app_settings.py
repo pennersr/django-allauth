@@ -46,6 +46,10 @@ class AppSettings:
         return self._setting("FRONTEND_URLS", {})
 
     @property
+    def JWT_ALGORITHM(self) -> str:
+        return self._setting("JWT_ALGORITHM", "RS256")
+
+    @property
     def JWT_PRIVATE_KEY(self) -> str:
         return self._setting("JWT_PRIVATE_KEY", "")
 

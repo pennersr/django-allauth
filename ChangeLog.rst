@@ -20,6 +20,8 @@ Note worthy changes
   the account ID by setting ``"uid_field"`` in the relevant
   ``SocialApp.settings``.
 
+- Headless: the JWT algorithm is now configurable, supporting HS256.
+
 
 Fixes
 -----

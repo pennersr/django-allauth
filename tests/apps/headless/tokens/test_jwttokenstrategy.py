@@ -264,3 +264,66 @@ def test_custom_authorization_header_scheme(
         assert resp.status_code == HTTPStatus.OK
     else:
         assert resp.status_code == HTTPStatus.UNAUTHORIZED
+
+
+def test_hs256_algorithm(
+    headless_client,
+    headless_reverse,
+    client,
+    settings,
+    user,
+    obtain_tokens,
+):
+    if headless_client == "browser":
+        return
+    settings.HEADLESS_JWT_ALGORITHM = "HS256"
+    settings.HEADLESS_JWT_PRIVATE_KEY = "super-secret"
+    settings.HEADLESS_TOKEN_STRATEGY = (
+        "allauth.headless.tokens.strategies.jwt.JWTTokenStrategy"
+    )
+
+    access_token, _ = obtain_tokens(client)
+
+    header = jwt.get_unverified_header(access_token)
+    assert header["alg"] == "HS256"
+    assert "kid" not in header
+
+    payload = jwt.decode(
+        access_token,
+        key="super-secret",
+        algorithms=["HS256"],
+        options={"verify_signature": True, "verify_iss": False, "verify_aud": False},
+    )
+    assert payload["sub"] == str(user.pk)
+
+    at_client = Client(HTTP_AUTHORIZATION=f"Bearer {access_token}")
+    resp = at_client.get(headless_reverse("headless:account:current_session"))
+    assert resp.status_code == HTTPStatus.OK
+
+
+def test_hs256_fallback_to_secret_key(
+    headless_client,
+    headless_reverse,
+    client,
+    settings,
+    user,
+    obtain_tokens,
+):
+    if headless_client == "browser":
+        return
+    settings.HEADLESS_JWT_ALGORITHM = "HS256"
+    settings.HEADLESS_JWT_PRIVATE_KEY = ""  # Empty
+    settings.SECRET_KEY = "django-secret-fallback"
+    settings.HEADLESS_TOKEN_STRATEGY = (
+        "allauth.headless.tokens.strategies.jwt.JWTTokenStrategy"
+    )
+
+    access_token, _ = obtain_tokens(client)
+
+    payload = jwt.decode(
+        access_token,
+        key="django-secret-fallback",
+        algorithms=["HS256"],
+        options={"verify_signature": True, "verify_iss": False, "verify_aud": False},
+    )
+    assert payload["sub"] == str(user.pk)

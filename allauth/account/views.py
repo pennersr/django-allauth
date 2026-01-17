@@ -918,7 +918,7 @@ class ConfirmEmailVerificationCodeView(NextRedirectMixin, FormView):
         return self._get_verify_form_class()
 
     def _get_change_form_class(self):
-        return ChangeEmailForm
+        return get_form_class(app_settings.FORMS, "change_email", ChangeEmailForm)
 
     def _get_verify_form_class(self):
         return get_form_class(

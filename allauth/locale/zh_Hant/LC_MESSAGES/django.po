@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-25 13:23-0500\n"
-"PO-Revision-Date: 2025-07-25 20:27+0200\n"
-"Last-Translator: \"Xaver Y.R. Chen\" <yrchen@atcity.org>\n"
+"PO-Revision-Date: 2025-11-21 12:51+0000\n"
+"Last-Translator: Jeff Ma <jma30056@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
 "projects/allauth/django-allauth/zh_Hant/>\n"
 "Language: zh_Hant\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.12.1\n"
+"X-Generator: Weblate 5.15-dev\n"
 
 #: account/adapter.py:53
 msgid "This account is currently inactive."
@@ -127,16 +127,14 @@ msgid "Use a security key"
 msgstr "使用安全金鑰"
 
 #: account/admin.py:30
-#, fuzzy, python-brace-format
-#| msgid "Mark selected email addresses as verified"
+#, python-brace-format
 msgid "Marked {email} as verified."
-msgstr "標記已選取的電子郵件地址為已驗證"
+msgstr "已將 {email} 標記為已驗證。"
 
 #: account/admin.py:36
-#, fuzzy, python-brace-format
-#| msgid "Your primary email address must be verified."
+#, python-brace-format
 msgid "Failed to mark {email} as verified."
-msgstr "您必須驗證您的主要電子郵件地址。"
+msgstr "您的主要電子郵件地址{email}未標示造成驗証錯誤"
 
 #: account/admin.py:42
 msgid "Mark selected email addresses as verified"
@@ -294,51 +292,43 @@ msgstr "無頭"
 
 #: idp/oidc/adapter.py:30
 msgid "View your user ID"
-msgstr ""
+msgstr "査看你使用者辨識碼"
 
 #: idp/oidc/adapter.py:31
-#, fuzzy
-#| msgid "Verify Your Email Address"
 msgid "View your email address"
-msgstr "驗證您的電子郵件地址"
+msgstr "查看您的電子郵件地址"
 
 #: idp/oidc/adapter.py:32
 msgid "View your basic profile information"
-msgstr ""
+msgstr "査看你基本個人資料"
 
 #: idp/oidc/forms.py:26
-#, fuzzy
-#| msgid "User Sessions"
 msgid "Grant permissions"
-msgstr "使用者會話"
+msgstr "使用者賦予許可"
 
 #: idp/oidc/models.py:37
-#, fuzzy
-#| msgid "Authenticator code"
 msgid "Authorization code"
-msgstr "驗證器代碼"
+msgstr "驗證代碼"
 
 #: idp/oidc/models.py:38
-#, fuzzy
-#| msgid "Recovery codes"
 msgid "Device code"
-msgstr "恢復代碼"
+msgstr "元件代碼"
 
 #: idp/oidc/models.py:39
 msgid "Client credentials"
-msgstr ""
+msgstr "客户信用評等"
 
 #: idp/oidc/models.py:40
 msgid "Refresh token"
-msgstr ""
+msgstr "重置籌碼"
 
 #: idp/oidc/models.py:43
 msgid "Confidential"
-msgstr ""
+msgstr "保密"
 
 #: idp/oidc/models.py:44
 msgid "Public"
-msgstr ""
+msgstr "公眾"
 
 #: idp/oidc/models.py:58
 msgid ""

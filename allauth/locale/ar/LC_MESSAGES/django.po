@@ -8,17 +8,17 @@ msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-25 13:23-0500\n"
-"PO-Revision-Date: 2025-07-25 20:23+0200\n"
-"Last-Translator: Usama Khalil <usamafoad@gmail.com>\n"
-"Language-Team: Arabic <https://hosted.weblate.org/projects/allauth/django-"
-"allauth/ar/>\n"
+"PO-Revision-Date: 2025-11-28 05:00+0000\n"
+"Last-Translator: Mohammed “Medait” AIT ALI <medait.31@gmail.com>\n"
+"Language-Team: Arabic <https://hosted.weblate.org/projects/allauth/"
+"django-allauth/ar/>\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Weblate 5.12-dev\n"
+"X-Generator: Weblate 5.15-dev\n"
 
 #: account/adapter.py:53
 msgid "This account is currently inactive."
@@ -128,10 +128,9 @@ msgid "Use a security key"
 msgstr "استخدم مفتاح الأمان"
 
 #: account/admin.py:30
-#, fuzzy, python-brace-format
-#| msgid "Mark selected email addresses as verified"
+#, python-brace-format
 msgid "Marked {email} as verified."
-msgstr "تحديد البريد الإلكتروني المختار بأنه تم التحقق منه"
+msgstr "تحديد {email} على أنه تم التحقق منه"
 
 #: account/admin.py:36
 #, fuzzy, python-brace-format

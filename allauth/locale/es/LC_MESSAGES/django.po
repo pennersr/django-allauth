@@ -7,16 +7,16 @@ msgstr ""
 "Project-Id-Version: 0.61.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-25 13:23-0500\n"
-"PO-Revision-Date: 2025-07-25 20:24+0200\n"
-"Last-Translator: Alex <alexcarbi@gmail.com>\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/allauth/django-"
-"allauth/es/>\n"
+"PO-Revision-Date: 2025-11-11 12:51+0000\n"
+"Last-Translator: Federico Bond <federicobond@gmail.com>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/allauth/"
+"django-allauth/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Weblate 5.11.1-dev\n"
+"X-Generator: Weblate 5.15-dev\n"
 
 #: account/adapter.py:53
 msgid "This account is currently inactive."
@@ -75,10 +75,8 @@ msgid "You cannot add more than %d email addresses."
 msgstr "No puede añadir más de %d direcciones de correo electrónico."
 
 #: account/adapter.py:74
-#, fuzzy
-#| msgid "A user is already registered with this email address."
 msgid "A user is already registered with this phone number."
-msgstr "Ya hay registrado un usuario con esta dirección de correo electrónico."
+msgstr "Ya hay registrado un usuario con este número de teléfono."
 
 #: account/adapter.py:76
 msgid "Too many failed login attempts. Try again later."
@@ -117,7 +115,7 @@ msgstr "El nuevo valor debe ser diferente del actual."
 
 #: account/adapter.py:92
 msgid "Be patient, you are sending too many requests."
-msgstr ""
+msgstr "Ten paciencia, estás enviando muchas solicitudes."
 
 #: account/adapter.py:805
 msgid "Use your password"
@@ -302,7 +300,7 @@ msgstr "Headless"
 
 #: idp/oidc/adapter.py:30
 msgid "View your user ID"
-msgstr ""
+msgstr "Ver tu ID de usuario"
 
 #: idp/oidc/adapter.py:31
 #, fuzzy
@@ -312,41 +310,35 @@ msgstr "Verifique su dirección de correo electrónico"
 
 #: idp/oidc/adapter.py:32
 msgid "View your basic profile information"
-msgstr ""
+msgstr "Ver tu información básica de perfil"
 
 #: idp/oidc/forms.py:26
-#, fuzzy
-#| msgid "User Sessions"
 msgid "Grant permissions"
-msgstr "Sesiones de usuario"
+msgstr "Otorgar permisos"
 
 #: idp/oidc/models.py:37
-#, fuzzy
-#| msgid "Authenticator code"
 msgid "Authorization code"
-msgstr "Código de del autenticador"
+msgstr "Código de autorización"
 
 #: idp/oidc/models.py:38
-#, fuzzy
-#| msgid "Recovery codes"
 msgid "Device code"
-msgstr "Códigos de recuperación"
+msgstr "Código del dispositivo"
 
 #: idp/oidc/models.py:39
 msgid "Client credentials"
-msgstr ""
+msgstr "Credenciales de cliente"
 
 #: idp/oidc/models.py:40
 msgid "Refresh token"
-msgstr ""
+msgstr "Refrescar token"
 
 #: idp/oidc/models.py:43
 msgid "Confidential"
-msgstr ""
+msgstr "Confidencial"
 
 #: idp/oidc/models.py:44
 msgid "Public"
-msgstr ""
+msgstr "Público"
 
 #: idp/oidc/models.py:58
 msgid ""
@@ -378,16 +370,12 @@ msgid ""
 msgstr ""
 
 #: idp/oidc/models.py:107
-#, fuzzy
-#| msgid "client id"
 msgid "client"
-msgstr "identificador del cliente"
+msgstr "cliente"
 
 #: idp/oidc/models.py:108
-#, fuzzy
-#| msgid "client id"
 msgid "clients"
-msgstr "identificador del cliente"
+msgstr "clientes"
 
 #: mfa/adapter.py:32
 msgid ""
@@ -440,7 +428,7 @@ msgstr "Códigos de recuperación"
 
 #: mfa/models.py:25
 msgid "TOTP Authenticator"
-msgstr "Verificador TOTP"
+msgstr "Autenticador TOTP"
 
 #: mfa/models.py:26
 msgid "WebAuthn"
@@ -448,7 +436,7 @@ msgstr "WebAuthn"
 
 #: mfa/totp/forms.py:11
 msgid "Authenticator code"
-msgstr "Código de del autenticador"
+msgstr "Código del autenticador"
 
 #: mfa/webauthn/forms.py:56
 msgid "Passwordless"
@@ -670,10 +658,8 @@ msgid "Confirm"
 msgstr "Confirmar"
 
 #: templates/account/base_confirm_code.html:43
-#, fuzzy
-#| msgid "Request Code"
 msgid "Request new code"
-msgstr "Solicite el código"
+msgstr "Solicitar nuevo código"
 
 #: templates/account/base_reauthenticate.html:5
 #: templates/account/base_reauthenticate.html:9
@@ -698,10 +684,8 @@ msgid "Enter Email Verification Code"
 msgstr "Introduce el código de verificación del correo electrónico"
 
 #: templates/account/confirm_email_verification_code.html:16
-#, fuzzy
-#| msgid "email address"
 msgid "Use a different email address"
-msgstr "dirección de correo electrónico"
+msgstr "Usar una dirección de correo electrónico diferente"
 
 #: templates/account/confirm_login_code.html:5 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
@@ -741,7 +725,7 @@ msgstr "Introduce el código de verificación del teléfono"
 
 #: templates/account/confirm_phone_verification_code.html:15
 msgid "Use a different phone number"
-msgstr ""
+msgstr "Usar un número de teléfono diferente"
 
 #: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
@@ -1150,11 +1134,9 @@ msgid "Password successfully set."
 msgstr "Contraseña establecida con éxito."
 
 #: templates/account/messages/phone_verification_sent.txt:2
-#, fuzzy, python-format
-#| msgid "A sign-in code has been sent to %(recipient)s."
+#, python-format
 msgid "A verification code has been sent to %(phone)s."
-msgstr ""
-"Se ha enviado un código de inicio de sesión por correo a %(recipient)s ."
+msgstr "Se ha enviado un código de verificación a %(phone)s ."
 
 #: templates/account/messages/phone_verified.txt:2
 #, python-format
@@ -1412,22 +1394,20 @@ msgstr "Sesiones"
 #: templates/idp/oidc/device_authorization_confirmed.html:5
 #: templates/idp/oidc/device_authorization_denied.html:5
 msgid "Authorize"
-msgstr ""
+msgstr "Autorizar"
 
 #: templates/idp/oidc/authorization_form.html:12
 #, python-format
 msgid "%(client_name)s wants to access your %(site_name)s account."
-msgstr ""
+msgstr "%(client_name)s quiere acceder a tu cuenta de %(site_name)s."
 
 #: templates/idp/oidc/device_authorization_code_form.html:9
-#, fuzzy
-#| msgid "Enter Sign-In Code"
 msgid "Enter Device Code"
-msgstr "Ingrese el código de inicio de sesión"
+msgstr "Ingrese el código del dispositivo"
 
 #: templates/idp/oidc/device_authorization_code_form.html:12
 msgid "Enter the code displayed on your device."
-msgstr ""
+msgstr "Ingrese el código que se muestra en su dispositivo."
 
 #: templates/idp/oidc/device_authorization_code_form.html:21
 #: templates/socialaccount/login.html:27
@@ -1436,10 +1416,8 @@ msgid "Continue"
 msgstr "Continuar"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:9
-#, fuzzy
-#| msgid "Confirm Access"
 msgid "Confirm Device"
-msgstr "Confirmar acceso"
+msgstr "Confirmar dispositivo"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:12
 #, python-format
@@ -1447,32 +1425,34 @@ msgid ""
 "Please confirm the code shown on your %(client_name)s to authorize this "
 "device."
 msgstr ""
+"Por favor confirme el código que se muestra en su %(client_name)s para "
+"autorizar este dispositivo."
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:29
 msgid "Deny"
-msgstr ""
+msgstr "Rechazar"
 
 #: templates/idp/oidc/device_authorization_confirmed.html:9
 msgid "Device Authorized"
-msgstr ""
+msgstr "Dispositivo autorizado"
 
 #: templates/idp/oidc/device_authorization_confirmed.html:12
 #, python-format
 msgid "You successfully authorized your %(client_name)s device."
-msgstr ""
+msgstr "Has autorizado satisfactoriamente tu dispositivo %(client_name)s."
 
 #: templates/idp/oidc/device_authorization_denied.html:9
 msgid "Device Denied"
-msgstr ""
+msgstr "Dispositivo rechazado"
 
 #: templates/idp/oidc/device_authorization_denied.html:12
 #, python-format
 msgid "Authorization for your %(client_name)s device has been denied."
-msgstr ""
+msgstr "La autorización para tu dispositivo %(client_name)s fue rechazada."
 
 #: templates/idp/oidc/error.html:5 templates/idp/oidc/error.html:9
 msgid "Error"
-msgstr ""
+msgstr "Error"
 
 #: templates/mfa/authenticate.html:13
 msgid ""
@@ -1608,7 +1588,7 @@ msgstr "Generar"
 
 #: templates/mfa/messages/recovery_codes_generated.txt:2
 msgid "A new set of recovery codes has been generated."
-msgstr "Se ha generado un nuevo conjunto de código de recuperación."
+msgstr "Se ha generado un nuevo conjunto de códigos de recuperación."
 
 #: templates/mfa/messages/webauthn_added.txt:2
 msgid "Security key added."

@@ -111,16 +111,14 @@ class ElementNode(template.Node):
             tags = attrs.get("tags")
             if tags:
                 attrs["tags"] = [tag.strip() for tag in tags.split(",")]
-            return render_to_string(
-                template_names,
-                {
-                    "attrs": attrs,
-                    "slots": slots,
-                    "origin": self.origin.template_name.replace(
-                        f".{TEMPLATE_EXTENSION}", ""
-                    ),
-                },
-            )
+            with context.push(
+                slots=slots,
+                attrs=attrs,
+                origin=self.origin.template_name.replace(f".{TEMPLATE_EXTENSION}", ""),
+            ) as element_context:
+                return render_to_string(
+                    template_names, element_context.context.flatten()
+                )
 
 
 @register.tag(name="setvar")

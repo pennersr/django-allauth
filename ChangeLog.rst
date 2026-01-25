@@ -4,7 +4,9 @@
 Fixes
 -----
 
--...
+- When using ``ACCOUNT_CHANGE_EMAIL = True``, if the user initiating the change
+  email process had no verified email address, ``user.email`` would still
+  reflect the old email address while the verification process was pending.
 
 
 65.14.0 (2026-01-17)

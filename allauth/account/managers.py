@@ -42,7 +42,7 @@ class EmailAddressManager(models.Manager):
         with transaction.atomic():
             instance = self.get_new(user)
             if instance:
-                instance.delete()
+                instance.remove()
             email = email.lower()
             instance = self.create(user=user, email=email)
         if send_verification:

@@ -276,7 +276,7 @@ class AppSettings:
                 confirm_email_rl = f"1/{cooldown}s/key"
         ret = {
             # Change password view (for users already logged in)
-            "change_password": "5/m/user",
+            "change_password": "5/m/user",  # nosec
             # Change phone number
             "change_phone": "1/m/user",
             # Email management (e.g. add, remove, change primary)

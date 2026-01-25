@@ -11,11 +11,11 @@ from allauth.socialaccount.providers.oauth2.views import (
 ENVIRONMENTS = {
     "production": {
         "auth_url": "https://www.dwolla.com/oauth/v2/authenticate",
-        "token_url": "https://www.dwolla.com/oauth/v2/token",
+        "token_url": "https://www.dwolla.com/oauth/v2/token",  # nosec
     },
     "sandbox": {
         "auth_url": "https://uat.dwolla.com/oauth/v2/authenticate",
-        "token_url": "https://uat.dwolla.com/oauth/v2/token",
+        "token_url": "https://uat.dwolla.com/oauth/v2/token",  # nosec
     },
 }
 

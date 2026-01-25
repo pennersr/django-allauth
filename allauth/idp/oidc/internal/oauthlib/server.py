@@ -34,7 +34,7 @@ def generate_jwt_access_token(request) -> str:
         "iat": iat,
         "exp": iat + app_settings.ACCESS_TOKEN_EXPIRES_IN,
         "jti": uuid.uuid4().hex,
-        "token_use": "access",
+        "token_use": "access",  # nosec
     }
     # Client credentials has no user.
     if request.user is not None:

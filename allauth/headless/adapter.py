@@ -27,7 +27,7 @@ class DefaultHeadlessAdapter(BaseAdapter):
         # showing up in a UI.
         "account_not_found": "Unknown account.",
         "client_id_required": "`client_id` required.",
-        "invalid_token": "Invalid token.",
+        "invalid_token": "Invalid token.",  # nosec
         "token_authentication_not_supported": "Provider does not support token authentication.",
         "token_required": "`id_token` and/or `access_token` required.",
         "required": Field.default_error_messages["required"],

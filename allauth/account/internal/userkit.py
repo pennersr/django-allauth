@@ -56,7 +56,7 @@ def default_user_display(user) -> str:
     ret = ""
     if app_settings.USER_MODEL_USERNAME_FIELD:
         ret = getattr(user, app_settings.USER_MODEL_USERNAME_FIELD)
-    return ret or force_str(user) or user._meta.verbose_name
+    return ret or force_str(user) or force_str(user._meta.verbose_name)
 
 
 def user_display(user) -> str:

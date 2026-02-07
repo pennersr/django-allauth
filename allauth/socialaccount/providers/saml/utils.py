@@ -10,6 +10,7 @@ from onelogin.saml2.auth import OneLogin_Saml2_Auth
 from onelogin.saml2.constants import OneLogin_Saml2_Constants
 from onelogin.saml2.idp_metadata_parser import OneLogin_Saml2_IdPMetadataParser
 
+from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.models import SocialApp
 from allauth.socialaccount.providers.saml.provider import SAMLProvider
@@ -167,7 +168,8 @@ def decode_relay_state(relay_state):
     if relay_state:
         parts = urlparse(relay_state)
         if parts.scheme or parts.netloc or (parts.path and parts.path.startswith("/")):
-            next_url = relay_state
+            if get_account_adapter().is_safe_url(relay_state):
+                next_url = relay_state
     return next_url
 
 

@@ -8,6 +8,14 @@ Fixes
   email process had no verified email address, ``user.email`` would still
   reflect the old email address while the verification process was pending.
 
+Security notice
+---------------
+
+- SAML: When IdP initiated SSO was enabled (it is by default disabled), any URL
+  found in the SAML ``RelayState`` parameter would be used to redirect to,
+  potentially redirecting the authenticated user to a wrong site. Thanks to
+  Ayato Shitomi and Funabiki Keisuke for reporting.
+
 
 65.14.0 (2026-01-17)
 ********************

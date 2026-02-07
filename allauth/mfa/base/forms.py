@@ -27,6 +27,7 @@ class BaseAuthenticateForm(forms.Form):
             type=Authenticator.Type.WEBAUTHN
         ):
             if auth.wrap().validate_code(code):
+                auth.user = self.user
                 self.authenticator = auth
                 clear_rl()
                 return code

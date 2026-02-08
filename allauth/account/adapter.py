@@ -1,6 +1,5 @@
 import html
 import inspect
-import ipaddress
 import json
 import typing
 import warnings
@@ -25,7 +24,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import FieldDoesNotExist, PermissionDenied
 from django.core.mail import EmailMessage, EmailMultiAlternatives
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
-from django.http.request import split_domain_port, validate_host
+from django.http.request import validate_host
 from django.shortcuts import resolve_url
 from django.template import TemplateDoesNotExist
 from django.template.loader import render_to_string
@@ -35,7 +34,7 @@ from django.utils.crypto import get_random_string
 from django.utils.encoding import force_str
 from django.utils.translation import gettext_lazy as _
 
-from allauth import app_settings as allauth_app_settings
+from allauth import app_settings as allauth_settings
 from allauth.account import app_settings, signals
 from allauth.core import context
 from allauth.core.internal import ratelimit
@@ -43,6 +42,7 @@ from allauth.core.internal.adapter import BaseAdapter
 from allauth.core.internal.cryptokit import generate_user_code
 from allauth.core.internal.httpkit import (
     HTTP_USER_AGENT_MAX_LENGTH,
+    get_client_ip,
     headed_redirect_response,
     is_headless_request,
 )
@@ -779,26 +779,13 @@ class DefaultAccountAdapter(BaseAdapter):
         )
 
     def get_client_ip(self, request) -> str:
-        x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
-        if x_forwarded_for:
-            ip_value = x_forwarded_for.split(",")[0]
-        else:
-            ip_value = request.META["REMOTE_ADDR"]
-
-        # Try to parse the value as an IP address to make sure it's a valid one.
-        try:
-            domain, port = split_domain_port(ip_value)
-            if port and domain:
-                ip_value = domain
-                # If Django splits off the port of an IPv6 address, the domain
-                # has brackets.
-                if ip_value[0] == "[" and ip_value[-1] == "]":
-                    ip_value = ip_value[1:-1]
-            ip_addr = ipaddress.ip_address(ip_value)
-        except ValueError:
-            raise PermissionDenied(f"Invalid IP address: {ip_value!r}")
-        else:
-            return str(ip_addr)
+        """
+        Returns the IP address of the client.
+        """
+        ip = get_client_ip(request)
+        if not ip:
+            raise PermissionDenied("Unable to determine client IP address")
+        return ip
 
     def get_http_user_agent(self, request: HttpRequest) -> str:
         return request.META.get("HTTP_USER_AGENT", "Unspecified")
@@ -812,7 +799,7 @@ class DefaultAccountAdapter(BaseAdapter):
         ret.append("allauth.account.stages.LoginByCodeStage")
         ret.append("allauth.account.stages.PhoneVerificationStage")
         ret.append("allauth.account.stages.EmailVerificationStage")
-        if allauth_app_settings.MFA_ENABLED:
+        if allauth_settings.MFA_ENABLED:
             from allauth.mfa import app_settings as mfa_settings
 
             ret.append("allauth.mfa.stages.AuthenticateStage")

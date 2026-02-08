@@ -46,6 +46,26 @@ class AppSettings:
     def DEFAULT_AUTO_FIELD(self):
         return self._setting("DEFAULT_AUTO_FIELD", None)
 
+    @property
+    def TRUSTED_PROXY_COUNT(self) -> int:
+        """
+        As the ``X-Forwarded-For`` header can be spoofed, you need to
+        configure the number of proxies that are under your control and hence,
+        can be trusted. The default is 0, meaning, no proxies are trusted.  As a
+        result, the ``X-Forwarded-For`` header will be disregarded by default.
+        """
+        return self._setting("TRUSTED_PROXY_COUNT", 0)
+
+    @property
+    def TRUSTED_CLIENT_IP_HEADER(self) -> str | None:
+        """
+        If your service is running behind a trusted proxy that sets a custom header
+        containing the client IP address, specify that header name here. The client
+        IP will be extracted from this header instead of ``X-Forwarded-For``.
+        Examples: ``"CF-Connecting-IP"`` (Cloudflare), ``"X-Real-IP"`` (nginx).
+        """
+        return self._setting("TRUSTED_CLIENT_IP_HEADER", None)
+
 
 _app_settings = AppSettings("ALLAUTH_")
 

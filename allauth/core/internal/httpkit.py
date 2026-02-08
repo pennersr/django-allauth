@@ -1,3 +1,4 @@
+import ipaddress
 import json
 from typing import Optional
 from urllib.parse import parse_qs, quote, urlencode, urlparse, urlunparse
@@ -10,6 +11,7 @@ from django.http import (
     HttpResponseServerError,
     QueryDict,
 )
+from django.http.request import split_domain_port
 from django.urls import NoReverseMatch, reverse
 
 from allauth import app_settings as allauth_settings
@@ -168,3 +170,48 @@ def get_authorization_credential(
     if not parts or len(parts) != 2 or parts[0].lower() != auth_scheme.lower():
         return None
     return parts[1]
+
+
+def clean_client_ip(ip: str) -> str | None:
+    """
+    Try to parse the value as an IP address to make sure it's a valid one.
+    """
+    try:
+        domain, port = split_domain_port(ip)
+        if port and domain:
+            ip = domain
+            # If Django splits off the port of an IPv6 address, the domain
+            # has brackets.
+            if ip[0] == "[" and ip[-1] == "]":
+                ip = ip[1:-1]
+        ip = str(ipaddress.ip_address(ip))
+    except ValueError:
+        return None
+    else:
+        return ip
+
+
+def get_client_ip_from_xff(request: HttpRequest) -> str | None:
+    trusted_proxy_count = allauth_settings.TRUSTED_PROXY_COUNT
+    xff = request.headers.get("x-forwarded-for")
+    if trusted_proxy_count > 0 and xff:
+        ips = xff.split(",")
+        if len(ips) < trusted_proxy_count:
+            raise ImproperlyConfigured(
+                "ALLAUTH_TRUSTED_PROXY_COUNT does not match X-Forwarded-For"
+            )
+        ip = ips[-trusted_proxy_count]
+    else:
+        ip = None
+    return ip
+
+
+def get_client_ip(request: HttpRequest) -> str | None:
+    trusted_client_ip_header = allauth_settings.TRUSTED_CLIENT_IP_HEADER
+    if trusted_client_ip_header:
+        ip = request.headers.get(trusted_client_ip_header)
+    else:
+        ip = get_client_ip_from_xff(request)
+        if not ip:
+            ip = request.META["REMOTE_ADDR"]
+    return clean_client_ip(ip) if ip else None

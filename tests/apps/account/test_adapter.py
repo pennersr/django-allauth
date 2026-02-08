@@ -57,7 +57,8 @@ def test_adapter_pre_login(settings, user, user_password, client):
         else []
     ),
 )
-def test_get_client_ip_vs_x_forwarded_for(rf, x_forwarded_for, expected_ip):
+def test_get_client_ip_vs_x_forwarded_for(rf, x_forwarded_for, expected_ip, settings):
+    settings.ALLAUTH_TRUSTED_PROXY_COUNT = 1
     request = rf.get("/", HTTP_X_FORWARDED_FOR=x_forwarded_for)
     ip = DefaultAccountAdapter(request=request).get_client_ip(request)
     assert ip == (expected_ip if expected_ip else request.META["REMOTE_ADDR"])
@@ -84,7 +85,8 @@ def test_get_client_ip_vs_x_forwarded_for(rf, x_forwarded_for, expected_ip):
         "XwDxNk4JQhUft')) OR 18=(SELECT 18 FROM PG_SLEEP(15))--",
     ],
 )
-def test_get_client_ip_vs_invalid_x_forwarded_for(rf, x_forwarded_for):
+def test_get_client_ip_vs_invalid_x_forwarded_for(rf, x_forwarded_for, settings):
+    settings.ALLAUTH_TRUSTED_PROXY_COUNT = 1
     request = rf.get("/", HTTP_X_FORWARDED_FOR=x_forwarded_for)
     with pytest.raises(PermissionDenied):
         DefaultAccountAdapter(request=request).get_client_ip(request)

@@ -1,10 +1,17 @@
 65.14.2 (unreleased)
 ********************
 
-Fixes
------
+Security notice
+---------------
 
--...
+- Rate limiting and IP address detection: as Django applications cannot reliably
+  determine client IP addresses out of the box, you must override
+  ``get_client_ip()`` to match your deployment architecture. If you omitted to
+  do so, the default implementation trusted ``X-Forwarded-For``, which can be
+  spoofed to bypass rate limits. Now, ``X-Forwarded-For`` is distrusted by
+  default. You must either configure ``ALLAUTH_TRUSTED_PROXY_COUNT``, rely on
+  ``ALLAUTH_TRUSTED_CLIENT_IP_HEADER``, or override ``get_client_ip()``. Thanks
+  to Ayato Shitomi for reporting.
 
 
 65.14.1 (2026-02-07)

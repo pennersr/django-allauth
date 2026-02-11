@@ -1,11 +1,13 @@
+import json
 from http import HTTPStatus
 from typing import List, Optional
 
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.sites.shortcuts import get_current_site
-from django.core.exceptions import PermissionDenied
+from django.core.exceptions import PermissionDenied, ValidationError
 from django.core.signing import BadSignature, Signer
 from django.http import (
     HttpRequest,
@@ -94,7 +96,18 @@ class ConfigurationView(View):
             "response_types_supported": self._get_response_types_supported(),
             "subject_types_supported": ["public"],
             "id_token_signing_alg_values_supported": ["RS256"],
+            "code_challenge_methods_supported": ["S256"],
+            "grant_types_supported": self._get_grant_types_supported(),
+            "token_endpoint_auth_methods_supported": [
+                "none",
+                "client_secret_basic",
+                "client_secret_post",
+            ],
         }
+        if app_settings.DCR_ENABLED:
+            data["registration_endpoint"] = build_absolute_uri(
+                request, reverse("idp:oidc:client_registration")
+            )
         response = JsonResponse(data)
         response["Access-Control-Allow-Origin"] = "*"
         return response
@@ -104,6 +117,12 @@ class ConfigurationView(View):
         for client in Client.objects.only("response_types").iterator():
             response_types.update(client.get_response_types())
         return list(sorted(response_types))
+
+    def _get_grant_types_supported(self) -> List[str]:
+        grant_types = set()
+        for client in Client.objects.only("grant_types").iterator():
+            grant_types.update(client.get_grant_types())
+        return list(sorted(grant_types))
 
 
 configuration = ConfigurationView.as_view()
@@ -446,6 +465,107 @@ class RevokeView(View):
 
 
 revoke = RevokeView.as_view()
+
+
+@method_decorator(csrf_exempt, name="dispatch")
+@method_decorator(login_not_required, name="dispatch")
+class ClientRegistrationView(View):
+    """
+    OAuth 2.0 Dynamic Client Registration (RFC 7591).
+
+    Allows clients to register themselves and obtain a client_id
+    (and optionally a client_secret for confidential clients).
+    """
+
+    def post(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
+        try:
+            data = json.loads(request.body)
+        except (json.JSONDecodeError, ValueError):
+            return JsonResponse(
+                {
+                    "error": "invalid_client_metadata",
+                    "error_description": "Invalid JSON in request body.",
+                },
+                status=HTTPStatus.BAD_REQUEST,
+            )
+
+        redirect_uris = data.get("redirect_uris", [])
+        if not redirect_uris or not isinstance(redirect_uris, list):
+            return JsonResponse(
+                {
+                    "error": "invalid_redirect_uri",
+                    "error_description": "redirect_uris is required and must be a non-empty array.",
+                },
+                status=HTTPStatus.BAD_REQUEST,
+            )
+
+        adapter = get_adapter()
+        try:
+            adapter.validate_client_registration(data)
+        except ValidationError as e:
+            return JsonResponse(
+                {
+                    "error": "invalid_client_metadata",
+                    "error_description": str(e.message),
+                },
+                status=HTTPStatus.BAD_REQUEST,
+            )
+
+        client_name = data.get("client_name", "")
+        grant_types = data.get("grant_types", ["authorization_code"])
+        response_types = data.get("response_types", ["code"])
+        token_endpoint_auth_method = data.get(
+            "token_endpoint_auth_method", "none"
+        )
+
+        requested_scope = data.get("scope")
+        if isinstance(requested_scope, str):
+            scopes = requested_scope.split()
+        elif isinstance(requested_scope, (list, tuple)):
+            scopes = [str(s).strip() for s in requested_scope]
+        else:
+            scopes = []
+        scopes = scopes or ["openid"]
+
+        if token_endpoint_auth_method == "none":
+            client_type = Client.Type.PUBLIC
+        else:
+            client_type = Client.Type.CONFIDENTIAL
+
+        plaintext_secret = None
+        client_kwargs = {
+            "name": client_name,
+            "type": client_type,
+            "grant_types": "\n".join(grant_types),
+            "redirect_uris": "\n".join(redirect_uris),
+            "scopes": "\n".join(scopes),
+        }
+
+        if client_type == Client.Type.CONFIDENTIAL:
+            plaintext_secret = adapter.generate_client_secret()
+            client_kwargs["secret"] = make_password(plaintext_secret)
+
+        client = Client.objects.create(**client_kwargs)
+
+        response_data = {
+            "client_id": str(client.id),
+            "client_name": client.name,
+            "redirect_uris": redirect_uris,
+            "grant_types": grant_types,
+            "response_types": response_types,
+            "token_endpoint_auth_method": token_endpoint_auth_method,
+            "scope": " ".join(scopes),
+            "client_id_issued_at": int(client.created_at.timestamp()),
+        }
+
+        if plaintext_secret:
+            response_data["client_secret"] = plaintext_secret
+            response_data["client_secret_expires_at"] = 0
+
+        return JsonResponse(response_data, status=HTTPStatus.CREATED)
+
+
+client_registration = ClientRegistrationView.as_view()
 
 
 @method_decorator(csrf_exempt, name="dispatch")

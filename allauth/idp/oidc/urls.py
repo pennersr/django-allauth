@@ -33,6 +33,15 @@ if not app_settings.USERINFO_ENDPOINT:
         )
     )
 
+if app_settings.DCR_ENABLED:
+    _api_urlpatterns.append(
+        path(
+            "register",
+            views.client_registration,
+            name="client_registration",
+        )
+    )
+
 
 urlpatterns = [
     path(

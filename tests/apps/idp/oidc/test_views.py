@@ -192,8 +192,15 @@ def test_configuration_view(
         assert resp.status_code == HTTPStatus.OK
         assert resp.json() == {
             "authorization_endpoint": "http://testserver/identity/o/authorize",
+            "code_challenge_methods_supported": ["S256"],
             "device_authorization_endpoint": "http://testserver/identity/o/api/device/code",
             "end_session_endpoint": "http://testserver/identity/o/logout",
+            "grant_types_supported": [
+                "authorization_code",
+                "client_credentials",
+                "refresh_token",
+                "urn:ietf:params:oauth:grant-type:device_code",
+            ],
             "id_token_signing_alg_values_supported": ["RS256"],
             "issuer": "http://testserver",
             "jwks_uri": "http://testserver/.well-known/jwks.json",
@@ -201,6 +208,11 @@ def test_configuration_view(
             "revocation_endpoint": "http://testserver/identity/o/api/revoke",
             "subject_types_supported": ["public"],
             "token_endpoint": "http://testserver/identity/o/api/token",
+            "token_endpoint_auth_methods_supported": [
+                "none",
+                "client_secret_basic",
+                "client_secret_post",
+            ],
             "userinfo_endpoint": (
                 "https://remote/userinfo"
                 if custom_userinfo_endpoint

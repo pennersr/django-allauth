@@ -75,6 +75,15 @@ class AppSettings:
         return self._setting("RP_INITIATED_LOGOUT_ASKS_FOR_OP_LOGOUT", True)
 
     @property
+    def DCR_ENABLED(self) -> bool:
+        """
+        Controls whether the Dynamic Client Registration (RFC 7591) endpoint
+        is enabled. When enabled, clients can register themselves by POSTing
+        to the registration endpoint.
+        """
+        return self._setting("DCR_ENABLED", False)
+
+    @property
     def USERINFO_ENDPOINT(self) -> Optional[str]:
         """
         This setting can be used to point the ``userinfo_endpoint`` value as

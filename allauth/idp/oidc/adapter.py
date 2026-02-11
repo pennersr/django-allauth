@@ -44,6 +44,18 @@ class DefaultOIDCAdapter(BaseAdapter):
         """
         return get_random_secret_key()
 
+    def validate_client_registration(self, registration_data: dict) -> None:
+        """
+        Hook to validate or reject a Dynamic Client Registration request
+        (RFC 7591). Raise ``ValidationError`` to reject the registration.
+
+        ``registration_data`` contains the parsed JSON body of the request,
+        including keys such as ``client_name``, ``redirect_uris``,
+        ``grant_types``, ``response_types``, ``token_endpoint_auth_method``,
+        and ``scope``.
+        """
+        pass
+
     def generate_user_code(self) -> str:
         return generate_user_code(length=8)
 

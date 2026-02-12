@@ -1,0 +1,113 @@
+{% extends "allauth/layouts/base.html" %}
+{% load allauth %}
+{% block head_title %}My Todos{% endblock %}
+{% block content %}
+    <div class="container mt-5">
+        {% element h1 %}
+            My Todos
+        {% endelement %}
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">Add New Todo</h5>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" action="{% url 'todos_list' %}">
+                            {% csrf_token %}
+                            <div class="input-group">
+                                <input type="text"
+                                       class="form-control"
+                                       name="text"
+                                       placeholder="What needs to be done?"
+                                       required
+                                       maxlength="255">
+                                <button class="btn btn-primary" type="submit">Add Todo</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                {% if todos %}
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">Your Todos ({{ todos|length }})</h5>
+                            <small class="text-muted">{{ todos_completed }}/{{ todos|length }} completed</small>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            {% for todo in todos %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center {% if todo.is_done %}bg-light{% endif %}">
+                                    <div class="form-check flex-grow-1">
+                                        <form method="post"
+                                              action="{% url 'todos_toggle' todo.id %}"
+                                              class="d-inline">
+                                            {% csrf_token %}
+                                            <input class="form-check-input"
+                                                   type="checkbox"
+                                                   {% if todo.is_done %}checked{% endif %}
+                                                   onchange="this.form.submit()">
+                                            <label class="form-check-label {% if todo.is_done %}text-decoration-line-through text-muted{% endif %}">
+                                                {{ todo.text }}
+                                            </label>
+                                        </form>
+                                        <small class="text-muted d-block">Created: {{ todo.created_at|date:"M d, Y g:i A" }}</small>
+                                    </div>
+                                    <form method="post"
+                                          action="{% url 'todos_delete' todo.id %}"
+                                          class="d-inline">
+                                        {% csrf_token %}
+                                        <button type="submit"
+                                                class="btn btn-sm btn-outline-danger"
+                                                onclick="return confirm('Are you sure you want to delete this todo?')">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                 width="16"
+                                                 height="16"
+                                                 fill="currentColor"
+                                                 class="bi bi-trash"
+                                                 viewBox="0 0 16 16">
+                                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+                                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+                                            </svg>
+                                        </button>
+                                    </form>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% else %}
+                    <div class="alert alert-info" role="alert">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             width="24"
+                             height="24"
+                             fill="currentColor"
+                             class="bi bi-info-circle"
+                             viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                            <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533z" />
+                            <path d="M9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
+                        </svg>
+                        No todos yet. Add your first todo above!
+                    </div>
+                {% endif %}
+            </div>
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Quick Stats</h5>
+                        <ul class="list-unstyled">
+                            <li class="mb-2">
+                                <strong>Total Todos:</strong> {{ todos|length }}
+                            </li>
+                            <li class="mb-2">
+                                <strong>Completed:</strong> {{ todos_completed }}
+                            </li>
+                            <li class="mb-2">
+                                <strong>Pending:</strong> {{ todos_pending }}
+                            </li>
+                        </ul>
+                        <a href="{% url 'index' %}" class="btn btn-outline-secondary btn-sm">Back to Home</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

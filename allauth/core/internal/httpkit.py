@@ -172,7 +172,7 @@ def get_authorization_credential(
     return parts[1]
 
 
-def clean_client_ip(ip: str) -> str | None:
+def clean_client_ip(ip: str) -> Optional[str]:
     """
     Try to parse the value as an IP address to make sure it's a valid one.
     """
@@ -191,7 +191,7 @@ def clean_client_ip(ip: str) -> str | None:
         return ip
 
 
-def get_client_ip_from_xff(request: HttpRequest) -> str | None:
+def get_client_ip_from_xff(request: HttpRequest) -> Optional[str]:
     trusted_proxy_count = allauth_settings.TRUSTED_PROXY_COUNT
     xff = request.headers.get("x-forwarded-for")
     if trusted_proxy_count > 0 and xff:
@@ -206,7 +206,7 @@ def get_client_ip_from_xff(request: HttpRequest) -> str | None:
     return ip
 
 
-def get_client_ip(request: HttpRequest) -> str | None:
+def get_client_ip(request: HttpRequest) -> Optional[str]:
     trusted_client_ip_header = allauth_settings.TRUSTED_CLIENT_IP_HEADER
     if trusted_client_ip_header:
         ip = request.headers.get(trusted_client_ip_header)

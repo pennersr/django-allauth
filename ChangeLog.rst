@@ -10,7 +10,8 @@
 Fixes
 -----
 
-- ...
+- Version 65.14.2 was not compatible with Python 3.8/3.9 due to use of an
+  unsupported typing construct, fixed.
 
 
 65.14.2 (2026-02-13)

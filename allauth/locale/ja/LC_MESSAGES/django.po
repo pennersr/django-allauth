@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-25 13:23-0500\n"
+"POT-Creation-Date: 2026-02-13 09:05-0600\n"
 "PO-Revision-Date: 2025-08-07 02:02+0000\n"
 "Last-Translator: SATOH Fumiyasu <fumiyas@osstech.co.jp>\n"
-"Language-Team: Japanese <https://hosted.weblate.org/projects/allauth/"
-"django-allauth/ja/>\n"
+"Language-Team: Japanese <https://hosted.weblate.org/projects/allauth/django-"
+"allauth/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,109 +19,109 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 5.13-dev\n"
 
-#: account/adapter.py:53
+#: account/adapter.py:61
 msgid "This account is currently inactive."
 msgstr "このアカウントは現在無効です。"
 
-#: account/adapter.py:55
+#: account/adapter.py:63
 msgid "You cannot remove your primary email address."
 msgstr "メインのメールアドレスは削除できません。"
 
-#: account/adapter.py:58
+#: account/adapter.py:66
 msgid "This email address is already associated with this account."
 msgstr "このメールアドレスはすでに別のアカウントで登録されています。"
 
-#: account/adapter.py:61
+#: account/adapter.py:69
 msgid "The email address and/or password you specified are not correct."
 msgstr "入力されたメールアドレスもしくはパスワードが正しくありません。"
 
-#: account/adapter.py:64
+#: account/adapter.py:72
 msgid "The phone number and/or password you specified are not correct."
 msgstr "入力された電話番号もしくはパスワードが正しくありません。"
 
-#: account/adapter.py:66
+#: account/adapter.py:74
 msgid "A user is already registered with this email address."
 msgstr "ほかのユーザーがこのメールアドレスでアカウント登録済みです。"
 
-#: account/adapter.py:67
+#: account/adapter.py:75
 msgid "Please type your current password."
 msgstr "現在のパスワードを入力してください。"
 
-#: account/adapter.py:68 mfa/adapter.py:40
+#: account/adapter.py:76 mfa/adapter.py:40
 msgid "Incorrect code."
 msgstr "コードが正しくありません。"
 
-#: account/adapter.py:69
+#: account/adapter.py:77
 msgid "Incorrect password."
 msgstr "パスワードが正しくありません。"
 
-#: account/adapter.py:70
+#: account/adapter.py:78
 msgid "Invalid or expired key."
 msgstr "不正または期限切れのキーです。"
 
-#: account/adapter.py:71
+#: account/adapter.py:79
 msgid "Invalid login."
 msgstr "不正なログインです。"
 
-#: account/adapter.py:72
+#: account/adapter.py:80
 msgid "The password reset token was invalid."
 msgstr "パスワード再設定コードが無効です。"
 
-#: account/adapter.py:73
+#: account/adapter.py:81
 #, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "メールアドレスは %d 個までしか登録できません。"
 
-#: account/adapter.py:74
+#: account/adapter.py:82
 msgid "A user is already registered with this phone number."
 msgstr "ほかのユーザーがこの電話番号を登録済みです。"
 
-#: account/adapter.py:76
+#: account/adapter.py:84
 msgid "Too many failed login attempts. Try again later."
 msgstr "ログイン失敗が連続しています。時間が経ってからやり直してください。"
 
-#: account/adapter.py:78
+#: account/adapter.py:86
 msgid "The email address is not assigned to any user account."
 msgstr "このメールアドレスで登録されたユーザーアカウントがありません。"
 
-#: account/adapter.py:79
+#: account/adapter.py:87
 msgid "The phone number is not assigned to any user account."
 msgstr "この電話番号で登録されたユーザーアカウントがありません。"
 
-#: account/adapter.py:80
+#: account/adapter.py:88
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary email address must be verified."
 msgstr "メインのメールアドレスは確認済みでなければいけません。"
 
-#: account/adapter.py:82
+#: account/adapter.py:90
 msgid "Username can not be used. Please use other username."
 msgstr "このユーザー名は使用できません。ほかのユーザー名を選んでください。"
 
-#: account/adapter.py:85
+#: account/adapter.py:93
 msgid "The username and/or password you specified are not correct."
 msgstr "入力されたユーザー名もしくはパスワードが正しくありません。"
 
-#: account/adapter.py:90
+#: account/adapter.py:98
 msgid "Please select only one."
 msgstr "1つだけ選択してください。"
 
-#: account/adapter.py:91
+#: account/adapter.py:99
 msgid "The new value must be different from the current one."
 msgstr "現在値と異なる値にしてください。"
 
-#: account/adapter.py:92
+#: account/adapter.py:100
 msgid "Be patient, you are sending too many requests."
 msgstr "あなたは大量のリクエストを送信しています。しばらくお待ちください。"
 
-#: account/adapter.py:805
+#: account/adapter.py:826
 msgid "Use your password"
 msgstr "パスワードを使用する"
 
-#: account/adapter.py:814
+#: account/adapter.py:835
 msgid "Use authenticator app or code"
 msgstr "認証アプリまたは認証コードを使用する"
 
-#: account/adapter.py:821 templates/mfa/authenticate.html:41
+#: account/adapter.py:842 templates/mfa/authenticate.html:41
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use a security key"
 msgstr "セキュリティキーを使用する"
@@ -144,7 +144,7 @@ msgstr "確認済みにするメールアドレスを選択"
 msgid "Accounts"
 msgstr "アカウント"
 
-#: account/fields.py:12 account/forms.py:299 idp/oidc/forms.py:38
+#: account/fields.py:12 account/forms.py:299 idp/oidc/forms.py:43
 msgid "Email"
 msgstr "メールアドレス"
 
@@ -239,8 +239,8 @@ msgstr "新しいパスワード"
 msgid "New Password (again)"
 msgstr "新しいパスワード (再入力)"
 
-#: account/forms.py:767 account/forms.py:769 idp/oidc/forms.py:46
-#: idp/oidc/forms.py:49 mfa/base/forms.py:12 mfa/base/forms.py:14
+#: account/forms.py:767 account/forms.py:769 idp/oidc/forms.py:51
+#: idp/oidc/forms.py:54 mfa/base/forms.py:12 mfa/base/forms.py:14
 #: mfa/totp/forms.py:13
 #: templates/idp/oidc/device_authorization_confirm_form.html:16
 msgid "Code"
@@ -302,9 +302,23 @@ msgstr "あなたのメールアドレスを表示"
 msgid "View your basic profile information"
 msgstr "あなたの基本ユーザー情報を表示"
 
-#: idp/oidc/forms.py:26
+#: idp/oidc/forms.py:31
 msgid "Grant permissions"
 msgstr "認可パーミッション"
+
+#: idp/oidc/internal/clientkit.py:22
+msgid "Wildcards are not allowed unless 'Allow URI wildcards' is enabled."
+msgstr ""
+
+#: idp/oidc/internal/clientkit.py:27
+msgid ""
+"URI '{}' contains more than one wildcard (*). Only one wildcard per URI is "
+"allowed."
+msgstr ""
+
+#: idp/oidc/internal/clientkit.py:39
+msgid "Wildcards are only allowed in the hostname portion of the URI."
+msgstr ""
 
 #: idp/oidc/models.py:37
 msgid "Authorization code"
@@ -332,11 +346,11 @@ msgstr "公開"
 
 #: idp/oidc/models.py:58
 msgid ""
-"The scope(s) the client is allowed to request. Provide one value per line, e."
-"g.: openid(ENTER)profile(ENTER)email(ENTER)"
+"The scope(s) the client is allowed to request. Provide one value per line, "
+"e.g.: openid(ENTER)profile(ENTER)email(ENTER)"
 msgstr ""
-"許可するクライアントスコープ。行ごとに区切ってスコープを入力してください。(例"
-": openid(改行)profile(改行)email(改行))"
+"許可するクライアントスコープ。行ごとに区切ってスコープを入力してください。"
+"(例: openid(改行)profile(改行)email(改行))"
 
 #: idp/oidc/models.py:64
 msgid ""
@@ -357,21 +371,29 @@ msgstr ""
 
 #: idp/oidc/models.py:86
 msgid "A list of allowed origins for cross-origin requests, one per line."
-msgstr "オリジン間リクエストで許可するリクエスト元の一覧。行ごとに区切って入力してく"
+msgstr ""
+"オリジン間リクエストで許可するリクエスト元の一覧。行ごとに区切って入力してく"
 "ださい。"
 
 #: idp/oidc/models.py:94
 msgid ""
+"Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
+"can contain a single asterisk to match subdomains."
+msgstr ""
+
+#: idp/oidc/models.py:102
+msgid ""
 "A list of allowed response types. Provide one value per line, e.g.: "
 "code(ENTER)id_token token(ENTER)"
-msgstr "許可する応答タイプの一覧。行ごとに区切って入力してください。(例: code(改行)"
-"id_token token(改行))"
+msgstr ""
+"許可する応答タイプの一覧。行ごとに区切って入力してください。(例: code(改"
+"行)id_token token(改行))"
 
-#: idp/oidc/models.py:107
+#: idp/oidc/models.py:115
 msgid "client"
 msgstr "クライアント"
 
-#: idp/oidc/models.py:108
+#: idp/oidc/models.py:116
 msgid "clients"
 msgstr "クライアント"
 
@@ -571,7 +593,7 @@ msgstr "ソーシャルアプリケーショントークン"
 msgid "social application tokens"
 msgstr "ソーシャルアプリケーショントークン"
 
-#: socialaccount/providers/douban/views.py:36
+#: socialaccount/providers/douban/views.py:35
 msgid "Invalid profile data"
 msgstr "無効なプロファイルデータ"
 
@@ -589,37 +611,37 @@ msgstr "ログイン"
 msgid "Cancel"
 msgstr "キャンセル"
 
-#: socialaccount/providers/oauth/client.py:84
+#: socialaccount/providers/oauth/client.py:86
 #, python-format
 msgid ""
 "Invalid response while obtaining request token from \"%s\". Response was: %s."
 msgstr ""
 "リクエストトークン取得中に「%s」から不正な応答がありました。レスポンス: %s"
 
-#: socialaccount/providers/oauth/client.py:118
-#: socialaccount/providers/pocket/client.py:86
+#: socialaccount/providers/oauth/client.py:121
+#: socialaccount/providers/pocket/client.py:81
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr ""
 "不正なレスポンスが返されたため、「%s」からアクセストークンを取得できませんで"
 "した。"
 
-#: socialaccount/providers/oauth/client.py:139
+#: socialaccount/providers/oauth/client.py:142
 #, python-format
 msgid "No request token saved for \"%s\"."
 msgstr "「%s」のリクエストトークンが保存されていません。"
 
-#: socialaccount/providers/oauth/client.py:190
+#: socialaccount/providers/oauth/client.py:193
 #, python-format
 msgid "No access token saved for \"%s\"."
 msgstr "「%s」のアクセストークンが保存されていません。"
 
-#: socialaccount/providers/oauth/client.py:211
+#: socialaccount/providers/oauth/client.py:215
 #, python-format
 msgid "No access to private resources at \"%s\"."
 msgstr "「%s」の情報にアクセスできませんでした。"
 
-#: socialaccount/providers/pocket/client.py:41
+#: socialaccount/providers/pocket/client.py:39
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr ""
@@ -787,8 +809,8 @@ msgid ""
 "\n"
 "%(password_reset_url)s"
 msgstr ""
-"あなた (もしくはほかの誰か) "
-"が次のメールアドレスを使用してアカウントの登録を試みました:\n"
+"あなた (もしくはほかの誰か) が次のメールアドレスを使用してアカウントの登録を"
+"試みました:\n"
 "\n"
 "%(email)s\n"
 "\n"
@@ -941,8 +963,8 @@ msgid ""
 "It can be safely ignored if you did not request a password reset. Click the "
 "link below to reset your password."
 msgstr ""
-"このメールは、あなた (もしくはほかの誰か) "
-"がパスワードの再設定を行おうとしたために送られました。\n"
+"このメールは、あなた (もしくはほかの誰か) がパスワードの再設定を行おうとした"
+"ために送られました。\n"
 "パスワードの再設定を要求したのがあなたではない場合、このメールは無視してくだ"
 "さい。\n"
 "パスワードを再設定するためには、以下のリンクをクリックしてください。"
@@ -975,9 +997,9 @@ msgid ""
 "an account with email %(email)s. However, we do not have any record of such "
 "an account in our database."
 msgstr ""
-"あなた (もしくはほかの誰か) がメールアドレス %(email)s "
-"を持つアカウントにアクセスしようとしたため、この通知メールを送りました。ただ"
-"し、私たちのデータベースには該当するアカウント情報がありませんでした。"
+"あなた (もしくはほかの誰か) がメールアドレス %(email)s を持つアカウントにアク"
+"セスしようとしたため、この通知メールを送りました。ただし、私たちのデータベー"
+"スには該当するアカウント情報がありませんでした。"
 
 #: templates/account/email/unknown_account_message.txt:8
 msgid "If it was you, you can sign up for an account using the link below."
@@ -1068,11 +1090,13 @@ msgstr "ログインコードを送信する"
 
 #: templates/account/logout.html:4 templates/account/logout.html:8
 #: templates/account/logout.html:21 templates/allauth/layouts/base.html:61
+#: templates/idp/oidc/logout.html:4 templates/idp/oidc/logout.html:8
+#: templates/idp/oidc/logout.html:21
 #: templates/usersessions/usersession_list.html:76
 msgid "Sign Out"
 msgstr "ログアウト"
 
-#: templates/account/logout.html:11
+#: templates/account/logout.html:11 templates/idp/oidc/logout.html:11
 msgid "Are you sure you want to sign out?"
 msgstr "ログアウトしますか?"
 
@@ -1377,8 +1401,9 @@ msgstr "認可する"
 #: templates/idp/oidc/authorization_form.html:12
 #, python-format
 msgid "%(client_name)s wants to access your %(site_name)s account."
-msgstr "%(client_name)s があなたの %(site_name)s "
-"アカウントへのアクセスを要求しています。"
+msgstr ""
+"%(client_name)s があなたの %(site_name)s アカウントへのアクセスを要求していま"
+"す。"
 
 #: templates/idp/oidc/device_authorization_code_form.html:9
 msgid "Enter Device Code"
@@ -1403,7 +1428,8 @@ msgstr "デバイスの確認"
 msgid ""
 "Please confirm the code shown on your %(client_name)s to authorize this "
 "device."
-msgstr "あなたの %(client_name)s に表示されたデバイス認可用のコードをご確認ください。"
+msgstr ""
+"あなたの %(client_name)s に表示されたデバイス認可用のコードをご確認ください。"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:29
 msgid "Deny"
@@ -1430,6 +1456,12 @@ msgstr "あなたの %(client_name)s デバイスの認可は拒否されまし�
 #: templates/idp/oidc/error.html:5 templates/idp/oidc/error.html:9
 msgid "Error"
 msgstr "エラー"
+
+#: templates/idp/oidc/logout.html:24
+#, fuzzy
+#| msgid "Sign In"
+msgid "Stay Signed In"
+msgstr "ログイン"
 
 #: templates/mfa/authenticate.html:13
 msgid ""
@@ -1643,8 +1675,9 @@ msgstr "このブラウザを信頼しますか?"
 msgid ""
 "If you choose to trust this browser, you will not be asked for a "
 "verification code the next time you sign in."
-msgstr "このブラウザを信頼すると、次回のログイン時に確認コードの入力が不要になります"
-"。"
+msgstr ""
+"このブラウザを信頼すると、次回のログイン時に確認コードの入力が不要になりま"
+"す。"
 
 #: templates/mfa/trust.html:23
 #, python-format
@@ -1864,7 +1897,7 @@ msgstr "ほかのセッションをログアウト"
 msgid "User Sessions"
 msgstr "ユーザーセッション"
 
-#: usersessions/models.py:93
+#: usersessions/models.py:94
 msgid "session key"
 msgstr "セッションキー"
 

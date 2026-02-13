@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-25 13:23-0500\n"
+"POT-Creation-Date: 2026-02-13 09:05-0600\n"
 "PO-Revision-Date: 2025-12-20 19:00+0000\n"
 "Last-Translator: Gabriele-V <gabriele-v@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/allauth/django-"
@@ -22,109 +22,109 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.15.1\n"
 
-#: account/adapter.py:53
+#: account/adapter.py:61
 msgid "This account is currently inactive."
 msgstr "Questo account non è attualmente attivo."
 
-#: account/adapter.py:55
+#: account/adapter.py:63
 msgid "You cannot remove your primary email address."
 msgstr "Non puoi eliminare il tuo indirizzo email principale."
 
-#: account/adapter.py:58
+#: account/adapter.py:66
 msgid "This email address is already associated with this account."
 msgstr "Questo indirizzo email è già associato a questo account."
 
-#: account/adapter.py:61
+#: account/adapter.py:69
 msgid "The email address and/or password you specified are not correct."
 msgstr "L'indirizzo email e/o la password che hai usato non sono corretti."
 
-#: account/adapter.py:64
+#: account/adapter.py:72
 msgid "The phone number and/or password you specified are not correct."
 msgstr "Il numero di telefono e/o la password specificati non sono corretti."
 
-#: account/adapter.py:66
+#: account/adapter.py:74
 msgid "A user is already registered with this email address."
 msgstr "Un utente è già registrato con questo indirizzo email."
 
-#: account/adapter.py:67
+#: account/adapter.py:75
 msgid "Please type your current password."
 msgstr "Inserisci la tua password attuale."
 
-#: account/adapter.py:68 mfa/adapter.py:40
+#: account/adapter.py:76 mfa/adapter.py:40
 msgid "Incorrect code."
 msgstr "Codice errato."
 
-#: account/adapter.py:69
+#: account/adapter.py:77
 msgid "Incorrect password."
 msgstr "Password errata."
 
-#: account/adapter.py:70
+#: account/adapter.py:78
 msgid "Invalid or expired key."
 msgstr "Chiave non valida o scaduta."
 
-#: account/adapter.py:71
+#: account/adapter.py:79
 msgid "Invalid login."
 msgstr "Accesso non valido."
 
-#: account/adapter.py:72
+#: account/adapter.py:80
 msgid "The password reset token was invalid."
 msgstr "Il codice per il reset della password non è valido."
 
-#: account/adapter.py:73
+#: account/adapter.py:81
 #, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "Non puoi aggiungere più di %d indirizzi email."
 
-#: account/adapter.py:74
+#: account/adapter.py:82
 msgid "A user is already registered with this phone number."
 msgstr "Un altro utente si è già registrato con questo numero di telefono."
 
-#: account/adapter.py:76
+#: account/adapter.py:84
 msgid "Too many failed login attempts. Try again later."
 msgstr "Troppi tentativi di accesso. Riprova più tardi."
 
-#: account/adapter.py:78
+#: account/adapter.py:86
 msgid "The email address is not assigned to any user account."
 msgstr "L'indirizzo email non è assegnato a nessun account utente."
 
-#: account/adapter.py:79
+#: account/adapter.py:87
 msgid "The phone number is not assigned to any user account."
 msgstr "Il numero di telefono non è associato a nessun account utente."
 
-#: account/adapter.py:80
+#: account/adapter.py:88
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary email address must be verified."
 msgstr "Il tuo indirizzo email principale deve essere verificato."
 
-#: account/adapter.py:82
+#: account/adapter.py:90
 msgid "Username can not be used. Please use other username."
 msgstr "Questo username non può essere usato. Per favore scegline un altro."
 
-#: account/adapter.py:85
+#: account/adapter.py:93
 msgid "The username and/or password you specified are not correct."
 msgstr "Lo username e/o la password che hai usato non sono corretti."
 
-#: account/adapter.py:90
+#: account/adapter.py:98
 msgid "Please select only one."
 msgstr "Selezionare una sola opzione."
 
-#: account/adapter.py:91
+#: account/adapter.py:99
 msgid "The new value must be different from the current one."
 msgstr "Il nuovo valore deve essere diverso da quello attuale."
 
-#: account/adapter.py:92
+#: account/adapter.py:100
 msgid "Be patient, you are sending too many requests."
 msgstr "Abbi pazienza, stai inviando troppe richieste."
 
-#: account/adapter.py:805
+#: account/adapter.py:826
 msgid "Use your password"
 msgstr "Usa la tua password"
 
-#: account/adapter.py:814
+#: account/adapter.py:835
 msgid "Use authenticator app or code"
 msgstr "Usa l'app di autenticazione o un codice"
 
-#: account/adapter.py:821 templates/mfa/authenticate.html:41
+#: account/adapter.py:842 templates/mfa/authenticate.html:41
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use a security key"
 msgstr "Usa una chiave di sicurezza"
@@ -147,7 +147,7 @@ msgstr "Contrassegna gli indirizzi email selezionati come verificati"
 msgid "Accounts"
 msgstr "Accounts"
 
-#: account/fields.py:12 account/forms.py:299 idp/oidc/forms.py:38
+#: account/fields.py:12 account/forms.py:299 idp/oidc/forms.py:43
 msgid "Email"
 msgstr "email"
 
@@ -244,8 +244,8 @@ msgstr "Nuova password"
 msgid "New Password (again)"
 msgstr "Nuova password (nuovamente)"
 
-#: account/forms.py:767 account/forms.py:769 idp/oidc/forms.py:46
-#: idp/oidc/forms.py:49 mfa/base/forms.py:12 mfa/base/forms.py:14
+#: account/forms.py:767 account/forms.py:769 idp/oidc/forms.py:51
+#: idp/oidc/forms.py:54 mfa/base/forms.py:12 mfa/base/forms.py:14
 #: mfa/totp/forms.py:13
 #: templates/idp/oidc/device_authorization_confirm_form.html:16
 msgid "Code"
@@ -307,9 +307,23 @@ msgstr "Visualizza il tuo indirizzo email"
 msgid "View your basic profile information"
 msgstr "Visualizza le informazioni di base del tuo profilo"
 
-#: idp/oidc/forms.py:26
+#: idp/oidc/forms.py:31
 msgid "Grant permissions"
 msgstr "Concedi autorizzazioni"
+
+#: idp/oidc/internal/clientkit.py:22
+msgid "Wildcards are not allowed unless 'Allow URI wildcards' is enabled."
+msgstr ""
+
+#: idp/oidc/internal/clientkit.py:27
+msgid ""
+"URI '{}' contains more than one wildcard (*). Only one wildcard per URI is "
+"allowed."
+msgstr ""
+
+#: idp/oidc/internal/clientkit.py:39
+msgid "Wildcards are only allowed in the hostname portion of the URI."
+msgstr ""
 
 #: idp/oidc/models.py:37
 msgid "Authorization code"
@@ -337,8 +351,8 @@ msgstr "Pubblico"
 
 #: idp/oidc/models.py:58
 msgid ""
-"The scope(s) the client is allowed to request. Provide one value per line, e."
-"g.: openid(ENTER)profile(ENTER)email(ENTER)"
+"The scope(s) the client is allowed to request. Provide one value per line, "
+"e.g.: openid(ENTER)profile(ENTER)email(ENTER)"
 msgstr ""
 "Gli ambiti che il client è autorizzato a richiedere. Fornire un valore per "
 "riga, ad esempio: openid(ENTER)profile(ENTER)email(ENTER)"
@@ -350,8 +364,8 @@ msgid ""
 "openid(ENTER)profile(ENTER)email(ENTER)"
 msgstr ""
 "Se il client non specifica alcun ambito, vengono utilizzati questi ambiti "
-"predefiniti. Fornire un valore per riga, ad esempio: openid(ENTER)profile"
-"(ENTER)email(ENTER)"
+"predefiniti. Fornire un valore per riga, ad esempio: "
+"openid(ENTER)profile(ENTER)email(ENTER)"
 
 #: idp/oidc/models.py:75
 msgid ""
@@ -359,8 +373,8 @@ msgid ""
 "authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 msgstr ""
 "Elenco dei tipi di autorizzazione consentiti. Fornire un valore per riga, ad "
-"esempio: authorization_code(ENTER)client_credentials(ENTER)refresh_token"
-"(ENTER)"
+"esempio: "
+"authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 
 #: idp/oidc/models.py:86
 msgid "A list of allowed origins for cross-origin requests, one per line."
@@ -369,17 +383,23 @@ msgstr ""
 
 #: idp/oidc/models.py:94
 msgid ""
+"Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
+"can contain a single asterisk to match subdomains."
+msgstr ""
+
+#: idp/oidc/models.py:102
+msgid ""
 "A list of allowed response types. Provide one value per line, e.g.: "
 "code(ENTER)id_token token(ENTER)"
 msgstr ""
 "Elenco dei tipi di risposta consentiti. Fornire un valore per riga, ad "
 "esempio: code(ENTER)id_token token(ENTER)"
 
-#: idp/oidc/models.py:107
+#: idp/oidc/models.py:115
 msgid "client"
 msgstr "client"
 
-#: idp/oidc/models.py:108
+#: idp/oidc/models.py:116
 msgid "clients"
 msgstr "clients"
 
@@ -584,7 +604,7 @@ msgstr "token dell'applicazione social"
 msgid "social application tokens"
 msgstr "token dell'applicazione social"
 
-#: socialaccount/providers/douban/views.py:36
+#: socialaccount/providers/douban/views.py:35
 msgid "Invalid profile data"
 msgstr "Dati profilo non validi"
 
@@ -602,7 +622,7 @@ msgstr "Login"
 msgid "Cancel"
 msgstr "Annulla"
 
-#: socialaccount/providers/oauth/client.py:84
+#: socialaccount/providers/oauth/client.py:86
 #, python-format
 msgid ""
 "Invalid response while obtaining request token from \"%s\". Response was: %s."
@@ -610,28 +630,28 @@ msgstr ""
 "Risposta non valida durante l'ottenimento del token di richiesta da \\\"%s\\"
 "\". La risposta è stata: %s."
 
-#: socialaccount/providers/oauth/client.py:118
-#: socialaccount/providers/pocket/client.py:86
+#: socialaccount/providers/oauth/client.py:121
+#: socialaccount/providers/pocket/client.py:81
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr "Risposta non valida alla richiesta di un token da \"%s\"."
 
-#: socialaccount/providers/oauth/client.py:139
+#: socialaccount/providers/oauth/client.py:142
 #, python-format
 msgid "No request token saved for \"%s\"."
 msgstr "Nessuna richiesta di token salvata per \"%s\"."
 
-#: socialaccount/providers/oauth/client.py:190
+#: socialaccount/providers/oauth/client.py:193
 #, python-format
 msgid "No access token saved for \"%s\"."
 msgstr "Nessun token di accesso salvato per \"%s\"."
 
-#: socialaccount/providers/oauth/client.py:211
+#: socialaccount/providers/oauth/client.py:215
 #, python-format
 msgid "No access to private resources at \"%s\"."
 msgstr "Nessuna accesso alle risorse private a \"%s\"."
 
-#: socialaccount/providers/pocket/client.py:41
+#: socialaccount/providers/pocket/client.py:39
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr "Risposta non valida alla richiesta di un token da \"%s\"."
@@ -1078,11 +1098,13 @@ msgstr "Inviami un codice di accesso"
 
 #: templates/account/logout.html:4 templates/account/logout.html:8
 #: templates/account/logout.html:21 templates/allauth/layouts/base.html:61
+#: templates/idp/oidc/logout.html:4 templates/idp/oidc/logout.html:8
+#: templates/idp/oidc/logout.html:21
 #: templates/usersessions/usersession_list.html:76
 msgid "Sign Out"
 msgstr "Disconnetti"
 
-#: templates/account/logout.html:11
+#: templates/account/logout.html:11 templates/idp/oidc/logout.html:11
 msgid "Are you sure you want to sign out?"
 msgstr "Sei sicuro di volerti disconnettere?"
 
@@ -1438,11 +1460,18 @@ msgstr "Dispositivo negato"
 #: templates/idp/oidc/device_authorization_denied.html:12
 #, python-format
 msgid "Authorization for your %(client_name)s device has been denied."
-msgstr "L'autorizzazione per il tuo dispositivo %(client_name)s è stata negata."
+msgstr ""
+"L'autorizzazione per il tuo dispositivo %(client_name)s è stata negata."
 
 #: templates/idp/oidc/error.html:5 templates/idp/oidc/error.html:9
 msgid "Error"
 msgstr "Errore"
+
+#: templates/idp/oidc/logout.html:24
+#, fuzzy
+#| msgid "Sign In"
+msgid "Stay Signed In"
+msgstr "Accedi"
 
 #: templates/mfa/authenticate.html:13
 msgid ""
@@ -1556,11 +1585,11 @@ msgid ""
 msgid_plural ""
 "There are %(unused_count)s out of %(total_count)s recovery codes available."
 msgstr[0] ""
-"C'è %(unused_count)s codice di recupero disponibile su un totale di %"
-"(total_count)s."
+"C'è %(unused_count)s codice di recupero disponibile su un totale di "
+"%(total_count)s."
 msgstr[1] ""
-"Ci sono %(unused_count)s codici di recupero disponibili su un totale di %"
-"(total_count)s."
+"Ci sono %(unused_count)s codici di recupero disponibili su un totale di "
+"%(total_count)s."
 
 #: templates/mfa/index.html:86
 msgid "No recovery codes set up."
@@ -1900,7 +1929,7 @@ msgstr "Esci dalle altre sessioni"
 msgid "User Sessions"
 msgstr "Sessioni utente"
 
-#: usersessions/models.py:93
+#: usersessions/models.py:94
 msgid "session key"
 msgstr "chiave di sessione"
 
@@ -1983,11 +2012,6 @@ msgstr "chiave di sessione"
 
 #~ msgid "This username is already taken. Please choose another."
 #~ msgstr "Questo username è già in uso. Per favore scegline un altro."
-
-#, fuzzy
-#~| msgid "Sign In"
-#~ msgid "Shopify Sign In"
-#~ msgstr "Accedi"
 
 #~ msgid ""
 #~ "You have confirmed that <a href=\"mailto:%(email)s\">%(email)s</a> is an "

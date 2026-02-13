@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-25 13:23-0500\n"
-"PO-Revision-Date: 2024-09-11 08:09+0000\n"
-"Last-Translator: Napapat Angsutrarux <napapat_a@hotmail.com>\n"
+"POT-Creation-Date: 2026-02-13 09:05-0600\n"
+"PO-Revision-Date: 2026-01-25 06:42+0000\n"
+"Last-Translator: Krit Autarawisead <morphine459@gmail.com>\n"
 "Language-Team: Thai <https://hosted.weblate.org/projects/allauth/django-"
 "allauth/th/>\n"
 "Language: th\n"
@@ -19,121 +19,115 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.8-dev\n"
+"X-Generator: Weblate 5.16-dev\n"
 
-#: account/adapter.py:53
+#: account/adapter.py:61
 msgid "This account is currently inactive."
 msgstr "บัญชีนี้อยู่ในสถานะที่ใช้งานไม่ได้"
 
-#: account/adapter.py:55
+#: account/adapter.py:63
 msgid "You cannot remove your primary email address."
 msgstr "คุณไม่สามารถลบที่อยู่อีเมลหลักของคุณได้"
 
-#: account/adapter.py:58
+#: account/adapter.py:66
 msgid "This email address is already associated with this account."
 msgstr "อีเมลนี้ได้ถูกเชื่อมกับบัญชีนี้แล้ว"
 
-#: account/adapter.py:61
+#: account/adapter.py:69
 msgid "The email address and/or password you specified are not correct."
 msgstr "อีเมลและ/หรือรหัสผ่านที่ระบุมาไม่ถูกต้อง"
 
-#: account/adapter.py:64
-#, fuzzy
-#| msgid "The username and/or password you specified are not correct."
+#: account/adapter.py:72
 msgid "The phone number and/or password you specified are not correct."
-msgstr "ชื่อผู้ใช้และ/หรือรหัสผ่านที่ระบุมาไม่ถูกต้อง"
+msgstr "เบอร์โทรศัพท์และ/หรือรหัสผ่านที่ระบุมาไม่ถูกต้อง"
 
-#: account/adapter.py:66
+#: account/adapter.py:74
 msgid "A user is already registered with this email address."
 msgstr "ชื่อผู้ใช้ได้ถูกลงทะเบียนด้วยอีเมลนี้แล้ว"
 
-#: account/adapter.py:67
+#: account/adapter.py:75
 msgid "Please type your current password."
 msgstr "โปรดใส่รหัสผ่านปัจจุบัน"
 
-#: account/adapter.py:68 mfa/adapter.py:40
+#: account/adapter.py:76 mfa/adapter.py:40
 msgid "Incorrect code."
 msgstr "รหัสไม่ถูกต้อง"
 
-#: account/adapter.py:69
+#: account/adapter.py:77
 msgid "Incorrect password."
 msgstr "รหัสปัจจุบันรหัสผ่านไม่ถูกต้อง"
 
-#: account/adapter.py:70
+#: account/adapter.py:78
 msgid "Invalid or expired key."
 msgstr "รหัสไม่ถูกต้องหรือหมดอายุ"
 
-#: account/adapter.py:71
-#, fuzzy
-#| msgid "Invalid token."
+#: account/adapter.py:79
 msgid "Invalid login."
-msgstr "โทเค็นไม่ถูกต้อง TInvalid"
+msgstr "ล็อกอินไม่ถูกต้อง"
 
-#: account/adapter.py:72
+#: account/adapter.py:80
 msgid "The password reset token was invalid."
 msgstr "token ที่ใช้รีเซ็ทรหัสผ่านไม่ถูกต้อง"
 
-#: account/adapter.py:73
+#: account/adapter.py:81
 #, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "บัญชีของคุณไม่มีการยืนยัน ไม่สามารถเพิ่มที่อยู่อีเมลมากกว่า %d รายการ"
 
-#: account/adapter.py:74
-#, fuzzy
-#| msgid "A user is already registered with this email address."
+#: account/adapter.py:82
 msgid "A user is already registered with this phone number."
-msgstr "ชื่อผู้ใช้ได้ถูกลงทะเบียนด้วยอีเมลนี้แล้ว"
+msgstr "เบอร์โทรศัพท์นี้ถูกลงทะเบียนแล้ว"
 
-#: account/adapter.py:76
+#: account/adapter.py:84
 msgid "Too many failed login attempts. Try again later."
 msgstr "พยายามเข้าสู่ระบบล้มเหลวหลายครั้งเกินไป ลองอีกครั้งในภายหลัง"
 
-#: account/adapter.py:78
+#: account/adapter.py:86
 #, fuzzy
 #| msgid "The email address is not assigned to any user account"
 msgid "The email address is not assigned to any user account."
 msgstr "อีเมลนี้ไม่ได้เชื่อมกับบัญชีใดเลย"
 
-#: account/adapter.py:79
+#: account/adapter.py:87
 #, fuzzy
 #| msgid "The email address is not assigned to any user account"
 msgid "The phone number is not assigned to any user account."
 msgstr "อีเมลนี้ไม่ได้เชื่อมกับบัญชีใดเลย"
 
-#: account/adapter.py:80
+#: account/adapter.py:88
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary email address must be verified."
 msgstr "อีเมลหลักของคุณต้องได้การยืนยัน"
 
-#: account/adapter.py:82
+#: account/adapter.py:90
 msgid "Username can not be used. Please use other username."
 msgstr "ไม่สามารถใช้ชื่อผู้ใช้นี้ได้ กรุณาใช้ชื่อผู้ใช้อื่น"
 
-#: account/adapter.py:85
+#: account/adapter.py:93
 msgid "The username and/or password you specified are not correct."
 msgstr "ชื่อผู้ใช้และ/หรือรหัสผ่านที่ระบุมาไม่ถูกต้อง"
 
-#: account/adapter.py:90
+#: account/adapter.py:98
 msgid "Please select only one."
-msgstr ""
+msgstr "กรุณาเลือกเพียงหนึ่งตัวเลือก"
 
-#: account/adapter.py:91
+#: account/adapter.py:99
 msgid "The new value must be different from the current one."
-msgstr ""
+msgstr "ค่าใหม่ต้องแตกต่างจากค่าปัจจุบัน"
 
-#: account/adapter.py:92
+#: account/adapter.py:100
 msgid "Be patient, you are sending too many requests."
-msgstr ""
+msgstr "กรุณาอดทน คุณกำลังส่งคำขอมากเกินไป"
 
-#: account/adapter.py:805
+#: account/adapter.py:826
 msgid "Use your password"
 msgstr "ใช้รหัสผ่านของคุณ"
 
-#: account/adapter.py:814
+#: account/adapter.py:835
 msgid "Use authenticator app or code"
 msgstr "ใช้แอปหรือรหัสยืนยันตัวตน"
 
-#: account/adapter.py:821 templates/mfa/authenticate.html:41
+#: account/adapter.py:842 templates/mfa/authenticate.html:41
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use a security key"
 msgstr "ใช้คีย์ความปลอดภัย"
@@ -158,7 +152,7 @@ msgstr "อีเมลหลักของคุณต้องได้กา
 msgid "Accounts"
 msgstr "บัญชี"
 
-#: account/fields.py:12 account/forms.py:299 idp/oidc/forms.py:38
+#: account/fields.py:12 account/forms.py:299 idp/oidc/forms.py:43
 msgid "Email"
 msgstr "อีเมล"
 
@@ -168,11 +162,11 @@ msgstr "อีเมล"
 
 #: account/fields.py:62
 msgid "Enter a phone number including country code (e.g. +1 for the US)."
-msgstr ""
+msgstr "ป้อนหมายเลขโทรศัพท์พร้อมรหัสประเทศ (เช่น +1 สำหรับสหรัฐอเมริกา)"
 
 #: account/fields.py:68 account/fields.py:72 account/forms.py:325
 msgid "Phone"
-msgstr ""
+msgstr "โทรศัพท์"
 
 #: account/forms.py:61 account/forms.py:524
 msgid "You must type the same password each time."
@@ -261,8 +255,8 @@ msgstr "รหัสผ่านใหม่"
 msgid "New Password (again)"
 msgstr "รหัสผ่านใหม่ (อีกครั้ง)"
 
-#: account/forms.py:767 account/forms.py:769 idp/oidc/forms.py:46
-#: idp/oidc/forms.py:49 mfa/base/forms.py:12 mfa/base/forms.py:14
+#: account/forms.py:767 account/forms.py:769 idp/oidc/forms.py:51
+#: idp/oidc/forms.py:54 mfa/base/forms.py:12 mfa/base/forms.py:14
 #: mfa/totp/forms.py:13
 #: templates/idp/oidc/device_authorization_confirm_form.html:16
 msgid "Code"
@@ -314,57 +308,65 @@ msgstr "หัวขาด"
 
 #: idp/oidc/adapter.py:30
 msgid "View your user ID"
-msgstr ""
+msgstr "ดูรหัสผู้ใช้ของคุณ"
 
 #: idp/oidc/adapter.py:31
-#, fuzzy
-#| msgid "Verify Your Email Address"
 msgid "View your email address"
-msgstr "ยืนยันอีเมลของคุณ"
+msgstr "ดูที่อยู่อีเมลของคุณ"
 
 #: idp/oidc/adapter.py:32
 msgid "View your basic profile information"
+msgstr "ดูข้อมูลโปรไฟล์พื้นฐานของคุณ"
+
+#: idp/oidc/forms.py:31
+msgid "Grant permissions"
+msgstr "อนุญาตสิทธิ์"
+
+#: idp/oidc/internal/clientkit.py:22
+msgid "Wildcards are not allowed unless 'Allow URI wildcards' is enabled."
 msgstr ""
 
-#: idp/oidc/forms.py:26
-#, fuzzy
-#| msgid "User Sessions"
-msgid "Grant permissions"
-msgstr "เซสชันผู้ใช้"
+#: idp/oidc/internal/clientkit.py:27
+msgid ""
+"URI '{}' contains more than one wildcard (*). Only one wildcard per URI is "
+"allowed."
+msgstr ""
+
+#: idp/oidc/internal/clientkit.py:39
+msgid "Wildcards are only allowed in the hostname portion of the URI."
+msgstr ""
 
 #: idp/oidc/models.py:37
-#, fuzzy
-#| msgid "Authenticator code"
 msgid "Authorization code"
-msgstr "รหัสตรวจสอบความถูกต้อง"
+msgstr "รหัสการอนุญาต"
 
 #: idp/oidc/models.py:38
-#, fuzzy
-#| msgid "Recovery codes"
 msgid "Device code"
-msgstr "รหัสการกู้คืน"
+msgstr "รหัสอุปกรณ์"
 
 #: idp/oidc/models.py:39
 msgid "Client credentials"
-msgstr ""
+msgstr "ข้อมูลรับรองไคลเอนต์"
 
 #: idp/oidc/models.py:40
 msgid "Refresh token"
-msgstr ""
+msgstr "โทเค็นรีเฟรช"
 
 #: idp/oidc/models.py:43
 msgid "Confidential"
-msgstr ""
+msgstr "ความลับ"
 
 #: idp/oidc/models.py:44
 msgid "Public"
-msgstr ""
+msgstr "สาธารณะ"
 
 #: idp/oidc/models.py:58
 msgid ""
-"The scope(s) the client is allowed to request. Provide one value per line, e."
-"g.: openid(ENTER)profile(ENTER)email(ENTER)"
+"The scope(s) the client is allowed to request. Provide one value per line, "
+"e.g.: openid(ENTER)profile(ENTER)email(ENTER)"
 msgstr ""
+"ขอบเขตที่ไคลเอนต์ได้รับอนุญาตให้ขอ ระบุหนึ่งค่าต่อหนึ่งบรรทัด เช่น: "
+"openid(ENTER)profile(ENTER)email(ENTER)"
 
 #: idp/oidc/models.py:64
 msgid ""
@@ -372,34 +374,42 @@ msgid ""
 "used. Provide one value per line, e.g.: "
 "openid(ENTER)profile(ENTER)email(ENTER)"
 msgstr ""
+"ในกรณีที่ไคลเอนต์ไม่ระบุขอบเขต จะใช้ขอบเขตเริ่มต้นเหล่านี้ ระบุหนึ่งค่าต่อหนึ่งบรรทัด เช่น: "
+"openid(ENTER)profile(ENTER)email(ENTER)"
 
 #: idp/oidc/models.py:75
 msgid ""
 "A list of allowed grant types. Provide one value per line, e.g.: "
 "authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 msgstr ""
+"รายการประเภทการอนุญาตที่ได้รับอนุญาต ระบุหนึ่งค่าต่อหนึ่งบรรทัด เช่น: "
+"authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 
 #: idp/oidc/models.py:86
 msgid "A list of allowed origins for cross-origin requests, one per line."
-msgstr ""
+msgstr "รายการต้นทางที่ได้รับอนุญาตสำหรับคำขอข้ามโดเมน หนึ่งรายการต่อหนึ่งบรรทัด"
 
 #: idp/oidc/models.py:94
+msgid ""
+"Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
+"can contain a single asterisk to match subdomains."
+msgstr ""
+
+#: idp/oidc/models.py:102
 msgid ""
 "A list of allowed response types. Provide one value per line, e.g.: "
 "code(ENTER)id_token token(ENTER)"
 msgstr ""
+"รายการประเภทการตอบกลับที่ได้รับอนุญาต ระบุหนึ่งค่าต่อหนึ่งบรรทัด เช่น: code(ENTER)id_token "
+"token(ENTER)"
 
-#: idp/oidc/models.py:107
-#, fuzzy
-#| msgid "client id"
+#: idp/oidc/models.py:115
 msgid "client"
-msgstr "รหัสลูกค้า"
+msgstr "ไคลเอนต์"
 
-#: idp/oidc/models.py:108
-#, fuzzy
-#| msgid "client id"
+#: idp/oidc/models.py:116
 msgid "clients"
-msgstr "รหัสลูกค้า"
+msgstr "ไคลเอนต์"
 
 #: mfa/adapter.py:32
 msgid ""
@@ -594,7 +604,7 @@ msgstr "โทเค็นแอปพลิเคชันโซเชียล
 msgid "social application tokens"
 msgstr "โทเค็นแอปพลิเคชันโซเชียล"
 
-#: socialaccount/providers/douban/views.py:36
+#: socialaccount/providers/douban/views.py:35
 msgid "Invalid profile data"
 msgstr "ข้อมูลโปรไฟล์ไม่ถูกต้อง"
 
@@ -612,34 +622,34 @@ msgstr "ลงชื่อเข้าใช้"
 msgid "Cancel"
 msgstr "ยกเลิก"
 
-#: socialaccount/providers/oauth/client.py:84
+#: socialaccount/providers/oauth/client.py:86
 #, python-format
 msgid ""
 "Invalid response while obtaining request token from \"%s\". Response was: %s."
 msgstr "การตอบสนองไม่ถูกต้องขณะได้รับคำขอโทเค็นจาก \"%s\" การตอบสนองคือ: %s"
 
-#: socialaccount/providers/oauth/client.py:118
-#: socialaccount/providers/pocket/client.py:86
+#: socialaccount/providers/oauth/client.py:121
+#: socialaccount/providers/pocket/client.py:81
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr "การตอบสนองผิดพลาดขณะที่กำลังได้รับ access token จาก \"%s\""
 
-#: socialaccount/providers/oauth/client.py:139
+#: socialaccount/providers/oauth/client.py:142
 #, python-format
 msgid "No request token saved for \"%s\"."
 msgstr "ไม่มีการบันทึก request token ของ \"%s\""
 
-#: socialaccount/providers/oauth/client.py:190
+#: socialaccount/providers/oauth/client.py:193
 #, python-format
 msgid "No access token saved for \"%s\"."
 msgstr "ไม่มีการบันทึก access token ของ \"%s\""
 
-#: socialaccount/providers/oauth/client.py:211
+#: socialaccount/providers/oauth/client.py:215
 #, python-format
 msgid "No access to private resources at \"%s\"."
 msgstr "ไม่มีสิทธิ์การเข้าใช้ทรัพยากรส่วนตัว ที่ \"%s\""
 
-#: socialaccount/providers/pocket/client.py:41
+#: socialaccount/providers/pocket/client.py:39
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr "การตอบสนองผิดพลาดขณะที่กำลังได้รับ request token จาก \"%s\""
@@ -749,7 +759,7 @@ msgstr "กรอกรหัสยืนยันอีเมล"
 
 #: templates/account/confirm_phone_verification_code.html:15
 msgid "Use a different phone number"
-msgstr ""
+msgstr "ใช้หมายเลขโทรศัพท์อื่น"
 
 #: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
@@ -1092,11 +1102,13 @@ msgstr "ส่งรหัสลงชื่อเข้าใช้ให้ฉ
 
 #: templates/account/logout.html:4 templates/account/logout.html:8
 #: templates/account/logout.html:21 templates/allauth/layouts/base.html:61
+#: templates/idp/oidc/logout.html:4 templates/idp/oidc/logout.html:8
+#: templates/idp/oidc/logout.html:21
 #: templates/usersessions/usersession_list.html:76
 msgid "Sign Out"
 msgstr "ลงชื่อออก"
 
-#: templates/account/logout.html:11
+#: templates/account/logout.html:11 templates/idp/oidc/logout.html:11
 msgid "Are you sure you want to sign out?"
 msgstr "คุณแน่ใจหรือว่าต้องการจะลงชื่อออก"
 
@@ -1152,7 +1164,7 @@ msgstr "รหัสลงชื่อเข้าใช้ได้ถูกส
 #: templates/account/messages/phone_verified.txt:2
 #, python-format
 msgid "You have verified phone number %(phone)s."
-msgstr ""
+msgstr "คุณได้ยืนยันหมายเลขโทรศัพท์ %(phone)s แล้ว"
 
 #: templates/account/messages/primary_email_set.txt:2
 msgid "Primary email address set."
@@ -1409,22 +1421,20 @@ msgstr "เซสชั่น"
 #: templates/idp/oidc/device_authorization_confirmed.html:5
 #: templates/idp/oidc/device_authorization_denied.html:5
 msgid "Authorize"
-msgstr ""
+msgstr "อนุญาต"
 
 #: templates/idp/oidc/authorization_form.html:12
 #, python-format
 msgid "%(client_name)s wants to access your %(site_name)s account."
-msgstr ""
+msgstr "%(client_name)s ต้องการเข้าถึงบัญชี %(site_name)s ของคุณ"
 
 #: templates/idp/oidc/device_authorization_code_form.html:9
-#, fuzzy
-#| msgid "Enter Sign-In Code"
 msgid "Enter Device Code"
-msgstr "ป้อนรหัสเข้าสู่ระบบ"
+msgstr "ป้อนรหัสอุปกรณ์"
 
 #: templates/idp/oidc/device_authorization_code_form.html:12
 msgid "Enter the code displayed on your device."
-msgstr ""
+msgstr "ป้อนรหัสที่แสดงบนอุปกรณ์ของคุณ"
 
 #: templates/idp/oidc/device_authorization_code_form.html:21
 #: templates/socialaccount/login.html:27
@@ -1433,43 +1443,47 @@ msgid "Continue"
 msgstr "ดำเนินการต่อ"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:9
-#, fuzzy
-#| msgid "Confirm Access"
 msgid "Confirm Device"
-msgstr "ยืนยันที่อยู่อีเมล AddrAccess"
+msgstr "ยืนยันอุปกรณ์"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:12
 #, python-format
 msgid ""
 "Please confirm the code shown on your %(client_name)s to authorize this "
 "device."
-msgstr ""
+msgstr "กรุณายืนยันรหัสที่แสดงบน %(client_name)s ของคุณเพื่ออนุญาตอุปกรณ์นี้"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:29
 msgid "Deny"
-msgstr ""
+msgstr "ปฏิเสธ"
 
 #: templates/idp/oidc/device_authorization_confirmed.html:9
 msgid "Device Authorized"
-msgstr ""
+msgstr "อนุญาตอุปกรณ์แล้ว"
 
 #: templates/idp/oidc/device_authorization_confirmed.html:12
 #, python-format
 msgid "You successfully authorized your %(client_name)s device."
-msgstr ""
+msgstr "คุณได้อนุญาตอุปกรณ์ %(client_name)s ของคุณสำเร็จแล้ว"
 
 #: templates/idp/oidc/device_authorization_denied.html:9
 msgid "Device Denied"
-msgstr ""
+msgstr "ปฏิเสธอุปกรณ์"
 
 #: templates/idp/oidc/device_authorization_denied.html:12
 #, python-format
 msgid "Authorization for your %(client_name)s device has been denied."
-msgstr ""
+msgstr "การอนุญาตสำหรับอุปกรณ์ %(client_name)s ของคุณถูกปฏิเสธ"
 
 #: templates/idp/oidc/error.html:5 templates/idp/oidc/error.html:9
 msgid "Error"
-msgstr ""
+msgstr "ข้อผิดพลาด"
+
+#: templates/idp/oidc/logout.html:24
+#, fuzzy
+#| msgid "Sign In"
+msgid "Stay Signed In"
+msgstr "ลงชื่อเข้าใช้"
 
 #: templates/mfa/authenticate.html:13
 msgid ""
@@ -1672,22 +1686,22 @@ msgstr "คุณกำลังจะปิดการใช้งานกา
 
 #: templates/mfa/trust.html:4 templates/mfa/trust.html:8
 msgid "Trust this Browser?"
-msgstr ""
+msgstr "ไว้วางใจเบราว์เซอร์นี้หรือไม่?"
 
 #: templates/mfa/trust.html:11
 msgid ""
 "If you choose to trust this browser, you will not be asked for a "
 "verification code the next time you sign in."
-msgstr ""
+msgstr "หากคุณเลือกที่จะไว้วางใจเบราว์เซอร์นี้ คุณจะไม่ถูกขอรหัสยืนยันในครั้งถัดไปที่คุณเข้าสู่ระบบ"
 
 #: templates/mfa/trust.html:23
 #, python-format
 msgid "Trust for %(period)s"
-msgstr ""
+msgstr "ไว้วางใจเป็นเวลา %(period)s"
 
 #: templates/mfa/trust.html:26
 msgid "Don't Trust"
-msgstr ""
+msgstr "ไม่ไว้วางใจ"
 
 #: templates/mfa/webauthn/add_form.html:7
 msgid "Add Security Key"
@@ -1755,6 +1769,8 @@ msgid ""
 "additional keys later on, you can use a descriptive name to tell the keys "
 "apart."
 msgstr ""
+"คุณกำลังจะสร้างพาสคีย์สำหรับบัญชีของคุณ เนื่องจากคุณสามารถเพิ่มคีย์อื่นๆ ได้ในภายหลัง "
+"คุณสามารถใช้ชื่อที่อธิบายเพื่อแยกคีย์ออกจากกัน"
 
 #: templates/mfa/webauthn/signup_form.html:21
 #, fuzzy
@@ -1899,7 +1915,7 @@ msgstr "ออกจากระบบเซสชั่นอื่น ๆ"
 msgid "User Sessions"
 msgstr "เซสชันผู้ใช้"
 
-#: usersessions/models.py:93
+#: usersessions/models.py:94
 msgid "session key"
 msgstr "คีย์เซสชั่น"
 
@@ -1984,14 +2000,9 @@ msgstr "คีย์เซสชั่น"
 #~ msgid "This username is already taken. Please choose another."
 #~ msgstr "ชื่อผู้ใช้นี้ถูกใช้แล้ว กรุณาเลือกชื่ออื่น"
 
-#, fuzzy
-#~| msgid "Sign In"
-#~ msgid "Shopify Sign In"
-#~ msgstr "ลงชื่อเข้าใช้"
-
 #~ msgid ""
 #~ "You have confirmed that <a href=\"mailto:%(email)s\">%(email)s</a> is an "
 #~ "e-mail address for user %(user_display)s."
 #~ msgstr ""
-#~ "คุณได้ยืนยันว่า <a href=\"mailto:%(email)s\">%(email)s</a> เป็นอีเมลของผู้ใช้ "
-#~ "%(user_display)s."
+#~ "คุณได้ยืนยันว่า <a href=\"mailto:%(email)s\">%(email)s</a> เป็นอีเมลของผู้ใช้ %"
+#~ "(user_display)s."

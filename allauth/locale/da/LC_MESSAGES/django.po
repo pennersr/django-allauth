@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-25 13:23-0500\n"
+"POT-Creation-Date: 2026-02-13 09:05-0600\n"
 "PO-Revision-Date: 2024-04-20 21:40+0200\n"
 "Last-Translator: b'Tuk Bredsdorff <tukodeb@gmail.com>'\n"
 "Language-Team: \n"
@@ -18,161 +18,132 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.1.1\n"
 
-#: account/adapter.py:53
+#: account/adapter.py:61
 msgid "This account is currently inactive."
 msgstr "Denne konto er i øjeblikket inaktiv."
 
-#: account/adapter.py:55
-#, fuzzy
-#| msgid "You cannot remove your primary email address (%(email)s)."
+#: account/adapter.py:63
 msgid "You cannot remove your primary email address."
-msgstr "Du kan ikke fjerne din primære emailadresse (%(email)s)."
+msgstr "Du kan ikke fjerne din primære emailadresse."
 
-#: account/adapter.py:58
+#: account/adapter.py:66
 msgid "This email address is already associated with this account."
 msgstr "Denne emailadresse er allerede knyttet til denne konto."
 
-#: account/adapter.py:61
+#: account/adapter.py:69
 msgid "The email address and/or password you specified are not correct."
 msgstr "Den angivne emailadresse og/eller adgangskode er ikke korrekt."
 
-#: account/adapter.py:64
-#, fuzzy
-#| msgid "The username and/or password you specified are not correct."
+#: account/adapter.py:72
 msgid "The phone number and/or password you specified are not correct."
-msgstr "Det angivne brugernavn og/eller adgangskoden er ikke korrekt."
+msgstr "Det angivne telefonnummer og/eller adgangskode er ikke korrekt."
 
-#: account/adapter.py:66
-#, fuzzy
-#| msgid "A user is already registered with this address."
+#: account/adapter.py:74
 msgid "A user is already registered with this email address."
 msgstr "En bruger er allerede registreret med denne emailadresse."
 
-#: account/adapter.py:67
+#: account/adapter.py:75
 msgid "Please type your current password."
 msgstr "Indtast din nuværende adgangskode."
 
-#: account/adapter.py:68 mfa/adapter.py:40
+#: account/adapter.py:76 mfa/adapter.py:40
 msgid "Incorrect code."
-msgstr ""
+msgstr "Forkert kode."
 
-#: account/adapter.py:69
-#, fuzzy
-#| msgid "Current Password"
+#: account/adapter.py:77
 msgid "Incorrect password."
-msgstr "Nuværende adgangskode"
+msgstr "Forkert adgangskode."
 
-#: account/adapter.py:70
-#, fuzzy
-#| msgid "Bad Token"
+#: account/adapter.py:78
 msgid "Invalid or expired key."
-msgstr "Ugyldigt token"
+msgstr "Ugyldig eller udløbet nøgle."
 
-#: account/adapter.py:71
-#, fuzzy
-#| msgid "Bad Token"
+#: account/adapter.py:79
 msgid "Invalid login."
-msgstr "Ugyldigt token"
+msgstr "Ugyldigt login."
 
-#: account/adapter.py:72
+#: account/adapter.py:80
 msgid "The password reset token was invalid."
 msgstr "Token for nulstilling af adgangskode var ugyldig."
 
-#: account/adapter.py:73
-#, fuzzy, python-format
-#| msgid "Your account has no verified email address."
+#: account/adapter.py:81
+#, python-format
 msgid "You cannot add more than %d email addresses."
-msgstr "Din konto har ikke nogen bekræftet emailadresse."
+msgstr "Du kan ikke tilføje mere end %d emailadresser."
 
-#: account/adapter.py:74
-#, fuzzy
-#| msgid "A user is already registered with this address."
+#: account/adapter.py:82
 msgid "A user is already registered with this phone number."
-msgstr "En bruger er allerede registreret med denne emailadresse."
+msgstr "En bruger er allerede registreret med dette telefonnummer."
 
-#: account/adapter.py:76
+#: account/adapter.py:84
 msgid "Too many failed login attempts. Try again later."
 msgstr "Der er for mange mislykkede logonforsøg. Prøv igen senere."
 
-#: account/adapter.py:78
-#, fuzzy
-#| msgid "The email address is not assigned to any user account"
+#: account/adapter.py:86
 msgid "The email address is not assigned to any user account."
-msgstr "Emailadressen er ikke tildelt til nogen brugerkonto"
+msgstr "Emailadressen er ikke tildelt til nogen brugerkonto."
 
-#: account/adapter.py:79
-#, fuzzy
-#| msgid "The email address is not assigned to any user account"
+#: account/adapter.py:87
 msgid "The phone number is not assigned to any user account."
-msgstr "Emailadressen er ikke tildelt til nogen brugerkonto"
+msgstr "Telefonnummeret er ikke tildelt til nogen brugerkonto."
 
-#: account/adapter.py:80
+#: account/adapter.py:88
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary email address must be verified."
 msgstr "Din primære emailadresse skal bekræftes."
 
-#: account/adapter.py:82
+#: account/adapter.py:90
 msgid "Username can not be used. Please use other username."
 msgstr "Brugernavn kan ikke bruges. Brug venligst et andet brugernavn."
 
-#: account/adapter.py:85
+#: account/adapter.py:93
 msgid "The username and/or password you specified are not correct."
 msgstr "Det angivne brugernavn og/eller adgangskoden er ikke korrekt."
 
-#: account/adapter.py:90
+#: account/adapter.py:98
 msgid "Please select only one."
-msgstr ""
+msgstr "Vælg kun én."
 
-#: account/adapter.py:91
+#: account/adapter.py:99
 msgid "The new value must be different from the current one."
-msgstr ""
+msgstr "Den nye værdi skal være anderledes end den nuværende."
 
-#: account/adapter.py:92
+#: account/adapter.py:100
 msgid "Be patient, you are sending too many requests."
-msgstr ""
+msgstr "Hav tålmodighed, du sender for mange anmodninger."
 
-#: account/adapter.py:805
-#, fuzzy
-#| msgid "Forgot Password?"
+#: account/adapter.py:826
 msgid "Use your password"
-msgstr "Glemt password?"
+msgstr "Brug din adgangskode"
 
-#: account/adapter.py:814
-#, fuzzy
-#| msgid "token secret"
+#: account/adapter.py:835
 msgid "Use authenticator app or code"
-msgstr "token hemmelighed"
+msgstr "Brug autentificeringsapp eller kode"
 
-#: account/adapter.py:821 templates/mfa/authenticate.html:41
+#: account/adapter.py:842 templates/mfa/authenticate.html:41
 #: templates/mfa/webauthn/reauthenticate.html:15
-#, fuzzy
-#| msgid "secret key"
 msgid "Use a security key"
-msgstr "hemmelig nøgle"
+msgstr "Brug en sikkerhedsnøgle"
 
 #: account/admin.py:30
-#, fuzzy, python-brace-format
-#| msgid "Your primary email address must be verified."
+#, python-brace-format
 msgid "Marked {email} as verified."
-msgstr "Din primære emailadresse skal bekræftes."
+msgstr "Markerede {email} som bekræftet."
 
 #: account/admin.py:36
-#, fuzzy, python-brace-format
-#| msgid "Your primary email address must be verified."
+#, python-brace-format
 msgid "Failed to mark {email} as verified."
-msgstr "Din primære emailadresse skal bekræftes."
+msgstr "Kunne ikke markere {email} som bekræftet."
 
 #: account/admin.py:42
-#, fuzzy
-#| msgid "Your primary email address must be verified."
 msgid "Mark selected email addresses as verified"
-msgstr "Din primære emailadresse skal bekræftes."
+msgstr "Marker valgte emailadresser som bekræftede"
 
 #: account/apps.py:11
 msgid "Accounts"
 msgstr "Konti"
 
-#: account/fields.py:12 account/forms.py:299 idp/oidc/forms.py:38
+#: account/fields.py:12 account/forms.py:299 idp/oidc/forms.py:43
 msgid "Email"
 msgstr "Email"
 
@@ -182,11 +153,11 @@ msgstr "Emailadresse"
 
 #: account/fields.py:62
 msgid "Enter a phone number including country code (e.g. +1 for the US)."
-msgstr ""
+msgstr "Indtast et telefonnummer inklusive landekode (f.eks. +1 for USA)."
 
 #: account/fields.py:68 account/fields.py:72 account/forms.py:325
 msgid "Phone"
-msgstr ""
+msgstr "Telefon"
 
 #: account/forms.py:61 account/forms.py:524
 msgid "You must type the same password each time."
@@ -212,32 +183,24 @@ msgid "Login"
 msgstr "Bruger"
 
 #: account/forms.py:115
-#, fuzzy
-#| msgid "Username or email"
 msgid "Username, email or phone"
-msgstr "Brugernavn eller email"
+msgstr "Brugernavn, email eller telefon"
 
 #: account/forms.py:117
 msgid "Username or email"
 msgstr "Brugernavn eller email"
 
 #: account/forms.py:119
-#, fuzzy
-#| msgid "Username or email"
 msgid "Username or phone"
-msgstr "Brugernavn eller email"
+msgstr "Brugernavn eller telefon"
 
 #: account/forms.py:121
-#, fuzzy
-#| msgid "Email (optional)"
 msgid "Email or phone"
-msgstr "Email (valgfri)"
+msgstr "Email eller telefon"
 
 #: account/forms.py:144
-#, fuzzy
-#| msgid "Forgot Password?"
 msgid "Forgot your password?"
-msgstr "Glemt password?"
+msgstr "Glemt din adgangskode?"
 
 #: account/forms.py:287
 msgid "Email (again)"
@@ -252,10 +215,8 @@ msgid "Email (optional)"
 msgstr "Email (valgfri)"
 
 #: account/forms.py:314
-#, fuzzy
-#| msgid "Email (optional)"
 msgid "Username (optional)"
-msgstr "Email (valgfri)"
+msgstr "Brugernavn (valgfrit)"
 
 #: account/forms.py:388
 msgid "You must type the same email each time."
@@ -277,12 +238,12 @@ msgstr "Ny adgangskode"
 msgid "New Password (again)"
 msgstr "Ny adgangskode (igen)"
 
-#: account/forms.py:767 account/forms.py:769 idp/oidc/forms.py:46
-#: idp/oidc/forms.py:49 mfa/base/forms.py:12 mfa/base/forms.py:14
+#: account/forms.py:767 account/forms.py:769 idp/oidc/forms.py:51
+#: idp/oidc/forms.py:54 mfa/base/forms.py:12 mfa/base/forms.py:14
 #: mfa/totp/forms.py:13
 #: templates/idp/oidc/device_authorization_confirm_form.html:16
 msgid "Code"
-msgstr ""
+msgstr "Kode"
 
 #: account/models.py:23
 msgid "user"
@@ -326,55 +287,69 @@ msgstr "emailbekræftelse"
 
 #: headless/apps.py:7
 msgid "Headless"
-msgstr ""
+msgstr "Headless"
 
 #: idp/oidc/adapter.py:30
 msgid "View your user ID"
-msgstr ""
+msgstr "Se dit bruger-ID"
 
 #: idp/oidc/adapter.py:31
-#, fuzzy
-#| msgid "Verify Your Email Address"
 msgid "View your email address"
-msgstr "Bekræft din emailadresse"
+msgstr "Se din emailadresse"
 
 #: idp/oidc/adapter.py:32
 msgid "View your basic profile information"
+msgstr "Se dine grundlæggende profiloplysninger"
+
+#: idp/oidc/forms.py:31
+msgid "Grant permissions"
+msgstr "Giv tilladelser"
+
+#: idp/oidc/internal/clientkit.py:22
+msgid "Wildcards are not allowed unless 'Allow URI wildcards' is enabled."
 msgstr ""
 
-#: idp/oidc/forms.py:26
-msgid "Grant permissions"
+#: idp/oidc/internal/clientkit.py:27
+msgid ""
+"URI '{}' contains more than one wildcard (*). Only one wildcard per URI is "
+"allowed."
+msgstr ""
+
+#: idp/oidc/internal/clientkit.py:39
+msgid "Wildcards are only allowed in the hostname portion of the URI."
 msgstr ""
 
 #: idp/oidc/models.py:37
 msgid "Authorization code"
-msgstr ""
+msgstr "Autorisationskode"
 
 #: idp/oidc/models.py:38
 msgid "Device code"
-msgstr ""
+msgstr "Enhedskode"
 
 #: idp/oidc/models.py:39
 msgid "Client credentials"
-msgstr ""
+msgstr "Klientlegitimationsoplysninger"
 
 #: idp/oidc/models.py:40
 msgid "Refresh token"
-msgstr ""
+msgstr "Opdater token"
 
 #: idp/oidc/models.py:43
 msgid "Confidential"
-msgstr ""
+msgstr "Fortrolig"
 
 #: idp/oidc/models.py:44
 msgid "Public"
-msgstr ""
+msgstr "Offentlig"
 
 #: idp/oidc/models.py:58
 msgid ""
-"The scope(s) the client is allowed to request. Provide one value per line, e."
-"g.: openid(ENTER)profile(ENTER)email(ENTER)"
+"The scope(s) the client is allowed to request. Provide one value per line, "
+"e.g.: openid(ENTER)profile(ENTER)email(ENTER)"
 msgstr ""
+"De scope(s), som klienten har tilladelse til at anmode om. Angiv én værdi "
+"pr. linje, f.eks.: openid(ENTER)profile(ENTER)email(ENTER)"
 
 #: idp/oidc/models.py:64
 msgid ""
@@ -382,109 +357,121 @@ msgid ""
 "used. Provide one value per line, e.g.: "
 "openid(ENTER)profile(ENTER)email(ENTER)"
 msgstr ""
+"Hvis klienten ikke angiver nogen scope, bruges disse standardscopes. Angiv "
+"én værdi pr. linje, f.eks.: openid(ENTER)profile(ENTER)email(ENTER)"
 
 #: idp/oidc/models.py:75
 msgid ""
 "A list of allowed grant types. Provide one value per line, e.g.: "
 "authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 msgstr ""
+"En liste over tilladte grant-typer. Angiv én værdi pr. linje, f.eks.: "
+"authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 
 #: idp/oidc/models.py:86
 msgid "A list of allowed origins for cross-origin requests, one per line."
 msgstr ""
+"En liste over tilladte oprindelser for cross-origin anmodninger, én pr. "
+"linje."
 
 #: idp/oidc/models.py:94
+msgid ""
+"Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
+"can contain a single asterisk to match subdomains."
+msgstr ""
+
+#: idp/oidc/models.py:102
 msgid ""
 "A list of allowed response types. Provide one value per line, e.g.: "
 "code(ENTER)id_token token(ENTER)"
 msgstr ""
+"En liste over tilladte responstyper. Angiv én værdi pr. linje, f.eks.: "
+"code(ENTER)id_token token(ENTER)"
 
-#: idp/oidc/models.py:107
-#, fuzzy
-#| msgid "client id"
+#: idp/oidc/models.py:115
 msgid "client"
-msgstr "klient id"
+msgstr "klient"
 
-#: idp/oidc/models.py:108
-#, fuzzy
-#| msgid "client id"
+#: idp/oidc/models.py:116
 msgid "clients"
-msgstr "klient id"
+msgstr "klienter"
 
 #: mfa/adapter.py:32
 msgid ""
 "You cannot add an email address to an account protected by two-factor "
 "authentication."
 msgstr ""
+"Du kan ikke tilføje en emailadresse til en konto beskyttet af to-faktor-"
+"autentificering."
 
 #: mfa/adapter.py:35
 msgid "You cannot deactivate two-factor authentication."
-msgstr ""
+msgstr "Du kan ikke deaktivere to-faktor-autentificering."
 
 #: mfa/adapter.py:38
 msgid ""
 "You cannot generate recovery codes without having two-factor authentication "
 "enabled."
 msgstr ""
+"Du kan ikke generere gendannelseskoder uden at have to-faktor-"
+"autentificering aktiveret."
 
 #: mfa/adapter.py:42
 msgid ""
 "You cannot activate two-factor authentication until you have verified your "
 "email address."
 msgstr ""
+"Du kan ikke aktivere to-faktor-autentificering, før du har bekræftet din e-"
+"mailadresse."
 
 #: mfa/adapter.py:141
-#, fuzzy
-#| msgid "secret key"
 msgid "Master key"
-msgstr "hemmelig nøgle"
+msgstr "Hovednøgle"
 
 #: mfa/adapter.py:143
 msgid "Backup key"
-msgstr ""
+msgstr "Backup-nøgle"
 
 #: mfa/adapter.py:144
 #, python-brace-format
 msgid "Key nr. {number}"
-msgstr ""
+msgstr "Nøgle nr. {number}"
 
 #: mfa/apps.py:9
 msgid "MFA"
-msgstr ""
+msgstr "MFA"
 
 #: mfa/models.py:24
 msgid "Recovery codes"
-msgstr ""
+msgstr "Gendannelseskoder"
 
 #: mfa/models.py:25
 msgid "TOTP Authenticator"
-msgstr ""
+msgstr "TOTP-autentificering"
 
 #: mfa/models.py:26
 msgid "WebAuthn"
-msgstr ""
+msgstr "WebAuthn"
 
 #: mfa/totp/forms.py:11
 msgid "Authenticator code"
-msgstr ""
+msgstr "Autentificeringskode"
 
 #: mfa/webauthn/forms.py:56
-#, fuzzy
-#| msgid "Password"
 msgid "Passwordless"
-msgstr "Adgangskode"
+msgstr "Adgangskode-fri"
 
 #: mfa/webauthn/forms.py:59
 msgid ""
 "Enabling passwordless operation allows you to sign in using just this key, "
 "but imposes additional requirements such as biometrics or PIN protection."
 msgstr ""
+"Aktivering af adgangskode-fri drift giver dig mulighed for at logge ind med "
+"kun denne nøgle, men stiller yderligere krav såsom biometri eller PIN-"
+"beskyttelse."
 
 #: socialaccount/adapter.py:30
-#, fuzzy, python-format
-#| msgid ""
-#| "An account already exists with this e-mail address. Please sign in to "
-#| "that account first, then connect your %s account."
+#, python-format
 msgid ""
 "An account already exists with this email address. Please sign in to that "
 "account first, then connect your %s account."
@@ -493,10 +480,8 @@ msgstr ""
 "den konto først og tilknyt din %s konto derefter."
 
 #: socialaccount/adapter.py:34
-#, fuzzy
-#| msgid "Bad Token"
 msgid "Invalid token."
-msgstr "Ugyldigt token"
+msgstr "Ugyldigt token."
 
 #: socialaccount/adapter.py:35
 msgid "Your account has no password set up."
@@ -507,19 +492,13 @@ msgid "Your account has no verified email address."
 msgstr "Din konto har ikke nogen bekræftet emailadresse."
 
 #: socialaccount/adapter.py:38
-#, fuzzy
-#| msgid ""
-#| "You can sign in to your account using any of the following third party "
-#| "accounts:"
 msgid "You cannot disconnect your last remaining third-party account."
-msgstr "Du kan logge ind med følgende tredjepartskonti:"
+msgstr "Du kan ikke afbryde din sidste resterende tredjepartskonto."
 
 #: socialaccount/adapter.py:41
 #: templates/socialaccount/messages/account_connected_other.txt:2
-#, fuzzy
-#| msgid "The social account is already connected to a different account."
 msgid "The third-party account is already connected to a different account."
-msgstr "Den sociale konto er allerede tilknyttet en anden konto."
+msgstr "Tredjepartskontoen er allerede tilsluttet en anden konto."
 
 #: socialaccount/apps.py:9
 msgid "Social Accounts"
@@ -530,10 +509,8 @@ msgid "provider"
 msgstr "udbyder"
 
 #: socialaccount/models.py:53
-#, fuzzy
-#| msgid "provider"
 msgid "provider ID"
-msgstr "udbyder"
+msgstr "udbyder-ID"
 
 #: socialaccount/models.py:57
 msgid "name"
@@ -619,16 +596,13 @@ msgstr "socialt applikationstoken"
 msgid "social application tokens"
 msgstr "sociale applikationstokener"
 
-#: socialaccount/providers/douban/views.py:36
+#: socialaccount/providers/douban/views.py:35
 msgid "Invalid profile data"
 msgstr "Ugyldig profildata"
 
 #: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:16
-#, fuzzy
-#| msgctxt "field label"
-#| msgid "Login"
 msgid "Login"
-msgstr "Bruger"
+msgstr "Log ind"
 
 #: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:19
 #: templates/account/base_confirm_code.html:48
@@ -638,37 +612,38 @@ msgstr "Bruger"
 #: templates/mfa/authenticate.html:28 templates/mfa/authenticate.html:44
 #: templates/mfa/trust.html:29 templates/mfa/webauthn/signup_form.html:26
 msgid "Cancel"
-msgstr ""
+msgstr "Annuller"
 
-#: socialaccount/providers/oauth/client.py:84
-#, fuzzy, python-format
-#| msgid "Invalid response while obtaining request token from \"%s\"."
+#: socialaccount/providers/oauth/client.py:86
+#, python-format
 msgid ""
 "Invalid response while obtaining request token from \"%s\". Response was: %s."
-msgstr "Ugyldig respons under forsøg på at hente request token fra “%s”."
+msgstr ""
+"Ugyldig respons under forsøg på at hente request token fra \"%s\". Respons "
+"var: %s."
 
-#: socialaccount/providers/oauth/client.py:118
-#: socialaccount/providers/pocket/client.py:86
+#: socialaccount/providers/oauth/client.py:121
+#: socialaccount/providers/pocket/client.py:81
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr "Ugyldig respons under forsøg på at hente adgangstoken fra “%s”."
 
-#: socialaccount/providers/oauth/client.py:139
+#: socialaccount/providers/oauth/client.py:142
 #, python-format
 msgid "No request token saved for \"%s\"."
 msgstr "Intet request token gemt for “%s”."
 
-#: socialaccount/providers/oauth/client.py:190
+#: socialaccount/providers/oauth/client.py:193
 #, python-format
 msgid "No access token saved for \"%s\"."
 msgstr "Intet adgangstoken gemt for “%s”."
 
-#: socialaccount/providers/oauth/client.py:211
+#: socialaccount/providers/oauth/client.py:215
 #, python-format
 msgid "No access to private resources at \"%s\"."
 msgstr "Ingen adgang til private ressourcer på “%s”."
 
-#: socialaccount/providers/pocket/client.py:41
+#: socialaccount/providers/pocket/client.py:39
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr "Ugyldig respons under forsøg på at hente request token fra “%s”."
@@ -688,6 +663,8 @@ msgid ""
 "We've sent a code to %(recipient)s. The code expires shortly, so please "
 "enter it soon."
 msgstr ""
+"Vi har sendt en kode til %(recipient)s. Koden udløber snart, så indtast den "
+"venligst hurtigt."
 
 #: templates/account/base_confirm_code.html:39
 #: templates/account/email_confirm.html:24
@@ -699,41 +676,33 @@ msgstr "Bekræft"
 
 #: templates/account/base_confirm_code.html:43
 msgid "Request new code"
-msgstr ""
+msgstr "Anmod om ny kode"
 
 #: templates/account/base_reauthenticate.html:5
 #: templates/account/base_reauthenticate.html:9
-#, fuzzy
-#| msgid "Confirm Email Address"
 msgid "Confirm Access"
-msgstr "Bekræft venligst din emailadresse"
+msgstr "Bekræft adgang"
 
 #: templates/account/base_reauthenticate.html:12
 msgid "Please reauthenticate to safeguard your account."
-msgstr ""
+msgstr "Genautentificer venligst for at beskytte din konto."
 
 #: templates/account/base_reauthenticate.html:19
 #: templates/mfa/authenticate.html:37
 msgid "Alternative options"
-msgstr ""
+msgstr "Alternative muligheder"
 
 #: templates/account/confirm_email_verification_code.html:5
-#, fuzzy
-#| msgid "email confirmation"
 msgid "Email Verification"
-msgstr "emailbekræfelse"
+msgstr "Emailbekræftelse"
 
 #: templates/account/confirm_email_verification_code.html:8
-#, fuzzy
-#| msgid "token secret"
 msgid "Enter Email Verification Code"
-msgstr "token hemmelighed"
+msgstr "Indtast emailbekræftelseskode"
 
 #: templates/account/confirm_email_verification_code.html:16
-#, fuzzy
-#| msgid "email address"
 msgid "Use a different email address"
-msgstr "emailadresse"
+msgstr "Brug en anden emailadresse"
 
 #: templates/account/confirm_login_code.html:5 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
@@ -748,7 +717,7 @@ msgstr "Log ind"
 
 #: templates/account/confirm_login_code.html:8
 msgid "Enter Sign-In Code"
-msgstr ""
+msgstr "Indtast login-kode"
 
 #: templates/account/confirm_password_reset_code.html:5
 #: templates/account/email/password_reset_subject.txt:3
@@ -760,26 +729,20 @@ msgid "Password Reset"
 msgstr "Nulstil password"
 
 #: templates/account/confirm_password_reset_code.html:8
-#, fuzzy
-#| msgid "Password Reset"
 msgid "Enter Password Reset Code"
-msgstr "Nulstil password"
+msgstr "Indtast adgangskode-nulstillingskode"
 
 #: templates/account/confirm_phone_verification_code.html:5
-#, fuzzy
-#| msgid "Re-send Verification"
 msgid "Phone Verification"
-msgstr "Send bekræftelse igen"
+msgstr "Telefonbekræftelse"
 
 #: templates/account/confirm_phone_verification_code.html:8
-#, fuzzy
-#| msgid "token secret"
 msgid "Enter Phone Verification Code"
-msgstr "token hemmelighed"
+msgstr "Indtast telefonbekræftelseskode"
 
 #: templates/account/confirm_phone_verification_code.html:15
 msgid "Use a different phone number"
-msgstr ""
+msgstr "Brug et andet telefonnummer"
 
 #: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
@@ -846,20 +809,26 @@ msgid ""
 "\n"
 "%(password_reset_url)s"
 msgstr ""
+"Du modtager denne email, fordi du eller en anden har forsøgt at tilmelde sig "
+"en\n"
+"konto med emailadressen:\n"
+"\n"
+"%(email)s\n"
+"\n"
+"Der findes dog allerede en konto med denne emailadresse. Hvis du har\n"
+"glemt dette, brug venligst proceduren for glemt adgangskode for at gendanne\n"
+"din konto:\n"
+"\n"
+"%(password_reset_url)s"
 
 #: templates/account/email/account_already_exists_subject.txt:3
 msgid "Account Already Exists"
-msgstr ""
+msgstr "Konto eksisterer allerede"
 
 #: templates/account/email/base_message.txt:1
-#, fuzzy, python-format
-#| msgid ""
-#| "Thank you from %(site_name)s!\n"
-#| "%(site_domain)s"
+#, python-format
 msgid "Hello from %(site_name)s!"
-msgstr ""
-"Tak fra %(site_name)s!\n"
-"%(site_domain)s"
+msgstr "Hej fra %(site_name)s!"
 
 #: templates/account/email/base_message.txt:5
 #, python-format
@@ -875,6 +844,8 @@ msgid ""
 "You are receiving this mail because the following change was made to your "
 "account:"
 msgstr ""
+"Du modtager denne email, fordi følgende ændring er blevet foretaget på din "
+"konto:"
 
 #: templates/account/email/base_notification.txt:10
 #, python-format
@@ -886,60 +857,51 @@ msgid ""
 "- Browser: %(user_agent)s\n"
 "- Date: %(timestamp)s"
 msgstr ""
+"Hvis du ikke genkender denne ændring, skal du straks tage passende "
+"sikkerhedsforanstaltninger. Ændringen af din konto stammer fra:\n"
+"\n"
+"- IP-adresse: %(ip)s\n"
+"- Browser: %(user_agent)s\n"
+"- Dato: %(timestamp)s"
 
 #: templates/account/email/email_changed_message.txt:4
 #, python-format
 msgid "Your email has been changed from %(from_email)s to %(to_email)s."
-msgstr ""
+msgstr "Din email er blevet ændret fra %(from_email)s til %(to_email)s."
 
 #: templates/account/email/email_changed_subject.txt:3
-#, fuzzy
-#| msgid "Email address"
 msgid "Email Changed"
-msgstr "Emailadresse"
+msgstr "Email ændret"
 
 #: templates/account/email/email_confirm_message.txt:4
-#, fuzzy
-#| msgid "You have confirmed %(email)s."
 msgid "Your email has been confirmed."
-msgstr "Du har bekræftet %(email)s."
+msgstr "Din email er blevet bekræftet."
 
 #: templates/account/email/email_confirm_subject.txt:3
-#, fuzzy
-#| msgid "email confirmation"
 msgid "Email Confirmation"
-msgstr "emailbekræfelse"
+msgstr "Emailbekræftelse"
 
 #: templates/account/email/email_confirmation_message.txt:5
-#, fuzzy, python-format
-#| msgid ""
-#| "Hello from %(site_name)s!\n"
-#| "\n"
-#| "You're receiving this e-mail because user %(user_display)s has given "
-#| "yours as an e-mail address to connect their account.\n"
-#| "\n"
-#| "To confirm this is correct, go to %(activate_url)s\n"
+#, python-format
 msgid ""
 "You're receiving this email because user %(user_display)s has given your "
 "email address to register an account on %(site_domain)s."
 msgstr ""
-"Hej fra %(site_name)s!\n"
-"\n"
-"Du modtager denne email, fordi brugeren %(user_display)s ønsker at bruge den "
-"til sin konto.\n"
-"\n"
-"For at bekræfte dette, gå til %(activate_url)s\n"
+"Du modtager denne email, fordi brugeren %(user_display)s har angivet din "
+"emailadresse for at registrere en konto på %(site_domain)s."
 
 #: templates/account/email/email_confirmation_message.txt:7
 msgid ""
 "Your email verification code is listed below. Please enter it in your open "
 "browser window."
 msgstr ""
+"Din emailbekræftelseskode er angivet nedenfor. Indtast den venligst i dit "
+"åbne browservindue."
 
 #: templates/account/email/email_confirmation_message.txt:9
 #, python-format
 msgid "To confirm this is correct, go to %(activate_url)s"
-msgstr ""
+msgstr "For at bekræfte at dette er korrekt, gå til %(activate_url)s"
 
 #: templates/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your Email Address"
@@ -948,77 +910,62 @@ msgstr "Bekræft venligst din emailadresse"
 #: templates/account/email/email_deleted_message.txt:4
 #, python-format
 msgid "Email address %(deleted_email)s has been removed from your account."
-msgstr ""
+msgstr "Emailadressen %(deleted_email)s er blevet fjernet fra din konto."
 
 #: templates/account/email/email_deleted_subject.txt:3
-#, fuzzy
-#| msgid "Remove"
 msgid "Email Removed"
-msgstr "Fjern"
+msgstr "Email fjernet"
 
 #: templates/account/email/login_code_message.txt:5
 msgid ""
 "Your sign-in code is listed below. Please enter it in your open browser "
 "window."
 msgstr ""
+"Din login-kode er angivet nedenfor. Indtast den venligst i dit åbne "
+"browservindue."
 
 #: templates/account/email/login_code_message.txt:9
 #: templates/account/email/password_reset_code_message.txt:9
 #: templates/account/email/unknown_account_message.txt:6
 msgid "This mail can be safely ignored if you did not initiate this action."
 msgstr ""
+"Denne email kan ignoreres, hvis du ikke selv har startet denne handling."
 
 #: templates/account/email/login_code_subject.txt:3
-#, fuzzy
-#| msgid "Sign In"
 msgid "Sign-In Code"
-msgstr "Log ind"
+msgstr "Login-kode"
 
 #: templates/account/email/password_changed_message.txt:4
-#, fuzzy
-#| msgid "Your password is now changed."
 msgid "Your password has been changed."
-msgstr "Dit password er nu ændret."
+msgstr "Din adgangskode er blevet ændret."
 
 #: templates/account/email/password_changed_subject.txt:3
-#, fuzzy
-#| msgid "Password (again)"
 msgid "Password Changed"
-msgstr "Adgangskode (igen)"
+msgstr "Adgangskode ændret"
 
 #: templates/account/email/password_reset_code_message.txt:5
 msgid ""
 "Your password reset code is listed below. Please enter it in your open "
 "browser window."
 msgstr ""
+"Din adgangskode-nulstillingskode er angivet nedenfor. Indtast den venligst i "
+"dit åbne browservindue."
 
 #: templates/account/email/password_reset_code_subject.txt:3
-#, fuzzy
-#| msgid "Password Reset"
 msgid "Password Reset Code"
-msgstr "Nulstil password"
+msgstr "Adgangskode-nulstillingskode"
 
 #: templates/account/email/password_reset_key_message.txt:4
-#, fuzzy
-#| msgid ""
-#| "Hello from %(site_name)s!\n"
-#| "\n"
-#| "You're receiving this e-mail because you or someone else has requested a "
-#| "password for your user account.\n"
-#| "It can be safely ignored if you did not request a password reset. Click "
-#| "the link below to reset your password."
 msgid ""
 "You're receiving this email because you or someone else has requested a "
 "password reset for your user account.\n"
 "It can be safely ignored if you did not request a password reset. Click the "
 "link below to reset your password."
 msgstr ""
-"Hej fra %(site_name)s!\n"
-"\n"
-"Du har modtaget denne email fordi du eller en anden har bedt om et password "
-"til din konto.\n"
-"Den kan trygt ses bort fra, hvis du ikke har bedt om at få nulstillet dit "
-"password. Klik linket herunder for at nulstille dit password."
+"Du modtager denne email, fordi du eller en anden har anmodet om nulstilling "
+"af adgangskoden til din brugerkonto.\n"
+"Den kan ignoreres, hvis du ikke har anmodet om nulstilling af adgangskode. "
+"Klik på linket nedenfor for at nulstille din adgangskode."
 
 #: templates/account/email/password_reset_key_message.txt:9
 #, python-format
@@ -1030,22 +977,16 @@ msgid "Password Reset Email"
 msgstr "Nulstilling af Password Email"
 
 #: templates/account/email/password_reset_message.txt:4
-#, fuzzy
-#| msgid "Your password is now changed."
 msgid "Your password has been reset."
-msgstr "Dit password er nu ændret."
+msgstr "Din adgangskode er blevet nulstillet."
 
 #: templates/account/email/password_set_message.txt:4
-#, fuzzy
-#| msgid "Your password is now changed."
 msgid "Your password has been set."
-msgstr "Dit password er nu ændret."
+msgstr "Din adgangskode er blevet indstillet."
 
 #: templates/account/email/password_set_subject.txt:3
-#, fuzzy
-#| msgid "Password Reset"
 msgid "Password Set"
-msgstr "Nulstil password"
+msgstr "Adgangskode indstillet"
 
 #: templates/account/email/unknown_account_message.txt:4
 #, python-format
@@ -1054,57 +995,49 @@ msgid ""
 "an account with email %(email)s. However, we do not have any record of such "
 "an account in our database."
 msgstr ""
+"Du modtager denne email, fordi du eller en anden har forsøgt at få adgang "
+"til en konto med emailen %(email)s. Vi har dog ingen registrering af sådan "
+"en konto i vores database."
 
 #: templates/account/email/unknown_account_message.txt:8
 msgid "If it was you, you can sign up for an account using the link below."
 msgstr ""
+"Hvis det var dig, kan du tilmelde dig en konto ved hjælp af linket nedenfor."
 
 #: templates/account/email/unknown_account_subject.txt:3
-#, fuzzy
-#| msgid "Account"
 msgid "Unknown Account"
-msgstr "Konto"
+msgstr "Ukendt konto"
 
 #: templates/account/email_change.html:5 templates/account/email_change.html:9
-#, fuzzy
-#| msgid "Email Addresses"
 msgid "Email Address"
-msgstr "Emailadresser"
+msgstr "Emailadresse"
 
 #: templates/account/email_change.html:21
 #: templates/account/email_change.html:29
-#, fuzzy
-#| msgid "Current Password"
 msgid "Current email"
-msgstr "Nuværende adgangskode"
+msgstr "Nuværende email"
 
 #: templates/account/email_change.html:31
 msgid "Changing to"
-msgstr ""
+msgstr "Ændrer til"
 
 #: templates/account/email_change.html:35
-#, fuzzy
-#| msgid "Your primary email address must be verified."
 msgid "Your email address is still pending verification."
-msgstr "Din primære emailadresse skal bekræftes."
+msgstr "Din emailadresse afventer stadig bekræftelse."
 
 #: templates/account/email_change.html:41
 msgid "Cancel Change"
-msgstr ""
+msgstr "Annuller ændring"
 
 #: templates/account/email_change.html:49
 #: templates/account/phone_change.html:32
-#, fuzzy
-#| msgid "Email"
 msgid "Change to"
-msgstr "Email"
+msgstr "Skift til"
 
 #: templates/account/email_change.html:55
 #: templates/allauth/layouts/base.html:31
-#, fuzzy
-#| msgid "Email"
 msgid "Change Email"
-msgstr "Email"
+msgstr "Skift email"
 
 #: templates/account/email_confirm.html:6
 #: templates/account/email_confirm.html:10
@@ -1112,31 +1045,25 @@ msgid "Confirm Email Address"
 msgstr "Bekræft venligst din emailadresse"
 
 #: templates/account/email_confirm.html:16
-#, fuzzy, python-format
-#| msgid ""
-#| "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-"
-#| "mail address for user %(user_display)s."
+#, python-format
 msgid ""
 "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an email "
 "address for user %(user_display)s."
 msgstr ""
-"Bekræft venligst at <a href=\"mailto:%(email)s\">%(email)s</a> er en e-mail "
-"adresse for %(user_display)s."
+"Bekræft venligst at <a href=\"mailto:%(email)s\">%(email)s</a> er en "
+"emailadresse for bruger %(user_display)s."
 
 #: templates/account/email_confirm.html:30
 #: templates/account/messages/email_confirmation_failed.txt:2
-#, fuzzy, python-format
-#| msgid "The social account is already connected to a different account."
+#, python-format
 msgid ""
 "Unable to confirm %(email)s because it is already confirmed by a different "
 "account."
-msgstr "Den sociale konto er allerede tilknyttet en anden konto."
+msgstr ""
+"Kan ikke bekræfte %(email)s, da den allerede er bekræftet af en anden konto."
 
 #: templates/account/email_confirm.html:36
-#, fuzzy, python-format
-#| msgid ""
-#| "This e-mail confirmation link expired or is invalid. Please <a "
-#| "href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+#, python-format
 msgid ""
 "This email confirmation link expired or is invalid. Please <a "
 "href=\"%(email_url)s\">issue a new email confirmation request</a>."
@@ -1155,19 +1082,21 @@ msgstr ""
 
 #: templates/account/login.html:42
 msgid "Sign in with a passkey"
-msgstr ""
+msgstr "Log ind med en adgangsnøgle"
 
 #: templates/account/login.html:47 templates/account/request_login_code.html:9
 msgid "Send me a sign-in code"
-msgstr ""
+msgstr "Send mig en login-kode"
 
 #: templates/account/logout.html:4 templates/account/logout.html:8
 #: templates/account/logout.html:21 templates/allauth/layouts/base.html:61
+#: templates/idp/oidc/logout.html:4 templates/idp/oidc/logout.html:8
+#: templates/idp/oidc/logout.html:21
 #: templates/usersessions/usersession_list.html:76
 msgid "Sign Out"
 msgstr "Log ud"
 
-#: templates/account/logout.html:11
+#: templates/account/logout.html:11 templates/idp/oidc/logout.html:11
 msgid "Are you sure you want to sign out?"
 msgstr "Er du sikker på, at du vil logge af?"
 
@@ -1203,7 +1132,7 @@ msgstr "Du har logget ud."
 #: templates/account/messages/login_code_sent.txt:2
 #, python-format
 msgid "A sign-in code has been sent to %(recipient)s."
-msgstr ""
+msgstr "En login-kode er blevet sendt til %(recipient)s."
 
 #: templates/account/messages/password_changed.txt:2
 msgid "Password successfully changed."
@@ -1216,12 +1145,12 @@ msgstr "Password indstillet med success."
 #: templates/account/messages/phone_verification_sent.txt:2
 #, python-format
 msgid "A verification code has been sent to %(phone)s."
-msgstr ""
+msgstr "En bekræftelseskode er blevet sendt til %(phone)s."
 
 #: templates/account/messages/phone_verified.txt:2
 #, python-format
 msgid "You have verified phone number %(phone)s."
-msgstr ""
+msgstr "Du har bekræftet telefonnummer %(phone)s."
 
 #: templates/account/messages/primary_email_set.txt:2
 msgid "Primary email address set."
@@ -1244,10 +1173,6 @@ msgid "Forgot Password?"
 msgstr "Glemt password?"
 
 #: templates/account/password_reset.html:14
-#, fuzzy
-#| msgid ""
-#| "Forgotten your password? Enter your e-mail address below, and we'll send "
-#| "you an e-mail allowing you to reset it."
 msgid ""
 "Forgotten your password? Enter your email address below, and we'll send you "
 "an email allowing you to reset it."
@@ -1265,18 +1190,13 @@ msgstr ""
 "Kontakt os venligst, hvis du har problemer med at nulstille dit password."
 
 #: templates/account/password_reset_done.html:16
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for\n"
-#| "verification. Please click on the link inside this e-mail. Please\n"
-#| "contact us if you do not receive it within a few minutes."
 msgid ""
 "We have sent you an email. If you have not received it please check your "
 "spam folder. Otherwise contact us if you do not receive it in a few minutes."
 msgstr ""
-"Vi har sendt en email til dig for bekræftelse.\n"
-"Klik på linket i den. Kontakt os venligst, hvis du ikke modtager\n"
-" den i løbet af et par minutter."
+"Vi har sendt en email til dig. Hvis du ikke har modtaget den, tjek venligst "
+"din spam-mappe. Ellers kontakt os, hvis du ikke modtager den inden for få "
+"minutter."
 
 #: templates/account/password_reset_from_key.html:10
 msgid "Bad Token"
@@ -1302,47 +1222,37 @@ msgid "Set Password"
 msgstr "Indstil password"
 
 #: templates/account/phone_change.html:5 templates/account/phone_change.html:9
-#, fuzzy
-#| msgid "Email"
 msgid "Change Phone"
-msgstr "Email"
+msgstr "Skift telefon"
 
 #: templates/account/phone_change.html:18
-#, fuzzy
-#| msgid "Current Password"
 msgid "Current phone"
-msgstr "Nuværende adgangskode"
+msgstr "Nuværende telefon"
 
 #: templates/account/phone_change.html:22
-#, fuzzy
-#| msgid "Your primary email address must be verified."
 msgid "Your phone number is still pending verification."
-msgstr "Din primære emailadresse skal bekræftes."
+msgstr "Dit telefonnummer afventer stadig bekræftelse."
 
 #: templates/account/phone_change.html:38
-#, fuzzy
-#| msgid "Email"
 msgctxt "action"
 msgid "Change Phone"
-msgstr "Email"
+msgstr "Skift telefon"
 
 #: templates/account/reauthenticate.html:6
-#, fuzzy
-#| msgid "Forgot Password?"
 msgid "Enter your password:"
-msgstr "Glemt password?"
+msgstr "Indtast din adgangskode:"
 
 #: templates/account/request_login_code.html:12
 msgid "You will receive a special code for a password-free sign-in."
-msgstr ""
+msgstr "Du vil modtage en speciel kode til login uden adgangskode."
 
 #: templates/account/request_login_code.html:24
 msgid "Request Code"
-msgstr ""
+msgstr "Anmod om kode"
 
 #: templates/account/request_login_code.html:30
 msgid "Other sign-in options"
-msgstr ""
+msgstr "Andre login-muligheder"
 
 #: templates/account/signup.html:4 templates/account/signup_by_passkey.html:4
 #: templates/socialaccount/signup.html:5
@@ -1363,17 +1273,15 @@ msgstr "Har du allerede en konto? Så %(link)slog ind%(end_link)s."
 
 #: templates/account/signup.html:39
 msgid "Sign up using a passkey"
-msgstr ""
+msgstr "Tilmeld dig med en adgangsnøgle"
 
 #: templates/account/signup_by_passkey.html:8
-#, fuzzy
-#| msgid "Sign Up"
 msgid "Passkey Sign Up"
-msgstr "Opret konto"
+msgstr "Tilmelding med adgangsnøgle"
 
 #: templates/account/signup_by_passkey.html:36
 msgid "Other options"
-msgstr ""
+msgstr "Andre muligheder"
 
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:9
@@ -1389,28 +1297,22 @@ msgid "Note"
 msgstr "Note"
 
 #: templates/account/snippets/already_logged_in.html:7
-#, fuzzy, python-format
-#| msgid "you are already logged in as %(user_display)s."
+#, python-format
 msgid "You are already logged in as %(user_display)s."
-msgstr "du er allerede logget ind som %(user_display)s."
+msgstr "Du er allerede logget ind som %(user_display)s."
 
 #: templates/account/snippets/warn_no_email.html:3
 msgid "Warning:"
 msgstr "Advarsel:"
 
 #: templates/account/snippets/warn_no_email.html:3
-#, fuzzy
-#| msgid ""
-#| "You currently do not have any e-mail address set up. You should really "
-#| "add an e-mail address so you can receive notifications, reset your "
-#| "password, etc."
 msgid ""
 "You currently do not have any email address set up. You should really add an "
 "email address so you can receive notifications, reset your password, etc."
 msgstr ""
-"Du har på nuværende tidspunkt ikke nogen emailadresser tilknyttet. Du bør "
-"virkelig tilknytte en emailadresse, så du kan modtage notifikationer, "
-"resette dit password osv."
+"Du har på nuværende tidspunkt ingen emailadresse tilknyttet. Du bør virkelig "
+"tilføje en emailadresse, så du kan modtage notifikationer, nulstille din "
+"adgangskode osv."
 
 #: templates/account/verification_sent.html:5
 #: templates/account/verification_sent.html:9
@@ -1420,42 +1322,28 @@ msgid "Verify Your Email Address"
 msgstr "Bekræft din emailadresse"
 
 #: templates/account/verification_sent.html:12
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for verification. Follow the link provided "
-#| "to finalize the signup process. Please contact us if you do not receive "
-#| "it within a few minutes."
 msgid ""
 "We have sent an email to you for verification. Follow the link provided to "
 "finalize the signup process. If you do not see the verification email in "
 "your main inbox, check your spam folder. Please contact us if you do not "
 "receive the verification email within a few minutes."
 msgstr ""
-"Vi har sendt en email til dig. Følg linket i den for at færdiggøre "
-"oprettelsesprocessen. Kontakt os venligst, hvis du ikke modtager den i løbet "
-"af et par minutter."
+"Vi har sendt en email til dig til bekræftelse. Følg det angivne link for at "
+"færdiggøre tilmeldingsprocessen. Hvis du ikke ser bekræftelsesemailen i din "
+"indbakke, tjek din spam-mappe. Kontakt os venligst, hvis du ikke modtager "
+"bekræftelsesemailen inden for få minutter."
 
 #: templates/account/verified_email_required.html:13
-#, fuzzy
-#| msgid ""
-#| "This part of the site requires us to verify that\n"
-#| "you are who you claim to be. For this purpose, we require that you\n"
-#| "verify ownership of your e-mail address. "
 msgid ""
 "This part of the site requires us to verify that\n"
 "you are who you claim to be. For this purpose, we require that you\n"
 "verify ownership of your email address. "
 msgstr ""
-"Denne del af siden kræver, at du bekræfter, at\n"
-"du er hvem du påstår du er. Derfor er du nødt til at\n"
-"bekræfte, at du ejer din emailadresse "
+"Denne del af siden kræver, at vi bekræfter, at\n"
+"du er hvem du påstår at være. Derfor kræver vi, at du\n"
+"bekræfter ejerskab af din emailadresse. "
 
 #: templates/account/verified_email_required.html:18
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for\n"
-#| "verification. Please click on the link inside this e-mail. Please\n"
-#| "contact us if you do not receive it within a few minutes."
 msgid ""
 "We have sent an email to you for\n"
 "verification. Please click on the link inside that email. If you do not see "
@@ -1463,15 +1351,13 @@ msgid ""
 "Otherwise\n"
 "contact us if you do not receive it within a few minutes."
 msgstr ""
-"Vi har sendt en email til dig for bekræftelse.\n"
-"Klik på linket i den. Kontakt os venligst, hvis du ikke modtager\n"
-" den i løbet af et par minutter."
+"Vi har sendt en email til dig til\n"
+"bekræftelse. Klik venligst på linket i den email. Hvis du ikke ser "
+"bekræftelsesemailen i din indbakke, tjek din spam-mappe. Ellers\n"
+"kontakt os, hvis du ikke modtager den inden for få minutter."
 
 #: templates/account/verified_email_required.html:23
-#, fuzzy, python-format
-#| msgid ""
-#| "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change "
-#| "your e-mail address</a>."
+#, python-format
 msgid ""
 "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your "
 "email address</a>."
@@ -1481,11 +1367,11 @@ msgstr ""
 
 #: templates/allauth/layouts/base.html:18
 msgid "Messages:"
-msgstr ""
+msgstr "Beskeder:"
 
 #: templates/allauth/layouts/base.html:25
 msgid "Menu:"
-msgstr ""
+msgstr "Menu:"
 
 #: templates/allauth/layouts/base.html:43
 #: templates/socialaccount/connections.html:5
@@ -1496,13 +1382,13 @@ msgstr "Kontoforbindelser"
 #: templates/allauth/layouts/base.html:49 templates/mfa/authenticate.html:10
 #: templates/mfa/index.html:5 templates/mfa/index.html:9
 msgid "Two-Factor Authentication"
-msgstr ""
+msgstr "To-faktor-autentificering"
 
 #: templates/allauth/layouts/base.html:55
 #: templates/usersessions/usersession_list.html:6
 #: templates/usersessions/usersession_list.html:10
 msgid "Sessions"
-msgstr ""
+msgstr "Sessioner"
 
 #: templates/idp/oidc/authorization_form.html:5
 #: templates/idp/oidc/authorization_form.html:9
@@ -1512,34 +1398,30 @@ msgstr ""
 #: templates/idp/oidc/device_authorization_confirmed.html:5
 #: templates/idp/oidc/device_authorization_denied.html:5
 msgid "Authorize"
-msgstr ""
+msgstr "Autoriser"
 
 #: templates/idp/oidc/authorization_form.html:12
 #, python-format
 msgid "%(client_name)s wants to access your %(site_name)s account."
-msgstr ""
+msgstr "%(client_name)s ønsker at få adgang til din %(site_name)s konto."
 
 #: templates/idp/oidc/device_authorization_code_form.html:9
-#, fuzzy
-#| msgid "Password Reset"
 msgid "Enter Device Code"
-msgstr "Nulstil password"
+msgstr "Indtast enhedskode"
 
 #: templates/idp/oidc/device_authorization_code_form.html:12
 msgid "Enter the code displayed on your device."
-msgstr ""
+msgstr "Indtast koden vist på din enhed."
 
 #: templates/idp/oidc/device_authorization_code_form.html:21
 #: templates/socialaccount/login.html:27
 #: templates/socialaccount/login_redirect.html:10
 msgid "Continue"
-msgstr ""
+msgstr "Fortsæt"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:9
-#, fuzzy
-#| msgid "Confirm Email Address"
 msgid "Confirm Device"
-msgstr "Bekræft venligst din emailadresse"
+msgstr "Bekræft enhed"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:12
 #, python-format
@@ -1547,139 +1429,144 @@ msgid ""
 "Please confirm the code shown on your %(client_name)s to authorize this "
 "device."
 msgstr ""
+"Bekræft venligst koden vist på din %(client_name)s for at autorisere denne "
+"enhed."
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:29
 msgid "Deny"
-msgstr ""
+msgstr "Afvis"
 
 #: templates/idp/oidc/device_authorization_confirmed.html:9
 msgid "Device Authorized"
-msgstr ""
+msgstr "Enhed autoriseret"
 
 #: templates/idp/oidc/device_authorization_confirmed.html:12
 #, python-format
 msgid "You successfully authorized your %(client_name)s device."
-msgstr ""
+msgstr "Du har autoriseret din %(client_name)s enhed."
 
 #: templates/idp/oidc/device_authorization_denied.html:9
 msgid "Device Denied"
-msgstr ""
+msgstr "Enhed afvist"
 
 #: templates/idp/oidc/device_authorization_denied.html:12
 #, python-format
 msgid "Authorization for your %(client_name)s device has been denied."
-msgstr ""
+msgstr "Autorisering af din %(client_name)s enhed er blevet afvist."
 
 #: templates/idp/oidc/error.html:5 templates/idp/oidc/error.html:9
 msgid "Error"
-msgstr ""
+msgstr "Fejl"
+
+#: templates/idp/oidc/logout.html:24
+#, fuzzy
+#| msgid "Sign In"
+msgid "Stay Signed In"
+msgstr "Log ind"
 
 #: templates/mfa/authenticate.html:13
 msgid ""
 "Your account is protected by two-factor authentication. Please enter an "
 "authenticator code:"
 msgstr ""
+"Din konto er beskyttet af to-faktor-autentificering. Indtast venligst en "
+"autentificeringskode:"
 
 #: templates/mfa/email/recovery_codes_generated_message.txt:4
 msgid ""
 "A new set of Two-Factor Authentication recovery codes has been generated."
 msgstr ""
+"Et nyt sæt to-faktor-autentificering gendannelseskoder er blevet genereret."
 
 #: templates/mfa/email/recovery_codes_generated_subject.txt:3
 msgid "New Recovery Codes Generated"
-msgstr ""
+msgstr "Nye gendannelseskoder genereret"
 
 #: templates/mfa/email/totp_activated_message.txt:4
 #: templates/mfa/messages/totp_activated.txt:2
 msgid "Authenticator app activated."
-msgstr ""
+msgstr "Autentificeringsapp aktiveret."
 
 #: templates/mfa/email/totp_activated_subject.txt:3
-#, fuzzy
-#| msgid "token secret"
 msgid "Authenticator App Activated"
-msgstr "token hemmelighed"
+msgstr "Autentificeringsapp aktiveret"
 
 #: templates/mfa/email/totp_deactivated_message.txt:4
 #: templates/mfa/messages/totp_deactivated.txt:2
 msgid "Authenticator app deactivated."
-msgstr ""
+msgstr "Autentificeringsapp deaktiveret."
 
 #: templates/mfa/email/totp_deactivated_subject.txt:3
-#, fuzzy
-#| msgid "token secret"
 msgid "Authenticator App Deactivated"
-msgstr "token hemmelighed"
+msgstr "Autentificeringsapp deaktiveret"
 
 #: templates/mfa/email/webauthn_added_message.txt:4
 msgid "A new security key has been added."
-msgstr ""
+msgstr "En ny sikkerhedsnøgle er blevet tilføjet."
 
 #: templates/mfa/email/webauthn_added_subject.txt:3
 msgid "Security Key Added"
-msgstr ""
+msgstr "Sikkerhedsnøgle tilføjet"
 
 #: templates/mfa/email/webauthn_removed_message.txt:4
-#, fuzzy
-#| msgid "You have confirmed %(email)s."
 msgid "A security key has been removed."
-msgstr "Du har bekræftet %(email)s."
+msgstr "En sikkerhedsnøgle er blevet fjernet."
 
 #: templates/mfa/email/webauthn_removed_subject.txt:3
 msgid "Security Key Removed"
-msgstr ""
+msgstr "Sikkerhedsnøgle fjernet"
 
 #: templates/mfa/index.html:14 templates/mfa/totp/base.html:4
 msgid "Authenticator App"
-msgstr ""
+msgstr "Autentificeringsapp"
 
 #: templates/mfa/index.html:19
 msgid "Authentication using an authenticator app is active."
-msgstr ""
+msgstr "Autentificering via en autentificeringsapp er aktiv."
 
 #: templates/mfa/index.html:23
 msgid "An authenticator app is not active."
-msgstr ""
+msgstr "En autentificeringsapp er ikke aktiv."
 
 #: templates/mfa/index.html:32 templates/mfa/totp/deactivate_form.html:24
 msgid "Deactivate"
-msgstr ""
+msgstr "Deaktiver"
 
 #: templates/mfa/index.html:36 templates/mfa/totp/activate_form.html:32
 msgid "Activate"
-msgstr ""
+msgstr "Aktiver"
 
 #: templates/mfa/index.html:45 templates/mfa/webauthn/authenticator_list.html:8
 #: templates/mfa/webauthn/base.html:4
 msgid "Security Keys"
-msgstr ""
+msgstr "Sikkerhedsnøgler"
 
 #: templates/mfa/index.html:50
 #, python-format
 msgid "You have added %(count)s security key."
 msgid_plural "You have added %(count)s security keys."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Du har tilføjet %(count)s sikkerhedsnøgle."
+msgstr[1] "Du har tilføjet %(count)s sikkerhedsnøgler."
 
 #: templates/mfa/index.html:54
 #: templates/mfa/webauthn/authenticator_list.html:12
 msgid "No security keys have been added."
-msgstr ""
+msgstr "Ingen sikkerhedsnøgler er blevet tilføjet."
 
 #: templates/mfa/index.html:62
 msgid "Manage"
-msgstr ""
+msgstr "Administrer"
 
 #: templates/mfa/index.html:67 templates/mfa/webauthn/add_form.html:18
 #: templates/mfa/webauthn/authenticator_list.html:70
 msgid "Add"
-msgstr ""
+msgstr "Tilføj"
 
 #: templates/mfa/index.html:77 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:6
 #: templates/mfa/recovery_codes/index.html:6
 msgid "Recovery Codes"
-msgstr ""
+msgstr "Gendannelseskoder"
 
 #: templates/mfa/index.html:82 templates/mfa/recovery_codes/index.html:9
 #, python-format
@@ -1688,70 +1575,70 @@ msgid ""
 msgid_plural ""
 "There are %(unused_count)s out of %(total_count)s recovery codes available."
 msgstr[0] ""
+"Der er %(unused_count)s ud af %(total_count)s gendannelseskoder tilgængelige."
 msgstr[1] ""
+"Der er %(unused_count)s ud af %(total_count)s gendannelseskoder tilgængelige."
 
 #: templates/mfa/index.html:86
 msgid "No recovery codes set up."
-msgstr ""
+msgstr "Ingen gendannelseskoder er sat op."
 
 #: templates/mfa/index.html:96
 msgid "View"
-msgstr ""
+msgstr "Vis"
 
 #: templates/mfa/index.html:102
 msgid "Download"
-msgstr ""
+msgstr "Download"
 
 #: templates/mfa/index.html:110 templates/mfa/recovery_codes/generate.html:29
 msgid "Generate"
-msgstr ""
+msgstr "Generer"
 
 #: templates/mfa/messages/recovery_codes_generated.txt:2
 msgid "A new set of recovery codes has been generated."
-msgstr ""
+msgstr "Et nyt sæt gendannelseskoder er blevet genereret."
 
 #: templates/mfa/messages/webauthn_added.txt:2
 msgid "Security key added."
-msgstr ""
+msgstr "Sikkerhedsnøgle tilføjet."
 
 #: templates/mfa/messages/webauthn_removed.txt:2
 msgid "Security key removed."
-msgstr ""
+msgstr "Sikkerhedsnøgle fjernet."
 
 #: templates/mfa/reauthenticate.html:6
-#, fuzzy
-#| msgid "token secret"
 msgid "Enter an authenticator code:"
-msgstr "token hemmelighed"
+msgstr "Indtast en autentificeringskode:"
 
 #: templates/mfa/recovery_codes/generate.html:9
 msgid "You are about to generate a new set of recovery codes for your account."
-msgstr ""
+msgstr "Du er ved at generere et nyt sæt gendannelseskoder til din konto."
 
 #: templates/mfa/recovery_codes/generate.html:11
 msgid "This action will invalidate your existing codes."
-msgstr ""
+msgstr "Denne handling vil ugyldiggøre dine eksisterende koder."
 
 #: templates/mfa/recovery_codes/generate.html:13
 msgid "Are you sure?"
-msgstr ""
+msgstr "Er du sikker?"
 
 #: templates/mfa/recovery_codes/index.html:13
 msgid "Unused codes"
-msgstr ""
+msgstr "Ubrugte koder"
 
 #: templates/mfa/recovery_codes/index.html:25
 msgid "Download codes"
-msgstr ""
+msgstr "Download koder"
 
 #: templates/mfa/recovery_codes/index.html:30
 msgid "Generate new codes"
-msgstr ""
+msgstr "Generer nye koder"
 
 #: templates/mfa/totp/activate_form.html:4
 #: templates/mfa/totp/activate_form.html:8
 msgid "Activate Authenticator App"
-msgstr ""
+msgstr "Aktiver autentificeringsapp"
 
 #: templates/mfa/totp/activate_form.html:11
 msgid ""
@@ -1759,120 +1646,113 @@ msgid ""
 "below with your authenticator app. Then, input the verification code "
 "generated by the app below."
 msgstr ""
+"For at beskytte din konto med to-faktor-autentificering, skal du scanne QR-"
+"koden nedenfor med din autentificeringsapp. Indtast derefter "
+"bekræftelseskoden genereret af appen nedenfor."
 
 #: templates/mfa/totp/activate_form.html:21
-#, fuzzy
-#| msgid "token secret"
 msgid "Authenticator secret"
-msgstr "token hemmelighed"
+msgstr "Autentificeringshemmelighed"
 
 #: templates/mfa/totp/activate_form.html:24
 msgid ""
 "You can store this secret and use it to reinstall your authenticator app at "
 "a later time."
 msgstr ""
+"Du kan gemme denne hemmelighed og bruge den til at geninstallere din "
+"autentificeringsapp på et senere tidspunkt."
 
 #: templates/mfa/totp/deactivate_form.html:5
 #: templates/mfa/totp/deactivate_form.html:9
 msgid "Deactivate Authenticator App"
-msgstr ""
+msgstr "Deaktiver autentificeringsapp"
 
 #: templates/mfa/totp/deactivate_form.html:12
 msgid ""
 "You are about to deactivate authenticator app based authentication. Are you "
 "sure?"
 msgstr ""
+"Du er ved at deaktivere autentificeringsapp-baseret autentificering. Er du "
+"sikker?"
 
 #: templates/mfa/trust.html:4 templates/mfa/trust.html:8
 msgid "Trust this Browser?"
-msgstr ""
+msgstr "Stol på denne browser?"
 
 #: templates/mfa/trust.html:11
 msgid ""
 "If you choose to trust this browser, you will not be asked for a "
 "verification code the next time you sign in."
 msgstr ""
+"Hvis du vælger at stole på denne browser, vil du ikke blive spurgt om en "
+"bekræftelseskode næste gang du logger ind."
 
 #: templates/mfa/trust.html:23
 #, python-format
 msgid "Trust for %(period)s"
-msgstr ""
+msgstr "Stol på i %(period)s"
 
 #: templates/mfa/trust.html:26
 msgid "Don't Trust"
-msgstr ""
+msgstr "Stol ikke"
 
 #: templates/mfa/webauthn/add_form.html:7
-#, fuzzy
-#| msgid "secret key"
 msgid "Add Security Key"
-msgstr "hemmelig nøgle"
+msgstr "Tilføj sikkerhedsnøgle"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:6
-#, fuzzy
-#| msgid "secret key"
 msgid "Remove Security Key"
-msgstr "hemmelig nøgle"
+msgstr "Fjern sikkerhedsnøgle"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:9
-#, fuzzy
-#| msgid "Are you sure you want to sign out?"
 msgid "Are you sure you want to remove this security key?"
-msgstr "Er du sikker på, at du vil logge af?"
+msgstr "Er du sikker på, at du vil fjerne denne sikkerhedsnøgle?"
 
 #: templates/mfa/webauthn/authenticator_list.html:21
 msgid "Usage"
-msgstr ""
+msgstr "Anvendelse"
 
 #: templates/mfa/webauthn/authenticator_list.html:33
 msgid "Passkey"
-msgstr ""
+msgstr "Adgangsnøgle"
 
 #: templates/mfa/webauthn/authenticator_list.html:37
-#, fuzzy
-#| msgid "secret key"
 msgid "Security key"
-msgstr "hemmelig nøgle"
+msgstr "Sikkerhedsnøgle"
 
 #: templates/mfa/webauthn/authenticator_list.html:40
 msgid "This key does not indicate whether it is a passkey."
-msgstr ""
+msgstr "Denne nøgle angiver ikke, om den er en adgangsnøgle."
 
 #: templates/mfa/webauthn/authenticator_list.html:41
-#, fuzzy
-#| msgid "Unverified"
 msgid "Unspecified"
-msgstr "Ubekræftet"
+msgstr "Uspecificeret"
 
 #: templates/mfa/webauthn/authenticator_list.html:46
 #, python-format
 msgid "Added on %(created_at)s"
-msgstr ""
+msgstr "Tilføjet den %(created_at)s"
 
 #: templates/mfa/webauthn/authenticator_list.html:48
 #, python-format
 msgid "Last used %(last_used)s"
-msgstr ""
+msgstr "Senest brugt %(last_used)s"
 
 #: templates/mfa/webauthn/authenticator_list.html:56
 msgid "Edit"
-msgstr ""
+msgstr "Rediger"
 
 #: templates/mfa/webauthn/edit_form.html:7
-#, fuzzy
-#| msgid "secret key"
 msgid "Edit Security Key"
-msgstr "hemmelig nøgle"
+msgstr "Rediger sikkerhedsnøgle"
 
 #: templates/mfa/webauthn/edit_form.html:18
 msgid "Save"
-msgstr ""
+msgstr "Gem"
 
 #: templates/mfa/webauthn/signup_form.html:7
-#, fuzzy
-#| msgid "Current Password"
 msgid "Create Passkey"
-msgstr "Nuværende adgangskode"
+msgstr "Opret adgangsnøgle"
 
 #: templates/mfa/webauthn/signup_form.html:10
 msgid ""
@@ -1880,101 +1760,85 @@ msgid ""
 "additional keys later on, you can use a descriptive name to tell the keys "
 "apart."
 msgstr ""
+"Du er ved at oprette en adgangsnøgle til din konto. Da du kan tilføje flere "
+"nøgler senere, kan du bruge et beskrivende navn til at skelne nøglerne fra "
+"hinanden."
 
 #: templates/mfa/webauthn/signup_form.html:21
-#, fuzzy
-#| msgid "created"
 msgid "Create"
-msgstr "oprettet"
+msgstr "Opret"
 
 #: templates/mfa/webauthn/snippets/scripts.html:2
 msgid "This functionality requires JavaScript."
-msgstr ""
+msgstr "Denne funktionalitet kræver JavaScript."
 
 #: templates/socialaccount/authentication_error.html:5
 #: templates/socialaccount/authentication_error.html:9
-#, fuzzy
-#| msgid "Social Network Login Failure"
 msgid "Third-Party Login Failure"
-msgstr "Social Network log ind-fejl"
+msgstr "Tredjepartslogin-fejl"
 
 #: templates/socialaccount/authentication_error.html:12
-#, fuzzy
-#| msgid ""
-#| "An error occurred while attempting to login via your social network "
-#| "account."
 msgid ""
 "An error occurred while attempting to login via your third-party account."
 msgstr ""
-"Der opstod en fejl under forsøget på at logge ind via din social konto."
+"Der opstod en fejl under forsøget på at logge ind via din tredjepartskonto."
 
 #: templates/socialaccount/connections.html:13
-#, fuzzy
-#| msgid ""
-#| "You can sign in to your account using any of the following third party "
-#| "accounts:"
 msgid ""
 "You can sign in to your account using any of the following third-party "
 "accounts:"
-msgstr "Du kan logge ind med følgende tredjepartskonti:"
+msgstr ""
+"Du kan logge ind på din konto ved hjælp af en af følgende tredjepartskonti:"
 
 #: templates/socialaccount/connections.html:46
-#, fuzzy
-#| msgid ""
-#| "You currently have no social network accounts connected to this account."
 msgid "You currently have no third-party accounts connected to this account."
-msgstr "Du har ikke nogle social netværks-konti tilknyttet denne konto."
+msgstr "Du har i øjeblikket ingen tredjepartskonti tilknyttet denne konto."
 
 #: templates/socialaccount/connections.html:50
-#, fuzzy
-#| msgid "Add a 3rd Party Account"
 msgid "Add a Third-Party Account"
-msgstr "Tilføj tredjeparts konto"
+msgstr "Tilføj en tredjepartskonto"
 
 #: templates/socialaccount/email/account_connected_message.txt:4
 #, python-format
 msgid ""
 "A third-party account from %(provider)s has been connected to your account."
 msgstr ""
+"En tredjepartskonto fra %(provider)s er blevet tilsluttet til din konto."
 
 #: templates/socialaccount/email/account_connected_subject.txt:3
-#, fuzzy
-#| msgid "Add a 3rd Party Account"
 msgid "Third-Party Account Connected"
-msgstr "Tilføj tredjeparts konto"
+msgstr "Tredjepartskonto tilsluttet"
 
 #: templates/socialaccount/email/account_disconnected_message.txt:4
 #, python-format
 msgid ""
 "A third-party account from %(provider)s has been disconnected from your "
 "account."
-msgstr ""
+msgstr "En tredjepartskonto fra %(provider)s er blevet frakoblet din konto."
 
 #: templates/socialaccount/email/account_disconnected_subject.txt:3
-#, fuzzy
-#| msgid "Add a 3rd Party Account"
 msgid "Third-Party Account Disconnected"
-msgstr "Tilføj tredjeparts konto"
+msgstr "Tredjepartskonto frakoblet"
 
 #: templates/socialaccount/login.html:10
 #, python-format
 msgid "Connect %(provider)s"
-msgstr ""
+msgstr "Tilslut %(provider)s"
 
 #: templates/socialaccount/login.html:13
 #, python-format
 msgid "You are about to connect a new third-party account from %(provider)s."
-msgstr ""
+msgstr "Du er ved at tilslutte en ny tredjepartskonto fra %(provider)s."
 
 #: templates/socialaccount/login.html:17
 #, python-format
 msgid "Sign In Via %(provider)s"
-msgstr ""
+msgstr "Log ind via %(provider)s"
 
 #: templates/socialaccount/login.html:20
 #, python-format
 msgid "You are about to sign in using a third-party account from %(provider)s."
-msgstr ""
+msgstr "Du er ved at logge ind med en tredjepartskonto fra %(provider)s."
 
 #: templates/socialaccount/login_cancelled.html:5
 #: templates/socialaccount/login_cancelled.html:9
@@ -1993,16 +1857,12 @@ msgstr ""
 "href=“%(login_url)s”>log ind</a>."
 
 #: templates/socialaccount/messages/account_connected.txt:2
-#, fuzzy
-#| msgid "The social account has been connected."
 msgid "The third-party account has been connected."
-msgstr "Den social konto er tilknyttet."
+msgstr "Tredjepartskontoen er blevet tilsluttet."
 
 #: templates/socialaccount/messages/account_disconnected.txt:2
-#, fuzzy
-#| msgid "The social account has been disconnected."
 msgid "The third-party account has been disconnected."
-msgstr "Tilknytningen til den social konto er blevet afbrydt."
+msgstr "Tredjepartskontoen er blevet frakoblet."
 
 #: templates/socialaccount/signup.html:12
 #, python-format
@@ -2015,47 +1875,43 @@ msgstr ""
 
 #: templates/socialaccount/snippets/login.html:10
 msgid "Or use a third-party"
-msgstr ""
+msgstr "Eller brug en tredjepart"
 
 #: templates/usersessions/messages/sessions_logged_out.txt:2
 msgid "Signed out of all other sessions."
-msgstr ""
+msgstr "Logget ud af alle andre sessioner."
 
 #: templates/usersessions/usersession_list.html:24
 msgid "Started At"
-msgstr ""
+msgstr "Startet kl."
 
 #: templates/usersessions/usersession_list.html:27
-#, fuzzy
-#| msgid "Email Addresses"
 msgid "IP Address"
-msgstr "Emailadresser"
+msgstr "IP-adresse"
 
 #: templates/usersessions/usersession_list.html:30
 msgid "Browser"
-msgstr ""
+msgstr "Browser"
 
 #: templates/usersessions/usersession_list.html:34
 msgid "Last seen at"
-msgstr ""
+msgstr "Sidst set kl."
 
 #: templates/usersessions/usersession_list.html:59
-#, fuzzy
-#| msgid "Current Password"
 msgid "Current"
-msgstr "Nuværende adgangskode"
+msgstr "Nuværende"
 
 #: templates/usersessions/usersession_list.html:72
 msgid "Sign Out Other Sessions"
-msgstr ""
+msgstr "Log ud af andre sessioner"
 
 #: usersessions/apps.py:9
 msgid "User Sessions"
-msgstr ""
+msgstr "Brugersessioner"
 
-#: usersessions/models.py:93
+#: usersessions/models.py:94
 msgid "session key"
-msgstr ""
+msgstr "sessionsnøgle"
 
 #, fuzzy
 #~| msgid "Account Connections"

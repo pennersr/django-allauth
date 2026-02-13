@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-25 13:23-0500\n"
+"POT-Creation-Date: 2026-02-13 09:05-0600\n"
 "PO-Revision-Date: 2025-09-15 15:01+0000\n"
 "Last-Translator: Cassian <prismarine@epicraft.top>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
@@ -19,109 +19,109 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 5.14-dev\n"
 
-#: account/adapter.py:53
+#: account/adapter.py:61
 msgid "This account is currently inactive."
 msgstr "此账号当前未激活。"
 
-#: account/adapter.py:55
+#: account/adapter.py:63
 msgid "You cannot remove your primary email address."
 msgstr "您不能删除您的主要电子邮件地址 (%(email)s)。"
 
-#: account/adapter.py:58
+#: account/adapter.py:66
 msgid "This email address is already associated with this account."
 msgstr "此电子邮件地址已关联到这个账号。"
 
-#: account/adapter.py:61
+#: account/adapter.py:69
 msgid "The email address and/or password you specified are not correct."
 msgstr "您提供的电子邮件地址和/或密码不正确。"
 
-#: account/adapter.py:64
+#: account/adapter.py:72
 msgid "The phone number and/or password you specified are not correct."
 msgstr "您输入的电话号码和/或密码不正确。"
 
-#: account/adapter.py:66
+#: account/adapter.py:74
 msgid "A user is already registered with this email address."
 msgstr "此电子邮件地址已被其他用户注册。"
 
-#: account/adapter.py:67
+#: account/adapter.py:75
 msgid "Please type your current password."
 msgstr "请输入您的当前密码。"
 
-#: account/adapter.py:68 mfa/adapter.py:40
+#: account/adapter.py:76 mfa/adapter.py:40
 msgid "Incorrect code."
 msgstr "错误代码。"
 
-#: account/adapter.py:69
+#: account/adapter.py:77
 msgid "Incorrect password."
 msgstr "无效密码。"
 
-#: account/adapter.py:70
+#: account/adapter.py:78
 msgid "Invalid or expired key."
 msgstr "令牌无效或过期。"
 
-#: account/adapter.py:71
+#: account/adapter.py:79
 msgid "Invalid login."
 msgstr "登录无效。"
 
-#: account/adapter.py:72
+#: account/adapter.py:80
 msgid "The password reset token was invalid."
 msgstr "您重置密码的token是无效的。"
 
-#: account/adapter.py:73
+#: account/adapter.py:81
 #, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "您不能添加超过%d个电子邮件地址。"
 
-#: account/adapter.py:74
+#: account/adapter.py:82
 msgid "A user is already registered with this phone number."
 msgstr "此电话号码已被其他用户注册。"
 
-#: account/adapter.py:76
+#: account/adapter.py:84
 msgid "Too many failed login attempts. Try again later."
 msgstr "登录失败次数过多，请稍后重试。"
 
-#: account/adapter.py:78
+#: account/adapter.py:86
 msgid "The email address is not assigned to any user account."
 msgstr "此电子邮件地址未分配给任何用户账号。"
 
-#: account/adapter.py:79
+#: account/adapter.py:87
 msgid "The phone number is not assigned to any user account."
 msgstr "此电话号码未分配给任何用户账号。"
 
-#: account/adapter.py:80
+#: account/adapter.py:88
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary email address must be verified."
 msgstr "您的主要电子邮件地址必须被验证。"
 
-#: account/adapter.py:82
+#: account/adapter.py:90
 msgid "Username can not be used. Please use other username."
 msgstr "此用户名不能使用，请改用其他用户名。"
 
-#: account/adapter.py:85
+#: account/adapter.py:93
 msgid "The username and/or password you specified are not correct."
 msgstr "您提供的用户名或密码不正确。"
 
-#: account/adapter.py:90
+#: account/adapter.py:98
 msgid "Please select only one."
 msgstr "请仅选择一项。"
 
-#: account/adapter.py:91
+#: account/adapter.py:99
 msgid "The new value must be different from the current one."
 msgstr "新的输入值必须不同于当前的内容。"
 
-#: account/adapter.py:92
+#: account/adapter.py:100
 msgid "Be patient, you are sending too many requests."
 msgstr "请稍等，您已经提交过多次请求。"
 
-#: account/adapter.py:805
+#: account/adapter.py:826
 msgid "Use your password"
 msgstr "使用您的密码"
 
-#: account/adapter.py:814
+#: account/adapter.py:835
 msgid "Use authenticator app or code"
 msgstr "请使用认证APP或代码"
 
-#: account/adapter.py:821 templates/mfa/authenticate.html:41
+#: account/adapter.py:842 templates/mfa/authenticate.html:41
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use a security key"
 msgstr "使用安全密钥"
@@ -144,7 +144,7 @@ msgstr "将选中的电子邮件地址标记为已验证"
 msgid "Accounts"
 msgstr "账户"
 
-#: account/fields.py:12 account/forms.py:299 idp/oidc/forms.py:38
+#: account/fields.py:12 account/forms.py:299 idp/oidc/forms.py:43
 msgid "Email"
 msgstr "电子邮件"
 
@@ -239,8 +239,8 @@ msgstr "新密码"
 msgid "New Password (again)"
 msgstr "新密码（重复）"
 
-#: account/forms.py:767 account/forms.py:769 idp/oidc/forms.py:46
-#: idp/oidc/forms.py:49 mfa/base/forms.py:12 mfa/base/forms.py:14
+#: account/forms.py:767 account/forms.py:769 idp/oidc/forms.py:51
+#: idp/oidc/forms.py:54 mfa/base/forms.py:12 mfa/base/forms.py:14
 #: mfa/totp/forms.py:13
 #: templates/idp/oidc/device_authorization_confirm_form.html:16
 msgid "Code"
@@ -302,9 +302,23 @@ msgstr "查看您的电子邮件地址"
 msgid "View your basic profile information"
 msgstr "查看您的基本个人资料信息"
 
-#: idp/oidc/forms.py:26
+#: idp/oidc/forms.py:31
 msgid "Grant permissions"
 msgstr "授予权限"
+
+#: idp/oidc/internal/clientkit.py:22
+msgid "Wildcards are not allowed unless 'Allow URI wildcards' is enabled."
+msgstr ""
+
+#: idp/oidc/internal/clientkit.py:27
+msgid ""
+"URI '{}' contains more than one wildcard (*). Only one wildcard per URI is "
+"allowed."
+msgstr ""
+
+#: idp/oidc/internal/clientkit.py:39
+msgid "Wildcards are only allowed in the hostname portion of the URI."
+msgstr ""
 
 #: idp/oidc/models.py:37
 msgid "Authorization code"
@@ -332,9 +346,11 @@ msgstr "公共"
 
 #: idp/oidc/models.py:58
 msgid ""
-"The scope(s) the client is allowed to request. Provide one value per line, e."
-"g.: openid(ENTER)profile(ENTER)email(ENTER)"
+"The scope(s) the client is allowed to request. Provide one value per line, "
+"e.g.: openid(ENTER)profile(ENTER)email(ENTER)"
 msgstr ""
+"客户端被允许请求的范围。每行提供一个值，例如：openid(回车)profile(回"
+"车)email(回车)"
 
 #: idp/oidc/models.py:64
 msgid ""
@@ -342,28 +358,39 @@ msgid ""
 "used. Provide one value per line, e.g.: "
 "openid(ENTER)profile(ENTER)email(ENTER)"
 msgstr ""
+"如果客户端没有指定任何范围，将使用这些默认范围。每行提供一个值，例如："
+"openid(回车)profile(回车)email(回车)"
 
 #: idp/oidc/models.py:75
 msgid ""
 "A list of allowed grant types. Provide one value per line, e.g.: "
 "authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 msgstr ""
+"允许的授权类型列表。每行提供一个值，例如：authorization_code(回"
+"车)client_credentials(回车)refresh_token(回车)"
 
 #: idp/oidc/models.py:86
 msgid "A list of allowed origins for cross-origin requests, one per line."
-msgstr ""
+msgstr "跨域请求允许的源列表，每行一个。"
 
 #: idp/oidc/models.py:94
+msgid ""
+"Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
+"can contain a single asterisk to match subdomains."
+msgstr ""
+
+#: idp/oidc/models.py:102
 msgid ""
 "A list of allowed response types. Provide one value per line, e.g.: "
 "code(ENTER)id_token token(ENTER)"
 msgstr ""
+"允许的响应类型列表。每行提供一个值，例如：code(回车)id_token token(回车)"
 
-#: idp/oidc/models.py:107
+#: idp/oidc/models.py:115
 msgid "client"
 msgstr "客户端"
 
-#: idp/oidc/models.py:108
+#: idp/oidc/models.py:116
 msgid "clients"
 msgstr "客户端"
 
@@ -558,7 +585,7 @@ msgstr "社交应用令牌"
 msgid "social application tokens"
 msgstr "社交应用令牌"
 
-#: socialaccount/providers/douban/views.py:36
+#: socialaccount/providers/douban/views.py:35
 msgid "Invalid profile data"
 msgstr "无效个人资料数据"
 
@@ -576,34 +603,34 @@ msgstr "登录"
 msgid "Cancel"
 msgstr "取消"
 
-#: socialaccount/providers/oauth/client.py:84
+#: socialaccount/providers/oauth/client.py:86
 #, python-format
 msgid ""
 "Invalid response while obtaining request token from \"%s\". Response was: %s."
 msgstr "在请求token时收到无效的响应\"%s\"。响应如下：%s。"
 
-#: socialaccount/providers/oauth/client.py:118
-#: socialaccount/providers/pocket/client.py:86
+#: socialaccount/providers/oauth/client.py:121
+#: socialaccount/providers/pocket/client.py:81
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr "从 \"%s\" 获取访问令牌时响应无效。"
 
-#: socialaccount/providers/oauth/client.py:139
+#: socialaccount/providers/oauth/client.py:142
 #, python-format
 msgid "No request token saved for \"%s\"."
 msgstr "未保存 \"%s\" 的请求令牌。"
 
-#: socialaccount/providers/oauth/client.py:190
+#: socialaccount/providers/oauth/client.py:193
 #, python-format
 msgid "No access token saved for \"%s\"."
 msgstr "未保存 \"%s\" 的访问令牌。"
 
-#: socialaccount/providers/oauth/client.py:211
+#: socialaccount/providers/oauth/client.py:215
 #, python-format
 msgid "No access to private resources at \"%s\"."
 msgstr "无权访问私有资源 \"%s\"。"
 
-#: socialaccount/providers/pocket/client.py:41
+#: socialaccount/providers/pocket/client.py:39
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr "从 \"%s\" 获取请求令牌时响应无效。"
@@ -838,7 +865,8 @@ msgstr "Email确认"
 msgid ""
 "You're receiving this email because user %(user_display)s has given your "
 "email address to register an account on %(site_domain)s."
-msgstr "您收到此电子邮件是因为用户 %(user_display)s 使用您的电子邮件地址在 "
+msgstr ""
+"您收到此电子邮件是因为用户 %(user_display)s 使用您的电子邮件地址在 "
 "%(site_domain)s 上注册了一个账户。"
 
 #: templates/account/email/email_confirmation_message.txt:7
@@ -850,7 +878,7 @@ msgstr "您的电子邮件验证代码如下所示。请在打开的浏览器窗
 #: templates/account/email/email_confirmation_message.txt:9
 #, python-format
 msgid "To confirm this is correct, go to %(activate_url)s"
-msgstr ""
+msgstr "要确认这是正确的，请访问 %(activate_url)s"
 
 #: templates/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your Email Address"
@@ -890,20 +918,14 @@ msgid "Password Changed"
 msgstr "密码已更改"
 
 #: templates/account/email/password_reset_code_message.txt:5
-#, fuzzy
-#| msgid ""
-#| "Your sign-in code is listed below. Please enter it in your open browser "
-#| "window."
 msgid ""
 "Your password reset code is listed below. Please enter it in your open "
 "browser window."
-msgstr "您的登录代码如下所示。请在打开的浏览器窗口中输入。"
+msgstr "您的密码重置代码如下所示。请在打开的浏览器窗口中输入。"
 
 #: templates/account/email/password_reset_code_subject.txt:3
-#, fuzzy
-#| msgid "Password Reset"
 msgid "Password Reset Code"
-msgstr "密码重置"
+msgstr "密码重置代码"
 
 #: templates/account/email/password_reset_key_message.txt:4
 msgid ""
@@ -1029,18 +1051,18 @@ msgid "Sign in with a passkey"
 msgstr "使用 passkey 登录"
 
 #: templates/account/login.html:47 templates/account/request_login_code.html:9
-#, fuzzy
-#| msgid "Mail me a sign-in code"
 msgid "Send me a sign-in code"
-msgstr "邮寄登录代码给我"
+msgstr "发送登录代码给我"
 
 #: templates/account/logout.html:4 templates/account/logout.html:8
 #: templates/account/logout.html:21 templates/allauth/layouts/base.html:61
+#: templates/idp/oidc/logout.html:4 templates/idp/oidc/logout.html:8
+#: templates/idp/oidc/logout.html:21
 #: templates/usersessions/usersession_list.html:76
 msgid "Sign Out"
 msgstr "登出"
 
-#: templates/account/logout.html:11
+#: templates/account/logout.html:11 templates/idp/oidc/logout.html:11
 msgid "Are you sure you want to sign out?"
 msgstr "您确定要登出吗？"
 
@@ -1074,10 +1096,9 @@ msgid "You have signed out."
 msgstr "您已登出。"
 
 #: templates/account/messages/login_code_sent.txt:2
-#, fuzzy, python-format
-#| msgid "A sign-in code has been mailed to %(email)s."
+#, python-format
 msgid "A sign-in code has been sent to %(recipient)s."
-msgstr "登录代码已发送至 %(email)s。"
+msgstr "登录代码已发送至 %(recipient)s。"
 
 #: templates/account/messages/password_changed.txt:2
 msgid "Password successfully changed."
@@ -1088,15 +1109,14 @@ msgid "Password successfully set."
 msgstr "密码设置成功。"
 
 #: templates/account/messages/phone_verification_sent.txt:2
-#, fuzzy, python-format
-#| msgid "A sign-in code has been mailed to %(email)s."
+#, python-format
 msgid "A verification code has been sent to %(phone)s."
-msgstr "登录代码已发送至 %(email)s。"
+msgstr "验证码已发送至 %(phone)s。"
 
 #: templates/account/messages/phone_verified.txt:2
 #, python-format
 msgid "You have verified phone number %(phone)s."
-msgstr ""
+msgstr "您已验证电话号码 %(phone)s。"
 
 #: templates/account/messages/primary_email_set.txt:2
 msgid "Primary email address set."
@@ -1166,41 +1186,29 @@ msgid "Set Password"
 msgstr "设置密码"
 
 #: templates/account/phone_change.html:5 templates/account/phone_change.html:9
-#, fuzzy
-#| msgid "Change to"
 msgid "Change Phone"
-msgstr "改为"
+msgstr "更改电话"
 
 #: templates/account/phone_change.html:18
-#, fuzzy
-#| msgid "Current"
 msgid "Current phone"
-msgstr "当前"
+msgstr "当前电话"
 
 #: templates/account/phone_change.html:22
-#, fuzzy
-#| msgid "Your email address is still pending verification."
 msgid "Your phone number is still pending verification."
-msgstr "您的电子邮件地址仍在等待验证。"
+msgstr "您的电话号码仍在等待验证。"
 
 #: templates/account/phone_change.html:38
-#, fuzzy
-#| msgid "Change to"
 msgctxt "action"
 msgid "Change Phone"
-msgstr "改为"
+msgstr "更改电话"
 
 #: templates/account/reauthenticate.html:6
 msgid "Enter your password:"
 msgstr "输入您的密码:"
 
 #: templates/account/request_login_code.html:12
-#, fuzzy
-#| msgid ""
-#| "You will receive an email containing a special code for a password-free "
-#| "sign-in."
 msgid "You will receive a special code for a password-free sign-in."
-msgstr "您将收到一封包含用于免密码登录的特殊代码的电子邮件。"
+msgstr "您将收到一个用于免密码登录的特殊代码。"
 
 #: templates/account/request_login_code.html:24
 msgid "Request Code"
@@ -1228,22 +1236,16 @@ msgid "Already have an account? Then please %(link)ssign in%(end_link)s."
 msgstr "已经有一个账号？ 请%(link)s登录%(end_link)s."
 
 #: templates/account/signup.html:39
-#, fuzzy
-#| msgid "Sign in with a passkey"
 msgid "Sign up using a passkey"
-msgstr "使用 passkey 登录"
+msgstr "使用 passkey 注册"
 
 #: templates/account/signup_by_passkey.html:8
-#, fuzzy
-#| msgid "Sign Up"
 msgid "Passkey Sign Up"
-msgstr "注册"
+msgstr "Passkey 注册"
 
 #: templates/account/signup_by_passkey.html:36
-#, fuzzy
-#| msgid "Other sign-in options"
 msgid "Other options"
-msgstr "其它登录选项"
+msgstr "其它选项"
 
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:9
@@ -1356,22 +1358,20 @@ msgstr "会话"
 #: templates/idp/oidc/device_authorization_confirmed.html:5
 #: templates/idp/oidc/device_authorization_denied.html:5
 msgid "Authorize"
-msgstr ""
+msgstr "授权"
 
 #: templates/idp/oidc/authorization_form.html:12
 #, python-format
 msgid "%(client_name)s wants to access your %(site_name)s account."
-msgstr ""
+msgstr "%(client_name)s 想要访问您的 %(site_name)s 账户。"
 
 #: templates/idp/oidc/device_authorization_code_form.html:9
-#, fuzzy
-#| msgid "Enter Sign-In Code"
 msgid "Enter Device Code"
-msgstr "输入登录代码"
+msgstr "输入设备代码"
 
 #: templates/idp/oidc/device_authorization_code_form.html:12
 msgid "Enter the code displayed on your device."
-msgstr ""
+msgstr "输入您设备上显示的代码。"
 
 #: templates/idp/oidc/device_authorization_code_form.html:21
 #: templates/socialaccount/login.html:27
@@ -1380,43 +1380,47 @@ msgid "Continue"
 msgstr "继续"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:9
-#, fuzzy
-#| msgid "Confirm Access"
 msgid "Confirm Device"
-msgstr "确认访问"
+msgstr "确认设备"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:12
 #, python-format
 msgid ""
 "Please confirm the code shown on your %(client_name)s to authorize this "
 "device."
-msgstr ""
+msgstr "请确认您的 %(client_name)s 上显示的代码以授权此设备。"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:29
 msgid "Deny"
-msgstr ""
+msgstr "拒绝"
 
 #: templates/idp/oidc/device_authorization_confirmed.html:9
 msgid "Device Authorized"
-msgstr ""
+msgstr "设备已授权"
 
 #: templates/idp/oidc/device_authorization_confirmed.html:12
 #, python-format
 msgid "You successfully authorized your %(client_name)s device."
-msgstr ""
+msgstr "您已成功授权您的 %(client_name)s 设备。"
 
 #: templates/idp/oidc/device_authorization_denied.html:9
 msgid "Device Denied"
-msgstr ""
+msgstr "设备已拒绝"
 
 #: templates/idp/oidc/device_authorization_denied.html:12
 #, python-format
 msgid "Authorization for your %(client_name)s device has been denied."
-msgstr ""
+msgstr "您的 %(client_name)s 设备的授权已被拒绝。"
 
 #: templates/idp/oidc/error.html:5 templates/idp/oidc/error.html:9
 msgid "Error"
-msgstr ""
+msgstr "错误"
+
+#: templates/idp/oidc/logout.html:24
+#, fuzzy
+#| msgid "Sign In"
+msgid "Stay Signed In"
+msgstr "登录"
 
 #: templates/mfa/authenticate.html:13
 msgid ""
@@ -1619,22 +1623,22 @@ msgstr "您即将停用基于身份验证器应用的身份验证。确定要执
 
 #: templates/mfa/trust.html:4 templates/mfa/trust.html:8
 msgid "Trust this Browser?"
-msgstr ""
+msgstr "信任此浏览器？"
 
 #: templates/mfa/trust.html:11
 msgid ""
 "If you choose to trust this browser, you will not be asked for a "
 "verification code the next time you sign in."
-msgstr ""
+msgstr "如果您选择信任此浏览器，下次登录时将不会要求您输入验证码。"
 
 #: templates/mfa/trust.html:23
 #, python-format
 msgid "Trust for %(period)s"
-msgstr ""
+msgstr "信任 %(period)s"
 
 #: templates/mfa/trust.html:26
 msgid "Don't Trust"
-msgstr ""
+msgstr "不信任"
 
 #: templates/mfa/webauthn/add_form.html:7
 msgid "Add Security Key"
@@ -1691,10 +1695,8 @@ msgid "Save"
 msgstr "保存"
 
 #: templates/mfa/webauthn/signup_form.html:7
-#, fuzzy
-#| msgid "Passkey"
 msgid "Create Passkey"
-msgstr "Passkey"
+msgstr "创建 Passkey"
 
 #: templates/mfa/webauthn/signup_form.html:10
 msgid ""
@@ -1702,12 +1704,12 @@ msgid ""
 "additional keys later on, you can use a descriptive name to tell the keys "
 "apart."
 msgstr ""
+"您即将为您的账户创建一个 passkey。由于您以后可以添加其他密钥，因此可以使用描"
+"述性名称来区分密钥。"
 
 #: templates/mfa/webauthn/signup_form.html:21
-#, fuzzy
-#| msgid "created"
 msgid "Create"
-msgstr "已建立"
+msgstr "创建"
 
 #: templates/mfa/webauthn/snippets/scripts.html:2
 msgid "This functionality requires JavaScript."
@@ -1846,7 +1848,7 @@ msgstr "注销其他会话"
 msgid "User Sessions"
 msgstr "用户会话"
 
-#: usersessions/models.py:93
+#: usersessions/models.py:94
 msgid "session key"
 msgstr "会话密钥"
 

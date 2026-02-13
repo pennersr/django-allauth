@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-25 13:23-0500\n"
+"POT-Creation-Date: 2026-02-13 09:05-0600\n"
 "PO-Revision-Date: 2025-06-05 15:41+0000\n"
 "Last-Translator: Nyong Onta 11 <nyongonta11@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/allauth/"
@@ -19,116 +19,116 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.12-dev\n"
 
-#: account/adapter.py:53
+#: account/adapter.py:61
 msgid "This account is currently inactive."
 msgstr "Akun ini sedang tidak aktif."
 
-#: account/adapter.py:55
+#: account/adapter.py:63
 msgid "You cannot remove your primary email address."
 msgstr "Anda tidak dapat menghapus alamat email utama Anda."
 
-#: account/adapter.py:58
+#: account/adapter.py:66
 msgid "This email address is already associated with this account."
 msgstr "Alamat e-mail ini sudah terhubung dengan akun ini."
 
-#: account/adapter.py:61
+#: account/adapter.py:69
 msgid "The email address and/or password you specified are not correct."
 msgstr "Alamat e-mail dan/atau kata sandi yang anda masukkan tidak benar."
 
-#: account/adapter.py:64
+#: account/adapter.py:72
 msgid "The phone number and/or password you specified are not correct."
 msgstr "Nomor ponsel dan/atau kata sandi yang anda masukkan tidak benar."
 
-#: account/adapter.py:66
+#: account/adapter.py:74
 msgid "A user is already registered with this email address."
 msgstr "Seorang pengguna sudah terdaftar dengan alamat e-mail ini."
 
-#: account/adapter.py:67
+#: account/adapter.py:75
 msgid "Please type your current password."
 msgstr "Silahkan ketik kata sandi Anda saat ini."
 
-#: account/adapter.py:68 mfa/adapter.py:40
+#: account/adapter.py:76 mfa/adapter.py:40
 msgid "Incorrect code."
 msgstr "Kode salah."
 
-#: account/adapter.py:69
+#: account/adapter.py:77
 msgid "Incorrect password."
 msgstr "Kata sandi salah."
 
-#: account/adapter.py:70
+#: account/adapter.py:78
 msgid "Invalid or expired key."
 msgstr "Kunci tidak valid atau kedaluwarsa."
 
-#: account/adapter.py:71
+#: account/adapter.py:79
 msgid "Invalid login."
 msgstr "login tidak valid."
 
-#: account/adapter.py:72
+#: account/adapter.py:80
 msgid "The password reset token was invalid."
 msgstr "Token untuk mengatur ulang kata sandi tidak valid."
 
-#: account/adapter.py:73
+#: account/adapter.py:81
 #, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "Anda tidak dapat menambahkan lebih dari %d alamat e-mail."
 
-#: account/adapter.py:74
+#: account/adapter.py:82
 #, fuzzy
 #| msgid "A user is already registered with this email address."
 msgid "A user is already registered with this phone number."
 msgstr "Seorang pengguna sudah terdaftar dengan alamat ponsel ini."
 
-#: account/adapter.py:76
+#: account/adapter.py:84
 msgid "Too many failed login attempts. Try again later."
 msgstr "Terlalu banyak percobaan masuk yang gagal. Coba lagi nanti."
 
-#: account/adapter.py:78
+#: account/adapter.py:86
 msgid "The email address is not assigned to any user account."
 msgstr "Alamat e-mail ini tidak terhubung dengan akun pengguna mana pun."
 
-#: account/adapter.py:79
+#: account/adapter.py:87
 #, fuzzy
 #| msgid "The email address is not assigned to any user account"
 msgid "The phone number is not assigned to any user account."
 msgstr "Alamat ponsel ini tidak terhubung dengan akun pengguna mana pun."
 
-#: account/adapter.py:80
+#: account/adapter.py:88
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary email address must be verified."
 msgstr "Alamat e-mail utama Anda harus diverifikasi."
 
-#: account/adapter.py:82
+#: account/adapter.py:90
 msgid "Username can not be used. Please use other username."
 msgstr ""
 "Name pengguna tidak dapat digunakan. Silahkan gunakan nama pengguna lain."
 
-#: account/adapter.py:85
+#: account/adapter.py:93
 msgid "The username and/or password you specified are not correct."
 msgstr "Nama pengguna dan/atau kata sandi yang anda masukkan tidak benar."
 
-#: account/adapter.py:90
+#: account/adapter.py:98
 #, fuzzy
 msgid "Please select only one."
 msgstr "Silakan pilih satu saja."
 
-#: account/adapter.py:91
+#: account/adapter.py:99
 #, fuzzy
 msgid "The new value must be different from the current one."
 msgstr "Nilai yang baru harus berbeda dari nilai saat ini."
 
-#: account/adapter.py:92
+#: account/adapter.py:100
 msgid "Be patient, you are sending too many requests."
 msgstr "Bersabarlah, Anda mengirim terlalu banyak permintaan."
 
-#: account/adapter.py:805
+#: account/adapter.py:826
 msgid "Use your password"
 msgstr "Gunakan kata sandi Anda"
 
-#: account/adapter.py:814
+#: account/adapter.py:835
 msgid "Use authenticator app or code"
 msgstr "Gunakan aplikasi atau kode autentikator"
 
-#: account/adapter.py:821 templates/mfa/authenticate.html:41
+#: account/adapter.py:842 templates/mfa/authenticate.html:41
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use a security key"
 msgstr "Gunakan kunci keamanan"
@@ -153,7 +153,7 @@ msgstr "Tandai alamat email yang dipilih sebagai terverifikasi"
 msgid "Accounts"
 msgstr "Akun"
 
-#: account/fields.py:12 account/forms.py:299 idp/oidc/forms.py:38
+#: account/fields.py:12 account/forms.py:299 idp/oidc/forms.py:43
 msgid "Email"
 msgstr "E-mail"
 
@@ -254,8 +254,8 @@ msgstr "Kata sandi baru"
 msgid "New Password (again)"
 msgstr "Kata sandi baru (lagi)"
 
-#: account/forms.py:767 account/forms.py:769 idp/oidc/forms.py:46
-#: idp/oidc/forms.py:49 mfa/base/forms.py:12 mfa/base/forms.py:14
+#: account/forms.py:767 account/forms.py:769 idp/oidc/forms.py:51
+#: idp/oidc/forms.py:54 mfa/base/forms.py:12 mfa/base/forms.py:14
 #: mfa/totp/forms.py:13
 #: templates/idp/oidc/device_authorization_confirm_form.html:16
 msgid "Code"
@@ -307,55 +307,65 @@ msgstr "Headless"
 
 #: idp/oidc/adapter.py:30
 msgid "View your user ID"
-msgstr ""
+msgstr "Lihat ID pengguna Anda"
 
 #: idp/oidc/adapter.py:31
-#, fuzzy
-#| msgid "Verify Your Email Address"
 msgid "View your email address"
-msgstr "Verifikasi Alamat E-mail Anda"
+msgstr "Lihat alamat email Anda"
 
 #: idp/oidc/adapter.py:32
 msgid "View your basic profile information"
+msgstr "Lihat informasi profil dasar Anda"
+
+#: idp/oidc/forms.py:31
+msgid "Grant permissions"
+msgstr "Berikan izin"
+
+#: idp/oidc/internal/clientkit.py:22
+msgid "Wildcards are not allowed unless 'Allow URI wildcards' is enabled."
 msgstr ""
 
-#: idp/oidc/forms.py:26
-msgid "Grant permissions"
+#: idp/oidc/internal/clientkit.py:27
+msgid ""
+"URI '{}' contains more than one wildcard (*). Only one wildcard per URI is "
+"allowed."
+msgstr ""
+
+#: idp/oidc/internal/clientkit.py:39
+msgid "Wildcards are only allowed in the hostname portion of the URI."
 msgstr ""
 
 #: idp/oidc/models.py:37
-#, fuzzy
-#| msgid "Authenticator code"
 msgid "Authorization code"
-msgstr "Kode autentikator"
+msgstr "Kode otorisasi"
 
 #: idp/oidc/models.py:38
-#, fuzzy
-#| msgid "Recovery codes"
 msgid "Device code"
-msgstr "Kode pemulihan"
+msgstr "Kode perangkat"
 
 #: idp/oidc/models.py:39
 msgid "Client credentials"
-msgstr ""
+msgstr "Kredensial klien"
 
 #: idp/oidc/models.py:40
 msgid "Refresh token"
-msgstr ""
+msgstr "Token penyegaran"
 
 #: idp/oidc/models.py:43
 msgid "Confidential"
-msgstr ""
+msgstr "Rahasia"
 
 #: idp/oidc/models.py:44
 msgid "Public"
-msgstr ""
+msgstr "Publik"
 
 #: idp/oidc/models.py:58
 msgid ""
-"The scope(s) the client is allowed to request. Provide one value per line, e."
-"g.: openid(ENTER)profile(ENTER)email(ENTER)"
+"The scope(s) the client is allowed to request. Provide one value per line, "
+"e.g.: openid(ENTER)profile(ENTER)email(ENTER)"
 msgstr ""
+"Cakupan yang diizinkan untuk diminta klien. Berikan satu nilai per baris, "
+"mis.: openid(ENTER)profile(ENTER)email(ENTER)"
 
 #: idp/oidc/models.py:64
 msgid ""
@@ -363,30 +373,41 @@ msgid ""
 "used. Provide one value per line, e.g.: "
 "openid(ENTER)profile(ENTER)email(ENTER)"
 msgstr ""
+"Jika klien tidak menentukan cakupan, cakupan default ini digunakan. Berikan "
+"satu nilai per baris, mis.: openid(ENTER)profile(ENTER)email(ENTER)"
 
 #: idp/oidc/models.py:75
 msgid ""
 "A list of allowed grant types. Provide one value per line, e.g.: "
 "authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 msgstr ""
+"Daftar jenis grant yang diizinkan. Berikan satu nilai per baris, mis.: "
+"authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 
 #: idp/oidc/models.py:86
 msgid "A list of allowed origins for cross-origin requests, one per line."
 msgstr ""
+"Daftar origin yang diizinkan untuk permintaan lintas origin, satu per baris."
 
 #: idp/oidc/models.py:94
+msgid ""
+"Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
+"can contain a single asterisk to match subdomains."
+msgstr ""
+
+#: idp/oidc/models.py:102
 msgid ""
 "A list of allowed response types. Provide one value per line, e.g.: "
 "code(ENTER)id_token token(ENTER)"
 msgstr ""
+"Daftar jenis respons yang diizinkan. Berikan satu nilai per baris, mis.: "
+"code(ENTER)id_token token(ENTER)"
 
-#: idp/oidc/models.py:107
-#, fuzzy
-#| msgid "client id"
+#: idp/oidc/models.py:115
 msgid "client"
-msgstr "id klien"
+msgstr "klien"
 
-#: idp/oidc/models.py:108
+#: idp/oidc/models.py:116
 #, fuzzy
 #| msgid "client id"
 msgid "clients"
@@ -592,7 +613,7 @@ msgstr "token aplikasi sosial"
 msgid "social application tokens"
 msgstr "token-token aplikasi sosial"
 
-#: socialaccount/providers/douban/views.py:36
+#: socialaccount/providers/douban/views.py:35
 msgid "Invalid profile data"
 msgstr "Data profil tidak valid"
 
@@ -611,7 +632,7 @@ msgstr "Masuk"
 msgid "Cancel"
 msgstr "Batalkan"
 
-#: socialaccount/providers/oauth/client.py:84
+#: socialaccount/providers/oauth/client.py:86
 #, fuzzy, python-format
 #| msgid "Invalid response while obtaining request token from \"%s\"."
 msgid ""
@@ -620,28 +641,28 @@ msgstr ""
 "Respons tidak valid saat memperoleh token permintaan dari \"%s\". Responsnya "
 "adalah: %s."
 
-#: socialaccount/providers/oauth/client.py:118
-#: socialaccount/providers/pocket/client.py:86
+#: socialaccount/providers/oauth/client.py:121
+#: socialaccount/providers/pocket/client.py:81
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr "Respon tidak valid saat meminta token akses dari \"%s\"."
 
-#: socialaccount/providers/oauth/client.py:139
+#: socialaccount/providers/oauth/client.py:142
 #, python-format
 msgid "No request token saved for \"%s\"."
 msgstr "Tidak ada token request yang disimpan untuk \"%s\"."
 
-#: socialaccount/providers/oauth/client.py:190
+#: socialaccount/providers/oauth/client.py:193
 #, python-format
 msgid "No access token saved for \"%s\"."
 msgstr "Tidak ada token akses yang disimpan untuk \"%s\"."
 
-#: socialaccount/providers/oauth/client.py:211
+#: socialaccount/providers/oauth/client.py:215
 #, python-format
 msgid "No access to private resources at \"%s\"."
 msgstr "Tidak ada akses ke sumber daya pribadi pada \"%s\"."
 
-#: socialaccount/providers/pocket/client.py:41
+#: socialaccount/providers/pocket/client.py:39
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr "Respon tidak valid saat meminta token request dari \"%s\"."
@@ -1050,53 +1071,42 @@ msgstr ""
 #: templates/account/email/unknown_account_message.txt:8
 msgid "If it was you, you can sign up for an account using the link below."
 msgstr ""
+"Jika itu Anda, Anda dapat mendaftar akun menggunakan tautan di bawah ini."
 
 #: templates/account/email/unknown_account_subject.txt:3
-#, fuzzy
-#| msgid "Accounts"
 msgid "Unknown Account"
-msgstr "Akun"
+msgstr "Akun Tidak Dikenal"
 
 #: templates/account/email_change.html:5 templates/account/email_change.html:9
-#, fuzzy
-#| msgid "Email Addresses"
 msgid "Email Address"
-msgstr "Alamat E-mail"
+msgstr "Alamat Email"
 
 #: templates/account/email_change.html:21
 #: templates/account/email_change.html:29
-#, fuzzy
-#| msgid "Current Password"
 msgid "Current email"
-msgstr "Kata sandi saat ini"
+msgstr "Email saat ini"
 
 #: templates/account/email_change.html:31
 msgid "Changing to"
-msgstr ""
+msgstr "Mengubah ke"
 
 #: templates/account/email_change.html:35
-#, fuzzy
-#| msgid "Your primary email address must be verified."
 msgid "Your email address is still pending verification."
-msgstr "Alamat e-mail utama Anda harus diverifikasi."
+msgstr "Alamat email Anda masih menunggu verifikasi."
 
 #: templates/account/email_change.html:41
 msgid "Cancel Change"
-msgstr ""
+msgstr "Batalkan Perubahan"
 
 #: templates/account/email_change.html:49
 #: templates/account/phone_change.html:32
-#, fuzzy
-#| msgid "Email"
 msgid "Change to"
-msgstr "E-mail"
+msgstr "Ubah ke"
 
 #: templates/account/email_change.html:55
 #: templates/allauth/layouts/base.html:31
-#, fuzzy
-#| msgid "Email"
 msgid "Change Email"
-msgstr "E-mail"
+msgstr "Ubah Email"
 
 #: templates/account/email_confirm.html:6
 #: templates/account/email_confirm.html:10
@@ -1147,19 +1157,21 @@ msgstr ""
 
 #: templates/account/login.html:42
 msgid "Sign in with a passkey"
-msgstr ""
+msgstr "Masuk dengan passkey"
 
 #: templates/account/login.html:47 templates/account/request_login_code.html:9
 msgid "Send me a sign-in code"
-msgstr ""
+msgstr "Kirim kode masuk kepada saya"
 
 #: templates/account/logout.html:4 templates/account/logout.html:8
 #: templates/account/logout.html:21 templates/allauth/layouts/base.html:61
+#: templates/idp/oidc/logout.html:4 templates/idp/oidc/logout.html:8
+#: templates/idp/oidc/logout.html:21
 #: templates/usersessions/usersession_list.html:76
 msgid "Sign Out"
 msgstr "Keluar"
 
-#: templates/account/logout.html:11
+#: templates/account/logout.html:11 templates/idp/oidc/logout.html:11
 msgid "Are you sure you want to sign out?"
 msgstr "Anda yakin ingin keluar?"
 
@@ -1195,7 +1207,7 @@ msgstr "Anda telah keluar."
 #: templates/account/messages/login_code_sent.txt:2
 #, python-format
 msgid "A sign-in code has been sent to %(recipient)s."
-msgstr ""
+msgstr "Kode masuk telah dikirim ke %(recipient)s."
 
 #: templates/account/messages/password_changed.txt:2
 msgid "Password successfully changed."
@@ -1208,12 +1220,12 @@ msgstr "Kata sandi berhasil setel."
 #: templates/account/messages/phone_verification_sent.txt:2
 #, python-format
 msgid "A verification code has been sent to %(phone)s."
-msgstr ""
+msgstr "Kode verifikasi telah dikirim ke %(phone)s."
 
 #: templates/account/messages/phone_verified.txt:2
 #, python-format
 msgid "You have verified phone number %(phone)s."
-msgstr ""
+msgstr "Anda telah memverifikasi nomor telepon %(phone)s."
 
 #: templates/account/messages/primary_email_set.txt:2
 msgid "Primary email address set."
@@ -1236,16 +1248,12 @@ msgid "Forgot Password?"
 msgstr "Lupa Kata Sandi?"
 
 #: templates/account/password_reset.html:14
-#, fuzzy
-#| msgid ""
-#| "Forgotten your password? Enter your e-mail address below, and we'll send "
-#| "you an e-mail allowing you to reset it."
 msgid ""
 "Forgotten your password? Enter your email address below, and we'll send you "
 "an email allowing you to reset it."
 msgstr ""
-"Lupa kata sandi Anda? Masukkan alamat e-mail Anda di bawah, dan kami akan "
-"mengirimkan e-mail yang membolehkan Anda untuk mengubahnya."
+"Lupa kata sandi Anda? Masukkan alamat email Anda di bawah, dan kami akan "
+"mengirimkan email yang memungkinkan Anda untuk meresetnya."
 
 #: templates/account/password_reset.html:26
 msgid "Reset My Password"
@@ -1257,18 +1265,13 @@ msgstr ""
 "Mohon hubungi kami jika Anda mengalami masalah saat mengubah kata sandi Anda."
 
 #: templates/account/password_reset_done.html:16
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for\n"
-#| "verification. Please click on the link inside this e-mail. Please\n"
-#| "contact us if you do not receive it within a few minutes."
 msgid ""
 "We have sent you an email. If you have not received it please check your "
 "spam folder. Otherwise contact us if you do not receive it in a few minutes."
 msgstr ""
-"Kami telah mengirimkan e-mail kepada Anda untuk\n"
-"verifikasi. Silakan klik tautan didalam e-mail ini. Silakan\n"
-"hubungi kami jika Anda tidak menerimanya dalam beberapa menit."
+"Kami telah mengirimkan email kepada Anda. Jika Anda belum menerimanya, "
+"silakan periksa folder spam Anda. Jika tidak, hubungi kami jika Anda tidak "
+"menerimanya dalam beberapa menit."
 
 #: templates/account/password_reset_from_key.html:10
 msgid "Bad Token"
@@ -1503,33 +1506,30 @@ msgstr ""
 #: templates/idp/oidc/device_authorization_confirmed.html:5
 #: templates/idp/oidc/device_authorization_denied.html:5
 msgid "Authorize"
-msgstr ""
+msgstr "Otorisasi"
 
 #: templates/idp/oidc/authorization_form.html:12
 #, python-format
 msgid "%(client_name)s wants to access your %(site_name)s account."
-msgstr ""
+msgstr "%(client_name)s ingin mengakses akun %(site_name)s Anda."
 
 #: templates/idp/oidc/device_authorization_code_form.html:9
-#, fuzzy
 msgid "Enter Device Code"
-msgstr "masukkan kode masuk"
+msgstr "Masukkan Kode Perangkat"
 
 #: templates/idp/oidc/device_authorization_code_form.html:12
 msgid "Enter the code displayed on your device."
-msgstr ""
+msgstr "Masukkan kode yang ditampilkan di perangkat Anda."
 
 #: templates/idp/oidc/device_authorization_code_form.html:21
 #: templates/socialaccount/login.html:27
 #: templates/socialaccount/login_redirect.html:10
 msgid "Continue"
-msgstr ""
+msgstr "Lanjutkan"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:9
-#, fuzzy
-#| msgid "Confirm Email Address"
 msgid "Confirm Device"
-msgstr "Konfirmasi Akses"
+msgstr "Konfirmasi Perangkat"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:12
 #, python-format
@@ -1537,32 +1537,40 @@ msgid ""
 "Please confirm the code shown on your %(client_name)s to authorize this "
 "device."
 msgstr ""
+"Silakan konfirmasi kode yang ditampilkan pada %(client_name)s Anda untuk "
+"mengotorisasi perangkat ini."
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:29
 msgid "Deny"
-msgstr ""
+msgstr "Tolak"
 
 #: templates/idp/oidc/device_authorization_confirmed.html:9
 msgid "Device Authorized"
-msgstr ""
+msgstr "Perangkat Terotorisasi"
 
 #: templates/idp/oidc/device_authorization_confirmed.html:12
 #, python-format
 msgid "You successfully authorized your %(client_name)s device."
-msgstr ""
+msgstr "Anda berhasil mengotorisasi perangkat %(client_name)s Anda."
 
 #: templates/idp/oidc/device_authorization_denied.html:9
 msgid "Device Denied"
-msgstr ""
+msgstr "Perangkat Ditolak"
 
 #: templates/idp/oidc/device_authorization_denied.html:12
 #, python-format
 msgid "Authorization for your %(client_name)s device has been denied."
-msgstr ""
+msgstr "Otorisasi untuk perangkat %(client_name)s Anda telah ditolak."
 
 #: templates/idp/oidc/error.html:5 templates/idp/oidc/error.html:9
 msgid "Error"
-msgstr ""
+msgstr "Kesalahan"
+
+#: templates/idp/oidc/logout.html:24
+#, fuzzy
+#| msgid "Sign In"
+msgid "Stay Signed In"
+msgstr "Masuk"
 
 #: templates/mfa/authenticate.html:13
 msgid ""
@@ -2047,7 +2055,7 @@ msgstr ""
 msgid "User Sessions"
 msgstr ""
 
-#: usersessions/models.py:93
+#: usersessions/models.py:94
 msgid "session key"
 msgstr ""
 

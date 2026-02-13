@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-25 13:23-0500\n"
+"POT-Creation-Date: 2026-02-13 09:05-0600\n"
 "PO-Revision-Date: 2025-11-28 05:00+0000\n"
 "Last-Translator: Mohammed “Medait” AIT ALI <medait.31@gmail.com>\n"
-"Language-Team: Arabic <https://hosted.weblate.org/projects/allauth/"
-"django-allauth/ar/>\n"
+"Language-Team: Arabic <https://hosted.weblate.org/projects/allauth/django-"
+"allauth/ar/>\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,109 +20,109 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
 "X-Generator: Weblate 5.15-dev\n"
 
-#: account/adapter.py:53
+#: account/adapter.py:61
 msgid "This account is currently inactive."
 msgstr "هذا الحساب غير نشط حاليا."
 
-#: account/adapter.py:55
+#: account/adapter.py:63
 msgid "You cannot remove your primary email address."
 msgstr "لا يمكنك إزالة عنوان بريدك الإلكتروني الرئيسي."
 
-#: account/adapter.py:58
+#: account/adapter.py:66
 msgid "This email address is already associated with this account."
 msgstr "عنوان البريد الإلكتروني هذا مربوط بالفعل مع هذا الحساب."
 
-#: account/adapter.py:61
+#: account/adapter.py:69
 msgid "The email address and/or password you specified are not correct."
 msgstr "عنوان البريد الإلكتروني و / أو كلمة المرور غير صحيحة."
 
-#: account/adapter.py:64
+#: account/adapter.py:72
 msgid "The phone number and/or password you specified are not correct."
 msgstr "رقم الهاتف و / أو كلمة المرور غير صحيحة."
 
-#: account/adapter.py:66
+#: account/adapter.py:74
 msgid "A user is already registered with this email address."
 msgstr "هنالك مستخدم مسجل سابقا يستخدم عنوان البريد الإلكتروني نفسه."
 
-#: account/adapter.py:67
+#: account/adapter.py:75
 msgid "Please type your current password."
 msgstr "الرجاء كتابة كلمة المرور الحالية."
 
-#: account/adapter.py:68 mfa/adapter.py:40
+#: account/adapter.py:76 mfa/adapter.py:40
 msgid "Incorrect code."
 msgstr "كود خاطئ."
 
-#: account/adapter.py:69
+#: account/adapter.py:77
 msgid "Incorrect password."
 msgstr "كلمة مرور خاطئة."
 
-#: account/adapter.py:70
+#: account/adapter.py:78
 msgid "Invalid or expired key."
 msgstr "مفتاح خاطئ او منتهي."
 
-#: account/adapter.py:71
+#: account/adapter.py:79
 msgid "Invalid login."
 msgstr "فشل تسجيل الدخول."
 
-#: account/adapter.py:72
+#: account/adapter.py:80
 msgid "The password reset token was invalid."
 msgstr "كود إعادة تعيين كلمة المرور غير صالح."
 
-#: account/adapter.py:73
+#: account/adapter.py:81
 #, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "لا يمكنك إضافة أكثر من %d بريد إلكتروني."
 
-#: account/adapter.py:74
+#: account/adapter.py:82
 msgid "A user is already registered with this phone number."
 msgstr "تم تسجيل مستخدم بالفعل برقم الهاتف هذا."
 
-#: account/adapter.py:76
+#: account/adapter.py:84
 msgid "Too many failed login attempts. Try again later."
 msgstr "تجاوزت الحد المسموح لمحاولة تسجيل الدخول. حاول في وقت لاحق."
 
-#: account/adapter.py:78
+#: account/adapter.py:86
 msgid "The email address is not assigned to any user account."
 msgstr "لم يتم ربط عنوان البريد الإلكتروني مع أي حساب مستخدم."
 
-#: account/adapter.py:79
+#: account/adapter.py:87
 msgid "The phone number is not assigned to any user account."
 msgstr "لم يتم ربط رقم الهاتف مع أي حساب مستخدم."
 
-#: account/adapter.py:80
+#: account/adapter.py:88
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary email address must be verified."
 msgstr "يجب توثيق عنوان بريدك الإلكتروني الرئيسي."
 
-#: account/adapter.py:82
+#: account/adapter.py:90
 msgid "Username can not be used. Please use other username."
 msgstr "اسم المستخدم غير مسموح به. الرجاء اختيار اسم آخر‪."
 
-#: account/adapter.py:85
+#: account/adapter.py:93
 msgid "The username and/or password you specified are not correct."
 msgstr "اسم المستخدم و / أو كلمة المرور غير صحيحة."
 
-#: account/adapter.py:90
+#: account/adapter.py:98
 msgid "Please select only one."
 msgstr "الرجاء اختيار واحد فقط."
 
-#: account/adapter.py:91
+#: account/adapter.py:99
 msgid "The new value must be different from the current one."
 msgstr "يجب أن تكون القيمة الجديدة مختلفة عن القيمة الحالية."
 
-#: account/adapter.py:92
+#: account/adapter.py:100
 msgid "Be patient, you are sending too many requests."
 msgstr "كن صبوراً، فأنت ترسل عدداً كبيراً جداً من الطلبات."
 
-#: account/adapter.py:805
+#: account/adapter.py:826
 msgid "Use your password"
 msgstr "استخدم كلمة مرورك"
 
-#: account/adapter.py:814
+#: account/adapter.py:835
 msgid "Use authenticator app or code"
 msgstr "استخدم تطبيق المصادقة او الكود"
 
-#: account/adapter.py:821 templates/mfa/authenticate.html:41
+#: account/adapter.py:842 templates/mfa/authenticate.html:41
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use a security key"
 msgstr "استخدم مفتاح الأمان"
@@ -146,7 +146,7 @@ msgstr "تحديد البريد الإلكتروني المختار بأنه ت�
 msgid "Accounts"
 msgstr "الحسابات"
 
-#: account/fields.py:12 account/forms.py:299 idp/oidc/forms.py:38
+#: account/fields.py:12 account/forms.py:299 idp/oidc/forms.py:43
 msgid "Email"
 msgstr "البريد الالكتروني"
 
@@ -243,8 +243,8 @@ msgstr "كلمة المرور الجديدة"
 msgid "New Password (again)"
 msgstr "كلمة المرور الجديدة (مجددا)"
 
-#: account/forms.py:767 account/forms.py:769 idp/oidc/forms.py:46
-#: idp/oidc/forms.py:49 mfa/base/forms.py:12 mfa/base/forms.py:14
+#: account/forms.py:767 account/forms.py:769 idp/oidc/forms.py:51
+#: idp/oidc/forms.py:54 mfa/base/forms.py:12 mfa/base/forms.py:14
 #: mfa/totp/forms.py:13
 #: templates/idp/oidc/device_authorization_confirm_form.html:16
 msgid "Code"
@@ -308,11 +308,25 @@ msgstr "التحقق من البريد الإلكتروني"
 msgid "View your basic profile information"
 msgstr ""
 
-#: idp/oidc/forms.py:26
+#: idp/oidc/forms.py:31
 #, fuzzy
 #| msgid "User Sessions"
 msgid "Grant permissions"
 msgstr "جلسات المستخدم"
+
+#: idp/oidc/internal/clientkit.py:22
+msgid "Wildcards are not allowed unless 'Allow URI wildcards' is enabled."
+msgstr ""
+
+#: idp/oidc/internal/clientkit.py:27
+msgid ""
+"URI '{}' contains more than one wildcard (*). Only one wildcard per URI is "
+"allowed."
+msgstr ""
+
+#: idp/oidc/internal/clientkit.py:39
+msgid "Wildcards are only allowed in the hostname portion of the URI."
+msgstr ""
 
 #: idp/oidc/models.py:37
 #, fuzzy
@@ -344,8 +358,8 @@ msgstr ""
 
 #: idp/oidc/models.py:58
 msgid ""
-"The scope(s) the client is allowed to request. Provide one value per line, e."
-"g.: openid(ENTER)profile(ENTER)email(ENTER)"
+"The scope(s) the client is allowed to request. Provide one value per line, "
+"e.g.: openid(ENTER)profile(ENTER)email(ENTER)"
 msgstr ""
 
 #: idp/oidc/models.py:64
@@ -367,17 +381,23 @@ msgstr ""
 
 #: idp/oidc/models.py:94
 msgid ""
+"Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
+"can contain a single asterisk to match subdomains."
+msgstr ""
+
+#: idp/oidc/models.py:102
+msgid ""
 "A list of allowed response types. Provide one value per line, e.g.: "
 "code(ENTER)id_token token(ENTER)"
 msgstr ""
 
-#: idp/oidc/models.py:107
+#: idp/oidc/models.py:115
 #, fuzzy
 #| msgid "client id"
 msgid "client"
 msgstr "معرف العميل"
 
-#: idp/oidc/models.py:108
+#: idp/oidc/models.py:116
 #, fuzzy
 #| msgid "client id"
 msgid "clients"
@@ -579,7 +599,7 @@ msgstr "كود تطبيق اجتماعي"
 msgid "social application tokens"
 msgstr "أكواد التطبيقات الاجتماعية"
 
-#: socialaccount/providers/douban/views.py:36
+#: socialaccount/providers/douban/views.py:35
 msgid "Invalid profile data"
 msgstr "معلومات ملف شخصي غير صالحة"
 
@@ -597,34 +617,34 @@ msgstr "تسجيل الدخول"
 msgid "Cancel"
 msgstr "يلغي"
 
-#: socialaccount/providers/oauth/client.py:84
+#: socialaccount/providers/oauth/client.py:86
 #, python-format
 msgid ""
 "Invalid response while obtaining request token from \"%s\". Response was: %s."
 msgstr "تم تلقي رد غير صالح عند الحصول على كود الطلب من \"%s\". الرد كان: %s."
 
-#: socialaccount/providers/oauth/client.py:118
-#: socialaccount/providers/pocket/client.py:86
+#: socialaccount/providers/oauth/client.py:121
+#: socialaccount/providers/pocket/client.py:81
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr "تم تلقي رد غير صالح عند الحصول على كود الوصول من \"%s\"."
 
-#: socialaccount/providers/oauth/client.py:139
+#: socialaccount/providers/oauth/client.py:142
 #, python-format
 msgid "No request token saved for \"%s\"."
 msgstr "لا يوجد كود طلب محفوظ لـ \"%s\"."
 
-#: socialaccount/providers/oauth/client.py:190
+#: socialaccount/providers/oauth/client.py:193
 #, python-format
 msgid "No access token saved for \"%s\"."
 msgstr "لا يوجد كود وصول محفوظ لـ \"%s\"."
 
-#: socialaccount/providers/oauth/client.py:211
+#: socialaccount/providers/oauth/client.py:215
 #, python-format
 msgid "No access to private resources at \"%s\"."
 msgstr "لا وصول للموارد الخاصة في \"%s\"."
 
-#: socialaccount/providers/pocket/client.py:41
+#: socialaccount/providers/pocket/client.py:39
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr "تم تلقي رد غير صالح عند الحصول على كود الطلب من \"%s\"."
@@ -1061,11 +1081,13 @@ msgstr "أرسل لي كود تسجيل الدخول"
 
 #: templates/account/logout.html:4 templates/account/logout.html:8
 #: templates/account/logout.html:21 templates/allauth/layouts/base.html:61
+#: templates/idp/oidc/logout.html:4 templates/idp/oidc/logout.html:8
+#: templates/idp/oidc/logout.html:21
 #: templates/usersessions/usersession_list.html:76
 msgid "Sign Out"
 msgstr "تسجيل الخروج"
 
-#: templates/account/logout.html:11
+#: templates/account/logout.html:11 templates/idp/oidc/logout.html:11
 msgid "Are you sure you want to sign out?"
 msgstr "هل تريد حقا تسجيل الخروج؟"
 
@@ -1424,6 +1446,11 @@ msgstr ""
 #: templates/idp/oidc/error.html:5 templates/idp/oidc/error.html:9
 msgid "Error"
 msgstr ""
+
+#: templates/idp/oidc/logout.html:24
+#, fuzzy
+msgid "Stay Signed In"
+msgstr "تسجيل الدخول Shopify"
 
 #: templates/mfa/authenticate.html:13
 msgid ""
@@ -1870,7 +1897,7 @@ msgstr "تسجيل الخروج من الجلسات الأخرى"
 msgid "User Sessions"
 msgstr "جلسات المستخدم"
 
-#: usersessions/models.py:93
+#: usersessions/models.py:94
 msgid "session key"
 msgstr "مفتاح جلسة"
 
@@ -1948,10 +1975,6 @@ msgstr "مفتاح جلسة"
 
 #~ msgid "This username is already taken. Please choose another."
 #~ msgstr "اسم المستخدم مسجل مسبقا. الرجاء اختيار اسم اخر‪.‬"
-
-#, fuzzy
-#~ msgid "Shopify Sign In"
-#~ msgstr "تسجيل الدخول Shopify"
 
 #~ msgid ""
 #~ "You have confirmed that <a href=\"mailto:%(email)s\">%(email)s</a> is an "

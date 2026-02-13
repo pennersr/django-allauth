@@ -1,5 +1,11 @@
-65.14.2 (unreleased)
+65.14.2 (2026-02-13)
 ********************
+
+.. note::
+
+    💙 **Is django-allauth's authentication the entrance to your business?**
+    Please consider supporting its continued development by becoming a sponsor at
+    https://allauth.org/sponsors/. Your support helps keep this project thriving!
 
 Security notice
 ---------------

@@ -7,7 +7,6 @@ from rest_framework.exceptions import AuthenticationFailed
 
 from allauth.headless import app_settings
 from allauth.headless.internal.sessionkit import authenticate_by_x_session_token
-from allauth.headless.tokens.strategies.jwt.internal import validate_access_token
 
 
 class XSessionTokenAuthentication(authentication.BaseAuthentication):
@@ -44,6 +43,10 @@ class JWTTokenAuthentication(authentication.TokenAuthentication):
         """
         Validates the given access token.
         """
+        from allauth.headless.tokens.strategies.jwt.internal import (
+            validate_access_token,
+        )
+
         user_payload = validate_access_token(key)
         if user_payload is None:
             raise AuthenticationFailed("Invalid token.")

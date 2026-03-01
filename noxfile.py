@@ -83,7 +83,7 @@ def test(session, django, project):
     session.install(
         f"django~={django_version}",
         "pytest>=8.3.5,<9",
-        "pytest-asyncio==0.23.8",
+        "pytest-asyncio==1.3.0",
         "pytest-django>=4.11,<5",
         "Pillow>=9.0",
         "coverage==7.6.1",

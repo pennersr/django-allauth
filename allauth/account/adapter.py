@@ -1,6 +1,7 @@
 import html
 import inspect
 import json
+import typing
 import warnings
 from http import HTTPStatus
 from urllib.parse import urlparse

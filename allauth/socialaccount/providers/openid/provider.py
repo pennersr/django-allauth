@@ -16,7 +16,7 @@ from .utils import (
 
 class OpenIDAccount(ProviderAccount):
     def get_brand(self):
-        ret = super(OpenIDAccount, self).get_brand()
+        ret = super().get_brand()
         domain = urlparse(self.account.uid).netloc
         provider_map = {}
         for d, p in provider_map.items():

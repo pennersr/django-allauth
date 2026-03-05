@@ -1,12 +1,10 @@
-from typing import List, Union
-
 from django.urls import URLPattern, URLResolver, include, path
 
 from allauth.mfa import app_settings
 from allauth.mfa.webauthn import views
 
 
-urlpatterns: List[Union[URLPattern, URLResolver]] = [
+urlpatterns: list[URLPattern | URLResolver] = [
     path("", views.list_webauthn, name="mfa_list_webauthn"),
     path("add/", views.add_webauthn, name="mfa_add_webauthn"),
     path(

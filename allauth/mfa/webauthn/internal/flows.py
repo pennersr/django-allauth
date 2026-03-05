@@ -1,4 +1,4 @@
-from typing import Iterable, Optional, Tuple
+from collections.abc import Iterable
 
 from django.contrib import messages
 from django.http import HttpRequest
@@ -35,7 +35,7 @@ def signup_authenticator(request, user, name: str, credential: dict) -> Authenti
 
 def add_authenticator(
     request, name: str, credential: dict
-) -> Tuple[Authenticator, Optional[Authenticator]]:
+) -> tuple[Authenticator, Authenticator | None]:
     raise_if_reauthentication_required(request)
     return _signup_or_add_authenticator(
         request,
@@ -52,7 +52,7 @@ def _signup_or_add_authenticator(
     name: str,
     credential: dict,
     signup: bool = False,
-) -> Tuple[Authenticator, Optional[Authenticator]]:
+) -> tuple[Authenticator, Authenticator | None]:
     authenticator = auth.WebAuthn.add(
         user,
         name,

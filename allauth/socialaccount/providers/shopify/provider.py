@@ -1,4 +1,4 @@
-from typing import Any, Dict, List
+from typing import Any
 
 from django.conf import settings
 
@@ -58,7 +58,7 @@ class ShopifyProvider(OAuth2Provider):
             # email is the only common field
             return dict(email=data["shop"]["email"])
 
-    def extract_email_addresses(self, data: Dict[str, Any]) -> List[EmailAddress]:
+    def extract_email_addresses(self, data: dict[str, Any]) -> list[EmailAddress]:
         ret = []
         email = None
         email_verified = False

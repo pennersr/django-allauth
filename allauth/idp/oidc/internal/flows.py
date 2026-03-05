@@ -1,5 +1,3 @@
-from typing import Optional
-
 from django.http import HttpRequest
 
 from allauth.account.internal.flows.logout import logout
@@ -10,8 +8,8 @@ def rp_initiated_logout(
     request: HttpRequest,
     *,
     from_op: bool,
-    post_logout_redirect_uri: Optional[str] = None,
-    client: Optional[Client] = None,
+    post_logout_redirect_uri: str | None = None,
+    client: Client | None = None,
 ):
     if not request.user.is_authenticated:
         return

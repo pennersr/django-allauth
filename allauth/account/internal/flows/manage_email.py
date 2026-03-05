@@ -1,5 +1,3 @@
-from typing import List, Optional, Tuple
-
 from django.contrib import messages
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.http import HttpRequest
@@ -113,7 +111,7 @@ def mark_as_primary(request: HttpRequest, email_address: EmailAddress) -> bool:
 
 def emit_email_changed(
     request: HttpRequest,
-    from_email_address: Optional[EmailAddress],
+    from_email_address: EmailAddress | None,
     to_email_address: EmailAddress,
 ) -> None:
     user = to_email_address.user
@@ -137,8 +135,8 @@ def emit_email_changed(
 
 
 def assess_unique_email(
-    email: str, user: Optional[AbstractBaseUser] = None
-) -> Optional[bool]:
+    email: str, user: AbstractBaseUser | None = None
+) -> bool | None:
     """
     True -- email is unique
     False -- email is already in use
@@ -185,7 +183,7 @@ def assess_unique_email(
 
 def list_email_addresses(
     request: HttpRequest, user: AbstractBaseUser
-) -> List[EmailAddress]:
+) -> list[EmailAddress]:
     addresses = list(EmailAddress.objects.filter(user_id=user.pk))
     if (
         app_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED
@@ -205,8 +203,8 @@ def list_email_addresses(
 
 
 def email_already_exists(
-    email: str, user: Optional[AbstractBaseUser] = None, always_raise: bool = False
-) -> Tuple[str, bool]:
+    email: str, user: AbstractBaseUser | None = None, always_raise: bool = False
+) -> tuple[str, bool]:
     """
     Throws a validation error (if allowed by enumeration prevention rules).
     Returns a tuple of [email, already_exists].
@@ -228,7 +226,7 @@ def email_already_exists(
     return (email, already_exists)
 
 
-def sync_user_email_address(user: AbstractBaseUser) -> Optional[EmailAddress]:
+def sync_user_email_address(user: AbstractBaseUser) -> EmailAddress | None:
     """
     Keep user.email in sync with user.emailaddress_set.
 
@@ -242,7 +240,7 @@ def sync_user_email_address(user: AbstractBaseUser) -> Optional[EmailAddress]:
     return None
 
 
-def sync_email_address(user: AbstractBaseUser, email: str) -> Optional[EmailAddress]:
+def sync_email_address(user: AbstractBaseUser, email: str) -> EmailAddress | None:
     if not EmailAddress.objects.filter(user_id=user.pk, email=email).exists():
         # get_or_create() to gracefully handle races
         address, _ = EmailAddress.objects.get_or_create(

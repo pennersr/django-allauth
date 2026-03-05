@@ -14,7 +14,7 @@ class AccountAdapter(DefaultAccountAdapter):
     def set_phone(self, user, phone: str, verified: bool):
         phone_stub.set_phone(user.pk, phone, verified)
 
-    def get_phone(self, user) -> typing.Optional[typing.Tuple[str, bool]]:
+    def get_phone(self, user) -> tuple[str, bool] | None:
         return phone_stub.get_phone(user.pk)
 
     def set_phone_verified(self, user, phone: str):

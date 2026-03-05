@@ -1,5 +1,3 @@
-from typing import Optional
-
 from django.contrib import messages
 
 from allauth.account import app_settings
@@ -30,7 +28,7 @@ class LoginCodeVerificationProcess(AbstractCodeVerificationProcess):
             user=stage.login.user,
         )
 
-    def finish(self, redirect_url: Optional[str]):
+    def finish(self, redirect_url: str | None):
         email = self.state.get("email")
         phone = self.state.get("phone")
         user = self.user
@@ -116,8 +114,8 @@ class LoginCodeVerificationProcess(AbstractCodeVerificationProcess):
         *,
         request,
         user,
-        email: Optional[str] = None,
-        phone: Optional[str] = None,
+        email: str | None = None,
+        phone: str | None = None,
         stage=None,
     ):
         initial_state = cls.initial_state(user=user, email=email, phone=phone)

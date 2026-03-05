@@ -2,7 +2,6 @@
 import base64
 import hashlib
 import json
-from typing import Tuple
 
 import jwt
 from cryptography.hazmat.primitives.asymmetric.rsa import RSAPrivateKey
@@ -41,7 +40,7 @@ def load_pem(pem: str) -> RSAPrivateKey:
     return private_key
 
 
-def load_jwk_from_pem(pem: str) -> Tuple[dict, RSAPrivateKey]:
+def load_jwk_from_pem(pem: str) -> tuple[dict, RSAPrivateKey]:
     private_key = load_pem(pem)
     public_key = private_key.public_key()
     jwk_dict = json.loads(RSAAlgorithm.to_jwk(public_key))

@@ -5,7 +5,7 @@ from allauth.socialaccount.providers.stripe.views import StripeOAuth2Adapter
 
 class StripeAccount(ProviderAccount):
     def to_str(self):
-        default = super(StripeAccount, self).to_str()
+        default = super().to_str()
         email = self.account.extra_data.get("email")
         business = self.account.extra_data.get("business_name")
         if business:

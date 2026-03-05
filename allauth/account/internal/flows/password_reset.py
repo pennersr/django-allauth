@@ -1,4 +1,3 @@
-from typing import Optional
 from urllib.parse import quote
 
 from django.contrib import messages
@@ -23,8 +22,8 @@ def reset_password(user: AbstractBaseUser, password: str) -> None:
 def perform_password_reset_login(
     request: HttpRequest,
     user: AbstractBaseUser,
-    phone: Optional[str] = None,
-    email: Optional[str] = None,
+    phone: str | None = None,
+    email: str | None = None,
 ) -> HttpResponse:
     extra_data = {}
     if phone:
@@ -37,8 +36,8 @@ def perform_password_reset_login(
 
 
 def finalize_password_reset(
-    request: HttpRequest, user: AbstractBaseUser, email: Optional[str] = None
-) -> Optional[HttpResponse]:
+    request: HttpRequest, user: AbstractBaseUser, email: str | None = None
+) -> HttpResponse | None:
     adapter = get_adapter()
     if user:
         # User successfully reset the password, clear any

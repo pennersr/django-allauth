@@ -1,6 +1,7 @@
 import hashlib
 import uuid
-from typing import Any, Dict, Iterable, Literal, Optional
+from collections.abc import Iterable
+from typing import Any, Literal
 
 from django.contrib.auth import get_user_model
 from django.core.management.utils import get_random_secret_key
@@ -85,9 +86,9 @@ class DefaultOIDCAdapter(BaseAdapter):
         user,
         client,
         scopes: Iterable[str],
-        email: Optional[str] = None,
+        email: str | None = None,
         **kwargs,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         Return the claims to be included in the ID token or userinfo response.
         """

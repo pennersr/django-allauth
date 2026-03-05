@@ -1,5 +1,5 @@
 import time
-from typing import Any, Dict
+from typing import Any
 
 from django.core import exceptions, validators
 from django.http import HttpRequest, HttpResponse
@@ -57,7 +57,7 @@ def record_authentication(request, user, method: str, **extra_data) -> None:
     )
 
 
-def _get_login_hook_kwargs(login: Login) -> Dict[str, Any]:
+def _get_login_hook_kwargs(login: Login) -> dict[str, Any]:
     """
     TODO: Just break backwards compatibility and pass only `login` to
     `pre/post_login()`.
@@ -72,7 +72,7 @@ def _get_login_hook_kwargs(login: Login) -> Dict[str, Any]:
 
 
 def perform_password_login(
-    request: HttpRequest, credentials: Dict[str, Any], login: Login
+    request: HttpRequest, credentials: dict[str, Any], login: Login
 ) -> HttpResponse:
     extra_data = {
         field: credentials.get(field)

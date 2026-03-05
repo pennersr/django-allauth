@@ -1,15 +1,9 @@
-from typing import Dict, List, Optional, Union
-
 from allauth.idp.oidc.models import Token
 
 
 def _is_scope_granted(
-    scope: Union[
-        str,
-        List[str],
-        List[List[str]],
-    ],
-    granted_scope: List[str],
+    scope: str | list[str] | list[list[str]],
+    granted_scope: list[str],
 ) -> bool:
     if isinstance(scope, str):
         return scope in granted_scope
@@ -17,7 +11,7 @@ def _is_scope_granted(
         raise ValueError
     if len(scope) == 0:
         return True
-    list_of_list_of_scopes: List[List[str]]
+    list_of_list_of_scopes: list[list[str]]
     if isinstance(scope[0], str):
         list_of_list_of_scopes = [scope]  # type: ignore
     else:
@@ -29,15 +23,15 @@ def _is_scope_granted(
 
 
 def is_scope_granted(
-    scope: Union[
-        None,
-        str,
-        List[str],
-        List[List[str]],
-        Dict[str, Union[str, List[str], List[List[str]]]],
-    ],
+    scope: (
+        None
+        | str
+        | list[str]
+        | list[list[str]]
+        | dict[str, str | list[str] | list[list[str]]]
+    ),
     token: Token,
-    method: Optional[str] = None,
+    method: str | None = None,
 ) -> bool:
     if scope is None:
         return True

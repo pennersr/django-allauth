@@ -56,7 +56,7 @@ class OAuthTestsMixin:
         raise NotImplementedError
 
     def setUp(self):
-        super(OAuthTestsMixin, self).setUp()
+        super().setUp()
         self.app = setup_app(self.provider_id)
         request = RequestFactory().get("/")
         self.provider = self.app.get_provider(request)
@@ -177,7 +177,7 @@ class OAuth2TestsMixin:
         return mocked_response(*responses)
 
     def setUp(self):
-        super(OAuth2TestsMixin, self).setUp()
+        super().setUp()
         self.setup_provider()
 
     def setup_provider(self):

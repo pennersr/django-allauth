@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 from django.contrib.auth import get_user_model
 
@@ -38,11 +38,11 @@ def build_user_payload(user) -> PublicKeyCredentialUserEntity:
     return PublicKeyCredentialUserEntity(**kwargs)
 
 
-def get_state() -> Optional[Dict]:
+def get_state() -> dict | None:
     return context.request.session.get(STATE_SESSION_KEY)
 
 
-def set_state(state: Dict) -> None:
+def set_state(state: dict) -> None:
     context.request.session[STATE_SESSION_KEY] = state
 
 
@@ -67,7 +67,7 @@ def parse_registration_response(response: Any) -> RegistrationResponse:
         raise get_adapter().validation_error("incorrect_code")
 
 
-def begin_registration(user, passwordless: bool) -> Dict:
+def begin_registration(user, passwordless: bool) -> dict:
     server = get_server()
     credentials = get_credentials(user)
     registration_data, state = server.register_begin(
@@ -89,7 +89,7 @@ def begin_registration(user, passwordless: bool) -> Dict:
     return dict(registration_data)
 
 
-def complete_registration(credential: Dict) -> AuthenticatorData:
+def complete_registration(credential: dict) -> AuthenticatorData:
     server = get_server()
     state = get_state()
     if not state:
@@ -103,8 +103,8 @@ def complete_registration(credential: Dict) -> AuthenticatorData:
     return binding
 
 
-def get_credentials(user) -> List[AttestedCredentialData]:
-    credentials: List[AttestedCredentialData] = []
+def get_credentials(user) -> list[AttestedCredentialData]:
+    credentials: list[AttestedCredentialData] = []
     authenticators = Authenticator.objects.filter(
         user=user, type=Authenticator.Type.WEBAUTHN
     )
@@ -117,7 +117,7 @@ def get_credentials(user) -> List[AttestedCredentialData]:
 
 def get_authenticator_by_credential_id(
     user, credential_id: bytes
-) -> Optional[Authenticator]:
+) -> Authenticator | None:
     authenticators = Authenticator.objects.filter(
         user=user, type=Authenticator.Type.WEBAUTHN
     )
@@ -137,7 +137,7 @@ def parse_authentication_response(response: Any) -> AuthenticationResponse:
         raise get_adapter().validation_error("incorrect_code")
 
 
-def begin_authentication(user=None) -> Dict:
+def begin_authentication(user=None) -> dict:
     server = get_server()
     request_options, state = server.authenticate_begin(
         credentials=get_credentials(user) if user else [],
@@ -147,7 +147,7 @@ def begin_authentication(user=None) -> Dict:
     return dict(request_options)
 
 
-def extract_user_from_response(response: Dict):
+def extract_user_from_response(response: dict):
     try:
         user_handle = response.get("response", {}).get("userHandle")
         user_pk = url_str_to_user_pk(websafe_decode(user_handle).decode("utf8"))
@@ -159,7 +159,7 @@ def extract_user_from_response(response: Dict):
     return user
 
 
-def complete_authentication(user, response: Dict) -> Authenticator:
+def complete_authentication(user, response: dict) -> Authenticator:
     credentials = get_credentials(user)
     server = get_server()
     state = get_state()
@@ -209,7 +209,7 @@ class WebAuthn:
         ).response.attestation_object.auth_data
 
     @property
-    def is_passwordless(self) -> Optional[bool]:
+    def is_passwordless(self) -> bool | None:
         return (
             self.instance.data.get("credential", {})
             .get("clientExtensionResults", {})

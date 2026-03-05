@@ -1,5 +1,4 @@
 import time
-from typing import Dict, List, Optional
 
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.http import HttpRequest, HttpResponseRedirect
@@ -44,7 +43,7 @@ def suspend_request(request: HttpRequest, redirect_to: str) -> HttpResponseRedir
     )
 
 
-def resume_request(request: HttpRequest) -> Optional[HttpResponseRedirect]:
+def resume_request(request: HttpRequest) -> HttpResponseRedirect | None:
     from allauth.account.utils import get_next_redirect_url
 
     state = request.session.pop(STATE_SESSION_KEY, None)
@@ -86,8 +85,8 @@ def did_recently_authenticate(request: HttpRequest) -> bool:
     return time.time() - authenticated_at < app_settings.REAUTHENTICATION_TIMEOUT
 
 
-def get_reauthentication_flows(user) -> List[Dict]:
-    ret: List[Dict] = []
+def get_reauthentication_flows(user) -> list[dict]:
+    ret: list[dict] = []
     if not user.is_authenticated:
         return ret
     if user.has_usable_password():

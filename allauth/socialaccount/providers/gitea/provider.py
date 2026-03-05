@@ -11,7 +11,7 @@ class GiteaAccount(ProviderAccount):
         return self.account.extra_data.get("avatar_url")
 
     def to_str(self):
-        dflt = super(GiteaAccount, self).to_str()
+        dflt = super().to_str()
         return next(
             value
             for value in (

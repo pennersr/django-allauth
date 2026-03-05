@@ -1,5 +1,3 @@
-from typing import Optional
-
 import jwt
 
 from allauth.core.internal import jwkkit
@@ -8,8 +6,8 @@ from allauth.idp.oidc.adapter import get_adapter
 
 
 def decode_jwt_token(
-    value: str, *, client_id: Optional[str] = None, verify_exp: bool, verify_iss: bool
-) -> Optional[dict]:
+    value: str, *, client_id: str | None = None, verify_exp: bool, verify_iss: bool
+) -> dict | None:
     if not value:
         return None
     try:

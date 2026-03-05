@@ -50,7 +50,7 @@ class OdnoklassnikiOAuth2Adapter(OAuth2Adapter):
         }
         # Ondoklassniki prescribes a weak algo
         suffix = md5(
-            f"{data['access_token']:s}{app.secret:s}".encode("utf-8")
+            f"{data['access_token']:s}{app.secret:s}".encode()
         ).hexdigest()  # nosec
         check_list = sorted(
             [f"{k:s}={v:s}" for k, v in data.items() if k != "access_token"]

@@ -1,5 +1,3 @@
-from typing import Optional, Tuple
-
 from django.contrib import messages
 
 from allauth.account.adapter import get_adapter as get_account_adapter
@@ -13,7 +11,7 @@ from allauth.mfa.recovery_codes.internal.flows import auto_generate_recovery_cod
 from allauth.mfa.totp.internal.auth import TOTP
 
 
-def activate_totp(request, form) -> Tuple[Authenticator, Optional[Authenticator]]:
+def activate_totp(request, form) -> tuple[Authenticator, Authenticator | None]:
     raise_if_reauthentication_required(request)
     totp_auth = TOTP.activate(request.user, form.secret).instance
     signals.authenticator_added.send(

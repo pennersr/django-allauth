@@ -63,7 +63,7 @@ class AmazonCognitoProvider(OAuth2Provider):
     def get_slug(cls):
         # IMPORTANT: Amazon Cognito does not support `_` characters
         #            as part of their redirect URI.
-        return super(AmazonCognitoProvider, cls).get_slug().replace("_", "-")
+        return super().get_slug().replace("_", "-")
 
 
 provider_classes = [AmazonCognitoProvider]

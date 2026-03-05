@@ -29,9 +29,7 @@ def test_user_with_mfa_only(
     client.force_login(user)
     methods = get_adapter().get_reauthentication_methods(user)
     assert len(methods) == len(expected_method_urlnames)
-    assert set([m["url"] for m in methods]) == set(
-        map(reverse, expected_method_urlnames)
-    )
+    assert {m["url"] for m in methods} == set(map(reverse, expected_method_urlnames))
     for urlname in ["account_reauthenticate", "mfa_reauthenticate"]:
         if urlname == "mfa_reauthenticate" and not allauth_settings.MFA_ENABLED:
             continue

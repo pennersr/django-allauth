@@ -16,7 +16,7 @@ class NextCloudTests(OAuth2TestsMixin, TestCase):
 
     def get_login_response_json(self, with_refresh_token=True):
         return (
-            super(NextCloudTests, self)
+            super()
             .get_login_response_json(with_refresh_token=with_refresh_token)
             .replace("uid", "user_id")
         )

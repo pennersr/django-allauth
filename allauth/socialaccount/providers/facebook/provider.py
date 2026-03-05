@@ -67,7 +67,7 @@ class FacebookProvider(OAuth2Provider):
             js = f"allauth.facebook.login({next}, {action}, {process}, {scope})"
             ret = f"javascript:{quote(js)}"
         elif method == "oauth2":
-            ret = super(FacebookProvider, self).get_login_url(request, **kwargs)
+            ret = super().get_login_url(request, **kwargs)
         else:
             raise RuntimeError(f"Invalid method specified: {method}")
         return ret

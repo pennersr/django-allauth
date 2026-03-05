@@ -142,7 +142,7 @@ class BattleNetOAuth2Adapter(OAuth2Adapter):
         return self.get_provider().sociallogin_from_response(request, data)
 
     def get_callback_url(self, request, app):
-        r = super(BattleNetOAuth2Adapter, self).get_callback_url(request, app)
+        r = super().get_callback_url(request, app)
         region = request.GET.get("region", "").lower()
         # Pass the region down to the callback URL if we specified it
         if region and region in self.valid_regions:

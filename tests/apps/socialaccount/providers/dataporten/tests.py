@@ -11,7 +11,7 @@ class DataportenTest(OAuth2TestsMixin, TestCase):
     provider_id = DataportenProvider.id
 
     def setUp(self):
-        super(DataportenTest, self).setUp()
+        super().setUp()
         self.mock_data = {
             "userid": "76a7a061-3c55-430d-8ee0-6f82ec42501f",
             "userid_sec": ["feide:andreas@uninett.no"],

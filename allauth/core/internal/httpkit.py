@@ -1,6 +1,5 @@
 import ipaddress
 import json
-from typing import Optional
 from urllib.parse import parse_qs, quote, urlencode, urlparse, urlunparse
 
 from django import shortcuts
@@ -150,7 +149,7 @@ def headed_redirect_response(viewname, query=None):
         raise
 
 
-def is_headless_request(request: HttpRequest) -> Optional[str]:
+def is_headless_request(request: HttpRequest) -> str | None:
     """
     Returns the headless client type (app/browser)in case of a headless
     request.
@@ -160,9 +159,7 @@ def is_headless_request(request: HttpRequest) -> Optional[str]:
     )
 
 
-def get_authorization_credential(
-    request: HttpRequest, auth_scheme: str
-) -> Optional[str]:
+def get_authorization_credential(request: HttpRequest, auth_scheme: str) -> str | None:
     auth = request.META.get("HTTP_AUTHORIZATION")
     if not auth:
         return None
@@ -172,7 +169,7 @@ def get_authorization_credential(
     return parts[1]
 
 
-def clean_client_ip(ip: str) -> Optional[str]:
+def clean_client_ip(ip: str) -> str | None:
     """
     Try to parse the value as an IP address to make sure it's a valid one.
     """
@@ -191,7 +188,7 @@ def clean_client_ip(ip: str) -> Optional[str]:
         return ip
 
 
-def get_client_ip_from_xff(request: HttpRequest) -> Optional[str]:
+def get_client_ip_from_xff(request: HttpRequest) -> str | None:
     trusted_proxy_count = allauth_settings.TRUSTED_PROXY_COUNT
     xff = request.headers.get("x-forwarded-for")
     if trusted_proxy_count > 0 and xff:
@@ -206,7 +203,7 @@ def get_client_ip_from_xff(request: HttpRequest) -> Optional[str]:
     return ip
 
 
-def get_client_ip(request: HttpRequest) -> Optional[str]:
+def get_client_ip(request: HttpRequest) -> str | None:
     trusted_client_ip_header = allauth_settings.TRUSTED_CLIENT_IP_HEADER
     if trusted_client_ip_header:
         ip = request.headers.get(trusted_client_ip_header)

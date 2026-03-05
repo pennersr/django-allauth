@@ -1,11 +1,9 @@
-from typing import List, Union
-
 from django.urls import URLPattern, URLResolver, path
 
 from allauth.mfa.recovery_codes import views
 
 
-urlpatterns: List[Union[URLPattern, URLResolver]] = [
+urlpatterns: list[URLPattern | URLResolver] = [
     path("", views.view_recovery_codes, name="mfa_view_recovery_codes"),
     path(
         "generate/",

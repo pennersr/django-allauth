@@ -17,7 +17,7 @@ class PatreonOAuth2Adapter(OAuth2Adapter):
     provider_id = PROVIDER_ID
     access_token_url = "https://www.patreon.com/api/oauth2/token"  # nosec
     authorize_url = "https://www.patreon.com/oauth2/authorize"
-    profile_url = "{0}/{1}".format(
+    profile_url = "{}/{}".format(
         API_URL,
         (
             "identity?include=memberships&fields%5Buser%5D=email,first_name,"
@@ -40,7 +40,7 @@ class PatreonOAuth2Adapter(OAuth2Adapter):
                     memberships = extra_data["relationships"]["memberships"]
                     member_id = memberships["data"][0]["id"]
                     member_url = (
-                        "{0}/members/{1}?include="
+                        "{}/members/{}?include="
                         "currently_entitled_tiers&fields%5Btier%5D=title"
                     ).format(API_URL, member_id)
                     resp_member = sess.get(member_url, headers=headers)

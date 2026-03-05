@@ -4,7 +4,6 @@ import re
 import string
 import unicodedata
 from collections import OrderedDict
-from typing import Optional
 from urllib.parse import urlsplit
 
 from django.conf import settings
@@ -101,7 +100,7 @@ def generate_unique_username(txts, regex=None):
     existing_usernames = filter_users_by_username(*candidates).values_list(
         USER_MODEL_USERNAME_FIELD, flat=True
     )
-    existing_usernames = set([n.lower() for n in existing_usernames])
+    existing_usernames = {n.lower() for n in existing_usernames}
     for candidate in candidates:
         if candidate.lower() not in existing_usernames:
             try:
@@ -152,7 +151,7 @@ def set_form_field_order(form, field_order):
 
 
 def build_absolute_uri(
-    request: Optional[HttpRequest], location: str, protocol: Optional[str] = None
+    request: HttpRequest | None, location: str, protocol: str | None = None
 ) -> str:
     """request.build_absolute_uri() helper
 

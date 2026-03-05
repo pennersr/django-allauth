@@ -1,5 +1,3 @@
-from typing import Optional
-
 from django.forms import ValidationError
 
 from allauth.account import app_settings as account_settings
@@ -14,7 +12,7 @@ from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.models import SocialLogin
 
 
-def get_pending_signup(request) -> Optional[SocialLogin]:
+def get_pending_signup(request) -> SocialLogin | None:
     if data := request.session.get("socialaccount_sociallogin"):
         try:
             return SocialLogin.deserialize(data)

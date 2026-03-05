@@ -183,10 +183,10 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterUniqueTogether(
             name="socialtoken",
-            unique_together=set([("app", "account")]),
+            unique_together={("app", "account")},
         ),
         migrations.AlterUniqueTogether(
             name="socialaccount",
-            unique_together=set([("provider", "uid")]),
+            unique_together={("provider", "uid")},
         ),
     ]

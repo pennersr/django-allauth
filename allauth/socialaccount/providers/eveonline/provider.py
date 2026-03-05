@@ -16,7 +16,7 @@ class EveOnlineAccount(ProviderAccount):
         )
 
     def to_str(self):
-        dflt = super(EveOnlineAccount, self).to_str()
+        dflt = super().to_str()
         return next(
             value
             for value in (

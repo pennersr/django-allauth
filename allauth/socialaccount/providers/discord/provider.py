@@ -29,7 +29,7 @@ class DiscordAccount(ProviderAccount):
         return None
 
     def to_str(self):
-        fallback = super(DiscordAccount, self).to_str()
+        fallback = super().to_str()
 
         # If the extra_data is malformed, exit early
         if not isinstance(self.account.extra_data, dict):

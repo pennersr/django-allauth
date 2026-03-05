@@ -1,5 +1,3 @@
-from typing import Optional
-
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from django.db.models.fields import EmailField
@@ -7,8 +5,8 @@ from django.db.models.fields import EmailField
 from allauth.account.adapter import get_adapter
 
 
-def valid_email_or_none(email: Optional[str]) -> Optional[str]:
-    ret: Optional[str] = None
+def valid_email_or_none(email: str | None) -> str | None:
+    ret: str | None = None
     try:
         if email:
             validate_email(email)

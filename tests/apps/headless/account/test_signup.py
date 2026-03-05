@@ -65,7 +65,7 @@ def test_signup_with_email_verification(
     assert resp.status_code == HTTPStatus.UNAUTHORIZED
     assert User.objects.filter(email=email).exists()
     data = resp.json()
-    flow = next((f for f in data["data"]["flows"] if f.get("is_pending")))
+    flow = next(f for f in data["data"]["flows"] if f.get("is_pending"))
     assert flow["id"] == "verify_email"
     addr = EmailAddress.objects.get(email=email)
     key = EmailConfirmationHMAC(addr).key

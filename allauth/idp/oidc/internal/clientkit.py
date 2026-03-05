@@ -1,5 +1,5 @@
 import re
-from typing import List, Optional, Pattern, Set
+from re import Pattern
 from urllib.parse import ParseResult, parse_qsl, urlparse
 
 from django.core.exceptions import ValidationError
@@ -93,7 +93,7 @@ def is_parsed_redirect_uri_allowed(
 
 
 def is_redirect_uri_allowed(
-    uri: str, allowed_uris: List[str], allow_uri_wildcards: bool
+    uri: str, allowed_uris: list[str], allow_uri_wildcards: bool
 ) -> bool:
     parsed_uri = urlparse(uri)
     return any(
@@ -103,7 +103,7 @@ def is_redirect_uri_allowed(
 
 
 def is_origin_allowed(
-    origin: str, allowed_origins: List[str], allow_uri_wildcards: bool
+    origin: str, allowed_origins: list[str], allow_uri_wildcards: bool
 ) -> bool:
     parsed_origin = urlparse(origin)
 
@@ -124,7 +124,7 @@ def is_origin_allowed(
     return False
 
 
-def get_used_schemes(client: Client) -> Set[str]:
+def get_used_schemes(client: Client) -> set[str]:
     schemes = set()
     for uri in client.get_redirect_uris():
         parsed = urlparse(uri)
@@ -134,8 +134,8 @@ def get_used_schemes(client: Client) -> Set[str]:
 
 
 def clean_post_logout_redirect_uri(
-    post_logout_redirect_uri: Optional[str], client: Optional[Client]
-) -> Optional[str]:
+    post_logout_redirect_uri: str | None, client: Client | None
+) -> str | None:
     """
     This URI SHOULD use the https scheme and MAY contain port, path, and
     query parameter components; however, it MAY use the http scheme, provided

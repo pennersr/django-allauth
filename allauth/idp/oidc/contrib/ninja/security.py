@@ -1,5 +1,3 @@
-from typing import Union
-
 from django.http import HttpRequest
 
 from ninja.security.base import AuthBase
@@ -18,7 +16,7 @@ class TokenAuth(AuthBase):
     openapi_type: str = "apiKey"
     scope = None
 
-    def __init__(self, scope: Union[str, list, dict]):
+    def __init__(self, scope: str | list | dict):
         """The scope passed can either be:
 
         - a single scope (``str``),

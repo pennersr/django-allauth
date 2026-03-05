@@ -1,5 +1,4 @@
 import json
-from typing import Dict, Optional, Type, Union
 
 from django.http import HttpResponseBadRequest
 from django.views.generic import View
@@ -10,7 +9,7 @@ from allauth.headless.internal.restkit.response import ErrorResponse
 
 
 class RESTView(View):
-    input_class: Union[Optional[Dict[str, Type[Input]]], Type[Input]] = None
+    input_class: dict[str, type[Input]] | None | type[Input] = None
     handle_json_input = True
 
     def dispatch(self, request, *args, **kwargs):

@@ -1,6 +1,6 @@
 import abc
 import time
-from typing import Any, Dict, Optional
+from typing import Any
 
 from django.contrib.auth import get_user_model
 
@@ -36,10 +36,8 @@ class AbstractCodeVerificationProcess(abc.ABC):
         return self.state.get("code", "")
 
     @classmethod
-    def initial_state(
-        cls, user, email: Optional[str] = None, phone: Optional[str] = None
-    ):
-        state: Dict[str, Any] = {
+    def initial_state(cls, user, email: str | None = None, phone: str | None = None):
+        state: dict[str, Any] = {
             "at": time.time(),
             "failed_attempts": 0,
             "resend_count": 0,
@@ -86,7 +84,7 @@ class AbstractCodeVerificationProcess(abc.ABC):
         return self.state["change_count"] >= quota
 
     def record_change(
-        self, *, email: Optional[str] = None, phone: Optional[str] = None
+        self, *, email: str | None = None, phone: str | None = None
     ) -> None:
         self.state["change_count"] += 1
         if email:

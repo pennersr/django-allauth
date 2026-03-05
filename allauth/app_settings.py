@@ -1,5 +1,3 @@
-from typing import Optional
-
 from django.apps import apps
 
 
@@ -59,7 +57,7 @@ class AppSettings:
         return self._setting("TRUSTED_PROXY_COUNT", 0)
 
     @property
-    def TRUSTED_CLIENT_IP_HEADER(self) -> Optional[str]:
+    def TRUSTED_CLIENT_IP_HEADER(self) -> str | None:
         """
         If your service is running behind a trusted proxy that sets a custom header
         containing the client IP address, specify that header name here. The client

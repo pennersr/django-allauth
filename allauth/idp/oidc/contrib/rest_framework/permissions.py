@@ -1,5 +1,3 @@
-from typing import Union
-
 from rest_framework.permissions import BasePermission
 
 from allauth.idp.oidc.internal.scope import is_scope_granted
@@ -19,7 +17,7 @@ class TokenPermission(BasePermission):
         return is_scope_granted(self.scope, access_token, request.method)
 
     @classmethod
-    def has_scope(cls, scope: Union[str, list, dict]):
+    def has_scope(cls, scope: str | list | dict):
         """
         Constructs and returns specific permission **class** (not instance)
         that checks that the request is authenticated by means of a token (see:

@@ -23,7 +23,7 @@ class TrainingPeaksProvider(OAuth2Provider):
         return str(data["Id"])
 
     def extract_common_fields(self, data):
-        extra_common = super(TrainingPeaksProvider, self).extract_common_fields(data)
+        extra_common = super().extract_common_fields(data)
         firstname = data.get("FirstName")
         lastname = data.get("LastName")
         # fallback username as there is actually no Username in response

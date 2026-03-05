@@ -5,7 +5,7 @@ import secrets
 import time
 import uuid
 from dataclasses import dataclass
-from typing import Any, Dict, Optional, Tuple
+from typing import Any
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -27,10 +27,10 @@ class JWTConfig:
     signing_key: Any
     verifying_key: Any
     algorithm: str
-    jwk_dict: Optional[Dict[str, Any]] = None
+    jwk_dict: dict[str, Any] | None = None
 
 
-def validate_access_token(token: str) -> Optional[Tuple[Any, Dict[str, Any]]]:
+def validate_access_token(token: str) -> tuple[Any, dict[str, Any]] | None:
     payload = decode_token(token, "access")
     if payload is None:
         return None
@@ -68,7 +68,7 @@ def session_key_to_sid(session_key: str) -> str:
     return sid
 
 
-def session_key_from_sid(sid: str) -> Optional[str]:
+def session_key_from_sid(sid: str) -> str | None:
     try:
         encrypted_data = base64.b64decode(sid)
     except binascii.Error:
@@ -86,7 +86,7 @@ def session_key_from_sid(sid: str) -> Optional[str]:
         return None
 
 
-def validate_token_user(token: Dict[str, Any], session: SessionBase):
+def validate_token_user(token: dict[str, Any], session: SessionBase):
     user = get_session_user(session)
     if user is None:
         return None
@@ -98,7 +98,7 @@ def validate_token_user(token: Dict[str, Any], session: SessionBase):
 
 def validate_refresh_token(
     token: str,
-) -> Optional[Tuple[Any, SessionBase, Dict[str, Any]]]:
+) -> tuple[Any, SessionBase, dict[str, Any]] | None:
     payload = decode_token(token, "refresh")
     if payload is None:
         return None
@@ -115,7 +115,7 @@ def validate_refresh_token(
     return user, session, payload
 
 
-def get_token_session(payload: Dict[str, Any]) -> Optional[SessionBase]:
+def get_token_session(payload: dict[str, Any]) -> SessionBase | None:
     sid = payload.get("sid")
     if not isinstance(sid, str):
         return None
@@ -148,7 +148,7 @@ def _get_jwt_config() -> JWTConfig:
     )
 
 
-def get_jwt_headers(config: JWTConfig) -> Dict[str, Any]:
+def get_jwt_headers(config: JWTConfig) -> dict[str, Any]:
     headers = {}
     if config.jwk_dict:
         kid = config.jwk_dict.get("kid")
@@ -157,7 +157,7 @@ def get_jwt_headers(config: JWTConfig) -> Dict[str, Any]:
     return headers
 
 
-def decode_token(token: str, use: str) -> Optional[Dict[str, Any]]:
+def decode_token(token: str, use: str) -> dict[str, Any] | None:
     config = _get_jwt_config()
     try:
         payload = jwt.decode(
@@ -188,9 +188,9 @@ def create_token(
     *,
     sub: str,
     sid: str,
-    claims: Optional[Dict[str, Any]] = None,
+    claims: dict[str, Any] | None = None,
     expires_in: int,
-) -> Tuple[str, Dict[str, Any]]:
+) -> tuple[str, dict[str, Any]]:
     config = _get_jwt_config()
     now = int(time.time())
     payload = {}
@@ -218,7 +218,7 @@ def create_token(
     )
 
 
-def get_refresh_token_state(session: SessionBase) -> Dict[str, int]:
+def get_refresh_token_state(session: SessionBase) -> dict[str, int]:
     return session.setdefault("headless_refresh_tokens", {})
 
 
@@ -238,7 +238,7 @@ def create_refresh_token(user, session: SessionBase) -> str:
     return token
 
 
-def create_access_token(user, session: SessionBase, claims: Dict[str, Any]) -> str:
+def create_access_token(user, session: SessionBase, claims: dict[str, Any]) -> str:
     assert user.is_authenticated  # nosec
     assert session.session_key  # nosec
     sid = session_key_to_sid(session.session_key)
@@ -252,7 +252,7 @@ def create_access_token(user, session: SessionBase, claims: Dict[str, Any]) -> s
     )[0]
 
 
-def invalidate_refresh_token(session: SessionBase, token: Dict[str, Any]) -> None:
+def invalidate_refresh_token(session: SessionBase, token: dict[str, Any]) -> None:
     refresh_token_jti_to_exp = get_refresh_token_state(session)
     jti = token["jti"]
     refresh_token_jti_to_exp.pop(jti, None)

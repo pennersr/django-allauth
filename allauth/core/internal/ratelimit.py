@@ -15,7 +15,6 @@ import time
 from collections import namedtuple
 from dataclasses import dataclass
 from http import HTTPStatus
-from typing import Dict, List, Optional, Tuple, Union
 
 from django.core.cache import cache
 from django.core.exceptions import ImproperlyConfigured
@@ -32,7 +31,7 @@ Rate = namedtuple("Rate", "amount duration per")
 @dataclass
 class SingleRateLimitUsage:
     cache_key: str
-    cache_duration: Union[float, int]
+    cache_duration: float | int
     timestamp: float
 
     def rollback(self) -> None:
@@ -43,14 +42,14 @@ class SingleRateLimitUsage:
 
 @dataclass
 class RateLimitUsage:
-    usage: List[SingleRateLimitUsage]
+    usage: list[SingleRateLimitUsage]
 
     def rollback(self) -> None:
         for usage in self.usage:
             usage.rollback()
 
 
-def parse_duration(duration) -> Union[int, float]:
+def parse_duration(duration) -> int | float:
     if len(duration) == 0:
         raise ValueError(duration)
     unit = duration[-1]
@@ -79,7 +78,7 @@ def parse_rate(rate: str) -> Rate:
     return Rate(amount_v, duration_v, per)
 
 
-def parse_rates(rates: Optional[str]) -> List[Rate]:
+def parse_rates(rates: str | None) -> list[Rate]:
     ret = []
     if rates:
         rates = rates.strip()
@@ -93,7 +92,7 @@ def parse_rates(rates: Optional[str]) -> List[Rate]:
 def get_cache_key(request, *, action: str, rate: Rate, key=None, user=None) -> str:
     from allauth.account.adapter import get_adapter
 
-    source: Tuple[str, ...]
+    source: tuple[str, ...]
     if rate.per == "ip":
         source = ("ip", get_adapter().get_client_ip(request))
     elif rate.per == "user":
@@ -126,7 +125,7 @@ def _consume_single_rate(
     user=None,
     dry_run: bool = False,
     raise_exception: bool = False,
-) -> Optional[SingleRateLimitUsage]:
+) -> SingleRateLimitUsage | None:
     cache_key = get_cache_key(request, action=action, rate=rate, key=key, user=user)
     history = cache.get(cache_key, [])
     now = time.time()
@@ -151,13 +150,13 @@ def consume(
     request: HttpRequest,
     *,
     action: str,
-    config: Dict[str, str],
+    config: dict[str, str],
     key=None,
     user=None,
     dry_run: bool = False,
     limit_get: bool = False,
     raise_exception: bool = False,
-) -> Optional[RateLimitUsage]:
+) -> RateLimitUsage | None:
     usage = RateLimitUsage(usage=[])
     if (not limit_get) and request.method == "GET":
         return usage

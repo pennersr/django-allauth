@@ -1,5 +1,3 @@
-from typing import Optional, Tuple
-
 from django.contrib import messages
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.http import HttpRequest, HttpResponse
@@ -36,7 +34,7 @@ def verify_email_indirectly(
 
 def verify_email_and_resume(
     request: HttpRequest, verification
-) -> Tuple[Optional[EmailAddress], Optional[HttpResponse]]:
+) -> tuple[EmailAddress | None, HttpResponse | None]:
     email_address = verification.confirm(request)
     if not email_address:
         return None, None
@@ -105,7 +103,7 @@ def get_email_verification_url(request: HttpRequest, emailconfirmation) -> str:
     return url
 
 
-def login_on_verification(request, email_address) -> Optional[HttpResponse]:
+def login_on_verification(request, email_address) -> HttpResponse | None:
     """Simply logging in the user may become a security issue. If you
     do not take proper care (e.g. don't purge used email
     confirmations), a malicious person that got hold of the link
@@ -187,7 +185,7 @@ def handle_verification_email_rate_limit(
     return rl_ok
 
 
-def get_address_for_user(user: AbstractBaseUser) -> Optional[EmailAddress]:
+def get_address_for_user(user: AbstractBaseUser) -> EmailAddress | None:
     address = (
         EmailAddress.objects.filter(user_id=user.pk)
         .order_by("-primary", "-verified")
@@ -355,7 +353,7 @@ def is_verification_rate_limited(request: HttpRequest, login: Login) -> bool:
 
 def mark_email_address_as_verified(
     request: HttpRequest, address: EmailAddress
-) -> Optional[EmailAddress]:
+) -> EmailAddress | None:
     if not address.verified:
         confirmed = get_adapter().confirm_email(request, address)
         if confirmed:

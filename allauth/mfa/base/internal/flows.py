@@ -1,4 +1,4 @@
-from typing import Callable, Optional
+from collections.abc import Callable
 
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.internal.flows.login import record_authentication
@@ -7,7 +7,7 @@ from allauth.mfa import signals
 from allauth.mfa.models import Authenticator
 
 
-def delete_dangling_recovery_codes(user) -> Optional[Authenticator]:
+def delete_dangling_recovery_codes(user) -> Authenticator | None:
     deleted_authenticator = None
     qs = Authenticator.objects.filter(user=user)
     if not qs.exclude(type=Authenticator.Type.RECOVERY_CODES).exists():

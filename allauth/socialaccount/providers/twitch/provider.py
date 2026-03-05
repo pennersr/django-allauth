@@ -14,7 +14,7 @@ class TwitchAccount(ProviderAccount):
         return self.account.extra_data.get("profile_image_url", logo)
 
     def to_str(self):
-        dflt = super(TwitchAccount, self).to_str()
+        dflt = super().to_str()
         return self.account.extra_data.get("login", dflt)
 
 

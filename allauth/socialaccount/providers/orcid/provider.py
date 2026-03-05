@@ -34,7 +34,7 @@ class OrcidProvider(OAuth2Provider):
                 data, ["person", "name", "given-names", "value"]
             ),
         )
-        return dict((key, value) for (key, value) in common_fields.items() if value)
+        return {key: value for (key, value) in common_fields.items() if value}
 
 
 provider_classes = [OrcidProvider]

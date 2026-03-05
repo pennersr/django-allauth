@@ -8,9 +8,7 @@ class WeixinAccount(ProviderAccount):
         return self.account.extra_data.get("headimgurl")
 
     def to_str(self):
-        return self.account.extra_data.get(
-            "nickname", super(WeixinAccount, self).to_str()
-        )
+        return self.account.extra_data.get("nickname", super().to_str())
 
 
 class WeixinProvider(OAuth2Provider):

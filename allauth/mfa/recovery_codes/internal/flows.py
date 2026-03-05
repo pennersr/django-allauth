@@ -1,5 +1,3 @@
-from typing import Optional
-
 from django.contrib import messages
 
 from allauth.account.adapter import get_adapter as get_account_adapter
@@ -40,7 +38,7 @@ def generate_recovery_codes(request) -> Authenticator:
     return authenticator
 
 
-def view_recovery_codes(request) -> Optional[Authenticator]:
+def view_recovery_codes(request) -> Authenticator | None:
     authenticator = Authenticator.objects.filter(
         user=request.user,
         type=Authenticator.Type.RECOVERY_CODES,
@@ -51,7 +49,7 @@ def view_recovery_codes(request) -> Optional[Authenticator]:
     return authenticator
 
 
-def auto_generate_recovery_codes(request) -> Optional[Authenticator]:
+def auto_generate_recovery_codes(request) -> Authenticator | None:
     """Automatically (implicitly) setup recovery codes when another
     authenticator is setup for. As this is part of setting up another (primary)
     authenticator, we do not send a notification email in this case.

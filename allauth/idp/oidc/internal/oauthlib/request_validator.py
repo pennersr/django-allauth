@@ -1,6 +1,5 @@
 import uuid
 from datetime import timedelta
-from typing import List, Optional
 
 from django.utils import timezone
 
@@ -196,7 +195,7 @@ class OAuthLibRequestValidator(RequestValidator):
 
     def get_authorization_code_scopes(
         self, client_id, code, redirect_uri, request
-    ) -> List[str]:
+    ) -> list[str]:
         authorization_code = self._lookup_authorization_code(request, client_id, code)
         if not authorization_code:
             return []
@@ -335,7 +334,7 @@ class OAuthLibRequestValidator(RequestValidator):
             return False
         return super().client_authentication_required(request, *args, **kwargs)
 
-    def _lookup_client(self, request, client_id) -> Optional[Client]:
+    def _lookup_client(self, request, client_id) -> Client | None:
         """
         In various places, oauthlib documents:
 
@@ -361,7 +360,7 @@ class OAuthLibRequestValidator(RequestValidator):
 
     def _lookup_authorization_code(
         self, request, client_id: str, code: str
-    ) -> Optional[dict]:
+    ) -> dict | None:
         cache = request._code_cache = getattr(request, "_code_cache", {})
         key = (client_id, code)
         if key in cache:

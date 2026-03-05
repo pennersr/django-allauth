@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional
+from typing import Any
 
 from django.forms.utils import ErrorList
 from django.http import JsonResponse
@@ -14,10 +14,10 @@ class APIResponse(JsonResponse):
         request,
         errors=None,
         data=None,
-        meta: Optional[Dict] = None,
+        meta: dict | None = None,
         status: int = HTTPStatus.OK,
     ):
-        d: Dict[str, Any] = {"status": status}
+        d: dict[str, Any] = {"status": status}
         if data is not None:
             d["data"] = data
         meta = self._add_session_meta(request, meta)
@@ -28,7 +28,7 @@ class APIResponse(JsonResponse):
         super().__init__(d, status=status)
         add_never_cache_headers(self)
 
-    def _add_session_meta(self, request, meta: Optional[Dict]) -> Optional[Dict]:
+    def _add_session_meta(self, request, meta: dict | None) -> dict | None:
         session_token = sessionkit.expose_session_token(request)
         access_token_payload = authkit.expose_access_token(request)
         if session_token:

@@ -1,5 +1,4 @@
 import requests
-from typing import Dict, Optional
 
 from django.urls import reverse
 from django.utils.http import urlencode
@@ -26,7 +25,7 @@ def _pick_data(data: dict) -> dict:
 
 
 class OpenIDConnectProviderAccount(ProviderAccount):
-    def get_user_data(self) -> Optional[Dict]:
+    def get_user_data(self) -> dict | None:
         return _pick_data(self.account.extra_data)
 
 

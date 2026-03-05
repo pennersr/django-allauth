@@ -1,6 +1,5 @@
 from datetime import timedelta
 from requests import RequestException
-from typing import Dict, Optional
 
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
@@ -31,12 +30,12 @@ class OAuth2Adapter:
     expires_in_key = "expires_in"
     client_class = OAuth2Client
     supports_state = True
-    redirect_uri_protocol: Optional[str] = None
+    redirect_uri_protocol: str | None = None
     access_token_method = "POST"  # nosec
     login_cancelled_error = "access_denied"
     scope_delimiter = " "
     basic_auth = False
-    headers: Optional[Dict[str, str]] = None
+    headers: dict[str, str] | None = None
 
     def __init__(self, request) -> None:
         self.request = request

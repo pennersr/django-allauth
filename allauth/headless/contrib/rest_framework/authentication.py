@@ -1,5 +1,3 @@
-import typing
-
 from django.http import HttpRequest
 
 from rest_framework import authentication
@@ -21,7 +19,7 @@ class XSessionTokenAuthentication(authentication.BaseAuthentication):
             return authenticate_by_x_session_token(token)
         return None
 
-    def get_session_token(self, request: HttpRequest) -> typing.Optional[str]:
+    def get_session_token(self, request: HttpRequest) -> str | None:
         """
         Returns the session token for the given request, by looking up the
         ``X-Session-Token`` header. Override this if you want to extract the token

@@ -1,5 +1,3 @@
-from typing import Optional
-
 from django.http import HttpRequest
 
 from allauth.headless import app_settings
@@ -20,7 +18,7 @@ class RefreshTokenView(APIView):
         if at_rt is None:
             return ErrorResponse(request)
 
-        next_refresh_token: Optional[str]
+        next_refresh_token: str | None
         access_token, next_refresh_token = at_rt
         if next_refresh_token == refresh_token:
             next_refresh_token = None

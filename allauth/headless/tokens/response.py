@@ -1,5 +1,3 @@
-from typing import Optional
-
 from django.http import HttpRequest
 
 from allauth.headless.base.response import APIResponse
@@ -7,7 +5,7 @@ from allauth.headless.base.response import APIResponse
 
 class RefreshTokenResponse(APIResponse):
     def __init__(
-        self, request: HttpRequest, access_token: str, refresh_token: Optional[str]
+        self, request: HttpRequest, access_token: str, refresh_token: str | None
     ):
         data = {"access_token": access_token}
         if refresh_token:

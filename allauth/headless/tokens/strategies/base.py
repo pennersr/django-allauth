@@ -1,12 +1,12 @@
 import abc
-from typing import Any, Dict, Optional, Tuple
+from typing import Any
 
 from django.contrib.sessions.backends.base import SessionBase
 from django.http import HttpRequest
 
 
 class AbstractTokenStrategy(abc.ABC):
-    def get_session_token(self, request: HttpRequest) -> Optional[str]:
+    def get_session_token(self, request: HttpRequest) -> str | None:
         """
         Returns the session token, if any.
         """
@@ -15,7 +15,7 @@ class AbstractTokenStrategy(abc.ABC):
 
     def create_access_token_payload(
         self, request: HttpRequest
-    ) -> Optional[Dict[str, Any]]:
+    ) -> dict[str, Any] | None:
         """
         After authenticating, this method is called to create the access
         token response payload, exposing the access token and possibly other
@@ -26,7 +26,7 @@ class AbstractTokenStrategy(abc.ABC):
             return None
         return {"access_token": at}
 
-    def create_access_token(self, request: HttpRequest) -> Optional[str]:
+    def create_access_token(self, request: HttpRequest) -> str | None:
         """Create an access token.
 
         While session tokens are required to handle the authentication process,
@@ -52,14 +52,14 @@ class AbstractTokenStrategy(abc.ABC):
         ...
 
     @abc.abstractmethod
-    def lookup_session(self, session_token: str) -> Optional[SessionBase]:
+    def lookup_session(self, session_token: str) -> SessionBase | None:
         """
         Looks up the Django session given the session token. Returns `None`
         if the session does not / no longer exist.
         """
         ...
 
-    def refresh_token(self, refresh_token: str) -> Optional[Tuple[str, str]]:
+    def refresh_token(self, refresh_token: str) -> tuple[str, str] | None:
         """
         Validates the given refresh token, and if valid, returns a new
         access token and refresh token pair.

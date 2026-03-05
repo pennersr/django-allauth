@@ -37,7 +37,7 @@ class PasswordResetVerificationProcess(AbstractCodeVerificationProcess):
         self.persist()
         verify_email_indirectly(self.request, self.user, self.state["email"])
 
-    def finish(self) -> Optional[HttpResponse]:
+    def finish(self) -> HttpResponse | None:
         self.request.session.pop(PASSWORD_RESET_VERIFICATION_SESSION_KEY, None)
         return password_reset.finalize_password_reset(
             self.request, self.user, email=self.state["email"]

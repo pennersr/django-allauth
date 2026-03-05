@@ -65,7 +65,7 @@ class EmailVerificationProcess(AbstractCodeVerificationProcess):
             email_address = EmailAddress(user=self.user, email=email)
         return email_address
 
-    def finish(self) -> Optional[EmailAddress]:
+    def finish(self) -> EmailAddress | None:
         from allauth.account.internal.flows.email_verification import (
             mark_email_address_as_verified,
         )

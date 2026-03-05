@@ -1,5 +1,4 @@
 from http import HTTPStatus
-from typing import List, Optional
 
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth.decorators import login_required
@@ -53,7 +52,7 @@ from allauth.idp.oidc.models import Client
 from allauth.utils import build_absolute_uri
 
 
-def _enforce_csrf(request) -> Optional[HttpResponseForbidden]:
+def _enforce_csrf(request) -> HttpResponseForbidden | None:
     """
     Scenario: view is CSRF exempt, but, if this is not a client initial POST
     request, we do want a properly CSRF protected view.
@@ -99,7 +98,7 @@ class ConfigurationView(View):
         response["Access-Control-Allow-Origin"] = "*"
         return response
 
-    def _get_response_types_supported(self) -> List[str]:
+    def _get_response_types_supported(self) -> list[str]:
         response_types = set()
         for client in Client.objects.only("response_types").iterator():
             response_types.update(client.get_response_types())
@@ -164,7 +163,7 @@ class AuthorizationView(FormView):
             return self._respond_with_access_denied()
         return super().post(request, *args, **kwargs)
 
-    def _login_required(self, request) -> Optional[HttpResponse]:
+    def _login_required(self, request) -> HttpResponse | None:
         prompts = []
         prompt = request.GET.get("prompt")
         if prompt:
@@ -178,7 +177,7 @@ class AuthorizationView(FormView):
         return login_required()(None)(request)  # type:ignore[misc,type-var]
 
     def _handle_login_prompt(
-        self, request: HttpRequest, prompts: List[str]
+        self, request: HttpRequest, prompts: list[str]
     ) -> HttpResponse:
         prompts.remove("login")
         next_url = request.get_full_path()
@@ -274,7 +273,7 @@ class DeviceCodeView(View):
             )
             if status == HTTPStatus.OK:
                 client_id = request.POST["client_id"]
-                scope: Optional[List[str]] = None
+                scope: list[str] | None = None
                 if "scope" in request.POST:
                     scope = request.POST["scope"].split()
                     client = Client.objects.get(id=client_id)
@@ -363,8 +362,8 @@ class TokenView(View):
         self,
         request,
         *,
-        user: Optional[AbstractBaseUser] = None,
-        data: Optional[dict] = None,
+        user: AbstractBaseUser | None = None,
+        data: dict | None = None,
     ):
         orequest = extract_params(request)
         oresponse = get_server(
@@ -372,9 +371,7 @@ class TokenView(View):
         ).create_token_response(*orequest)
         return convert_response(*oresponse)
 
-    def _pre_token(
-        self, orequest, user: Optional[AbstractBaseUser], data: Optional[dict]
-    ):
+    def _pre_token(self, orequest, user: AbstractBaseUser | None, data: dict | None):
         if orequest.grant_type == Client.GrantType.DEVICE_CODE:
             assert user is not None  # nosec
             assert data is not None  # nosec

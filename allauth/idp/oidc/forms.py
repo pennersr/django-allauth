@@ -1,4 +1,4 @@
-from typing import Any, Dict, Optional
+from typing import Any
 
 from django import forms
 from django.forms import widgets
@@ -140,16 +140,16 @@ class RPInitiatedLogoutForm(forms.Form):
         payload = decode_jwt_token(value, verify_exp=False, verify_iss=True)
         return payload
 
-    def clean(self) -> Optional[Dict[str, Any]]:
+    def clean(self) -> dict[str, Any] | None:
         cleaned_data = super().clean()
         if not cleaned_data:
             return cleaned_data
         post_logout_redirect_uri = cleaned_data.get("post_logout_redirect_uri")
 
-        client: Optional[Client] = None
+        client: Client | None = None
         client_id = cleaned_data.get("client_id")
         id_token_hint = cleaned_data.get("id_token_hint")
-        aud: Optional[str] = None
+        aud: str | None = None
         if id_token_hint:
             aud = id_token_hint.get("aud")
             if aud and client_id and aud != client_id:

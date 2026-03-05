@@ -1,4 +1,3 @@
-from typing import Type
 from urllib.parse import parse_qsl
 
 from django.core.exceptions import ImproperlyConfigured
@@ -16,7 +15,7 @@ from allauth.socialaccount.providers.oauth2.views import OAuth2Adapter
 
 class OAuth2Provider(Provider):
     pkce_enabled_default = False
-    oauth2_adapter_class: Type[OAuth2Adapter]
+    oauth2_adapter_class: type[OAuth2Adapter]
     supports_redirect = True
 
     def get_login_url(self, request, **kwargs):

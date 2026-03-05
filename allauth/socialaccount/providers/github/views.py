@@ -1,5 +1,4 @@
 from http import HTTPStatus
-from typing import Optional
 
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
@@ -37,7 +36,7 @@ class GitHubOAuth2Adapter(OAuth2Adapter):
                 extra_data["emails"] = emails
         return self.get_provider().sociallogin_from_response(request, extra_data)
 
-    def get_emails(self, headers) -> Optional[list]:
+    def get_emails(self, headers) -> list | None:
         with get_adapter().get_requests_session() as sess:
             resp = sess.get(self.emails_url, headers=headers)
             # https://api.github.com/user/emails -- 404 is documented to occur.

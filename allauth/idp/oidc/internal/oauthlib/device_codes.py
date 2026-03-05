@@ -1,5 +1,4 @@
 import time
-from typing import Dict, List, Optional, Tuple
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AbstractBaseUser
@@ -32,7 +31,7 @@ def cache_device_code_key(device_code: str):
     return f"allauth.idp.oidc.device_code[{device_code}]"
 
 
-def create(client_id: str, scope: Optional[List[str]], data: dict):
+def create(client_id: str, scope: list[str] | None, data: dict):
     cache.set(
         cache_user_code_key(data["user_code"]),
         data["device_code"],
@@ -52,7 +51,7 @@ def create(client_id: str, scope: Optional[List[str]], data: dict):
     )
 
 
-def lookup_client(client_id: str) -> Optional[Client]:
+def lookup_client(client_id: str) -> Client | None:
     client = Client.objects.filter(id=client_id).first()
     if not client:
         return None
@@ -61,8 +60,8 @@ def lookup_client(client_id: str) -> Optional[Client]:
     return client
 
 
-def validate_user_code(code: str) -> Tuple[str, Client]:
-    data: Optional[dict] = None
+def validate_user_code(code: str) -> tuple[str, Client]:
+    data: dict | None = None
     device_code = cache.get(cache_user_code_key(code))
     if device_code:
         data = cache.get(cache_device_code_key(device_code))
@@ -97,7 +96,7 @@ def update_device_state(device_code: str, data: dict) -> bool:
 
 def poll_device_code(
     request: HttpRequest,
-) -> Tuple[AbstractBaseUser, Dict]:
+) -> tuple[AbstractBaseUser, dict]:
     client_id = request.POST.get("client_id")
     device_code = request.POST.get("device_code")
     if not client_id or not device_code:

@@ -1,5 +1,5 @@
 import time
-from typing import Any, Dict, Optional, Tuple
+from typing import Any
 
 from allauth.socialaccount.adapter import get_adapter
 
@@ -10,8 +10,8 @@ STATES_SESSION_KEY = "socialaccount_states"
 
 
 def get_oldest_state(
-    states: Dict[str, Tuple[Dict[str, Any], float]], rev: bool = False
-) -> Tuple[Optional[str], Optional[Dict[str, Any]]]:
+    states: dict[str, tuple[dict[str, Any], float]], rev: bool = False
+) -> tuple[str | None, dict[str, Any] | None]:
     oldest_ts = None
     oldest_id = None
     oldest = None
@@ -26,21 +26,21 @@ def get_oldest_state(
     return oldest_id, oldest
 
 
-def gc_states(states: Dict[str, Tuple[Dict[str, Any], float]]) -> None:
+def gc_states(states: dict[str, tuple[dict[str, Any], float]]) -> None:
     if len(states) > MAX_STATES:
         oldest_id, oldest = get_oldest_state(states)
         if oldest_id:
             del states[oldest_id]
 
 
-def get_states(request) -> Dict[str, Tuple[Dict[str, Any], float]]:
+def get_states(request) -> dict[str, tuple[dict[str, Any], float]]:
     states = request.session.get(STATES_SESSION_KEY)
     if not isinstance(states, dict):
         states = {}
     return states
 
 
-def stash_state(request, state: Dict[str, Any], state_id: Optional[str] = None) -> str:
+def stash_state(request, state: dict[str, Any], state_id: str | None = None) -> str:
     states = get_states(request)
     gc_states(states)
     if state_id is None:
@@ -50,8 +50,8 @@ def stash_state(request, state: Dict[str, Any], state_id: Optional[str] = None) 
     return state_id
 
 
-def unstash_state(request, state_id: str) -> Optional[Dict[str, Any]]:
-    state: Optional[Dict[str, Any]] = None
+def unstash_state(request, state_id: str) -> dict[str, Any] | None:
+    state: dict[str, Any] | None = None
     states = get_states(request)
     state_ts = states.get(state_id)
     if state_ts is not None:
@@ -61,7 +61,7 @@ def unstash_state(request, state_id: str) -> Optional[Dict[str, Any]]:
     return state
 
 
-def unstash_last_state(request) -> Optional[Dict[str, Any]]:
+def unstash_last_state(request) -> dict[str, Any] | None:
     states = get_states(request)
     state_id, state = get_oldest_state(states, rev=True)
     if state_id:

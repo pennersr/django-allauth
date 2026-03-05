@@ -26,7 +26,7 @@ class TwitterAccount(ProviderAccount):
 
     def to_str(self):
         screen_name = self.get_screen_name()
-        return screen_name or super(TwitterAccount, self).to_str()
+        return screen_name or super().to_str()
 
 
 class TwitterProvider(OAuthProvider):

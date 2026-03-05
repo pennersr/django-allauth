@@ -29,9 +29,7 @@ def login(request):
     app = get_adapter().get_app(request, DraugiemProvider.id)
     redirect_url = request.build_absolute_uri(reverse(callback))
     # Draugiem mandates a weak hashing algorithm.
-    redirect_url_hash = md5(
-        f"{app.secret}{redirect_url}".encode("utf-8")
-    ).hexdigest()  # nosec
+    redirect_url_hash = md5(f"{app.secret}{redirect_url}".encode()).hexdigest()  # nosec
     params = {
         "app": app.client_id,
         "hash": redirect_url_hash,

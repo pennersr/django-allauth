@@ -1,6 +1,3 @@
-from typing import Optional
-
-
 class AppSettings:
     def __init__(self, prefix: str) -> None:
         self.prefix = prefix
@@ -75,7 +72,7 @@ class AppSettings:
         return self._setting("RP_INITIATED_LOGOUT_ASKS_FOR_OP_LOGOUT", True)
 
     @property
-    def USERINFO_ENDPOINT(self) -> Optional[str]:
+    def USERINFO_ENDPOINT(self) -> str | None:
         """
         This setting can be used to point the ``userinfo_endpoint`` value as
         returned in the ".well-known/openid-configuration" to a custom URL.

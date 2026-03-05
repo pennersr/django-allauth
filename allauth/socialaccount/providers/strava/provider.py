@@ -27,7 +27,7 @@ class StravaProvider(OAuth2Provider):
         return str(data["id"])
 
     def extract_common_fields(self, data):
-        extra_common = super(StravaProvider, self).extract_common_fields(data)
+        extra_common = super().extract_common_fields(data)
         firstname = data.get("firstname")
         lastname = data.get("lastname")
         name = " ".join(part for part in (firstname, lastname) if part)

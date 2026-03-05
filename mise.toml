@@ -1,5 +1,6 @@
 [tools]
 python = "3.13"
+ruff = "latest"
 
 [env]
 _.python.venv = ".venv"

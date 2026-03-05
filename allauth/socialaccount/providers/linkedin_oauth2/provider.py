@@ -38,7 +38,7 @@ def _extract_email(data):
 
 class LinkedInOAuth2Account(ProviderAccount):
     def to_str(self):
-        ret = super(LinkedInOAuth2Account, self).to_str()
+        ret = super().to_str()
         if self.account.extra_data.get("emailAddress"):
             return self.account.extra_data["emailAddress"]
         first_name = _extract_name_field(self.account.extra_data, "firstName")
@@ -61,7 +61,7 @@ class LinkedInOAuth2Account(ProviderAccount):
         # Can't get the avatar when this field is not specified
         picture_field = "profilePicture(displayImage~:playableStreams)"
         if picture_field not in configured_profile_fields:
-            return super(LinkedInOAuth2Account, self).get_avatar_url()
+            return super().get_avatar_url()
         # Iterate over the fields and attempt to get it by configured size
         profile_picture_config = provider_configuration.get("PROFILEPICTURE", {})
         req_size = profile_picture_config.get("display_size_w_h", (100.0, 100.0))
@@ -99,7 +99,7 @@ class LinkedInOAuth2Account(ProviderAccount):
             ].get("identifier")
             if to_return:
                 return to_return
-        return super(LinkedInOAuth2Account, self).get_avatar_url()
+        return super().get_avatar_url()
 
 
 class LinkedInOAuth2Provider(OAuth2Provider):

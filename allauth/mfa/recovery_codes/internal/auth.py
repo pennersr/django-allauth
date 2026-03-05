@@ -1,7 +1,6 @@
 import hmac
 import secrets
 from hashlib import sha1
-from typing import List, Optional
 
 from allauth.mfa import app_settings
 from allauth.mfa.models import Authenticator
@@ -35,13 +34,13 @@ class RecoveryCodes:
         key = secrets.token_hex(40)
         return key
 
-    def _get_migrated_codes(self) -> Optional[List[str]]:
+    def _get_migrated_codes(self) -> list[str] | None:
         codes = self.instance.data.get("migrated_codes")
         if codes is not None:
             return [decrypt(code) for code in codes]
         return None
 
-    def generate_codes(self) -> List[str]:
+    def generate_codes(self) -> list[str]:
         migrated_codes = self._get_migrated_codes()
         if migrated_codes is not None:
             return migrated_codes
@@ -51,7 +50,7 @@ class RecoveryCodes:
         h = hmac.new(key=seed.encode("ascii"), msg=None, digestmod=sha1)
         byte_count = min(app_settings.RECOVERY_CODE_DIGITS // 2, h.digest_size)
         for i in range(app_settings.RECOVERY_CODE_COUNT):
-            h.update((f"{i:3},").encode("utf-8"))
+            h.update((f"{i:3},").encode())
             value = int.from_bytes(
                 h.digest()[:byte_count], byteorder="big", signed=False
             )
@@ -70,7 +69,7 @@ class RecoveryCodes:
         self.instance.data["used_mask"] = used_mask
         self.instance.save()
 
-    def get_unused_codes(self) -> List[str]:
+    def get_unused_codes(self) -> list[str]:
         migrated_codes = self._get_migrated_codes()
         if migrated_codes is not None:
             return migrated_codes
@@ -82,7 +81,7 @@ class RecoveryCodes:
             ret.append(code)
         return ret
 
-    def _validate_migrated_code(self, code: str) -> Optional[bool]:
+    def _validate_migrated_code(self, code: str) -> bool | None:
         migrated_codes = self._get_migrated_codes()
         if migrated_codes is None:
             return None

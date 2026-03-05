@@ -1,5 +1,3 @@
-from typing import Optional
-
 from django.core.cache import cache
 
 from allauth.account.models import EmailAddress
@@ -40,7 +38,7 @@ def create(client: Client, code: dict, request) -> None:
     )
 
 
-def lookup(client_id: str, code: str) -> Optional[dict]:
+def lookup(client_id: str, code: str) -> dict | None:
     return cache.get(cache_key(client_id, code))
 
 

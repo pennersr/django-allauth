@@ -1,4 +1,3 @@
-from typing import Dict, Optional, Tuple
 from urllib.parse import urlparse, urlunparse
 
 from django.forms import Form
@@ -23,7 +22,7 @@ def get_uri(request: HttpRequest) -> str:
     return urlunparse(parsed)
 
 
-def extract_params(request: HttpRequest) -> Tuple[str, str, str, Dict[str, str]]:
+def extract_params(request: HttpRequest) -> tuple[str, str, str, dict[str, str]]:
     uri = get_uri(request)
     body: str = urlencode(request.POST.items())
     headers = extract_headers(request)
@@ -32,7 +31,7 @@ def extract_params(request: HttpRequest) -> Tuple[str, str, str, Dict[str, str]]
     return uri, request.method, body, headers
 
 
-def extract_headers(request) -> Dict[str, str]:
+def extract_headers(request) -> dict[str, str]:
     """
     You need to define extract_params and make sure it does not include file
     like objects waiting for input. In Django this is request.META['wsgi.input']
@@ -63,8 +62,8 @@ def convert_response(headers, body, status):
 def respond_html_error(
     request: HttpRequest,
     *,
-    error: Optional[OAuth2Error] = None,
-    form: Optional[Form] = None,
+    error: OAuth2Error | None = None,
+    form: Form | None = None,
 ) -> HttpResponse:
     context = {"error": error, "error_form": form}
     return render(

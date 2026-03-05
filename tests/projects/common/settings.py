@@ -1,8 +1,7 @@
 from pathlib import Path
-from typing import Tuple
 
 
-INSTALLED_SOCIALACCOUNT_APPS: Tuple[str, ...] = (
+INSTALLED_SOCIALACCOUNT_APPS: tuple[str, ...] = (
     "allauth.socialaccount",
     "allauth.socialaccount.providers.agave",
     "allauth.socialaccount.providers.amazon",

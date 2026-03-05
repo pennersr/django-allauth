@@ -52,7 +52,7 @@ class DefaultHeadlessAdapter(BaseAdapter):
             if v not in ("", None)
         }
 
-    def get_frontend_url(self, urlname: str, **kwargs) -> Optional[str]:
+    def get_frontend_url(self, urlname: str, **kwargs) -> str | None:
         """Return the frontend URL for the given URL name."""
         return default_get_frontend_url(self.request, urlname, **kwargs)
 

@@ -1,5 +1,3 @@
-from typing import List, Optional
-
 from django.conf import settings
 from django.contrib.auth.hashers import check_password, make_password
 from django.db import models
@@ -22,7 +20,7 @@ def default_client_secret() -> str:
     return make_password(client_secret)
 
 
-def _values_from_text(text) -> List[str]:
+def _values_from_text(text) -> list[str]:
     return list(filter(None, [s.strip() for s in text.split("\n")]))
 
 
@@ -115,40 +113,40 @@ class Client(models.Model):
         verbose_name = _("client")
         verbose_name_plural = _("clients")
 
-    def get_redirect_uris(self) -> List[str]:
+    def get_redirect_uris(self) -> list[str]:
         return _values_from_text(self.redirect_uris)
 
-    def set_redirect_uris(self, uris: List[str]) -> None:
+    def set_redirect_uris(self, uris: list[str]) -> None:
         self.redirect_uris = _values_to_text(uris)
 
-    def get_cors_origins(self) -> List[str]:
+    def get_cors_origins(self) -> list[str]:
         return _values_from_text(self.cors_origins)
 
-    def set_cors_origins(self, uris: List[str]) -> None:
+    def set_cors_origins(self, uris: list[str]) -> None:
         self.cors_origins = _values_to_text(uris)
 
-    def get_scopes(self) -> List[str]:
+    def get_scopes(self) -> list[str]:
         return _values_from_text(self.scopes)
 
-    def set_scopes(self, scopes: List[str]) -> None:
+    def set_scopes(self, scopes: list[str]) -> None:
         self.scopes = _values_to_text(scopes)
 
-    def get_default_scopes(self) -> List[str]:
+    def get_default_scopes(self) -> list[str]:
         return _values_from_text(self.default_scopes)
 
-    def set_default_scopes(self, scopes: List[str]) -> None:
+    def set_default_scopes(self, scopes: list[str]) -> None:
         self.default_scopes = _values_to_text(scopes)
 
-    def get_response_types(self) -> List[str]:
+    def get_response_types(self) -> list[str]:
         return _values_from_text(self.response_types)
 
-    def set_response_types(self, response_types: List[str]) -> None:
+    def set_response_types(self, response_types: list[str]) -> None:
         self.response_types = _values_to_text(response_types)
 
-    def get_grant_types(self) -> List[str]:
+    def get_grant_types(self) -> list[str]:
         return _values_from_text(self.grant_types)
 
-    def set_grant_types(self, grant_types: List[str]) -> None:
+    def set_grant_types(self, grant_types: list[str]) -> None:
         self.grant_types = _values_to_text(grant_types)
 
     def set_secret(self, secret) -> None:
@@ -157,7 +155,7 @@ class Client(models.Model):
     def check_secret(self, secret: str) -> bool:
         return check_password(secret, self.secret)
 
-    def clean_redirect_uris(self) -> List[str]:
+    def clean_redirect_uris(self) -> list[str]:
         from allauth.idp.oidc.internal.clientkit import _validate_uri_wildcard_format
 
         uris = self.get_redirect_uris()
@@ -165,7 +163,7 @@ class Client(models.Model):
             _validate_uri_wildcard_format(uri, self.allow_uri_wildcards)
         return uris
 
-    def clean_cors_origins(self) -> List[str]:
+    def clean_cors_origins(self) -> list[str]:
         from allauth.idp.oidc.internal.clientkit import _validate_uri_wildcard_format
 
         origins = self.get_cors_origins()
@@ -223,10 +221,10 @@ class Token(models.Model):
             return f"{self.get_type_display()} for user #{self.user_id}"
         return self.get_type_display()
 
-    def get_scopes(self) -> List[str]:
+    def get_scopes(self) -> list[str]:
         return _values_from_text(self.scopes)
 
-    def set_scopes(self, scopes: List[str]) -> None:
+    def set_scopes(self, scopes: list[str]) -> None:
         self.scopes = _values_to_text(scopes)
 
     def set_scope_email(self, email: str) -> None:
@@ -238,7 +236,7 @@ class Token(models.Model):
             self.data = {}
         self.data["email"] = email
 
-    def get_scope_email(self) -> Optional[str]:
+    def get_scope_email(self) -> str | None:
         """
         Returns the email that was selected when the email scope was
         granted.  Note that this may e outdated, as the user can change email

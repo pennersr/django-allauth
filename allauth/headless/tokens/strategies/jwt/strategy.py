@@ -1,4 +1,4 @@
-from typing import Any, Dict, Optional, Tuple
+from typing import Any
 
 from django.contrib.sessions.backends.base import SessionBase
 from django.http import HttpRequest
@@ -11,7 +11,7 @@ from allauth.headless.tokens.strategies.jwt import internal
 
 
 class JWTTokenStrategy(AbstractTokenStrategy):
-    def get_session_token(self, request: HttpRequest) -> Optional[str]:
+    def get_session_token(self, request: HttpRequest) -> str | None:
         ret = super().get_session_token(request)
         if ret:
             return ret
@@ -41,7 +41,7 @@ class JWTTokenStrategy(AbstractTokenStrategy):
 
     def create_access_token_payload(
         self, request: HttpRequest
-    ) -> Optional[Dict[str, Any]]:
+    ) -> dict[str, Any] | None:
         ret = super().create_access_token_payload(request)
         if ret is not None:
             ret["refresh_token"] = internal.create_refresh_token(
@@ -49,14 +49,14 @@ class JWTTokenStrategy(AbstractTokenStrategy):
             )
         return ret
 
-    def lookup_session(self, session_token: str) -> Optional[SessionBase]:
+    def lookup_session(self, session_token: str) -> SessionBase | None:
         return sessionkit.lookup_session(session_token)
 
-    def create_access_token(self, request: HttpRequest) -> Optional[str]:
+    def create_access_token(self, request: HttpRequest) -> str | None:
         claims = self.get_claims(request.user)
         return internal.create_access_token(request.user, request.session, claims)
 
-    def get_claims(self, user) -> Dict[str, Any]:
+    def get_claims(self, user) -> dict[str, Any]:
         """
         Returns additional claims to be included in the access token.  Note that
         the following claims are reserved and will be automatically set by allauth regardless of what you return:
@@ -69,7 +69,7 @@ class JWTTokenStrategy(AbstractTokenStrategy):
         """
         return {}
 
-    def refresh_token(self, refresh_token: str) -> Optional[Tuple[str, str]]:
+    def refresh_token(self, refresh_token: str) -> tuple[str, str] | None:
         user_session_payload = internal.validate_refresh_token(refresh_token)
         if user_session_payload is None:
             return None

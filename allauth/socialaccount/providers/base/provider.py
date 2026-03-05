@@ -1,4 +1,4 @@
-from typing import Any, Dict, Optional
+from typing import Any
 
 from django.core.exceptions import (
     ImproperlyConfigured,
@@ -24,7 +24,7 @@ class ProviderException(Exception):
 class Provider:
     name: str  # Provided by subclasses
     id: str  # Provided by subclasses
-    slug: Optional[str] = None  # Provided by subclasses
+    slug: str | None = None  # Provided by subclasses
 
     uses_apps = True
     supports_redirect = False
@@ -194,8 +194,8 @@ class Provider:
         return {}
 
     def cleanup_email_addresses(
-        self, email: Optional[str], addresses: list, email_verified: bool = False
-    ) -> Optional[str]:
+        self, email: str | None, addresses: list, email_verified: bool = False
+    ) -> str | None:
         # Avoid loading models before adapters have been registered.
         from allauth.account.models import EmailAddress
 
@@ -269,7 +269,7 @@ class Provider:
             (self.app.provider_id or self.app.provider) if self.uses_apps else self.id
         )
 
-    def serialize(self) -> Dict[str, Any]:
+    def serialize(self) -> dict[str, Any]:
         ret = {"id": self.id}
         if self.uses_apps:
             ret["app.client_id"] = self.app.client_id
@@ -318,7 +318,7 @@ class ProviderAccount:
     def __str__(self) -> str:
         return self.to_str()
 
-    def get_user_data(self) -> Optional[Dict]:
+    def get_user_data(self) -> dict | None:
         """Typically, the ``extra_data`` directly contains user related keys.
         For some providers, however, they are nested below a different key. In
         that case, you can override this method so that the base ``__str__()``

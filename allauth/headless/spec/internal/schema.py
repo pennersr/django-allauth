@@ -1,5 +1,4 @@
 from pathlib import Path
-from typing import Optional
 
 from django.urls import reverse
 from django.urls.exceptions import Resolver404
@@ -64,7 +63,7 @@ def pin_client(spec: dict) -> None:
         "trace",
     ]
 
-    def remove_client_param(parameters: list) -> Optional[list]:
+    def remove_client_param(parameters: list) -> list | None:
         filtered = [
             p
             for p in parameters

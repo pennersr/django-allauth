@@ -1,6 +1,5 @@
 import time
 from dataclasses import dataclass
-from typing import List
 
 from django.contrib.auth.models import AbstractBaseUser
 from django.core.signing import BadSignature, Signer
@@ -23,7 +22,7 @@ def create_config_fingerprint(user: AbstractBaseUser) -> str:
     any trust that was issued before.
     """
     salt = "allauth.mfa.trust"
-    parts: List[str] = []
+    parts: list[str] = []
     parts.append(str(user.pk))
     parts.append(user.password)
     for authenticator in Authenticator.objects.filter(user_id=user.pk).order_by("pk"):
@@ -35,7 +34,7 @@ def create_config_fingerprint(user: AbstractBaseUser) -> str:
     return salted_hmac(salt, "|".join(parts), algorithm="sha256").hexdigest()
 
 
-def decode_trust_cookie(request: HttpRequest) -> List[IssuedTrust]:
+def decode_trust_cookie(request: HttpRequest) -> list[IssuedTrust]:
     value = request.COOKIES.get(app_settings.TRUST_COOKIE_NAME)
     if not value:
         return []
@@ -54,7 +53,7 @@ def decode_trust_cookie(request: HttpRequest) -> List[IssuedTrust]:
     return trusts
 
 
-def encode_trust_cookie(trusts: List[IssuedTrust]) -> str:
+def encode_trust_cookie(trusts: list[IssuedTrust]) -> str:
     signer = Signer()
     return signer.sign_object([(it.fingerprint, it.at) for it in trusts])
 

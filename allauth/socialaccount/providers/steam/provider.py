@@ -26,7 +26,7 @@ STEAM_OPENID_URL = "https://steamcommunity.com/openid"
 
 class SteamAccount(OpenIDAccount):
     def to_str(self):
-        dflt = super(SteamAccount, self).to_str()
+        dflt = super().to_str()
         return self.account.extra_data.get("personaname", dflt)
 
     def get_profile_url(self):
@@ -83,9 +83,7 @@ class SteamOpenIDProvider(OpenIDProvider):
         steam_id = extract_steam_id(response.identity_url)
         steam_api_key = self.app.secret
         response._extra = request_steam_account_summary(steam_api_key, steam_id)
-        return super(SteamOpenIDProvider, self).sociallogin_from_response(
-            request, response
-        )
+        return super().sociallogin_from_response(request, response)
 
     def extract_uid(self, response):
         return response._extra["steamid"]

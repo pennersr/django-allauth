@@ -1,5 +1,4 @@
 from importlib import import_module
-from typing import Optional
 
 from django import forms
 from django.core import exceptions
@@ -64,7 +63,7 @@ def base_signup_form_class():
 
 
 def prevent_enumeration(
-    request: HttpRequest, email: Optional[str] = None, phone: Optional[str] = None
+    request: HttpRequest, email: str | None = None, phone: str | None = None
 ) -> HttpResponse:
     login = Login(user=None, email=email, phone=phone, signup=True)
     return perform_login(context.request, login)

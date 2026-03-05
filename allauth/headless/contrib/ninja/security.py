@@ -1,5 +1,3 @@
-import typing
-
 from django.http import HttpRequest
 
 from ninja.security.base import AuthBase
@@ -26,7 +24,7 @@ class XSessionTokenAuth(AuthBase):
                 return user_session[0]
         return None
 
-    def get_session_token(self, request: HttpRequest) -> typing.Optional[str]:
+    def get_session_token(self, request: HttpRequest) -> str | None:
         """
         Returns the session token for the given request, by looking up the
         ``X-Session-Token`` header. Override this if you want to extract the token

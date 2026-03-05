@@ -1,5 +1,5 @@
 from contextlib import contextmanager
-from typing import Any, Dict, Optional
+from typing import Any
 
 from django.utils.functional import SimpleLazyObject, empty
 
@@ -70,7 +70,7 @@ def authentication_context(request):
         request.META["CSRF_COOKIE_NEEDS_UPDATE"] = False
 
 
-def expose_access_token(request) -> Optional[Dict[str, Any]]:
+def expose_access_token(request) -> dict[str, Any] | None:
     """
     Determines if a new access token needs to be exposed.
     """

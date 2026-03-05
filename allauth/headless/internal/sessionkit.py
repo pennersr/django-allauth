@@ -1,5 +1,4 @@
 from importlib import import_module
-from typing import Optional, Tuple
 
 from django.conf import settings
 from django.contrib.auth import SESSION_KEY, get_user_model
@@ -31,7 +30,7 @@ def expose_session_token(request):
             return new_token
 
 
-def authenticate_by_x_session_token(token: str) -> Optional[Tuple]:
+def authenticate_by_x_session_token(token: str) -> tuple | None:
     session = app_settings.TOKEN_STRATEGY.lookup_session(token)
     if not session:
         return None
@@ -46,7 +45,7 @@ def authenticate_by_x_session_token(token: str) -> Optional[Tuple]:
     return None
 
 
-def lookup_session(session_key: str) -> Optional[SessionBase]:
+def lookup_session(session_key: str) -> SessionBase | None:
     if session_store().exists(session_key):
         return session_store(session_key)
     return None

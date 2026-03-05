@@ -12,7 +12,7 @@ class BaiduAccount(ProviderAccount):
         return f"https://tb.himg.baidu.com/sys/portraitn/item/{portrait}"
 
     def to_str(self):
-        dflt = super(BaiduAccount, self).to_str()
+        dflt = super().to_str()
         return self.account.extra_data.get("uname", dflt)
 
 

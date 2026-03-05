@@ -22,7 +22,7 @@ def test_resource_without_user(db, client, access_token_generator, oidc_client):
         reverse("idp_rest_framework_resource"), HTTP_AUTHORIZATION=f"bearer {token}"
     )
     assert resp.status_code == HTTPStatus.OK
-    assert resp.json()["user_email"] == None
+    assert resp.json()["user_email"] is None
 
 
 def test_resource_forbidden(db, client, access_token_generator, user, oidc_client):

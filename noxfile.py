@@ -31,7 +31,7 @@ def isort(session):
 @nox.session(tags=["lint"])
 def flake8(session):
     session.install("flake8==7.2.0")
-    session.run("flake8", "allauth/")
+    session.run("flake8", "allauth/", "tests/")
 
 
 @nox.session(tags=["lint"])

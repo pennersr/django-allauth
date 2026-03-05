@@ -8,7 +8,6 @@ sms_outbox: typing.List[typing.Dict] = []
 
 
 def clear():
-    global db
     db.clear()
     sms_outbox.clear()
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-13 09:05-0600\n"
+"POT-Creation-Date: 2026-03-05 08:42-0600\n"
 "PO-Revision-Date: 2025-11-28 05:00+0000\n"
 "Last-Translator: Mohammed “Medait” AIT ALI <medait.31@gmail.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/allauth/django-"
@@ -133,10 +133,9 @@ msgid "Marked {email} as verified."
 msgstr "تحديد {email} على أنه تم التحقق منه"
 
 #: account/admin.py:36
-#, fuzzy, python-brace-format
-#| msgid "Your primary email address must be verified."
+#, python-brace-format
 msgid "Failed to mark {email} as verified."
-msgstr "يجب توثيق عنوان بريدك الإلكتروني الرئيسي."
+msgstr "فشل تحديد {email} على أنه تم التحقق منه."
 
 #: account/admin.py:42
 msgid "Mark selected email addresses as verified"
@@ -296,71 +295,69 @@ msgstr "مقطوعة الرأس"
 
 #: idp/oidc/adapter.py:30
 msgid "View your user ID"
-msgstr ""
+msgstr "عرض معرف المستخدم الخاص بك"
 
 #: idp/oidc/adapter.py:31
-#, fuzzy
-#| msgid "Verify Your Email Address"
 msgid "View your email address"
-msgstr "التحقق من البريد الإلكتروني"
+msgstr "عرض عنوان بريدك الإلكتروني"
 
 #: idp/oidc/adapter.py:32
 msgid "View your basic profile information"
-msgstr ""
+msgstr "عرض معلومات ملفك الشخصي الأساسية"
 
 #: idp/oidc/forms.py:31
-#, fuzzy
-#| msgid "User Sessions"
 msgid "Grant permissions"
-msgstr "جلسات المستخدم"
+msgstr "منح الأذونات"
 
 #: idp/oidc/internal/clientkit.py:22
 msgid "Wildcards are not allowed unless 'Allow URI wildcards' is enabled."
 msgstr ""
+"لا يُسمح باستخدام أحرف البدل (*) ما لم يتم تمكين 'السماح بأحرف البدل في "
+"عناوين URI'."
 
 #: idp/oidc/internal/clientkit.py:27
 msgid ""
 "URI '{}' contains more than one wildcard (*). Only one wildcard per URI is "
 "allowed."
 msgstr ""
+"عنوان URI '{}' يحتوي على أكثر من حرف بدل (*). يُسمح بحرف بدل واحد فقط لكل "
+"عنوان URI."
 
 #: idp/oidc/internal/clientkit.py:39
 msgid "Wildcards are only allowed in the hostname portion of the URI."
-msgstr ""
+msgstr "لا يُسمح بأحرف البدل (*) إلا في جزء اسم المضيف من عنوان URI."
 
 #: idp/oidc/models.py:37
-#, fuzzy
-#| msgid "Authenticator code"
 msgid "Authorization code"
-msgstr "كود المصدق"
+msgstr "رمز التفويض"
 
 #: idp/oidc/models.py:38
-#, fuzzy
-#| msgid "Recovery codes"
 msgid "Device code"
-msgstr "رموز الاسترداد"
+msgstr "رمز الجهاز"
 
 #: idp/oidc/models.py:39
 msgid "Client credentials"
-msgstr ""
+msgstr "بيانات اعتماد العميل"
 
 #: idp/oidc/models.py:40
 msgid "Refresh token"
-msgstr ""
+msgstr "رمز التحديث"
 
 #: idp/oidc/models.py:43
 msgid "Confidential"
-msgstr ""
+msgstr "سري"
 
 #: idp/oidc/models.py:44
 msgid "Public"
-msgstr ""
+msgstr "عام"
 
 #: idp/oidc/models.py:58
 msgid ""
 "The scope(s) the client is allowed to request. Provide one value per line, "
 "e.g.: openid(ENTER)profile(ENTER)email(ENTER)"
 msgstr ""
+"النطاق (النطاقات) التي يُسمح للعميل بطلبها. قم بتوفير قيمة واحدة لكل سطر، "
+"مثال: openid(ENTER)profile(ENTER)email(ENTER)"
 
 #: idp/oidc/models.py:64
 msgid ""
@@ -368,40 +365,45 @@ msgid ""
 "used. Provide one value per line, e.g.: "
 "openid(ENTER)profile(ENTER)email(ENTER)"
 msgstr ""
+"في حال لم يحدد العميل أي نطاق، يتم استخدام هذه النطاقات الافتراضية. قم "
+"بتوفير قيمة واحدة لكل سطر، مثال: openid(ENTER)profile(ENTER)email(ENTER)"
 
 #: idp/oidc/models.py:75
 msgid ""
 "A list of allowed grant types. Provide one value per line, e.g.: "
 "authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 msgstr ""
+"قائمة أنواع المنح المسموح بها. قم بتوفير قيمة واحدة لكل سطر، مثال: "
+"authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 
 #: idp/oidc/models.py:86
 msgid "A list of allowed origins for cross-origin requests, one per line."
-msgstr ""
+msgstr "قائمة المصادر المسموح بها للطلبات عبر المصادر، واحد لكل سطر."
 
 #: idp/oidc/models.py:94
 msgid ""
 "Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
 "can contain a single asterisk to match subdomains."
 msgstr ""
+"السماح بأحرف البدل (*) في عناوين URI لإعادة التوجيه ومصادر CORS. عند "
+"التمكين، يمكن أن تحتوي عناوين URI على علامة نجمة واحدة لمطابقة النطاقات "
+"الفرعية."
 
 #: idp/oidc/models.py:102
 msgid ""
 "A list of allowed response types. Provide one value per line, e.g.: "
 "code(ENTER)id_token token(ENTER)"
 msgstr ""
+"قائمة أنواع الاستجابات المسموح بها. قم بتوفير قيمة واحدة لكل سطر، مثال: "
+"code(ENTER)id_token token(ENTER)"
 
 #: idp/oidc/models.py:115
-#, fuzzy
-#| msgid "client id"
 msgid "client"
-msgstr "معرف العميل"
+msgstr "عميل"
 
 #: idp/oidc/models.py:116
-#, fuzzy
-#| msgid "client id"
 msgid "clients"
-msgstr "معرف العميل"
+msgstr "عملاء"
 
 #: mfa/adapter.py:32
 msgid ""
@@ -1385,22 +1387,20 @@ msgstr "الجلسات"
 #: templates/idp/oidc/device_authorization_confirmed.html:5
 #: templates/idp/oidc/device_authorization_denied.html:5
 msgid "Authorize"
-msgstr ""
+msgstr "تفويض"
 
 #: templates/idp/oidc/authorization_form.html:12
 #, python-format
 msgid "%(client_name)s wants to access your %(site_name)s account."
-msgstr ""
+msgstr "%(client_name)s يريد الوصول إلى حسابك في %(site_name)s."
 
 #: templates/idp/oidc/device_authorization_code_form.html:9
-#, fuzzy
-#| msgid "Enter Sign-In Code"
 msgid "Enter Device Code"
-msgstr "أدخل رمز تسجيل الدخول"
+msgstr "أدخل رمز الجهاز"
 
 #: templates/idp/oidc/device_authorization_code_form.html:12
 msgid "Enter the code displayed on your device."
-msgstr ""
+msgstr "أدخل الرمز المعروض على جهازك."
 
 #: templates/idp/oidc/device_authorization_code_form.html:21
 #: templates/socialaccount/login.html:27
@@ -1409,10 +1409,8 @@ msgid "Continue"
 msgstr "المتابعة"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:9
-#, fuzzy
-#| msgid "Confirm Access"
 msgid "Confirm Device"
-msgstr "تأكيد الوصول"
+msgstr "تأكيد الجهاز"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:12
 #, python-format
@@ -1420,37 +1418,37 @@ msgid ""
 "Please confirm the code shown on your %(client_name)s to authorize this "
 "device."
 msgstr ""
+"يرجى تأكيد الرمز المعروض على %(client_name)s الخاص بك لتفويض هذا الجهاز."
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:29
 msgid "Deny"
-msgstr ""
+msgstr "رفض"
 
 #: templates/idp/oidc/device_authorization_confirmed.html:9
 msgid "Device Authorized"
-msgstr ""
+msgstr "تم تفويض الجهاز"
 
 #: templates/idp/oidc/device_authorization_confirmed.html:12
 #, python-format
 msgid "You successfully authorized your %(client_name)s device."
-msgstr ""
+msgstr "لقد قمت بتفويض جهاز %(client_name)s الخاص بك بنجاح."
 
 #: templates/idp/oidc/device_authorization_denied.html:9
 msgid "Device Denied"
-msgstr ""
+msgstr "تم رفض الجهاز"
 
 #: templates/idp/oidc/device_authorization_denied.html:12
 #, python-format
 msgid "Authorization for your %(client_name)s device has been denied."
-msgstr ""
+msgstr "تم رفض التفويض لجهاز %(client_name)s الخاص بك."
 
 #: templates/idp/oidc/error.html:5 templates/idp/oidc/error.html:9
 msgid "Error"
-msgstr ""
+msgstr "خطأ"
 
 #: templates/idp/oidc/logout.html:24
-#, fuzzy
 msgid "Stay Signed In"
-msgstr "تسجيل الدخول Shopify"
+msgstr "البقاء مسجل الدخول"
 
 #: templates/mfa/authenticate.html:13
 msgid ""

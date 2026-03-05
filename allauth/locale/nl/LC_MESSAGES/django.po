@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-13 09:05-0600\n"
+"POT-Creation-Date: 2026-03-05 08:42-0600\n"
 "PO-Revision-Date: 2025-07-25 20:26+0200\n"
 "Last-Translator: Jos van Leeuwen <jos.van.leeuwen@proton.me>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/allauth/django-"
@@ -309,16 +309,20 @@ msgstr "Machtigingen verlenen"
 #: idp/oidc/internal/clientkit.py:22
 msgid "Wildcards are not allowed unless 'Allow URI wildcards' is enabled."
 msgstr ""
+"Jokertekens zijn niet toegestaan tenzij 'URI-jokertekens toestaan' is "
+"ingeschakeld."
 
 #: idp/oidc/internal/clientkit.py:27
 msgid ""
 "URI '{}' contains more than one wildcard (*). Only one wildcard per URI is "
 "allowed."
 msgstr ""
+"URI '{}' bevat meer dan één jokerteken (*). Er is slechts één jokerteken per "
+"URI toegestaan."
 
 #: idp/oidc/internal/clientkit.py:39
 msgid "Wildcards are only allowed in the hostname portion of the URI."
-msgstr ""
+msgstr "Jokertekens zijn alleen toegestaan in het hostnaamgedeelte van de URI."
 
 #: idp/oidc/models.py:37
 msgid "Authorization code"
@@ -379,6 +383,9 @@ msgid ""
 "Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
 "can contain a single asterisk to match subdomains."
 msgstr ""
+"Jokertekens (*) toestaan in omleidings-URI's en CORS-origins. Wanneer "
+"ingeschakeld kunnen URI's een enkele asterisk bevatten om subdomeinen te "
+"matchen."
 
 #: idp/oidc/models.py:102
 msgid ""
@@ -1463,10 +1470,8 @@ msgid "Error"
 msgstr "Fout"
 
 #: templates/idp/oidc/logout.html:24
-#, fuzzy
-#| msgid "Sign In"
 msgid "Stay Signed In"
-msgstr "Aanmelden"
+msgstr "Ingelogd blijven"
 
 #: templates/mfa/authenticate.html:13
 msgid ""
@@ -1916,7 +1921,6 @@ msgid "session key"
 msgstr "sessie sleutel"
 
 #, fuzzy
-#~| msgid "Account Connections"
 #~ msgid "Account Connection"
 #~ msgstr "Account Connecties"
 
@@ -1977,7 +1981,6 @@ msgstr "sessie sleutel"
 #~ "in:"
 
 #, fuzzy
-#~| msgid "Generate"
 #~ msgid "Regenerate"
 #~ msgstr "Genereer"
 

@@ -1,12 +1,12 @@
 # Traducción al castellano de django-allauth
-# Copyright (C) 2024 
+# Copyright (C) 2024
 # Quique <cronopios@gmail.com>, 2024.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.61.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-13 09:05-0600\n"
+"POT-Creation-Date: 2026-03-05 08:42-0600\n"
 "PO-Revision-Date: 2025-11-11 12:51+0000\n"
 "Last-Translator: Federico Bond <federicobond@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/allauth/django-"
@@ -131,17 +131,14 @@ msgid "Use a security key"
 msgstr "Usar una clave de seguridad"
 
 #: account/admin.py:30
-#, fuzzy, python-brace-format
-#| msgid "Mark selected email addresses as verified"
+#, python-brace-format
 msgid "Marked {email} as verified."
-msgstr ""
-"Marcar las direcciones de correo electrónico seleccionadas como verificadas"
+msgstr "{email} se ha marcado como verificado."
 
 #: account/admin.py:36
-#, fuzzy, python-brace-format
-#| msgid "Your primary email address must be verified."
+#, python-brace-format
 msgid "Failed to mark {email} as verified."
-msgstr "Su dirección principal de correo electrónico debe ser verificada."
+msgstr "No se pudo marcar {email} como verificado."
 
 #: account/admin.py:42
 msgid "Mark selected email addresses as verified"
@@ -303,10 +300,8 @@ msgid "View your user ID"
 msgstr "Ver tu ID de usuario"
 
 #: idp/oidc/adapter.py:31
-#, fuzzy
-#| msgid "Verify Your Email Address"
 msgid "View your email address"
-msgstr "Verifique su dirección de correo electrónico"
+msgstr "Ver su dirección de correo electrónico"
 
 #: idp/oidc/adapter.py:32
 msgid "View your basic profile information"
@@ -319,16 +314,19 @@ msgstr "Otorgar permisos"
 #: idp/oidc/internal/clientkit.py:22
 msgid "Wildcards are not allowed unless 'Allow URI wildcards' is enabled."
 msgstr ""
+"No se permiten comodines a menos que se habilite 'Permitir comodines en URI'."
 
 #: idp/oidc/internal/clientkit.py:27
 msgid ""
 "URI '{}' contains more than one wildcard (*). Only one wildcard per URI is "
 "allowed."
 msgstr ""
+"El URI '{}' contiene más de un comodín (*). Solo se permite un comodín por "
+"URI."
 
 #: idp/oidc/internal/clientkit.py:39
 msgid "Wildcards are only allowed in the hostname portion of the URI."
-msgstr ""
+msgstr "Los comodines solo se permiten en la parte del nombre de host del URI."
 
 #: idp/oidc/models.py:37
 msgid "Authorization code"
@@ -359,6 +357,8 @@ msgid ""
 "The scope(s) the client is allowed to request. Provide one value per line, "
 "e.g.: openid(ENTER)profile(ENTER)email(ENTER)"
 msgstr ""
+"Los alcances que el cliente puede solicitar. Proporcione un valor por línea, "
+"por ejemplo: openid(ENTER)profile(ENTER)email(ENTER)"
 
 #: idp/oidc/models.py:64
 msgid ""
@@ -366,28 +366,41 @@ msgid ""
 "used. Provide one value per line, e.g.: "
 "openid(ENTER)profile(ENTER)email(ENTER)"
 msgstr ""
+"Si el cliente no especifica ningún alcance, se utilizan estos alcances "
+"predeterminados. Proporcione un valor por línea, por ejemplo: "
+"openid(ENTER)profile(ENTER)email(ENTER)"
 
 #: idp/oidc/models.py:75
 msgid ""
 "A list of allowed grant types. Provide one value per line, e.g.: "
 "authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 msgstr ""
+"Una lista de tipos de concesión permitidos. Proporcione un valor por línea, "
+"por ejemplo: "
+"authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 
 #: idp/oidc/models.py:86
 msgid "A list of allowed origins for cross-origin requests, one per line."
 msgstr ""
+"Una lista de orígenes permitidos para solicitudes de origen cruzado, uno por "
+"línea."
 
 #: idp/oidc/models.py:94
 msgid ""
 "Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
 "can contain a single asterisk to match subdomains."
 msgstr ""
+"Permitir comodines (*) en URIs de redirección y orígenes CORS. Cuando está "
+"habilitado, los URIs pueden contener un solo asterisco para coincidir con "
+"subdominios."
 
 #: idp/oidc/models.py:102
 msgid ""
 "A list of allowed response types. Provide one value per line, e.g.: "
 "code(ENTER)id_token token(ENTER)"
 msgstr ""
+"Una lista de tipos de respuesta permitidos. Proporcione un valor por línea, "
+"por ejemplo: code(ENTER)id_token token(ENTER)"
 
 #: idp/oidc/models.py:115
 msgid "client"
@@ -1477,10 +1490,8 @@ msgid "Error"
 msgstr "Error"
 
 #: templates/idp/oidc/logout.html:24
-#, fuzzy
-#| msgid "Sign In"
 msgid "Stay Signed In"
-msgstr "Iniciar sesión"
+msgstr "Mantener la sesión iniciada"
 
 #: templates/mfa/authenticate.html:13
 msgid ""
@@ -1987,14 +1998,12 @@ msgstr "clave de sesión"
 #~ "siguiente enlace."
 
 #, fuzzy
-#~| msgid "The following email addresses are associated with your account:"
 #~ msgid "The following email address is associated with your account:"
 #~ msgstr ""
 #~ "Las siguientes direcciones de correo electrónico están asociadas a su "
 #~ "cuenta:"
 
 #, fuzzy
-#~| msgid "Confirm Email Address"
 #~ msgid "Change Email Address"
 #~ msgstr "Confirmar dirección de correo electrónico"
 

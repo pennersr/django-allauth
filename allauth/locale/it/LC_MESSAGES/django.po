@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-13 09:05-0600\n"
+"POT-Creation-Date: 2026-03-05 08:42-0600\n"
 "PO-Revision-Date: 2025-12-20 19:00+0000\n"
 "Last-Translator: Gabriele-V <gabriele-v@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/allauth/django-"
@@ -314,16 +314,21 @@ msgstr "Concedi autorizzazioni"
 #: idp/oidc/internal/clientkit.py:22
 msgid "Wildcards are not allowed unless 'Allow URI wildcards' is enabled."
 msgstr ""
+"I caratteri jolly non sono consentiti a meno che non sia abilitata l'opzione "
+"'Consenti caratteri jolly negli URI'."
 
 #: idp/oidc/internal/clientkit.py:27
 msgid ""
 "URI '{}' contains more than one wildcard (*). Only one wildcard per URI is "
 "allowed."
 msgstr ""
+"L'URI '{}' contiene più di un carattere jolly (*). È consentito un solo "
+"carattere jolly per URI."
 
 #: idp/oidc/internal/clientkit.py:39
 msgid "Wildcards are only allowed in the hostname portion of the URI."
 msgstr ""
+"I caratteri jolly sono consentiti solo nella parte del nome host dell'URI."
 
 #: idp/oidc/models.py:37
 msgid "Authorization code"
@@ -386,6 +391,9 @@ msgid ""
 "Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
 "can contain a single asterisk to match subdomains."
 msgstr ""
+"Consenti caratteri jolly (*) negli URI di reindirizzamento e nelle origini "
+"CORS. Quando abilitato, gli URI possono contenere un singolo asterisco per "
+"corrispondere ai sottodomini."
 
 #: idp/oidc/models.py:102
 msgid ""
@@ -1468,10 +1476,8 @@ msgid "Error"
 msgstr "Errore"
 
 #: templates/idp/oidc/logout.html:24
-#, fuzzy
-#| msgid "Sign In"
 msgid "Stay Signed In"
-msgstr "Accedi"
+msgstr "Resta connesso"
 
 #: templates/mfa/authenticate.html:13
 msgid ""
@@ -1934,7 +1940,6 @@ msgid "session key"
 msgstr "chiave di sessione"
 
 #, fuzzy
-#~| msgid "Account Connections"
 #~ msgid "Account Connection"
 #~ msgstr "Connessioni all'account"
 
@@ -1965,12 +1970,10 @@ msgstr "chiave di sessione"
 #~ "sotto."
 
 #, fuzzy
-#~| msgid "The following email addresses are associated with your account:"
 #~ msgid "The following email address is associated with your account:"
 #~ msgstr "I seguenti indirizzi email sono associati al tuo account:"
 
 #, fuzzy
-#~| msgid "Confirm Email Address"
 #~ msgid "Change Email Address"
 #~ msgstr "Conferma l'Indirizzo Email"
 

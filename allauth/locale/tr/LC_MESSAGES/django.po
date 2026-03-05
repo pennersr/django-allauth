@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# , 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-13 09:05-0600\n"
+"POT-Creation-Date: 2026-03-05 08:42-0600\n"
 "PO-Revision-Date: 2025-07-25 20:27+0200\n"
 "Last-Translator: Emirhan Soytaş <emrhns61@hotmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/allauth/django-"
@@ -311,16 +310,21 @@ msgstr "İzin tanımla"
 #: idp/oidc/internal/clientkit.py:22
 msgid "Wildcards are not allowed unless 'Allow URI wildcards' is enabled."
 msgstr ""
+"'URI joker karakterlerine izin ver' etkinleştirilmediği sürece joker "
+"karakterlere izin verilmez."
 
 #: idp/oidc/internal/clientkit.py:27
 msgid ""
 "URI '{}' contains more than one wildcard (*). Only one wildcard per URI is "
 "allowed."
 msgstr ""
+"URI '{}' birden fazla joker karakter (*) içeriyor. Her URI için yalnızca bir "
+"joker karaktere izin verilir."
 
 #: idp/oidc/internal/clientkit.py:39
 msgid "Wildcards are only allowed in the hostname portion of the URI."
 msgstr ""
+"Joker karakterlere yalnızca URI'nin ana bilgisayar adı kısmında izin verilir."
 
 #: idp/oidc/models.py:37
 msgid "Authorization code"
@@ -384,6 +388,9 @@ msgid ""
 "Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
 "can contain a single asterisk to match subdomains."
 msgstr ""
+"Yönlendirme URI'lerinde ve CORS kaynaklarında joker karakterlere (*) izin "
+"ver. Etkinleştirildiğinde, URI'ler alt alan adlarını eşleştirmek için tek "
+"bir yıldız içerebilir."
 
 #: idp/oidc/models.py:102
 msgid ""
@@ -1478,10 +1485,8 @@ msgid "Error"
 msgstr "Hata"
 
 #: templates/idp/oidc/logout.html:24
-#, fuzzy
-#| msgid "Sign In"
 msgid "Stay Signed In"
-msgstr "Giriş Yap"
+msgstr "Oturumu Açık Tut"
 
 #: templates/mfa/authenticate.html:13
 msgid ""
@@ -1970,12 +1975,10 @@ msgstr "oturum anahtarı"
 #~ "oluşturabilirsiniz."
 
 #, fuzzy
-#~| msgid "The following email addresses are associated with your account:"
 #~ msgid "The following email address is associated with your account:"
 #~ msgstr "Şu e-posta adresleri hesabınızla ilişkilendirildi:"
 
 #, fuzzy
-#~| msgid "Confirm Email Address"
 #~ msgid "Change Email Address"
 #~ msgstr "E-posta Adresi Doğrula"
 

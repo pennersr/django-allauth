@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-13 09:05-0600\n"
+"POT-Creation-Date: 2026-03-05 08:42-0600\n"
 "PO-Revision-Date: 2025-07-25 20:26+0200\n"
 "Last-Translator: Adam Zahradník <adam@zahradnik.xyz>\n"
 "Language-Team: Slovak <https://hosted.weblate.org/projects/allauth/django-"
@@ -313,16 +313,20 @@ msgstr "Povolené oprávnenia"
 #: idp/oidc/internal/clientkit.py:22
 msgid "Wildcards are not allowed unless 'Allow URI wildcards' is enabled."
 msgstr ""
+"Zástupné znaky nie sú povolené, pokiaľ nie je zapnutá možnosť 'Povoliť "
+"zástupné znaky v URI'."
 
 #: idp/oidc/internal/clientkit.py:27
 msgid ""
 "URI '{}' contains more than one wildcard (*). Only one wildcard per URI is "
 "allowed."
 msgstr ""
+"URI '{}' obsahuje viac ako jeden zástupný znak (*). Na jednu URI je povolený "
+"iba jeden zástupný znak."
 
 #: idp/oidc/internal/clientkit.py:39
 msgid "Wildcards are only allowed in the hostname portion of the URI."
-msgstr ""
+msgstr "Zástupné znaky sú povolené iba v časti s názvom hostiteľa v URI."
 
 #: idp/oidc/models.py:37
 msgid "Authorization code"
@@ -383,6 +387,8 @@ msgid ""
 "Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
 "can contain a single asterisk to match subdomains."
 msgstr ""
+"Povoliť zástupné znaky (*) v presmerovacích URI a CORS pôvodoch. Keď je táto "
+"možnosť zapnutá, URI môžu obsahovať jednu hviezdičku na zhodu subdomén."
 
 #: idp/oidc/models.py:102
 msgid ""
@@ -1453,10 +1459,8 @@ msgid "Error"
 msgstr "Chyba"
 
 #: templates/idp/oidc/logout.html:24
-#, fuzzy
-#| msgid "Sign In"
 msgid "Stay Signed In"
-msgstr "Prihlásiť sa"
+msgstr "Zostať prihlásený"
 
 #: templates/mfa/authenticate.html:13
 msgid ""

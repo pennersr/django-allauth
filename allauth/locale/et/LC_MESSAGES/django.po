@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-13 09:05-0600\n"
+"POT-Creation-Date: 2026-03-05 08:42-0600\n"
 "PO-Revision-Date: 2024-04-20 21:55+0200\n"
 "Last-Translator: Gregor Grigorjan <gregor@grigorjan.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,10 +23,8 @@ msgid "This account is currently inactive."
 msgstr "See konto on parajasti mitteaktiivne."
 
 #: account/adapter.py:63
-#, fuzzy
-#| msgid "You cannot remove your primary email address (%(email)s)."
 msgid "You cannot remove your primary email address."
-msgstr "Primaarset e-posti aadressi (%(email)s) ei saa eemaldada."
+msgstr "Primaarset e-posti aadressi ei saa eemaldada."
 
 #: account/adapter.py:66
 msgid "This email address is already associated with this account."
@@ -37,10 +35,8 @@ msgid "The email address and/or password you specified are not correct."
 msgstr "Sisestatud e-posti aadress või salasõna ei ole õige."
 
 #: account/adapter.py:72
-#, fuzzy
-#| msgid "The username and/or password you specified are not correct."
 msgid "The phone number and/or password you specified are not correct."
-msgstr "Sisestatud kasutajanimi või salasõna ei ole õige."
+msgstr "Sisestatud telefoninumber või salasõna ei ole õige."
 
 #: account/adapter.py:74
 msgid "A user is already registered with this email address."
@@ -59,16 +55,12 @@ msgid "Incorrect password."
 msgstr "Vale salasõna."
 
 #: account/adapter.py:78
-#, fuzzy
-#| msgid "Invalid token."
 msgid "Invalid or expired key."
-msgstr "Vale tooken."
+msgstr "Vale või aegunud võti."
 
 #: account/adapter.py:79
-#, fuzzy
-#| msgid "Invalid token."
 msgid "Invalid login."
-msgstr "Vale tooken."
+msgstr "Vale sisselogimine."
 
 #: account/adapter.py:80
 msgid "The password reset token was invalid."
@@ -80,26 +72,20 @@ msgid "You cannot add more than %d email addresses."
 msgstr "Sa ei tohi lisada enam kui %d e-posti aadressi."
 
 #: account/adapter.py:82
-#, fuzzy
-#| msgid "A user is already registered with this email address."
 msgid "A user is already registered with this phone number."
-msgstr "Selle e-posti aadressiga on juba kasutaja registreeritud."
+msgstr "Selle telefoninumbriga on juba kasutaja registreeritud."
 
 #: account/adapter.py:84
 msgid "Too many failed login attempts. Try again later."
 msgstr "Liiga palju nurjunud sisse logimise katseid. Proovi hiljem uuesti."
 
 #: account/adapter.py:86
-#, fuzzy
-#| msgid "The email address is not assigned to any user account"
 msgid "The email address is not assigned to any user account."
-msgstr "See e-posti aadress pole määratud ühelegi kontole."
+msgstr "See e-posti aadress pole määratud ühelegi kasutajakontole."
 
 #: account/adapter.py:87
-#, fuzzy
-#| msgid "The email address is not assigned to any user account"
 msgid "The phone number is not assigned to any user account."
-msgstr "See e-posti aadress pole määratud ühelegi kontole."
+msgstr "See telefoninumber pole määratud ühelegi kasutajakontole."
 
 #: account/adapter.py:88
 #: templates/account/messages/unverified_primary_email.txt:2
@@ -116,44 +102,38 @@ msgstr "Sisestatud kasutajanimi või salasõna ei ole õige."
 
 #: account/adapter.py:98
 msgid "Please select only one."
-msgstr ""
+msgstr "Palun valige ainult üks."
 
 #: account/adapter.py:99
 msgid "The new value must be different from the current one."
-msgstr ""
+msgstr "Uus väärtus peab erinema praegusest."
 
 #: account/adapter.py:100
 msgid "Be patient, you are sending too many requests."
-msgstr ""
+msgstr "Palun ole kannatlik, sa saadad liiga palju päringuid."
 
 #: account/adapter.py:826
 msgid "Use your password"
 msgstr "Kasuta oma salasõna"
 
 #: account/adapter.py:835
-#, fuzzy
-#| msgid "Use your authenticator app"
 msgid "Use authenticator app or code"
-msgstr "Kasuta oma autentimisrakendust"
+msgstr "Kasuta autentimisrakendust või koodi"
 
 #: account/adapter.py:842 templates/mfa/authenticate.html:41
 #: templates/mfa/webauthn/reauthenticate.html:15
-#, fuzzy
-#| msgid "secret key"
 msgid "Use a security key"
-msgstr "salavõti"
+msgstr "Kasuta turvavõtit"
 
 #: account/admin.py:30
-#, fuzzy, python-brace-format
-#| msgid "Mark selected email addresses as verified"
+#, python-brace-format
 msgid "Marked {email} as verified."
-msgstr "Märgi valitud e-posti aadressid kinnitatuks"
+msgstr "{email} on märgitud kinnitatuks."
 
 #: account/admin.py:36
-#, fuzzy, python-brace-format
-#| msgid "Your primary email address must be verified."
+#, python-brace-format
 msgid "Failed to mark {email} as verified."
-msgstr "Su primaarne e-posti aadress peab olema kinnitatud."
+msgstr "{email} kinnituks märkimine ebaõnnestus."
 
 #: account/admin.py:42
 msgid "Mark selected email addresses as verified"
@@ -173,11 +153,11 @@ msgstr "E-posti aadress"
 
 #: account/fields.py:62
 msgid "Enter a phone number including country code (e.g. +1 for the US)."
-msgstr ""
+msgstr "Sisesta telefoninumber koos riigikoodiga (nt +1 USA jaoks)."
 
 #: account/fields.py:68 account/fields.py:72 account/forms.py:325
 msgid "Phone"
-msgstr ""
+msgstr "Telefon"
 
 #: account/forms.py:61 account/forms.py:524
 msgid "You must type the same password each time."
@@ -203,26 +183,20 @@ msgid "Login"
 msgstr "Logi sisse"
 
 #: account/forms.py:115
-#, fuzzy
-#| msgid "Username or email"
 msgid "Username, email or phone"
-msgstr "Kasutajanimi või e-post"
+msgstr "Kasutajanimi, e-post või telefon"
 
 #: account/forms.py:117
 msgid "Username or email"
 msgstr "Kasutajanimi või e-post"
 
 #: account/forms.py:119
-#, fuzzy
-#| msgid "Username or email"
 msgid "Username or phone"
-msgstr "Kasutajanimi või e-post"
+msgstr "Kasutajanimi või telefon"
 
 #: account/forms.py:121
-#, fuzzy
-#| msgid "Email (optional)"
 msgid "Email or phone"
-msgstr "E-post (valikuline)"
+msgstr "E-post või telefon"
 
 #: account/forms.py:144
 msgid "Forgot your password?"
@@ -241,10 +215,8 @@ msgid "Email (optional)"
 msgstr "E-post (valikuline)"
 
 #: account/forms.py:314
-#, fuzzy
-#| msgid "Email (optional)"
 msgid "Username (optional)"
-msgstr "E-post (valikuline)"
+msgstr "Kasutajanimi (valikuline)"
 
 #: account/forms.py:388
 msgid "You must type the same email each time."
@@ -315,75 +287,71 @@ msgstr "kinnitused e-posti kaudu"
 
 #: headless/apps.py:7
 msgid "Headless"
-msgstr ""
+msgstr "Peata"
 
 #: idp/oidc/adapter.py:30
 msgid "View your user ID"
-msgstr ""
+msgstr "Vaata oma kasutaja ID-d"
 
 #: idp/oidc/adapter.py:31
-#, fuzzy
-#| msgid "Verify Your Email Address"
 msgid "View your email address"
-msgstr "Kinnita oma e-posti aadress"
+msgstr "Vaata oma e-posti aadressi"
 
 #: idp/oidc/adapter.py:32
 msgid "View your basic profile information"
-msgstr ""
+msgstr "Vaata oma profiili põhiandmeid"
 
 #: idp/oidc/forms.py:31
-#, fuzzy
-#| msgid "User Sessions"
 msgid "Grant permissions"
-msgstr "Kasutajasessioonid"
+msgstr "Anna õigused"
 
 #: idp/oidc/internal/clientkit.py:22
 msgid "Wildcards are not allowed unless 'Allow URI wildcards' is enabled."
-msgstr ""
+msgstr "Metamärgid pole lubatud, kui 'Luba URI metamärgid' pole aktiveeritud."
 
 #: idp/oidc/internal/clientkit.py:27
 msgid ""
 "URI '{}' contains more than one wildcard (*). Only one wildcard per URI is "
 "allowed."
 msgstr ""
+"URI '{}' sisaldab rohkem kui ühte metamärki (*). Ühe URI kohta on lubatud "
+"ainult üks metamärk."
 
 #: idp/oidc/internal/clientkit.py:39
 msgid "Wildcards are only allowed in the hostname portion of the URI."
-msgstr ""
+msgstr "Metamärgid on lubatud ainult URI hostinime osas."
 
 #: idp/oidc/models.py:37
-#, fuzzy
-#| msgid "Authenticator code"
 msgid "Authorization code"
-msgstr "Autentimiskood"
+msgstr "Autoriseerimiskood"
 
 #: idp/oidc/models.py:38
-#, fuzzy
-#| msgid "Recovery codes"
 msgid "Device code"
-msgstr "Varukoodid"
+msgstr "Seadmekood"
 
 #: idp/oidc/models.py:39
 msgid "Client credentials"
-msgstr ""
+msgstr "Kliendi volitused"
 
 #: idp/oidc/models.py:40
 msgid "Refresh token"
-msgstr ""
+msgstr "Värskendustooken"
 
 #: idp/oidc/models.py:43
 msgid "Confidential"
-msgstr ""
+msgstr "Konfidentsiaalne"
 
 #: idp/oidc/models.py:44
 msgid "Public"
-msgstr ""
+msgstr "Avalik"
 
 #: idp/oidc/models.py:58
 msgid ""
 "The scope(s) the client is allowed to request. Provide one value per line, "
 "e.g.: openid(ENTER)profile(ENTER)email(ENTER)"
 msgstr ""
+"Ulatused, mida kliendil on lubatud taotleda. Sisesta üks väärtus rea kohta, "
+"nt: openid(ENTER)profile(ENTER)email(ENTER)"
 
 #: idp/oidc/models.py:64
 msgid ""
@@ -391,40 +359,44 @@ msgid ""
 "used. Provide one value per line, e.g.: "
 "openid(ENTER)profile(ENTER)email(ENTER)"
 msgstr ""
+"Kui klient ei määra ühtegi ulatust, kasutatakse neid vaikeulatusi. Sisesta "
+"üks väärtus rea kohta, nt: openid(ENTER)profile(ENTER)email(ENTER)"
 
 #: idp/oidc/models.py:75
 msgid ""
 "A list of allowed grant types. Provide one value per line, e.g.: "
 "authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 msgstr ""
+"Lubatud volituste tüüpide loend. Sisesta üks väärtus rea kohta, nt: "
+"authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 
 #: idp/oidc/models.py:86
 msgid "A list of allowed origins for cross-origin requests, one per line."
-msgstr ""
+msgstr "Lubatud päritolu loend ristpäritoluga päringute jaoks, üks rea kohta."
 
 #: idp/oidc/models.py:94
 msgid ""
 "Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
 "can contain a single asterisk to match subdomains."
 msgstr ""
+"Luba metamärgid (*) ümbersuunamise URI-des ja CORS-i päritoludes. Kui "
+"aktiveeritud, võivad URI-d sisaldada ühte tärni alamdomeenide sobitamiseks."
 
 #: idp/oidc/models.py:102
 msgid ""
 "A list of allowed response types. Provide one value per line, e.g.: "
 "code(ENTER)id_token token(ENTER)"
 msgstr ""
+"Lubatud vastuse tüüpide loend. Sisesta üks väärtus rea kohta, nt: "
+"code(ENTER)id_token token(ENTER)"
 
 #: idp/oidc/models.py:115
-#, fuzzy
-#| msgid "client id"
 msgid "client"
-msgstr "kliendi id"
+msgstr "klient"
 
 #: idp/oidc/models.py:116
-#, fuzzy
-#| msgid "client id"
 msgid "clients"
-msgstr "kliendi id"
+msgstr "kliendid"
 
 #: mfa/adapter.py:32
 msgid ""
@@ -453,19 +425,17 @@ msgstr ""
 "aadressi kinnitanud."
 
 #: mfa/adapter.py:141
-#, fuzzy
-#| msgid "secret key"
 msgid "Master key"
-msgstr "salavõti"
+msgstr "Põhivõti"
 
 #: mfa/adapter.py:143
 msgid "Backup key"
-msgstr ""
+msgstr "Varuvõti"
 
 #: mfa/adapter.py:144
 #, python-brace-format
 msgid "Key nr. {number}"
-msgstr ""
+msgstr "Võti nr. {number}"
 
 #: mfa/apps.py:9
 msgid "MFA"
@@ -481,23 +451,23 @@ msgstr "Paroolikell"
 
 #: mfa/models.py:26
 msgid "WebAuthn"
-msgstr ""
+msgstr "WebAuthn"
 
 #: mfa/totp/forms.py:11
 msgid "Authenticator code"
 msgstr "Autentimiskood"
 
 #: mfa/webauthn/forms.py:56
-#, fuzzy
-#| msgid "Password"
 msgid "Passwordless"
-msgstr "Salasõna"
+msgstr "Paroolivaba"
 
 #: mfa/webauthn/forms.py:59
 msgid ""
 "Enabling passwordless operation allows you to sign in using just this key, "
 "but imposes additional requirements such as biometrics or PIN protection."
 msgstr ""
+"Paroolivaba režiimi lubamine võimaldab sisse logida ainult selle võtmega, "
+"kuid kehtestab lisanõuded, nagu biomeetria või PIN-kaitse."
 
 #: socialaccount/adapter.py:30
 #, python-format
@@ -521,14 +491,8 @@ msgid "Your account has no verified email address."
 msgstr "Su kontol pole kinnitatud e-posti aadresse."
 
 #: socialaccount/adapter.py:38
-#, fuzzy
-#| msgid ""
-#| "You can sign in to your account using any of the following third-party "
-#| "accounts:"
 msgid "You cannot disconnect your last remaining third-party account."
-msgstr ""
-"Saad sisse logida oma kontosse kasutades mistahes järgnevatest kolmanda "
-"osapoole kontodest:"
+msgstr "Sa ei saa oma viimast kolmanda osapoole kontot lahti ühendada."
 
 #: socialaccount/adapter.py:41
 #: templates/socialaccount/messages/account_connected_other.txt:2
@@ -609,15 +573,15 @@ msgstr "tooken"
 
 #: socialaccount/models.py:162
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
-msgstr ""
+msgstr "\"oauth_token\" (OAuth1) või juurdepääsutooken (OAuth2)"
 
 #: socialaccount/models.py:166
 msgid "token secret"
-msgstr ""
+msgstr "tookeni salavõti"
 
 #: socialaccount/models.py:167
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
-msgstr ""
+msgstr "\"oauth_token_secret\" (OAuth1) või värskendustooken (OAuth2)"
 
 #: socialaccount/models.py:170
 msgid "expires at"
@@ -691,16 +655,13 @@ msgid "This account is inactive."
 msgstr "See konto on mitteaktiivne."
 
 #: templates/account/base_confirm_code.html:27
-#, fuzzy, python-format
-#| msgid ""
-#| "We’ve sent a code to %(email_link)s. The code expires shortly, so please "
-#| "enter it soon."
+#, python-format
 msgid ""
 "We've sent a code to %(recipient)s. The code expires shortly, so please "
 "enter it soon."
 msgstr ""
-"Saatsime koodi %(email_link)s. Kood aegub varsti, seega sisestaga see "
-"kiiresti."
+"Saatsime koodi aadressile %(recipient)s. Kood aegub varsti, seega sisesta "
+"see kiiresti."
 
 #: templates/account/base_confirm_code.html:39
 #: templates/account/email_confirm.html:24
@@ -711,10 +672,8 @@ msgid "Confirm"
 msgstr "Kinnita"
 
 #: templates/account/base_confirm_code.html:43
-#, fuzzy
-#| msgid "Request Code"
 msgid "Request new code"
-msgstr "Taotle koodi"
+msgstr "Taotle uut koodi"
 
 #: templates/account/base_reauthenticate.html:5
 #: templates/account/base_reauthenticate.html:9
@@ -731,22 +690,16 @@ msgid "Alternative options"
 msgstr "Muud valikud"
 
 #: templates/account/confirm_email_verification_code.html:5
-#, fuzzy
-#| msgid "Email Confirmation"
 msgid "Email Verification"
-msgstr "E-posti kinnitus"
+msgstr "E-posti kinnitamine"
 
 #: templates/account/confirm_email_verification_code.html:8
-#, fuzzy
-#| msgid "Enter an authenticator code:"
 msgid "Enter Email Verification Code"
-msgstr "Sisesta autentimisrakenduse kood:"
+msgstr "Sisesta e-posti kinnituskood"
 
 #: templates/account/confirm_email_verification_code.html:16
-#, fuzzy
-#| msgid "email address"
 msgid "Use a different email address"
-msgstr "e-posti aadress"
+msgstr "Kasuta teist e-posti aadressi"
 
 #: templates/account/confirm_login_code.html:5 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
@@ -773,26 +726,20 @@ msgid "Password Reset"
 msgstr "Salasõna taasseadmine"
 
 #: templates/account/confirm_password_reset_code.html:8
-#, fuzzy
-#| msgid "Password Reset"
 msgid "Enter Password Reset Code"
-msgstr "Salasõna taasseadmine"
+msgstr "Sisesta salasõna taasseadmise kood"
 
 #: templates/account/confirm_phone_verification_code.html:5
-#, fuzzy
-#| msgid "Re-send Verification"
 msgid "Phone Verification"
-msgstr "Saada kinnitus uuesti"
+msgstr "Telefoninumbri kinnitamine"
 
 #: templates/account/confirm_phone_verification_code.html:8
-#, fuzzy
-#| msgid "Enter an authenticator code:"
 msgid "Enter Phone Verification Code"
-msgstr "Sisesta autentimisrakenduse kood:"
+msgstr "Sisesta telefoninumbri kinnituskood"
 
 #: templates/account/confirm_phone_verification_code.html:15
 msgid "Use a different phone number"
-msgstr ""
+msgstr "Kasuta teist telefoninumbrit"
 
 #: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
@@ -931,37 +878,26 @@ msgid "Email Confirmation"
 msgstr "E-posti kinnitus"
 
 #: templates/account/email/email_confirmation_message.txt:5
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this email because user %(user_display)s has given your "
-#| "email address to register an account on %(site_domain)s.\n"
-#| "\n"
-#| "To confirm this is correct, go to %(activate_url)s"
+#, python-format
 msgid ""
 "You're receiving this email because user %(user_display)s has given your "
 "email address to register an account on %(site_domain)s."
 msgstr ""
-"Te saite selle kirja kuna kasutaja %(user_display)s sisestas teie e-posti "
-"aadressi, et registreerida konto lehel %(site_domain)s.\n"
-"\n"
-"Kinnitamaks taotluse õigsust, minge %(activate_url)s"
+"Te saite selle kirja, kuna kasutaja %(user_display)s sisestas teie e-posti "
+"aadressi, et registreerida konto lehel %(site_domain)s."
 
 #: templates/account/email/email_confirmation_message.txt:7
-#, fuzzy
-#| msgid ""
-#| "Your sign-in code is listed below. Please enter it in your open browser "
-#| "window."
 msgid ""
 "Your email verification code is listed below. Please enter it in your open "
 "browser window."
 msgstr ""
-"Teie sisselogimiskood on alljärgnevalt esitatud. Palun sisestage see oma "
+"Teie e-posti kinnituskood on alljärgnevalt esitatud. Palun sisestage see oma "
 "veebilehitseja avatud aknas."
 
 #: templates/account/email/email_confirmation_message.txt:9
 #, python-format
 msgid "To confirm this is correct, go to %(activate_url)s"
-msgstr ""
+msgstr "Kinnitamaks, et see on õige, mine aadressile %(activate_url)s"
 
 #: templates/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your Email Address"
@@ -1003,22 +939,16 @@ msgid "Password Changed"
 msgstr "Salasõna muudetud"
 
 #: templates/account/email/password_reset_code_message.txt:5
-#, fuzzy
-#| msgid ""
-#| "Your sign-in code is listed below. Please enter it in your open browser "
-#| "window."
 msgid ""
 "Your password reset code is listed below. Please enter it in your open "
 "browser window."
 msgstr ""
-"Teie sisselogimiskood on alljärgnevalt esitatud. Palun sisestage see oma "
-"veebilehitseja avatud aknas."
+"Teie salasõna taasseadmise kood on alljärgnevalt esitatud. Palun sisestage "
+"see oma veebilehitseja avatud aknas."
 
 #: templates/account/email/password_reset_code_subject.txt:3
-#, fuzzy
-#| msgid "Password Reset"
 msgid "Password Reset Code"
-msgstr "Salasõna taasseadmine"
+msgstr "Salasõna taasseadmise kood"
 
 #: templates/account/email/password_reset_key_message.txt:4
 msgid ""
@@ -1149,11 +1079,9 @@ msgstr ""
 
 #: templates/account/login.html:42
 msgid "Sign in with a passkey"
-msgstr ""
+msgstr "Logi sisse pääsuvõtmega"
 
 #: templates/account/login.html:47 templates/account/request_login_code.html:9
-#, fuzzy
-#| msgid "Mail me a sign-in code"
 msgid "Send me a sign-in code"
 msgstr "Saada mulle sisselogimiskood"
 
@@ -1199,10 +1127,9 @@ msgid "You have signed out."
 msgstr "Sa logisid välja."
 
 #: templates/account/messages/login_code_sent.txt:2
-#, fuzzy, python-format
-#| msgid "A sign-in code has been mailed to %(email)s."
+#, python-format
 msgid "A sign-in code has been sent to %(recipient)s."
-msgstr "Sisselogimisekood saadeti aadressile %(email)s."
+msgstr "Sisselogimiskood saadeti aadressile %(recipient)s."
 
 #: templates/account/messages/password_changed.txt:2
 msgid "Password successfully changed."
@@ -1213,15 +1140,14 @@ msgid "Password successfully set."
 msgstr "Salasõna seati edukalt."
 
 #: templates/account/messages/phone_verification_sent.txt:2
-#, fuzzy, python-format
-#| msgid "A sign-in code has been mailed to %(email)s."
+#, python-format
 msgid "A verification code has been sent to %(phone)s."
-msgstr "Sisselogimisekood saadeti aadressile %(email)s."
+msgstr "Kinnituskood saadeti numbrile %(phone)s."
 
 #: templates/account/messages/phone_verified.txt:2
 #, python-format
 msgid "You have verified phone number %(phone)s."
-msgstr ""
+msgstr "Oled kinnitanud telefoninumbri %(phone)s."
 
 #: templates/account/messages/primary_email_set.txt:2
 msgid "Primary email address set."
@@ -1294,41 +1220,29 @@ msgid "Set Password"
 msgstr "Sea salasõna"
 
 #: templates/account/phone_change.html:5 templates/account/phone_change.html:9
-#, fuzzy
-#| msgid "Change to"
 msgid "Change Phone"
-msgstr "Uus e-post"
+msgstr "Muuda telefoni"
 
 #: templates/account/phone_change.html:18
-#, fuzzy
-#| msgid "Current"
 msgid "Current phone"
-msgstr "Praegune"
+msgstr "Praegune telefon"
 
 #: templates/account/phone_change.html:22
-#, fuzzy
-#| msgid "Your email address is still pending verification."
 msgid "Your phone number is still pending verification."
-msgstr "Su e-posti aadress on endiselt kinnitamata."
+msgstr "Teie telefoninumber on endiselt kinnitamata."
 
 #: templates/account/phone_change.html:38
-#, fuzzy
-#| msgid "Change to"
 msgctxt "action"
 msgid "Change Phone"
-msgstr "Uus e-post"
+msgstr "Muuda telefoni"
 
 #: templates/account/reauthenticate.html:6
 msgid "Enter your password:"
 msgstr "Sisesta oma salasõna:"
 
 #: templates/account/request_login_code.html:12
-#, fuzzy
-#| msgid ""
-#| "You will receive an email containing a special code for a password-free "
-#| "sign-in."
 msgid "You will receive a special code for a password-free sign-in."
-msgstr "Sa saad e-kirja, mis sisaldab koodi paroolivabaks sisselogimiseks."
+msgstr "Sa saad spetsiaalse koodi paroolivabaks sisselogimiseks."
 
 #: templates/account/request_login_code.html:24
 msgid "Request Code"
@@ -1357,19 +1271,15 @@ msgstr "Konto juba olemas? Palun %(link)slogi sisse%(end_link)s."
 
 #: templates/account/signup.html:39
 msgid "Sign up using a passkey"
-msgstr ""
+msgstr "Registreeru pääsuvõtmega"
 
 #: templates/account/signup_by_passkey.html:8
-#, fuzzy
-#| msgid "Sign Up"
 msgid "Passkey Sign Up"
-msgstr "Registreeri"
+msgstr "Pääsuvõtmega registreerumine"
 
 #: templates/account/signup_by_passkey.html:36
-#, fuzzy
-#| msgid "Other sign-in options"
 msgid "Other options"
-msgstr "Muud sisse logimise võimalused"
+msgstr "Muud valikud"
 
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:9
@@ -1485,22 +1395,20 @@ msgstr "Sessioonid"
 #: templates/idp/oidc/device_authorization_confirmed.html:5
 #: templates/idp/oidc/device_authorization_denied.html:5
 msgid "Authorize"
-msgstr ""
+msgstr "Autoriseeri"
 
 #: templates/idp/oidc/authorization_form.html:12
 #, python-format
 msgid "%(client_name)s wants to access your %(site_name)s account."
-msgstr ""
+msgstr "%(client_name)s soovib ligipääsu teie %(site_name)s kontole."
 
 #: templates/idp/oidc/device_authorization_code_form.html:9
-#, fuzzy
-#| msgid "Enter Sign-In Code"
 msgid "Enter Device Code"
-msgstr "Sisesta sisselogimiskood"
+msgstr "Sisesta seadmekood"
 
 #: templates/idp/oidc/device_authorization_code_form.html:12
 msgid "Enter the code displayed on your device."
-msgstr ""
+msgstr "Sisesta oma seadmel kuvatav kood."
 
 #: templates/idp/oidc/device_authorization_code_form.html:21
 #: templates/socialaccount/login.html:27
@@ -1509,10 +1417,8 @@ msgid "Continue"
 msgstr "Jätka"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:9
-#, fuzzy
-#| msgid "Confirm Access"
 msgid "Confirm Device"
-msgstr "Kinnita ligipääs"
+msgstr "Kinnita seade"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:12
 #, python-format
@@ -1520,38 +1426,38 @@ msgid ""
 "Please confirm the code shown on your %(client_name)s to authorize this "
 "device."
 msgstr ""
+"Palun kinnitage oma %(client_name)s kuvatav kood selle seadme "
+"autoriseerimiseks."
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:29
 msgid "Deny"
-msgstr ""
+msgstr "Keeldu"
 
 #: templates/idp/oidc/device_authorization_confirmed.html:9
 msgid "Device Authorized"
-msgstr ""
+msgstr "Seade autoriseeritud"
 
 #: templates/idp/oidc/device_authorization_confirmed.html:12
 #, python-format
 msgid "You successfully authorized your %(client_name)s device."
-msgstr ""
+msgstr "Autoriseerisite edukalt oma %(client_name)s seadme."
 
 #: templates/idp/oidc/device_authorization_denied.html:9
 msgid "Device Denied"
-msgstr ""
+msgstr "Seade keelatud"
 
 #: templates/idp/oidc/device_authorization_denied.html:12
 #, python-format
 msgid "Authorization for your %(client_name)s device has been denied."
-msgstr ""
+msgstr "Teie %(client_name)s seadme autoriseerimine on keelatud."
 
 #: templates/idp/oidc/error.html:5 templates/idp/oidc/error.html:9
 msgid "Error"
-msgstr ""
+msgstr "Viga"
 
 #: templates/idp/oidc/logout.html:24
-#, fuzzy
-#| msgid "Sign In"
 msgid "Stay Signed In"
-msgstr "Logi sisse"
+msgstr "Jää sisselogituks"
 
 #: templates/mfa/authenticate.html:13
 msgid ""
@@ -1589,24 +1495,20 @@ msgid "Authenticator App Deactivated"
 msgstr "Autentimisrakendus eemaldatud"
 
 #: templates/mfa/email/webauthn_added_message.txt:4
-#, fuzzy
-#| msgid "A new set of recovery codes has been generated."
 msgid "A new security key has been added."
-msgstr "Uus hulk varukoode on loodud."
+msgstr "Uus turvavõti on lisatud."
 
 #: templates/mfa/email/webauthn_added_subject.txt:3
 msgid "Security Key Added"
-msgstr ""
+msgstr "Turvavõti lisatud"
 
 #: templates/mfa/email/webauthn_removed_message.txt:4
-#, fuzzy
-#| msgid "Your email has been confirmed."
 msgid "A security key has been removed."
-msgstr "Teie e-posti aadress on kinnitatud."
+msgstr "Turvavõti on eemaldatud."
 
 #: templates/mfa/email/webauthn_removed_subject.txt:3
 msgid "Security Key Removed"
-msgstr ""
+msgstr "Turvavõti eemaldatud"
 
 #: templates/mfa/index.html:14 templates/mfa/totp/base.html:4
 msgid "Authenticator App"
@@ -1631,28 +1533,28 @@ msgstr "Seadista"
 #: templates/mfa/index.html:45 templates/mfa/webauthn/authenticator_list.html:8
 #: templates/mfa/webauthn/base.html:4
 msgid "Security Keys"
-msgstr ""
+msgstr "Turvavõtmed"
 
 #: templates/mfa/index.html:50
 #, python-format
 msgid "You have added %(count)s security key."
 msgid_plural "You have added %(count)s security keys."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Olete lisanud %(count)s turvavõtme."
+msgstr[1] "Olete lisanud %(count)s turvavõtit."
 
 #: templates/mfa/index.html:54
 #: templates/mfa/webauthn/authenticator_list.html:12
 msgid "No security keys have been added."
-msgstr ""
+msgstr "Ühtegi turvavõtit pole lisatud."
 
 #: templates/mfa/index.html:62
 msgid "Manage"
-msgstr ""
+msgstr "Halda"
 
 #: templates/mfa/index.html:67 templates/mfa/webauthn/add_form.html:18
 #: templates/mfa/webauthn/authenticator_list.html:70
 msgid "Add"
-msgstr ""
+msgstr "Lisa"
 
 #: templates/mfa/index.html:77 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:6
@@ -1666,12 +1568,8 @@ msgid ""
 "There is %(unused_count)s out of %(total_count)s recovery codes available."
 msgid_plural ""
 "There are %(unused_count)s out of %(total_count)s recovery codes available."
-msgstr[0] ""
-"Võimalikke varukoode on %(total_count)s, ning nendest %(unused_count)s on "
-"saadaval."
-msgstr[1] ""
-"Võimalikke varukoode on %(total_count)s, ning nendest %(unused_count)s on "
-"saadaval."
+msgstr[0] "Saadaval on %(unused_count)s taastamiskoodi %(total_count)s-st."
+msgstr[1] "Saadaval on %(unused_count)s taastamiskoodi %(total_count)s-st."
 
 #: templates/mfa/index.html:86
 msgid "No recovery codes set up."
@@ -1695,11 +1593,11 @@ msgstr "Uus hulk varukoode on loodud."
 
 #: templates/mfa/messages/webauthn_added.txt:2
 msgid "Security key added."
-msgstr ""
+msgstr "Turvavõti lisatud."
 
 #: templates/mfa/messages/webauthn_removed.txt:2
 msgid "Security key removed."
-msgstr ""
+msgstr "Turvavõti eemaldatud."
 
 #: templates/mfa/reauthenticate.html:6
 msgid "Enter an authenticator code:"
@@ -1771,94 +1669,82 @@ msgstr ""
 
 #: templates/mfa/trust.html:4 templates/mfa/trust.html:8
 msgid "Trust this Browser?"
-msgstr ""
+msgstr "Usalda seda brauserit?"
 
 #: templates/mfa/trust.html:11
 msgid ""
 "If you choose to trust this browser, you will not be asked for a "
 "verification code the next time you sign in."
 msgstr ""
+"Kui otsustad seda brauserit usaldada, ei küsita sinult järgmisel "
+"sisselogimisel kinnituskoodi."
 
 #: templates/mfa/trust.html:23
 #, python-format
 msgid "Trust for %(period)s"
-msgstr ""
+msgstr "Usalda %(period)s"
 
 #: templates/mfa/trust.html:26
 msgid "Don't Trust"
-msgstr ""
+msgstr "Ära usalda"
 
 #: templates/mfa/webauthn/add_form.html:7
-#, fuzzy
-#| msgid "secret key"
 msgid "Add Security Key"
-msgstr "salavõti"
+msgstr "Lisa turvavõti"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:6
-#, fuzzy
-#| msgid "secret key"
 msgid "Remove Security Key"
-msgstr "salavõti"
+msgstr "Eemalda turvavõti"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:9
-#, fuzzy
-#| msgid "Are you sure you want to sign out?"
 msgid "Are you sure you want to remove this security key?"
-msgstr "Oled kindel, et soovid välja logida?"
+msgstr "Oled kindel, et soovid selle turvavõtme eemaldada?"
 
 #: templates/mfa/webauthn/authenticator_list.html:21
 msgid "Usage"
-msgstr ""
+msgstr "Kasutus"
 
 #: templates/mfa/webauthn/authenticator_list.html:33
 msgid "Passkey"
-msgstr ""
+msgstr "Pääsuvõti"
 
 #: templates/mfa/webauthn/authenticator_list.html:37
-#, fuzzy
-#| msgid "secret key"
 msgid "Security key"
-msgstr "salavõti"
+msgstr "Turvavõti"
 
 #: templates/mfa/webauthn/authenticator_list.html:40
 msgid "This key does not indicate whether it is a passkey."
-msgstr ""
+msgstr "See võti ei näita, kas tegemist on pääsuvõtmega."
 
 #: templates/mfa/webauthn/authenticator_list.html:41
-#, fuzzy
-#| msgid "Unverified"
 msgid "Unspecified"
-msgstr "Kinnitamata"
+msgstr "Määramata"
 
 #: templates/mfa/webauthn/authenticator_list.html:46
 #, python-format
 msgid "Added on %(created_at)s"
-msgstr ""
+msgstr "Lisatud %(created_at)s"
 
 #: templates/mfa/webauthn/authenticator_list.html:48
 #, python-format
 msgid "Last used %(last_used)s"
-msgstr ""
+msgstr "Viimati kasutatud %(last_used)s"
 
 #: templates/mfa/webauthn/authenticator_list.html:56
 msgid "Edit"
-msgstr ""
+msgstr "Muuda"
 
 #: templates/mfa/webauthn/edit_form.html:7
-#, fuzzy
-#| msgid "secret key"
 msgid "Edit Security Key"
-msgstr "salavõti"
+msgstr "Muuda turvavõtit"
 
 #: templates/mfa/webauthn/edit_form.html:18
 msgid "Save"
-msgstr ""
+msgstr "Salvesta"
 
 #: templates/mfa/webauthn/signup_form.html:7
-#, fuzzy
-#| msgid "Current Password"
 msgid "Create Passkey"
-msgstr "Praegune salasõna"
+msgstr "Loo pääsuvõti"
 
 #: templates/mfa/webauthn/signup_form.html:10
 msgid ""
@@ -1866,16 +1752,16 @@ msgid ""
 "additional keys later on, you can use a descriptive name to tell the keys "
 "apart."
 msgstr ""
+"Oled loomas pääsuvõtit oma kontole. Kuna saad hiljem lisada täiendavaid "
+"võtmeid, võid kasutada kirjeldavat nime, et neid eristada."
 
 #: templates/mfa/webauthn/signup_form.html:21
-#, fuzzy
-#| msgid "created"
 msgid "Create"
-msgstr "loodud"
+msgstr "Loo"
 
 #: templates/mfa/webauthn/snippets/scripts.html:2
 msgid "This functionality requires JavaScript."
-msgstr ""
+msgstr "See funktsioon nõuab JavaScripti."
 
 #: templates/socialaccount/authentication_error.html:5
 #: templates/socialaccount/authentication_error.html:9
@@ -2023,6 +1909,5 @@ msgid "session key"
 msgstr "sessioonivõti"
 
 #, fuzzy
-#~| msgid "Account Connections"
 #~ msgid "Account Connection"
 #~ msgstr "Konto sidemed"

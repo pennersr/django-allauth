@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-13 09:05-0600\n"
+"POT-Creation-Date: 2026-03-05 08:42-0600\n"
 "PO-Revision-Date: 2025-07-25 20:24+0200\n"
 "Last-Translator: Antonis Christofides <invoices@antonischristofides.com>\n"
 "Language-Team: Greek <https://hosted.weblate.org/projects/allauth/django-"
@@ -132,16 +132,14 @@ msgid "Use a security key"
 msgstr "Χρήση κλειδιού ασφαλείας"
 
 #: account/admin.py:30
-#, fuzzy, python-brace-format
-#| msgid "Mark selected email addresses as verified"
+#, python-brace-format
 msgid "Marked {email} as verified."
-msgstr "Σημείωση επιλεγμένων διευθύνσεων email όπως επαληθεύτηκε"
+msgstr "Η διεύθυνση {email} σημειώθηκε ως επαληθευμένη."
 
 #: account/admin.py:36
-#, fuzzy, python-brace-format
-#| msgid "Your primary email address must be verified."
+#, python-brace-format
 msgid "Failed to mark {email} as verified."
-msgstr "Η πρωτεύον διεύθυνση e-mail πρέπει να επιβεβαιωθεί."
+msgstr "Αποτυχία σήμανσης του {email} ως επαληθευμένου."
 
 #: account/admin.py:42
 msgid "Mark selected email addresses as verified"
@@ -301,71 +299,71 @@ msgstr "Ακέφαλος"
 
 #: idp/oidc/adapter.py:30
 msgid "View your user ID"
-msgstr ""
+msgstr "Προβολή του αναγνωριστικού χρήστη σας"
 
 #: idp/oidc/adapter.py:31
-#, fuzzy
-#| msgid "Verify Your Email Address"
 msgid "View your email address"
-msgstr "Επιβεβαιώστε την διεύθυνση e-mail σας"
+msgstr "Προβολή της διεύθυνσης email σας"
 
 #: idp/oidc/adapter.py:32
 msgid "View your basic profile information"
-msgstr ""
+msgstr "Προβολή των βασικών πληροφοριών προφίλ σας"
 
 #: idp/oidc/forms.py:31
-#, fuzzy
-#| msgid "User Sessions"
 msgid "Grant permissions"
-msgstr "Συνεδρίες χρηστών"
+msgstr "Παραχώρηση δικαιωμάτων"
 
 #: idp/oidc/internal/clientkit.py:22
 msgid "Wildcards are not allowed unless 'Allow URI wildcards' is enabled."
 msgstr ""
+"Οι χαρακτήρες μπαλαντέρ (*) δεν επιτρέπονται εκτός εάν είναι ενεργοποιημένη "
+"η επιλογή 'Επιτρέψτε χαρακτήρες μπαλαντέρ σε URI'."
 
 #: idp/oidc/internal/clientkit.py:27
 msgid ""
 "URI '{}' contains more than one wildcard (*). Only one wildcard per URI is "
 "allowed."
 msgstr ""
+"Το URI '{}' περιέχει περισσότερους από έναν χαρακτήρες μπαλαντέρ (*). "
+"Επιτρέπεται μόνο ένας χαρακτήρας μπαλαντέρ ανά URI."
 
 #: idp/oidc/internal/clientkit.py:39
 msgid "Wildcards are only allowed in the hostname portion of the URI."
 msgstr ""
+"Οι χαρακτήρες μπαλαντέρ (*) επιτρέπονται μόνο στο τμήμα του ονόματος "
+"κεντρικού υπολογιστή του URI."
 
 #: idp/oidc/models.py:37
-#, fuzzy
-#| msgid "Authenticator code"
 msgid "Authorization code"
-msgstr "Κωδικός πιστοποίησης"
+msgstr "Κωδικός εξουσιοδότησης"
 
 #: idp/oidc/models.py:38
-#, fuzzy
-#| msgid "Recovery codes"
 msgid "Device code"
-msgstr "Κωδικοί ανάκτησης"
+msgstr "Κωδικός συσκευής"
 
 #: idp/oidc/models.py:39
 msgid "Client credentials"
-msgstr ""
+msgstr "Διαπιστευτήρια πελάτη"
 
 #: idp/oidc/models.py:40
 msgid "Refresh token"
-msgstr ""
+msgstr "Token ανανέωσης"
 
 #: idp/oidc/models.py:43
 msgid "Confidential"
-msgstr ""
+msgstr "Εμπιστευτικό"
 
 #: idp/oidc/models.py:44
 msgid "Public"
-msgstr ""
+msgstr "Δημόσιο"
 
 #: idp/oidc/models.py:58
 msgid ""
 "The scope(s) the client is allowed to request. Provide one value per line, "
 "e.g.: openid(ENTER)profile(ENTER)email(ENTER)"
 msgstr ""
+"Τα πεδία εφαρμογής (scopes) που ο πελάτης επιτρέπεται να ζητήσει. Δώστε μία "
+"τιμή ανά γραμμή, π.χ.: openid(ENTER)profile(ENTER)email(ENTER)"
 
 #: idp/oidc/models.py:64
 msgid ""
@@ -373,40 +371,47 @@ msgid ""
 "used. Provide one value per line, e.g.: "
 "openid(ENTER)profile(ENTER)email(ENTER)"
 msgstr ""
+"Σε περίπτωση που ο πελάτης δεν καθορίσει κάποιο πεδίο εφαρμογής, "
+"χρησιμοποιούνται αυτά τα προεπιλεγμένα. Δώστε μία τιμή ανά γραμμή, π.χ.: "
+"openid(ENTER)profile(ENTER)email(ENTER)"
 
 #: idp/oidc/models.py:75
 msgid ""
 "A list of allowed grant types. Provide one value per line, e.g.: "
 "authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 msgstr ""
+"Μια λίστα επιτρεπόμενων τύπων εξουσιοδότησης. Δώστε μία τιμή ανά γραμμή, "
+"π.χ.: authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 
 #: idp/oidc/models.py:86
 msgid "A list of allowed origins for cross-origin requests, one per line."
 msgstr ""
+"Μια λίστα επιτρεπόμενων πηγών για αιτήματα cross-origin, μία ανά γραμμή."
 
 #: idp/oidc/models.py:94
 msgid ""
 "Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
 "can contain a single asterisk to match subdomains."
 msgstr ""
+"Επιτρέψτε χαρακτήρες μπαλαντέρ (*) σε URI ανακατεύθυνσης και πηγές CORS. "
+"Όταν είναι ενεργοποιημένο, τα URI μπορούν να περιέχουν έναν αστερίσκο για "
+"αντιστοίχιση υποτομέων."
 
 #: idp/oidc/models.py:102
 msgid ""
 "A list of allowed response types. Provide one value per line, e.g.: "
 "code(ENTER)id_token token(ENTER)"
 msgstr ""
+"Μια λίστα επιτρεπόμενων τύπων απόκρισης. Δώστε μία τιμή ανά γραμμή, π.χ.: "
+"code(ENTER)id_token token(ENTER)"
 
 #: idp/oidc/models.py:115
-#, fuzzy
-#| msgid "client id"
 msgid "client"
-msgstr "id πελάτη"
+msgstr "πελάτης"
 
 #: idp/oidc/models.py:116
-#, fuzzy
-#| msgid "client id"
 msgid "clients"
-msgstr "id πελάτη"
+msgstr "πελάτες"
 
 #: mfa/adapter.py:32
 msgid ""
@@ -1430,22 +1435,21 @@ msgstr "Συνεδρίες"
 #: templates/idp/oidc/device_authorization_confirmed.html:5
 #: templates/idp/oidc/device_authorization_denied.html:5
 msgid "Authorize"
-msgstr ""
+msgstr "Εξουσιοδότηση"
 
 #: templates/idp/oidc/authorization_form.html:12
 #, python-format
 msgid "%(client_name)s wants to access your %(site_name)s account."
 msgstr ""
+"Η εφαρμογή %(client_name)s θέλει πρόσβαση στο λογαριασμό σας %(site_name)s."
 
 #: templates/idp/oidc/device_authorization_code_form.html:9
-#, fuzzy
-#| msgid "Enter Sign-In Code"
 msgid "Enter Device Code"
-msgstr "Πληκτρολογήστε τον κωδικό εισόδου"
+msgstr "Εισάγετε τον κωδικό συσκευής"
 
 #: templates/idp/oidc/device_authorization_code_form.html:12
 msgid "Enter the code displayed on your device."
-msgstr ""
+msgstr "Εισάγετε τον κωδικό που εμφανίζεται στη συσκευή σας."
 
 #: templates/idp/oidc/device_authorization_code_form.html:21
 #: templates/socialaccount/login.html:27
@@ -1454,10 +1458,8 @@ msgid "Continue"
 msgstr "Συνέχεια"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:9
-#, fuzzy
-#| msgid "Confirm Access"
 msgid "Confirm Device"
-msgstr "Επιβεβαίωση πρόσβασης"
+msgstr "Επιβεβαίωση συσκευής"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:12
 #, python-format
@@ -1465,38 +1467,38 @@ msgid ""
 "Please confirm the code shown on your %(client_name)s to authorize this "
 "device."
 msgstr ""
+"Παρακαλούμε επιβεβαιώστε τον κωδικό που εμφανίζεται στο %(client_name)s σας "
+"για να εξουσιοδοτήσετε αυτή τη συσκευή."
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:29
 msgid "Deny"
-msgstr ""
+msgstr "Απόρριψη"
 
 #: templates/idp/oidc/device_authorization_confirmed.html:9
 msgid "Device Authorized"
-msgstr ""
+msgstr "Η συσκευή εξουσιοδοτήθηκε"
 
 #: templates/idp/oidc/device_authorization_confirmed.html:12
 #, python-format
 msgid "You successfully authorized your %(client_name)s device."
-msgstr ""
+msgstr "Εξουσιοδοτήσατε επιτυχώς τη συσκευή %(client_name)s σας."
 
 #: templates/idp/oidc/device_authorization_denied.html:9
 msgid "Device Denied"
-msgstr ""
+msgstr "Η συσκευή απορρίφθηκε"
 
 #: templates/idp/oidc/device_authorization_denied.html:12
 #, python-format
 msgid "Authorization for your %(client_name)s device has been denied."
-msgstr ""
+msgstr "Η εξουσιοδότηση για τη συσκευή %(client_name)s σας απορρίφθηκε."
 
 #: templates/idp/oidc/error.html:5 templates/idp/oidc/error.html:9
 msgid "Error"
-msgstr ""
+msgstr "Σφάλμα"
 
 #: templates/idp/oidc/logout.html:24
-#, fuzzy
-#| msgid "Sign In"
 msgid "Stay Signed In"
-msgstr "Είσοδος"
+msgstr "Παραμονή σε σύνδεση"
 
 #: templates/mfa/authenticate.html:13
 msgid ""
@@ -1967,7 +1969,6 @@ msgid "session key"
 msgstr "κλειδί συνεδρίας"
 
 #, fuzzy
-#~| msgid "Account Connections"
 #~ msgid "Account Connection"
 #~ msgstr "Συνδέσεις Λογαριασμού"
 
@@ -1976,13 +1977,6 @@ msgstr "κλειδί συνεδρίας"
 #~ msgstr "Το συνθηματικό πρέπει να περιέχει τουλάχιστον {0} χαρακτήρες."
 
 #, fuzzy, python-format
-#~| msgid ""
-#~| "Hello from %(site_name)s!\n"
-#~| "\n"
-#~| "You're receiving this e-mail because you or someone else has requested a "
-#~| "password for your user account.\n"
-#~| "It can be safely ignored if you did not request a password reset. Click "
-#~| "the link below to reset your password."
 #~ msgid ""
 #~ "You are receiving this email because you or someone else has requested a\n"
 #~ "password for your user account. However, we do not have any record of a "
@@ -2001,14 +1995,12 @@ msgstr "κλειδί συνεδρίας"
 #~ "Πατήστε στον σύνδεσμο που ακολουθεί για να επαναφέρετε το συνθηματικό σας."
 
 #, fuzzy
-#~| msgid "The following email addresses are associated with your account:"
 #~ msgid "The following email address is associated with your account:"
 #~ msgstr ""
 #~ "Οι διευθύνσεις e-mail που ακολουθούν είναι συσχετισμένες με τον "
 #~ "λογαριασμό σας:"
 
 #, fuzzy
-#~| msgid "Confirm Email Address"
 #~ msgid "Change Email Address"
 #~ msgstr "Επιβεβαίωση διεύθυνση e-mail"
 

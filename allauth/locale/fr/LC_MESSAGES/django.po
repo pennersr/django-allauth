@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-13 09:05-0600\n"
+"POT-Creation-Date: 2026-03-05 08:42-0600\n"
 "PO-Revision-Date: 2025-09-09 09:01+0000\n"
 "Last-Translator: \"David D.\" <dadu042@users.noreply.hosted.weblate.org>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/allauth/django-"
@@ -317,16 +317,22 @@ msgstr "Donner les permissions"
 #: idp/oidc/internal/clientkit.py:22
 msgid "Wildcards are not allowed unless 'Allow URI wildcards' is enabled."
 msgstr ""
+"Les caractères génériques ne sont pas autorisés sauf si 'Autoriser les "
+"caractères génériques dans les URI' est activé."
 
 #: idp/oidc/internal/clientkit.py:27
 msgid ""
 "URI '{}' contains more than one wildcard (*). Only one wildcard per URI is "
 "allowed."
 msgstr ""
+"L'URI '{}' contient plus d'un caractère générique (*). Un seul caractère "
+"générique par URI est autorisé."
 
 #: idp/oidc/internal/clientkit.py:39
 msgid "Wildcards are only allowed in the hostname portion of the URI."
 msgstr ""
+"Les caractères génériques ne sont autorisés que dans la partie nom d'hôte de "
+"l'URI."
 
 #: idp/oidc/models.py:37
 msgid "Authorization code"
@@ -391,6 +397,9 @@ msgid ""
 "Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
 "can contain a single asterisk to match subdomains."
 msgstr ""
+"Autoriser les caractères génériques (*) dans les URI de redirection et les "
+"origines CORS. Lorsque cette option est activée, les URI peuvent contenir un "
+"seul astérisque pour correspondre aux sous-domaines."
 
 #: idp/oidc/models.py:102
 msgid ""
@@ -1483,10 +1492,8 @@ msgid "Error"
 msgstr "Erreur"
 
 #: templates/idp/oidc/logout.html:24
-#, fuzzy
-#| msgid "Shopify Sign In"
 msgid "Stay Signed In"
-msgstr "Connexion Shopify"
+msgstr "Rester connecté"
 
 #: templates/mfa/authenticate.html:13
 msgid ""

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-13 09:05-0600\n"
+"POT-Creation-Date: 2026-03-05 08:42-0600\n"
 "PO-Revision-Date: 2024-04-20 21:40+0200\n"
 "Last-Translator: b'Tuk Bredsdorff <tukodeb@gmail.com>'\n"
 "Language-Team: \n"
@@ -308,16 +308,19 @@ msgstr "Giv tilladelser"
 #: idp/oidc/internal/clientkit.py:22
 msgid "Wildcards are not allowed unless 'Allow URI wildcards' is enabled."
 msgstr ""
+"Jokertegn er ikke tilladt, medmindre 'Tillad URI-jokertegn' er aktiveret."
 
 #: idp/oidc/internal/clientkit.py:27
 msgid ""
 "URI '{}' contains more than one wildcard (*). Only one wildcard per URI is "
 "allowed."
 msgstr ""
+"URI'en '{}' indeholder mere end ét jokertegn (*). Kun ét jokertegn per URI "
+"er tilladt."
 
 #: idp/oidc/internal/clientkit.py:39
 msgid "Wildcards are only allowed in the hostname portion of the URI."
-msgstr ""
+msgstr "Jokertegn er kun tilladt i værtsnavnsdelen af URI'en."
 
 #: idp/oidc/models.py:37
 msgid "Authorization code"
@@ -379,6 +382,8 @@ msgid ""
 "Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
 "can contain a single asterisk to match subdomains."
 msgstr ""
+"Tillad jokertegn (*) i omdirigerings-URI'er og CORS-oprindelser. Når "
+"aktiveret kan URI'er indeholde en enkelt stjerne for at matche underdomæner."
 
 #: idp/oidc/models.py:102
 msgid ""
@@ -1459,10 +1464,8 @@ msgid "Error"
 msgstr "Fejl"
 
 #: templates/idp/oidc/logout.html:24
-#, fuzzy
-#| msgid "Sign In"
 msgid "Stay Signed In"
-msgstr "Log ind"
+msgstr "Forbliv logget ind"
 
 #: templates/mfa/authenticate.html:13
 msgid ""
@@ -1914,7 +1917,6 @@ msgid "session key"
 msgstr "sessionsnøgle"
 
 #, fuzzy
-#~| msgid "Account Connections"
 #~ msgid "Account Connection"
 #~ msgstr "Kontoforbindelser"
 
@@ -1923,13 +1925,6 @@ msgstr "sessionsnøgle"
 #~ msgstr "Adgangskoden skal være på mindst {0} tegn."
 
 #, fuzzy, python-format
-#~| msgid ""
-#~| "Hello from %(site_name)s!\n"
-#~| "\n"
-#~| "You're receiving this e-mail because you or someone else has requested a "
-#~| "password for your user account.\n"
-#~| "It can be safely ignored if you did not request a password reset. Click "
-#~| "the link below to reset your password."
 #~ msgid ""
 #~ "You are receiving this email because you or someone else has requested a\n"
 #~ "password for your user account. However, we do not have any record of a "
@@ -1948,12 +1943,10 @@ msgstr "sessionsnøgle"
 #~ "password. Klik linket herunder for at nulstille dit password."
 
 #, fuzzy
-#~| msgid "The following email addresses are associated with your account:"
 #~ msgid "The following email address is associated with your account:"
 #~ msgstr "De følgende emailadresser er tilknyttet din konto:"
 
 #, fuzzy
-#~| msgid "Confirm Email Address"
 #~ msgid "Change Email Address"
 #~ msgstr "Bekræft venligst din emailadresse"
 

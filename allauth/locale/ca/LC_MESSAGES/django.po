@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-13 09:05-0600\n"
+"POT-Creation-Date: 2026-03-05 08:42-0600\n"
 "PO-Revision-Date: 2024-09-26 16:15+0000\n"
 "Last-Translator: Ajordat <alexjortri@gmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/allauth/django-"
@@ -39,10 +39,9 @@ msgstr ""
 "El correu electrònic i/o la contrasenya que heu especificat no són correctes."
 
 #: account/adapter.py:72
-#, fuzzy
-#| msgid "The username and/or password you specified are not correct."
 msgid "The phone number and/or password you specified are not correct."
-msgstr "L'usuari i/o la contrasenya que heu especificat no són correctes."
+msgstr ""
+"El número de telèfon i/o la contrasenya que heu especificat no són correctes."
 
 #: account/adapter.py:74
 msgid "A user is already registered with this email address."
@@ -66,10 +65,8 @@ msgid "Invalid or expired key."
 msgstr "Clau no vàlida o caducada."
 
 #: account/adapter.py:79
-#, fuzzy
-#| msgid "Invalid token."
 msgid "Invalid login."
-msgstr "Token invàlid."
+msgstr "Inici de sessió no vàlid."
 
 #: account/adapter.py:80
 msgid "The password reset token was invalid."
@@ -81,27 +78,20 @@ msgid "You cannot add more than %d email addresses."
 msgstr "No es poden afegit més de %d adreces de correu electrònic."
 
 #: account/adapter.py:82
-#, fuzzy
-#| msgid "A user is already registered with this email address."
 msgid "A user is already registered with this phone number."
-msgstr ""
-"Un usuari ja ha estat registrat amb aquesta direcció de correu electrònic."
+msgstr "Un usuari ja ha estat registrat amb aquest número de telèfon."
 
 #: account/adapter.py:84
 msgid "Too many failed login attempts. Try again later."
 msgstr "Massa intents fallits. Intenteu-ho de nou més tard."
 
 #: account/adapter.py:86
-#, fuzzy
-#| msgid "The email address is not assigned to any user account"
 msgid "The email address is not assigned to any user account."
-msgstr "El correu electrònic no està assignat a cap compte d'usuari"
+msgstr "El correu electrònic no està assignat a cap compte d'usuari."
 
 #: account/adapter.py:87
-#, fuzzy
-#| msgid "The email address is not assigned to any user account"
 msgid "The phone number is not assigned to any user account."
-msgstr "El correu electrònic no està assignat a cap compte d'usuari"
+msgstr "El número de telèfon no està assignat a cap compte d'usuari."
 
 #: account/adapter.py:88
 #: templates/account/messages/unverified_primary_email.txt:2
@@ -119,15 +109,15 @@ msgstr "L'usuari i/o la contrasenya que heu especificat no són correctes."
 
 #: account/adapter.py:98
 msgid "Please select only one."
-msgstr ""
+msgstr "Si us plau, seleccioneu-ne només un."
 
 #: account/adapter.py:99
 msgid "The new value must be different from the current one."
-msgstr ""
+msgstr "El nou valor ha de ser diferent de l'actual."
 
 #: account/adapter.py:100
 msgid "Be patient, you are sending too many requests."
-msgstr ""
+msgstr "Tingueu paciència, esteu enviant massa sol·licituds."
 
 #: account/adapter.py:826
 msgid "Use your password"
@@ -143,16 +133,14 @@ msgid "Use a security key"
 msgstr "Utilitzar una clau de seguretat"
 
 #: account/admin.py:30
-#, fuzzy, python-brace-format
-#| msgid "Mark selected email addresses as verified"
+#, python-brace-format
 msgid "Marked {email} as verified."
-msgstr "Marqueu l’adreça de correu seleccionada com a verificada"
+msgstr "S'ha marcat {email} com a verificat."
 
 #: account/admin.py:36
-#, fuzzy, python-brace-format
-#| msgid "Your primary email address must be verified."
+#, python-brace-format
 msgid "Failed to mark {email} as verified."
-msgstr "La vostra adreça de correu electrònic principal ha de ser verificada."
+msgstr "No s'ha pogut marcar {email} com a verificat."
 
 #: account/admin.py:42
 msgid "Mark selected email addresses as verified"
@@ -173,10 +161,12 @@ msgstr "Correu electrònic"
 #: account/fields.py:62
 msgid "Enter a phone number including country code (e.g. +1 for the US)."
 msgstr ""
+"Introduïu un número de telèfon incloent el codi de país (p. ex. +1 per als "
+"EUA)."
 
 #: account/fields.py:68 account/fields.py:72 account/forms.py:325
 msgid "Phone"
-msgstr ""
+msgstr "Telèfon"
 
 #: account/forms.py:61 account/forms.py:524
 msgid "You must type the same password each time."
@@ -202,26 +192,20 @@ msgid "Login"
 msgstr "Iniciar sessió"
 
 #: account/forms.py:115
-#, fuzzy
-#| msgid "Username or email"
 msgid "Username, email or phone"
-msgstr "Nom d'usuari o correu electrònic"
+msgstr "Nom d'usuari, correu electrònic o telèfon"
 
 #: account/forms.py:117
 msgid "Username or email"
 msgstr "Nom d'usuari o correu electrònic"
 
 #: account/forms.py:119
-#, fuzzy
-#| msgid "Username or email"
 msgid "Username or phone"
-msgstr "Nom d'usuari o correu electrònic"
+msgstr "Nom d'usuari o telèfon"
 
 #: account/forms.py:121
-#, fuzzy
-#| msgid "Email (optional)"
 msgid "Email or phone"
-msgstr "Correu electrònic (opcional)"
+msgstr "Correu electrònic o telèfon"
 
 #: account/forms.py:144
 msgid "Forgot your password?"
@@ -240,10 +224,8 @@ msgid "Email (optional)"
 msgstr "Correu electrònic (opcional)"
 
 #: account/forms.py:314
-#, fuzzy
-#| msgid "Email (optional)"
 msgid "Username (optional)"
-msgstr "Correu electrònic (opcional)"
+msgstr "Nom d'usuari (opcional)"
 
 #: account/forms.py:388
 msgid "You must type the same email each time."
@@ -314,75 +296,72 @@ msgstr "confirmacions de correu electrònic"
 
 #: headless/apps.py:7
 msgid "Headless"
-msgstr ""
+msgstr "Sense capçalera"
 
 #: idp/oidc/adapter.py:30
 msgid "View your user ID"
-msgstr ""
+msgstr "Veure el vostre identificador d'usuari"
 
 #: idp/oidc/adapter.py:31
-#, fuzzy
-#| msgid "Verify Your Email Address"
 msgid "View your email address"
-msgstr "Verifiqueu la vostra direcció de correu electrònic"
+msgstr "Veure la vostra adreça de correu electrònic"
 
 #: idp/oidc/adapter.py:32
 msgid "View your basic profile information"
-msgstr ""
+msgstr "Veure la vostra informació bàsica de perfil"
 
 #: idp/oidc/forms.py:31
-#, fuzzy
-#| msgid "User Sessions"
 msgid "Grant permissions"
-msgstr "Sessions de l’usuari"
+msgstr "Atorgar permisos"
 
 #: idp/oidc/internal/clientkit.py:22
 msgid "Wildcards are not allowed unless 'Allow URI wildcards' is enabled."
 msgstr ""
+"Els comodins no estan permesos tret que 'Permetre comodins a les URI' "
+"estigui activat."
 
 #: idp/oidc/internal/clientkit.py:27
 msgid ""
 "URI '{}' contains more than one wildcard (*). Only one wildcard per URI is "
 "allowed."
 msgstr ""
+"L'URI '{}' conté més d'un comodí (*). Només es permet un comodí per URI."
 
 #: idp/oidc/internal/clientkit.py:39
 msgid "Wildcards are only allowed in the hostname portion of the URI."
-msgstr ""
+msgstr "Els comodins només estan permesos a la part del nom de host de l'URI."
 
 #: idp/oidc/models.py:37
-#, fuzzy
-#| msgid "Authenticator code"
 msgid "Authorization code"
-msgstr "Codi de l’autenticador"
+msgstr "Codi d'autorització"
 
 #: idp/oidc/models.py:38
-#, fuzzy
-#| msgid "Recovery codes"
 msgid "Device code"
-msgstr "Codis de recuperació"
+msgstr "Codi de dispositiu"
 
 #: idp/oidc/models.py:39
 msgid "Client credentials"
-msgstr ""
+msgstr "Credencials del client"
 
 #: idp/oidc/models.py:40
 msgid "Refresh token"
-msgstr ""
+msgstr "Token de refresc"
 
 #: idp/oidc/models.py:43
 msgid "Confidential"
-msgstr ""
+msgstr "Confidencial"
 
 #: idp/oidc/models.py:44
 msgid "Public"
-msgstr ""
+msgstr "Públic"
 
 #: idp/oidc/models.py:58
 msgid ""
 "The scope(s) the client is allowed to request. Provide one value per line, "
 "e.g.: openid(ENTER)profile(ENTER)email(ENTER)"
 msgstr ""
+"Els àmbits que el client pot sol·licitar. Proporcioneu un valor per línia, "
+"p. ex.: openid(ENTER)profile(ENTER)email(ENTER)"
 
 #: idp/oidc/models.py:64
 msgid ""
@@ -390,40 +369,47 @@ msgid ""
 "used. Provide one value per line, e.g.: "
 "openid(ENTER)profile(ENTER)email(ENTER)"
 msgstr ""
+"En cas que el client no especifiqui cap àmbit, s'utilitzen aquests àmbits "
+"per defecte. Proporcioneu un valor per línia, p. ex.: "
+"openid(ENTER)profile(ENTER)email(ENTER)"
 
 #: idp/oidc/models.py:75
 msgid ""
 "A list of allowed grant types. Provide one value per line, e.g.: "
 "authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 msgstr ""
+"Una llista de tipus de concessió permesos. Proporcioneu un valor per línia, "
+"p. ex.: "
+"authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 
 #: idp/oidc/models.py:86
 msgid "A list of allowed origins for cross-origin requests, one per line."
 msgstr ""
+"Una llista d'orígens permesos per a sol·licituds cross-origin, un per línia."
 
 #: idp/oidc/models.py:94
 msgid ""
 "Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
 "can contain a single asterisk to match subdomains."
 msgstr ""
+"Permetre comodins (*) a les URI de redirecció i orígens CORS. Quan està "
+"activat, les URI poden contenir un sol asterisc per coincidir amb subdominis."
 
 #: idp/oidc/models.py:102
 msgid ""
 "A list of allowed response types. Provide one value per line, e.g.: "
 "code(ENTER)id_token token(ENTER)"
 msgstr ""
+"Una llista de tipus de resposta permesos. Proporcioneu un valor per línia, "
+"p. ex.: code(ENTER)id_token token(ENTER)"
 
 #: idp/oidc/models.py:115
-#, fuzzy
-#| msgid "client id"
 msgid "client"
-msgstr "identificador client"
+msgstr "client"
 
 #: idp/oidc/models.py:116
-#, fuzzy
-#| msgid "client id"
 msgid "clients"
-msgstr "identificador client"
+msgstr "clients"
 
 #: mfa/adapter.py:32
 msgid ""
@@ -480,7 +466,7 @@ msgstr "Autenticador TOTP"
 
 #: mfa/models.py:26
 msgid "WebAuthn"
-msgstr ""
+msgstr "WebAuthn"
 
 #: mfa/totp/forms.py:11
 msgid "Authenticator code"
@@ -689,15 +675,12 @@ msgid "This account is inactive."
 msgstr "Aquest compte està inactiu."
 
 #: templates/account/base_confirm_code.html:27
-#, fuzzy, python-format
-#| msgid ""
-#| "We’ve sent a code to %(email_link)s. The code expires shortly, so please "
-#| "enter it soon."
+#, python-format
 msgid ""
 "We've sent a code to %(recipient)s. The code expires shortly, so please "
 "enter it soon."
 msgstr ""
-"Hem enviat un codi a %(email_link)s. El codi caduca en breu, així que si us "
+"Hem enviat un codi a %(recipient)s. El codi caduca en breu, així que si us "
 "plau introduïu-lo aviat."
 
 #: templates/account/base_confirm_code.html:39
@@ -709,10 +692,8 @@ msgid "Confirm"
 msgstr "Confirmar"
 
 #: templates/account/base_confirm_code.html:43
-#, fuzzy
-#| msgid "Request Code"
 msgid "Request new code"
-msgstr "Sol·licitar codi"
+msgstr "Sol·licitar un nou codi"
 
 #: templates/account/base_reauthenticate.html:5
 #: templates/account/base_reauthenticate.html:9
@@ -738,10 +719,8 @@ msgid "Enter Email Verification Code"
 msgstr "Entreu un codi d’autenticació de correu"
 
 #: templates/account/confirm_email_verification_code.html:16
-#, fuzzy
-#| msgid "email address"
 msgid "Use a different email address"
-msgstr "correu electrònic"
+msgstr "Utilitzar una adreça de correu electrònic diferent"
 
 #: templates/account/confirm_login_code.html:5 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
@@ -768,26 +747,20 @@ msgid "Password Reset"
 msgstr "Restablir Contrasenya"
 
 #: templates/account/confirm_password_reset_code.html:8
-#, fuzzy
-#| msgid "Password Reset"
 msgid "Enter Password Reset Code"
-msgstr "Restablir Contrasenya"
+msgstr "Introduïu el codi de restabliment de contrasenya"
 
 #: templates/account/confirm_phone_verification_code.html:5
-#, fuzzy
-#| msgid "Re-send Verification"
 msgid "Phone Verification"
-msgstr "Reenviar Verificació"
+msgstr "Verificació del telèfon"
 
 #: templates/account/confirm_phone_verification_code.html:8
-#, fuzzy
-#| msgid "Enter Email Verification Code"
 msgid "Enter Phone Verification Code"
-msgstr "Entreu un codi d’autenticació de correu"
+msgstr "Introduïu el codi de verificació del telèfon"
 
 #: templates/account/confirm_phone_verification_code.html:15
 msgid "Use a different phone number"
-msgstr ""
+msgstr "Utilitzar un número de telèfon diferent"
 
 #: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
@@ -996,22 +969,16 @@ msgid "Password Changed"
 msgstr "La vostra contrasenya ha canviat"
 
 #: templates/account/email/password_reset_code_message.txt:5
-#, fuzzy
-#| msgid ""
-#| "Your sign-in code is listed below. Please enter it in your open browser "
-#| "window."
 msgid ""
 "Your password reset code is listed below. Please enter it in your open "
 "browser window."
 msgstr ""
-"El seu codi d'inici de sessió es troba a continuació. Si us plau, "
-"introdueixi'l a la finestra oberta del navegador."
+"El vostre codi de restabliment de contrasenya es mostra a continuació. Si us "
+"plau, introduïu-lo a la finestra oberta del navegador."
 
 #: templates/account/email/password_reset_code_subject.txt:3
-#, fuzzy
-#| msgid "Password Reset"
 msgid "Password Reset Code"
-msgstr "Restablir Contrasenya"
+msgstr "Codi de restabliment de contrasenya"
 
 #: templates/account/email/password_reset_key_message.txt:4
 msgid ""
@@ -1145,10 +1112,8 @@ msgid "Sign in with a passkey"
 msgstr "Inicia sessió amb un clau d'accés"
 
 #: templates/account/login.html:47 templates/account/request_login_code.html:9
-#, fuzzy
-#| msgid "Mail me a sign-in code"
 msgid "Send me a sign-in code"
-msgstr "Enviï'm un codi d'inici de sessió"
+msgstr "Envieu-me un codi d'inici de sessió"
 
 #: templates/account/logout.html:4 templates/account/logout.html:8
 #: templates/account/logout.html:21 templates/allauth/layouts/base.html:61
@@ -1192,10 +1157,9 @@ msgid "You have signed out."
 msgstr "Heu tancat sessió."
 
 #: templates/account/messages/login_code_sent.txt:2
-#, fuzzy, python-format
-#| msgid "A sign-in code has been mailed to %(email)s."
+#, python-format
 msgid "A sign-in code has been sent to %(recipient)s."
-msgstr "S'ha enviat un codi d'inici de sessió a %(email)s."
+msgstr "S'ha enviat un codi d'inici de sessió a %(recipient)s."
 
 #: templates/account/messages/password_changed.txt:2
 msgid "Password successfully changed."
@@ -1206,15 +1170,14 @@ msgid "Password successfully set."
 msgstr "Contrasenya establerta amb èxit."
 
 #: templates/account/messages/phone_verification_sent.txt:2
-#, fuzzy, python-format
-#| msgid "A sign-in code has been mailed to %(email)s."
+#, python-format
 msgid "A verification code has been sent to %(phone)s."
-msgstr "S'ha enviat un codi d'inici de sessió a %(email)s."
+msgstr "S'ha enviat un codi de verificació a %(phone)s."
 
 #: templates/account/messages/phone_verified.txt:2
 #, python-format
 msgid "You have verified phone number %(phone)s."
-msgstr ""
+msgstr "Heu verificat el número de telèfon %(phone)s."
 
 #: templates/account/messages/primary_email_set.txt:2
 msgid "Primary email address set."
@@ -1287,44 +1250,29 @@ msgid "Set Password"
 msgstr "Establir contrasenya"
 
 #: templates/account/phone_change.html:5 templates/account/phone_change.html:9
-#, fuzzy
-#| msgid "Change to"
 msgid "Change Phone"
-msgstr "Canviar a"
+msgstr "Canviar telèfon"
 
 #: templates/account/phone_change.html:18
-#, fuzzy
-#| msgid "Current"
 msgid "Current phone"
-msgstr "Actual"
+msgstr "Telèfon actual"
 
 #: templates/account/phone_change.html:22
-#, fuzzy
-#| msgid "Your email address is still pending verification."
 msgid "Your phone number is still pending verification."
-msgstr ""
-"La vostra adreça de correu electrònic encara està pendent de ser verificada."
+msgstr "El vostre número de telèfon encara està pendent de verificació."
 
 #: templates/account/phone_change.html:38
-#, fuzzy
-#| msgid "Change to"
 msgctxt "action"
 msgid "Change Phone"
-msgstr "Canviar a"
+msgstr "Canviar telèfon"
 
 #: templates/account/reauthenticate.html:6
 msgid "Enter your password:"
 msgstr "Introduïu la vostra paraula de pas:"
 
 #: templates/account/request_login_code.html:12
-#, fuzzy
-#| msgid ""
-#| "You will receive an email containing a special code for a password-free "
-#| "sign-in."
 msgid "You will receive a special code for a password-free sign-in."
-msgstr ""
-"Rebrà un correu electrònic amb un codi especial per iniciar sessió sense "
-"contrasenya."
+msgstr "Rebreu un codi especial per iniciar sessió sense contrasenya."
 
 #: templates/account/request_login_code.html:24
 msgid "Request Code"
@@ -1478,22 +1426,20 @@ msgstr "Sessions"
 #: templates/idp/oidc/device_authorization_confirmed.html:5
 #: templates/idp/oidc/device_authorization_denied.html:5
 msgid "Authorize"
-msgstr ""
+msgstr "Autoritzar"
 
 #: templates/idp/oidc/authorization_form.html:12
 #, python-format
 msgid "%(client_name)s wants to access your %(site_name)s account."
-msgstr ""
+msgstr "%(client_name)s vol accedir al vostre compte de %(site_name)s."
 
 #: templates/idp/oidc/device_authorization_code_form.html:9
-#, fuzzy
-#| msgid "Enter Sign-In Code"
 msgid "Enter Device Code"
-msgstr "Introduïu el codi d'inici de sessió"
+msgstr "Introduïu el codi de dispositiu"
 
 #: templates/idp/oidc/device_authorization_code_form.html:12
 msgid "Enter the code displayed on your device."
-msgstr ""
+msgstr "Introduïu el codi que es mostra al vostre dispositiu."
 
 #: templates/idp/oidc/device_authorization_code_form.html:21
 #: templates/socialaccount/login.html:27
@@ -1502,10 +1448,8 @@ msgid "Continue"
 msgstr "Continuar"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:9
-#, fuzzy
-#| msgid "Confirm Access"
 msgid "Confirm Device"
-msgstr "Confirmeu l’accés"
+msgstr "Confirmeu el dispositiu"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:12
 #, python-format
@@ -1513,38 +1457,39 @@ msgid ""
 "Please confirm the code shown on your %(client_name)s to authorize this "
 "device."
 msgstr ""
+"Si us plau, confirmeu el codi que es mostra al vostre %(client_name)s per "
+"autoritzar aquest dispositiu."
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:29
 msgid "Deny"
-msgstr ""
+msgstr "Denegar"
 
 #: templates/idp/oidc/device_authorization_confirmed.html:9
 msgid "Device Authorized"
-msgstr ""
+msgstr "Dispositiu autoritzat"
 
 #: templates/idp/oidc/device_authorization_confirmed.html:12
 #, python-format
 msgid "You successfully authorized your %(client_name)s device."
-msgstr ""
+msgstr "Heu autoritzat correctament el vostre dispositiu %(client_name)s."
 
 #: templates/idp/oidc/device_authorization_denied.html:9
 msgid "Device Denied"
-msgstr ""
+msgstr "Dispositiu denegat"
 
 #: templates/idp/oidc/device_authorization_denied.html:12
 #, python-format
 msgid "Authorization for your %(client_name)s device has been denied."
 msgstr ""
+"L'autorització del vostre dispositiu %(client_name)s ha estat denegada."
 
 #: templates/idp/oidc/error.html:5 templates/idp/oidc/error.html:9
 msgid "Error"
-msgstr ""
+msgstr "Error"
 
 #: templates/idp/oidc/logout.html:24
-#, fuzzy
-#| msgid "Sign In"
 msgid "Stay Signed In"
-msgstr "Iniciar sessió"
+msgstr "Mantenir la sessió iniciada"
 
 #: templates/mfa/authenticate.html:13
 msgid ""
@@ -1592,14 +1537,12 @@ msgid "Security Key Added"
 msgstr "Clau de Seguretat Afegida"
 
 #: templates/mfa/email/webauthn_removed_message.txt:4
-#, fuzzy
-#| msgid "Your email has been confirmed."
 msgid "A security key has been removed."
-msgstr "El vostre correu ha estat confirmat."
+msgstr "S'ha eliminat una clau de seguretat."
 
 #: templates/mfa/email/webauthn_removed_subject.txt:3
 msgid "Security Key Removed"
-msgstr ""
+msgstr "Clau de seguretat eliminada"
 
 #: templates/mfa/index.html:14 templates/mfa/totp/base.html:4
 msgid "Authenticator App"
@@ -1624,28 +1567,28 @@ msgstr "Activat"
 #: templates/mfa/index.html:45 templates/mfa/webauthn/authenticator_list.html:8
 #: templates/mfa/webauthn/base.html:4
 msgid "Security Keys"
-msgstr ""
+msgstr "Claus de seguretat"
 
 #: templates/mfa/index.html:50
 #, python-format
 msgid "You have added %(count)s security key."
 msgid_plural "You have added %(count)s security keys."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Has afegit %(count)s clau de seguretat."
+msgstr[1] "Has afegit %(count)s claus de seguretat."
 
 #: templates/mfa/index.html:54
 #: templates/mfa/webauthn/authenticator_list.html:12
 msgid "No security keys have been added."
-msgstr ""
+msgstr "No s'ha afegit cap clau de seguretat."
 
 #: templates/mfa/index.html:62
 msgid "Manage"
-msgstr ""
+msgstr "Gestionar"
 
 #: templates/mfa/index.html:67 templates/mfa/webauthn/add_form.html:18
 #: templates/mfa/webauthn/authenticator_list.html:70
 msgid "Add"
-msgstr ""
+msgstr "Afegir"
 
 #: templates/mfa/index.html:77 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:6
@@ -1660,11 +1603,9 @@ msgid ""
 msgid_plural ""
 "There are %(unused_count)s out of %(total_count)s recovery codes available."
 msgstr[0] ""
-"Hi ha un %(unused_count)s d’un total de %(total_count)s codi de recuperació "
-"disponible."
+"Hi ha %(unused_count)s de %(total_count)s codis de recuperació disponible."
 msgstr[1] ""
-"Hi ha %(unused_count)s d’un total de %(total_count)s codis de recuperació "
-"disponibles."
+"Hi ha %(unused_count)s de %(total_count)s codis de recuperació disponibles."
 
 #: templates/mfa/index.html:86
 msgid "No recovery codes set up."
@@ -1688,11 +1629,11 @@ msgstr "Un nou conjunt de codis de recuperació ha estat generat."
 
 #: templates/mfa/messages/webauthn_added.txt:2
 msgid "Security key added."
-msgstr ""
+msgstr "S'ha afegit la clau de seguretat."
 
 #: templates/mfa/messages/webauthn_removed.txt:2
 msgid "Security key removed."
-msgstr ""
+msgstr "S'ha eliminat la clau de seguretat."
 
 #: templates/mfa/reauthenticate.html:6
 msgid "Enter an authenticator code:"
@@ -1766,94 +1707,82 @@ msgstr ""
 
 #: templates/mfa/trust.html:4 templates/mfa/trust.html:8
 msgid "Trust this Browser?"
-msgstr ""
+msgstr "Voleu confiar en aquest navegador?"
 
 #: templates/mfa/trust.html:11
 msgid ""
 "If you choose to trust this browser, you will not be asked for a "
 "verification code the next time you sign in."
 msgstr ""
+"Si decidiu confiar en aquest navegador, no se us demanarà un codi de "
+"verificació la propera vegada que inicieu sessió."
 
 #: templates/mfa/trust.html:23
 #, python-format
 msgid "Trust for %(period)s"
-msgstr ""
+msgstr "Confiar durant %(period)s"
 
 #: templates/mfa/trust.html:26
 msgid "Don't Trust"
-msgstr ""
+msgstr "No confiar"
 
 #: templates/mfa/webauthn/add_form.html:7
-#, fuzzy
-#| msgid "secret key"
 msgid "Add Security Key"
-msgstr "clau secreta"
+msgstr "Afegir clau de seguretat"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:6
-#, fuzzy
-#| msgid "secret key"
 msgid "Remove Security Key"
-msgstr "clau secreta"
+msgstr "Eliminar clau de seguretat"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:9
-#, fuzzy
-#| msgid "Are you sure you want to sign out?"
 msgid "Are you sure you want to remove this security key?"
-msgstr "Esteu segurs de voler tancar sessió?"
+msgstr "Esteu segurs de voler eliminar aquesta clau de seguretat?"
 
 #: templates/mfa/webauthn/authenticator_list.html:21
 msgid "Usage"
-msgstr ""
+msgstr "Ús"
 
 #: templates/mfa/webauthn/authenticator_list.html:33
 msgid "Passkey"
-msgstr ""
+msgstr "Clau d'accés"
 
 #: templates/mfa/webauthn/authenticator_list.html:37
-#, fuzzy
-#| msgid "secret key"
 msgid "Security key"
-msgstr "clau secreta"
+msgstr "Clau de seguretat"
 
 #: templates/mfa/webauthn/authenticator_list.html:40
 msgid "This key does not indicate whether it is a passkey."
-msgstr ""
+msgstr "Aquesta clau no indica si és una clau d'accés."
 
 #: templates/mfa/webauthn/authenticator_list.html:41
-#, fuzzy
-#| msgid "Unverified"
 msgid "Unspecified"
-msgstr "Sense verificar"
+msgstr "Sense especificar"
 
 #: templates/mfa/webauthn/authenticator_list.html:46
 #, python-format
 msgid "Added on %(created_at)s"
-msgstr ""
+msgstr "Afegida el %(created_at)s"
 
 #: templates/mfa/webauthn/authenticator_list.html:48
 #, python-format
 msgid "Last used %(last_used)s"
-msgstr ""
+msgstr "Últim ús %(last_used)s"
 
 #: templates/mfa/webauthn/authenticator_list.html:56
 msgid "Edit"
-msgstr ""
+msgstr "Editar"
 
 #: templates/mfa/webauthn/edit_form.html:7
-#, fuzzy
-#| msgid "secret key"
 msgid "Edit Security Key"
-msgstr "clau secreta"
+msgstr "Editar clau de seguretat"
 
 #: templates/mfa/webauthn/edit_form.html:18
 msgid "Save"
-msgstr ""
+msgstr "Desar"
 
 #: templates/mfa/webauthn/signup_form.html:7
-#, fuzzy
-#| msgid "Current Password"
 msgid "Create Passkey"
-msgstr "Contrasenya actual"
+msgstr "Crear clau d'accés"
 
 #: templates/mfa/webauthn/signup_form.html:10
 msgid ""
@@ -1861,16 +1790,17 @@ msgid ""
 "additional keys later on, you can use a descriptive name to tell the keys "
 "apart."
 msgstr ""
+"Esteu a punt de crear una clau d'accés per al vostre compte. Com que podeu "
+"afegir claus addicionals més endavant, podeu utilitzar un nom descriptiu per "
+"distingir-les."
 
 #: templates/mfa/webauthn/signup_form.html:21
-#, fuzzy
-#| msgid "created"
 msgid "Create"
-msgstr "creat"
+msgstr "Crear"
 
 #: templates/mfa/webauthn/snippets/scripts.html:2
 msgid "This functionality requires JavaScript."
-msgstr ""
+msgstr "Aquesta funcionalitat requereix JavaScript."
 
 #: templates/socialaccount/authentication_error.html:5
 #: templates/socialaccount/authentication_error.html:9
@@ -2018,7 +1948,6 @@ msgid "session key"
 msgstr "clau de sessió"
 
 #, fuzzy
-#~| msgid "Account Connections"
 #~ msgid "Account Connection"
 #~ msgstr "Connexions de Compte"
 
@@ -2050,14 +1979,12 @@ msgstr "clau de sessió"
 #~ "link de sota."
 
 #, fuzzy
-#~| msgid "The following email addresses are associated with your account:"
 #~ msgid "The following email address is associated with your account:"
 #~ msgstr ""
 #~ "Les següents adreces de correu electrònic estan associades al vostre "
 #~ "compte:"
 
 #, fuzzy
-#~| msgid "Confirm Email Address"
 #~ msgid "Change Email Address"
 #~ msgstr "Confirmar adreça de correu electrònic"
 

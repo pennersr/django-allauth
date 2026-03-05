@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-13 09:05-0600\n"
+"POT-Creation-Date: 2026-03-05 08:42-0600\n"
 "PO-Revision-Date: 2025-07-25 20:27+0200\n"
 "Last-Translator: Igor Jerosimić <jerosimic@gmail.com>\n"
 "Language-Team: Serbian <https://hosted.weblate.org/projects/allauth/django-"
@@ -312,16 +312,21 @@ msgstr "Додели дозволе"
 #: idp/oidc/internal/clientkit.py:22
 msgid "Wildcards are not allowed unless 'Allow URI wildcards' is enabled."
 msgstr ""
+"Џокер знакови нису дозвољени осим ако није омогућена опција 'Дозволи URI "
+"џокер знакове'."
 
 #: idp/oidc/internal/clientkit.py:27
 msgid ""
 "URI '{}' contains more than one wildcard (*). Only one wildcard per URI is "
 "allowed."
 msgstr ""
+"URI '{}' садржи више од једног џокер знака (*). Дозвољен је само један џокер "
+"знак по URI-ју."
 
 #: idp/oidc/internal/clientkit.py:39
 msgid "Wildcards are only allowed in the hostname portion of the URI."
 msgstr ""
+"Џокер знакови су дозвољени само у делу URI-ја који се односи на име хоста."
 
 #: idp/oidc/models.py:37
 msgid "Authorization code"
@@ -384,6 +389,8 @@ msgid ""
 "Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
 "can contain a single asterisk to match subdomains."
 msgstr ""
+"Дозволи џокер знакове (*) у преусмеравајућим URI-јима и CORS изворима. Када "
+"је омогућено, URI-ји могу садржати једну звездицу за подударање поддомена."
 
 #: idp/oidc/models.py:102
 msgid ""
@@ -1463,10 +1470,8 @@ msgid "Error"
 msgstr "Грешка"
 
 #: templates/idp/oidc/logout.html:24
-#, fuzzy
-#| msgid "Sign In"
 msgid "Stay Signed In"
-msgstr "Пријавите се"
+msgstr "Остани пријављен"
 
 #: templates/mfa/authenticate.html:13
 msgid ""
@@ -1920,7 +1925,6 @@ msgid "session key"
 msgstr "кључ сесије"
 
 #, fuzzy
-#~| msgid "Account Connections"
 #~ msgid "Account Connection"
 #~ msgstr "Повезани рачуни"
 
@@ -1929,13 +1933,6 @@ msgstr "кључ сесије"
 #~ msgstr "Лозинка мора бити најмање {0} знакова."
 
 #, fuzzy, python-format
-#~| msgid ""
-#~| "Hello from %(site_name)s!\n"
-#~| "\n"
-#~| "You're receiving this e-mail because you or someone else has requested a "
-#~| "password for your user account.\n"
-#~| "It can be safely ignored if you did not request a password reset. Click "
-#~| "the link below to reset your password."
 #~ msgid ""
 #~ "You are receiving this email because you or someone else has requested a\n"
 #~ "password for your user account. However, we do not have any record of a "
@@ -1954,12 +1951,10 @@ msgstr "кључ сесије"
 #~ "на линк испод да бисте поништили своју лозинку."
 
 #, fuzzy
-#~| msgid "The following email addresses are associated with your account:"
 #~ msgid "The following email address is associated with your account:"
 #~ msgstr "С вашим налогом су повезане следеће адресе е-пошти:"
 
 #, fuzzy
-#~| msgid "Confirm Email Address"
 #~ msgid "Change Email Address"
 #~ msgstr "Потврда адресе е-поште"
 

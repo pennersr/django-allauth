@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-13 09:05-0600\n"
+"POT-Creation-Date: 2026-03-05 08:42-0600\n"
 "PO-Revision-Date: 2025-07-25 20:27+0200\n"
 "Last-Translator: Bojan Mihelac <bmihelac@mihelac.org>\n"
 "Language-Team: Slovenian <https://hosted.weblate.org/projects/allauth/django-"
@@ -130,16 +130,14 @@ msgid "Use a security key"
 msgstr "Uporabite varnostni ključ."
 
 #: account/admin.py:30
-#, fuzzy, python-brace-format
-#| msgid "Mark selected email addresses as verified"
+#, python-brace-format
 msgid "Marked {email} as verified."
-msgstr "Označi izbrane e-poštne naslove kot preverjene."
+msgstr "E-poštni naslov {email} je bil označen kot preverjen."
 
 #: account/admin.py:36
-#, fuzzy, python-brace-format
-#| msgid "Your primary email address must be verified."
+#, python-brace-format
 msgid "Failed to mark {email} as verified."
-msgstr "Vaš primarni e-poštni naslov mora biti preverjen."
+msgstr "E-poštnega naslova {email} ni bilo mogoče označiti kot preverjenega."
 
 #: account/admin.py:42
 msgid "Mark selected email addresses as verified"
@@ -297,69 +295,69 @@ msgstr "Brez vmesnika"
 
 #: idp/oidc/adapter.py:30
 msgid "View your user ID"
-msgstr ""
+msgstr "Ogled vašega uporabniškega ID-ja"
 
 #: idp/oidc/adapter.py:31
-#, fuzzy
-#| msgid "Verify Your Email Address"
 msgid "View your email address"
-msgstr "Potrdite e-poštni naslov."
+msgstr "Ogled vašega e-poštnega naslova"
 
 #: idp/oidc/adapter.py:32
 msgid "View your basic profile information"
-msgstr ""
+msgstr "Ogled vaših osnovnih podatkov profila"
 
 #: idp/oidc/forms.py:31
 msgid "Grant permissions"
-msgstr ""
+msgstr "Podeli dovoljenja"
 
 #: idp/oidc/internal/clientkit.py:22
 msgid "Wildcards are not allowed unless 'Allow URI wildcards' is enabled."
 msgstr ""
+"Nadomestni znaki niso dovoljeni, razen če je omogočena možnost 'Dovoli "
+"nadomestne znake v URI'."
 
 #: idp/oidc/internal/clientkit.py:27
 msgid ""
 "URI '{}' contains more than one wildcard (*). Only one wildcard per URI is "
 "allowed."
 msgstr ""
+"URI '{}' vsebuje več kot en nadomestni znak (*). Dovoljen je samo en "
+"nadomestni znak na URI."
 
 #: idp/oidc/internal/clientkit.py:39
 msgid "Wildcards are only allowed in the hostname portion of the URI."
-msgstr ""
+msgstr "Nadomestni znaki so dovoljeni samo v delu URI z imenom gostitelja."
 
 #: idp/oidc/models.py:37
-#, fuzzy
-#| msgid "Authenticator code"
 msgid "Authorization code"
-msgstr "Koda avtentikatorja"
+msgstr "Avtorizacijska koda"
 
 #: idp/oidc/models.py:38
-#, fuzzy
-#| msgid "Recovery codes"
 msgid "Device code"
-msgstr "Obnovitvene kode"
+msgstr "Koda naprave"
 
 #: idp/oidc/models.py:39
 msgid "Client credentials"
-msgstr ""
+msgstr "Poverilnice odjemalca"
 
 #: idp/oidc/models.py:40
 msgid "Refresh token"
-msgstr ""
+msgstr "Žeton za osvežitev"
 
 #: idp/oidc/models.py:43
 msgid "Confidential"
-msgstr ""
+msgstr "Zaupno"
 
 #: idp/oidc/models.py:44
 msgid "Public"
-msgstr ""
+msgstr "Javno"
 
 #: idp/oidc/models.py:58
 msgid ""
 "The scope(s) the client is allowed to request. Provide one value per line, "
 "e.g.: openid(ENTER)profile(ENTER)email(ENTER)"
 msgstr ""
+"Obsegi, ki jih odjemalec sme zahtevati. Navedite eno vrednost na vrstico, "
+"npr.: openid(ENTER)profile(ENTER)email(ENTER)"
 
 #: idp/oidc/models.py:64
 msgid ""
@@ -367,40 +365,45 @@ msgid ""
 "used. Provide one value per line, e.g.: "
 "openid(ENTER)profile(ENTER)email(ENTER)"
 msgstr ""
+"Če odjemalec ne navede nobenega obsega, se uporabijo ti privzeti obsegi. "
+"Navedite eno vrednost na vrstico, npr.: "
+"openid(ENTER)profile(ENTER)email(ENTER)"
 
 #: idp/oidc/models.py:75
 msgid ""
 "A list of allowed grant types. Provide one value per line, e.g.: "
 "authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 msgstr ""
+"Seznam dovoljenih tipov podelitev. Navedite eno vrednost na vrstico, npr.: "
+"authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 
 #: idp/oidc/models.py:86
 msgid "A list of allowed origins for cross-origin requests, one per line."
-msgstr ""
+msgstr "Seznam dovoljenih izvorov za zahteve med domenami, en na vrstico."
 
 #: idp/oidc/models.py:94
 msgid ""
 "Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
 "can contain a single asterisk to match subdomains."
 msgstr ""
+"Dovoli nadomestne znake (*) v preusmeritvenem URI-ju in izvorih CORS. Ko je "
+"omogočeno, lahko URI-ji vsebujejo eno zvezdico za ujemanje s poddomenami."
 
 #: idp/oidc/models.py:102
 msgid ""
 "A list of allowed response types. Provide one value per line, e.g.: "
 "code(ENTER)id_token token(ENTER)"
 msgstr ""
+"Seznam dovoljenih tipov odgovorov. Navedite eno vrednost na vrstico, npr.: "
+"code(ENTER)id_token token(ENTER)"
 
 #: idp/oidc/models.py:115
-#, fuzzy
-#| msgid "client id"
 msgid "client"
-msgstr "id številka"
+msgstr "odjemalec"
 
 #: idp/oidc/models.py:116
-#, fuzzy
-#| msgid "client id"
 msgid "clients"
-msgstr "id številka"
+msgstr "odjemalci"
 
 #: mfa/adapter.py:32
 msgid ""
@@ -881,30 +884,21 @@ msgid "Email Changed"
 msgstr "E-poštni naslov spremenjen"
 
 #: templates/account/email/email_confirm_message.txt:4
-#, fuzzy
-#| msgid "You have confirmed %(email)s."
 msgid "Your email has been confirmed."
-msgstr "%(email)s je potrjen."
+msgstr "Vaš e-poštni naslov je potrjen."
 
 #: templates/account/email/email_confirm_subject.txt:3
 msgid "Email Confirmation"
 msgstr "Potrditev e-pošte"
 
 #: templates/account/email/email_confirmation_message.txt:5
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this e-mail because user %(user_display)s has given your "
-#| "e-mail address to register an account on %(site_domain)s.\n"
-#| "\n"
-#| "To confirm this is correct, go to %(activate_url)s"
+#, python-format
 msgid ""
 "You're receiving this email because user %(user_display)s has given your "
 "email address to register an account on %(site_domain)s."
 msgstr ""
-"To sporočilo ste prejeli, ker je uporabnik %(user_display)s povezal vaš e-"
-"poštni naslov s svojim uporabniškim računom na %(site_domain)s.\n"
-"\n"
-"Za potrditev sledite povezavi: %(activate_url)s"
+"To sporočilo ste prejeli, ker je uporabnik %(user_display)s navedel vaš e-"
+"poštni naslov za registracijo računa na %(site_domain)s."
 
 #: templates/account/email/email_confirmation_message.txt:7
 msgid ""
@@ -1332,35 +1326,25 @@ msgid "Verify Your Email Address"
 msgstr "Potrdite e-poštni naslov."
 
 #: templates/account/verification_sent.html:12
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for verification. Follow the link provided "
-#| "to finalize the signup process. If you do not see the verification e-mail "
-#| "in your main inbox, check your spam folder. Please contact us if you do "
-#| "not receive the verification e-mail within a few minutes."
 msgid ""
 "We have sent an email to you for verification. Follow the link provided to "
 "finalize the signup process. If you do not see the verification email in "
 "your main inbox, check your spam folder. Please contact us if you do not "
 "receive the verification email within a few minutes."
 msgstr ""
-"Na vaš e-poštni naslov je bil poslano sporočilo za potrditev. Sledite "
-"povezavi za zaključek registracije. Če sporočila ne boste prejeli v nekaj "
-"minutah, nas kontaktirajte."
+"Na vaš e-poštni naslov smo poslali sporočilo za potrditev. Sledite povezavi "
+"za zaključek registracije. Če potrditvenega sporočila ne vidite v prejeti "
+"pošti, preverite mapo z neželeno pošto. Kontaktirajte nas, če potrditvenega "
+"sporočila ne prejmete v nekaj minutah."
 
 #: templates/account/verified_email_required.html:13
-#, fuzzy
-#| msgid ""
-#| "This part of the site requires us to verify that\n"
-#| "you are who you claim to be. For this purpose, we require that you\n"
-#| "verify ownership of your e-mail address. "
 msgid ""
 "This part of the site requires us to verify that\n"
 "you are who you claim to be. For this purpose, we require that you\n"
 "verify ownership of your email address. "
 msgstr ""
-"Za dostop morate potrditi svojo identiteto. \n"
-"Prosimo, da potrdite navedeni e-poštni naslov."
+"Ta del strani zahteva, da preverimo vašo identiteto. V ta namen zahtevamo, "
+"da potrdite lastništvo svojega e-poštnega naslova. "
 
 #: templates/account/verified_email_required.html:18
 msgid ""
@@ -1377,16 +1361,13 @@ msgstr ""
 "kontaktirajte nas, če ga v nekaj minutah ne prejemate."
 
 #: templates/account/verified_email_required.html:23
-#, fuzzy, python-format
-#| msgid ""
-#| "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change "
-#| "your e-mail address</a>."
+#, python-format
 msgid ""
 "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your "
 "email address</a>."
 msgstr ""
-"<strong>Opomba:</strong> <a href=\"%(email_url)s\">e-poštni naslov</a> lahko "
-"spremenite."
+"<strong>Opomba:</strong> še vedno lahko <a href=\"%(email_url)s\">spremenite "
+"svoj e-poštni naslov</a>."
 
 #: templates/allauth/layouts/base.html:18
 msgid "Messages:"
@@ -1421,34 +1402,30 @@ msgstr "Seje"
 #: templates/idp/oidc/device_authorization_confirmed.html:5
 #: templates/idp/oidc/device_authorization_denied.html:5
 msgid "Authorize"
-msgstr ""
+msgstr "Avtoriziraj"
 
 #: templates/idp/oidc/authorization_form.html:12
 #, python-format
 msgid "%(client_name)s wants to access your %(site_name)s account."
-msgstr ""
+msgstr "%(client_name)s želi dostopati do vašega računa %(site_name)s."
 
 #: templates/idp/oidc/device_authorization_code_form.html:9
-#, fuzzy
-#| msgid "Enter Sign-In Code"
 msgid "Enter Device Code"
-msgstr "Vnesite kodo za prijavo"
+msgstr "Vnesite kodo naprave"
 
 #: templates/idp/oidc/device_authorization_code_form.html:12
 msgid "Enter the code displayed on your device."
-msgstr ""
+msgstr "Vnesite kodo, prikazano na vaši napravi."
 
 #: templates/idp/oidc/device_authorization_code_form.html:21
 #: templates/socialaccount/login.html:27
 #: templates/socialaccount/login_redirect.html:10
 msgid "Continue"
-msgstr ""
+msgstr "Nadaljuj"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:9
-#, fuzzy
-#| msgid "Confirm Access"
 msgid "Confirm Device"
-msgstr "Potrdite dostop"
+msgstr "Potrdite napravo"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:12
 #, python-format
@@ -1456,38 +1433,38 @@ msgid ""
 "Please confirm the code shown on your %(client_name)s to authorize this "
 "device."
 msgstr ""
+"Prosimo, potrdite kodo, prikazano na vašem %(client_name)s, za avtorizacijo "
+"te naprave."
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:29
 msgid "Deny"
-msgstr ""
+msgstr "Zavrni"
 
 #: templates/idp/oidc/device_authorization_confirmed.html:9
 msgid "Device Authorized"
-msgstr ""
+msgstr "Naprava avtorizirana"
 
 #: templates/idp/oidc/device_authorization_confirmed.html:12
 #, python-format
 msgid "You successfully authorized your %(client_name)s device."
-msgstr ""
+msgstr "Uspešno ste avtorizirali vašo napravo %(client_name)s."
 
 #: templates/idp/oidc/device_authorization_denied.html:9
 msgid "Device Denied"
-msgstr ""
+msgstr "Naprava zavrnjena"
 
 #: templates/idp/oidc/device_authorization_denied.html:12
 #, python-format
 msgid "Authorization for your %(client_name)s device has been denied."
-msgstr ""
+msgstr "Avtorizacija vaše naprave %(client_name)s je bila zavrnjena."
 
 #: templates/idp/oidc/error.html:5 templates/idp/oidc/error.html:9
 msgid "Error"
-msgstr ""
+msgstr "Napaka"
 
 #: templates/idp/oidc/logout.html:24
-#, fuzzy
-#| msgid "Sign In"
 msgid "Stay Signed In"
-msgstr "Prijava"
+msgstr "Ostani prijavljen"
 
 #: templates/mfa/authenticate.html:13
 msgid ""
@@ -1571,9 +1548,9 @@ msgstr "Varnostni ključi"
 #, python-format
 msgid "You have added %(count)s security key."
 msgid_plural "You have added %(count)s security keys."
-msgstr[0] "Dodali ste 1 varnostni ključ."
-msgstr[1] "Dodali ste %(count)s varnostnih ključev."
-msgstr[2] "Dodali ste %(count)s varnostnih ključev."
+msgstr[0] "Dodali ste %(count)s varnostni ključ."
+msgstr[1] "Dodali ste %(count)s varnostna ključa."
+msgstr[2] "Dodali ste %(count)s varnostne ključe."
 msgstr[3] "Dodali ste %(count)s varnostnih ključev."
 
 #: templates/mfa/index.html:54
@@ -1693,104 +1670,94 @@ msgstr ""
 #: templates/mfa/totp/deactivate_form.html:5
 #: templates/mfa/totp/deactivate_form.html:9
 msgid "Deactivate Authenticator App"
-msgstr ""
+msgstr "Deaktiviraj aplikacijo za preverjanje"
 
 #: templates/mfa/totp/deactivate_form.html:12
 msgid ""
 "You are about to deactivate authenticator app based authentication. Are you "
 "sure?"
 msgstr ""
+"Deaktivirali boste preverjanje z aplikacijo za preverjanje. Ali ste "
+"prepričani?"
 
 #: templates/mfa/trust.html:4 templates/mfa/trust.html:8
 msgid "Trust this Browser?"
-msgstr ""
+msgstr "Zaupate temu brskalniku?"
 
 #: templates/mfa/trust.html:11
 msgid ""
 "If you choose to trust this browser, you will not be asked for a "
 "verification code the next time you sign in."
 msgstr ""
+"Če se odločite zaupati temu brskalniku, ob naslednji prijavi ne boste "
+"vprašani za potrditveno kodo."
 
 #: templates/mfa/trust.html:23
 #, python-format
 msgid "Trust for %(period)s"
-msgstr ""
+msgstr "Zaupaj za %(period)s"
 
 #: templates/mfa/trust.html:26
 msgid "Don't Trust"
-msgstr ""
+msgstr "Ne zaupaj"
 
 #: templates/mfa/webauthn/add_form.html:7
-#, fuzzy
-#| msgid "secret key"
 msgid "Add Security Key"
-msgstr "skrivni ključ"
+msgstr "Dodaj varnostni ključ"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:6
-#, fuzzy
-#| msgid "secret key"
 msgid "Remove Security Key"
-msgstr "skrivni ključ"
+msgstr "Odstrani varnostni ključ"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:9
-#, fuzzy
-#| msgid "Are you sure you want to sign out?"
 msgid "Are you sure you want to remove this security key?"
-msgstr "Ali ste prepričani, da se želite odjaviti?"
+msgstr "Ali ste prepričani, da želite odstraniti ta varnostni ključ?"
 
 #: templates/mfa/webauthn/authenticator_list.html:21
 msgid "Usage"
-msgstr ""
+msgstr "Uporaba"
 
 #: templates/mfa/webauthn/authenticator_list.html:33
 msgid "Passkey"
-msgstr ""
+msgstr "Ključ za dostop"
 
 #: templates/mfa/webauthn/authenticator_list.html:37
-#, fuzzy
-#| msgid "secret key"
 msgid "Security key"
-msgstr "skrivni ključ"
+msgstr "Varnostni ključ"
 
 #: templates/mfa/webauthn/authenticator_list.html:40
 msgid "This key does not indicate whether it is a passkey."
-msgstr ""
+msgstr "Ta ključ ne navaja, ali gre za ključ za dostop."
 
 #: templates/mfa/webauthn/authenticator_list.html:41
-#, fuzzy
-#| msgid "Unverified"
 msgid "Unspecified"
-msgstr "Nepreverjeni"
+msgstr "Nedoločeno"
 
 #: templates/mfa/webauthn/authenticator_list.html:46
 #, python-format
 msgid "Added on %(created_at)s"
-msgstr ""
+msgstr "Dodano %(created_at)s"
 
 #: templates/mfa/webauthn/authenticator_list.html:48
 #, python-format
 msgid "Last used %(last_used)s"
-msgstr ""
+msgstr "Nazadnje uporabljeno %(last_used)s"
 
 #: templates/mfa/webauthn/authenticator_list.html:56
 msgid "Edit"
-msgstr ""
+msgstr "Uredi"
 
 #: templates/mfa/webauthn/edit_form.html:7
-#, fuzzy
-#| msgid "secret key"
 msgid "Edit Security Key"
-msgstr "skrivni ključ"
+msgstr "Uredi varnostni ključ"
 
 #: templates/mfa/webauthn/edit_form.html:18
 msgid "Save"
-msgstr ""
+msgstr "Shrani"
 
 #: templates/mfa/webauthn/signup_form.html:7
-#, fuzzy
-#| msgid "Current Password"
 msgid "Create Passkey"
-msgstr "Trenutno geslo"
+msgstr "Ustvari ključ za dostop"
 
 #: templates/mfa/webauthn/signup_form.html:10
 msgid ""
@@ -1798,103 +1765,81 @@ msgid ""
 "additional keys later on, you can use a descriptive name to tell the keys "
 "apart."
 msgstr ""
+"Ustvarili boste ključ za dostop za vaš račun. Ker lahko pozneje dodate "
+"dodatne ključe, lahko uporabite opisno ime za ločevanje med njimi."
 
 #: templates/mfa/webauthn/signup_form.html:21
-#, fuzzy
-#| msgid "created"
 msgid "Create"
-msgstr "ustvarjeno"
+msgstr "Ustvari"
 
 #: templates/mfa/webauthn/snippets/scripts.html:2
 msgid "This functionality requires JavaScript."
-msgstr ""
+msgstr "Ta funkcionalnost zahteva JavaScript."
 
 #: templates/socialaccount/authentication_error.html:5
 #: templates/socialaccount/authentication_error.html:9
-#, fuzzy
-#| msgid "Social Network Login Failure"
 msgid "Third-Party Login Failure"
-msgstr "Prijava z računom drugega ponudnika ni uspela."
+msgstr "Neuspešna prijava z računom tretje osebe"
 
 #: templates/socialaccount/authentication_error.html:12
-#, fuzzy
-#| msgid ""
-#| "An error occurred while attempting to login via your social network "
-#| "account."
 msgid ""
 "An error occurred while attempting to login via your third-party account."
-msgstr ""
-"Prišo je do napake ob poskusu prijave z vašim obstoječim računom drugega "
-"ponudnuka."
+msgstr "Prišlo je do napake pri poskusu prijave z vašim računom tretje osebe."
 
 #: templates/socialaccount/connections.html:13
-#, fuzzy
-#| msgid ""
-#| "You can sign in to your account using any of the following third party "
-#| "accounts:"
 msgid ""
 "You can sign in to your account using any of the following third-party "
 "accounts:"
-msgstr "Vpišete se lahko s pomčjo vaših obstoječih uoporabniških računov:"
+msgstr "V svoj račun se lahko prijavite z naslednjimi računi tretjih oseb:"
 
 #: templates/socialaccount/connections.html:46
-#, fuzzy
-#| msgid ""
-#| "You currently have no social network accounts connected to this account."
 msgid "You currently have no third-party accounts connected to this account."
-msgstr ""
-"Trenutno nimate povezanega nobenega uporabniškega računa drugega ponudnika."
+msgstr "Trenutno nimate povezanega nobenega računa tretje osebe."
 
 #: templates/socialaccount/connections.html:50
-#, fuzzy
-#| msgid "Add a 3rd Party Account"
 msgid "Add a Third-Party Account"
-msgstr "Dodaj obstoječi račun drugega ponudnika"
+msgstr "Dodaj račun tretje osebe"
 
 #: templates/socialaccount/email/account_connected_message.txt:4
 #, python-format
 msgid ""
 "A third-party account from %(provider)s has been connected to your account."
-msgstr ""
+msgstr "Račun tretje osebe od %(provider)s je bil povezan z vašim računom."
 
 #: templates/socialaccount/email/account_connected_subject.txt:3
-#, fuzzy
-#| msgid "Add a 3rd Party Account"
 msgid "Third-Party Account Connected"
-msgstr "Dodaj obstoječi račun drugega ponudnika"
+msgstr "Račun tretje osebe je povezan"
 
 #: templates/socialaccount/email/account_disconnected_message.txt:4
 #, python-format
 msgid ""
 "A third-party account from %(provider)s has been disconnected from your "
 "account."
-msgstr ""
+msgstr "Račun tretje osebe od %(provider)s je bil odklopljen od vašega računa."
 
 #: templates/socialaccount/email/account_disconnected_subject.txt:3
-#, fuzzy
-#| msgid "Add a 3rd Party Account"
 msgid "Third-Party Account Disconnected"
-msgstr "Dodaj obstoječi račun drugega ponudnika"
+msgstr "Račun tretje osebe je odklopljen"
 
 #: templates/socialaccount/login.html:10
 #, python-format
 msgid "Connect %(provider)s"
-msgstr ""
+msgstr "Poveži %(provider)s"
 
 #: templates/socialaccount/login.html:13
 #, python-format
 msgid "You are about to connect a new third-party account from %(provider)s."
-msgstr ""
+msgstr "Povezali boste nov račun tretje osebe od %(provider)s."
 
 #: templates/socialaccount/login.html:17
 #, python-format
 msgid "Sign In Via %(provider)s"
-msgstr ""
+msgstr "Prijava prek %(provider)s"
 
 #: templates/socialaccount/login.html:20
 #, python-format
 msgid "You are about to sign in using a third-party account from %(provider)s."
-msgstr ""
+msgstr "Prijavili se boste z računom tretje osebe od %(provider)s."
 
 #: templates/socialaccount/login_cancelled.html:5
 #: templates/socialaccount/login_cancelled.html:9
@@ -1913,16 +1858,12 @@ msgstr ""
 "href=\"%(login_url)s\">tukaj</a>."
 
 #: templates/socialaccount/messages/account_connected.txt:2
-#, fuzzy
-#| msgid "The social account has been connected."
 msgid "The third-party account has been connected."
-msgstr "Obstoječi račun je povezan."
+msgstr "Račun tretje osebe je bil povezan."
 
 #: templates/socialaccount/messages/account_disconnected.txt:2
-#, fuzzy
-#| msgid "The social account has been disconnected."
 msgid "The third-party account has been disconnected."
-msgstr "Obstoječi uporabniški račun je razvezan."
+msgstr "Račun tretje osebe je bil odklopljen."
 
 #: templates/socialaccount/signup.html:12
 #, python-format
@@ -1935,50 +1876,45 @@ msgstr ""
 
 #: templates/socialaccount/snippets/login.html:10
 msgid "Or use a third-party"
-msgstr ""
+msgstr "Ali uporabite tretjo osebo"
 
 #: templates/usersessions/messages/sessions_logged_out.txt:2
 msgid "Signed out of all other sessions."
-msgstr ""
+msgstr "Odjavljeni iz vseh drugih sej."
 
 #: templates/usersessions/usersession_list.html:24
 msgid "Started At"
-msgstr ""
+msgstr "Začetek"
 
 #: templates/usersessions/usersession_list.html:27
-#, fuzzy
-#| msgid "Email Addresses"
 msgid "IP Address"
-msgstr "E-poštni naslovi"
+msgstr "IP naslov"
 
 #: templates/usersessions/usersession_list.html:30
 msgid "Browser"
-msgstr ""
+msgstr "Brskalnik"
 
 #: templates/usersessions/usersession_list.html:34
 msgid "Last seen at"
-msgstr ""
+msgstr "Nazadnje viden ob"
 
 #: templates/usersessions/usersession_list.html:59
-#, fuzzy
-#| msgid "Current Password"
 msgid "Current"
-msgstr "Trenutno geslo"
+msgstr "Trenutna"
 
 #: templates/usersessions/usersession_list.html:72
 msgid "Sign Out Other Sessions"
-msgstr ""
+msgstr "Odjavi druge seje"
 
 #: usersessions/apps.py:9
 msgid "User Sessions"
-msgstr ""
+msgstr "Uporabniške seje"
 
 #: usersessions/models.py:94
 msgid "session key"
-msgstr ""
+msgstr "ključ seje"
 
 #, fuzzy
-#~| msgid "Account Connections"
 #~ msgid "Account Connection"
 #~ msgstr "Povezave računov"
 
@@ -1987,13 +1923,6 @@ msgstr ""
 #~ msgstr "Geslo mora vsebovati najmanj {0} znakov. "
 
 #, fuzzy, python-format
-#~| msgid ""
-#~| "Hello from %(site_name)s!\n"
-#~| "\n"
-#~| "You're receiving this e-mail because you or someone else has requested a "
-#~| "password for your user account.\n"
-#~| "It can be safely ignored if you did not request a password reset. Click "
-#~| "the link below to reset your password."
 #~ msgid ""
 #~ "You are receiving this email because you or someone else has requested a\n"
 #~ "password for your user account. However, we do not have any record of a "
@@ -2011,12 +1940,10 @@ msgstr ""
 #~ "gesla. Za ponastavitev gelsa, sledie spodnji pvezavi:"
 
 #, fuzzy
-#~| msgid "The following email addresses are associated with your account:"
 #~ msgid "The following email address is associated with your account:"
 #~ msgstr "E-poštni naslovi, ki pripadajo vašemu uporabniškemu računu:"
 
 #, fuzzy
-#~| msgid "Confirm Email Address"
 #~ msgid "Change Email Address"
 #~ msgstr "Potrdite e-poštni naslov"
 

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.55\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-13 09:05-0600\n"
+"POT-Creation-Date: 2026-03-05 08:42-0600\n"
 "PO-Revision-Date: 2025-07-30 18:06+0000\n"
 "Last-Translator: Jakub Boukal <www.bagr@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/allauth/django-"
@@ -39,10 +39,8 @@ msgid "The email address and/or password you specified are not correct."
 msgstr "Zadaný e-mail nebo heslo není správné."
 
 #: account/adapter.py:72
-#, fuzzy
-#| msgid "The username and/or password you specified are not correct."
 msgid "The phone number and/or password you specified are not correct."
-msgstr "Zadané uživatelské jméno nebo heslo není správné."
+msgstr "Zadané telefonní číslo nebo heslo není správné."
 
 #: account/adapter.py:74
 msgid "A user is already registered with this email address."
@@ -65,10 +63,8 @@ msgid "Invalid or expired key."
 msgstr "Neplatný klíč."
 
 #: account/adapter.py:79
-#, fuzzy
-#| msgid "Invalid token."
 msgid "Invalid login."
-msgstr "Neplatný token."
+msgstr "Neplatné přihlášení."
 
 #: account/adapter.py:80
 msgid "The password reset token was invalid."
@@ -80,26 +76,20 @@ msgid "You cannot add more than %d email addresses."
 msgstr "Nelze přidat více než %d e-mailových adres."
 
 #: account/adapter.py:82
-#, fuzzy
-#| msgid "A user is already registered with this email address."
 msgid "A user is already registered with this phone number."
-msgstr "Uživatel s tímto e-mailem je již registrován."
+msgstr "Uživatel s tímto telefonním číslem je již registrován."
 
 #: account/adapter.py:84
 msgid "Too many failed login attempts. Try again later."
 msgstr "Příliš mnoho pokusů o přihlášení. Zkuste to prosím později."
 
 #: account/adapter.py:86
-#, fuzzy
-#| msgid "The email address is not assigned to any user account"
 msgid "The email address is not assigned to any user account."
-msgstr "E-mail není přiřazen k žádnému účtu"
+msgstr "E-mailová adresa není přiřazena k žádnému uživatelskému účtu."
 
 #: account/adapter.py:87
-#, fuzzy
-#| msgid "The email address is not assigned to any user account"
 msgid "The phone number is not assigned to any user account."
-msgstr "E-mail není přiřazen k žádnému účtu"
+msgstr "Telefonní číslo není přiřazeno k žádnému uživatelskému účtu."
 
 #: account/adapter.py:88
 #: templates/account/messages/unverified_primary_email.txt:2
@@ -116,15 +106,15 @@ msgstr "Zadané uživatelské jméno nebo heslo není správné."
 
 #: account/adapter.py:98
 msgid "Please select only one."
-msgstr ""
+msgstr "Vyberte prosím pouze jednu možnost."
 
 #: account/adapter.py:99
 msgid "The new value must be different from the current one."
-msgstr ""
+msgstr "Nová hodnota se musí lišit od aktuální."
 
 #: account/adapter.py:100
 msgid "Be patient, you are sending too many requests."
-msgstr ""
+msgstr "Buďte trpěliví, odesíláte příliš mnoho požadavků."
 
 #: account/adapter.py:826
 msgid "Use your password"
@@ -140,16 +130,14 @@ msgid "Use a security key"
 msgstr "Zadejte tajný klíč"
 
 #: account/admin.py:30
-#, fuzzy, python-brace-format
-#| msgid "Mark selected email addresses as verified"
+#, python-brace-format
 msgid "Marked {email} as verified."
-msgstr "Označ vybrané e-mailové adresy jako ověřené"
+msgstr "E-mailová adresa {email} byla označena jako ověřená."
 
 #: account/admin.py:36
-#, fuzzy, python-brace-format
-#| msgid "Your primary email address must be verified."
+#, python-brace-format
 msgid "Failed to mark {email} as verified."
-msgstr "Vaše primární e-mailová adresa musí být ověřena."
+msgstr "Nepodařilo se označit {email} jako ověřenou."
 
 #: account/admin.py:42
 msgid "Mark selected email addresses as verified"
@@ -169,11 +157,11 @@ msgstr "E-mailová adresa"
 
 #: account/fields.py:62
 msgid "Enter a phone number including country code (e.g. +1 for the US)."
-msgstr ""
+msgstr "Zadejte telefonní číslo včetně předvolby země (např. +1 pro USA)."
 
 #: account/fields.py:68 account/fields.py:72 account/forms.py:325
 msgid "Phone"
-msgstr ""
+msgstr "Telefon"
 
 #: account/forms.py:61 account/forms.py:524
 msgid "You must type the same password each time."
@@ -199,26 +187,20 @@ msgid "Login"
 msgstr "Přihlášení"
 
 #: account/forms.py:115
-#, fuzzy
-#| msgid "Username or email"
 msgid "Username, email or phone"
-msgstr "Uživatelské jméno nebo e-mail"
+msgstr "Uživatelské jméno, e-mail nebo telefon"
 
 #: account/forms.py:117
 msgid "Username or email"
 msgstr "Uživatelské jméno nebo e-mail"
 
 #: account/forms.py:119
-#, fuzzy
-#| msgid "Username or email"
 msgid "Username or phone"
-msgstr "Uživatelské jméno nebo e-mail"
+msgstr "Uživatelské jméno nebo telefon"
 
 #: account/forms.py:121
-#, fuzzy
-#| msgid "Email (optional)"
 msgid "Email or phone"
-msgstr "E-mail (nepovinné)"
+msgstr "E-mail nebo telefon"
 
 #: account/forms.py:144
 msgid "Forgot your password?"
@@ -237,10 +219,8 @@ msgid "Email (optional)"
 msgstr "E-mail (nepovinné)"
 
 #: account/forms.py:314
-#, fuzzy
-#| msgid "Email (optional)"
 msgid "Username (optional)"
-msgstr "E-mail (nepovinné)"
+msgstr "Uživatelské jméno (nepovinné)"
 
 #: account/forms.py:388
 msgid "You must type the same email each time."
@@ -315,71 +295,69 @@ msgstr "Headless"
 
 #: idp/oidc/adapter.py:30
 msgid "View your user ID"
-msgstr ""
+msgstr "Zobrazit vaše ID uživatele"
 
 #: idp/oidc/adapter.py:31
-#, fuzzy
-#| msgid "Verify Your Email Address"
 msgid "View your email address"
-msgstr "Ověřte svoji e-mailovou adresu"
+msgstr "Zobrazit vaši e-mailovou adresu"
 
 #: idp/oidc/adapter.py:32
 msgid "View your basic profile information"
-msgstr ""
+msgstr "Zobrazit vaše základní profilové informace"
 
 #: idp/oidc/forms.py:31
-#, fuzzy
-#| msgid "User Sessions"
 msgid "Grant permissions"
-msgstr "Uživatelské relace"
+msgstr "Udělit oprávnění"
 
 #: idp/oidc/internal/clientkit.py:22
 msgid "Wildcards are not allowed unless 'Allow URI wildcards' is enabled."
 msgstr ""
+"Zástupné znaky nejsou povoleny, pokud není povolena možnost 'Povolit "
+"zástupné znaky v URI'."
 
 #: idp/oidc/internal/clientkit.py:27
 msgid ""
 "URI '{}' contains more than one wildcard (*). Only one wildcard per URI is "
 "allowed."
 msgstr ""
+"URI '{}' obsahuje více než jeden zástupný znak (*). Na jedno URI je povolen "
+"pouze jeden zástupný znak."
 
 #: idp/oidc/internal/clientkit.py:39
 msgid "Wildcards are only allowed in the hostname portion of the URI."
-msgstr ""
+msgstr "Zástupné znaky jsou povoleny pouze v části URI s názvem hostitele."
 
 #: idp/oidc/models.py:37
-#, fuzzy
-#| msgid "Authenticator code"
 msgid "Authorization code"
-msgstr "Kód autentifikátoru"
+msgstr "Autorizační kód"
 
 #: idp/oidc/models.py:38
-#, fuzzy
-#| msgid "Recovery codes"
 msgid "Device code"
-msgstr "Záchranné kódy"
+msgstr "Kód zařízení"
 
 #: idp/oidc/models.py:39
 msgid "Client credentials"
-msgstr ""
+msgstr "Přihlašovací údaje klienta"
 
 #: idp/oidc/models.py:40
 msgid "Refresh token"
-msgstr ""
+msgstr "Obnovovací token"
 
 #: idp/oidc/models.py:43
 msgid "Confidential"
-msgstr ""
+msgstr "Důvěrný"
 
 #: idp/oidc/models.py:44
 msgid "Public"
-msgstr ""
+msgstr "Veřejný"
 
 #: idp/oidc/models.py:58
 msgid ""
 "The scope(s) the client is allowed to request. Provide one value per line, "
 "e.g.: openid(ENTER)profile(ENTER)email(ENTER)"
 msgstr ""
+"Rozsahy, které může klient požadovat. Uveďte jednu hodnotu na řádek, např.: "
+"openid(ENTER)profile(ENTER)email(ENTER)"
 
 #: idp/oidc/models.py:64
 msgid ""
@@ -387,40 +365,44 @@ msgid ""
 "used. Provide one value per line, e.g.: "
 "openid(ENTER)profile(ENTER)email(ENTER)"
 msgstr ""
+"Pokud klient neuvede žádný rozsah, použijí se tyto výchozí rozsahy. Uveďte "
+"jednu hodnotu na řádek, např.: openid(ENTER)profile(ENTER)email(ENTER)"
 
 #: idp/oidc/models.py:75
 msgid ""
 "A list of allowed grant types. Provide one value per line, e.g.: "
 "authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 msgstr ""
+"Seznam povolených typů udělení. Uveďte jednu hodnotu na řádek, např.: "
+"authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 
 #: idp/oidc/models.py:86
 msgid "A list of allowed origins for cross-origin requests, one per line."
-msgstr ""
+msgstr "Seznam povolených zdrojů pro cross-origin požadavky, jeden na řádek."
 
 #: idp/oidc/models.py:94
 msgid ""
 "Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
 "can contain a single asterisk to match subdomains."
 msgstr ""
+"Povolit zástupné znaky (*) v přesměrovacích URI a zdrojích CORS. Pokud je "
+"povoleno, mohou URI obsahovat jednu hvězdičku pro shodu subdomén."
 
 #: idp/oidc/models.py:102
 msgid ""
 "A list of allowed response types. Provide one value per line, e.g.: "
 "code(ENTER)id_token token(ENTER)"
 msgstr ""
+"Seznam povolených typů odpovědí. Uveďte jednu hodnotu na řádek, např.: "
+"code(ENTER)id_token token(ENTER)"
 
 #: idp/oidc/models.py:115
-#, fuzzy
-#| msgid "client id"
 msgid "client"
-msgstr "id klienta"
+msgstr "klient"
 
 #: idp/oidc/models.py:116
-#, fuzzy
-#| msgid "client id"
 msgid "clients"
-msgstr "id klienta"
+msgstr "klienti"
 
 #: mfa/adapter.py:32
 msgid ""
@@ -679,16 +661,13 @@ msgid "This account is inactive."
 msgstr "Tento účet není aktivní."
 
 #: templates/account/base_confirm_code.html:27
-#, fuzzy, python-format
-#| msgid ""
-#| "We’ve sent a code to %(email_link)s. The code expires shortly, so please "
-#| "enter it soon."
+#, python-format
 msgid ""
 "We've sent a code to %(recipient)s. The code expires shortly, so please "
 "enter it soon."
 msgstr ""
-"Na adresu %(email_link)s jsme poslali ověřovací kód. Jeho platnost brzy "
-"vyprší, zadejte ho prosím včas."
+"Na adresu %(recipient)s jsme poslali kód. Jeho platnost brzy vyprší, zadejte "
+"ho prosím včas."
 
 #: templates/account/base_confirm_code.html:39
 #: templates/account/email_confirm.html:24
@@ -699,10 +678,8 @@ msgid "Confirm"
 msgstr "Potvrdit"
 
 #: templates/account/base_confirm_code.html:43
-#, fuzzy
-#| msgid "Request Code"
 msgid "Request new code"
-msgstr "Požádat kód"
+msgstr "Požádat o nový kód"
 
 #: templates/account/base_reauthenticate.html:5
 #: templates/account/base_reauthenticate.html:9
@@ -727,10 +704,8 @@ msgid "Enter Email Verification Code"
 msgstr "Zadejte ověřovací kód e-mailu"
 
 #: templates/account/confirm_email_verification_code.html:16
-#, fuzzy
-#| msgid "email address"
 msgid "Use a different email address"
-msgstr "e-mailová adresa"
+msgstr "Použít jinou e-mailovou adresu"
 
 #: templates/account/confirm_login_code.html:5 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
@@ -757,26 +732,20 @@ msgid "Password Reset"
 msgstr "Reset hesla"
 
 #: templates/account/confirm_password_reset_code.html:8
-#, fuzzy
-#| msgid "Password Reset"
 msgid "Enter Password Reset Code"
-msgstr "Reset hesla"
+msgstr "Zadejte kód pro obnovení hesla"
 
 #: templates/account/confirm_phone_verification_code.html:5
-#, fuzzy
-#| msgid "Re-send Verification"
 msgid "Phone Verification"
-msgstr "Znovu zaslat oveřovací e-mail"
+msgstr "Ověření telefonního čísla"
 
 #: templates/account/confirm_phone_verification_code.html:8
-#, fuzzy
-#| msgid "Enter Email Verification Code"
 msgid "Enter Phone Verification Code"
-msgstr "Zadejte ověřovací kód e-mailu"
+msgstr "Zadejte ověřovací kód telefonu"
 
 #: templates/account/confirm_phone_verification_code.html:15
 msgid "Use a different phone number"
-msgstr ""
+msgstr "Použít jiné telefonní číslo"
 
 #: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
@@ -976,21 +945,16 @@ msgid "Password Changed"
 msgstr "Heslo změněno"
 
 #: templates/account/email/password_reset_code_message.txt:5
-#, fuzzy
-#| msgid ""
-#| "Your sign-in code is listed below. Please enter it in your open browser "
-#| "window."
 msgid ""
 "Your password reset code is listed below. Please enter it in your open "
 "browser window."
 msgstr ""
-"Níže najdete váš přihlašovací kód. Zadejte jej do otevřeného okna prohlížeče."
+"Níže najdete váš kód pro obnovení hesla. Zadejte jej do otevřeného okna "
+"prohlížeče."
 
 #: templates/account/email/password_reset_code_subject.txt:3
-#, fuzzy
-#| msgid "Password Reset"
 msgid "Password Reset Code"
-msgstr "Reset hesla"
+msgstr "Kód pro obnovení hesla"
 
 #: templates/account/email/password_reset_key_message.txt:4
 msgid ""
@@ -1122,8 +1086,6 @@ msgid "Sign in with a passkey"
 msgstr "Přihlaste se pomocí přístupového klíče"
 
 #: templates/account/login.html:47 templates/account/request_login_code.html:9
-#, fuzzy
-#| msgid "Mail me a sign-in code"
 msgid "Send me a sign-in code"
 msgstr "Pošlete mi přihlašovací kód"
 
@@ -1169,10 +1131,9 @@ msgid "You have signed out."
 msgstr "Právě jste byl odhlášen."
 
 #: templates/account/messages/login_code_sent.txt:2
-#, fuzzy, python-format
-#| msgid "A sign-in code has been mailed to %(email)s."
+#, python-format
 msgid "A sign-in code has been sent to %(recipient)s."
-msgstr "Přihlašovací kód byl zaslán na adresu %(email)s."
+msgstr "Přihlašovací kód byl zaslán na adresu %(recipient)s."
 
 #: templates/account/messages/password_changed.txt:2
 msgid "Password successfully changed."
@@ -1183,15 +1144,14 @@ msgid "Password successfully set."
 msgstr "Heslo bylo úspěšně nastaveno."
 
 #: templates/account/messages/phone_verification_sent.txt:2
-#, fuzzy, python-format
-#| msgid "A sign-in code has been mailed to %(email)s."
+#, python-format
 msgid "A verification code has been sent to %(phone)s."
-msgstr "Přihlašovací kód byl zaslán na adresu %(email)s."
+msgstr "Ověřovací kód byl zaslán na číslo %(phone)s."
 
 #: templates/account/messages/phone_verified.txt:2
 #, python-format
 msgid "You have verified phone number %(phone)s."
-msgstr ""
+msgstr "Ověřili jste telefonní číslo %(phone)s."
 
 #: templates/account/messages/primary_email_set.txt:2
 msgid "Primary email address set."
@@ -1263,22 +1223,16 @@ msgid "Set Password"
 msgstr "Nastavit heslo"
 
 #: templates/account/phone_change.html:5 templates/account/phone_change.html:9
-#, fuzzy
-#| msgid "Change to"
 msgid "Change Phone"
-msgstr "Změnit na"
+msgstr "Změnit telefon"
 
 #: templates/account/phone_change.html:18
-#, fuzzy
-#| msgid "Current"
 msgid "Current phone"
-msgstr "Aktuální"
+msgstr "Aktuální telefon"
 
 #: templates/account/phone_change.html:22
-#, fuzzy
-#| msgid "Your email address is still pending verification."
 msgid "Your phone number is still pending verification."
-msgstr "Vaše primární e-mailová adresa stále čeká na ověření."
+msgstr "Vaše telefonní číslo stále čeká na ověření."
 
 #: templates/account/phone_change.html:38
 msgctxt "action"
@@ -1290,12 +1244,8 @@ msgid "Enter your password:"
 msgstr "Zadejte své heslo:"
 
 #: templates/account/request_login_code.html:12
-#, fuzzy
-#| msgid ""
-#| "You will receive an email containing a special code for a password-free "
-#| "sign-in."
 msgid "You will receive a special code for a password-free sign-in."
-msgstr "Obdržíte e-mail obsahující speciální kód pro přihlášení bez hesla."
+msgstr "Obdržíte speciální kód pro přihlášení bez hesla."
 
 #: templates/account/request_login_code.html:24
 msgid "Request Code"
@@ -1450,22 +1400,20 @@ msgstr "Relace"
 #: templates/idp/oidc/device_authorization_confirmed.html:5
 #: templates/idp/oidc/device_authorization_denied.html:5
 msgid "Authorize"
-msgstr ""
+msgstr "Autorizovat"
 
 #: templates/idp/oidc/authorization_form.html:12
 #, python-format
 msgid "%(client_name)s wants to access your %(site_name)s account."
-msgstr ""
+msgstr "%(client_name)s chce získat přístup k vašemu účtu %(site_name)s."
 
 #: templates/idp/oidc/device_authorization_code_form.html:9
-#, fuzzy
-#| msgid "Enter Sign-In Code"
 msgid "Enter Device Code"
-msgstr "Zadejte Ověřovací Kód"
+msgstr "Zadejte kód zařízení"
 
 #: templates/idp/oidc/device_authorization_code_form.html:12
 msgid "Enter the code displayed on your device."
-msgstr ""
+msgstr "Zadejte kód zobrazený na vašem zařízení."
 
 #: templates/idp/oidc/device_authorization_code_form.html:21
 #: templates/socialaccount/login.html:27
@@ -1474,10 +1422,8 @@ msgid "Continue"
 msgstr "Pokračovat"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:9
-#, fuzzy
-#| msgid "Confirm Access"
 msgid "Confirm Device"
-msgstr "Potvrdit přístup"
+msgstr "Potvrdit zařízení"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:12
 #, python-format
@@ -1485,38 +1431,38 @@ msgid ""
 "Please confirm the code shown on your %(client_name)s to authorize this "
 "device."
 msgstr ""
+"Potvrďte prosím kód zobrazený na vašem %(client_name)s pro autorizaci tohoto "
+"zařízení."
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:29
 msgid "Deny"
-msgstr ""
+msgstr "Zamítnout"
 
 #: templates/idp/oidc/device_authorization_confirmed.html:9
 msgid "Device Authorized"
-msgstr ""
+msgstr "Zařízení autorizováno"
 
 #: templates/idp/oidc/device_authorization_confirmed.html:12
 #, python-format
 msgid "You successfully authorized your %(client_name)s device."
-msgstr ""
+msgstr "Úspěšně jste autorizovali vaše zařízení %(client_name)s."
 
 #: templates/idp/oidc/device_authorization_denied.html:9
 msgid "Device Denied"
-msgstr ""
+msgstr "Zařízení zamítnuto"
 
 #: templates/idp/oidc/device_authorization_denied.html:12
 #, python-format
 msgid "Authorization for your %(client_name)s device has been denied."
-msgstr ""
+msgstr "Autorizace vašeho zařízení %(client_name)s byla zamítnuta."
 
 #: templates/idp/oidc/error.html:5 templates/idp/oidc/error.html:9
 msgid "Error"
-msgstr ""
+msgstr "Chyba"
 
 #: templates/idp/oidc/logout.html:24
-#, fuzzy
-#| msgid "Sign In"
 msgid "Stay Signed In"
-msgstr "Přihlásit se"
+msgstr "Zůstat přihlášen"
 
 #: templates/mfa/authenticate.html:13
 msgid ""
@@ -1740,22 +1686,24 @@ msgstr ""
 
 #: templates/mfa/trust.html:4 templates/mfa/trust.html:8
 msgid "Trust this Browser?"
-msgstr ""
+msgstr "Důvěřovat tomuto prohlížeči?"
 
 #: templates/mfa/trust.html:11
 msgid ""
 "If you choose to trust this browser, you will not be asked for a "
 "verification code the next time you sign in."
 msgstr ""
+"Pokud se rozhodnete důvěřovat tomuto prohlížeči, při příštím přihlášení "
+"nebudete požádáni o ověřovací kód."
 
 #: templates/mfa/trust.html:23
 #, python-format
 msgid "Trust for %(period)s"
-msgstr ""
+msgstr "Důvěřovat po dobu %(period)s"
 
 #: templates/mfa/trust.html:26
 msgid "Don't Trust"
-msgstr ""
+msgstr "Nedůvěřovat"
 
 #: templates/mfa/webauthn/add_form.html:7
 msgid "Add Security Key"
@@ -1971,7 +1919,6 @@ msgid "session key"
 msgstr "klíč relace"
 
 #, fuzzy
-#~| msgid "Account Connections"
 #~ msgid "Account Connection"
 #~ msgstr "Propojení účtu"
 
@@ -2013,7 +1960,6 @@ msgstr "klíč relace"
 #~ msgstr "Pro zabezpečení vašeho účtu, prosím, zadejte vaše heslo:"
 
 #, fuzzy
-#~| msgid "Generate"
 #~ msgid "Regenerate"
 #~ msgstr "Generovat"
 
@@ -2048,7 +1994,6 @@ msgstr "klíč relace"
 #~ "Zaslali jsme vám e-mail. Prosím, kontaktujte nás, pokud ho nedostanete do "
 #~ "několika minut."
 
-#~| msgid "The password reset token was invalid."
 #~ msgid "The provided password is not valid."
 #~ msgstr "Použité heslo není platné."
 

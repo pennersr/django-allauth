@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-13 09:05-0600\n"
+"POT-Creation-Date: 2026-03-05 08:42-0600\n"
 "PO-Revision-Date: 2024-04-20 21:45+0200\n"
 "Last-Translator: Tamás Makó <tom@greenplug.hu>\n"
 "Language-Team: \n"
@@ -15,8 +15,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7.6\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.7.6\n"
 
 #: account/adapter.py:61
 msgid "This account is currently inactive."
@@ -309,16 +309,21 @@ msgstr "Engedélyek megadása"
 #: idp/oidc/internal/clientkit.py:22
 msgid "Wildcards are not allowed unless 'Allow URI wildcards' is enabled."
 msgstr ""
+"A helyettesítő karakterek nem engedélyezettek, hacsak nincs engedélyezve az "
+"'URI helyettesítő karakterek engedélyezése'."
 
 #: idp/oidc/internal/clientkit.py:27
 msgid ""
 "URI '{}' contains more than one wildcard (*). Only one wildcard per URI is "
 "allowed."
 msgstr ""
+"Az URI '{}' egynél több helyettesítő karaktert (*) tartalmaz. URI-nként csak "
+"egy helyettesítő karakter engedélyezett."
 
 #: idp/oidc/internal/clientkit.py:39
 msgid "Wildcards are only allowed in the hostname portion of the URI."
 msgstr ""
+"Helyettesítő karakterek csak az URI gazdagépnév részében engedélyezettek."
 
 #: idp/oidc/models.py:37
 msgid "Authorization code"
@@ -345,16 +350,12 @@ msgid "Public"
 msgstr "Publikus"
 
 #: idp/oidc/models.py:58
-#, fuzzy
-#| msgid ""
-#| "A list of allowed response types. Provide one value per line, e.g.: "
-#| "code(ENTER)id_token token(ENTER)"
 msgid ""
 "The scope(s) the client is allowed to request. Provide one value per line, "
 "e.g.: openid(ENTER)profile(ENTER)email(ENTER)"
 msgstr ""
-"A megengedett válasz-típusok listája. Soronként egy érték, pl.: "
-"code(ENTER)id_token token(ENTER)"
+"A kliens által kérhető hatókör(ök). Soronként egy értéket adjon meg, pl.: "
+"openid(ENTER)profile(ENTER)email(ENTER)"
 
 #: idp/oidc/models.py:64
 msgid ""
@@ -362,28 +363,31 @@ msgid ""
 "used. Provide one value per line, e.g.: "
 "openid(ENTER)profile(ENTER)email(ENTER)"
 msgstr ""
+"Ha a kliens nem ad meg hatókört, ezek az alapértelmezett hatókörök kerülnek "
+"alkalmazásra. Soronként egy értéket adjon meg, pl.: "
+"openid(ENTER)profile(ENTER)email(ENTER)"
 
 #: idp/oidc/models.py:75
-#, fuzzy
-#| msgid ""
-#| "A list of allowed response types. Provide one value per line, e.g.: "
-#| "code(ENTER)id_token token(ENTER)"
 msgid ""
 "A list of allowed grant types. Provide one value per line, e.g.: "
 "authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 msgstr ""
-"A megengedett válasz-típusok listája. Soronként egy érték, pl.: "
-"code(ENTER)id_token token(ENTER)"
+"Az engedélyezett engedélytípusok listája. Soronként egy értéket adjon meg, "
+"pl.: authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 
 #: idp/oidc/models.py:86
 msgid "A list of allowed origins for cross-origin requests, one per line."
 msgstr ""
+"Az engedélyezett források listája a cross-origin kérésekhez, soronként egy."
 
 #: idp/oidc/models.py:94
 msgid ""
 "Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
 "can contain a single asterisk to match subdomains."
 msgstr ""
+"Helyettesítő karakterek (*) engedélyezése az átirányítási URI-kban és a CORS-"
+"forrásokban. Ha engedélyezve van, az URI-k egyetlen csillagot "
+"tartalmazhatnak az aldomének egyeztetéséhez."
 
 #: idp/oidc/models.py:102
 msgid ""
@@ -1463,10 +1467,8 @@ msgid "Error"
 msgstr "Hiba"
 
 #: templates/idp/oidc/logout.html:24
-#, fuzzy
-#| msgid "Shopify Sign In"
 msgid "Stay Signed In"
-msgstr "Shopify Belépés"
+msgstr "Bejelentkezve maradás"
 
 #: templates/mfa/authenticate.html:13
 msgid ""

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-13 09:05-0600\n"
+"POT-Creation-Date: 2026-03-05 08:42-0600\n"
 "PO-Revision-Date: 2024-06-15 10:09+0000\n"
 "Last-Translator: Eyal Cherevatsky <5116133+eyalch@users.noreply.github.com>\n"
 "Language-Team: Hebrew <https://hosted.weblate.org/projects/allauth/django-"
@@ -36,10 +36,8 @@ msgid "The email address and/or password you specified are not correct."
 msgstr "כתובת האימייל ו/או הסיסמה אינם נכונים."
 
 #: account/adapter.py:72
-#, fuzzy
-#| msgid "The username and/or password you specified are not correct."
 msgid "The phone number and/or password you specified are not correct."
-msgstr "שם המשתמש ו/או הסיסמה אינם נכונים."
+msgstr "מספר הטלפון ו/או הסיסמה אינם נכונים."
 
 #: account/adapter.py:74
 msgid "A user is already registered with this email address."
@@ -62,10 +60,8 @@ msgid "Invalid or expired key."
 msgstr "מפתח פגום או פג תוקף."
 
 #: account/adapter.py:79
-#, fuzzy
-#| msgid "Invalid token."
 msgid "Invalid login."
-msgstr "אסימון פגום."
+msgstr "כניסה לא חוקית."
 
 #: account/adapter.py:80
 msgid "The password reset token was invalid."
@@ -77,26 +73,20 @@ msgid "You cannot add more than %d email addresses."
 msgstr "לא ניתן להוסיף יותר מ-%d כתובות אימייל."
 
 #: account/adapter.py:82
-#, fuzzy
-#| msgid "A user is already registered with this email address."
 msgid "A user is already registered with this phone number."
-msgstr "משתמש אחר כבר רשום עם כתובת אימייל זו."
+msgstr "משתמש אחר כבר רשום עם מספר טלפון זה."
 
 #: account/adapter.py:84
 msgid "Too many failed login attempts. Try again later."
 msgstr "יותר מדי ניסיונות התחברות כושלים. אנא נסה שוב מאוחר יותר."
 
 #: account/adapter.py:86
-#, fuzzy
-#| msgid "The email address is not assigned to any user account"
 msgid "The email address is not assigned to any user account."
-msgstr "כתובת אימייל זו אינה משויכת לאף חשבון"
+msgstr "כתובת האימייל אינה משויכת לאף חשבון משתמש."
 
 #: account/adapter.py:87
-#, fuzzy
-#| msgid "The email address is not assigned to any user account"
 msgid "The phone number is not assigned to any user account."
-msgstr "כתובת אימייל זו אינה משויכת לאף חשבון"
+msgstr "מספר הטלפון אינו משויך לאף חשבון משתמש."
 
 #: account/adapter.py:88
 #: templates/account/messages/unverified_primary_email.txt:2
@@ -113,44 +103,38 @@ msgstr "שם המשתמש ו/או הסיסמה אינם נכונים."
 
 #: account/adapter.py:98
 msgid "Please select only one."
-msgstr ""
+msgstr "אנא בחר/י אחד בלבד."
 
 #: account/adapter.py:99
 msgid "The new value must be different from the current one."
-msgstr ""
+msgstr "הערך החדש חייב להיות שונה מהערך הנוכחי."
 
 #: account/adapter.py:100
 msgid "Be patient, you are sending too many requests."
-msgstr ""
+msgstr "אנא המתן/י, את/ה שולח/ת יותר מדי בקשות."
 
 #: account/adapter.py:826
 msgid "Use your password"
 msgstr "להשתמש בסיסמה"
 
 #: account/adapter.py:835
-#, fuzzy
-#| msgid "Use your authenticator app"
 msgid "Use authenticator app or code"
-msgstr "להשתמש ביישומון אימות"
+msgstr "השתמש ביישומון אימות או קוד"
 
 #: account/adapter.py:842 templates/mfa/authenticate.html:41
 #: templates/mfa/webauthn/reauthenticate.html:15
-#, fuzzy
-#| msgid "secret key"
 msgid "Use a security key"
-msgstr "מפתח סודי"
+msgstr "השתמש במפתח אבטחה"
 
 #: account/admin.py:30
-#, fuzzy, python-brace-format
-#| msgid "Mark selected email addresses as verified"
+#, python-brace-format
 msgid "Marked {email} as verified."
-msgstr "סמן את כתובות האימייל שנבחרו כמאומתות."
+msgstr "{email} סומן כמאומת."
 
 #: account/admin.py:36
-#, fuzzy, python-brace-format
-#| msgid "Your primary email address must be verified."
+#, python-brace-format
 msgid "Failed to mark {email} as verified."
-msgstr "עליך לאמת את כתובת האימייל הראשית שלך."
+msgstr "סימון {email} כמאומת נכשל."
 
 #: account/admin.py:42
 msgid "Mark selected email addresses as verified"
@@ -170,11 +154,11 @@ msgstr "כתובת אימייל"
 
 #: account/fields.py:62
 msgid "Enter a phone number including country code (e.g. +1 for the US)."
-msgstr ""
+msgstr "הזן/י מספר טלפון כולל קידומת מדינה (למשל +972 לישראל)."
 
 #: account/fields.py:68 account/fields.py:72 account/forms.py:325
 msgid "Phone"
-msgstr ""
+msgstr "טלפון"
 
 #: account/forms.py:61 account/forms.py:524
 msgid "You must type the same password each time."
@@ -200,26 +184,20 @@ msgid "Login"
 msgstr "כניסה"
 
 #: account/forms.py:115
-#, fuzzy
-#| msgid "Username or email"
 msgid "Username, email or phone"
-msgstr "שם משתמש או אימייל"
+msgstr "שם משתמש, אימייל או טלפון"
 
 #: account/forms.py:117
 msgid "Username or email"
 msgstr "שם משתמש או אימייל"
 
 #: account/forms.py:119
-#, fuzzy
-#| msgid "Username or email"
 msgid "Username or phone"
-msgstr "שם משתמש או אימייל"
+msgstr "שם משתמש או טלפון"
 
 #: account/forms.py:121
-#, fuzzy
-#| msgid "Email (optional)"
 msgid "Email or phone"
-msgstr "אימייל (לא חובה)"
+msgstr "אימייל או טלפון"
 
 #: account/forms.py:144
 msgid "Forgot your password?"
@@ -238,10 +216,8 @@ msgid "Email (optional)"
 msgstr "אימייל (לא חובה)"
 
 #: account/forms.py:314
-#, fuzzy
-#| msgid "Email (optional)"
 msgid "Username (optional)"
-msgstr "אימייל (לא חובה)"
+msgstr "שם משתמש (לא חובה)"
 
 #: account/forms.py:388
 msgid "You must type the same email each time."
@@ -316,69 +292,65 @@ msgstr "Headless"
 
 #: idp/oidc/adapter.py:30
 msgid "View your user ID"
-msgstr ""
+msgstr "צפה במזהה המשתמש שלך"
 
 #: idp/oidc/adapter.py:31
-#, fuzzy
-#| msgid "Verify Your Email Address"
 msgid "View your email address"
-msgstr "אשר את כתובת הדואל שלך"
+msgstr "צפה בכתובת האימייל שלך"
 
 #: idp/oidc/adapter.py:32
 msgid "View your basic profile information"
-msgstr ""
+msgstr "צפה בפרטי הפרופיל הבסיסיים שלך"
 
 #: idp/oidc/forms.py:31
 msgid "Grant permissions"
-msgstr ""
+msgstr "הענק הרשאות"
 
 #: idp/oidc/internal/clientkit.py:22
 msgid "Wildcards are not allowed unless 'Allow URI wildcards' is enabled."
-msgstr ""
+msgstr "תווי כוכבית אינם מותרים אלא אם 'אפשר תווי כוכבית ב-URI' מופעל."
 
 #: idp/oidc/internal/clientkit.py:27
 msgid ""
 "URI '{}' contains more than one wildcard (*). Only one wildcard per URI is "
 "allowed."
-msgstr ""
+msgstr "URI '{}' מכיל יותר מתו כוכבית (*) אחד. מותר רק תו כוכבית אחד לכל URI."
 
 #: idp/oidc/internal/clientkit.py:39
 msgid "Wildcards are only allowed in the hostname portion of the URI."
-msgstr ""
+msgstr "תווי כוכבית מותרים רק בחלק שם המארח של ה-URI."
 
 #: idp/oidc/models.py:37
-#, fuzzy
-#| msgid "Authenticator code"
 msgid "Authorization code"
-msgstr "קוד אימות"
+msgstr "קוד הרשאה"
 
 #: idp/oidc/models.py:38
-#, fuzzy
-#| msgid "Recovery codes"
 msgid "Device code"
-msgstr "קודי שחזור"
+msgstr "קוד מכשיר"
 
 #: idp/oidc/models.py:39
 msgid "Client credentials"
-msgstr ""
+msgstr "פרטי זיהוי לקוח"
 
 #: idp/oidc/models.py:40
 msgid "Refresh token"
-msgstr ""
+msgstr "אסימון רענון"
 
 #: idp/oidc/models.py:43
 msgid "Confidential"
-msgstr ""
+msgstr "חסוי"
 
 #: idp/oidc/models.py:44
 msgid "Public"
-msgstr ""
+msgstr "ציבורי"
 
 #: idp/oidc/models.py:58
 msgid ""
 "The scope(s) the client is allowed to request. Provide one value per line, "
 "e.g.: openid(ENTER)profile(ENTER)email(ENTER)"
 msgstr ""
+"היקף ההרשאות שהלקוח רשאי לבקש. ספק ערך אחד לכל שורה, למשל: "
+"openid(ENTER)profile(ENTER)email(ENTER)"
 
 #: idp/oidc/models.py:64
 msgid ""
@@ -386,40 +358,44 @@ msgid ""
 "used. Provide one value per line, e.g.: "
 "openid(ENTER)profile(ENTER)email(ENTER)"
 msgstr ""
+"במקרה שהלקוח לא מציין היקף הרשאות, היקפי ברירת המחדל הבאים ישמשו. ספק ערך "
+"אחד לכל שורה, למשל: openid(ENTER)profile(ENTER)email(ENTER)"
 
 #: idp/oidc/models.py:75
 msgid ""
 "A list of allowed grant types. Provide one value per line, e.g.: "
 "authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 msgstr ""
+"רשימת סוגי הרשאה מותרים. ספק ערך אחד לכל שורה, למשל: "
+"authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 
 #: idp/oidc/models.py:86
 msgid "A list of allowed origins for cross-origin requests, one per line."
-msgstr ""
+msgstr "רשימת מקורות מותרים לבקשות חוצות-מקור, אחד לכל שורה."
 
 #: idp/oidc/models.py:94
 msgid ""
 "Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
 "can contain a single asterisk to match subdomains."
 msgstr ""
+"אפשר תווי כוכבית (*) ב-URI של הפניות ומקורות CORS. כאשר מופעל, URIs יכולים "
+"להכיל כוכבית בודדת להתאמת תת-דומיינים."
 
 #: idp/oidc/models.py:102
 msgid ""
 "A list of allowed response types. Provide one value per line, e.g.: "
 "code(ENTER)id_token token(ENTER)"
 msgstr ""
+"רשימת סוגי תגובה מותרים. ספק ערך אחד לכל שורה, למשל: code(ENTER)id_token "
+"token(ENTER)"
 
 #: idp/oidc/models.py:115
-#, fuzzy
-#| msgid "client id"
 msgid "client"
-msgstr "מזהה לקוח"
+msgstr "לקוח"
 
 #: idp/oidc/models.py:116
-#, fuzzy
-#| msgid "client id"
 msgid "clients"
-msgstr "מזהה לקוח"
+msgstr "לקוחות"
 
 #: mfa/adapter.py:32
 msgid ""
@@ -444,19 +420,17 @@ msgid ""
 msgstr "לא ניתן להפעיל אימות דו-שלבי לפני שאימתת את כתובת האימייל."
 
 #: mfa/adapter.py:141
-#, fuzzy
-#| msgid "secret key"
 msgid "Master key"
-msgstr "מפתח סודי"
+msgstr "מפתח ראשי"
 
 #: mfa/adapter.py:143
 msgid "Backup key"
-msgstr ""
+msgstr "מפתח גיבוי"
 
 #: mfa/adapter.py:144
 #, python-brace-format
 msgid "Key nr. {number}"
-msgstr ""
+msgstr "מפתח מס' {number}"
 
 #: mfa/apps.py:9
 msgid "MFA"
@@ -472,23 +446,23 @@ msgstr "מאמת TOTP"
 
 #: mfa/models.py:26
 msgid "WebAuthn"
-msgstr ""
+msgstr "WebAuthn"
 
 #: mfa/totp/forms.py:11
 msgid "Authenticator code"
 msgstr "קוד אימות"
 
 #: mfa/webauthn/forms.py:56
-#, fuzzy
-#| msgid "Password"
 msgid "Passwordless"
-msgstr "סיסמה"
+msgstr "ללא סיסמה"
 
 #: mfa/webauthn/forms.py:59
 msgid ""
 "Enabling passwordless operation allows you to sign in using just this key, "
 "but imposes additional requirements such as biometrics or PIN protection."
 msgstr ""
+"הפעלת מצב ללא סיסמה מאפשרת לך להיכנס באמצעות מפתח זה בלבד, אך מחייבת דרישות "
+"נוספות כגון זיהוי ביומטרי או הגנת PIN."
 
 #: socialaccount/adapter.py:30
 #, python-format
@@ -517,10 +491,8 @@ msgstr "לא ניתן לנתק את חשבון הצד-השלישי האחרון 
 
 #: socialaccount/adapter.py:41
 #: templates/socialaccount/messages/account_connected_other.txt:2
-#, fuzzy
-#| msgid "The social account is already connected to a different account."
 msgid "The third-party account is already connected to a different account."
-msgstr "חשבון חברתי זה כבר מקושר למשתמש אחר."
+msgstr "חשבון צד שלישי זה כבר מקושר לחשבון אחר."
 
 #: socialaccount/apps.py:9
 msgid "Social Accounts"
@@ -640,13 +612,13 @@ msgstr "ביטול"
 #, python-format
 msgid ""
 "Invalid response while obtaining request token from \"%s\". Response was: %s."
-msgstr ""
+msgstr "תגובה לא חוקית בעת קבלת אסימון בקשה מ-\"%s\". התגובה הייתה: %s."
 
 #: socialaccount/providers/oauth/client.py:121
 #: socialaccount/providers/pocket/client.py:81
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
-msgstr ""
+msgstr "תגובה לא חוקית בעת קבלת אסימון גישה מ-\"%s\"."
 
 #: socialaccount/providers/oauth/client.py:142
 #, python-format
@@ -666,7 +638,7 @@ msgstr "אין גישה למשאב פרטי ב-\"%s\"."
 #: socialaccount/providers/pocket/client.py:39
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
-msgstr ""
+msgstr "תגובה לא חוקית בעת קבלת אסימון בקשה מ-\"%s\"."
 
 #: templates/account/account_inactive.html:5
 #: templates/account/account_inactive.html:9
@@ -678,14 +650,11 @@ msgid "This account is inactive."
 msgstr "חשבון זה אינו פעיל."
 
 #: templates/account/base_confirm_code.html:27
-#, fuzzy, python-format
-#| msgid ""
-#| "We’ve sent a code to %(email_link)s. The code expires shortly, so please "
-#| "enter it soon."
+#, python-format
 msgid ""
 "We've sent a code to %(recipient)s. The code expires shortly, so please "
 "enter it soon."
-msgstr "שלחנו קוד ל-%(email_link)s. הקוד יפוג בקרוב, אז נא להזין אותו בהקדם."
+msgstr "שלחנו קוד ל-%(recipient)s. הקוד יפוג בקרוב, אז נא להזין אותו בהקדם."
 
 #: templates/account/base_confirm_code.html:39
 #: templates/account/email_confirm.html:24
@@ -696,10 +665,8 @@ msgid "Confirm"
 msgstr "אמת"
 
 #: templates/account/base_confirm_code.html:43
-#, fuzzy
-#| msgid "Request Code"
 msgid "Request new code"
-msgstr "בקש קוד"
+msgstr "בקש קוד חדש"
 
 #: templates/account/base_reauthenticate.html:5
 #: templates/account/base_reauthenticate.html:9
@@ -716,20 +683,16 @@ msgid "Alternative options"
 msgstr "אפשרויות חלופיות"
 
 #: templates/account/confirm_email_verification_code.html:5
-#, fuzzy
-#| msgid "Email Confirmation"
 msgid "Email Verification"
-msgstr "אישור באימייל"
+msgstr "אימות אימייל"
 
 #: templates/account/confirm_email_verification_code.html:8
 msgid "Enter Email Verification Code"
-msgstr ""
+msgstr "הזן קוד אימות אימייל"
 
 #: templates/account/confirm_email_verification_code.html:16
-#, fuzzy
-#| msgid "email address"
 msgid "Use a different email address"
-msgstr "כתובת אימייל"
+msgstr "השתמש בכתובת אימייל אחרת"
 
 #: templates/account/confirm_login_code.html:5 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
@@ -756,26 +719,20 @@ msgid "Password Reset"
 msgstr "איפוס סיסמה"
 
 #: templates/account/confirm_password_reset_code.html:8
-#, fuzzy
-#| msgid "Password Reset"
 msgid "Enter Password Reset Code"
-msgstr "איפוס סיסמה"
+msgstr "הזן קוד איפוס סיסמה"
 
 #: templates/account/confirm_phone_verification_code.html:5
-#, fuzzy
-#| msgid "Re-send Verification"
 msgid "Phone Verification"
-msgstr "שלח אימייל אימות מחדש"
+msgstr "אימות טלפון"
 
 #: templates/account/confirm_phone_verification_code.html:8
-#, fuzzy
-#| msgid "Re-send Verification"
 msgid "Enter Phone Verification Code"
-msgstr "שלח אימייל אימות מחדש"
+msgstr "הזן קוד אימות טלפון"
 
 #: templates/account/confirm_phone_verification_code.html:15
 msgid "Use a different phone number"
-msgstr ""
+msgstr "השתמש במספר טלפון אחר"
 
 #: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
@@ -842,6 +799,16 @@ msgid ""
 "\n"
 "%(password_reset_url)s"
 msgstr ""
+"את/ה מקבל/ת מייל זה מכיוון שאת/ה או מישהו אחר ניסה להירשם\n"
+"לחשבון באמצעות כתובת האימייל:\n"
+"\n"
+"%(email)s\n"
+"\n"
+"עם זאת, חשבון עם כתובת אימייל זו כבר קיים. במקרה\n"
+"ששכחת, אנא השתמש/י בתהליך שחזור סיסמה כדי לשחזר\n"
+"את חשבונך:\n"
+"\n"
+"%(password_reset_url)s"
 
 #: templates/account/email/account_already_exists_subject.txt:3
 msgid "Account Already Exists"
@@ -902,35 +869,24 @@ msgid "Email Confirmation"
 msgstr "אישור באימייל"
 
 #: templates/account/email/email_confirmation_message.txt:5
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this email because user %(user_display)s has given your "
-#| "email address to register an account on %(site_domain)s.\n"
-#| "\n"
-#| "To confirm this is correct, go to %(activate_url)s"
+#, python-format
 msgid ""
 "You're receiving this email because user %(user_display)s has given your "
 "email address to register an account on %(site_domain)s."
 msgstr ""
 "את/ה מקבל/ת מייל זה מכיוון שהמשתמש %(user_display)s השתמש בכתובת האימייל שלך "
-"כדי ליצור חשבון ב-%(site_domain)s.\n"
-"\n"
-"כדי לאמת זאת, לחץ על הקישור %(activate_url)s."
+"כדי לרשום חשבון ב-%(site_domain)s."
 
 #: templates/account/email/email_confirmation_message.txt:7
-#, fuzzy
-#| msgid ""
-#| "Your sign-in code is listed below. Please enter it in your open browser "
-#| "window."
 msgid ""
 "Your email verification code is listed below. Please enter it in your open "
 "browser window."
-msgstr "קוד הכניסה שלך מופיע למטה. אנא הזן/י אותו בחלון הדפדפן שפתוח."
+msgstr "קוד אימות האימייל שלך מופיע למטה. אנא הזן/י אותו בחלון הדפדפן שפתוח."
 
 #: templates/account/email/email_confirmation_message.txt:9
 #, python-format
 msgid "To confirm this is correct, go to %(activate_url)s"
-msgstr ""
+msgstr "כדי לאשר שזה נכון, עבור/י אל %(activate_url)s"
 
 #: templates/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your Email Address"
@@ -970,20 +926,14 @@ msgid "Password Changed"
 msgstr "סיסמה שונתה"
 
 #: templates/account/email/password_reset_code_message.txt:5
-#, fuzzy
-#| msgid ""
-#| "Your sign-in code is listed below. Please enter it in your open browser "
-#| "window."
 msgid ""
 "Your password reset code is listed below. Please enter it in your open "
 "browser window."
-msgstr "קוד הכניסה שלך מופיע למטה. אנא הזן/י אותו בחלון הדפדפן שפתוח."
+msgstr "קוד איפוס הסיסמה שלך מופיע למטה. אנא הזן/י אותו בחלון הדפדפן שפתוח."
 
 #: templates/account/email/password_reset_code_subject.txt:3
-#, fuzzy
-#| msgid "Password Reset"
 msgid "Password Reset Code"
-msgstr "איפוס סיסמה"
+msgstr "קוד איפוס סיסמה"
 
 #: templates/account/email/password_reset_key_message.txt:4
 msgid ""
@@ -1106,13 +1056,11 @@ msgstr "אם לא נרשמת לחשבון בעבר, אנא %(link)sהרשם%(end
 
 #: templates/account/login.html:42
 msgid "Sign in with a passkey"
-msgstr ""
+msgstr "התחבר עם מפתח גישה"
 
 #: templates/account/login.html:47 templates/account/request_login_code.html:9
-#, fuzzy
-#| msgid "Mail me a sign-in code"
 msgid "Send me a sign-in code"
-msgstr "שלחו לי קוד כניסה למייל"
+msgstr "שלחו לי קוד כניסה"
 
 #: templates/account/logout.html:4 templates/account/logout.html:8
 #: templates/account/logout.html:21 templates/allauth/layouts/base.html:61
@@ -1156,10 +1104,9 @@ msgid "You have signed out."
 msgstr "התנתקת מהחשבון."
 
 #: templates/account/messages/login_code_sent.txt:2
-#, fuzzy, python-format
-#| msgid "A sign-in code has been mailed to %(email)s."
+#, python-format
 msgid "A sign-in code has been sent to %(recipient)s."
-msgstr "קוד כניסה נשלח במייל ל-%(email)s."
+msgstr "קוד כניסה נשלח ל-%(recipient)s."
 
 #: templates/account/messages/password_changed.txt:2
 msgid "Password successfully changed."
@@ -1170,15 +1117,14 @@ msgid "Password successfully set."
 msgstr "הסיסמה נקבעה בהצלחה."
 
 #: templates/account/messages/phone_verification_sent.txt:2
-#, fuzzy, python-format
-#| msgid "A sign-in code has been mailed to %(email)s."
+#, python-format
 msgid "A verification code has been sent to %(phone)s."
-msgstr "קוד כניסה נשלח במייל ל-%(email)s."
+msgstr "קוד אימות נשלח ל-%(phone)s."
 
 #: templates/account/messages/phone_verified.txt:2
 #, python-format
 msgid "You have verified phone number %(phone)s."
-msgstr ""
+msgstr "אימתת את מספר הטלפון %(phone)s."
 
 #: templates/account/messages/primary_email_set.txt:2
 msgid "Primary email address set."
@@ -1247,41 +1193,29 @@ msgid "Set Password"
 msgstr "קביעת סיסמה"
 
 #: templates/account/phone_change.html:5 templates/account/phone_change.html:9
-#, fuzzy
-#| msgid "Change to"
 msgid "Change Phone"
-msgstr "שנה ל"
+msgstr "שנה טלפון"
 
 #: templates/account/phone_change.html:18
-#, fuzzy
-#| msgid "Current Password"
 msgid "Current phone"
-msgstr "סיסמה נוכחית"
+msgstr "טלפון נוכחי"
 
 #: templates/account/phone_change.html:22
-#, fuzzy
-#| msgid "Your email address is still pending verification."
 msgid "Your phone number is still pending verification."
-msgstr "כתובת האימייל שלך עדיין ממתינה לאימות."
+msgstr "מספר הטלפון שלך עדיין ממתין לאימות."
 
 #: templates/account/phone_change.html:38
-#, fuzzy
-#| msgid "Change to"
 msgctxt "action"
 msgid "Change Phone"
-msgstr "שנה ל"
+msgstr "שנה טלפון"
 
 #: templates/account/reauthenticate.html:6
 msgid "Enter your password:"
 msgstr "הזינו סיסמה:"
 
 #: templates/account/request_login_code.html:12
-#, fuzzy
-#| msgid ""
-#| "You will receive an email containing a special code for a password-free "
-#| "sign-in."
 msgid "You will receive a special code for a password-free sign-in."
-msgstr "תקבל אימייל המכיל קוד מיוחד לכניסה ללא סיסמה."
+msgstr "תקבל/י קוד מיוחד לכניסה ללא סיסמה."
 
 #: templates/account/request_login_code.html:24
 msgid "Request Code"
@@ -1310,19 +1244,15 @@ msgstr "נרשמת בעבר? %(link)sכניסה למערכת%(end_link)s."
 
 #: templates/account/signup.html:39
 msgid "Sign up using a passkey"
-msgstr ""
+msgstr "הירשם באמצעות מפתח גישה"
 
 #: templates/account/signup_by_passkey.html:8
-#, fuzzy
-#| msgid "Sign Up"
 msgid "Passkey Sign Up"
-msgstr "הרשמה"
+msgstr "הרשמה עם מפתח גישה"
 
 #: templates/account/signup_by_passkey.html:36
-#, fuzzy
-#| msgid "Other sign-in options"
 msgid "Other options"
-msgstr "אפשרויות כניסה אחרות"
+msgstr "אפשרויות אחרות"
 
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:9
@@ -1382,11 +1312,6 @@ msgstr ""
 "למטרה זו, אנו מבקשים כי תאמת בעלות על כתובת האימייל שלך. "
 
 #: templates/account/verified_email_required.html:18
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for\n"
-#| "verification. Please click on the link inside this e-mail. Please\n"
-#| "contact us if you do not receive it within a few minutes."
 msgid ""
 "We have sent an email to you for\n"
 "verification. Please click on the link inside that email. If you do not see "
@@ -1395,28 +1320,26 @@ msgid ""
 "contact us if you do not receive it within a few minutes."
 msgstr ""
 "שלחנו אליך מייל למטרת אימות.\n"
-"אנא ללץ על הקישור בתוך אימייל זה.\n"
-"אנא צור עמנו קשר במידה והמייל לא התקבל תוך מספר דקות."
+"אנא לחץ/י על הקישור בתוך אימייל זה. אם אינך רואה את מייל האימות בתיבת הדואר "
+"הנכנס, בדוק/בדקי בתיקיית הספאם. אם לא\n"
+"קיבלת את המייל תוך מספר דקות, אנא צור/צרי עמנו קשר."
 
 #: templates/account/verified_email_required.html:23
-#, fuzzy, python-format
-#| msgid ""
-#| "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change "
-#| "your e-mail address</a>."
+#, python-format
 msgid ""
 "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your "
 "email address</a>."
 msgstr ""
-"<strong>הערה:</strong> אתה עדיין יכול <a href=\"%(email_url)s\">לשנות את "
-"כתובת האימייל שלך </a>."
+"<strong>הערה:</strong> עדיין ניתן <a href=\"%(email_url)s\">לשנות את כתובת "
+"האימייל שלך</a>."
 
 #: templates/allauth/layouts/base.html:18
 msgid "Messages:"
-msgstr ""
+msgstr "הודעות:"
 
 #: templates/allauth/layouts/base.html:25
 msgid "Menu:"
-msgstr ""
+msgstr "תפריט:"
 
 #: templates/allauth/layouts/base.html:43
 #: templates/socialaccount/connections.html:5
@@ -1427,13 +1350,13 @@ msgstr "קישורים לחשבון"
 #: templates/allauth/layouts/base.html:49 templates/mfa/authenticate.html:10
 #: templates/mfa/index.html:5 templates/mfa/index.html:9
 msgid "Two-Factor Authentication"
-msgstr ""
+msgstr "אימות דו-שלבי"
 
 #: templates/allauth/layouts/base.html:55
 #: templates/usersessions/usersession_list.html:6
 #: templates/usersessions/usersession_list.html:10
 msgid "Sessions"
-msgstr ""
+msgstr "הפעלות"
 
 #: templates/idp/oidc/authorization_form.html:5
 #: templates/idp/oidc/authorization_form.html:9
@@ -1443,176 +1366,168 @@ msgstr ""
 #: templates/idp/oidc/device_authorization_confirmed.html:5
 #: templates/idp/oidc/device_authorization_denied.html:5
 msgid "Authorize"
-msgstr ""
+msgstr "אשר"
 
 #: templates/idp/oidc/authorization_form.html:12
 #, python-format
 msgid "%(client_name)s wants to access your %(site_name)s account."
-msgstr ""
+msgstr "%(client_name)s מבקש גישה לחשבון %(site_name)s שלך."
 
 #: templates/idp/oidc/device_authorization_code_form.html:9
-#, fuzzy
-#| msgid "Enter Sign-In Code"
 msgid "Enter Device Code"
-msgstr "הזן קוד כניסה"
+msgstr "הזן קוד מכשיר"
 
 #: templates/idp/oidc/device_authorization_code_form.html:12
 msgid "Enter the code displayed on your device."
-msgstr ""
+msgstr "הזן/י את הקוד המוצג על המכשיר שלך."
 
 #: templates/idp/oidc/device_authorization_code_form.html:21
 #: templates/socialaccount/login.html:27
 #: templates/socialaccount/login_redirect.html:10
 msgid "Continue"
-msgstr ""
+msgstr "המשך"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:9
-#, fuzzy
-#| msgid "Confirm Access"
 msgid "Confirm Device"
-msgstr "אימות גישה"
+msgstr "אשר מכשיר"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:12
 #, python-format
 msgid ""
 "Please confirm the code shown on your %(client_name)s to authorize this "
 "device."
-msgstr ""
+msgstr "אנא אשר/י את הקוד המוצג ב-%(client_name)s שלך כדי לאשר מכשיר זה."
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:29
 msgid "Deny"
-msgstr ""
+msgstr "דחה"
 
 #: templates/idp/oidc/device_authorization_confirmed.html:9
 msgid "Device Authorized"
-msgstr ""
+msgstr "המכשיר אושר"
 
 #: templates/idp/oidc/device_authorization_confirmed.html:12
 #, python-format
 msgid "You successfully authorized your %(client_name)s device."
-msgstr ""
+msgstr "אישרת בהצלחה את מכשיר ה-%(client_name)s שלך."
 
 #: templates/idp/oidc/device_authorization_denied.html:9
 msgid "Device Denied"
-msgstr ""
+msgstr "המכשיר נדחה"
 
 #: templates/idp/oidc/device_authorization_denied.html:12
 #, python-format
 msgid "Authorization for your %(client_name)s device has been denied."
-msgstr ""
+msgstr "ההרשאה למכשיר ה-%(client_name)s שלך נדחתה."
 
 #: templates/idp/oidc/error.html:5 templates/idp/oidc/error.html:9
 msgid "Error"
-msgstr ""
+msgstr "שגיאה"
 
 #: templates/idp/oidc/logout.html:24
-#, fuzzy
-#| msgid "Sign In"
 msgid "Stay Signed In"
-msgstr "כניסה"
+msgstr "הישאר מחובר"
 
 #: templates/mfa/authenticate.html:13
 msgid ""
 "Your account is protected by two-factor authentication. Please enter an "
 "authenticator code:"
-msgstr ""
+msgstr "חשבונך מוגן באמצעות אימות דו-שלבי. אנא הזן/י קוד מאפליקציית האימות:"
 
 #: templates/mfa/email/recovery_codes_generated_message.txt:4
 msgid ""
 "A new set of Two-Factor Authentication recovery codes has been generated."
-msgstr ""
+msgstr "סט חדש של קודי שחזור לאימות דו-שלבי נוצר."
 
 #: templates/mfa/email/recovery_codes_generated_subject.txt:3
 msgid "New Recovery Codes Generated"
-msgstr ""
+msgstr "קודי שחזור חדשים נוצרו"
 
 #: templates/mfa/email/totp_activated_message.txt:4
 #: templates/mfa/messages/totp_activated.txt:2
 msgid "Authenticator app activated."
-msgstr ""
+msgstr "אפליקציית האימות הופעלה."
 
 #: templates/mfa/email/totp_activated_subject.txt:3
 msgid "Authenticator App Activated"
-msgstr ""
+msgstr "אפליקציית אימות הופעלה"
 
 #: templates/mfa/email/totp_deactivated_message.txt:4
 #: templates/mfa/messages/totp_deactivated.txt:2
 msgid "Authenticator app deactivated."
-msgstr ""
+msgstr "אפליקציית האימות הושבתה."
 
 #: templates/mfa/email/totp_deactivated_subject.txt:3
 msgid "Authenticator App Deactivated"
-msgstr ""
+msgstr "אפליקציית אימות הושבתה"
 
 #: templates/mfa/email/webauthn_added_message.txt:4
 msgid "A new security key has been added."
-msgstr ""
+msgstr "מפתח אבטחה חדש נוסף."
 
 #: templates/mfa/email/webauthn_added_subject.txt:3
 msgid "Security Key Added"
-msgstr ""
+msgstr "מפתח אבטחה נוסף"
 
 #: templates/mfa/email/webauthn_removed_message.txt:4
-#, fuzzy
-#| msgid "Your email has been confirmed."
 msgid "A security key has been removed."
-msgstr "האימייל שלך אושר."
+msgstr "מפתח אבטחה הוסר."
 
 #: templates/mfa/email/webauthn_removed_subject.txt:3
 msgid "Security Key Removed"
-msgstr ""
+msgstr "מפתח אבטחה הוסר"
 
 #: templates/mfa/index.html:14 templates/mfa/totp/base.html:4
 msgid "Authenticator App"
-msgstr ""
+msgstr "אפליקציית אימות"
 
 #: templates/mfa/index.html:19
 msgid "Authentication using an authenticator app is active."
-msgstr ""
+msgstr "אימות באמצעות אפליקציית אימות פעיל."
 
 #: templates/mfa/index.html:23
 msgid "An authenticator app is not active."
-msgstr ""
+msgstr "אפליקציית אימות אינה פעילה."
 
 #: templates/mfa/index.html:32 templates/mfa/totp/deactivate_form.html:24
 msgid "Deactivate"
-msgstr ""
+msgstr "השבת"
 
 #: templates/mfa/index.html:36 templates/mfa/totp/activate_form.html:32
 msgid "Activate"
-msgstr ""
+msgstr "הפעל"
 
 #: templates/mfa/index.html:45 templates/mfa/webauthn/authenticator_list.html:8
 #: templates/mfa/webauthn/base.html:4
 msgid "Security Keys"
-msgstr ""
+msgstr "מפתחות אבטחה"
 
 #: templates/mfa/index.html:50
 #, python-format
 msgid "You have added %(count)s security key."
 msgid_plural "You have added %(count)s security keys."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "הוספת %(count)s מפתח אבטחה."
+msgstr[1] "הוספת %(count)s מפתחות אבטחה."
 
 #: templates/mfa/index.html:54
 #: templates/mfa/webauthn/authenticator_list.html:12
 msgid "No security keys have been added."
-msgstr ""
+msgstr "לא נוספו מפתחות אבטחה."
 
 #: templates/mfa/index.html:62
 msgid "Manage"
-msgstr ""
+msgstr "נהל"
 
 #: templates/mfa/index.html:67 templates/mfa/webauthn/add_form.html:18
 #: templates/mfa/webauthn/authenticator_list.html:70
 msgid "Add"
-msgstr ""
+msgstr "הוסף"
 
 #: templates/mfa/index.html:77 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:6
 #: templates/mfa/recovery_codes/index.html:6
 msgid "Recovery Codes"
-msgstr ""
+msgstr "קודי שחזור"
 
 #: templates/mfa/index.html:82 templates/mfa/recovery_codes/index.html:9
 #, python-format
@@ -1620,69 +1535,69 @@ msgid ""
 "There is %(unused_count)s out of %(total_count)s recovery codes available."
 msgid_plural ""
 "There are %(unused_count)s out of %(total_count)s recovery codes available."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "יש %(unused_count)s מתוך %(total_count)s קודי שחזור זמינים."
+msgstr[1] "יש %(unused_count)s מתוך %(total_count)s קודי שחזור זמינים."
 
 #: templates/mfa/index.html:86
 msgid "No recovery codes set up."
-msgstr ""
+msgstr "לא הוגדרו קודי שחזור."
 
 #: templates/mfa/index.html:96
 msgid "View"
-msgstr ""
+msgstr "צפה"
 
 #: templates/mfa/index.html:102
 msgid "Download"
-msgstr ""
+msgstr "הורד"
 
 #: templates/mfa/index.html:110 templates/mfa/recovery_codes/generate.html:29
 msgid "Generate"
-msgstr ""
+msgstr "צור"
 
 #: templates/mfa/messages/recovery_codes_generated.txt:2
 msgid "A new set of recovery codes has been generated."
-msgstr ""
+msgstr "סט חדש של קודי שחזור נוצר."
 
 #: templates/mfa/messages/webauthn_added.txt:2
 msgid "Security key added."
-msgstr ""
+msgstr "מפתח אבטחה נוסף."
 
 #: templates/mfa/messages/webauthn_removed.txt:2
 msgid "Security key removed."
-msgstr ""
+msgstr "מפתח אבטחה הוסר."
 
 #: templates/mfa/reauthenticate.html:6
 msgid "Enter an authenticator code:"
-msgstr ""
+msgstr "הזן/י קוד מאפליקציית האימות:"
 
 #: templates/mfa/recovery_codes/generate.html:9
 msgid "You are about to generate a new set of recovery codes for your account."
-msgstr ""
+msgstr "אתה עומד ליצור סט חדש של קודי שחזור לחשבונך."
 
 #: templates/mfa/recovery_codes/generate.html:11
 msgid "This action will invalidate your existing codes."
-msgstr ""
+msgstr "פעולה זו תבטל את הקודים הקיימים שלך."
 
 #: templates/mfa/recovery_codes/generate.html:13
 msgid "Are you sure?"
-msgstr ""
+msgstr "האם אתה בטוח?"
 
 #: templates/mfa/recovery_codes/index.html:13
 msgid "Unused codes"
-msgstr ""
+msgstr "קודים שלא נוצלו"
 
 #: templates/mfa/recovery_codes/index.html:25
 msgid "Download codes"
-msgstr ""
+msgstr "הורד קודים"
 
 #: templates/mfa/recovery_codes/index.html:30
 msgid "Generate new codes"
-msgstr ""
+msgstr "צור קודים חדשים"
 
 #: templates/mfa/totp/activate_form.html:4
 #: templates/mfa/totp/activate_form.html:8
 msgid "Activate Authenticator App"
-msgstr ""
+msgstr "הפעל אפליקציית אימות"
 
 #: templates/mfa/totp/activate_form.html:11
 msgid ""
@@ -1690,118 +1605,109 @@ msgid ""
 "below with your authenticator app. Then, input the verification code "
 "generated by the app below."
 msgstr ""
+"כדי להגן על חשבונך באמצעות אימות דו-שלבי, סרוק/סרקי את קוד ה-QR למטה באמצעות "
+"אפליקציית האימות. לאחר מכן, הזן/י את קוד האימות שנוצר על ידי האפליקציה."
 
 #: templates/mfa/totp/activate_form.html:21
 msgid "Authenticator secret"
-msgstr ""
+msgstr "סוד אפליקציית האימות"
 
 #: templates/mfa/totp/activate_form.html:24
 msgid ""
 "You can store this secret and use it to reinstall your authenticator app at "
 "a later time."
 msgstr ""
+"ניתן לשמור סוד זה ולהשתמש בו כדי להתקין מחדש את אפליקציית האימות בזמן מאוחר "
+"יותר."
 
 #: templates/mfa/totp/deactivate_form.html:5
 #: templates/mfa/totp/deactivate_form.html:9
 msgid "Deactivate Authenticator App"
-msgstr ""
+msgstr "השבת אפליקציית אימות"
 
 #: templates/mfa/totp/deactivate_form.html:12
 msgid ""
 "You are about to deactivate authenticator app based authentication. Are you "
 "sure?"
-msgstr ""
+msgstr "אתה עומד להשבית אימות באמצעות אפליקציית אימות. האם אתה בטוח?"
 
 #: templates/mfa/trust.html:4 templates/mfa/trust.html:8
 msgid "Trust this Browser?"
-msgstr ""
+msgstr "לסמוך על דפדפן זה?"
 
 #: templates/mfa/trust.html:11
 msgid ""
 "If you choose to trust this browser, you will not be asked for a "
 "verification code the next time you sign in."
 msgstr ""
+"אם תבחר/י לסמוך על דפדפן זה, לא תתבקש/י להזין קוד אימות בפעם הבאה שתיכנס/י."
 
 #: templates/mfa/trust.html:23
 #, python-format
 msgid "Trust for %(period)s"
-msgstr ""
+msgstr "סמוך למשך %(period)s"
 
 #: templates/mfa/trust.html:26
 msgid "Don't Trust"
-msgstr ""
+msgstr "אל תסמוך"
 
 #: templates/mfa/webauthn/add_form.html:7
-#, fuzzy
-#| msgid "secret key"
 msgid "Add Security Key"
-msgstr "מפתח סודי"
+msgstr "הוסף מפתח אבטחה"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:6
-#, fuzzy
-#| msgid "secret key"
 msgid "Remove Security Key"
-msgstr "מפתח סודי"
+msgstr "הסר מפתח אבטחה"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:9
-#, fuzzy
-#| msgid "Are you sure you want to sign out?"
 msgid "Are you sure you want to remove this security key?"
-msgstr "האם אתה בטוח שברצונך לצאת?"
+msgstr "האם אתה בטוח שברצונך להסיר מפתח אבטחה זה?"
 
 #: templates/mfa/webauthn/authenticator_list.html:21
 msgid "Usage"
-msgstr ""
+msgstr "שימוש"
 
 #: templates/mfa/webauthn/authenticator_list.html:33
 msgid "Passkey"
-msgstr ""
+msgstr "מפתח גישה"
 
 #: templates/mfa/webauthn/authenticator_list.html:37
-#, fuzzy
-#| msgid "secret key"
 msgid "Security key"
-msgstr "מפתח סודי"
+msgstr "מפתח אבטחה"
 
 #: templates/mfa/webauthn/authenticator_list.html:40
 msgid "This key does not indicate whether it is a passkey."
-msgstr ""
+msgstr "מפתח זה אינו מציין האם הוא מפתח גישה."
 
 #: templates/mfa/webauthn/authenticator_list.html:41
-#, fuzzy
-#| msgid "Unverified"
 msgid "Unspecified"
-msgstr "לא מאומת"
+msgstr "לא צוין"
 
 #: templates/mfa/webauthn/authenticator_list.html:46
 #, python-format
 msgid "Added on %(created_at)s"
-msgstr ""
+msgstr "נוסף ב-%(created_at)s"
 
 #: templates/mfa/webauthn/authenticator_list.html:48
 #, python-format
 msgid "Last used %(last_used)s"
-msgstr ""
+msgstr "שימוש אחרון %(last_used)s"
 
 #: templates/mfa/webauthn/authenticator_list.html:56
 msgid "Edit"
-msgstr ""
+msgstr "ערוך"
 
 #: templates/mfa/webauthn/edit_form.html:7
-#, fuzzy
-#| msgid "secret key"
 msgid "Edit Security Key"
-msgstr "מפתח סודי"
+msgstr "ערוך מפתח אבטחה"
 
 #: templates/mfa/webauthn/edit_form.html:18
 msgid "Save"
-msgstr ""
+msgstr "שמור"
 
 #: templates/mfa/webauthn/signup_form.html:7
-#, fuzzy
-#| msgid "Current Password"
 msgid "Create Passkey"
-msgstr "סיסמה נוכחית"
+msgstr "צור מפתח גישה"
 
 #: templates/mfa/webauthn/signup_form.html:10
 msgid ""
@@ -1809,53 +1715,38 @@ msgid ""
 "additional keys later on, you can use a descriptive name to tell the keys "
 "apart."
 msgstr ""
+"אתה עומד ליצור מפתח גישה לחשבונך. מכיוון שתוכל להוסיף מפתחות נוספים מאוחר "
+"יותר, תוכל להשתמש בשם תיאורי כדי להבחין בין המפתחות."
 
 #: templates/mfa/webauthn/signup_form.html:21
-#, fuzzy
-#| msgid "created"
 msgid "Create"
-msgstr "נוצר"
+msgstr "צור"
 
 #: templates/mfa/webauthn/snippets/scripts.html:2
 msgid "This functionality requires JavaScript."
-msgstr ""
+msgstr "פונקציונליות זו דורשת JavaScript."
 
 #: templates/socialaccount/authentication_error.html:5
 #: templates/socialaccount/authentication_error.html:9
-#, fuzzy
-#| msgid "Social Network Login Failure"
 msgid "Third-Party Login Failure"
-msgstr "שגיאת התחברות לרשת חברתית"
+msgstr "כשל בהתחברות דרך צד שלישי"
 
 #: templates/socialaccount/authentication_error.html:12
-#, fuzzy
-#| msgid ""
-#| "An error occurred while attempting to login via your social network "
-#| "account."
 msgid ""
 "An error occurred while attempting to login via your third-party account."
-msgstr "אירעה שגיאה במהלך ניסיון התחברות באמצעות חשבון הרשת החברתית שלך."
+msgstr "אירעה שגיאה במהלך ניסיון ההתחברות באמצעות חשבון צד שלישי שלך."
 
 #: templates/socialaccount/connections.html:13
-#, fuzzy
-#| msgid ""
-#| "You can sign in to your account using any of the following third party "
-#| "accounts:"
 msgid ""
 "You can sign in to your account using any of the following third-party "
 "accounts:"
 msgstr "ניתן להתחבר לחשבונך באמצעות כל אחד מחשבונות צד שלישי הבאים:"
 
 #: templates/socialaccount/connections.html:46
-#, fuzzy
-#| msgid ""
-#| "You currently have no social network accounts connected to this account."
 msgid "You currently have no third-party accounts connected to this account."
-msgstr "לא קיימים חשבונות רשת חברתית המקושרים לחשבון זה כרגע."
+msgstr "כרגע לא מקושרים חשבונות צד שלישי לחשבון זה."
 
 #: templates/socialaccount/connections.html:50
-#, fuzzy
-#| msgid "Add a 3rd Party Account"
 msgid "Add a Third-Party Account"
 msgstr "הוסף חשבון צד שלישי"
 
@@ -1863,46 +1754,42 @@ msgstr "הוסף חשבון צד שלישי"
 #, python-format
 msgid ""
 "A third-party account from %(provider)s has been connected to your account."
-msgstr ""
+msgstr "חשבון צד שלישי מ-%(provider)s חובר לחשבונך."
 
 #: templates/socialaccount/email/account_connected_subject.txt:3
-#, fuzzy
-#| msgid "Add a 3rd Party Account"
 msgid "Third-Party Account Connected"
-msgstr "הוסף חשבון צד שלישי"
+msgstr "חשבון צד שלישי חובר"
 
 #: templates/socialaccount/email/account_disconnected_message.txt:4
 #, python-format
 msgid ""
 "A third-party account from %(provider)s has been disconnected from your "
 "account."
-msgstr ""
+msgstr "חשבון צד שלישי מ-%(provider)s נותק מחשבונך."
 
 #: templates/socialaccount/email/account_disconnected_subject.txt:3
-#, fuzzy
-#| msgid "Add a 3rd Party Account"
 msgid "Third-Party Account Disconnected"
-msgstr "הוסף חשבון צד שלישי"
+msgstr "חשבון צד שלישי נותק"
 
 #: templates/socialaccount/login.html:10
 #, python-format
 msgid "Connect %(provider)s"
-msgstr ""
+msgstr "חבר את %(provider)s"
 
 #: templates/socialaccount/login.html:13
 #, python-format
 msgid "You are about to connect a new third-party account from %(provider)s."
-msgstr ""
+msgstr "אתה עומד לחבר חשבון צד שלישי חדש מ-%(provider)s."
 
 #: templates/socialaccount/login.html:17
 #, python-format
 msgid "Sign In Via %(provider)s"
-msgstr ""
+msgstr "התחבר דרך %(provider)s"
 
 #: templates/socialaccount/login.html:20
 #, python-format
 msgid "You are about to sign in using a third-party account from %(provider)s."
-msgstr ""
+msgstr "אתה עומד להתחבר באמצעות חשבון צד שלישי מ-%(provider)s."
 
 #: templates/socialaccount/login_cancelled.html:5
 #: templates/socialaccount/login_cancelled.html:9
@@ -1920,16 +1807,12 @@ msgstr ""
 "אנא המשך ל<a href=\"%(login_url)s\">התחברות</a>."
 
 #: templates/socialaccount/messages/account_connected.txt:2
-#, fuzzy
-#| msgid "The social account has been connected."
 msgid "The third-party account has been connected."
-msgstr "החשבון החברתי קושר בהצלחה."
+msgstr "חשבון צד שלישי חובר בהצלחה."
 
 #: templates/socialaccount/messages/account_disconnected.txt:2
-#, fuzzy
-#| msgid "The social account has been disconnected."
 msgid "The third-party account has been disconnected."
-msgstr "חשבון חברתי זה נותק."
+msgstr "חשבון צד שלישי נותק בהצלחה."
 
 #: templates/socialaccount/signup.html:12
 #, python-format
@@ -1942,50 +1825,45 @@ msgstr ""
 
 #: templates/socialaccount/snippets/login.html:10
 msgid "Or use a third-party"
-msgstr ""
+msgstr "או השתמש בצד שלישי"
 
 #: templates/usersessions/messages/sessions_logged_out.txt:2
 msgid "Signed out of all other sessions."
-msgstr ""
+msgstr "יצאת מכל ההפעלות האחרות."
 
 #: templates/usersessions/usersession_list.html:24
 msgid "Started At"
-msgstr ""
+msgstr "התחלה"
 
 #: templates/usersessions/usersession_list.html:27
-#, fuzzy
-#| msgid "Email Addresses"
 msgid "IP Address"
-msgstr "כתובות אימייל"
+msgstr "כתובת IP"
 
 #: templates/usersessions/usersession_list.html:30
 msgid "Browser"
-msgstr ""
+msgstr "דפדפן"
 
 #: templates/usersessions/usersession_list.html:34
 msgid "Last seen at"
-msgstr ""
+msgstr "נראה לאחרונה ב"
 
 #: templates/usersessions/usersession_list.html:59
-#, fuzzy
-#| msgid "Current Password"
 msgid "Current"
-msgstr "סיסמה נוכחית"
+msgstr "נוכחי"
 
 #: templates/usersessions/usersession_list.html:72
 msgid "Sign Out Other Sessions"
-msgstr ""
+msgstr "התנתק מהפעלות אחרות"
 
 #: usersessions/apps.py:9
 msgid "User Sessions"
-msgstr ""
+msgstr "הפעלות משתמש"
 
 #: usersessions/models.py:94
 msgid "session key"
-msgstr ""
+msgstr "מפתח הפעלה"
 
 #, fuzzy
-#~| msgid "Account Connections"
 #~ msgid "Account Connection"
 #~ msgstr "קישורים לחשבון"
 
@@ -1994,13 +1872,6 @@ msgstr ""
 #~ msgstr "הסיסמה חייבת להיות באורך של לפחות {0} תווים."
 
 #, fuzzy, python-format
-#~| msgid ""
-#~| "Hello from %(site_name)s!\n"
-#~| "\n"
-#~| "You're receiving this e-mail because you or someone else has requested a "
-#~| "password for your user account.\n"
-#~| "It can be safely ignored if you did not request a password reset. Click "
-#~| "the link below to reset your password."
 #~ msgid ""
 #~ "You are receiving this email because you or someone else has requested a\n"
 #~ "password for your user account. However, we do not have any record of a "
@@ -2019,12 +1890,10 @@ msgstr ""
 #~ "מטה לאיפוס סיסמתך."
 
 #, fuzzy
-#~| msgid "The following email addresses are associated with your account:"
 #~ msgid "The following email address is associated with your account:"
 #~ msgstr "כתובות האימייל הבאות משויכות לחשבונך:"
 
 #, fuzzy
-#~| msgid "Confirm Email Address"
 #~ msgid "Change Email Address"
 #~ msgstr "אימות כתובת אימייל"
 

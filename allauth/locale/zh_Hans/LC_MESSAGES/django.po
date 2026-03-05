@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-13 09:05-0600\n"
+"POT-Creation-Date: 2026-03-05 08:42-0600\n"
 "PO-Revision-Date: 2025-09-15 15:01+0000\n"
 "Last-Translator: Cassian <prismarine@epicraft.top>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
@@ -308,17 +308,17 @@ msgstr "授予权限"
 
 #: idp/oidc/internal/clientkit.py:22
 msgid "Wildcards are not allowed unless 'Allow URI wildcards' is enabled."
-msgstr ""
+msgstr "除非启用“允许 URI 通配符”，否则不允许使用通配符。"
 
 #: idp/oidc/internal/clientkit.py:27
 msgid ""
 "URI '{}' contains more than one wildcard (*). Only one wildcard per URI is "
 "allowed."
-msgstr ""
+msgstr "URI“{}”包含多个通配符 (*)。每个 URI 只允许一个通配符。"
 
 #: idp/oidc/internal/clientkit.py:39
 msgid "Wildcards are only allowed in the hostname portion of the URI."
-msgstr ""
+msgstr "通配符只允许在 URI 的主机名部分使用。"
 
 #: idp/oidc/models.py:37
 msgid "Authorization code"
@@ -378,6 +378,8 @@ msgid ""
 "Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
 "can contain a single asterisk to match subdomains."
 msgstr ""
+"允许在重定向 URI 和 CORS 来源中使用通配符 (*)。启用后，URI 可以包含一个星号来"
+"匹配子域名。"
 
 #: idp/oidc/models.py:102
 msgid ""
@@ -1417,10 +1419,8 @@ msgid "Error"
 msgstr "错误"
 
 #: templates/idp/oidc/logout.html:24
-#, fuzzy
-#| msgid "Sign In"
 msgid "Stay Signed In"
-msgstr "登录"
+msgstr "保持登录"
 
 #: templates/mfa/authenticate.html:13
 msgid ""
@@ -1853,7 +1853,6 @@ msgid "session key"
 msgstr "会话密钥"
 
 #, fuzzy
-#~| msgid "Account Connections"
 #~ msgid "Account Connection"
 #~ msgstr "账号连接"
 

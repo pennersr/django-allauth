@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-13 09:05-0600\n"
+"POT-Creation-Date: 2026-03-05 08:42-0600\n"
 "PO-Revision-Date: 2025-08-04 13:01+0000\n"
 "Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese (Portugal) <https://hosted.weblate.org/projects/"
@@ -40,11 +40,9 @@ msgstr ""
 "O endereço de email e/ou a palavra-passe que especificou não estão corretos."
 
 #: account/adapter.py:72
-#, fuzzy
-#| msgid "The username and/or password you specified are not correct."
 msgid "The phone number and/or password you specified are not correct."
 msgstr ""
-"O nome de utilizador e/ou a palavra-passe que especificou não estão corretos."
+"O número de telefone e/ou a palavra-passe que especificou não estão corretos."
 
 #: account/adapter.py:74
 msgid "A user is already registered with this email address."
@@ -80,10 +78,8 @@ msgid "You cannot add more than %d email addresses."
 msgstr "Não pode adicionar mais do que %d endereços de email."
 
 #: account/adapter.py:82
-#, fuzzy
-#| msgid "A user is already registered with this email address."
 msgid "A user is already registered with this phone number."
-msgstr "Já existe um utilizador registado com este endereço de email."
+msgstr "Já existe um utilizador registado com este número de telefone."
 
 #: account/adapter.py:84
 msgid "Too many failed login attempts. Try again later."
@@ -198,26 +194,20 @@ msgid "Login"
 msgstr "Iniciar sessão"
 
 #: account/forms.py:115
-#, fuzzy
-#| msgid "Username or email"
 msgid "Username, email or phone"
-msgstr "Nome de utilizador ou email"
+msgstr "Nome de utilizador, email ou telefone"
 
 #: account/forms.py:117
 msgid "Username or email"
 msgstr "Nome de utilizador ou email"
 
 #: account/forms.py:119
-#, fuzzy
-#| msgid "Username or email"
 msgid "Username or phone"
-msgstr "Nome de utilizador ou email"
+msgstr "Nome de utilizador ou telefone"
 
 #: account/forms.py:121
-#, fuzzy
-#| msgid "Email (optional)"
 msgid "Email or phone"
-msgstr "Email (opcional)"
+msgstr "Email ou telefone"
 
 #: account/forms.py:144
 msgid "Forgot your password?"
@@ -236,10 +226,8 @@ msgid "Email (optional)"
 msgstr "Email (opcional)"
 
 #: account/forms.py:314
-#, fuzzy
-#| msgid "Email (optional)"
 msgid "Username (optional)"
-msgstr "Email (opcional)"
+msgstr "Nome de utilizador (opcional)"
 
 #: account/forms.py:388
 msgid "You must type the same email each time."
@@ -310,53 +298,51 @@ msgstr "confirmações de email"
 
 #: headless/apps.py:7
 msgid "Headless"
-msgstr ""
+msgstr "Headless"
 
 #: idp/oidc/adapter.py:30
 msgid "View your user ID"
 msgstr "Visualizar o seu ID de utilizador"
 
 #: idp/oidc/adapter.py:31
-#, fuzzy
-#| msgid "Verify Your Email Address"
 msgid "View your email address"
-msgstr "Verifique o seu endereço de email"
+msgstr "Ver o seu endereço de email"
 
 #: idp/oidc/adapter.py:32
 msgid "View your basic profile information"
 msgstr "Ver as suas informações básicas de perfil"
 
 #: idp/oidc/forms.py:31
-#, fuzzy
-#| msgid "User Sessions"
 msgid "Grant permissions"
-msgstr "Sessões de utilizador"
+msgstr "Conceder permissões"
 
 #: idp/oidc/internal/clientkit.py:22
 msgid "Wildcards are not allowed unless 'Allow URI wildcards' is enabled."
 msgstr ""
+"Os caracteres universais não são permitidos a menos que 'Permitir caracteres "
+"universais em URIs' esteja ativado."
 
 #: idp/oidc/internal/clientkit.py:27
 msgid ""
 "URI '{}' contains more than one wildcard (*). Only one wildcard per URI is "
 "allowed."
 msgstr ""
+"O URI '{}' contém mais do que um carácter universal (*). Apenas um carácter "
+"universal por URI é permitido."
 
 #: idp/oidc/internal/clientkit.py:39
 msgid "Wildcards are only allowed in the hostname portion of the URI."
 msgstr ""
+"Os caracteres universais só são permitidos na parte do nome de anfitrião do "
+"URI."
 
 #: idp/oidc/models.py:37
-#, fuzzy
-#| msgid "Authenticator code"
 msgid "Authorization code"
-msgstr "Código do autenticador"
+msgstr "Código de autorização"
 
 #: idp/oidc/models.py:38
-#, fuzzy
-#| msgid "Recovery codes"
 msgid "Device code"
-msgstr "Códigos de recuperação"
+msgstr "Código de dispositivo"
 
 #: idp/oidc/models.py:39
 msgid "Client credentials"
@@ -403,12 +389,16 @@ msgstr ""
 #: idp/oidc/models.py:86
 msgid "A list of allowed origins for cross-origin requests, one per line."
 msgstr ""
+"Uma lista de origens permitidas para pedidos cross-origin, uma por linha."
 
 #: idp/oidc/models.py:94
 msgid ""
 "Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
 "can contain a single asterisk to match subdomains."
 msgstr ""
+"Permitir caracteres universais (*) em URIs de redirecionamento e origens "
+"CORS. Quando ativado, os URIs podem conter um único asterisco para "
+"corresponder a subdomínios."
 
 #: idp/oidc/models.py:102
 msgid ""
@@ -419,16 +409,12 @@ msgstr ""
 "exemplo: code(ENTER)id_token token(ENTER)"
 
 #: idp/oidc/models.py:115
-#, fuzzy
-#| msgid "client id"
 msgid "client"
-msgstr "ID do cliente"
+msgstr "cliente"
 
 #: idp/oidc/models.py:116
-#, fuzzy
-#| msgid "client id"
 msgid "clients"
-msgstr "ID do cliente"
+msgstr "clientes"
 
 #: mfa/adapter.py:32
 msgid ""
@@ -708,10 +694,8 @@ msgid "Confirm"
 msgstr "Confirmar"
 
 #: templates/account/base_confirm_code.html:43
-#, fuzzy
-#| msgid "Request Code"
 msgid "Request new code"
-msgstr "Solicitar código"
+msgstr "Solicitar novo código"
 
 #: templates/account/base_reauthenticate.html:5
 #: templates/account/base_reauthenticate.html:9
@@ -736,10 +720,8 @@ msgid "Enter Email Verification Code"
 msgstr "Insira o código de verificação de e-mail"
 
 #: templates/account/confirm_email_verification_code.html:16
-#, fuzzy
-#| msgid "email address"
 msgid "Use a different email address"
-msgstr "endereço de email"
+msgstr "Usar um endereço de email diferente"
 
 #: templates/account/confirm_login_code.html:5 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
@@ -766,16 +748,12 @@ msgid "Password Reset"
 msgstr "Redefinição da palavra-passe"
 
 #: templates/account/confirm_password_reset_code.html:8
-#, fuzzy
-#| msgid "Password Reset"
 msgid "Enter Password Reset Code"
-msgstr "Redefinição da palavra-passe"
+msgstr "Introduzir código de redefinição da palavra-passe"
 
 #: templates/account/confirm_phone_verification_code.html:5
-#, fuzzy
-#| msgid "Re-send Verification"
 msgid "Phone Verification"
-msgstr "Re-enviar verificação"
+msgstr "Verificação de telefone"
 
 #: templates/account/confirm_phone_verification_code.html:8
 msgid "Enter Phone Verification Code"
@@ -989,10 +967,8 @@ msgstr ""
 "insira-o na janela do navegador aberto."
 
 #: templates/account/email/password_reset_code_subject.txt:3
-#, fuzzy
-#| msgid "Password Reset"
 msgid "Password Reset Code"
-msgstr "Redefinição da palavra-passe"
+msgstr "Código de redefinição da palavra-passe"
 
 #: templates/account/email/password_reset_key_message.txt:4
 msgid ""
@@ -1262,27 +1238,21 @@ msgid "Set Password"
 msgstr "Definir palavra-passe"
 
 #: templates/account/phone_change.html:5 templates/account/phone_change.html:9
-#, fuzzy
-#| msgid "Change Email"
 msgid "Change Phone"
-msgstr "Alterar email"
+msgstr "Alterar telefone"
 
 #: templates/account/phone_change.html:18
-#, fuzzy
-#| msgid "Current Password"
 msgid "Current phone"
-msgstr "Palavra-passe atual"
+msgstr "Telefone atual"
 
 #: templates/account/phone_change.html:22
 msgid "Your phone number is still pending verification."
 msgstr "O seu número de telefone continua pendente de verificação."
 
 #: templates/account/phone_change.html:38
-#, fuzzy
-#| msgid "Change Email"
 msgctxt "action"
 msgid "Change Phone"
-msgstr "Alterar email"
+msgstr "Alterar telefone"
 
 #: templates/account/reauthenticate.html:6
 msgid "Enter your password:"
@@ -1453,10 +1423,8 @@ msgid "%(client_name)s wants to access your %(site_name)s account."
 msgstr "%(client_name)s quer aceder a sua conta %(site_name)s."
 
 #: templates/idp/oidc/device_authorization_code_form.html:9
-#, fuzzy
-#| msgid "Enter Sign-In Code"
 msgid "Enter Device Code"
-msgstr "Insira o código de entrada"
+msgstr "Introduzir código do dispositivo"
 
 #: templates/idp/oidc/device_authorization_code_form.html:12
 msgid "Enter the code displayed on your device."
@@ -1469,10 +1437,8 @@ msgid "Continue"
 msgstr "Continuar"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:9
-#, fuzzy
-#| msgid "Confirm Access"
 msgid "Confirm Device"
-msgstr "Confirmar acesso"
+msgstr "Confirmar dispositivo"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:12
 #, python-format
@@ -1510,10 +1476,8 @@ msgid "Error"
 msgstr "Erro"
 
 #: templates/idp/oidc/logout.html:24
-#, fuzzy
-#| msgid "Sign In"
 msgid "Stay Signed In"
-msgstr "Iniciar sessão"
+msgstr "Manter sessão iniciada"
 
 #: templates/mfa/authenticate.html:13
 msgid ""
@@ -1968,7 +1932,6 @@ msgid "session key"
 msgstr "chave da sessão"
 
 #, fuzzy
-#~| msgid "Account Connections"
 #~ msgid "Account Connection"
 #~ msgstr "Ligações da conta"
 

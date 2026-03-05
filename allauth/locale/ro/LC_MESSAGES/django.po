@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauthrr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-13 09:05-0600\n"
+"POT-Creation-Date: 2026-03-05 08:42-0600\n"
 "PO-Revision-Date: 2024-04-20 21:34+0200\n"
 "Last-Translator: Gilou <contact+dev@gilouweb.com>\n"
 "Language-Team: \n"
@@ -27,12 +27,8 @@ msgid "This account is currently inactive."
 msgstr "Acest cont este in prezent inactiv."
 
 #: account/adapter.py:63
-#, fuzzy
-#| msgid "You cannot remove your primary email address (%(email)s)."
 msgid "You cannot remove your primary email address."
-msgstr ""
-"Nu poti elimina adresa de e-mail  (%(email)s). \n"
-"Aceasta este setata ca adresa principala de e-mail."
+msgstr "Nu poți elimina adresa ta principală de e-mail."
 
 #: account/adapter.py:66
 msgid "This email address is already associated with this account."
@@ -43,10 +39,8 @@ msgid "The email address and/or password you specified are not correct."
 msgstr "Adresa de e-mail si / sau parola sunt incorecte."
 
 #: account/adapter.py:72
-#, fuzzy
-#| msgid "The username and/or password you specified are not correct."
 msgid "The phone number and/or password you specified are not correct."
-msgstr "Numele de utilizator si / sau parola sunt incorecte."
+msgstr "Numărul de telefon și/sau parola specificate nu sunt corecte."
 
 #: account/adapter.py:74
 msgid "A user is already registered with this email address."
@@ -58,25 +52,19 @@ msgstr "Te rugam tasteaza parola actuala."
 
 #: account/adapter.py:76 mfa/adapter.py:40
 msgid "Incorrect code."
-msgstr ""
+msgstr "Cod incorect."
 
 #: account/adapter.py:77
-#, fuzzy
-#| msgid "Current Password"
 msgid "Incorrect password."
-msgstr "Parola actuala"
+msgstr "Parolă incorectă."
 
 #: account/adapter.py:78
-#, fuzzy
-#| msgid "Bad Token"
 msgid "Invalid or expired key."
-msgstr "Token invalid"
+msgstr "Cheie invalidă sau expirată."
 
 #: account/adapter.py:79
-#, fuzzy
-#| msgid "Bad Token"
 msgid "Invalid login."
-msgstr "Token invalid"
+msgstr "Autentificare invalidă."
 
 #: account/adapter.py:80
 msgid "The password reset token was invalid."
@@ -88,26 +76,20 @@ msgid "You cannot add more than %d email addresses."
 msgstr "Nu poti adauga mai mult de %d adrese de e-mail."
 
 #: account/adapter.py:82
-#, fuzzy
-#| msgid "A user is already registered with this email address."
 msgid "A user is already registered with this phone number."
-msgstr "Un utilizator este deja inregistrat cu aceasta adresa de e-mail."
+msgstr "Un utilizator este deja înregistrat cu acest număr de telefon."
 
 #: account/adapter.py:84
 msgid "Too many failed login attempts. Try again later."
 msgstr "Prea multe incercări de conectare esuate. Incearca mai tarziu."
 
 #: account/adapter.py:86
-#, fuzzy
-#| msgid "The email address is not assigned to any user account"
 msgid "The email address is not assigned to any user account."
-msgstr "Adresa de e-mail nu este atribuita niciunui cont de utilizator"
+msgstr "Adresa de e-mail nu este atribuită niciunui cont de utilizator."
 
 #: account/adapter.py:87
-#, fuzzy
-#| msgid "The email address is not assigned to any user account"
 msgid "The phone number is not assigned to any user account."
-msgstr "Adresa de e-mail nu este atribuita niciunui cont de utilizator"
+msgstr "Numărul de telefon nu este atribuit niciunui cont de utilizator."
 
 #: account/adapter.py:88
 #: templates/account/messages/unverified_primary_email.txt:2
@@ -128,58 +110,42 @@ msgstr "Numele de utilizator si / sau parola sunt incorecte."
 
 #: account/adapter.py:98
 msgid "Please select only one."
-msgstr ""
+msgstr "Te rugăm selectează doar una."
 
 #: account/adapter.py:99
 msgid "The new value must be different from the current one."
-msgstr ""
+msgstr "Noua valoare trebuie să fie diferită de cea curentă."
 
 #: account/adapter.py:100
 msgid "Be patient, you are sending too many requests."
-msgstr ""
+msgstr "Ai răbdare, trimiți prea multe cereri."
 
 #: account/adapter.py:826
-#, fuzzy
-#| msgid "Forgot Password?"
 msgid "Use your password"
-msgstr "Ai uitat parola?"
+msgstr "Folosește-ți parola"
 
 #: account/adapter.py:835
-#, fuzzy
-#| msgid "token secret"
 msgid "Use authenticator app or code"
-msgstr "token secret"
+msgstr "Folosește aplicația de autentificare sau codul"
 
 #: account/adapter.py:842 templates/mfa/authenticate.html:41
 #: templates/mfa/webauthn/reauthenticate.html:15
-#, fuzzy
-#| msgid "secret key"
 msgid "Use a security key"
-msgstr "cheie secreta"
+msgstr "Folosește o cheie de securitate"
 
 #: account/admin.py:30
-#, fuzzy, python-brace-format
-#| msgid "Your primary email address must be verified."
+#, python-brace-format
 msgid "Marked {email} as verified."
-msgstr ""
-"Adresa de e-mail trebuie mai intai confirmata inainte de a o seta ca adresa "
-"principala. Acceseaza link-ul din e-mailul de verificare."
+msgstr "Adresa {email} a fost marcată ca verificată."
 
 #: account/admin.py:36
-#, fuzzy, python-brace-format
-#| msgid "Your primary email address must be verified."
+#, python-brace-format
 msgid "Failed to mark {email} as verified."
-msgstr ""
-"Adresa de e-mail trebuie mai intai confirmata inainte de a o seta ca adresa "
-"principala. Acceseaza link-ul din e-mailul de verificare."
+msgstr "Nu s-a reușit marcarea adresei {email} ca verificată."
 
 #: account/admin.py:42
-#, fuzzy
-#| msgid "Your primary email address must be verified."
 msgid "Mark selected email addresses as verified"
-msgstr ""
-"Adresa de e-mail trebuie mai intai confirmata inainte de a o seta ca adresa "
-"principala. Acceseaza link-ul din e-mailul de verificare."
+msgstr "Marchează adresele de e-mail selectate ca verificate"
 
 #: account/apps.py:11
 msgid "Accounts"
@@ -196,10 +162,12 @@ msgstr "Adresa de e-mail"
 #: account/fields.py:62
 msgid "Enter a phone number including country code (e.g. +1 for the US)."
 msgstr ""
+"Introdu un număr de telefon inclusiv codul de țară (de ex. +40 pentru "
+"România)."
 
 #: account/fields.py:68 account/fields.py:72 account/forms.py:325
 msgid "Phone"
-msgstr ""
+msgstr "Telefon"
 
 #: account/forms.py:61 account/forms.py:524
 msgid "You must type the same password each time."
@@ -222,33 +190,25 @@ msgstr "Nume de utilizator"
 #: account/forms.py:96
 msgctxt "field label"
 msgid "Login"
-msgstr "Nume de utilizator sau e-mail"
+msgstr "Autentificare"
 
 #: account/forms.py:115
-#, fuzzy
-#| msgid "Username or email"
 msgid "Username, email or phone"
-msgstr "Nume de utilizator sau e-mail"
+msgstr "Nume de utilizator, e-mail sau telefon"
 
 #: account/forms.py:117
 msgid "Username or email"
 msgstr "Nume de utilizator sau e-mail"
 
 #: account/forms.py:119
-#, fuzzy
-#| msgid "Username or email"
 msgid "Username or phone"
-msgstr "Nume de utilizator sau e-mail"
+msgstr "Nume de utilizator sau telefon"
 
 #: account/forms.py:121
-#, fuzzy
-#| msgid "Email (optional)"
 msgid "Email or phone"
-msgstr "E-mail (optional)"
+msgstr "E-mail sau telefon"
 
 #: account/forms.py:144
-#, fuzzy
-#| msgid "Forgot Password?"
 msgid "Forgot your password?"
 msgstr "Ai uitat parola?"
 
@@ -265,10 +225,8 @@ msgid "Email (optional)"
 msgstr "E-mail (optional)"
 
 #: account/forms.py:314
-#, fuzzy
-#| msgid "Email (optional)"
 msgid "Username (optional)"
-msgstr "E-mail (optional)"
+msgstr "Nume de utilizator (opțional)"
 
 #: account/forms.py:388
 msgid "You must type the same email each time."
@@ -295,7 +253,7 @@ msgstr "Parola noua (confirma)"
 #: mfa/totp/forms.py:13
 #: templates/idp/oidc/device_authorization_confirm_form.html:16
 msgid "Code"
-msgstr ""
+msgstr "Cod"
 
 #: account/models.py:23
 msgid "user"
@@ -339,69 +297,74 @@ msgstr "confirmari e-mail"
 
 #: headless/apps.py:7
 msgid "Headless"
-msgstr ""
+msgstr "Headless"
 
 #: idp/oidc/adapter.py:30
 msgid "View your user ID"
-msgstr ""
+msgstr "Vizualizează-ți ID-ul de utilizator"
 
 #: idp/oidc/adapter.py:31
-#, fuzzy
-#| msgid "Verify Your Email Address"
 msgid "View your email address"
-msgstr "Verifica-ti adresa de e-mail"
+msgstr "Vizualizează-ți adresa de e-mail"
 
 #: idp/oidc/adapter.py:32
 msgid "View your basic profile information"
-msgstr ""
+msgstr "Vizualizează-ți informațiile de bază ale profilului"
 
 #: idp/oidc/forms.py:31
 msgid "Grant permissions"
-msgstr ""
+msgstr "Acordă permisiuni"
 
 #: idp/oidc/internal/clientkit.py:22
 msgid "Wildcards are not allowed unless 'Allow URI wildcards' is enabled."
 msgstr ""
+"Caracterele wildcard nu sunt permise decât dacă opțiunea 'Permite caractere "
+"wildcard în URI' este activată."
 
 #: idp/oidc/internal/clientkit.py:27
 msgid ""
 "URI '{}' contains more than one wildcard (*). Only one wildcard per URI is "
 "allowed."
 msgstr ""
+"URI-ul '{}' conține mai mult de un caracter wildcard (*). Este permis un "
+"singur wildcard per URI."
 
 #: idp/oidc/internal/clientkit.py:39
 msgid "Wildcards are only allowed in the hostname portion of the URI."
 msgstr ""
+"Caracterele wildcard sunt permise doar în partea de hostname a URI-ului."
 
 #: idp/oidc/models.py:37
 msgid "Authorization code"
-msgstr ""
+msgstr "Cod de autorizare"
 
 #: idp/oidc/models.py:38
 msgid "Device code"
-msgstr ""
+msgstr "Cod de dispozitiv"
 
 #: idp/oidc/models.py:39
 msgid "Client credentials"
-msgstr ""
+msgstr "Acreditări client"
 
 #: idp/oidc/models.py:40
 msgid "Refresh token"
-msgstr ""
+msgstr "Token de reîmprospătare"
 
 #: idp/oidc/models.py:43
 msgid "Confidential"
-msgstr ""
+msgstr "Confidențial"
 
 #: idp/oidc/models.py:44
 msgid "Public"
-msgstr ""
+msgstr "Public"
 
 #: idp/oidc/models.py:58
 msgid ""
 "The scope(s) the client is allowed to request. Provide one value per line, "
 "e.g.: openid(ENTER)profile(ENTER)email(ENTER)"
 msgstr ""
+"Domeniul(-urile) pe care clientul are voie să le solicite. Furnizează o "
+"valoare per linie, de ex.: openid(ENTER)profile(ENTER)email(ENTER)"
 
 #: idp/oidc/models.py:64
 msgid ""
@@ -409,127 +372,133 @@ msgid ""
 "used. Provide one value per line, e.g.: "
 "openid(ENTER)profile(ENTER)email(ENTER)"
 msgstr ""
+"În cazul în care clientul nu specifică niciun domeniu, se folosesc aceste "
+"domenii implicite. Furnizează o valoare per linie, de ex.: "
+"openid(ENTER)profile(ENTER)email(ENTER)"
 
 #: idp/oidc/models.py:75
 msgid ""
 "A list of allowed grant types. Provide one value per line, e.g.: "
 "authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 msgstr ""
+"O listă de tipuri de acordare permise. Furnizează o valoare per linie, de "
+"ex.: authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 
 #: idp/oidc/models.py:86
 msgid "A list of allowed origins for cross-origin requests, one per line."
-msgstr ""
+msgstr "O listă de origini permise pentru cereri cross-origin, una per linie."
 
 #: idp/oidc/models.py:94
 msgid ""
 "Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
 "can contain a single asterisk to match subdomains."
 msgstr ""
+"Permite caractere wildcard (*) în URI-urile de redirecționare și originile "
+"CORS. Când este activat, URI-urile pot conține un singur asterisc pentru a "
+"potrivi subdomenii."
 
 #: idp/oidc/models.py:102
 msgid ""
 "A list of allowed response types. Provide one value per line, e.g.: "
 "code(ENTER)id_token token(ENTER)"
 msgstr ""
+"O listă de tipuri de răspuns permise. Furnizează o valoare per linie, de "
+"ex.: code(ENTER)id_token token(ENTER)"
 
 #: idp/oidc/models.py:115
-#, fuzzy
-#| msgid "client id"
 msgid "client"
-msgstr "id client"
+msgstr "client"
 
 #: idp/oidc/models.py:116
-#, fuzzy
-#| msgid "client id"
 msgid "clients"
-msgstr "id client"
+msgstr "clienți"
 
 #: mfa/adapter.py:32
 msgid ""
 "You cannot add an email address to an account protected by two-factor "
 "authentication."
 msgstr ""
+"Nu poți adăuga o adresă de e-mail la un cont protejat prin autentificarea cu "
+"doi factori."
 
 #: mfa/adapter.py:35
 msgid "You cannot deactivate two-factor authentication."
-msgstr ""
+msgstr "Nu poți dezactiva autentificarea cu doi factori."
 
 #: mfa/adapter.py:38
 msgid ""
 "You cannot generate recovery codes without having two-factor authentication "
 "enabled."
 msgstr ""
+"Nu poți genera coduri de recuperare fără a avea autentificarea cu doi "
+"factori activată."
 
 #: mfa/adapter.py:42
 msgid ""
 "You cannot activate two-factor authentication until you have verified your "
 "email address."
 msgstr ""
+"Nu poți activa autentificarea cu doi factori până nu ți-ai verificat adresa "
+"de e-mail."
 
 #: mfa/adapter.py:141
-#, fuzzy
-#| msgid "secret key"
 msgid "Master key"
-msgstr "cheie secreta"
+msgstr "Cheie principală"
 
 #: mfa/adapter.py:143
 msgid "Backup key"
-msgstr ""
+msgstr "Cheie de rezervă"
 
 #: mfa/adapter.py:144
 #, python-brace-format
 msgid "Key nr. {number}"
-msgstr ""
+msgstr "Cheia nr. {number}"
 
 #: mfa/apps.py:9
 msgid "MFA"
-msgstr ""
+msgstr "MFA"
 
 #: mfa/models.py:24
 msgid "Recovery codes"
-msgstr ""
+msgstr "Coduri de recuperare"
 
 #: mfa/models.py:25
 msgid "TOTP Authenticator"
-msgstr ""
+msgstr "Autentificator TOTP"
 
 #: mfa/models.py:26
 msgid "WebAuthn"
-msgstr ""
+msgstr "WebAuthn"
 
 #: mfa/totp/forms.py:11
 msgid "Authenticator code"
-msgstr ""
+msgstr "Cod de autentificare"
 
 #: mfa/webauthn/forms.py:56
-#, fuzzy
-#| msgid "Password"
 msgid "Passwordless"
-msgstr "Parola"
+msgstr "Fără parolă"
 
 #: mfa/webauthn/forms.py:59
 msgid ""
 "Enabling passwordless operation allows you to sign in using just this key, "
 "but imposes additional requirements such as biometrics or PIN protection."
 msgstr ""
+"Activarea operării fără parolă îți permite să te conectezi folosind doar "
+"această cheie, dar impune cerințe suplimentare precum biometrie sau "
+"protecție PIN."
 
 #: socialaccount/adapter.py:30
-#, fuzzy, python-format
-#| msgid ""
-#| "An account already exists with this e-mail address. Please sign in to "
-#| "that account first, then connect your %s account."
+#, python-format
 msgid ""
 "An account already exists with this email address. Please sign in to that "
 "account first, then connect your %s account."
 msgstr ""
-"Exista deja un cont cu această adresa de e-mail. Te rugam sa vt conectați "
-"mai intai la acel cont, apoi sa conecteazi contul %s."
+"Există deja un cont cu această adresă de e-mail. Te rugăm să te conectezi "
+"mai întâi la acel cont, apoi să conectezi contul tău %s."
 
 #: socialaccount/adapter.py:34
-#, fuzzy
-#| msgid "Bad Token"
 msgid "Invalid token."
-msgstr "Token invalid"
+msgstr "Token invalid."
 
 #: socialaccount/adapter.py:35
 msgid "Your account has no password set up."
@@ -540,23 +509,13 @@ msgid "Your account has no verified email address."
 msgstr "Contul tau nu are o adresa de e-mail confirmata."
 
 #: socialaccount/adapter.py:38
-#, fuzzy
-#| msgid ""
-#| "You can sign in to your account using any of the following third party "
-#| "accounts:"
 msgid "You cannot disconnect your last remaining third-party account."
-msgstr ""
-"Te poti conecta la contul tau folosind oricare dintre urmatoarele conturi de "
-"socializare (conturi terte):"
+msgstr "Nu poți deconecta ultimul tău cont terț rămas."
 
 #: socialaccount/adapter.py:41
 #: templates/socialaccount/messages/account_connected_other.txt:2
-#, fuzzy
-#| msgid "The social account is already connected to a different account."
 msgid "The third-party account is already connected to a different account."
-msgstr ""
-"Acest cont de socializare este deja asociat unui alt profil pe site-ul "
-"nostru."
+msgstr "Contul terț este deja conectat la un alt cont."
 
 #: socialaccount/apps.py:9
 msgid "Social Accounts"
@@ -567,10 +526,8 @@ msgid "provider"
 msgstr "furnizor"
 
 #: socialaccount/models.py:53
-#, fuzzy
-#| msgid "provider"
 msgid "provider ID"
-msgstr "furnizor"
+msgstr "ID furnizor"
 
 #: socialaccount/models.py:57
 msgid "name"
@@ -661,11 +618,8 @@ msgid "Invalid profile data"
 msgstr "Date de profil invalide"
 
 #: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:16
-#, fuzzy
-#| msgctxt "field label"
-#| msgid "Login"
 msgid "Login"
-msgstr "Nume de utilizator sau e-mail"
+msgstr "Autentificare"
 
 #: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:19
 #: templates/account/base_confirm_code.html:48
@@ -675,14 +629,15 @@ msgstr "Nume de utilizator sau e-mail"
 #: templates/mfa/authenticate.html:28 templates/mfa/authenticate.html:44
 #: templates/mfa/trust.html:29 templates/mfa/webauthn/signup_form.html:26
 msgid "Cancel"
-msgstr ""
+msgstr "Anulează"
 
 #: socialaccount/providers/oauth/client.py:86
-#, fuzzy, python-format
-#| msgid "Invalid response while obtaining request token from \"%s\"."
+#, python-format
 msgid ""
 "Invalid response while obtaining request token from \"%s\". Response was: %s."
-msgstr "Raspuns invalid la obtinerea token-ului de solicitare de la \"% s\"."
+msgstr ""
+"Raspuns invalid la obtinerea token-ului de solicitare de la \"%s\". "
+"Raspunsul a fost: %s."
 
 #: socialaccount/providers/oauth/client.py:121
 #: socialaccount/providers/pocket/client.py:81
@@ -725,6 +680,8 @@ msgid ""
 "We've sent a code to %(recipient)s. The code expires shortly, so please "
 "enter it soon."
 msgstr ""
+"Am trimis un cod la %(recipient)s. Codul expiră în curând, așa că te rugăm "
+"să-l introduci cât mai repede."
 
 #: templates/account/base_confirm_code.html:39
 #: templates/account/email_confirm.html:24
@@ -736,41 +693,33 @@ msgstr "Confirma"
 
 #: templates/account/base_confirm_code.html:43
 msgid "Request new code"
-msgstr ""
+msgstr "Solicită un cod nou"
 
 #: templates/account/base_reauthenticate.html:5
 #: templates/account/base_reauthenticate.html:9
-#, fuzzy
-#| msgid "Confirm Email Address"
 msgid "Confirm Access"
-msgstr "Confirma adresa de e-mail"
+msgstr "Confirmă accesul"
 
 #: templates/account/base_reauthenticate.html:12
 msgid "Please reauthenticate to safeguard your account."
-msgstr ""
+msgstr "Te rugăm să te reautentifici pentru a-ți proteja contul."
 
 #: templates/account/base_reauthenticate.html:19
 #: templates/mfa/authenticate.html:37
 msgid "Alternative options"
-msgstr ""
+msgstr "Opțiuni alternative"
 
 #: templates/account/confirm_email_verification_code.html:5
-#, fuzzy
-#| msgid "email confirmation"
 msgid "Email Verification"
-msgstr "confirmare e-mail"
+msgstr "Verificare e-mail"
 
 #: templates/account/confirm_email_verification_code.html:8
-#, fuzzy
-#| msgid "token secret"
 msgid "Enter Email Verification Code"
-msgstr "token secret"
+msgstr "Introdu codul de verificare a e-mailului"
 
 #: templates/account/confirm_email_verification_code.html:16
-#, fuzzy
-#| msgid "email address"
 msgid "Use a different email address"
-msgstr "adresa de e-mail"
+msgstr "Folosește o altă adresă de e-mail"
 
 #: templates/account/confirm_login_code.html:5 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
@@ -785,7 +734,7 @@ msgstr "Conecteaza-te"
 
 #: templates/account/confirm_login_code.html:8
 msgid "Enter Sign-In Code"
-msgstr ""
+msgstr "Introdu codul de conectare"
 
 #: templates/account/confirm_password_reset_code.html:5
 #: templates/account/email/password_reset_subject.txt:3
@@ -797,26 +746,20 @@ msgid "Password Reset"
 msgstr "Reseteaza parola"
 
 #: templates/account/confirm_password_reset_code.html:8
-#, fuzzy
-#| msgid "Password Reset"
 msgid "Enter Password Reset Code"
-msgstr "Reseteaza parola"
+msgstr "Introdu codul de resetare a parolei"
 
 #: templates/account/confirm_phone_verification_code.html:5
-#, fuzzy
-#| msgid "Re-send Verification"
 msgid "Phone Verification"
-msgstr "Retrimite e-mail verificare"
+msgstr "Verificare telefon"
 
 #: templates/account/confirm_phone_verification_code.html:8
-#, fuzzy
-#| msgid "token secret"
 msgid "Enter Phone Verification Code"
-msgstr "token secret"
+msgstr "Introdu codul de verificare a telefonului"
 
 #: templates/account/confirm_phone_verification_code.html:15
 msgid "Use a different phone number"
-msgstr ""
+msgstr "Folosește un alt număr de telefon"
 
 #: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
@@ -883,10 +826,22 @@ msgid ""
 "\n"
 "%(password_reset_url)s"
 msgstr ""
+"Primești acest e-mail deoarece tu sau altcineva a încercat să înregistreze\n"
+"un cont folosind adresa de e-mail:\n"
+"\n"
+"%(email)s\n"
+"\n"
+"Totuși, un cont cu această adresă de e-mail există deja. În cazul în care "
+"ai\n"
+"uitat de acest lucru, te rugăm să folosești procedura de recuperare a "
+"parolei pentru\n"
+"a-ți recupera contul:\n"
+"\n"
+"%(password_reset_url)s"
 
 #: templates/account/email/account_already_exists_subject.txt:3
 msgid "Account Already Exists"
-msgstr ""
+msgstr "Contul există deja"
 
 #: templates/account/email/base_message.txt:1
 #, python-format
@@ -907,6 +862,8 @@ msgid ""
 "You are receiving this mail because the following change was made to your "
 "account:"
 msgstr ""
+"Primești acest e-mail deoarece următoarea modificare a fost efectuată asupra "
+"contului tău:"
 
 #: templates/account/email/base_notification.txt:10
 #, python-format
@@ -918,56 +875,51 @@ msgid ""
 "- Browser: %(user_agent)s\n"
 "- Date: %(timestamp)s"
 msgstr ""
+"Dacă nu recunoști această modificare, te rugăm să iei măsuri de securitate "
+"imediat. Modificarea contului tău provine de la:\n"
+"\n"
+"- Adresă IP: %(ip)s\n"
+"- Browser: %(user_agent)s\n"
+"- Data: %(timestamp)s"
 
 #: templates/account/email/email_changed_message.txt:4
 #, python-format
 msgid "Your email has been changed from %(from_email)s to %(to_email)s."
-msgstr ""
+msgstr "E-mailul tău a fost schimbat de la %(from_email)s la %(to_email)s."
 
 #: templates/account/email/email_changed_subject.txt:3
-#, fuzzy
-#| msgid "Email address"
 msgid "Email Changed"
-msgstr "Adresa de e-mail"
+msgstr "E-mail schimbat"
 
 #: templates/account/email/email_confirm_message.txt:4
-#, fuzzy
-#| msgid "You have confirmed %(email)s."
 msgid "Your email has been confirmed."
-msgstr "Ai confirmat %(email)s."
+msgstr "E-mailul tău a fost confirmat."
 
 #: templates/account/email/email_confirm_subject.txt:3
-#, fuzzy
-#| msgid "email confirmation"
 msgid "Email Confirmation"
-msgstr "confirmare e-mail"
+msgstr "Confirmare e-mail"
 
 #: templates/account/email/email_confirmation_message.txt:5
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this e-mail because user %(user_display)s has given your "
-#| "e-mail address to register an account on %(site_domain)s.\n"
-#| "\n"
-#| "To confirm this is correct, go to %(activate_url)s"
+#, python-format
 msgid ""
 "You're receiving this email because user %(user_display)s has given your "
 "email address to register an account on %(site_domain)s."
 msgstr ""
-"Ai primit acest e-mail pentru ca utilizatorul %(user_display)s a folosit "
-"aceasta adresa de e-mail pentru a inregistra un cont pe %(site_domain)s.\n"
-"\n"
-"Pentru a confirma, click pe link-ul urmator: %(activate_url)s"
+"Primești acest e-mail deoarece utilizatorul %(user_display)s a folosit "
+"adresa ta de e-mail pentru a înregistra un cont pe %(site_domain)s."
 
 #: templates/account/email/email_confirmation_message.txt:7
 msgid ""
 "Your email verification code is listed below. Please enter it in your open "
 "browser window."
 msgstr ""
+"Codul tău de verificare a e-mailului este listat mai jos. Te rugăm să-l "
+"introduci în fereastra de browser deschisă."
 
 #: templates/account/email/email_confirmation_message.txt:9
 #, python-format
 msgid "To confirm this is correct, go to %(activate_url)s"
-msgstr ""
+msgstr "Pentru a confirma că este corect, accesează %(activate_url)s"
 
 #: templates/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your Email Address"
@@ -976,74 +928,63 @@ msgstr "Te rugam confirma adresa de e-mail"
 #: templates/account/email/email_deleted_message.txt:4
 #, python-format
 msgid "Email address %(deleted_email)s has been removed from your account."
-msgstr ""
+msgstr "Adresa de e-mail %(deleted_email)s a fost eliminată din contul tău."
 
 #: templates/account/email/email_deleted_subject.txt:3
-#, fuzzy
-#| msgid "Remove"
 msgid "Email Removed"
-msgstr "Elimina adresa"
+msgstr "E-mail eliminat"
 
 #: templates/account/email/login_code_message.txt:5
 msgid ""
 "Your sign-in code is listed below. Please enter it in your open browser "
 "window."
 msgstr ""
+"Codul tău de conectare este listat mai jos. Te rugăm să-l introduci în "
+"fereastra de browser deschisă."
 
 #: templates/account/email/login_code_message.txt:9
 #: templates/account/email/password_reset_code_message.txt:9
 #: templates/account/email/unknown_account_message.txt:6
 msgid "This mail can be safely ignored if you did not initiate this action."
 msgstr ""
+"Acest e-mail poate fi ignorat în siguranță dacă nu ai inițiat această "
+"acțiune."
 
 #: templates/account/email/login_code_subject.txt:3
-#, fuzzy
-#| msgid "Sign In"
 msgid "Sign-In Code"
-msgstr "Conecteaza-te"
+msgstr "Cod de conectare"
 
 #: templates/account/email/password_changed_message.txt:4
-#, fuzzy
-#| msgid "Your password is now changed."
 msgid "Your password has been changed."
-msgstr "Parola ta a fost schimbata cu succes."
+msgstr "Parola ta a fost schimbată."
 
 #: templates/account/email/password_changed_subject.txt:3
-#, fuzzy
-#| msgid "Password (again)"
 msgid "Password Changed"
-msgstr "Parola (confirma)"
+msgstr "Parolă schimbată"
 
 #: templates/account/email/password_reset_code_message.txt:5
 msgid ""
 "Your password reset code is listed below. Please enter it in your open "
 "browser window."
 msgstr ""
+"Codul tău de resetare a parolei este listat mai jos. Te rugăm să-l introduci "
+"în fereastra de browser deschisă."
 
 #: templates/account/email/password_reset_code_subject.txt:3
-#, fuzzy
-#| msgid "Password Reset"
 msgid "Password Reset Code"
-msgstr "Reseteaza parola"
+msgstr "Cod de resetare a parolei"
 
 #: templates/account/email/password_reset_key_message.txt:4
-#, fuzzy
-#| msgid ""
-#| "You're receiving this e-mail because you or someone else has requested a "
-#| "password for your user account.\n"
-#| "It can be safely ignored if you did not request a password reset. Click "
-#| "the link below to reset your password."
 msgid ""
 "You're receiving this email because you or someone else has requested a "
 "password reset for your user account.\n"
 "It can be safely ignored if you did not request a password reset. Click the "
 "link below to reset your password."
 msgstr ""
-"Ai primit acest e-mail pentru ca tu sau altcineva a solicitat o resetare de "
-"parola.\n"
-"Daca nu ai fost tu cel care a solicitat resetarea parolei, te rugam sa "
-"ignori acest e-mail.\n"
-"Pentru resetarea parolei acceseaza linkul de mai jos."
+"Primești acest e-mail deoarece tu sau altcineva a solicitat o resetare de "
+"parolă pentru contul tău.\n"
+"Dacă nu ai solicitat resetarea parolei, poți ignora acest e-mail în "
+"siguranță. Accesează linkul de mai jos pentru a-ți reseta parola."
 
 #: templates/account/email/password_reset_key_message.txt:9
 #, python-format
@@ -1055,22 +996,16 @@ msgid "Password Reset Email"
 msgstr "E-mail pentru resetarea parolei"
 
 #: templates/account/email/password_reset_message.txt:4
-#, fuzzy
-#| msgid "Your password is now changed."
 msgid "Your password has been reset."
-msgstr "Parola ta a fost schimbata cu succes."
+msgstr "Parola ta a fost resetată."
 
 #: templates/account/email/password_set_message.txt:4
-#, fuzzy
-#| msgid "Your password is now changed."
 msgid "Your password has been set."
-msgstr "Parola ta a fost schimbata cu succes."
+msgstr "Parola ta a fost setată."
 
 #: templates/account/email/password_set_subject.txt:3
-#, fuzzy
-#| msgid "Password Reset"
 msgid "Password Set"
-msgstr "Reseteaza parola"
+msgstr "Parolă setată"
 
 #: templates/account/email/unknown_account_message.txt:4
 #, python-format
@@ -1079,59 +1014,50 @@ msgid ""
 "an account with email %(email)s. However, we do not have any record of such "
 "an account in our database."
 msgstr ""
+"Primești acest e-mail deoarece tu sau altcineva a încercat să acceseze un "
+"cont cu e-mailul %(email)s. Totuși, nu avem nicio înregistrare a unui astfel "
+"de cont în baza noastră de date."
 
 #: templates/account/email/unknown_account_message.txt:8
 msgid "If it was you, you can sign up for an account using the link below."
 msgstr ""
+"Dacă ai fost tu, te poți înregistra pentru un cont folosind linkul de mai "
+"jos."
 
 #: templates/account/email/unknown_account_subject.txt:3
-#, fuzzy
-#| msgid "Account"
 msgid "Unknown Account"
-msgstr "Compte"
+msgstr "Cont necunoscut"
 
 #: templates/account/email_change.html:5 templates/account/email_change.html:9
-#, fuzzy
-#| msgid "Email Addresses"
 msgid "Email Address"
-msgstr "Adrese de e-mail"
+msgstr "Adresă de e-mail"
 
 #: templates/account/email_change.html:21
 #: templates/account/email_change.html:29
-#, fuzzy
-#| msgid "Current Password"
 msgid "Current email"
-msgstr "Parola actuala"
+msgstr "E-mail curent"
 
 #: templates/account/email_change.html:31
 msgid "Changing to"
-msgstr ""
+msgstr "Se schimbă la"
 
 #: templates/account/email_change.html:35
-#, fuzzy
-#| msgid "Your primary email address must be verified."
 msgid "Your email address is still pending verification."
-msgstr ""
-"Adresa de e-mail trebuie mai intai confirmata inainte de a o seta ca adresa "
-"principala. Acceseaza link-ul din e-mailul de verificare."
+msgstr "Adresa ta de e-mail este încă în așteptarea verificării."
 
 #: templates/account/email_change.html:41
 msgid "Cancel Change"
-msgstr ""
+msgstr "Anulează schimbarea"
 
 #: templates/account/email_change.html:49
 #: templates/account/phone_change.html:32
-#, fuzzy
-#| msgid "Email"
 msgid "Change to"
-msgstr "E-mail"
+msgstr "Schimbă la"
 
 #: templates/account/email_change.html:55
 #: templates/allauth/layouts/base.html:31
-#, fuzzy
-#| msgid "Email"
 msgid "Change Email"
-msgstr "E-mail"
+msgstr "Schimbă e-mailul"
 
 #: templates/account/email_confirm.html:6
 #: templates/account/email_confirm.html:10
@@ -1139,39 +1065,31 @@ msgid "Confirm Email Address"
 msgstr "Confirma adresa de e-mail"
 
 #: templates/account/email_confirm.html:16
-#, fuzzy, python-format
-#| msgid ""
-#| "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-"
-#| "mail address for user %(user_display)s."
+#, python-format
 msgid ""
 "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an email "
 "address for user %(user_display)s."
 msgstr ""
-"Te rugam confirma faptul ca <a href=\"mailto:%(email)s\">%(email)s</a> este "
-"o adresa de e-mail a utilizatorului %(user_display)s."
+"Te rugam confirma ca <a href=\"mailto:%(email)s\">%(email)s</a> este o "
+"adresa de e-mail a utilizatorului %(user_display)s."
 
 #: templates/account/email_confirm.html:30
 #: templates/account/messages/email_confirmation_failed.txt:2
-#, fuzzy, python-format
-#| msgid "The social account is already connected to a different account."
+#, python-format
 msgid ""
 "Unable to confirm %(email)s because it is already confirmed by a different "
 "account."
 msgstr ""
-"Acest cont de socializare este deja asociat unui alt profil pe site-ul "
-"nostru."
+"Nu se poate confirma %(email)s deoarece este deja confirmată de un alt cont."
 
 #: templates/account/email_confirm.html:36
-#, fuzzy, python-format
-#| msgid ""
-#| "This e-mail confirmation link expired or is invalid. Please <a "
-#| "href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+#, python-format
 msgid ""
 "This email confirmation link expired or is invalid. Please <a "
 "href=\"%(email_url)s\">issue a new email confirmation request</a>."
 msgstr ""
-"Link-ul de confirmare a adresei de email a expirat sau este invalid. Te "
-"rugam <a href=\"%(email_url)s\"> solicita un nou link de confirmare</a>."
+"Link-ul de confirmare a adresei de e-mail a expirat sau este invalid. Te "
+"rugam <a href=\"%(email_url)s\">solicita un nou link de confirmare</a>."
 
 #: templates/account/login.html:19
 #, python-format
@@ -1183,11 +1101,11 @@ msgstr ""
 
 #: templates/account/login.html:42
 msgid "Sign in with a passkey"
-msgstr ""
+msgstr "Conectează-te cu o cheie de acces"
 
 #: templates/account/login.html:47 templates/account/request_login_code.html:9
 msgid "Send me a sign-in code"
-msgstr ""
+msgstr "Trimite-mi un cod de conectare"
 
 #: templates/account/logout.html:4 templates/account/logout.html:8
 #: templates/account/logout.html:21 templates/allauth/layouts/base.html:61
@@ -1235,7 +1153,7 @@ msgstr "Te-ai deconectat."
 #: templates/account/messages/login_code_sent.txt:2
 #, python-format
 msgid "A sign-in code has been sent to %(recipient)s."
-msgstr ""
+msgstr "Un cod de conectare a fost trimis la %(recipient)s."
 
 #: templates/account/messages/password_changed.txt:2
 msgid "Password successfully changed."
@@ -1248,12 +1166,12 @@ msgstr "Parola a fost setata cu success."
 #: templates/account/messages/phone_verification_sent.txt:2
 #, python-format
 msgid "A verification code has been sent to %(phone)s."
-msgstr ""
+msgstr "Un cod de verificare a fost trimis la %(phone)s."
 
 #: templates/account/messages/phone_verified.txt:2
 #, python-format
 msgid "You have verified phone number %(phone)s."
-msgstr ""
+msgstr "Ai verificat numărul de telefon %(phone)s."
 
 #: templates/account/messages/primary_email_set.txt:2
 msgid "Primary email address set."
@@ -1276,16 +1194,12 @@ msgid "Forgot Password?"
 msgstr "Ai uitat parola?"
 
 #: templates/account/password_reset.html:14
-#, fuzzy
-#| msgid ""
-#| "Forgotten your password? Enter your e-mail address below, and we'll send "
-#| "you an e-mail allowing you to reset it."
 msgid ""
 "Forgotten your password? Enter your email address below, and we'll send you "
 "an email allowing you to reset it."
 msgstr ""
-"Ti-ai uitat parola? Introdu adresa de e-mail mai jos si-ti vom trimite un e-"
-"mail ce-ti va permite sa resetezi parola."
+"Ți-ai uitat parola? Introdu adresa de e-mail mai jos și îți vom trimite un e-"
+"mail care îți va permite să o resetezi."
 
 #: templates/account/password_reset.html:26
 msgid "Reset My Password"
@@ -1297,18 +1211,12 @@ msgstr ""
 "Te rugam contacteaza-ne daca intampini dificultati in resetarea parolei."
 
 #: templates/account/password_reset_done.html:16
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for\n"
-#| "verification. Please click on the link inside this e-mail. Please\n"
-#| "contact us if you do not receive it within a few minutes."
 msgid ""
 "We have sent you an email. If you have not received it please check your "
 "spam folder. Otherwise contact us if you do not receive it in a few minutes."
 msgstr ""
-"Ti-am trimis un e-mail pentru verificare (confirmare). \n"
-"Acceseaza link-ul din e-mail pentru confirmare. \n"
-"Te rugam contacteaza-ne daca nu primesti e-mailul in cateva minute."
+"Ți-am trimis un e-mail. Dacă nu l-ai primit, verifică folderul de spam. "
+"Contactează-ne dacă nu îl primești în câteva minute."
 
 #: templates/account/password_reset_from_key.html:10
 msgid "Bad Token"
@@ -1335,49 +1243,37 @@ msgid "Set Password"
 msgstr "Seteaza parola"
 
 #: templates/account/phone_change.html:5 templates/account/phone_change.html:9
-#, fuzzy
-#| msgid "Email"
 msgid "Change Phone"
-msgstr "E-mail"
+msgstr "Schimbă telefonul"
 
 #: templates/account/phone_change.html:18
-#, fuzzy
-#| msgid "Current Password"
 msgid "Current phone"
-msgstr "Parola actuala"
+msgstr "Telefon curent"
 
 #: templates/account/phone_change.html:22
-#, fuzzy
-#| msgid "Your primary email address must be verified."
 msgid "Your phone number is still pending verification."
-msgstr ""
-"Adresa de e-mail trebuie mai intai confirmata inainte de a o seta ca adresa "
-"principala. Acceseaza link-ul din e-mailul de verificare."
+msgstr "Numărul tău de telefon este încă în așteptarea verificării."
 
 #: templates/account/phone_change.html:38
-#, fuzzy
-#| msgid "Email"
 msgctxt "action"
 msgid "Change Phone"
-msgstr "E-mail"
+msgstr "Schimbă telefonul"
 
 #: templates/account/reauthenticate.html:6
-#, fuzzy
-#| msgid "Forgot Password?"
 msgid "Enter your password:"
-msgstr "Ai uitat parola?"
+msgstr "Introdu parola ta:"
 
 #: templates/account/request_login_code.html:12
 msgid "You will receive a special code for a password-free sign-in."
-msgstr ""
+msgstr "Vei primi un cod special pentru conectare fără parolă."
 
 #: templates/account/request_login_code.html:24
 msgid "Request Code"
-msgstr ""
+msgstr "Solicită cod"
 
 #: templates/account/request_login_code.html:30
 msgid "Other sign-in options"
-msgstr ""
+msgstr "Alte opțiuni de conectare"
 
 #: templates/account/signup.html:4 templates/account/signup_by_passkey.html:4
 #: templates/socialaccount/signup.html:5
@@ -1398,17 +1294,15 @@ msgstr "Ai deja un cont? Te rugam %(link)sconecteaza-te%(end_link)s."
 
 #: templates/account/signup.html:39
 msgid "Sign up using a passkey"
-msgstr ""
+msgstr "Înregistrează-te cu o cheie de acces"
 
 #: templates/account/signup_by_passkey.html:8
-#, fuzzy
-#| msgid "Sign Up"
 msgid "Passkey Sign Up"
-msgstr "Inregistreaza-te"
+msgstr "Înregistrare cu cheie de acces"
 
 #: templates/account/signup_by_passkey.html:36
 msgid "Other options"
-msgstr ""
+msgstr "Alte opțiuni"
 
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:9
@@ -1424,27 +1318,21 @@ msgid "Note"
 msgstr "Nota"
 
 #: templates/account/snippets/already_logged_in.html:7
-#, fuzzy, python-format
-#| msgid "you are already logged in as %(user_display)s."
+#, python-format
 msgid "You are already logged in as %(user_display)s."
-msgstr "esti deja conectat ca %(user_display)s."
+msgstr "Ești deja conectat ca %(user_display)s."
 
 #: templates/account/snippets/warn_no_email.html:3
 msgid "Warning:"
 msgstr "Avertizare:"
 
 #: templates/account/snippets/warn_no_email.html:3
-#, fuzzy
-#| msgid ""
-#| "You currently do not have any e-mail address set up. You should really "
-#| "add an e-mail address so you can receive notifications, reset your "
-#| "password, etc."
 msgid ""
 "You currently do not have any email address set up. You should really add an "
 "email address so you can receive notifications, reset your password, etc."
 msgstr ""
-"În prezent nu ai configurata nicio adresa de e-mail. Adauga o adresa de e-"
-"mail pentru a primi notificari, a putea reseta parola, etc."
+"În prezent nu ai configurată nicio adresă de e-mail. Ar trebui să adaugi o "
+"adresă de e-mail pentru a primi notificări, a-ți reseta parola, etc."
 
 #: templates/account/verification_sent.html:5
 #: templates/account/verification_sent.html:9
@@ -1454,41 +1342,28 @@ msgid "Verify Your Email Address"
 msgstr "Verifica-ti adresa de e-mail"
 
 #: templates/account/verification_sent.html:12
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for verification. Follow the link provided "
-#| "to finalize the signup process. Please contact us if you do not receive "
-#| "it within a few minutes."
 msgid ""
 "We have sent an email to you for verification. Follow the link provided to "
 "finalize the signup process. If you do not see the verification email in "
 "your main inbox, check your spam folder. Please contact us if you do not "
 "receive the verification email within a few minutes."
 msgstr ""
-"Ti-am trimis un e-mail pentru verificare (confirmare). Acceseaza link-ul din "
-"e-mail pentru a finaliza procesul de inregistrare. Te rugam contacteaza-ne "
-"daca nu primesti e-mailul in cateva minute."
+"Ți-am trimis un e-mail pentru verificare. Accesează linkul furnizat pentru a "
+"finaliza procesul de înregistrare. Dacă nu vezi e-mailul de verificare în "
+"inbox, verifică folderul de spam. Te rugăm să ne contactezi dacă nu primești "
+"e-mailul de verificare în câteva minute."
 
 #: templates/account/verified_email_required.html:13
-#, fuzzy
-#| msgid ""
-#| "This part of the site requires us to verify that\n"
-#| "you are who you claim to be. For this purpose, we require that you\n"
-#| "verify ownership of your e-mail address. "
 msgid ""
 "This part of the site requires us to verify that\n"
 "you are who you claim to be. For this purpose, we require that you\n"
 "verify ownership of your email address. "
 msgstr ""
-"Pentru a accesa aceasta sectiune a site-ului \n"
-"te rugam sa confirmi ca aceasta adresa de e-mail iti apartine. "
+"Această secțiune a site-ului necesită verificarea faptului că\n"
+"ești cine pretinzi a fi. În acest scop, îți cerem să\n"
+"verifici proprietatea asupra adresei tale de e-mail. "
 
 #: templates/account/verified_email_required.html:18
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for\n"
-#| "verification. Please click on the link inside this e-mail. Please\n"
-#| "contact us if you do not receive it within a few minutes."
 msgid ""
 "We have sent an email to you for\n"
 "verification. Please click on the link inside that email. If you do not see "
@@ -1496,29 +1371,27 @@ msgid ""
 "Otherwise\n"
 "contact us if you do not receive it within a few minutes."
 msgstr ""
-"Ti-am trimis un e-mail pentru verificare (confirmare). \n"
-"Acceseaza link-ul din e-mail pentru confirmare. \n"
-"Te rugam contacteaza-ne daca nu primesti e-mailul in cateva minute."
+"Ți-am trimis un e-mail pentru\n"
+"verificare. Te rugăm să accesezi linkul din e-mail. Dacă nu vezi e-mailul de "
+"verificare în inbox, verifică folderul de spam. Altfel\n"
+"contactează-ne dacă nu îl primești în câteva minute."
 
 #: templates/account/verified_email_required.html:23
-#, fuzzy, python-format
-#| msgid ""
-#| "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change "
-#| "your e-mail address</a>."
+#, python-format
 msgid ""
 "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your "
 "email address</a>."
 msgstr ""
-"<strong>Nota:</strong> poti in continuarea <a href=\"%(email_url)s\">sa-ti "
+"<strong>Nota:</strong> poti in continuare <a href=\"%(email_url)s\">sa-ti "
 "schimbi adresa de e-mail</a>."
 
 #: templates/allauth/layouts/base.html:18
 msgid "Messages:"
-msgstr ""
+msgstr "Mesaje:"
 
 #: templates/allauth/layouts/base.html:25
 msgid "Menu:"
-msgstr ""
+msgstr "Meniu:"
 
 #: templates/allauth/layouts/base.html:43
 #: templates/socialaccount/connections.html:5
@@ -1529,13 +1402,13 @@ msgstr "Conexiuni"
 #: templates/allauth/layouts/base.html:49 templates/mfa/authenticate.html:10
 #: templates/mfa/index.html:5 templates/mfa/index.html:9
 msgid "Two-Factor Authentication"
-msgstr ""
+msgstr "Autentificare cu doi factori"
 
 #: templates/allauth/layouts/base.html:55
 #: templates/usersessions/usersession_list.html:6
 #: templates/usersessions/usersession_list.html:10
 msgid "Sessions"
-msgstr ""
+msgstr "Sesiuni"
 
 #: templates/idp/oidc/authorization_form.html:5
 #: templates/idp/oidc/authorization_form.html:9
@@ -1545,34 +1418,30 @@ msgstr ""
 #: templates/idp/oidc/device_authorization_confirmed.html:5
 #: templates/idp/oidc/device_authorization_denied.html:5
 msgid "Authorize"
-msgstr ""
+msgstr "Autorizează"
 
 #: templates/idp/oidc/authorization_form.html:12
 #, python-format
 msgid "%(client_name)s wants to access your %(site_name)s account."
-msgstr ""
+msgstr "%(client_name)s dorește acces la contul tău %(site_name)s."
 
 #: templates/idp/oidc/device_authorization_code_form.html:9
-#, fuzzy
-#| msgid "Password Reset"
 msgid "Enter Device Code"
-msgstr "Reseteaza parola"
+msgstr "Introdu codul dispozitivului"
 
 #: templates/idp/oidc/device_authorization_code_form.html:12
 msgid "Enter the code displayed on your device."
-msgstr ""
+msgstr "Introdu codul afișat pe dispozitivul tău."
 
 #: templates/idp/oidc/device_authorization_code_form.html:21
 #: templates/socialaccount/login.html:27
 #: templates/socialaccount/login_redirect.html:10
 msgid "Continue"
-msgstr ""
+msgstr "Continuă"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:9
-#, fuzzy
-#| msgid "Confirm Email Address"
 msgid "Confirm Device"
-msgstr "Confirma adresa de e-mail"
+msgstr "Confirmă dispozitivul"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:12
 #, python-format
@@ -1580,146 +1449,144 @@ msgid ""
 "Please confirm the code shown on your %(client_name)s to authorize this "
 "device."
 msgstr ""
+"Te rugăm confirmă codul afișat pe %(client_name)s pentru a autoriza acest "
+"dispozitiv."
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:29
 msgid "Deny"
-msgstr ""
+msgstr "Refuză"
 
 #: templates/idp/oidc/device_authorization_confirmed.html:9
 msgid "Device Authorized"
-msgstr ""
+msgstr "Dispozitiv autorizat"
 
 #: templates/idp/oidc/device_authorization_confirmed.html:12
 #, python-format
 msgid "You successfully authorized your %(client_name)s device."
-msgstr ""
+msgstr "Ai autorizat cu succes dispozitivul tău %(client_name)s."
 
 #: templates/idp/oidc/device_authorization_denied.html:9
 msgid "Device Denied"
-msgstr ""
+msgstr "Dispozitiv refuzat"
 
 #: templates/idp/oidc/device_authorization_denied.html:12
 #, python-format
 msgid "Authorization for your %(client_name)s device has been denied."
-msgstr ""
+msgstr "Autorizarea pentru dispozitivul tău %(client_name)s a fost refuzată."
 
 #: templates/idp/oidc/error.html:5 templates/idp/oidc/error.html:9
 msgid "Error"
-msgstr ""
+msgstr "Eroare"
 
 #: templates/idp/oidc/logout.html:24
-#, fuzzy
-#| msgid "Shopify Sign In"
 msgid "Stay Signed In"
-msgstr "Connexion Shopify"
+msgstr "Rămâi conectat"
 
 #: templates/mfa/authenticate.html:13
 msgid ""
 "Your account is protected by two-factor authentication. Please enter an "
 "authenticator code:"
 msgstr ""
+"Contul tău este protejat prin autentificarea cu doi factori. Te rugăm "
+"introdu un cod de autentificare:"
 
 #: templates/mfa/email/recovery_codes_generated_message.txt:4
 msgid ""
 "A new set of Two-Factor Authentication recovery codes has been generated."
 msgstr ""
+"Un nou set de coduri de recuperare pentru autentificarea cu doi factori a "
+"fost generat."
 
 #: templates/mfa/email/recovery_codes_generated_subject.txt:3
 msgid "New Recovery Codes Generated"
-msgstr ""
+msgstr "Coduri de recuperare noi generate"
 
 #: templates/mfa/email/totp_activated_message.txt:4
 #: templates/mfa/messages/totp_activated.txt:2
 msgid "Authenticator app activated."
-msgstr ""
+msgstr "Aplicația de autentificare a fost activată."
 
 #: templates/mfa/email/totp_activated_subject.txt:3
-#, fuzzy
-#| msgid "token secret"
 msgid "Authenticator App Activated"
-msgstr "token secret"
+msgstr "Aplicație de autentificare activată"
 
 #: templates/mfa/email/totp_deactivated_message.txt:4
 #: templates/mfa/messages/totp_deactivated.txt:2
 msgid "Authenticator app deactivated."
-msgstr ""
+msgstr "Aplicația de autentificare a fost dezactivată."
 
 #: templates/mfa/email/totp_deactivated_subject.txt:3
-#, fuzzy
-#| msgid "token secret"
 msgid "Authenticator App Deactivated"
-msgstr "token secret"
+msgstr "Aplicație de autentificare dezactivată"
 
 #: templates/mfa/email/webauthn_added_message.txt:4
 msgid "A new security key has been added."
-msgstr ""
+msgstr "O nouă cheie de securitate a fost adăugată."
 
 #: templates/mfa/email/webauthn_added_subject.txt:3
 msgid "Security Key Added"
-msgstr ""
+msgstr "Cheie de securitate adăugată"
 
 #: templates/mfa/email/webauthn_removed_message.txt:4
-#, fuzzy
-#| msgid "You have confirmed %(email)s."
 msgid "A security key has been removed."
-msgstr "Ai confirmat %(email)s."
+msgstr "O cheie de securitate a fost eliminată."
 
 #: templates/mfa/email/webauthn_removed_subject.txt:3
 msgid "Security Key Removed"
-msgstr ""
+msgstr "Cheie de securitate eliminată"
 
 #: templates/mfa/index.html:14 templates/mfa/totp/base.html:4
 msgid "Authenticator App"
-msgstr ""
+msgstr "Aplicație de autentificare"
 
 #: templates/mfa/index.html:19
 msgid "Authentication using an authenticator app is active."
-msgstr ""
+msgstr "Autentificarea prin aplicație de autentificare este activă."
 
 #: templates/mfa/index.html:23
 msgid "An authenticator app is not active."
-msgstr ""
+msgstr "Nicio aplicație de autentificare nu este activă."
 
 #: templates/mfa/index.html:32 templates/mfa/totp/deactivate_form.html:24
 msgid "Deactivate"
-msgstr ""
+msgstr "Dezactivează"
 
 #: templates/mfa/index.html:36 templates/mfa/totp/activate_form.html:32
 msgid "Activate"
-msgstr ""
+msgstr "Activează"
 
 #: templates/mfa/index.html:45 templates/mfa/webauthn/authenticator_list.html:8
 #: templates/mfa/webauthn/base.html:4
 msgid "Security Keys"
-msgstr ""
+msgstr "Chei de securitate"
 
 #: templates/mfa/index.html:50
 #, python-format
 msgid "You have added %(count)s security key."
 msgid_plural "You have added %(count)s security keys."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Ați adăugat %(count)s cheie de securitate."
+msgstr[1] "Ați adăugat %(count)s chei de securitate."
+msgstr[2] "Ați adăugat %(count)s de chei de securitate."
 
 #: templates/mfa/index.html:54
 #: templates/mfa/webauthn/authenticator_list.html:12
 msgid "No security keys have been added."
-msgstr ""
+msgstr "Nu au fost adăugate chei de securitate."
 
 #: templates/mfa/index.html:62
 msgid "Manage"
-msgstr ""
+msgstr "Administrează"
 
 #: templates/mfa/index.html:67 templates/mfa/webauthn/add_form.html:18
 #: templates/mfa/webauthn/authenticator_list.html:70
 msgid "Add"
-msgstr ""
+msgstr "Adaugă"
 
 #: templates/mfa/index.html:77 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:6
 #: templates/mfa/recovery_codes/index.html:6
 msgid "Recovery Codes"
-msgstr ""
+msgstr "Coduri de recuperare"
 
 #: templates/mfa/index.html:82 templates/mfa/recovery_codes/index.html:9
 #, python-format
@@ -1728,71 +1595,75 @@ msgid ""
 msgid_plural ""
 "There are %(unused_count)s out of %(total_count)s recovery codes available."
 msgstr[0] ""
+"Este %(unused_count)s din %(total_count)s coduri de recuperare disponibil."
 msgstr[1] ""
+"Sunt %(unused_count)s din %(total_count)s coduri de recuperare disponibile."
 msgstr[2] ""
+"Sunt %(unused_count)s din %(total_count)s de coduri de recuperare "
+"disponibile."
 
 #: templates/mfa/index.html:86
 msgid "No recovery codes set up."
-msgstr ""
+msgstr "Nu sunt configurate coduri de recuperare."
 
 #: templates/mfa/index.html:96
 msgid "View"
-msgstr ""
+msgstr "Vizualizează"
 
 #: templates/mfa/index.html:102
 msgid "Download"
-msgstr ""
+msgstr "Descarcă"
 
 #: templates/mfa/index.html:110 templates/mfa/recovery_codes/generate.html:29
 msgid "Generate"
-msgstr ""
+msgstr "Generează"
 
 #: templates/mfa/messages/recovery_codes_generated.txt:2
 msgid "A new set of recovery codes has been generated."
-msgstr ""
+msgstr "Un nou set de coduri de recuperare a fost generat."
 
 #: templates/mfa/messages/webauthn_added.txt:2
 msgid "Security key added."
-msgstr ""
+msgstr "Cheie de securitate adăugată."
 
 #: templates/mfa/messages/webauthn_removed.txt:2
 msgid "Security key removed."
-msgstr ""
+msgstr "Cheie de securitate eliminată."
 
 #: templates/mfa/reauthenticate.html:6
-#, fuzzy
-#| msgid "token secret"
 msgid "Enter an authenticator code:"
-msgstr "token secret"
+msgstr "Introdu un cod de autentificare:"
 
 #: templates/mfa/recovery_codes/generate.html:9
 msgid "You are about to generate a new set of recovery codes for your account."
 msgstr ""
+"Ești pe cale să generezi un nou set de coduri de recuperare pentru contul "
+"tău."
 
 #: templates/mfa/recovery_codes/generate.html:11
 msgid "This action will invalidate your existing codes."
-msgstr ""
+msgstr "Această acțiune va invalida codurile tale existente."
 
 #: templates/mfa/recovery_codes/generate.html:13
 msgid "Are you sure?"
-msgstr ""
+msgstr "Ești sigur(ă)?"
 
 #: templates/mfa/recovery_codes/index.html:13
 msgid "Unused codes"
-msgstr ""
+msgstr "Coduri neutilizate"
 
 #: templates/mfa/recovery_codes/index.html:25
 msgid "Download codes"
-msgstr ""
+msgstr "Descarcă coduri"
 
 #: templates/mfa/recovery_codes/index.html:30
 msgid "Generate new codes"
-msgstr ""
+msgstr "Generează coduri noi"
 
 #: templates/mfa/totp/activate_form.html:4
 #: templates/mfa/totp/activate_form.html:8
 msgid "Activate Authenticator App"
-msgstr ""
+msgstr "Activează aplicația de autentificare"
 
 #: templates/mfa/totp/activate_form.html:11
 msgid ""
@@ -1800,120 +1671,113 @@ msgid ""
 "below with your authenticator app. Then, input the verification code "
 "generated by the app below."
 msgstr ""
+"Pentru a-ți proteja contul cu autentificarea cu doi factori, scanează codul "
+"QR de mai jos cu aplicația ta de autentificare. Apoi, introdu codul de "
+"verificare generat de aplicație."
 
 #: templates/mfa/totp/activate_form.html:21
-#, fuzzy
-#| msgid "token secret"
 msgid "Authenticator secret"
-msgstr "token secret"
+msgstr "Secret autentificator"
 
 #: templates/mfa/totp/activate_form.html:24
 msgid ""
 "You can store this secret and use it to reinstall your authenticator app at "
 "a later time."
 msgstr ""
+"Poți stoca acest secret și să-l folosești pentru a reinstala aplicația de "
+"autentificare ulterior."
 
 #: templates/mfa/totp/deactivate_form.html:5
 #: templates/mfa/totp/deactivate_form.html:9
 msgid "Deactivate Authenticator App"
-msgstr ""
+msgstr "Dezactivează aplicația de autentificare"
 
 #: templates/mfa/totp/deactivate_form.html:12
 msgid ""
 "You are about to deactivate authenticator app based authentication. Are you "
 "sure?"
 msgstr ""
+"Ești pe cale să dezactivezi autentificarea prin aplicație de autentificare. "
+"Ești sigur(ă)?"
 
 #: templates/mfa/trust.html:4 templates/mfa/trust.html:8
 msgid "Trust this Browser?"
-msgstr ""
+msgstr "Ai încredere în acest browser?"
 
 #: templates/mfa/trust.html:11
 msgid ""
 "If you choose to trust this browser, you will not be asked for a "
 "verification code the next time you sign in."
 msgstr ""
+"Dacă alegi să ai încredere în acest browser, nu ți se va cere un cod de "
+"verificare data viitoare când te conectezi."
 
 #: templates/mfa/trust.html:23
 #, python-format
 msgid "Trust for %(period)s"
-msgstr ""
+msgstr "Ai încredere pentru %(period)s"
 
 #: templates/mfa/trust.html:26
 msgid "Don't Trust"
-msgstr ""
+msgstr "Nu am încredere"
 
 #: templates/mfa/webauthn/add_form.html:7
-#, fuzzy
-#| msgid "secret key"
 msgid "Add Security Key"
-msgstr "cheie secreta"
+msgstr "Adaugă cheie de securitate"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:6
-#, fuzzy
-#| msgid "secret key"
 msgid "Remove Security Key"
-msgstr "cheie secreta"
+msgstr "Elimină cheie de securitate"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:9
-#, fuzzy
-#| msgid "Are you sure you want to sign out?"
 msgid "Are you sure you want to remove this security key?"
-msgstr "Esti sigur(a) ca vrei sa te deconectezi?"
+msgstr "Ești sigur(ă) că vrei să elimini această cheie de securitate?"
 
 #: templates/mfa/webauthn/authenticator_list.html:21
 msgid "Usage"
-msgstr ""
+msgstr "Utilizare"
 
 #: templates/mfa/webauthn/authenticator_list.html:33
 msgid "Passkey"
-msgstr ""
+msgstr "Cheie de acces"
 
 #: templates/mfa/webauthn/authenticator_list.html:37
-#, fuzzy
-#| msgid "secret key"
 msgid "Security key"
-msgstr "cheie secreta"
+msgstr "Cheie de securitate"
 
 #: templates/mfa/webauthn/authenticator_list.html:40
 msgid "This key does not indicate whether it is a passkey."
-msgstr ""
+msgstr "Această cheie nu indică dacă este o cheie de acces."
 
 #: templates/mfa/webauthn/authenticator_list.html:41
-#, fuzzy
-#| msgid "Unverified"
 msgid "Unspecified"
-msgstr "Neverificata"
+msgstr "Nespecificat"
 
 #: templates/mfa/webauthn/authenticator_list.html:46
 #, python-format
 msgid "Added on %(created_at)s"
-msgstr ""
+msgstr "Adăugată pe %(created_at)s"
 
 #: templates/mfa/webauthn/authenticator_list.html:48
 #, python-format
 msgid "Last used %(last_used)s"
-msgstr ""
+msgstr "Utilizată ultima dată %(last_used)s"
 
 #: templates/mfa/webauthn/authenticator_list.html:56
 msgid "Edit"
-msgstr ""
+msgstr "Editează"
 
 #: templates/mfa/webauthn/edit_form.html:7
-#, fuzzy
-#| msgid "secret key"
 msgid "Edit Security Key"
-msgstr "cheie secreta"
+msgstr "Editează cheie de securitate"
 
 #: templates/mfa/webauthn/edit_form.html:18
 msgid "Save"
-msgstr ""
+msgstr "Salvează"
 
 #: templates/mfa/webauthn/signup_form.html:7
-#, fuzzy
-#| msgid "Current Password"
 msgid "Create Passkey"
-msgstr "Parola actuala"
+msgstr "Creează cheie de acces"
 
 #: templates/mfa/webauthn/signup_form.html:10
 msgid ""
@@ -1921,104 +1785,84 @@ msgid ""
 "additional keys later on, you can use a descriptive name to tell the keys "
 "apart."
 msgstr ""
+"Ești pe cale să creezi o cheie de acces pentru contul tău. Deoarece poți "
+"adăuga chei suplimentare ulterior, poți folosi un nume descriptiv pentru a "
+"le diferenția."
 
 #: templates/mfa/webauthn/signup_form.html:21
-#, fuzzy
-#| msgid "created"
 msgid "Create"
-msgstr "creata"
+msgstr "Creează"
 
 #: templates/mfa/webauthn/snippets/scripts.html:2
 msgid "This functionality requires JavaScript."
-msgstr ""
+msgstr "Această funcționalitate necesită JavaScript."
 
 #: templates/socialaccount/authentication_error.html:5
 #: templates/socialaccount/authentication_error.html:9
-#, fuzzy
-#| msgid "Social Network Login Failure"
 msgid "Third-Party Login Failure"
-msgstr "Conectarea la reteaua sociala a esuat"
+msgstr "Autentificarea prin cont terț a eșuat"
 
 #: templates/socialaccount/authentication_error.html:12
-#, fuzzy
-#| msgid ""
-#| "An error occurred while attempting to login via your social network "
-#| "account."
 msgid ""
 "An error occurred while attempting to login via your third-party account."
-msgstr ""
-"A aparut o eroare in incercarea de a te autentifica folosind aceasta cont de "
-"retea sociala."
+msgstr "A apărut o eroare la încercarea de autentificare prin contul tău terț."
 
 #: templates/socialaccount/connections.html:13
-#, fuzzy
-#| msgid ""
-#| "You can sign in to your account using any of the following third party "
-#| "accounts:"
 msgid ""
 "You can sign in to your account using any of the following third-party "
 "accounts:"
 msgstr ""
-"Te poti conecta la contul tau folosind oricare dintre urmatoarele conturi de "
-"socializare (conturi terte):"
+"Te poți conecta la contul tău folosind oricare dintre următoarele conturi "
+"terțe:"
 
 #: templates/socialaccount/connections.html:46
-#, fuzzy
-#| msgid ""
-#| "You currently have no social network accounts connected to this account."
 msgid "You currently have no third-party accounts connected to this account."
-msgstr "In present nu ai niciun cont de retea sociala asociat cu acest cont."
+msgstr "În prezent nu ai niciun cont terț conectat la acest cont."
 
 #: templates/socialaccount/connections.html:50
-#, fuzzy
-#| msgid "Add a 3rd Party Account"
 msgid "Add a Third-Party Account"
-msgstr "Adauga un cont de retea sociala"
+msgstr "Adaugă un cont terț"
 
 #: templates/socialaccount/email/account_connected_message.txt:4
 #, python-format
 msgid ""
 "A third-party account from %(provider)s has been connected to your account."
-msgstr ""
+msgstr "Un cont terț de la %(provider)s a fost conectat la contul tău."
 
 #: templates/socialaccount/email/account_connected_subject.txt:3
-#, fuzzy
-#| msgid "Add a 3rd Party Account"
 msgid "Third-Party Account Connected"
-msgstr "Adauga un cont de retea sociala"
+msgstr "Cont terț conectat"
 
 #: templates/socialaccount/email/account_disconnected_message.txt:4
 #, python-format
 msgid ""
 "A third-party account from %(provider)s has been disconnected from your "
 "account."
-msgstr ""
+msgstr "Un cont terț de la %(provider)s a fost deconectat de la contul tău."
 
 #: templates/socialaccount/email/account_disconnected_subject.txt:3
-#, fuzzy
-#| msgid "Add a 3rd Party Account"
 msgid "Third-Party Account Disconnected"
-msgstr "Adauga un cont de retea sociala"
+msgstr "Cont terț deconectat"
 
 #: templates/socialaccount/login.html:10
 #, python-format
 msgid "Connect %(provider)s"
-msgstr ""
+msgstr "Conectează %(provider)s"
 
 #: templates/socialaccount/login.html:13
 #, python-format
 msgid "You are about to connect a new third-party account from %(provider)s."
-msgstr ""
+msgstr "Ești pe cale să conectezi un nou cont terț de la %(provider)s."
 
 #: templates/socialaccount/login.html:17
 #, python-format
 msgid "Sign In Via %(provider)s"
-msgstr ""
+msgstr "Conectează-te prin %(provider)s"
 
 #: templates/socialaccount/login.html:20
 #, python-format
 msgid "You are about to sign in using a third-party account from %(provider)s."
-msgstr ""
+msgstr "Ești pe cale să te conectezi folosind un cont terț de la %(provider)s."
 
 #: templates/socialaccount/login_cancelled.html:5
 #: templates/socialaccount/login_cancelled.html:9
@@ -2037,16 +1881,12 @@ msgstr ""
 "la contul tau</a>."
 
 #: templates/socialaccount/messages/account_connected.txt:2
-#, fuzzy
-#| msgid "The social account has been connected."
 msgid "The third-party account has been connected."
-msgstr "Contul a fost conectat cu success."
+msgstr "Contul terț a fost conectat."
 
 #: templates/socialaccount/messages/account_disconnected.txt:2
-#, fuzzy
-#| msgid "The social account has been disconnected."
 msgid "The third-party account has been disconnected."
-msgstr "Contul de socializare a fost deconectat."
+msgstr "Contul terț a fost deconectat."
 
 #: templates/socialaccount/signup.html:12
 #, python-format
@@ -2060,50 +1900,45 @@ msgstr ""
 
 #: templates/socialaccount/snippets/login.html:10
 msgid "Or use a third-party"
-msgstr ""
+msgstr "Sau folosește un cont terț"
 
 #: templates/usersessions/messages/sessions_logged_out.txt:2
 msgid "Signed out of all other sessions."
-msgstr ""
+msgstr "Deconectat din toate celelalte sesiuni."
 
 #: templates/usersessions/usersession_list.html:24
 msgid "Started At"
-msgstr ""
+msgstr "Începută la"
 
 #: templates/usersessions/usersession_list.html:27
-#, fuzzy
-#| msgid "Email Addresses"
 msgid "IP Address"
-msgstr "Adrese de e-mail"
+msgstr "Adresă IP"
 
 #: templates/usersessions/usersession_list.html:30
 msgid "Browser"
-msgstr ""
+msgstr "Browser"
 
 #: templates/usersessions/usersession_list.html:34
 msgid "Last seen at"
-msgstr ""
+msgstr "Ultima activitate"
 
 #: templates/usersessions/usersession_list.html:59
-#, fuzzy
-#| msgid "Current Password"
 msgid "Current"
-msgstr "Parola actuala"
+msgstr "Curent"
 
 #: templates/usersessions/usersession_list.html:72
 msgid "Sign Out Other Sessions"
-msgstr ""
+msgstr "Deconectează celelalte sesiuni"
 
 #: usersessions/apps.py:9
 msgid "User Sessions"
-msgstr ""
+msgstr "Sesiuni utilizator"
 
 #: usersessions/models.py:94
 msgid "session key"
-msgstr ""
+msgstr "cheie sesiune"
 
 #, fuzzy
-#~| msgid "Account Connections"
 #~ msgid "Account Connection"
 #~ msgstr "Conexiuni"
 
@@ -2112,11 +1947,6 @@ msgstr ""
 #~ msgstr "Parola trebuie să aibă minimum {0} caractere."
 
 #, fuzzy, python-format
-#~| msgid ""
-#~| "You're receiving this e-mail because you or someone else has requested a "
-#~| "password for your user account.\n"
-#~| "It can be safely ignored if you did not request a password reset. Click "
-#~| "the link below to reset your password."
 #~ msgid ""
 #~ "You are receiving this email because you or someone else has requested a\n"
 #~ "password for your user account. However, we do not have any record of a "
@@ -2134,12 +1964,10 @@ msgstr ""
 #~ "Pentru resetarea parolei acceseaza linkul de mai jos."
 
 #, fuzzy
-#~| msgid "The following email addresses are associated with your account:"
 #~ msgid "The following email address is associated with your account:"
 #~ msgstr "Urmatoarele adrese de e-mail sunt asociate contului tau:"
 
 #, fuzzy
-#~| msgid "Confirm Email Address"
 #~ msgid "Change Email Address"
 #~ msgstr "Confirma adresa de e-mail"
 

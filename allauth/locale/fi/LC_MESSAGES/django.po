@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-13 09:05-0600\n"
+"POT-Creation-Date: 2026-03-05 08:42-0600\n"
 "PO-Revision-Date: 2025-07-25 20:25+0200\n"
 "Last-Translator: Juho Enala <juho.enala@gmail.com>\n"
 "Language-Team: Finnish <fi@li.org>\n"
@@ -127,16 +127,14 @@ msgid "Use a security key"
 msgstr "Käytä turva-avainta"
 
 #: account/admin.py:30
-#, fuzzy, python-brace-format
-#| msgid "Mark selected email addresses as verified"
+#, python-brace-format
 msgid "Marked {email} as verified."
-msgstr "Merkitse valitut sähköpostiosoitteet vahvistetuiksi"
+msgstr "Merkitty {email} vahvistetuksi."
 
 #: account/admin.py:36
-#, fuzzy, python-brace-format
-#| msgid "Your primary email address must be verified."
+#, python-brace-format
 msgid "Failed to mark {email} as verified."
-msgstr "Ensisijaisen sähköpostiosoiteen tulee olla vahvistettu."
+msgstr "Osoitteen {email} merkitseminen vahvistetuksi epäonnistui."
 
 #: account/admin.py:42
 msgid "Mark selected email addresses as verified"
@@ -311,16 +309,19 @@ msgstr "Myönnä käyttöoikeudet"
 #: idp/oidc/internal/clientkit.py:22
 msgid "Wildcards are not allowed unless 'Allow URI wildcards' is enabled."
 msgstr ""
+"Jokerimerkkejä ei sallita, ellei 'Salli URI-jokerimerkit' ole käytössä."
 
 #: idp/oidc/internal/clientkit.py:27
 msgid ""
 "URI '{}' contains more than one wildcard (*). Only one wildcard per URI is "
 "allowed."
 msgstr ""
+"URI '{}' sisältää useamman kuin yhden jokerimerkin (*). Vain yksi "
+"jokerimerkki per URI on sallittu."
 
 #: idp/oidc/internal/clientkit.py:39
 msgid "Wildcards are only allowed in the hostname portion of the URI."
-msgstr ""
+msgstr "Jokerimerkit ovat sallittuja vain URI:n isäntänimi-osassa."
 
 #: idp/oidc/models.py:37
 msgid "Authorization code"
@@ -382,6 +383,9 @@ msgid ""
 "Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
 "can contain a single asterisk to match subdomains."
 msgstr ""
+"Salli jokerimerkit (*) uudelleenohjaus-URI:issa ja CORS-lähteissä. Kun "
+"käytössä, URI:t voivat sisältää yhden tähtimerkin aliverkkotunnusten "
+"vastaamiseen."
 
 #: idp/oidc/models.py:102
 msgid ""
@@ -396,10 +400,8 @@ msgid "client"
 msgstr "asiakas"
 
 #: idp/oidc/models.py:116
-#, fuzzy
-#| msgid "client id"
 msgid "clients"
-msgstr "asiakas id"
+msgstr "asiakkaat"
 
 #: mfa/adapter.py:32
 msgid ""
@@ -1328,20 +1330,16 @@ msgid "Verify Your Email Address"
 msgstr "Vahvista sähköpostiosoitteesi"
 
 #: templates/account/verification_sent.html:12
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for verification. Follow the link provided "
-#| "to finalize the signup process. Please contact us if you do not receive "
-#| "it within a few minutes."
 msgid ""
 "We have sent an email to you for verification. Follow the link provided to "
 "finalize the signup process. If you do not see the verification email in "
 "your main inbox, check your spam folder. Please contact us if you do not "
 "receive the verification email within a few minutes."
 msgstr ""
-"Lähetimme sinulle sähköpostin vahvistusviestin. Klikkaa sähköpostissa olevaa "
-"linkkiä viimeistelläksesi rekisteröitymisprosessin. Ota meihin yhteyttä, jos "
-"et saanut vahvistusviestiä muutaman minuutin sisällä."
+"Lähetimme sinulle vahvistusviestin sähköpostitse. Klikkaa sähköpostissa "
+"olevaa linkkiä viimeistelläksesi rekisteröitymisprosessin. Jos et näe "
+"vahvistusviestiä saapuneet-kansiossasi, tarkista roskapostikansiosi. Ota "
+"meihin yhteyttä, jos et saa vahvistusviestiä muutaman minuutin sisällä."
 
 #: templates/account/verified_email_required.html:13
 msgid ""
@@ -1469,10 +1467,8 @@ msgid "Error"
 msgstr "Virhe"
 
 #: templates/idp/oidc/logout.html:24
-#, fuzzy
-#| msgid "Sign In"
 msgid "Stay Signed In"
-msgstr "Kirjaudu sisään"
+msgstr "Pysy kirjautuneena"
 
 #: templates/mfa/authenticate.html:13
 msgid ""
@@ -1928,7 +1924,6 @@ msgid "session key"
 msgstr "istuntoavain"
 
 #, fuzzy
-#~| msgid "Account Connections"
 #~ msgid "Account Connection"
 #~ msgstr "Liitetyt tilit"
 
@@ -1937,11 +1932,6 @@ msgstr "istuntoavain"
 #~ msgstr "Salasanan tulee olla vähintään {0} merkkiä pitkä."
 
 #, fuzzy, python-format
-#~| msgid ""
-#~| "You're receiving this e-mail because you or someone else has requested a "
-#~| "password for your user account.\n"
-#~| "It can be safely ignored if you did not request a password reset. Click "
-#~| "the link below to reset your password."
 #~ msgid ""
 #~ "You are receiving this email because you or someone else has requested a\n"
 #~ "password for your user account. However, we do not have any record of a "
@@ -1958,12 +1948,10 @@ msgstr "istuntoavain"
 #~ "Klikkaa alla olevaa linkkiä uusiaksesi salasanasi."
 
 #, fuzzy
-#~| msgid "The following email addresses are associated with your account:"
 #~ msgid "The following email address is associated with your account:"
 #~ msgstr "Seuraavat sähköpostiosoitteet on liitetty tiliisi:"
 
 #, fuzzy
-#~| msgid "Confirm Email Address"
 #~ msgid "Change Email Address"
 #~ msgstr "Vahvista sähköpostiosoite"
 

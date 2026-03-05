@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-13 09:05-0600\n"
+"POT-Creation-Date: 2026-03-05 08:42-0600\n"
 "PO-Revision-Date: 2025-08-07 02:02+0000\n"
 "Last-Translator: SATOH Fumiyasu <fumiyas@osstech.co.jp>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/allauth/django-"
@@ -309,16 +309,19 @@ msgstr "認可パーミッション"
 #: idp/oidc/internal/clientkit.py:22
 msgid "Wildcards are not allowed unless 'Allow URI wildcards' is enabled."
 msgstr ""
+"「URIワイルドカードを許可」が有効でない限り、ワイルドカードは使用できません。"
 
 #: idp/oidc/internal/clientkit.py:27
 msgid ""
 "URI '{}' contains more than one wildcard (*). Only one wildcard per URI is "
 "allowed."
 msgstr ""
+"URI「{}」に複数のワイルドカード（*）が含まれています。URIごとに使用できるワイ"
+"ルドカードは1つのみです。"
 
 #: idp/oidc/internal/clientkit.py:39
 msgid "Wildcards are only allowed in the hostname portion of the URI."
-msgstr ""
+msgstr "ワイルドカードはURIのホスト名部分でのみ使用できます。"
 
 #: idp/oidc/models.py:37
 msgid "Authorization code"
@@ -380,6 +383,8 @@ msgid ""
 "Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
 "can contain a single asterisk to match subdomains."
 msgstr ""
+"リダイレクトURIおよびCORSオリジンでワイルドカード（*）を許可します。有効にす"
+"ると、URIにサブドメインに一致する単一のアスタリスクを含めることができます。"
 
 #: idp/oidc/models.py:102
 msgid ""
@@ -1458,10 +1463,8 @@ msgid "Error"
 msgstr "エラー"
 
 #: templates/idp/oidc/logout.html:24
-#, fuzzy
-#| msgid "Sign In"
 msgid "Stay Signed In"
-msgstr "ログイン"
+msgstr "ログイン状態を保持する"
 
 #: templates/mfa/authenticate.html:13
 msgid ""
@@ -1902,7 +1905,6 @@ msgid "session key"
 msgstr "セッションキー"
 
 #, fuzzy
-#~| msgid "Account Connections"
 #~ msgid "Account Connection"
 #~ msgstr "アカウント接続"
 
@@ -1928,11 +1930,6 @@ msgstr "セッションキー"
 #~ msgid "Password must be a minimum of {0} characters."
 #~ msgstr "パスワードは {0} 文字以上の長さが必要です。"
 
-#~| msgid ""
-#~| "You're receiving this e-mail because you or someone else has requested a "
-#~| "password for your user account.\n"
-#~| "It can be safely ignored if you did not request a password reset. Click "
-#~| "the link below to reset your password."
 #~ msgid ""
 #~ "You are receiving this email because you or someone else has requested a\n"
 #~ "password for your user account. However, we do not have any record of a "
@@ -1950,12 +1947,10 @@ msgstr "セッションキー"
 #~ "い。"
 
 #, fuzzy
-#~| msgid "The following email addresses are associated with your account:"
 #~ msgid "The following email address is associated with your account:"
 #~ msgstr "以下のメールアドレスがアカウントに登録されています："
 
 #, fuzzy
-#~| msgid "Confirm Email Address"
 #~ msgid "Change Email Address"
 #~ msgstr "メールアドレスの確認"
 

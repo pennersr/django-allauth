@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-13 09:05-0600\n"
+"POT-Creation-Date: 2026-03-05 08:42-0600\n"
 "PO-Revision-Date: 2025-11-21 12:51+0000\n"
 "Last-Translator: Jeff Ma <jma30056@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
@@ -308,17 +308,17 @@ msgstr "使用者賦予許可"
 
 #: idp/oidc/internal/clientkit.py:22
 msgid "Wildcards are not allowed unless 'Allow URI wildcards' is enabled."
-msgstr ""
+msgstr "除非啟用「允許 URI 萬用字元」，否則不允許使用萬用字元。"
 
 #: idp/oidc/internal/clientkit.py:27
 msgid ""
 "URI '{}' contains more than one wildcard (*). Only one wildcard per URI is "
 "allowed."
-msgstr ""
+msgstr "URI「{}」包含多個萬用字元 (*)。每個 URI 僅允許一個萬用字元。"
 
 #: idp/oidc/internal/clientkit.py:39
 msgid "Wildcards are only allowed in the hostname portion of the URI."
-msgstr ""
+msgstr "萬用字元僅允許在 URI 的主機名稱部分使用。"
 
 #: idp/oidc/models.py:37
 msgid "Authorization code"
@@ -378,6 +378,8 @@ msgid ""
 "Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
 "can contain a single asterisk to match subdomains."
 msgstr ""
+"允許在重新導向 URI 和 CORS 來源中使用萬用字元 (*)。啟用後，URI 可以包含一個星"
+"號來比對子網域。"
 
 #: idp/oidc/models.py:102
 msgid ""
@@ -1421,10 +1423,8 @@ msgid "Error"
 msgstr "錯誤"
 
 #: templates/idp/oidc/logout.html:24
-#, fuzzy
-#| msgid "Sign In"
 msgid "Stay Signed In"
-msgstr "登入"
+msgstr "保持登入"
 
 #: templates/mfa/authenticate.html:13
 msgid ""
@@ -1857,7 +1857,6 @@ msgid "session key"
 msgstr "會話金鑰"
 
 #, fuzzy
-#~| msgid "Account Connections"
 #~ msgid "Account Connection"
 #~ msgstr "帳號連結"
 
@@ -1869,11 +1868,6 @@ msgstr "會話金鑰"
 #~ msgstr "密碼長度至少要有 {0} 個字元。"
 
 #, fuzzy, python-format
-#~| msgid ""
-#~| "You're receiving this e-mail because you or someone else has requested a "
-#~| "password for your user account at %(site_domain)s.\n"
-#~| "It can be safely ignored if you did not request a password reset. Click "
-#~| "the link below to reset your password."
 #~ msgid ""
 #~ "You are receiving this email because you or someone else has requested a\n"
 #~ "password for your user account. However, we do not have any record of a "
@@ -1890,12 +1884,10 @@ msgstr "會話金鑰"
 #~ "的連結。"
 
 #, fuzzy
-#~| msgid "The following email addresses are associated with your account:"
 #~ msgid "The following email address is associated with your account:"
 #~ msgstr "下列電子郵件已與你的帳號連結："
 
 #, fuzzy
-#~| msgid "Confirm Email Address"
 #~ msgid "Change Email Address"
 #~ msgstr "確認電子郵件"
 

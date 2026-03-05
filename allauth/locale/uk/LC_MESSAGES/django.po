@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-13 09:05-0600\n"
+"POT-Creation-Date: 2026-03-05 08:42-0600\n"
 "PO-Revision-Date: 2025-09-24 20:02+0000\n"
 "Last-Translator: Максим Горпиніч <gorpinicmaksim0@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/allauth/django-"
@@ -316,16 +316,20 @@ msgstr "Надати дозволи"
 #: idp/oidc/internal/clientkit.py:22
 msgid "Wildcards are not allowed unless 'Allow URI wildcards' is enabled."
 msgstr ""
+"Символи підстановки не дозволені, якщо не увімкнено опцію 'Дозволити символи "
+"підстановки в URI'."
 
 #: idp/oidc/internal/clientkit.py:27
 msgid ""
 "URI '{}' contains more than one wildcard (*). Only one wildcard per URI is "
 "allowed."
 msgstr ""
+"URI '{}' містить більше одного символу підстановки (*). Дозволено лише один "
+"символ підстановки на URI."
 
 #: idp/oidc/internal/clientkit.py:39
 msgid "Wildcards are only allowed in the hostname portion of the URI."
-msgstr ""
+msgstr "Символи підстановки дозволені лише в частині імені хоста URI."
 
 #: idp/oidc/models.py:37
 msgid "Authorization code"
@@ -387,6 +391,8 @@ msgid ""
 "Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
 "can contain a single asterisk to match subdomains."
 msgstr ""
+"Дозволити символи підстановки (*) у URI перенаправлення та джерелах CORS. "
+"Коли увімкнено, URI можуть містити одну зірочку для відповідності піддоменам."
 
 #: idp/oidc/models.py:102
 msgid ""
@@ -1487,10 +1493,8 @@ msgid "Error"
 msgstr "Помилка"
 
 #: templates/idp/oidc/logout.html:24
-#, fuzzy
-#| msgid "Sign In"
 msgid "Stay Signed In"
-msgstr "Увійти"
+msgstr "Залишитися в системі"
 
 #: templates/mfa/authenticate.html:13
 msgid ""
@@ -1956,6 +1960,5 @@ msgid "session key"
 msgstr "ключ сеансу"
 
 #, fuzzy
-#~| msgid "Account Connections"
 #~ msgid "Account Connection"
 #~ msgstr "Підключені Облікові Записи"

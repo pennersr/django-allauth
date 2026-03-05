@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-13 09:05-0600\n"
+"POT-Creation-Date: 2026-03-05 08:42-0600\n"
 "PO-Revision-Date: 2025-08-20 01:01+0000\n"
 "Last-Translator: Wolf <wolski.marex@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/allauth/django-"
@@ -311,16 +311,21 @@ msgstr "Udziel uprawnień"
 #: idp/oidc/internal/clientkit.py:22
 msgid "Wildcards are not allowed unless 'Allow URI wildcards' is enabled."
 msgstr ""
+"Znaki wieloznaczne nie są dozwolone, chyba że opcja 'Zezwalaj na znaki "
+"wieloznaczne w URI' jest włączona."
 
 #: idp/oidc/internal/clientkit.py:27
 msgid ""
 "URI '{}' contains more than one wildcard (*). Only one wildcard per URI is "
 "allowed."
 msgstr ""
+"URI '{}' zawiera więcej niż jeden znak wieloznaczny (*). Dozwolony jest "
+"tylko jeden znak wieloznaczny na URI."
 
 #: idp/oidc/internal/clientkit.py:39
 msgid "Wildcards are only allowed in the hostname portion of the URI."
 msgstr ""
+"Znaki wieloznaczne są dozwolone tylko w części URI zawierającej nazwę hosta."
 
 #: idp/oidc/models.py:37
 msgid "Authorization code"
@@ -381,6 +386,8 @@ msgid ""
 "Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
 "can contain a single asterisk to match subdomains."
 msgstr ""
+"Zezwalaj na znaki wieloznaczne (*) w URI przekierowań i źródłach CORS. Po "
+"włączeniu URI mogą zawierać pojedynczą gwiazdkę w celu dopasowania subdomen."
 
 #: idp/oidc/models.py:102
 msgid ""
@@ -1460,10 +1467,8 @@ msgid "Error"
 msgstr "Błąd"
 
 #: templates/idp/oidc/logout.html:24
-#, fuzzy
-#| msgid "Sign In"
 msgid "Stay Signed In"
-msgstr "Zaloguj"
+msgstr "Pozostań zalogowany"
 
 #: templates/mfa/authenticate.html:13
 msgid ""
@@ -1922,7 +1927,6 @@ msgid "session key"
 msgstr "Klucz sesji"
 
 #, fuzzy
-#~| msgid "Account Connections"
 #~ msgid "Account Connection"
 #~ msgstr "Połączone konta"
 
@@ -1931,11 +1935,6 @@ msgstr "Klucz sesji"
 #~ msgstr "Hasło musi składać się z co najmniej {0} znaków."
 
 #, fuzzy, python-format
-#~| msgid ""
-#~| "You're receiving this e-mail because you or someone else has requested a "
-#~| "password for your user account.\n"
-#~| "It can be safely ignored if you did not request a password reset. Click "
-#~| "the link below to reset your password."
 #~ msgid ""
 #~ "You are receiving this email because you or someone else has requested a\n"
 #~ "password for your user account. However, we do not have any record of a "
@@ -1952,12 +1951,10 @@ msgstr "Klucz sesji"
 #~ "pochodziła od Ciebie. Kliknij w link poniżej, aby zresetować hasło."
 
 #, fuzzy
-#~| msgid "The following email addresses are associated with your account:"
 #~ msgid "The following email address is associated with your account:"
 #~ msgstr "Poniższe adresy e-mail są powiązane z Twoim kontem:"
 
 #, fuzzy
-#~| msgid "Confirm Email Address"
 #~ msgid "Change Email Address"
 #~ msgstr "Potwierdź adres e-mail"
 

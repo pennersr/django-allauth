@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-13 09:05-0600\n"
+"POT-Creation-Date: 2026-03-05 08:42-0600\n"
 "PO-Revision-Date: 2025-07-25 20:23+0200\n"
 "Last-Translator: Ilia Iliev <p3sh0tr4mv4y4@gmail.com>\n"
 "Language-Team: Bulgarian <https://hosted.weblate.org/projects/allauth/django-"
@@ -128,16 +128,14 @@ msgid "Use a security key"
 msgstr "Използвайте код за сигурност"
 
 #: account/admin.py:30
-#, fuzzy, python-brace-format
-#| msgid "Mark selected email addresses as verified"
+#, python-brace-format
 msgid "Marked {email} as verified."
-msgstr "Изберете имейл адресите като верифицирани"
+msgstr "Имейл адрес {email} е маркиран като потвърден."
 
 #: account/admin.py:36
-#, fuzzy, python-brace-format
-#| msgid "Your primary email address must be verified."
+#, python-brace-format
 msgid "Failed to mark {email} as verified."
-msgstr "Основният ви e-mail адрес трябва да бъде потвърден."
+msgstr "Неуспешно маркиране на {email} като потвърден."
 
 #: account/admin.py:42
 msgid "Mark selected email addresses as verified"
@@ -295,71 +293,70 @@ msgstr "Скрит режим"
 
 #: idp/oidc/adapter.py:30
 msgid "View your user ID"
-msgstr ""
+msgstr "Преглед на вашия потребителски идентификатор"
 
 #: idp/oidc/adapter.py:31
-#, fuzzy
-#| msgid "Verify Your Email Address"
 msgid "View your email address"
-msgstr "Потвърдете вашия e-mail адрес"
+msgstr "Преглед на вашия имейл адрес"
 
 #: idp/oidc/adapter.py:32
 msgid "View your basic profile information"
-msgstr ""
+msgstr "Преглед на основната информация за вашия профил"
 
 #: idp/oidc/forms.py:31
-#, fuzzy
-#| msgid "User Sessions"
 msgid "Grant permissions"
-msgstr "Потребителски сесии"
+msgstr "Предоставяне на разрешения"
 
 #: idp/oidc/internal/clientkit.py:22
 msgid "Wildcards are not allowed unless 'Allow URI wildcards' is enabled."
 msgstr ""
+"Заместващи символи (*) не са разрешени, освен ако не е включена опцията "
+"'Разрешаване на заместващи символи в URI'."
 
 #: idp/oidc/internal/clientkit.py:27
 msgid ""
 "URI '{}' contains more than one wildcard (*). Only one wildcard per URI is "
 "allowed."
 msgstr ""
+"URI '{}' съдържа повече от един заместващ символ (*). Разрешен е само един "
+"заместващ символ за URI."
 
 #: idp/oidc/internal/clientkit.py:39
 msgid "Wildcards are only allowed in the hostname portion of the URI."
 msgstr ""
+"Заместващи символи (*) са разрешени само в частта за име на хост от URI."
 
 #: idp/oidc/models.py:37
-#, fuzzy
-#| msgid "Authenticator code"
 msgid "Authorization code"
-msgstr "Автентикиращ код"
+msgstr "Код за оторизация"
 
 #: idp/oidc/models.py:38
-#, fuzzy
-#| msgid "Recovery codes"
 msgid "Device code"
-msgstr "Кодове за възстановяване"
+msgstr "Код на устройство"
 
 #: idp/oidc/models.py:39
 msgid "Client credentials"
-msgstr ""
+msgstr "Клиентски идентификационни данни"
 
 #: idp/oidc/models.py:40
 msgid "Refresh token"
-msgstr ""
+msgstr "Токен за обновяване"
 
 #: idp/oidc/models.py:43
 msgid "Confidential"
-msgstr ""
+msgstr "Поверителен"
 
 #: idp/oidc/models.py:44
 msgid "Public"
-msgstr ""
+msgstr "Публичен"
 
 #: idp/oidc/models.py:58
 msgid ""
 "The scope(s) the client is allowed to request. Provide one value per line, "
 "e.g.: openid(ENTER)profile(ENTER)email(ENTER)"
 msgstr ""
+"Обхват(ите), които клиентът има право да заявява. Въведете по една стойност "
+"на ред, напр.: openid(ENTER)profile(ENTER)email(ENTER)"
 
 #: idp/oidc/models.py:64
 msgid ""
@@ -367,40 +364,46 @@ msgid ""
 "used. Provide one value per line, e.g.: "
 "openid(ENTER)profile(ENTER)email(ENTER)"
 msgstr ""
+"В случай че клиентът не посочи обхват, се използват тези по подразбиране. "
+"Въведете по една стойност на ред, напр.: "
+"openid(ENTER)profile(ENTER)email(ENTER)"
 
 #: idp/oidc/models.py:75
 msgid ""
 "A list of allowed grant types. Provide one value per line, e.g.: "
 "authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 msgstr ""
+"Списък с разрешени типове разрешения. Въведете по една стойност на ред, "
+"напр.: authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 
 #: idp/oidc/models.py:86
 msgid "A list of allowed origins for cross-origin requests, one per line."
-msgstr ""
+msgstr "Списък с разрешени източници за cross-origin заявки, по един на ред."
 
 #: idp/oidc/models.py:94
 msgid ""
 "Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
 "can contain a single asterisk to match subdomains."
 msgstr ""
+"Разрешаване на заместващи символи (*) в URI за пренасочване и CORS "
+"източници. Когато е включено, URI адресите могат да съдържат една звездичка "
+"за съвпадение на поддомейни."
 
 #: idp/oidc/models.py:102
 msgid ""
 "A list of allowed response types. Provide one value per line, e.g.: "
 "code(ENTER)id_token token(ENTER)"
 msgstr ""
+"Списък с разрешени типове отговори. Въведете по една стойност на ред, напр.: "
+"code(ENTER)id_token token(ENTER)"
 
 #: idp/oidc/models.py:115
-#, fuzzy
-#| msgid "client id"
 msgid "client"
-msgstr "id на клиент"
+msgstr "клиент"
 
 #: idp/oidc/models.py:116
-#, fuzzy
-#| msgid "client id"
 msgid "clients"
-msgstr "id на клиент"
+msgstr "клиенти"
 
 #: mfa/adapter.py:32
 msgid ""
@@ -1403,22 +1406,20 @@ msgstr "Сесии"
 #: templates/idp/oidc/device_authorization_confirmed.html:5
 #: templates/idp/oidc/device_authorization_denied.html:5
 msgid "Authorize"
-msgstr ""
+msgstr "Оторизация"
 
 #: templates/idp/oidc/authorization_form.html:12
 #, python-format
 msgid "%(client_name)s wants to access your %(site_name)s account."
-msgstr ""
+msgstr "%(client_name)s иска достъп до вашия %(site_name)s акаунт."
 
 #: templates/idp/oidc/device_authorization_code_form.html:9
-#, fuzzy
-#| msgid "Enter Sign-In Code"
 msgid "Enter Device Code"
-msgstr "Въведете код за влизане"
+msgstr "Въведете код на устройство"
 
 #: templates/idp/oidc/device_authorization_code_form.html:12
 msgid "Enter the code displayed on your device."
-msgstr ""
+msgstr "Въведете кода, показан на вашето устройство."
 
 #: templates/idp/oidc/device_authorization_code_form.html:21
 #: templates/socialaccount/login.html:27
@@ -1427,10 +1428,8 @@ msgid "Continue"
 msgstr "Продължи"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:9
-#, fuzzy
-#| msgid "Confirm Access"
 msgid "Confirm Device"
-msgstr "Потвърждение на достъпа"
+msgstr "Потвърждение на устройство"
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:12
 #, python-format
@@ -1438,38 +1437,38 @@ msgid ""
 "Please confirm the code shown on your %(client_name)s to authorize this "
 "device."
 msgstr ""
+"Моля, потвърдете кода, показан на вашия %(client_name)s, за да оторизирате "
+"това устройство."
 
 #: templates/idp/oidc/device_authorization_confirm_form.html:29
 msgid "Deny"
-msgstr ""
+msgstr "Откажи"
 
 #: templates/idp/oidc/device_authorization_confirmed.html:9
 msgid "Device Authorized"
-msgstr ""
+msgstr "Устройството е оторизирано"
 
 #: templates/idp/oidc/device_authorization_confirmed.html:12
 #, python-format
 msgid "You successfully authorized your %(client_name)s device."
-msgstr ""
+msgstr "Успешно оторизирахте вашето %(client_name)s устройство."
 
 #: templates/idp/oidc/device_authorization_denied.html:9
 msgid "Device Denied"
-msgstr ""
+msgstr "Устройството е отказано"
 
 #: templates/idp/oidc/device_authorization_denied.html:12
 #, python-format
 msgid "Authorization for your %(client_name)s device has been denied."
-msgstr ""
+msgstr "Оторизацията за вашето %(client_name)s устройство беше отказана."
 
 #: templates/idp/oidc/error.html:5 templates/idp/oidc/error.html:9
 msgid "Error"
-msgstr ""
+msgstr "Грешка"
 
 #: templates/idp/oidc/logout.html:24
-#, fuzzy
-#| msgid "Sign In"
 msgid "Stay Signed In"
-msgstr "Вход"
+msgstr "Остани вписан"
 
 #: templates/mfa/authenticate.html:13
 msgid ""
@@ -1920,7 +1919,6 @@ msgid "session key"
 msgstr "сесиен ключ"
 
 #, fuzzy
-#~| msgid "Account Connections"
 #~ msgid "Account Connection"
 #~ msgstr "Свързани акаунти"
 
@@ -1929,17 +1927,6 @@ msgstr "сесиен ключ"
 #~ msgstr "Паролата трябва да бъде поне {0} символа."
 
 #, fuzzy, python-format
-#~| msgid ""
-#~| "You are receiving this e-mail because you or someone else has requested "
-#~| "a\n"
-#~| "password for your user account. However, we do not have any record of a "
-#~| "user\n"
-#~| "with email %(email)s in our database.\n"
-#~| "\n"
-#~| "This mail can be safely ignored if you did not request a password "
-#~| "reset.\n"
-#~| "\n"
-#~| "If it was you, you can sign up for an account using the link below."
 #~ msgid ""
 #~ "You are receiving this email because you or someone else has requested a\n"
 #~ "password for your user account. However, we do not have any record of a "
@@ -1959,12 +1946,10 @@ msgstr "сесиен ключ"
 #~ "парола. Кликнете линка по-долу, за да направите нов акаунт."
 
 #, fuzzy
-#~| msgid "The following email addresses are associated with your account:"
 #~ msgid "The following email address is associated with your account:"
 #~ msgstr "Следните e-mail адреси са свързани с вашия акаунт:"
 
 #, fuzzy
-#~| msgid "Confirm Email Address"
 #~ msgid "Change Email Address"
 #~ msgstr "Потвърждение на e-mail адрес"
 

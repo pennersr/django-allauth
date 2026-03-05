@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-13 09:05-0600\n"
+"POT-Creation-Date: 2026-03-05 08:42-0600\n"
 "PO-Revision-Date: 2025-06-05 15:41+0000\n"
 "Last-Translator: Nyong Onta 11 <nyongonta11@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/allauth/"
@@ -73,10 +73,8 @@ msgid "You cannot add more than %d email addresses."
 msgstr "Anda tidak dapat menambahkan lebih dari %d alamat e-mail."
 
 #: account/adapter.py:82
-#, fuzzy
-#| msgid "A user is already registered with this email address."
 msgid "A user is already registered with this phone number."
-msgstr "Seorang pengguna sudah terdaftar dengan alamat ponsel ini."
+msgstr "Seorang pengguna sudah terdaftar dengan nomor telepon ini."
 
 #: account/adapter.py:84
 msgid "Too many failed login attempts. Try again later."
@@ -87,10 +85,8 @@ msgid "The email address is not assigned to any user account."
 msgstr "Alamat e-mail ini tidak terhubung dengan akun pengguna mana pun."
 
 #: account/adapter.py:87
-#, fuzzy
-#| msgid "The email address is not assigned to any user account"
 msgid "The phone number is not assigned to any user account."
-msgstr "Alamat ponsel ini tidak terhubung dengan akun pengguna mana pun."
+msgstr "Nomor telepon ini tidak terhubung dengan akun pengguna mana pun."
 
 #: account/adapter.py:88
 #: templates/account/messages/unverified_primary_email.txt:2
@@ -107,12 +103,10 @@ msgid "The username and/or password you specified are not correct."
 msgstr "Nama pengguna dan/atau kata sandi yang anda masukkan tidak benar."
 
 #: account/adapter.py:98
-#, fuzzy
 msgid "Please select only one."
 msgstr "Silakan pilih satu saja."
 
 #: account/adapter.py:99
-#, fuzzy
 msgid "The new value must be different from the current one."
 msgstr "Nilai yang baru harus berbeda dari nilai saat ini."
 
@@ -134,16 +128,14 @@ msgid "Use a security key"
 msgstr "Gunakan kunci keamanan"
 
 #: account/admin.py:30
-#, fuzzy, python-brace-format
-#| msgid "Mark selected email addresses as verified"
+#, python-brace-format
 msgid "Marked {email} as verified."
-msgstr "Tandai alamat email yang dipilih sebagai terverifikasi"
+msgstr "{email} ditandai sebagai terverifikasi."
 
 #: account/admin.py:36
-#, fuzzy, python-brace-format
-#| msgid "Your primary email address must be verified."
+#, python-brace-format
 msgid "Failed to mark {email} as verified."
-msgstr "Alamat e-mail utama Anda harus diverifikasi."
+msgstr "Gagal menandai {email} sebagai terverifikasi."
 
 #: account/admin.py:42
 msgid "Mark selected email addresses as verified"
@@ -162,14 +154,12 @@ msgid "Email address"
 msgstr "Alamat e-mail"
 
 #: account/fields.py:62
-#, fuzzy
 msgid "Enter a phone number including country code (e.g. +1 for the US)."
 msgstr "Masukkan nomor telepon termasuk kode negara (misalnya +1 untuk AS)."
 
 #: account/fields.py:68 account/fields.py:72 account/forms.py:325
-#, fuzzy
 msgid "Phone"
-msgstr "Ponsel"
+msgstr "Telepon"
 
 #: account/forms.py:61 account/forms.py:524
 msgid "You must type the same password each time."
@@ -207,10 +197,8 @@ msgid "Username or phone"
 msgstr "Nama pengguna atau ponsel"
 
 #: account/forms.py:121
-#, fuzzy
-#| msgid "Email (optional)"
 msgid "Email or phone"
-msgstr "E-mail atau ponsel"
+msgstr "E-mail atau telepon"
 
 #: account/forms.py:144
 msgid "Forgot your password?"
@@ -229,10 +217,8 @@ msgid "Email (optional)"
 msgstr "E-mail (opsional)"
 
 #: account/forms.py:314
-#, fuzzy
-#| msgid "Email (optional)"
 msgid "Username (optional)"
-msgstr "Nama (opsional)"
+msgstr "Nama pengguna (opsional)"
 
 #: account/forms.py:388
 msgid "You must type the same email each time."
@@ -323,17 +309,19 @@ msgstr "Berikan izin"
 
 #: idp/oidc/internal/clientkit.py:22
 msgid "Wildcards are not allowed unless 'Allow URI wildcards' is enabled."
-msgstr ""
+msgstr "Wildcard tidak diizinkan kecuali 'Izinkan wildcard URI' diaktifkan."
 
 #: idp/oidc/internal/clientkit.py:27
 msgid ""
 "URI '{}' contains more than one wildcard (*). Only one wildcard per URI is "
 "allowed."
 msgstr ""
+"URI '{}' mengandung lebih dari satu wildcard (*). Hanya satu wildcard per "
+"URI yang diizinkan."
 
 #: idp/oidc/internal/clientkit.py:39
 msgid "Wildcards are only allowed in the hostname portion of the URI."
-msgstr ""
+msgstr "Wildcard hanya diizinkan di bagian hostname URI."
 
 #: idp/oidc/models.py:37
 msgid "Authorization code"
@@ -394,6 +382,8 @@ msgid ""
 "Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
 "can contain a single asterisk to match subdomains."
 msgstr ""
+"Izinkan wildcard (*) di URI redirect dan asal CORS. Saat diaktifkan, URI "
+"dapat berisi satu tanda bintang untuk mencocokkan subdomain."
 
 #: idp/oidc/models.py:102
 msgid ""
@@ -408,10 +398,8 @@ msgid "client"
 msgstr "klien"
 
 #: idp/oidc/models.py:116
-#, fuzzy
-#| msgid "client id"
 msgid "clients"
-msgstr "id klien"
+msgstr "klien"
 
 #: mfa/adapter.py:32
 msgid ""
@@ -628,13 +616,11 @@ msgstr "Masuk"
 #: templates/idp/oidc/authorization_form.html:26
 #: templates/mfa/authenticate.html:28 templates/mfa/authenticate.html:44
 #: templates/mfa/trust.html:29 templates/mfa/webauthn/signup_form.html:26
-#, fuzzy
 msgid "Cancel"
-msgstr "Batalkan"
+msgstr "Batal"
 
 #: socialaccount/providers/oauth/client.py:86
-#, fuzzy, python-format
-#| msgid "Invalid response while obtaining request token from \"%s\"."
+#, python-format
 msgid ""
 "Invalid response while obtaining request token from \"%s\". Response was: %s."
 msgstr ""
@@ -677,12 +663,12 @@ msgid "This account is inactive."
 msgstr "Akun ini tidak aktif."
 
 #: templates/account/base_confirm_code.html:27
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "We've sent a code to %(recipient)s. The code expires shortly, so please "
 "enter it soon."
 msgstr ""
-"Kami telah mengirimkan kode ke %(penerima)s. Kode tersebut akan segera "
+"Kami telah mengirimkan kode ke %(recipient)s. Kode tersebut akan segera "
 "kedaluwarsa, jadi harap segera masukkan."
 
 #: templates/account/base_confirm_code.html:39
@@ -694,45 +680,34 @@ msgid "Confirm"
 msgstr "Konfirmasi"
 
 #: templates/account/base_confirm_code.html:43
-#, fuzzy
 msgid "Request new code"
-msgstr "minta kode baru"
+msgstr "Minta kode baru"
 
 #: templates/account/base_reauthenticate.html:5
 #: templates/account/base_reauthenticate.html:9
-#, fuzzy
-#| msgid "Confirm Email Address"
 msgid "Confirm Access"
 msgstr "Konfirmasi Akses"
 
 #: templates/account/base_reauthenticate.html:12
-#, fuzzy
 msgid "Please reauthenticate to safeguard your account."
 msgstr "Harap autentikasi ulang untuk menjaga keamanan akun Anda."
 
 #: templates/account/base_reauthenticate.html:19
 #: templates/mfa/authenticate.html:37
-#, fuzzy
 msgid "Alternative options"
 msgstr "Pilihan alternatif"
 
 #: templates/account/confirm_email_verification_code.html:5
-#, fuzzy
-#| msgid "email confirmation"
 msgid "Email Verification"
-msgstr "konfirmasi e-mail"
+msgstr "Verifikasi E-mail"
 
 #: templates/account/confirm_email_verification_code.html:8
-#, fuzzy
-#| msgid "token secret"
 msgid "Enter Email Verification Code"
-msgstr "Masukkan Kode Verifikasi Email"
+msgstr "Masukkan Kode Verifikasi E-mail"
 
 #: templates/account/confirm_email_verification_code.html:16
-#, fuzzy
-#| msgid "email address"
 msgid "Use a different email address"
-msgstr "gunakan alamat email yang berbeda"
+msgstr "Gunakan alamat e-mail yang berbeda"
 
 #: templates/account/confirm_login_code.html:5 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
@@ -746,9 +721,8 @@ msgid "Sign In"
 msgstr "Masuk"
 
 #: templates/account/confirm_login_code.html:8
-#, fuzzy
 msgid "Enter Sign-In Code"
-msgstr "masukkan kode masuk"
+msgstr "Masukkan Kode Masuk"
 
 #: templates/account/confirm_password_reset_code.html:5
 #: templates/account/email/password_reset_subject.txt:3
@@ -760,22 +734,16 @@ msgid "Password Reset"
 msgstr "Reset Kata Sandi"
 
 #: templates/account/confirm_password_reset_code.html:8
-#, fuzzy
-#| msgid "Password Reset"
 msgid "Enter Password Reset Code"
 msgstr "Masukkan Kode Reset Kata Sandi"
 
 #: templates/account/confirm_phone_verification_code.html:5
-#, fuzzy
-#| msgid "Re-send Verification"
 msgid "Phone Verification"
-msgstr "Verifikasi ponsel"
+msgstr "Verifikasi Telepon"
 
 #: templates/account/confirm_phone_verification_code.html:8
-#, fuzzy
-#| msgid "token secret"
 msgid "Enter Phone Verification Code"
-msgstr "Masukan kode verifikasi ponsel"
+msgstr "Masukkan Kode Verifikasi Telepon"
 
 #: templates/account/confirm_phone_verification_code.html:15
 msgid "Use a different phone number"
@@ -859,9 +827,8 @@ msgstr ""
 "%(password_reset_url)s"
 
 #: templates/account/email/account_already_exists_subject.txt:3
-#, fuzzy
 msgid "Account Already Exists"
-msgstr "Akun sudah ada"
+msgstr "Akun Sudah Ada"
 
 #: templates/account/email/base_message.txt:1
 #, python-format
@@ -878,7 +845,6 @@ msgstr ""
 "%(site_domain)s"
 
 #: templates/account/email/base_notification.txt:5
-#, fuzzy
 msgid ""
 "You are receiving this mail because the following change was made to your "
 "account:"
@@ -886,7 +852,7 @@ msgstr ""
 "Anda menerima email ini karena perubahan berikut dilakukan pada akun Anda:"
 
 #: templates/account/email/base_notification.txt:10
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "If you do not recognize this change then please take proper security "
 "precautions immediately. The change to your account originates from:\n"
@@ -903,35 +869,24 @@ msgstr ""
 "- Tanggal: %(timestamp)s"
 
 #: templates/account/email/email_changed_message.txt:4
-#, fuzzy, python-format
+#, python-format
 msgid "Your email has been changed from %(from_email)s to %(to_email)s."
-msgstr "Email Anda telah diubah dari %(from_email)s menjadi %(to_email)s."
+msgstr "E-mail Anda telah diubah dari %(from_email)s menjadi %(to_email)s."
 
 #: templates/account/email/email_changed_subject.txt:3
-#, fuzzy
-#| msgid "Email address"
 msgid "Email Changed"
-msgstr "email berubah"
+msgstr "E-mail Diubah"
 
 #: templates/account/email/email_confirm_message.txt:4
-#, fuzzy
-#| msgid "You have confirmed %(email)s."
 msgid "Your email has been confirmed."
-msgstr "Email Anda telah dikonfirmasi."
+msgstr "E-mail Anda telah dikonfirmasi."
 
 #: templates/account/email/email_confirm_subject.txt:3
-#, fuzzy
-#| msgid "email confirmation"
 msgid "Email Confirmation"
-msgstr "Konfirmasi Email"
+msgstr "Konfirmasi E-mail"
 
 #: templates/account/email/email_confirmation_message.txt:5
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this e-mail because user %(user_display)s has given your "
-#| "e-mail address to register an account on %(site_domain)s.\n"
-#| "\n"
-#| "To confirm this is correct, go to %(activate_url)s"
+#, python-format
 msgid ""
 "You're receiving this email because user %(user_display)s has given your "
 "email address to register an account on %(site_domain)s."
@@ -940,16 +895,15 @@ msgstr ""
 "alamat email Anda untuk mendaftar akun di %(site_domain)s."
 
 #: templates/account/email/email_confirmation_message.txt:7
-#, fuzzy
 msgid ""
 "Your email verification code is listed below. Please enter it in your open "
 "browser window."
 msgstr ""
-"Kode verifikasi email Anda tercantum di bawah ini. Masukkan kode tersebut di "
+"Kode verifikasi e-mail Anda tercantum di bawah ini. Silakan masukkan di "
 "jendela browser yang terbuka."
 
 #: templates/account/email/email_confirmation_message.txt:9
-#, fuzzy, python-format
+#, python-format
 msgid "To confirm this is correct, go to %(activate_url)s"
 msgstr "Untuk mengonfirmasi kebenarannya, kunjungi %(activate_url)s"
 
@@ -958,70 +912,54 @@ msgid "Please Confirm Your Email Address"
 msgstr "Mohon Konfirmasi Alamat E-mail Anda"
 
 #: templates/account/email/email_deleted_message.txt:4
-#, fuzzy, python-format
+#, python-format
 msgid "Email address %(deleted_email)s has been removed from your account."
-msgstr "Alamat email %(deleted_email)s telah dihapus dari akun Anda."
+msgstr "Alamat e-mail %(deleted_email)s telah dihapus dari akun Anda."
 
 #: templates/account/email/email_deleted_subject.txt:3
-#, fuzzy
-#| msgid "Remove"
 msgid "Email Removed"
-msgstr "Email Dihapus"
+msgstr "E-mail Dihapus"
 
 #: templates/account/email/login_code_message.txt:5
-#, fuzzy
 msgid ""
 "Your sign-in code is listed below. Please enter it in your open browser "
 "window."
 msgstr ""
-"Kode masuk Anda tercantum di bawah ini. Masukkan kode tersebut di jendela "
-"browser yang terbuka."
+"Kode masuk Anda tercantum di bawah ini. Silakan masukkan di jendela browser "
+"yang terbuka."
 
 #: templates/account/email/login_code_message.txt:9
 #: templates/account/email/password_reset_code_message.txt:9
 #: templates/account/email/unknown_account_message.txt:6
-#, fuzzy
 msgid "This mail can be safely ignored if you did not initiate this action."
 msgstr ""
 "Email ini dapat diabaikan dengan aman jika Anda tidak memulai tindakan ini."
 
 #: templates/account/email/login_code_subject.txt:3
-#, fuzzy
-#| msgid "Sign In"
 msgid "Sign-In Code"
 msgstr "Kode Masuk"
 
 #: templates/account/email/password_changed_message.txt:4
-#, fuzzy
-#| msgid "Your password is now changed."
 msgid "Your password has been changed."
 msgstr "Kata sandi Anda telah diubah."
 
 #: templates/account/email/password_changed_subject.txt:3
-#, fuzzy
-#| msgid "Password (again)"
 msgid "Password Changed"
-msgstr "Kata Sandi Telah Diubah"
+msgstr "Kata Sandi Diubah"
 
 #: templates/account/email/password_reset_code_message.txt:5
 msgid ""
 "Your password reset code is listed below. Please enter it in your open "
 "browser window."
 msgstr ""
+"Kode reset kata sandi Anda tercantum di bawah ini. Silakan masukkan di "
+"jendela browser yang terbuka."
 
 #: templates/account/email/password_reset_code_subject.txt:3
-#, fuzzy
-#| msgid "Password Reset"
 msgid "Password Reset Code"
-msgstr "Reset Kata Sandi"
+msgstr "Kode Reset Kata Sandi"
 
 #: templates/account/email/password_reset_key_message.txt:4
-#, fuzzy
-#| msgid ""
-#| "You're receiving this e-mail because you or someone else has requested a "
-#| "password for your user account.\n"
-#| "It can be safely ignored if you did not request a password reset. Click "
-#| "the link below to reset your password."
 msgid ""
 "You're receiving this email because you or someone else has requested a "
 "password reset for your user account.\n"
@@ -1043,22 +981,16 @@ msgid "Password Reset Email"
 msgstr "E-mail Reset Kata Sandi"
 
 #: templates/account/email/password_reset_message.txt:4
-#, fuzzy
-#| msgid "Your password is now changed."
 msgid "Your password has been reset."
-msgstr "Kata sandi Anda telah diubah."
+msgstr "Kata sandi Anda telah direset."
 
 #: templates/account/email/password_set_message.txt:4
-#, fuzzy
-#| msgid "Your password is now changed."
 msgid "Your password has been set."
-msgstr "Kata sandi Anda telah diubah."
+msgstr "Kata sandi Anda telah ditetapkan."
 
 #: templates/account/email/password_set_subject.txt:3
-#, fuzzy
-#| msgid "Password Reset"
 msgid "Password Set"
-msgstr "Reset Kata Sandi"
+msgstr "Kata Sandi Ditetapkan"
 
 #: templates/account/email/unknown_account_message.txt:4
 #, python-format
@@ -1067,6 +999,9 @@ msgid ""
 "an account with email %(email)s. However, we do not have any record of such "
 "an account in our database."
 msgstr ""
+"Anda menerima email ini karena Anda, atau orang lain, mencoba mengakses akun "
+"dengan email %(email)s. Namun, kami tidak memiliki catatan akun tersebut "
+"dalam basis data kami."
 
 #: templates/account/email/unknown_account_message.txt:8
 msgid "If it was you, you can sign up for an account using the link below."
@@ -1114,10 +1049,7 @@ msgid "Confirm Email Address"
 msgstr "Konfirmasi Alamat E-mail"
 
 #: templates/account/email_confirm.html:16
-#, fuzzy, python-format
-#| msgid ""
-#| "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-"
-#| "mail address for user %(user_display)s."
+#, python-format
 msgid ""
 "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an email "
 "address for user %(user_display)s."
@@ -1127,24 +1059,21 @@ msgstr ""
 
 #: templates/account/email_confirm.html:30
 #: templates/account/messages/email_confirmation_failed.txt:2
-#, fuzzy, python-format
-#| msgid "The social account is already connected to a different account."
+#, python-format
 msgid ""
 "Unable to confirm %(email)s because it is already confirmed by a different "
 "account."
-msgstr "Akun sosial sudah terhubung ke akun lain."
+msgstr ""
+"Tidak dapat mengonfirmasi %(email)s karena sudah dikonfirmasi oleh akun lain."
 
 #: templates/account/email_confirm.html:36
-#, fuzzy, python-format
-#| msgid ""
-#| "This e-mail confirmation link expired or is invalid. Please <a "
-#| "href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+#, python-format
 msgid ""
 "This email confirmation link expired or is invalid. Please <a "
 "href=\"%(email_url)s\">issue a new email confirmation request</a>."
 msgstr ""
-"Link konfirmasi e-mail ini sudah kadaluwarsa atau tidak valid. Mohon <a "
-"href=\"%(email_url)s\">mengirimkan permintaan konfirmasi e-mail baru</a>."
+"Tautan konfirmasi e-mail ini sudah kedaluwarsa atau tidak valid. Silakan <a "
+"href=\"%(email_url)s\">kirimkan permintaan konfirmasi e-mail baru</a>."
 
 #: templates/account/login.html:19
 #, python-format
@@ -1297,47 +1226,37 @@ msgid "Set Password"
 msgstr "Setel Kata Sandi"
 
 #: templates/account/phone_change.html:5 templates/account/phone_change.html:9
-#, fuzzy
-#| msgid "Email"
 msgid "Change Phone"
-msgstr "E-mail"
+msgstr "Ubah Telepon"
 
 #: templates/account/phone_change.html:18
-#, fuzzy
-#| msgid "Current Password"
 msgid "Current phone"
-msgstr "Kata sandi saat ini"
+msgstr "Telepon saat ini"
 
 #: templates/account/phone_change.html:22
-#, fuzzy
-#| msgid "Your primary email address must be verified."
 msgid "Your phone number is still pending verification."
-msgstr "Alamat e-mail utama Anda harus diverifikasi."
+msgstr "Nomor telepon Anda masih menunggu verifikasi."
 
 #: templates/account/phone_change.html:38
-#, fuzzy
-#| msgid "Email"
 msgctxt "action"
 msgid "Change Phone"
-msgstr "E-mail"
+msgstr "Ubah Telepon"
 
 #: templates/account/reauthenticate.html:6
-#, fuzzy
-#| msgid "Forgot Password?"
 msgid "Enter your password:"
-msgstr "Lupa Kata Sandi?"
+msgstr "Masukkan kata sandi Anda:"
 
 #: templates/account/request_login_code.html:12
 msgid "You will receive a special code for a password-free sign-in."
-msgstr ""
+msgstr "Anda akan menerima kode khusus untuk masuk tanpa kata sandi."
 
 #: templates/account/request_login_code.html:24
 msgid "Request Code"
-msgstr ""
+msgstr "Minta Kode"
 
 #: templates/account/request_login_code.html:30
 msgid "Other sign-in options"
-msgstr ""
+msgstr "Pilihan masuk lainnya"
 
 #: templates/account/signup.html:4 templates/account/signup_by_passkey.html:4
 #: templates/socialaccount/signup.html:5
@@ -1358,17 +1277,15 @@ msgstr "Sudah memiliki akun? Silakan %(link)smasuk%(end_link)s."
 
 #: templates/account/signup.html:39
 msgid "Sign up using a passkey"
-msgstr ""
+msgstr "Daftar menggunakan passkey"
 
 #: templates/account/signup_by_passkey.html:8
-#, fuzzy
-#| msgid "Sign Up"
 msgid "Passkey Sign Up"
-msgstr "Daftar"
+msgstr "Daftar dengan Passkey"
 
 #: templates/account/signup_by_passkey.html:36
 msgid "Other options"
-msgstr ""
+msgstr "Pilihan lainnya"
 
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:9
@@ -1384,8 +1301,7 @@ msgid "Note"
 msgstr "Catatan"
 
 #: templates/account/snippets/already_logged_in.html:7
-#, fuzzy, python-format
-#| msgid "you are already logged in as %(user_display)s."
+#, python-format
 msgid "You are already logged in as %(user_display)s."
 msgstr "Anda sudah masuk sebagai %(user_display)s."
 
@@ -1394,17 +1310,13 @@ msgid "Warning:"
 msgstr "Peringatan:"
 
 #: templates/account/snippets/warn_no_email.html:3
-#, fuzzy
-#| msgid ""
-#| "You currently do not have any e-mail address set up. You should really "
-#| "add an e-mail address so you can receive notifications, reset your "
-#| "password, etc."
 msgid ""
 "You currently do not have any email address set up. You should really add an "
 "email address so you can receive notifications, reset your password, etc."
 msgstr ""
-"Anda saat ini tidak memiliki alamat e-mail yang disetel. Anda seharusnya "
-"menambahkan alamat e-mail untuk menerima notifikasi, mereset kata sandi, dll."
+"Anda saat ini tidak memiliki alamat e-mail yang disetel. Anda sebaiknya "
+"menambahkan alamat e-mail agar dapat menerima notifikasi, mereset kata "
+"sandi, dll."
 
 #: templates/account/verification_sent.html:5
 #: templates/account/verification_sent.html:9
@@ -1414,11 +1326,6 @@ msgid "Verify Your Email Address"
 msgstr "Verifikasi Alamat E-mail Anda"
 
 #: templates/account/verification_sent.html:12
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for verification. Follow the link provided "
-#| "to finalize the signup process. Please contact us if you do not receive "
-#| "it within a few minutes."
 msgid ""
 "We have sent an email to you for verification. Follow the link provided to "
 "finalize the signup process. If you do not see the verification email in "
@@ -1426,30 +1333,22 @@ msgid ""
 "receive the verification email within a few minutes."
 msgstr ""
 "Kami telah mengirimkan e-mail kepada Anda untuk verifikasi. Ikuti tautan "
-"yang disediakan untuk menyelesaikan proses pendaftaran. Silahkan hubungi "
-"kami jika Anda tidak menerimanya dalam beberapa menit."
+"yang disediakan untuk menyelesaikan proses pendaftaran. Jika Anda tidak "
+"melihat e-mail verifikasi di kotak masuk utama, periksa folder spam Anda. "
+"Silakan hubungi kami jika Anda tidak menerima e-mail verifikasi dalam "
+"beberapa menit."
 
 #: templates/account/verified_email_required.html:13
-#, fuzzy
-#| msgid ""
-#| "This part of the site requires us to verify that\n"
-#| "you are who you claim to be. For this purpose, we require that you\n"
-#| "verify ownership of your e-mail address. "
 msgid ""
 "This part of the site requires us to verify that\n"
 "you are who you claim to be. For this purpose, we require that you\n"
 "verify ownership of your email address. "
 msgstr ""
 "Bagian dari situs ini mengharuskan kami untuk memverifikasi bahwa\n"
-"Anda adalah apa yang Anda klaim. Untuk tujuan ini, kami mengharuskan Anda\n"
+"Anda adalah orang yang Anda klaim. Untuk tujuan ini, kami mengharuskan Anda\n"
 "memverifikasi kepemilikan alamat e-mail Anda. "
 
 #: templates/account/verified_email_required.html:18
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for\n"
-#| "verification. Please click on the link inside this e-mail. Please\n"
-#| "contact us if you do not receive it within a few minutes."
 msgid ""
 "We have sent an email to you for\n"
 "verification. Please click on the link inside that email. If you do not see "
@@ -1458,28 +1357,27 @@ msgid ""
 "contact us if you do not receive it within a few minutes."
 msgstr ""
 "Kami telah mengirimkan e-mail kepada Anda untuk\n"
-"verifikasi. Silakan klik tautan didalam e-mail ini. Silakan\n"
+"verifikasi. Silakan klik tautan di dalam e-mail tersebut. Jika Anda tidak "
+"melihat e-mail verifikasi di kotak masuk utama, periksa folder spam Anda. "
+"Jika tidak,\n"
 "hubungi kami jika Anda tidak menerimanya dalam beberapa menit."
 
 #: templates/account/verified_email_required.html:23
-#, fuzzy, python-format
-#| msgid ""
-#| "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change "
-#| "your e-mail address</a>."
+#, python-format
 msgid ""
 "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your "
 "email address</a>."
 msgstr ""
-"<strong>Catatan:</strong> Anda masih bisa <a "
-"href=\"%(email_url)s\">mengganti alamat e-mail Anda</a>."
+"<strong>Catatan:</strong> Anda masih bisa <a href=\"%(email_url)s\">mengubah "
+"alamat e-mail Anda</a>."
 
 #: templates/allauth/layouts/base.html:18
 msgid "Messages:"
-msgstr ""
+msgstr "Pesan:"
 
 #: templates/allauth/layouts/base.html:25
 msgid "Menu:"
-msgstr ""
+msgstr "Menu:"
 
 #: templates/allauth/layouts/base.html:43
 #: templates/socialaccount/connections.html:5
@@ -1490,13 +1388,13 @@ msgstr "Koneksi Akun"
 #: templates/allauth/layouts/base.html:49 templates/mfa/authenticate.html:10
 #: templates/mfa/index.html:5 templates/mfa/index.html:9
 msgid "Two-Factor Authentication"
-msgstr ""
+msgstr "Autentikasi Dua Faktor"
 
 #: templates/allauth/layouts/base.html:55
 #: templates/usersessions/usersession_list.html:6
 #: templates/usersessions/usersession_list.html:10
 msgid "Sessions"
-msgstr ""
+msgstr "Sesi"
 
 #: templates/idp/oidc/authorization_form.html:5
 #: templates/idp/oidc/authorization_form.html:9
@@ -1567,117 +1465,111 @@ msgid "Error"
 msgstr "Kesalahan"
 
 #: templates/idp/oidc/logout.html:24
-#, fuzzy
-#| msgid "Sign In"
 msgid "Stay Signed In"
-msgstr "Masuk"
+msgstr "Tetap Masuk"
 
 #: templates/mfa/authenticate.html:13
 msgid ""
 "Your account is protected by two-factor authentication. Please enter an "
 "authenticator code:"
 msgstr ""
+"Akun Anda dilindungi oleh autentikasi dua faktor. Silakan masukkan kode "
+"autentikator:"
 
 #: templates/mfa/email/recovery_codes_generated_message.txt:4
 msgid ""
 "A new set of Two-Factor Authentication recovery codes has been generated."
-msgstr ""
+msgstr "Satu set kode pemulihan Autentikasi Dua Faktor yang baru telah dibuat."
 
 #: templates/mfa/email/recovery_codes_generated_subject.txt:3
 msgid "New Recovery Codes Generated"
-msgstr ""
+msgstr "Kode Pemulihan Baru Dibuat"
 
 #: templates/mfa/email/totp_activated_message.txt:4
 #: templates/mfa/messages/totp_activated.txt:2
 msgid "Authenticator app activated."
-msgstr ""
+msgstr "Aplikasi autentikator diaktifkan."
 
 #: templates/mfa/email/totp_activated_subject.txt:3
-#, fuzzy
-#| msgid "token secret"
 msgid "Authenticator App Activated"
-msgstr "rahasia token"
+msgstr "Aplikasi Autentikator Diaktifkan"
 
 #: templates/mfa/email/totp_deactivated_message.txt:4
 #: templates/mfa/messages/totp_deactivated.txt:2
 msgid "Authenticator app deactivated."
-msgstr ""
+msgstr "Aplikasi autentikator dinonaktifkan."
 
 #: templates/mfa/email/totp_deactivated_subject.txt:3
-#, fuzzy
-#| msgid "token secret"
 msgid "Authenticator App Deactivated"
-msgstr "rahasia token"
+msgstr "Aplikasi Autentikator Dinonaktifkan"
 
 #: templates/mfa/email/webauthn_added_message.txt:4
 msgid "A new security key has been added."
-msgstr ""
+msgstr "Kunci keamanan baru telah ditambahkan."
 
 #: templates/mfa/email/webauthn_added_subject.txt:3
 msgid "Security Key Added"
-msgstr ""
+msgstr "Kunci Keamanan Ditambahkan"
 
 #: templates/mfa/email/webauthn_removed_message.txt:4
-#, fuzzy
-#| msgid "You have confirmed %(email)s."
 msgid "A security key has been removed."
-msgstr "Anda telah mengkonfirmasi %(email)s."
+msgstr "Kunci keamanan telah dihapus."
 
 #: templates/mfa/email/webauthn_removed_subject.txt:3
 msgid "Security Key Removed"
-msgstr ""
+msgstr "Kunci Keamanan Dihapus"
 
 #: templates/mfa/index.html:14 templates/mfa/totp/base.html:4
 msgid "Authenticator App"
-msgstr ""
+msgstr "Aplikasi Autentikator"
 
 #: templates/mfa/index.html:19
 msgid "Authentication using an authenticator app is active."
-msgstr ""
+msgstr "Autentikasi menggunakan aplikasi autentikator sedang aktif."
 
 #: templates/mfa/index.html:23
 msgid "An authenticator app is not active."
-msgstr ""
+msgstr "Aplikasi autentikator tidak aktif."
 
 #: templates/mfa/index.html:32 templates/mfa/totp/deactivate_form.html:24
 msgid "Deactivate"
-msgstr ""
+msgstr "Nonaktifkan"
 
 #: templates/mfa/index.html:36 templates/mfa/totp/activate_form.html:32
 msgid "Activate"
-msgstr ""
+msgstr "Aktifkan"
 
 #: templates/mfa/index.html:45 templates/mfa/webauthn/authenticator_list.html:8
 #: templates/mfa/webauthn/base.html:4
 msgid "Security Keys"
-msgstr ""
+msgstr "Kunci Keamanan"
 
 #: templates/mfa/index.html:50
 #, python-format
 msgid "You have added %(count)s security key."
 msgid_plural "You have added %(count)s security keys."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Anda telah menambahkan %(count)s kunci keamanan."
+msgstr[1] "Anda telah menambahkan %(count)s kunci keamanan."
 
 #: templates/mfa/index.html:54
 #: templates/mfa/webauthn/authenticator_list.html:12
 msgid "No security keys have been added."
-msgstr ""
+msgstr "Belum ada kunci keamanan yang ditambahkan."
 
 #: templates/mfa/index.html:62
 msgid "Manage"
-msgstr ""
+msgstr "Kelola"
 
 #: templates/mfa/index.html:67 templates/mfa/webauthn/add_form.html:18
 #: templates/mfa/webauthn/authenticator_list.html:70
 msgid "Add"
-msgstr ""
+msgstr "Tambah"
 
 #: templates/mfa/index.html:77 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:6
 #: templates/mfa/recovery_codes/index.html:6
 msgid "Recovery Codes"
-msgstr ""
+msgstr "Kode Pemulihan"
 
 #: templates/mfa/index.html:82 templates/mfa/recovery_codes/index.html:9
 #, python-format
@@ -1686,70 +1578,70 @@ msgid ""
 msgid_plural ""
 "There are %(unused_count)s out of %(total_count)s recovery codes available."
 msgstr[0] ""
+"Ada %(unused_count)s dari %(total_count)s kode pemulihan yang tersedia."
 msgstr[1] ""
+"Ada %(unused_count)s dari %(total_count)s kode pemulihan yang tersedia."
 
 #: templates/mfa/index.html:86
 msgid "No recovery codes set up."
-msgstr ""
+msgstr "Belum ada kode pemulihan yang disiapkan."
 
 #: templates/mfa/index.html:96
 msgid "View"
-msgstr ""
+msgstr "Lihat"
 
 #: templates/mfa/index.html:102
 msgid "Download"
-msgstr ""
+msgstr "Unduh"
 
 #: templates/mfa/index.html:110 templates/mfa/recovery_codes/generate.html:29
 msgid "Generate"
-msgstr ""
+msgstr "Buat"
 
 #: templates/mfa/messages/recovery_codes_generated.txt:2
 msgid "A new set of recovery codes has been generated."
-msgstr ""
+msgstr "Satu set kode pemulihan baru telah dibuat."
 
 #: templates/mfa/messages/webauthn_added.txt:2
 msgid "Security key added."
-msgstr ""
+msgstr "Kunci keamanan ditambahkan."
 
 #: templates/mfa/messages/webauthn_removed.txt:2
 msgid "Security key removed."
-msgstr ""
+msgstr "Kunci keamanan dihapus."
 
 #: templates/mfa/reauthenticate.html:6
-#, fuzzy
-#| msgid "token secret"
 msgid "Enter an authenticator code:"
-msgstr "rahasia token"
+msgstr "Masukkan kode autentikator:"
 
 #: templates/mfa/recovery_codes/generate.html:9
 msgid "You are about to generate a new set of recovery codes for your account."
-msgstr ""
+msgstr "Anda akan membuat satu set kode pemulihan baru untuk akun Anda."
 
 #: templates/mfa/recovery_codes/generate.html:11
 msgid "This action will invalidate your existing codes."
-msgstr ""
+msgstr "Tindakan ini akan membatalkan kode Anda yang sudah ada."
 
 #: templates/mfa/recovery_codes/generate.html:13
 msgid "Are you sure?"
-msgstr ""
+msgstr "Apakah Anda yakin?"
 
 #: templates/mfa/recovery_codes/index.html:13
 msgid "Unused codes"
-msgstr ""
+msgstr "Kode yang belum digunakan"
 
 #: templates/mfa/recovery_codes/index.html:25
 msgid "Download codes"
-msgstr ""
+msgstr "Unduh kode"
 
 #: templates/mfa/recovery_codes/index.html:30
 msgid "Generate new codes"
-msgstr ""
+msgstr "Buat kode baru"
 
 #: templates/mfa/totp/activate_form.html:4
 #: templates/mfa/totp/activate_form.html:8
 msgid "Activate Authenticator App"
-msgstr ""
+msgstr "Aktifkan Aplikasi Autentikator"
 
 #: templates/mfa/totp/activate_form.html:11
 msgid ""
@@ -1757,120 +1649,113 @@ msgid ""
 "below with your authenticator app. Then, input the verification code "
 "generated by the app below."
 msgstr ""
+"Untuk melindungi akun Anda dengan autentikasi dua faktor, pindai kode QR di "
+"bawah ini dengan aplikasi autentikator Anda. Kemudian, masukkan kode "
+"verifikasi yang dihasilkan oleh aplikasi di bawah ini."
 
 #: templates/mfa/totp/activate_form.html:21
-#, fuzzy
-#| msgid "token secret"
 msgid "Authenticator secret"
-msgstr "rahasia token"
+msgstr "Rahasia autentikator"
 
 #: templates/mfa/totp/activate_form.html:24
 msgid ""
 "You can store this secret and use it to reinstall your authenticator app at "
 "a later time."
 msgstr ""
+"Anda dapat menyimpan rahasia ini dan menggunakannya untuk menginstal ulang "
+"aplikasi autentikator Anda di lain waktu."
 
 #: templates/mfa/totp/deactivate_form.html:5
 #: templates/mfa/totp/deactivate_form.html:9
 msgid "Deactivate Authenticator App"
-msgstr ""
+msgstr "Nonaktifkan Aplikasi Autentikator"
 
 #: templates/mfa/totp/deactivate_form.html:12
 msgid ""
 "You are about to deactivate authenticator app based authentication. Are you "
 "sure?"
 msgstr ""
+"Anda akan menonaktifkan autentikasi berbasis aplikasi autentikator. Apakah "
+"Anda yakin?"
 
 #: templates/mfa/trust.html:4 templates/mfa/trust.html:8
 msgid "Trust this Browser?"
-msgstr ""
+msgstr "Percayai Browser Ini?"
 
 #: templates/mfa/trust.html:11
 msgid ""
 "If you choose to trust this browser, you will not be asked for a "
 "verification code the next time you sign in."
 msgstr ""
+"Jika Anda memilih untuk mempercayai browser ini, Anda tidak akan diminta "
+"kode verifikasi saat masuk berikutnya."
 
 #: templates/mfa/trust.html:23
 #, python-format
 msgid "Trust for %(period)s"
-msgstr ""
+msgstr "Percayai selama %(period)s"
 
 #: templates/mfa/trust.html:26
 msgid "Don't Trust"
-msgstr ""
+msgstr "Jangan Percaya"
 
 #: templates/mfa/webauthn/add_form.html:7
-#, fuzzy
-#| msgid "secret key"
 msgid "Add Security Key"
-msgstr "kunci rahasia"
+msgstr "Tambahkan Kunci Keamanan"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:6
-#, fuzzy
-#| msgid "secret key"
 msgid "Remove Security Key"
-msgstr "kunci rahasia"
+msgstr "Hapus Kunci Keamanan"
 
 #: templates/mfa/webauthn/authenticator_confirm_delete.html:9
-#, fuzzy
-#| msgid "Are you sure you want to sign out?"
 msgid "Are you sure you want to remove this security key?"
-msgstr "Anda yakin ingin keluar?"
+msgstr "Apakah Anda yakin ingin menghapus kunci keamanan ini?"
 
 #: templates/mfa/webauthn/authenticator_list.html:21
 msgid "Usage"
-msgstr ""
+msgstr "Penggunaan"
 
 #: templates/mfa/webauthn/authenticator_list.html:33
 msgid "Passkey"
-msgstr ""
+msgstr "Passkey"
 
 #: templates/mfa/webauthn/authenticator_list.html:37
-#, fuzzy
-#| msgid "secret key"
 msgid "Security key"
-msgstr "kunci rahasia"
+msgstr "Kunci keamanan"
 
 #: templates/mfa/webauthn/authenticator_list.html:40
 msgid "This key does not indicate whether it is a passkey."
-msgstr ""
+msgstr "Kunci ini tidak menunjukkan apakah itu merupakan passkey."
 
 #: templates/mfa/webauthn/authenticator_list.html:41
-#, fuzzy
-#| msgid "Unverified"
 msgid "Unspecified"
-msgstr "Tidak Terverifikasi"
+msgstr "Tidak ditentukan"
 
 #: templates/mfa/webauthn/authenticator_list.html:46
 #, python-format
 msgid "Added on %(created_at)s"
-msgstr ""
+msgstr "Ditambahkan pada %(created_at)s"
 
 #: templates/mfa/webauthn/authenticator_list.html:48
 #, python-format
 msgid "Last used %(last_used)s"
-msgstr ""
+msgstr "Terakhir digunakan %(last_used)s"
 
 #: templates/mfa/webauthn/authenticator_list.html:56
 msgid "Edit"
-msgstr ""
+msgstr "Edit"
 
 #: templates/mfa/webauthn/edit_form.html:7
-#, fuzzy
-#| msgid "secret key"
 msgid "Edit Security Key"
-msgstr "kunci rahasia"
+msgstr "Edit Kunci Keamanan"
 
 #: templates/mfa/webauthn/edit_form.html:18
 msgid "Save"
-msgstr ""
+msgstr "Simpan"
 
 #: templates/mfa/webauthn/signup_form.html:7
-#, fuzzy
-#| msgid "Current Password"
 msgid "Create Passkey"
-msgstr "Kata sandi saat ini"
+msgstr "Buat Passkey"
 
 #: templates/mfa/webauthn/signup_form.html:10
 msgid ""
@@ -1878,58 +1763,43 @@ msgid ""
 "additional keys later on, you can use a descriptive name to tell the keys "
 "apart."
 msgstr ""
+"Anda akan membuat passkey untuk akun Anda. Karena Anda dapat menambahkan "
+"kunci tambahan nanti, Anda dapat menggunakan nama deskriptif untuk "
+"membedakan kunci."
 
 #: templates/mfa/webauthn/signup_form.html:21
-#, fuzzy
-#| msgid "created"
 msgid "Create"
-msgstr "dibuat"
+msgstr "Buat"
 
 #: templates/mfa/webauthn/snippets/scripts.html:2
 msgid "This functionality requires JavaScript."
-msgstr ""
+msgstr "Fungsi ini memerlukan JavaScript."
 
 #: templates/socialaccount/authentication_error.html:5
 #: templates/socialaccount/authentication_error.html:9
-#, fuzzy
-#| msgid "Social Network Login Failure"
 msgid "Third-Party Login Failure"
-msgstr "Kegagalan Login Jejaring Sosial"
+msgstr "Kegagalan Login Pihak Ketiga"
 
 #: templates/socialaccount/authentication_error.html:12
-#, fuzzy
-#| msgid ""
-#| "An error occurred while attempting to login via your social network "
-#| "account."
 msgid ""
 "An error occurred while attempting to login via your third-party account."
 msgstr ""
-"Terjadi kesalahan saat mencoba untuk masuk menggunakan akun jejaring sosial "
-"Anda."
+"Terjadi kesalahan saat mencoba masuk menggunakan akun pihak ketiga Anda."
 
 #: templates/socialaccount/connections.html:13
-#, fuzzy
-#| msgid ""
-#| "You can sign in to your account using any of the following third party "
-#| "accounts:"
 msgid ""
 "You can sign in to your account using any of the following third-party "
 "accounts:"
 msgstr ""
-"Anda dapat masuk ke akun Anda menggunakan salah satu dari akun jejaring "
-"sosial berikut:"
+"Anda dapat masuk ke akun Anda menggunakan salah satu akun pihak ketiga "
+"berikut:"
 
 #: templates/socialaccount/connections.html:46
-#, fuzzy
-#| msgid ""
-#| "You currently have no social network accounts connected to this account."
 msgid "You currently have no third-party accounts connected to this account."
 msgstr ""
-"Anda saat ini tidak memiliki akun jejaring sosial terhubung ke akun ini."
+"Anda saat ini tidak memiliki akun pihak ketiga yang terhubung ke akun ini."
 
 #: templates/socialaccount/connections.html:50
-#, fuzzy
-#| msgid "Add a 3rd Party Account"
 msgid "Add a Third-Party Account"
 msgstr "Tambahkan Akun Pihak Ketiga"
 
@@ -1937,46 +1807,42 @@ msgstr "Tambahkan Akun Pihak Ketiga"
 #, python-format
 msgid ""
 "A third-party account from %(provider)s has been connected to your account."
-msgstr ""
+msgstr "Akun pihak ketiga dari %(provider)s telah terhubung ke akun Anda."
 
 #: templates/socialaccount/email/account_connected_subject.txt:3
-#, fuzzy
-#| msgid "Add a 3rd Party Account"
 msgid "Third-Party Account Connected"
-msgstr "Tambahkan Akun Pihak Ketiga"
+msgstr "Akun Pihak Ketiga Terhubung"
 
 #: templates/socialaccount/email/account_disconnected_message.txt:4
 #, python-format
 msgid ""
 "A third-party account from %(provider)s has been disconnected from your "
 "account."
-msgstr ""
+msgstr "Akun pihak ketiga dari %(provider)s telah terputus dari akun Anda."
 
 #: templates/socialaccount/email/account_disconnected_subject.txt:3
-#, fuzzy
-#| msgid "Add a 3rd Party Account"
 msgid "Third-Party Account Disconnected"
-msgstr "Tambahkan Akun Pihak Ketiga"
+msgstr "Akun Pihak Ketiga Terputus"
 
 #: templates/socialaccount/login.html:10
 #, python-format
 msgid "Connect %(provider)s"
-msgstr ""
+msgstr "Hubungkan %(provider)s"
 
 #: templates/socialaccount/login.html:13
 #, python-format
 msgid "You are about to connect a new third-party account from %(provider)s."
-msgstr ""
+msgstr "Anda akan menghubungkan akun pihak ketiga baru dari %(provider)s."
 
 #: templates/socialaccount/login.html:17
 #, python-format
 msgid "Sign In Via %(provider)s"
-msgstr ""
+msgstr "Masuk Melalui %(provider)s"
 
 #: templates/socialaccount/login.html:20
 #, python-format
 msgid "You are about to sign in using a third-party account from %(provider)s."
-msgstr ""
+msgstr "Anda akan masuk menggunakan akun pihak ketiga dari %(provider)s."
 
 #: templates/socialaccount/login_cancelled.html:5
 #: templates/socialaccount/login_cancelled.html:9
@@ -1995,16 +1861,12 @@ msgstr ""
 "href=\"%(login_url)s\">masuk</a>."
 
 #: templates/socialaccount/messages/account_connected.txt:2
-#, fuzzy
-#| msgid "The social account has been connected."
 msgid "The third-party account has been connected."
-msgstr "Akun sosial telah terhubung."
+msgstr "Akun pihak ketiga telah terhubung."
 
 #: templates/socialaccount/messages/account_disconnected.txt:2
-#, fuzzy
-#| msgid "The social account has been disconnected."
 msgid "The third-party account has been disconnected."
-msgstr "Akun sosial telah terputus."
+msgstr "Akun pihak ketiga telah terputus."
 
 #: templates/socialaccount/signup.html:12
 #, python-format
@@ -2017,50 +1879,45 @@ msgstr ""
 
 #: templates/socialaccount/snippets/login.html:10
 msgid "Or use a third-party"
-msgstr ""
+msgstr "Atau gunakan pihak ketiga"
 
 #: templates/usersessions/messages/sessions_logged_out.txt:2
 msgid "Signed out of all other sessions."
-msgstr ""
+msgstr "Keluar dari semua sesi lainnya."
 
 #: templates/usersessions/usersession_list.html:24
 msgid "Started At"
-msgstr ""
+msgstr "Dimulai Pada"
 
 #: templates/usersessions/usersession_list.html:27
-#, fuzzy
-#| msgid "Email Addresses"
 msgid "IP Address"
-msgstr "Alamat E-mail"
+msgstr "Alamat IP"
 
 #: templates/usersessions/usersession_list.html:30
 msgid "Browser"
-msgstr ""
+msgstr "Browser"
 
 #: templates/usersessions/usersession_list.html:34
 msgid "Last seen at"
-msgstr ""
+msgstr "Terakhir terlihat pada"
 
 #: templates/usersessions/usersession_list.html:59
-#, fuzzy
-#| msgid "Current Password"
 msgid "Current"
-msgstr "Kata sandi saat ini"
+msgstr "Saat ini"
 
 #: templates/usersessions/usersession_list.html:72
 msgid "Sign Out Other Sessions"
-msgstr ""
+msgstr "Keluar dari Sesi Lainnya"
 
 #: usersessions/apps.py:9
 msgid "User Sessions"
-msgstr ""
+msgstr "Sesi Pengguna"
 
 #: usersessions/models.py:94
 msgid "session key"
-msgstr ""
+msgstr "kunci sesi"
 
 #, fuzzy
-#~| msgid "Account Connections"
 #~ msgid "Account Connection"
 #~ msgstr "Koneksi Akun"
 
@@ -2069,11 +1926,6 @@ msgstr ""
 #~ msgstr "Kata sandi harus memiliki panjang minimal {0} karakter."
 
 #, fuzzy, python-format
-#~| msgid ""
-#~| "You're receiving this e-mail because you or someone else has requested a "
-#~| "password for your user account.\n"
-#~| "It can be safely ignored if you did not request a password reset. Click "
-#~| "the link below to reset your password."
 #~ msgid ""
 #~ "You are receiving this email because you or someone else has requested a\n"
 #~ "password for your user account. However, we do not have any record of a "
@@ -2090,12 +1942,10 @@ msgstr ""
 #~ "untuk mereset kata sandi Anda."
 
 #, fuzzy
-#~| msgid "The following email addresses are associated with your account:"
 #~ msgid "The following email address is associated with your account:"
 #~ msgstr "Alamat-alamat e-mail berikut ini terkait dengan akun Anda:"
 
 #, fuzzy
-#~| msgid "Confirm Email Address"
 #~ msgid "Change Email Address"
 #~ msgstr "Konfirmasi Alamat E-mail"
 

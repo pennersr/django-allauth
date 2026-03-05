@@ -1,7 +1,6 @@
 from io import BytesIO
-from urllib.parse import quote
+from urllib.parse import quote, urlencode
 
-from django.utils.http import urlencode
 from django.utils.translation import gettext, gettext_lazy as _
 
 from allauth import app_settings as allauth_settings
@@ -82,7 +81,7 @@ class DefaultMFAAdapter(BaseAdapter):
             params["digits"] = app_settings.TOTP_DIGITS
         if app_settings.TOTP_PERIOD != 30:
             params["period"] = app_settings.TOTP_PERIOD
-        return f"otpauth://totp/{quote(label)}?{urlencode(params)}"
+        return f"otpauth://totp/{quote(label)}?{urlencode(params, quote_via=quote)}"
 
     def build_totp_svg(self, url: str) -> str:
         import qrcode

@@ -991,5 +991,8 @@ class DefaultAccountAdapter(BaseAdapter):
         raise NotImplementedError
 
 
-def get_adapter(request=None) -> DefaultAccountAdapter:
+TAccountAdapter = typing.TypeVar("TAccountAdapter", bound=DefaultAccountAdapter)
+
+
+def get_adapter(request=None) -> TAccountAdapter:
     return import_attribute(app_settings.ADAPTER)(request)

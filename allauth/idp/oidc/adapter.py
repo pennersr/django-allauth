@@ -1,4 +1,5 @@
 import hashlib
+import typing
 import uuid
 from typing import Any, Dict, Iterable, Literal, Optional
 
@@ -144,5 +145,8 @@ class DefaultOIDCAdapter(BaseAdapter):
         return user
 
 
-def get_adapter() -> DefaultOIDCAdapter:
+TOIDCAdapter = typing.TypeVar("TOIDCAdapter", bound=DefaultOIDCAdapter)
+
+
+def get_adapter() -> TOIDCAdapter:
     return import_attribute(app_settings.ADAPTER)()

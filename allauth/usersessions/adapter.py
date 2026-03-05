@@ -1,3 +1,5 @@
+import typing
+
 from allauth.core.internal.adapter import BaseAdapter
 from allauth.usersessions import app_settings
 from allauth.utils import import_attribute
@@ -16,5 +18,10 @@ class DefaultUserSessionsAdapter(BaseAdapter):
             session.end()
 
 
-def get_adapter():
+TUserSessionsAdapter = typing.TypeVar(
+    "TUserSessionsAdapter", bound=DefaultUserSessionsAdapter
+)
+
+
+def get_adapter() -> TUserSessionsAdapter:
     return import_attribute(app_settings.ADAPTER)()

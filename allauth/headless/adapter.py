@@ -1,4 +1,5 @@
 import dataclasses
+import typing
 import uuid
 from typing import Any, Optional
 
@@ -143,5 +144,8 @@ class DefaultHeadlessAdapter(BaseAdapter):
         return dataclasses.make_dataclass("User", fields)
 
 
-def get_adapter():
+THeadlessAdapter = typing.TypeVar("THeadlessAdapter", bound=DefaultHeadlessAdapter)
+
+
+def get_adapter() -> THeadlessAdapter:
     return import_attribute(app_settings.ADAPTER)()

@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+from typing import Optional
 
 from allauth.headless.spec.internal.openapikit import spec_for_dataclass
 
@@ -16,9 +17,9 @@ class NestedDataClass:
 
 @dataclass
 class ExampleDataclass:
-    optional_integer: int | None
+    optional_integer: Optional[int]
     integer: int
-    optional_string: str | None
+    optional_string: Optional[str]
     string: str
     number: float = field(
         metadata={
@@ -26,7 +27,7 @@ class ExampleDataclass:
             "example": "3.14",
         }
     )
-    nested: NestedDataClass | None
+    nested: Optional[NestedDataClass]
 
 
 def test_spec_for_dataclass():

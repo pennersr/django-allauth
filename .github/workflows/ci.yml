@@ -12,8 +12,8 @@ jobs:
     strategy:
       matrix:
         include:
-          - python-version: 3.8
-            debian-version: bookworm
+          - python-version: 3.10
+            debian-version: trixie
           - python-version: 3.12
             debian-version: trixie
           - python-version: 3.13

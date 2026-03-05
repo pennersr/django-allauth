@@ -45,7 +45,7 @@ steps:
 matrix:
   include:
     # To cut down on CI pipeline duration, test oldest/latest Python only.
-    - PYTHON_VERSION: 3.8
-      DEBIAN_VERSION: bookworm
+    - PYTHON_VERSION: 3.10
+      DEBIAN_VERSION: trixie
     - PYTHON_VERSION: 3.14
       DEBIAN_VERSION: trixie

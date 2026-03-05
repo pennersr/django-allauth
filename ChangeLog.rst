@@ -8,10 +8,11 @@
     https://allauth.org/sponsors/. Your support helps keep this project thriving!
 
 
-Note worthy changes
--------------------
+Backwards incompatible changes
+------------------------------
 
-- ...
+- Dropped support for Python 3.8 and 3.9. Both these Python versions are
+  end-of-life.
 
 
 65.14.3 (2026-02-13)

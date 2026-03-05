@@ -1,6 +1,5 @@
 import warnings
 from enum import Enum
-from typing import FrozenSet, Set, Union
 
 
 class AppSettings:
@@ -156,7 +155,7 @@ class AppSettings:
             raise NotADirectoryError
 
     @property
-    def LOGIN_METHODS(self) -> FrozenSet[LoginMethod]:
+    def LOGIN_METHODS(self) -> frozenset[LoginMethod]:
         methods = self._setting("LOGIN_METHODS", None)
         if methods is None:
             auth_method = self._setting(
@@ -567,7 +566,7 @@ class AppSettings:
         return self._setting("LOGIN_TIMEOUT", 15 * 60)
 
     @property
-    def LOGIN_BY_CODE_REQUIRED(self) -> Union[bool, Set[str]]:
+    def LOGIN_BY_CODE_REQUIRED(self) -> bool | set[str]:
         """
         When enabled (in case of ``True``), every user logging in is
         required to input a login confirmation code sent by email.

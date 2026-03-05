@@ -1,5 +1,4 @@
 from datetime import timedelta
-from typing import Optional
 
 from django.db import models, transaction
 from django.db.models import Q
@@ -73,7 +72,7 @@ class EmailAddressManager(models.Manager):
         except self.model.DoesNotExist:
             return None
 
-    def get_primary_email(self, user) -> Optional[str]:
+    def get_primary_email(self, user) -> str | None:
         from allauth.account.utils import user_email
 
         primary = self.get_primary(user)

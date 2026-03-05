@@ -1,5 +1,3 @@
-from typing import Optional
-
 from django import forms
 from django.contrib.auth import REDIRECT_FIELD_NAME, get_user_model, password_validation
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
@@ -185,7 +183,7 @@ class LoginForm(forms.Form):
             credentials.get("email"), credentials.get("phone")
         )
 
-    def _clean_without_password(self, email: Optional[str], phone: Optional[str]):
+    def _clean_without_password(self, email: str | None, phone: str | None):
         """
         If we don't have a password field, we need to replicate the request-login-code
         behavior.
@@ -529,7 +527,7 @@ class SignupForm(BaseSignupForm):
 class UserForm(forms.Form):
     def __init__(self, user=None, *args, **kwargs):
         self.user = user
-        super(UserForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
 
 class AddEmailForm(UserForm):
@@ -594,7 +592,7 @@ class ChangePasswordForm(PasswordVerificationMixin, UserForm):
     password2 = PasswordField(label=_("New Password (again)"))
 
     def __init__(self, *args, **kwargs):
-        super(ChangePasswordForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields["password1"].user = self.user
 
     def clean_oldpassword(self):
@@ -611,7 +609,7 @@ class SetPasswordForm(PasswordVerificationMixin, UserForm):
     password2 = PasswordField(label=_("Password (again)"))
 
     def __init__(self, *args, **kwargs):
-        super(SetPasswordForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields["password1"].user = self.user
 
     def save(self):
@@ -675,7 +673,7 @@ class UserTokenForm(forms.Form):
             return None
 
     def clean(self):
-        cleaned_data = super(UserTokenForm, self).clean()
+        cleaned_data = super().clean()
 
         uidb36 = cleaned_data.get("uidb36", None)
         key = cleaned_data.get("key", None)

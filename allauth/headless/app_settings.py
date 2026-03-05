@@ -1,6 +1,3 @@
-from typing import Optional, Tuple
-
-
 class AppSettings:
     def __init__(self, prefix):
         self.prefix = prefix
@@ -32,13 +29,13 @@ class AppSettings:
         return self._setting("SERVE_SPECIFICATION", False)
 
     @property
-    def SPECIFICATION_TEMPLATE_NAME(self) -> Optional[str]:
+    def SPECIFICATION_TEMPLATE_NAME(self) -> str | None:
         return self._setting(
             "SPECIFICATION_TEMPLATE_NAME", "headless/spec/redoc_cdn.html"
         )
 
     @property
-    def CLIENTS(self) -> Tuple[str]:
+    def CLIENTS(self) -> tuple[str]:
         return tuple(self._setting("CLIENTS", ("browser", "app")))
 
     @property

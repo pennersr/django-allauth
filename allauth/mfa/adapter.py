@@ -1,5 +1,4 @@
 from io import BytesIO
-from typing import Dict
 from urllib.parse import quote
 
 from django.utils.http import urlencode
@@ -143,7 +142,7 @@ class DefaultMFAAdapter(BaseAdapter):
             return gettext("Backup key")
         return gettext("Key nr. {number}").format(number=n + 1)
 
-    def get_public_key_credential_rp_entity(self) -> Dict[str, str]:
+    def get_public_key_credential_rp_entity(self) -> dict[str, str]:
         name = self._get_site_name()
         return {
             "id": context.request.get_host().partition(":")[0],

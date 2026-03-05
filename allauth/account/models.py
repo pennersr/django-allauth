@@ -1,6 +1,5 @@
 import datetime
 import time
-from typing import Dict, Optional
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -121,7 +120,7 @@ class EmailAddress(models.Model):
 
 
 class EmailConfirmationMixin:
-    def confirm(self, request) -> Optional[EmailAddress]:
+    def confirm(self, request) -> EmailAddress | None:
         from allauth.account.internal.flows.email_verification import (
             mark_email_address_as_verified,
         )
@@ -172,7 +171,7 @@ class EmailConfirmation(EmailConfirmationMixin, models.Model):
 
     key_expired.boolean = True  # type: ignore[attr-defined]
 
-    def confirm(self, request) -> Optional[EmailAddress]:
+    def confirm(self, request) -> EmailAddress | None:
         if not self.key_expired():
             return super().confirm(request)
         return None
@@ -226,27 +225,27 @@ class Login:
 
     # Optional, because we might be prentending logins to prevent user
     # enumeration.
-    user: Optional[AbstractBaseUser]
+    user: AbstractBaseUser | None
     email_verification: app_settings.EmailVerificationMethod
-    signal_kwargs: Optional[Dict]
+    signal_kwargs: dict | None
     signup: bool
-    email: Optional[str]
-    phone: Optional[str]
-    state: Dict
+    email: str | None
+    phone: str | None
+    state: dict
     initiated_at: float
-    redirect_url: Optional[str]
+    redirect_url: str | None
 
     def __init__(
         self,
         user,
-        email_verification: Optional[app_settings.EmailVerificationMethod] = None,
-        redirect_url: Optional[str] = None,
-        signal_kwargs: Optional[Dict] = None,
+        email_verification: app_settings.EmailVerificationMethod | None = None,
+        redirect_url: str | None = None,
+        signal_kwargs: dict | None = None,
         signup: bool = False,
-        email: Optional[str] = None,
-        state: Optional[Dict] = None,
-        initiated_at: Optional[float] = None,
-        phone: Optional[str] = None,
+        email: str | None = None,
+        state: dict | None = None,
+        initiated_at: float | None = None,
+        phone: str | None = None,
     ):
         self.user = user
         if not email_verification:

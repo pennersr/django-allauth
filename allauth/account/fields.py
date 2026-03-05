@@ -38,7 +38,7 @@ class PasswordField(forms.CharField):
         autocomplete = kwargs.pop("autocomplete", None)
         if autocomplete is not None:
             kwargs["widget"].attrs["autocomplete"] = autocomplete
-        super(PasswordField, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
 
 class SetPasswordField(PasswordField):

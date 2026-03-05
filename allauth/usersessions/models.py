@@ -1,5 +1,4 @@
 from importlib import import_module
-from typing import List
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
@@ -22,7 +21,7 @@ if not allauth_settings.USERSESSIONS_ENABLED:
 
 
 class UserSessionManager(models.Manager):
-    def purge_and_list(self, user) -> List["UserSession"]:
+    def purge_and_list(self, user) -> list["UserSession"]:
         ret = []
         sessions = UserSession.objects.filter(user=user)
         for session in sessions.iterator():

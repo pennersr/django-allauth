@@ -1,5 +1,3 @@
-from typing import Optional
-
 from django.conf import settings
 from django.http import HttpResponse
 
@@ -66,7 +64,7 @@ def respond_429(request) -> HttpResponse:
     return handler429(request)
 
 
-def consume_or_429(request, *args, **kwargs) -> Optional[HttpResponse]:
+def consume_or_429(request, *args, **kwargs) -> HttpResponse | None:
     if not consume(request, *args, **kwargs):
         return respond_429(request)
     return None

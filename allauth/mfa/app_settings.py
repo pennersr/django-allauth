@@ -1,5 +1,4 @@
 from datetime import timedelta
-from typing import Optional
 
 
 class AppSettings:
@@ -123,7 +122,7 @@ class AppSettings:
         return self._setting("TRUST_COOKIE_NAME", "mfa_trusted")
 
     @property
-    def TRUST_COOKIE_DOMAIN(self) -> Optional[str]:
+    def TRUST_COOKIE_DOMAIN(self) -> str | None:
         from django.conf import settings
 
         return self._setting("TRUST_COOKIE_DOMAIN", settings.SESSION_COOKIE_DOMAIN)
@@ -147,7 +146,7 @@ class AppSettings:
         return self._setting("TRUST_COOKIE_SAMESITE", settings.SESSION_COOKIE_SAMESITE)
 
     @property
-    def TRUST_COOKIE_SECURE(self) -> Optional[str]:
+    def TRUST_COOKIE_SECURE(self) -> str | None:
         from django.conf import settings
 
         return self._setting("TRUST_COOKIE_SECURE", settings.SESSION_COOKIE_SECURE)

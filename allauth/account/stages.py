@@ -1,5 +1,4 @@
 import logging
-from typing import List, Optional
 
 from allauth import app_settings as allauth_settings
 from allauth.account import app_settings
@@ -19,7 +18,7 @@ logger = logging.getLogger(__name__)
 
 class LoginStage:
     key: str  # Set in subclasses
-    urlname: Optional[str] = None
+    urlname: str | None = None
     login: Login
 
     def __init__(self, controller, request, login):
@@ -85,7 +84,7 @@ class LoginStageController:
         stage_state = self.state.setdefault(stage_key, {})
         stage_state["handled"] = True
 
-    def get_pending_stage(self) -> Optional[LoginStage]:
+    def get_pending_stage(self) -> LoginStage | None:
         ret = None
         stages = self.get_stages()
         for stage in stages:
@@ -95,13 +94,13 @@ class LoginStageController:
             break
         return ret
 
-    def get_stage(self, key: str) -> Optional[LoginStage]:
+    def get_stage(self, key: str) -> LoginStage | None:
         try:
             return next(iter(stage for stage in self.get_stages() if stage.key == key))
         except StopIteration:
             return None
 
-    def get_stages(self) -> List[LoginStage]:
+    def get_stages(self) -> list[LoginStage]:
         stages = []
         adapter = get_adapter(self.request)
         paths = adapter.get_login_stages()

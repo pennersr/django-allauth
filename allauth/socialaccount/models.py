@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 from django.conf import settings
 from django.contrib.auth import authenticate, get_user_model
@@ -206,21 +206,21 @@ class SocialLogin:
     """
 
     account: SocialAccount
-    token: Optional[SocialToken]
-    email_addresses: List[EmailAddress]
-    state: Dict
-    _did_authenticate_by_email: Optional[str]
-    phone: Optional[str]
+    token: SocialToken | None
+    email_addresses: list[EmailAddress]
+    state: dict
+    _did_authenticate_by_email: str | None
+    phone: str | None
     phone_verified: bool
 
     def __init__(
         self,
         user=None,
-        account: Optional[SocialAccount] = None,
-        token: Optional[SocialToken] = None,
-        email_addresses: Optional[List[EmailAddress]] = None,
+        account: SocialAccount | None = None,
+        token: SocialToken | None = None,
+        email_addresses: list[EmailAddress] | None = None,
         provider=None,
-        phone: Optional[str] = None,
+        phone: str | None = None,
         phone_verified: bool = False,
     ):
         self.provider = provider
@@ -255,7 +255,7 @@ class SocialLogin:
     def is_headless(self) -> bool:
         return bool(self.state.get("headless"))
 
-    def serialize(self) -> Dict[str, Any]:
+    def serialize(self) -> dict[str, Any]:
         serialize_instance = get_adapter().serialize_instance
         ret = dict(
             provider=self.provider.serialize(),
@@ -271,7 +271,7 @@ class SocialLogin:
         return ret
 
     @classmethod
-    def deserialize(cls, data: Dict[str, Any]) -> "SocialLogin":
+    def deserialize(cls, data: dict[str, Any]) -> "SocialLogin":
         from allauth.socialaccount.providers.base.provider import Provider
 
         if not isinstance(data, dict):
@@ -404,12 +404,12 @@ class SocialLogin:
             if app_settings.EMAIL_AUTHENTICATION_AUTO_CONNECT:
                 self.connect(context.request, self.user)
 
-    def get_redirect_url(self, request) -> Optional[str]:
+    def get_redirect_url(self, request) -> str | None:
         url = self.state.get("next")
         return url
 
     @classmethod
-    def state_from_request(cls, request) -> Dict[str, Any]:
+    def state_from_request(cls, request) -> dict[str, Any]:
         """
         TODO: Deprecated! To be integrated with provider.redirect()
         """
@@ -423,14 +423,14 @@ class SocialLogin:
         return state
 
     @classmethod
-    def stash_state(cls, request, state: Optional[Dict[str, Any]] = None) -> str:
+    def stash_state(cls, request, state: dict[str, Any] | None = None) -> str:
         if state is None:
             # Only for providers that don't support redirect() yet.
             state = cls.state_from_request(request)
         return statekit.stash_state(request, state)
 
     @classmethod
-    def unstash_state(cls, request) -> Optional[Dict[str, Any]]:
+    def unstash_state(cls, request) -> dict[str, Any] | None:
         state = statekit.unstash_last_state(request)
         if state is None:
             raise PermissionDenied()

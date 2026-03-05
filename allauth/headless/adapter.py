@@ -1,6 +1,6 @@
 import dataclasses
 import uuid
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
 from django.contrib.auth import get_user_model
 from django.db import models
@@ -36,7 +36,7 @@ class DefaultHeadlessAdapter(BaseAdapter):
         "invalid_url": "Invalid URL.",
     }
 
-    def serialize_user(self, user) -> Dict[str, Any]:
+    def serialize_user(self, user) -> dict[str, Any]:
         """
         Returns the basic user data. Note that this data is also exposed in
         partly authenticated scenario's (e.g. password reset, email

@@ -1,6 +1,5 @@
 import unicodedata
 from collections import OrderedDict
-from typing import List, Optional
 
 from django.contrib.auth import REDIRECT_FIELD_NAME, get_user_model
 from django.db import models
@@ -34,7 +33,7 @@ def _unicode_ci_compare(s1, s2) -> bool:
 
 def get_next_redirect_url(
     request, redirect_field_name=REDIRECT_FIELD_NAME
-) -> Optional[str]:
+) -> str | None:
     """
     Returns the next URL to redirect to, if it was explicitly passed
     via the request.
@@ -241,8 +240,8 @@ def filter_users_by_username(*username):
 
 
 def filter_users_by_email(
-    email: str, is_active: Optional[bool] = None, prefer_verified: bool = False
-) -> List:
+    email: str, is_active: bool | None = None, prefer_verified: bool = False
+) -> list:
     """Return list of users by email address
 
     Typically one, at most just a few in length.  First we look through

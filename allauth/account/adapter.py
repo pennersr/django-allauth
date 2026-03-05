@@ -1,7 +1,6 @@
 import html
 import inspect
 import json
-import typing
 import warnings
 from http import HTTPStatus
 from urllib.parse import urlparse
@@ -968,7 +967,7 @@ class DefaultAccountAdapter(BaseAdapter):
         """
         raise NotImplementedError
 
-    def get_phone(self, user) -> typing.Optional[typing.Tuple[str, bool]]:
+    def get_phone(self, user) -> tuple[str, bool] | None:
         """
         Returns the phone number stored for the given user. A tuple of the
         phone number itself, and whether or not the phone number was verified is

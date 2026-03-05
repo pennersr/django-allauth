@@ -365,7 +365,7 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
         return super().dispatch(request, *args, **kwargs)
 
     def get_form_kwargs(self):
-        kwargs = super(EmailView, self).get_form_kwargs()
+        kwargs = super().get_form_kwargs()
         kwargs["user"] = self.request.user
         return kwargs
 
@@ -434,7 +434,7 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
                 return HttpResponseRedirect(self.get_success_url())
 
     def get_context_data(self, **kwargs):
-        ret = super(EmailView, self).get_context_data(**kwargs)
+        ret = super().get_context_data(**kwargs)
         emails = list(
             EmailAddress.objects.filter(user=self.request.user).order_by("email")
         )

@@ -41,7 +41,7 @@ class SignupView(
         self.sociallogin = flows.signup.get_pending_signup(request)
         if not self.sociallogin:
             return HttpResponseRedirect(reverse("account_login"))
-        return super(SignupView, self).dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
     def is_open(self):
         return get_adapter(self.request).is_open_for_signup(
@@ -49,7 +49,7 @@ class SignupView(
         )
 
     def get_form_kwargs(self):
-        ret = super(SignupView, self).get_form_kwargs()
+        ret = super().get_form_kwargs()
         ret["sociallogin"] = self.sociallogin
         return ret
 
@@ -57,7 +57,7 @@ class SignupView(
         return flows.signup.signup_by_form(self.request, self.sociallogin, form)
 
     def get_context_data(self, **kwargs):
-        ret = super(SignupView, self).get_context_data(**kwargs)
+        ret = super().get_context_data(**kwargs)
         ret.update(
             dict(
                 site=get_current_site(self.request),
@@ -108,13 +108,13 @@ class ConnectionsView(AjaxCapableProcessFormViewMixin, FormView):
         return get_form_class(app_settings.FORMS, "disconnect", self.form_class)
 
     def get_form_kwargs(self):
-        kwargs = super(ConnectionsView, self).get_form_kwargs()
+        kwargs = super().get_form_kwargs()
         kwargs["request"] = self.request
         return kwargs
 
     def form_valid(self, form):
         form.save()
-        return super(ConnectionsView, self).form_valid(form)
+        return super().form_valid(form)
 
     def get_ajax_data(self):
         account_data = []

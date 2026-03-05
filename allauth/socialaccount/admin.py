@@ -1,5 +1,3 @@
-from typing import List
-
 from django import forms
 from django.contrib import admin
 
@@ -12,7 +10,7 @@ from allauth.socialaccount.models import SocialAccount, SocialApp, SocialToken
 class SocialAppForm(forms.ModelForm):
     class Meta:
         model = SocialApp
-        exclude: List[str] = []
+        exclude: list[str] = []
         widgets = {
             "client_id": forms.TextInput(attrs={"size": "100"}),
             "key": forms.TextInput(attrs={"size": "100"}),

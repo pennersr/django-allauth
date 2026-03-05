@@ -1,14 +1,14 @@
 class AppSettings:
-    def __init__(self, prefix):
+    def __init__(self, prefix: str) -> None:
         self.prefix = prefix
 
-    def _setting(self, name, dflt):
+    def _setting(self, name: str, dflt):
         from allauth.utils import get_setting
 
         return get_setting(self.prefix + name, dflt)
 
     @property
-    def ADAPTER(self):
+    def ADAPTER(self) -> str:
         return self._setting(
             "ADAPTER", "allauth.headless.adapter.DefaultHeadlessAdapter"
         )
@@ -39,7 +39,7 @@ class AppSettings:
         return tuple(self._setting("CLIENTS", ("browser", "app")))
 
     @property
-    def FRONTEND_URLS(self):
+    def FRONTEND_URLS(self) -> dict:
         return self._setting("FRONTEND_URLS", {})
 
     @property

@@ -9,7 +9,7 @@ from .models import SocialAccount
 
 
 class SignupForm(BaseSignupForm):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         self.sociallogin = kwargs.pop("sociallogin")
         initial = get_adapter().get_signup_form_initial_data(self.sociallogin)
         kwargs.update(
@@ -28,7 +28,7 @@ class SignupForm(BaseSignupForm):
         self.custom_signup(request, user)
         return user
 
-    def validate_unique_email(self, value):
+    def validate_unique_email(self, value) -> str:
         try:
             return super().validate_unique_email(value)
         except forms.ValidationError:
@@ -57,6 +57,6 @@ class DisconnectForm(forms.Form):
             flows.connect.validate_disconnect(self.request, account)
         return cleaned_data
 
-    def save(self):
+    def save(self) -> None:
         account = self.cleaned_data["account"]
         flows.connect.disconnect(self.request, account)

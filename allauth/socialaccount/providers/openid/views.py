@@ -1,5 +1,5 @@
 from django.contrib.auth import REDIRECT_FIELD_NAME
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseBase, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.utils.decorators import method_decorator
@@ -40,11 +40,11 @@ class OpenIDLoginView(View):
     form_class = LoginForm
     provider_class = OpenIDProvider
 
-    def dispatch(self, request, *args, **kwargs):
+    def dispatch(self, request, *args, **kwargs) -> HttpResponseBase:
         self.provider = self.provider_class(request)
         return super().dispatch(request, *args, **kwargs)
 
-    def get(self, request):
+    def get(self, request) -> HttpResponse:
         form = self.get_form()
         if not form.is_valid():
             return render(request, self.template_name, {"form": form})
@@ -55,7 +55,7 @@ class OpenIDLoginView(View):
             # UnicodeDecodeError: necaris/python3-openid#1
             return render_authentication_error(request, self.provider, exception=e)
 
-    def post(self, request):
+    def post(self, request) -> HttpResponse:
         form = self.get_form()
         if form.is_valid():
             try:
@@ -132,7 +132,7 @@ login = OpenIDLoginView.as_view()
 class OpenIDCallbackView(View):
     provider_class = OpenIDProvider
 
-    def get(self, request):
+    def get(self, request) -> HttpResponse:
         provider = self.provider = self.provider_class(request)
         endpoint = request.GET.get("openid.op_endpoint", "")
         client = self.get_client(provider, endpoint)
@@ -154,10 +154,10 @@ class OpenIDCallbackView(View):
 
     post = get
 
-    def complete_login(self, login):
+    def complete_login(self, login) -> HttpResponse:
         return complete_social_login(self.request, login)
 
-    def render_error(self, error):
+    def render_error(self, error) -> HttpResponse:
         return render_authentication_error(self.request, self.provider, error=error)
 
     def get_client(self, provider, endpoint):

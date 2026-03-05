@@ -15,11 +15,11 @@ class BaseAuthenticateForm(forms.Form):
         ),
     )
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         self.user = kwargs.pop("user")
         super().__init__(*args, **kwargs)
 
-    def clean_code(self):
+    def clean_code(self) -> str:
         clear_rl = check_rate_limit(self.user)
         code = self.cleaned_data["code"]
         for auth in Authenticator.objects.filter(user=self.user).exclude(
@@ -36,10 +36,10 @@ class BaseAuthenticateForm(forms.Form):
 
 
 class AuthenticateForm(BaseAuthenticateForm):
-    def save(self):
+    def save(self) -> None:
         post_authentication(context.request, self.authenticator)
 
 
 class ReauthenticateForm(BaseAuthenticateForm):
-    def save(self):
+    def save(self) -> None:
         post_authentication(context.request, self.authenticator, reauthenticated=True)

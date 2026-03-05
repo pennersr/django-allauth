@@ -1,4 +1,5 @@
 from django.core.exceptions import PermissionDenied
+from django.http import HttpResponse, HttpResponseBase
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.utils.http import urlencode
@@ -30,7 +31,7 @@ class AuthenticateView(FormView):
     template_name = "dummy/authenticate_form.html"
 
     @method_decorator(login_not_required)
-    def dispatch(self, request, *args, **kwargs):
+    def dispatch(self, request, *args, **kwargs) -> HttpResponseBase:
         self.state_id = request.GET.get("state")
         if not self.state_id:
             raise PermissionDenied()
@@ -45,12 +46,12 @@ class AuthenticateView(FormView):
 
         return super().dispatch(request, *args, **kwargs)
 
-    def form_valid(self, form):
+    def form_valid(self, form) -> HttpResponse:
         login = self.provider.sociallogin_from_response(self.request, form.cleaned_data)
         login.state = SocialLogin.unstash_state(self.request)
         return complete_social_login(self.request, login)
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict:
         ret = super().get_context_data(**kwargs)
         ret["action_url"] = (
             f"{reverse('dummy_authenticate')}?{urlencode({'state': self.state_id})}"

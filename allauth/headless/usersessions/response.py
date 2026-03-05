@@ -6,7 +6,7 @@ class SessionsResponse(APIResponse):
     def __init__(self, request, sessions):
         super().__init__(request, data=[self._session_data(s) for s in sessions])
 
-    def _session_data(self, session):
+    def _session_data(self, session) -> dict:
         data = {
             "user_agent": session.user_agent,
             "ip": session.ip,
@@ -19,6 +19,6 @@ class SessionsResponse(APIResponse):
         return data
 
 
-def get_config_data(request):
+def get_config_data(request) -> dict:
     data = {"usersessions": {"track_activity": app_settings.TRACK_ACTIVITY}}
     return data

@@ -66,10 +66,11 @@ class LoginForm(forms.Form):
 
     user = None
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         self.request = kwargs.pop("request", None)
         super().__init__(*args, **kwargs)
         adapter = get_adapter()
+        login_field: forms.Field
         if app_settings.LOGIN_METHODS == {LoginMethod.EMAIL}:
             login_field = EmailField()
         elif app_settings.LOGIN_METHODS == {LoginMethod.USERNAME}:
@@ -168,14 +169,14 @@ class LoginForm(forms.Form):
             credentials["password"] = password
         return credentials
 
-    def clean_login(self):
+    def clean_login(self) -> str:
         login = self.cleaned_data["login"]
         return login.strip()
 
     def clean(self):
-        super().clean()
+        cleaned_data = super().clean()
         if self._errors:
-            return
+            return cleaned_data
         credentials = self.user_credentials()
         if "password" in credentials:
             return self._clean_with_password(credentials)
@@ -268,7 +269,7 @@ class BaseSignupForm(base_signup_form_class()):  # type: ignore[misc]
     )
     email = EmailField()
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         self._signup_fields = self._get_signup_fields(kwargs)
         self.account_already_exists = False
         super().__init__(*args, **kwargs)
@@ -349,7 +350,7 @@ class BaseSignupForm(base_signup_form_class()):  # type: ignore[misc]
             username["required"] = kwargs.pop("username_required")
         return signup_fields
 
-    def clean_username(self):
+    def clean_username(self) -> str:
         value = self.cleaned_data["username"]
         if not value and not self._signup_fields["username"]["required"]:
             return value
@@ -360,14 +361,14 @@ class BaseSignupForm(base_signup_form_class()):  # type: ignore[misc]
         # username is already in use.
         return value
 
-    def clean_email(self):
+    def clean_email(self) -> str:
         value = self.cleaned_data["email"].lower()
         value = get_adapter().clean_email(value)
         if value:
             value = self.validate_unique_email(value)
         return value
 
-    def clean_email2(self):
+    def clean_email2(self) -> str:
         value = self.cleaned_data["email2"].lower()
         return value
 
@@ -377,7 +378,7 @@ class BaseSignupForm(base_signup_form_class()):  # type: ignore[misc]
         )
         return email
 
-    def clean(self):
+    def clean(self) -> dict:
         cleaned_data = super().clean()
         if "email2" in self._signup_fields:
             email = cleaned_data.get("email")
@@ -404,7 +405,7 @@ class BaseSignupForm(base_signup_form_class()):  # type: ignore[misc]
                 else:
                     self.account_already_exists = True
 
-    def custom_signup(self, request, user):
+    def custom_signup(self, request, user) -> None:
         self.signup(request, user)
 
     def try_save(self, request):
@@ -440,7 +441,7 @@ class BaseSignupForm(base_signup_form_class()):  # type: ignore[misc]
 
 
 class SignupForm(BaseSignupForm):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         self.by_passkey = kwargs.pop("by_passkey", False)
         super().__init__(*args, **kwargs)
         password1_field = self._signup_fields.get("password1")
@@ -494,7 +495,7 @@ class SignupForm(BaseSignupForm):
 
         return super().try_save(request)
 
-    def clean(self):
+    def clean(self) -> dict:
         super().clean()
 
         # `password` cannot be of type `SetPasswordField`, as we don't
@@ -525,7 +526,7 @@ class SignupForm(BaseSignupForm):
 
 
 class UserForm(forms.Form):
-    def __init__(self, user=None, *args, **kwargs):
+    def __init__(self, user=None, *args, **kwargs) -> None:
         self.user = user
         super().__init__(*args, **kwargs)
 
@@ -533,7 +534,7 @@ class UserForm(forms.Form):
 class AddEmailForm(UserForm):
     email = EmailField(required=True)
 
-    def clean_email(self):
+    def clean_email(self) -> str:
         from allauth.account import signals
 
         value = self.cleaned_data["email"].lower()
@@ -595,12 +596,12 @@ class ChangePasswordForm(PasswordVerificationMixin, UserForm):
         super().__init__(*args, **kwargs)
         self.fields["password1"].user = self.user
 
-    def clean_oldpassword(self):
+    def clean_oldpassword(self) -> str:
         if not self.user.check_password(self.cleaned_data.get("oldpassword")):
             raise get_adapter().validation_error("enter_current_password")
         return self.cleaned_data["oldpassword"]
 
-    def save(self):
+    def save(self) -> None:
         flows.password_change.change_password(self.user, self.cleaned_data["password1"])
 
 
@@ -612,14 +613,14 @@ class SetPasswordForm(PasswordVerificationMixin, UserForm):
         super().__init__(*args, **kwargs)
         self.fields["password1"].user = self.user
 
-    def save(self):
+    def save(self) -> None:
         flows.password_change.change_password(self.user, self.cleaned_data["password1"])
 
 
 class ResetPasswordForm(forms.Form):
     email = EmailField(required=True)
 
-    def clean_email(self):
+    def clean_email(self) -> str:
         email = self.cleaned_data["email"].lower()
         email = get_adapter().clean_email(email)
         self.users = filter_users_by_email(email, is_active=True, prefer_verified=True)
@@ -653,7 +654,7 @@ class ResetPasswordKeyForm(PasswordVerificationMixin, forms.Form):
         super().__init__(*args, **kwargs)
         self.fields["password1"].user = self.user
 
-    def save(self):
+    def save(self) -> None:
         flows.password_reset.reset_password(self.user, self.cleaned_data["password1"])
 
 
@@ -693,12 +694,12 @@ class UserTokenForm(forms.Form):
 class ReauthenticateForm(forms.Form):
     password = PasswordField(label=_("Password"), autocomplete="current-password")
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         self.user = kwargs.pop("user")
         super().__init__(*args, **kwargs)
 
-    def clean_password(self):
-        password = self.cleaned_data.get("password")
+    def clean_password(self) -> str:
+        password = self.cleaned_data["password"]
         if not get_adapter().reauthenticate(self.user, password):
             raise get_adapter().validation_error("incorrect_password")
         return password
@@ -707,7 +708,7 @@ class ReauthenticateForm(forms.Form):
 class RequestLoginCodeForm(forms.Form):
     email = EmailField()
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self._has_email = LoginMethod.EMAIL in app_settings.LOGIN_METHODS
         self._has_phone = LoginMethod.PHONE in app_settings.LOGIN_METHODS
@@ -731,7 +732,7 @@ class RequestLoginCodeForm(forms.Form):
             raise adapter.validation_error("select_only_one")
         return cleaned_data
 
-    def clean_phone(self):
+    def clean_phone(self) -> str:
         adapter = get_adapter()
         phone = self.cleaned_data["phone"]
         if phone:
@@ -744,7 +745,7 @@ class RequestLoginCodeForm(forms.Form):
                 raise adapter.validation_error("too_many_login_attempts")
         return phone
 
-    def clean_email(self):
+    def clean_email(self) -> str:
         adapter = get_adapter()
         email = self.cleaned_data["email"]
         if email:
@@ -768,12 +769,12 @@ class BaseConfirmCodeForm(forms.Form):
         ),
     )
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         self.code = kwargs.pop("code", None)
         super().__init__(*args, **kwargs)
 
-    def clean_code(self):
-        code = self.cleaned_data.get("code")
+    def clean_code(self) -> str:
+        code = self.cleaned_data["code"]
         if not compare_user_code(actual=code, expected=self.code):
             raise get_adapter().validation_error("incorrect_code")
         return code
@@ -816,14 +817,14 @@ class VerifyPhoneForm(BaseConfirmCodeForm):
 
 
 class ChangePhoneForm(forms.Form):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         self.user = kwargs.pop("user", None)
         self.phone = kwargs.pop("phone", None)
         super().__init__(*args, **kwargs)
         adapter = get_adapter()
         self.fields["phone"] = adapter.phone_form_field(required=True)
 
-    def clean_phone(self):
+    def clean_phone(self) -> str:
         phone = self.cleaned_data["phone"]
         adapter = get_adapter()
         if phone == self.phone:
@@ -835,11 +836,11 @@ class ChangePhoneForm(forms.Form):
 class ChangeEmailForm(forms.Form):
     email = EmailField(required=True)
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         self.email = kwargs.pop("email", None)
         super().__init__(*args, **kwargs)
 
-    def clean_email(self):
+    def clean_email(self) -> str:
         email = self.cleaned_data["email"]
         if email == self.email:
             raise get_adapter().validation_error("same_as_current")

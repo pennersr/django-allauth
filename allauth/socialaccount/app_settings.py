@@ -1,14 +1,14 @@
 class AppSettings:
-    def __init__(self, prefix):
+    def __init__(self, prefix: str) -> None:
         self.prefix = prefix
 
-    def _setting(self, name, dflt):
+    def _setting(self, name: str, dflt):
         from allauth.utils import get_setting
 
         return get_setting(self.prefix + name, dflt)
 
     @property
-    def QUERY_EMAIL(self):
+    def QUERY_EMAIL(self) -> bool:
         """
         Request email address from 3rd party account provider?
         E.g. using OpenID AX
@@ -16,7 +16,7 @@ class AppSettings:
         return self._setting("QUERY_EMAIL", self.EMAIL_REQUIRED)
 
     @property
-    def AUTO_SIGNUP(self):
+    def AUTO_SIGNUP(self) -> bool:
         """
         Attempt to bypass the signup form by using fields (e.g. username,
         email) retrieved from the social account provider. If a conflict
@@ -25,7 +25,7 @@ class AppSettings:
         return self._setting("AUTO_SIGNUP", True)
 
     @property
-    def PROVIDERS(self):
+    def PROVIDERS(self) -> dict:
         """
         Provider specific settings
         """
@@ -35,7 +35,7 @@ class AppSettings:
             ret["openid_connect"] = self._migrate_oidc(oidc)
         return ret
 
-    def _migrate_oidc(self, oidc):
+    def _migrate_oidc(self, oidc: dict) -> dict:
         servers = oidc.get("SERVERS")
         if servers is None:
             return oidc
@@ -60,7 +60,7 @@ class AppSettings:
         return ret
 
     @property
-    def EMAIL_REQUIRED(self):
+    def EMAIL_REQUIRED(self) -> bool:
         """
         The user is required to hand over an email address when signing up
         """
@@ -87,7 +87,7 @@ class AppSettings:
         return self._setting("EMAIL_VERIFICATION", dflt)
 
     @property
-    def EMAIL_AUTHENTICATION(self):
+    def EMAIL_AUTHENTICATION(self) -> bool:
         """Consider a scenario where a social login occurs, and the social
         account comes with a verified email address (verified by the account
         provider), but that email address is already taken by a local user
@@ -106,7 +106,7 @@ class AppSettings:
         return self._setting("EMAIL_AUTHENTICATION", False)
 
     @property
-    def EMAIL_AUTHENTICATION_AUTO_CONNECT(self):
+    def EMAIL_AUTHENTICATION_AUTO_CONNECT(self) -> bool:
         """In case email authentication is applied, this setting controls
         whether or not the social account is automatically connected to the
         local account. In case of ``False`` (the default) the local account
@@ -120,26 +120,26 @@ class AppSettings:
         return self._setting("EMAIL_AUTHENTICATION_AUTO_CONNECT", False)
 
     @property
-    def ADAPTER(self):
+    def ADAPTER(self) -> str:
         return self._setting(
             "ADAPTER",
             "allauth.socialaccount.adapter.DefaultSocialAccountAdapter",
         )
 
     @property
-    def FORMS(self):
+    def FORMS(self) -> dict:
         return self._setting("FORMS", {})
 
     @property
-    def LOGIN_ON_GET(self):
+    def LOGIN_ON_GET(self) -> bool:
         return self._setting("LOGIN_ON_GET", False)
 
     @property
-    def STORE_TOKENS(self):
+    def STORE_TOKENS(self) -> bool:
         return self._setting("STORE_TOKENS", False)
 
     @property
-    def UID_MAX_LENGTH(self):
+    def UID_MAX_LENGTH(self) -> int:
         return 191
 
     @property
@@ -147,11 +147,11 @@ class AppSettings:
         return self._setting("SOCIALACCOUNT_STR", None)
 
     @property
-    def REQUESTS_TIMEOUT(self):
+    def REQUESTS_TIMEOUT(self) -> int:
         return self._setting("REQUESTS_TIMEOUT", 5)
 
     @property
-    def OPENID_CONNECT_URL_PREFIX(self):
+    def OPENID_CONNECT_URL_PREFIX(self) -> str:
         return self._setting("OPENID_CONNECT_URL_PREFIX", "oidc")
 
 

@@ -13,7 +13,7 @@ from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.models import SocialAccount, SocialLogin
 
 
-def validate_disconnect(request, account):
+def validate_disconnect(request, account) -> None:
     """
     Validate whether or not the socialaccount account can be
     safely disconnected.
@@ -39,7 +39,7 @@ def validate_disconnect(request, account):
     adapter.validate_disconnect(account, accounts)
 
 
-def disconnect(request, account):
+def disconnect(request, account) -> None:
     if account_settings.REAUTHENTICATION_REQUIRED:
         flows.reauthentication.raise_if_reauthentication_required(request)
 

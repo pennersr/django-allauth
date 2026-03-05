@@ -90,7 +90,7 @@ def parse_rates(rates: Optional[str]) -> List[Rate]:
     return ret
 
 
-def get_cache_key(request, *, action: str, rate: Rate, key=None, user=None):
+def get_cache_key(request, *, action: str, rate: Rate, key=None, user=None) -> str:
     from allauth.account.adapter import get_adapter
 
     source: Tuple[str, ...]
@@ -206,7 +206,7 @@ def handler429(request) -> HttpResponse:
         )
 
 
-def clear(request, *, config: dict, action: str, key=None, user=None):
+def clear(request, *, config: dict, action: str, key=None, user=None) -> None:
     rates = parse_rates(config.get(action))
     for rate in rates:
         cache_key = get_cache_key(request, action=action, rate=rate, key=key, user=user)

@@ -13,7 +13,7 @@ class _BaseAddWebAuthnForm(forms.Form):
     name = forms.CharField(required=False)
     credential = forms.JSONField(required=True, widget=forms.HiddenInput)
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         self.user = kwargs.pop("user")
         initial = kwargs.setdefault("initial", {})
         initial.setdefault(
@@ -24,7 +24,7 @@ class _BaseAddWebAuthnForm(forms.Form):
         )
         super().__init__(*args, **kwargs)
 
-    def clean_name(self):
+    def clean_name(self) -> str:
         """
         We don't want to make `name` a required field, as the WebAuthn
         ceremony happens before posting the resulting credential, and we don't
@@ -70,11 +70,11 @@ class AuthenticateWebAuthnForm(forms.Form):
     reauthenticated = False
     passwordless = False
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         self.user = kwargs.pop("user")
         super().__init__(*args, **kwargs)
 
-    def clean_credential(self):
+    def clean_credential(self) -> Authenticator:
         credential = self.cleaned_data["credential"]
         # Explicitly parse JSON payload -- otherwise, authenticate_complete()
         # crashes with some random TypeError and we don't want to do
@@ -88,7 +88,7 @@ class AuthenticateWebAuthnForm(forms.Form):
         clear_rl()
         return authenticator
 
-    def save(self):
+    def save(self) -> None:
         authenticator = self.cleaned_data["credential"]
         post_authentication(
             context.request,
@@ -102,7 +102,7 @@ class LoginWebAuthnForm(AuthenticateWebAuthnForm):
     reauthenticated = False
     passwordless = True
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, user=None, **kwargs)
 
 
@@ -114,7 +114,7 @@ class ReauthenticateWebAuthnForm(AuthenticateWebAuthnForm):
 class EditWebAuthnForm(forms.Form):
     name = forms.CharField(required=True)
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         self.instance = kwargs.pop("instance")
         initial = kwargs.setdefault("initial", {})
         initial.setdefault("name", self.instance.wrap().name)

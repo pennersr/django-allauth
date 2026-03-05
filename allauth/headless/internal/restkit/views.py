@@ -30,7 +30,7 @@ class RESTView(View):
             input_class = input_class.get(self.request.method)
         return input_class
 
-    def get_input_kwargs(self):
+    def get_input_kwargs(self) -> dict:
         return {}
 
     def handle_input(self, data):

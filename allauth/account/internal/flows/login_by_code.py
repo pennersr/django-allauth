@@ -54,13 +54,13 @@ class LoginCodeVerificationProcess(AbstractCodeVerificationProcess):
         else:
             return self.stage.exit()
 
-    def abort(self):
+    def abort(self) -> None:
         clear_login(self.request)
 
-    def persist(self):
+    def persist(self) -> None:
         stash_login(self.request, self.stage.login)
 
-    def send(self):
+    def send(self) -> None:
         email = self.state.get("email")
         phone = self.state.get("phone")
         if email:
@@ -70,7 +70,7 @@ class LoginCodeVerificationProcess(AbstractCodeVerificationProcess):
         else:
             raise ValueError()
 
-    def send_by_phone(self, phone):
+    def send_by_phone(self, phone) -> None:
         adapter = get_adapter()
         if self.user:
             code = adapter._generate_phone_verification_code_compat(
@@ -85,7 +85,7 @@ class LoginCodeVerificationProcess(AbstractCodeVerificationProcess):
                 adapter.send_unknown_account_sms(phone)
         self.add_sent_message({"recipient": phone, "phone": phone})
 
-    def send_by_email(self, email):
+    def send_by_email(self, email) -> None:
         adapter = get_adapter()
         if not self.user:
             if self.stage.login.signup:
@@ -102,7 +102,7 @@ class LoginCodeVerificationProcess(AbstractCodeVerificationProcess):
             self.state["code"] = code
         self.add_sent_message({"email": email, "recipient": email})
 
-    def add_sent_message(self, context):
+    def add_sent_message(self, context) -> None:
         get_adapter().add_message(
             self.request,
             messages.SUCCESS,

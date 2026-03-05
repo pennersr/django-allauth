@@ -1,7 +1,7 @@
 import base64
 
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseBase, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
@@ -25,12 +25,12 @@ class ActivateTOTPView(FormView):
     form_class = ActivateTOTPForm
     template_name = f"mfa/totp/activate_form.{account_settings.TEMPLATE_EXTENSION}"
 
-    def dispatch(self, request, *args, **kwargs):
+    def dispatch(self, request, *args, **kwargs) -> HttpResponseBase:
         if is_mfa_enabled(request.user, [Authenticator.Type.TOTP]):
             return HttpResponseRedirect(reverse("mfa_deactivate_totp"))
         return super().dispatch(request, *args, **kwargs)
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict:
         ret = super().get_context_data(**kwargs)
         adapter = get_adapter()
         totp_url = adapter.build_totp_url(
@@ -49,7 +49,7 @@ class ActivateTOTPView(FormView):
         )
         return ret
 
-    def get_form_kwargs(self):
+    def get_form_kwargs(self) -> dict:
         ret = super().get_form_kwargs()
         ret["user"] = self.request.user
         return ret
@@ -57,12 +57,12 @@ class ActivateTOTPView(FormView):
     def get_form_class(self):
         return get_form_class(app_settings.FORMS, "activate_totp", self.form_class)
 
-    def get_success_url(self):
+    def get_success_url(self) -> str:
         if self.did_generate_recovery_codes:
             return reverse("mfa_view_recovery_codes")
         return reverse("mfa_index")
 
-    def form_valid(self, form):
+    def form_valid(self, form) -> HttpResponse:
         totp_auth, rc_auth = flows.activate_totp(self.request, form)
         self.did_generate_recovery_codes = bool(rc_auth)
         return super().form_valid(form)
@@ -77,7 +77,7 @@ class DeactivateTOTPView(FormView):
     template_name = f"mfa/totp/deactivate_form.{account_settings.TEMPLATE_EXTENSION}"
     success_url = reverse_lazy("mfa_index")
 
-    def dispatch(self, request, *args, **kwargs):
+    def dispatch(self, request, *args, **kwargs) -> HttpResponseBase:
         self.authenticator = get_object_or_404(
             Authenticator,
             user=self.request.user,
@@ -95,7 +95,7 @@ class DeactivateTOTPView(FormView):
         """
         return super().dispatch(request, *args, **kwargs)
 
-    def get_form_kwargs(self):
+    def get_form_kwargs(self) -> dict:
         ret = super().get_form_kwargs()
         ret["authenticator"] = self.authenticator
         # The deactivation form does not require input, yet, can generate
@@ -108,7 +108,7 @@ class DeactivateTOTPView(FormView):
     def get_form_class(self):
         return get_form_class(app_settings.FORMS, "deactivate_totp", self.form_class)
 
-    def form_valid(self, form):
+    def form_valid(self, form) -> HttpResponse:
         flows.deactivate_totp(self.request, self.authenticator)
         return super().form_valid(form)
 

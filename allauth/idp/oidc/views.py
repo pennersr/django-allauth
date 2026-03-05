@@ -68,7 +68,7 @@ def _enforce_csrf(request) -> Optional[HttpResponseForbidden]:
 
 @method_decorator(login_not_required, name="dispatch")
 class ConfigurationView(View):
-    def get(self, request):
+    def get(self, request) -> JsonResponse:
         userinfo_endpoint = app_settings.USERINFO_ENDPOINT
         if not userinfo_endpoint:
             userinfo_endpoint = build_absolute_uri(
@@ -116,7 +116,7 @@ class AuthorizationView(FormView):
     form_class = AuthorizationForm
     template_name = f"idp/oidc/authorization_form.{account_settings.TEMPLATE_EXTENSION}"
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs) -> HttpResponse:
         response = self._login_required(request)
         if response:
             return response
@@ -141,7 +141,7 @@ class AuthorizationView(FormView):
             return self._skip_consent()
         return super().get(request, *args, **kwargs)
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs) -> HttpResponse:
         signed_request_info = request.POST.get("request")
         if not signed_request_info:
             return HttpResponseRedirect(
@@ -221,7 +221,7 @@ class AuthorizationView(FormView):
         ret.update({"requested_scopes": self._scopes, "user": self.request.user})
         return ret
 
-    def get_initial(self):
+    def get_initial(self) -> dict:
         signer = Signer()
         ret = {}
         request_info = self._request_info
@@ -232,7 +232,7 @@ class AuthorizationView(FormView):
         ret["request"] = signer.sign_object((self._scopes, request_info))
         return ret
 
-    def form_valid(self, form):
+    def form_valid(self, form) -> HttpResponse:
         orequest = extract_params(self.request)
         scopes = form.cleaned_data["scopes"]
         credentials = {"user": self.request.user}
@@ -249,7 +249,7 @@ class AuthorizationView(FormView):
         except errors.FatalClientError as e:
             return respond_html_error(self.request, error=e)
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict:
         ret = super().get_context_data(**kwargs)
         ret.update(
             {
@@ -294,7 +294,7 @@ device_code = DeviceCodeView.as_view()
 @method_decorator(csrf_exempt, name="dispatch")
 @method_decorator(login_required, name="dispatch")
 class DeviceAuthorizationView(View):
-    def dispatch(self, request, *args, **kwargs):
+    def dispatch(self, request, *args, **kwargs) -> HttpResponse:
         if "code" in request.GET:
             form = ConfirmCodeForm(request.GET)
             if form.is_valid():
@@ -354,7 +354,7 @@ device_authorization = DeviceAuthorizationView.as_view()
 @method_decorator(login_not_required, name="dispatch")
 class TokenView(View):
 
-    def post(self, request):
+    def post(self, request) -> HttpResponse:
         if request.POST.get("grant_type") == Client.GrantType.DEVICE_CODE:
             return self._post_device_token(request)
         return self._create_token_response(request)
@@ -423,7 +423,7 @@ user_info = UserInfoView.as_view()
 
 @method_decorator(login_not_required, name="dispatch")
 class JwksView(View):
-    def get(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs) -> JsonResponse:
         keys = []
         for pem in [app_settings.PRIVATE_KEY]:
             jwk, _ = jwkkit.load_jwk_from_pem(pem)
@@ -439,7 +439,7 @@ jwks = JwksView.as_view()
 @method_decorator(csrf_exempt, name="dispatch")
 @method_decorator(login_not_required, name="dispatch")
 class RevokeView(View):
-    def post(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs) -> HttpResponse:
         orequest = extract_params(request)
         oresponse = get_server().create_revocation_response(*orequest)
         return convert_response(*oresponse)
@@ -458,7 +458,7 @@ class LogoutView(FormView):
     form_class = RPInitiatedLogoutForm
     template_name = f"idp/oidc/logout.{account_settings.TEMPLATE_EXTENSION}"
 
-    def get(self, request):
+    def get(self, request) -> HttpResponse:
         form = self.form_class(request.GET)
         if not form.is_valid():
             return self.form_invalid(form)
@@ -466,7 +466,7 @@ class LogoutView(FormView):
             return self._handle(form, True)
         return self.render_to_response(self.get_context_data(form=form))
 
-    def form_invalid(self, form):
+    def form_invalid(self, form) -> HttpResponse:
         return respond_html_error(self.request, form=form)
 
     def form_valid(self, form) -> HttpResponse:

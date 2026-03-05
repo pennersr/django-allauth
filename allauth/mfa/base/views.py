@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.forms import Form
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseBase, HttpResponseRedirect
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.decorators import method_decorator
@@ -30,7 +30,7 @@ class AuthenticateView(TemplateView):
     webauthn_form_class = AuthenticateWebAuthnForm
     template_name = f"mfa/authenticate.{account_settings.TEMPLATE_EXTENSION}"
 
-    def dispatch(self, request, *args, **kwargs):
+    def dispatch(self, request, *args, **kwargs) -> HttpResponseBase:
         self.stage = request._login_stage
         if not is_mfa_enabled(
             self.stage.login.user,
@@ -40,7 +40,7 @@ class AuthenticateView(TemplateView):
         self.form = self._build_forms()
         return super().dispatch(request, *args, **kwargs)
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs) -> HttpResponse:
         if self.form.is_valid():
             return self.form_valid(self.form)
         else:
@@ -84,14 +84,14 @@ class AuthenticateView(TemplateView):
             app_settings.FORMS, "authenticate_webauthn", self.webauthn_form_class
         )
 
-    def form_valid(self, form):
+    def form_valid(self, form) -> HttpResponse:
         form.save()
         return self.stage.exit()
 
-    def form_invalid(self, form):
+    def form_invalid(self, form) -> HttpResponse:
         return super().get(self.request)
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict:
         ret = super().get_context_data()
         ret.update(
             {
@@ -118,7 +118,7 @@ class ReauthenticateView(BaseReauthenticateView):
     form_class = ReauthenticateForm
     template_name = f"mfa/reauthenticate.{account_settings.TEMPLATE_EXTENSION}"
 
-    def get_form_kwargs(self):
+    def get_form_kwargs(self) -> dict:
         ret = super().get_form_kwargs()
         ret["user"] = self.request.user
         return ret
@@ -126,7 +126,7 @@ class ReauthenticateView(BaseReauthenticateView):
     def get_form_class(self):
         return get_form_class(app_settings.FORMS, "reauthenticate", self.form_class)
 
-    def form_valid(self, form):
+    def form_valid(self, form) -> HttpResponse:
         form.save()
         return super().form_valid(form)
 
@@ -172,7 +172,7 @@ class TrustView(FormView):
             trust_.trust_browser(self.request, stage.login.user, response)
         return response
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict:
         ret = super().get_context_data(**kwargs)
         now = timezone.now()
         ret["trust_from"] = now

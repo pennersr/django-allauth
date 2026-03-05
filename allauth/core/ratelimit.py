@@ -8,7 +8,7 @@ from allauth.core.internal.ratelimit import Rate  # noqa
 from allauth.utils import import_callable
 
 
-def clear(request, *, action, key=None, user=None):
+def clear(request, *, action: str, key=None, user=None) -> None:
     from allauth.account import app_settings
 
     _impl.clear(

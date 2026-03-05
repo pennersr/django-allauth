@@ -1,20 +1,20 @@
 class AppSettings:
-    def __init__(self, prefix):
+    def __init__(self, prefix: str) -> None:
         self.prefix = prefix
 
-    def _setting(self, name, dflt):
+    def _setting(self, name: str, dflt):
         from allauth.utils import get_setting
 
         return get_setting(self.prefix + name, dflt)
 
     @property
-    def ADAPTER(self):
+    def ADAPTER(self) -> str:
         return self._setting(
             "ADAPTER", "allauth.usersessions.adapter.DefaultUserSessionsAdapter"
         )
 
     @property
-    def TRACK_ACTIVITY(self):
+    def TRACK_ACTIVITY(self) -> bool:
         """Whether or not sessions are to be actively tracked. When tracking is
         enabled, the last seen IP address and last seen timestamp will be kept
         track of.

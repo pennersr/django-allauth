@@ -9,7 +9,7 @@ from . import app_settings
 
 
 class EmailAddressManager(models.Manager):
-    def can_add_email(self, user):
+    def can_add_email(self, user) -> bool:
         ret = True
         if app_settings.CHANGE_EMAIL:
             #  We always allow adding an email in this case, regardless of
@@ -89,7 +89,7 @@ class EmailAddressManager(models.Manager):
             address.user for address in self.filter(verified=True, email=email.lower())
         ]
 
-    def fill_cache_for_user(self, user, addresses):
+    def fill_cache_for_user(self, user, addresses) -> None:
         """
         In a multi-db setup, inserting records and re-reading them later
         on may result in not being able to find newly inserted
@@ -114,7 +114,7 @@ class EmailAddressManager(models.Manager):
                     return address
             raise self.model.DoesNotExist()
 
-    def is_verified(self, email):
+    def is_verified(self, email: str) -> bool:
         return self.filter(email=email.lower(), verified=True).exists()
 
     def lookup(self, emails):
@@ -134,5 +134,5 @@ class EmailConfirmationManager(models.Manager):
         )
         return Q(sent__lt=sent_threshold)
 
-    def delete_expired_confirmations(self):
+    def delete_expired_confirmations(self) -> None:
         self.all_expired().delete()

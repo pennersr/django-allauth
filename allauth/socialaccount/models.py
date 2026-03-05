@@ -82,7 +82,7 @@ class SocialApp(models.Model):
         verbose_name = _("social application")
         verbose_name_plural = _("social applications")
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
     def get_provider(self, request):
@@ -129,7 +129,7 @@ class SocialAccount(models.Model):
     def authenticate(self):
         return authenticate(account=self)
 
-    def __str__(self):
+    def __str__(self) -> str:
         from .helpers import socialaccount_user_display
 
         return socialaccount_user_display(self)
@@ -175,7 +175,7 @@ class SocialToken(models.Model):
         verbose_name = _("social application token")
         verbose_name_plural = _("social application tokens")
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self._meta.verbose_name} ({self.pk})"
 
 
@@ -222,7 +222,7 @@ class SocialLogin:
         provider=None,
         phone: str | None = None,
         phone_verified: bool = False,
-    ):
+    ) -> None:
         self.provider = provider
         if token:
             assert token.account is None or token.account == account  # nosec

@@ -28,7 +28,7 @@ def _login(request, sociallogin):
     )
 
 
-def pre_social_login(request, sociallogin):
+def pre_social_login(request, sociallogin) -> None:
     clear_pending_signup(request)
     assert not sociallogin.is_existing  # nosec
     sociallogin.lookup()
@@ -81,7 +81,7 @@ def _authenticate(request, sociallogin):
     return ret
 
 
-def record_authentication(request, sociallogin):
+def record_authentication(request, sociallogin) -> None:
     from allauth.account.internal.flows.login import record_authentication
 
     record_authentication(

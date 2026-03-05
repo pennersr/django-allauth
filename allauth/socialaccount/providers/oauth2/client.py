@@ -37,7 +37,7 @@ class OAuth2Client:
         self.headers = headers
         self.basic_auth = basic_auth
 
-    def get_redirect_url(self, authorization_url, scope, extra_params):
+    def get_redirect_url(self, authorization_url, scope, extra_params) -> str:
         scope = self.scope_delimiter.join(set(scope))
         params = {
             self.client_id_parameter: self.consumer_key,
@@ -100,7 +100,7 @@ class OAuth2Client:
                 raise OAuth2Error(f"Error retrieving access token: {resp.content}")
             return access_token
 
-    def _strip_empty_keys(self, params):
+    def _strip_empty_keys(self, params) -> None:
         """Added because the Dropbox OAuth2 flow doesn't
         work when scope is passed in, which is empty.
         """

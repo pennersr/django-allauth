@@ -3,7 +3,7 @@ import hashlib
 from secrets import token_urlsafe
 
 
-def generate_code_challenge():
+def generate_code_challenge() -> dict:
     # Create a code verifier with a length of 128 characters
     code_verifier = token_urlsafe(96)
     hashed_verifier = hashlib.sha256(code_verifier.encode("ascii"))

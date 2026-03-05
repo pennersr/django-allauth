@@ -2,16 +2,16 @@ from datetime import timedelta
 
 
 class AppSettings:
-    def __init__(self, prefix):
+    def __init__(self, prefix: str) -> None:
         self.prefix = prefix
 
-    def _setting(self, name, dflt):
+    def _setting(self, name: str, dflt):
         from allauth.utils import get_setting
 
         return get_setting(f"{self.prefix}{name}", dflt)
 
     @property
-    def ADAPTER(self):
+    def ADAPTER(self) -> str:
         return self._setting("ADAPTER", "allauth.mfa.adapter.DefaultMFAAdapter")
 
     @property
@@ -19,39 +19,39 @@ class AppSettings:
         return self._setting("ALLOW_UNVERIFIED_EMAIL", False)
 
     @property
-    def FORMS(self):
+    def FORMS(self) -> dict:
         return self._setting("FORMS", {})
 
     @property
-    def RECOVERY_CODE_COUNT(self):
+    def RECOVERY_CODE_COUNT(self) -> int:
         """
         The number of recovery codes.
         """
         return self._setting("RECOVERY_CODE_COUNT", 10)
 
     @property
-    def RECOVERY_CODE_DIGITS(self):
+    def RECOVERY_CODE_DIGITS(self) -> int:
         """
         The number of digits of each recovery code.
         """
         return self._setting("RECOVERY_CODE_DIGITS", 8)
 
     @property
-    def TOTP_PERIOD(self):
+    def TOTP_PERIOD(self) -> int:
         """
         The period that a TOTP code will be valid for, in seconds.
         """
         return self._setting("TOTP_PERIOD", 30)
 
     @property
-    def TOTP_DIGITS(self):
+    def TOTP_DIGITS(self) -> int:
         """
         The number of digits for TOTP codes
         """
         return self._setting("TOTP_DIGITS", 6)
 
     @property
-    def TOTP_ISSUER(self):
+    def TOTP_ISSUER(self) -> str:
         """
         The issuer.
         """
@@ -73,19 +73,19 @@ class AppSettings:
         return code
 
     @property
-    def TOTP_TOLERANCE(self):
+    def TOTP_TOLERANCE(self) -> int:
         """
         The number of time steps in the past or future to allow. Lower values are more secure, but more likely to fail due to clock drift.
         """
         return self._setting("TOTP_TOLERANCE", 0)
 
     @property
-    def SUPPORTED_TYPES(self):
+    def SUPPORTED_TYPES(self) -> list[str]:
         dflt = ["recovery_codes", "totp"]
         return self._setting("SUPPORTED_TYPES", dflt)
 
     @property
-    def WEBAUTHN_ALLOW_INSECURE_ORIGIN(self):
+    def WEBAUTHN_ALLOW_INSECURE_ORIGIN(self) -> bool:
         return self._setting("WEBAUTHN_ALLOW_INSECURE_ORIGIN", False)
 
     @property

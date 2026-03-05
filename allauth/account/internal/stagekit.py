@@ -29,11 +29,11 @@ def redirect_to_pending_stage(request, stage: LoginStage):
     return HttpResponseRedirect(reverse("account_login"))
 
 
-def clear_login(request):
+def clear_login(request) -> None:
     request.session.pop(LOGIN_SESSION_KEY, None)
 
 
-def unstash_login(request, peek=False):
+def unstash_login(request, peek: bool = False):
     login = None
     if peek:
         data = request.session.get(LOGIN_SESSION_KEY)
@@ -53,6 +53,6 @@ def unstash_login(request, peek=False):
     return login
 
 
-def stash_login(request, login):
+def stash_login(request, login) -> None:
     request.session[LOGIN_SESSION_KEY] = login.serialize()
     request._account_login_accessed = True

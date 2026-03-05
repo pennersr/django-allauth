@@ -16,7 +16,7 @@ from allauth.core.exceptions import ImmediateHttpResponse
 AUTHENTICATION_METHODS_SESSION_KEY = "account_authentication_methods"
 
 
-def record_authentication(request, user, method, **extra_data):
+def record_authentication(request, user, method: str, **extra_data) -> None:
     """Here we keep a log of all authentication methods used within the current
     session.  Important to note is that having entries here does not imply that
     a user is fully signed in. For example, consider a case where a user

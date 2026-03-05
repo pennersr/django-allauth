@@ -24,7 +24,7 @@ JWT_FIELD_TO_GRAPH_API_FIELD_MAP = {
 }
 
 
-def compute_appsecret_proof(app, token):
+def compute_appsecret_proof(app, token) -> str:
     # Generate an appsecret_proof parameter to secure the Graph API call
     # see https://developers.facebook.com/docs/graph-api/securing-requests
     msg = token.token.encode("utf-8")
@@ -66,7 +66,7 @@ def get_app_token(provider):
     return app_token
 
 
-def inspect_token(provider, input_token):
+def inspect_token(provider, input_token) -> None:
     app_token = get_app_token(provider)
     with get_adapter().get_requests_session() as sess:
         resp = sess.get(

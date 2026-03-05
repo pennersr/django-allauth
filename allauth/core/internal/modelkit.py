@@ -13,7 +13,7 @@ from django.utils.encoding import force_bytes, force_str
 SERIALIZED_DB_FIELD_PREFIX = "_db_"
 
 
-def serialize_instance(instance):
+def serialize_instance(instance) -> dict:
     """
     Since Django 1.6 items added to the session are no longer pickled,
     but JSON encoded by default. We are storing partially complete models

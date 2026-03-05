@@ -20,7 +20,7 @@ from allauth.core.internal import httpkit
 from allauth.utils import get_request_param
 
 
-def _unicode_ci_compare(s1, s2) -> bool:
+def _unicode_ci_compare(s1: str, s2: str) -> bool:
     """
     Perform case-insensitive comparison of two identifiers, using the
     recommended algorithm from Unicode Technical Report 36, section
@@ -281,7 +281,7 @@ def filter_users_by_email(
     return list(set(users))
 
 
-def passthrough_next_redirect_url(request, url, redirect_field_name):
+def passthrough_next_redirect_url(request, url: str, redirect_field_name: str) -> str:
     next_url = get_next_redirect_url(request, redirect_field_name)
     if next_url:
         url = httpkit.add_query_params(url, {redirect_field_name: next_url})

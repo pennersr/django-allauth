@@ -14,12 +14,12 @@ class ActivateTOTPForm(forms.Form):
         ),
     )
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         self.user = kwargs.pop("user")
         super().__init__(*args, **kwargs)
         self.secret = auth.get_totp_secret(regenerate=not self.is_bound)
 
-    def clean_code(self):
+    def clean_code(self) -> str:
         validate_can_add_authenticator(self.user)
         code = self.cleaned_data["code"]
         if not auth.validate_totp_code(self.secret, code):
@@ -28,7 +28,7 @@ class ActivateTOTPForm(forms.Form):
 
 
 class DeactivateTOTPForm(forms.Form):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         self.authenticator = kwargs.pop("authenticator")
         super().__init__(*args, **kwargs)
 

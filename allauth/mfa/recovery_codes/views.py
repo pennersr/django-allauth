@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.http import Http404
+from django.http import Http404, HttpResponse, HttpResponseBase
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
@@ -21,7 +21,7 @@ class GenerateRecoveryCodesView(FormView):
     template_name = f"mfa/recovery_codes/generate.{account_settings.TEMPLATE_EXTENSION}"
     success_url = reverse_lazy("mfa_view_recovery_codes")
 
-    def form_valid(self, form):
+    def form_valid(self, form) -> HttpResponse:
         flows.generate_recovery_codes(self.request)
         return super().form_valid(form)
 
@@ -36,7 +36,7 @@ class GenerateRecoveryCodesView(FormView):
         ret["unused_code_count"] = len(unused_codes)
         return ret
 
-    def get_form_kwargs(self):
+    def get_form_kwargs(self) -> dict:
         ret = super().get_form_kwargs()
         ret["user"] = self.request.user
         return ret
@@ -56,16 +56,16 @@ class DownloadRecoveryCodesView(TemplateView):
     template_name = "mfa/recovery_codes/download.txt"
     content_type = "text/plain"
 
-    def dispatch(self, request, *args, **kwargs):
+    def dispatch(self, request, *args, **kwargs) -> HttpResponseBase:
         self.authenticator = flows.view_recovery_codes(self.request)
         if not self.authenticator:
             raise Http404()
         self.unused_codes = self.authenticator.wrap().get_unused_codes()
         if not self.unused_codes:
-            return Http404()
+            raise Http404()
         return super().dispatch(request, *args, **kwargs)
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict:
         ret = super().get_context_data(**kwargs)
         ret["unused_codes"] = self.unused_codes
         return ret
@@ -83,7 +83,7 @@ download_recovery_codes = DownloadRecoveryCodesView.as_view()
 class ViewRecoveryCodesView(TemplateView):
     template_name = f"mfa/recovery_codes/index.{account_settings.TEMPLATE_EXTENSION}"
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict:
         ret = super().get_context_data(**kwargs)
         authenticator = flows.view_recovery_codes(self.request)
         if not authenticator:

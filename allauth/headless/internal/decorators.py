@@ -9,7 +9,7 @@ from allauth.headless.constants import Client
 from allauth.headless.internal import authkit
 
 
-def mark_request_as_headless(request, client):
+def mark_request_as_headless(request, client) -> None:
     request.allauth.headless = SimpleNamespace()
     request.allauth.headless.client = client
 

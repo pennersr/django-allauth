@@ -1,4 +1,5 @@
 from django.core.exceptions import ValidationError
+from django.http import HttpResponse
 
 from allauth.core.exceptions import SignupClosedException
 from allauth.headless.base.response import (
@@ -38,7 +39,7 @@ class ProviderSignupView(APIView):
             return ForbiddenResponse(request)
         return super().handle(request, *args, **kwargs)
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs) -> HttpResponse:
         return SocialLoginResponse(request, self.sociallogin)
 
     def post(self, request, *args, **kwargs):
@@ -47,7 +48,7 @@ class ProviderSignupView(APIView):
         )
         return AuthenticationResponse.from_response(request, response)
 
-    def get_input_kwargs(self):
+    def get_input_kwargs(self) -> dict:
         return {"sociallogin": self.sociallogin}
 
 
@@ -78,7 +79,7 @@ class ManageProvidersView(AuthenticatedAPIView):
         "DELETE": DeleteProviderAccountInput,
     }
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs) -> HttpResponse:
         return self.respond_provider_accounts(request)
 
     @classmethod
@@ -90,7 +91,7 @@ class ManageProvidersView(AuthenticatedAPIView):
         flows.connect.disconnect(request, self.input.cleaned_data["account"])
         return self.respond_provider_accounts(request)
 
-    def get_input_kwargs(self):
+    def get_input_kwargs(self) -> dict:
         return {"user": self.request.user}
 
 

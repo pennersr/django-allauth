@@ -2,7 +2,7 @@ from http import HTTPStatus
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic.base import TemplateView
@@ -37,23 +37,23 @@ class SignupView(
         return get_form_class(app_settings.FORMS, "signup", self.form_class)
 
     @method_decorator(login_not_required)
-    def dispatch(self, request, *args, **kwargs):
+    def dispatch(self, request, *args, **kwargs) -> HttpResponse:
         self.sociallogin = flows.signup.get_pending_signup(request)
         if not self.sociallogin:
             return HttpResponseRedirect(reverse("account_login"))
         return super().dispatch(request, *args, **kwargs)
 
-    def is_open(self):
+    def is_open(self) -> bool:
         return get_adapter(self.request).is_open_for_signup(
             self.request, self.sociallogin
         )
 
-    def get_form_kwargs(self):
+    def get_form_kwargs(self) -> dict:
         ret = super().get_form_kwargs()
         ret["sociallogin"] = self.sociallogin
         return ret
 
-    def form_valid(self, form):
+    def form_valid(self, form) -> HttpResponse:
         return flows.signup.signup_by_form(self.request, self.sociallogin, form)
 
     def get_context_data(self, **kwargs):
@@ -66,7 +66,7 @@ class SignupView(
         )
         return ret
 
-    def get_authenticated_redirect_url(self):
+    def get_authenticated_redirect_url(self) -> str:
         return reverse("socialaccount_connections")
 
 
@@ -88,7 +88,7 @@ class LoginErrorView(TemplateView):
         f"socialaccount/authentication_error.{account_settings.TEMPLATE_EXTENSION}"
     )
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs) -> HttpResponse:
         return self.render_to_response(
             self.get_context_data(**kwargs),
             status=HTTPStatus.UNAUTHORIZED,
@@ -107,12 +107,12 @@ class ConnectionsView(AjaxCapableProcessFormViewMixin, FormView):
     def get_form_class(self):
         return get_form_class(app_settings.FORMS, "disconnect", self.form_class)
 
-    def get_form_kwargs(self):
+    def get_form_kwargs(self) -> dict:
         kwargs = super().get_form_kwargs()
         kwargs["request"] = self.request
         return kwargs
 
-    def form_valid(self, form):
+    def form_valid(self, form) -> HttpResponse:
         form.save()
         return super().form_valid(form)
 

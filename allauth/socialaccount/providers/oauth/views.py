@@ -1,5 +1,6 @@
 import logging
 
+from django.http import HttpRequest
 from django.urls import reverse
 
 from allauth.account.internal.decorators import login_not_required
@@ -20,7 +21,7 @@ logger = logging.getLogger(__name__)
 class OAuthAdapter:
     client_class = OAuthClient
 
-    def __init__(self, request):
+    def __init__(self, request) -> None:
         self.request = request
 
     def complete_login(self, request, app):
@@ -54,6 +55,8 @@ class OAuthAdapter:
 
 
 class OAuthView:
+    request: HttpRequest
+
     @classmethod
     def adapter_view(cls, adapter):
         @login_not_required

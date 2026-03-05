@@ -14,7 +14,7 @@ def session_store(session_key=None):
     return engine.SessionStore(session_key=session_key)
 
 
-def new_session():
+def new_session() -> SessionBase:
     return session_store()
 
 

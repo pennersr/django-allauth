@@ -1,4 +1,4 @@
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.views import View
 
 from allauth import app_settings as allauth_settings
@@ -9,7 +9,7 @@ from allauth.socialaccount.providers.base.utils import respond_to_login_on_get
 class BaseLoginView(View):
     provider_id: str  # Set in subclasses
 
-    def dispatch(self, request, *args, **kwargs):
+    def dispatch(self, request, *args, **kwargs) -> HttpResponse:
         if allauth_settings.HEADLESS_ONLY:
             raise Http404
         provider = self.get_provider()

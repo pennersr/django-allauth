@@ -26,7 +26,7 @@ def get_oldest_state(
     return oldest_id, oldest
 
 
-def gc_states(states: Dict[str, Tuple[Dict[str, Any], float]]):
+def gc_states(states: Dict[str, Tuple[Dict[str, Any], float]]) -> None:
     if len(states) > MAX_STATES:
         oldest_id, oldest = get_oldest_state(states)
         if oldest_id:

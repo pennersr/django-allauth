@@ -1,5 +1,6 @@
 from http import HTTPStatus
 
+from django.http import HttpResponse
 from django.utils.decorators import method_decorator
 
 from allauth.account import app_settings as account_settings
@@ -94,7 +95,7 @@ class ConfirmLoginCodeView(APIView):
         response = self.process.finish(None)
         return AuthenticationResponse.from_response(request, response)
 
-    def get_input_kwargs(self):
+    def get_input_kwargs(self) -> dict:
         kwargs = super().get_input_kwargs()
         kwargs["code"] = self.process.code
         return kwargs
@@ -140,7 +141,7 @@ class SignupView(APIView):
 
 
 class SessionView(APIView):
-    def get(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs) -> HttpResponse:
         return AuthenticationResponse(request)
 
     def delete(self, request, *args, **kwargs):
@@ -171,7 +172,7 @@ class VerifyEmailView(APIView):
                 return ConflictResponse(request)
         return super().handle(request, *args, **kwargs)
 
-    def get_input_kwargs(self):
+    def get_input_kwargs(self) -> dict:
         return {"process": self.process}
 
     def handle_invalid_input(self, input: VerifyEmailInput):
@@ -179,7 +180,7 @@ class VerifyEmailView(APIView):
             self.process.record_invalid_attempt()
         return super().handle_invalid_input(input)
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs) -> HttpResponse:
         key = request.headers.get("x-email-verification-key", "")
         input = self.input_class({"key": key}, process=self.process)
         if not input.is_valid():
@@ -230,7 +231,7 @@ class VerifyPhoneView(APIView):
             return ConflictResponse(request)
         return super().handle(request, *args, **kwargs)
 
-    def get_input_kwargs(self):
+    def get_input_kwargs(self) -> dict:
         return {
             "code": self.process.code,
             "user": self.process.user,
@@ -324,7 +325,7 @@ class ResetPasswordView(APIView):
                 return ConflictResponse(request)
         return super().handle(request, *args, **kwargs)
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs) -> HttpResponse:
         key = request.headers.get("X-Password-Reset-Key", "")
         if self.process:
             input = ResetPasswordKeyInput({"key": key}, code=self.process.code)
@@ -339,7 +340,7 @@ class ResetPasswordView(APIView):
                 return ErrorResponse(request, input=input)
             return response.PasswordResetKeyResponse(request, input.user)
 
-    def get_input_kwargs(self):
+    def get_input_kwargs(self) -> dict:
         ret = {}
         if self.process:
             ret.update({"code": self.process.code, "user": self.process.user})
@@ -371,7 +372,7 @@ class ChangePasswordView(AuthenticatedAPIView):
             password_change.finalize_password_change(request, request.user)
         return AuthenticationResponse(request)
 
-    def get_input_kwargs(self):
+    def get_input_kwargs(self) -> dict:
         return {"user": self.request.user}
 
 
@@ -402,7 +403,7 @@ class ManageEmailView(APIView):
             return resp
         return super().dispatch(request, *args, **kwargs)
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs) -> HttpResponse:
         return self._respond_email_list()
 
     def _respond_email_list(self):
@@ -453,7 +454,7 @@ class ManageEmailView(APIView):
             return ChangeEmailInput
         return super().get_input_class()
 
-    def get_input_kwargs(self):
+    def get_input_kwargs(self) -> dict:
         if self.verification_stage_process:
             return {"email": self.verification_stage_process.email}
         return {"user": self.user}
@@ -485,7 +486,7 @@ class ManagePhoneView(APIView):
             return resp
         return super().dispatch(request, *args, **kwargs)
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs) -> HttpResponse:
         phone_numbers = []
         phone_verified = get_account_adapter().get_phone(self.request.user)
         if phone_verified:
@@ -516,7 +517,7 @@ class ManagePhoneView(APIView):
             status=HTTPStatus.ACCEPTED,
         )
 
-    def get_input_kwargs(self):
+    def get_input_kwargs(self) -> dict:
         phone = None
         phone_verified = get_account_adapter().get_phone(self.user)
         if phone_verified:
@@ -532,5 +533,5 @@ class ReauthenticateView(AuthenticatedAPIView):
         flows.reauthentication.reauthenticate_by_password(self.request)
         return AuthenticationResponse(self.request)
 
-    def get_input_kwargs(self):
+    def get_input_kwargs(self) -> dict:
         return {"user": self.request.user}

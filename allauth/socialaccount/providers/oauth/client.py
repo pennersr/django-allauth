@@ -17,7 +17,7 @@ from allauth.socialaccount.providers.oauth.oauth1_auth import OAuth1
 from allauth.utils import build_absolute_uri, get_request_param
 
 
-def get_token_prefix(url):
+def get_token_prefix(url) -> str:
     """
     Returns a prefix for the token to store in the session so we can hold
     more than one single oauth provider's access key in the session.
@@ -143,7 +143,7 @@ class OAuthClient:
                 % get_token_prefix(self.request_token_url)
             )
 
-    def is_valid(self):
+    def is_valid(self) -> bool:
         try:
             self._get_rt_from_session()
             self.get_access_token()

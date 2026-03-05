@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic.edit import DeleteView, FormView, UpdateView
@@ -32,23 +32,23 @@ class AddWebAuthnView(FormView):
     form_class = AddWebAuthnForm
     template_name = f"mfa/webauthn/add_form.{account_settings.TEMPLATE_EXTENSION}"
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict:
         ret = super().get_context_data()
         creation_options = auth.begin_registration(self.request.user, False)
         ret["js_data"] = {"creation_options": creation_options}
         return ret
 
-    def get_form_kwargs(self):
+    def get_form_kwargs(self) -> dict:
         ret = super().get_form_kwargs()
         ret["user"] = self.request.user
         return ret
 
-    def get_success_url(self):
+    def get_success_url(self) -> str:
         if self.did_generate_recovery_codes:
             return reverse("mfa_view_recovery_codes")
         return reverse("mfa_index")
 
-    def form_valid(self, form):
+    def form_valid(self, form) -> HttpResponse:
         auth, rc_auth = flows.add_authenticator(
             self.request,
             name=form.cleaned_data["name"],
@@ -91,7 +91,7 @@ class RemoveWebAuthnView(NextRedirectMixin, DeleteView):
             user=self.request.user, type=Authenticator.Type.WEBAUTHN
         )
 
-    def form_valid(self, form):
+    def form_valid(self, form) -> HttpResponse:
         authenticator = self.get_object()
         flows.remove_authenticator(self.request, authenticator)
         return HttpResponseRedirect(self.get_success_url())
@@ -103,21 +103,21 @@ remove_webauthn = RemoveWebAuthnView.as_view()
 class LoginWebAuthnView(RedirectAuthenticatedUserMixin, FormView):
     form_class = LoginWebAuthnForm
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs) -> HttpResponse:
         if get_account_adapter().is_ajax(request):
             request_options = auth.begin_authentication(user=None)
             data = {"request_options": request_options}
             return JsonResponse(data)
         return HttpResponseRedirect(reverse("account_login"))
 
-    def form_invalid(self, form):
+    def form_invalid(self, form) -> HttpResponse:
         for message in form.errors.get("credential", []):
             get_account_adapter().add_message(
                 self.request, messages.ERROR, message=message
             )
         return HttpResponseRedirect(reverse("account_login"))
 
-    def form_valid(self, form):
+    def form_valid(self, form) -> HttpResponse:
         authenticator = form.cleaned_data["credential"]
         redirect_url = None
         login = Login(user=authenticator.user, redirect_url=redirect_url)
@@ -132,24 +132,24 @@ class ReauthenticateWebAuthnView(BaseReauthenticateView):
     form_class = ReauthenticateWebAuthnForm
     template_name = f"mfa/webauthn/reauthenticate.{account_settings.TEMPLATE_EXTENSION}"
 
-    def get_form_kwargs(self):
+    def get_form_kwargs(self) -> dict:
         ret = super().get_form_kwargs()
         ret["user"] = self.request.user
         return ret
 
-    def form_invalid(self, form):
+    def form_invalid(self, form) -> HttpResponse:
         for message in form.errors.get("credential", []):
             get_account_adapter().add_message(
                 self.request, messages.ERROR, message=message
             )
         return HttpResponseRedirect(reverse("account_login"))
 
-    def form_valid(self, form):
+    def form_valid(self, form) -> HttpResponse:
         authenticator = form.cleaned_data["credential"]
         flows.reauthenticate(self.request, authenticator)
         return super().form_valid(form)
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict:
         ret = super().get_context_data()
         request_options = auth.begin_authentication(self.request.user)
         ret["js_data"] = {"request_options": request_options}
@@ -184,27 +184,32 @@ class SignupWebAuthnView(FormView):
     form_class = SignupWebAuthnForm
     template_name = f"mfa/webauthn/signup_form.{account_settings.TEMPLATE_EXTENSION}"
 
-    def get_context_data(self, **kwargs):
+    @property
+    def _login_stage(self):
+        return self.request._login_stage
+
+    def get_context_data(self, **kwargs) -> dict:
         ret = super().get_context_data()
-        creation_options = auth.begin_registration(
-            self.request._login_stage.login.user, True
-        )
+        stage = self._login_stage
+        creation_options = auth.begin_registration(stage.login.user, True)
         ret["js_data"] = {"creation_options": creation_options}
         return ret
 
-    def get_form_kwargs(self):
+    def get_form_kwargs(self) -> dict:
         ret = super().get_form_kwargs()
-        ret["user"] = self.request._login_stage.login.user
+        stage = self._login_stage
+        ret["user"] = stage.login.user
         return ret
 
-    def form_valid(self, form):
+    def form_valid(self, form) -> HttpResponse:
+        stage = self._login_stage
         flows.signup_authenticator(
             self.request,
-            user=self.request._login_stage.login.user,
+            user=stage.login.user,
             name=form.cleaned_data["name"],
             credential=form.cleaned_data["credential"],
         )
-        return self.request._login_stage.exit()
+        return stage.exit()
 
 
 signup_webauthn = SignupWebAuthnView.as_view()

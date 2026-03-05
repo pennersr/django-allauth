@@ -147,7 +147,7 @@ class ConflictResponse(APIResponse):
         super().__init__(request, status=HTTPStatus.CONFLICT)
 
 
-def get_config_data(request):
+def get_config_data(request) -> dict:
     login_methods = account_settings.LOGIN_METHODS
     data = {
         "login_methods": list(login_methods),

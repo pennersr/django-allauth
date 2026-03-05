@@ -4,7 +4,7 @@ from allauth.headless.base.response import APIResponse
 from allauth.mfa import app_settings as mfa_settings
 
 
-def get_config_data(request):
+def get_config_data(request) -> dict:
     data = {
         "mfa": {
             "supported_types": mfa_settings.SUPPORTED_TYPES,
@@ -14,7 +14,7 @@ def get_config_data(request):
     return data
 
 
-def _authenticator_data(authenticator, sensitive=False):
+def _authenticator_data(authenticator, sensitive: bool = False) -> dict:
     data = {
         "type": authenticator.type,
         "created_at": authenticator.created_at.timestamp(),

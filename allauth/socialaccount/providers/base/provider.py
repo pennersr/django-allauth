@@ -227,7 +227,7 @@ class Provider:
             email = addresses[0].email
         return email
 
-    def extract_email_addresses(self, data):
+    def extract_email_addresses(self, data) -> list:
         """
         For example:
 
@@ -238,7 +238,7 @@ class Provider:
         return []
 
     @classmethod
-    def get_package(cls):
+    def get_package(cls) -> str:
         pkg = getattr(cls, "package", None)
         if not pkg:
             pkg = cls.__module__.rpartition(".")[0]
@@ -296,13 +296,13 @@ class ProviderAccount:
     def __init__(self, social_account):
         self.account = social_account
 
-    def get_profile_url(self):
+    def get_profile_url(self) -> str | None:
         return None
 
-    def get_avatar_url(self):
+    def get_avatar_url(self) -> str | None:
         return None
 
-    def get_brand(self):
+    def get_brand(self) -> dict:
         """
         Returns a dict containing an id and name identifying the
         brand. Useful when displaying logos next to accounts in
@@ -315,7 +315,7 @@ class ProviderAccount:
         provider = self.account.get_provider()
         return dict(id=provider.id, name=provider.name)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.to_str()
 
     def get_user_data(self) -> Optional[Dict]:
@@ -329,7 +329,7 @@ class ProviderAccount:
             ret = None
         return ret
 
-    def to_str(self):
+    def to_str(self) -> str:
         """
         Returns string representation of this social account. This is the
         unique identifier of the account, such as its username or its email

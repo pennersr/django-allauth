@@ -16,7 +16,7 @@ from allauth.utils import build_absolute_uri
 
 
 class DummyCustomSignupForm(forms.Form):
-    def signup(self, request, user):
+    def signup(self, request, user) -> None:
         """
         Invoked at signup time to complete the signup of the user.
         """

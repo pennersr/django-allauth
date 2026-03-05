@@ -2,16 +2,16 @@ from typing import Optional
 
 
 class AppSettings:
-    def __init__(self, prefix):
+    def __init__(self, prefix: str) -> None:
         self.prefix = prefix
 
-    def _setting(self, name, dflt):
+    def _setting(self, name: str, dflt):
         from allauth.utils import get_setting
 
         return get_setting(f"{self.prefix}{name}", dflt)
 
     @property
-    def ADAPTER(self):
+    def ADAPTER(self) -> str:
         return self._setting(
             "ADAPTER",
             "allauth.idp.oidc.adapter.DefaultOIDCAdapter",
@@ -50,7 +50,7 @@ class AppSettings:
         return self._setting("DEVICE_CODE_INTERVAL", 5)
 
     @property
-    def RATE_LIMITS(self):
+    def RATE_LIMITS(self) -> dict:
         rls = self._setting("RATE_LIMITS", {})
         if rls is False:
             return {}
@@ -62,7 +62,7 @@ class AppSettings:
         return ret
 
     @property
-    def RP_INITIATED_LOGOUT_ASKS_FOR_OP_LOGOUT(self):
+    def RP_INITIATED_LOGOUT_ASKS_FOR_OP_LOGOUT(self) -> bool:
         """
         At https://openid.net/specs/openid-connect-rpinitiated-1_0.html
 

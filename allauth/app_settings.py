@@ -4,20 +4,20 @@ from django.apps import apps
 
 
 class AppSettings:
-    def __init__(self, prefix):
+    def __init__(self, prefix: str) -> None:
         self.prefix = prefix
 
-    def _setting(self, name, dflt):
+    def _setting(self, name: str, dflt):
         from allauth.utils import get_setting
 
         return get_setting(self.prefix + name, dflt)
 
     @property
-    def SITES_ENABLED(self):
+    def SITES_ENABLED(self) -> bool:
         return apps.is_installed("django.contrib.sites")
 
     @property
-    def SOCIALACCOUNT_ENABLED(self):
+    def SOCIALACCOUNT_ENABLED(self) -> bool:
         return apps.is_installed("allauth.socialaccount")
 
     @property
@@ -27,15 +27,15 @@ class AppSettings:
         return get_setting("SOCIALACCOUNT_ONLY", False)
 
     @property
-    def MFA_ENABLED(self):
+    def MFA_ENABLED(self) -> bool:
         return apps.is_installed("allauth.mfa")
 
     @property
-    def USERSESSIONS_ENABLED(self):
+    def USERSESSIONS_ENABLED(self) -> bool:
         return apps.is_installed("allauth.usersessions")
 
     @property
-    def HEADLESS_ENABLED(self):
+    def HEADLESS_ENABLED(self) -> bool:
         return apps.is_installed("allauth.headless")
 
     @property

@@ -38,10 +38,10 @@ class AuthenticationStageAPIView(APIView):
             return response.UnauthorizedResponse(request)
         return super().handle(request, *args, **kwargs)
 
-    def respond_stage_error(self):
+    def respond_stage_error(self) -> response.UnauthorizedResponse:
         return response.UnauthorizedResponse(self.request)
 
-    def respond_next_stage(self):
+    def respond_next_stage(self) -> response.AuthenticationResponse:
         self.stage.exit()
         return response.AuthenticationResponse(self.request)
 

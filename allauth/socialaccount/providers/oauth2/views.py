@@ -4,6 +4,7 @@ from typing import Dict, Optional
 
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
+from django.http import HttpRequest
 from django.shortcuts import render
 from django.urls import reverse
 from django.utils import timezone
@@ -37,7 +38,7 @@ class OAuth2Adapter:
     basic_auth = False
     headers: Optional[Dict[str, str]] = None
 
-    def __init__(self, request):
+    def __init__(self, request) -> None:
         self.request = request
         self.did_fetch_access_token = False
 
@@ -88,6 +89,8 @@ class OAuth2Adapter:
 
 
 class OAuth2View:
+    request: HttpRequest
+
     @classmethod
     def adapter_view(cls, adapter):
         @login_not_required

@@ -11,10 +11,10 @@ class DefaultUserSessionsAdapter(BaseAdapter):
     implementation of the methods according to your own needs.
     """
 
-    def end_sessions(self, sessions):
+    def end_sessions(self, sessions) -> None:
         for session in sessions:
             session.end()
 
 
-def get_adapter():
+def get_adapter() -> DefaultUserSessionsAdapter:
     return import_attribute(app_settings.ADAPTER)()

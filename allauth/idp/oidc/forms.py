@@ -19,7 +19,7 @@ from allauth.idp.oidc.models import Client
 class AuthorizationForm(forms.Form):
     request = forms.CharField(widget=widgets.HiddenInput)
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         user = kwargs.pop("user")
         requested_scopes = kwargs.pop("requested_scopes")
         super().__init__(*args, **kwargs)
@@ -55,12 +55,12 @@ class ConfirmCodeForm(forms.Form):
         ),
     )
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         self.code = kwargs.pop("code", None)
         super().__init__(*args, **kwargs)
 
-    def clean_code(self):
-        code = self.cleaned_data.get("code")
+    def clean_code(self) -> str:
+        code = self.cleaned_data["code"]
         if not ratelimit.consume(
             context.request,
             action="device_user_code",

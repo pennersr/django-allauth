@@ -47,7 +47,7 @@ class Authenticator(models.Model):
             )
         ]
 
-    def __str__(self):
+    def __str__(self) -> str:
         if self.type == self.Type.WEBAUTHN:
             return self.wrap().name
         return self.get_type_display()

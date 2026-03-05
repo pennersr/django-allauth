@@ -54,7 +54,7 @@ def delete_email(request: HttpRequest, email_address: EmailAddress) -> bool:
     return success
 
 
-def add_email(request: HttpRequest, form):
+def add_email(request: HttpRequest, form) -> None:
     if app_settings.REAUTHENTICATION_REQUIRED:
         raise_if_reauthentication_required(request)
 
@@ -79,7 +79,7 @@ def can_mark_as_primary(email_address: EmailAddress) -> bool:
     )
 
 
-def mark_as_primary(request: HttpRequest, email_address: EmailAddress):
+def mark_as_primary(request: HttpRequest, email_address: EmailAddress) -> bool:
     if app_settings.REAUTHENTICATION_REQUIRED:
         raise_if_reauthentication_required(request)
 

@@ -26,7 +26,7 @@ def get_app_or_404(request, organization_slug):
         raise Http404(f"no SocialApp found with client_id={organization_slug}")
 
 
-def prepare_django_request(request):
+def prepare_django_request(request) -> dict:
     result = {
         "https": "on" if request.is_secure() else "off",
         "http_host": request.META["HTTP_HOST"],
@@ -39,7 +39,7 @@ def prepare_django_request(request):
     return result
 
 
-def build_sp_config(request, provider_config, org):
+def build_sp_config(request, provider_config, org) -> dict:
     acs_url = request.build_absolute_uri(reverse("saml_acs", args=[org]))
     sls_url = request.build_absolute_uri(reverse("saml_sls", args=[org]))
     metadata_url = request.build_absolute_uri(reverse("saml_metadata", args=[org]))
@@ -94,7 +94,7 @@ def fetch_metadata_url_config(idp_config):
     return saml_config
 
 
-def build_saml_config(request, provider_config, org):
+def build_saml_config(request, provider_config, org) -> dict:
     avd = provider_config.get("advanced", {})
     security_config = {
         "authnRequestsSigned": avd.get("authn_request_signed", False),
@@ -153,7 +153,7 @@ def build_saml_config(request, provider_config, org):
     return saml_config
 
 
-def encode_relay_state(state):
+def encode_relay_state(state) -> str:
     params = {"state": state}
     return urlencode(params)
 

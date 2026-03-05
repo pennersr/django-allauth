@@ -1,3 +1,5 @@
+from django.http import HttpResponse
+
 from allauth.headless.base.response import AuthenticationResponse
 from allauth.headless.base.views import AuthenticatedAPIView
 from allauth.headless.usersessions.inputs import SelectSessionsInput
@@ -16,12 +18,12 @@ class SessionsView(AuthenticatedAPIView):
             return self._respond_session_list()
         return AuthenticationResponse(request)
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs) -> HttpResponse:
         return self._respond_session_list()
 
     def _respond_session_list(self):
         sessions = UserSession.objects.purge_and_list(self.request.user)
         return SessionsResponse(self.request, sessions)
 
-    def get_input_kwargs(self):
+    def get_input_kwargs(self) -> dict:
         return {"user": self.request.user}

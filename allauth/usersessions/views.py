@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic.edit import FormView
@@ -19,7 +20,7 @@ class ListUserSessionsView(FormView):
     form_class = ManageUserSessionsForm
     success_url = reverse_lazy("usersessions_list")
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict:
         ret = super().get_context_data(**kwargs)
         sessions = sorted(
             UserSession.objects.purge_and_list(self.request.user),
@@ -30,12 +31,12 @@ class ListUserSessionsView(FormView):
         ret["show_last_seen_at"] = app_settings.TRACK_ACTIVITY
         return ret
 
-    def get_form_kwargs(self):
+    def get_form_kwargs(self) -> dict:
         ret = super().get_form_kwargs()
         ret["request"] = self.request
         return ret
 
-    def form_valid(self, form):
+    def form_valid(self, form) -> HttpResponse:
         form.save(self.request)
         get_account_adapter().add_message(
             self.request,

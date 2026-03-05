@@ -199,7 +199,7 @@ class WebAuthn:
         return self.instance.data["name"]
 
     @name.setter
-    def name(self, name: str):
+    def name(self, name: str) -> None:
         self.instance.data["name"] = name
 
     @property

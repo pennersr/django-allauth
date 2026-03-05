@@ -30,7 +30,7 @@ class AppleOAuth2Client(OAuth2Client):
         * requires special `client_secret` as JWT
     """
 
-    def generate_client_secret(self):
+    def generate_client_secret(self) -> str:
         """Create a JWT signed with an apple provided private key"""
         now = int(time.time())
         app = get_adapter(self.request).get_app(self.request, "apple")
@@ -52,7 +52,7 @@ class AppleOAuth2Client(OAuth2Client):
         )
         return client_secret
 
-    def get_client_id(self):
+    def get_client_id(self) -> str:
         """We support multiple client_ids, but use the first one for api calls"""
         return self.consumer_key.split(",")[0]
 
@@ -83,7 +83,7 @@ class AppleOAuth2Client(OAuth2Client):
             raise OAuth2Error(f"Error retrieving access token: {resp.content}")
         return access_token
 
-    def get_redirect_url(self, authorization_url, scope, extra_params):
+    def get_redirect_url(self, authorization_url, scope, extra_params) -> str:
         scope = self.scope_delimiter.join(set(scope))
         params = {
             "client_id": self.get_client_id(),

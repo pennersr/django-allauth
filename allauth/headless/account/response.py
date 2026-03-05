@@ -4,7 +4,7 @@ from allauth.headless.adapter import get_adapter
 from allauth.headless.base.response import APIResponse
 
 
-def email_address_data(addr):
+def email_address_data(addr) -> dict:
     return {
         "email": addr.email,
         "verified": addr.verified,

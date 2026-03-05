@@ -118,13 +118,13 @@ class Client(models.Model):
     def get_redirect_uris(self) -> List[str]:
         return _values_from_text(self.redirect_uris)
 
-    def set_redirect_uris(self, uris: List[str]):
+    def set_redirect_uris(self, uris: List[str]) -> None:
         self.redirect_uris = _values_to_text(uris)
 
     def get_cors_origins(self) -> List[str]:
         return _values_from_text(self.cors_origins)
 
-    def set_cors_origins(self, uris: List[str]):
+    def set_cors_origins(self, uris: List[str]) -> None:
         self.cors_origins = _values_to_text(uris)
 
     def get_scopes(self) -> List[str]:
@@ -148,7 +148,7 @@ class Client(models.Model):
     def get_grant_types(self) -> List[str]:
         return _values_from_text(self.grant_types)
 
-    def set_grant_types(self, grant_types: List[str]):
+    def set_grant_types(self, grant_types: List[str]) -> None:
         self.grant_types = _values_to_text(grant_types)
 
     def set_secret(self, secret) -> None:
@@ -157,7 +157,7 @@ class Client(models.Model):
     def check_secret(self, secret: str) -> bool:
         return check_password(secret, self.secret)
 
-    def clean_redirect_uris(self):
+    def clean_redirect_uris(self) -> List[str]:
         from allauth.idp.oidc.internal.clientkit import _validate_uri_wildcard_format
 
         uris = self.get_redirect_uris()
@@ -165,7 +165,7 @@ class Client(models.Model):
             _validate_uri_wildcard_format(uri, self.allow_uri_wildcards)
         return uris
 
-    def clean_cors_origins(self):
+    def clean_cors_origins(self) -> List[str]:
         from allauth.idp.oidc.internal.clientkit import _validate_uri_wildcard_format
 
         origins = self.get_cors_origins()
@@ -173,7 +173,7 @@ class Client(models.Model):
             _validate_uri_wildcard_format(origin, self.allow_uri_wildcards)
         return origins
 
-    def clean(self):
+    def clean(self) -> None:
         # the django admin doesn't call full_clean, so we need to call them here
         self.clean_redirect_uris()
         self.clean_cors_origins()

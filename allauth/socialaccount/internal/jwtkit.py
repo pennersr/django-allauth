@@ -78,8 +78,8 @@ def verify_jti(data: dict) -> None:
 
 
 def verify_and_decode(
-    *, credential, keys_url, issuer, audience, lookup_kid, verify_signature=True
-):
+    *, credential, keys_url, issuer, audience, lookup_kid, verify_signature: bool = True
+) -> dict:
     try:
         if verify_signature:
             alg, key = fetch_key(credential, keys_url, lookup_kid)

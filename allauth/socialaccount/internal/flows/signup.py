@@ -28,7 +28,7 @@ def redirect_to_signup(request, sociallogin):
     return headed_redirect_response("socialaccount_signup")
 
 
-def clear_pending_signup(request):
+def clear_pending_signup(request) -> None:
     request.session.pop("socialaccount_sociallogin", None)
 
 

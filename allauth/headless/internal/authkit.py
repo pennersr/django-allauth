@@ -12,18 +12,18 @@ from allauth.headless.internal import sessionkit
 
 
 class AuthenticationStatus:
-    def __init__(self, request):
+    def __init__(self, request) -> None:
         self.request = request
 
     @property
-    def is_authenticated(self):
+    def is_authenticated(self) -> bool:
         return self.request.user.is_authenticated
 
     def get_pending_stage(self):
         return get_pending_stage(self.request)
 
     @property
-    def has_pending_signup(self):
+    def has_pending_signup(self) -> bool:
         if not allauth_settings.SOCIALACCOUNT_ENABLED:
             return False
         from allauth.socialaccount.internal import flows
@@ -31,7 +31,7 @@ class AuthenticationStatus:
         return bool(flows.signup.get_pending_signup(self.request))
 
 
-def purge_request_user_cache(request):
+def purge_request_user_cache(request) -> None:
     for attr in ["_cached_user", "_acached_user"]:
         if hasattr(request, attr):
             delattr(request, attr)

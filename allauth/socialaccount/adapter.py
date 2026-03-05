@@ -1,5 +1,4 @@
 import functools
-import typing
 import warnings
 
 from django.core.exceptions import ImproperlyConfigured, MultipleObjectsReturned
@@ -373,10 +372,5 @@ class DefaultSocialAccountAdapter(BaseAdapter):
         return get_random_string(STATE_ID_LENGTH)
 
 
-TSocialAccountAdapter = typing.TypeVar(
-    "TSocialAccountAdapter", bound=DefaultSocialAccountAdapter
-)
-
-
-def get_adapter(request=None) -> TSocialAccountAdapter:
+def get_adapter(request=None):
     return import_attribute(app_settings.ADAPTER)(request)

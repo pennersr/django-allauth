@@ -1,7 +1,6 @@
 import html
 import inspect
 import json
-import typing
 import warnings
 from http import HTTPStatus
 from urllib.parse import urlparse
@@ -992,8 +991,5 @@ class DefaultAccountAdapter(BaseAdapter):
         raise NotImplementedError
 
 
-TAccountAdapter = typing.TypeVar("TAccountAdapter", bound=DefaultAccountAdapter)
-
-
-def get_adapter(request=None) -> TAccountAdapter:
+def get_adapter(request=None) -> DefaultAccountAdapter:
     return import_attribute(app_settings.ADAPTER)(request)

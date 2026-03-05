@@ -1,4 +1,3 @@
-import typing
 from io import BytesIO
 from urllib.parse import quote
 
@@ -158,8 +157,5 @@ class DefaultMFAAdapter(BaseAdapter):
         }
 
 
-TMFAAdapter = typing.TypeVar("TMFAAdapter", bound=DefaultMFAAdapter)
-
-
-def get_adapter() -> TMFAAdapter:
+def get_adapter() -> DefaultMFAAdapter:
     return import_attribute(app_settings.ADAPTER)()

@@ -95,7 +95,7 @@ def test(session, django, project):
         "psycopg2-binary>=2.9.10,<3",
         "djangorestframework>=3.15.2,<4",
         "django-ninja>=1.3.0,<2",
-        "mypy==1.10.0",
+        "mypy==1.19.1",
         ".[mfa,openid,socialaccount,steam]",  # SAML is disabled in CI
     )
     session.run("/bin/sh", "-c", "cd allauth; python ../manage.py compilemessages")
@@ -119,7 +119,7 @@ def test(session, django, project):
         session.run("coveralls", "--service=github")
     if django == "5.2" and session.python == "3.14":
         session.install(
-            "django-stubs~=5.2.7",
-            "types-requests==2.32.4.20250913",
+            "django-stubs~=5.2.9",
+            "types-requests==2.32.4.20260107",
         )
         session.run("mypy", "allauth")

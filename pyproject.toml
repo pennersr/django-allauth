@@ -105,7 +105,12 @@ plugins = [
 strict_optional = true
 disable_error_code = [
   "import-untyped",
-  "import-not-found"
+  "import-not-found",
+]
+warn_unused_configs = true
+warn_unused_ignores = true
+exclude = [
+  "allauth/account/migrations/.*",
 ]
 
 [tool.django-stubs]

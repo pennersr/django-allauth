@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 from datetime import timedelta
+from typing import TYPE_CHECKING
 
 from django.db import models, transaction
 from django.db.models import Q
@@ -8,7 +11,11 @@ from django.utils import timezone
 from . import app_settings
 
 
-class EmailAddressManager(models.Manager):
+if TYPE_CHECKING:
+    from .models import EmailAddress  # noqa: F401
+
+
+class EmailAddressManager(models.Manager["EmailAddress"]):
     def can_add_email(self, user) -> bool:
         ret = True
         if app_settings.CHANGE_EMAIL:

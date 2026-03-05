@@ -145,7 +145,6 @@ Run Code Quality Checks
    nox --session black
    nox --session isort
    nox --session flake8
-   nox --session mypy
    nox --session bandit
    nox --session djlint
 

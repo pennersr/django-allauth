@@ -356,7 +356,7 @@ class OAuthLibRequestValidator(RequestValidator):
 
     def _use_client(self, request, client: Client) -> None:
         request.client = client
-        request.client.client_id = client.id  # type:ignore[attr-defined]
+        request.client.client_id = client.id
 
     def _lookup_authorization_code(
         self, request, client_id: str, code: str

@@ -204,7 +204,7 @@ class LoginForm(forms.Form):
                     for error in errors:
                         self.add_error("login", error)
             else:
-                self.user = form._user  # type: ignore
+                self.user = form._user
         return self.cleaned_data
 
     def _clean_with_password(self, credentials: dict):
@@ -215,7 +215,7 @@ class LoginForm(forms.Form):
             if flows.login.is_login_rate_limited(context.request, login):
                 raise adapter.validation_error("too_many_login_attempts")
             self._login = login
-            self.user = user  # type: ignore
+            self.user = user
         else:
             login_method = flows.login.derive_login_method(
                 login=self.cleaned_data["login"]

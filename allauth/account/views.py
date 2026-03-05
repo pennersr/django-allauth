@@ -477,7 +477,7 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
             )
         return data
 
-    def get_success_url(self) -> str:
+    def get_success_url(self):
         if (
             self._did_send_verification_email
             and app_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED

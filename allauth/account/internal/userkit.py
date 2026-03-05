@@ -13,7 +13,7 @@ def user_id_to_str(user) -> str:
 
 
 def str_to_user_id(value: str):
-    return get_user_model()._meta.pk.to_python(value)  # type: ignore[union-attr]
+    return get_user_model()._meta.pk.to_python(value)
 
 
 def user_field(user, field, *args, commit=False):

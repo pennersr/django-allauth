@@ -13,6 +13,7 @@ from allauth.account.internal.decorators import login_stage_required
 from allauth.account.mixins import NextRedirectMixin, RedirectAuthenticatedUserMixin
 from allauth.account.models import Login
 from allauth.account.views import BaseReauthenticateView
+from allauth.mfa import app_settings
 from allauth.mfa.internal.flows.add import redirect_if_add_not_allowed
 from allauth.mfa.models import Authenticator
 from allauth.mfa.webauthn.forms import (
@@ -24,6 +25,7 @@ from allauth.mfa.webauthn.forms import (
 )
 from allauth.mfa.webauthn.internal import auth, flows
 from allauth.mfa.webauthn.stages import PasskeySignupStage
+from allauth.utils import get_form_class
 
 
 @method_decorator(redirect_if_add_not_allowed, name="dispatch")
@@ -37,6 +39,9 @@ class AddWebAuthnView(FormView):
         creation_options = auth.begin_registration(self.request.user, False)
         ret["js_data"] = {"creation_options": creation_options}
         return ret
+
+    def get_form_class(self):
+        return get_form_class(app_settings.FORMS, "add_webauthn", self.form_class)
 
     def get_form_kwargs(self) -> dict:
         ret = super().get_form_kwargs()
@@ -110,6 +115,9 @@ class LoginWebAuthnView(RedirectAuthenticatedUserMixin, FormView):
             return JsonResponse(data)
         return HttpResponseRedirect(reverse("account_login"))
 
+    def get_form_class(self):
+        return get_form_class(app_settings.FORMS, "login_webauthn", self.form_class)
+
     def form_invalid(self, form) -> HttpResponse:
         for message in form.errors.get("credential", []):
             get_account_adapter().add_message(
@@ -131,6 +139,11 @@ login_webauthn = LoginWebAuthnView.as_view()
 class ReauthenticateWebAuthnView(BaseReauthenticateView):
     form_class = ReauthenticateWebAuthnForm
     template_name = f"mfa/webauthn/reauthenticate.{account_settings.TEMPLATE_EXTENSION}"
+
+    def get_form_class(self):
+        return get_form_class(
+            app_settings.FORMS, "reauthenticate_webauthn", self.form_class
+        )
 
     def get_form_kwargs(self) -> dict:
         ret = super().get_form_kwargs()
@@ -165,6 +178,9 @@ class EditWebAuthnView(NextRedirectMixin, UpdateView):
     template_name = f"mfa/webauthn/edit_form.{account_settings.TEMPLATE_EXTENSION}"
     success_url = reverse_lazy("mfa_list_webauthn")
 
+    def get_form_class(self):
+        return get_form_class(app_settings.FORMS, "edit_webauthn", self.form_class)
+
     def get_queryset(self):
         return Authenticator.objects.filter(
             user=self.request.user, type=Authenticator.Type.WEBAUTHN
@@ -194,6 +210,9 @@ class SignupWebAuthnView(FormView):
         creation_options = auth.begin_registration(stage.login.user, True)
         ret["js_data"] = {"creation_options": creation_options}
         return ret
+
+    def get_form_class(self):
+        return get_form_class(app_settings.FORMS, "signup_webauthn", self.form_class)
 
     def get_form_kwargs(self) -> dict:
         ret = super().get_form_kwargs()

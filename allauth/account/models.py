@@ -1,5 +1,8 @@
+from __future__ import annotations
+
 import datetime
 import time
+from typing import TYPE_CHECKING, Any, TypedDict
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -14,6 +17,10 @@ from django.utils.translation import gettext_lazy as _
 from allauth.account import app_settings
 from allauth.account.adapter import get_adapter
 from allauth.account.managers import EmailAddressManager, EmailConfirmationManager
+
+
+if TYPE_CHECKING:
+    from django.http import HttpRequest
 
 
 class EmailAddress(models.Model):
@@ -52,14 +59,14 @@ class EmailAddress(models.Model):
                 )
             )
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.email
 
-    def clean(self):
+    def clean(self) -> None:
         super().clean()
         self.email = self.email.lower()
 
-    def can_set_verified(self):
+    def can_set_verified(self) -> bool:
         if self.verified:
             return True
         conflict = False
@@ -71,7 +78,7 @@ class EmailAddress(models.Model):
             )
         return not conflict
 
-    def set_verified(self, commit=True):
+    def set_verified(self, commit: bool = True) -> bool:
         if self.verified:
             return True
         if self.can_set_verified():
@@ -80,7 +87,7 @@ class EmailAddress(models.Model):
                 self.save(update_fields=["verified"])
         return self.verified
 
-    def set_as_primary(self, conditional=False):
+    def set_as_primary(self, conditional: bool = False) -> bool:
         """Marks the email address as primary. In case of `conditional`, it is
         only marked as primary if there is no other primary email address set.
         """
@@ -97,13 +104,15 @@ class EmailAddress(models.Model):
         user_email(self.user, self.email, commit=True)
         return True
 
-    def send_confirmation(self, request=None, signup=False):
+    def send_confirmation(
+        self, request: HttpRequest | None = None, signup: bool = False
+    ) -> EmailConfirmation | EmailConfirmationHMAC:
         model = get_emailconfirmation_model()
         confirmation = model.create(self)
         confirmation.send(request, signup=signup)
         return confirmation
 
-    def remove(self):
+    def remove(self) -> None:
         from allauth.account.utils import user_email
 
         self.delete()
@@ -120,7 +129,7 @@ class EmailAddress(models.Model):
 
 
 class EmailConfirmationMixin:
-    def confirm(self, request) -> EmailAddress | None:
+    def confirm(self, request: HttpRequest) -> EmailAddress | None:
         from allauth.account.internal.flows.email_verification import (
             mark_email_address_as_verified,
         )
@@ -128,7 +137,7 @@ class EmailConfirmationMixin:
         email_address = self.email_address  # type: ignore[attr-defined]
         return mark_email_address_as_verified(request, email_address)
 
-    def send(self, request=None, signup=False) -> None:
+    def send(self, request: HttpRequest | None = None, signup: bool = False) -> None:
         get_adapter().send_confirmation_mail(request, self, signup)
 
 
@@ -148,22 +157,23 @@ class EmailConfirmation(EmailConfirmationMixin, models.Model):
         verbose_name = _("email confirmation")
         verbose_name_plural = _("email confirmations")
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"confirmation for {self.email_address}"
 
     @classmethod
-    def create(cls, email_address):
+    def create(cls, email_address: EmailAddress) -> EmailConfirmation:
         key = get_adapter().generate_emailconfirmation_key(email_address.email)
         return cls._default_manager.create(email_address=email_address, key=key)
 
     @classmethod
-    def from_key(cls, key):
+    def from_key(cls, key: str) -> EmailConfirmation | None:
         qs = EmailConfirmation.objects.all_valid()
         qs = qs.select_related("email_address__user")
         emailconfirmation = qs.filter(key=key.lower()).first()
         return emailconfirmation
 
-    def key_expired(self):
+    def key_expired(self) -> bool:
+        assert self.sent is not None  # nosec[assert_used]
         expiration_date = self.sent + datetime.timedelta(
             days=app_settings.EMAIL_CONFIRMATION_EXPIRE_DAYS
         )
@@ -171,31 +181,31 @@ class EmailConfirmation(EmailConfirmationMixin, models.Model):
 
     key_expired.boolean = True  # type: ignore[attr-defined]
 
-    def confirm(self, request) -> EmailAddress | None:
+    def confirm(self, request: HttpRequest) -> EmailAddress | None:
         if not self.key_expired():
             return super().confirm(request)
         return None
 
-    def send(self, request=None, signup=False) -> None:
+    def send(self, request: HttpRequest | None = None, signup: bool = False) -> None:
         super().send(request=request, signup=signup)
         self.sent = timezone.now()
         self.save()
 
 
 class EmailConfirmationHMAC(EmailConfirmationMixin):
-    def __init__(self, email_address):
+    def __init__(self, email_address: EmailAddress) -> None:
         self.email_address = email_address
 
     @classmethod
-    def create(cls, email_address):
+    def create(cls, email_address: EmailAddress) -> EmailConfirmationHMAC:
         return EmailConfirmationHMAC(email_address)
 
     @property
-    def key(self):
+    def key(self) -> str:
         return signing.dumps(obj=self.email_address.pk, salt=app_settings.SALT)
 
     @classmethod
-    def from_key(cls, key):
+    def from_key(cls, key: str) -> EmailConfirmationHMAC | None:
         try:
             max_age = 60 * 60 * 24 * app_settings.EMAIL_CONFIRMATION_EXPIRE_DAYS
             pk = signing.loads(key, max_age=max_age, salt=app_settings.SALT)
@@ -208,8 +218,20 @@ class EmailConfirmationHMAC(EmailConfirmationMixin):
             ret = None
         return ret
 
-    def key_expired(self):
+    def key_expired(self) -> bool:
         return False
+
+
+class _SerializedLogin(TypedDict):
+    user_pk: str | None
+    email_verification: app_settings.EmailVerificationMethod
+    signup: bool
+    redirect_url: str | None
+    email: str | None
+    phone: str | None
+    signal_kwargs: dict[str, Any] | None
+    state: dict[str, Any]
+    initiated_at: float
 
 
 class Login:
@@ -237,7 +259,7 @@ class Login:
 
     def __init__(
         self,
-        user,
+        user: AbstractBaseUser | None = None,
         email_verification: app_settings.EmailVerificationMethod | None = None,
         redirect_url: str | None = None,
         signal_kwargs: dict | None = None,
@@ -246,7 +268,7 @@ class Login:
         state: dict | None = None,
         initiated_at: float | None = None,
         phone: str | None = None,
-    ):
+    ) -> None:
         self.user = user
         if not email_verification:
             email_verification = app_settings.EMAIL_VERIFICATION
@@ -259,7 +281,7 @@ class Login:
         self.state = {} if state is None else state
         self.initiated_at = initiated_at if initiated_at else time.time()
 
-    def serialize(self):
+    def serialize(self) -> _SerializedLogin:
         from allauth.account.utils import user_pk_to_url_str
 
         # :-( Knowledge of the `socialaccount` is entering the `account` app.
@@ -270,7 +292,7 @@ class Login:
                 signal_kwargs = signal_kwargs.copy()
                 signal_kwargs["sociallogin"] = sociallogin.serialize()
 
-        data = {
+        data: _SerializedLogin = {
             "user_pk": user_pk_to_url_str(self.user) if self.user else None,
             "email_verification": self.email_verification,
             "signup": self.signup,
@@ -284,7 +306,7 @@ class Login:
         return data
 
     @classmethod
-    def deserialize(cls, data):
+    def deserialize(cls, data: dict[str, Any]) -> Login:
         from allauth.account.utils import url_str_to_user_pk
 
         user = None
@@ -319,11 +341,12 @@ class Login:
             raise ValueError()
 
 
-def get_emailconfirmation_model():
+def get_emailconfirmation_model() -> (
+    type[EmailConfirmation] | type[EmailConfirmationHMAC]
+):
     if app_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED:
         raise NotImplementedError
     elif app_settings.EMAIL_CONFIRMATION_HMAC:
-        model = EmailConfirmationHMAC
+        return EmailConfirmationHMAC
     else:
-        model = EmailConfirmation
-    return model
+        return EmailConfirmation

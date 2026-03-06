@@ -7,7 +7,7 @@ from django.core.exceptions import PermissionDenied
 from django.core.validators import validate_email
 from django.forms import Form, ValidationError
 from django.http import Http404, HttpResponse, HttpResponseBase, HttpResponseRedirect
-from django.urls import reverse, reverse_lazy
+from django.urls import NoReverseMatch, reverse, reverse_lazy
 from django.utils.decorators import method_decorator
 from django.utils.functional import cached_property
 from django.views.decorators.cache import never_cache
@@ -120,7 +120,12 @@ class LoginView(
         ret = super().get_context_data(**kwargs)
         signup_url = None
         if not allauth_app_settings.SOCIALACCOUNT_ONLY:
-            signup_url = self.passthrough_next_url(reverse("account_signup"))
+            try:
+                signup_url = self.passthrough_next_url(reverse("account_signup"))
+            except NoReverseMatch:
+                # There may project specific tweaks other than
+                # SOCIALACCOUNT_ONLY ...
+                pass
         site = get_current_site(self.request)
 
         ret.update(

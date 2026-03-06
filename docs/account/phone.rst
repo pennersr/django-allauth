@@ -47,6 +47,9 @@ Available settings:
 ``ACCOUNT_PHONE_VERIFICATION_SUPPORTS_RESEND`` (default: ``False``)
   Whether or not the user can request a new phone number verification code.
 
+``ACCOUNT_PHONE_VERIFICATION_CODE_FORMAT`` (default: ``settings.ALLAUTH_USER_CODE_FORMAT``)
+  Controls the format of the verification code.
+
 
 Form Fields
 ***********

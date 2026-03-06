@@ -1,3 +1,7 @@
+from allauth import app_settings as allauth_settings
+from allauth.core.internal.cryptokit import UserCodeFormat
+
+
 class AppSettings:
     def __init__(self, prefix: str) -> None:
         self.prefix = prefix
@@ -45,6 +49,10 @@ class AppSettings:
     @property
     def DEVICE_CODE_INTERVAL(self) -> int:
         return self._setting("DEVICE_CODE_INTERVAL", 5)
+
+    @property
+    def USER_CODE_FORMAT(self) -> UserCodeFormat:
+        return self._setting("USER_CODE_FORMAT", allauth_settings.USER_CODE_FORMAT)
 
     @property
     def RATE_LIMITS(self) -> dict:

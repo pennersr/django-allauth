@@ -356,7 +356,7 @@ def get_last_email_verification_code():
 
     def f(client, mailoutbox):
         code = re.search(
-            "\n[0-9a-z]{6}\n", mailoutbox[-1].body, re.I | re.DOTALL | re.MULTILINE
+            "\n[0-9a-z-]{6,12}\n", mailoutbox[-1].body, re.I | re.DOTALL | re.MULTILINE
         )[0].strip()
         if hasattr(client, "headless_session"):
             session = client.headless_session()
@@ -379,7 +379,7 @@ def get_last_password_reset_code():
 
     def f(client, mailoutbox):
         code = re.search(
-            "\n[0-9a-z]{8}\n", mailoutbox[-1].body, re.I | re.DOTALL | re.MULTILINE
+            "\n[0-9a-z-]{8,12}\n", mailoutbox[-1].body, re.I | re.DOTALL | re.MULTILINE
         )[0].strip()
         if hasattr(client, "headless_session"):
             session = client.headless_session()

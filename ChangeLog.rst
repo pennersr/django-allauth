@@ -7,6 +7,20 @@
     Please consider supporting its continued development by becoming a sponsor at
     https://allauth.org/sponsors/. Your support helps keep this project thriving!
 
+Note worthy changes
+-------------------
+
+- All user facing codes (e.g. those that the user needs to manually input over
+  at password reset, email/phone verification, login code, OIDC device codes)
+  now follow the recommendations over at `RFC 8628, Section 6.1
+  <https://datatracker.ietf.org/doc/html/rfc8628#section-6.1>`_.  It uses dashed
+  codes, such as "WDJB-MJHT", by default. You can control the format of all codes
+  via a new setting `ALLAUTH_USER_CODE_FORMAT``, or, adjust the format per use
+  case via one of ``ACCOUNT_LOGIN_BY_CODE_FORMAT``,
+  ``ACCOUNT_PHONE_VERIFICATION_CODE_FORMAT``,
+  ``ACCOUNT_PASSWORD_RESET_BY_CODE_FORMAT``,
+  ``ACCOUNT_EMAIL_VERIFICATION_BY_CODE_FORMAT``, ``IDP_OIDC_USER_CODE_FORMAT``.
+
 
 Backwards incompatible changes
 ------------------------------

@@ -46,7 +46,7 @@ class DefaultOIDCAdapter(BaseAdapter):
         return get_random_secret_key()
 
     def generate_user_code(self) -> str:
-        return generate_user_code(length=8)
+        return generate_user_code(**app_settings.USER_CODE_FORMAT)
 
     def hash_token(self, token: str) -> str:
         """

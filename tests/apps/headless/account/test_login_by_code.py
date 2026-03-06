@@ -19,7 +19,7 @@ def test_login_by_code(headless_reverse, user, client, mailoutbox):
         "is_pending"
     ]
     assert len(mailoutbox) == 1
-    code = [line for line in mailoutbox[0].body.splitlines() if len(line) == 6][0]
+    code = [line for line in mailoutbox[0].body.splitlines() if len(line) == 9][0]
     resp = client.post(
         headless_reverse("headless:account:confirm_login_code"),
         data={"code": code},
@@ -110,7 +110,7 @@ def test_login_by_code_required(
         "id"
     ]
     assert pending_flow == Flow.LOGIN_BY_CODE
-    code = [line for line in mailoutbox[0].body.splitlines() if len(line) == 6][0]
+    code = [line for line in mailoutbox[0].body.splitlines() if len(line) == 9][0]
     resp = client.post(
         headless_reverse("headless:account:confirm_login_code"),
         data={"code": code},
@@ -135,7 +135,7 @@ def test_login_by_code_expired(headless_reverse, user, client, mailoutbox):
         "is_pending"
     ]
     assert len(mailoutbox) == 1
-    code = [line for line in mailoutbox[0].body.splitlines() if len(line) == 6][0]
+    code = [line for line in mailoutbox[0].body.splitlines() if len(line) == 9][0]
 
     # Expire code
     session = client.headless_session()

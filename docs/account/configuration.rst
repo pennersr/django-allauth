@@ -119,6 +119,9 @@ Login
   The code that is emailed has a limited life span. It expires this many seconds after
   which it was sent.
 
+``ACCOUNT_LOGIN_BY_CODE_FORMAT`` (default: ``settings.ALLAUTH_USER_CODE_FORMAT``)
+  Controls the format of the login code.
+
 ``ACCOUNT_LOGIN_METHODS`` (default: ``{"username"}``, options: ``"email"`` or ``"username"``)
   Specifies the login method to use -- whether the user logs in by entering
   their username, email address, or either one of both.  Note that the login methods need to
@@ -175,6 +178,9 @@ Password Reset
   Controls whether password reset is performed by means of following a link
   in the email (``False``), or by entering a code (``True``).
 
+``ACCOUNT_PASSWORD_RESET_BY_CODE_FORMAT`` (default: ``settings.ALLAUTH_USER_CODE_FORMAT``)
+  Controls the format of the password reset code.
+
 ``ACCOUNT_PASSWORD_RESET_BY_CODE_MAX_ATTEMPTS`` (default: ``3``)
   This setting controls the maximum number of attempts the user has at inputting
   a valid code.
@@ -227,6 +233,9 @@ Email Verification
 ``ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED`` (default: ``False``)
   Controls whether email verification is performed by means of following a link
   in the email (``False``), or by entering a code (``True``).
+
+``ACCOUNT_EMAIL_VERIFICATION_BY_CODE_FORMAT`` (default: ``settings.ALLAUTH_USER_CODE_FORMAT``)
+  Controls the format of the email verification code.
 
 ``ACCOUNT_EMAIL_VERIFICATION_BY_CODE_MAX_ATTEMPTS`` (default: ``3``)
   This setting controls the maximum number of attempts the user has at inputting

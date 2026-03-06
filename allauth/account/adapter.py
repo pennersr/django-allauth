@@ -868,25 +868,25 @@ class DefaultAccountAdapter(BaseAdapter):
         """
         Generates a new login code.
         """
-        return generate_user_code()
+        return generate_user_code(**app_settings.LOGIN_BY_CODE_FORMAT)
 
     def generate_password_reset_code(self) -> str:
         """
         Generates a new password reset code.
         """
-        return generate_user_code(length=8)
+        return generate_user_code(**app_settings.PASSWORD_RESET_BY_CODE_FORMAT)
 
     def generate_email_verification_code(self) -> str:
         """
         Generates a new email verification code.
         """
-        return generate_user_code()
+        return generate_user_code(**app_settings.EMAIL_VERIFICATION_BY_CODE_FORMAT)
 
     def generate_phone_verification_code(self, *, user, phone: str) -> str:
         """
         Generates a new phone verification code.
         """
-        return generate_user_code()
+        return generate_user_code(**app_settings.PHONE_VERIFICATION_CODE_FORMAT)
 
     def _generate_phone_verification_code_compat(self, *, user, phone: str) -> str:
         sig = inspect.signature(self.generate_phone_verification_code)

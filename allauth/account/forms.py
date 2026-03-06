@@ -770,12 +770,12 @@ class BaseConfirmCodeForm(forms.Form):
     )
 
     def __init__(self, *args, **kwargs) -> None:
-        self.code = kwargs.pop("code", None)
+        self.expected_code = kwargs.pop("code", None)
         super().__init__(*args, **kwargs)
 
     def clean_code(self) -> str:
         code = self.cleaned_data["code"]
-        if not compare_user_code(actual=code, expected=self.code):
+        if not compare_user_code(actual=code, expected=self.expected_code):
             raise get_adapter().validation_error("incorrect_code")
         return code
 

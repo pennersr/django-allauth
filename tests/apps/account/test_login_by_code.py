@@ -29,7 +29,7 @@ def request_login_by_code(mailoutbox):
         code = client.session[LOGIN_SESSION_KEY]["state"]["stages"][
             LoginByCodeStage.key
         ]["data"]["code"]
-        assert len(code) == 6
+        assert len(code) == 9
         assert code in mailoutbox[0].body
         return code
 

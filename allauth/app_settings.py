@@ -1,5 +1,7 @@
 from django.apps import apps
 
+from allauth.core.internal.cryptokit import UserCodeFormat
+
 
 class AppSettings:
     def __init__(self, prefix: str) -> None:
@@ -65,6 +67,14 @@ class AppSettings:
         Examples: ``"CF-Connecting-IP"`` (Cloudflare), ``"X-Real-IP"`` (nginx).
         """
         return self._setting("TRUSTED_CLIENT_IP_HEADER", None)
+
+    @property
+    def USER_CODE_FORMAT(self) -> UserCodeFormat:
+        """
+        Controls the format of user-facing verification codes (e.g. email
+        verification, phone verification, login codes).
+        """
+        return self._setting("USER_CODE_FORMAT", {})
 
 
 _app_settings = AppSettings("ALLAUTH_")

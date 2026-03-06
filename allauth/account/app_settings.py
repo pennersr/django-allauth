@@ -1,6 +1,9 @@
 import warnings
 from enum import Enum
 
+from allauth import app_settings as allauth_settings
+from allauth.core.internal.cryptokit import UserCodeFormat
+
 
 class AppSettings:
     class AuthenticationMethod(str, Enum):
@@ -578,6 +581,40 @@ class AppSettings:
         if isinstance(value, bool):
             return value
         return set(value)
+
+    @property
+    def LOGIN_BY_CODE_FORMAT(self) -> UserCodeFormat:
+        """
+        Controls the format of the login code.
+        """
+        return self._setting("LOGIN_BY_CODE_FORMAT", allauth_settings.USER_CODE_FORMAT)
+
+    @property
+    def PHONE_VERIFICATION_CODE_FORMAT(self) -> UserCodeFormat:
+        """
+        Controls the format of the phone verification code.
+        """
+        return self._setting(
+            "PHONE_VERIFICATION_CODE_FORMAT", allauth_settings.USER_CODE_FORMAT
+        )
+
+    @property
+    def PASSWORD_RESET_BY_CODE_FORMAT(self) -> UserCodeFormat:
+        """
+        Controls the format of the password reset code.
+        """
+        return self._setting(
+            "PASSWORD_RESET_BY_CODE_CODE_FORMAT", allauth_settings.USER_CODE_FORMAT
+        )
+
+    @property
+    def EMAIL_VERIFICATION_BY_CODE_FORMAT(self) -> UserCodeFormat:
+        """
+        Controls the format of the email verification code.
+        """
+        return self._setting(
+            "EMAIL_VERIFICATION_BY_CODE_FORMAT", allauth_settings.USER_CODE_FORMAT
+        )
 
 
 _app_settings = AppSettings("ACCOUNT_")

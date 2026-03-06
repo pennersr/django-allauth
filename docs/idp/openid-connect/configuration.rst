@@ -27,6 +27,9 @@ Available settings:
 ``IDP_OIDC_ID_TOKEN_EXPIRES_IN`` (default: 300)
   The time (in seconds) after which ID tokens expire.
 
+``IDP_OIDC_USER_CODE_FORMAT`` (default: ``settings.ALLAUTH_USER_CODE_FORMAT``)
+  Controls the format of the user code.
+
 ``IDP_OIDC_PRIVATE_KEY`` (default: ``""``)
   The private key used for creating ID tokens (and ``.well-known/jwks.json``).
 

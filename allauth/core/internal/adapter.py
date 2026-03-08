@@ -6,7 +6,7 @@ from allauth.core import context
 
 
 class BaseAdapter:
-    def __init__(self, request=None):
+    def __init__(self, request=None) -> None:
         # Explicitly passing `request` is deprecated, just use:
         # `allauth.core.context.request`.
         self.request = context.request

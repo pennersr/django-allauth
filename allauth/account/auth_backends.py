@@ -86,7 +86,7 @@ class AuthenticationBackend(ModelBackend):
                 return user
         return None
 
-    def _mitigate_timing_attack(self, password):
+    def _mitigate_timing_attack(self, password) -> None:
         get_user_model()().set_password(password)
 
     def _check_password(self, user, password):

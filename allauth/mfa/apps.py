@@ -11,7 +11,7 @@ class MFAConfig(AppConfig):
         app_settings.DEFAULT_AUTO_FIELD or "django.db.models.BigAutoField"
     )
 
-    def ready(self):
+    def ready(self) -> None:
         from allauth.account import signals as account_signals
         from allauth.mfa import checks  # noqa
         from allauth.mfa import signals

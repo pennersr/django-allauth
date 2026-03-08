@@ -48,7 +48,7 @@ class OAuthClient:
         callback_url,
         parameters=None,
         provider=None,
-    ):
+    ) -> None:
         self.request = request
 
         self.request_token_url = request_token_url
@@ -176,7 +176,7 @@ class OAuth:
     example.
     """
 
-    def __init__(self, request, consumer_key, secret_key, request_token_url):
+    def __init__(self, request, consumer_key, secret_key, request_token_url) -> None:
         self.request = request
         self.consumer_key = consumer_key
         self.secret_key = secret_key

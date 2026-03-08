@@ -21,7 +21,7 @@ class DeleteProviderAccountInput(inputs.Input):
     provider = inputs.CharField()
     account = inputs.CharField()
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         self.user = kwargs.pop("user")
         super().__init__(*args, **kwargs)
 

@@ -7,7 +7,7 @@ class ImmediateHttpResponse(Exception):
     return a custom HttpResponse.
     """
 
-    def __init__(self, response):
+    def __init__(self, response) -> None:
         self.response = response
 
 

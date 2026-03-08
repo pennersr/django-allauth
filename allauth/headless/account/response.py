@@ -15,14 +15,14 @@ def email_address_data(addr) -> dict:
 
 
 class RequestEmailVerificationResponse(APIResponse):
-    def __init__(self, request, verification_sent):
+    def __init__(self, request, verification_sent) -> None:
         super().__init__(
             request, status=HTTPStatus.OK if verification_sent else HTTPStatus.FORBIDDEN
         )
 
 
 class VerifyEmailResponse(APIResponse):
-    def __init__(self, request, email_address, stage):
+    def __init__(self, request, email_address, stage) -> None:
         adapter = get_adapter()
         data = {
             "email": email_address.email,
@@ -35,13 +35,13 @@ class VerifyEmailResponse(APIResponse):
 
 
 class EmailAddressesResponse(APIResponse):
-    def __init__(self, request, email_addresses):
+    def __init__(self, request, email_addresses) -> None:
         data = [email_address_data(addr) for addr in email_addresses]
         super().__init__(request, data=data)
 
 
 class PhoneNumbersResponse(APIResponse):
-    def __init__(self, request, phone_numbers, status=HTTPStatus.OK):
+    def __init__(self, request, phone_numbers, status=HTTPStatus.OK) -> None:
         super().__init__(request, data=phone_numbers, status=status)
 
 
@@ -50,7 +50,7 @@ class RequestPasswordResponse(APIResponse):
 
 
 class PasswordResetKeyResponse(APIResponse):
-    def __init__(self, request, user):
+    def __init__(self, request, user) -> None:
         adapter = get_adapter()
         data = {"user": adapter.serialize_user(user)}
         super().__init__(request, data=data)

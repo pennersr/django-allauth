@@ -23,7 +23,7 @@ class LoginStage:
     urlname: str | None = None
     login: Login
 
-    def __init__(self, controller, request, login):
+    def __init__(self, controller, request, login) -> None:
         if not self.key:
             raise ValueError()
         self.controller = controller
@@ -55,7 +55,7 @@ class LoginStage:
 
 
 class LoginStageController:
-    def __init__(self, request, login):
+    def __init__(self, request, login) -> None:
         self.request = request
         self.login = login
         self.state = self.login.state.setdefault("stages", {})
@@ -76,13 +76,13 @@ class LoginStageController:
                 return stage
         return None
 
-    def set_current(self, stage_key):
+    def set_current(self, stage_key) -> None:
         self.state["current"] = stage_key
 
     def is_handled(self, stage_key):
         return self.state.get(stage_key, {}).get("handled", False)
 
-    def set_handled(self, stage_key):
+    def set_handled(self, stage_key) -> None:
         stage_state = self.state.setdefault(stage_key, {})
         stage_state["handled"] = True
 

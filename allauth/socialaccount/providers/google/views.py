@@ -148,7 +148,7 @@ class LoginByTokenView(View):
         login = self.provider.verify_token(request, {"id_token": credential})
         return complete_social_login(request, login)
 
-    def check_csrf(self, request):
+    def check_csrf(self, request) -> None:
         csrf_token_cookie = request.COOKIES.get("g_csrf_token")
         if not csrf_token_cookie:
             raise PermissionDenied("No CSRF token in Cookie.")

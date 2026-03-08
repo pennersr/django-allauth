@@ -117,7 +117,7 @@ class DefaultMFAAdapter(BaseAdapter):
     def can_delete_authenticator(self, authenticator: Authenticator) -> bool:
         return True
 
-    def send_notification_mail(self, *args, **kwargs):
+    def send_notification_mail(self, *args, **kwargs) -> None:
         return get_account_adapter().send_notification_mail(*args, **kwargs)
 
     def is_mfa_enabled(self, user, types=None) -> bool:

@@ -5,7 +5,7 @@ from allauth.usersessions import app_settings
 
 
 class SessionsResponse(APIResponse):
-    def __init__(self, request, sessions):
+    def __init__(self, request, sessions) -> None:
         super().__init__(request, data=[self._session_data(s) for s in sessions])
 
     def _session_data(self, session) -> dict:

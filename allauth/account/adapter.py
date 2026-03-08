@@ -101,7 +101,7 @@ class DefaultAccountAdapter(BaseAdapter):
         "rate_limited": _("Be patient, you are sending too many requests."),
     }
 
-    def stash_verified_email(self, request, email):
+    def stash_verified_email(self, request, email) -> None:
         request.session["account_verified_email"] = email
 
     def unstash_verified_email(self, request):
@@ -295,7 +295,7 @@ class DefaultAccountAdapter(BaseAdapter):
         user = get_user_model()()
         return user
 
-    def populate_username(self, request, user):
+    def populate_username(self, request, user) -> None:
         """
         Fills in a valid username, if required and missing.  If the
         username is already present it is assumed to be valid
@@ -417,7 +417,7 @@ class DefaultAccountAdapter(BaseAdapter):
         message_context=None,
         extra_tags="",
         message=None,
-    ):
+    ) -> None:
         """
         Wrapper of `django.contrib.messages.add_message`, that reads
         the message text from a template.
@@ -542,7 +542,7 @@ class DefaultAccountAdapter(BaseAdapter):
         )
         return response
 
-    def login(self, request, user):
+    def login(self, request, user) -> None:
         # HACK: This is not nice. The proper Django way is to use an
         # authentication backend
         if not hasattr(user, "backend"):
@@ -562,7 +562,7 @@ class DefaultAccountAdapter(BaseAdapter):
             user.backend = backend_path
         django_login(request, user)
 
-    def logout(self, request):
+    def logout(self, request) -> None:
         django_logout(request)
 
     def confirm_email(self, request, email_address):
@@ -621,7 +621,7 @@ class DefaultAccountAdapter(BaseAdapter):
 
         return url_has_allowed_host_and_scheme(url, allowed_hosts=allowed_hosts)
 
-    def send_password_reset_mail(self, user, email, context):
+    def send_password_reset_mail(self, user, email, context) -> None:
         """
         Method intended to be overridden in case you need to customize the logic
         used to determine whether a user is permitted to request a password reset.
@@ -669,7 +669,7 @@ class DefaultAccountAdapter(BaseAdapter):
         }
         self.send_mail("account/email/account_already_exists", email, ctx)
 
-    def send_confirmation_mail(self, request, emailconfirmation, signup):
+    def send_confirmation_mail(self, request, emailconfirmation, signup) -> None:
         ctx = {
             "user": emailconfirmation.email_address.user,
         }
@@ -701,7 +701,7 @@ class DefaultAccountAdapter(BaseAdapter):
         login = credentials.get("email", credentials.get("username", "")).lower()
         return f"{site.domain}:{login}"
 
-    def _delete_login_attempts_cached_email(self, request, **credentials):
+    def _delete_login_attempts_cached_email(self, request, **credentials) -> None:
         cache_key = self._get_login_attempts_cache_key(request, **credentials)
         # Here, we wipe the login failed rate limit, completely. This is safe,
         # as we only do this on a succesful password reset, which is rate limited
@@ -718,7 +718,7 @@ class DefaultAccountAdapter(BaseAdapter):
         if usage:
             usage.rollback()
 
-    def pre_authenticate(self, request, **credentials):
+    def pre_authenticate(self, request, **credentials) -> None:
         cache_key = self._get_login_attempts_cache_key(request, **credentials)
         self._login_failed_rl_usage = ratelimit.consume(
             request,
@@ -749,7 +749,7 @@ class DefaultAccountAdapter(BaseAdapter):
             self.authentication_failed(request, **credentials)
         return user
 
-    def authentication_failed(self, request, **credentials):
+    def authentication_failed(self, request, **credentials) -> None:
         pass
 
     def reauthenticate(self, user, password):
@@ -846,7 +846,9 @@ class DefaultAccountAdapter(BaseAdapter):
                 ret.append(entry)
         return ret
 
-    def send_notification_mail(self, template_prefix, user, context=None, email=None):
+    def send_notification_mail(
+        self, template_prefix, user, context=None, email=None
+    ) -> None:
         from allauth.account.models import EmailAddress
 
         if not app_settings.EMAIL_NOTIFICATIONS:
@@ -940,7 +942,7 @@ class DefaultAccountAdapter(BaseAdapter):
     def send_account_already_exists_sms(self, phone: str) -> None:
         pass
 
-    def send_verification_code_sms(self, user, phone: str, code: str, **kwargs):
+    def send_verification_code_sms(self, user, phone: str, code: str, **kwargs) -> None:
         """
         Sends a verification code.
         """
@@ -963,7 +965,7 @@ class DefaultAccountAdapter(BaseAdapter):
             for method in methods
         )
 
-    def set_phone(self, user, phone: str, verified: bool):
+    def set_phone(self, user, phone: str, verified: bool) -> None:
         """
         Sets the phone number (and verified status) for the given user.
         """
@@ -977,7 +979,7 @@ class DefaultAccountAdapter(BaseAdapter):
         """
         raise NotImplementedError
 
-    def set_phone_verified(self, user, phone: str):
+    def set_phone_verified(self, user, phone: str) -> None:
         """
         Marks the specified phone number for the given user as
         verified. Note that the user is already expected to have

@@ -18,7 +18,7 @@ class LoginSession:
     and redirecting to a different endpoint that can pick up the flow.
     """
 
-    def __init__(self, request, attribute_name, cookie_name):
+    def __init__(self, request, attribute_name, cookie_name) -> None:
         """
         Prepares an provider specific session.
         """
@@ -31,7 +31,7 @@ class LoginSession:
             self.store = SessionStore(session_key)
             setattr(request, attribute_name, self.store)
 
-    def save(self, response):
+    def save(self, response) -> None:
         """
         Save the session and set a cookie.
         """
@@ -54,5 +54,5 @@ class LoginSession:
             **kwargs,
         )
 
-    def delete(self):
+    def delete(self) -> None:
         self.store.delete()

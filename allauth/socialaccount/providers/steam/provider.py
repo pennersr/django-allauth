@@ -70,7 +70,7 @@ class SteamOpenIDProvider(OpenIDProvider):
     uses_apps = True
     supports_redirect = True
 
-    def __init__(self, request, app=None):
+    def __init__(self, request, app=None) -> None:
         if app is None:
             app = get_adapter().get_app(request, self.id)
         super().__init__(request, app=app)

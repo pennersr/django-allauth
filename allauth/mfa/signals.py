@@ -19,7 +19,7 @@ authenticator_removed = Signal()
 authenticator_reset = Signal()
 
 
-def on_add_email(sender, email, user, **kwargs):
+def on_add_email(sender, email, user, **kwargs) -> None:
     if app_settings.ALLOW_UNVERIFIED_EMAIL:
         return
     if account_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED:

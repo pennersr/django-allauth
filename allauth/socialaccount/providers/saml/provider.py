@@ -39,7 +39,7 @@ class SAMLProvider(Provider):
         ],
     }
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.name = self.app.name or self.app.client_id or self.name
 

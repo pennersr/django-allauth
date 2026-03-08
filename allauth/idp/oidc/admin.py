@@ -23,7 +23,7 @@ class ClientAdmin(admin.ModelAdmin):
     readonly_fields = ("secret", "created_at")
     list_filter = ("type", "skip_consent", "allow_uri_wildcards")
 
-    def save_model(self, request, obj, form, change):
+    def save_model(self, request, obj, form, change) -> None:
         if not change:
             adapter = get_adapter()
             secret = adapter.generate_client_secret()

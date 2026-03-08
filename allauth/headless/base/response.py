@@ -17,7 +17,7 @@ from allauth.mfa import app_settings as mfa_settings
 
 
 class BaseAuthenticationResponse(APIResponse):
-    def __init__(self, request, user=None, status=None):
+    def __init__(self, request, user=None, status=None) -> None:
         data = {}
         if user and user.is_authenticated:
             adapter = get_adapter()
@@ -92,7 +92,7 @@ class BaseAuthenticationResponse(APIResponse):
             )
         return ret
 
-    def _upsert_pending_flow(self, flows, pending_flow):
+    def _upsert_pending_flow(self, flows, pending_flow) -> None:
         flow = next((flow for flow in flows if flow["id"] == pending_flow["id"]), None)
         if flow:
             flow.update(pending_flow)
@@ -112,7 +112,7 @@ class BaseAuthenticationResponse(APIResponse):
 
 
 class AuthenticationResponse(BaseAuthenticationResponse):
-    def __init__(self, request):
+    def __init__(self, request) -> None:
         super().__init__(request, user=request.user)
 
     @classmethod
@@ -130,22 +130,22 @@ class AuthenticationResponse(BaseAuthenticationResponse):
 
 
 class ReauthenticationResponse(BaseAuthenticationResponse):
-    def __init__(self, request):
+    def __init__(self, request) -> None:
         super().__init__(request, user=request.user, status=HTTPStatus.UNAUTHORIZED)
 
 
 class UnauthorizedResponse(BaseAuthenticationResponse):
-    def __init__(self, request, status=HTTPStatus.UNAUTHORIZED):
+    def __init__(self, request, status=HTTPStatus.UNAUTHORIZED) -> None:
         super().__init__(request, user=None, status=status)
 
 
 class ForbiddenResponse(APIResponse):
-    def __init__(self, request):
+    def __init__(self, request) -> None:
         super().__init__(request, status=HTTPStatus.FORBIDDEN)
 
 
 class ConflictResponse(APIResponse):
-    def __init__(self, request):
+    def __init__(self, request) -> None:
         super().__init__(request, status=HTTPStatus.CONFLICT)
 
 
@@ -170,7 +170,7 @@ def get_config_data(request) -> dict:
 
 
 class ConfigResponse(APIResponse):
-    def __init__(self, request):
+    def __init__(self, request) -> None:
         data = get_config_data(request)
         if allauth_settings.SOCIALACCOUNT_ENABLED:
             from allauth.headless.socialaccount.response import (
@@ -194,5 +194,5 @@ class ConfigResponse(APIResponse):
 
 
 class RateLimitResponse(APIResponse):
-    def __init__(self, request):
+    def __init__(self, request) -> None:
         super().__init__(request, status=HTTPStatus.TOO_MANY_REQUESTS)

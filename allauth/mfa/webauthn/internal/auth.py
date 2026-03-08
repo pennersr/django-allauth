@@ -180,7 +180,7 @@ def complete_authentication(user, response: dict) -> Authenticator:
 
 
 class WebAuthn:
-    def __init__(self, instance):
+    def __init__(self, instance) -> None:
         self.instance = instance
 
     @classmethod

@@ -18,7 +18,7 @@ class APIResponse(JsonResponse):
         data=None,
         meta: dict | None = None,
         status: int = HTTPStatus.OK,
-    ):
+    ) -> None:
         d: dict[str, Any] = {"status": status}
         if data is not None:
             d["data"] = data
@@ -45,7 +45,7 @@ class APIResponse(JsonResponse):
 class ErrorResponse(APIResponse):
     def __init__(
         self, request, exception=None, input=None, status=HTTPStatus.BAD_REQUEST
-    ):
+    ) -> None:
         errors = []
         if exception is not None:
             error_datas = ErrorList(exception.error_list).get_json_data()

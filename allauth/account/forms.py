@@ -124,7 +124,7 @@ class LoginForm(forms.Form):
             raise ValueError(methods)
         return placeholder
 
-    def _setup_password_field(self):
+    def _setup_password_field(self) -> None:
         password_field = app_settings.SIGNUP_FIELDS.get("password1")
         if not password_field:
             del self.fields["password"]
@@ -392,7 +392,7 @@ class BaseSignupForm(base_signup_form_class()):  # type: ignore[misc]
             self._clean_phone()
         return cleaned_data
 
-    def _clean_phone(self):
+    def _clean_phone(self) -> None:
         """Intentionally NOT `clean_phone()`:
         - phone field is optional (depending on ACCOUNT_SIGNUP_FIELDS)
         - we don't want to have clean_phone() mistakenly called when a project
@@ -429,7 +429,7 @@ class BaseSignupForm(base_signup_form_class()):  # type: ignore[misc]
             resp = None
         return user, resp
 
-    def save(self, request):
+    def save(self, request) -> None:
         email = self.cleaned_data.get("email")
         if self.account_already_exists:
             raise ValueError(email)
@@ -594,7 +594,7 @@ class ChangePasswordForm(PasswordVerificationMixin, UserForm):
     password1 = SetPasswordField(label=_("New Password"))
     password2 = PasswordField(label=_("New Password (again)"))
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.fields["password1"].user = self.user
 
@@ -611,7 +611,7 @@ class SetPasswordForm(PasswordVerificationMixin, UserForm):
     password1 = SetPasswordField(label=_("Password"))
     password2 = PasswordField(label=_("Password (again)"))
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.fields["password1"].user = self.user
 
@@ -650,7 +650,7 @@ class ResetPasswordKeyForm(PasswordVerificationMixin, forms.Form):
     password1 = SetPasswordField(label=_("New Password"))
     password2 = PasswordField(label=_("New Password (again)"))
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         self.user = kwargs.pop("user", None)
         self.temp_key = kwargs.pop("temp_key", None)
         super().__init__(*args, **kwargs)

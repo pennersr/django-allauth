@@ -44,7 +44,7 @@ class DefaultSocialAccountAdapter(BaseAdapter):
         ),
     }
 
-    def pre_social_login(self, request, sociallogin):
+    def pre_social_login(self, request, sociallogin) -> None:
         """
         Invoked just after a user successfully authenticates via a
         social provider, but before the login is actually processed
@@ -66,7 +66,7 @@ class DefaultSocialAccountAdapter(BaseAdapter):
         error=None,
         exception=None,
         extra_context=None,
-    ):
+    ) -> None:
         """
         Invoked when there is an error in the authentication cycle. In this
         case, pre_social_login will not be reached.
@@ -304,7 +304,7 @@ class DefaultSocialAccountAdapter(BaseAdapter):
             raise SocialApp.DoesNotExist()
         return apps[0]
 
-    def send_notification_mail(self, *args, **kwargs):
+    def send_notification_mail(self, *args, **kwargs) -> None:
         return get_account_adapter().send_notification_mail(*args, **kwargs)
 
     def get_requests_session(self):

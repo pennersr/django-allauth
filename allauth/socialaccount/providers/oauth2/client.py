@@ -27,7 +27,7 @@ class OAuth2Client:
         scope_delimiter=" ",
         headers=None,
         basic_auth=False,
-    ):
+    ) -> None:
         self.request = request
         self.access_token_method = access_token_method
         self.access_token_url = access_token_url

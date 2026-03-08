@@ -33,7 +33,7 @@ def cache_device_code_key(device_code: str):
     return f"allauth.idp.oidc.device_code[{device_code}]"
 
 
-def create(client_id: str, scope: list[str] | None, data: dict):
+def create(client_id: str, scope: list[str] | None, data: dict) -> None:
     cache.set(
         cache_user_code_key(data["user_code"]),
         data["device_code"],

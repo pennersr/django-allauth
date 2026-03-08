@@ -38,7 +38,7 @@ class TokenPermission(BasePermission):
         """
 
         class TokenHasScopePermission(cls):  # type: ignore[valid-type,misc]
-            def __init__(self, *args, **kwargs):
+            def __init__(self, *args, **kwargs) -> None:
                 super().__init__(*args, **kwargs)
                 self.scope = scope
 

@@ -128,7 +128,7 @@ def import_callable(path_or_callable):
     return ret
 
 
-def set_form_field_order(form, field_order):
+def set_form_field_order(form, field_order) -> None:
     """
     This function is a verbatim copy of django.forms.Form.order_fields() to
     support field ordering below Django 1.9.

@@ -20,7 +20,7 @@ LOGIN_CODE_STATE_KEY = "login_code"
 
 
 class LoginCodeVerificationProcess(AbstractCodeVerificationProcess):
-    def __init__(self, stage):
+    def __init__(self, stage) -> None:
         self.stage = stage
         self.request = stage.request
         super().__init__(

@@ -321,7 +321,9 @@ def send_verification_email_at_fake_login(request: HttpRequest, login: Login) ->
     return send_verification_email_to_address(request, address, signup=True)
 
 
-def add_email_verification_sent_message(request: HttpRequest, email: str, signup: bool):
+def add_email_verification_sent_message(
+    request: HttpRequest, email: str, signup: bool
+) -> None:
     get_adapter().add_message(
         request,
         messages.INFO,

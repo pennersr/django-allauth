@@ -94,7 +94,7 @@ class AbstractCodeVerificationProcess(abc.ABC):
         if phone:
             self.state["phone"] = phone
 
-    def record_resend(self):
+    def record_resend(self) -> None:
         self.state["resend_count"] += 1
 
     @property

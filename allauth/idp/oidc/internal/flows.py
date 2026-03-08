@@ -12,7 +12,7 @@ def rp_initiated_logout(
     from_op: bool,
     post_logout_redirect_uri: str | None = None,
     client: Client | None = None,
-):
+) -> None:
     if not request.user.is_authenticated:
         return
     if client:

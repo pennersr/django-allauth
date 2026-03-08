@@ -74,7 +74,7 @@ class RedirectAuthenticatedUserMixin:
 
 
 class LogoutFunctionalityMixin:
-    def logout(self):
+    def logout(self) -> None:
         flows.logout.logout(self.request)
 
 

@@ -58,7 +58,7 @@ class AuthenticatorsDeletedResponse(APIResponse):
 
 
 class TOTPNotFoundResponse(APIResponse):
-    def __init__(self, request, secret, totp_url):
+    def __init__(self, request, secret, totp_url) -> None:
         super().__init__(
             request,
             meta={
@@ -70,39 +70,39 @@ class TOTPNotFoundResponse(APIResponse):
 
 
 class TOTPResponse(APIResponse):
-    def __init__(self, request, authenticator):
+    def __init__(self, request, authenticator) -> None:
         data = _authenticator_data(authenticator)
         super().__init__(request, data=data)
 
 
 class AuthenticatorsResponse(APIResponse):
-    def __init__(self, request, authenticators):
+    def __init__(self, request, authenticators) -> None:
         data = [_authenticator_data(authenticator) for authenticator in authenticators]
         super().__init__(request, data=data)
 
 
 class AuthenticatorResponse(APIResponse):
-    def __init__(self, request, authenticator, meta=None):
+    def __init__(self, request, authenticator, meta=None) -> None:
         data = _authenticator_data(authenticator)
         super().__init__(request, data=data, meta=meta)
 
 
 class RecoveryCodesNotFoundResponse(APIResponse):
-    def __init__(self, request):
+    def __init__(self, request) -> None:
         super().__init__(request, status=HTTPStatus.NOT_FOUND)
 
 
 class RecoveryCodesResponse(APIResponse):
-    def __init__(self, request, authenticator, can_view: bool):
+    def __init__(self, request, authenticator, can_view: bool) -> None:
         data = _authenticator_data(authenticator, sensitive=can_view)
         super().__init__(request, data=data)
 
 
 class AddWebAuthnResponse(APIResponse):
-    def __init__(self, request, registration_data):
+    def __init__(self, request, registration_data) -> None:
         super().__init__(request, data={"creation_options": registration_data})
 
 
 class WebAuthnRequestOptionsResponse(APIResponse):
-    def __init__(self, request, request_options):
+    def __init__(self, request, request_options) -> None:
         super().__init__(request, data={"request_options": request_options})

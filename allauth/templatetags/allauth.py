@@ -43,7 +43,7 @@ def do_slot(parser, token):
 
 
 class SlotNode(template.Node):
-    def __init__(self, name, nodelist):
+    def __init__(self, name, nodelist) -> None:
         self.name = name
         self.nodelist = nodelist
 
@@ -74,7 +74,7 @@ def do_element(parser, token):
 
 
 class ElementNode(template.Node):
-    def __init__(self, nodelist, element, kwargs):
+    def __init__(self, nodelist, element, kwargs) -> None:
         self.element = element
         self.kwargs = kwargs
         self.nodelist = nodelist
@@ -136,7 +136,7 @@ def do_setvar(parser, token):
 
 
 class SetVarNode(template.Node):
-    def __init__(self, nodelist, var):
+    def __init__(self, nodelist, var) -> None:
         self.nodelist = nodelist
         self.var = var
 

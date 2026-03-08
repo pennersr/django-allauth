@@ -38,7 +38,7 @@ class OpenIDConnectProvider(OAuth2Provider):
     oauth2_adapter_class = OpenIDConnectOAuth2Adapter
     supports_token_authentication = True
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.name = self.app.name
 

@@ -48,7 +48,9 @@ class OAuthLibRequestValidator(RequestValidator):
     def get_default_scopes(self, client_id, request, *args, **kwargs):
         return request.client.get_default_scopes()
 
-    def save_authorization_code(self, client_id, code, request, *args, **kwargs):
+    def save_authorization_code(
+        self, client_id, code, request, *args, **kwargs
+    ) -> None:
         # WORKAROUND: docstring says:
         # > To support OIDC, you MUST associate the code with:
         # > - nonce, if present (``code["nonce"]``)
@@ -100,7 +102,7 @@ class OAuthLibRequestValidator(RequestValidator):
             return False
         return redirect_uri == authorization_code["redirect_uri"]
 
-    def save_bearer_token(self, token: dict, request, *args, **kwargs):
+    def save_bearer_token(self, token: dict, request, *args, **kwargs) -> None:
         """
         https://datatracker.ietf.org/doc/html/rfc6749#section-6
         > The authorization server MAY issue a new refresh token, in which case
@@ -164,7 +166,9 @@ class OAuthLibRequestValidator(RequestValidator):
                 t.set_scope_email(email)
         Token.objects.bulk_create(tokens)
 
-    def invalidate_authorization_code(self, client_id, code, request, *args, **kwargs):
+    def invalidate_authorization_code(
+        self, client_id, code, request, *args, **kwargs
+    ) -> None:
         authorization_codes.invalidate(client_id, code)
 
     def validate_user_match(self, id_token_hint, scopes, claims, request) -> bool:
@@ -272,7 +276,7 @@ class OAuthLibRequestValidator(RequestValidator):
         request.access_token = instance
         return True
 
-    def revoke_token(self, token, token_type_hint, request, *args, **kwargs):
+    def revoke_token(self, token, token_type_hint, request, *args, **kwargs) -> None:
         if token_type_hint == "access_token":  # nosec
             types = [Token.Type.ACCESS_TOKEN]
         elif token_type_hint == "refresh_token":  # nosec

@@ -27,7 +27,7 @@ def verify_phone_indirectly(request: HttpRequest, user, phone: str) -> None:
 
 
 class PhoneVerificationProcess(AbstractCodeVerificationProcess):
-    def __init__(self, user, state):
+    def __init__(self, user, state) -> None:
         super().__init__(
             user=user,
             state=state,
@@ -92,14 +92,14 @@ class PhoneVerificationProcess(AbstractCodeVerificationProcess):
 
 
 class PhoneVerificationStageProcess(PhoneVerificationProcess):
-    def __init__(self, stage):
+    def __init__(self, stage) -> None:
         self.stage = stage
         super().__init__(user=stage.login.user, state=stage.state)
 
-    def abort(self):
+    def abort(self) -> None:
         pass
 
-    def persist(self):
+    def persist(self) -> None:
         stash_login(self.stage.request, self.stage.login)
 
     @classmethod
@@ -127,7 +127,7 @@ class PhoneVerificationStageProcess(PhoneVerificationProcess):
         self.send(skip_enumeration_sms=False)
         self.persist()
 
-    def resend(self):
+    def resend(self) -> None:
         self.record_resend()
         self.send(skip_enumeration_sms=True)
 
@@ -152,20 +152,20 @@ class PhoneVerificationStageProcess(PhoneVerificationProcess):
 
 
 class ChangePhoneVerificationProcess(PhoneVerificationProcess):
-    def __init__(self, request: HttpRequest, state: dict):
+    def __init__(self, request: HttpRequest, state: dict) -> None:
         self.request = request
         super().__init__(
             user=request.user,
             state=state,
         )
 
-    def abort(self):
+    def abort(self) -> None:
         self.request.session.pop(PHONE_VERIFICATION_SESSION_KEY, None)
 
-    def persist(self):
+    def persist(self) -> None:
         self.request.session[PHONE_VERIFICATION_SESSION_KEY] = self.state
 
-    def finish(self):
+    def finish(self) -> None:
         super().finish()
         self.request.session.pop(PHONE_VERIFICATION_SESSION_KEY, None)
 

@@ -295,7 +295,7 @@ class Provider:
 
 
 class ProviderAccount:
-    def __init__(self, social_account):
+    def __init__(self, social_account) -> None:
         self.account = social_account
 
     def get_profile_url(self) -> str | None:

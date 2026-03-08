@@ -99,13 +99,13 @@ def get_config_data(request):
 
 
 class SocialAccountsResponse(APIResponse):
-    def __init__(self, request, accounts):
+    def __init__(self, request, accounts) -> None:
         data = [_socialaccount_data(request, account) for account in accounts]
         super().__init__(request, data=data)
 
 
 class SocialLoginResponse(APIResponse):
-    def __init__(self, request, sociallogin):
+    def __init__(self, request, sociallogin) -> None:
         adapter = get_adapter()
         data = {
             "user": adapter.serialize_user(sociallogin.user),

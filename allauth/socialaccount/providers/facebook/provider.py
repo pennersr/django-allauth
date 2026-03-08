@@ -52,7 +52,7 @@ class FacebookProvider(OAuth2Provider):
         "https://limited.facebook.com/.well-known/oauth/openid/jwks/"
     )
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         self._locale_callable_cache = None
         super().__init__(*args, **kwargs)
 

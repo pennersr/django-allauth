@@ -10,7 +10,7 @@ from allauth.utils import import_attribute
 
 
 class ProviderRegistry:
-    def __init__(self):
+    def __init__(self) -> None:
         self.provider_map = OrderedDict()
         self.loaded = False
 
@@ -18,7 +18,7 @@ class ProviderRegistry:
         self.load()
         return list(self.provider_map.values())
 
-    def register(self, cls):
+    def register(self, cls) -> None:
         self.provider_map[cls.id] = cls
 
     def get_class(self, id):
@@ -29,7 +29,7 @@ class ProviderRegistry:
         for provider_cls in self.provider_map.values():
             yield (provider_cls.id, provider_cls.name)
 
-    def load(self):
+    def load(self) -> None:
         # TODO: Providers register with the provider registry when
         # loaded. Here, we build the URLs for all registered providers. So, we
         # really need to be sure all providers did register, which is why we're

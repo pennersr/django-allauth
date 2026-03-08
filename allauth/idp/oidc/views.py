@@ -373,7 +373,9 @@ class TokenView(View):
         ).create_token_response(*orequest)
         return convert_response(*oresponse)
 
-    def _pre_token(self, orequest, user: AbstractBaseUser | None, data: dict | None):
+    def _pre_token(
+        self, orequest, user: AbstractBaseUser | None, data: dict | None
+    ) -> None:
         if orequest.grant_type == Client.GrantType.DEVICE_CODE:
             assert user is not None  # nosec
             assert data is not None  # nosec

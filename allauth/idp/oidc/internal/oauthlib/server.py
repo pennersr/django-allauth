@@ -67,7 +67,7 @@ def generate_refresh_token(request) -> str:
 
 
 class OAuthLibServer(Server):
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs) -> None:
         super().__init__(
             token_generator=generate_access_token,
             refresh_token_generator=generate_refresh_token,
@@ -78,7 +78,7 @@ class OAuthLibServer(Server):
 
 
 class DeviceOAuthLibServer(DeviceApplicationServer):
-    def __init__(self):
+    def __init__(self) -> None:
         verification_uri = context.request.build_absolute_uri(
             reverse("idp:oidc:device_authorization")
         )

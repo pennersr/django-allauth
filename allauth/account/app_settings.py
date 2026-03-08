@@ -28,7 +28,7 @@ class AppSettings:
         # Don't send email verification mails during signup
         NONE = "none"
 
-    def __init__(self, prefix):
+    def __init__(self, prefix) -> None:
         self.prefix = prefix
 
     def _setting(self, name, dflt):

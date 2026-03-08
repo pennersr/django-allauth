@@ -11,7 +11,7 @@ class SocialAccountConfig(AppConfig):
     verbose_name = _("Social Accounts")
     default_auto_field = app_settings.DEFAULT_AUTO_FIELD or "django.db.models.AutoField"
 
-    def ready(self):
+    def ready(self) -> None:
         from allauth.socialaccount import checks  # noqa
         from allauth.socialaccount.providers import registry
 

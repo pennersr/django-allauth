@@ -11,7 +11,7 @@ class UserSessionsConfig(AppConfig):
         app_settings.DEFAULT_AUTO_FIELD or "django.db.models.BigAutoField"
     )
 
-    def ready(self):
+    def ready(self) -> None:
         from allauth.account.signals import (
             password_changed,
             password_set,

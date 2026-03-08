@@ -24,7 +24,7 @@ class SignupForm(BaseSignupForm):
         )
         super().__init__(*args, **kwargs)
 
-    def save(self, request):
+    def save(self, request) -> None:
         adapter = get_adapter()
         user = adapter.save_user(request, self.sociallogin, form=self)
         self.custom_signup(request, user)
@@ -46,7 +46,7 @@ class DisconnectForm(forms.Form):
         required=True,
     )
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         self.request = kwargs.pop("request")
         self.accounts = SocialAccount.objects.filter(user=self.request.user)
         super().__init__(*args, **kwargs)

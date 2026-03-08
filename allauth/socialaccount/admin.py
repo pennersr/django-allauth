@@ -19,7 +19,7 @@ class SocialAppForm(forms.ModelForm):
             "secret": forms.TextInput(attrs={"size": "100"}),
         }
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.fields["provider"] = forms.ChoiceField(
             choices=providers.registry.as_choices()

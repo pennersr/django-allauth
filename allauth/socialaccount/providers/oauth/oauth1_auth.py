@@ -64,7 +64,7 @@ class OAuth1(AuthBase):
         client_class=None,
         force_include_body=False,
         **kwargs,
-    ):
+    ) -> None:
 
         try:
             signature_type = signature_type.upper()

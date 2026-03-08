@@ -21,11 +21,11 @@ class JSONSafeSession(UserDict):
     hacking here...
     """
 
-    def __init__(self, session):
+    def __init__(self, session) -> None:
         UserDict.__init__(self)
         self.data = session
 
-    def __setitem__(self, key, value):
+    def __setitem__(self, key, value) -> None:
         data = base64.b64encode(pickle.dumps(value)).decode("ascii")
         return UserDict.__setitem__(self, key, data)
 
@@ -76,7 +76,7 @@ SRegFields = [
 class DBOpenIDStore(OIDStore):
     max_nonce_age = 6 * 60 * 60
 
-    def storeAssociation(self, server_url, assoc=None):
+    def storeAssociation(self, server_url, assoc=None) -> None:
         try:
             secret = base64.encodebytes(assoc.secret)
         except AttributeError:
@@ -127,7 +127,7 @@ class DBOpenIDStore(OIDStore):
 
         return return_val
 
-    def removeAssociation(self, server_url, handle):
+    def removeAssociation(self, server_url, handle) -> None:
         stored_assocs = OpenIDStore.objects.filter(server_url=server_url)
         if handle:
             stored_assocs = stored_assocs.filter(handle=handle)

@@ -29,7 +29,7 @@ class EmailField(forms.EmailField):
 
 
 class PasswordField(forms.CharField):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         render_value = kwargs.pop(
             "render_value", app_settings.PASSWORD_INPUT_RENDER_VALUE
         )
@@ -44,7 +44,7 @@ class PasswordField(forms.CharField):
 
 
 class SetPasswordField(PasswordField):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         kwargs["autocomplete"] = "new-password"
         kwargs.setdefault(
             "help_text", password_validation.password_validators_help_text_html()
@@ -65,7 +65,7 @@ class PhoneField(forms.CharField):
         code="invalid_phone",
     )
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         widget = forms.TextInput(
             attrs={"placeholder": _("Phone"), "autocomplete": "tel", "type": "tel"}
         )

@@ -18,7 +18,7 @@ class TokenAuth(AuthBase):
     openapi_type: str = "apiKey"
     scope = None
 
-    def __init__(self, scope: str | list | dict):
+    def __init__(self, scope: str | list | dict) -> None:
         """The scope passed can either be:
 
         - a single scope (``str``),

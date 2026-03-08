@@ -16,7 +16,7 @@ from allauth.utils import build_absolute_uri
 
 
 class OpenIDConnectOAuth2Adapter(OAuth2Adapter):
-    def __init__(self, request, provider_id):
+    def __init__(self, request, provider_id) -> None:
         self.provider_id = provider_id
         super().__init__(request)
 

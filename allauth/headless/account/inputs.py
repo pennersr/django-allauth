@@ -29,7 +29,7 @@ from allauth.headless.internal.restkit import inputs
 class SignupInput(BaseSignupForm, inputs.Input):
     password = inputs.CharField()
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         password = account_settings.SIGNUP_FIELDS.get("password1")
         if not password:
@@ -51,7 +51,7 @@ class LoginInput(inputs.Input):
     phone = PhoneField(required=False)
     password = inputs.CharField()
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         for field in ["username", "email", "phone"]:
             if field not in account_settings.LOGIN_METHODS:
@@ -92,7 +92,7 @@ class LoginInput(inputs.Input):
 class VerifyEmailInput(inputs.Input):
     key = inputs.CharField()
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         self.process = kwargs.pop("process", None)
         super().__init__(*args, **kwargs)
 
@@ -127,7 +127,7 @@ class RequestPasswordResetInput(ResetPasswordForm, inputs.Input):
 class ResetPasswordKeyInput(inputs.Input):
     key = inputs.CharField()
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         self.user = kwargs.pop("user", None)
         self.code = kwargs.pop("code", None)
         super().__init__(*args, **kwargs)
@@ -172,7 +172,7 @@ class ChangePasswordInput(inputs.Input):
     current_password = inputs.CharField(required=False)
     new_password = inputs.CharField()
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         self.user = kwargs.pop("user")
         super().__init__(*args, **kwargs)
         self.fields["current_password"].required = self.user.has_usable_password()
@@ -197,7 +197,7 @@ class AddEmailInput(AddEmailForm, inputs.Input):
 class SelectEmailInput(inputs.Input):
     email = inputs.CharField()
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         self.user = kwargs.pop("user")
         super().__init__(*args, **kwargs)
 

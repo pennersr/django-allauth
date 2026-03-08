@@ -17,7 +17,7 @@ class DingTalkOAuth2Adapter(OAuth2Adapter):
     profile_url = "https://api.dingtalk.com/v1.0/contact/users/me"
     client_class = DingTalkOAuth2Client
 
-    def __init__(self, request):
+    def __init__(self, request) -> None:
         # dingtalk set "authCode" instead of "code" in callback url
         if "authCode" in request.GET:
             request.GET._mutable = True

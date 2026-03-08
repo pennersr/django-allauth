@@ -19,7 +19,7 @@ class EmailAddressAdmin(admin.ModelAdmin):
         base_fields = get_adapter().get_user_search_fields()
         return ["email"] + list(map(lambda a: f"user__{a}", base_fields))
 
-    def make_verified(self, request, queryset):
+    def make_verified(self, request, queryset) -> None:
         for email_address in queryset.filter(verified=False).iterator():
             if email_address.set_verified():
                 signals.email_confirmed.send(

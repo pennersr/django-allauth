@@ -20,7 +20,7 @@ PASSWORD_RESET_VERIFICATION_SESSION_KEY = (
 
 
 class PasswordResetVerificationProcess(AbstractCodeVerificationProcess):
-    def __init__(self, request, state, user=None):
+    def __init__(self, request, state, user=None) -> None:
         self.request = request
         super().__init__(
             state=state,
@@ -29,10 +29,10 @@ class PasswordResetVerificationProcess(AbstractCodeVerificationProcess):
             user=user,
         )
 
-    def abort(self):
+    def abort(self) -> None:
         self.request.session.pop(PASSWORD_RESET_VERIFICATION_SESSION_KEY, None)
 
-    def confirm_code(self):
+    def confirm_code(self) -> None:
         if self.state.get("code_confirmed"):
             return
         self.state["code_confirmed"] = True
@@ -45,10 +45,10 @@ class PasswordResetVerificationProcess(AbstractCodeVerificationProcess):
             self.request, self.user, email=self.state["email"]
         )
 
-    def persist(self):
+    def persist(self) -> None:
         self.request.session[PASSWORD_RESET_VERIFICATION_SESSION_KEY] = self.state
 
-    def send(self):
+    def send(self) -> None:
         adapter = get_adapter()
         email = self.state["email"]
         if not self.user:

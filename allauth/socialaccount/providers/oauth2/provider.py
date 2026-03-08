@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from urllib.parse import parse_qsl
 
 from django.core.exceptions import ImproperlyConfigured

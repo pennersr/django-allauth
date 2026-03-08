@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.forms import ValidationError
 
 from allauth.account import app_settings as account_settings

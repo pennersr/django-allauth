@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.http import HttpRequest
 
 from rest_framework import authentication

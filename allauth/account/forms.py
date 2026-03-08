@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django import forms
 from django.contrib.auth import REDIRECT_FIELD_NAME, get_user_model, password_validation
 from django.contrib.auth.tokens import PasswordResetTokenGenerator

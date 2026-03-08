@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from datetime import datetime
 
 from allauth.socialaccount import app_settings

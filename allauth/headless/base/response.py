@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from http import HTTPStatus
 
 from allauth import app_settings as allauth_settings

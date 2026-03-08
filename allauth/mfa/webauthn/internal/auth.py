@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Any
 
 from django.contrib.auth import get_user_model

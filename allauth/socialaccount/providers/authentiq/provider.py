@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from allauth.account.models import EmailAddress
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.providers.authentiq.views import AuthentiqOAuth2Adapter

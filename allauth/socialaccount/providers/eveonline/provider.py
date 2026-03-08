@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from allauth.socialaccount.app_settings import STORE_TOKENS
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.eveonline.views import EveOnlineOAuth2Adapter

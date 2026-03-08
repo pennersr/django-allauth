@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.core.cache import cache
 
 from allauth.account.models import EmailAddress

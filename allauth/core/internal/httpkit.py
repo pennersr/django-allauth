@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import ipaddress
 import json
 from urllib.parse import parse_qs, quote, urlencode, urlparse, urlunparse

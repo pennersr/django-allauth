@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from urllib.parse import urljoin
 
 from allauth.socialaccount import app_settings

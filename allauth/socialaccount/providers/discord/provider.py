@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.providers.base import AuthAction, ProviderAccount
 from allauth.socialaccount.providers.discord.views import DiscordOAuth2Adapter

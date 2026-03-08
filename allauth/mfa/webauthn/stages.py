@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from allauth.account.stages import LoginStage
 from allauth.core.internal.httpkit import headed_redirect_response
 from allauth.mfa.internal.constants import LoginStageKey

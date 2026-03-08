@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django import template
 
 from allauth.account.utils import user_display

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.core.checks import Critical, Warning, register
 
 

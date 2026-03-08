@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.app_settings import QUERY_EMAIL

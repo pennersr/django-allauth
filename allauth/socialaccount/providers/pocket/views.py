@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from ..oauth.views import OAuthAdapter, OAuthCallbackView, OAuthLoginView
 from .client import PocketOAuthClient
 

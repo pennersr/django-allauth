@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from rest_framework.authentication import BaseAuthentication
 
 from allauth.idp.oidc.internal.oauthlib.server import get_server

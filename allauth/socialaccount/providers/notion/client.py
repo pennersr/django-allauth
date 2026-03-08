@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from http import HTTPStatus
 from requests.auth import HTTPBasicAuth
 from urllib.parse import parse_qsl

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.utils.decorators import classonlymethod
 
 from allauth.account.stages import LoginStage, LoginStageController

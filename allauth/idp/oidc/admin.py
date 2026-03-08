@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.contrib import admin, messages
 from django.utils.html import escape
 from django.utils.safestring import mark_safe

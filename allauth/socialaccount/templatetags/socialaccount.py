@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django import template
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.utils.safestring import mark_safe

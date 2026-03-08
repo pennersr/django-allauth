@@ -1,4 +1,6 @@
 """
+from __future__ import annotations
+
 Views for PatreonProvider
 https://www.patreon.com/platform/documentation/oauth
 """

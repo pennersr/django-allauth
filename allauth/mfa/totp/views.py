@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import base64
 
 from django.contrib.auth.decorators import login_required

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from functools import wraps
 
 from allauth.core import ratelimit

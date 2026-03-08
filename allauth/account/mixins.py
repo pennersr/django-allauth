@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.core.exceptions import ImproperlyConfigured
 from django.http import HttpResponsePermanentRedirect, HttpResponseRedirect

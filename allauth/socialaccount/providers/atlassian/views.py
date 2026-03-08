@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.models import SocialToken
 from allauth.socialaccount.providers.oauth2.views import (

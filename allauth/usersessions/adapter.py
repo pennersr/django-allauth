@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from allauth.core.internal.adapter import BaseAdapter
 from allauth.usersessions import app_settings
 from allauth.utils import import_attribute

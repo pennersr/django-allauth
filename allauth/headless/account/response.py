@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from http import HTTPStatus
 
 from allauth.headless.adapter import get_adapter

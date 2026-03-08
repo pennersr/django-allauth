@@ -1,4 +1,6 @@
 """
+from __future__ import annotations
+
 OAuth2 Adapter for Battle.net
 
 Resources:

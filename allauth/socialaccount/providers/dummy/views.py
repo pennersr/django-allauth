@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse, HttpResponseBase
 from django.urls import reverse

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.http import Http404
 from django.urls import reverse
 

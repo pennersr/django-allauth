@@ -1,3 +1,6 @@
+from __future__ import annotations
+
+
 class ImmediateHttpResponse(Exception):
     """
     This exception is used to interrupt the flow of processing to immediately

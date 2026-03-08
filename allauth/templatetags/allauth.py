@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django import template
 from django.template.base import FilterExpression, kwarg_re
 from django.template.loader import render_to_string

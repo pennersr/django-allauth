@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import dataclasses
 import uuid
 from typing import Any, Optional

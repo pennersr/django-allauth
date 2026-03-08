@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 from allauth.socialaccount.providers.stripe.views import StripeOAuth2Adapter

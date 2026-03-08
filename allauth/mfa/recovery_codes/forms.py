@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django import forms
 
 from allauth.mfa.adapter import get_adapter

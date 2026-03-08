@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.shortcuts import render
 
 from allauth.account import app_settings as account_app_settings

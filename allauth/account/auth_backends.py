@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from threading import local
 
 from django.contrib.auth import get_user_model

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from allauth.account.forms import BaseSignupForm
 from allauth.headless.internal.restkit import inputs
 from allauth.mfa.base.forms import AuthenticateForm

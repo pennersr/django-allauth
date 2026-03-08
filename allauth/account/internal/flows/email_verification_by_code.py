@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Optional
 
 from django.utils.functional import cached_property

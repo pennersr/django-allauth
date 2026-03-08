@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from allauth.headless.base.response import APIResponse
 from allauth.usersessions import app_settings
 

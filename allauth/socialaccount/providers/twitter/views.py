@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from allauth.socialaccount.app_settings import QUERY_EMAIL
 from allauth.socialaccount.providers.oauth.client import OAuth
 from allauth.socialaccount.providers.oauth.views import (

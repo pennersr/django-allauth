@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from allauth.mfa.adapter import get_adapter
 
 

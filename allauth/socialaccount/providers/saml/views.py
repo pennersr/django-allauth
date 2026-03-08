@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import binascii
 import logging
 from http import HTTPStatus

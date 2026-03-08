@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import requests
 
 from allauth.account.models import EmailAddress

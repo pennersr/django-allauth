@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from urllib.parse import urlparse, urlunparse
 
 from django.forms import Form

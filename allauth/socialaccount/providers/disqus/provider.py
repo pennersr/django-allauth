@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.app_settings import QUERY_EMAIL
 from allauth.socialaccount.providers.base import ProviderAccount

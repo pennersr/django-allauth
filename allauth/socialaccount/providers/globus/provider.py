@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.providers.base import ProviderAccount, ProviderException
 from allauth.socialaccount.providers.globus.views import GlobusOAuth2Adapter

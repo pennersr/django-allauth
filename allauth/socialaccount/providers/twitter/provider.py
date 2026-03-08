@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from allauth.socialaccount.providers.base import AuthAction, ProviderAccount
 from allauth.socialaccount.providers.oauth.provider import OAuthProvider
 from allauth.socialaccount.providers.twitter.views import TwitterOAuthAdapter

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import re
 from re import Pattern
 from urllib.parse import ParseResult, parse_qsl, urlparse

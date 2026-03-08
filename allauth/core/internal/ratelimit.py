@@ -1,4 +1,6 @@
 """
+from __future__ import annotations
+
 Rate limiting in this implementation relies on a cache and uses non-atomic
 operations, making it vulnerable to race conditions. As a result, users may
 occasionally bypass the intended rate limit due to concurrent access. However,

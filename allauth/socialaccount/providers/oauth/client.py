@@ -1,4 +1,6 @@
 """
+from __future__ import annotations
+
 Parts derived from socialregistration and authorized by: alen, pinda
 Inspired by:
     https://github.com/leah/python-oauth/blob/master/oauth/example/client.py

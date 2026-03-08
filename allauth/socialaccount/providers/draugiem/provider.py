@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.urls import reverse
 from django.utils.http import urlencode
 

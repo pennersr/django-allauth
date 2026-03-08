@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.fivehundredpx.views import (
     FiveHundredPxOAuthAdapter,

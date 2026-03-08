@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Callable
 
 from allauth.account.adapter import get_adapter as get_account_adapter

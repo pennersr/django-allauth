@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.contrib.auth.decorators import login_required
 from django.forms import Form
 from django.http import HttpResponse, HttpResponseBase, HttpResponseRedirect

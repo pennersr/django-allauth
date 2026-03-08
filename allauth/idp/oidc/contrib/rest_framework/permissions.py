@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from rest_framework.permissions import BasePermission
 
 from allauth.idp.oidc.internal.scope import is_scope_granted

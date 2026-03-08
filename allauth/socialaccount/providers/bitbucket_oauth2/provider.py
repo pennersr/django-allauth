@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.bitbucket_oauth2.views import (
     BitbucketOAuth2Adapter,

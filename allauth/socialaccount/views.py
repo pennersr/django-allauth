@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from http import HTTPStatus
 
 from django.contrib.auth.decorators import login_required

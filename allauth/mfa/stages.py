@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from allauth.account import app_settings as account_settings
 from allauth.account.internal.constants import LoginStageKey as AccountLoginStageKey
 from allauth.account.stages import LoginStage

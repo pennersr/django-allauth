@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.evernote.views import EvernoteOAuthAdapter
 from allauth.socialaccount.providers.oauth.provider import OAuthProvider

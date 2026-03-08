@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.apps import apps
 
 from allauth.core.internal.cryptokit import UserCodeFormat

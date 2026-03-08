@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from http import HTTPStatus
 from urllib.parse import urlencode
 

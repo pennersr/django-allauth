@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.contrib import messages
 from django.http import HttpRequest
 

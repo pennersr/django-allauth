@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from allauth.headless.internal.restkit import inputs
 from allauth.usersessions.models import UserSession
 

@@ -1,3 +1,6 @@
+from __future__ import annotations
+
+
 class AppSettings:
     def __init__(self, prefix: str) -> None:
         self.prefix = prefix

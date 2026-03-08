@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from allauth import app_settings as allauth_settings
 from allauth.core.internal.cryptokit import UserCodeFormat
 

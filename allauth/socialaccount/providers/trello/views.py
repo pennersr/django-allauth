@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.utils.http import urlencode
 
 from allauth.socialaccount.adapter import get_adapter

@@ -1,5 +1,7 @@
 """Views for Eventbrite API v3."""
 
+from __future__ import annotations
+
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,

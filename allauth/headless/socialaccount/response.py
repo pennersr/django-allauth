@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from allauth.headless.account.response import email_address_data
 from allauth.headless.adapter import get_adapter
 from allauth.headless.base.response import APIResponse

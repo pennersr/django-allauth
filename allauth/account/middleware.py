@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import os
 from http import HTTPStatus
 from types import SimpleNamespace

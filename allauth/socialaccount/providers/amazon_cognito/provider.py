@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.providers.amazon_cognito.utils import (
     convert_to_python_bool_if_value_is_json_string_bool,

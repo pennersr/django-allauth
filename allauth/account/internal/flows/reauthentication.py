@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import time
 
 from django.contrib.auth import REDIRECT_FIELD_NAME

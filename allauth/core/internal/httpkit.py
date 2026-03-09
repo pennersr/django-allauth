@@ -173,6 +173,7 @@ def clean_client_ip(ip: str) -> str | None:
     """
     Try to parse the value as an IP address to make sure it's a valid one.
     """
+    ip = ip.strip()
     try:
         domain, port = split_domain_port(ip)
         if port and domain:

@@ -1168,15 +1168,49 @@ class ConfirmLoginCodeView(NextRedirectMixin, FormView):
             return HttpResponseRedirect(reverse(_login_by_code_urlname()))
         return super().dispatch(request, *args, **kwargs)
 
+    @cached_property
+    def _action(self) -> str:
+        action = self.request.POST.get("action")
+        valid_actions = ["verify"]
+        if self._process.can_resend:
+            valid_actions.append("resend")
+        if action not in valid_actions:
+            action = "verify"
+        return action
+
     def get_form_class(self):
+        if self._action == "resend":
+            return Form
         return get_form_class(app_settings.FORMS, "confirm_login_code", self.form_class)
 
     def get_form_kwargs(self) -> dict:
         kwargs = super().get_form_kwargs()
-        kwargs["code"] = self._process.code
+        if self._action == "resend":
+            pass
+        else:
+            kwargs["code"] = self._process.code
         return kwargs
 
     def form_valid(self, form) -> HttpResponse:
+        if self._action == "resend":
+            return self._resend_form_valid(form)
+        return self._verify_form_valid(form)
+
+    def _resend_form_valid(self, form) -> HttpResponse:
+        try:
+            self._process.resend()
+        except RateLimited:
+            adapter = get_adapter()
+            adapter.add_message(
+                self.request,
+                messages.ERROR,
+                message=adapter.error_messages["rate_limited"],
+            )
+        return HttpResponseRedirect(
+            self.passthrough_next_url(reverse("account_confirm_login_code"))
+        )
+
+    def _verify_form_valid(self, form) -> HttpResponse:
         redirect_url = self.get_next_url()
         return self._process.finish(redirect_url)
 
@@ -1205,6 +1239,7 @@ class ConfirmLoginCodeView(NextRedirectMixin, FormView):
         phone = self._process.state.get("phone")
         ret.update(
             {
+                "can_resend": self._process.can_resend,
                 "site": site,
                 "email": email,
                 "phone": phone,

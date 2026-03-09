@@ -13,7 +13,17 @@ from allauth.account.stages import LoginByCodeStage
 
 
 @pytest.fixture
-def request_login_by_code(mailoutbox):
+def get_expected_login_code():
+    def f(client):
+        return client.session[LOGIN_SESSION_KEY]["state"]["stages"][
+            LoginByCodeStage.key
+        ]["data"]["code"]
+
+    return f
+
+
+@pytest.fixture
+def request_login_by_code(mailoutbox, get_expected_login_code):
     def f(client, email):
         resp = client.get(f"{reverse('account_request_login_code')}?next=/foo")
         assert resp.status_code == HTTPStatus.OK
@@ -26,9 +36,7 @@ def request_login_by_code(mailoutbox):
             resp["location"] == f"{reverse('account_confirm_login_code')}?next=%2Ffoo"
         )
         assert len(mailoutbox) == 1
-        code = client.session[LOGIN_SESSION_KEY]["state"]["stages"][
-            LoginByCodeStage.key
-        ]["data"]["code"]
+        code = get_expected_login_code(client)
         assert len(code) == 9
         assert code in mailoutbox[0].body
         return code
@@ -51,6 +59,46 @@ def test_login_by_code(client, user, request_login_by_code):
         "email": user.email,
         "at": ANY,
     }
+
+
+def test_login_by_code_resend_limited(
+    client, user, request_login_by_code, settings, get_expected_login_code
+):
+    settings.ACCOUNT_LOGIN_BY_CODE_SUPPORTS_RESEND = 2
+    code = request_login_by_code(client, user.email)
+    for i in range(3):
+        resp = client.post(
+            reverse("account_confirm_login_code"), data={"action": "resend"}
+        )
+
+        assert resp.status_code == (
+            # Form error if resend not possible
+            HTTPStatus.OK
+            if i == 2
+            # If resend allowed, the resend form is valid and results in a redirect.
+            else HTTPStatus.FOUND
+        )
+        new_code = get_expected_login_code(client)
+        if i == 2:
+            assert new_code == code
+        else:
+            assert new_code != code
+            code = new_code
+
+
+def test_login_by_code_resend_uses_new_code(
+    client, user, request_login_by_code, settings, get_expected_login_code
+):
+    settings.ACCOUNT_LOGIN_BY_CODE_SUPPORTS_RESEND = 2
+    code = request_login_by_code(client, user.email)
+    resp = client.post(reverse("account_confirm_login_code"), data={"action": "resend"})
+    assert resp.status_code == HTTPStatus.FOUND
+    assert resp["location"] == reverse("account_confirm_login_code")
+    new_code = get_expected_login_code(client)
+    assert new_code != code
+    resp = client.post(reverse("account_confirm_login_code"), data={"code": new_code})
+    assert resp.status_code == HTTPStatus.FOUND
+    assert resp["location"] == settings.LOGIN_REDIRECT_URL
 
 
 def test_login_by_code_max_attempts(client, user, request_login_by_code, settings):

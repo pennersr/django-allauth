@@ -76,6 +76,23 @@ class RequestLoginCodeView(APIView):
         return AuthenticationResponse(self.request)
 
 
+class ResendLoginCodeView(APIView):
+    handle_json_input = False
+
+    def post(self, request, *args, **kwargs):
+        process = None
+        stage = LoginStageController.enter(request, LoginStageKey.LOGIN_BY_CODE)
+        if stage:
+            process = flows.login_by_code.LoginCodeVerificationProcess.resume(stage)
+        if not process or not process.can_resend:
+            return ConflictResponse(request)
+        try:
+            process.resend()
+        except RateLimited:
+            return RateLimitResponse(request)
+        return APIResponse(request)
+
+
 class ConfirmLoginCodeView(APIView):
     input_class = ConfirmLoginCodeInput
 

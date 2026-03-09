@@ -21,6 +21,9 @@ Note worthy changes
   ``ACCOUNT_PASSWORD_RESET_BY_CODE_FORMAT``,
   ``ACCOUNT_EMAIL_VERIFICATION_BY_CODE_FORMAT``, ``IDP_OIDC_USER_CODE_FORMAT``.
 
+- Added optional support for requesting new login codes. See
+  ``ACCOUNT_LOGIN_BY_CODE_SUPPORTS_RESEND``.
+
 
 Backwards incompatible changes
 ------------------------------

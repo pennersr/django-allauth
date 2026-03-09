@@ -58,46 +58,57 @@ class LoginCodeVerificationProcess(AbstractCodeVerificationProcess):
     def persist(self) -> None:
         stash_login(self.request, self.stage.login)
 
-    def send(self) -> None:
+    def send(self, skip_enumeration_mails: bool = False) -> None:
         email = self.state.get("email")
         phone = self.state.get("phone")
         if email:
-            self.send_by_email(email)
+            self.send_by_email(email, skip_enumeration_mails=skip_enumeration_mails)
         elif phone:
-            self.send_by_phone(phone)
+            self.send_by_phone(phone, skip_enumeration_mails=skip_enumeration_mails)
         else:
             raise ValueError()
 
-    def send_by_phone(self, phone) -> None:
+    def generate_code(self) -> str:
+        email = self.state.get("email")
+        phone = self.state.get("phone")
         adapter = get_adapter()
-        if self.user:
+        if email:
+            code = adapter.generate_login_code()
+        elif phone:
             code = adapter._generate_phone_verification_code_compat(
                 user=self.user, phone=phone
             )
-            adapter.send_verification_code_sms(user=self.user, phone=phone, code=code)
-            self.state["code"] = code
         else:
+            raise ValueError()
+        self.state["code"] = code
+        return code
+
+    def send_by_phone(self, phone: str, skip_enumeration_mails: bool = False) -> None:
+        adapter = get_adapter()
+        if self.user:
+            code = self.generate_code()
+            adapter.send_verification_code_sms(user=self.user, phone=phone, code=code)
+        elif not skip_enumeration_mails:
             if self.stage.login.signup:
                 adapter.send_account_already_exists_sms(phone)
             else:
                 adapter.send_unknown_account_sms(phone)
         self.add_sent_message({"recipient": phone, "phone": phone})
 
-    def send_by_email(self, email) -> None:
+    def send_by_email(self, email: str, skip_enumeration_mails: bool = False) -> None:
         adapter = get_adapter()
-        if not self.user:
-            if self.stage.login.signup:
-                adapter.send_account_already_exists_mail(email)
-            else:
-                send_unknown_account_mail(self.request, email)
-        else:
-            code = adapter.generate_login_code()
+        if self.user:
+            code = self.generate_code()
             context = {
                 "request": self.request,
                 "code": code,
             }
             adapter.send_mail("account/email/login_code", email, context)
-            self.state["code"] = code
+        elif not skip_enumeration_mails:
+            if self.stage.login.signup:
+                adapter.send_account_already_exists_mail(email)
+            else:
+                send_unknown_account_mail(self.request, email)
         self.add_sent_message({"email": email, "recipient": email})
 
     def add_sent_message(self, context) -> None:
@@ -136,3 +147,15 @@ class LoginCodeVerificationProcess(AbstractCodeVerificationProcess):
     def resume(cls, stage):
         process = LoginCodeVerificationProcess(stage=stage)
         return process.abort_if_invalid()
+
+    @property
+    def can_resend(self) -> bool:
+        return not self.is_resend_quota_reached(
+            app_settings.LOGIN_BY_CODE_MAX_RESEND_COUNT
+        )
+
+    def resend(self) -> None:
+        self.generate_code()
+        self.send(skip_enumeration_mails=True)
+        self.record_resend()
+        self.persist()

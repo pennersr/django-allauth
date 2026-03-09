@@ -1010,6 +1010,30 @@ paths:
               schema:
                 $ref: "#/components/schemas/ConflictResponse"
 
+  /_allauth/{client}/v1/auth/code/resend:
+    post:
+      tags:
+        - "Authentication: Login By Code"
+      summary: Resend login code
+      description: |
+        Requests a new login code.
+        Requires `ACCOUNT_LOGIN_BY_CODE_SUPPORTS_RESEND = True`.
+      parameters:
+        - $ref: "#/components/parameters/Client"
+        - $ref: "#/components/parameters/SessionToken"
+      responses:
+        "200":
+          $ref: "#/components/responses/StatusOK"
+        "409":
+          description: |
+            Conflict. The login verification (by code) flow is not pending.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConflictResponse"
+        "429":
+          $ref: "#/components/responses/TooManyRequests"
+
   ######################################################################
   # Account: Providers
   ######################################################################

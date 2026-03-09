@@ -105,6 +105,11 @@ def build_urlpatterns(client):
                     views.RequestLoginCodeView.as_api_view(client=client),
                     name="request_login_code",
                 ),
+                path(
+                    "code/resend",
+                    views.ResendLoginCodeView.as_api_view(client=client),
+                    name="resend_login_code",
+                ),
             ]
         )
     return [

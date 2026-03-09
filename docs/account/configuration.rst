@@ -115,6 +115,9 @@ Login
   of authentication methods (``"password"``, ``"mfa"``, or ``"socialaccount"``)
   for which login codes are required.
 
+``ACCOUNT_LOGIN_BY_CODE_SUPPORTS_RESEND`` (default: ``False``)
+  Whether or not the user can request a new login code.
+
 ``ACCOUNT_LOGIN_BY_CODE_TIMEOUT`` (default: ``180``)
   The code that is emailed has a limited life span. It expires this many seconds after
   which it was sent.

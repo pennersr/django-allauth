@@ -1,13 +1,23 @@
 import time
 from http import HTTPStatus
 
+import pytest
+
 from allauth.account.internal.stagekit import LOGIN_SESSION_KEY
 from allauth.account.models import EmailAddress
 from allauth.account.stages import LoginByCodeStage
 from allauth.headless.constants import Flow
 
 
-def test_login_by_code(headless_reverse, user, client, mailoutbox):
+@pytest.fixture
+def get_last_login_code(mailoutbox):
+    def f():
+        return [line for line in mailoutbox[-1].body.splitlines() if len(line) == 9][0]
+
+    return f
+
+
+def test_login_by_code(headless_reverse, user, client, mailoutbox, get_last_login_code):
     resp = client.post(
         headless_reverse("headless:account:request_login_code"),
         data={"email": user.email},
@@ -19,7 +29,7 @@ def test_login_by_code(headless_reverse, user, client, mailoutbox):
         "is_pending"
     ]
     assert len(mailoutbox) == 1
-    code = [line for line in mailoutbox[0].body.splitlines() if len(line) == 9][0]
+    code = get_last_login_code()
     resp = client.post(
         headless_reverse("headless:account:confirm_login_code"),
         data={"code": code},
@@ -183,3 +193,27 @@ def test_post_login_code_when_flow_not_pending(
             content_type="application/json",
         )
         assert resp.status_code == HTTPStatus.CONFLICT
+
+
+def test_login_by_code_resend_limited(
+    settings, headless_reverse, user, client, mailoutbox, get_last_login_code
+):
+    settings.ACCOUNT_LOGIN_BY_CODE_SUPPORTS_RESEND = 2
+    resp = client.post(
+        headless_reverse("headless:account:request_login_code"),
+        data={"email": user.email},
+        content_type="application/json",
+    )
+    assert resp.status_code == HTTPStatus.UNAUTHORIZED
+    code = get_last_login_code()
+    for i in range(3):
+        resp = client.post(
+            headless_reverse("headless:account:resend_login_code"),
+        )
+        assert resp.status_code == (HTTPStatus.CONFLICT if i == 2 else HTTPStatus.OK)
+        new_code = get_last_login_code()
+        if i == 2:
+            assert new_code == code
+        else:
+            assert new_code != code
+            code = new_code

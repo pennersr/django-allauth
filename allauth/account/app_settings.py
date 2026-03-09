@@ -556,6 +556,16 @@ class AppSettings:
         return self._setting("LOGIN_BY_CODE_MAX_ATTEMPTS", 3)
 
     @property
+    def LOGIN_BY_CODE_MAX_RESEND_COUNT(self) -> int:
+        """
+        The maximum number of times the user can request a new login code.
+        """
+        v = self._setting("LOGIN_BY_CODE_SUPPORTS_RESEND", False)
+        if isinstance(v, bool):
+            v = 2 if v else 0
+        return v
+
+    @property
     def LOGIN_BY_CODE_TIMEOUT(self):
         return self._setting("LOGIN_BY_CODE_TIMEOUT", 3 * 60)
 

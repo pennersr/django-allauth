@@ -208,7 +208,11 @@ class OAuth:
         )
         with get_adapter().get_requests_session() as sess:
             response = sess.request(
-                url, method=method.lower(), auth=oauth, headers=headers, params=params
+                method=method.lower(),
+                url=url,
+                auth=oauth,
+                headers=headers,
+                params=params,
             )
             if response.status_code != HTTPStatus.OK:
                 raise OAuthError(

@@ -342,10 +342,10 @@ class DefaultSocialAccountAdapter(BaseAdapter):
 
     def can_authenticate_by_email(self, login, email):
         """
-        Returns ``True`` iff  authentication by email is active for this login/email.
+        Returns ``True`` if  authentication by email is active for this login/email.
 
         This can be configured with a ``"email_authentication"`` key in the provider
-        app settings, or a ``"VERIFIED_EMAIL"`` in the global provider settings
+        app settings, or a ``"EMAIL_AUTHENTICATION"`` in the global provider settings
         (``SOCIALACCOUNT_PROVIDERS``).
         """
         ret = None

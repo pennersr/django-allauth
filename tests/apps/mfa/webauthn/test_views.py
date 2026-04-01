@@ -193,6 +193,14 @@ def test_passkey_signup(client, db, webauthn_registration_bypass):
     assert resp["location"] == settings.LOGIN_REDIRECT_URL
 
 
+def test_login_webauthn_when_already_authenticated(auth_client, passkey):
+    """Visiting the WebAuthn login page as a logged-in user should redirect,
+    not crash."""
+    resp = auth_client.get(reverse("mfa_login_webauthn"))
+    assert resp.status_code == HTTPStatus.FOUND
+    assert resp["location"] == settings.LOGIN_REDIRECT_URL
+
+
 def test_webauthn_login(
     client, user_with_passkey, passkey, user_password, webauthn_authentication_bypass
 ):

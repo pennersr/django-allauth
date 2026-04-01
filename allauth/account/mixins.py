@@ -54,10 +54,19 @@ class RedirectAuthenticatedUserMixin:
         return response
 
     def get_authenticated_redirect_url(self):
-        redirect_field_name = self.redirect_field_name
+        redirect_field_name = getattr(self, "redirect_field_name", REDIRECT_FIELD_NAME)
+        url = None
+        if hasattr(self, "get_success_url"):
+            try:
+                url = self.get_success_url()
+            except ImproperlyConfigured:
+                # If a view does not provide a `success_url`, Django raises a
+                # "No URL to redirect to. Provide a success_url." exception.
+                # That is no issue in our case.
+                pass
         return get_login_redirect_url(
             self.request,
-            url=self.get_success_url(),
+            url=url,
             redirect_field_name=redirect_field_name,
         )
 

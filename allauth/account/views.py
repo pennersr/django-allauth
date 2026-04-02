@@ -2,12 +2,11 @@ from http import HTTPStatus
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import PermissionDenied
 from django.core.validators import validate_email
 from django.forms import Form, ValidationError
 from django.http import Http404, HttpResponse, HttpResponseBase, HttpResponseRedirect
-from django.urls import NoReverseMatch, reverse, reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
 from django.utils.functional import cached_property
 from django.views.decorators.cache import never_cache
@@ -41,6 +40,7 @@ from allauth.account.internal.decorators import login_not_required, login_stage_
 from allauth.account.internal.flows.email_verification import (
     send_verification_email_to_address,
 )
+from allauth.account.internal.templatekit import get_entrance_context_data
 from allauth.account.mixins import (
     AjaxCapableProcessFormViewMixin,
     CloseableSignupMixin,
@@ -112,37 +112,8 @@ class LoginView(
             return e.response
 
     def get_context_data(self, **kwargs) -> dict:
-        passkey_login_enabled = False
-        if allauth_app_settings.MFA_ENABLED:
-            from allauth.mfa import app_settings as mfa_settings
-
-            passkey_login_enabled = mfa_settings.PASSKEY_LOGIN_ENABLED
         ret = super().get_context_data(**kwargs)
-        signup_url = None
-        if not allauth_app_settings.SOCIALACCOUNT_ONLY:
-            try:
-                signup_url = self.passthrough_next_url(reverse("account_signup"))
-            except NoReverseMatch:
-                # There may project specific tweaks other than
-                # SOCIALACCOUNT_ONLY ...
-                pass
-        site = get_current_site(self.request)
-
-        ret.update(
-            {
-                "signup_url": signup_url,
-                "site": site,
-                "SOCIALACCOUNT_ENABLED": allauth_app_settings.SOCIALACCOUNT_ENABLED,
-                "SOCIALACCOUNT_ONLY": allauth_app_settings.SOCIALACCOUNT_ONLY,
-                "LOGIN_BY_CODE_ENABLED": app_settings.LOGIN_BY_CODE_ENABLED,
-                "PASSKEY_LOGIN_ENABLED": passkey_login_enabled,
-            }
-        )
-        if app_settings.LOGIN_BY_CODE_ENABLED:
-            request_login_code_url = self.passthrough_next_url(
-                reverse("account_request_login_code")
-            )
-            ret["request_login_code_url"] = request_login_code_url
+        ret.update(get_entrance_context_data(self.request))
         return ret
 
 
@@ -186,11 +157,7 @@ class SignupView(
 
     def get_context_data(self, **kwargs) -> dict:
         ret = super().get_context_data(**kwargs)
-        passkey_signup_enabled = False
-        if allauth_app_settings.MFA_ENABLED:
-            from allauth.mfa import app_settings as mfa_settings
-
-            passkey_signup_enabled = mfa_settings.PASSKEY_SIGNUP_ENABLED
+        ret.update(get_entrance_context_data(self.request))
         form = ret["form"]
         email = self.request.session.get("account_verified_email")
         if email:
@@ -199,25 +166,6 @@ class SignupView(
                 email_keys.append("email2")
             for email_key in email_keys:
                 form.fields[email_key].initial = email
-        login_url = self.passthrough_next_url(reverse("account_login"))
-        signup_url = self.passthrough_next_url(reverse("account_signup"))
-        signup_by_passkey_url = None
-        if passkey_signup_enabled:
-            signup_by_passkey_url = self.passthrough_next_url(
-                reverse("account_signup_by_passkey")
-            )
-        site = get_current_site(self.request)
-        ret.update(
-            {
-                "login_url": login_url,
-                "signup_url": signup_url,
-                "signup_by_passkey_url": signup_by_passkey_url,
-                "site": site,
-                "SOCIALACCOUNT_ENABLED": allauth_app_settings.SOCIALACCOUNT_ENABLED,
-                "SOCIALACCOUNT_ONLY": allauth_app_settings.SOCIALACCOUNT_ONLY,
-                "PASSKEY_SIGNUP_ENABLED": passkey_signup_enabled,
-            }
-        )
         return ret
 
     def get_initial(self) -> dict:
@@ -325,10 +273,9 @@ class ConfirmEmailView(NextRedirectMixin, LogoutFunctionalityMixin, TemplateView
 
     def get_context_data(self, **kwargs) -> dict:
         ctx = super().get_context_data(**kwargs)
-        site = get_current_site(self.request)
+        ctx.update(get_entrance_context_data(self.request))
         ctx.update(
             {
-                "site": site,
                 "confirmation": self.object,
                 "can_confirm": self.object
                 and self.object.email_address.can_set_verified(),
@@ -604,11 +551,10 @@ class PasswordResetView(NextRedirectMixin, AjaxCapableProcessFormViewMixin, Form
 
     def get_context_data(self, **kwargs) -> dict:
         ret = super().get_context_data(**kwargs)
-        login_url = self.passthrough_next_url(reverse("account_login"))
+        ret.update(get_entrance_context_data(self.request))
         # NOTE: For backwards compatibility
         ret["password_reset_form"] = ret.get("form")
         # (end NOTE)
-        ret.update({"login_url": login_url})
         return ret
 
 
@@ -618,6 +564,11 @@ password_reset = PasswordResetView.as_view()
 @method_decorator(login_not_required, name="dispatch")
 class PasswordResetDoneView(TemplateView):
     template_name = f"account/password_reset_done.{app_settings.TEMPLATE_EXTENSION}"
+
+    def get_context_data(self, **kwargs) -> dict:
+        ret = super().get_context_data(**kwargs)
+        ret.update(get_entrance_context_data(self.request))
+        return ret
 
 
 password_reset_done = PasswordResetDoneView.as_view()
@@ -687,6 +638,7 @@ class PasswordResetFromKeyView(
 
     def get_context_data(self, **kwargs) -> dict:
         ret = super().get_context_data(**kwargs)
+        ret.update(get_entrance_context_data(self.request))
         ret["action_url"] = reverse(
             "account_reset_password_from_key",
             kwargs={
@@ -720,6 +672,11 @@ class PasswordResetFromKeyDoneView(TemplateView):
     template_name = (
         f"account/password_reset_from_key_done.{app_settings.TEMPLATE_EXTENSION}"
     )
+
+    def get_context_data(self, **kwargs) -> dict:
+        ret = super().get_context_data(**kwargs)
+        ret.update(get_entrance_context_data(self.request))
+        return ret
 
 
 password_reset_from_key_done = PasswordResetFromKeyDoneView.as_view()
@@ -756,6 +713,7 @@ class CompletePasswordResetView(
 
     def get_context_data(self, **kwargs) -> dict:
         ret = super().get_context_data(**kwargs)
+        ret.update(get_entrance_context_data(self.request))
         ret["action_url"] = reverse("account_complete_password_reset")
         return ret
 
@@ -806,6 +764,7 @@ class ConfirmPasswordResetCodeView(NextRedirectMixin, FormView):
 
     def get_context_data(self, **kwargs):
         ret = super().get_context_data(**kwargs)
+        ret.update(get_entrance_context_data(self.request))
         ret["email"] = self._process.state["email"]
         ret["verify_form"] = ret["form"]
         return ret
@@ -864,6 +823,11 @@ logout = LogoutView.as_view()
 class AccountInactiveView(TemplateView):
     template_name = f"account/account_inactive.{app_settings.TEMPLATE_EXTENSION}"
 
+    def get_context_data(self, **kwargs) -> dict:
+        ret = super().get_context_data(**kwargs)
+        ret.update(get_entrance_context_data(self.request))
+        return ret
+
 
 account_inactive = AccountInactiveView.as_view()
 
@@ -871,6 +835,11 @@ account_inactive = AccountInactiveView.as_view()
 @method_decorator(login_not_required, name="dispatch")
 class EmailVerificationSentView(TemplateView):
     template_name = f"account/verification_sent.{app_settings.TEMPLATE_EXTENSION}"
+
+    def get_context_data(self, **kwargs) -> dict:
+        ret = super().get_context_data(**kwargs)
+        ret.update(get_entrance_context_data(self.request))
+        return ret
 
 
 class ConfirmEmailVerificationCodeView(NextRedirectMixin, FormView):
@@ -942,6 +911,7 @@ class ConfirmEmailVerificationCodeView(NextRedirectMixin, FormView):
 
     def get_context_data(self, **kwargs):
         ret = super().get_context_data(**kwargs)
+        ret.update(get_entrance_context_data(self.request))
         ret["can_change"] = self._process.can_change
         ret["can_resend"] = self._process.can_resend
         ret["email"] = self._process.state["email"]
@@ -1130,8 +1100,7 @@ class RequestLoginCodeView(RedirectAuthenticatedUserMixin, NextRedirectMixin, Fo
 
     def get_context_data(self, **kwargs) -> dict:
         ret = super().get_context_data(**kwargs)
-        site = get_current_site(self.request)
-        ret.update({"site": site})
+        ret.update(get_entrance_context_data(self.request))
         return ret
 
 
@@ -1234,13 +1203,12 @@ class ConfirmLoginCodeView(NextRedirectMixin, FormView):
 
     def get_context_data(self, **kwargs) -> dict:
         ret = super().get_context_data(**kwargs)
-        site = get_current_site(self.request)
+        ret.update(get_entrance_context_data(self.request))
         email = self._process.state.get("email")
         phone = self._process.state.get("phone")
         ret.update(
             {
                 "can_resend": self._process.can_resend,
-                "site": site,
                 "email": email,
                 "phone": phone,
                 "verify_form": ret["form"],
@@ -1344,9 +1312,9 @@ class _BaseVerifyPhoneView(NextRedirectMixin, FormView):
 
     def get_context_data(self, **kwargs):
         ret = super().get_context_data(**kwargs)
+        ret.update(get_entrance_context_data(self.request))
         ret["can_change"] = self.process.can_change
         ret["can_resend"] = self.process.can_resend
-        site = get_current_site(self.request)
         if self._action == "change":
             ret["change_form"] = ret["form"]
             ret["verify_form"] = self._get_verify_form_class()()
@@ -1355,7 +1323,6 @@ class _BaseVerifyPhoneView(NextRedirectMixin, FormView):
             ret["verify_form"] = ret["form"]
         ret.update(
             {
-                "site": site,
                 "phone": self.process.phone,
                 "action": self._action,
             }

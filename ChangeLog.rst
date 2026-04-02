@@ -8,10 +8,12 @@
     https://allauth.org/sponsors/. Your support helps keep this project thriving!
 
 
-Note worthy changes
--------------------
+Fixes
+-----
 
-- ...
+- The context data for the various entrance view was inconsistent, e.g. some
+  where missing ``site`` or ``login_url``. Ensured all entrance views are now
+  handed over the same base context.
 
 
 65.15.0 (2025-03-09)

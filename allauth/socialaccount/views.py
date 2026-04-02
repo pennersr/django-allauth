@@ -1,7 +1,6 @@
 from http import HTTPStatus
 
 from django.contrib.auth.decorators import login_required
-from django.contrib.sites.shortcuts import get_current_site
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
@@ -9,6 +8,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 
 from allauth.account.internal.decorators import login_not_required
+from allauth.account.internal.templatekit import get_entrance_context_data
 from allauth.socialaccount.forms import DisconnectForm, SignupForm
 from allauth.socialaccount.internal import flows
 from allauth.socialaccount.models import SocialAccount
@@ -58,9 +58,9 @@ class SignupView(
 
     def get_context_data(self, **kwargs):
         ret = super().get_context_data(**kwargs)
+        ret.update(get_entrance_context_data(self.request))
         ret.update(
             dict(
-                site=get_current_site(self.request),
                 account=self.sociallogin.account,
             )
         )
@@ -79,6 +79,11 @@ class LoginCancelledView(TemplateView):
         f"socialaccount/login_cancelled.{account_settings.TEMPLATE_EXTENSION}"
     )
 
+    def get_context_data(self, **kwargs) -> dict:
+        ret = super().get_context_data(**kwargs)
+        ret.update(get_entrance_context_data(self.request))
+        return ret
+
 
 login_cancelled = LoginCancelledView.as_view()
 
@@ -93,6 +98,11 @@ class LoginErrorView(TemplateView):
             self.get_context_data(**kwargs),
             status=HTTPStatus.UNAUTHORIZED,
         )
+
+    def get_context_data(self, **kwargs) -> dict:
+        ret = super().get_context_data(**kwargs)
+        ret.update(get_entrance_context_data(self.request))
+        return ret
 
 
 login_error = LoginErrorView.as_view()

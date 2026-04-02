@@ -10,6 +10,7 @@ from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.decorators import reauthentication_required
 from allauth.account.internal.decorators import login_stage_required
+from allauth.account.internal.templatekit import get_entrance_context_data
 from allauth.account.mixins import NextRedirectMixin, RedirectAuthenticatedUserMixin
 from allauth.account.models import Login
 from allauth.account.views import BaseReauthenticateView
@@ -131,6 +132,11 @@ class LoginWebAuthnView(RedirectAuthenticatedUserMixin, FormView):
         login = Login(user=authenticator.user, redirect_url=redirect_url)
         return flows.perform_passwordless_login(self.request, authenticator, login)
 
+    def get_context_data(self, **kwargs) -> dict:
+        ret = super().get_context_data(**kwargs)
+        ret.update(get_entrance_context_data(self.request))
+        return ret
+
 
 login_webauthn = LoginWebAuthnView.as_view()
 
@@ -206,6 +212,7 @@ class SignupWebAuthnView(FormView):
 
     def get_context_data(self, **kwargs) -> dict:
         ret = super().get_context_data()
+        ret.update(get_entrance_context_data(self.request))
         stage = self._login_stage
         creation_options = auth.begin_registration(stage.login.user, True)
         ret["js_data"] = {"creation_options": creation_options}

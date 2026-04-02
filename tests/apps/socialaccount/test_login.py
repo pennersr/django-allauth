@@ -97,7 +97,7 @@ def test_email_authentication(
         assert not updated_signal.called
 
 
-def test_login_cancelled(client):
+def test_login_cancelled(client, db):
     resp = client.get(reverse("socialaccount_login_cancelled"))
     assert resp.status_code == HTTPStatus.OK
     assertTemplateUsed(resp, "socialaccount/login_cancelled.html")

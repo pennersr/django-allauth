@@ -9,6 +9,7 @@ from django.views.generic.edit import FormView
 
 from allauth.account import app_settings as account_settings
 from allauth.account.internal.decorators import login_stage_required
+from allauth.account.internal.templatekit import get_entrance_context_data
 from allauth.account.views import BaseReauthenticateView
 from allauth.mfa import app_settings
 from allauth.mfa.base.forms import AuthenticateForm, ReauthenticateForm
@@ -93,6 +94,7 @@ class AuthenticateView(TemplateView):
 
     def get_context_data(self, **kwargs) -> dict:
         ret = super().get_context_data()
+        ret.update(get_entrance_context_data(self.request))
         ret.update(
             {
                 "form": self.auth_form,
@@ -174,6 +176,7 @@ class TrustView(FormView):
 
     def get_context_data(self, **kwargs) -> dict:
         ret = super().get_context_data(**kwargs)
+        ret.update(get_entrance_context_data(self.request))
         now = timezone.now()
         ret["trust_from"] = now
         ret["trust_until"] = now + app_settings.TRUST_COOKIE_AGE

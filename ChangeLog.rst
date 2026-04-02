@@ -1,4 +1,4 @@
-65.15.1 (unreleased)
+65.15.1 (2026-04-02)
 ********************
 
 .. note::
@@ -11,7 +11,7 @@
 Fixes
 -----
 
-- The context data for the various entrance view was inconsistent, e.g. some
+- The context data for the various entrance views was inconsistent, e.g. some
   where missing ``site`` or ``login_url``. Ensured all entrance views are now
   handed over the same base context.
 
@@ -21,7 +21,7 @@ Fixes
 - OAuth 1.0: Fixed an argument call order issue when performing requests.
 
 
-65.15.0 (2025-03-09)
+65.15.0 (2026-03-09)
 ********************
 
 Note worthy changes

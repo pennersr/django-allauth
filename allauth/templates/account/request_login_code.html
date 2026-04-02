@@ -11,8 +11,7 @@
     {% element p %}
         {% blocktranslate %}You will receive a special code for a password-free sign-in.{% endblocktranslate %}
     {% endelement %}
-    {% url 'account_request_login_code' as login_url %}
-    {% element form form=form method="post" action=login_url tags="entrance,login" %}
+    {% element form form=form method="post" action=request_login_code_url tags="entrance,login" %}
         {% slot body %}
             {% csrf_token %}
             {% element fields form=form unlabeled=True %}
@@ -25,7 +24,6 @@
             {% endelement %}
         {% endslot %}
     {% endelement %}
-    {% url 'account_login' as login_url %}
     {% element button href=login_url tags="link" %}
         {% translate "Other sign-in options" %}
     {% endelement %}

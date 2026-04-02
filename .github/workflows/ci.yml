@@ -28,6 +28,7 @@ jobs:
         run: |
           apt-get update
           apt-get install -y --no-install-recommends gettext make
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
       - name: Install nox
         run: pip install nox
       - name: Run tests

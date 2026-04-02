@@ -15,6 +15,11 @@ Fixes
   where missing ``site`` or ``login_url``. Ensured all entrance views are now
   handed over the same base context.
 
+- MFA: accessing the WebAuthn login view while already being authenticated resulted
+  in a 500, fixed.
+
+- OAuth 1.0: Fixed an argument call order issue when performing requests.
+
 
 65.15.0 (2025-03-09)
 ********************

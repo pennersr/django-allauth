@@ -1,4 +1,5 @@
 import requests
+import secrets
 
 from django.conf import settings
 from django.core.exceptions import PermissionDenied, ValidationError
@@ -152,7 +153,7 @@ class LoginByTokenView(View):
         csrf_token_body = request.POST.get("g_csrf_token")
         if not csrf_token_body:
             raise PermissionDenied("No CSRF token in post body.")
-        if csrf_token_cookie != csrf_token_body:
+        if not secrets.compare_digest(csrf_token_cookie, csrf_token_body):
             raise PermissionDenied("Failed to verify double submit cookie.")
 
 

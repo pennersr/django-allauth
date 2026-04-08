@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-05 08:42-0600\n"
+"POT-Creation-Date: 2026-04-08 13:31-0500\n"
 "PO-Revision-Date: 2024-04-20 21:45+0200\n"
 "Last-Translator: Tamás Makó <tom@greenplug.hu>\n"
 "Language-Team: \n"
@@ -18,109 +18,109 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.7.6\n"
 
-#: account/adapter.py:61
+#: account/adapter.py:60
 msgid "This account is currently inactive."
 msgstr "A felhasználó jelenleg nem aktív."
 
-#: account/adapter.py:63
+#: account/adapter.py:62
 msgid "You cannot remove your primary email address."
 msgstr "Az elsődleges email címed nem törölhető."
 
-#: account/adapter.py:66
+#: account/adapter.py:65
 msgid "This email address is already associated with this account."
 msgstr "Ez az email cím már hozzá van rendelve ehhez a felhasználóhoz."
 
-#: account/adapter.py:69
+#: account/adapter.py:68
 msgid "The email address and/or password you specified are not correct."
 msgstr "A megadott email vagy a jelszó hibás."
 
-#: account/adapter.py:72
+#: account/adapter.py:71
 msgid "The phone number and/or password you specified are not correct."
 msgstr "Hibás az általad megadott telefonszám vagy jelszó."
 
-#: account/adapter.py:74
+#: account/adapter.py:73
 msgid "A user is already registered with this email address."
 msgstr "Egy felhasználó már regisztrált ezzel az email címmel."
 
-#: account/adapter.py:75
+#: account/adapter.py:74
 msgid "Please type your current password."
 msgstr "Kérlek add meg az aktuális jelszavadat!"
 
-#: account/adapter.py:76 mfa/adapter.py:40
+#: account/adapter.py:75 mfa/adapter.py:38
 msgid "Incorrect code."
 msgstr "Hibás kód."
 
-#: account/adapter.py:77
+#: account/adapter.py:76
 msgid "Incorrect password."
 msgstr "Hibás jelszó"
 
-#: account/adapter.py:78
+#: account/adapter.py:77
 msgid "Invalid or expired key."
 msgstr "Érvénytelen vagy lejárt kulcs."
 
-#: account/adapter.py:79
+#: account/adapter.py:78
 msgid "Invalid login."
 msgstr "Érvénytelen belépési kísérlet."
 
-#: account/adapter.py:80
+#: account/adapter.py:79
 msgid "The password reset token was invalid."
 msgstr "A jelszó visszaállító token érvénytelen."
 
-#: account/adapter.py:81
+#: account/adapter.py:80
 #, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "Nem adhatsz hozzá több mint %d email címet."
 
-#: account/adapter.py:82
+#: account/adapter.py:81
 msgid "A user is already registered with this phone number."
 msgstr "Ezzel a telefonszámmal már van regisztrált felhasználó."
 
-#: account/adapter.py:84
+#: account/adapter.py:83
 msgid "Too many failed login attempts. Try again later."
 msgstr "Túl sok sikertelen belépési kísérlet. Próbáld újra később."
 
-#: account/adapter.py:86
+#: account/adapter.py:85
 msgid "The email address is not assigned to any user account."
 msgstr "Az email cím nincs hozzárendelve egyetlen felhasználóhoz sem"
 
-#: account/adapter.py:87
+#: account/adapter.py:86
 msgid "The phone number is not assigned to any user account."
 msgstr "A telefonszám cím nincs hozzárendelve egyetlen felhasználóhoz sem"
 
-#: account/adapter.py:88
+#: account/adapter.py:87
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary email address must be verified."
 msgstr "Az elsődleges email címet ellenőriznunk kell."
 
-#: account/adapter.py:90
+#: account/adapter.py:89
 msgid "Username can not be used. Please use other username."
 msgstr "Ez a felhasználói azonosító nem használható. Kérlek válassz másikat!"
 
-#: account/adapter.py:93
+#: account/adapter.py:92
 msgid "The username and/or password you specified are not correct."
 msgstr "A megadott felhasználó vagy a jelszó hibás."
 
-#: account/adapter.py:98
+#: account/adapter.py:97
 msgid "Please select only one."
 msgstr "Kérlek csak egyet válassz!"
 
-#: account/adapter.py:99
+#: account/adapter.py:98
 msgid "The new value must be different from the current one."
 msgstr "Az új értéknek különböznie kell a jelenlegitől."
 
-#: account/adapter.py:100
+#: account/adapter.py:99
 msgid "Be patient, you are sending too many requests."
 msgstr "Légy türelemmel, túl sok kérést küldtél."
 
-#: account/adapter.py:826
+#: account/adapter.py:825
 msgid "Use your password"
 msgstr "Használd a jelszavadat"
 
-#: account/adapter.py:835
+#: account/adapter.py:834
 msgid "Use authenticator app or code"
 msgstr "Használj hitelesítő alkalmazást vagy kódot"
 
-#: account/adapter.py:842 templates/mfa/authenticate.html:41
+#: account/adapter.py:841 templates/mfa/authenticate.html:41
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use a security key"
 msgstr "Használj biztonsági kulcsot"
@@ -143,7 +143,7 @@ msgstr "Kijelölt email címek megjelölése ellenőrzöttként"
 msgid "Accounts"
 msgstr "Felhasználók"
 
-#: account/fields.py:12 account/forms.py:299 idp/oidc/forms.py:43
+#: account/fields.py:12 account/forms.py:298 idp/oidc/forms.py:43
 msgid "Email"
 msgstr "Email"
 
@@ -156,133 +156,133 @@ msgid "Enter a phone number including country code (e.g. +1 for the US)."
 msgstr ""
 "Adj meg egy telefonszámot az országkóddal együtt (pl. +36 ha Magyarország)."
 
-#: account/fields.py:68 account/fields.py:72 account/forms.py:325
+#: account/fields.py:68 account/fields.py:72 account/forms.py:324
 msgid "Phone"
 msgstr "Telefonszám"
 
-#: account/forms.py:61 account/forms.py:524
+#: account/forms.py:59 account/forms.py:523
 msgid "You must type the same password each time."
 msgstr "Ugyanazt a jelszót kell megadni mindannyiszor."
 
-#: account/forms.py:66 account/forms.py:451 account/forms.py:610
-#: account/forms.py:696
+#: account/forms.py:64 account/forms.py:450 account/forms.py:609
+#: account/forms.py:695
 msgid "Password"
 msgstr "Jelszó"
 
-#: account/forms.py:67
+#: account/forms.py:65
 msgid "Remember Me"
 msgstr "Emlékezz rám"
 
-#: account/forms.py:79 account/forms.py:82 account/forms.py:265
-#: account/forms.py:268 account/forms.py:311
+#: account/forms.py:78 account/forms.py:81 account/forms.py:264
+#: account/forms.py:267 account/forms.py:310
 msgid "Username"
 msgstr "Felhasználó azonosító"
 
-#: account/forms.py:96
+#: account/forms.py:95
 msgctxt "field label"
 msgid "Login"
 msgstr "Bejelentkezés"
 
-#: account/forms.py:115
+#: account/forms.py:114
 msgid "Username, email or phone"
 msgstr "Felhasználónév, email vagy telefonszám"
 
-#: account/forms.py:117
+#: account/forms.py:116
 msgid "Username or email"
 msgstr "Felhasználónév vagy email"
 
-#: account/forms.py:119
+#: account/forms.py:118
 msgid "Username or phone"
 msgstr "Felhasználónév vagy telefonszám"
 
-#: account/forms.py:121
+#: account/forms.py:120
 msgid "Email or phone"
 msgstr "Email vagy telefonszám"
 
-#: account/forms.py:144
+#: account/forms.py:143
 msgid "Forgot your password?"
 msgstr "Elfelejtetted a jelszavad?"
 
-#: account/forms.py:287
+#: account/forms.py:286
 msgid "Email (again)"
 msgstr "Email (ismét)"
 
-#: account/forms.py:292
+#: account/forms.py:291
 msgid "Email address confirmation"
 msgstr "Email cím megerősítése"
 
-#: account/forms.py:302
+#: account/forms.py:301
 msgid "Email (optional)"
 msgstr "Email (nem kötelező)"
 
-#: account/forms.py:314
+#: account/forms.py:313
 msgid "Username (optional)"
 msgstr "Felhasználónév (nem kötelező)"
 
-#: account/forms.py:388
+#: account/forms.py:387
 msgid "You must type the same email each time."
 msgstr "Mindig ugyanazt az email címet kell begépelned."
 
-#: account/forms.py:458 account/forms.py:611
+#: account/forms.py:457 account/forms.py:610
 msgid "Password (again)"
 msgstr "Jelszó (ismét)"
 
-#: account/forms.py:591
+#: account/forms.py:590
 msgid "Current Password"
 msgstr "Jelenlegi jelszó"
 
-#: account/forms.py:593 account/forms.py:649
+#: account/forms.py:592 account/forms.py:648
 msgid "New Password"
 msgstr "Új jelszó"
 
-#: account/forms.py:594 account/forms.py:650
+#: account/forms.py:593 account/forms.py:649
 msgid "New Password (again)"
 msgstr "Új jelszó (ismét)"
 
-#: account/forms.py:767 account/forms.py:769 idp/oidc/forms.py:51
+#: account/forms.py:766 account/forms.py:768 idp/oidc/forms.py:51
 #: idp/oidc/forms.py:54 mfa/base/forms.py:12 mfa/base/forms.py:14
 #: mfa/totp/forms.py:13
 #: templates/idp/oidc/device_authorization_confirm_form.html:16
 msgid "Code"
 msgstr "Kód"
 
-#: account/models.py:23
+#: account/models.py:29
 msgid "user"
 msgstr "felhasználó"
 
-#: account/models.py:29 account/models.py:37 account/models.py:139
+#: account/models.py:35 account/models.py:43 account/models.py:147
 msgid "email address"
 msgstr "email cím"
 
-#: account/models.py:31
+#: account/models.py:37
 msgid "verified"
 msgstr "megerősített"
 
-#: account/models.py:32
+#: account/models.py:38
 msgid "primary"
 msgstr "elsődleges"
 
-#: account/models.py:38
+#: account/models.py:44
 msgid "email addresses"
 msgstr "email címek"
 
-#: account/models.py:142
+#: account/models.py:150
 msgid "created"
 msgstr "létrehozva"
 
-#: account/models.py:143
+#: account/models.py:151
 msgid "sent"
 msgstr "elküldve"
 
-#: account/models.py:144 socialaccount/models.py:70
+#: account/models.py:152 socialaccount/models.py:70
 msgid "key"
 msgstr "kulcs"
 
-#: account/models.py:149
+#: account/models.py:157
 msgid "email confirmation"
 msgstr "email megerősítés"
 
-#: account/models.py:150
+#: account/models.py:158
 msgid "email confirmations"
 msgstr "email megerősítések"
 
@@ -290,15 +290,15 @@ msgstr "email megerősítések"
 msgid "Headless"
 msgstr "Fej nélküli"
 
-#: idp/oidc/adapter.py:30
+#: idp/oidc/adapter.py:31
 msgid "View your user ID"
 msgstr "Felhasználói azonosító megtekintése"
 
-#: idp/oidc/adapter.py:31
+#: idp/oidc/adapter.py:32
 msgid "View your email address"
 msgstr "Email cím megtekintése"
 
-#: idp/oidc/adapter.py:32
+#: idp/oidc/adapter.py:33
 msgid "View your basic profile information"
 msgstr "Alapvető profil információk megtekintése"
 
@@ -325,31 +325,31 @@ msgid "Wildcards are only allowed in the hostname portion of the URI."
 msgstr ""
 "Helyettesítő karakterek csak az URI gazdagépnév részében engedélyezettek."
 
-#: idp/oidc/models.py:37
+#: idp/oidc/models.py:35
 msgid "Authorization code"
 msgstr "Engedélyezési kód"
 
-#: idp/oidc/models.py:38
+#: idp/oidc/models.py:36
 msgid "Device code"
 msgstr "Készülék kód"
 
-#: idp/oidc/models.py:39
+#: idp/oidc/models.py:37
 msgid "Client credentials"
 msgstr "Kliens hitelesítő adatok"
 
-#: idp/oidc/models.py:40
+#: idp/oidc/models.py:38
 msgid "Refresh token"
 msgstr "Frissítési token"
 
-#: idp/oidc/models.py:43
+#: idp/oidc/models.py:41
 msgid "Confidential"
 msgstr "Titkos"
 
-#: idp/oidc/models.py:44
+#: idp/oidc/models.py:42
 msgid "Public"
 msgstr "Publikus"
 
-#: idp/oidc/models.py:58
+#: idp/oidc/models.py:56
 msgid ""
 "The scope(s) the client is allowed to request. Provide one value per line, "
 "e.g.: openid(ENTER)profile(ENTER)email(ENTER)"
@@ -357,7 +357,7 @@ msgstr ""
 "A kliens által kérhető hatókör(ök). Soronként egy értéket adjon meg, pl.: "
 "openid(ENTER)profile(ENTER)email(ENTER)"
 
-#: idp/oidc/models.py:64
+#: idp/oidc/models.py:62
 msgid ""
 "In case the client does not specify any scope, these default scopes are "
 "used. Provide one value per line, e.g.: "
@@ -367,7 +367,7 @@ msgstr ""
 "alkalmazásra. Soronként egy értéket adjon meg, pl.: "
 "openid(ENTER)profile(ENTER)email(ENTER)"
 
-#: idp/oidc/models.py:75
+#: idp/oidc/models.py:73
 msgid ""
 "A list of allowed grant types. Provide one value per line, e.g.: "
 "authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
@@ -375,12 +375,12 @@ msgstr ""
 "Az engedélyezett engedélytípusok listája. Soronként egy értéket adjon meg, "
 "pl.: authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 
-#: idp/oidc/models.py:86
+#: idp/oidc/models.py:84
 msgid "A list of allowed origins for cross-origin requests, one per line."
 msgstr ""
 "Az engedélyezett források listája a cross-origin kérésekhez, soronként egy."
 
-#: idp/oidc/models.py:94
+#: idp/oidc/models.py:92
 msgid ""
 "Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
 "can contain a single asterisk to match subdomains."
@@ -389,7 +389,7 @@ msgstr ""
 "forrásokban. Ha engedélyezve van, az URI-k egyetlen csillagot "
 "tartalmazhatnak az aldomének egyeztetéséhez."
 
-#: idp/oidc/models.py:102
+#: idp/oidc/models.py:100
 msgid ""
 "A list of allowed response types. Provide one value per line, e.g.: "
 "code(ENTER)id_token token(ENTER)"
@@ -397,26 +397,26 @@ msgstr ""
 "A megengedett válasz-típusok listája. Soronként egy érték, pl.: "
 "code(ENTER)id_token token(ENTER)"
 
-#: idp/oidc/models.py:115
+#: idp/oidc/models.py:113
 msgid "client"
 msgstr "kliens"
 
-#: idp/oidc/models.py:116
+#: idp/oidc/models.py:114
 msgid "clients"
 msgstr "kliensek"
 
-#: mfa/adapter.py:32
+#: mfa/adapter.py:30
 msgid ""
 "You cannot add an email address to an account protected by two-factor "
 "authentication."
 msgstr ""
 "Nem adhatsz email címet egy olyan fiókhoz, amit kétlépcsős azonosítás véd."
 
-#: mfa/adapter.py:35
+#: mfa/adapter.py:33
 msgid "You cannot deactivate two-factor authentication."
 msgstr "Nem kapcsolhatod ki a kétlépcsős azonosítást."
 
-#: mfa/adapter.py:38
+#: mfa/adapter.py:36
 msgid ""
 "You cannot generate recovery codes without having two-factor authentication "
 "enabled."
@@ -424,7 +424,7 @@ msgstr ""
 "Nem generálhatsz helyreállítási kódokat anélkül, hogy a kétlépcsős "
 "azonosítás be lenne kapcsolva."
 
-#: mfa/adapter.py:42
+#: mfa/adapter.py:40
 msgid ""
 "You cannot activate two-factor authentication until you have verified your "
 "email address."
@@ -432,15 +432,15 @@ msgstr ""
 "Nem aktiválhatod a kétlépcsős azonosítást addig, amíg nem igazolod az email "
 "címedet."
 
-#: mfa/adapter.py:141
+#: mfa/adapter.py:139
 msgid "Master key"
 msgstr "Fő kulcs"
 
-#: mfa/adapter.py:143
+#: mfa/adapter.py:141
 msgid "Backup key"
 msgstr "Biztonsági kulcs"
 
-#: mfa/adapter.py:144
+#: mfa/adapter.py:142
 #, python-brace-format
 msgid "Key nr. {number}"
 msgstr "Kulcs sz. {number}"
@@ -646,7 +646,7 @@ msgstr "Nincs mentett hozzáférési kulcs ehhez: \"%s\"."
 msgid "No access token saved for \"%s\"."
 msgstr "Nincs mentett hozzáférési token ehhez: \"%s\"."
 
-#: socialaccount/providers/oauth/client.py:215
+#: socialaccount/providers/oauth/client.py:219
 #, python-format
 msgid "No access to private resources at \"%s\"."
 msgstr "Nincs hozzáférés a privát adatokhoz itt: \"%s\"."
@@ -1255,11 +1255,11 @@ msgstr "Add meg a jelszavadat:"
 msgid "You will receive a special code for a password-free sign-in."
 msgstr "Egy speciális kódot fogsz kapni a jelszó nélküli belépéshez."
 
-#: templates/account/request_login_code.html:24
+#: templates/account/request_login_code.html:23
 msgid "Request Code"
 msgstr "Kód kérése"
 
-#: templates/account/request_login_code.html:30
+#: templates/account/request_login_code.html:28
 msgid "Other sign-in options"
 msgstr "Egyéb belépési lehetőségek"
 
@@ -1568,11 +1568,11 @@ msgstr "Hozzáadás"
 
 #: templates/mfa/index.html:77 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:6
-#: templates/mfa/recovery_codes/index.html:6
+#: templates/mfa/recovery_codes/index.html:5
 msgid "Recovery Codes"
 msgstr "Helyreállítási kódok"
 
-#: templates/mfa/index.html:82 templates/mfa/recovery_codes/index.html:9
+#: templates/mfa/index.html:82 templates/mfa/recovery_codes/index.html:8
 #, python-format
 msgid ""
 "There is %(unused_count)s out of %(total_count)s recovery codes available."
@@ -1605,6 +1605,10 @@ msgstr "Generálás"
 msgid "A new set of recovery codes has been generated."
 msgstr "Új helyreállítási kódok lettek generálva."
 
+#: templates/mfa/messages/recovery_codes_generated.txt:4
+msgid "Save them  in a secure location now — they won't be shown again."
+msgstr "Mentse el őket most egy biztonságos helyre — nem lesznek újra megjelenítve."
+
 #: templates/mfa/messages/webauthn_added.txt:2
 msgid "Security key added."
 msgstr "Biztonsági kulcs hozzáadva."
@@ -1633,13 +1637,17 @@ msgstr "Biztos vagy benne?"
 msgid "Unused codes"
 msgstr "Felhasználatlan kódok"
 
-#: templates/mfa/recovery_codes/index.html:25
+#: templates/mfa/recovery_codes/index.html:24
 msgid "Download codes"
 msgstr "Kódok letöltése"
 
 #: templates/mfa/recovery_codes/index.html:30
 msgid "Generate new codes"
 msgstr "Új kódok generálása"
+
+#: templates/mfa/recovery_codes/index.html:36
+msgid "I have saved my recovery codes"
+msgstr "Elmentettem a helyreállítási kódjaimat"
 
 #: templates/mfa/totp/activate_form.html:4
 #: templates/mfa/totp/activate_form.html:8
@@ -1914,7 +1922,7 @@ msgstr "Kijelentkezés a többi munkamenetből"
 msgid "User Sessions"
 msgstr "Felhasználói munkamenetek"
 
-#: usersessions/models.py:94
+#: usersessions/models.py:93
 msgid "session key"
 msgstr "munkamenet kulcs"
 

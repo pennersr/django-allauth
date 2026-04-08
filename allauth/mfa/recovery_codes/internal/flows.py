@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.http import HttpRequest
 
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.internal.flows.reauthentication import (
@@ -17,43 +18,51 @@ def can_generate_recovery_codes(user) -> bool:
     )
 
 
-def generate_recovery_codes(request) -> Authenticator:
+def generate_recovery_codes(request: HttpRequest) -> Authenticator:
     raise_if_reauthentication_required(request)
+    assert request.user.is_authenticated  # nosec
     Authenticator.objects.filter(
         user=request.user, type=Authenticator.Type.RECOVERY_CODES
     ).delete()
     rc_auth = RecoveryCodes.activate(request.user)
     authenticator = rc_auth.instance
-    adapter = get_account_adapter(request)
-    adapter.add_message(
-        request, messages.SUCCESS, "mfa/messages/recovery_codes_generated.txt"
-    )
+    add_codes_generated_message(request)
     signals.authenticator_reset.send(
         sender=Authenticator,
         request=request,
         user=request.user,
         authenticator=authenticator,
     )
+    adapter = get_account_adapter(request)
     adapter.send_notification_mail("mfa/email/recovery_codes_generated", request.user)
     return authenticator
 
 
-def view_recovery_codes(request) -> Authenticator | None:
+def view_recovery_codes(request: HttpRequest) -> tuple[RecoveryCodes | None, bool]:
+    if not request.user.is_authenticated:
+        return None, False
     authenticator = Authenticator.objects.filter(
         user=request.user,
         type=Authenticator.Type.RECOVERY_CODES,
     ).first()
     if not authenticator:
-        return None
+        return None, False
     raise_if_reauthentication_required(request)
-    return authenticator
+    wrapper = authenticator.wrap()
+    did_view = wrapper.did_view
+    if not did_view:
+        wrapper.mark_as_viewed()
+    can_view = (not app_settings.RECOVERY_CODES_SHOW_ONCE) or not did_view
+    return wrapper, can_view
 
 
-def auto_generate_recovery_codes(request) -> Authenticator | None:
+def auto_generate_recovery_codes(request: HttpRequest) -> Authenticator | None:
     """Automatically (implicitly) setup recovery codes when another
     authenticator is setup for. As this is part of setting up another (primary)
     authenticator, we do not send a notification email in this case.
     """
+    if not request.user.is_authenticated:
+        return None
     if Authenticator.Type.RECOVERY_CODES not in app_settings.SUPPORTED_TYPES:
         return None
     has_rc = Authenticator.objects.filter(
@@ -68,8 +77,17 @@ def auto_generate_recovery_codes(request) -> Authenticator | None:
         user=request.user,
         authenticator=rc.instance,
     )
+    add_codes_generated_message(request)
+    return rc.instance
+
+
+def add_codes_generated_message(request: HttpRequest) -> None:
     adapter = get_account_adapter(request)
     adapter.add_message(
-        request, messages.SUCCESS, "mfa/messages/recovery_codes_generated.txt"
+        request,
+        messages.WARNING if app_settings.RECOVERY_CODES_SHOW_ONCE else messages.SUCCESS,
+        "mfa/messages/recovery_codes_generated.txt",
+        message_context={
+            "MFA_RECOVERY_CODES_SHOW_ONCE": app_settings.RECOVERY_CODES_SHOW_ONCE
+        },
     )
-    return rc.instance

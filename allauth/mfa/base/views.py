@@ -151,6 +151,7 @@ class IndexView(TemplateView):
                 authenticators[auth.type] = auth.wrap()
         ret["authenticators"] = authenticators
         ret["MFA_SUPPORTED_TYPES"] = app_settings.SUPPORTED_TYPES
+        ret["MFA_RECOVERY_CODES_SHOW_ONCE"] = app_settings.RECOVERY_CODES_SHOW_ONCE
         ret["is_mfa_enabled"] = is_mfa_enabled(self.request.user)
         return ret
 

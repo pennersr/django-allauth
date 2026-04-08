@@ -1,5 +1,7 @@
 from http import HTTPStatus
 
+import pytest
+
 from allauth.mfa.models import Authenticator
 
 
@@ -21,18 +23,28 @@ def test_get_recovery_codes_requires_reauth(
     assert resp.status_code == HTTPStatus.OK
 
 
+@pytest.mark.parametrize("show_once", [False, True])
 def test_get_recovery_codes(
     auth_client,
     user_with_recovery_codes,
     headless_reverse,
     reauthentication_bypass,
+    show_once,
+    settings,
 ):
+    settings.MFA_RECOVERY_CODES_SHOW_ONCE = show_once
     with reauthentication_bypass():
-        resp = auth_client.get(headless_reverse("headless:mfa:manage_recovery_codes"))
-    assert resp.status_code == HTTPStatus.OK
-    data = resp.json()
-    assert data["data"]["type"] == "recovery_codes"
-    assert len(data["data"]["unused_codes"]) == 10
+        for attempt in range(2):
+            resp = auth_client.get(
+                headless_reverse("headless:mfa:manage_recovery_codes")
+            )
+            assert resp.status_code == HTTPStatus.OK
+            data = resp.json()
+            assert data["data"]["type"] == "recovery_codes"
+            if show_once and attempt == 1:
+                assert "unused_codes" not in data["data"]
+            else:
+                assert len(data["data"]["unused_codes"]) == 10
 
     with reauthentication_bypass():
         resp = auth_client.get(headless_reverse("headless:mfa:authenticators"))

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-05 08:42-0600\n"
+"POT-Creation-Date: 2026-04-08 13:31-0500\n"
 "PO-Revision-Date: 2024-04-20 21:55+0200\n"
 "Last-Translator: Gregor Grigorjan <gregor@grigorjan.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,109 +18,109 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: account/adapter.py:61
+#: account/adapter.py:60
 msgid "This account is currently inactive."
 msgstr "See konto on parajasti mitteaktiivne."
 
-#: account/adapter.py:63
+#: account/adapter.py:62
 msgid "You cannot remove your primary email address."
 msgstr "Primaarset e-posti aadressi ei saa eemaldada."
 
-#: account/adapter.py:66
+#: account/adapter.py:65
 msgid "This email address is already associated with this account."
 msgstr "See e-posti aadress on juba selle kontoga seostatud."
 
-#: account/adapter.py:69
+#: account/adapter.py:68
 msgid "The email address and/or password you specified are not correct."
 msgstr "Sisestatud e-posti aadress või salasõna ei ole õige."
 
-#: account/adapter.py:72
+#: account/adapter.py:71
 msgid "The phone number and/or password you specified are not correct."
 msgstr "Sisestatud telefoninumber või salasõna ei ole õige."
 
-#: account/adapter.py:74
+#: account/adapter.py:73
 msgid "A user is already registered with this email address."
 msgstr "Selle e-posti aadressiga on juba kasutaja registreeritud."
 
-#: account/adapter.py:75
+#: account/adapter.py:74
 msgid "Please type your current password."
 msgstr "Palun sisesta oma praegune salasõna."
 
-#: account/adapter.py:76 mfa/adapter.py:40
+#: account/adapter.py:75 mfa/adapter.py:38
 msgid "Incorrect code."
 msgstr "Vale kood."
 
-#: account/adapter.py:77
+#: account/adapter.py:76
 msgid "Incorrect password."
 msgstr "Vale salasõna."
 
-#: account/adapter.py:78
+#: account/adapter.py:77
 msgid "Invalid or expired key."
 msgstr "Vale või aegunud võti."
 
-#: account/adapter.py:79
+#: account/adapter.py:78
 msgid "Invalid login."
 msgstr "Vale sisselogimine."
 
-#: account/adapter.py:80
+#: account/adapter.py:79
 msgid "The password reset token was invalid."
 msgstr "Salasõna taasseadmise tooken oli vale."
 
-#: account/adapter.py:81
+#: account/adapter.py:80
 #, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "Sa ei tohi lisada enam kui %d e-posti aadressi."
 
-#: account/adapter.py:82
+#: account/adapter.py:81
 msgid "A user is already registered with this phone number."
 msgstr "Selle telefoninumbriga on juba kasutaja registreeritud."
 
-#: account/adapter.py:84
+#: account/adapter.py:83
 msgid "Too many failed login attempts. Try again later."
 msgstr "Liiga palju nurjunud sisse logimise katseid. Proovi hiljem uuesti."
 
-#: account/adapter.py:86
+#: account/adapter.py:85
 msgid "The email address is not assigned to any user account."
 msgstr "See e-posti aadress pole määratud ühelegi kasutajakontole."
 
-#: account/adapter.py:87
+#: account/adapter.py:86
 msgid "The phone number is not assigned to any user account."
 msgstr "See telefoninumber pole määratud ühelegi kasutajakontole."
 
-#: account/adapter.py:88
+#: account/adapter.py:87
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary email address must be verified."
 msgstr "Su primaarne e-posti aadress peab olema kinnitatud."
 
-#: account/adapter.py:90
+#: account/adapter.py:89
 msgid "Username can not be used. Please use other username."
 msgstr "Kasutajanime pole lubatud kasutada. Palun kasuta muud kasutajanime."
 
-#: account/adapter.py:93
+#: account/adapter.py:92
 msgid "The username and/or password you specified are not correct."
 msgstr "Sisestatud kasutajanimi või salasõna ei ole õige."
 
-#: account/adapter.py:98
+#: account/adapter.py:97
 msgid "Please select only one."
 msgstr "Palun valige ainult üks."
 
-#: account/adapter.py:99
+#: account/adapter.py:98
 msgid "The new value must be different from the current one."
 msgstr "Uus väärtus peab erinema praegusest."
 
-#: account/adapter.py:100
+#: account/adapter.py:99
 msgid "Be patient, you are sending too many requests."
 msgstr "Palun ole kannatlik, sa saadad liiga palju päringuid."
 
-#: account/adapter.py:826
+#: account/adapter.py:825
 msgid "Use your password"
 msgstr "Kasuta oma salasõna"
 
-#: account/adapter.py:835
+#: account/adapter.py:834
 msgid "Use authenticator app or code"
 msgstr "Kasuta autentimisrakendust või koodi"
 
-#: account/adapter.py:842 templates/mfa/authenticate.html:41
+#: account/adapter.py:841 templates/mfa/authenticate.html:41
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use a security key"
 msgstr "Kasuta turvavõtit"
@@ -143,7 +143,7 @@ msgstr "Märgi valitud e-posti aadressid kinnitatuks"
 msgid "Accounts"
 msgstr "Kontod"
 
-#: account/fields.py:12 account/forms.py:299 idp/oidc/forms.py:43
+#: account/fields.py:12 account/forms.py:298 idp/oidc/forms.py:43
 msgid "Email"
 msgstr "E-post"
 
@@ -155,133 +155,133 @@ msgstr "E-posti aadress"
 msgid "Enter a phone number including country code (e.g. +1 for the US)."
 msgstr "Sisesta telefoninumber koos riigikoodiga (nt +1 USA jaoks)."
 
-#: account/fields.py:68 account/fields.py:72 account/forms.py:325
+#: account/fields.py:68 account/fields.py:72 account/forms.py:324
 msgid "Phone"
 msgstr "Telefon"
 
-#: account/forms.py:61 account/forms.py:524
+#: account/forms.py:59 account/forms.py:523
 msgid "You must type the same password each time."
 msgstr "Pead sisestama sama salasõna iga kord."
 
-#: account/forms.py:66 account/forms.py:451 account/forms.py:610
-#: account/forms.py:696
+#: account/forms.py:64 account/forms.py:450 account/forms.py:609
+#: account/forms.py:695
 msgid "Password"
 msgstr "Salasõna"
 
-#: account/forms.py:67
+#: account/forms.py:65
 msgid "Remember Me"
 msgstr "Jäta mind meelde"
 
-#: account/forms.py:79 account/forms.py:82 account/forms.py:265
-#: account/forms.py:268 account/forms.py:311
+#: account/forms.py:78 account/forms.py:81 account/forms.py:264
+#: account/forms.py:267 account/forms.py:310
 msgid "Username"
 msgstr "Kasutajanimi"
 
-#: account/forms.py:96
+#: account/forms.py:95
 msgctxt "field label"
 msgid "Login"
 msgstr "Logi sisse"
 
-#: account/forms.py:115
+#: account/forms.py:114
 msgid "Username, email or phone"
 msgstr "Kasutajanimi, e-post või telefon"
 
-#: account/forms.py:117
+#: account/forms.py:116
 msgid "Username or email"
 msgstr "Kasutajanimi või e-post"
 
-#: account/forms.py:119
+#: account/forms.py:118
 msgid "Username or phone"
 msgstr "Kasutajanimi või telefon"
 
-#: account/forms.py:121
+#: account/forms.py:120
 msgid "Email or phone"
 msgstr "E-post või telefon"
 
-#: account/forms.py:144
+#: account/forms.py:143
 msgid "Forgot your password?"
 msgstr "Unustasid salasõna?"
 
-#: account/forms.py:287
+#: account/forms.py:286
 msgid "Email (again)"
 msgstr "E-post (uuesti)"
 
-#: account/forms.py:292
+#: account/forms.py:291
 msgid "Email address confirmation"
 msgstr "E-posti aadress"
 
-#: account/forms.py:302
+#: account/forms.py:301
 msgid "Email (optional)"
 msgstr "E-post (valikuline)"
 
-#: account/forms.py:314
+#: account/forms.py:313
 msgid "Username (optional)"
 msgstr "Kasutajanimi (valikuline)"
 
-#: account/forms.py:388
+#: account/forms.py:387
 msgid "You must type the same email each time."
 msgstr "Pead sisetama sama e-posti aadressi iga kord."
 
-#: account/forms.py:458 account/forms.py:611
+#: account/forms.py:457 account/forms.py:610
 msgid "Password (again)"
 msgstr "Salasõna (uuesti)"
 
-#: account/forms.py:591
+#: account/forms.py:590
 msgid "Current Password"
 msgstr "Praegune salasõna"
 
-#: account/forms.py:593 account/forms.py:649
+#: account/forms.py:592 account/forms.py:648
 msgid "New Password"
 msgstr "Uus salasõna"
 
-#: account/forms.py:594 account/forms.py:650
+#: account/forms.py:593 account/forms.py:649
 msgid "New Password (again)"
 msgstr "Uus salasõna (uuesti)"
 
-#: account/forms.py:767 account/forms.py:769 idp/oidc/forms.py:51
+#: account/forms.py:766 account/forms.py:768 idp/oidc/forms.py:51
 #: idp/oidc/forms.py:54 mfa/base/forms.py:12 mfa/base/forms.py:14
 #: mfa/totp/forms.py:13
 #: templates/idp/oidc/device_authorization_confirm_form.html:16
 msgid "Code"
 msgstr "Kood"
 
-#: account/models.py:23
+#: account/models.py:29
 msgid "user"
 msgstr "kasutaja"
 
-#: account/models.py:29 account/models.py:37 account/models.py:139
+#: account/models.py:35 account/models.py:43 account/models.py:147
 msgid "email address"
 msgstr "e-posti aadress"
 
-#: account/models.py:31
+#: account/models.py:37
 msgid "verified"
 msgstr "kinnitatud"
 
-#: account/models.py:32
+#: account/models.py:38
 msgid "primary"
 msgstr "primaarne"
 
-#: account/models.py:38
+#: account/models.py:44
 msgid "email addresses"
 msgstr "e-posti aadressid"
 
-#: account/models.py:142
+#: account/models.py:150
 msgid "created"
 msgstr "loodud"
 
-#: account/models.py:143
+#: account/models.py:151
 msgid "sent"
 msgstr "saadetud"
 
-#: account/models.py:144 socialaccount/models.py:70
+#: account/models.py:152 socialaccount/models.py:70
 msgid "key"
 msgstr "võti"
 
-#: account/models.py:149
+#: account/models.py:157
 msgid "email confirmation"
 msgstr "kinnitus e-posti kaudu"
 
-#: account/models.py:150
+#: account/models.py:158
 msgid "email confirmations"
 msgstr "kinnitused e-posti kaudu"
 
@@ -289,15 +289,15 @@ msgstr "kinnitused e-posti kaudu"
 msgid "Headless"
 msgstr "Peata"
 
-#: idp/oidc/adapter.py:30
+#: idp/oidc/adapter.py:31
 msgid "View your user ID"
 msgstr "Vaata oma kasutaja ID-d"
 
-#: idp/oidc/adapter.py:31
+#: idp/oidc/adapter.py:32
 msgid "View your email address"
 msgstr "Vaata oma e-posti aadressi"
 
-#: idp/oidc/adapter.py:32
+#: idp/oidc/adapter.py:33
 msgid "View your basic profile information"
 msgstr "Vaata oma profiili põhiandmeid"
 
@@ -321,31 +321,31 @@ msgstr ""
 msgid "Wildcards are only allowed in the hostname portion of the URI."
 msgstr "Metamärgid on lubatud ainult URI hostinime osas."
 
-#: idp/oidc/models.py:37
+#: idp/oidc/models.py:35
 msgid "Authorization code"
 msgstr "Autoriseerimiskood"
 
-#: idp/oidc/models.py:38
+#: idp/oidc/models.py:36
 msgid "Device code"
 msgstr "Seadmekood"
 
-#: idp/oidc/models.py:39
+#: idp/oidc/models.py:37
 msgid "Client credentials"
 msgstr "Kliendi volitused"
 
-#: idp/oidc/models.py:40
+#: idp/oidc/models.py:38
 msgid "Refresh token"
 msgstr "Värskendustooken"
 
-#: idp/oidc/models.py:43
+#: idp/oidc/models.py:41
 msgid "Confidential"
 msgstr "Konfidentsiaalne"
 
-#: idp/oidc/models.py:44
+#: idp/oidc/models.py:42
 msgid "Public"
 msgstr "Avalik"
 
-#: idp/oidc/models.py:58
+#: idp/oidc/models.py:56
 msgid ""
 "The scope(s) the client is allowed to request. Provide one value per line, "
 "e.g.: openid(ENTER)profile(ENTER)email(ENTER)"
@@ -353,7 +353,7 @@ msgstr ""
 "Ulatused, mida kliendil on lubatud taotleda. Sisesta üks väärtus rea kohta, "
 "nt: openid(ENTER)profile(ENTER)email(ENTER)"
 
-#: idp/oidc/models.py:64
+#: idp/oidc/models.py:62
 msgid ""
 "In case the client does not specify any scope, these default scopes are "
 "used. Provide one value per line, e.g.: "
@@ -362,7 +362,7 @@ msgstr ""
 "Kui klient ei määra ühtegi ulatust, kasutatakse neid vaikeulatusi. Sisesta "
 "üks väärtus rea kohta, nt: openid(ENTER)profile(ENTER)email(ENTER)"
 
-#: idp/oidc/models.py:75
+#: idp/oidc/models.py:73
 msgid ""
 "A list of allowed grant types. Provide one value per line, e.g.: "
 "authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
@@ -370,11 +370,11 @@ msgstr ""
 "Lubatud volituste tüüpide loend. Sisesta üks väärtus rea kohta, nt: "
 "authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 
-#: idp/oidc/models.py:86
+#: idp/oidc/models.py:84
 msgid "A list of allowed origins for cross-origin requests, one per line."
 msgstr "Lubatud päritolu loend ristpäritoluga päringute jaoks, üks rea kohta."
 
-#: idp/oidc/models.py:94
+#: idp/oidc/models.py:92
 msgid ""
 "Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
 "can contain a single asterisk to match subdomains."
@@ -382,7 +382,7 @@ msgstr ""
 "Luba metamärgid (*) ümbersuunamise URI-des ja CORS-i päritoludes. Kui "
 "aktiveeritud, võivad URI-d sisaldada ühte tärni alamdomeenide sobitamiseks."
 
-#: idp/oidc/models.py:102
+#: idp/oidc/models.py:100
 msgid ""
 "A list of allowed response types. Provide one value per line, e.g.: "
 "code(ENTER)id_token token(ENTER)"
@@ -390,15 +390,15 @@ msgstr ""
 "Lubatud vastuse tüüpide loend. Sisesta üks väärtus rea kohta, nt: "
 "code(ENTER)id_token token(ENTER)"
 
-#: idp/oidc/models.py:115
+#: idp/oidc/models.py:113
 msgid "client"
 msgstr "klient"
 
-#: idp/oidc/models.py:116
+#: idp/oidc/models.py:114
 msgid "clients"
 msgstr "kliendid"
 
-#: mfa/adapter.py:32
+#: mfa/adapter.py:30
 msgid ""
 "You cannot add an email address to an account protected by two-factor "
 "authentication."
@@ -406,17 +406,17 @@ msgstr ""
 "Sa ei saa kaheastmelise autentimisega turvatud kontole lisada e-posti "
 "aadressi."
 
-#: mfa/adapter.py:35
+#: mfa/adapter.py:33
 msgid "You cannot deactivate two-factor authentication."
 msgstr "Sa ei saa kaheastmelist autentimist välja lülitada."
 
-#: mfa/adapter.py:38
+#: mfa/adapter.py:36
 msgid ""
 "You cannot generate recovery codes without having two-factor authentication "
 "enabled."
 msgstr "Sa ei saa luua varukoode ilma kaheastmilise autentimiseta."
 
-#: mfa/adapter.py:42
+#: mfa/adapter.py:40
 msgid ""
 "You cannot activate two-factor authentication until you have verified your "
 "email address."
@@ -424,15 +424,15 @@ msgstr ""
 "Sa ei saa välja lülitada kaheastmelist autentimist kuni sa oled oma e-posti "
 "aadressi kinnitanud."
 
-#: mfa/adapter.py:141
+#: mfa/adapter.py:139
 msgid "Master key"
 msgstr "Põhivõti"
 
-#: mfa/adapter.py:143
+#: mfa/adapter.py:141
 msgid "Backup key"
 msgstr "Varuvõti"
 
-#: mfa/adapter.py:144
+#: mfa/adapter.py:142
 #, python-brace-format
 msgid "Key nr. {number}"
 msgstr "Võti nr. {number}"
@@ -635,7 +635,7 @@ msgstr "Päringutookenit pole salvestatud \"%s\" jaoks."
 msgid "No access token saved for \"%s\"."
 msgstr "Pääsutookenit pole salvestatud \"%s\" jaoks."
 
-#: socialaccount/providers/oauth/client.py:215
+#: socialaccount/providers/oauth/client.py:219
 #, python-format
 msgid "No access to private resources at \"%s\"."
 msgstr "Puudub ligipääs \"%s\" privaatressurssidele."
@@ -1244,11 +1244,11 @@ msgstr "Sisesta oma salasõna:"
 msgid "You will receive a special code for a password-free sign-in."
 msgstr "Sa saad spetsiaalse koodi paroolivabaks sisselogimiseks."
 
-#: templates/account/request_login_code.html:24
+#: templates/account/request_login_code.html:23
 msgid "Request Code"
 msgstr "Taotle koodi"
 
-#: templates/account/request_login_code.html:30
+#: templates/account/request_login_code.html:28
 msgid "Other sign-in options"
 msgstr "Muud sisse logimise võimalused"
 
@@ -1558,11 +1558,11 @@ msgstr "Lisa"
 
 #: templates/mfa/index.html:77 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:6
-#: templates/mfa/recovery_codes/index.html:6
+#: templates/mfa/recovery_codes/index.html:5
 msgid "Recovery Codes"
 msgstr "Varukoodid"
 
-#: templates/mfa/index.html:82 templates/mfa/recovery_codes/index.html:9
+#: templates/mfa/index.html:82 templates/mfa/recovery_codes/index.html:8
 #, python-format
 msgid ""
 "There is %(unused_count)s out of %(total_count)s recovery codes available."
@@ -1590,6 +1590,10 @@ msgstr "Loo"
 #: templates/mfa/messages/recovery_codes_generated.txt:2
 msgid "A new set of recovery codes has been generated."
 msgstr "Uus hulk varukoode on loodud."
+
+#: templates/mfa/messages/recovery_codes_generated.txt:4
+msgid "Save them  in a secure location now — they won't be shown again."
+msgstr "Salvesta need kohe turvalisse kohta — neid ei näidata enam uuesti."
 
 #: templates/mfa/messages/webauthn_added.txt:2
 msgid "Security key added."
@@ -1619,13 +1623,17 @@ msgstr "Oled kindel?"
 msgid "Unused codes"
 msgstr "Kasutamata varukoodid"
 
-#: templates/mfa/recovery_codes/index.html:25
+#: templates/mfa/recovery_codes/index.html:24
 msgid "Download codes"
 msgstr "Lae varukoodid alla"
 
 #: templates/mfa/recovery_codes/index.html:30
 msgid "Generate new codes"
 msgstr "Loo uued varukoodid"
+
+#: templates/mfa/recovery_codes/index.html:36
+msgid "I have saved my recovery codes"
+msgstr "Olen oma taastekoodid salvestanud"
 
 #: templates/mfa/totp/activate_form.html:4
 #: templates/mfa/totp/activate_form.html:8
@@ -1904,7 +1912,7 @@ msgstr "Logi teistest sessioonidest välja"
 msgid "User Sessions"
 msgstr "Kasutajasessioonid"
 
-#: usersessions/models.py:94
+#: usersessions/models.py:93
 msgid "session key"
 msgstr "sessioonivõti"
 

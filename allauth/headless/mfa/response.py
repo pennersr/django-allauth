@@ -91,8 +91,8 @@ class RecoveryCodesNotFoundResponse(APIResponse):
 
 
 class RecoveryCodesResponse(APIResponse):
-    def __init__(self, request, authenticator):
-        data = _authenticator_data(authenticator, sensitive=True)
+    def __init__(self, request, authenticator, can_view: bool):
+        data = _authenticator_data(authenticator, sensitive=can_view)
         super().__init__(request, data=data)
 
 

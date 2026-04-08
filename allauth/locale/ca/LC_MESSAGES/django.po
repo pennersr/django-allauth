@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-05 08:42-0600\n"
+"POT-Creation-Date: 2026-04-08 13:31-0500\n"
 "PO-Revision-Date: 2024-09-26 16:15+0000\n"
 "Last-Translator: Ajordat <alexjortri@gmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/allauth/django-"
@@ -21,113 +21,113 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.8-dev\n"
 
-#: account/adapter.py:61
+#: account/adapter.py:60
 msgid "This account is currently inactive."
 msgstr "Ara mateix aquest compte està inactiu."
 
-#: account/adapter.py:63
+#: account/adapter.py:62
 msgid "You cannot remove your primary email address."
 msgstr "No podeu eliminar el vostre correu electrònic principal."
 
-#: account/adapter.py:66
+#: account/adapter.py:65
 msgid "This email address is already associated with this account."
 msgstr "Aquest correu electrònic ja està associat amb aquest compte."
 
-#: account/adapter.py:69
+#: account/adapter.py:68
 msgid "The email address and/or password you specified are not correct."
 msgstr ""
 "El correu electrònic i/o la contrasenya que heu especificat no són correctes."
 
-#: account/adapter.py:72
+#: account/adapter.py:71
 msgid "The phone number and/or password you specified are not correct."
 msgstr ""
 "El número de telèfon i/o la contrasenya que heu especificat no són correctes."
 
-#: account/adapter.py:74
+#: account/adapter.py:73
 msgid "A user is already registered with this email address."
 msgstr ""
 "Un usuari ja ha estat registrat amb aquesta direcció de correu electrònic."
 
-#: account/adapter.py:75
+#: account/adapter.py:74
 msgid "Please type your current password."
 msgstr "Si us plau, escriviu la vostra contrasenya actual."
 
-#: account/adapter.py:76 mfa/adapter.py:40
+#: account/adapter.py:75 mfa/adapter.py:38
 msgid "Incorrect code."
 msgstr "Codi incorrecte."
 
-#: account/adapter.py:77
+#: account/adapter.py:76
 msgid "Incorrect password."
 msgstr "Contrasenya actual."
 
-#: account/adapter.py:78
+#: account/adapter.py:77
 msgid "Invalid or expired key."
 msgstr "Clau no vàlida o caducada."
 
-#: account/adapter.py:79
+#: account/adapter.py:78
 msgid "Invalid login."
 msgstr "Inici de sessió no vàlid."
 
-#: account/adapter.py:80
+#: account/adapter.py:79
 msgid "The password reset token was invalid."
 msgstr "El token per reiniciar la contrasenya no és vàlid."
 
-#: account/adapter.py:81
+#: account/adapter.py:80
 #, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "No es poden afegit més de %d adreces de correu electrònic."
 
-#: account/adapter.py:82
+#: account/adapter.py:81
 msgid "A user is already registered with this phone number."
 msgstr "Un usuari ja ha estat registrat amb aquest número de telèfon."
 
-#: account/adapter.py:84
+#: account/adapter.py:83
 msgid "Too many failed login attempts. Try again later."
 msgstr "Massa intents fallits. Intenteu-ho de nou més tard."
 
-#: account/adapter.py:86
+#: account/adapter.py:85
 msgid "The email address is not assigned to any user account."
 msgstr "El correu electrònic no està assignat a cap compte d'usuari."
 
-#: account/adapter.py:87
+#: account/adapter.py:86
 msgid "The phone number is not assigned to any user account."
 msgstr "El número de telèfon no està assignat a cap compte d'usuari."
 
-#: account/adapter.py:88
+#: account/adapter.py:87
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary email address must be verified."
 msgstr "La vostra adreça de correu electrònic principal ha de ser verificada."
 
-#: account/adapter.py:90
+#: account/adapter.py:89
 msgid "Username can not be used. Please use other username."
 msgstr ""
 "Aquest nom d'usuari no pot ser emprat. Si us plau utilitzeu-ne un altre."
 
-#: account/adapter.py:93
+#: account/adapter.py:92
 msgid "The username and/or password you specified are not correct."
 msgstr "L'usuari i/o la contrasenya que heu especificat no són correctes."
 
-#: account/adapter.py:98
+#: account/adapter.py:97
 msgid "Please select only one."
 msgstr "Si us plau, seleccioneu-ne només un."
 
-#: account/adapter.py:99
+#: account/adapter.py:98
 msgid "The new value must be different from the current one."
 msgstr "El nou valor ha de ser diferent de l'actual."
 
-#: account/adapter.py:100
+#: account/adapter.py:99
 msgid "Be patient, you are sending too many requests."
 msgstr "Tingueu paciència, esteu enviant massa sol·licituds."
 
-#: account/adapter.py:826
+#: account/adapter.py:825
 msgid "Use your password"
 msgstr "Utilitzeu la vostra paraula de pas"
 
-#: account/adapter.py:835
+#: account/adapter.py:834
 msgid "Use authenticator app or code"
 msgstr "Utilitzar una aplicació d’autenticació o un codi"
 
-#: account/adapter.py:842 templates/mfa/authenticate.html:41
+#: account/adapter.py:841 templates/mfa/authenticate.html:41
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use a security key"
 msgstr "Utilitzar una clau de seguretat"
@@ -150,7 +150,7 @@ msgstr "Marqueu l’adreça de correu seleccionada com a verificada"
 msgid "Accounts"
 msgstr "Comptes"
 
-#: account/fields.py:12 account/forms.py:299 idp/oidc/forms.py:43
+#: account/fields.py:12 account/forms.py:298 idp/oidc/forms.py:43
 msgid "Email"
 msgstr "Correu electrònic"
 
@@ -164,133 +164,133 @@ msgstr ""
 "Introduïu un número de telèfon incloent el codi de país (p. ex. +1 per als "
 "EUA)."
 
-#: account/fields.py:68 account/fields.py:72 account/forms.py:325
+#: account/fields.py:68 account/fields.py:72 account/forms.py:324
 msgid "Phone"
 msgstr "Telèfon"
 
-#: account/forms.py:61 account/forms.py:524
+#: account/forms.py:59 account/forms.py:523
 msgid "You must type the same password each time."
 msgstr "Heu d'escriure la mateixa contrasenya cada cop."
 
-#: account/forms.py:66 account/forms.py:451 account/forms.py:610
-#: account/forms.py:696
+#: account/forms.py:64 account/forms.py:450 account/forms.py:609
+#: account/forms.py:695
 msgid "Password"
 msgstr "Contrasenya"
 
-#: account/forms.py:67
+#: account/forms.py:65
 msgid "Remember Me"
 msgstr "Recordar-me"
 
-#: account/forms.py:79 account/forms.py:82 account/forms.py:265
-#: account/forms.py:268 account/forms.py:311
+#: account/forms.py:78 account/forms.py:81 account/forms.py:264
+#: account/forms.py:267 account/forms.py:310
 msgid "Username"
 msgstr "Nom d'usuari"
 
-#: account/forms.py:96
+#: account/forms.py:95
 msgctxt "field label"
 msgid "Login"
 msgstr "Iniciar sessió"
 
-#: account/forms.py:115
+#: account/forms.py:114
 msgid "Username, email or phone"
 msgstr "Nom d'usuari, correu electrònic o telèfon"
 
-#: account/forms.py:117
+#: account/forms.py:116
 msgid "Username or email"
 msgstr "Nom d'usuari o correu electrònic"
 
-#: account/forms.py:119
+#: account/forms.py:118
 msgid "Username or phone"
 msgstr "Nom d'usuari o telèfon"
 
-#: account/forms.py:121
+#: account/forms.py:120
 msgid "Email or phone"
 msgstr "Correu electrònic o telèfon"
 
-#: account/forms.py:144
+#: account/forms.py:143
 msgid "Forgot your password?"
 msgstr "Heu oblidat la contrasenya?"
 
-#: account/forms.py:287
+#: account/forms.py:286
 msgid "Email (again)"
 msgstr "Correu electrònic (un altre cop)"
 
-#: account/forms.py:292
+#: account/forms.py:291
 msgid "Email address confirmation"
 msgstr "Confirmació de direcció de correu electrònic"
 
-#: account/forms.py:302
+#: account/forms.py:301
 msgid "Email (optional)"
 msgstr "Correu electrònic (opcional)"
 
-#: account/forms.py:314
+#: account/forms.py:313
 msgid "Username (optional)"
 msgstr "Nom d'usuari (opcional)"
 
-#: account/forms.py:388
+#: account/forms.py:387
 msgid "You must type the same email each time."
 msgstr "Heu d'escriure el mateix correu electrònic cada cop."
 
-#: account/forms.py:458 account/forms.py:611
+#: account/forms.py:457 account/forms.py:610
 msgid "Password (again)"
 msgstr "Contrasenya (de nou)"
 
-#: account/forms.py:591
+#: account/forms.py:590
 msgid "Current Password"
 msgstr "Contrasenya actual"
 
-#: account/forms.py:593 account/forms.py:649
+#: account/forms.py:592 account/forms.py:648
 msgid "New Password"
 msgstr "Nova contrasenya"
 
-#: account/forms.py:594 account/forms.py:650
+#: account/forms.py:593 account/forms.py:649
 msgid "New Password (again)"
 msgstr "Nova contrasenya (de nou)"
 
-#: account/forms.py:767 account/forms.py:769 idp/oidc/forms.py:51
+#: account/forms.py:766 account/forms.py:768 idp/oidc/forms.py:51
 #: idp/oidc/forms.py:54 mfa/base/forms.py:12 mfa/base/forms.py:14
 #: mfa/totp/forms.py:13
 #: templates/idp/oidc/device_authorization_confirm_form.html:16
 msgid "Code"
 msgstr "Codi"
 
-#: account/models.py:23
+#: account/models.py:29
 msgid "user"
 msgstr "usuari"
 
-#: account/models.py:29 account/models.py:37 account/models.py:139
+#: account/models.py:35 account/models.py:43 account/models.py:147
 msgid "email address"
 msgstr "correu electrònic"
 
-#: account/models.py:31
+#: account/models.py:37
 msgid "verified"
 msgstr "verificat"
 
-#: account/models.py:32
+#: account/models.py:38
 msgid "primary"
 msgstr "principal"
 
-#: account/models.py:38
+#: account/models.py:44
 msgid "email addresses"
 msgstr "correus electrònics"
 
-#: account/models.py:142
+#: account/models.py:150
 msgid "created"
 msgstr "creat"
 
-#: account/models.py:143
+#: account/models.py:151
 msgid "sent"
 msgstr "enviat"
 
-#: account/models.py:144 socialaccount/models.py:70
+#: account/models.py:152 socialaccount/models.py:70
 msgid "key"
 msgstr "clau"
 
-#: account/models.py:149
+#: account/models.py:157
 msgid "email confirmation"
 msgstr "confirmació de correu electrònic"
 
-#: account/models.py:150
+#: account/models.py:158
 msgid "email confirmations"
 msgstr "confirmacions de correu electrònic"
 
@@ -298,15 +298,15 @@ msgstr "confirmacions de correu electrònic"
 msgid "Headless"
 msgstr "Sense capçalera"
 
-#: idp/oidc/adapter.py:30
+#: idp/oidc/adapter.py:31
 msgid "View your user ID"
 msgstr "Veure el vostre identificador d'usuari"
 
-#: idp/oidc/adapter.py:31
+#: idp/oidc/adapter.py:32
 msgid "View your email address"
 msgstr "Veure la vostra adreça de correu electrònic"
 
-#: idp/oidc/adapter.py:32
+#: idp/oidc/adapter.py:33
 msgid "View your basic profile information"
 msgstr "Veure la vostra informació bàsica de perfil"
 
@@ -331,31 +331,31 @@ msgstr ""
 msgid "Wildcards are only allowed in the hostname portion of the URI."
 msgstr "Els comodins només estan permesos a la part del nom de host de l'URI."
 
-#: idp/oidc/models.py:37
+#: idp/oidc/models.py:35
 msgid "Authorization code"
 msgstr "Codi d'autorització"
 
-#: idp/oidc/models.py:38
+#: idp/oidc/models.py:36
 msgid "Device code"
 msgstr "Codi de dispositiu"
 
-#: idp/oidc/models.py:39
+#: idp/oidc/models.py:37
 msgid "Client credentials"
 msgstr "Credencials del client"
 
-#: idp/oidc/models.py:40
+#: idp/oidc/models.py:38
 msgid "Refresh token"
 msgstr "Token de refresc"
 
-#: idp/oidc/models.py:43
+#: idp/oidc/models.py:41
 msgid "Confidential"
 msgstr "Confidencial"
 
-#: idp/oidc/models.py:44
+#: idp/oidc/models.py:42
 msgid "Public"
 msgstr "Públic"
 
-#: idp/oidc/models.py:58
+#: idp/oidc/models.py:56
 msgid ""
 "The scope(s) the client is allowed to request. Provide one value per line, "
 "e.g.: openid(ENTER)profile(ENTER)email(ENTER)"
@@ -363,7 +363,7 @@ msgstr ""
 "Els àmbits que el client pot sol·licitar. Proporcioneu un valor per línia, "
 "p. ex.: openid(ENTER)profile(ENTER)email(ENTER)"
 
-#: idp/oidc/models.py:64
+#: idp/oidc/models.py:62
 msgid ""
 "In case the client does not specify any scope, these default scopes are "
 "used. Provide one value per line, e.g.: "
@@ -373,7 +373,7 @@ msgstr ""
 "per defecte. Proporcioneu un valor per línia, p. ex.: "
 "openid(ENTER)profile(ENTER)email(ENTER)"
 
-#: idp/oidc/models.py:75
+#: idp/oidc/models.py:73
 msgid ""
 "A list of allowed grant types. Provide one value per line, e.g.: "
 "authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
@@ -382,12 +382,12 @@ msgstr ""
 "p. ex.: "
 "authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 
-#: idp/oidc/models.py:86
+#: idp/oidc/models.py:84
 msgid "A list of allowed origins for cross-origin requests, one per line."
 msgstr ""
 "Una llista d'orígens permesos per a sol·licituds cross-origin, un per línia."
 
-#: idp/oidc/models.py:94
+#: idp/oidc/models.py:92
 msgid ""
 "Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
 "can contain a single asterisk to match subdomains."
@@ -395,7 +395,7 @@ msgstr ""
 "Permetre comodins (*) a les URI de redirecció i orígens CORS. Quan està "
 "activat, les URI poden contenir un sol asterisc per coincidir amb subdominis."
 
-#: idp/oidc/models.py:102
+#: idp/oidc/models.py:100
 msgid ""
 "A list of allowed response types. Provide one value per line, e.g.: "
 "code(ENTER)id_token token(ENTER)"
@@ -403,15 +403,15 @@ msgstr ""
 "Una llista de tipus de resposta permesos. Proporcioneu un valor per línia, "
 "p. ex.: code(ENTER)id_token token(ENTER)"
 
-#: idp/oidc/models.py:115
+#: idp/oidc/models.py:113
 msgid "client"
 msgstr "client"
 
-#: idp/oidc/models.py:116
+#: idp/oidc/models.py:114
 msgid "clients"
 msgstr "clients"
 
-#: mfa/adapter.py:32
+#: mfa/adapter.py:30
 msgid ""
 "You cannot add an email address to an account protected by two-factor "
 "authentication."
@@ -419,11 +419,11 @@ msgstr ""
 "No podeu afegir una adreça de correu electrònic a un compte protegit per "
 "l'autenticació de dos factors."
 
-#: mfa/adapter.py:35
+#: mfa/adapter.py:33
 msgid "You cannot deactivate two-factor authentication."
 msgstr "No podeu desactivar el doble factor d’autenticació."
 
-#: mfa/adapter.py:38
+#: mfa/adapter.py:36
 msgid ""
 "You cannot generate recovery codes without having two-factor authentication "
 "enabled."
@@ -431,7 +431,7 @@ msgstr ""
 "No podeu generar codis de recuperació sense tindre activat el doble factor "
 "d’autenticació."
 
-#: mfa/adapter.py:42
+#: mfa/adapter.py:40
 msgid ""
 "You cannot activate two-factor authentication until you have verified your "
 "email address."
@@ -439,15 +439,15 @@ msgstr ""
 "No podeu activar l'autenticació de dos factors fins que no hàgiu verificat "
 "la vostra adreça de correu electrònic."
 
-#: mfa/adapter.py:141
+#: mfa/adapter.py:139
 msgid "Master key"
 msgstr "Clau mestra"
 
-#: mfa/adapter.py:143
+#: mfa/adapter.py:141
 msgid "Backup key"
 msgstr "Clau de recanvi"
 
-#: mfa/adapter.py:144
+#: mfa/adapter.py:142
 #, python-brace-format
 msgid "Key nr. {number}"
 msgstr "Clau n. {number}"
@@ -655,7 +655,7 @@ msgstr "No hi ha token de sol·licitud guardat per \"%s\"."
 msgid "No access token saved for \"%s\"."
 msgstr "No hi ha token d'accés guardat per \"%s\"."
 
-#: socialaccount/providers/oauth/client.py:215
+#: socialaccount/providers/oauth/client.py:219
 #, python-format
 msgid "No access to private resources at \"%s\"."
 msgstr "Sense accés recursos privats de \"%s\"."
@@ -1274,11 +1274,11 @@ msgstr "Introduïu la vostra paraula de pas:"
 msgid "You will receive a special code for a password-free sign-in."
 msgstr "Rebreu un codi especial per iniciar sessió sense contrasenya."
 
-#: templates/account/request_login_code.html:24
+#: templates/account/request_login_code.html:23
 msgid "Request Code"
 msgstr "Sol·licitar codi"
 
-#: templates/account/request_login_code.html:30
+#: templates/account/request_login_code.html:28
 msgid "Other sign-in options"
 msgstr "Opcions alternatives d'inici de sessió"
 
@@ -1592,11 +1592,11 @@ msgstr "Afegir"
 
 #: templates/mfa/index.html:77 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:6
-#: templates/mfa/recovery_codes/index.html:6
+#: templates/mfa/recovery_codes/index.html:5
 msgid "Recovery Codes"
 msgstr "Codis de recuperació"
 
-#: templates/mfa/index.html:82 templates/mfa/recovery_codes/index.html:9
+#: templates/mfa/index.html:82 templates/mfa/recovery_codes/index.html:8
 #, python-format
 msgid ""
 "There is %(unused_count)s out of %(total_count)s recovery codes available."
@@ -1626,6 +1626,10 @@ msgstr "Generar"
 #: templates/mfa/messages/recovery_codes_generated.txt:2
 msgid "A new set of recovery codes has been generated."
 msgstr "Un nou conjunt de codis de recuperació ha estat generat."
+
+#: templates/mfa/messages/recovery_codes_generated.txt:4
+msgid "Save them  in a secure location now — they won't be shown again."
+msgstr "Deseu-los en un lloc segur ara — no es tornaran a mostrar."
 
 #: templates/mfa/messages/webauthn_added.txt:2
 msgid "Security key added."
@@ -1657,13 +1661,17 @@ msgstr "Esteu segur?"
 msgid "Unused codes"
 msgstr "Codis no utilitzats"
 
-#: templates/mfa/recovery_codes/index.html:25
+#: templates/mfa/recovery_codes/index.html:24
 msgid "Download codes"
 msgstr "Descarrega els codis"
 
 #: templates/mfa/recovery_codes/index.html:30
 msgid "Generate new codes"
 msgstr "Genera nous codis"
+
+#: templates/mfa/recovery_codes/index.html:36
+msgid "I have saved my recovery codes"
+msgstr "He desat els meus codis de recuperació"
 
 #: templates/mfa/totp/activate_form.html:4
 #: templates/mfa/totp/activate_form.html:8
@@ -1943,7 +1951,7 @@ msgstr "Tanca les altres sessions"
 msgid "User Sessions"
 msgstr "Sessions de l’usuari"
 
-#: usersessions/models.py:94
+#: usersessions/models.py:93
 msgid "session key"
 msgstr "clau de sessió"
 

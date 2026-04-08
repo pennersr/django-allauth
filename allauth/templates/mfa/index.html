@@ -89,7 +89,7 @@
                 {% endslot %}
                 {% if is_mfa_enabled %}
                     {% if authenticators.recovery_codes %}
-                        {% if unused_count > 0 %}
+                        {% if unused_count > 0 and not MFA_RECOVERY_CODES_SHOW_ONCE %}
                             {% slot actions %}
                                 {% url 'mfa_view_recovery_codes' as view_url %}
                                 {% element button href=view_url tags="panel" %}

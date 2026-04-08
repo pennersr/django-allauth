@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-05 08:42-0600\n"
+"POT-Creation-Date: 2026-04-08 13:31-0500\n"
 "PO-Revision-Date: 2025-05-14 16:01+0000\n"
 "Last-Translator: Elchin Aliyev <elchin.f.aliyev@gmail.com>\n"
 "Language-Team: Azerbaijani <https://hosted.weblate.org/projects/allauth/"
@@ -21,111 +21,111 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.12-dev\n"
 
-#: account/adapter.py:61
+#: account/adapter.py:60
 msgid "This account is currently inactive."
 msgstr "Bu hesab hazırda aktiv deyil."
 
-#: account/adapter.py:63
+#: account/adapter.py:62
 msgid "You cannot remove your primary email address."
 msgstr "Siz əsas e-poçt ünvanınızı silə bilməzsiniz."
 
-#: account/adapter.py:66
+#: account/adapter.py:65
 msgid "This email address is already associated with this account."
 msgstr "Bu e-poçt ünvanı artıq bu hesabla əlaqələndirilib."
 
-#: account/adapter.py:69
+#: account/adapter.py:68
 msgid "The email address and/or password you specified are not correct."
 msgstr "Göstərdiyiniz e-poçt ünvanı və ya şifrə düzgün deyil."
 
-#: account/adapter.py:72
+#: account/adapter.py:71
 msgid "The phone number and/or password you specified are not correct."
 msgstr "Göstərdiyiniz istifadəçi adı və yaxud şifrə düzgün deyil."
 
-#: account/adapter.py:74
+#: account/adapter.py:73
 msgid "A user is already registered with this email address."
 msgstr "İstifadəçi artıq bu e-poçt ünvanı ilə qeydiyyatdan keçib."
 
-#: account/adapter.py:75
+#: account/adapter.py:74
 msgid "Please type your current password."
 msgstr "Zəhmət olmasa cari şifrənizi yazın."
 
-#: account/adapter.py:76 mfa/adapter.py:40
+#: account/adapter.py:75 mfa/adapter.py:38
 msgid "Incorrect code."
 msgstr "Yanlış kod."
 
-#: account/adapter.py:77
+#: account/adapter.py:76
 msgid "Incorrect password."
 msgstr "Yanlış şifrə."
 
-#: account/adapter.py:78
+#: account/adapter.py:77
 msgid "Invalid or expired key."
 msgstr "Etibarsız və ya müddəti bitmiş açar."
 
-#: account/adapter.py:79
+#: account/adapter.py:78
 msgid "Invalid login."
 msgstr "Etibarsız giriş."
 
-#: account/adapter.py:80
+#: account/adapter.py:79
 msgid "The password reset token was invalid."
 msgstr "Şifrə sıfırlama tokeni yanlışdır."
 
-#: account/adapter.py:81
+#: account/adapter.py:80
 #, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "Siz %d-dən çox e-poçt ünvanı əlavə edə bilməzsiniz."
 
-#: account/adapter.py:82
+#: account/adapter.py:81
 msgid "A user is already registered with this phone number."
 msgstr "Bu telefon nömrəsi ilə artıq bir istifadəçi qeydiyyatdan keçib."
 
-#: account/adapter.py:84
+#: account/adapter.py:83
 msgid "Too many failed login attempts. Try again later."
 msgstr "Həddindən artıq uğursuz giriş cəhdi. Biraz sonra yenidən cəhd edin."
 
-#: account/adapter.py:86
+#: account/adapter.py:85
 msgid "The email address is not assigned to any user account."
 msgstr "Bu e-poçt ünvanı heç bir istifadəçi hesabına aid deyil."
 
-#: account/adapter.py:87
+#: account/adapter.py:86
 msgid "The phone number is not assigned to any user account."
 msgstr "Bu telefon nömrəsi heç bir istifadəçi hesabına aid deyil."
 
-#: account/adapter.py:88
+#: account/adapter.py:87
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary email address must be verified."
 msgstr "Əsas e-poçt ünvanınız təsdiqlənməlidir."
 
-#: account/adapter.py:90
+#: account/adapter.py:89
 msgid "Username can not be used. Please use other username."
 msgstr ""
 "İstifadəçi adı istifadə edilə bilməz. Zəhmət olmasa başqa istifadəçi adından "
 "istifadə edin."
 
-#: account/adapter.py:93
+#: account/adapter.py:92
 msgid "The username and/or password you specified are not correct."
 msgstr "Göstərdiyiniz istifadəçi adı və/yaxud şifrə düzgün deyil."
 
-#: account/adapter.py:98
+#: account/adapter.py:97
 msgid "Please select only one."
 msgstr "Zəhmət olmasa, yalnız birini seçin."
 
-#: account/adapter.py:99
+#: account/adapter.py:98
 msgid "The new value must be different from the current one."
 msgstr "Yeni dəyər cari dəyərdən fərqli olmalıdır."
 
-#: account/adapter.py:100
+#: account/adapter.py:99
 msgid "Be patient, you are sending too many requests."
 msgstr "Səbirli olun, çox sayda sorğu göndərirsiniz."
 
-#: account/adapter.py:826
+#: account/adapter.py:825
 msgid "Use your password"
 msgstr "Şifrənizi istifadə edin"
 
-#: account/adapter.py:835
+#: account/adapter.py:834
 msgid "Use authenticator app or code"
 msgstr "Autentifikator tətbiqi və ya kod istifadə edin"
 
-#: account/adapter.py:842 templates/mfa/authenticate.html:41
+#: account/adapter.py:841 templates/mfa/authenticate.html:41
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use a security key"
 msgstr "Təhlükəsizlik açarı istifadə edin"
@@ -148,7 +148,7 @@ msgstr "Seçilmiş e-poçt ünvanlarını doğrulanmış kimi işarələ"
 msgid "Accounts"
 msgstr "Hesablar"
 
-#: account/fields.py:12 account/forms.py:299 idp/oidc/forms.py:43
+#: account/fields.py:12 account/forms.py:298 idp/oidc/forms.py:43
 msgid "Email"
 msgstr "E-poçt"
 
@@ -161,133 +161,133 @@ msgid "Enter a phone number including country code (e.g. +1 for the US)."
 msgstr ""
 "Ölkə kodu daxil olmaqla telefon nömrəsini daxil edin (məsələn, ABŞ üçün +1)."
 
-#: account/fields.py:68 account/fields.py:72 account/forms.py:325
+#: account/fields.py:68 account/fields.py:72 account/forms.py:324
 msgid "Phone"
 msgstr "Telefon"
 
-#: account/forms.py:61 account/forms.py:524
+#: account/forms.py:59 account/forms.py:523
 msgid "You must type the same password each time."
 msgstr "Hər dəfə eyni şifrəni daxil etməlisiniz."
 
-#: account/forms.py:66 account/forms.py:451 account/forms.py:610
-#: account/forms.py:696
+#: account/forms.py:64 account/forms.py:450 account/forms.py:609
+#: account/forms.py:695
 msgid "Password"
 msgstr "Şifrə"
 
-#: account/forms.py:67
+#: account/forms.py:65
 msgid "Remember Me"
 msgstr "Məni xatırla"
 
-#: account/forms.py:79 account/forms.py:82 account/forms.py:265
-#: account/forms.py:268 account/forms.py:311
+#: account/forms.py:78 account/forms.py:81 account/forms.py:264
+#: account/forms.py:267 account/forms.py:310
 msgid "Username"
 msgstr "İstifadəçi adı"
 
-#: account/forms.py:96
+#: account/forms.py:95
 msgctxt "field label"
 msgid "Login"
 msgstr "Daxil ol"
 
-#: account/forms.py:115
+#: account/forms.py:114
 msgid "Username, email or phone"
 msgstr "İstifadəçi adı, e-poçt və ya telefon"
 
-#: account/forms.py:117
+#: account/forms.py:116
 msgid "Username or email"
 msgstr "İstifadəçi adı və ya e-poçt"
 
-#: account/forms.py:119
+#: account/forms.py:118
 msgid "Username or phone"
 msgstr "İstifadəçi adı və ya telefon"
 
-#: account/forms.py:121
+#: account/forms.py:120
 msgid "Email or phone"
 msgstr "E-poçt və ya telefon"
 
-#: account/forms.py:144
+#: account/forms.py:143
 msgid "Forgot your password?"
 msgstr "Şifrəni unutmusan?"
 
-#: account/forms.py:287
+#: account/forms.py:286
 msgid "Email (again)"
 msgstr "E-poçt (təkrar)"
 
-#: account/forms.py:292
+#: account/forms.py:291
 msgid "Email address confirmation"
 msgstr "E-poçt ünvanı təsdiqi"
 
-#: account/forms.py:302
+#: account/forms.py:301
 msgid "Email (optional)"
 msgstr "E-poçt (istəyə bağlı)"
 
-#: account/forms.py:314
+#: account/forms.py:313
 msgid "Username (optional)"
 msgstr "İstifadəçi adı (istəyə bağlı)"
 
-#: account/forms.py:388
+#: account/forms.py:387
 msgid "You must type the same email each time."
 msgstr "Hər dəfə eyni e-poçtu daxil etməlisiniz."
 
-#: account/forms.py:458 account/forms.py:611
+#: account/forms.py:457 account/forms.py:610
 msgid "Password (again)"
 msgstr "Şifrə (təkrar)"
 
-#: account/forms.py:591
+#: account/forms.py:590
 msgid "Current Password"
 msgstr "Mövcud şifrə"
 
-#: account/forms.py:593 account/forms.py:649
+#: account/forms.py:592 account/forms.py:648
 msgid "New Password"
 msgstr "Yeni şifrə"
 
-#: account/forms.py:594 account/forms.py:650
+#: account/forms.py:593 account/forms.py:649
 msgid "New Password (again)"
 msgstr "Yeni şifrə (təkrar)"
 
-#: account/forms.py:767 account/forms.py:769 idp/oidc/forms.py:51
+#: account/forms.py:766 account/forms.py:768 idp/oidc/forms.py:51
 #: idp/oidc/forms.py:54 mfa/base/forms.py:12 mfa/base/forms.py:14
 #: mfa/totp/forms.py:13
 #: templates/idp/oidc/device_authorization_confirm_form.html:16
 msgid "Code"
 msgstr "Kod"
 
-#: account/models.py:23
+#: account/models.py:29
 msgid "user"
 msgstr "istifadəçi"
 
-#: account/models.py:29 account/models.py:37 account/models.py:139
+#: account/models.py:35 account/models.py:43 account/models.py:147
 msgid "email address"
 msgstr "e-poçt ünvanı"
 
-#: account/models.py:31
+#: account/models.py:37
 msgid "verified"
 msgstr "doğrulanmış"
 
-#: account/models.py:32
+#: account/models.py:38
 msgid "primary"
 msgstr "əsas"
 
-#: account/models.py:38
+#: account/models.py:44
 msgid "email addresses"
 msgstr "e-poçt ünvanları"
 
-#: account/models.py:142
+#: account/models.py:150
 msgid "created"
 msgstr "yaradılmış"
 
-#: account/models.py:143
+#: account/models.py:151
 msgid "sent"
 msgstr "göndərildi"
 
-#: account/models.py:144 socialaccount/models.py:70
+#: account/models.py:152 socialaccount/models.py:70
 msgid "key"
 msgstr "açar"
 
-#: account/models.py:149
+#: account/models.py:157
 msgid "email confirmation"
 msgstr "e-poçt təsdiqi"
 
-#: account/models.py:150
+#: account/models.py:158
 msgid "email confirmations"
 msgstr "e-poçt təsdiqləri"
 
@@ -295,15 +295,15 @@ msgstr "e-poçt təsdiqləri"
 msgid "Headless"
 msgstr "Başsız"
 
-#: idp/oidc/adapter.py:30
+#: idp/oidc/adapter.py:31
 msgid "View your user ID"
 msgstr "İstifadəçi ID-nizi görüntüləyin"
 
-#: idp/oidc/adapter.py:31
+#: idp/oidc/adapter.py:32
 msgid "View your email address"
 msgstr "E-poçt ünvanınıza baxın"
 
-#: idp/oidc/adapter.py:32
+#: idp/oidc/adapter.py:33
 msgid "View your basic profile information"
 msgstr "Əsas profil məlumatlarınıza baxın"
 
@@ -329,31 +329,31 @@ msgstr ""
 msgid "Wildcards are only allowed in the hostname portion of the URI."
 msgstr "Joker simvollara yalnız URI-nin host hissəsində icazə verilir."
 
-#: idp/oidc/models.py:37
+#: idp/oidc/models.py:35
 msgid "Authorization code"
 msgstr "Avtorizasiya kodu"
 
-#: idp/oidc/models.py:38
+#: idp/oidc/models.py:36
 msgid "Device code"
 msgstr "Cihaz kodu"
 
-#: idp/oidc/models.py:39
+#: idp/oidc/models.py:37
 msgid "Client credentials"
 msgstr "Müştəri etimadnaməsi"
 
-#: idp/oidc/models.py:40
+#: idp/oidc/models.py:38
 msgid "Refresh token"
 msgstr "Yeniləmə tokeni"
 
-#: idp/oidc/models.py:43
+#: idp/oidc/models.py:41
 msgid "Confidential"
 msgstr "Gizli"
 
-#: idp/oidc/models.py:44
+#: idp/oidc/models.py:42
 msgid "Public"
 msgstr "Açıq"
 
-#: idp/oidc/models.py:58
+#: idp/oidc/models.py:56
 msgid ""
 "The scope(s) the client is allowed to request. Provide one value per line, "
 "e.g.: openid(ENTER)profile(ENTER)email(ENTER)"
@@ -361,7 +361,7 @@ msgstr ""
 "Müştərinin tələb etməyə icazəsi olan əhatə dairəsi. Hər sətrdə bir dəyər "
 "daxil edin, məsələn: openid(ENTER)profile(ENTER)email(ENTER)"
 
-#: idp/oidc/models.py:64
+#: idp/oidc/models.py:62
 msgid ""
 "In case the client does not specify any scope, these default scopes are "
 "used. Provide one value per line, e.g.: "
@@ -371,7 +371,7 @@ msgstr ""
 "istifadə olunur. Hər sətrdə bir dəyər daxil edin, məsələn: "
 "openid(ENTER)profile(ENTER)email(ENTER)"
 
-#: idp/oidc/models.py:75
+#: idp/oidc/models.py:73
 msgid ""
 "A list of allowed grant types. Provide one value per line, e.g.: "
 "authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
@@ -380,13 +380,13 @@ msgstr ""
 "məsələn: "
 "authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 
-#: idp/oidc/models.py:86
+#: idp/oidc/models.py:84
 msgid "A list of allowed origins for cross-origin requests, one per line."
 msgstr ""
 "Çarpaz mənbə sorğuları üçün icazə verilən mənbələrin siyahısı, hər sətrdə "
 "bir ədəd."
 
-#: idp/oidc/models.py:94
+#: idp/oidc/models.py:92
 msgid ""
 "Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
 "can contain a single asterisk to match subdomains."
@@ -395,7 +395,7 @@ msgstr ""
 "verin. Aktivləşdirildikdə, URI-lər alt domenlərə uyğun gəlmək üçün tək ulduz "
 "ehtiva edə bilər."
 
-#: idp/oidc/models.py:102
+#: idp/oidc/models.py:100
 msgid ""
 "A list of allowed response types. Provide one value per line, e.g.: "
 "code(ENTER)id_token token(ENTER)"
@@ -403,15 +403,15 @@ msgstr ""
 "İcazə verilən cavab növlərinin siyahısı. Hər sətrdə bir dəyər daxil edin, "
 "məsələn: code(ENTER)id_token token(ENTER)"
 
-#: idp/oidc/models.py:115
+#: idp/oidc/models.py:113
 msgid "client"
 msgstr "müştəri"
 
-#: idp/oidc/models.py:116
+#: idp/oidc/models.py:114
 msgid "clients"
 msgstr "müştərilər"
 
-#: mfa/adapter.py:32
+#: mfa/adapter.py:30
 msgid ""
 "You cannot add an email address to an account protected by two-factor "
 "authentication."
@@ -419,18 +419,18 @@ msgstr ""
 "Siz iki faktorlu doğrulama ilə qorunan hesaba e-poçt ünvanı əlavə edə "
 "bilməzsiniz."
 
-#: mfa/adapter.py:35
+#: mfa/adapter.py:33
 msgid "You cannot deactivate two-factor authentication."
 msgstr "Siz iki faktorlu doğrulamanı deaktiv edə bilməzsiniz."
 
-#: mfa/adapter.py:38
+#: mfa/adapter.py:36
 msgid ""
 "You cannot generate recovery codes without having two-factor authentication "
 "enabled."
 msgstr ""
 "İki faktorlu doğrulama aktivləşdirilmədən bərpa kodları yarada bilməzsiniz."
 
-#: mfa/adapter.py:42
+#: mfa/adapter.py:40
 msgid ""
 "You cannot activate two-factor authentication until you have verified your "
 "email address."
@@ -438,15 +438,15 @@ msgstr ""
 "Siz e-poçt ünvanınızı doğrulamayana qədər iki faktorlu doğrulamanı "
 "aktivləşdirə bilməzsiniz."
 
-#: mfa/adapter.py:141
+#: mfa/adapter.py:139
 msgid "Master key"
 msgstr "Əsas açar"
 
-#: mfa/adapter.py:143
+#: mfa/adapter.py:141
 msgid "Backup key"
 msgstr "Ehtiyat açar"
 
-#: mfa/adapter.py:144
+#: mfa/adapter.py:142
 #, python-brace-format
 msgid "Key nr. {number}"
 msgstr "Açar nr. {number}"
@@ -651,7 +651,7 @@ msgstr "\"%s\" üçün heç bir sorğu tokeni saxlanılmadı."
 msgid "No access token saved for \"%s\"."
 msgstr "\"%s\" üçün heç bir giriş tokeni saxlanılmadı."
 
-#: socialaccount/providers/oauth/client.py:215
+#: socialaccount/providers/oauth/client.py:219
 #, python-format
 msgid "No access to private resources at \"%s\"."
 msgstr "\"%s\" ünvanında şəxsi resurslara giriş yoxdur."
@@ -1258,11 +1258,11 @@ msgstr "Şifrənizi daxil edin:"
 msgid "You will receive a special code for a password-free sign-in."
 msgstr "Şifrəsiz giriş üçün xüsusi kod alacaqsınız."
 
-#: templates/account/request_login_code.html:24
+#: templates/account/request_login_code.html:23
 msgid "Request Code"
 msgstr "Kod Tələb Et"
 
-#: templates/account/request_login_code.html:30
+#: templates/account/request_login_code.html:28
 msgid "Other sign-in options"
 msgstr "Digər giriş seçimləri"
 
@@ -1573,11 +1573,11 @@ msgstr "Əlavə et"
 
 #: templates/mfa/index.html:77 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:6
-#: templates/mfa/recovery_codes/index.html:6
+#: templates/mfa/recovery_codes/index.html:5
 msgid "Recovery Codes"
 msgstr "Bərpa kodları"
 
-#: templates/mfa/index.html:82 templates/mfa/recovery_codes/index.html:9
+#: templates/mfa/index.html:82 templates/mfa/recovery_codes/index.html:8
 #, python-format
 msgid ""
 "There is %(unused_count)s out of %(total_count)s recovery codes available."
@@ -1605,6 +1605,10 @@ msgstr "Yarat"
 #: templates/mfa/messages/recovery_codes_generated.txt:2
 msgid "A new set of recovery codes has been generated."
 msgstr "Yeni bərpa kodları dəsti yaradıldı."
+
+#: templates/mfa/messages/recovery_codes_generated.txt:4
+msgid "Save them  in a secure location now — they won't be shown again."
+msgstr "Onları indi təhlükəsiz bir yerdə saxlayın — bir daha göstərilməyəcəklər."
 
 #: templates/mfa/messages/webauthn_added.txt:2
 msgid "Security key added."
@@ -1634,13 +1638,17 @@ msgstr "Siz əminsiniz?"
 msgid "Unused codes"
 msgstr "İstifadə edilməmiş kodlar"
 
-#: templates/mfa/recovery_codes/index.html:25
+#: templates/mfa/recovery_codes/index.html:24
 msgid "Download codes"
 msgstr "Kodları yükləyin"
 
 #: templates/mfa/recovery_codes/index.html:30
 msgid "Generate new codes"
 msgstr "Yeni kodlar yarat"
+
+#: templates/mfa/recovery_codes/index.html:36
+msgid "I have saved my recovery codes"
+msgstr "Bərpa kodlarımı saxladım"
 
 #: templates/mfa/totp/activate_form.html:4
 #: templates/mfa/totp/activate_form.html:8
@@ -1919,7 +1927,7 @@ msgstr "Digər Sessiyalardan Çıx"
 msgid "User Sessions"
 msgstr "İstifadəçi Sessiyaları"
 
-#: usersessions/models.py:94
+#: usersessions/models.py:93
 msgid "session key"
 msgstr "sessiya açarı"
 

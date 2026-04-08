@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
 from django.http import Http404, HttpResponse, HttpResponseBase
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
@@ -57,10 +58,13 @@ class DownloadRecoveryCodesView(TemplateView):
     content_type = "text/plain"
 
     def dispatch(self, request, *args, **kwargs) -> HttpResponseBase:
-        self.authenticator = flows.view_recovery_codes(self.request)
-        if not self.authenticator:
+        recovery_codes, can_view = flows.view_recovery_codes(self.request)
+        if not recovery_codes:
             raise Http404()
-        self.unused_codes = self.authenticator.wrap().get_unused_codes()
+        if not can_view:
+            raise PermissionDenied
+        self.authenticator = recovery_codes.instance
+        self.unused_codes = recovery_codes.get_unused_codes()
         if not self.unused_codes:
             raise Http404()
         return super().dispatch(request, *args, **kwargs)
@@ -85,13 +89,23 @@ class ViewRecoveryCodesView(TemplateView):
 
     def get_context_data(self, **kwargs) -> dict:
         ret = super().get_context_data(**kwargs)
-        authenticator = flows.view_recovery_codes(self.request)
-        if not authenticator:
+        recovery_codes, can_view = flows.view_recovery_codes(self.request)
+        if not recovery_codes:
             raise Http404()
+        unused_codes = recovery_codes.get_unused_codes()
+        if not can_view:
+            # Prevent accidental leakage into templates at all costs.
+            unused_codes = ["****" for _ in unused_codes]
         ret.update(
             {
-                "unused_codes": authenticator.wrap().get_unused_codes(),
+                "unused_codes": unused_codes,
+                "can_view_codes": can_view,
+                "can_download_codes": not app_settings.RECOVERY_CODES_SHOW_ONCE
+                and len(unused_codes) > 0,
                 "total_count": app_settings.RECOVERY_CODE_COUNT,
+                "MFA_RECOVERY_CODES_SHOW_ONCE": app_settings.RECOVERY_CODES_SHOW_ONCE,
+                "can_generate_codes": not app_settings.RECOVERY_CODES_SHOW_ONCE
+                or not can_view,
             }
         )
         return ret

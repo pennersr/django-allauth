@@ -44,6 +44,9 @@ Available settings:
 ``MFA_RECOVERY_CODE_DIGITS`` (default: ``8``)
   The number of digits of each recovery code.
 
+``MFA_RECOVERY_CODES_SHOW_ONCE`` (default: ``False``)
+  Whether or not recovery codes are shown only once.
+
 ``MFA_SUPPORTED_TYPES`` (default: ``[["recovery_codes", "totp"]``)
   The authenticator types that end users are able to setup. Allowed
   types are: ``"recovery_codes"``, ``"totp"``, and ``"webauthn"``. The

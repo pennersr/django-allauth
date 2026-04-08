@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-05 08:42-0600\n"
+"POT-Creation-Date: 2026-04-08 13:31-0500\n"
 "PO-Revision-Date: 2024-04-20 22:02+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,110 +20,110 @@ msgstr ""
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
 "1 : n % 1 != 0 ? 2: 3);\n"
 
-#: account/adapter.py:61
+#: account/adapter.py:60
 msgid "This account is currently inactive."
 msgstr "Šiuo metu ši paskyra yra neaktyvi."
 
-#: account/adapter.py:63
+#: account/adapter.py:62
 msgid "You cannot remove your primary email address."
 msgstr "Negalite pašalinti pagrindinio el. pašto."
 
-#: account/adapter.py:66
+#: account/adapter.py:65
 msgid "This email address is already associated with this account."
 msgstr "Šis el. pašto adresas jau susietas su šia paskyra."
 
-#: account/adapter.py:69
+#: account/adapter.py:68
 msgid "The email address and/or password you specified are not correct."
 msgstr "Pateiktas el. pašto adresas ir/arba slaptažodis yra neteisingi."
 
-#: account/adapter.py:72
+#: account/adapter.py:71
 msgid "The phone number and/or password you specified are not correct."
 msgstr "Nurodytas telefono numeris ir/arba slaptažodis yra neteisingi."
 
-#: account/adapter.py:74
+#: account/adapter.py:73
 msgid "A user is already registered with this email address."
 msgstr "Šiuo el. pašto adresu jau yra užsiregistravęs kitas naudotojas."
 
-#: account/adapter.py:75
+#: account/adapter.py:74
 msgid "Please type your current password."
 msgstr "Prašome įvesti esamą jūsų slaptažodį."
 
-#: account/adapter.py:76 mfa/adapter.py:40
+#: account/adapter.py:75 mfa/adapter.py:38
 msgid "Incorrect code."
 msgstr "Neteisingas kodas."
 
-#: account/adapter.py:77
+#: account/adapter.py:76
 msgid "Incorrect password."
 msgstr "Neteisingas slaptažodis."
 
-#: account/adapter.py:78
+#: account/adapter.py:77
 msgid "Invalid or expired key."
 msgstr "Neteisingas arba pasenęs raktas."
 
-#: account/adapter.py:79
+#: account/adapter.py:78
 msgid "Invalid login."
 msgstr "Neteisingas prisijungimas."
 
-#: account/adapter.py:80
+#: account/adapter.py:79
 msgid "The password reset token was invalid."
 msgstr "Neteisingas slaptažodžio atstatymo atpažinimo ženklas."
 
-#: account/adapter.py:81
+#: account/adapter.py:80
 #, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "Negalima pridėti daugiau nei %d el. pašto adresų."
 
-#: account/adapter.py:82
+#: account/adapter.py:81
 msgid "A user is already registered with this phone number."
 msgstr "Šiuo telefono numeriu jau yra užsiregistravęs kitas naudotojas."
 
-#: account/adapter.py:84
+#: account/adapter.py:83
 msgid "Too many failed login attempts. Try again later."
 msgstr "Per daug nepavykusių prisijungimo bandymų. Bandykite vėliau."
 
-#: account/adapter.py:86
+#: account/adapter.py:85
 msgid "The email address is not assigned to any user account."
 msgstr "El. pašto adresas nėra susietas su jokia naudotojo paskyra."
 
-#: account/adapter.py:87
+#: account/adapter.py:86
 msgid "The phone number is not assigned to any user account."
 msgstr "Telefono numeris nėra susietas su jokia naudotojo paskyra."
 
-#: account/adapter.py:88
+#: account/adapter.py:87
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary email address must be verified."
 msgstr "Pirminis el. pašto adresas turi būti patvirtintas."
 
-#: account/adapter.py:90
+#: account/adapter.py:89
 msgid "Username can not be used. Please use other username."
 msgstr ""
 "Šis naudotojo vardas negalimas. Prašome pasirinkti kitą naudotojo vardą."
 
-#: account/adapter.py:93
+#: account/adapter.py:92
 msgid "The username and/or password you specified are not correct."
 msgstr "Pateiktas naudotojo vardas ir/arba slaptažodis yra neteisingi."
 
-#: account/adapter.py:98
+#: account/adapter.py:97
 msgid "Please select only one."
 msgstr "Prašome pasirinkti tik vieną."
 
-#: account/adapter.py:99
+#: account/adapter.py:98
 msgid "The new value must be different from the current one."
 msgstr "Nauja reikšmė turi skirtis nuo dabartinės."
 
-#: account/adapter.py:100
+#: account/adapter.py:99
 msgid "Be patient, you are sending too many requests."
 msgstr "Būkite kantrūs, siunčiate per daug užklausų."
 
-#: account/adapter.py:826
+#: account/adapter.py:825
 msgid "Use your password"
 msgstr "Naudokite slaptažodį"
 
-#: account/adapter.py:835
+#: account/adapter.py:834
 msgid "Use authenticator app or code"
 msgstr "Naudokite autentifikacijos programą arba kodą"
 
-#: account/adapter.py:842 templates/mfa/authenticate.html:41
+#: account/adapter.py:841 templates/mfa/authenticate.html:41
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use a security key"
 msgstr "Naudokite saugumo raktą"
@@ -146,7 +146,7 @@ msgstr "Pažymėti pasirinktus el. pašto adresus, kaip patvirtintus"
 msgid "Accounts"
 msgstr "Paskyros"
 
-#: account/fields.py:12 account/forms.py:299 idp/oidc/forms.py:43
+#: account/fields.py:12 account/forms.py:298 idp/oidc/forms.py:43
 msgid "Email"
 msgstr "El. paštas"
 
@@ -158,133 +158,133 @@ msgstr "El. pašto adresas"
 msgid "Enter a phone number including country code (e.g. +1 for the US)."
 msgstr "Įveskite telefono numerį su šalies kodu (pvz., +1 JAV)."
 
-#: account/fields.py:68 account/fields.py:72 account/forms.py:325
+#: account/fields.py:68 account/fields.py:72 account/forms.py:324
 msgid "Phone"
 msgstr "Telefonas"
 
-#: account/forms.py:61 account/forms.py:524
+#: account/forms.py:59 account/forms.py:523
 msgid "You must type the same password each time."
 msgstr "Turite įvesti tą patį slaptažodį kiekvieną kartą."
 
-#: account/forms.py:66 account/forms.py:451 account/forms.py:610
-#: account/forms.py:696
+#: account/forms.py:64 account/forms.py:450 account/forms.py:609
+#: account/forms.py:695
 msgid "Password"
 msgstr "Slaptažodis"
 
-#: account/forms.py:67
+#: account/forms.py:65
 msgid "Remember Me"
 msgstr "Prisimink mane"
 
-#: account/forms.py:79 account/forms.py:82 account/forms.py:265
-#: account/forms.py:268 account/forms.py:311
+#: account/forms.py:78 account/forms.py:81 account/forms.py:264
+#: account/forms.py:267 account/forms.py:310
 msgid "Username"
 msgstr "Naudotojo vardas"
 
-#: account/forms.py:96
+#: account/forms.py:95
 msgctxt "field label"
 msgid "Login"
 msgstr "Prisijungimo vardas"
 
-#: account/forms.py:115
+#: account/forms.py:114
 msgid "Username, email or phone"
 msgstr "Naudotojo vardas, el. paštas arba telefonas"
 
-#: account/forms.py:117
+#: account/forms.py:116
 msgid "Username or email"
 msgstr "Naudotojo vardas arba el. paštas"
 
-#: account/forms.py:119
+#: account/forms.py:118
 msgid "Username or phone"
 msgstr "Naudotojo vardas arba telefonas"
 
-#: account/forms.py:121
+#: account/forms.py:120
 msgid "Email or phone"
 msgstr "El. paštas arba telefonas"
 
-#: account/forms.py:144
+#: account/forms.py:143
 msgid "Forgot your password?"
 msgstr "Pamiršote slaptažodį?"
 
-#: account/forms.py:287
+#: account/forms.py:286
 msgid "Email (again)"
 msgstr "El. paštas (pakartoti)"
 
-#: account/forms.py:292
+#: account/forms.py:291
 msgid "Email address confirmation"
 msgstr "El. pašto patvirtinimas"
 
-#: account/forms.py:302
+#: account/forms.py:301
 msgid "Email (optional)"
 msgstr "El. paštas (neprivalomas)"
 
-#: account/forms.py:314
+#: account/forms.py:313
 msgid "Username (optional)"
 msgstr "Naudotojo vardas (neprivalomas)"
 
-#: account/forms.py:388
+#: account/forms.py:387
 msgid "You must type the same email each time."
 msgstr "Turite įvesti tą patį el. pašto adresą kiekvieną kartą."
 
-#: account/forms.py:458 account/forms.py:611
+#: account/forms.py:457 account/forms.py:610
 msgid "Password (again)"
 msgstr "Slaptažodis (pakartoti)"
 
-#: account/forms.py:591
+#: account/forms.py:590
 msgid "Current Password"
 msgstr "Esamas slaptažodis"
 
-#: account/forms.py:593 account/forms.py:649
+#: account/forms.py:592 account/forms.py:648
 msgid "New Password"
 msgstr "Naujas slaptažodis"
 
-#: account/forms.py:594 account/forms.py:650
+#: account/forms.py:593 account/forms.py:649
 msgid "New Password (again)"
 msgstr "Naujas slaptažodis (pakartoti)"
 
-#: account/forms.py:767 account/forms.py:769 idp/oidc/forms.py:51
+#: account/forms.py:766 account/forms.py:768 idp/oidc/forms.py:51
 #: idp/oidc/forms.py:54 mfa/base/forms.py:12 mfa/base/forms.py:14
 #: mfa/totp/forms.py:13
 #: templates/idp/oidc/device_authorization_confirm_form.html:16
 msgid "Code"
 msgstr "Kodas"
 
-#: account/models.py:23
+#: account/models.py:29
 msgid "user"
 msgstr "naudotojas"
 
-#: account/models.py:29 account/models.py:37 account/models.py:139
+#: account/models.py:35 account/models.py:43 account/models.py:147
 msgid "email address"
 msgstr "el. pašto adresas"
 
-#: account/models.py:31
+#: account/models.py:37
 msgid "verified"
 msgstr "patvirtintas"
 
-#: account/models.py:32
+#: account/models.py:38
 msgid "primary"
 msgstr "pirminis"
 
-#: account/models.py:38
+#: account/models.py:44
 msgid "email addresses"
 msgstr "el. pašto adresai"
 
-#: account/models.py:142
+#: account/models.py:150
 msgid "created"
 msgstr "sukurtas"
 
-#: account/models.py:143
+#: account/models.py:151
 msgid "sent"
 msgstr "išsiųstas"
 
-#: account/models.py:144 socialaccount/models.py:70
+#: account/models.py:152 socialaccount/models.py:70
 msgid "key"
 msgstr "raktas"
 
-#: account/models.py:149
+#: account/models.py:157
 msgid "email confirmation"
 msgstr "el. pašto patvirtinimas"
 
-#: account/models.py:150
+#: account/models.py:158
 msgid "email confirmations"
 msgstr "el. pašto patvirtinimai"
 
@@ -292,15 +292,15 @@ msgstr "el. pašto patvirtinimai"
 msgid "Headless"
 msgstr "Begalvis"
 
-#: idp/oidc/adapter.py:30
+#: idp/oidc/adapter.py:31
 msgid "View your user ID"
 msgstr "Peržiūrėkite savo naudotojo ID"
 
-#: idp/oidc/adapter.py:31
+#: idp/oidc/adapter.py:32
 msgid "View your email address"
 msgstr "Peržiūrėkite savo el. pašto adresą"
 
-#: idp/oidc/adapter.py:32
+#: idp/oidc/adapter.py:33
 msgid "View your basic profile information"
 msgstr "Peržiūrėkite savo pagrindinę profilio informaciją"
 
@@ -326,31 +326,31 @@ msgstr ""
 msgid "Wildcards are only allowed in the hostname portion of the URI."
 msgstr "Pakaitos simboliai leidžiami tik URI prieglobos pavadinimo dalyje."
 
-#: idp/oidc/models.py:37
+#: idp/oidc/models.py:35
 msgid "Authorization code"
 msgstr "Autorizacijos kodas"
 
-#: idp/oidc/models.py:38
+#: idp/oidc/models.py:36
 msgid "Device code"
 msgstr "Įrenginio kodas"
 
-#: idp/oidc/models.py:39
+#: idp/oidc/models.py:37
 msgid "Client credentials"
 msgstr "Kliento kredencialai"
 
-#: idp/oidc/models.py:40
+#: idp/oidc/models.py:38
 msgid "Refresh token"
 msgstr "Atnaujinimo žetonas"
 
-#: idp/oidc/models.py:43
+#: idp/oidc/models.py:41
 msgid "Confidential"
 msgstr "Konfidencialus"
 
-#: idp/oidc/models.py:44
+#: idp/oidc/models.py:42
 msgid "Public"
 msgstr "Viešas"
 
-#: idp/oidc/models.py:58
+#: idp/oidc/models.py:56
 msgid ""
 "The scope(s) the client is allowed to request. Provide one value per line, "
 "e.g.: openid(ENTER)profile(ENTER)email(ENTER)"
@@ -358,7 +358,7 @@ msgstr ""
 "Apimtys, kurias klientui leidžiama prašyti. Pateikite vieną reikšmę "
 "eilutėje, pvz.: openid(ENTER)profile(ENTER)email(ENTER)"
 
-#: idp/oidc/models.py:64
+#: idp/oidc/models.py:62
 msgid ""
 "In case the client does not specify any scope, these default scopes are "
 "used. Provide one value per line, e.g.: "
@@ -368,7 +368,7 @@ msgstr ""
 "Pateikite vieną reikšmę eilutėje, pvz.: "
 "openid(ENTER)profile(ENTER)email(ENTER)"
 
-#: idp/oidc/models.py:75
+#: idp/oidc/models.py:73
 msgid ""
 "A list of allowed grant types. Provide one value per line, e.g.: "
 "authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
@@ -376,12 +376,12 @@ msgstr ""
 "Leidžiamų suteikimo tipų sąrašas. Pateikite vieną reikšmę eilutėje, pvz.: "
 "authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 
-#: idp/oidc/models.py:86
+#: idp/oidc/models.py:84
 msgid "A list of allowed origins for cross-origin requests, one per line."
 msgstr ""
 "Leidžiamų šaltinių sąrašas tarpdomeniniams užklausoms, po vieną eilutėje."
 
-#: idp/oidc/models.py:94
+#: idp/oidc/models.py:92
 msgid ""
 "Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
 "can contain a single asterisk to match subdomains."
@@ -389,7 +389,7 @@ msgstr ""
 "Leisti pakaitos simbolius (*) peradresavimo URI ir CORS šaltiniuose. Kai "
 "įjungta, URI gali turėti vieną žvaigždutę subdomenams atitikti."
 
-#: idp/oidc/models.py:102
+#: idp/oidc/models.py:100
 msgid ""
 "A list of allowed response types. Provide one value per line, e.g.: "
 "code(ENTER)id_token token(ENTER)"
@@ -397,15 +397,15 @@ msgstr ""
 "Leidžiamų atsakymo tipų sąrašas. Pateikite vieną reikšmę eilutėje, pvz.: "
 "code(ENTER)id_token token(ENTER)"
 
-#: idp/oidc/models.py:115
+#: idp/oidc/models.py:113
 msgid "client"
 msgstr "klientas"
 
-#: idp/oidc/models.py:116
+#: idp/oidc/models.py:114
 msgid "clients"
 msgstr "klientai"
 
-#: mfa/adapter.py:32
+#: mfa/adapter.py:30
 msgid ""
 "You cannot add an email address to an account protected by two-factor "
 "authentication."
@@ -413,18 +413,18 @@ msgstr ""
 "Jūs negalite pridėti el. pašto adreso į dviguba autentifikacija saugomą "
 "paskyrą."
 
-#: mfa/adapter.py:35
+#: mfa/adapter.py:33
 msgid "You cannot deactivate two-factor authentication."
 msgstr "Jūs negalite deaktyvuoti dvigubos autentifikacijos."
 
-#: mfa/adapter.py:38
+#: mfa/adapter.py:36
 msgid ""
 "You cannot generate recovery codes without having two-factor authentication "
 "enabled."
 msgstr ""
 "Jūs negalite generuoti atstatymo kodų be įjungtos dvigubos autentifikacijos."
 
-#: mfa/adapter.py:42
+#: mfa/adapter.py:40
 msgid ""
 "You cannot activate two-factor authentication until you have verified your "
 "email address."
@@ -432,15 +432,15 @@ msgstr ""
 "Jūs negalite aktyvuoti dvigubos autentifikacijos kol nepatvirtinsite savo "
 "el. pašto."
 
-#: mfa/adapter.py:141
+#: mfa/adapter.py:139
 msgid "Master key"
 msgstr "Pagrindinis raktas"
 
-#: mfa/adapter.py:143
+#: mfa/adapter.py:141
 msgid "Backup key"
 msgstr "Atsarginis raktas"
 
-#: mfa/adapter.py:144
+#: mfa/adapter.py:142
 #, python-brace-format
 msgid "Key nr. {number}"
 msgstr "Rakto nr. {number}"
@@ -647,7 +647,7 @@ msgstr "Nėra užklausos atpažinimo žymės šiam \"%s\"."
 msgid "No access token saved for \"%s\"."
 msgstr "Nėra prieigos atpažinimo žymės šiam \"%s\"."
 
-#: socialaccount/providers/oauth/client.py:215
+#: socialaccount/providers/oauth/client.py:219
 #, python-format
 msgid "No access to private resources at \"%s\"."
 msgstr "Nėra prieigos prie privataus resurso iš \"%s\"."
@@ -1252,11 +1252,11 @@ msgstr "Įrašykite slaptažodį:"
 msgid "You will receive a special code for a password-free sign-in."
 msgstr "Gausite specialų kodą prisijungimui be slaptažodžio."
 
-#: templates/account/request_login_code.html:24
+#: templates/account/request_login_code.html:23
 msgid "Request Code"
 msgstr "Prašyti Kodo"
 
-#: templates/account/request_login_code.html:30
+#: templates/account/request_login_code.html:28
 msgid "Other sign-in options"
 msgstr "Kiti prisijungimo pasirinkimai"
 
@@ -1570,11 +1570,11 @@ msgstr "Pridėti"
 
 #: templates/mfa/index.html:77 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:6
-#: templates/mfa/recovery_codes/index.html:6
+#: templates/mfa/recovery_codes/index.html:5
 msgid "Recovery Codes"
 msgstr "Atkūrimo kodai"
 
-#: templates/mfa/index.html:82 templates/mfa/recovery_codes/index.html:9
+#: templates/mfa/index.html:82 templates/mfa/recovery_codes/index.html:8
 #, python-format
 msgid ""
 "There is %(unused_count)s out of %(total_count)s recovery codes available."
@@ -1605,6 +1605,10 @@ msgstr "Generuoti"
 msgid "A new set of recovery codes has been generated."
 msgstr "Sugeneruotas naujas atkūrimo kodų rinkinys."
 
+#: templates/mfa/messages/recovery_codes_generated.txt:4
+msgid "Save them  in a secure location now — they won't be shown again."
+msgstr "Išsaugokite juos saugioje vietoje dabar — jie daugiau nebus rodomi."
+
 #: templates/mfa/messages/webauthn_added.txt:2
 msgid "Security key added."
 msgstr "Saugumo raktas pridėtas."
@@ -1633,13 +1637,17 @@ msgstr "Ar tikrai?"
 msgid "Unused codes"
 msgstr "Nepanaudoti kodai"
 
-#: templates/mfa/recovery_codes/index.html:25
+#: templates/mfa/recovery_codes/index.html:24
 msgid "Download codes"
 msgstr "Atsisiųsti kodus"
 
 #: templates/mfa/recovery_codes/index.html:30
 msgid "Generate new codes"
 msgstr "Generuoti naujus kodus"
+
+#: templates/mfa/recovery_codes/index.html:36
+msgid "I have saved my recovery codes"
+msgstr "Išsaugojau savo atkūrimo kodus"
 
 #: templates/mfa/totp/activate_form.html:4
 #: templates/mfa/totp/activate_form.html:8
@@ -1919,7 +1927,7 @@ msgstr "Atjungti Kitas Sesijas"
 msgid "User Sessions"
 msgstr "Vartotojo Sesijos"
 
-#: usersessions/models.py:94
+#: usersessions/models.py:93
 msgid "session key"
 msgstr "sesijos raktas"
 

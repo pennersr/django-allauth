@@ -1,6 +1,5 @@
 {% extends "mfa/recovery_codes/base.html" %}
-{% load i18n %}
-{% load allauth %}
+{% load i18n allauth static %}
 {% block content %}
     {% element h1 %}
         {% translate "Recovery Codes" %}
@@ -8,23 +7,46 @@
     {% element p %}
         {% blocktranslate count unused_count=unused_codes|length %}There is {{ unused_count }} out of {{ total_count }} recovery codes available.{% plural %}There are {{ unused_count }} out of {{ total_count }} recovery codes available.{% endblocktranslate %}
     {% endelement %}
-    {% element field id="recovery_codes" type="textarea" disabled=True rows=unused_codes|length readonly=True %}
-        {% slot label %}
-            {% translate "Unused codes" %}
-        {% endslot %}
-        {% comment %} djlint:off {% endcomment %}
-    {% slot value %}{% for code in unused_codes %}{% if forloop.counter0 %}
+    {% if can_view_codes %}
+        {% element field id="recovery_codes" type="textarea" rows=unused_codes|length readonly=True %}
+            {% slot label %}
+                {% translate "Unused codes" %}
+            {% endslot %}
+            {# djlint:off #}
+{% slot value %}{% for code in unused_codes %}{% if forloop.counter0 %}
 {% endif %}{{ code }}{% endfor %}{% endslot %}
-{% comment %} djlint:on {% endcomment %}
-{% endelement %}
-{% if unused_codes %}
-{% url 'mfa_download_recovery_codes' as download_url %}
-{% element button href=download_url %}
-{% translate "Download codes" %}
-{% endelement %}
-{% endif %}
-{% url 'mfa_generate_recovery_codes' as generate_url %}
-{% element button href=generate_url %}
-{% translate "Generate new codes" %}
-{% endelement %}
+            {# djlint:on #}
+        {% endelement %}
+    {% endif %}
+    {% if can_download_codes %}
+        {% url 'mfa_download_recovery_codes' as download_url %}
+        {% element button href=download_url %}
+            {% translate "Download codes" %}
+        {% endelement %}
+    {% endif %}
+    {% if can_generate_codes %}
+        {% url 'mfa_generate_recovery_codes' as generate_url %}
+        {% element button href=generate_url %}
+            {% translate "Generate new codes" %}
+        {% endelement %}
+    {% endif %}
+    {% if MFA_RECOVERY_CODES_SHOW_ONCE and can_view_codes %}
+        {% element field type="checkbox" id="codes_saved" %}
+            {% slot label %}
+                {% translate "I have saved my recovery codes" %}
+            {% endslot %}
+        {% endelement %}
+    {% endif %}
 {% endblock content %}
+{% block extra_body %}
+    {{ block.super }}
+    <script src="{% static 'mfa/js/recovery_codes.js' %}"></script>
+    <script src="{% static 'account/js/onload.js' %}"></script>
+    <script data-allauth-onload="allauth.recoveryCodes.forms.viewForm" type="application/json">{
+    "ids": {
+        "saveConfirmation": "codes_saved",
+        "recoveryCodes": "recovery_codes"
+    }
+}
+    </script>
+{% endblock extra_body %}

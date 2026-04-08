@@ -11,7 +11,8 @@
 Note worthy changes
 -------------------
 
-- ...
+- MFA: You can now configure recovery codes to be only shown once
+  (``MFA_RECOVERY_CODES_SHOW_ONCE = True``).
 
 
 65.15.1 (2026-04-02)

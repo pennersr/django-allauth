@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-05 08:42-0600\n"
+"POT-Creation-Date: 2026-04-08 13:31-0500\n"
 "PO-Revision-Date: 2025-06-09 11:01+0000\n"
 "Last-Translator: ONVETI <qjkbest@gmail.com>\n"
 "Language-Team: Uzbek <https://hosted.weblate.org/projects/allauth/django-"
@@ -19,113 +19,113 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 5.12-dev\n"
 
-#: account/adapter.py:61
+#: account/adapter.py:60
 msgid "This account is currently inactive."
 msgstr "Bu akkaunt hozirda faol emas."
 
-#: account/adapter.py:63
+#: account/adapter.py:62
 msgid "You cannot remove your primary email address."
 msgstr "Siz asosiy email manzilingizni olib tashlay olmaysiz."
 
-#: account/adapter.py:66
+#: account/adapter.py:65
 msgid "This email address is already associated with this account."
 msgstr "Bu email manzili allaqachon ushbu akkaunt bilan bog'langan."
 
-#: account/adapter.py:69
+#: account/adapter.py:68
 msgid "The email address and/or password you specified are not correct."
 msgstr "Siz ko'rsatgan email manzili va/yoki parol noto'g'ri."
 
-#: account/adapter.py:72
+#: account/adapter.py:71
 msgid "The phone number and/or password you specified are not correct."
 msgstr "Siz ko'rsatgan telefon raqami va/yoki parol noto'g'ri."
 
-#: account/adapter.py:74
+#: account/adapter.py:73
 msgid "A user is already registered with this email address."
 msgstr "Foydalanuvchi allaqachon ushbu email manzili bilan ro'yxatdan o'tgan."
 
-#: account/adapter.py:75
+#: account/adapter.py:74
 msgid "Please type your current password."
 msgstr "Iltimos, joriy parolingizni kiriting."
 
-#: account/adapter.py:76 mfa/adapter.py:40
+#: account/adapter.py:75 mfa/adapter.py:38
 msgid "Incorrect code."
 msgstr "Noto'g'ri kod."
 
-#: account/adapter.py:77
+#: account/adapter.py:76
 msgid "Incorrect password."
 msgstr "Noto'g'ri parol."
 
-#: account/adapter.py:78
+#: account/adapter.py:77
 msgid "Invalid or expired key."
 msgstr "Yaroqsiz yoki muddati o'tgan kalit."
 
-#: account/adapter.py:79
+#: account/adapter.py:78
 msgid "Invalid login."
 msgstr "Noto'g'ri tizimga kirish."
 
-#: account/adapter.py:80
+#: account/adapter.py:79
 msgid "The password reset token was invalid."
 msgstr "Parolni tiklash tokeni yaroqsiz."
 
-#: account/adapter.py:81
+#: account/adapter.py:80
 #, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "Siz %d dan ortiq email manzilini qo‘sha olmaysiz."
 
-#: account/adapter.py:82
+#: account/adapter.py:81
 msgid "A user is already registered with this phone number."
 msgstr "Foydalanuvchi allaqachon ushbu telefon raqami bilan ro'yxatdan o'tgan."
 
-#: account/adapter.py:84
+#: account/adapter.py:83
 msgid "Too many failed login attempts. Try again later."
 msgstr ""
 "Kirish uchun juda koʻp muvaffaqiyatsiz urinishlar. Keyinroq qayta urinib "
 "ko'ring."
 
-#: account/adapter.py:86
+#: account/adapter.py:85
 msgid "The email address is not assigned to any user account."
 msgstr "Email manzili hech qanday foydalanuvchi akkauntiga biriktirilmagan."
 
-#: account/adapter.py:87
+#: account/adapter.py:86
 msgid "The phone number is not assigned to any user account."
 msgstr "Telefon raqami hech qanday foydalanuvchi akkauntiga biriktirilmagan."
 
-#: account/adapter.py:88
+#: account/adapter.py:87
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary email address must be verified."
 msgstr "Asosiy email manzilingiz tasdiqlanishi kerak."
 
-#: account/adapter.py:90
+#: account/adapter.py:89
 msgid "Username can not be used. Please use other username."
 msgstr ""
 "Foydalanuvchi nomidan foydalanib bo'lmaydi. Iltimos, boshqa foydalanuvchi "
 "nomidan foydalaning."
 
-#: account/adapter.py:93
+#: account/adapter.py:92
 msgid "The username and/or password you specified are not correct."
 msgstr "Siz ko'rsatgan foydalanuvchi nomi va/yoki paroli noto'g'ri."
 
-#: account/adapter.py:98
+#: account/adapter.py:97
 msgid "Please select only one."
 msgstr "Iltimos, faqat bittasini tanlang."
 
-#: account/adapter.py:99
+#: account/adapter.py:98
 msgid "The new value must be different from the current one."
 msgstr "Yangi qiymat hozirgi qiymatdan farq qilishi kerak."
 
-#: account/adapter.py:100
+#: account/adapter.py:99
 msgid "Be patient, you are sending too many requests."
 msgstr "Sabrli bo'ling, siz judayam koʻp soʻrov yuboryapsiz."
 
-#: account/adapter.py:826
+#: account/adapter.py:825
 msgid "Use your password"
 msgstr "Parolingizdan foydalaning"
 
-#: account/adapter.py:835
+#: account/adapter.py:834
 msgid "Use authenticator app or code"
 msgstr "Autentifikatsiya ilovasi yoki kodidan foydalaning"
 
-#: account/adapter.py:842 templates/mfa/authenticate.html:41
+#: account/adapter.py:841 templates/mfa/authenticate.html:41
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use a security key"
 msgstr "Xavfsizlik kodidan foydalaning"
@@ -148,7 +148,7 @@ msgstr "Tanlangan email manzillarini tasdiqlangan deb belgilash"
 msgid "Accounts"
 msgstr "Hisoblar"
 
-#: account/fields.py:12 account/forms.py:299 idp/oidc/forms.py:43
+#: account/fields.py:12 account/forms.py:298 idp/oidc/forms.py:43
 msgid "Email"
 msgstr "Email"
 
@@ -162,133 +162,133 @@ msgstr ""
 "Telefon raqamini mamlakat kodi bilan birga kiriting (masalan, UZ uchun "
 "+998, )."
 
-#: account/fields.py:68 account/fields.py:72 account/forms.py:325
+#: account/fields.py:68 account/fields.py:72 account/forms.py:324
 msgid "Phone"
 msgstr "Telefon"
 
-#: account/forms.py:61 account/forms.py:524
+#: account/forms.py:59 account/forms.py:523
 msgid "You must type the same password each time."
 msgstr "Har safar bir xil parolni kiritishingiz kerak."
 
-#: account/forms.py:66 account/forms.py:451 account/forms.py:610
-#: account/forms.py:696
+#: account/forms.py:64 account/forms.py:450 account/forms.py:609
+#: account/forms.py:695
 msgid "Password"
 msgstr "Parol"
 
-#: account/forms.py:67
+#: account/forms.py:65
 msgid "Remember Me"
 msgstr "Meni Eslab Qolmoq"
 
-#: account/forms.py:79 account/forms.py:82 account/forms.py:265
-#: account/forms.py:268 account/forms.py:311
+#: account/forms.py:78 account/forms.py:81 account/forms.py:264
+#: account/forms.py:267 account/forms.py:310
 msgid "Username"
 msgstr "Foydalanuvchi nomi"
 
-#: account/forms.py:96
+#: account/forms.py:95
 msgctxt "field label"
 msgid "Login"
 msgstr "Kirish"
 
-#: account/forms.py:115
+#: account/forms.py:114
 msgid "Username, email or phone"
 msgstr "Foydalanuvchi nomi, email yoki telefon"
 
-#: account/forms.py:117
+#: account/forms.py:116
 msgid "Username or email"
 msgstr "Foydalanuvchi nomi yoki email"
 
-#: account/forms.py:119
+#: account/forms.py:118
 msgid "Username or phone"
 msgstr "Foydalanuvchi nomi yoki telefon"
 
-#: account/forms.py:121
+#: account/forms.py:120
 msgid "Email or phone"
 msgstr "Email yoki telefon"
 
-#: account/forms.py:144
+#: account/forms.py:143
 msgid "Forgot your password?"
 msgstr "Parolingiz esdan chiqdimi?"
 
-#: account/forms.py:287
+#: account/forms.py:286
 msgid "Email (again)"
 msgstr "Email (yana)"
 
-#: account/forms.py:292
+#: account/forms.py:291
 msgid "Email address confirmation"
 msgstr "Email manzilini tasdiqlash"
 
-#: account/forms.py:302
+#: account/forms.py:301
 msgid "Email (optional)"
 msgstr "Email (ixtiyoriy)"
 
-#: account/forms.py:314
+#: account/forms.py:313
 msgid "Username (optional)"
 msgstr "Foydalanuvchi nomi (ixtiyoriy)"
 
-#: account/forms.py:388
+#: account/forms.py:387
 msgid "You must type the same email each time."
 msgstr "Har safar bir xil email manzilini yozishingiz kerak."
 
-#: account/forms.py:458 account/forms.py:611
+#: account/forms.py:457 account/forms.py:610
 msgid "Password (again)"
 msgstr "Parol (yana)"
 
-#: account/forms.py:591
+#: account/forms.py:590
 msgid "Current Password"
 msgstr "Joriy Parol"
 
-#: account/forms.py:593 account/forms.py:649
+#: account/forms.py:592 account/forms.py:648
 msgid "New Password"
 msgstr "Yangi Parol"
 
-#: account/forms.py:594 account/forms.py:650
+#: account/forms.py:593 account/forms.py:649
 msgid "New Password (again)"
 msgstr "Yangi Parol (yana)"
 
-#: account/forms.py:767 account/forms.py:769 idp/oidc/forms.py:51
+#: account/forms.py:766 account/forms.py:768 idp/oidc/forms.py:51
 #: idp/oidc/forms.py:54 mfa/base/forms.py:12 mfa/base/forms.py:14
 #: mfa/totp/forms.py:13
 #: templates/idp/oidc/device_authorization_confirm_form.html:16
 msgid "Code"
 msgstr "Kod"
 
-#: account/models.py:23
+#: account/models.py:29
 msgid "user"
 msgstr "foydalanuvchi"
 
-#: account/models.py:29 account/models.py:37 account/models.py:139
+#: account/models.py:35 account/models.py:43 account/models.py:147
 msgid "email address"
 msgstr "email manzili"
 
-#: account/models.py:31
+#: account/models.py:37
 msgid "verified"
 msgstr "tasdiqlangan"
 
-#: account/models.py:32
+#: account/models.py:38
 msgid "primary"
 msgstr "asosiy"
 
-#: account/models.py:38
+#: account/models.py:44
 msgid "email addresses"
 msgstr "email manzillari"
 
-#: account/models.py:142
+#: account/models.py:150
 msgid "created"
 msgstr "yaratilgan"
 
-#: account/models.py:143
+#: account/models.py:151
 msgid "sent"
 msgstr "jo'natilgan"
 
-#: account/models.py:144 socialaccount/models.py:70
+#: account/models.py:152 socialaccount/models.py:70
 msgid "key"
 msgstr "kalit"
 
-#: account/models.py:149
+#: account/models.py:157
 msgid "email confirmation"
 msgstr "email orqali tasdiqlash"
 
-#: account/models.py:150
+#: account/models.py:158
 msgid "email confirmations"
 msgstr "email orqali tasdiqlash"
 
@@ -296,15 +296,15 @@ msgstr "email orqali tasdiqlash"
 msgid "Headless"
 msgstr "Headless"
 
-#: idp/oidc/adapter.py:30
+#: idp/oidc/adapter.py:31
 msgid "View your user ID"
 msgstr "Foydalanuvchi identifikatoringizni ko'rish"
 
-#: idp/oidc/adapter.py:31
+#: idp/oidc/adapter.py:32
 msgid "View your email address"
 msgstr "Email manzilingizni ko'rish"
 
-#: idp/oidc/adapter.py:32
+#: idp/oidc/adapter.py:33
 msgid "View your basic profile information"
 msgstr "Asosiy profil ma'lumotlaringizni ko'rish"
 
@@ -330,31 +330,31 @@ msgstr ""
 msgid "Wildcards are only allowed in the hostname portion of the URI."
 msgstr "Joker belgilar faqat URI ning xost nomi qismida ruxsat etiladi."
 
-#: idp/oidc/models.py:37
+#: idp/oidc/models.py:35
 msgid "Authorization code"
 msgstr "Avtorizatsiya kodi"
 
-#: idp/oidc/models.py:38
+#: idp/oidc/models.py:36
 msgid "Device code"
 msgstr "Qurilma kodi"
 
-#: idp/oidc/models.py:39
+#: idp/oidc/models.py:37
 msgid "Client credentials"
 msgstr "Mijoz hisob ma'lumotlari"
 
-#: idp/oidc/models.py:40
+#: idp/oidc/models.py:38
 msgid "Refresh token"
 msgstr "Yangilash tokeni"
 
-#: idp/oidc/models.py:43
+#: idp/oidc/models.py:41
 msgid "Confidential"
 msgstr "Maxfiy"
 
-#: idp/oidc/models.py:44
+#: idp/oidc/models.py:42
 msgid "Public"
 msgstr "Ommaviy"
 
-#: idp/oidc/models.py:58
+#: idp/oidc/models.py:56
 msgid ""
 "The scope(s) the client is allowed to request. Provide one value per line, "
 "e.g.: openid(ENTER)profile(ENTER)email(ENTER)"
@@ -362,7 +362,7 @@ msgstr ""
 "Mijozga so'rash ruxsat etilgan doira(lar). Har bir qatorga bitta qiymat "
 "kiriting, masalan: openid(ENTER)profile(ENTER)email(ENTER)"
 
-#: idp/oidc/models.py:64
+#: idp/oidc/models.py:62
 msgid ""
 "In case the client does not specify any scope, these default scopes are "
 "used. Provide one value per line, e.g.: "
@@ -372,7 +372,7 @@ msgstr ""
 "ishlatiladi. Har bir qatorga bitta qiymat kiriting, masalan: "
 "openid(ENTER)profile(ENTER)email(ENTER)"
 
-#: idp/oidc/models.py:75
+#: idp/oidc/models.py:73
 msgid ""
 "A list of allowed grant types. Provide one value per line, e.g.: "
 "authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
@@ -381,13 +381,13 @@ msgstr ""
 "kiriting, masalan: "
 "authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 
-#: idp/oidc/models.py:86
+#: idp/oidc/models.py:84
 msgid "A list of allowed origins for cross-origin requests, one per line."
 msgstr ""
 "Cross-origin so'rovlar uchun ruxsat etilgan manbalar ro'yxati, har bir "
 "qatorda bittadan."
 
-#: idp/oidc/models.py:94
+#: idp/oidc/models.py:92
 msgid ""
 "Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
 "can contain a single asterisk to match subdomains."
@@ -396,7 +396,7 @@ msgstr ""
 "berish. Yoqilganda, URI lar subdomenlarni moslashtirish uchun bitta "
 "yulduzcha belgisini o'z ichiga olishi mumkin."
 
-#: idp/oidc/models.py:102
+#: idp/oidc/models.py:100
 msgid ""
 "A list of allowed response types. Provide one value per line, e.g.: "
 "code(ENTER)id_token token(ENTER)"
@@ -404,15 +404,15 @@ msgstr ""
 "Ruxsat etilgan javob turlari ro'yxati. Har bir qatorga bitta qiymat "
 "kiriting, masalan: code(ENTER)id_token token(ENTER)"
 
-#: idp/oidc/models.py:115
+#: idp/oidc/models.py:113
 msgid "client"
 msgstr "mijoz"
 
-#: idp/oidc/models.py:116
+#: idp/oidc/models.py:114
 msgid "clients"
 msgstr "mijozlar"
 
-#: mfa/adapter.py:32
+#: mfa/adapter.py:30
 msgid ""
 "You cannot add an email address to an account protected by two-factor "
 "authentication."
@@ -420,18 +420,18 @@ msgstr ""
 "Siz ikki-bosqichli autentifikatsiya bilan himoyalangan akkauntga email "
 "manzilini qo'sha olmaysiz"
 
-#: mfa/adapter.py:35
+#: mfa/adapter.py:33
 msgid "You cannot deactivate two-factor authentication."
 msgstr "Ikki-bosqichli autentifikatsiyani o'chirib bo'lmaydi."
 
-#: mfa/adapter.py:38
+#: mfa/adapter.py:36
 msgid ""
 "You cannot generate recovery codes without having two-factor authentication "
 "enabled."
 msgstr ""
 "Siz ikki-bosqichli autentifikatsiyasiz tiklash kodlarini yarata olmaysiz."
 
-#: mfa/adapter.py:42
+#: mfa/adapter.py:40
 msgid ""
 "You cannot activate two-factor authentication until you have verified your "
 "email address."
@@ -439,15 +439,15 @@ msgstr ""
 "Siz email manzilingizni tasdiqlamaguningizcha ikki-bosqichli "
 "autentifikatsiyani faollashtira olmaysiz."
 
-#: mfa/adapter.py:141
+#: mfa/adapter.py:139
 msgid "Master key"
 msgstr "Asosiy kalit"
 
-#: mfa/adapter.py:143
+#: mfa/adapter.py:141
 msgid "Backup key"
 msgstr "Zaxira kalit"
 
-#: mfa/adapter.py:144
+#: mfa/adapter.py:142
 #, python-brace-format
 msgid "Key nr. {number}"
 msgstr "Kalit No. {number}"
@@ -651,7 +651,7 @@ msgstr "\"%s\" uchun soʻrov tokeni saqlanmagan."
 msgid "No access token saved for \"%s\"."
 msgstr "\"%s\" uchun kirish tokeni saqlanmagan."
 
-#: socialaccount/providers/oauth/client.py:215
+#: socialaccount/providers/oauth/client.py:219
 #, python-format
 msgid "No access to private resources at \"%s\"."
 msgstr "\"%s\" shaxsiy ma'lumotlariga kirish imkoni yo'q."
@@ -1259,11 +1259,11 @@ msgstr "Parolingizni kirgizing"
 msgid "You will receive a special code for a password-free sign-in."
 msgstr "Siz parolsiz kirish uchun maxsus kodni olasiz."
 
-#: templates/account/request_login_code.html:24
+#: templates/account/request_login_code.html:23
 msgid "Request Code"
 msgstr "Kod So'rash"
 
-#: templates/account/request_login_code.html:30
+#: templates/account/request_login_code.html:28
 msgid "Other sign-in options"
 msgstr "Boshqa kirish variantlari"
 
@@ -1582,11 +1582,11 @@ msgstr "Qo'shish"
 
 #: templates/mfa/index.html:77 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:6
-#: templates/mfa/recovery_codes/index.html:6
+#: templates/mfa/recovery_codes/index.html:5
 msgid "Recovery Codes"
 msgstr "Tiklash Kodlari"
 
-#: templates/mfa/index.html:82 templates/mfa/recovery_codes/index.html:9
+#: templates/mfa/index.html:82 templates/mfa/recovery_codes/index.html:8
 #, python-format
 msgid ""
 "There is %(unused_count)s out of %(total_count)s recovery codes available."
@@ -1613,6 +1613,10 @@ msgstr "Yaratish"
 #: templates/mfa/messages/recovery_codes_generated.txt:2
 msgid "A new set of recovery codes has been generated."
 msgstr "Qayta tiklash kodlarining yangi to'plami yaratildi."
+
+#: templates/mfa/messages/recovery_codes_generated.txt:4
+msgid "Save them  in a secure location now — they won't be shown again."
+msgstr "Ularni hozir xavfsiz joyga saqlang — ular boshqa ko'rsatilmaydi."
 
 #: templates/mfa/messages/webauthn_added.txt:2
 msgid "Security key added."
@@ -1642,13 +1646,17 @@ msgstr "Ishonchingiz komilmi?"
 msgid "Unused codes"
 msgstr "Ishlatilmagan kodlar"
 
-#: templates/mfa/recovery_codes/index.html:25
+#: templates/mfa/recovery_codes/index.html:24
 msgid "Download codes"
 msgstr "Kodlarni yuklab olish"
 
 #: templates/mfa/recovery_codes/index.html:30
 msgid "Generate new codes"
 msgstr "Yangi kodlarni hosil qilish"
+
+#: templates/mfa/recovery_codes/index.html:36
+msgid "I have saved my recovery codes"
+msgstr "Tiklash kodlarimni saqlab qo'ydim"
 
 #: templates/mfa/totp/activate_form.html:4
 #: templates/mfa/totp/activate_form.html:8
@@ -1930,7 +1938,7 @@ msgstr "Boshqa Seanslardan Chiqish"
 msgid "User Sessions"
 msgstr "Foydalanuvchi Seanslari"
 
-#: usersessions/models.py:94
+#: usersessions/models.py:93
 msgid "session key"
 msgstr "seans kaliti"
 

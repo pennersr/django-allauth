@@ -37,6 +37,10 @@ class AppSettings:
         return self._setting("RECOVERY_CODE_DIGITS", 8)
 
     @property
+    def RECOVERY_CODES_SHOW_ONCE(self) -> bool:
+        return self._setting("RECOVERY_CODES_SHOW_ONCE", False)
+
+    @property
     def TOTP_PERIOD(self) -> int:
         """
         The period that a TOTP code will be valid for, in seconds.

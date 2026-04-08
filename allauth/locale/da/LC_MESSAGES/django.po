@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-05 08:42-0600\n"
+"POT-Creation-Date: 2026-04-08 13:31-0500\n"
 "PO-Revision-Date: 2024-04-20 21:40+0200\n"
 "Last-Translator: b'Tuk Bredsdorff <tukodeb@gmail.com>'\n"
 "Language-Team: \n"
@@ -18,109 +18,109 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.1.1\n"
 
-#: account/adapter.py:61
+#: account/adapter.py:60
 msgid "This account is currently inactive."
 msgstr "Denne konto er i øjeblikket inaktiv."
 
-#: account/adapter.py:63
+#: account/adapter.py:62
 msgid "You cannot remove your primary email address."
 msgstr "Du kan ikke fjerne din primære emailadresse."
 
-#: account/adapter.py:66
+#: account/adapter.py:65
 msgid "This email address is already associated with this account."
 msgstr "Denne emailadresse er allerede knyttet til denne konto."
 
-#: account/adapter.py:69
+#: account/adapter.py:68
 msgid "The email address and/or password you specified are not correct."
 msgstr "Den angivne emailadresse og/eller adgangskode er ikke korrekt."
 
-#: account/adapter.py:72
+#: account/adapter.py:71
 msgid "The phone number and/or password you specified are not correct."
 msgstr "Det angivne telefonnummer og/eller adgangskode er ikke korrekt."
 
-#: account/adapter.py:74
+#: account/adapter.py:73
 msgid "A user is already registered with this email address."
 msgstr "En bruger er allerede registreret med denne emailadresse."
 
-#: account/adapter.py:75
+#: account/adapter.py:74
 msgid "Please type your current password."
 msgstr "Indtast din nuværende adgangskode."
 
-#: account/adapter.py:76 mfa/adapter.py:40
+#: account/adapter.py:75 mfa/adapter.py:38
 msgid "Incorrect code."
 msgstr "Forkert kode."
 
-#: account/adapter.py:77
+#: account/adapter.py:76
 msgid "Incorrect password."
 msgstr "Forkert adgangskode."
 
-#: account/adapter.py:78
+#: account/adapter.py:77
 msgid "Invalid or expired key."
 msgstr "Ugyldig eller udløbet nøgle."
 
-#: account/adapter.py:79
+#: account/adapter.py:78
 msgid "Invalid login."
 msgstr "Ugyldigt login."
 
-#: account/adapter.py:80
+#: account/adapter.py:79
 msgid "The password reset token was invalid."
 msgstr "Token for nulstilling af adgangskode var ugyldig."
 
-#: account/adapter.py:81
+#: account/adapter.py:80
 #, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "Du kan ikke tilføje mere end %d emailadresser."
 
-#: account/adapter.py:82
+#: account/adapter.py:81
 msgid "A user is already registered with this phone number."
 msgstr "En bruger er allerede registreret med dette telefonnummer."
 
-#: account/adapter.py:84
+#: account/adapter.py:83
 msgid "Too many failed login attempts. Try again later."
 msgstr "Der er for mange mislykkede logonforsøg. Prøv igen senere."
 
-#: account/adapter.py:86
+#: account/adapter.py:85
 msgid "The email address is not assigned to any user account."
 msgstr "Emailadressen er ikke tildelt til nogen brugerkonto."
 
-#: account/adapter.py:87
+#: account/adapter.py:86
 msgid "The phone number is not assigned to any user account."
 msgstr "Telefonnummeret er ikke tildelt til nogen brugerkonto."
 
-#: account/adapter.py:88
+#: account/adapter.py:87
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary email address must be verified."
 msgstr "Din primære emailadresse skal bekræftes."
 
-#: account/adapter.py:90
+#: account/adapter.py:89
 msgid "Username can not be used. Please use other username."
 msgstr "Brugernavn kan ikke bruges. Brug venligst et andet brugernavn."
 
-#: account/adapter.py:93
+#: account/adapter.py:92
 msgid "The username and/or password you specified are not correct."
 msgstr "Det angivne brugernavn og/eller adgangskoden er ikke korrekt."
 
-#: account/adapter.py:98
+#: account/adapter.py:97
 msgid "Please select only one."
 msgstr "Vælg kun én."
 
-#: account/adapter.py:99
+#: account/adapter.py:98
 msgid "The new value must be different from the current one."
 msgstr "Den nye værdi skal være anderledes end den nuværende."
 
-#: account/adapter.py:100
+#: account/adapter.py:99
 msgid "Be patient, you are sending too many requests."
 msgstr "Hav tålmodighed, du sender for mange anmodninger."
 
-#: account/adapter.py:826
+#: account/adapter.py:825
 msgid "Use your password"
 msgstr "Brug din adgangskode"
 
-#: account/adapter.py:835
+#: account/adapter.py:834
 msgid "Use authenticator app or code"
 msgstr "Brug autentificeringsapp eller kode"
 
-#: account/adapter.py:842 templates/mfa/authenticate.html:41
+#: account/adapter.py:841 templates/mfa/authenticate.html:41
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use a security key"
 msgstr "Brug en sikkerhedsnøgle"
@@ -143,7 +143,7 @@ msgstr "Marker valgte emailadresser som bekræftede"
 msgid "Accounts"
 msgstr "Konti"
 
-#: account/fields.py:12 account/forms.py:299 idp/oidc/forms.py:43
+#: account/fields.py:12 account/forms.py:298 idp/oidc/forms.py:43
 msgid "Email"
 msgstr "Email"
 
@@ -155,133 +155,133 @@ msgstr "Emailadresse"
 msgid "Enter a phone number including country code (e.g. +1 for the US)."
 msgstr "Indtast et telefonnummer inklusive landekode (f.eks. +1 for USA)."
 
-#: account/fields.py:68 account/fields.py:72 account/forms.py:325
+#: account/fields.py:68 account/fields.py:72 account/forms.py:324
 msgid "Phone"
 msgstr "Telefon"
 
-#: account/forms.py:61 account/forms.py:524
+#: account/forms.py:59 account/forms.py:523
 msgid "You must type the same password each time."
 msgstr "Du skal skrive den samme adgangskode hver gang."
 
-#: account/forms.py:66 account/forms.py:451 account/forms.py:610
-#: account/forms.py:696
+#: account/forms.py:64 account/forms.py:450 account/forms.py:609
+#: account/forms.py:695
 msgid "Password"
 msgstr "Adgangskode"
 
-#: account/forms.py:67
+#: account/forms.py:65
 msgid "Remember Me"
 msgstr "Husk mig"
 
-#: account/forms.py:79 account/forms.py:82 account/forms.py:265
-#: account/forms.py:268 account/forms.py:311
+#: account/forms.py:78 account/forms.py:81 account/forms.py:264
+#: account/forms.py:267 account/forms.py:310
 msgid "Username"
 msgstr "Brugernavn"
 
-#: account/forms.py:96
+#: account/forms.py:95
 msgctxt "field label"
 msgid "Login"
 msgstr "Bruger"
 
-#: account/forms.py:115
+#: account/forms.py:114
 msgid "Username, email or phone"
 msgstr "Brugernavn, email eller telefon"
 
-#: account/forms.py:117
+#: account/forms.py:116
 msgid "Username or email"
 msgstr "Brugernavn eller email"
 
-#: account/forms.py:119
+#: account/forms.py:118
 msgid "Username or phone"
 msgstr "Brugernavn eller telefon"
 
-#: account/forms.py:121
+#: account/forms.py:120
 msgid "Email or phone"
 msgstr "Email eller telefon"
 
-#: account/forms.py:144
+#: account/forms.py:143
 msgid "Forgot your password?"
 msgstr "Glemt din adgangskode?"
 
-#: account/forms.py:287
+#: account/forms.py:286
 msgid "Email (again)"
 msgstr "Email (igen)"
 
-#: account/forms.py:292
+#: account/forms.py:291
 msgid "Email address confirmation"
 msgstr "Bekræftelse af emailadresse"
 
-#: account/forms.py:302
+#: account/forms.py:301
 msgid "Email (optional)"
 msgstr "Email (valgfri)"
 
-#: account/forms.py:314
+#: account/forms.py:313
 msgid "Username (optional)"
 msgstr "Brugernavn (valgfrit)"
 
-#: account/forms.py:388
+#: account/forms.py:387
 msgid "You must type the same email each time."
 msgstr "Du skal skrive den samme emailadresse hver gang."
 
-#: account/forms.py:458 account/forms.py:611
+#: account/forms.py:457 account/forms.py:610
 msgid "Password (again)"
 msgstr "Adgangskode (igen)"
 
-#: account/forms.py:591
+#: account/forms.py:590
 msgid "Current Password"
 msgstr "Nuværende adgangskode"
 
-#: account/forms.py:593 account/forms.py:649
+#: account/forms.py:592 account/forms.py:648
 msgid "New Password"
 msgstr "Ny adgangskode"
 
-#: account/forms.py:594 account/forms.py:650
+#: account/forms.py:593 account/forms.py:649
 msgid "New Password (again)"
 msgstr "Ny adgangskode (igen)"
 
-#: account/forms.py:767 account/forms.py:769 idp/oidc/forms.py:51
+#: account/forms.py:766 account/forms.py:768 idp/oidc/forms.py:51
 #: idp/oidc/forms.py:54 mfa/base/forms.py:12 mfa/base/forms.py:14
 #: mfa/totp/forms.py:13
 #: templates/idp/oidc/device_authorization_confirm_form.html:16
 msgid "Code"
 msgstr "Kode"
 
-#: account/models.py:23
+#: account/models.py:29
 msgid "user"
 msgstr "bruger"
 
-#: account/models.py:29 account/models.py:37 account/models.py:139
+#: account/models.py:35 account/models.py:43 account/models.py:147
 msgid "email address"
 msgstr "emailadresse"
 
-#: account/models.py:31
+#: account/models.py:37
 msgid "verified"
 msgstr "bekræftet"
 
-#: account/models.py:32
+#: account/models.py:38
 msgid "primary"
 msgstr "primær"
 
-#: account/models.py:38
+#: account/models.py:44
 msgid "email addresses"
 msgstr "emailadresser"
 
-#: account/models.py:142
+#: account/models.py:150
 msgid "created"
 msgstr "oprettet"
 
-#: account/models.py:143
+#: account/models.py:151
 msgid "sent"
 msgstr "sendt"
 
-#: account/models.py:144 socialaccount/models.py:70
+#: account/models.py:152 socialaccount/models.py:70
 msgid "key"
 msgstr "nøgle"
 
-#: account/models.py:149
+#: account/models.py:157
 msgid "email confirmation"
 msgstr "emailbekræfelse"
 
-#: account/models.py:150
+#: account/models.py:158
 msgid "email confirmations"
 msgstr "emailbekræftelse"
 
@@ -289,15 +289,15 @@ msgstr "emailbekræftelse"
 msgid "Headless"
 msgstr "Headless"
 
-#: idp/oidc/adapter.py:30
+#: idp/oidc/adapter.py:31
 msgid "View your user ID"
 msgstr "Se dit bruger-ID"
 
-#: idp/oidc/adapter.py:31
+#: idp/oidc/adapter.py:32
 msgid "View your email address"
 msgstr "Se din emailadresse"
 
-#: idp/oidc/adapter.py:32
+#: idp/oidc/adapter.py:33
 msgid "View your basic profile information"
 msgstr "Se dine grundlæggende profiloplysninger"
 
@@ -322,31 +322,31 @@ msgstr ""
 msgid "Wildcards are only allowed in the hostname portion of the URI."
 msgstr "Jokertegn er kun tilladt i værtsnavnsdelen af URI'en."
 
-#: idp/oidc/models.py:37
+#: idp/oidc/models.py:35
 msgid "Authorization code"
 msgstr "Autorisationskode"
 
-#: idp/oidc/models.py:38
+#: idp/oidc/models.py:36
 msgid "Device code"
 msgstr "Enhedskode"
 
-#: idp/oidc/models.py:39
+#: idp/oidc/models.py:37
 msgid "Client credentials"
 msgstr "Klientlegitimationsoplysninger"
 
-#: idp/oidc/models.py:40
+#: idp/oidc/models.py:38
 msgid "Refresh token"
 msgstr "Opdater token"
 
-#: idp/oidc/models.py:43
+#: idp/oidc/models.py:41
 msgid "Confidential"
 msgstr "Fortrolig"
 
-#: idp/oidc/models.py:44
+#: idp/oidc/models.py:42
 msgid "Public"
 msgstr "Offentlig"
 
-#: idp/oidc/models.py:58
+#: idp/oidc/models.py:56
 msgid ""
 "The scope(s) the client is allowed to request. Provide one value per line, "
 "e.g.: openid(ENTER)profile(ENTER)email(ENTER)"
@@ -354,7 +354,7 @@ msgstr ""
 "De scope(s), som klienten har tilladelse til at anmode om. Angiv én værdi "
 "pr. linje, f.eks.: openid(ENTER)profile(ENTER)email(ENTER)"
 
-#: idp/oidc/models.py:64
+#: idp/oidc/models.py:62
 msgid ""
 "In case the client does not specify any scope, these default scopes are "
 "used. Provide one value per line, e.g.: "
@@ -363,7 +363,7 @@ msgstr ""
 "Hvis klienten ikke angiver nogen scope, bruges disse standardscopes. Angiv "
 "én værdi pr. linje, f.eks.: openid(ENTER)profile(ENTER)email(ENTER)"
 
-#: idp/oidc/models.py:75
+#: idp/oidc/models.py:73
 msgid ""
 "A list of allowed grant types. Provide one value per line, e.g.: "
 "authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
@@ -371,13 +371,13 @@ msgstr ""
 "En liste over tilladte grant-typer. Angiv én værdi pr. linje, f.eks.: "
 "authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 
-#: idp/oidc/models.py:86
+#: idp/oidc/models.py:84
 msgid "A list of allowed origins for cross-origin requests, one per line."
 msgstr ""
 "En liste over tilladte oprindelser for cross-origin anmodninger, én pr. "
 "linje."
 
-#: idp/oidc/models.py:94
+#: idp/oidc/models.py:92
 msgid ""
 "Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
 "can contain a single asterisk to match subdomains."
@@ -385,7 +385,7 @@ msgstr ""
 "Tillad jokertegn (*) i omdirigerings-URI'er og CORS-oprindelser. Når "
 "aktiveret kan URI'er indeholde en enkelt stjerne for at matche underdomæner."
 
-#: idp/oidc/models.py:102
+#: idp/oidc/models.py:100
 msgid ""
 "A list of allowed response types. Provide one value per line, e.g.: "
 "code(ENTER)id_token token(ENTER)"
@@ -393,15 +393,15 @@ msgstr ""
 "En liste over tilladte responstyper. Angiv én værdi pr. linje, f.eks.: "
 "code(ENTER)id_token token(ENTER)"
 
-#: idp/oidc/models.py:115
+#: idp/oidc/models.py:113
 msgid "client"
 msgstr "klient"
 
-#: idp/oidc/models.py:116
+#: idp/oidc/models.py:114
 msgid "clients"
 msgstr "klienter"
 
-#: mfa/adapter.py:32
+#: mfa/adapter.py:30
 msgid ""
 "You cannot add an email address to an account protected by two-factor "
 "authentication."
@@ -409,11 +409,11 @@ msgstr ""
 "Du kan ikke tilføje en emailadresse til en konto beskyttet af to-faktor-"
 "autentificering."
 
-#: mfa/adapter.py:35
+#: mfa/adapter.py:33
 msgid "You cannot deactivate two-factor authentication."
 msgstr "Du kan ikke deaktivere to-faktor-autentificering."
 
-#: mfa/adapter.py:38
+#: mfa/adapter.py:36
 msgid ""
 "You cannot generate recovery codes without having two-factor authentication "
 "enabled."
@@ -421,7 +421,7 @@ msgstr ""
 "Du kan ikke generere gendannelseskoder uden at have to-faktor-"
 "autentificering aktiveret."
 
-#: mfa/adapter.py:42
+#: mfa/adapter.py:40
 msgid ""
 "You cannot activate two-factor authentication until you have verified your "
 "email address."
@@ -429,15 +429,15 @@ msgstr ""
 "Du kan ikke aktivere to-faktor-autentificering, før du har bekræftet din e-"
 "mailadresse."
 
-#: mfa/adapter.py:141
+#: mfa/adapter.py:139
 msgid "Master key"
 msgstr "Hovednøgle"
 
-#: mfa/adapter.py:143
+#: mfa/adapter.py:141
 msgid "Backup key"
 msgstr "Backup-nøgle"
 
-#: mfa/adapter.py:144
+#: mfa/adapter.py:142
 #, python-brace-format
 msgid "Key nr. {number}"
 msgstr "Nøgle nr. {number}"
@@ -643,7 +643,7 @@ msgstr "Intet request token gemt for “%s”."
 msgid "No access token saved for \"%s\"."
 msgstr "Intet adgangstoken gemt for “%s”."
 
-#: socialaccount/providers/oauth/client.py:215
+#: socialaccount/providers/oauth/client.py:219
 #, python-format
 msgid "No access to private resources at \"%s\"."
 msgstr "Ingen adgang til private ressourcer på “%s”."
@@ -1251,11 +1251,11 @@ msgstr "Indtast din adgangskode:"
 msgid "You will receive a special code for a password-free sign-in."
 msgstr "Du vil modtage en speciel kode til login uden adgangskode."
 
-#: templates/account/request_login_code.html:24
+#: templates/account/request_login_code.html:23
 msgid "Request Code"
 msgstr "Anmod om kode"
 
-#: templates/account/request_login_code.html:30
+#: templates/account/request_login_code.html:28
 msgid "Other sign-in options"
 msgstr "Andre login-muligheder"
 
@@ -1567,11 +1567,11 @@ msgstr "Tilføj"
 
 #: templates/mfa/index.html:77 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:6
-#: templates/mfa/recovery_codes/index.html:6
+#: templates/mfa/recovery_codes/index.html:5
 msgid "Recovery Codes"
 msgstr "Gendannelseskoder"
 
-#: templates/mfa/index.html:82 templates/mfa/recovery_codes/index.html:9
+#: templates/mfa/index.html:82 templates/mfa/recovery_codes/index.html:8
 #, python-format
 msgid ""
 "There is %(unused_count)s out of %(total_count)s recovery codes available."
@@ -1602,6 +1602,10 @@ msgstr "Generer"
 msgid "A new set of recovery codes has been generated."
 msgstr "Et nyt sæt gendannelseskoder er blevet genereret."
 
+#: templates/mfa/messages/recovery_codes_generated.txt:4
+msgid "Save them  in a secure location now — they won't be shown again."
+msgstr "Gem dem et sikkert sted nu — de vises ikke igen."
+
 #: templates/mfa/messages/webauthn_added.txt:2
 msgid "Security key added."
 msgstr "Sikkerhedsnøgle tilføjet."
@@ -1630,13 +1634,17 @@ msgstr "Er du sikker?"
 msgid "Unused codes"
 msgstr "Ubrugte koder"
 
-#: templates/mfa/recovery_codes/index.html:25
+#: templates/mfa/recovery_codes/index.html:24
 msgid "Download codes"
 msgstr "Download koder"
 
 #: templates/mfa/recovery_codes/index.html:30
 msgid "Generate new codes"
 msgstr "Generer nye koder"
+
+#: templates/mfa/recovery_codes/index.html:36
+msgid "I have saved my recovery codes"
+msgstr "Jeg har gemt mine gendannelseskoder"
 
 #: templates/mfa/totp/activate_form.html:4
 #: templates/mfa/totp/activate_form.html:8
@@ -1912,7 +1920,7 @@ msgstr "Log ud af andre sessioner"
 msgid "User Sessions"
 msgstr "Brugersessioner"
 
-#: usersessions/models.py:94
+#: usersessions/models.py:93
 msgid "session key"
 msgstr "sessionsnøgle"
 

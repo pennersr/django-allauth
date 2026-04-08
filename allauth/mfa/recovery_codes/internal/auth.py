@@ -1,5 +1,6 @@
 import hmac
 import secrets
+import time
 from hashlib import sha1
 
 from allauth.mfa import app_settings
@@ -109,3 +110,13 @@ class RecoveryCodes:
                 self._mark_code_used(i)
                 return True
         return False
+
+    def mark_as_viewed(self) -> None:
+        if self.did_view:
+            return
+        self.instance.data["viewed_at"] = time.time()
+        self.instance.save(update_fields=["data"])
+
+    @property
+    def did_view(self) -> bool:
+        return bool(self.instance.data.get("viewed_at"))

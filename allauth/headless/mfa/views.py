@@ -117,14 +117,17 @@ class ManageRecoveryCodesView(AuthenticatedAPIView):
     input_class = GenerateRecoveryCodesInput
 
     def get(self, request, *args, **kwargs) -> HttpResponse:
-        authenticator = recovery_codes_flows.view_recovery_codes(request)
-        if not authenticator:
+        recovery_codes, can_view = recovery_codes_flows.view_recovery_codes(request)
+        if not recovery_codes:
             return response.RecoveryCodesNotFoundResponse(request)
-        return response.RecoveryCodesResponse(request, authenticator)
+        return response.RecoveryCodesResponse(
+            request, recovery_codes.instance, can_view=can_view
+        )
 
     def post(self, request, *args, **kwargs):
         authenticator = recovery_codes_flows.generate_recovery_codes(request)
-        return response.RecoveryCodesResponse(request, authenticator)
+        authenticator.wrap().mark_as_viewed()
+        return response.RecoveryCodesResponse(request, authenticator, can_view=True)
 
     def get_input_kwargs(self) -> dict:
         return {"user": self.request.user}

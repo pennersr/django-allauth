@@ -42,7 +42,7 @@ def black(session):
 
 @nox.session(tags=["lint"])
 def djlint(session):
-    session.install("djlint==1.34.1")
+    session.install("djlint==1.36.4")
     session.run(
         "djlint", "--configuration", ".djlintrc", "--check", "./allauth", "./examples"
     )

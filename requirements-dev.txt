@@ -14,7 +14,7 @@ pytest-cov
 isort==5.13.2
 bandit>=1.8.6,<2
 black==24.4.0
-djlint==1.34.1
+djlint==1.36.4
 flake8>=7.3.0,<8
 mypy==1.19.1
 

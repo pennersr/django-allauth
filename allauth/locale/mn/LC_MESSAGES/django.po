@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-05 08:42-0600\n"
+"POT-Creation-Date: 2026-04-08 13:31-0500\n"
 "PO-Revision-Date: 2024-04-20 21:32+0200\n"
 "Last-Translator: Bilgutei Erdenebayar <beke0130@gmail.com>\n"
 "Language-Team: Mongolian <beke0130@gmail.com>\n"
@@ -18,109 +18,109 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: account/adapter.py:61
+#: account/adapter.py:60
 msgid "This account is currently inactive."
 msgstr "Энэ бүртгэл одоогоор идэвхгүй байна."
 
-#: account/adapter.py:63
+#: account/adapter.py:62
 msgid "You cannot remove your primary email address."
 msgstr "Та үндсэн имэйл хаягаа устгах боломжгүй."
 
-#: account/adapter.py:66
+#: account/adapter.py:65
 msgid "This email address is already associated with this account."
 msgstr "Энэ имэйл хаяг энэ бүртгэлтэй холбогдсон байна."
 
-#: account/adapter.py:69
+#: account/adapter.py:68
 msgid "The email address and/or password you specified are not correct."
 msgstr "Таны оруулсан имэйл хаяг болон/эсвэл нууц үг буруу байна."
 
-#: account/adapter.py:72
+#: account/adapter.py:71
 msgid "The phone number and/or password you specified are not correct."
 msgstr "Таны оруулсан утасны дугаар болон/эсвэл нууц үг буруу байна."
 
-#: account/adapter.py:74
+#: account/adapter.py:73
 msgid "A user is already registered with this email address."
 msgstr "Өөр хэрэглэгч энэ имэйл хаягаар бүртгүүлсэн байна."
 
-#: account/adapter.py:75
+#: account/adapter.py:74
 msgid "Please type your current password."
 msgstr "Одоогийн нууц үгээ оруулна уу."
 
-#: account/adapter.py:76 mfa/adapter.py:40
+#: account/adapter.py:75 mfa/adapter.py:38
 msgid "Incorrect code."
 msgstr "Код буруу байна."
 
-#: account/adapter.py:77
+#: account/adapter.py:76
 msgid "Incorrect password."
 msgstr "Нууц үг буруу байна."
 
-#: account/adapter.py:78
+#: account/adapter.py:77
 msgid "Invalid or expired key."
 msgstr "Түлхүүр буруу эсвэл хугацаа нь дууссан."
 
-#: account/adapter.py:79
+#: account/adapter.py:78
 msgid "Invalid login."
 msgstr "Нэвтрэлт буруу байна."
 
-#: account/adapter.py:80
+#: account/adapter.py:79
 msgid "The password reset token was invalid."
 msgstr "Нууц үг шинэчлэх токен буруу байна."
 
-#: account/adapter.py:81
+#: account/adapter.py:80
 #, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "Та %d-с илүү имэйл хаяг нэмэх боломжгүй."
 
-#: account/adapter.py:82
+#: account/adapter.py:81
 msgid "A user is already registered with this phone number."
 msgstr "Өөр хэрэглэгч энэ утасны дугаараар бүртгүүлсэн байна."
 
-#: account/adapter.py:84
+#: account/adapter.py:83
 msgid "Too many failed login attempts. Try again later."
 msgstr "Хэт олон амжилтгүй нэвтрэх оролдлого. Дараа дахин оролдоорой."
 
-#: account/adapter.py:86
+#: account/adapter.py:85
 msgid "The email address is not assigned to any user account."
 msgstr "Имэйл хаяг ямар ч хэрэглэгчийн бүртгэлтэй холбогдоогүй."
 
-#: account/adapter.py:87
+#: account/adapter.py:86
 msgid "The phone number is not assigned to any user account."
 msgstr "Утасны дугаар ямар ч хэрэглэгчийн бүртгэлтэй холбогдоогүй."
 
-#: account/adapter.py:88
+#: account/adapter.py:87
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary email address must be verified."
 msgstr "Таны үндсэн имэйл хаягийг баталгаажуулсан байх ёстой."
 
-#: account/adapter.py:90
+#: account/adapter.py:89
 msgid "Username can not be used. Please use other username."
 msgstr "Хэрэглэгчийн нэрийг ашиглах боломжгүй. Өөр нэр сонгоно уу."
 
-#: account/adapter.py:93
+#: account/adapter.py:92
 msgid "The username and/or password you specified are not correct."
 msgstr "Таны оруулсан имэйл хаяг болон/эсвэл нууц үг буруу байна."
 
-#: account/adapter.py:98
+#: account/adapter.py:97
 msgid "Please select only one."
 msgstr "Зөвхөн нэгийг сонгоно уу."
 
-#: account/adapter.py:99
+#: account/adapter.py:98
 msgid "The new value must be different from the current one."
 msgstr "Шинэ утга одоогийнхоос ялгаатай байх ёстой."
 
-#: account/adapter.py:100
+#: account/adapter.py:99
 msgid "Be patient, you are sending too many requests."
 msgstr "Тэвчээртэй байна уу, та хэт олон хүсэлт илгээж байна."
 
-#: account/adapter.py:826
+#: account/adapter.py:825
 msgid "Use your password"
 msgstr "Нууц үгээ ашиглах"
 
-#: account/adapter.py:835
+#: account/adapter.py:834
 msgid "Use authenticator app or code"
 msgstr "Баталгаажуулагч апп эсвэл код ашиглах"
 
-#: account/adapter.py:842 templates/mfa/authenticate.html:41
+#: account/adapter.py:841 templates/mfa/authenticate.html:41
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use a security key"
 msgstr "Аюулгүй байдлын түлхүүр ашиглах"
@@ -143,7 +143,7 @@ msgstr "Сонгосон имэйл хаягуудыг баталгаажсан 
 msgid "Accounts"
 msgstr "Бүртгэлүүд"
 
-#: account/fields.py:12 account/forms.py:299 idp/oidc/forms.py:43
+#: account/fields.py:12 account/forms.py:298 idp/oidc/forms.py:43
 msgid "Email"
 msgstr "Имэйл хаяг"
 
@@ -155,133 +155,133 @@ msgstr "Имэйл хаяг"
 msgid "Enter a phone number including country code (e.g. +1 for the US)."
 msgstr "Улсын кодыг оруулсан утасны дугаар оруулна уу (жнь: АНУ-д +1)."
 
-#: account/fields.py:68 account/fields.py:72 account/forms.py:325
+#: account/fields.py:68 account/fields.py:72 account/forms.py:324
 msgid "Phone"
 msgstr "Утас"
 
-#: account/forms.py:61 account/forms.py:524
+#: account/forms.py:59 account/forms.py:523
 msgid "You must type the same password each time."
 msgstr "Та өмнө оруулсантай ижил нууц үг оруулах ёстой."
 
-#: account/forms.py:66 account/forms.py:451 account/forms.py:610
-#: account/forms.py:696
+#: account/forms.py:64 account/forms.py:450 account/forms.py:609
+#: account/forms.py:695
 msgid "Password"
 msgstr "Нууц үг"
 
-#: account/forms.py:67
+#: account/forms.py:65
 msgid "Remember Me"
 msgstr "Намайг Санах"
 
-#: account/forms.py:79 account/forms.py:82 account/forms.py:265
-#: account/forms.py:268 account/forms.py:311
+#: account/forms.py:78 account/forms.py:81 account/forms.py:264
+#: account/forms.py:267 account/forms.py:310
 msgid "Username"
 msgstr "Хэрэглэгчийн нэр"
 
-#: account/forms.py:96
+#: account/forms.py:95
 msgctxt "field label"
 msgid "Login"
 msgstr "Нэвтрэх"
 
-#: account/forms.py:115
+#: account/forms.py:114
 msgid "Username, email or phone"
 msgstr "Хэрэглэгчийн нэр, имэйл эсвэл утас"
 
-#: account/forms.py:117
+#: account/forms.py:116
 msgid "Username or email"
 msgstr "Хэрэглэгчийн нэр эсвэл имэйл"
 
-#: account/forms.py:119
+#: account/forms.py:118
 msgid "Username or phone"
 msgstr "Хэрэглэгчийн нэр эсвэл утас"
 
-#: account/forms.py:121
+#: account/forms.py:120
 msgid "Email or phone"
 msgstr "Имэйл эсвэл утас"
 
-#: account/forms.py:144
+#: account/forms.py:143
 msgid "Forgot your password?"
 msgstr "Нууц үгээ мартсан уу?"
 
-#: account/forms.py:287
+#: account/forms.py:286
 msgid "Email (again)"
 msgstr "Имэйл (дахин)"
 
-#: account/forms.py:292
+#: account/forms.py:291
 msgid "Email address confirmation"
 msgstr "Имэйл хаягийн баталгаажуулалт"
 
-#: account/forms.py:302
+#: account/forms.py:301
 msgid "Email (optional)"
 msgstr "Имэйл (заавал биш)"
 
-#: account/forms.py:314
+#: account/forms.py:313
 msgid "Username (optional)"
 msgstr "Хэрэглэгчийн нэр (заавал биш)"
 
-#: account/forms.py:388
+#: account/forms.py:387
 msgid "You must type the same email each time."
 msgstr "Та өмнө оруулсантай ижил имэйл бичих ёстой."
 
-#: account/forms.py:458 account/forms.py:611
+#: account/forms.py:457 account/forms.py:610
 msgid "Password (again)"
 msgstr "Нууц үг (дахин)"
 
-#: account/forms.py:591
+#: account/forms.py:590
 msgid "Current Password"
 msgstr "Одоогын Нууц Үг"
 
-#: account/forms.py:593 account/forms.py:649
+#: account/forms.py:592 account/forms.py:648
 msgid "New Password"
 msgstr "Шинэ Нууц Үг"
 
-#: account/forms.py:594 account/forms.py:650
+#: account/forms.py:593 account/forms.py:649
 msgid "New Password (again)"
 msgstr "Шинэ Нууц Үг (дахин)"
 
-#: account/forms.py:767 account/forms.py:769 idp/oidc/forms.py:51
+#: account/forms.py:766 account/forms.py:768 idp/oidc/forms.py:51
 #: idp/oidc/forms.py:54 mfa/base/forms.py:12 mfa/base/forms.py:14
 #: mfa/totp/forms.py:13
 #: templates/idp/oidc/device_authorization_confirm_form.html:16
 msgid "Code"
 msgstr "Код"
 
-#: account/models.py:23
+#: account/models.py:29
 msgid "user"
 msgstr "хэрэглэгч"
 
-#: account/models.py:29 account/models.py:37 account/models.py:139
+#: account/models.py:35 account/models.py:43 account/models.py:147
 msgid "email address"
 msgstr "имэйл хаяг"
 
-#: account/models.py:31
+#: account/models.py:37
 msgid "verified"
 msgstr "баталгаажуулсан"
 
-#: account/models.py:32
+#: account/models.py:38
 msgid "primary"
 msgstr "үндсэн"
 
-#: account/models.py:38
+#: account/models.py:44
 msgid "email addresses"
 msgstr "имэйл хаягууд"
 
-#: account/models.py:142
+#: account/models.py:150
 msgid "created"
 msgstr "үүсгэсэн"
 
-#: account/models.py:143
+#: account/models.py:151
 msgid "sent"
 msgstr "илгээсэн"
 
-#: account/models.py:144 socialaccount/models.py:70
+#: account/models.py:152 socialaccount/models.py:70
 msgid "key"
 msgstr "түлхүүр"
 
-#: account/models.py:149
+#: account/models.py:157
 msgid "email confirmation"
 msgstr "имэйл баталгаажуулалт"
 
-#: account/models.py:150
+#: account/models.py:158
 msgid "email confirmations"
 msgstr "имэйл баталгаажуулалт"
 
@@ -289,15 +289,15 @@ msgstr "имэйл баталгаажуулалт"
 msgid "Headless"
 msgstr "Headless"
 
-#: idp/oidc/adapter.py:30
+#: idp/oidc/adapter.py:31
 msgid "View your user ID"
 msgstr "Хэрэглэгчийн ID-гаа харах"
 
-#: idp/oidc/adapter.py:31
+#: idp/oidc/adapter.py:32
 msgid "View your email address"
 msgstr "Имэйл хаягаа харах"
 
-#: idp/oidc/adapter.py:32
+#: idp/oidc/adapter.py:33
 msgid "View your basic profile information"
 msgstr "Үндсэн профайл мэдээллээ харах"
 
@@ -323,31 +323,31 @@ msgstr ""
 msgid "Wildcards are only allowed in the hostname portion of the URI."
 msgstr "Орлуулагч тэмдэгт зөвхөн URI-ийн хост нэрийн хэсэгт зөвшөөрөгдөнө."
 
-#: idp/oidc/models.py:37
+#: idp/oidc/models.py:35
 msgid "Authorization code"
 msgstr "Зөвшөөрлийн код"
 
-#: idp/oidc/models.py:38
+#: idp/oidc/models.py:36
 msgid "Device code"
 msgstr "Төхөөрөмжийн код"
 
-#: idp/oidc/models.py:39
+#: idp/oidc/models.py:37
 msgid "Client credentials"
 msgstr "Клиентийн итгэмжлэл"
 
-#: idp/oidc/models.py:40
+#: idp/oidc/models.py:38
 msgid "Refresh token"
 msgstr "Шинэчлэх токен"
 
-#: idp/oidc/models.py:43
+#: idp/oidc/models.py:41
 msgid "Confidential"
 msgstr "Нууцлалтай"
 
-#: idp/oidc/models.py:44
+#: idp/oidc/models.py:42
 msgid "Public"
 msgstr "Нийтийн"
 
-#: idp/oidc/models.py:58
+#: idp/oidc/models.py:56
 msgid ""
 "The scope(s) the client is allowed to request. Provide one value per line, "
 "e.g.: openid(ENTER)profile(ENTER)email(ENTER)"
@@ -355,7 +355,7 @@ msgstr ""
 "Клиент хүсэлт гаргах боломжтой хүрээ. Мөр бүрт нэг утга оруулна уу, жнь: "
 "openid(ENTER)profile(ENTER)email(ENTER)"
 
-#: idp/oidc/models.py:64
+#: idp/oidc/models.py:62
 msgid ""
 "In case the client does not specify any scope, these default scopes are "
 "used. Provide one value per line, e.g.: "
@@ -364,7 +364,7 @@ msgstr ""
 "Хэрэв клиент ямар ч хүрээ заагаагүй бол эдгээр анхдагч хүрээг ашиглана. Мөр "
 "бүрт нэг утга оруулна уу, жнь: openid(ENTER)profile(ENTER)email(ENTER)"
 
-#: idp/oidc/models.py:75
+#: idp/oidc/models.py:73
 msgid ""
 "A list of allowed grant types. Provide one value per line, e.g.: "
 "authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
@@ -372,13 +372,13 @@ msgstr ""
 "Зөвшөөрөгдсөн олголтын төрлүүдийн жагсаалт. Мөр бүрт нэг утга оруулна уу, "
 "жнь: authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 
-#: idp/oidc/models.py:86
+#: idp/oidc/models.py:84
 msgid "A list of allowed origins for cross-origin requests, one per line."
 msgstr ""
 "Хөндлөн домэйн хүсэлтийн зөвшөөрөгдсөн эх үүсвэрүүдийн жагсаалт, мөр бүрт "
 "нэг."
 
-#: idp/oidc/models.py:94
+#: idp/oidc/models.py:92
 msgid ""
 "Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
 "can contain a single asterisk to match subdomains."
@@ -386,7 +386,7 @@ msgstr ""
 "URI чиглүүлэлт болон CORS эх үүсвэрт орлуулагч тэмдэгт (*) зөвшөөрөх. "
 "Идэвхжүүлсэн үед URI-д дэд домэйнтэй таарахын тулд нэг од агуулж болно."
 
-#: idp/oidc/models.py:102
+#: idp/oidc/models.py:100
 msgid ""
 "A list of allowed response types. Provide one value per line, e.g.: "
 "code(ENTER)id_token token(ENTER)"
@@ -394,15 +394,15 @@ msgstr ""
 "Зөвшөөрөгдсөн хариу төрлүүдийн жагсаалт. Мөр бүрт нэг утга оруулна уу, жнь: "
 "code(ENTER)id_token token(ENTER)"
 
-#: idp/oidc/models.py:115
+#: idp/oidc/models.py:113
 msgid "client"
 msgstr "клиент"
 
-#: idp/oidc/models.py:116
+#: idp/oidc/models.py:114
 msgid "clients"
 msgstr "клиентүүд"
 
-#: mfa/adapter.py:32
+#: mfa/adapter.py:30
 msgid ""
 "You cannot add an email address to an account protected by two-factor "
 "authentication."
@@ -410,11 +410,11 @@ msgstr ""
 "Хоёр хүчин зүйлийн баталгаажуулалтаар хамгаалагдсан бүртгэлд имэйл хаяг "
 "нэмэх боломжгүй."
 
-#: mfa/adapter.py:35
+#: mfa/adapter.py:33
 msgid "You cannot deactivate two-factor authentication."
 msgstr "Хоёр хүчин зүйлийн баталгаажуулалтыг идэвхгүй болгох боломжгүй."
 
-#: mfa/adapter.py:38
+#: mfa/adapter.py:36
 msgid ""
 "You cannot generate recovery codes without having two-factor authentication "
 "enabled."
@@ -422,7 +422,7 @@ msgstr ""
 "Хоёр хүчин зүйлийн баталгаажуулалт идэвхжүүлээгүйгээр сэргээх код үүсгэх "
 "боломжгүй."
 
-#: mfa/adapter.py:42
+#: mfa/adapter.py:40
 msgid ""
 "You cannot activate two-factor authentication until you have verified your "
 "email address."
@@ -430,15 +430,15 @@ msgstr ""
 "Имэйл хаягаа баталгаажуулаагүй бол хоёр хүчин зүйлийн баталгаажуулалтыг "
 "идэвхжүүлэх боломжгүй."
 
-#: mfa/adapter.py:141
+#: mfa/adapter.py:139
 msgid "Master key"
 msgstr "Мастер түлхүүр"
 
-#: mfa/adapter.py:143
+#: mfa/adapter.py:141
 msgid "Backup key"
 msgstr "Нөөц түлхүүр"
 
-#: mfa/adapter.py:144
+#: mfa/adapter.py:142
 #, python-brace-format
 msgid "Key nr. {number}"
 msgstr "Түлхүүр №{number}"
@@ -641,7 +641,7 @@ msgstr "\"%s\"-д request токен хадгалагдаагүй."
 msgid "No access token saved for \"%s\"."
 msgstr "\"%s\"-д access токен хадгалагдаагүй."
 
-#: socialaccount/providers/oauth/client.py:215
+#: socialaccount/providers/oauth/client.py:219
 #, python-format
 msgid "No access to private resources at \"%s\"."
 msgstr "\"%s\" дээрх private resource-д хандах боломжгүй."
@@ -1240,11 +1240,11 @@ msgstr "Нууц үгээ оруулна уу:"
 msgid "You will receive a special code for a password-free sign-in."
 msgstr "Та нууц үггүй нэвтрэхийн тулд тусгай код хүлээн авна."
 
-#: templates/account/request_login_code.html:24
+#: templates/account/request_login_code.html:23
 msgid "Request Code"
 msgstr "Код хүсэх"
 
-#: templates/account/request_login_code.html:30
+#: templates/account/request_login_code.html:28
 msgid "Other sign-in options"
 msgstr "Бусад нэвтрэх сонголтууд"
 
@@ -1555,11 +1555,11 @@ msgstr "Нэмэх"
 
 #: templates/mfa/index.html:77 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:6
-#: templates/mfa/recovery_codes/index.html:6
+#: templates/mfa/recovery_codes/index.html:5
 msgid "Recovery Codes"
 msgstr "Сэргээх кодууд"
 
-#: templates/mfa/index.html:82 templates/mfa/recovery_codes/index.html:9
+#: templates/mfa/index.html:82 templates/mfa/recovery_codes/index.html:8
 #, python-format
 msgid ""
 "There is %(unused_count)s out of %(total_count)s recovery codes available."
@@ -1587,6 +1587,10 @@ msgstr "Үүсгэх"
 #: templates/mfa/messages/recovery_codes_generated.txt:2
 msgid "A new set of recovery codes has been generated."
 msgstr "Шинэ сэргээх кодууд үүсгэгдлээ."
+
+#: templates/mfa/messages/recovery_codes_generated.txt:4
+msgid "Save them  in a secure location now — they won't be shown again."
+msgstr "Тэдгээрийг одоо аюулгүй газар хадгалаарай — дахин харагдахгүй."
 
 #: templates/mfa/messages/webauthn_added.txt:2
 msgid "Security key added."
@@ -1616,13 +1620,17 @@ msgstr "Та итгэлтэй байна уу?"
 msgid "Unused codes"
 msgstr "Ашиглаагүй кодууд"
 
-#: templates/mfa/recovery_codes/index.html:25
+#: templates/mfa/recovery_codes/index.html:24
 msgid "Download codes"
 msgstr "Кодууд татах"
 
 #: templates/mfa/recovery_codes/index.html:30
 msgid "Generate new codes"
 msgstr "Шинэ кодууд үүсгэх"
+
+#: templates/mfa/recovery_codes/index.html:36
+msgid "I have saved my recovery codes"
+msgstr "Би сэргээх кодуудаа хадгалсан"
 
 #: templates/mfa/totp/activate_form.html:4
 #: templates/mfa/totp/activate_form.html:8
@@ -1901,7 +1909,7 @@ msgstr "Бусад сессионоос гарах"
 msgid "User Sessions"
 msgstr "Хэрэглэгчийн сессионууд"
 
-#: usersessions/models.py:94
+#: usersessions/models.py:93
 msgid "session key"
 msgstr "сессионы түлхүүр"
 

@@ -1,2 +1,5 @@
 {% load i18n %}
 {% blocktrans %}A new set of recovery codes has been generated.{% endblocktrans %}
+{% if MFA_RECOVERY_CODES_SHOW_ONCE %}
+{% blocktrans %}Save them  in a secure location now — they won't be shown again.{% endblocktrans %}
+{% endif %}

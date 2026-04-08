@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-05 08:42-0600\n"
+"POT-Creation-Date: 2026-04-08 13:31-0500\n"
 "PO-Revision-Date: 2025-07-25 20:27+0200\n"
 "Last-Translator: Igor Jerosimić <jerosimic@gmail.com>\n"
 "Language-Team: Serbian (Latin script) <https://hosted.weblate.org/projects/"
@@ -20,110 +20,110 @@ msgstr ""
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 5.13-dev\n"
 
-#: account/adapter.py:61
+#: account/adapter.py:60
 msgid "This account is currently inactive."
 msgstr "Ovaj nalog je trenutno neaktivan."
 
-#: account/adapter.py:63
+#: account/adapter.py:62
 msgid "You cannot remove your primary email address."
 msgstr "Ne možete da uklonite primarnu adresu e-pošte."
 
-#: account/adapter.py:66
+#: account/adapter.py:65
 msgid "This email address is already associated with this account."
 msgstr "Ova adresa e-pošte je već povezana sa ovim nalogom."
 
-#: account/adapter.py:69
+#: account/adapter.py:68
 msgid "The email address and/or password you specified are not correct."
 msgstr "Adresa e-pošte i/ili lozinka koju ste naveli nisu tačni."
 
-#: account/adapter.py:72
+#: account/adapter.py:71
 msgid "The phone number and/or password you specified are not correct."
 msgstr "Broj telefona i/ili lozinka koje ste naveli nisu tačni."
 
-#: account/adapter.py:74
+#: account/adapter.py:73
 msgid "A user is already registered with this email address."
 msgstr "Korisnik je već registrovan na ovoj adresi e-pošte."
 
-#: account/adapter.py:75
+#: account/adapter.py:74
 msgid "Please type your current password."
 msgstr "Molimo unesite trenutnu lozinku."
 
-#: account/adapter.py:76 mfa/adapter.py:40
+#: account/adapter.py:75 mfa/adapter.py:38
 msgid "Incorrect code."
 msgstr "Netačan kod."
 
-#: account/adapter.py:77
+#: account/adapter.py:76
 msgid "Incorrect password."
 msgstr "Netačna lozinka."
 
-#: account/adapter.py:78
+#: account/adapter.py:77
 msgid "Invalid or expired key."
 msgstr "Nevažeći ili istekao ključ."
 
-#: account/adapter.py:79
+#: account/adapter.py:78
 msgid "Invalid login."
 msgstr "Nevažeća prijava."
 
-#: account/adapter.py:80
+#: account/adapter.py:79
 msgid "The password reset token was invalid."
 msgstr "Token za resetovanje lozinke je nevažeći."
 
-#: account/adapter.py:81
+#: account/adapter.py:80
 #, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "Ne možete dodati više od %d adresa e-pošte."
 
-#: account/adapter.py:82
+#: account/adapter.py:81
 msgid "A user is already registered with this phone number."
 msgstr "Korisnik je već registrovan sa ovim brojem telefona."
 
-#: account/adapter.py:84
+#: account/adapter.py:83
 msgid "Too many failed login attempts. Try again later."
 msgstr "Previše neuspelih pokušaja prijavljivanja. Pokušajte ponovo kasnije."
 
-#: account/adapter.py:86
+#: account/adapter.py:85
 msgid "The email address is not assigned to any user account."
 msgstr "Adresa e-pošte nije dodeljena nijednom korisničkom nalogu."
 
-#: account/adapter.py:87
+#: account/adapter.py:86
 msgid "The phone number is not assigned to any user account."
 msgstr "Broj telefona nije dodeljen nijednom korisničkom nalogu."
 
-#: account/adapter.py:88
+#: account/adapter.py:87
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary email address must be verified."
 msgstr "Vaša primarna adresa e-pošte mora biti potvrđena."
 
-#: account/adapter.py:90
+#: account/adapter.py:89
 msgid "Username can not be used. Please use other username."
 msgstr ""
 "Korisničko ime se ne može koristiti. Molimo koristite drugo korisničko ime."
 
-#: account/adapter.py:93
+#: account/adapter.py:92
 msgid "The username and/or password you specified are not correct."
 msgstr "Korisničko ime i/ili lozinka koju ste naveli nisu tačni."
 
-#: account/adapter.py:98
+#: account/adapter.py:97
 msgid "Please select only one."
 msgstr "Molim izaberite samo jedan."
 
-#: account/adapter.py:99
+#: account/adapter.py:98
 msgid "The new value must be different from the current one."
 msgstr "Nova vrednost mora da se razlikuje od trenutne."
 
-#: account/adapter.py:100
+#: account/adapter.py:99
 msgid "Be patient, you are sending too many requests."
 msgstr "Budite strpljivi, šaljete previše zahteva."
 
-#: account/adapter.py:826
+#: account/adapter.py:825
 msgid "Use your password"
 msgstr "Koristite svoju lozinku"
 
-#: account/adapter.py:835
+#: account/adapter.py:834
 msgid "Use authenticator app or code"
 msgstr "Koristite autentikator aplikaciju ili kod za autentifikaciju"
 
-#: account/adapter.py:842 templates/mfa/authenticate.html:41
+#: account/adapter.py:841 templates/mfa/authenticate.html:41
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use a security key"
 msgstr "Koristite bezbednosni ključ"
@@ -146,7 +146,7 @@ msgstr "Označite izabrane adrese e-pošte kao verifikovane"
 msgid "Accounts"
 msgstr "Nalozi"
 
-#: account/fields.py:12 account/forms.py:299 idp/oidc/forms.py:43
+#: account/fields.py:12 account/forms.py:298 idp/oidc/forms.py:43
 msgid "Email"
 msgstr "E-pošta"
 
@@ -159,133 +159,133 @@ msgid "Enter a phone number including country code (e.g. +1 for the US)."
 msgstr ""
 "Unesite broj telefona uključujući pozivni broj zemlje (npr. +381 za Srbiju)."
 
-#: account/fields.py:68 account/fields.py:72 account/forms.py:325
+#: account/fields.py:68 account/fields.py:72 account/forms.py:324
 msgid "Phone"
 msgstr "Telefon"
 
-#: account/forms.py:61 account/forms.py:524
+#: account/forms.py:59 account/forms.py:523
 msgid "You must type the same password each time."
 msgstr "Svaki put morate da unesete istu lozinku."
 
-#: account/forms.py:66 account/forms.py:451 account/forms.py:610
-#: account/forms.py:696
+#: account/forms.py:64 account/forms.py:450 account/forms.py:609
+#: account/forms.py:695
 msgid "Password"
 msgstr "Lozinka"
 
-#: account/forms.py:67
+#: account/forms.py:65
 msgid "Remember Me"
 msgstr "Zapamti me"
 
-#: account/forms.py:79 account/forms.py:82 account/forms.py:265
-#: account/forms.py:268 account/forms.py:311
+#: account/forms.py:78 account/forms.py:81 account/forms.py:264
+#: account/forms.py:267 account/forms.py:310
 msgid "Username"
 msgstr "Korisničko ime"
 
-#: account/forms.py:96
+#: account/forms.py:95
 msgctxt "field label"
 msgid "Login"
 msgstr "Prijavite se"
 
-#: account/forms.py:115
+#: account/forms.py:114
 msgid "Username, email or phone"
 msgstr "Korisničko ime, e-pošta ili telefon"
 
-#: account/forms.py:117
+#: account/forms.py:116
 msgid "Username or email"
 msgstr "Korisničko ime ili e-pošta"
 
-#: account/forms.py:119
+#: account/forms.py:118
 msgid "Username or phone"
 msgstr "Korisničko ime ili telefon"
 
-#: account/forms.py:121
+#: account/forms.py:120
 msgid "Email or phone"
 msgstr "E-pošta ili telefon"
 
-#: account/forms.py:144
+#: account/forms.py:143
 msgid "Forgot your password?"
 msgstr "Zaboravili ste lozinku?"
 
-#: account/forms.py:287
+#: account/forms.py:286
 msgid "Email (again)"
 msgstr "E-pošta (opet)"
 
-#: account/forms.py:292
+#: account/forms.py:291
 msgid "Email address confirmation"
 msgstr "Potvrda adrese e-pošte"
 
-#: account/forms.py:302
+#: account/forms.py:301
 msgid "Email (optional)"
 msgstr "E-pošta (opciono)"
 
-#: account/forms.py:314
+#: account/forms.py:313
 msgid "Username (optional)"
 msgstr "Korisničko ime (opciono)"
 
-#: account/forms.py:388
+#: account/forms.py:387
 msgid "You must type the same email each time."
 msgstr "Morate uneti istu adresu e-pošte svaki put."
 
-#: account/forms.py:458 account/forms.py:611
+#: account/forms.py:457 account/forms.py:610
 msgid "Password (again)"
 msgstr "Lozinka (ponovo)"
 
-#: account/forms.py:591
+#: account/forms.py:590
 msgid "Current Password"
 msgstr "Trenutna lozinka"
 
-#: account/forms.py:593 account/forms.py:649
+#: account/forms.py:592 account/forms.py:648
 msgid "New Password"
 msgstr "Nova lozinka"
 
-#: account/forms.py:594 account/forms.py:650
+#: account/forms.py:593 account/forms.py:649
 msgid "New Password (again)"
 msgstr "Nova lozinka (ponovo)"
 
-#: account/forms.py:767 account/forms.py:769 idp/oidc/forms.py:51
+#: account/forms.py:766 account/forms.py:768 idp/oidc/forms.py:51
 #: idp/oidc/forms.py:54 mfa/base/forms.py:12 mfa/base/forms.py:14
 #: mfa/totp/forms.py:13
 #: templates/idp/oidc/device_authorization_confirm_form.html:16
 msgid "Code"
 msgstr "kod"
 
-#: account/models.py:23
+#: account/models.py:29
 msgid "user"
 msgstr "korisnik"
 
-#: account/models.py:29 account/models.py:37 account/models.py:139
+#: account/models.py:35 account/models.py:43 account/models.py:147
 msgid "email address"
 msgstr "adresa e-pošte"
 
-#: account/models.py:31
+#: account/models.py:37
 msgid "verified"
 msgstr "provereno"
 
-#: account/models.py:32
+#: account/models.py:38
 msgid "primary"
 msgstr "primarna"
 
-#: account/models.py:38
+#: account/models.py:44
 msgid "email addresses"
 msgstr "adrese e-pošte"
 
-#: account/models.py:142
+#: account/models.py:150
 msgid "created"
 msgstr "stvoreno"
 
-#: account/models.py:143
+#: account/models.py:151
 msgid "sent"
 msgstr "poslat"
 
-#: account/models.py:144 socialaccount/models.py:70
+#: account/models.py:152 socialaccount/models.py:70
 msgid "key"
 msgstr "ključ"
 
-#: account/models.py:149
+#: account/models.py:157
 msgid "email confirmation"
 msgstr "potvrda e-pošte"
 
-#: account/models.py:150
+#: account/models.py:158
 msgid "email confirmations"
 msgstr "potvrde e-pošte"
 
@@ -293,15 +293,15 @@ msgstr "potvrde e-pošte"
 msgid "Headless"
 msgstr "Bez glave"
 
-#: idp/oidc/adapter.py:30
+#: idp/oidc/adapter.py:31
 msgid "View your user ID"
 msgstr "Pogledajte svoj korisnički ID"
 
-#: idp/oidc/adapter.py:31
+#: idp/oidc/adapter.py:32
 msgid "View your email address"
 msgstr "Pogledajte svoju adresu e-pošte"
 
-#: idp/oidc/adapter.py:32
+#: idp/oidc/adapter.py:33
 msgid "View your basic profile information"
 msgstr "Pogledajte osnovne informacije o svom profilu"
 
@@ -328,31 +328,31 @@ msgid "Wildcards are only allowed in the hostname portion of the URI."
 msgstr ""
 "Džoker znakovi su dozvoljeni samo u delu URI-ja koji se odnosi na ime hosta."
 
-#: idp/oidc/models.py:37
+#: idp/oidc/models.py:35
 msgid "Authorization code"
 msgstr "Kod autorizacije"
 
-#: idp/oidc/models.py:38
+#: idp/oidc/models.py:36
 msgid "Device code"
 msgstr "Kod uređaja"
 
-#: idp/oidc/models.py:39
+#: idp/oidc/models.py:37
 msgid "Client credentials"
 msgstr "Akreditivi klijenta"
 
-#: idp/oidc/models.py:40
+#: idp/oidc/models.py:38
 msgid "Refresh token"
 msgstr "Osveži token"
 
-#: idp/oidc/models.py:43
+#: idp/oidc/models.py:41
 msgid "Confidential"
 msgstr "Poverljivo"
 
-#: idp/oidc/models.py:44
+#: idp/oidc/models.py:42
 msgid "Public"
 msgstr "Javno"
 
-#: idp/oidc/models.py:58
+#: idp/oidc/models.py:56
 msgid ""
 "The scope(s) the client is allowed to request. Provide one value per line, "
 "e.g.: openid(ENTER)profile(ENTER)email(ENTER)"
@@ -360,7 +360,7 @@ msgstr ""
 "Opseg(zi) koje klijent može da zahteva. Navedite jednu vrednost po redu, "
 "npr: openid(ENTER)profile(ENTER)email(ENTER)"
 
-#: idp/oidc/models.py:64
+#: idp/oidc/models.py:62
 msgid ""
 "In case the client does not specify any scope, these default scopes are "
 "used. Provide one value per line, e.g.: "
@@ -370,7 +370,7 @@ msgstr ""
 "Navedite po jednu vrednost po redu, npr: "
 "openid(ENTER)profile(ENTER)email(ENTER)"
 
-#: idp/oidc/models.py:75
+#: idp/oidc/models.py:73
 msgid ""
 "A list of allowed grant types. Provide one value per line, e.g.: "
 "authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
@@ -378,13 +378,13 @@ msgstr ""
 "Lista dozvoljenih tipova odobrenja. Navedite jednu vrednost po redu, npr: "
 "authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 
-#: idp/oidc/models.py:86
+#: idp/oidc/models.py:84
 msgid "A list of allowed origins for cross-origin requests, one per line."
 msgstr ""
 "Lista dozvoljenih porekla za zahteve iz različitog porekla, po jedno u "
 "svakom redu."
 
-#: idp/oidc/models.py:94
+#: idp/oidc/models.py:92
 msgid ""
 "Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
 "can contain a single asterisk to match subdomains."
@@ -392,7 +392,7 @@ msgstr ""
 "Dozvoli džoker znakove (*) u preusmeravajućim URI-jima i CORS izvorima. Kada "
 "je omogućeno, URI-ji mogu sadržati jednu zvezdicu za podudaranje poddomena."
 
-#: idp/oidc/models.py:102
+#: idp/oidc/models.py:100
 msgid ""
 "A list of allowed response types. Provide one value per line, e.g.: "
 "code(ENTER)id_token token(ENTER)"
@@ -400,15 +400,15 @@ msgstr ""
 "Lista dozvoljenih tipova odgovora. Navedite jednu vrednost po redu, npr: "
 "code(ENTER)id_token token(ENTER)"
 
-#: idp/oidc/models.py:115
+#: idp/oidc/models.py:113
 msgid "client"
 msgstr "klijent"
 
-#: idp/oidc/models.py:116
+#: idp/oidc/models.py:114
 msgid "clients"
 msgstr "klijenti"
 
-#: mfa/adapter.py:32
+#: mfa/adapter.py:30
 msgid ""
 "You cannot add an email address to an account protected by two-factor "
 "authentication."
@@ -416,11 +416,11 @@ msgstr ""
 "Ne možete dodati adresu e-pošte na nalog zaštićen dvofaktorskom "
 "autentifikacijom."
 
-#: mfa/adapter.py:35
+#: mfa/adapter.py:33
 msgid "You cannot deactivate two-factor authentication."
 msgstr "Ne možete deaktivirati dvofaktorsku autentifikaciju."
 
-#: mfa/adapter.py:38
+#: mfa/adapter.py:36
 msgid ""
 "You cannot generate recovery codes without having two-factor authentication "
 "enabled."
@@ -428,7 +428,7 @@ msgstr ""
 "Ne možete generisati kodove za oporavak bez omogućene dvofaktorske "
 "autentifikacije."
 
-#: mfa/adapter.py:42
+#: mfa/adapter.py:40
 msgid ""
 "You cannot activate two-factor authentication until you have verified your "
 "email address."
@@ -436,15 +436,15 @@ msgstr ""
 "Ne možete aktivirati dvofaktorsku autentifikaciju dok ne verifikujete svoju "
 "adresu e-pošte."
 
-#: mfa/adapter.py:141
+#: mfa/adapter.py:139
 msgid "Master key"
 msgstr "Glavni ključ"
 
-#: mfa/adapter.py:143
+#: mfa/adapter.py:141
 msgid "Backup key"
 msgstr "Rezervni ključ"
 
-#: mfa/adapter.py:144
+#: mfa/adapter.py:142
 #, python-brace-format
 msgid "Key nr. {number}"
 msgstr "Ključ br. {number}"
@@ -650,7 +650,7 @@ msgstr "Nema sačuvanih tokena za zahtev od \"%s\"."
 msgid "No access token saved for \"%s\"."
 msgstr "Nema sačuvanih tokena za pristup od \"%s\"."
 
-#: socialaccount/providers/oauth/client.py:215
+#: socialaccount/providers/oauth/client.py:219
 #, python-format
 msgid "No access to private resources at \"%s\"."
 msgstr "Nema pristupa privatnim resursima u \"%s\"."
@@ -1255,11 +1255,11 @@ msgstr "Unesite svoju lozinku:"
 msgid "You will receive a special code for a password-free sign-in."
 msgstr "Dobićete poseban kod za prijavu bez lozinke."
 
-#: templates/account/request_login_code.html:24
+#: templates/account/request_login_code.html:23
 msgid "Request Code"
 msgstr "Zahtevaj kod"
 
-#: templates/account/request_login_code.html:30
+#: templates/account/request_login_code.html:28
 msgid "Other sign-in options"
 msgstr "Druge opcije za prijavljivanje"
 
@@ -1574,11 +1574,11 @@ msgstr "Dodaj"
 
 #: templates/mfa/index.html:77 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:6
-#: templates/mfa/recovery_codes/index.html:6
+#: templates/mfa/recovery_codes/index.html:5
 msgid "Recovery Codes"
 msgstr "Kodovi za oporavak"
 
-#: templates/mfa/index.html:82 templates/mfa/recovery_codes/index.html:9
+#: templates/mfa/index.html:82 templates/mfa/recovery_codes/index.html:8
 #, python-format
 msgid ""
 "There is %(unused_count)s out of %(total_count)s recovery codes available."
@@ -1611,6 +1611,10 @@ msgstr "Generiši"
 msgid "A new set of recovery codes has been generated."
 msgstr "Generisan je novi skup kodova za oporavak."
 
+#: templates/mfa/messages/recovery_codes_generated.txt:4
+msgid "Save them  in a secure location now — they won't be shown again."
+msgstr "Sačuvajte ih sada na bezbednom mestu — neće biti ponovo prikazani."
+
 #: templates/mfa/messages/webauthn_added.txt:2
 msgid "Security key added."
 msgstr "Sigurnosni ključ je dodat."
@@ -1639,13 +1643,17 @@ msgstr "Jeste li sigurni?"
 msgid "Unused codes"
 msgstr "Neiskorišćeni kodovi"
 
-#: templates/mfa/recovery_codes/index.html:25
+#: templates/mfa/recovery_codes/index.html:24
 msgid "Download codes"
 msgstr "Preuzmite kodove"
 
 #: templates/mfa/recovery_codes/index.html:30
 msgid "Generate new codes"
 msgstr "Generišite nove kodove"
+
+#: templates/mfa/recovery_codes/index.html:36
+msgid "I have saved my recovery codes"
+msgstr "Sačuvao/la sam svoje kodove za oporavak"
 
 #: templates/mfa/totp/activate_form.html:4
 #: templates/mfa/totp/activate_form.html:8
@@ -1920,7 +1928,7 @@ msgstr "Odjavit se iz drugih sesija"
 msgid "User Sessions"
 msgstr "Korisničke sesije"
 
-#: usersessions/models.py:94
+#: usersessions/models.py:93
 msgid "session key"
 msgstr "ključ sesije"
 

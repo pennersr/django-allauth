@@ -4,6 +4,8 @@ from unittest.mock import ANY
 from django.conf import settings
 from django.urls import reverse
 
+import pytest
+
 from allauth.account.authentication import AUTHENTICATION_METHODS_SESSION_KEY
 from allauth.mfa import app_settings
 from allauth.mfa.adapter import get_adapter
@@ -23,22 +25,41 @@ def test_generate_recovery_codes_require_other_authenticator(
     assert not Authenticator.objects.filter(user=user).exists()
 
 
-def test_download_recovery_codes(auth_client, user_with_recovery_codes, user_password):
+@pytest.mark.parametrize(
+    "show_once, status", [(False, HTTPStatus.OK), (True, HTTPStatus.FORBIDDEN)]
+)
+def test_download_recovery_codes(
+    auth_client, user_with_recovery_codes, user_password, settings, show_once, status
+):
+    settings.MFA_RECOVERY_CODES_SHOW_ONCE = show_once
     resp = auth_client.get(reverse("mfa_download_recovery_codes"))
     assert resp["location"].startswith(reverse("account_reauthenticate"))
     resp = auth_client.post(resp["location"], {"password": user_password})
     assert resp.status_code == HTTPStatus.FOUND
     resp = auth_client.get(resp["location"])
     assert resp["content-disposition"] == 'attachment; filename="recovery-codes.txt"'
+    # Download a 2nd time
+    resp = auth_client.get(reverse("mfa_download_recovery_codes"))
+    assert resp.status_code == status
 
 
-def test_view_recovery_codes(auth_client, user_with_recovery_codes, user_password):
+@pytest.mark.parametrize("show_once", [False, True])
+def test_view_recovery_codes(
+    auth_client, user_with_recovery_codes, user_password, settings, show_once
+):
+    settings.MFA_RECOVERY_CODES_SHOW_ONCE = show_once
     resp = auth_client.get(reverse("mfa_view_recovery_codes"))
     assert resp["location"].startswith(reverse("account_reauthenticate"))
     resp = auth_client.post(resp["location"], {"password": user_password})
     assert resp.status_code == HTTPStatus.FOUND
     resp = auth_client.get(resp["location"])
     assert len(resp.context["unused_codes"]) == app_settings.RECOVERY_CODE_COUNT
+    assert resp.context["can_view_codes"]
+
+    # View a 2nd time
+    resp = auth_client.get(reverse("mfa_view_recovery_codes"))
+    assert resp.status_code == HTTPStatus.OK
+    assert resp.context["can_view_codes"] == (not show_once)
 
 
 def test_generate_recovery_codes(

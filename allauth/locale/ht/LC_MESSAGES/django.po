@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-05 08:42-0600\n"
+"POT-Creation-Date: 2026-04-08 13:31-0500\n"
 "PO-Revision-Date: 2025-08-19 12:00+0000\n"
 "Last-Translator: Jean Patrick Prenis <patrickprenice@gmail.com>\n"
 "Language-Team: kreyòl ayisyen\n"
@@ -19,109 +19,109 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: account/adapter.py:61
+#: account/adapter.py:60
 msgid "This account is currently inactive."
 msgstr "Kont sa a pa aktif kounye a."
 
-#: account/adapter.py:63
+#: account/adapter.py:62
 msgid "You cannot remove your primary email address."
 msgstr "Ou pa ka retire adrès imel prensipal ou."
 
-#: account/adapter.py:66
+#: account/adapter.py:65
 msgid "This email address is already associated with this account."
 msgstr "Adrès imel sa a deja asosye ak kont sa a."
 
-#: account/adapter.py:69
+#: account/adapter.py:68
 msgid "The email address and/or password you specified are not correct."
 msgstr "Adrès imel la/oswa modpas ou mete a pa kòrèk."
 
-#: account/adapter.py:72
+#: account/adapter.py:71
 msgid "The phone number and/or password you specified are not correct."
 msgstr "Nimewo telefòn lan/oswa modpas ou mete a pa kòrèk."
 
-#: account/adapter.py:74
+#: account/adapter.py:73
 msgid "A user is already registered with this email address."
 msgstr "Gen yon itilizatè ki deja anrejistre ak adrès imel sa a."
 
-#: account/adapter.py:75
+#: account/adapter.py:74
 msgid "Please type your current password."
 msgstr "Tanpri antre modpas ou genyen kounye a."
 
-#: account/adapter.py:76 mfa/adapter.py:40
+#: account/adapter.py:75 mfa/adapter.py:38
 msgid "Incorrect code."
 msgstr "Kòd la pa kòrèk."
 
-#: account/adapter.py:77
+#: account/adapter.py:76
 msgid "Incorrect password."
 msgstr "Modpas pa kòrèk."
 
-#: account/adapter.py:78
+#: account/adapter.py:77
 msgid "Invalid or expired key."
 msgstr "Kle a pa valab oswa li ekspire."
 
-#: account/adapter.py:79
+#: account/adapter.py:78
 msgid "Invalid login."
 msgstr "Koneksyon pa valab."
 
-#: account/adapter.py:80
+#: account/adapter.py:79
 msgid "The password reset token was invalid."
 msgstr "Kòd pou renityalizasyon modpas la pa t valab."
 
-#: account/adapter.py:81
+#: account/adapter.py:80
 #, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "Ou pa ka ajoute plis pase %d adrès imel."
 
-#: account/adapter.py:82
+#: account/adapter.py:81
 msgid "A user is already registered with this phone number."
 msgstr "Gen yon itilizatè ki deja anrejistre ak nimewo telefòn sa a."
 
-#: account/adapter.py:84
+#: account/adapter.py:83
 msgid "Too many failed login attempts. Try again later."
 msgstr "Twòp tantativ koneksyon ki echwe. Eseye ankò pita."
 
-#: account/adapter.py:86
+#: account/adapter.py:85
 msgid "The email address is not assigned to any user account."
 msgstr "Adrès imel la pa asosye ak okenn kont itilizatè."
 
-#: account/adapter.py:87
+#: account/adapter.py:86
 msgid "The phone number is not assigned to any user account."
 msgstr "Nimewo telefòn nan pa asosye ak okenn kont itilizatè."
 
-#: account/adapter.py:88
+#: account/adapter.py:87
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary email address must be verified."
 msgstr "Fòk ou verifye adrès imel prensipal ou."
 
-#: account/adapter.py:90
+#: account/adapter.py:89
 msgid "Username can not be used. Please use other username."
 msgstr "Non itilizatè sa a pa ka itilize. Tanpri chwazi yon lòt non."
 
-#: account/adapter.py:93
+#: account/adapter.py:92
 msgid "The username and/or password you specified are not correct."
 msgstr "Non itilizatè sa/oswa modpas ou mete a pa kòrèk."
 
-#: account/adapter.py:98
+#: account/adapter.py:97
 msgid "Please select only one."
 msgstr "Tanpri chwazi sèlman youn."
 
-#: account/adapter.py:99
+#: account/adapter.py:98
 msgid "The new value must be different from the current one."
 msgstr "Nouvo valè a dwe diferan de sa ki egziste kounye a."
 
-#: account/adapter.py:100
+#: account/adapter.py:99
 msgid "Be patient, you are sending too many requests."
 msgstr "Pran pasyans, ou ap voye twòp demann."
 
-#: account/adapter.py:826
+#: account/adapter.py:825
 msgid "Use your password"
 msgstr "Sèvi ak modpas ou"
 
-#: account/adapter.py:835
+#: account/adapter.py:834
 msgid "Use authenticator app or code"
 msgstr "Sèvi ak aplikasyon oswa kòd otantifikasyon"
 
-#: account/adapter.py:842 templates/mfa/authenticate.html:41
+#: account/adapter.py:841 templates/mfa/authenticate.html:41
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use a security key"
 msgstr "Sèvi ak yon kle sekirite"
@@ -144,7 +144,7 @@ msgstr "Make adrès imel ou chwazi yo kòm verifye"
 msgid "Accounts"
 msgstr "Kont yo"
 
-#: account/fields.py:12 account/forms.py:299 idp/oidc/forms.py:43
+#: account/fields.py:12 account/forms.py:298 idp/oidc/forms.py:43
 msgid "Email"
 msgstr "Imel"
 
@@ -156,133 +156,133 @@ msgstr "Adrès imel"
 msgid "Enter a phone number including country code (e.g. +1 for the US)."
 msgstr "Antre yon nimewo telefòn ansanm ak kòd peyi a (egzanp: +1 pou US)."
 
-#: account/fields.py:68 account/fields.py:72 account/forms.py:325
+#: account/fields.py:68 account/fields.py:72 account/forms.py:324
 msgid "Phone"
 msgstr "Telefòn"
 
-#: account/forms.py:61 account/forms.py:524
+#: account/forms.py:59 account/forms.py:523
 msgid "You must type the same password each time."
 msgstr "Ou dwe antre menm modpas la chak fwa."
 
-#: account/forms.py:66 account/forms.py:451 account/forms.py:610
-#: account/forms.py:696
+#: account/forms.py:64 account/forms.py:450 account/forms.py:609
+#: account/forms.py:695
 msgid "Password"
 msgstr "Modpas"
 
-#: account/forms.py:67
+#: account/forms.py:65
 msgid "Remember Me"
 msgstr "Sonje mwen"
 
-#: account/forms.py:79 account/forms.py:82 account/forms.py:265
-#: account/forms.py:268 account/forms.py:311
+#: account/forms.py:78 account/forms.py:81 account/forms.py:264
+#: account/forms.py:267 account/forms.py:310
 msgid "Username"
 msgstr "Non itilizatè"
 
-#: account/forms.py:96
+#: account/forms.py:95
 msgctxt "field label"
 msgid "Login"
 msgstr "Konekte"
 
-#: account/forms.py:115
+#: account/forms.py:114
 msgid "Username, email or phone"
 msgstr "Non itilizatè, imel oswa telefòn"
 
-#: account/forms.py:117
+#: account/forms.py:116
 msgid "Username or email"
 msgstr "Non itilizatè oswa imel"
 
-#: account/forms.py:119
+#: account/forms.py:118
 msgid "Username or phone"
 msgstr "Non itilizatè oswa telefòn"
 
-#: account/forms.py:121
+#: account/forms.py:120
 msgid "Email or phone"
 msgstr "Imel oswa telefòn"
 
-#: account/forms.py:144
+#: account/forms.py:143
 msgid "Forgot your password?"
 msgstr "Bliye modpas ou?"
 
-#: account/forms.py:287
+#: account/forms.py:286
 msgid "Email (again)"
 msgstr "Imel (ankò)"
 
-#: account/forms.py:292
+#: account/forms.py:291
 msgid "Email address confirmation"
 msgstr "Konfimasyon adrès imel"
 
-#: account/forms.py:302
+#: account/forms.py:301
 msgid "Email (optional)"
 msgstr "Imel (opsyonèl)"
 
-#: account/forms.py:314
+#: account/forms.py:313
 msgid "Username (optional)"
 msgstr "Non itilizatè (opsyonèl)"
 
-#: account/forms.py:388
+#: account/forms.py:387
 msgid "You must type the same email each time."
 msgstr "Ou dwe antre menm imel la chak fwa."
 
-#: account/forms.py:458 account/forms.py:611
+#: account/forms.py:457 account/forms.py:610
 msgid "Password (again)"
 msgstr "Modpas (ankò)"
 
-#: account/forms.py:591
+#: account/forms.py:590
 msgid "Current Password"
 msgstr "Modpas aktyèl"
 
-#: account/forms.py:593 account/forms.py:649
+#: account/forms.py:592 account/forms.py:648
 msgid "New Password"
 msgstr "Nouvo modpas"
 
-#: account/forms.py:594 account/forms.py:650
+#: account/forms.py:593 account/forms.py:649
 msgid "New Password (again)"
 msgstr "Nouvo modpas (ankò)"
 
-#: account/forms.py:767 account/forms.py:769 idp/oidc/forms.py:51
+#: account/forms.py:766 account/forms.py:768 idp/oidc/forms.py:51
 #: idp/oidc/forms.py:54 mfa/base/forms.py:12 mfa/base/forms.py:14
 #: mfa/totp/forms.py:13
 #: templates/idp/oidc/device_authorization_confirm_form.html:16
 msgid "Code"
 msgstr "Kòd"
 
-#: account/models.py:23
+#: account/models.py:29
 msgid "user"
 msgstr "itilizatè"
 
-#: account/models.py:29 account/models.py:37 account/models.py:139
+#: account/models.py:35 account/models.py:43 account/models.py:147
 msgid "email address"
 msgstr "adrès imel"
 
-#: account/models.py:31
+#: account/models.py:37
 msgid "verified"
 msgstr "verifye"
 
-#: account/models.py:32
+#: account/models.py:38
 msgid "primary"
 msgstr "prensipal"
 
-#: account/models.py:38
+#: account/models.py:44
 msgid "email addresses"
 msgstr "adrès imel yo"
 
-#: account/models.py:142
+#: account/models.py:150
 msgid "created"
 msgstr "kreye"
 
-#: account/models.py:143
+#: account/models.py:151
 msgid "sent"
 msgstr "voye"
 
-#: account/models.py:144 socialaccount/models.py:70
+#: account/models.py:152 socialaccount/models.py:70
 msgid "key"
 msgstr "kle"
 
-#: account/models.py:149
+#: account/models.py:157
 msgid "email confirmation"
 msgstr "konfimasyon imel"
 
-#: account/models.py:150
+#: account/models.py:158
 msgid "email confirmations"
 msgstr "konfimasyon imel yo"
 
@@ -290,15 +290,15 @@ msgstr "konfimasyon imel yo"
 msgid "Headless"
 msgstr "Headless"
 
-#: idp/oidc/adapter.py:30
+#: idp/oidc/adapter.py:31
 msgid "View your user ID"
 msgstr "Gade ID itilizatè ou"
 
-#: idp/oidc/adapter.py:31
+#: idp/oidc/adapter.py:32
 msgid "View your email address"
 msgstr "Gade adrès imel ou"
 
-#: idp/oidc/adapter.py:32
+#: idp/oidc/adapter.py:33
 msgid "View your basic profile information"
 msgstr "Gade enfòmasyon debaz pwofil ou"
 
@@ -322,31 +322,31 @@ msgstr ""
 msgid "Wildcards are only allowed in the hostname portion of the URI."
 msgstr "Wildcard yo otorize sèlman nan pati non lòt la nan URI a."
 
-#: idp/oidc/models.py:37
+#: idp/oidc/models.py:35
 msgid "Authorization code"
 msgstr "Kòd otorizasyon"
 
-#: idp/oidc/models.py:38
+#: idp/oidc/models.py:36
 msgid "Device code"
 msgstr "Kòd aparèy"
 
-#: idp/oidc/models.py:39
+#: idp/oidc/models.py:37
 msgid "Client credentials"
 msgstr "Idantifikasyon kliyan"
 
-#: idp/oidc/models.py:40
+#: idp/oidc/models.py:38
 msgid "Refresh token"
 msgstr "Token renouvle"
 
-#: idp/oidc/models.py:43
+#: idp/oidc/models.py:41
 msgid "Confidential"
 msgstr "Konfidansyèl"
 
-#: idp/oidc/models.py:44
+#: idp/oidc/models.py:42
 msgid "Public"
 msgstr "Piblik"
 
-#: idp/oidc/models.py:58
+#: idp/oidc/models.py:56
 msgid ""
 "The scope(s) the client is allowed to request. Provide one value per line, "
 "e.g.: openid(ENTER)profile(ENTER)email(ENTER)"
@@ -354,7 +354,7 @@ msgstr ""
 "Domèn kliyan an gen dwa mande yo. Mete yon valè pa liy, egzanp: "
 "openid(ANTRE)profile(ANTRE)email(ANTRE)"
 
-#: idp/oidc/models.py:64
+#: idp/oidc/models.py:62
 msgid ""
 "In case the client does not specify any scope, these default scopes are "
 "used. Provide one value per line, e.g.: "
@@ -364,7 +364,7 @@ msgstr ""
 "default. Mete yon valè pa liy, egzanp: "
 "openid(ANTRE)profile(ANTRE)email(ANTRE)"
 
-#: idp/oidc/models.py:75
+#: idp/oidc/models.py:73
 msgid ""
 "A list of allowed grant types. Provide one value per line, e.g.: "
 "authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
@@ -372,11 +372,11 @@ msgstr ""
 "Yon lis kalite otorizasyon ki pèmèt yo. Mete yon valè pa liy, egzanp: "
 "authorization_code(ANTRE)client_credentials(ANTRE)refresh_token(ANTRE)"
 
-#: idp/oidc/models.py:86
+#: idp/oidc/models.py:84
 msgid "A list of allowed origins for cross-origin requests, one per line."
 msgstr "Yon lis sous ki otorize pou demann atravè orijin, youn pa liy."
 
-#: idp/oidc/models.py:94
+#: idp/oidc/models.py:92
 msgid ""
 "Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
 "can contain a single asterisk to match subdomains."
@@ -384,7 +384,7 @@ msgstr ""
 "Pèmèt wildcard (*) nan URI redireksyon ak orijin CORS. Lè li aktive, URI yo "
 "ka gen yon sèl asterisk pou matche ak sou-domèn."
 
-#: idp/oidc/models.py:102
+#: idp/oidc/models.py:100
 msgid ""
 "A list of allowed response types. Provide one value per line, e.g.: "
 "code(ENTER)id_token token(ENTER)"
@@ -392,15 +392,15 @@ msgstr ""
 "Yon lis kalite repons ki pèmèt yo. Mete yon valè pa liy, egzanp: "
 "code(ANTRE)id_token token(ANTRE)"
 
-#: idp/oidc/models.py:115
+#: idp/oidc/models.py:113
 msgid "client"
 msgstr "kliyan"
 
-#: idp/oidc/models.py:116
+#: idp/oidc/models.py:114
 msgid "clients"
 msgstr "kliyan yo"
 
-#: mfa/adapter.py:32
+#: mfa/adapter.py:30
 msgid ""
 "You cannot add an email address to an account protected by two-factor "
 "authentication."
@@ -408,33 +408,33 @@ msgstr ""
 "Ou pa ka ajoute yon adrès imel nan yon kont ki pwoteje ak otantifikasyon de "
 "etap."
 
-#: mfa/adapter.py:35
+#: mfa/adapter.py:33
 msgid "You cannot deactivate two-factor authentication."
 msgstr "Ou pa ka dezaktive otantifikasyon de etap."
 
-#: mfa/adapter.py:38
+#: mfa/adapter.py:36
 msgid ""
 "You cannot generate recovery codes without having two-factor authentication "
 "enabled."
 msgstr ""
 "Ou pa ka jenere kòd rekiperasyon san ou pa aktive otantifikasyon de etap."
 
-#: mfa/adapter.py:42
+#: mfa/adapter.py:40
 msgid ""
 "You cannot activate two-factor authentication until you have verified your "
 "email address."
 msgstr ""
 "Ou pa ka aktive otantifikasyon de etap jiskaske ou verifye adrès imel ou."
 
-#: mfa/adapter.py:141
+#: mfa/adapter.py:139
 msgid "Master key"
 msgstr "Kle prensipal"
 
-#: mfa/adapter.py:143
+#: mfa/adapter.py:141
 msgid "Backup key"
 msgstr "Kle sovgad"
 
-#: mfa/adapter.py:144
+#: mfa/adapter.py:142
 #, python-brace-format
 msgid "Key nr. {number}"
 msgstr "Kle nimewo {number}"
@@ -639,7 +639,7 @@ msgstr "Pa gen okenn token demann ki sove pou \"%s\"."
 msgid "No access token saved for \"%s\"."
 msgstr "Pa gen okenn token aksè ki sove pou \"%s\"."
 
-#: socialaccount/providers/oauth/client.py:215
+#: socialaccount/providers/oauth/client.py:219
 #, python-format
 msgid "No access to private resources at \"%s\"."
 msgstr "Pa gen aksè ak resous prive nan \"%s\"."
@@ -1239,11 +1239,11 @@ msgstr "Antre modpas ou:"
 msgid "You will receive a special code for a password-free sign-in."
 msgstr "Ou pral resevwa yon kòd espesyal pou konekte san modpas."
 
-#: templates/account/request_login_code.html:24
+#: templates/account/request_login_code.html:23
 msgid "Request Code"
 msgstr "Mande kòd"
 
-#: templates/account/request_login_code.html:30
+#: templates/account/request_login_code.html:28
 msgid "Other sign-in options"
 msgstr "Lòt opsyon pou konekte"
 
@@ -1551,11 +1551,11 @@ msgstr "Ajoute"
 
 #: templates/mfa/index.html:77 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:6
-#: templates/mfa/recovery_codes/index.html:6
+#: templates/mfa/recovery_codes/index.html:5
 msgid "Recovery Codes"
 msgstr "Kòd Rekiperasyon"
 
-#: templates/mfa/index.html:82 templates/mfa/recovery_codes/index.html:9
+#: templates/mfa/index.html:82 templates/mfa/recovery_codes/index.html:8
 #, python-format
 msgid ""
 "There is %(unused_count)s out of %(total_count)s recovery codes available."
@@ -1586,6 +1586,10 @@ msgstr "Jenere"
 msgid "A new set of recovery codes has been generated."
 msgstr "Yo te jenere yon nouvo seri kòd rekiperasyon."
 
+#: templates/mfa/messages/recovery_codes_generated.txt:4
+msgid "Save them  in a secure location now — they won't be shown again."
+msgstr "Sove yo nan yon kote ki an sekirite kounye a — yo p ap parèt ankò."
+
 #: templates/mfa/messages/webauthn_added.txt:2
 msgid "Security key added."
 msgstr "Kle sekirite ajoute."
@@ -1614,13 +1618,17 @@ msgstr "Èske ou sèten?"
 msgid "Unused codes"
 msgstr "Kòd ki poko itilize"
 
-#: templates/mfa/recovery_codes/index.html:25
+#: templates/mfa/recovery_codes/index.html:24
 msgid "Download codes"
 msgstr "Telechaje kòd yo"
 
 #: templates/mfa/recovery_codes/index.html:30
 msgid "Generate new codes"
 msgstr "Jenere nouvo kòd"
+
+#: templates/mfa/recovery_codes/index.html:36
+msgid "I have saved my recovery codes"
+msgstr "Mwen sove kòd rekiperasyon mwen yo"
 
 #: templates/mfa/totp/activate_form.html:4
 #: templates/mfa/totp/activate_form.html:8
@@ -1895,6 +1903,6 @@ msgstr "Dekonekte Lòt Sesyon"
 msgid "User Sessions"
 msgstr "Sesyon Itilizatè"
 
-#: usersessions/models.py:94
+#: usersessions/models.py:93
 msgid "session key"
 msgstr "kle sesyon"

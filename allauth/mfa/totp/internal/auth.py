@@ -70,7 +70,7 @@ def validate_totp_code(secret: str, code: str) -> bool:
     counters = yield_hotp_counters_from_time()
     for counter in counters:
         value = hotp_value(secret, counter)
-        if code == format_hotp_value(value):
+        if secrets.compare_digest(code, format_hotp_value(value)):
             return True
     return False
 

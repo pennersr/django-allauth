@@ -106,7 +106,7 @@ class RecoveryCodes:
         for i, c in enumerate(self.generate_codes()):
             if self._is_code_used(i):
                 continue
-            if code == c:
+            if secrets.compare_digest(code, c):
                 self._mark_code_used(i)
                 return True
         return False

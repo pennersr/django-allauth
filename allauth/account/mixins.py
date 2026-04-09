@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.core.exceptions import ImproperlyConfigured
-from django.http import HttpResponsePermanentRedirect, HttpResponseRedirect
+from django.http import HttpRequest, HttpResponsePermanentRedirect, HttpResponseRedirect
 from django.utils.decorators import method_decorator
 from django.utils.html import format_html
 from django.views.decorators.cache import never_cache
@@ -74,6 +74,8 @@ class RedirectAuthenticatedUserMixin:
 
 
 class LogoutFunctionalityMixin:
+    request: HttpRequest
+
     def logout(self) -> None:
         flows.logout.logout(self.request)
 

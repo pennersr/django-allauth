@@ -42,7 +42,8 @@ class UpdateWebAuthnInput(inputs.Input):
     def __init__(self, *args, **kwargs) -> None:
         self.user = kwargs.pop("user")
         super().__init__(*args, **kwargs)
-        self.fields["id"].queryset = Authenticator.objects.filter(
+        id_field: inputs.ModelChoiceField = self.fields["id"]  # type: ignore[assignment]
+        id_field.queryset = Authenticator.objects.filter(
             user=self.user, type=Authenticator.Type.WEBAUTHN
         )
 
@@ -55,7 +56,8 @@ class DeleteWebAuthnInput(inputs.Input):
     def __init__(self, *args, **kwargs) -> None:
         self.user = kwargs.pop("user")
         super().__init__(*args, **kwargs)
-        self.fields["authenticators"].queryset = Authenticator.objects.filter(
+        auth_field: inputs.ModelMultipleChoiceField = self.fields["authenticators"]  # type: ignore[assignment]
+        auth_field.queryset = Authenticator.objects.filter(
             user=self.user, type=Authenticator.Type.WEBAUTHN
         )
 

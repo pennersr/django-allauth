@@ -62,7 +62,7 @@ class OAuthClient:
         self.callback_url = callback_url
         self.provider = provider
 
-        self.errors = []
+        self.errors: list[str] = []
         self.request_token = None
         self.access_token = None
 

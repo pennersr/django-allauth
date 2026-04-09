@@ -596,7 +596,8 @@ class ChangePasswordForm(PasswordVerificationMixin, UserForm):
 
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
-        self.fields["password1"].user = self.user
+        password1: SetPasswordField = self.fields["password1"]  # type: ignore[assignment]
+        password1.user = self.user
 
     def clean_oldpassword(self) -> str:
         if not self.user.check_password(self.cleaned_data.get("oldpassword")):
@@ -613,7 +614,8 @@ class SetPasswordForm(PasswordVerificationMixin, UserForm):
 
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
-        self.fields["password1"].user = self.user
+        password1: SetPasswordField = self.fields["password1"]  # type: ignore[assignment]
+        password1.user = self.user
 
     def save(self) -> None:
         flows.password_change.change_password(self.user, self.cleaned_data["password1"])
@@ -654,7 +656,8 @@ class ResetPasswordKeyForm(PasswordVerificationMixin, forms.Form):
         self.user = kwargs.pop("user", None)
         self.temp_key = kwargs.pop("temp_key", None)
         super().__init__(*args, **kwargs)
-        self.fields["password1"].user = self.user
+        password1: SetPasswordField = self.fields["password1"]  # type: ignore[assignment]
+        password1.user = self.user
 
     def save(self) -> None:
         flows.password_reset.reset_password(self.user, self.cleaned_data["password1"])

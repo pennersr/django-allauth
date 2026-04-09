@@ -50,7 +50,8 @@ class DisconnectForm(forms.Form):
         self.request = kwargs.pop("request")
         self.accounts = SocialAccount.objects.filter(user=self.request.user)
         super().__init__(*args, **kwargs)
-        self.fields["account"].queryset = self.accounts
+        account_field: forms.ModelChoiceField = self.fields["account"]  # type: ignore[assignment]
+        account_field.queryset = self.accounts
 
     def clean(self):
         cleaned_data = super().clean()

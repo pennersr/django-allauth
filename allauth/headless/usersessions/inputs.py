@@ -10,4 +10,5 @@ class SelectSessionsInput(inputs.Input):
     def __init__(self, *args, **kwargs) -> None:
         self.user = kwargs.pop("user")
         super().__init__(*args, **kwargs)
-        self.fields["sessions"].queryset = UserSession.objects.filter(user=self.user)
+        sessions_field: inputs.ModelMultipleChoiceField = self.fields["sessions"]  # type: ignore[assignment]
+        sessions_field.queryset = UserSession.objects.filter(user=self.user)

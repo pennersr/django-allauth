@@ -77,13 +77,7 @@ class DBOpenIDStore(OIDStore):
     max_nonce_age = 6 * 60 * 60
 
     def storeAssociation(self, server_url, assoc=None) -> None:
-        try:
-            secret = base64.encodebytes(assoc.secret)
-        except AttributeError:
-            # Python 2.x compat
-            secret = base64.encodestring(assoc.secret)
-        else:
-            secret = secret.decode()
+        secret = base64.encodebytes(assoc.secret).decode()
         OpenIDStore.objects.create(
             server_url=server_url,
             handle=assoc.handle,

@@ -11,7 +11,7 @@ from allauth.utils import import_attribute
 
 class ProviderRegistry:
     def __init__(self) -> None:
-        self.provider_map = OrderedDict()
+        self.provider_map: OrderedDict[str, type] = OrderedDict()
         self.loaded = False
 
     def get_class_list(self):

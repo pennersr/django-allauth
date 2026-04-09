@@ -5,6 +5,7 @@ import inspect
 import json
 import warnings
 from http import HTTPStatus
+from typing import TYPE_CHECKING
 from urllib.parse import urlparse
 
 from django.conf import settings
@@ -48,6 +49,10 @@ from allauth.core.internal.httpkit import (
     is_headless_request,
 )
 from allauth.utils import generate_unique_username, import_attribute
+
+
+if TYPE_CHECKING:
+    from django.contrib.auth.backends import BaseBackend
 
 
 class DefaultAccountAdapter(BaseAdapter):
@@ -549,7 +554,7 @@ class DefaultAccountAdapter(BaseAdapter):
             from .auth_backends import AuthenticationBackend
 
             backends = get_backends()
-            backend = None
+            backend: BaseBackend | None = None
             for b in backends:
                 if isinstance(b, AuthenticationBackend):
                     # prefer our own backend

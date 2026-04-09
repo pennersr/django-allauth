@@ -2,6 +2,7 @@ from importlib import import_module
 from urllib.parse import urlparse
 
 from django.conf import settings
+from django.contrib.sessions.backends.base import SessionBase
 from django.utils.cache import patch_vary_headers
 
 
@@ -25,11 +26,12 @@ class LoginSession:
         self.request = request
         self.attribute_name = attribute_name
         self.cookie_name = cookie_name
-        self.store = getattr(request, attribute_name, None)
-        if self.store is None:
+        store = getattr(request, attribute_name, None)
+        if store is None:
             session_key = request.COOKIES.get(cookie_name)
-            self.store = SessionStore(session_key)
-            setattr(request, attribute_name, self.store)
+            store = SessionStore(session_key)
+            setattr(request, attribute_name, store)
+        self.store: SessionBase = store
 
     def save(self, response) -> None:
         """

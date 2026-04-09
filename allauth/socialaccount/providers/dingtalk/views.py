@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
@@ -17,16 +19,16 @@ class DingTalkOAuth2Adapter(OAuth2Adapter):
     profile_url = "https://api.dingtalk.com/v1.0/contact/users/me"
     client_class = DingTalkOAuth2Client
 
-    def __init__(self, request) -> None:
+    def __init__(self, request: HttpRequest) -> None:
         # dingtalk set "authCode" instead of "code" in callback url
         if "authCode" in request.GET:
-            request.GET._mutable = True
-            request.GET["code"] = request.GET["authCode"]
-            request.GET._mutable = False
+            get = request.GET.copy()
+            get["code"] = request.GET["authCode"]
+            object.__setattr__(request, "GET", get)
 
         super().__init__(request)
 
-    def complete_login(self, request, app, token, **kwargs):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         headers = {"x-acs-dingtalk-access-token": token.token}
         with get_adapter().get_requests_session() as sess:
             resp = sess.get(self.profile_url, headers=headers)

@@ -17,7 +17,8 @@ from django.contrib.auth import (
     login as django_login,
     logout as django_logout,
 )
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.base_user import AbstractBaseUser
+from django.contrib.auth.models import AbstractUser, AnonymousUser
 from django.contrib.auth.password_validation import (
     MinimumLengthValidator,
     validate_password,
@@ -25,7 +26,12 @@ from django.contrib.auth.password_validation import (
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import FieldDoesNotExist, PermissionDenied
 from django.core.mail import EmailMessage, EmailMultiAlternatives
-from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
+from django.http import (
+    HttpRequest,
+    HttpResponse,
+    HttpResponseBase,
+    HttpResponseRedirect,
+)
 from django.http.request import validate_host
 from django.shortcuts import resolve_url
 from django.template import TemplateDoesNotExist
@@ -106,15 +112,15 @@ class DefaultAccountAdapter(BaseAdapter):
         "rate_limited": _("Be patient, you are sending too many requests."),
     }
 
-    def stash_verified_email(self, request, email) -> None:
+    def stash_verified_email(self, request: HttpRequest, email) -> None:
         request.session["account_verified_email"] = email
 
-    def unstash_verified_email(self, request):
+    def unstash_verified_email(self, request: HttpRequest):
         ret = request.session.get("account_verified_email")
         request.session["account_verified_email"] = None
         return ret
 
-    def is_email_verified(self, request, email):
+    def is_email_verified(self, request: HttpRequest, email):
         """
         Checks whether or not the email address is already verified
         beyond allauth scope, for example, by having accepted an
@@ -226,13 +232,13 @@ class DefaultAccountAdapter(BaseAdapter):
         msg = self.render_mail(template_prefix, email, ctx)
         msg.send()
 
-    def get_signup_redirect_url(self, request):
+    def get_signup_redirect_url(self, request: HttpRequest):
         """
         Returns the default URL to redirect to directly after signing up.
         """
         return resolve_url(app_settings.SIGNUP_REDIRECT_URL)
 
-    def get_login_redirect_url(self, request):
+    def get_login_redirect_url(self, request: HttpRequest):
         """
         Returns the default URL to redirect to after logging in.  Note
         that URLs passed explicitly (e.g. by passing along a `next`
@@ -250,7 +256,7 @@ class DefaultAccountAdapter(BaseAdapter):
             url = settings.LOGIN_REDIRECT_URL
         return resolve_url(url)
 
-    def get_logout_redirect_url(self, request):
+    def get_logout_redirect_url(self, request: HttpRequest):
         """
         Returns the URL to redirect to after the user logs out. Note that
         this method is also invoked if you attempt to log out while no users
@@ -276,7 +282,7 @@ class DefaultAccountAdapter(BaseAdapter):
         else:
             return app_settings.EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL
 
-    def get_password_change_redirect_url(self, request):
+    def get_password_change_redirect_url(self, request: HttpRequest):
         """
         The URL to redirect to after a successful password change/set.
 
@@ -293,14 +299,14 @@ class DefaultAccountAdapter(BaseAdapter):
         """
         return True
 
-    def new_user(self, request):
+    def new_user(self, request: HttpRequest):
         """
         Instantiates a new User instance.
         """
         user = get_user_model()()
         return user
 
-    def populate_username(self, request, user) -> None:
+    def populate_username(self, request: HttpRequest, user: AbstractBaseUser) -> None:
         """
         Fills in a valid username, if required and missing.  If the
         username is already present it is assumed to be valid
@@ -324,7 +330,9 @@ class DefaultAccountAdapter(BaseAdapter):
     def generate_unique_username(self, txts, regex=None):
         return generate_unique_username(txts, regex)
 
-    def save_user(self, request, user, form, commit=True):
+    def save_user(
+        self, request: HttpRequest, user: AbstractBaseUser, form, commit=True
+    ):
         """
         Saves a new `User` instance using information provided in the
         signup form.
@@ -393,7 +401,7 @@ class DefaultAccountAdapter(BaseAdapter):
         """
         return email
 
-    def clean_password(self, password, user=None):
+    def clean_password(self, password, user: AbstractBaseUser | None = None):
         """
         Validates a password. You can hook into this if you want to
         restric the allowed password choices.
@@ -401,7 +409,7 @@ class DefaultAccountAdapter(BaseAdapter):
         min_length = app_settings.PASSWORD_MIN_LENGTH
         if min_length:
             MinimumLengthValidator(min_length).validate(password)
-        validate_password(password, user)
+        validate_password(password, user)  # type:ignore[arg-type]
         return password
 
     def clean_phone(self, phone: str) -> str:
@@ -416,7 +424,7 @@ class DefaultAccountAdapter(BaseAdapter):
 
     def add_message(
         self,
-        request,
+        request: HttpRequest,
         level,
         message_template=None,
         message_context=None,
@@ -447,7 +455,9 @@ class DefaultAccountAdapter(BaseAdapter):
             except TemplateDoesNotExist:
                 pass
 
-    def ajax_response(self, request, response, redirect_to=None, form=None, data=None):
+    def ajax_response(
+        self, request: HttpRequest, response, redirect_to=None, form=None, data=None
+    ):
         resp = {}
         status = response.status_code
 
@@ -496,8 +506,8 @@ class DefaultAccountAdapter(BaseAdapter):
 
     def pre_login(
         self,
-        request,
-        user,
+        request: HttpRequest,
+        user: AbstractBaseUser,
         *,
         email_verification,
         signal_kwargs,
@@ -510,8 +520,8 @@ class DefaultAccountAdapter(BaseAdapter):
 
     def post_login(
         self,
-        request,
-        user,
+        request: HttpRequest,
+        user: AbstractBaseUser,
         *,
         email_verification,
         signal_kwargs,
@@ -521,6 +531,7 @@ class DefaultAccountAdapter(BaseAdapter):
     ):
         from .utils import get_login_redirect_url
 
+        response: HttpResponseBase
         if is_headless_request(request):
             from allauth.headless.base.response import AuthenticationResponse
 
@@ -547,7 +558,7 @@ class DefaultAccountAdapter(BaseAdapter):
         )
         return response
 
-    def login(self, request, user) -> None:
+    def login(self, request: HttpRequest, user: AbstractBaseUser) -> None:
         # HACK: This is not nice. The proper Django way is to use an
         # authentication backend
         if not hasattr(user, "backend"):
@@ -564,13 +575,13 @@ class DefaultAccountAdapter(BaseAdapter):
                     # Pick the first valid one
                     backend = b
             backend_path = f"{backend.__module__}.{backend.__class__.__name__}"
-            user.backend = backend_path
-        django_login(request, user)
+            user.backend = backend_path  # type:ignore[attr-defined]
+        django_login(request, user)  # type:ignore[arg-type]
 
-    def logout(self, request) -> None:
+    def logout(self, request: HttpRequest) -> None:
         django_logout(request)
 
-    def confirm_email(self, request, email_address):
+    def confirm_email(self, request: HttpRequest, email_address):
         """
         Marks the email address as confirmed on the db
         """
@@ -578,7 +589,7 @@ class DefaultAccountAdapter(BaseAdapter):
 
         return email_verification.verify_email(request, email_address)
 
-    def set_password(self, user, password) -> None:
+    def set_password(self, user: AbstractBaseUser, password) -> None:
         """
         Sets the password for the user.
         """
@@ -626,7 +637,7 @@ class DefaultAccountAdapter(BaseAdapter):
 
         return url_has_allowed_host_and_scheme(url, allowed_hosts=allowed_hosts)
 
-    def send_password_reset_mail(self, user, email, context) -> None:
+    def send_password_reset_mail(self, user: AbstractBaseUser, email, context) -> None:
         """
         Method intended to be overridden in case you need to customize the logic
         used to determine whether a user is permitted to request a password reset.
@@ -645,7 +656,7 @@ class DefaultAccountAdapter(BaseAdapter):
 
         return flows.password_reset.get_reset_password_from_key_url(self.request, key)
 
-    def get_email_confirmation_url(self, request, emailconfirmation):
+    def get_email_confirmation_url(self, request: HttpRequest, emailconfirmation):
         """Constructs the email confirmation (activation) url.
 
         Note that if you have architected your system such that email
@@ -658,7 +669,9 @@ class DefaultAccountAdapter(BaseAdapter):
             request, emailconfirmation
         )
 
-    def should_send_confirmation_mail(self, request, email_address, signup) -> bool:
+    def should_send_confirmation_mail(
+        self, request: HttpRequest, email_address, signup
+    ) -> bool:
         return True
 
     def send_account_already_exists_mail(self, email: str) -> None:
@@ -674,7 +687,9 @@ class DefaultAccountAdapter(BaseAdapter):
         }
         self.send_mail("account/email/account_already_exists", email, ctx)
 
-    def send_confirmation_mail(self, request, emailconfirmation, signup) -> None:
+    def send_confirmation_mail(
+        self, request: HttpRequest, emailconfirmation, signup
+    ) -> None:
         ctx = {
             "user": emailconfirmation.email_address.user,
         }
@@ -695,18 +710,22 @@ class DefaultAccountAdapter(BaseAdapter):
             email_template = "account/email/email_confirmation"
         self.send_mail(email_template, emailconfirmation.email_address.email, ctx)
 
-    def respond_user_inactive(self, request, user):
+    def respond_user_inactive(self, request: HttpRequest, user: AbstractBaseUser):
         return headed_redirect_response("account_inactive")
 
-    def respond_email_verification_sent(self, request, user):
+    def respond_email_verification_sent(
+        self, request: HttpRequest, user: AbstractBaseUser | None
+    ):
         return headed_redirect_response("account_email_verification_sent")
 
-    def _get_login_attempts_cache_key(self, request, **credentials):
+    def _get_login_attempts_cache_key(self, request: HttpRequest, **credentials):
         site = get_current_site(request)
         login = credentials.get("email", credentials.get("username", "")).lower()
         return f"{site.domain}:{login}"
 
-    def _delete_login_attempts_cached_email(self, request, **credentials) -> None:
+    def _delete_login_attempts_cached_email(
+        self, request: HttpRequest, **credentials
+    ) -> None:
         cache_key = self._get_login_attempts_cache_key(request, **credentials)
         # Here, we wipe the login failed rate limit, completely. This is safe,
         # as we only do this on a succesful password reset, which is rate limited
@@ -723,7 +742,7 @@ class DefaultAccountAdapter(BaseAdapter):
         if usage:
             usage.rollback()
 
-    def pre_authenticate(self, request, **credentials) -> None:
+    def pre_authenticate(self, request: HttpRequest, **credentials) -> None:
         cache_key = self._get_login_attempts_cache_key(request, **credentials)
         self._login_failed_rl_usage = ratelimit.consume(
             request,
@@ -734,7 +753,7 @@ class DefaultAccountAdapter(BaseAdapter):
         if not self._login_failed_rl_usage:
             raise self.validation_error("too_many_login_attempts")
 
-    def authenticate(self, request, **credentials):
+    def authenticate(self, request: HttpRequest, **credentials):
         """Only authenticates, does not actually login. See `login`"""
         from allauth.account.auth_backends import AuthenticationBackend
 
@@ -754,10 +773,10 @@ class DefaultAccountAdapter(BaseAdapter):
             self.authentication_failed(request, **credentials)
         return user
 
-    def authentication_failed(self, request, **credentials) -> None:
+    def authentication_failed(self, request: HttpRequest, **credentials) -> None:
         pass
 
-    def reauthenticate(self, user, password):
+    def reauthenticate(self, user: AbstractBaseUser, password):
         from allauth.account.models import EmailAddress
         from allauth.account.utils import user_username
 
@@ -775,7 +794,7 @@ class DefaultAccountAdapter(BaseAdapter):
         reauth_user = self.authenticate(context.request, **credentials)
         return reauth_user is not None and reauth_user.pk == user.pk
 
-    def is_ajax(self, request):
+    def is_ajax(self, request: HttpRequest):
         return any(
             [
                 request.META.get("HTTP_X_REQUESTED_WITH") == "XMLHttpRequest",
@@ -784,7 +803,7 @@ class DefaultAccountAdapter(BaseAdapter):
             ]
         )
 
-    def get_client_ip(self, request) -> str:
+    def get_client_ip(self, request: HttpRequest) -> str:
         """
         Returns the IP address of the client.
         """
@@ -816,7 +835,7 @@ class DefaultAccountAdapter(BaseAdapter):
                 ret.append("allauth.mfa.webauthn.stages.PasskeySignupStage")
         return ret
 
-    def get_reauthentication_methods(self, user):
+    def get_reauthentication_methods(self, user: AbstractBaseUser | AnonymousUser):
         """The order of the methods returned matters. The first method is the
         default when using the `@reauthentication_required` decorator.
         """
@@ -824,6 +843,8 @@ class DefaultAccountAdapter(BaseAdapter):
             get_reauthentication_flows,
         )
 
+        if not user.is_authenticated:
+            return []
         flow_by_id = {f["id"]: f for f in get_reauthentication_flows(user)}
         ret = []
         if "reauthenticate" in flow_by_id:
@@ -852,7 +873,7 @@ class DefaultAccountAdapter(BaseAdapter):
         return ret
 
     def send_notification_mail(
-        self, template_prefix, user, context=None, email=None
+        self, template_prefix, user: AbstractBaseUser, context=None, email=None
     ) -> None:
         from allauth.account.models import EmailAddress
 
@@ -891,13 +912,17 @@ class DefaultAccountAdapter(BaseAdapter):
         """
         return generate_user_code(**app_settings.EMAIL_VERIFICATION_BY_CODE_FORMAT)
 
-    def generate_phone_verification_code(self, *, user, phone: str) -> str:
+    def generate_phone_verification_code(
+        self, *, user: AbstractBaseUser, phone: str
+    ) -> str:
         """
         Generates a new phone verification code.
         """
         return generate_user_code(**app_settings.PHONE_VERIFICATION_CODE_FORMAT)
 
-    def _generate_phone_verification_code_compat(self, *, user, phone: str) -> str:
+    def _generate_phone_verification_code_compat(
+        self, *, user: AbstractBaseUser, phone: str
+    ) -> str:
         sig = inspect.signature(self.generate_phone_verification_code)
         if len(sig.parameters) == 0:
             warnings.warn(
@@ -947,7 +972,9 @@ class DefaultAccountAdapter(BaseAdapter):
     def send_account_already_exists_sms(self, phone: str) -> None:
         pass
 
-    def send_verification_code_sms(self, user, phone: str, code: str, **kwargs) -> None:
+    def send_verification_code_sms(
+        self, user: AbstractBaseUser, phone: str, code: str, **kwargs
+    ) -> None:
         """
         Sends a verification code.
         """
@@ -970,13 +997,13 @@ class DefaultAccountAdapter(BaseAdapter):
             for method in methods
         )
 
-    def set_phone(self, user, phone: str, verified: bool) -> None:
+    def set_phone(self, user: AbstractBaseUser, phone: str, verified: bool) -> None:
         """
         Sets the phone number (and verified status) for the given user.
         """
         raise NotImplementedError
 
-    def get_phone(self, user) -> tuple[str, bool] | None:
+    def get_phone(self, user: AbstractBaseUser) -> tuple[str, bool] | None:
         """
         Returns the phone number stored for the given user. A tuple of the
         phone number itself, and whether or not the phone number was verified is
@@ -984,7 +1011,7 @@ class DefaultAccountAdapter(BaseAdapter):
         """
         raise NotImplementedError
 
-    def set_phone_verified(self, user, phone: str) -> None:
+    def set_phone_verified(self, user: AbstractBaseUser, phone: str) -> None:
         """
         Marks the specified phone number for the given user as
         verified. Note that the user is already expected to have
@@ -1000,5 +1027,5 @@ class DefaultAccountAdapter(BaseAdapter):
         raise NotImplementedError
 
 
-def get_adapter(request=None) -> DefaultAccountAdapter:
+def get_adapter(request: HttpRequest | None = None) -> DefaultAccountAdapter:
     return import_attribute(app_settings.ADAPTER)(request)

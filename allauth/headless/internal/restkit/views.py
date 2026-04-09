@@ -1,8 +1,9 @@
 from __future__ import annotations
 
 import json
+from typing import Any
 
-from django.http import HttpResponseBadRequest
+from django.http import HttpRequest, HttpResponseBadRequest, HttpResponseBase
 from django.views.generic import View
 
 from allauth.core.exceptions import ImmediateHttpResponse
@@ -14,10 +15,14 @@ class RESTView(View):
     input_class: dict[str, type[Input]] | None | type[Input] = None
     handle_json_input = True
 
-    def dispatch(self, request, *args, **kwargs):
+    def dispatch(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponseBase:
         return self.handle(request, *args, **kwargs)
 
-    def handle(self, request, *args, **kwargs):
+    def handle(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponseBase:
         if self.handle_json_input and request.method != "GET":
             self.data = self._parse_json(request)
             response = self.handle_input(self.data)
@@ -49,7 +54,7 @@ class RESTView(View):
     def handle_invalid_input(self, input):
         return ErrorResponse(self.request, input=input)
 
-    def _parse_json(self, request):
+    def _parse_json(self, request: HttpRequest):
         if request.method == "GET" or not request.body:
             return
         try:

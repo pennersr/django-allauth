@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.account import app_settings as account_settings
 from allauth.account.internal.constants import LoginStageKey as AccountLoginStageKey
 from allauth.account.stages import LoginStage
@@ -23,7 +25,7 @@ class AuthenticateStage(LoginStage):
             response = headed_redirect_response("mfa_authenticate")
         return response, cont
 
-    def _should_handle(self, request) -> bool:
+    def _should_handle(self, request: HttpRequest) -> bool:
         if self.login.user is None:
             return False
         if not is_mfa_enabled(

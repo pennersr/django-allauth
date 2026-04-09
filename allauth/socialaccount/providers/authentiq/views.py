@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from urllib.parse import urljoin
 
+from django.http import HttpRequest
+
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
@@ -24,7 +26,7 @@ class AuthentiqOAuth2Adapter(OAuth2Adapter):
     authorize_url = urljoin(provider_url, "authorize")
     profile_url = urljoin(provider_url, "userinfo")
 
-    def complete_login(self, request, app, token, **kwargs):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         auth = {"Authorization": f"Bearer {token.token}"}
         with get_adapter().get_requests_session() as sess:
             resp = sess.get(self.profile_url, headers=auth)

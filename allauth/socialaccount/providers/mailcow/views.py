@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
@@ -18,7 +20,7 @@ class MailcowAdapter(OAuth2Adapter):
     authorize_url = f"{server}/oauth/authorize"
     profile_url = f"{server}/oauth/profile"
 
-    def complete_login(self, request, app, token, **kwargs):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         code = get_request_param(request, "code")
         extra_data = self.get_user_info(token.token, code)
         return self.get_provider().sociallogin_from_response(request, extra_data)

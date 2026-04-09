@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 from django import forms
+from django.contrib.auth.models import AbstractBaseUser
+from django.http import HttpRequest
 
 from allauth.account.forms import BaseSignupForm
 from allauth.socialaccount.internal import flows
@@ -24,7 +26,7 @@ class SignupForm(BaseSignupForm):
         )
         super().__init__(*args, **kwargs)
 
-    def save(self, request) -> None:
+    def save(self, request: HttpRequest) -> AbstractBaseUser:
         adapter = get_adapter()
         user = adapter.save_user(request, self.sociallogin, form=self)
         self.custom_signup(request, user)

@@ -18,6 +18,7 @@ Resources:
 from http import HTTPStatus
 
 from django.conf import settings
+from django.http import HttpRequest
 
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.client import OAuth2Error
@@ -132,7 +133,7 @@ class BattleNetOAuth2Adapter(OAuth2Adapter):
     def profile_url(self):
         return f"{self.battlenet_base_url}/userinfo"
 
-    def complete_login(self, request, app, token, **kwargs):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         headers = {"authorization": f"Bearer {token.token}"}
         with get_adapter().get_requests_session() as sess:
             response = sess.get(self.profile_url, headers=headers)
@@ -143,7 +144,7 @@ class BattleNetOAuth2Adapter(OAuth2Adapter):
 
         return self.get_provider().sociallogin_from_response(request, data)
 
-    def get_callback_url(self, request, app):
+    def get_callback_url(self, request: HttpRequest, app):
         r = super().get_callback_url(request, app)
         region = request.GET.get("region", "").lower()
         # Pass the region down to the callback URL if we specified it

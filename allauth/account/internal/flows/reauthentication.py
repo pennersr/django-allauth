@@ -3,6 +3,7 @@ from __future__ import annotations
 import time
 
 from django.contrib.auth import REDIRECT_FIELD_NAME
+from django.contrib.auth.base_user import AbstractBaseUser
 from django.http import HttpRequest, HttpResponseRedirect
 from django.urls import reverse
 from django.utils.http import urlencode
@@ -87,7 +88,7 @@ def did_recently_authenticate(request: HttpRequest) -> bool:
     return time.time() - authenticated_at < app_settings.REAUTHENTICATION_TIMEOUT
 
 
-def get_reauthentication_flows(user) -> list[dict]:
+def get_reauthentication_flows(user: AbstractBaseUser) -> list[dict]:
     ret: list[dict] = []
     if not user.is_authenticated:
         return ret

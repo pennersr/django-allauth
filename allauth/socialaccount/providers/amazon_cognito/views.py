@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.models import SocialToken
@@ -42,7 +44,7 @@ class AmazonCognitoOAuth2Adapter(OAuth2Adapter):
     def profile_url(self):
         return f"{self.domain}/oauth2/userInfo"
 
-    def complete_login(self, request, app, token: SocialToken, **kwargs):
+    def complete_login(self, request: HttpRequest, app, token: SocialToken, **kwargs):
         headers = {
             "Authorization": f"Bearer {token.token}",
         }

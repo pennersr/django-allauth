@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
@@ -16,7 +18,7 @@ class BaiduOAuth2Adapter(OAuth2Adapter):
         "https://openapi.baidu.com/rest/2.0/passport/users/getLoggedInUser"  # noqa
     )
 
-    def complete_login(self, request, app, token, **kwargs):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         with get_adapter().get_requests_session() as sess:
             resp = sess.get(self.profile_url, params={"access_token": token.token})
             extra_data = resp.json()

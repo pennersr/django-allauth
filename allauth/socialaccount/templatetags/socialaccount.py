@@ -2,9 +2,11 @@ from __future__ import annotations
 
 from django import template
 from django.contrib.auth import REDIRECT_FIELD_NAME
+from django.contrib.auth.base_user import AbstractBaseUser
 from django.utils.safestring import mark_safe
 
 from allauth.socialaccount.adapter import get_adapter
+from allauth.socialaccount.models import SocialAccount
 from allauth.utils import get_request_param
 
 
@@ -51,7 +53,7 @@ def providers_media_js(context):
 
 
 @register.simple_tag
-def get_social_accounts(user):
+def get_social_accounts(user: AbstractBaseUser):
     """
     {% get_social_accounts user as accounts %}
 
@@ -60,8 +62,8 @@ def get_social_accounts(user):
         {{accounts.twitter.0}} -- the first Twitter account
         {% if accounts %} -- if there is at least one social account
     """
-    accounts = {}
-    for account in user.socialaccount_set.all().iterator():
+    accounts: dict = {}
+    for account in SocialAccount.objects.filter(user_id=user.pk).iterator():
         providers = accounts.setdefault(account.provider, [])
         providers.append(account)
     return accounts

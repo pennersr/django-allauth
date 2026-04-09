@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import requests
 
+from django.http import HttpRequest
 from django.urls import reverse
 from django.utils.http import urlencode
 
@@ -53,7 +54,7 @@ class OpenIDConnectProvider(OAuth2Provider):
             url += well_known_uri
         return url
 
-    def get_login_url(self, request, **kwargs):
+    def get_login_url(self, request: HttpRequest, **kwargs):
         url = reverse(
             f"{self.app.provider}_login", kwargs={"provider_id": self.app.provider_id}
         )
@@ -104,10 +105,10 @@ class OpenIDConnectProvider(OAuth2Provider):
             )
         return addresses
 
-    def get_oauth2_adapter(self, request):
+    def get_oauth2_adapter(self, request: HttpRequest):
         return self.oauth2_adapter_class(request, self.app.provider_id)
 
-    def verify_token(self, request, token):
+    def verify_token(self, request: HttpRequest, token):
         id_token = token.get("id_token")
         if not id_token:
             raise get_adapter().validation_error("invalid_token")

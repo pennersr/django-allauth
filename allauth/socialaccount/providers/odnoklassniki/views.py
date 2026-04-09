@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from hashlib import md5
 
+from django.http import HttpRequest
+
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
@@ -42,7 +44,7 @@ class OdnoklassnikiOAuth2Adapter(OAuth2Adapter):
     profile_url = "https://api.odnoklassniki.ru/fb.do"
     access_token_method = "POST"  # nosec
 
-    def complete_login(self, request, app, token, **kwargs):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         data = {
             "method": "users.getCurrentUser",
             "access_token": token.token,

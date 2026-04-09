@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.client import OAuth2Error
@@ -18,7 +20,7 @@ class SnapchatOAuth2Adapter(OAuth2Adapter):
     authorize_url = "https://accounts.snapchat.com/accounts/oauth2/auth"
     identity_url = "https://api.snapkit.com/v1/me"
 
-    def complete_login(self, request, app, token, **kwargs):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         extra_data = self.get_data(token.token)
         return self.get_provider().sociallogin_from_response(request, extra_data)
 

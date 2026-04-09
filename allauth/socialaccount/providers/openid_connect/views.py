@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from django.http import Http404
+from django.http import Http404, HttpRequest
 from django.urls import reverse
 
 from allauth.account.internal.decorators import login_not_required
@@ -16,7 +16,7 @@ from allauth.utils import build_absolute_uri
 
 
 class OpenIDConnectOAuth2Adapter(OAuth2Adapter):
-    def __init__(self, request, provider_id) -> None:
+    def __init__(self, request: HttpRequest, provider_id) -> None:
         self.provider_id = provider_id
         super().__init__(request)
 
@@ -51,7 +51,7 @@ class OpenIDConnectOAuth2Adapter(OAuth2Adapter):
     def profile_url(self):
         return self.openid_config["userinfo_endpoint"]
 
-    def complete_login(self, request, app, token: SocialToken, **kwargs):
+    def complete_login(self, request: HttpRequest, app, token: SocialToken, **kwargs):
         id_token_str = kwargs["response"].get("id_token")
         fetch_userinfo = app.settings.get("fetch_userinfo", True)
         data = {}
@@ -86,7 +86,7 @@ class OpenIDConnectOAuth2Adapter(OAuth2Adapter):
             verify_signature=verify_signature,
         )
 
-    def get_callback_url(self, request, app):
+    def get_callback_url(self, request: HttpRequest, app):
         callback_url = reverse(
             "openid_connect_callback", kwargs={"provider_id": self.provider_id}
         )
@@ -95,7 +95,7 @@ class OpenIDConnectOAuth2Adapter(OAuth2Adapter):
 
 
 @login_not_required
-def login(request, provider_id):
+def login(request: HttpRequest, provider_id):
     try:
         view = OAuth2LoginView.adapter_view(
             OpenIDConnectOAuth2Adapter(request, provider_id)
@@ -106,7 +106,7 @@ def login(request, provider_id):
 
 
 @login_not_required
-def callback(request, provider_id):
+def callback(request: HttpRequest, provider_id):
     try:
         view = OAuth2CallbackView.adapter_view(
             OpenIDConnectOAuth2Adapter(request, provider_id)

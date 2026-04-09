@@ -5,7 +5,7 @@ from functools import wraps
 from django.contrib import messages
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.core.exceptions import ValidationError
-from django.http import HttpResponseRedirect
+from django.http import HttpRequest, HttpResponseRedirect
 from django.urls import reverse
 
 from allauth.account.adapter import get_adapter as get_account_adapter
@@ -32,7 +32,7 @@ def validate_can_add_authenticator(user: AbstractBaseUser) -> None:
 def redirect_if_add_not_allowed(function=None):
     def decorator(view_func):
         @wraps(view_func)
-        def _wrapper_view(request, *args, **kwargs):
+        def _wrapper_view(request: HttpRequest, *args, **kwargs):
             if request.user.is_authenticated:  # allow for this to go before reauth
                 try:
                     validate_can_add_authenticator(request.user)

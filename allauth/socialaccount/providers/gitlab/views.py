@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from http import HTTPStatus
 
+from django.http import HttpRequest
+
 from allauth.core import context
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
@@ -68,7 +70,7 @@ class GitLabOAuth2Adapter(OAuth2Adapter):
     def profile_url(self):
         return self._build_url(f"/api/{self.provider_api_version}/user")
 
-    def complete_login(self, request, app, token, response):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         with get_adapter().get_requests_session() as sess:
             response = sess.get(self.profile_url, params={"access_token": token.token})
             data = _check_errors(response)

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth.provider import OAuthProvider
 from allauth.socialaccount.providers.trello.views import TrelloOAuthAdapter
@@ -32,7 +34,7 @@ class TrelloProvider(OAuthProvider):
             name=data.get("name"),
         )
 
-    def get_auth_params_from_request(self, request, action):
+    def get_auth_params_from_request(self, request: HttpRequest, action):
         data = super().get_auth_params_from_request(request, action)
         data["type"] = "web_server"
         data["name"] = self.app.name

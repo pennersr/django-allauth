@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import Optional
 
+from django.contrib.auth.base_user import AbstractBaseUser
 from django.http import HttpRequest, HttpResponse
 
 from allauth.account import app_settings
@@ -20,7 +21,9 @@ PASSWORD_RESET_VERIFICATION_SESSION_KEY = (
 
 
 class PasswordResetVerificationProcess(AbstractCodeVerificationProcess):
-    def __init__(self, request, state, user=None) -> None:
+    def __init__(
+        self, request: HttpRequest, state, user: AbstractBaseUser | None = None
+    ) -> None:
         self.request = request
         super().__init__(
             state=state,
@@ -63,7 +66,9 @@ class PasswordResetVerificationProcess(AbstractCodeVerificationProcess):
         adapter.send_mail("account/email/password_reset_code", email, context)
 
     @classmethod
-    def initiate(cls, *, request, user, email: str):
+    def initiate(
+        cls, *, request: HttpRequest, user: AbstractBaseUser | None, email: str
+    ):
         state = cls.initial_state(user, email)
         process = PasswordResetVerificationProcess(request, state=state, user=user)
         process.send()

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.socialaccount.providers.oauth.client import OAuth
 from allauth.socialaccount.providers.oauth.views import (
     OAuthAdapter,
@@ -28,7 +30,7 @@ class FiveHundredPxOAuthAdapter(OAuthAdapter):
     access_token_url = f"{API_BASE}/oauth/access_token"
     authorize_url = f"{API_BASE}/oauth/authorize"
 
-    def complete_login(self, request, app, token, response):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         client = FiveHundredPxAPI(
             request, app.client_id, app.secret, self.request_token_url
         )

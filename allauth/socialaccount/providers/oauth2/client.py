@@ -4,6 +4,7 @@ import requests
 from http import HTTPStatus
 from urllib.parse import parse_qsl
 
+from django.http import HttpRequest
 from django.utils.http import urlencode
 
 from allauth.socialaccount.adapter import get_adapter
@@ -18,7 +19,7 @@ class OAuth2Client:
 
     def __init__(
         self,
-        request,
+        request: HttpRequest,
         consumer_key,
         consumer_secret,
         access_token_method,

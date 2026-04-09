@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
 from django.urls import reverse
 from django.utils.http import urlencode
 
@@ -30,7 +31,7 @@ class DraugiemProvider(Provider):
     name = "Draugiem"
     account_class = DraugiemAccount
 
-    def get_login_url(self, request, **kwargs):
+    def get_login_url(self, request: HttpRequest, **kwargs):
         url = reverse(f"{self.id}_login")
         if kwargs:
             url = f"{url}?{urlencode(kwargs)}"

@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import json
 
+from django.http import HttpRequest
+
 from allauth.core import context
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
@@ -73,7 +75,7 @@ class MicrosoftGraphOAuth2Adapter(OAuth2Adapter):
     )
     profile_url_params = {"$select": ",".join(user_properties)}
 
-    def complete_login(self, request, app, token, **kwargs):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         headers = {"Authorization": f"Bearer {token.token}"}
         with get_adapter().get_requests_session() as sess:
             response = sess.get(

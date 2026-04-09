@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.base import ProviderException
 from allauth.socialaccount.providers.oauth2.views import (
@@ -16,7 +18,7 @@ class DataportenOAuth2Adapter(OAuth2Adapter):
     profile_url = "https://auth.dataporten.no/userinfo"
     groups_url = "https://groups-api.dataporten.no/groups/"
 
-    def complete_login(self, request, app, token, **kwargs):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         """
         Arguments:
             request - The get request to the callback URL

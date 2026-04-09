@@ -3,7 +3,7 @@ from __future__ import annotations
 from collections.abc import Callable
 from typing import Any
 
-from django.http import HttpResponseBase
+from django.http import HttpRequest, HttpResponseBase
 from django.utils.decorators import classonlymethod
 
 from allauth.account.stages import LoginStage, LoginStageController
@@ -26,7 +26,9 @@ class APIView(RESTView):
             view_func = decorators.browser_view(view_func)
         return view_func
 
-    def dispatch(self, request, *args, **kwargs):
+    def dispatch(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponseBase:
         try:
             return super().dispatch(request, *args, **kwargs)
         except ReauthenticationRequired:
@@ -34,9 +36,11 @@ class APIView(RESTView):
 
 
 class AuthenticationStageAPIView(APIView):
-    stage_class: type[LoginStage] | None = None
+    stage_class: type[LoginStage]
 
-    def handle(self, request, *args, **kwargs):
+    def handle(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponseBase:
         self.stage = LoginStageController.enter(request, self.stage_class.key)
         if not self.stage:
             return response.UnauthorizedResponse(request)
@@ -51,14 +55,16 @@ class AuthenticationStageAPIView(APIView):
 
 
 class AuthenticatedAPIView(APIView):
-    def dispatch(self, request, *args, **kwargs):
+    def dispatch(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponseBase:
         if not request.user.is_authenticated:
             return response.AuthenticationResponse(request)
         return super().dispatch(request, *args, **kwargs)
 
 
 class ConfigView(APIView):
-    def get(self, request, *args, **kwargs):
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponseBase:
         """
         The frontend queries (GET) this endpoint, expecting to receive
         either a 401 if no user is authenticated, or user information.

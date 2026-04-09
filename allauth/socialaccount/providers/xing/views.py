@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.socialaccount.providers.oauth.client import OAuth
 from allauth.socialaccount.providers.oauth.views import (
     OAuthAdapter,
@@ -22,7 +24,7 @@ class XingOAuthAdapter(OAuthAdapter):
     access_token_url = "https://api.xing.com/v1/access_token"  # nosec
     authorize_url = "https://www.xing.com/v1/authorize"
 
-    def complete_login(self, request, app, token, response):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         client = XingAPI(request, app.client_id, app.secret, self.request_token_url)
         extra_data = client.get_user_info()["users"][0]
         return self.get_provider().sociallogin_from_response(request, extra_data)

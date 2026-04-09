@@ -1,9 +1,10 @@
 from __future__ import annotations
 
 import re
+from typing import Any
 
 from django.conf import settings
-from django.http import HttpResponse, HttpResponseBadRequest
+from django.http import HttpRequest, HttpResponse, HttpResponseBadRequest
 
 from allauth.core.exceptions import ImmediateHttpResponse
 from allauth.socialaccount.adapter import get_adapter
@@ -47,7 +48,7 @@ class ShopifyOAuth2Adapter(OAuth2Adapter):
     def profile_url(self):
         return self._shop_url("/admin/shop.json")
 
-    def complete_login(self, request, app, token, **kwargs):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         headers = {"X-Shopify-Access-Token": f"{token.token}"}
         with get_adapter().get_requests_session() as sess:
             response = sess.get(self.profile_url, headers=headers)
@@ -59,7 +60,7 @@ class ShopifyOAuth2Adapter(OAuth2Adapter):
 
 
 class ShopifyOAuth2LoginView(OAuth2LoginView):
-    def dispatch(self, request, *args, **kwargs):
+    def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any):
         is_embedded = (
             getattr(settings, "SOCIALACCOUNT_PROVIDERS", {})
             .get("shopify", {})
@@ -82,7 +83,7 @@ class ShopifyOAuth2LoginView(OAuth2LoginView):
             """
             js = (
                 '<!DOCTYPE html><html><head><script type="text/javascript">'
-                f'window.top.location.href = "{response.url}";'
+                f'window.top.location.href = "{getattr(response, "url", "/")}";'
                 "</script></head><body></body></html>"
             )
             response = HttpResponse(content=js)

@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import logging
 
+from django.http import HttpRequest
+
 from allauth import app_settings as allauth_settings
 from allauth.account import app_settings
 from allauth.account.adapter import get_adapter
@@ -23,7 +25,7 @@ class LoginStage:
     urlname: str | None = None
     login: Login
 
-    def __init__(self, controller, request, login) -> None:
+    def __init__(self, controller, request: HttpRequest, login) -> None:
         if not self.key:
             raise ValueError()
         self.controller = controller
@@ -50,18 +52,18 @@ class LoginStage:
         clear_login(self.request)
         return headed_redirect_response("account_login")
 
-    def is_resumable(self, request):
+    def is_resumable(self, request: HttpRequest):
         return True
 
 
 class LoginStageController:
-    def __init__(self, request, login) -> None:
+    def __init__(self, request: HttpRequest, login) -> None:
         self.request = request
         self.login = login
         self.state = self.login.state.setdefault("stages", {})
 
     @classmethod
-    def enter(cls, request, stage_key):
+    def enter(cls, request: HttpRequest, stage_key):
         from allauth.account.internal.stagekit import unstash_login
 
         login = unstash_login(request, peek=True)
@@ -141,7 +143,7 @@ class EmailVerificationStage(LoginStage):
     key = LoginStageKey.VERIFY_EMAIL.value
     urlname = "account_email_verification_sent"
 
-    def is_resumable(self, request):
+    def is_resumable(self, request: HttpRequest):
         return app_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED
 
     def handle(self):

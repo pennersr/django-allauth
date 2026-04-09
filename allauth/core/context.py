@@ -3,8 +3,10 @@ from __future__ import annotations
 from contextlib import contextmanager
 from contextvars import ContextVar
 
+from django.http import HttpRequest
 
-_request_var = ContextVar("request", default=None)
+
+_request_var: ContextVar[HttpRequest | None] = ContextVar("request", default=None)
 
 
 def __getattr__(name):
@@ -14,7 +16,7 @@ def __getattr__(name):
 
 
 @contextmanager
-def request_context(request):
+def request_context(request: HttpRequest):
     token = _request_var.set(request)
     try:
         yield

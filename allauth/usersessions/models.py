@@ -3,6 +3,7 @@ from __future__ import annotations
 from importlib import import_module
 
 from django.conf import settings
+from django.contrib.auth.base_user import AbstractBaseUser
 from django.core.exceptions import ImproperlyConfigured
 from django.db import models, transaction
 from django.http import HttpRequest
@@ -23,9 +24,9 @@ if not allauth_settings.USERSESSIONS_ENABLED:
 
 
 class UserSessionManager(models.Manager):
-    def purge_and_list(self, user) -> list["UserSession"]:
+    def purge_and_list(self, user: AbstractBaseUser) -> list["UserSession"]:
         ret = []
-        sessions = UserSession.objects.filter(user=user)
+        sessions = UserSession.objects.filter(user_id=user.pk)
         for session in sessions.iterator():
             if not session.purge():
                 ret.append(session)

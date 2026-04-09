@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from http import HTTPStatus
 
+from django.http import HttpRequest
+
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.client import OAuth2Error
 from allauth.socialaccount.providers.oauth2.views import (
@@ -19,7 +21,7 @@ class CleverOAuth2Adapter(OAuth2Adapter):
     identity_url = "https://api.clever.com/v3.0/me"
     user_details_url = "https://api.clever.com/v3.0/users"
 
-    def complete_login(self, request, app, token, **kwargs):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         extra_data = self.get_data(token.token)
         return self.get_provider().sociallogin_from_response(request, extra_data)
 

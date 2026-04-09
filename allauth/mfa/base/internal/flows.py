@@ -2,6 +2,9 @@ from __future__ import annotations
 
 from collections.abc import Callable
 
+from django.contrib.auth.base_user import AbstractBaseUser
+from django.http import HttpRequest
+
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.internal.flows.login import record_authentication
 from allauth.core import context, ratelimit
@@ -9,16 +12,16 @@ from allauth.mfa import signals
 from allauth.mfa.models import Authenticator
 
 
-def delete_dangling_recovery_codes(user) -> Authenticator | None:
+def delete_dangling_recovery_codes(user: AbstractBaseUser) -> Authenticator | None:
     deleted_authenticator = None
-    qs = Authenticator.objects.filter(user=user)
+    qs = Authenticator.objects.filter(user_id=user.pk)
     if not qs.exclude(type=Authenticator.Type.RECOVERY_CODES).exists():
         deleted_authenticator = qs.first()
         qs.delete()
     return deleted_authenticator
 
 
-def delete_and_cleanup(request, authenticator) -> None:
+def delete_and_cleanup(request: HttpRequest, authenticator) -> None:
     authenticator.delete()
     rc_auth = delete_dangling_recovery_codes(authenticator.user)
     for auth in [authenticator, rc_auth]:
@@ -32,7 +35,7 @@ def delete_and_cleanup(request, authenticator) -> None:
 
 
 def post_authentication(
-    request,
+    request: HttpRequest,
     authenticator: Authenticator,
     reauthenticated: bool = False,
     passwordless: bool = False,
@@ -49,7 +52,7 @@ def post_authentication(
     record_authentication(request, authenticator.user, "mfa", **extra_data)
 
 
-def check_rate_limit(user) -> Callable[[], None]:
+def check_rate_limit(user: AbstractBaseUser) -> Callable[[], None]:
     key = f"mfa-auth-user-{str(user.pk)}"
     if not ratelimit.consume(
         context.request,

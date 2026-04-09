@@ -18,7 +18,9 @@ from allauth.core.exceptions import ImmediateHttpResponse
 AUTHENTICATION_METHODS_SESSION_KEY = "account_authentication_methods"
 
 
-def record_authentication(request, user, method: str, **extra_data) -> None:
+def record_authentication(
+    request: HttpRequest, user, method: str, **extra_data
+) -> None:
     """Here we keep a log of all authentication methods used within the current
     session.  Important to note is that having entries here does not imply that
     a user is fully signed in. For example, consider a case where a user
@@ -104,9 +106,11 @@ def resume_login(request: HttpRequest, login: Login) -> HttpResponse:
         response = ctrl.handle()
         if response:
             return response
-        adapter.login(request, login.user)
+        user = login.user
+        assert user  # nosec
+        adapter.login(request, user)
         hook_kwargs = _get_login_hook_kwargs(login)
-        response = adapter.post_login(request, login.user, **hook_kwargs)
+        response = adapter.post_login(request, user, **hook_kwargs)
         if response:
             return response
     except ImmediateHttpResponse as e:
@@ -119,7 +123,7 @@ def resume_login(request: HttpRequest, login: Login) -> HttpResponse:
     return response
 
 
-def is_login_rate_limited(request, login: Login) -> bool:
+def is_login_rate_limited(request: HttpRequest, login: Login) -> bool:
     from allauth.account.internal.flows.email_verification import (
         is_verification_rate_limited,
     )

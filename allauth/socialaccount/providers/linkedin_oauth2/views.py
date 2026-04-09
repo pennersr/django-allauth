@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
@@ -17,7 +19,7 @@ class LinkedInOAuth2Adapter(OAuth2Adapter):
     email_url = "https://api.linkedin.com/v2/emailAddress?q=members&projection=(elements*(handle~))"  # noqa
     access_token_method = "GET"  # nosec
 
-    def complete_login(self, request, app, token, **kwargs):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         extra_data = self.get_user_info(token)
         return self.get_provider().sociallogin_from_response(request, extra_data)
 

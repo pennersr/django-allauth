@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+from typing import Any
+
 from django.core.exceptions import PermissionDenied
-from django.http import HttpResponse, HttpResponseBase
+from django.http import HttpRequest, HttpResponse, HttpResponseBase
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.utils.http import urlencode
@@ -33,10 +35,13 @@ class AuthenticateView(FormView):
     template_name = "dummy/authenticate_form.html"
 
     @method_decorator(login_not_required)
-    def dispatch(self, request, *args, **kwargs) -> HttpResponseBase:
-        self.state_id = request.GET.get("state")
-        if not self.state_id:
+    def dispatch(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponseBase:
+        state_id = request.GET.get("state")
+        if not state_id:
             raise PermissionDenied()
+        self.state_id = state_id
         self.provider = get_adapter().get_provider(self.request, DummyProvider.id)
         if request.method == "POST" and request.POST.get("action") == "cancel":
             return render_authentication_error(

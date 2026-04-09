@@ -1,3 +1,4 @@
+from django.contrib.auth.base_user import AbstractBaseUser
 from django.dispatch import Signal
 
 from allauth.account import app_settings as account_settings
@@ -19,7 +20,7 @@ authenticator_removed = Signal()
 authenticator_reset = Signal()
 
 
-def on_add_email(sender, email, user, **kwargs) -> None:
+def on_add_email(sender, email, user: AbstractBaseUser, **kwargs) -> None:
     if app_settings.ALLOW_UNVERIFIED_EMAIL:
         return
     if account_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED:

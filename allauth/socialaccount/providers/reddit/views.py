@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
@@ -20,7 +22,7 @@ class RedditAdapter(OAuth2Adapter):
     # Allow custom User Agent to comply with reddit API limits
     headers = {"User-Agent": settings.get("USER_AGENT", "django-allauth-header")}
 
-    def complete_login(self, request, app, token, **kwargs):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         headers = {"Authorization": f"bearer {token.token}", **self.headers}
         with get_adapter().get_requests_session() as sess:
             resp = sess.get(self.profile_url, headers=headers)

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.basecamp.views import BasecampOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
@@ -19,7 +21,7 @@ class BasecampProvider(OAuth2Provider):
     account_class = BasecampAccount
     oauth2_adapter_class = BasecampOAuth2Adapter
 
-    def get_auth_params_from_request(self, request, action):
+    def get_auth_params_from_request(self, request: HttpRequest, action):
         data = super().get_auth_params_from_request(request, action)
         data["type"] = "web_server"
         return data

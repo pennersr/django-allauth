@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from django.contrib import admin, messages
+from django.http import HttpRequest
 from django.utils.translation import gettext_lazy as _
 
 from allauth.account import app_settings, signals
@@ -15,11 +16,11 @@ class EmailAddressAdmin(admin.ModelAdmin):
     raw_id_fields = ("user",)
     actions = ["make_verified"]
 
-    def get_search_fields(self, request):
+    def get_search_fields(self, request: HttpRequest):
         base_fields = get_adapter().get_user_search_fields()
         return ["email"] + list(map(lambda a: f"user__{a}", base_fields))
 
-    def make_verified(self, request, queryset) -> None:
+    def make_verified(self, request: HttpRequest, queryset) -> None:
         for email_address in queryset.filter(verified=False).iterator():
             if email_address.set_verified():
                 signals.email_confirmed.send(

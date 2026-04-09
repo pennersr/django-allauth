@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Any
 
 from django.contrib.auth import get_user_model
+from django.contrib.auth.base_user import AbstractBaseUser
 
 import fido2.features
 from fido2.server import Fido2Server
@@ -35,7 +36,7 @@ STATE_SESSION_KEY = "mfa.webauthn.state"
 EXTENSIONS = {"credProps": True}
 
 
-def build_user_payload(user) -> PublicKeyCredentialUserEntity:
+def build_user_payload(user: AbstractBaseUser) -> PublicKeyCredentialUserEntity:
     kwargs = get_adapter().get_public_key_credential_user_entity(user)
     return PublicKeyCredentialUserEntity(**kwargs)
 
@@ -69,7 +70,7 @@ def parse_registration_response(response: Any) -> RegistrationResponse:
         raise get_adapter().validation_error("incorrect_code")
 
 
-def begin_registration(user, passwordless: bool) -> dict:
+def begin_registration(user: AbstractBaseUser, passwordless: bool) -> dict:
     server = get_server()
     credentials = get_credentials(user)
     registration_data, state = server.register_begin(
@@ -105,10 +106,10 @@ def complete_registration(credential: dict) -> AuthenticatorData:
     return binding
 
 
-def get_credentials(user) -> list[AttestedCredentialData]:
+def get_credentials(user: AbstractBaseUser) -> list[AttestedCredentialData]:
     credentials: list[AttestedCredentialData] = []
     authenticators = Authenticator.objects.filter(
-        user=user, type=Authenticator.Type.WEBAUTHN
+        user_id=user.pk, type=Authenticator.Type.WEBAUTHN
     )
     for authenticator in authenticators:
         credential_data = authenticator.wrap().authenticator_data.credential_data
@@ -118,10 +119,10 @@ def get_credentials(user) -> list[AttestedCredentialData]:
 
 
 def get_authenticator_by_credential_id(
-    user, credential_id: bytes
+    user: AbstractBaseUser, credential_id: bytes
 ) -> Authenticator | None:
     authenticators = Authenticator.objects.filter(
-        user=user, type=Authenticator.Type.WEBAUTHN
+        user_id=user.pk, type=Authenticator.Type.WEBAUTHN
     )
     for authenticator in authenticators:
         if (
@@ -139,7 +140,7 @@ def parse_authentication_response(response: Any) -> AuthenticationResponse:
         raise get_adapter().validation_error("incorrect_code")
 
 
-def begin_authentication(user=None) -> dict:
+def begin_authentication(user: AbstractBaseUser | None = None) -> dict:
     server = get_server()
     request_options, state = server.authenticate_begin(
         credentials=get_credentials(user) if user else [],
@@ -161,7 +162,7 @@ def extract_user_from_response(response: dict):
     return user
 
 
-def complete_authentication(user, response: dict) -> Authenticator:
+def complete_authentication(user: AbstractBaseUser, response: dict) -> Authenticator:
     credentials = get_credentials(user)
     server = get_server()
     state = get_state()
@@ -184,9 +185,9 @@ class WebAuthn:
         self.instance = instance
 
     @classmethod
-    def add(cls, user, name: str, credential: dict) -> "WebAuthn":
+    def add(cls, user: AbstractBaseUser, name: str, credential: dict) -> "WebAuthn":
         instance = Authenticator(
-            user=user,
+            user=user,  # type:ignore[misc]
             type=Authenticator.Type.WEBAUTHN,
             data={
                 "name": name,

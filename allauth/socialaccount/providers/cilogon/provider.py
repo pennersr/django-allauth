@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.app_settings import QUERY_EMAIL
 from allauth.socialaccount.providers.base import AuthAction, ProviderAccount
@@ -30,7 +32,7 @@ class CILogonProvider(OAuth2Provider):
             scope.append(Scope.EMAIL)
         return scope
 
-    def get_auth_params_from_request(self, request, action):
+    def get_auth_params_from_request(self, request: HttpRequest, action):
         ret = super().get_auth_params_from_request(request, action)
         if action == AuthAction.REAUTHENTICATE:
             ret["prompt"] = "select_account consent"

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.providers.base import AuthAction, ProviderAccount
 from allauth.socialaccount.providers.discord.views import DiscordOAuth2Adapter
@@ -88,7 +90,7 @@ class DiscordProvider(OAuth2Provider):
             name=data.get("username"),
         )
 
-    def get_auth_params_from_request(self, request, action):
+    def get_auth_params_from_request(self, request: HttpRequest, action):
         ret = super().get_auth_params_from_request(request, action)
         if action == AuthAction.REAUTHENTICATE:
             ret["prompt"] = "consent"

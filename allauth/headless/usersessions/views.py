@@ -1,6 +1,8 @@
 from __future__ import annotations
 
-from django.http import HttpResponse
+from typing import Any
+
+from django.http import HttpRequest, HttpResponseBase
 
 from allauth.headless.base.response import AuthenticationResponse
 from allauth.headless.base.views import AuthenticatedAPIView
@@ -13,14 +15,16 @@ from allauth.usersessions.models import UserSession
 class SessionsView(AuthenticatedAPIView):
     input_class = {"DELETE": SelectSessionsInput}
 
-    def delete(self, request, *args, **kwargs):
+    def delete(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponseBase:
         sessions = self.input.cleaned_data["sessions"]
         flows.sessions.end_sessions(request, sessions)
         if self.request.user.is_authenticated:
             return self._respond_session_list()
         return AuthenticationResponse(request)
 
-    def get(self, request, *args, **kwargs) -> HttpResponse:
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponseBase:
         return self._respond_session_list()
 
     def _respond_session_list(self):

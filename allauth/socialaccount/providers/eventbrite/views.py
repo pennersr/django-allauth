@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
@@ -19,7 +21,7 @@ class EventbriteOAuth2Adapter(OAuth2Adapter):
     access_token_url = "https://www.eventbrite.com/oauth/token"  # nosec
     profile_url = "https://www.eventbriteapi.com/v3/users/me/"
 
-    def complete_login(self, request, app, token, **kwargs):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         """Complete login."""
         with get_adapter().get_requests_session() as sess:
             resp = sess.get(self.profile_url, params={"token": token.token})

@@ -10,7 +10,7 @@ Inspired by:
 from http import HTTPStatus
 from urllib.parse import parse_qsl, urlparse
 
-from django.http import HttpResponseRedirect
+from django.http import HttpRequest, HttpResponseRedirect
 from django.utils.http import urlencode
 from django.utils.translation import gettext as _
 
@@ -40,7 +40,7 @@ class OAuthError(Exception):
 class OAuthClient:
     def __init__(
         self,
-        request,
+        request: HttpRequest,
         consumer_key,
         consumer_secret,
         request_token_url,
@@ -176,7 +176,9 @@ class OAuth:
     example.
     """
 
-    def __init__(self, request, consumer_key, secret_key, request_token_url) -> None:
+    def __init__(
+        self, request: HttpRequest, consumer_key, secret_key, request_token_url
+    ) -> None:
         self.request = request
         self.consumer_key = consumer_key
         self.secret_key = secret_key

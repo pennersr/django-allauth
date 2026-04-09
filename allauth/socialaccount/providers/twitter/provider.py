@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.socialaccount.providers.base import AuthAction, ProviderAccount
 from allauth.socialaccount.providers.oauth.provider import OAuthProvider
 from allauth.socialaccount.providers.twitter.views import TwitterOAuthAdapter
@@ -37,7 +39,7 @@ class TwitterProvider(OAuthProvider):
     account_class = TwitterAccount
     oauth_adapter_class = TwitterOAuthAdapter
 
-    def get_auth_url(self, request, action):
+    def get_auth_url(self, request: HttpRequest, action):
         if action == AuthAction.REAUTHENTICATE:
             url = "https://api.x.com/oauth/authorize"
         else:

@@ -2,10 +2,14 @@ from __future__ import annotations
 
 from typing import Any
 
+from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.sessions.backends.base import SessionBase
 from django.http import HttpRequest
 
-from allauth.core.internal.httpkit import get_authorization_credential
+from allauth.core.internal.httpkit import (
+    authenticated_user,
+    get_authorization_credential,
+)
 from allauth.headless import app_settings
 from allauth.headless.internal import sessionkit
 from allauth.headless.tokens.strategies.base import AbstractTokenStrategy
@@ -46,19 +50,19 @@ class JWTTokenStrategy(AbstractTokenStrategy):
     ) -> dict[str, Any] | None:
         ret = super().create_access_token_payload(request)
         if ret is not None:
-            ret["refresh_token"] = internal.create_refresh_token(
-                request.user, request.session
-            )
+            user = authenticated_user(request)
+            ret["refresh_token"] = internal.create_refresh_token(user, request.session)
         return ret
 
     def lookup_session(self, session_token: str) -> SessionBase | None:
         return sessionkit.lookup_session(session_token)
 
     def create_access_token(self, request: HttpRequest) -> str | None:
-        claims = self.get_claims(request.user)
-        return internal.create_access_token(request.user, request.session, claims)
+        user = authenticated_user(request)
+        claims = self.get_claims(user)
+        return internal.create_access_token(user, request.session, claims)
 
-    def get_claims(self, user) -> dict[str, Any]:
+    def get_claims(self, user: AbstractBaseUser) -> dict[str, Any]:
         """
         Returns additional claims to be included in the access token.  Note that
         the following claims are reserved and will be automatically set by allauth regardless of what you return:

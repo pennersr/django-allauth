@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import Optional
 
+from django.http import HttpRequest
 from django.utils.functional import cached_property
 
 from allauth.account import app_settings
@@ -19,7 +20,7 @@ EMAIL_VERIFICATION_CODE_SESSION_KEY = "account_email_verification_code"
 
 
 class EmailVerificationProcess(AbstractCodeVerificationProcess):
-    def __init__(self, request, state: dict, user=None) -> None:
+    def __init__(self, request: HttpRequest, state: dict, user=None) -> None:
         self.request = request
         super().__init__(
             state=state,
@@ -81,7 +82,9 @@ class EmailVerificationProcess(AbstractCodeVerificationProcess):
         self.state["code"] = get_adapter().generate_email_verification_code()
 
     @classmethod
-    def initiate(cls, *, request, user, email: str) -> "EmailVerificationProcess":
+    def initiate(
+        cls, *, request: HttpRequest, user, email: str
+    ) -> "EmailVerificationProcess":
         state = cls.initial_state(user, email)
         process = EmailVerificationProcess(request=request, user=user, state=state)
         process.generate_code()
@@ -90,7 +93,7 @@ class EmailVerificationProcess(AbstractCodeVerificationProcess):
         return process
 
     @classmethod
-    def resume(cls, request) -> Optional["EmailVerificationProcess"]:
+    def resume(cls, request: HttpRequest) -> Optional["EmailVerificationProcess"]:
         if not app_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED:
             return None
         state = request.session.get(EMAIL_VERIFICATION_CODE_SESSION_KEY)

@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from hashlib import md5
 
+from django.http import HttpRequest
+
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
@@ -16,7 +18,7 @@ class MailRuOAuth2Adapter(OAuth2Adapter):
     authorize_url = "https://connect.mail.ru/oauth/authorize"
     profile_url = "https://www.appsmail.ru/platform/api"
 
-    def complete_login(self, request, app, token, **kwargs):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         uid = kwargs["response"]["x_mailru_vid"]
         data = {
             "method": "users.getInfo",

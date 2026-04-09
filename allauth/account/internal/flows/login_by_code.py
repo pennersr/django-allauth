@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from django.contrib import messages
+from django.http import HttpRequest
 
 from allauth.account import app_settings
 from allauth.account.adapter import get_adapter
@@ -125,7 +126,7 @@ class LoginCodeVerificationProcess(AbstractCodeVerificationProcess):
     def initiate(
         cls,
         *,
-        request,
+        request: HttpRequest,
         user,
         email: str | None = None,
         phone: str | None = None,

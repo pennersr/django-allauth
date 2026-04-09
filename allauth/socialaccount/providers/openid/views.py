@@ -1,7 +1,14 @@
 from __future__ import annotations
 
+from typing import Any
+
 from django.contrib.auth import REDIRECT_FIELD_NAME
-from django.http import HttpResponse, HttpResponseBase, HttpResponseRedirect
+from django.http import (
+    HttpRequest,
+    HttpResponse,
+    HttpResponseBase,
+    HttpResponseRedirect,
+)
 from django.shortcuts import render
 from django.urls import reverse
 from django.utils.decorators import method_decorator
@@ -28,7 +35,7 @@ from .forms import LoginForm
 from .utils import AXAttributes, DBOpenIDStore, JSONSafeSession, SRegFields
 
 
-def _openid_consumer(request, provider, endpoint):
+def _openid_consumer(request: HttpRequest, provider, endpoint):
     server_settings = provider.get_server_settings(endpoint)
     stateless = server_settings.get("stateless", False)
     store = None if stateless else DBOpenIDStore()
@@ -42,11 +49,13 @@ class OpenIDLoginView(View):
     form_class = LoginForm
     provider_class = OpenIDProvider
 
-    def dispatch(self, request, *args, **kwargs) -> HttpResponseBase:
+    def dispatch(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponseBase:
         self.provider = self.provider_class(request)
         return super().dispatch(request, *args, **kwargs)
 
-    def get(self, request) -> HttpResponse:
+    def get(self, request: HttpRequest) -> HttpResponse:
         form = self.get_form()
         if not form.is_valid():
             return render(request, self.template_name, {"form": form})
@@ -57,7 +66,7 @@ class OpenIDLoginView(View):
             # UnicodeDecodeError: necaris/python3-openid#1
             return render_authentication_error(request, self.provider, exception=e)
 
-    def post(self, request) -> HttpResponse:
+    def post(self, request: HttpRequest) -> HttpResponse:
         form = self.get_form()
         if form.is_valid():
             try:
@@ -134,7 +143,7 @@ login = OpenIDLoginView.as_view()
 class OpenIDCallbackView(View):
     provider_class = OpenIDProvider
 
-    def get(self, request) -> HttpResponse:
+    def get(self, request: HttpRequest) -> HttpResponse:
         provider = self.provider = self.provider_class(request)
         endpoint = request.GET.get("openid.op_endpoint", "")
         client = self.get_client(provider, endpoint)

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
@@ -15,7 +17,7 @@ class HubicOAuth2Adapter(OAuth2Adapter):
     profile_url = "https://api.hubic.com/1.0/account"
     redirect_uri_protocol = "https"
 
-    def complete_login(self, request, app, token, **kwargs):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         token_type = kwargs["response"]["token_type"]
         headers = {"Authorization": f"{token_type} {token.token}"}
         with get_adapter().get_requests_session() as sess:

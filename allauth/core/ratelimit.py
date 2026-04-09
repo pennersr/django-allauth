@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from django.conf import settings
-from django.http import HttpResponse
+from django.http import HttpRequest, HttpResponse
 
 from allauth import app_settings
 from allauth.core.exceptions import RateLimited  # noqa
@@ -10,7 +10,7 @@ from allauth.core.internal.ratelimit import Rate  # noqa
 from allauth.utils import import_callable
 
 
-def clear(request, *, action: str, key=None, user=None) -> None:
+def clear(request: HttpRequest, *, action: str, key=None, user=None) -> None:
     from allauth.account import app_settings
 
     _impl.clear(
@@ -23,7 +23,7 @@ def clear(request, *, action: str, key=None, user=None) -> None:
 
 
 def consume(
-    request,
+    request: HttpRequest,
     *,
     action,
     key=None,
@@ -52,8 +52,10 @@ def consume(
     return True
 
 
-def respond_429(request) -> HttpResponse:
-    if app_settings.HEADLESS_ENABLED and hasattr(request.allauth, "headless"):
+def respond_429(request: HttpRequest) -> HttpResponse:
+    if app_settings.HEADLESS_ENABLED and hasattr(
+        request.allauth, "headless"  # type:ignore[attr-defined]
+    ):
         from allauth.headless.base.response import RateLimitResponse
 
         return RateLimitResponse(request)
@@ -66,7 +68,7 @@ def respond_429(request) -> HttpResponse:
     return handler429(request)
 
 
-def consume_or_429(request, *args, **kwargs) -> HttpResponse | None:
+def consume_or_429(request: HttpRequest, *args, **kwargs) -> HttpResponse | None:
     if not consume(request, *args, **kwargs):
         return respond_429(request)
     return None

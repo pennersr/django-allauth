@@ -2,7 +2,9 @@ from __future__ import annotations
 
 from functools import wraps
 from types import SimpleNamespace
+from typing import Any
 
+from django.http import HttpRequest
 from django.middleware.csrf import get_token
 from django.views.decorators.csrf import csrf_exempt
 
@@ -11,9 +13,9 @@ from allauth.headless.constants import Client
 from allauth.headless.internal import authkit
 
 
-def mark_request_as_headless(request, client) -> None:
-    request.allauth.headless = SimpleNamespace()
-    request.allauth.headless.client = client
+def mark_request_as_headless(request: HttpRequest, client) -> None:
+    request.allauth.headless = SimpleNamespace()  # type: ignore[attr-defined]
+    request.allauth.headless.client = client  # type: ignore[attr-defined]
 
 
 def app_view(
@@ -22,7 +24,7 @@ def app_view(
     def decorator(view_func):
         @login_not_required
         @wraps(view_func)
-        def _wrapper_view(request, *args, **kwargs):
+        def _wrapper_view(request: HttpRequest, *args: Any, **kwargs: Any):
             mark_request_as_headless(request, Client.APP)
             with authkit.authentication_context(request):
                 return view_func(request, *args, **kwargs)
@@ -41,7 +43,7 @@ def browser_view(
     def decorator(view_func):
         @login_not_required
         @wraps(view_func)
-        def _wrapper_view(request, *args, **kwargs):
+        def _wrapper_view(request: HttpRequest, *args: Any, **kwargs: Any):
             mark_request_as_headless(request, Client.BROWSER)
             # Needed -- so that the CSRF token is set in the response for the
             # frontend to pick up.

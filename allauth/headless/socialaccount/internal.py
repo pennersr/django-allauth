@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 from django.core.exceptions import PermissionDenied, ValidationError
-from django.http import HttpResponseRedirect
+from django.http import HttpRequest, HttpResponseRedirect
 
 from allauth import app_settings as allauth_settings
 from allauth.core.exceptions import (
@@ -15,8 +17,12 @@ from allauth.socialaccount.internal import flows, statekit
 from allauth.socialaccount.providers.base.constants import AuthError, AuthProcess
 
 
+if TYPE_CHECKING:
+    from allauth.socialaccount.models import SocialLogin
+
+
 def on_authentication_error(
-    request,
+    request: HttpRequest,
     provider,
     error=None,
     exception=None,
@@ -50,11 +56,11 @@ def on_authentication_error(
     raise ImmediateHttpResponse(HttpResponseRedirect(next_url))
 
 
-def complete_token_login(request, sociallogin):
+def complete_token_login(request: HttpRequest, sociallogin: SocialLogin):
     return flows.login.complete_login(request, sociallogin, raises=True)
 
 
-def complete_login(request, sociallogin):
+def complete_login(request: HttpRequest, sociallogin: SocialLogin):
     """
     Called when `sociallogin.is_headless`.
     """

@@ -1,9 +1,15 @@
 from __future__ import annotations
 
 import base64
+from typing import Any
 
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, HttpResponseBase, HttpResponseRedirect
+from django.http import (
+    HttpRequest,
+    HttpResponse,
+    HttpResponseBase,
+    HttpResponseRedirect,
+)
 from django.shortcuts import get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
@@ -11,6 +17,7 @@ from django.views.generic.edit import FormView
 
 from allauth.account import app_settings as account_settings
 from allauth.account.decorators import reauthentication_required
+from allauth.core.internal.httpkit import authenticated_user
 from allauth.mfa import app_settings
 from allauth.mfa.adapter import get_adapter
 from allauth.mfa.internal.flows.add import redirect_if_add_not_allowed
@@ -27,8 +34,11 @@ class ActivateTOTPView(FormView):
     form_class = ActivateTOTPForm
     template_name = f"mfa/totp/activate_form.{account_settings.TEMPLATE_EXTENSION}"
 
-    def dispatch(self, request, *args, **kwargs) -> HttpResponseBase:
-        if is_mfa_enabled(request.user, [Authenticator.Type.TOTP]):
+    def dispatch(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponseBase:
+        user = authenticated_user(request)
+        if is_mfa_enabled(user, [Authenticator.Type.TOTP]):
             return HttpResponseRedirect(reverse("mfa_deactivate_totp"))
         return super().dispatch(request, *args, **kwargs)
 
@@ -36,7 +46,7 @@ class ActivateTOTPView(FormView):
         ret = super().get_context_data(**kwargs)
         adapter = get_adapter()
         totp_url = adapter.build_totp_url(
-            self.request.user,
+            authenticated_user(self.request),
             ret["form"].secret,
         )
         totp_svg = adapter.build_totp_svg(totp_url)
@@ -79,18 +89,22 @@ class DeactivateTOTPView(FormView):
     template_name = f"mfa/totp/deactivate_form.{account_settings.TEMPLATE_EXTENSION}"
     success_url = reverse_lazy("mfa_index")
 
-    def dispatch(self, request, *args, **kwargs) -> HttpResponseBase:
+    def dispatch(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponseBase:
+        user = self.request.user
+        assert user.is_authenticated  # nosec
         self.authenticator = get_object_or_404(
             Authenticator,
-            user=self.request.user,
+            user=user,
             type=Authenticator.Type.TOTP,
         )
-        if not is_mfa_enabled(request.user, [Authenticator.Type.TOTP]):
+        if not is_mfa_enabled(user, [Authenticator.Type.TOTP]):
             return HttpResponseRedirect(reverse("mfa_activate_totp"))
         return self._dispatch(request, *args, **kwargs)
 
     @method_decorator(reauthentication_required)
-    def _dispatch(self, request, *args, **kwargs):
+    def _dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any):
         """There's no point to reauthenticate when MFA is not enabled, so the
         `is_mfa_enabled` check needs to go first, which is why we cannot slap a
         `reauthentication_required` decorator on the `dispatch` directly.

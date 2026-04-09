@@ -2,9 +2,11 @@ from __future__ import annotations
 
 import requests
 import string
+from collections.abc import Callable
 from urllib.parse import quote
 
 from django.contrib.auth import REDIRECT_FIELD_NAME
+from django.http import HttpRequest
 from django.middleware.csrf import get_token
 from django.template.loader import render_to_string
 from django.urls import reverse
@@ -53,13 +55,13 @@ class FacebookProvider(OAuth2Provider):
     )
 
     def __init__(self, *args, **kwargs) -> None:
-        self._locale_callable_cache = None
+        self._locale_callable_cache: Callable | None = None
         super().__init__(*args, **kwargs)
 
     def get_method(self):
         return self.get_settings().get("METHOD", "oauth2")
 
-    def get_login_url(self, request, **kwargs):
+    def get_login_url(self, request: HttpRequest, **kwargs):
         method = kwargs.pop("method", self.get_method())
         if method == "js_sdk":
             next = f"'{escapejs(kwargs.get(REDIRECT_FIELD_NAME) or '')}'"
@@ -79,7 +81,7 @@ class FacebookProvider(OAuth2Provider):
         func = settings.get("LOCALE_FUNC")
         return import_callable(func) if func else get_default_locale_callable()
 
-    def get_locale_for_request(self, request):
+    def get_locale_for_request(self, request: HttpRequest):
         if not self._locale_callable_cache:
             self._locale_callable_cache = self._get_locale_callable()
         return self._locale_callable_cache(request)
@@ -107,7 +109,7 @@ class FacebookProvider(OAuth2Provider):
         ]
         return settings.get("FIELDS", default_fields)
 
-    def get_auth_params_from_request(self, request, action):
+    def get_auth_params_from_request(self, request: HttpRequest, action):
         ret = super().get_auth_params_from_request(request, action)
         if action == AuthAction.REAUTHENTICATE:
             ret["auth_type"] = "reauthenticate"
@@ -115,20 +117,20 @@ class FacebookProvider(OAuth2Provider):
             ret["auth_type"] = "rerequest"
         return ret
 
-    def get_init_params(self, request, app):
+    def get_init_params(self, request: HttpRequest, app):
         init_params = {"appId": app.client_id, "version": GRAPH_API_VERSION}
         settings = self.get_settings()
         init_params.update(settings.get("INIT_PARAMS", {}))
         return init_params
 
-    def get_fb_login_options(self, request):
+    def get_fb_login_options(self, request: HttpRequest):
         ret = self.get_auth_params_from_request(request, "authenticate")
         ret["scope"] = ",".join(self.get_scope_from_request(request))
         if ret.get("auth_type") == "reauthenticate":
             ret["auth_nonce"] = self.get_nonce(request, or_create=True)
         return ret
 
-    def get_sdk_url(self, request):
+    def get_sdk_url(self, request: HttpRequest):
         settings = self.get_settings()
         sdk_url = settings.get("SDK_URL", "//connect.facebook.net/{locale}/sdk.js")
         field_names = [
@@ -139,7 +141,7 @@ class FacebookProvider(OAuth2Provider):
             sdk_url = sdk_url.format(locale=locale)
         return sdk_url
 
-    def media_js(self, request):
+    def media_js(self, request: HttpRequest):
         if self.get_method() != "js_sdk":
             return ""
 
@@ -164,7 +166,7 @@ class FacebookProvider(OAuth2Provider):
         ctx = {"fb_data": fb_data}
         return render_to_string("facebook/fbconnect.html", ctx, request=request)
 
-    def get_nonce(self, request, or_create=False, pop=False):
+    def get_nonce(self, request: HttpRequest, or_create=False, pop=False):
         if pop:
             nonce = request.session.pop(NONCE_SESSION_KEY, None)
         else:
@@ -195,7 +197,7 @@ class FacebookProvider(OAuth2Provider):
             ret.append(EmailAddress(email=email, verified=False, primary=True))
         return ret
 
-    def verify_token(self, request, token: dict):
+    def verify_token(self, request: HttpRequest, token: dict):
         """
         Verifies both normal oAuth2-style "access_token"s as well
         as OIDC-style "Limited Login" JWTs.

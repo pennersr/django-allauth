@@ -35,7 +35,7 @@ def compute_appsecret_proof(app, token) -> str:
     return appsecret_proof
 
 
-def complete_login(request, provider, token):
+def complete_login(request: HttpRequest, provider, token):
     with get_adapter().get_requests_session() as sess:
         params = {
             "fields": ",".join(provider.get_fields()),
@@ -84,7 +84,7 @@ def inspect_token(provider, input_token) -> None:
 
 
 def verify_token(
-    request,
+    request: HttpRequest,
     provider: Provider,
     access_token: str,
     auth_type: str = "",

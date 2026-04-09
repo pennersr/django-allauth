@@ -11,6 +11,7 @@ from allauth.account.internal.flows.reauthentication import (
 )
 from allauth.account.internal.userkit import user_email
 from allauth.account.models import EmailAddress
+from allauth.core.internal.httpkit import authenticated_user
 
 
 def can_delete_email(email_address: EmailAddress) -> bool:
@@ -32,11 +33,12 @@ def delete_email(request: HttpRequest, email_address: EmailAddress) -> bool:
             {"email": email_address.email},
         )
     else:
+        user = authenticated_user(request)
         email_address.remove()
         signals.email_removed.send(
             sender=EmailAddress,
             request=request,
-            user=request.user,
+            user=user,
             email_address=email_address,
         )
         adapter.add_message(
@@ -47,7 +49,7 @@ def delete_email(request: HttpRequest, email_address: EmailAddress) -> bool:
         )
         adapter.send_notification_mail(
             "account/email/email_deleted",
-            request.user,
+            user,
             {"deleted_email": email_address.email},
         )
         success = True

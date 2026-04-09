@@ -1,5 +1,9 @@
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
+from django.http import HttpRequest
+
 from allauth.headless.account.response import email_address_data
 from allauth.headless.adapter import get_adapter
 from allauth.headless.base.response import APIResponse
@@ -9,7 +13,11 @@ from allauth.socialaccount.internal.flows import signup
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
-def _socialaccount_data(request, account):
+if TYPE_CHECKING:
+    from allauth.socialaccount.models import SocialLogin
+
+
+def _socialaccount_data(request: HttpRequest, account):
     return {
         "uid": account.uid,
         "provider": _provider_data(request, account.get_provider()),
@@ -17,7 +25,7 @@ def _socialaccount_data(request, account):
     }
 
 
-def _provider_data(request, provider):
+def _provider_data(request: HttpRequest, provider):
     ret = {"id": provider.sub_id, "name": provider.name, "flows": []}
     if provider.supports_redirect:
         ret["flows"].append(Flow.PROVIDER_REDIRECT)
@@ -26,12 +34,12 @@ def _provider_data(request, provider):
     if isinstance(provider, OAuth2Provider):
         ret["client_id"] = provider.app.client_id
         if provider.id == "openid_connect":
-            ret["openid_configuration_url"] = provider.server_url
+            ret["openid_configuration_url"] = provider.server_url  # type: ignore[attr-defined]
 
     return ret
 
 
-def provider_flows(request):
+def provider_flows(request: HttpRequest):
     flows = []
     providers = _list_supported_providers(request)
     if providers:
@@ -39,7 +47,7 @@ def provider_flows(request):
         token_providers = [
             p.sub_id for p in providers if p.supports_token_authentication
         ]
-        if redirect_providers and request.allauth.headless.client == Client.BROWSER:
+        if redirect_providers and request.allauth.headless.client == Client.BROWSER:  # type: ignore[attr-defined]
             flows.append(
                 {
                     "id": Flow.PROVIDER_REDIRECT,
@@ -59,7 +67,7 @@ def provider_flows(request):
     return flows
 
 
-def _signup_flow(request, sociallogin):
+def _signup_flow(request: HttpRequest, sociallogin: SocialLogin):
     provider = sociallogin.provider
     flow = {
         "id": Flow.PROVIDER_SIGNUP,
@@ -77,19 +85,19 @@ def _is_provider_supported(provider, client):
     return False
 
 
-def _list_supported_providers(request):
+def _list_supported_providers(request: HttpRequest):
     adapter = get_socialaccount_adapter()
     providers = adapter.list_providers(request)
     providers = [
         p
         for p in providers
-        if _is_provider_supported(p, request.allauth.headless.client)
+        if _is_provider_supported(p, request.allauth.headless.client)  # type: ignore[attr-defined]
     ]
     return providers
 
 
-def get_config_data(request):
-    entries = []
+def get_config_data(request: HttpRequest):
+    entries: list[dict] = []
     data = {"socialaccount": {"providers": entries}}
     providers = _list_supported_providers(request)
     providers = sorted(providers, key=lambda p: p.name)
@@ -99,14 +107,15 @@ def get_config_data(request):
 
 
 class SocialAccountsResponse(APIResponse):
-    def __init__(self, request, accounts) -> None:
+    def __init__(self, request: HttpRequest, accounts) -> None:
         data = [_socialaccount_data(request, account) for account in accounts]
         super().__init__(request, data=data)
 
 
 class SocialLoginResponse(APIResponse):
-    def __init__(self, request, sociallogin) -> None:
+    def __init__(self, request: HttpRequest, sociallogin: SocialLogin) -> None:
         adapter = get_adapter()
+        assert sociallogin.user  # nosec
         data = {
             "user": adapter.serialize_user(sociallogin.user),
             "account": _socialaccount_data(request, sociallogin.account),

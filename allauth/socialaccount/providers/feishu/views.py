@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
 from django.urls import reverse
 
 from allauth.account import app_settings
@@ -33,7 +34,7 @@ class FeishuOAuth2Adapter(OAuth2Adapter):
         url = settings.get("AUTHORIZE_URL", self.authorization_url)
         return url
 
-    def complete_login(self, request, app, token, **kwargs):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         headers = {
             "Content-Type": "application/json",
             "Authorization": f"Bearer {token.token}",
@@ -48,7 +49,7 @@ class FeishuOAuth2Adapter(OAuth2Adapter):
 
         return self.get_provider().sociallogin_from_response(request, extra_data)
 
-    def get_client(self, request, app):
+    def get_client(self, request: HttpRequest, app):
         callback_url = reverse(f"{self.provider_id}_callback")
         protocol = self.redirect_uri_protocol or app_settings.DEFAULT_HTTP_PROTOCOL
         callback_url = build_absolute_uri(request, callback_url, protocol=protocol)

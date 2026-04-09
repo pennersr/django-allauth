@@ -3,6 +3,7 @@ from __future__ import annotations
 from contextlib import contextmanager
 from typing import Any
 
+from django.http import HttpRequest
 from django.utils.functional import SimpleLazyObject, empty
 
 from allauth import app_settings as allauth_settings
@@ -14,7 +15,7 @@ from allauth.headless.internal import sessionkit
 
 
 class AuthenticationStatus:
-    def __init__(self, request) -> None:
+    def __init__(self, request: HttpRequest) -> None:
         self.request = request
 
     @property
@@ -33,7 +34,7 @@ class AuthenticationStatus:
         return bool(flows.signup.get_pending_signup(self.request))
 
 
-def purge_request_user_cache(request) -> None:
+def purge_request_user_cache(request: HttpRequest) -> None:
     for attr in ["_cached_user", "_acached_user"]:
         if hasattr(request, attr):
             delattr(request, attr)
@@ -42,7 +43,7 @@ def purge_request_user_cache(request) -> None:
 
 
 @contextmanager
-def authentication_context(request):
+def authentication_context(request: HttpRequest):
     from allauth.headless.base.response import UnauthorizedResponse
 
     old_user = request.user
@@ -59,9 +60,9 @@ def authentication_context(request):
                 raise ImmediateHttpResponse(UnauthorizedResponse(request, status=410))
             request.session = session
             purge_request_user_cache(request)
-        request.allauth.headless._pre_user = request.user
+        request.allauth.headless._pre_user = request.user  # type: ignore[attr-defined]
         # request.user is lazy -- force evaluation
-        request.allauth.headless._pre_user.pk
+        request.allauth.headless._pre_user.pk  # type: ignore[attr-defined]
         yield
     finally:
         if request.session.modified and not request.session.is_empty():
@@ -72,15 +73,15 @@ def authentication_context(request):
         request.META["CSRF_COOKIE_NEEDS_UPDATE"] = False
 
 
-def expose_access_token(request) -> dict[str, Any] | None:
+def expose_access_token(request: HttpRequest) -> dict[str, Any] | None:
     """
     Determines if a new access token needs to be exposed.
     """
-    if request.allauth.headless.client != Client.APP:
+    if request.allauth.headless.client != Client.APP:  # type: ignore[attr-defined]
         return None
     if not request.user.is_authenticated:
         return None
-    pre_user = request.allauth.headless._pre_user
+    pre_user = request.allauth.headless._pre_user  # type: ignore[attr-defined]
     if pre_user.is_authenticated and pre_user.pk == request.user.pk:
         return None
     strategy = app_settings.TOKEN_STRATEGY

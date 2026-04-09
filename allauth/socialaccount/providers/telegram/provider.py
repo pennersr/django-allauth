@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from django.http import HttpResponseRedirect
+from django.http import HttpRequest, HttpResponseRedirect
 from django.urls import reverse
 from django.utils.http import urlencode
 
@@ -17,7 +17,7 @@ class TelegramProvider(Provider):
     account_class = TelegramAccount
     supports_redirect = True
 
-    def get_login_url(self, request, **kwargs):
+    def get_login_url(self, request: HttpRequest, **kwargs):
         url = reverse("telegram_login")
         if kwargs:
             url = f"{url}?{urlencode(kwargs)}"
@@ -48,7 +48,9 @@ class TelegramProvider(Provider):
         )
         return auth_date_validity
 
-    def redirect(self, request, process, next_url=None, data=None, **kwargs):
+    def redirect(
+        self, request: HttpRequest, process, next_url=None, data=None, **kwargs
+    ):
         state = self.stash_redirect_state(request, process, next_url, data, **kwargs)
         return_to = request.build_absolute_uri(
             f"{reverse('telegram_callback')}?{urlencode({'state': state})}"

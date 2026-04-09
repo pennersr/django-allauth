@@ -4,9 +4,11 @@ from typing import Any
 
 from django.conf import settings
 from django.contrib.auth import authenticate, get_user_model
+from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import ImproperlyConfigured, PermissionDenied
 from django.db import models
+from django.http import HttpRequest
 from django.utils.translation import gettext_lazy as _
 
 import allauth.app_settings
@@ -32,10 +34,10 @@ if not allauth_settings.SOCIALACCOUNT_ENABLED:
 
 
 class SocialAppManager(models.Manager):
-    def on_site(self, request):
+    def on_site(self, request: HttpRequest):
         if allauth.app_settings.SITES_ENABLED:
             site = get_current_site(request)
-            return self.filter(sites__id=site.id)
+            return self.filter(sites__id=site.id)  # type:ignore[union-attr]
         return self.all()
 
 
@@ -87,7 +89,7 @@ class SocialApp(models.Model):
     def __str__(self) -> str:
         return self.name
 
-    def get_provider(self, request):
+    def get_provider(self, request: HttpRequest):
         provider_class = providers.registry.get_class(self.provider)
         return provider_class(request=request, app=self)
 
@@ -142,7 +144,7 @@ class SocialAccount(models.Model):
     def get_avatar_url(self):
         return self.get_provider_account().get_avatar_url()
 
-    def get_provider(self, request=None):
+    def get_provider(self, request: HttpRequest | None = None):
         provider = getattr(self, "_provider", None)
         if provider:
             return provider
@@ -217,7 +219,7 @@ class SocialLogin:
 
     def __init__(
         self,
-        user=None,
+        user: AbstractBaseUser | None = None,
         account: SocialAccount | None = None,
         token: SocialToken | None = None,
         email_addresses: list[EmailAddress] | None = None,
@@ -237,7 +239,7 @@ class SocialLogin:
         self.phone = phone
         self.phone_verified = phone_verified
 
-    def connect(self, request, user) -> None:
+    def connect(self, request: HttpRequest, user: AbstractBaseUser) -> None:
         self.user = user
         self.save(request, connect=True)
         signals.social_account_added.send(
@@ -303,14 +305,15 @@ class SocialLogin:
         ret.phone_verified = data.get("phone_verified", False)
         return ret
 
-    def save(self, request, connect: bool = False) -> None:
+    def save(self, request: HttpRequest, connect: bool = False) -> None:
         """
         Saves a new account. Note that while the account is new,
         the user may be an existing one (when connecting accounts)
         """
         user = self.user
+        assert user  # nosec
         user.save()
-        self.account.user = user
+        self.account.user = user  # type:ignore[assignment]
         self.account.save()
         if app_settings.STORE_TOKENS and self.token:
             self.token.account = self.account
@@ -330,7 +333,7 @@ class SocialLogin:
         """When `False`, this social login represents a temporary account, not
         yet backed by a database record.
         """
-        if self.user.pk is None:
+        if not self.user or self.user.pk is None:
             return False
         return get_user_model().objects.filter(pk=self.user.pk).exists()
 
@@ -396,22 +399,22 @@ class SocialLogin:
                 self._did_authenticate_by_email = email
                 return
 
-    def _accept_login(self, request) -> None:
+    def _accept_login(self, request: HttpRequest) -> None:
         from allauth.socialaccount.internal.flows.email_authentication import (
             wipe_password,
         )
 
-        if self._did_authenticate_by_email:
+        if self._did_authenticate_by_email and self.user:
             wipe_password(request, self.user, self._did_authenticate_by_email)
             if app_settings.EMAIL_AUTHENTICATION_AUTO_CONNECT:
                 self.connect(context.request, self.user)
 
-    def get_redirect_url(self, request) -> str | None:
+    def get_redirect_url(self, request: HttpRequest) -> str | None:
         url = self.state.get("next")
         return url
 
     @classmethod
-    def state_from_request(cls, request) -> dict[str, Any]:
+    def state_from_request(cls, request: HttpRequest) -> dict[str, Any]:
         """
         TODO: Deprecated! To be integrated with provider.redirect()
         """
@@ -425,14 +428,16 @@ class SocialLogin:
         return state
 
     @classmethod
-    def stash_state(cls, request, state: dict[str, Any] | None = None) -> str:
+    def stash_state(
+        cls, request: HttpRequest, state: dict[str, Any] | None = None
+    ) -> str:
         if state is None:
             # Only for providers that don't support redirect() yet.
             state = cls.state_from_request(request)
         return statekit.stash_state(request, state)
 
     @classmethod
-    def unstash_state(cls, request) -> dict[str, Any] | None:
+    def unstash_state(cls, request: HttpRequest) -> dict[str, Any] | None:
         state = statekit.unstash_last_state(request)
         if state is None:
             raise PermissionDenied()

@@ -343,7 +343,7 @@ def test_complete_login_variants(
             adapter.did_fetch_access_token = did_fetch_access_token
             adapter.fetch_userinfo = fetch_userinfo
             token = SocialToken()
-            login = adapter.complete_login(request, app, token, response)
+            login = adapter.complete_login(request, app, token, response=response)
             assert login.account.uid == expected_uid
             assert login.account.extra_data["picture"] == expected_picture
             if not response.get("id_token"):

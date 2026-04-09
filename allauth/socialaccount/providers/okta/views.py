@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
@@ -31,7 +33,7 @@ class OktaOAuth2Adapter(OAuth2Adapter):
     def access_token_method(self):
         return "POST"
 
-    def complete_login(self, request, app, token, **kwargs):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         """
         Get the user info from userinfo endpoint and return a
         A populated instance of the `SocialLogin` model (unsaved)

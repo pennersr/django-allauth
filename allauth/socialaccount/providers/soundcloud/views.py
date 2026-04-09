@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
@@ -14,7 +16,7 @@ class SoundCloudOAuth2Adapter(OAuth2Adapter):
     authorize_url = "https://soundcloud.com/connect"
     profile_url = "https://api.soundcloud.com/me.json"
 
-    def complete_login(self, request, app, token, **kwargs):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         with get_adapter().get_requests_session() as sess:
             resp = sess.get(self.profile_url, params={"oauth_token": token.token})
             extra_data = resp.json()

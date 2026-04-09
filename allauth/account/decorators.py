@@ -6,7 +6,7 @@ from django.conf import settings
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
-from django.http import HttpResponseRedirect
+from django.http import HttpRequest, HttpResponseRedirect
 from django.shortcuts import render, resolve_url
 from django.urls import reverse
 
@@ -38,11 +38,11 @@ def verified_email_required(
 
     def decorator(view_func):
         @login_required(redirect_field_name=redirect_field_name, login_url=login_url)
-        def _wrapped_view(request, *args, **kwargs):
-            if not EmailAddress.objects.filter(
-                user=request.user, verified=True
-            ).exists():
-                send_verification_email_for_user(request, request.user)
+        def _wrapped_view(request: HttpRequest, *args, **kwargs):
+            user = request.user
+            assert user.is_authenticated  # nosec
+            if not EmailAddress.objects.filter(user=user, verified=True).exists():
+                send_verification_email_for_user(request, user)
                 if app_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED:
                     url = httpkit.add_query_params(
                         reverse("account_email_verification_sent"),
@@ -67,7 +67,7 @@ def reauthentication_required(
 ):
     def decorator(view_func):
         @wraps(view_func)
-        def _wrapper_view(request, *args, **kwargs):
+        def _wrapper_view(request: HttpRequest, *args, **kwargs):
             pass_method = allow_get and request.method == "GET"
             ena = (enabled is None) or (
                 enabled(request) if callable(enabled) else enabled
@@ -90,7 +90,7 @@ def reauthentication_required(
 def secure_admin_login(function=None):
     def decorator(view_func):
         @wraps(view_func)
-        def _wrapper_view(request, *args, **kwargs):
+        def _wrapper_view(request: HttpRequest, *args, **kwargs):
             if request.user.is_authenticated:
                 if not request.user.is_staff or not request.user.is_active:
                     raise PermissionDenied()

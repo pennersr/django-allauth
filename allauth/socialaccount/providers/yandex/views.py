@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
@@ -14,7 +16,7 @@ class YandexOAuth2Adapter(OAuth2Adapter):
     authorize_url = "https://oauth.yandex.com/authorize"
     profile_url = "https://login.yandex.ru/info"
 
-    def complete_login(self, request, app, token, **kwargs):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         headers = {"Authorization": f"OAuth {token.token}"}
         with get_adapter().get_requests_session() as sess:
             params = {"format": "json"}

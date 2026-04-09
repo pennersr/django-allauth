@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from django import forms
 from django.contrib import admin
+from django.http import HttpRequest
 
 from allauth import app_settings
 from allauth.account.adapter import get_adapter
@@ -41,10 +42,12 @@ class SocialAccountAdmin(admin.ModelAdmin):
     list_display = ("user", "uid", "provider")
     list_filter = ("provider",)
 
-    def get_search_fields(self, request):
+    def get_search_fields(self, request: HttpRequest):
         search_fields = super().get_search_fields(request)
         user_search_fields = get_adapter().get_user_search_fields()
-        return search_fields + list(map(lambda a: f"user__{a}", user_search_fields))
+        return list(search_fields) + list(
+            map(lambda a: f"user__{a}", user_search_fields)
+        )
 
 
 class SocialTokenAdmin(admin.ModelAdmin):

@@ -3,6 +3,8 @@ from __future__ import annotations
 import time
 from typing import Any
 
+from django.http import HttpRequest
+
 from allauth.socialaccount.adapter import get_adapter
 
 
@@ -35,14 +37,16 @@ def gc_states(states: dict[str, tuple[dict[str, Any], float]]) -> None:
             del states[oldest_id]
 
 
-def get_states(request) -> dict[str, tuple[dict[str, Any], float]]:
+def get_states(request: HttpRequest) -> dict[str, tuple[dict[str, Any], float]]:
     states = request.session.get(STATES_SESSION_KEY)
     if not isinstance(states, dict):
         states = {}
     return states
 
 
-def stash_state(request, state: dict[str, Any], state_id: str | None = None) -> str:
+def stash_state(
+    request: HttpRequest, state: dict[str, Any], state_id: str | None = None
+) -> str:
     states = get_states(request)
     gc_states(states)
     if state_id is None:
@@ -52,7 +56,7 @@ def stash_state(request, state: dict[str, Any], state_id: str | None = None) -> 
     return state_id
 
 
-def unstash_state(request, state_id: str) -> dict[str, Any] | None:
+def unstash_state(request: HttpRequest, state_id: str) -> dict[str, Any] | None:
     state: dict[str, Any] | None = None
     states = get_states(request)
     state_ts = states.get(state_id)
@@ -63,7 +67,7 @@ def unstash_state(request, state_id: str) -> dict[str, Any] | None:
     return state
 
 
-def unstash_last_state(request) -> dict[str, Any] | None:
+def unstash_last_state(request: HttpRequest) -> dict[str, Any] | None:
     states = get_states(request)
     state_id, state = get_oldest_state(states, rev=True)
     if state_id:

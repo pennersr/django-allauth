@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
@@ -33,7 +35,7 @@ class PaypalOAuth2Adapter(OAuth2Adapter):
         else:
             return "sandbox.paypal.com"
 
-    def complete_login(self, request, app, token, **kwargs):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         with get_adapter().get_requests_session() as sess:
             response = sess.post(
                 self.profile_url,

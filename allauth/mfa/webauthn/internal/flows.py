@@ -12,6 +12,7 @@ from allauth.account.internal.flows.reauthentication import (
     raise_if_reauthentication_required,
 )
 from allauth.account.models import Login
+from allauth.core.internal.httpkit import authenticated_user
 from allauth.mfa import signals
 from allauth.mfa.base.internal.flows import delete_and_cleanup, post_authentication
 from allauth.mfa.models import Authenticator
@@ -28,7 +29,9 @@ def begin_registration(
     return creation_options
 
 
-def signup_authenticator(request, user, name: str, credential: dict) -> Authenticator:
+def signup_authenticator(
+    request: HttpRequest, user, name: str, credential: dict
+) -> Authenticator:
     authenticator, rc_authenticator = _signup_or_add_authenticator(
         request, user, name, credential, signup=True
     )
@@ -36,7 +39,7 @@ def signup_authenticator(request, user, name: str, credential: dict) -> Authenti
 
 
 def add_authenticator(
-    request, name: str, credential: dict
+    request: HttpRequest, name: str, credential: dict
 ) -> tuple[Authenticator, Authenticator | None]:
     raise_if_reauthentication_required(request)
     return _signup_or_add_authenticator(
@@ -49,7 +52,7 @@ def add_authenticator(
 
 
 def _signup_or_add_authenticator(
-    request,
+    request: HttpRequest,
     user,
     name: str,
     credential: dict,
@@ -76,21 +79,27 @@ def _signup_or_add_authenticator(
     return authenticator, rc_authenticator
 
 
-def remove_authenticators(request, authenticators: Iterable[Authenticator]) -> None:
+def remove_authenticators(
+    request: HttpRequest, authenticators: Iterable[Authenticator]
+) -> None:
     raise_if_reauthentication_required(request)
     for authenticator in authenticators:
         remove_authenticator(request, authenticator)
 
 
-def remove_authenticator(request, authenticator: Authenticator) -> None:
+def remove_authenticator(request: HttpRequest, authenticator: Authenticator) -> None:
     raise_if_reauthentication_required(request)
     delete_and_cleanup(request, authenticator)
     adapter = get_account_adapter(request)
     adapter.add_message(request, messages.SUCCESS, "mfa/messages/webauthn_removed.txt")
-    adapter.send_notification_mail("mfa/email/webauthn_removed", request.user)
+    adapter.send_notification_mail(
+        "mfa/email/webauthn_removed", authenticated_user(request)
+    )
 
 
-def perform_passwordless_login(request, authenticator: Authenticator, login: Login):
+def perform_passwordless_login(
+    request: HttpRequest, authenticator: Authenticator, login: Login
+):
     post_authentication(request, authenticator, passwordless=True)
     return flows.login.perform_login(request, login)
 
@@ -108,7 +117,9 @@ def reauthenticate(request: HttpRequest, authenticator: Authenticator) -> None:
     post_authentication(request, authenticator, reauthenticated=True)
 
 
-def rename_authenticator(request, authenticator: Authenticator, name: str) -> None:
+def rename_authenticator(
+    request: HttpRequest, authenticator: Authenticator, name: str
+) -> None:
     raise_if_reauthentication_required(request)
     wrapper = authenticator.wrap()
     wrapper.name = name

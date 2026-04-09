@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
@@ -14,7 +16,7 @@ class MiroOAuth2Adapter(OAuth2Adapter):
     authorize_url = "https://miro.com/oauth/authorize"
     profile_url = "https://api.miro.com/v1/users/me"
 
-    def complete_login(self, request, app, token, response):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         headers = {
             "Authorization": f"Bearer {token.token}",
             "Content-Type": "application/json",

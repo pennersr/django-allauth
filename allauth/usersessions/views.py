@@ -9,6 +9,7 @@ from django.views.generic.edit import FormView
 
 from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
+from allauth.core.internal.httpkit import authenticated_user
 from allauth.usersessions import app_settings
 from allauth.usersessions.forms import ManageUserSessionsForm
 from allauth.usersessions.models import UserSession
@@ -25,7 +26,7 @@ class ListUserSessionsView(FormView):
     def get_context_data(self, **kwargs) -> dict:
         ret = super().get_context_data(**kwargs)
         sessions = sorted(
-            UserSession.objects.purge_and_list(self.request.user),
+            UserSession.objects.purge_and_list(authenticated_user(self.request)),
             key=lambda s: s.created_at,
         )
         ret["sessions"] = sessions

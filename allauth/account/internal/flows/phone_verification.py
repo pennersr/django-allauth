@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Optional
 
 from django.contrib import messages
+from django.contrib.auth.base_user import AbstractBaseUser
 from django.http import HttpRequest
 
 from allauth.account import app_settings
@@ -16,18 +17,21 @@ from allauth.account.internal.flows.reauthentication import (
 from allauth.account.internal.stagekit import stash_login
 from allauth.account.internal.userkit import did_user_login
 from allauth.core import context, ratelimit
+from allauth.core.internal.httpkit import authenticated_user
 
 
 PHONE_VERIFICATION_STATE_KEY = "phone_verification"
 PHONE_VERIFICATION_SESSION_KEY = "account_phone_verification"
 
 
-def verify_phone_indirectly(request: HttpRequest, user, phone: str) -> None:
+def verify_phone_indirectly(
+    request: HttpRequest, user: AbstractBaseUser, phone: str
+) -> None:
     get_adapter().set_phone_verified(user, phone)
 
 
 class PhoneVerificationProcess(AbstractCodeVerificationProcess):
-    def __init__(self, user, state) -> None:
+    def __init__(self, user: AbstractBaseUser, state) -> None:
         super().__init__(
             user=user,
             state=state,
@@ -155,7 +159,7 @@ class ChangePhoneVerificationProcess(PhoneVerificationProcess):
     def __init__(self, request: HttpRequest, state: dict) -> None:
         self.request = request
         super().__init__(
-            user=request.user,
+            user=authenticated_user(request),
             state=state,
         )
 
@@ -174,7 +178,7 @@ class ChangePhoneVerificationProcess(PhoneVerificationProcess):
         if app_settings.REAUTHENTICATION_REQUIRED:
             raise_if_reauthentication_required(request)
 
-        state = cls.initial_state(user=request.user, phone=phone)
+        state = cls.initial_state(user=authenticated_user(request), phone=phone)
         process = ChangePhoneVerificationProcess(request, state=state)
         process.send()
         return process
@@ -188,7 +192,9 @@ class ChangePhoneVerificationProcess(PhoneVerificationProcess):
         return process.abort_if_invalid()
 
 
-def phone_already_exists(user, phone: str, always_raise: bool = False) -> bool:
+def phone_already_exists(
+    user: AbstractBaseUser | None, phone: str, always_raise: bool = False
+) -> bool:
     """
     Throws a validation error (if allowed by enumeration prevention rules).
     Otherwise, returns True iff another account already exists.

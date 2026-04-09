@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import requests
 
+from django.http import HttpRequest
+
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.app_settings import QUERY_EMAIL
@@ -70,7 +72,7 @@ class AppleProvider(OAuth2Provider):
             scopes.append("email")
         return scopes
 
-    def verify_token(self, request, token):
+    def verify_token(self, request: HttpRequest, token):
         from allauth.socialaccount.providers.apple.views import AppleOAuth2Adapter
 
         id_token = token.get("id_token")

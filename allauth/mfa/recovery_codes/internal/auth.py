@@ -5,6 +5,8 @@ import secrets
 import time
 from hashlib import sha1
 
+from django.contrib.auth.base_user import AbstractBaseUser
+
 from allauth.mfa import app_settings
 from allauth.mfa.models import Authenticator
 from allauth.mfa.utils import decrypt, encrypt
@@ -15,14 +17,14 @@ class RecoveryCodes:
         self.instance = instance
 
     @classmethod
-    def activate(cls, user) -> "RecoveryCodes":
+    def activate(cls, user: AbstractBaseUser) -> "RecoveryCodes":
         instance = Authenticator.objects.filter(
-            user=user, type=Authenticator.Type.RECOVERY_CODES
+            user_id=user.pk, type=Authenticator.Type.RECOVERY_CODES
         ).first()
         if instance:
             return cls(instance)
         instance = Authenticator(
-            user=user,
+            user=user,  # type:ignore[misc]
             type=Authenticator.Type.RECOVERY_CODES,
             data={
                 "seed": encrypt(cls.generate_seed()),

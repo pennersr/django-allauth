@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.socialaccount.providers.base import AuthAction, ProviderAccount
 from allauth.socialaccount.providers.microsoft.views import MicrosoftGraphOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
@@ -23,7 +25,7 @@ class MicrosoftGraphProvider(OAuth2Provider):
         """
         return ["User.Read"]
 
-    def get_auth_params_from_request(self, request, action):
+    def get_auth_params_from_request(self, request: HttpRequest, action):
         ret = super().get_auth_params_from_request(request, action)
         if action == AuthAction.REAUTHENTICATE:
             ret["prompt"] = "select_account"

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
 from django.utils.translation import gettext_lazy as _
 
 from allauth.socialaccount.adapter import get_adapter
@@ -18,7 +19,7 @@ class DoubanOAuth2Adapter(OAuth2Adapter):
     authorize_url = "https://www.douban.com/service/auth2/auth"
     profile_url = "https://api.douban.com/v2/user/~me"
 
-    def complete_login(self, request, app, token, **kwargs):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         headers = {"Authorization": f"Bearer {token.token}"}
         with get_adapter().get_requests_session() as sess:
             resp = sess.get(self.profile_url, headers=headers)

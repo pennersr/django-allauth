@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from http import HTTPStatus
 
+from django.http import HttpRequest
+
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.client import OAuth2Error
 from allauth.socialaccount.providers.oauth2.views import (
@@ -17,7 +19,7 @@ class TwitchOAuth2Adapter(OAuth2Adapter):
     authorize_url = "https://id.twitch.tv/oauth2/authorize"
     profile_url = "https://api.twitch.tv/helix/users"
 
-    def complete_login(self, request, app, token, **kwargs):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         headers = {
             "Authorization": f"Bearer {token.token}",
             "Client-ID": app.client_id,

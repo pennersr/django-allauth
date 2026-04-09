@@ -3,7 +3,7 @@ from __future__ import annotations
 from urllib.parse import parse_qsl
 
 from django.core.exceptions import ImproperlyConfigured
-from django.http import HttpResponseRedirect
+from django.http import HttpRequest, HttpResponseRedirect
 from django.urls import reverse
 from django.utils.http import urlencode
 
@@ -20,7 +20,7 @@ class OAuth2Provider(Provider):
     oauth2_adapter_class: type[OAuth2Adapter]
     supports_redirect = True
 
-    def get_login_url(self, request, **kwargs):
+    def get_login_url(self, request: HttpRequest, **kwargs):
         url = reverse(f"{self.id}_login")
         if kwargs:
             url = f"{url}?{urlencode(kwargs)}"
@@ -51,7 +51,7 @@ class OAuth2Provider(Provider):
             ret = settings.get("AUTH_PARAMS", {})
         return dict(ret)
 
-    def get_auth_params_from_request(self, request, action):
+    def get_auth_params_from_request(self, request: HttpRequest, action):
         """
         Returns a dictionary of additional parameters passed to the OAuth2
         redirect URL. Additional -- so no need to pass the standard `client_id`,
@@ -79,7 +79,7 @@ class OAuth2Provider(Provider):
             scope = settings.get("SCOPE", self.get_default_scope())
         return list(scope)
 
-    def get_scope_from_request(self, request):
+    def get_scope_from_request(self, request: HttpRequest):
         """
         Returns the scope to use for the given request.
         """
@@ -89,19 +89,21 @@ class OAuth2Provider(Provider):
             scope.extend(dynamic_scope.split(","))
         return scope
 
-    def get_oauth2_adapter(self, request):
+    def get_oauth2_adapter(self, request: HttpRequest):
         if not hasattr(self, "oauth2_adapter_class"):
             raise ImproperlyConfigured(f"No oauth2_adapter_class set for {self!r}")
         return self.oauth2_adapter_class(request)
 
-    def get_redirect_from_request_kwargs(self, request):
+    def get_redirect_from_request_kwargs(self, request: HttpRequest):
         kwargs = super().get_redirect_from_request_kwargs(request)
         kwargs["scope"] = self.get_scope_from_request(request)
         action = request.GET.get("action", AuthAction.AUTHENTICATE)
         kwargs["auth_params"] = self.get_auth_params_from_request(request, action)
         return kwargs
 
-    def redirect(self, request, process, next_url=None, data=None, **kwargs):
+    def redirect(
+        self, request: HttpRequest, process, next_url=None, data=None, **kwargs
+    ):
         app = self.app
         oauth2_adapter = self.get_oauth2_adapter(request)
         client = oauth2_adapter.get_client(request, app)

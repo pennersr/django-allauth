@@ -7,7 +7,7 @@ from django.core.exceptions import (
     PermissionDenied,
     ValidationError,
 )
-from django.http import HttpResponse
+from django.http import HttpRequest, HttpResponse
 
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.internal.emailkit import valid_email_or_none
@@ -34,7 +34,7 @@ class Provider:
     # access/id-token.
     supports_token_authentication = False
 
-    def __init__(self, request, app=None) -> None:
+    def __init__(self, request: HttpRequest, app=None) -> None:
         self.request = request
         if self.uses_apps and app is None:
             raise ValueError("missing: app")
@@ -47,18 +47,18 @@ class Provider:
     def get_slug(cls) -> str:
         return cls.slug or cls.id
 
-    def get_login_url(self, request, next=None, **kwargs) -> str:
+    def get_login_url(self, request: HttpRequest, **kwargs) -> str:
         """
         Builds the URL to redirect to when initiating a login for this
         provider.
         """
         raise NotImplementedError(f"get_login_url() for {self.name}")
 
-    def redirect_from_request(self, request) -> HttpResponse:
+    def redirect_from_request(self, request: HttpRequest) -> HttpResponse:
         kwargs = self.get_redirect_from_request_kwargs(request)
         return self.redirect(request, **kwargs)
 
-    def get_redirect_from_request_kwargs(self, request) -> dict:
+    def get_redirect_from_request_kwargs(self, request: HttpRequest) -> dict:
         kwargs = {}
         next_url = get_next_redirect_url(request)
         if next_url:
@@ -67,21 +67,21 @@ class Provider:
         return kwargs
 
     def redirect(
-        self, request, process, next_url=None, data=None, **kwargs
+        self, request: HttpRequest, process, next_url=None, data=None, **kwargs
     ) -> HttpResponse:
         """
         Initiate a redirect to the provider.
         """
         raise NotImplementedError()
 
-    def verify_token(self, request, token):
+    def verify_token(self, request: HttpRequest, token):
         """
         Verifies the token, returning a `SocialLogin` instance when valid.
         Raises a `ValidationError` otherwise.
         """
         raise NotImplementedError()
 
-    def media_js(self, request) -> str:
+    def media_js(self, request: HttpRequest) -> str:
         """
         Some providers may require extra scripts (e.g. a Facebook connect)
         """
@@ -93,7 +93,7 @@ class Provider:
     def get_settings(self) -> dict:
         return app_settings.PROVIDERS.get(self.id, {})
 
-    def sociallogin_from_response(self, request, response):
+    def sociallogin_from_response(self, request: HttpRequest, response):
         """
         Instantiates and populates a `SocialLogin` model based on the data
         retrieved in `response`. The method does NOT save the model to the
@@ -247,7 +247,13 @@ class Provider:
         return pkg
 
     def stash_redirect_state(
-        self, request, process, next_url=None, data=None, state_id=None, **kwargs
+        self,
+        request: HttpRequest,
+        process,
+        next_url=None,
+        data=None,
+        state_id=None,
+        **kwargs,
     ):
         """
         Stashes state, returning a (random) state ID using which the state
@@ -259,7 +265,7 @@ class Provider:
             state["next"] = next_url
         return statekit.stash_state(request, state, state_id=state_id)
 
-    def unstash_redirect_state(self, request, state_id):
+    def unstash_redirect_state(self, request: HttpRequest, state_id):
         state = statekit.unstash_state(request, state_id)
         if state is None:
             raise PermissionDenied()

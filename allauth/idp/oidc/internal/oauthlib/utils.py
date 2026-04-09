@@ -33,7 +33,7 @@ def extract_params(request: HttpRequest) -> tuple[str, str, str, dict[str, str]]
     return uri, request.method, body, headers
 
 
-def extract_headers(request) -> dict[str, str]:
+def extract_headers(request: HttpRequest) -> dict[str, str]:
     """
     You need to define extract_params and make sure it does not include file
     like objects waiting for input. In Django this is request.META['wsgi.input']

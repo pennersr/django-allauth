@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
@@ -15,7 +17,7 @@ class FigmaOAuth2Adapter(OAuth2Adapter):
     access_token_url = "https://www.figma.com/api/oauth/token"  # nosec
     userinfo_url = "https://api.figma.com/v1/me"
 
-    def complete_login(self, request, app, token, **kwargs):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         headers = {"Authorization": f"Bearer {token.token}"}
         with get_adapter().get_requests_session() as sess:
             resp = sess.get(self.userinfo_url, headers=headers)

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
@@ -25,7 +27,7 @@ class OrcidOAuth2Adapter(OAuth2Adapter):
     access_token_url = f"https://{api_domain}/oauth/token"
     profile_url = f"https://{api_domain}/v3.0/%s/record"
 
-    def complete_login(self, request, app, token, **kwargs):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         params = {}
         if self.member_api:
             params["access_token"] = token.token

@@ -79,7 +79,9 @@ def validate_user_code(code: str) -> tuple[str, Client]:
     return device_code, client
 
 
-def confirm_or_deny_device_code(user, device_code: str, confirm: bool) -> bool:
+def confirm_or_deny_device_code(
+    user: AbstractBaseUser, device_code: str, confirm: bool
+) -> bool:
     data = cache.get(cache_device_code_key(device_code))
     if data is None or data["granted"] is not None:
         return False

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
-from django.http import HttpResponseRedirect
+from django.http import HttpRequest, HttpResponseRedirect
 from django.urls import reverse
 from django.utils.http import urlencode
 
@@ -70,18 +70,18 @@ class SteamOpenIDProvider(OpenIDProvider):
     uses_apps = True
     supports_redirect = True
 
-    def __init__(self, request, app=None) -> None:
+    def __init__(self, request: HttpRequest, app=None) -> None:
         if app is None:
             app = get_adapter().get_app(request, self.id)
         super().__init__(request, app=app)
 
-    def get_login_url(self, request, **kwargs):
+    def get_login_url(self, request: HttpRequest, **kwargs):
         url = reverse("steam_login")
         if kwargs:
             url += f"?{urlencode(kwargs)}"
         return url
 
-    def sociallogin_from_response(self, request, response):
+    def sociallogin_from_response(self, request: HttpRequest, response):
         steam_id = extract_steam_id(response.identity_url)
         steam_api_key = self.app.secret
         response._extra = request_steam_account_summary(steam_api_key, steam_id)
@@ -109,10 +109,12 @@ class SteamOpenIDProvider(OpenIDProvider):
             "full_name": full_name,
         }
 
-    def get_realm(self, request):
+    def get_realm(self, request: HttpRequest):
         return self.get_settings().get("REALM", request.build_absolute_uri("/"))
 
-    def redirect(self, request, process, next_url=None, data=None, **kwargs):
+    def redirect(
+        self, request: HttpRequest, process, next_url=None, data=None, **kwargs
+    ):
         endpoint = STEAM_OPENID_URL
         realm = self.get_realm(request)
         try:

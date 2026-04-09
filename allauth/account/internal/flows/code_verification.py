@@ -5,6 +5,7 @@ import time
 from typing import Any
 
 from django.contrib.auth import get_user_model
+from django.contrib.auth.base_user import AbstractBaseUser
 
 from allauth.account.internal.userkit import str_to_user_id, user_id_to_str
 
@@ -15,7 +16,7 @@ class AbstractCodeVerificationProcess(abc.ABC):
         max_attempts: int,
         timeout: int,
         state: dict,
-        user=None,
+        user: AbstractBaseUser | None = None,
     ) -> None:
         self._user = user
         self.max_attempts = max_attempts
@@ -38,7 +39,12 @@ class AbstractCodeVerificationProcess(abc.ABC):
         return self.state.get("code", "")
 
     @classmethod
-    def initial_state(cls, user, email: str | None = None, phone: str | None = None):
+    def initial_state(
+        cls,
+        user: AbstractBaseUser | None,
+        email: str | None = None,
+        phone: str | None = None,
+    ):
         state: dict[str, Any] = {
             "at": time.time(),
             "failed_attempts": 0,

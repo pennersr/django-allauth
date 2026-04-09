@@ -2,8 +2,10 @@ from __future__ import annotations
 
 from django import forms
 from django.contrib.auth import REDIRECT_FIELD_NAME, get_user_model, password_validation
+from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.core import exceptions, validators
+from django.http import HttpRequest
 from django.template.exceptions import TemplateDoesNotExist
 from django.template.loader import render_to_string
 from django.urls import NoReverseMatch, reverse
@@ -37,13 +39,13 @@ from .utils import (
 
 
 class EmailAwarePasswordResetTokenGenerator(PasswordResetTokenGenerator):
-    def _make_hash_value(self, user, timestamp):
-        ret = super()._make_hash_value(user, timestamp)
+    def _make_hash_value(self, user: AbstractBaseUser, timestamp):
+        ret = super()._make_hash_value(user, timestamp)  # type:ignore[arg-type]
         sync_user_email_address(user)
         email = user_email(user)
         emails = set([email] if email else [])
         emails.update(
-            EmailAddress.objects.filter(user=user).values_list("email", flat=True)
+            EmailAddress.objects.filter(user_id=user.pk).values_list("email", flat=True)
         )
         ret += "|".join(sorted(emails))
         return ret
@@ -225,13 +227,13 @@ class LoginForm(forms.Form):
             raise adapter.validation_error(f"{login_method.value}_password_mismatch")
         return self.cleaned_data
 
-    def login(self, request, redirect_url=None):
+    def login(self, request: HttpRequest, redirect_url=None):
         credentials = self.user_credentials()
         if "password" in credentials:
             return self._login_with_password(request, redirect_url, credentials)
         return self._login_by_code(request, redirect_url, credentials)
 
-    def _login_by_code(self, request, redirect_url, credentials):
+    def _login_by_code(self, request: HttpRequest, redirect_url, credentials):
         user = getattr(self, "user", None)
         phone = credentials.get("phone")
         email = credentials.get("email")
@@ -247,7 +249,7 @@ class LoginForm(forms.Form):
             query[REDIRECT_FIELD_NAME] = redirect_url
         return headed_redirect_response("account_confirm_login_code", query=query)
 
-    def _login_with_password(self, request, redirect_url, credentials):
+    def _login_with_password(self, request: HttpRequest, redirect_url, credentials):
         login = self._login
         login.redirect_url = redirect_url
         ret = flows.login.perform_password_login(request, credentials, login)
@@ -407,10 +409,10 @@ class BaseSignupForm(base_signup_form_class()):  # type: ignore[misc]
                 else:
                     self.account_already_exists = True
 
-    def custom_signup(self, request, user) -> None:
+    def custom_signup(self, request: HttpRequest, user: AbstractBaseUser) -> None:
         self.signup(request, user)
 
-    def try_save(self, request):
+    def try_save(self, request: HttpRequest):
         """Try and save the user. This can fail in case of a conflict on the
         email address, in that case we will send an "account already exists"
         email and return a standard "email verification sent" response.
@@ -429,7 +431,7 @@ class BaseSignupForm(base_signup_form_class()):  # type: ignore[misc]
             resp = None
         return user, resp
 
-    def save(self, request) -> None:
+    def save(self, request: HttpRequest) -> AbstractBaseUser:
         email = self.cleaned_data.get("email")
         if self.account_already_exists:
             raise ValueError(email)
@@ -478,7 +480,7 @@ class SignupForm(BaseSignupForm):
                 ),
             )
 
-    def try_save(self, request):
+    def try_save(self, request: HttpRequest):
         """
         override of parent class method that adds additional catching
         of a potential bot filling out the honeypot field and returns a
@@ -528,7 +530,7 @@ class SignupForm(BaseSignupForm):
 
 
 class UserForm(forms.Form):
-    def __init__(self, user=None, *args, **kwargs) -> None:
+    def __init__(self, user: AbstractBaseUser | None = None, *args, **kwargs) -> None:
         self.user = user
         super().__init__(*args, **kwargs)
 
@@ -539,6 +541,7 @@ class AddEmailForm(UserForm):
     def clean_email(self) -> str:
         from allauth.account import signals
 
+        assert self.user  # nosec
         value = self.cleaned_data["email"].lower()
         adapter = get_adapter()
         value = adapter.clean_email(value)
@@ -569,10 +572,12 @@ class AddEmailForm(UserForm):
         )
         return value
 
-    def save(self, request):
+    def save(self, request: HttpRequest):
+        assert self.user  # nosec
         if app_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED:
             email_address = EmailAddress(
-                user=self.user, email=self.cleaned_data["email"]
+                user=self.user,  # type:ignore[misc]
+                email=self.cleaned_data["email"],
             )
             flows.email_verification.send_verification_email_to_address(
                 request, email_address
@@ -600,11 +605,13 @@ class ChangePasswordForm(PasswordVerificationMixin, UserForm):
         password1.user = self.user
 
     def clean_oldpassword(self) -> str:
-        if not self.user.check_password(self.cleaned_data.get("oldpassword")):
+        assert self.user  # nosec
+        if not self.user.check_password(self.cleaned_data.get("oldpassword", "")):
             raise get_adapter().validation_error("enter_current_password")
         return self.cleaned_data["oldpassword"]
 
     def save(self) -> None:
+        assert self.user  # nosec
         flows.password_change.change_password(self.user, self.cleaned_data["password1"])
 
 
@@ -618,6 +625,7 @@ class SetPasswordForm(PasswordVerificationMixin, UserForm):
         password1.user = self.user
 
     def save(self) -> None:
+        assert self.user  # nosec
         flows.password_change.change_password(self.user, self.cleaned_data["password1"])
 
 
@@ -632,7 +640,7 @@ class ResetPasswordForm(forms.Form):
             raise get_adapter().validation_error("unknown_email")
         return self.cleaned_data["email"]
 
-    def save(self, request, **kwargs) -> str:
+    def save(self, request: HttpRequest, **kwargs) -> str:
         email = self.cleaned_data["email"]
         if app_settings.PASSWORD_RESET_BY_CODE_ENABLED:
             flows.password_reset_by_code.PasswordResetVerificationProcess.initiate(

@@ -11,6 +11,7 @@ from typing import Any
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.sessions.backends.base import SessionBase
 from django.utils.functional import SimpleLazyObject
 
@@ -224,7 +225,7 @@ def get_refresh_token_state(session: SessionBase) -> dict[str, int]:
     return session.setdefault("headless_refresh_tokens", {})
 
 
-def create_refresh_token(user, session: SessionBase) -> str:
+def create_refresh_token(user: AbstractBaseUser, session: SessionBase) -> str:
     assert user.is_authenticated  # nosec
     assert session.session_key  # nosec
     sub = user_id_to_str(user)
@@ -240,7 +241,9 @@ def create_refresh_token(user, session: SessionBase) -> str:
     return token
 
 
-def create_access_token(user, session: SessionBase, claims: dict[str, Any]) -> str:
+def create_access_token(
+    user: AbstractBaseUser, session: SessionBase, claims: dict[str, Any]
+) -> str:
     assert user.is_authenticated  # nosec
     assert session.session_key  # nosec
     sid = session_key_to_sid(session.session_key)

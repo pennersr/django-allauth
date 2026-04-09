@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
@@ -14,7 +16,7 @@ class WindowsLiveOAuth2Adapter(OAuth2Adapter):
     authorize_url = "https://login.live.com/oauth20_authorize.srf"
     profile_url = "https://apis.live.net/v5.0/me"
 
-    def complete_login(self, request, app, token, **kwargs):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         # example of what's returned (in python format):
         # {'first_name': 'James', 'last_name': 'Smith',
         #  'name': 'James Smith', 'locale': 'en_US', 'gender': None,

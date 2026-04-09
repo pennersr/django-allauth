@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
@@ -15,8 +17,9 @@ class StocktwitsOAuth2Adapter(OAuth2Adapter):
     profile_url = "https://api.stocktwits.com/api/2/streams/user/{user}.json"
     scope_delimiter = ","
 
-    def complete_login(self, request, app, token, **kwargs):
-        user_id = kwargs.get("response").get("user_id")
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
+        response: dict = kwargs["response"]
+        user_id = response.get("user_id")
         with get_adapter().get_requests_session() as sess:
             resp = sess.get(self.profile_url.format(user=user_id))
             resp.raise_for_status()

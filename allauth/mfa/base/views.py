@@ -1,8 +1,15 @@
 from __future__ import annotations
 
+from typing import Any
+
 from django.contrib.auth.decorators import login_required
 from django.forms import Form
-from django.http import HttpResponse, HttpResponseBase, HttpResponseRedirect
+from django.http import (
+    HttpRequest,
+    HttpResponse,
+    HttpResponseBase,
+    HttpResponseRedirect,
+)
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.decorators import method_decorator
@@ -33,8 +40,10 @@ class AuthenticateView(TemplateView):
     webauthn_form_class = AuthenticateWebAuthnForm
     template_name = f"mfa/authenticate.{account_settings.TEMPLATE_EXTENSION}"
 
-    def dispatch(self, request, *args, **kwargs) -> HttpResponseBase:
-        self.stage = request._login_stage
+    def dispatch(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponseBase:
+        self.stage = request._login_stage  # type:ignore[attr-defined]
         if not is_mfa_enabled(
             self.stage.login.user,
             [Authenticator.Type.TOTP, Authenticator.Type.WEBAUTHN],
@@ -43,7 +52,7 @@ class AuthenticateView(TemplateView):
         self.form = self._build_forms()
         return super().dispatch(request, *args, **kwargs)
 
-    def post(self, request, *args, **kwargs) -> HttpResponse:
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         if self.form.is_valid():
             return self.form_valid(self.form)
         else:

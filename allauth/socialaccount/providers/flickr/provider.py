@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.flickr.views import FlickrOAuthAdapter
 from allauth.socialaccount.providers.oauth.provider import OAuthProvider
@@ -40,7 +42,7 @@ class FlickrProvider(OAuthProvider):
         scope = []
         return scope
 
-    def get_auth_params_from_request(self, request, action):
+    def get_auth_params_from_request(self, request: HttpRequest, action):
         ret = super().get_auth_params_from_request(request, action)
         if "perms" not in ret:
             ret["perms"] = "read"

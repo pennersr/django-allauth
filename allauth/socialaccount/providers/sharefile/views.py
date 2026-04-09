@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
@@ -24,7 +26,7 @@ class ShareFileOAuth2Adapter(OAuth2Adapter):
     authorize_url = f"{provider_default_url}/oauth/authorize"
     profile_url = f"{provider_default_api_url}/sf/{provider_api_version}/Users"
 
-    def complete_login(self, request, app, token, response):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         headers = {"Authorization": f"Bearer {token.token}"}
         with get_adapter().get_requests_session() as sess:
             resp = sess.get(self.profile_url, headers=headers)

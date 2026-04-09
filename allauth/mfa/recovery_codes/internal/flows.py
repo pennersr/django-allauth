@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from django.contrib import messages
+from django.contrib.auth.base_user import AbstractBaseUser
 from django.http import HttpRequest
 
 from allauth.account.adapter import get_adapter as get_account_adapter
@@ -12,9 +13,9 @@ from allauth.mfa.models import Authenticator
 from allauth.mfa.recovery_codes.internal.auth import RecoveryCodes
 
 
-def can_generate_recovery_codes(user) -> bool:
+def can_generate_recovery_codes(user: AbstractBaseUser) -> bool:
     return (
-        Authenticator.objects.filter(user=user)
+        Authenticator.objects.filter(user_id=user.pk)
         .exclude(type=Authenticator.Type.RECOVERY_CODES)
         .exists()
     )

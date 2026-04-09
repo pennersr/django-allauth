@@ -5,7 +5,8 @@ import json
 from urllib.parse import parse_qs, quote, urlencode, urlparse, urlunparse
 
 from django import shortcuts
-from django.core.exceptions import ImproperlyConfigured
+from django.contrib.auth.models import AbstractBaseUser
+from django.core.exceptions import ImproperlyConfigured, PermissionDenied
 from django.http import (
     HttpRequest,
     HttpResponseRedirect,
@@ -21,7 +22,7 @@ from allauth import app_settings as allauth_settings
 HTTP_USER_AGENT_MAX_LENGTH = 200
 
 
-def serialize_request(request):
+def serialize_request(request: HttpRequest):
     return json.dumps(
         {
             "path": request.path,
@@ -35,7 +36,7 @@ def serialize_request(request):
     )
 
 
-def deserialize_request(s, request):
+def deserialize_request(s, request: HttpRequest):
     data = json.loads(s)
     request.GET = QueryDict(data["GET"])
     request.POST = QueryDict(data["POST"])
@@ -43,7 +44,7 @@ def deserialize_request(s, request):
     request.path = data["path"]
     request.path_info = data["path_info"]
     request.method = data["method"]
-    request._get_scheme = lambda: data["scheme"]
+    request._get_scheme = lambda: data["scheme"]  # type:ignore[attr-defined]
     return request
 
 
@@ -91,7 +92,7 @@ def add_query_params(url: str, params: dict) -> str:
     return new_url
 
 
-def render_url(request, url_template, **kwargs):
+def render_url(request: HttpRequest, url_template, **kwargs):
     url = url_template
     for k, v in kwargs.items():
         qi = url.find("?")
@@ -110,7 +111,7 @@ def render_url(request, url_template, **kwargs):
     return url
 
 
-def default_get_frontend_url(request, urlname, **kwargs):
+def default_get_frontend_url(request: HttpRequest, urlname, **kwargs):
     from allauth import app_settings as allauth_settings
 
     if allauth_settings.HEADLESS_ENABLED:
@@ -124,7 +125,7 @@ def default_get_frontend_url(request, urlname, **kwargs):
     return None
 
 
-def get_frontend_url(request, urlname, **kwargs):
+def get_frontend_url(request: HttpRequest, urlname, **kwargs):
     from allauth import app_settings as allauth_settings
 
     if allauth_settings.HEADLESS_ENABLED:
@@ -215,3 +216,10 @@ def get_client_ip(request: HttpRequest) -> str | None:
         if not ip:
             ip = request.META["REMOTE_ADDR"]
     return clean_client_ip(ip) if ip else None
+
+
+def authenticated_user(request: HttpRequest) -> AbstractBaseUser:
+    user = request.user
+    if not user.is_authenticated:
+        raise PermissionDenied
+    return user

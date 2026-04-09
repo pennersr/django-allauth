@@ -1,13 +1,20 @@
 from __future__ import annotations
 
 from http import HTTPStatus
+from typing import Any
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.core.validators import validate_email
 from django.forms import Form, ValidationError
-from django.http import Http404, HttpResponse, HttpResponseBase, HttpResponseRedirect
+from django.http import (
+    Http404,
+    HttpRequest,
+    HttpResponse,
+    HttpResponseBase,
+    HttpResponseRedirect,
+)
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
 from django.utils.functional import cached_property
@@ -65,7 +72,7 @@ from allauth.account.stages import (
 from allauth.account.utils import user_display
 from allauth.core import ratelimit
 from allauth.core.exceptions import ImmediateHttpResponse
-from allauth.core.internal.httpkit import redirect
+from allauth.core.internal.httpkit import authenticated_user, redirect
 from allauth.core.ratelimit import RateLimited
 from allauth.decorators import rate_limit
 from allauth.utils import get_form_class
@@ -93,7 +100,9 @@ class LoginView(
     @method_decorator(login_not_required)
     @sensitive_post_parameters_m
     @method_decorator(never_cache)
-    def dispatch(self, request, *args, **kwargs) -> HttpResponseBase:
+    def dispatch(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponseBase:
         if allauth_app_settings.SOCIALACCOUNT_ONLY and request.method != "GET":
             raise PermissionDenied()
         return super().dispatch(request, *args, **kwargs)
@@ -136,7 +145,9 @@ class SignupView(
     @method_decorator(login_not_required)
     @sensitive_post_parameters_m
     @method_decorator(never_cache)
-    def dispatch(self, request, *args, **kwargs) -> HttpResponseBase:
+    def dispatch(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponseBase:
         return super().dispatch(request, *args, **kwargs)
 
     def get_form_class(self):
@@ -313,9 +324,13 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
     def get_form_class(self):
         return get_form_class(app_settings.FORMS, "add_email", self.form_class)
 
-    def dispatch(self, request, *args, **kwargs) -> HttpResponseBase:
+    def dispatch(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponseBase:
         self._did_send_verification_email = False
-        flows.manage_email.sync_user_email_address(request.user)
+        user = request.user
+        assert user.is_authenticated  # nosec
+        flows.manage_email.sync_user_email_address(user)
         return super().dispatch(request, *args, **kwargs)
 
     def get_form_kwargs(self) -> dict:
@@ -328,7 +343,7 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
         self._did_send_verification_email = True
         return super().form_valid(form)
 
-    def post(self, request, *args, **kwargs) -> HttpResponse:
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         res = None
         if "action_add" in request.POST:
             res = super().post(request, *args, **kwargs)
@@ -350,18 +365,20 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
             res = _ajax_response(request, res, data=self._get_ajax_data_if())
         return res
 
-    def _get_email_address(self, request):
+    def _get_email_address(self, request: HttpRequest):
         email = request.POST["email"]
         try:
             validate_email(email)
         except ValidationError:
             return None
         try:
-            return EmailAddress.objects.get_for_user(user=request.user, email=email)
+            return EmailAddress.objects.get_for_user(
+                user=authenticated_user(request), email=email
+            )
         except EmailAddress.DoesNotExist:
             pass
 
-    def _action_send(self, request, *args, **kwargs):
+    def _action_send(self, request: HttpRequest, *args: Any, **kwargs: Any):
         email_address = self._get_email_address(request)
         did_send_verification_email = False
         if email_address:
@@ -375,13 +392,13 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
         ):
             return HttpResponseRedirect(reverse("account_email_verification_sent"))
 
-    def _action_remove(self, request, *args, **kwargs):
+    def _action_remove(self, request: HttpRequest, *args: Any, **kwargs: Any):
         email_address = self._get_email_address(request)
         if email_address:
             if flows.manage_email.delete_email(request, email_address):
                 return HttpResponseRedirect(self.get_success_url())
 
-    def _action_primary(self, request, *args, **kwargs):
+    def _action_primary(self, request: HttpRequest, *args: Any, **kwargs: Any):
         email_address = self._get_email_address(request)
         if email_address:
             if flows.manage_email.mark_as_primary(request, email_address):
@@ -453,8 +470,11 @@ class PasswordChangeView(AjaxCapableProcessFormViewMixin, NextRedirectMixin, For
         return get_form_class(app_settings.FORMS, "change_password", self.form_class)
 
     @sensitive_post_parameters_m
-    def dispatch(self, request, *args, **kwargs):
-        if not self.request.user.has_usable_password():
+    def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any):
+        # This view is @login_required
+        user = self.request.user
+        assert user.is_authenticated  # nosec
+        if not user.has_usable_password():
             return HttpResponseRedirect(reverse("account_set_password"))
         return super().dispatch(request, *args, **kwargs)
 
@@ -497,8 +517,10 @@ class PasswordSetView(AjaxCapableProcessFormViewMixin, NextRedirectMixin, FormVi
         return get_form_class(app_settings.FORMS, "set_password", self.form_class)
 
     @sensitive_post_parameters_m
-    def dispatch(self, request, *args, **kwargs):
-        if self.request.user.has_usable_password():
+    def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any):
+        user = self.request.user
+        assert user.is_authenticated  # nosec
+        if user.has_usable_password():
             return HttpResponseRedirect(reverse("account_change_password"))
         return super().dispatch(request, *args, **kwargs)
 
@@ -594,7 +616,7 @@ class PasswordResetFromKeyView(
             app_settings.FORMS, "reset_password_from_key", self.form_class
         )
 
-    def dispatch(self, request, uidb36, key, **kwargs) -> HttpResponseBase:
+    def dispatch(self, request: HttpRequest, uidb36, key, **kwargs) -> HttpResponseBase:
         self.request = request
         self.key = key
 
@@ -694,7 +716,7 @@ class CompletePasswordResetView(
     form_class = ResetPasswordKeyForm
     success_url = reverse_lazy("account_password_reset_completed")
 
-    def dispatch(self, request, **kwargs) -> HttpResponseBase:
+    def dispatch(self, request: HttpRequest, **kwargs) -> HttpResponseBase:
         self._process = (
             flows.password_reset_by_code.PasswordResetVerificationProcess.resume(
                 request
@@ -742,7 +764,9 @@ class ConfirmPasswordResetCodeView(NextRedirectMixin, FormView):
     form_class = ConfirmPasswordResetCodeForm
 
     @method_decorator(login_not_required)
-    def dispatch(self, request, *args, **kwargs) -> HttpResponseBase:
+    def dispatch(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponseBase:
         self._process = (
             flows.password_reset_by_code.PasswordResetVerificationProcess.resume(
                 request
@@ -850,7 +874,9 @@ class ConfirmEmailVerificationCodeView(NextRedirectMixin, FormView):
     )
     form_class = ConfirmEmailVerificationCodeForm
 
-    def dispatch(self, request, *args, **kwargs) -> HttpResponseBase:
+    def dispatch(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponseBase:
         self.stage = LoginStageController.enter(request, EmailVerificationStage.key)
         self._process = (
             flows.email_verification_by_code.EmailVerificationProcess.resume(request)
@@ -989,7 +1015,7 @@ class ConfirmEmailVerificationCodeView(NextRedirectMixin, FormView):
 
 
 @method_decorator(login_not_required, name="dispatch")
-def email_verification_sent(request) -> HttpResponseBase:
+def email_verification_sent(request: HttpRequest) -> HttpResponseBase:
     if app_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED:
         return ConfirmEmailVerificationCodeView.as_view()(request)
     else:
@@ -997,7 +1023,9 @@ def email_verification_sent(request) -> HttpResponseBase:
 
 
 class BaseReauthenticateView(NextRedirectMixin, FormView):
-    def dispatch(self, request, *args, **kwargs) -> HttpResponseBase:
+    def dispatch(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponseBase:
         resp = self._check_reauthentication_method_available(request)
         if resp:
             return resp
@@ -1006,15 +1034,17 @@ class BaseReauthenticateView(NextRedirectMixin, FormView):
             return resp
         return super().dispatch(request, *args, **kwargs)
 
-    def _check_ratelimit(self, request):
+    def _check_ratelimit(self, request: HttpRequest):
         return ratelimit.consume_or_429(
             self.request,
             action="reauthenticate",
             user=self.request.user,
         )
 
-    def _check_reauthentication_method_available(self, request):
-        methods = get_adapter().get_reauthentication_methods(self.request.user)
+    def _check_reauthentication_method_available(self, request: HttpRequest):
+        methods = get_adapter().get_reauthentication_methods(
+            authenticated_user(self.request)
+        )
         if any([m["url"] == request.path for m in methods]):
             # Method is available
             return None
@@ -1130,8 +1160,10 @@ class ConfirmLoginCodeView(NextRedirectMixin, FormView):
     template_name = f"account/confirm_login_code.{app_settings.TEMPLATE_EXTENSION}"
 
     @method_decorator(never_cache)
-    def dispatch(self, request, *args, **kwargs) -> HttpResponseBase:
-        self.stage = request._login_stage
+    def dispatch(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponseBase:
+        self.stage = request._login_stage  # type:ignore[attr-defined]
         self._process = flows.login_by_code.LoginCodeVerificationProcess.resume(
             self.stage
         )
@@ -1340,8 +1372,10 @@ class _BaseVerifyPhoneView(NextRedirectMixin, FormView):
 )
 class _VerifyPhoneSignupView(_BaseVerifyPhoneView):
     @method_decorator(never_cache)
-    def dispatch(self, request, *args, **kwargs) -> HttpResponseBase:
-        self.stage = request._login_stage
+    def dispatch(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponseBase:
+        self.stage = request._login_stage  # type:ignore[attr-defined]
         self.process = flows.phone_verification.PhoneVerificationStageProcess.resume(
             self.stage
         )
@@ -1364,7 +1398,9 @@ class _VerifyPhoneSignupView(_BaseVerifyPhoneView):
 
 class _VerifyPhoneChangeView(_BaseVerifyPhoneView):
     @method_decorator(never_cache)
-    def dispatch(self, request, *args, **kwargs) -> HttpResponseBase:
+    def dispatch(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponseBase:
         self.process = flows.phone_verification.ChangePhoneVerificationProcess.resume(
             request
         )
@@ -1385,7 +1421,7 @@ class _VerifyPhoneChangeView(_BaseVerifyPhoneView):
 
 
 @method_decorator(login_not_required, name="dispatch")
-def verify_phone(request):
+def verify_phone(request: HttpRequest):
     if request.user.is_authenticated:
         return _VerifyPhoneChangeView.as_view()(request)
     return _VerifyPhoneSignupView.as_view()(request)
@@ -1403,7 +1439,7 @@ class ChangePhoneView(FormView):
 
     def get_form_kwargs(self) -> dict:
         ret = super().get_form_kwargs()
-        self._phone_verified = get_adapter().get_phone(self.request.user)
+        self._phone_verified = get_adapter().get_phone(authenticated_user(self.request))
         if (
             self.request.POST.get("action") == "verify"
             and self._phone_verified

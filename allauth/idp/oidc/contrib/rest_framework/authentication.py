@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from rest_framework.authentication import BaseAuthentication
 
 from allauth.idp.oidc.internal.oauthlib.server import get_server
@@ -11,7 +13,7 @@ class TokenAuthentication(BaseAuthentication):
     Use the OIDC access token to authenticate the request.
     """
 
-    def authenticate(self, request):
+    def authenticate(self, request: HttpRequest):
         server = get_server()
         orequest = extract_params(request)
         valid, ctx = server.verify_request(*orequest, scopes=[])

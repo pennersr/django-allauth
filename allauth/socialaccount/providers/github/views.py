@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from http import HTTPStatus
 
+from django.http import HttpRequest
+
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
@@ -27,7 +29,7 @@ class GitHubOAuth2Adapter(OAuth2Adapter):
     profile_url = f"{api_url}/user"
     emails_url = f"{api_url}/user/emails"
 
-    def complete_login(self, request, app, token, **kwargs):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         headers = {"Authorization": f"token {token.token}"}
         with get_adapter().get_requests_session() as sess:
             resp = sess.get(self.profile_url, headers=headers)

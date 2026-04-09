@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
@@ -19,7 +21,7 @@ class HubspotOAuth2Adapter(OAuth2Adapter):
     access_token_url = "https://api.hubapi.com/oauth/v1/token"  # nosec
     profile_url = "https://api.hubapi.com/oauth/v1/access-tokens"
 
-    def complete_login(self, request, app, token, **kwargs):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         headers = {"Content-Type": "application/json"}
         with get_adapter().get_requests_session() as sess:
             response = sess.get(f"{self.profile_url}/{token.token}", headers=headers)

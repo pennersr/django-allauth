@@ -2,12 +2,18 @@ from __future__ import annotations
 
 import functools
 import warnings
+from typing import TYPE_CHECKING
 
 from django.core.exceptions import ImproperlyConfigured, MultipleObjectsReturned
 from django.db.models import Q
+from django.http import HttpRequest
 from django.urls import reverse
 from django.utils.crypto import get_random_string
 from django.utils.translation import gettext_lazy as _
+
+
+if TYPE_CHECKING:
+    from allauth.socialaccount.models import SocialLogin
 
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.internal.emailkit import valid_email_or_none
@@ -44,7 +50,7 @@ class DefaultSocialAccountAdapter(BaseAdapter):
         ),
     }
 
-    def pre_social_login(self, request, sociallogin) -> None:
+    def pre_social_login(self, request: HttpRequest, sociallogin: SocialLogin) -> None:
         """
         Invoked just after a user successfully authenticates via a
         social provider, but before the login is actually processed
@@ -61,7 +67,7 @@ class DefaultSocialAccountAdapter(BaseAdapter):
 
     def on_authentication_error(
         self,
-        request,
+        request: HttpRequest,
         provider,
         error=None,
         exception=None,
@@ -87,18 +93,19 @@ class DefaultSocialAccountAdapter(BaseAdapter):
                 extra_context=extra_context,
             )
 
-    def new_user(self, request, sociallogin):
+    def new_user(self, request: HttpRequest, sociallogin: SocialLogin):
         """
         Instantiates a new User instance.
         """
         return get_account_adapter().new_user(request)
 
-    def save_user(self, request, sociallogin, form=None):
+    def save_user(self, request: HttpRequest, sociallogin: SocialLogin, form=None):
         """
         Saves a newly signed up social login. In case of auto-signup,
         the signup form is not available.
         """
         u = sociallogin.user
+        assert u  # nosec
         u.set_unusable_password()
         account_adapter = get_account_adapter()
         if form:
@@ -108,7 +115,7 @@ class DefaultSocialAccountAdapter(BaseAdapter):
         sociallogin.save(request)
         return u
 
-    def populate_user(self, request, sociallogin, data):
+    def populate_user(self, request: HttpRequest, sociallogin: SocialLogin, data):
         """
         Hook that can be used to further populate the user instance.
 
@@ -128,6 +135,7 @@ class DefaultSocialAccountAdapter(BaseAdapter):
         email = data.get("email")
         name = data.get("name")
         user = sociallogin.user
+        assert user  # nosec
         user_username(user, username or "")
         user_email(user, valid_email_or_none(email) or "")
         name_parts = (name or "").partition(" ")
@@ -135,7 +143,7 @@ class DefaultSocialAccountAdapter(BaseAdapter):
         user_field(user, "last_name", last_name or name_parts[2])
         return user
 
-    def get_connect_redirect_url(self, request, socialaccount):
+    def get_connect_redirect_url(self, request: HttpRequest, socialaccount):
         """
         Returns the default URL to redirect to after successfully
         connecting a social account.
@@ -150,12 +158,12 @@ class DefaultSocialAccountAdapter(BaseAdapter):
         """
         pass
 
-    def is_auto_signup_allowed(self, request, sociallogin):
+    def is_auto_signup_allowed(self, request: HttpRequest, sociallogin: SocialLogin):
         # If email is specified, check for duplicate and if so, no auto signup.
         auto_signup = app_settings.AUTO_SIGNUP
         return auto_signup
 
-    def is_open_for_signup(self, request, sociallogin):
+    def is_open_for_signup(self, request: HttpRequest, sociallogin: SocialLogin):
         """
         Checks whether or not the site is open for signups.
 
@@ -164,8 +172,9 @@ class DefaultSocialAccountAdapter(BaseAdapter):
         """
         return get_account_adapter(request).is_open_for_signup(request)
 
-    def get_signup_form_initial_data(self, sociallogin):
+    def get_signup_form_initial_data(self, sociallogin: SocialLogin):
         user = sociallogin.user
+        assert user  # nosec
         email = user_email(user)
         if not email and len(sociallogin.email_addresses) > 0:
             email = sociallogin.email_addresses[0].email
@@ -183,13 +192,13 @@ class DefaultSocialAccountAdapter(BaseAdapter):
     def serialize_instance(self, instance):
         return serialize_instance(instance)
 
-    def list_providers(self, request):
+    def list_providers(self, request: HttpRequest):
         from allauth.socialaccount.providers import registry
 
         ret = []
         provider_classes = registry.get_class_list()
         apps = self.list_apps(request)
-        apps_map = {}
+        apps_map: dict = {}
         for app in apps:
             apps_map.setdefault(app.provider, []).append(app)
         for provider_class in provider_classes:
@@ -203,7 +212,7 @@ class DefaultSocialAccountAdapter(BaseAdapter):
                 ret.append(provider)
         return ret
 
-    def get_provider(self, request, provider, client_id=None):
+    def get_provider(self, request: HttpRequest, provider, client_id=None):
         """Looks up a `provider`, supporting subproviders by looking up by
         `provider_id`.
         """
@@ -225,7 +234,7 @@ class DefaultSocialAccountAdapter(BaseAdapter):
         else:
             raise ImproperlyConfigured(f"unknown provider: {provider}")
 
-    def list_apps(self, request, provider=None, client_id=None):
+    def list_apps(self, request: HttpRequest, provider=None, client_id=None):
         """SocialApp's can be setup in the database, or, via
         `settings.SOCIALACCOUNT_PROVIDERS`.  This methods returns a uniform list
         of all known apps matching the specified criteria, and blends both
@@ -235,7 +244,7 @@ class DefaultSocialAccountAdapter(BaseAdapter):
         from allauth.socialaccount.models import SocialApp
 
         # Map provider to the list of apps.
-        provider_to_apps = {}
+        provider_to_apps: dict = {}
 
         # First, populate it with the DB backed apps.
         if request:
@@ -291,7 +300,7 @@ class DefaultSocialAccountAdapter(BaseAdapter):
             apps.extend(provider_apps)
         return apps
 
-    def get_app(self, request, provider, client_id=None):
+    def get_app(self, request: HttpRequest, provider, client_id=None):
         from allauth.socialaccount.models import SocialApp
 
         apps = self.list_apps(request, provider=provider, client_id=client_id)
@@ -374,5 +383,5 @@ class DefaultSocialAccountAdapter(BaseAdapter):
         return get_random_string(STATE_ID_LENGTH)
 
 
-def get_adapter(request=None) -> DefaultSocialAccountAdapter:
+def get_adapter(request: HttpRequest | None = None) -> DefaultSocialAccountAdapter:
     return import_attribute(app_settings.ADAPTER)(request)

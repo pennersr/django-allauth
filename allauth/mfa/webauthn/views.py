@@ -1,8 +1,10 @@
 from __future__ import annotations
 
+from typing import Any
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic.edit import DeleteView, FormView, UpdateView
@@ -39,7 +41,9 @@ class AddWebAuthnView(FormView):
 
     def get_context_data(self, **kwargs) -> dict:
         ret = super().get_context_data()
-        creation_options = auth.begin_registration(self.request.user, False)
+        user = self.request.user
+        assert user.is_authenticated  # nosec
+        creation_options = auth.begin_registration(user, False)
         ret["js_data"] = {"creation_options": creation_options}
         return ret
 
@@ -111,7 +115,7 @@ remove_webauthn = RemoveWebAuthnView.as_view()
 class LoginWebAuthnView(RedirectAuthenticatedUserMixin, FormView):
     form_class = LoginWebAuthnForm
 
-    def get(self, request, *args, **kwargs) -> HttpResponse:
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         if get_account_adapter().is_ajax(request):
             request_options = auth.begin_authentication(user=None)
             data = {"request_options": request_options}
@@ -172,7 +176,9 @@ class ReauthenticateWebAuthnView(BaseReauthenticateView):
 
     def get_context_data(self, **kwargs) -> dict:
         ret = super().get_context_data()
-        request_options = auth.begin_authentication(self.request.user)
+        user = self.request.user
+        assert user.is_authenticated  # nosec
+        request_options = auth.begin_authentication(user)
         ret["js_data"] = {"request_options": request_options}
         return ret
 

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.app_settings import QUERY_EMAIL
@@ -22,7 +24,7 @@ class LichessOAuth2Adapter(OAuth2Adapter):
     profile_url = f"{provider_base_url}/api/account"
     email_address_url = f"{provider_base_url}/api/account/email"
 
-    def complete_login(self, request, app, token, response):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         headers = {"Authorization": f"Bearer {token.token}"}
         with get_adapter().get_requests_session() as sess:
             profile_res = sess.get(

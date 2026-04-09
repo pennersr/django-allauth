@@ -4,8 +4,10 @@ import unicodedata
 from collections import OrderedDict
 
 from django.contrib.auth import REDIRECT_FIELD_NAME, get_user_model
+from django.contrib.auth.base_user import AbstractBaseUser
 from django.db import models
 from django.db.models import Q
+from django.http import HttpRequest
 from django.utils.http import base36_to_int, int_to_base36
 
 from allauth.account import app_settings
@@ -34,7 +36,7 @@ def _unicode_ci_compare(s1: str, s2: str) -> bool:
 
 
 def get_next_redirect_url(
-    request, redirect_field_name=REDIRECT_FIELD_NAME
+    request: HttpRequest, redirect_field_name=REDIRECT_FIELD_NAME
 ) -> str | None:
     """
     Returns the next URL to redirect to, if it was explicitly passed
@@ -47,7 +49,10 @@ def get_next_redirect_url(
 
 
 def get_login_redirect_url(
-    request, url=None, redirect_field_name=REDIRECT_FIELD_NAME, signup=False
+    request: HttpRequest,
+    url=None,
+    redirect_field_name=REDIRECT_FIELD_NAME,
+    signup=False,
 ) -> str:
     ret = url
     if url and callable(url):
@@ -64,9 +69,11 @@ def get_login_redirect_url(
     return ret
 
 
-def has_verified_email(user, email=None) -> bool:
+def has_verified_email(user: AbstractBaseUser | None, email=None) -> bool:
     from .models import EmailAddress
 
+    if not user:
+        return False
     emailaddress = None
     if email:
         ret = False
@@ -76,13 +83,13 @@ def has_verified_email(user, email=None) -> bool:
         except EmailAddress.DoesNotExist:
             pass
     else:
-        ret = EmailAddress.objects.filter(user=user, verified=True).exists()
+        ret = EmailAddress.objects.filter(user_id=user.pk, verified=True).exists()
     return ret
 
 
 def perform_login(
-    request,
-    user,
+    request: HttpRequest,
+    user: AbstractBaseUser,
     email_verification=None,
     redirect_url=None,
     signal_kwargs=None,
@@ -100,7 +107,13 @@ def perform_login(
     return flows.login.perform_login(request, login)
 
 
-def complete_signup(request, user, email_verification, success_url, signal_kwargs=None):
+def complete_signup(
+    request: HttpRequest,
+    user: AbstractBaseUser,
+    email_verification,
+    success_url,
+    signal_kwargs=None,
+):
     return flows.signup.complete_signup(
         request,
         user=user,
@@ -110,7 +123,7 @@ def complete_signup(request, user, email_verification, success_url, signal_kwarg
     )
 
 
-def cleanup_email_addresses(request, addresses):
+def cleanup_email_addresses(request: HttpRequest, addresses):
     """
     Takes a list of EmailAddress instances and cleans it up, making
     sure only valid ones remain, without multiple primaries etc.
@@ -122,7 +135,7 @@ def cleanup_email_addresses(request, addresses):
 
     adapter = get_adapter()
     # Let's group by `email`
-    e2a = OrderedDict()  # maps email to EmailAddress
+    e2a: dict = OrderedDict()  # maps email to EmailAddress
     primary_addresses = []
     verified_addresses = []
     primary_verified_addresses = []
@@ -183,7 +196,7 @@ def cleanup_email_addresses(request, addresses):
     return list(e2a.values()), primary_address
 
 
-def setup_user_email(request, user, addresses):
+def setup_user_email(request: HttpRequest, user: AbstractBaseUser, addresses):
     """
     Creates proper EmailAddress for the user that was just signed
     up. Only sets up, doesn't do any other handling such as sending
@@ -191,7 +204,7 @@ def setup_user_email(request, user, addresses):
     """
     from .models import EmailAddress
 
-    assert not EmailAddress.objects.filter(user=user).exists()  # nosec
+    assert not EmailAddress.objects.filter(user_id=user.pk).exists()  # nosec
     priority_addresses = []
     # Is there a stashed email?
     adapter = get_adapter()
@@ -199,13 +212,21 @@ def setup_user_email(request, user, addresses):
     if stashed_email:
         priority_addresses.append(
             EmailAddress(
-                user=user, email=stashed_email.lower(), primary=True, verified=True
+                user=user,  # type:ignore[misc]
+                email=stashed_email.lower(),
+                primary=True,
+                verified=True,
             )
         )
     email = user_email(user)
     if email:
         priority_addresses.append(
-            EmailAddress(user=user, email=email.lower(), primary=True, verified=False)
+            EmailAddress(
+                user=user,  # type:ignore[misc]
+                email=email.lower(),
+                primary=True,
+                verified=False,
+            )
         )
     addresses, primary = cleanup_email_addresses(
         request, priority_addresses + addresses
@@ -283,14 +304,16 @@ def filter_users_by_email(
     return list(set(users))
 
 
-def passthrough_next_redirect_url(request, url: str, redirect_field_name: str) -> str:
+def passthrough_next_redirect_url(
+    request: HttpRequest, url: str, redirect_field_name: str
+) -> str:
     next_url = get_next_redirect_url(request, redirect_field_name)
     if next_url:
         url = httpkit.add_query_params(url, {redirect_field_name: next_url})
     return url
 
 
-def user_pk_to_url_str(user) -> str:
+def user_pk_to_url_str(user: AbstractBaseUser) -> str:
     """
     This should return a string.
     """

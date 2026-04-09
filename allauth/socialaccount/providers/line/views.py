@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from datetime import timedelta
 
+from django.http import HttpRequest
 from django.utils import timezone
 
 from allauth.socialaccount import app_settings
@@ -38,7 +39,7 @@ class LineOAuth2Adapter(OAuth2Adapter):
 
         return token
 
-    def complete_login(self, request, app, token, **kwargs):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         settings = app_settings.PROVIDERS.get(self.provider_id, {})
         with get_adapter().get_requests_session() as sess:
             if "email" in settings.get("SCOPE", ""):

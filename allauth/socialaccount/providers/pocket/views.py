@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from ..oauth.views import OAuthAdapter, OAuthCallbackView, OAuthLoginView
 from .client import PocketOAuthClient
 
@@ -11,7 +13,8 @@ class PocketOAuthAdapter(OAuthAdapter):
     authorize_url = "https://getpocket.com/auth/authorize"
     client_class = PocketOAuthClient
 
-    def complete_login(self, request, app, token, response):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
+        response = kwargs["response"]
         return self.get_provider().sociallogin_from_response(request, response)
 
 

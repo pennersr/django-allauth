@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
@@ -14,7 +16,7 @@ class TumblrOAuth2Adapter(OAuth2Adapter):
     authorize_url = "https://www.tumblr.com/oauth2/authorize"
     profile_url = "https://api.tumblr.com/v2/user/info"
 
-    def complete_login(self, request, app, token, response):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         extra_data = self.get_user_info(token)
         return self.get_provider().sociallogin_from_response(request, extra_data)
 

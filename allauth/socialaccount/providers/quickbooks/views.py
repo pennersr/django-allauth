@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
@@ -19,7 +21,7 @@ class QuickBooksOAuth2Adapter(OAuth2Adapter):
     profile_url_method = "GET"
     access_token_method = "POST"  # nosec
 
-    def complete_login(self, request, app, token, **kwargs):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         realm_id = request.GET.get("realmId")
         extra_data = self.get_user_info(token)
         if realm_id:

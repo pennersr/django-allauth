@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
@@ -15,7 +17,7 @@ class DisqusOAuth2Adapter(OAuth2Adapter):
     profile_url = "https://disqus.com/api/3.0/users/details.json"
     scope_delimiter = ","
 
-    def complete_login(self, request, app, token, **kwargs):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         with get_adapter().get_requests_session() as sess:
             params = {
                 "access_token": token.token,

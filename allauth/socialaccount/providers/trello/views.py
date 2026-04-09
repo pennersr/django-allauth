@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
 from django.utils.http import urlencode
 
 from allauth.socialaccount.adapter import get_adapter
@@ -16,7 +17,8 @@ class TrelloOAuthAdapter(OAuthAdapter):
     authorize_url = "https://trello.com/1/OAuthAuthorizeToken"
     access_token_url = "https://trello.com/1/OAuthGetAccessToken"  # nosec
 
-    def complete_login(self, request, app, token, response):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
+        response = kwargs["response"]
         # we need to get the member id and the other information
         info_url = "{base}?{query}".format(
             base="https://api.trello.com/1/members/me",

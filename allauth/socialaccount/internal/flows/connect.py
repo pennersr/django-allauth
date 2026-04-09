@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied, ValidationError
-from django.http import HttpResponseRedirect
+from django.http import HttpRequest, HttpResponseRedirect
 
 from allauth import app_settings as allauth_settings
 from allauth.account import app_settings as account_settings
@@ -15,7 +15,7 @@ from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.models import SocialAccount, SocialLogin
 
 
-def validate_disconnect(request, account) -> None:
+def validate_disconnect(request: HttpRequest, account) -> None:
     """
     Validate whether or not the socialaccount account can be
     safely disconnected.
@@ -41,7 +41,7 @@ def validate_disconnect(request, account) -> None:
     adapter.validate_disconnect(account, accounts)
 
 
-def disconnect(request, account) -> None:
+def disconnect(request: HttpRequest, account) -> None:
     if account_settings.REAUTHENTICATION_REQUIRED:
         flows.reauthentication.raise_if_reauthentication_required(request)
 
@@ -65,12 +65,12 @@ def disconnect(request, account) -> None:
     )
 
 
-def resume_connect(request, serialized_state):
+def resume_connect(request: HttpRequest, serialized_state):
     sociallogin = SocialLogin.deserialize(serialized_state)
     return connect(request, sociallogin)
 
 
-def connect(request, sociallogin):
+def connect(request: HttpRequest, sociallogin: SocialLogin):
     try:
         ok, action, message = do_connect(request, sociallogin)
     except PermissionDenied:
@@ -104,7 +104,7 @@ def connect(request, sociallogin):
     return HttpResponseRedirect(next_url)
 
 
-def do_connect(request, sociallogin):
+def do_connect(request: HttpRequest, sociallogin: SocialLogin):
     if request.user.is_anonymous:
         raise PermissionDenied()
     if account_settings.REAUTHENTICATION_REQUIRED:

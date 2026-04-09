@@ -3,7 +3,7 @@ from __future__ import annotations
 import requests
 from hashlib import md5
 
-from django.http import HttpResponseRedirect
+from django.http import HttpRequest, HttpResponseRedirect
 from django.urls import reverse
 from django.utils.http import urlencode
 from django.views.decorators.csrf import csrf_exempt
@@ -27,7 +27,7 @@ ACCESS_TOKEN_URL = "https://api.draugiem.lv/json"  # nosec
 AUTHORIZE_URL = "https://api.draugiem.lv/authorize"
 
 
-def login(request):
+def login(request: HttpRequest):
     app = get_adapter().get_app(request, DraugiemProvider.id)
     redirect_url = request.build_absolute_uri(reverse(callback))
     # Draugiem mandates a weak hashing algorithm.
@@ -42,7 +42,7 @@ def login(request):
 
 
 @csrf_exempt
-def callback(request):
+def callback(request: HttpRequest):
     adapter = get_adapter()
     provider = adapter.get_provider(request, DraugiemProvider.id)
 
@@ -72,7 +72,7 @@ def callback(request):
     return ret
 
 
-def draugiem_complete_login(request, app, code):
+def draugiem_complete_login(request: HttpRequest, app, code):
     provider = get_adapter().get_provider(request, DraugiemProvider.id)
     with get_adapter().get_requests_session() as sess:
         params = {"action": "authorize", "app": app.secret, "code": code}

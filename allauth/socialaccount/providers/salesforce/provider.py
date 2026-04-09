@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.account.models import EmailAddress
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import AuthAction, ProviderAccount
@@ -25,7 +27,7 @@ class SalesforceProvider(OAuth2Provider):
     def get_default_scope(self):
         return ["id", "openid"]
 
-    def get_auth_params_from_request(self, request, action):
+    def get_auth_params_from_request(self, request: HttpRequest, action):
         ret = super().get_auth_params_from_request(request, action)
         if action == AuthAction.REAUTHENTICATE:
             ret["approval_prompt"] = "force"

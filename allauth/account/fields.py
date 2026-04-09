@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from django import forms
 from django.contrib.auth import password_validation
+from django.contrib.auth.base_user import AbstractBaseUser
 from django.core.validators import RegexValidator
 from django.utils.translation import gettext_lazy as _
 
@@ -44,6 +45,8 @@ class PasswordField(forms.CharField):
 
 
 class SetPasswordField(PasswordField):
+    user: AbstractBaseUser | None
+
     def __init__(self, *args, **kwargs) -> None:
         kwargs["autocomplete"] = "new-password"
         kwargs.setdefault(

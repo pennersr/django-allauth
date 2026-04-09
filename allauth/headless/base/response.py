@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from http import HTTPStatus
 
+from django.http import HttpRequest
+
 from allauth import app_settings as allauth_settings
 from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
@@ -17,7 +19,7 @@ from allauth.mfa import app_settings as mfa_settings
 
 
 class BaseAuthenticationResponse(APIResponse):
-    def __init__(self, request, user=None, status=None) -> None:
+    def __init__(self, request: HttpRequest, user=None, status=None) -> None:
         data = {}
         if user and user.is_authenticated:
             adapter = get_adapter()
@@ -38,7 +40,7 @@ class BaseAuthenticationResponse(APIResponse):
             status=status,
         )
 
-    def _get_flows(self, request, user):
+    def _get_flows(self, request: HttpRequest, user):
         auth_status = authkit.AuthenticationStatus(request)
         ret = []
         if user and user.is_authenticated:
@@ -112,11 +114,11 @@ class BaseAuthenticationResponse(APIResponse):
 
 
 class AuthenticationResponse(BaseAuthenticationResponse):
-    def __init__(self, request) -> None:
+    def __init__(self, request: HttpRequest) -> None:
         super().__init__(request, user=request.user)
 
     @classmethod
-    def from_response(cls, request, response):
+    def from_response(cls, request: HttpRequest, response):
         """
         The response might be a headed redirect to e.g. the confirmation
         email page, because allauth.account is not (much) headless
@@ -130,26 +132,26 @@ class AuthenticationResponse(BaseAuthenticationResponse):
 
 
 class ReauthenticationResponse(BaseAuthenticationResponse):
-    def __init__(self, request) -> None:
+    def __init__(self, request: HttpRequest) -> None:
         super().__init__(request, user=request.user, status=HTTPStatus.UNAUTHORIZED)
 
 
 class UnauthorizedResponse(BaseAuthenticationResponse):
-    def __init__(self, request, status=HTTPStatus.UNAUTHORIZED) -> None:
+    def __init__(self, request: HttpRequest, status=HTTPStatus.UNAUTHORIZED) -> None:
         super().__init__(request, user=None, status=status)
 
 
 class ForbiddenResponse(APIResponse):
-    def __init__(self, request) -> None:
+    def __init__(self, request: HttpRequest) -> None:
         super().__init__(request, status=HTTPStatus.FORBIDDEN)
 
 
 class ConflictResponse(APIResponse):
-    def __init__(self, request) -> None:
+    def __init__(self, request: HttpRequest) -> None:
         super().__init__(request, status=HTTPStatus.CONFLICT)
 
 
-def get_config_data(request) -> dict:
+def get_config_data(request: HttpRequest) -> dict:
     login_methods = account_settings.LOGIN_METHODS
     data = {
         "login_methods": list(login_methods),
@@ -170,7 +172,7 @@ def get_config_data(request) -> dict:
 
 
 class ConfigResponse(APIResponse):
-    def __init__(self, request) -> None:
+    def __init__(self, request: HttpRequest) -> None:
         data = get_config_data(request)
         if allauth_settings.SOCIALACCOUNT_ENABLED:
             from allauth.headless.socialaccount.response import (
@@ -194,5 +196,5 @@ class ConfigResponse(APIResponse):
 
 
 class RateLimitResponse(APIResponse):
-    def __init__(self, request) -> None:
+    def __init__(self, request: HttpRequest) -> None:
         super().__init__(request, status=HTTPStatus.TOO_MANY_REQUESTS)

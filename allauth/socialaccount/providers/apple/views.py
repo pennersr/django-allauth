@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from datetime import timedelta
 
-from django.http import HttpResponseNotAllowed, HttpResponseRedirect
+from django.http import HttpRequest, HttpResponseNotAllowed, HttpResponseRedirect
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.http import urlencode
@@ -60,7 +60,7 @@ class AppleOAuth2Adapter(OAuth2Adapter):
 
         return token
 
-    def complete_login(self, request, app, token, **kwargs):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         extra_data = token.user_data
         login = self.get_provider().sociallogin_from_response(
             request=request, response=extra_data
@@ -72,8 +72,11 @@ class AppleOAuth2Adapter(OAuth2Adapter):
         get_apple_session(request).delete()
         return login
 
-    def get_user_scope_data(self, request):
-        user_scope_data = request.apple_login_session.get("user", "")
+    def get_user_scope_data(self, request: HttpRequest):
+        user_scope_data = request.apple_login_session.get(  # type:ignore[attr-defined]
+            "user",
+            "",
+        )
         try:
             return json.loads(user_scope_data)
         except json.JSONDecodeError:
@@ -81,7 +84,9 @@ class AppleOAuth2Adapter(OAuth2Adapter):
             # so return blank dictionary instead
             return {}
 
-    def get_access_token_data(self, request, app, client, pkce_code_verifier=None):
+    def get_access_token_data(
+        self, request: HttpRequest, app, client, pkce_code_verifier=None
+    ):
         """We need to gather the info from the apple specific login"""
         apple_session = get_apple_session(request)
 
@@ -105,7 +110,9 @@ class AppleOAuth2Adapter(OAuth2Adapter):
 
 @csrf_exempt
 @login_not_required
-def apple_post_callback(request, finish_endpoint_name="apple_finish_callback"):
+def apple_post_callback(
+    request: HttpRequest, finish_endpoint_name="apple_finish_callback"
+):
     """
     Apple uses a `form_post` response type, which due to
     CORS/Samesite-cookie rules means this request cannot access

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
@@ -19,7 +21,7 @@ class AgaveAdapter(OAuth2Adapter):
     authorize_url = f"{provider_base_url}/authorize"
     profile_url = f"{provider_base_url}/profiles/v2/me"
 
-    def complete_login(self, request, app, token, response):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         with get_adapter().get_requests_session() as sess:
             extra_data = sess.get(
                 self.profile_url,

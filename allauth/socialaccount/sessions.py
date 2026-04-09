@@ -3,6 +3,7 @@ from urllib.parse import urlparse
 
 from django.conf import settings
 from django.contrib.sessions.backends.base import SessionBase
+from django.http import HttpRequest
 from django.utils.cache import patch_vary_headers
 
 
@@ -19,7 +20,7 @@ class LoginSession:
     and redirecting to a different endpoint that can pick up the flow.
     """
 
-    def __init__(self, request, attribute_name, cookie_name) -> None:
+    def __init__(self, request: HttpRequest, attribute_name, cookie_name) -> None:
         """
         Prepares an provider specific session.
         """

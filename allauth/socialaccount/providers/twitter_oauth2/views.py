@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
@@ -15,8 +17,8 @@ class TwitterOAuth2Adapter(OAuth2Adapter):
     profile_url = "https://api.x.com/2/users/me"
     basic_auth = True
 
-    def complete_login(self, request, app, access_token, **kwargs):
-        extra_data = self.get_user_info(access_token)
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
+        extra_data = self.get_user_info(token)
         return self.get_provider().sociallogin_from_response(request, extra_data)
 
     def get_user_info(self, token):

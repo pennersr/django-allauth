@@ -2,11 +2,13 @@ from __future__ import annotations
 
 from http import HTTPStatus
 
+from django.http import HttpRequest
+
 from allauth.headless.base.response import APIResponse
 from allauth.mfa import app_settings as mfa_settings
 
 
-def get_config_data(request) -> dict:
+def get_config_data(request: HttpRequest) -> dict:
     data = {
         "mfa": {
             "supported_types": mfa_settings.SUPPORTED_TYPES,
@@ -58,7 +60,7 @@ class AuthenticatorsDeletedResponse(APIResponse):
 
 
 class TOTPNotFoundResponse(APIResponse):
-    def __init__(self, request, secret, totp_url) -> None:
+    def __init__(self, request: HttpRequest, secret, totp_url) -> None:
         super().__init__(
             request,
             meta={
@@ -70,39 +72,39 @@ class TOTPNotFoundResponse(APIResponse):
 
 
 class TOTPResponse(APIResponse):
-    def __init__(self, request, authenticator) -> None:
+    def __init__(self, request: HttpRequest, authenticator) -> None:
         data = _authenticator_data(authenticator)
         super().__init__(request, data=data)
 
 
 class AuthenticatorsResponse(APIResponse):
-    def __init__(self, request, authenticators) -> None:
+    def __init__(self, request: HttpRequest, authenticators) -> None:
         data = [_authenticator_data(authenticator) for authenticator in authenticators]
         super().__init__(request, data=data)
 
 
 class AuthenticatorResponse(APIResponse):
-    def __init__(self, request, authenticator, meta=None) -> None:
+    def __init__(self, request: HttpRequest, authenticator, meta=None) -> None:
         data = _authenticator_data(authenticator)
         super().__init__(request, data=data, meta=meta)
 
 
 class RecoveryCodesNotFoundResponse(APIResponse):
-    def __init__(self, request) -> None:
+    def __init__(self, request: HttpRequest) -> None:
         super().__init__(request, status=HTTPStatus.NOT_FOUND)
 
 
 class RecoveryCodesResponse(APIResponse):
-    def __init__(self, request, authenticator, can_view: bool) -> None:
+    def __init__(self, request: HttpRequest, authenticator, can_view: bool) -> None:
         data = _authenticator_data(authenticator, sensitive=can_view)
         super().__init__(request, data=data)
 
 
 class AddWebAuthnResponse(APIResponse):
-    def __init__(self, request, registration_data) -> None:
+    def __init__(self, request: HttpRequest, registration_data) -> None:
         super().__init__(request, data={"creation_options": registration_data})
 
 
 class WebAuthnRequestOptionsResponse(APIResponse):
-    def __init__(self, request, request_options) -> None:
+    def __init__(self, request: HttpRequest, request_options) -> None:
         super().__init__(request, data={"request_options": request_options})

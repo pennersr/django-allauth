@@ -1,9 +1,11 @@
 """
-from __future__ import annotations
-
 Views for PatreonProvider
 https://www.patreon.com/platform/documentation/oauth
 """
+
+from __future__ import annotations
+
+from django.http import HttpRequest
 
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
@@ -30,7 +32,7 @@ class PatreonOAuth2Adapter(OAuth2Adapter):
         ),
     )
 
-    def complete_login(self, request, app, token, **kwargs):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         headers = {"Authorization": f"Bearer {token.token}"}
         with get_adapter().get_requests_session() as sess:
             resp = sess.get(self.profile_url, headers=headers)

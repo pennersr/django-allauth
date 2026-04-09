@@ -43,7 +43,7 @@ class SAMLViewMixin:
 @method_decorator(csrf_exempt, name="dispatch")
 @method_decorator(login_not_required, name="dispatch")
 class ACSView(SAMLViewMixin, View):
-    def dispatch(self, request, organization_slug) -> HttpResponse:
+    def dispatch(self, request: HttpRequest, organization_slug) -> HttpResponse:
         url = reverse(
             "saml_finish_acs",
             kwargs={"organization_slug": organization_slug},
@@ -60,7 +60,7 @@ acs = ACSView.as_view()
 
 @method_decorator(login_not_required, name="dispatch")
 class FinishACSView(SAMLViewMixin, View):
-    def dispatch(self, request, organization_slug) -> HttpResponse:
+    def dispatch(self, request: HttpRequest, organization_slug) -> HttpResponse:
         provider = self.get_provider(organization_slug)
         acs_session = LoginSession(request, "saml_acs_session", "saml-acs-session")
         acs_request = None
@@ -133,7 +133,7 @@ finish_acs = FinishACSView.as_view()
 @method_decorator(csrf_exempt, name="dispatch")
 @method_decorator(login_not_required, name="dispatch")
 class SLSView(SAMLViewMixin, View):
-    def dispatch(self, request, organization_slug) -> HttpResponse:
+    def dispatch(self, request: HttpRequest, organization_slug) -> HttpResponse:
         provider = self.get_provider(organization_slug)
         auth = build_auth(self.request, provider)
         should_logout = request.user.is_authenticated
@@ -177,7 +177,7 @@ sls = SLSView.as_view()
 
 @method_decorator(login_not_required, name="dispatch")
 class MetadataView(SAMLViewMixin, View):
-    def dispatch(self, request, organization_slug) -> HttpResponse:
+    def dispatch(self, request: HttpRequest, organization_slug) -> HttpResponse:
         provider = self.get_provider(organization_slug)
         config = build_saml_config(
             self.request, provider.app.settings, organization_slug

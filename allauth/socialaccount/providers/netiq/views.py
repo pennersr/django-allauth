@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
@@ -26,7 +28,7 @@ class NetIQOAuth2Adapter(OAuth2Adapter):
     def userinfo_url(self):
         return f"{self.provider_base_url}/nidp/oauth/nam/userinfo"
 
-    def complete_login(self, request, app, token, **kwargs):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         """
         Get the user info from userinfo endpoint and return a
         A populated instance of the `SocialLogin` model (unsaved)

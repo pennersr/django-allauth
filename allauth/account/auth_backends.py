@@ -4,6 +4,8 @@ from threading import local
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import ModelBackend
+from django.contrib.auth.base_user import AbstractBaseUser
+from django.http import HttpRequest
 
 from allauth.account.adapter import get_adapter
 from allauth.account.app_settings import LoginMethod
@@ -16,7 +18,9 @@ _stash = local()
 
 
 class AuthenticationBackend(ModelBackend):
-    def authenticate(self, request, **credentials):
+    def authenticate(  # type: ignore[override]
+        self, request: HttpRequest | None, **credentials
+    ):
         password = credentials.get("password")
         if not password:
             return None
@@ -26,9 +30,9 @@ class AuthenticationBackend(ModelBackend):
             self._mitigate_timing_attack(password)
         return user
 
-    def _authenticate(self, request, **credentials):
-        password = credentials.get("password")
-        username = credentials.get("username")
+    def _authenticate(self, request: HttpRequest | None, **credentials):
+        username: str | None = credentials.get("username")
+        password: str = credentials.get("password") or ""
         if username:
             if LoginMethod.EMAIL in app_settings.LOGIN_METHODS:
                 # Username/email ambiguity: even though allauth will pass along
@@ -89,19 +93,19 @@ class AuthenticationBackend(ModelBackend):
     def _mitigate_timing_attack(self, password) -> None:
         get_user_model()().set_password(password)
 
-    def _check_password(self, user, password):
+    def _check_password(self, user: AbstractBaseUser, password):
         if not user:
             return None
         self._did_check_password = True
         ok = user.check_password(password)
         if ok:
-            ok = self.user_can_authenticate(user)
+            ok = self.user_can_authenticate(user)  # type:ignore[arg-type]
             if not ok:
                 self._stash_user(user)
         return user if ok else None
 
     @classmethod
-    def _stash_user(cls, user):
+    def _stash_user(cls, user: AbstractBaseUser):
         """Now, be aware, the following is quite ugly, let me explain:
 
         Even if the user credentials match, the authentication can fail because

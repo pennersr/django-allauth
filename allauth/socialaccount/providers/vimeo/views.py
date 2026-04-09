@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.socialaccount.providers.oauth.client import OAuth
 from allauth.socialaccount.providers.oauth.views import (
     OAuthAdapter,
@@ -23,7 +25,7 @@ class VimeoOAuthAdapter(OAuthAdapter):
     access_token_url = "https://vimeo.com/oauth/access_token"  # nosec
     authorize_url = "https://vimeo.com/oauth/authorize"
 
-    def complete_login(self, request, app, token, response):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         client = VimeoAPI(request, app.client_id, app.secret, self.request_token_url)
         extra_data = client.get_user_info()
         return self.get_provider().sociallogin_from_response(request, extra_data)

@@ -5,6 +5,7 @@ import uuid
 from typing import Any, Optional
 
 from django.contrib.auth import get_user_model
+from django.contrib.auth.base_user import AbstractBaseUser
 from django.db import models
 from django.forms.fields import Field
 
@@ -38,7 +39,7 @@ class DefaultHeadlessAdapter(BaseAdapter):
         "invalid_url": "Invalid URL.",
     }
 
-    def serialize_user(self, user) -> dict[str, Any]:
+    def serialize_user(self, user: AbstractBaseUser) -> dict[str, Any]:
         """
         Returns the basic user data. Note that this data is also exposed in
         partly authenticated scenario's (e.g. password reset, email
@@ -58,7 +59,7 @@ class DefaultHeadlessAdapter(BaseAdapter):
         """Return the frontend URL for the given URL name."""
         return default_get_frontend_url(self.request, urlname, **kwargs)
 
-    def user_as_dataclass(self, user):
+    def user_as_dataclass(self, user: AbstractBaseUser):
         """
         See ``get_user_dataclass()``. This method returns an instance of
         that ``dataclass``, populated with the given ``user`` fields.

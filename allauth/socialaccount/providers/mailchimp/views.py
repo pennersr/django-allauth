@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
@@ -18,7 +20,7 @@ class MailChimpOAuth2Adapter(OAuth2Adapter):
     access_token_url = "https://login.mailchimp.com/oauth2/token"  # nosec
     profile_url = "https://login.mailchimp.com/oauth2/metadata"
 
-    def complete_login(self, request, app, token, **kwargs):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         """Complete login, ensuring correct OAuth header."""
         headers = {"Authorization": f"OAuth {token.token}"}
         with get_adapter().get_requests_session() as sess:

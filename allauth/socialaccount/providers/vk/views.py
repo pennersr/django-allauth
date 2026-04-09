@@ -3,6 +3,8 @@ from __future__ import annotations
 import uuid
 from requests import RequestException
 
+from django.http import HttpRequest
+
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
@@ -18,7 +20,9 @@ class VKOAuth2Adapter(OAuth2Adapter):
     authorize_url = "https://id.vk.ru/authorize"
     profile_url = "https://id.vk.ru/oauth2/user_info"
 
-    def get_access_token_data(self, request, app, client, pkce_code_verifier=None):
+    def get_access_token_data(
+        self, request: HttpRequest, app, client, pkce_code_verifier=None
+    ):
         code = get_request_param(self.request, "code")
         device_id = get_request_param(self.request, "device_id")
         extra_data = {
@@ -34,7 +38,7 @@ class VKOAuth2Adapter(OAuth2Adapter):
         self.did_fetch_access_token = True
         return data
 
-    def complete_login(self, request, app, token, **kwargs):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         req_data = {
             "access_token": token.token,
             "client_id": app.client_id,

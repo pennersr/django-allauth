@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.core import context
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
@@ -35,7 +37,7 @@ class NextCloudOAuth2Adapter(OAuth2Adapter):
     def profile_url(self):
         return self._build_server_url("/ocs/v1.php/cloud/users/")
 
-    def complete_login(self, request, app, token: SocialToken, **kwargs):
+    def complete_login(self, request: HttpRequest, app, token: SocialToken, **kwargs):
         extra_data = self.get_user_info(token, kwargs["response"]["user_id"])
         return self.get_provider().sociallogin_from_response(request, extra_data)
 

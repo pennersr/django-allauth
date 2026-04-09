@@ -5,6 +5,7 @@ import requests
 
 from django import forms
 from django.core.exceptions import PermissionDenied
+from django.http import HttpRequest
 from django.utils.decorators import method_decorator
 from django.views.generic import View
 
@@ -47,9 +48,9 @@ class FacebookOAuth2Adapter(OAuth2Adapter):
     access_token_method = "GET"  # nosec
     expires_in_key = "expires_in"
 
-    def complete_login(self, request, app, access_token, **kwargs):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         provider = self.get_provider()
-        return flows.complete_login(request, provider, access_token)
+        return flows.complete_login(request, provider, token)
 
 
 oauth2_login = OAuth2LoginView.adapter_view(FacebookOAuth2Adapter)
@@ -58,7 +59,7 @@ oauth2_callback = OAuth2CallbackView.adapter_view(FacebookOAuth2Adapter)
 
 class LoginByTokenView(View):
     @method_decorator(login_not_required)
-    def dispatch(self, request):
+    def dispatch(self, request: HttpRequest):
         self.adapter = get_adapter()
         self.provider = self.adapter.get_provider(request, PROVIDER_ID)
         try:
@@ -70,12 +71,12 @@ class LoginByTokenView(View):
         ) as exc:
             return render_authentication_error(request, self.provider, exception=exc)
 
-    def get(self, request):
+    def get(self, request: HttpRequest):
         # If we leave out get().get() it will return a response with a 405, but
         # we really want to show an authentication error.
         raise PermissionDenied("405")
 
-    def post(self, request):
+    def post(self, request: HttpRequest):
         form = FacebookConnectForm(request.POST)
         if not form.is_valid():
             raise self.adapter.validation_error("invalid_token")

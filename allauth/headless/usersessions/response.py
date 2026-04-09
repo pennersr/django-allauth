@@ -1,11 +1,13 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.headless.base.response import APIResponse
 from allauth.usersessions import app_settings
 
 
 class SessionsResponse(APIResponse):
-    def __init__(self, request, sessions) -> None:
+    def __init__(self, request: HttpRequest, sessions) -> None:
         super().__init__(request, data=[self._session_data(s) for s in sessions])
 
     def _session_data(self, session) -> dict:
@@ -21,6 +23,6 @@ class SessionsResponse(APIResponse):
         return data
 
 
-def get_config_data(request) -> dict:
+def get_config_data(request: HttpRequest) -> dict:
     data = {"usersessions": {"track_activity": app_settings.TRACK_ACTIVITY}}
     return data

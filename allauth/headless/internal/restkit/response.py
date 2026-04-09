@@ -4,7 +4,7 @@ from http import HTTPStatus
 from typing import Any
 
 from django.forms.utils import ErrorList
-from django.http import JsonResponse
+from django.http import HttpRequest, JsonResponse
 from django.utils.cache import add_never_cache_headers
 
 from allauth.headless.internal import authkit, sessionkit
@@ -13,7 +13,7 @@ from allauth.headless.internal import authkit, sessionkit
 class APIResponse(JsonResponse):
     def __init__(
         self,
-        request,
+        request: HttpRequest,
         errors=None,
         data=None,
         meta: dict | None = None,
@@ -30,7 +30,7 @@ class APIResponse(JsonResponse):
         super().__init__(d, status=status)
         add_never_cache_headers(self)
 
-    def _add_session_meta(self, request, meta: dict | None) -> dict | None:
+    def _add_session_meta(self, request: HttpRequest, meta: dict | None) -> dict | None:
         session_token = sessionkit.expose_session_token(request)
         access_token_payload = authkit.expose_access_token(request)
         if session_token:
@@ -44,7 +44,11 @@ class APIResponse(JsonResponse):
 
 class ErrorResponse(APIResponse):
     def __init__(
-        self, request, exception=None, input=None, status=HTTPStatus.BAD_REQUEST
+        self,
+        request: HttpRequest,
+        exception=None,
+        input=None,
+        status=HTTPStatus.BAD_REQUEST,
     ) -> None:
         errors = []
         if exception is not None:

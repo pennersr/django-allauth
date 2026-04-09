@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from django.forms import ValidationError
+from django.http import HttpRequest
 
 from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
@@ -14,7 +15,7 @@ from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.models import SocialLogin
 
 
-def get_pending_signup(request) -> SocialLogin | None:
+def get_pending_signup(request: HttpRequest) -> SocialLogin | None:
     if data := request.session.get("socialaccount_sociallogin"):
         try:
             return SocialLogin.deserialize(data)
@@ -23,16 +24,16 @@ def get_pending_signup(request) -> SocialLogin | None:
     return None
 
 
-def redirect_to_signup(request, sociallogin):
+def redirect_to_signup(request: HttpRequest, sociallogin: SocialLogin):
     request.session["socialaccount_sociallogin"] = sociallogin.serialize()
     return headed_redirect_response("socialaccount_signup")
 
 
-def clear_pending_signup(request) -> None:
+def clear_pending_signup(request: HttpRequest) -> None:
     request.session.pop("socialaccount_sociallogin", None)
 
 
-def signup_by_form(request, sociallogin, form):
+def signup_by_form(request: HttpRequest, sociallogin: SocialLogin, form):
     clear_pending_signup(request)
     user, resp = form.try_save(request)
     if not resp:
@@ -40,7 +41,7 @@ def signup_by_form(request, sociallogin, form):
     return resp
 
 
-def process_auto_signup(request, sociallogin):
+def process_auto_signup(request: HttpRequest, sociallogin: SocialLogin):
     auto_signup = get_adapter().is_auto_signup_allowed(request, sociallogin)
     if not auto_signup:
         return False, None
@@ -51,7 +52,7 @@ def process_auto_signup(request, sociallogin):
     return auto_signup, resp
 
 
-def process_auto_signup_email(request, sociallogin):
+def process_auto_signup_email(request: HttpRequest, sociallogin: SocialLogin):
     email = None
     if sociallogin.email_addresses:
         email = sociallogin.email_addresses[0].email
@@ -90,7 +91,7 @@ def process_auto_signup_email(request, sociallogin):
     return auto_signup, None
 
 
-def process_auto_signup_phone(request, sociallogin):
+def process_auto_signup_phone(request: HttpRequest, sociallogin: SocialLogin):
     # At this point, email is not required, or, we have a unique email.  Let's
     # check the phone number.
     phone_field = account_settings.SIGNUP_FIELDS.get("phone")
@@ -105,7 +106,7 @@ def process_auto_signup_phone(request, sociallogin):
     return True, None
 
 
-def process_signup(request, sociallogin):
+def process_signup(request: HttpRequest, sociallogin: SocialLogin):
     if not get_adapter().is_open_for_signup(request, sociallogin):
         raise SignupClosedException()
     auto_signup, resp = process_auto_signup(request, sociallogin)
@@ -114,15 +115,17 @@ def process_signup(request, sociallogin):
     if not auto_signup:
         resp = redirect_to_signup(request, sociallogin)
     else:
+        user = sociallogin.user
+        assert user  # nosec
         # Ok, auto signup it is, at least the email address is ok.
         # We still need to check the username though...
         if account_settings.USER_MODEL_USERNAME_FIELD:
-            username = user_username(sociallogin.user)
+            username = user_username(user)
             try:
                 get_account_adapter(request).clean_username(username)
             except ValidationError:
                 # This username is no good ...
-                user_username(sociallogin.user, "")
+                user_username(user, "")
         # TODO: This part contains a lot of duplication of logic
         # ("closed" rendering, create user, send email, in active
         # etc..)
@@ -131,7 +134,7 @@ def process_signup(request, sociallogin):
     return resp
 
 
-def complete_social_signup(request, sociallogin):
+def complete_social_signup(request: HttpRequest, sociallogin: SocialLogin):
     from allauth.socialaccount.internal.flows.login import record_authentication
 
     record_authentication(request, sociallogin)

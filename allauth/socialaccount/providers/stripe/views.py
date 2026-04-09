@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
@@ -14,7 +16,8 @@ class StripeOAuth2Adapter(OAuth2Adapter):
     authorize_url = "https://connect.stripe.com/oauth/authorize"
     profile_url = "https://api.stripe.com/v1/accounts/%s"
 
-    def complete_login(self, request, app, token, response, **kwargs):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
+        response = kwargs["response"]
         headers = {"Authorization": f"Bearer {token.token}"}
         with get_adapter().get_requests_session() as sess:
             url = self.profile_url % response.get("stripe_user_id")

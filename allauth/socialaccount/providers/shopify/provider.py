@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Any
 
 from django.conf import settings
+from django.http import HttpRequest
 
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.providers.base import ProviderAccount
@@ -31,7 +32,7 @@ class ShopifyProvider(OAuth2Provider):
         )
         return grant_options.lower().strip() == "per-user"
 
-    def get_auth_params_from_request(self, request, action):
+    def get_auth_params_from_request(self, request: HttpRequest, action):
         ret = super().get_auth_params_from_request(request, action)
         shop = request.GET.get("shop", None)
         if shop:

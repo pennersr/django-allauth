@@ -8,6 +8,7 @@ import json
 import secrets
 import time
 
+from django.http import HttpRequest
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views import View
@@ -34,10 +35,10 @@ login = LoginView.as_view()
 @method_decorator(csrf_exempt, name="dispatch")
 @method_decorator(login_not_required, name="dispatch")
 class CallbackView(View):
-    def get(self, request):
+    def get(self, request: HttpRequest):
         return render(request, "telegram/callback.html")
 
-    def post(self, request):
+    def post(self, request: HttpRequest):
         adapter = get_adapter()
         provider = adapter.get_provider(request, TelegramProvider.id)
 
@@ -49,7 +50,7 @@ class CallbackView(View):
             )
 
         try:
-            result = request.POST.get("tgAuthResult")
+            result: str = request.POST.get("tgAuthResult", "")
             padding = "=" * (4 - (len(result) % 4))
             data = json.loads(base64.b64decode(result + padding))
             if not isinstance(data, dict) or "hash" not in data:

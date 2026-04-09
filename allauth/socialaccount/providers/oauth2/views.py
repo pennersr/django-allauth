@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from datetime import timedelta
 from requests import RequestException
+from typing import Any
 
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
@@ -38,8 +39,10 @@ class OAuth2Adapter:
     scope_delimiter = " "
     basic_auth = False
     headers: dict[str, str] | None = None
+    provider_id: str
+    access_token_url: str
 
-    def __init__(self, request) -> None:
+    def __init__(self, request: HttpRequest) -> None:
         self.request = request
         self.did_fetch_access_token = False
 
@@ -48,13 +51,13 @@ class OAuth2Adapter:
             self.request, provider=self.provider_id
         )
 
-    def complete_login(self, request, app, token: SocialToken, **kwargs):
+    def complete_login(self, request: HttpRequest, app, token: SocialToken, **kwargs):
         """
         Returns a SocialLogin instance
         """
         raise NotImplementedError
 
-    def get_callback_url(self, request, app):
+    def get_callback_url(self, request: HttpRequest, app):
         callback_url = reverse(f"{self.provider_id}_callback")
         protocol = self.redirect_uri_protocol
         return build_absolute_uri(request, callback_url, protocol)
@@ -67,13 +70,15 @@ class OAuth2Adapter:
             token.expires_at = timezone.now() + timedelta(seconds=int(expires_in))
         return token
 
-    def get_access_token_data(self, request, app, client, pkce_code_verifier=None):
+    def get_access_token_data(
+        self, request: HttpRequest, app, client, pkce_code_verifier=None
+    ):
         code = get_request_param(self.request, "code")
         data = client.get_access_token(code, pkce_code_verifier=pkce_code_verifier)
         self.did_fetch_access_token = True
         return data
 
-    def get_client(self, request, app):
+    def get_client(self, request: HttpRequest, app):
         callback_url = self.get_callback_url(request, app)
         client = self.client_class(
             self.request,
@@ -91,11 +96,12 @@ class OAuth2Adapter:
 
 class OAuth2View:
     request: HttpRequest
+    adapter: OAuth2Adapter
 
     @classmethod
     def adapter_view(cls, adapter):
         @login_not_required
-        def view(request, *args, **kwargs):
+        def view(request: HttpRequest, *args: Any, **kwargs: Any):
             self = cls()
             self.request = request
             if not isinstance(adapter, OAuth2Adapter):
@@ -103,7 +109,9 @@ class OAuth2View:
             else:
                 self.adapter = adapter
             try:
-                return self.dispatch(request, *args, **kwargs)
+                return self.dispatch(  # type:ignore[attr-defined]
+                    request, *args, **kwargs
+                )
             except ImmediateHttpResponse as e:
                 return e.response
 
@@ -116,7 +124,9 @@ class OAuth2LoginView(OAuth2View, BaseLoginView):
 
 
 class OAuth2CallbackView(OAuth2View):
-    def dispatch(self, request, *args, **kwargs):
+    adapter: OAuth2Adapter
+
+    def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any):
         provider = self.adapter.get_provider()
         state, resp = self._get_state(request, provider)
         if resp:
@@ -163,10 +173,13 @@ class OAuth2CallbackView(OAuth2View):
                 request, provider, exception=e, extra_context={"state": state}
             )
 
-    def _redirect_strict_samesite(self, request, provider):
+    def _redirect_strict_samesite(self, request: HttpRequest, provider):
         if (
             "_redir" in request.GET
-            or settings.SESSION_COOKIE_SAMESITE.lower() != "strict"
+            or (
+                isinstance(settings.SESSION_COOKIE_SAMESITE, str)
+                and settings.SESSION_COOKIE_SAMESITE.lower() != "strict"
+            )
             or request.method != "GET"
         ):
             return
@@ -181,7 +194,7 @@ class OAuth2CallbackView(OAuth2View):
             },
         )
 
-    def _get_state(self, request, provider):
+    def _get_state(self, request: HttpRequest, provider):
         state = None
         state_id = get_request_param(request, "state")
         if self.adapter.supports_state:

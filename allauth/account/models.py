@@ -17,6 +17,7 @@ from django.utils.translation import gettext_lazy as _
 from allauth.account import app_settings
 from allauth.account.adapter import get_adapter
 from allauth.account.managers import EmailAddressManager, EmailConfirmationManager
+from allauth.core import context
 
 
 if TYPE_CHECKING:
@@ -138,6 +139,8 @@ class EmailConfirmationMixin:
         return mark_email_address_as_verified(request, email_address)
 
     def send(self, request: HttpRequest | None = None, signup: bool = False) -> None:
+        if request is None:
+            request = context.request
         get_adapter().send_confirmation_mail(request, self, signup)
 
 

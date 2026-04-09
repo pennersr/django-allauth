@@ -2,9 +2,11 @@ from __future__ import annotations
 
 import requests
 import secrets
+from typing import Any
 
 from django.conf import settings
 from django.core.exceptions import PermissionDenied, ValidationError
+from django.http import HttpRequest
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
@@ -80,7 +82,8 @@ class GoogleOAuth2Adapter(OAuth2Adapter):
     identity_url = IDENTITY_URL
     fetch_userinfo = FETCH_USERINFO
 
-    def complete_login(self, request, app, token, response, **kwargs):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
+        response = kwargs["response"]
         data = None
         id_token = response.get("id_token")
         if id_token:
@@ -121,7 +124,7 @@ oauth2_callback = OAuth2CallbackView.adapter_view(GoogleOAuth2Adapter)
 
 class LoginByTokenView(View):
     @method_decorator(login_not_required)
-    def dispatch(self, request):
+    def dispatch(self, request: HttpRequest):
         self.adapter = get_adapter()
         self.provider = self.adapter.get_provider(
             request, GoogleOAuth2Adapter.provider_id
@@ -136,19 +139,19 @@ class LoginByTokenView(View):
         ) as exc:
             return render_authentication_error(request, self.provider, exception=exc)
 
-    def get(self, request):
+    def get(self, request: HttpRequest):
         # If we leave out get() it will return a response with a 405, but
         # we really want to show an authentication error.
         raise PermissionDenied("405")
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any):
         self.check_csrf(request)
 
         credential = request.POST.get("credential")
         login = self.provider.verify_token(request, {"id_token": credential})
         return complete_social_login(request, login)
 
-    def check_csrf(self, request) -> None:
+    def check_csrf(self, request: HttpRequest) -> None:
         csrf_token_cookie = request.COOKIES.get("g_csrf_token")
         if not csrf_token_cookie:
             raise PermissionDenied("No CSRF token in Cookie.")

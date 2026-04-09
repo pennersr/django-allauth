@@ -1,4 +1,4 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpRequest, HttpResponseRedirect
 from django.shortcuts import render
 
 from allauth.account import app_settings as account_settings
@@ -16,9 +16,10 @@ from allauth.socialaccount.models import SocialLogin
 from allauth.socialaccount.providers.base import AuthProcess
 
 
-def _login(request, sociallogin):
+def _login(request: HttpRequest, sociallogin: SocialLogin):
     sociallogin._accept_login(request)
     record_authentication(request, sociallogin)
+    assert sociallogin.user  # nosec
     return perform_login(
         request,
         sociallogin.user,
@@ -28,7 +29,7 @@ def _login(request, sociallogin):
     )
 
 
-def pre_social_login(request, sociallogin) -> None:
+def pre_social_login(request: HttpRequest, sociallogin: SocialLogin) -> None:
     clear_pending_signup(request)
     assert not sociallogin.is_existing  # nosec
     sociallogin.lookup()
@@ -38,7 +39,7 @@ def pre_social_login(request, sociallogin) -> None:
     )
 
 
-def complete_login(request, sociallogin, raises=False):
+def complete_login(request: HttpRequest, sociallogin: SocialLogin, raises=False):
     try:
         pre_social_login(request, sociallogin)
         process = sociallogin.state.get("process")
@@ -64,12 +65,12 @@ def complete_login(request, sociallogin, raises=False):
         return e.response
 
 
-def _redirect(request, sociallogin):
+def _redirect(request: HttpRequest, sociallogin: SocialLogin):
     next_url = sociallogin.get_redirect_url(request) or "/"
     return HttpResponseRedirect(next_url)
 
 
-def _authenticate(request, sociallogin):
+def _authenticate(request: HttpRequest, sociallogin: SocialLogin):
     if request.user.is_authenticated:
         get_account_adapter(request).logout(request)
     if sociallogin.is_existing:
@@ -81,7 +82,7 @@ def _authenticate(request, sociallogin):
     return ret
 
 
-def record_authentication(request, sociallogin) -> None:
+def record_authentication(request: HttpRequest, sociallogin: SocialLogin) -> None:
     from allauth.account.internal.flows.login import record_authentication
 
     record_authentication(

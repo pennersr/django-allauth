@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.models import SocialToken
@@ -20,7 +22,7 @@ class LemonLDAPOAuth2Adapter(OAuth2Adapter):
     authorize_url = f"{provider_base_url}/oauth2/authorize"
     profile_url = f"{provider_base_url}/oauth2/userinfo"
 
-    def complete_login(self, request, app, token: SocialToken, **kwargs):
+    def complete_login(self, request: HttpRequest, app, token: SocialToken, **kwargs):
         headers = {"Authorization": f"Bearer {token.token}"}
         with get_adapter().get_requests_session() as sess:
             response = sess.post(self.profile_url, headers=headers)

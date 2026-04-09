@@ -1,8 +1,10 @@
 from __future__ import annotations
 
+from typing import Any
+
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
-from django.http import Http404, HttpResponse, HttpResponseBase
+from django.http import Http404, HttpRequest, HttpResponse, HttpResponseBase
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
@@ -59,7 +61,9 @@ class DownloadRecoveryCodesView(TemplateView):
     template_name = "mfa/recovery_codes/download.txt"
     content_type = "text/plain"
 
-    def dispatch(self, request, *args, **kwargs) -> HttpResponseBase:
+    def dispatch(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponseBase:
         recovery_codes, can_view = flows.view_recovery_codes(self.request)
         if not recovery_codes:
             raise Http404()

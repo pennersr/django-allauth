@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.http import HttpRequest
+
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
@@ -16,7 +18,7 @@ class BitbucketOAuth2Adapter(OAuth2Adapter):
     profile_url = "https://api.bitbucket.org/2.0/user"
     emails_url = "https://api.bitbucket.org/2.0/user/emails"
 
-    def complete_login(self, request, app, token, **kwargs):
+    def complete_login(self, request: HttpRequest, app, token, **kwargs):
         with get_adapter().get_requests_session() as sess:
             resp = sess.get(self.profile_url, params={"access_token": token.token})
             extra_data = resp.json()

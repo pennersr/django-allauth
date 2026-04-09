@@ -4,7 +4,7 @@ from urllib.parse import urlparse
 
 from django.core.cache import cache
 from django.core.exceptions import ImproperlyConfigured
-from django.http import Http404
+from django.http import Http404, HttpRequest
 from django.urls import reverse
 from django.utils.http import urlencode
 
@@ -18,7 +18,7 @@ from allauth.socialaccount.models import SocialApp
 from allauth.socialaccount.providers.saml.provider import SAMLProvider
 
 
-def get_app_or_404(request, organization_slug):
+def get_app_or_404(request: HttpRequest, organization_slug):
     adapter = get_adapter()
     try:
         return adapter.get_app(
@@ -28,7 +28,7 @@ def get_app_or_404(request, organization_slug):
         raise Http404(f"no SocialApp found with client_id={organization_slug}")
 
 
-def prepare_django_request(request) -> dict:
+def prepare_django_request(request: HttpRequest) -> dict:
     result = {
         "https": "on" if request.is_secure() else "off",
         "http_host": request.META["HTTP_HOST"],
@@ -41,7 +41,7 @@ def prepare_django_request(request) -> dict:
     return result
 
 
-def build_sp_config(request, provider_config, org) -> dict:
+def build_sp_config(request: HttpRequest, provider_config, org) -> dict:
     acs_url = request.build_absolute_uri(reverse("saml_acs", args=[org]))
     sls_url = request.build_absolute_uri(reverse("saml_sls", args=[org]))
     metadata_url = request.build_absolute_uri(reverse("saml_metadata", args=[org]))
@@ -96,7 +96,7 @@ def fetch_metadata_url_config(idp_config):
     return saml_config
 
 
-def build_saml_config(request, provider_config, org) -> dict:
+def build_saml_config(request: HttpRequest, provider_config, org) -> dict:
     avd = provider_config.get("advanced", {})
     security_config = {
         "authnRequestsSigned": avd.get("authn_request_signed", False),
@@ -175,7 +175,7 @@ def decode_relay_state(relay_state):
     return next_url
 
 
-def build_auth(request, provider):
+def build_auth(request: HttpRequest, provider):
     req = prepare_django_request(request)
     config = build_saml_config(request, provider.app.settings, provider.app.client_id)
     auth = OneLogin_Saml2_Auth(req, config)

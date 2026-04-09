@@ -374,5 +374,5 @@ class DefaultSocialAccountAdapter(BaseAdapter):
         return get_random_string(STATE_ID_LENGTH)
 
 
-def get_adapter(request=None):
+def get_adapter(request=None) -> DefaultSocialAccountAdapter:
     return import_attribute(app_settings.ADAPTER)(request)

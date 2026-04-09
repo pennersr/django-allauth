@@ -1,14 +1,19 @@
 from __future__ import annotations
 
+from typing import TypeVar
+
 from allauth import app_settings as allauth_settings
 from allauth.core.internal.cryptokit import UserCodeFormat
+
+
+_T = TypeVar("_T")
 
 
 class AppSettings:
     def __init__(self, prefix: str) -> None:
         self.prefix = prefix
 
-    def _setting(self, name: str, dflt):
+    def _setting(self, name: str, dflt: _T) -> _T:
         from allauth.utils import get_setting
 
         return get_setting(f"{self.prefix}{name}", dflt)
@@ -58,7 +63,7 @@ class AppSettings:
 
     @property
     def RATE_LIMITS(self) -> dict:
-        rls = self._setting("RATE_LIMITS", {})
+        rls: dict = self._setting("RATE_LIMITS", {})
         if rls is False:
             return {}
         ret = {

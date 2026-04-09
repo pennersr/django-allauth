@@ -284,7 +284,7 @@ class DefaultAccountAdapter(BaseAdapter):
         """
         return reverse("account_change_password")
 
-    def is_open_for_signup(self, request):
+    def is_open_for_signup(self, request: HttpRequest) -> bool:
         """
         Checks whether or not the site is open for signups.
 

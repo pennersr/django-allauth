@@ -1,13 +1,17 @@
 from __future__ import annotations
 
 from datetime import timedelta
+from typing import TypeVar
+
+
+_T = TypeVar("_T")
 
 
 class AppSettings:
     def __init__(self, prefix: str) -> None:
         self.prefix = prefix
 
-    def _setting(self, name: str, dflt):
+    def _setting(self, name: str, dflt: _T) -> _T:
         from allauth.utils import get_setting
 
         return get_setting(f"{self.prefix}{name}", dflt)
@@ -146,13 +150,13 @@ class AppSettings:
         return self._setting("TRUST_COOKIE_PATH", settings.SESSION_COOKIE_PATH)
 
     @property
-    def TRUST_COOKIE_SAMESITE(self) -> str:
+    def TRUST_COOKIE_SAMESITE(self) -> str | bool:
         from django.conf import settings
 
         return self._setting("TRUST_COOKIE_SAMESITE", settings.SESSION_COOKIE_SAMESITE)
 
     @property
-    def TRUST_COOKIE_SECURE(self) -> str | None:
+    def TRUST_COOKIE_SECURE(self) -> bool:
         from django.conf import settings
 
         return self._setting("TRUST_COOKIE_SECURE", settings.SESSION_COOKIE_SECURE)

@@ -54,7 +54,6 @@ from allauth.headless.account.inputs import (
     VerifyPhoneInput,
 )
 from allauth.headless.base.response import (
-    APIResponse,
     AuthenticationResponse,
     ConflictResponse,
     ForbiddenResponse,
@@ -62,7 +61,7 @@ from allauth.headless.base.response import (
 )
 from allauth.headless.base.views import APIView, AuthenticatedAPIView
 from allauth.headless.internal import authkit
-from allauth.headless.internal.restkit.response import ErrorResponse
+from allauth.headless.internal.restkit.response import APIResponse, ErrorResponse
 
 
 class RequestLoginCodeView(APIView):

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.http import HttpResponse
+
 
 class ImmediateHttpResponse(Exception):
     """
@@ -7,7 +9,7 @@ class ImmediateHttpResponse(Exception):
     return a custom HttpResponse.
     """
 
-    def __init__(self, response) -> None:
+    def __init__(self, response: HttpResponse) -> None:
         self.response = response
 
 

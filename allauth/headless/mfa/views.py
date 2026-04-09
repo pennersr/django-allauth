@@ -96,9 +96,12 @@ class ManageTOTPView(AuthenticatedAPIView):
             return response.TOTPNotFoundResponse(request, secret, totp_url)
         return response.TOTPResponse(request, authenticator)
 
-    def _get_authenticator(self):
+    def _get_authenticator(self) -> Authenticator | None:
+        user = self.request.user
+        if not user.is_authenticated:
+            return None
         return Authenticator.objects.filter(
-            type=Authenticator.Type.TOTP, user=self.request.user
+            type=Authenticator.Type.TOTP, user=user
         ).first()
 
     def get_input_kwargs(self) -> dict:
@@ -111,7 +114,7 @@ class ManageTOTPView(AuthenticatedAPIView):
     def delete(self, request, *args, **kwargs):
         authenticator = self._get_authenticator()
         if authenticator:
-            authenticator = totp_flows.deactivate_totp(request, authenticator)
+            totp_flows.deactivate_totp(request, authenticator)
         return response.AuthenticatorDeletedResponse(request)
 
 

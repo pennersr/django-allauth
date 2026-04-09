@@ -1,11 +1,16 @@
 from __future__ import annotations
 
+from typing import TypeVar
+
+
+_T = TypeVar("_T")
+
 
 class AppSettings:
     def __init__(self, prefix: str) -> None:
         self.prefix = prefix
 
-    def _setting(self, name: str, dflt):
+    def _setting(self, name: str, dflt: _T) -> _T:
         from allauth.utils import get_setting
 
         return get_setting(self.prefix + name, dflt)
@@ -38,7 +43,7 @@ class AppSettings:
         )
 
     @property
-    def CLIENTS(self) -> tuple[str]:
+    def CLIENTS(self) -> tuple[str, ...]:
         return tuple(self._setting("CLIENTS", ("browser", "app")))
 
     @property

@@ -1,5 +1,9 @@
 from __future__ import annotations
 
+from collections.abc import Callable
+from typing import Any
+
+from django.http import HttpResponseBase
 from django.utils.decorators import classonlymethod
 
 from allauth.account.stages import LoginStage, LoginStageController
@@ -14,7 +18,7 @@ class APIView(RESTView):
     client = None
 
     @classonlymethod
-    def as_api_view(cls, **initkwargs):
+    def as_api_view(cls, **initkwargs: Any) -> Callable[..., HttpResponseBase]:
         view_func = cls.as_view(**initkwargs)
         if initkwargs["client"] == Client.APP:
             view_func = decorators.app_view(view_func)

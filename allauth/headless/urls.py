@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from django.urls import include, path
+from django.urls import URLPattern, URLResolver, include, path
 
 from allauth import app_settings as allauth_settings
 from allauth.headless import app_settings
@@ -10,8 +10,8 @@ from allauth.headless.constants import Client
 from allauth.headless.tokens import urls as tokens_urls
 
 
-def build_urlpatterns(client):
-    patterns = []
+def build_urlpatterns(client: Client) -> list[URLPattern | URLResolver]:
+    patterns: list[URLPattern | URLResolver] = []
     patterns.extend(base_urls.build_urlpatterns(client))
     patterns.append(
         path(

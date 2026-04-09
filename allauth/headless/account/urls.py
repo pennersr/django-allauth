@@ -1,15 +1,16 @@
 from __future__ import annotations
 
-from django.urls import include, path
+from django.urls import URLPattern, URLResolver, include, path
 
 from allauth import app_settings as allauth_settings
 from allauth.account import app_settings as account_settings
 from allauth.headless.account import views
+from allauth.headless.constants import Client
 
 
-def build_urlpatterns(client):
-    account_patterns = []
-    auth_patterns = [
+def build_urlpatterns(client: Client) -> list[URLPattern | URLResolver]:
+    account_patterns: list[URLPattern | URLResolver] = []
+    auth_patterns: list[URLPattern | URLResolver] = [
         path(
             "session",
             views.SessionView.as_api_view(client=client),

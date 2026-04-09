@@ -1,15 +1,20 @@
 from __future__ import annotations
 
+from typing import TypeVar
+
 from django.apps import apps
 
 from allauth.core.internal.cryptokit import UserCodeFormat
+
+
+_T = TypeVar("_T")
 
 
 class AppSettings:
     def __init__(self, prefix: str) -> None:
         self.prefix = prefix
 
-    def _setting(self, name: str, dflt):
+    def _setting(self, name: str, dflt: _T) -> _T:
         from allauth.utils import get_setting
 
         return get_setting(self.prefix + name, dflt)
@@ -76,7 +81,7 @@ class AppSettings:
         Controls the format of user-facing verification codes (e.g. email
         verification, phone verification, login codes).
         """
-        return self._setting("USER_CODE_FORMAT", {})
+        return self._setting("USER_CODE_FORMAT", UserCodeFormat())
 
 
 _app_settings = AppSettings("ALLAUTH_")

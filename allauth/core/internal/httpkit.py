@@ -216,7 +216,7 @@ def get_client_ip(request: HttpRequest) -> str | None:
     else:
         ip = get_client_ip_from_xff(request)
         if not ip:
-            ip = request.META["REMOTE_ADDR"]
+            ip = request.META.get("REMOTE_ADDR")
     return clean_client_ip(ip) if ip else None
 
 

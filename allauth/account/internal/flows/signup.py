@@ -98,7 +98,7 @@ def complete_signup(
     redirect_url=None,
     signal_kwargs=None,
     by_passkey=False,
-):
+) -> HttpResponse:
     if signal_kwargs is None:
         signal_kwargs = {}
     signals.user_signed_up.send(

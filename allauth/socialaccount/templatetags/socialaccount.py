@@ -14,7 +14,7 @@ register = template.Library()
 
 
 @register.simple_tag(takes_context=True)
-def provider_login_url(context, provider, **params):
+def provider_login_url(context, provider, **params) -> str:
     """
     {% provider_login_url "facebook" next=bla %}
     {% provider_login_url "openid" openid="https://me.yahoo.com" next=bla %}
@@ -45,7 +45,7 @@ def provider_login_url(context, provider, **params):
 
 
 @register.simple_tag(takes_context=True)
-def providers_media_js(context):
+def providers_media_js(context) -> str:
     request = context["request"]
     providers = get_adapter().list_providers(request)
     ret = "\n".join(p.media_js(request) for p in providers)
@@ -53,7 +53,7 @@ def providers_media_js(context):
 
 
 @register.simple_tag
-def get_social_accounts(user: AbstractBaseUser):
+def get_social_accounts(user: AbstractBaseUser) -> dict:
     """
     {% get_social_accounts user as accounts %}
 
@@ -70,7 +70,7 @@ def get_social_accounts(user: AbstractBaseUser):
 
 
 @register.simple_tag(takes_context=True)
-def get_providers(context):
+def get_providers(context) -> list:
     """
     Returns a list of social authentication providers.
 

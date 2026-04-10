@@ -241,7 +241,7 @@ def setup_user_email(request: HttpRequest, user: AbstractBaseUser, addresses):
     return primary
 
 
-def filter_users_by_username(*username):
+def filter_users_by_username(*username) -> models.QuerySet[AbstractBaseUser]:
     if app_settings.PRESERVE_USERNAME_CASING:
         qlist = [
             Q(**{f"{app_settings.USER_MODEL_USERNAME_FIELD}__iexact": u})

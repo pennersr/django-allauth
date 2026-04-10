@@ -101,8 +101,9 @@ class DefaultOIDCAdapter(BaseAdapter):
         """
         Return the claims to be included in the ID token or userinfo response.
         """
-        claims = {"sub": self.get_user_sub(client, user)}
+        claims: dict = {"sub": self.get_user_sub(client, user)}
         if "email" in scopes:
+            address: EmailAddress | None = None
             if email:
                 try:
                     address = EmailAddress.objects.get_for_user(user, email)

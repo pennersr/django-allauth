@@ -198,7 +198,7 @@ def get_address_for_user(user: AbstractBaseUser) -> EmailAddress | None:
     return address
 
 
-def get_address_for_login(login: Login):
+def get_address_for_login(login: Login) -> EmailAddress | None:
     assert login.user  # nosec
     if login.email:
         try:

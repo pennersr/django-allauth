@@ -29,7 +29,7 @@ class EmailAddressManager(models.Manager["EmailAddress"]):
             ret = count < app_settings.MAX_EMAIL_ADDRESSES
         return ret
 
-    def get_new(self, user: AbstractBaseUser):
+    def get_new(self, user: AbstractBaseUser) -> EmailAddress | None:
         """
         Returns the email address the user is in the process of changing to, if any.
         """
@@ -41,7 +41,7 @@ class EmailAddressManager(models.Manager["EmailAddress"]):
         user: AbstractBaseUser,
         email: str,
         send_verification: bool = True,
-    ):
+    ) -> EmailAddress:
         """
         Adds an email address the user wishes to change to, replacing his
         current email address once confirmed.
@@ -70,7 +70,7 @@ class EmailAddressManager(models.Manager["EmailAddress"]):
         email,
         confirm=False,
         signup=False,
-    ):
+    ) -> EmailAddress:
         from allauth.account.internal.flows.email_verification import (
             send_verification_email_to_address,
         )
@@ -85,14 +85,14 @@ class EmailAddressManager(models.Manager["EmailAddress"]):
 
         return email_address
 
-    def get_verified(self, user: AbstractBaseUser):
+    def get_verified(self, user: AbstractBaseUser) -> EmailAddress | None:
         return (
             self.filter(user_id=user.pk, verified=True)
             .order_by("-primary", "pk")
             .first()
         )
 
-    def get_primary(self, user: AbstractBaseUser):
+    def get_primary(self, user: AbstractBaseUser) -> EmailAddress | None:
         try:
             return self.get(user_id=user.pk, primary=True)
         except self.model.DoesNotExist:
@@ -108,7 +108,7 @@ class EmailAddressManager(models.Manager["EmailAddress"]):
             email = user_email(user)
         return email
 
-    def get_users_for(self, email):
+    def get_users_for(self, email) -> list[AbstractBaseUser]:
         # this is a list rather than a generator because we probably want to
         # do a len() on it right away
         return [
@@ -124,7 +124,7 @@ class EmailAddressManager(models.Manager["EmailAddress"]):
         """
         user._emailaddress_cache = addresses  # type:ignore[attr-defined]
 
-    def get_for_user(self, user: AbstractBaseUser, email):
+    def get_for_user(self, user: AbstractBaseUser, email) -> EmailAddress:
         cache_key = "_emailaddress_cache"
         addresses = getattr(user, cache_key, None)
         email = email.lower()
@@ -143,7 +143,7 @@ class EmailAddressManager(models.Manager["EmailAddress"]):
     def is_verified(self, email: str) -> bool:
         return self.filter(email=email.lower(), verified=True).exists()
 
-    def lookup(self, emails):
+    def lookup(self, emails) -> models.QuerySet[EmailAddress]:
         return self.filter(email__in=[e.lower() for e in emails])
 
 
@@ -154,7 +154,7 @@ class EmailConfirmationManager(models.Manager):
     def all_valid(self):
         return self.exclude(self.expired_q()).filter(email_address__verified=False)
 
-    def expired_q(self):
+    def expired_q(self) -> Q:
         sent_threshold = timezone.now() - timedelta(
             days=app_settings.EMAIL_CONFIRMATION_EXPIRE_DAYS
         )

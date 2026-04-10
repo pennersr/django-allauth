@@ -4,7 +4,7 @@ from django.core.checks import Critical, register
 
 
 @register()
-def settings_check(app_configs, **kwargs):
+def settings_check(app_configs, **kwargs) -> list:
     from allauth import app_settings as allauth_settings
     from allauth.account import app_settings as account_settings
     from allauth.socialaccount import app_settings

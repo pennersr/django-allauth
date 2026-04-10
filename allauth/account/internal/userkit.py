@@ -47,8 +47,8 @@ def user_field(user: AbstractBaseUser, field, *args, commit=False):
         return getattr(user, field)
 
 
-def did_user_login(user: AbstractBaseUser) -> bool:
-    return user.last_login is not None
+def did_user_login(user: AbstractBaseUser | None) -> bool:
+    return user is not None and user.last_login is not None
 
 
 _user_display_callable = None

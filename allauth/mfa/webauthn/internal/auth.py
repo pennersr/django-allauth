@@ -150,7 +150,7 @@ def begin_authentication(user: AbstractBaseUser | None = None) -> dict:
     return dict(request_options)
 
 
-def extract_user_from_response(response: dict):
+def extract_user_from_response(response: dict) -> AbstractBaseUser:
     try:
         user_handle = response.get("response", {}).get("userHandle")
         user_pk = url_str_to_user_pk(websafe_decode(user_handle).decode("utf8"))

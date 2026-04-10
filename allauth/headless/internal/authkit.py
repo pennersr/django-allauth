@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from contextlib import contextmanager
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from django.http import HttpRequest
 from django.utils.functional import SimpleLazyObject, empty
@@ -14,6 +14,10 @@ from allauth.headless.constants import Client
 from allauth.headless.internal import sessionkit
 
 
+if TYPE_CHECKING:
+    from allauth.account.stages import LoginStage
+
+
 class AuthenticationStatus:
     def __init__(self, request: HttpRequest) -> None:
         self.request = request
@@ -22,7 +26,7 @@ class AuthenticationStatus:
     def is_authenticated(self) -> bool:
         return self.request.user.is_authenticated
 
-    def get_pending_stage(self):
+    def get_pending_stage(self) -> LoginStage | None:
         return get_pending_stage(self.request)
 
     @property

@@ -17,7 +17,7 @@ if TYPE_CHECKING:
     from allauth.socialaccount.models import SocialLogin
 
 
-def _socialaccount_data(request: HttpRequest, account):
+def _socialaccount_data(request: HttpRequest, account) -> dict:
     return {
         "uid": account.uid,
         "provider": _provider_data(request, account.get_provider()),
@@ -25,7 +25,7 @@ def _socialaccount_data(request: HttpRequest, account):
     }
 
 
-def _provider_data(request: HttpRequest, provider):
+def _provider_data(request: HttpRequest, provider) -> dict:
     ret = {"id": provider.sub_id, "name": provider.name, "flows": []}
     if provider.supports_redirect:
         ret["flows"].append(Flow.PROVIDER_REDIRECT)
@@ -39,7 +39,7 @@ def _provider_data(request: HttpRequest, provider):
     return ret
 
 
-def provider_flows(request: HttpRequest):
+def provider_flows(request: HttpRequest) -> list:
     flows = []
     providers = _list_supported_providers(request)
     if providers:
@@ -67,7 +67,7 @@ def provider_flows(request: HttpRequest):
     return flows
 
 
-def _signup_flow(request: HttpRequest, sociallogin: SocialLogin):
+def _signup_flow(request: HttpRequest, sociallogin: SocialLogin) -> dict:
     provider = sociallogin.provider
     flow = {
         "id": Flow.PROVIDER_SIGNUP,
@@ -77,7 +77,7 @@ def _signup_flow(request: HttpRequest, sociallogin: SocialLogin):
     return flow
 
 
-def _is_provider_supported(provider, client):
+def _is_provider_supported(provider, client) -> bool:
     if client == Client.APP:
         return provider.supports_token_authentication
     elif client == Client.BROWSER:
@@ -85,7 +85,7 @@ def _is_provider_supported(provider, client):
     return False
 
 
-def _list_supported_providers(request: HttpRequest):
+def _list_supported_providers(request: HttpRequest) -> list:
     adapter = get_socialaccount_adapter()
     providers = adapter.list_providers(request)
     providers = [
@@ -96,7 +96,7 @@ def _list_supported_providers(request: HttpRequest):
     return providers
 
 
-def get_config_data(request: HttpRequest):
+def get_config_data(request: HttpRequest) -> dict:
     entries: list[dict] = []
     data = {"socialaccount": {"providers": entries}}
     providers = _list_supported_providers(request)

@@ -40,8 +40,8 @@ class _BaseAddWebAuthnForm(forms.Form):
             )
         return name
 
-    def clean(self):
-        cleaned_data = super().clean()
+    def clean(self) -> dict:
+        cleaned_data = super().clean() or {}
         credential = cleaned_data.get("credential")
         if credential:
             # Explicitly parse JSON payload -- otherwise, register_complete()

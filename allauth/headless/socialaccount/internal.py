@@ -60,7 +60,9 @@ def complete_token_login(request: HttpRequest, sociallogin: SocialLogin):
     return flows.login.complete_login(request, sociallogin, raises=True)
 
 
-def complete_login(request: HttpRequest, sociallogin: SocialLogin):
+def complete_login(
+    request: HttpRequest, sociallogin: SocialLogin
+) -> HttpResponseRedirect:
     """
     Called when `sociallogin.is_headless`.
     """

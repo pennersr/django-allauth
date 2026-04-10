@@ -26,7 +26,7 @@ USERNAME_SUFFIX_CHARS = [string.digits] * 4 + [string.ascii_letters] * (
 )
 
 
-def _generate_unique_username_base(txts, regex=None):
+def _generate_unique_username_base(txts, regex=None) -> str:
     from .account.adapter import get_adapter
 
     adapter = get_adapter()
@@ -57,18 +57,20 @@ def _generate_unique_username_base(txts, regex=None):
     return username or "user"
 
 
-def get_username_max_length():
+def get_username_max_length() -> int:
     from .account.app_settings import USER_MODEL_USERNAME_FIELD
 
     if USER_MODEL_USERNAME_FIELD is not None:
         User = get_user_model()
-        max_length = User._meta.get_field(USER_MODEL_USERNAME_FIELD).max_length
+        max_length: int = User._meta.get_field(
+            USER_MODEL_USERNAME_FIELD
+        ).max_length  # type:ignore[union-attr,assignment]
     else:
         max_length = 0
     return max_length
 
 
-def generate_username_candidate(basename, suffix_length):
+def generate_username_candidate(basename, suffix_length) -> str:
     max_length = get_username_max_length()
     suffix = "".join(
         random.choice(USERNAME_SUFFIX_CHARS[i]) for i in range(suffix_length)  # nosec
@@ -76,7 +78,7 @@ def generate_username_candidate(basename, suffix_length):
     return basename[0 : max_length - len(suffix)] + suffix
 
 
-def generate_username_candidates(basename):
+def generate_username_candidates(basename) -> list:
     from .account.app_settings import USERNAME_MIN_LENGTH
 
     if len(basename) >= USERNAME_MIN_LENGTH:
@@ -90,7 +92,7 @@ def generate_username_candidates(basename):
     return ret
 
 
-def generate_unique_username(txts, regex=None):
+def generate_unique_username(txts, regex=None) -> str:
     from allauth.account.utils import filter_users_by_username
 
     from .account.adapter import get_adapter
@@ -99,10 +101,10 @@ def generate_unique_username(txts, regex=None):
     adapter = get_adapter()
     basename = _generate_unique_username_base(txts, regex)
     candidates = generate_username_candidates(basename)
-    existing_usernames = filter_users_by_username(*candidates).values_list(
+    existing_usernames_q = filter_users_by_username(*candidates).values_list(
         USER_MODEL_USERNAME_FIELD, flat=True
     )
-    existing_usernames = {n.lower() for n in existing_usernames}
+    existing_usernames = {n.lower() for n in existing_usernames_q}
     for candidate in candidates:
         if candidate.lower() not in existing_usernames:
             try:

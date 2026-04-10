@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.dispatch import Signal
 

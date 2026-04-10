@@ -1,8 +1,8 @@
 from django.conf import settings
-from django.urls import resolve
+from django.urls import ResolverMatch, resolve
 
 
-def script_aware_resolve(path: str):
+def script_aware_resolve(path: str) -> ResolverMatch:
     """
     Django's reverse/resolve is asymmetric. reverse() adds `FORCE_SCRIPT_NAME`,
     yet, resolve() won't handle it.

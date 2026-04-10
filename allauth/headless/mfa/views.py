@@ -4,7 +4,7 @@ from http import HTTPStatus
 from typing import Any
 
 from django.core.exceptions import ValidationError
-from django.http import HttpRequest, HttpResponseBase
+from django.http import HttpRequest, HttpResponse, HttpResponseBase
 
 from allauth.account.internal.stagekit import get_pending_stage
 from allauth.account.models import Login
@@ -43,19 +43,21 @@ from allauth.mfa.webauthn.internal import auth as webauthn_auth, flows as webaut
 from allauth.mfa.webauthn.stages import PasskeySignupStage
 
 
-def _validate_can_add_authenticator(request: HttpRequest):
+def _validate_can_add_authenticator(request: HttpRequest) -> ErrorResponse | None:
     assert request.user.is_authenticated  # nosec
     try:
         add.validate_can_add_authenticator(request.user)
     except ValidationError as e:
         return ErrorResponse(request, status=HTTPStatus.CONFLICT, exception=e)
+    return None
 
 
 class AuthenticateView(AuthenticationStageAPIView):
     input_class = AuthenticateInput
     stage_class = AuthenticateStage
+    input: AuthenticateInput
 
-    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponseBase:
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         self.input.save()
         return self.respond_next_stage()
 
@@ -65,8 +67,9 @@ class AuthenticateView(AuthenticationStageAPIView):
 
 class ReauthenticateView(AuthenticatedAPIView):
     input_class = AuthenticateInput
+    input: AuthenticateInput
 
-    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponseBase:
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         self.input.save()
         return AuthenticationResponse(self.request)
 
@@ -75,7 +78,7 @@ class ReauthenticateView(AuthenticatedAPIView):
 
 
 class AuthenticatorsView(AuthenticatedAPIView):
-    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponseBase:
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         assert request.user.is_authenticated  # nosec
         authenticators = Authenticator.objects.filter(user=request.user)
         return response.AuthenticatorsResponse(request, authenticators)
@@ -84,7 +87,7 @@ class AuthenticatorsView(AuthenticatedAPIView):
 class ManageTOTPView(AuthenticatedAPIView):
     input_class = {"POST": ActivateTOTPInput}
 
-    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponseBase:
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         authenticator = self._get_authenticator()
         if not authenticator:
             err = _validate_can_add_authenticator(request)
@@ -107,13 +110,11 @@ class ManageTOTPView(AuthenticatedAPIView):
     def get_input_kwargs(self) -> dict:
         return {"user": self.request.user}
 
-    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponseBase:
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         authenticator = totp_flows.activate_totp(request, self.input)[0]
         return response.TOTPResponse(request, authenticator)
 
-    def delete(
-        self, request: HttpRequest, *args: Any, **kwargs: Any
-    ) -> HttpResponseBase:
+    def delete(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         authenticator = self._get_authenticator()
         if authenticator:
             totp_flows.deactivate_totp(request, authenticator)
@@ -123,7 +124,7 @@ class ManageTOTPView(AuthenticatedAPIView):
 class ManageRecoveryCodesView(AuthenticatedAPIView):
     input_class = GenerateRecoveryCodesInput
 
-    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponseBase:
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         recovery_codes, can_view = recovery_codes_flows.view_recovery_codes(request)
         if not recovery_codes:
             return response.RecoveryCodesNotFoundResponse(request)
@@ -131,7 +132,7 @@ class ManageRecoveryCodesView(AuthenticatedAPIView):
             request, recovery_codes.instance, can_view=can_view
         )
 
-    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponseBase:
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         authenticator = recovery_codes_flows.generate_recovery_codes(request)
         authenticator.wrap().mark_as_viewed()
         return response.RecoveryCodesResponse(request, authenticator, can_view=True)
@@ -156,7 +157,7 @@ class ManageWebAuthnView(AuthenticatedAPIView):
                 return err
         return super().handle(request, *args, **kwargs)
 
-    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponseBase:
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         passwordless = "passwordless" in request.GET
         creation_options = webauthn_flows.begin_registration(
             request, request.user, passwordless
@@ -166,7 +167,7 @@ class ManageWebAuthnView(AuthenticatedAPIView):
     def get_input_kwargs(self) -> dict:
         return {"user": self.request.user}
 
-    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponseBase:
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         auth, rc_auth = webauthn_flows.add_authenticator(
             request,
             name=self.input.cleaned_data["name"],
@@ -179,16 +180,14 @@ class ManageWebAuthnView(AuthenticatedAPIView):
             meta={"recovery_codes_generated": did_generate_recovery_codes},
         )
 
-    def put(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponseBase:
+    def put(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         authenticator = self.input.cleaned_data["id"]
         webauthn_flows.rename_authenticator(
             request, authenticator, self.input.cleaned_data["name"]
         )
         return response.AuthenticatorResponse(request, authenticator)
 
-    def delete(
-        self, request: HttpRequest, *args: Any, **kwargs: Any
-    ) -> HttpResponseBase:
+    def delete(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         authenticators = self.input.cleaned_data["authenticators"]
         webauthn_flows.remove_authenticators(request, authenticators)
         return response.AuthenticatorsDeletedResponse(request)
@@ -199,7 +198,7 @@ class ReauthenticateWebAuthnView(AuthenticatedAPIView):
         "POST": ReauthenticateWebAuthnInput,
     }
 
-    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponseBase:
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         request_options = webauthn_auth.begin_authentication(
             authenticated_user(request)
         )
@@ -208,7 +207,7 @@ class ReauthenticateWebAuthnView(AuthenticatedAPIView):
     def get_input_kwargs(self) -> dict:
         return {"user": self.request.user}
 
-    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponseBase:
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         authenticator = self.input.cleaned_data["credential"]
         webauthn_flows.reauthenticate(request, authenticator)
         return AuthenticationResponse(self.request)
@@ -219,15 +218,16 @@ class AuthenticateWebAuthnView(AuthenticationStageAPIView):
         "POST": AuthenticateWebAuthnInput,
     }
     stage_class = AuthenticateStage
+    input: AuthenticateWebAuthnInput
 
-    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponseBase:
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         request_options = webauthn_auth.begin_authentication(self.stage.login.user)
         return response.WebAuthnRequestOptionsResponse(request, request_options)
 
     def get_input_kwargs(self) -> dict:
         return {"user": self.stage.login.user}
 
-    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponseBase:
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         self.input.save()
         return self.respond_next_stage()
 
@@ -237,11 +237,11 @@ class LoginWebAuthnView(APIView):
         "POST": LoginWebAuthnInput,
     }
 
-    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponseBase:
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         request_options = webauthn_auth.begin_authentication()
         return response.WebAuthnRequestOptionsResponse(request, request_options)
 
-    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponseBase:
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         authenticator = self.input.cleaned_data["credential"]
         redirect_url = None
         login = Login(user=authenticator.user, redirect_url=redirect_url)
@@ -256,7 +256,7 @@ class SignupWebAuthnView(SignupView):
     }
     by_passkey = True
 
-    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponseBase:
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         resp = self._require_stage()
         if resp:
             return resp
@@ -271,7 +271,7 @@ class SignupWebAuthnView(SignupView):
         self.stage = get_pending_stage(self.request)
         return self.stage
 
-    def _require_stage(self):
+    def _require_stage(self) -> ConflictResponse | None:
         self._prep_stage()
         if not self.stage or self.stage.key != PasskeySignupStage.key:
             return ConflictResponse(self.request)
@@ -284,7 +284,7 @@ class SignupWebAuthnView(SignupView):
             ret["user"] = self.stage.login.user
         return ret
 
-    def put(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponseBase:
+    def put(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         resp = self._require_stage()
         if resp:
             return resp
@@ -302,7 +302,7 @@ class TrustView(AuthenticationStageAPIView):
     input_class = TrustInput
     stage_class = TrustStage
 
-    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponseBase:
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         trust = self.input.cleaned_data["trust"]
         response = self.respond_next_stage()
         if trust:

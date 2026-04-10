@@ -12,6 +12,7 @@ from django.views.generic.edit import FormView
 
 from allauth.account.internal.decorators import login_not_required
 from allauth.account.internal.templatekit import get_entrance_context_data
+from allauth.core.internal.httpkit import authenticated_user
 from allauth.socialaccount.forms import DisconnectForm, SignupForm
 from allauth.socialaccount.internal import flows
 from allauth.socialaccount.models import SocialAccount, SocialLogin
@@ -61,7 +62,7 @@ class SignupView(
     def form_valid(self, form) -> HttpResponse:
         return flows.signup.signup_by_form(self.request, self.sociallogin, form)
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict:
         ret = super().get_context_data(**kwargs)
         ret.update(get_entrance_context_data(self.request))
         ret.update(
@@ -131,9 +132,11 @@ class ConnectionsView(AjaxCapableProcessFormViewMixin, FormView):
         form.save()
         return super().form_valid(form)
 
-    def get_ajax_data(self):
+    def get_ajax_data(self) -> dict:
         account_data = []
-        for account in SocialAccount.objects.filter(user=self.request.user):
+        for account in SocialAccount.objects.filter(
+            user_id=authenticated_user(self.request).pk
+        ):
             provider_account = account.get_provider_account()
             account_data.append(
                 {

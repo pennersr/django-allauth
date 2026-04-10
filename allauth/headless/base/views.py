@@ -3,7 +3,7 @@ from __future__ import annotations
 from collections.abc import Callable
 from typing import Any
 
-from django.http import HttpRequest, HttpResponseBase
+from django.http import HttpRequest, HttpResponse, HttpResponseBase
 from django.utils.decorators import classonlymethod
 
 from allauth.account.stages import LoginStage, LoginStageController
@@ -64,7 +64,7 @@ class AuthenticatedAPIView(APIView):
 
 
 class ConfigView(APIView):
-    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponseBase:
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         """
         The frontend queries (GET) this endpoint, expecting to receive
         either a 401 if no user is authenticated, or user information.

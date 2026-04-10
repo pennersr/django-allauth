@@ -40,10 +40,12 @@ class PasswordResetVerificationProcess(AbstractCodeVerificationProcess):
             return
         self.state["code_confirmed"] = True
         self.persist()
+        assert self.user  # nosec
         verify_email_indirectly(self.request, self.user, self.state["email"])
 
     def finish(self) -> HttpResponse | None:
         self.request.session.pop(PASSWORD_RESET_VERIFICATION_SESSION_KEY, None)
+        assert self.user  # nosec
         return password_reset.finalize_password_reset(
             self.request, self.user, email=self.state["email"]
         )
@@ -68,7 +70,7 @@ class PasswordResetVerificationProcess(AbstractCodeVerificationProcess):
     @classmethod
     def initiate(
         cls, *, request: HttpRequest, user: AbstractBaseUser | None, email: str
-    ):
+    ) -> PasswordResetVerificationProcess:
         state = cls.initial_state(user, email)
         process = PasswordResetVerificationProcess(request, state=state, user=user)
         process.send()

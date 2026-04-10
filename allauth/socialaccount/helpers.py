@@ -78,7 +78,7 @@ def complete_social_login(request: HttpRequest, sociallogin: SocialLogin):
     return flows.login.complete_login(request, sociallogin)
 
 
-def socialaccount_user_display(socialaccount):
+def socialaccount_user_display(socialaccount) -> str:
     func = app_settings.SOCIALACCOUNT_STR
     if not func:
         return user_display(socialaccount.user)

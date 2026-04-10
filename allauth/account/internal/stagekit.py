@@ -23,7 +23,9 @@ def get_pending_stage(request: HttpRequest) -> LoginStage | None:
     return stage
 
 
-def redirect_to_pending_stage(request: HttpRequest, stage: LoginStage):
+def redirect_to_pending_stage(
+    request: HttpRequest, stage: LoginStage
+) -> HttpResponseRedirect:
     if stage.urlname:
         return HttpResponseRedirect(reverse(stage.urlname))
     clear_login(request)
@@ -34,7 +36,7 @@ def clear_login(request: HttpRequest) -> None:
     request.session.pop(LOGIN_SESSION_KEY, None)
 
 
-def unstash_login(request: HttpRequest, peek: bool = False):
+def unstash_login(request: HttpRequest, peek: bool = False) -> Login | None:
     login = None
     if peek:
         data = request.session.get(LOGIN_SESSION_KEY)

@@ -38,7 +38,6 @@ class TestFetcher(fetchers.Urllib2Fetcher):
         if url == "https://discovery-failure.com/":
             raise urllib.error.URLError
         ret = super().fetch(url, body=body, headers=headers)
-        breakpoint()
         return ret
 
 

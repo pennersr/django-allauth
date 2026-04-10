@@ -51,7 +51,8 @@ def extract_headers(request: HttpRequest) -> dict[str, str]:
     return headers
 
 
-def convert_response(headers, body, status):
+def convert_response(headers, body, status) -> HttpResponse:
+    response: HttpResponse
     if isinstance(body, dict):
         response = JsonResponse(body, status=status)
     else:

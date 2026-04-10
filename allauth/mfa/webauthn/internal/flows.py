@@ -3,7 +3,7 @@ from __future__ import annotations
 from collections.abc import Iterable
 
 from django.contrib import messages
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponse
 
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.authentication import get_authentication_records
@@ -99,7 +99,7 @@ def remove_authenticator(request: HttpRequest, authenticator: Authenticator) -> 
 
 def perform_passwordless_login(
     request: HttpRequest, authenticator: Authenticator, login: Login
-):
+) -> HttpResponse:
     post_authentication(request, authenticator, passwordless=True)
     return flows.login.perform_login(request, login)
 

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Any
+
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
@@ -34,7 +36,7 @@ class DeactivateTOTPForm(forms.Form):
         self.authenticator = kwargs.pop("authenticator")
         super().__init__(*args, **kwargs)
 
-    def clean(self):
+    def clean(self) -> dict[str, Any] | None:
         cleaned_data = super().clean()
         adapter = get_adapter()
         if not adapter.can_delete_authenticator(self.authenticator):

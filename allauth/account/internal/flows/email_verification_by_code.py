@@ -65,7 +65,10 @@ class EmailVerificationProcess(AbstractCodeVerificationProcess):
         try:
             email_address = EmailAddress.objects.get_for_user(self.user, email)
         except EmailAddress.DoesNotExist:
-            email_address = EmailAddress(user=self.user, email=email)
+            email_address = EmailAddress(
+                user=self.user,  # type:ignore[misc]
+                email=email,
+            )
         return email_address
 
     def finish(self) -> EmailAddress | None:
@@ -111,14 +114,14 @@ class EmailVerificationProcess(AbstractCodeVerificationProcess):
             not self.is_change_quota_reached(
                 app_settings.EMAIL_VERIFICATION_MAX_CHANGE_COUNT
             )
-            and bool(self.user)
+            and self.user is not None
             and not did_user_login(self.user)
         )
 
     def change_to(self, email: str, account_already_exists: bool) -> None:
         self.state["account_already_exists"] = account_already_exists
         self.generate_code()
-        if account_already_exists:
+        if account_already_exists or not self.user:
             pass
         else:
             EmailAddress.objects.add_new_email(
@@ -142,5 +145,5 @@ class EmailVerificationProcess(AbstractCodeVerificationProcess):
         self.persist()
 
     @property
-    def key(self):
+    def key(self) -> str:
         return self.code

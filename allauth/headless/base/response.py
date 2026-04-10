@@ -20,7 +20,7 @@ from allauth.mfa import app_settings as mfa_settings
 
 class BaseAuthenticationResponse(APIResponse):
     def __init__(self, request: HttpRequest, user=None, status=None) -> None:
-        data = {}
+        data: dict = {}
         if user and user.is_authenticated:
             adapter = get_adapter()
             data["user"] = adapter.serialize_user(user)
@@ -40,7 +40,7 @@ class BaseAuthenticationResponse(APIResponse):
             status=status,
         )
 
-    def _get_flows(self, request: HttpRequest, user):
+    def _get_flows(self, request: HttpRequest, user) -> list:
         auth_status = authkit.AuthenticationStatus(request)
         ret = []
         if user and user.is_authenticated:
@@ -118,7 +118,7 @@ class AuthenticationResponse(BaseAuthenticationResponse):
         super().__init__(request, user=request.user)
 
     @classmethod
-    def from_response(cls, request: HttpRequest, response):
+    def from_response(cls, request: HttpRequest, response) -> AuthenticationResponse:
         """
         The response might be a headed redirect to e.g. the confirmation
         email page, because allauth.account is not (much) headless

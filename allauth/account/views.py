@@ -821,6 +821,7 @@ class LogoutView(NextRedirectMixin, LogoutFunctionalityMixin, TemplateView):
     template_name = f"account/logout.{app_settings.TEMPLATE_EXTENSION}"
 
     def get(self, *args, **kwargs) -> HttpResponse:
+        response: HttpResponse
         if app_settings.LOGOUT_ON_GET:
             return self.post(*args, **kwargs)
         if not self.request.user.is_authenticated:

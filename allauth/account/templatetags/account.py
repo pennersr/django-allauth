@@ -10,7 +10,7 @@ register = template.Library()
 
 
 @register.simple_tag(name="user_display")
-def user_display_tag(user: AbstractBaseUser):
+def user_display_tag(user: AbstractBaseUser) -> str:
     """
     Example usage::
 

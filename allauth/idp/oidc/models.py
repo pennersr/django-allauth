@@ -183,15 +183,15 @@ class Client(models.Model):
 
 
 class TokenQuerySet(models.query.QuerySet):
-    def valid(self):
+    def valid(self) -> TokenQuerySet:
         return self.filter(
             Q(expires_at__isnull=True) | Q(expires_at__gt=timezone.now())
         )
 
-    def by_value(self, value: str):
+    def by_value(self, value: str) -> TokenQuerySet:
         return self.filter(hash=get_adapter().hash_token(value))
 
-    def lookup(self, type, value):
+    def lookup(self, type, value) -> Token | None:
         return self.valid().by_value(value).filter(type=type).first()
 
 

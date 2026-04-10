@@ -20,7 +20,7 @@ _stash = local()
 class AuthenticationBackend(ModelBackend):
     def authenticate(  # type: ignore[override]
         self, request: HttpRequest | None, **credentials
-    ):
+    ) -> AbstractBaseUser | None:
         password = credentials.get("password")
         if not password:
             return None
@@ -30,7 +30,9 @@ class AuthenticationBackend(ModelBackend):
             self._mitigate_timing_attack(password)
         return user
 
-    def _authenticate(self, request: HttpRequest | None, **credentials):
+    def _authenticate(
+        self, request: HttpRequest | None, **credentials
+    ) -> AbstractBaseUser | None:
         username: str | None = credentials.get("username")
         password: str = credentials.get("password") or ""
         if username:
@@ -60,14 +62,18 @@ class AuthenticationBackend(ModelBackend):
                 return user
         return None
 
-    def _authenticate_by_phone(self, phone: str, password: str):
+    def _authenticate_by_phone(
+        self, phone: str, password: str
+    ) -> AbstractBaseUser | None:
         if not phone or LoginMethod.PHONE not in app_settings.LOGIN_METHODS:
             return None
         adapter = get_adapter()
         user = adapter.get_user_by_phone(phone)
         return self._check_password(user, password)
 
-    def _authenticate_by_username(self, username: str, password: str):
+    def _authenticate_by_username(
+        self, username: str, password: str
+    ) -> AbstractBaseUser | None:
         if (
             (LoginMethod.USERNAME not in app_settings.LOGIN_METHODS)
             or (not app_settings.USER_MODEL_USERNAME_FIELD)
@@ -81,7 +87,7 @@ class AuthenticationBackend(ModelBackend):
         self,
         email: str,
         password: str,
-    ):
+    ) -> AbstractBaseUser | None:
         if not email or LoginMethod.EMAIL not in app_settings.LOGIN_METHODS:
             return None
         users = filter_users_by_email(email, prefer_verified=True)
@@ -93,7 +99,9 @@ class AuthenticationBackend(ModelBackend):
     def _mitigate_timing_attack(self, password) -> None:
         get_user_model()().set_password(password)
 
-    def _check_password(self, user: AbstractBaseUser, password):
+    def _check_password(
+        self, user: AbstractBaseUser | None, password: str
+    ) -> AbstractBaseUser | None:
         if not user:
             return None
         self._did_check_password = True
@@ -105,7 +113,7 @@ class AuthenticationBackend(ModelBackend):
         return user if ok else None
 
     @classmethod
-    def _stash_user(cls, user: AbstractBaseUser):
+    def _stash_user(cls, user: AbstractBaseUser | None) -> AbstractBaseUser | None:
         """Now, be aware, the following is quite ugly, let me explain:
 
         Even if the user credentials match, the authentication can fail because
@@ -133,5 +141,5 @@ class AuthenticationBackend(ModelBackend):
         return ret
 
     @classmethod
-    def unstash_authenticated_user(cls):
+    def unstash_authenticated_user(cls) -> AbstractBaseUser | None:
         return cls._stash_user(None)

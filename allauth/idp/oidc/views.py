@@ -201,7 +201,7 @@ class AuthorizationView(FormView):
         )
         return HttpResponseRedirect(add_query_params(path, params))
 
-    def _skip_consent(self):
+    def _skip_consent(self) -> HttpResponse:
         scopes = self._request_info["request"].scopes
         form_kwargs = self.get_form_kwargs()
         form_kwargs["data"] = {
@@ -214,7 +214,7 @@ class AuthorizationView(FormView):
             raise PermissionDenied()
         return self.form_valid(form)
 
-    def _respond_with_access_denied(self):
+    def _respond_with_access_denied(self) -> HttpResponseRedirect:
         redirect_uri = self._request_info.get("redirect_uri")
         state = self._request_info.get("state")
         params = {"error": "access_denied"}
@@ -324,7 +324,7 @@ class DeviceAuthorizationView(View):
 
     def _dispatch_authorization(
         self, request: HttpRequest, user_code: str, device_code: str, client: Client
-    ):
+    ) -> HttpResponse:
         context = {"user_code": user_code, "client": client}
         if request.method == "POST":
             form = DeviceAuthorizationForm(request.POST)
@@ -371,7 +371,7 @@ class TokenView(View):
         *,
         user: AbstractBaseUser | None = None,
         data: dict | None = None,
-    ):
+    ) -> HttpResponse:
         orequest = extract_params(request)
         oresponse = get_server(
             pre_token=[lambda orequest: self._pre_token(orequest, user, data)]
@@ -388,7 +388,7 @@ class TokenView(View):
                 orequest.scope = scope
             orequest.user = user
 
-    def _post_device_token(self, request: HttpRequest):
+    def _post_device_token(self, request: HttpRequest) -> HttpResponse:
         try:
             user, data = device_codes.poll_device_code(request)
         except OAuth2Error as e:

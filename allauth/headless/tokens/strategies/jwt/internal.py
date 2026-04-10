@@ -89,7 +89,9 @@ def session_key_from_sid(sid: str) -> str | None:
         return None
 
 
-def validate_token_user(token: dict[str, Any], session: SessionBase):
+def validate_token_user(
+    token: dict[str, Any], session: SessionBase
+) -> AbstractBaseUser | None:
     user = get_session_user(session)
     if user is None:
         return None

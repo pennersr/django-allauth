@@ -13,6 +13,7 @@ from django.views.generic.edit import FormView
 
 from allauth.account import app_settings as account_settings
 from allauth.account.decorators import reauthentication_required
+from allauth.core.internal.httpkit import authenticated_user
 from allauth.mfa import app_settings
 from allauth.mfa.models import Authenticator
 from allauth.mfa.recovery_codes.forms import GenerateRecoveryCodesForm
@@ -30,11 +31,12 @@ class GenerateRecoveryCodesView(FormView):
         flows.generate_recovery_codes(self.request)
         return super().form_valid(form)
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict:
         ret = super().get_context_data(**kwargs)
         unused_codes = []
         authenticator = Authenticator.objects.filter(
-            user=self.request.user, type=Authenticator.Type.RECOVERY_CODES
+            user_id=authenticated_user(self.request).pk,
+            type=Authenticator.Type.RECOVERY_CODES,
         ).first()
         if authenticator:
             unused_codes = authenticator.wrap().get_unused_codes()

@@ -135,7 +135,7 @@ class RPInitiatedLogoutForm(forms.Form):
     # locales are not supported by the OpenID Provider.
     ui_locales = forms.CharField(required=False, widget=forms.HiddenInput)
 
-    def clean_id_token_hint(self):
+    def clean_id_token_hint(self) -> dict | None:
         value = self.cleaned_data["id_token_hint"]
         if not value:
             return None

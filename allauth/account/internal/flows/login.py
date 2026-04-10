@@ -102,6 +102,7 @@ def resume_login(request: HttpRequest, login: Login) -> HttpResponse:
 
     adapter = get_adapter()
     ctrl = LoginStageController(request, login)
+    response: HttpResponse
     try:
         response = ctrl.handle()
         if response:

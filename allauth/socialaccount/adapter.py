@@ -13,7 +13,8 @@ from django.utils.translation import gettext_lazy as _
 
 
 if TYPE_CHECKING:
-    from allauth.socialaccount.models import SocialLogin
+    from allauth.socialaccount.models import SocialLogin, SocialApp
+    from allauth.socialaccount.providers.base.provider import Provider
 
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.internal.emailkit import valid_email_or_none
@@ -143,7 +144,7 @@ class DefaultSocialAccountAdapter(BaseAdapter):
         user_field(user, "last_name", last_name or name_parts[2])
         return user
 
-    def get_connect_redirect_url(self, request: HttpRequest, socialaccount):
+    def get_connect_redirect_url(self, request: HttpRequest, socialaccount) -> str:
         """
         Returns the default URL to redirect to after successfully
         connecting a social account.
@@ -158,12 +159,16 @@ class DefaultSocialAccountAdapter(BaseAdapter):
         """
         pass
 
-    def is_auto_signup_allowed(self, request: HttpRequest, sociallogin: SocialLogin):
+    def is_auto_signup_allowed(
+        self, request: HttpRequest, sociallogin: SocialLogin
+    ) -> bool:
         # If email is specified, check for duplicate and if so, no auto signup.
         auto_signup = app_settings.AUTO_SIGNUP
         return auto_signup
 
-    def is_open_for_signup(self, request: HttpRequest, sociallogin: SocialLogin):
+    def is_open_for_signup(
+        self, request: HttpRequest, sociallogin: SocialLogin
+    ) -> bool:
         """
         Checks whether or not the site is open for signups.
 
@@ -172,7 +177,7 @@ class DefaultSocialAccountAdapter(BaseAdapter):
         """
         return get_account_adapter(request).is_open_for_signup(request)
 
-    def get_signup_form_initial_data(self, sociallogin: SocialLogin):
+    def get_signup_form_initial_data(self, sociallogin: SocialLogin) -> dict:
         user = sociallogin.user
         assert user  # nosec
         email = user_email(user)
@@ -192,7 +197,7 @@ class DefaultSocialAccountAdapter(BaseAdapter):
     def serialize_instance(self, instance):
         return serialize_instance(instance)
 
-    def list_providers(self, request: HttpRequest):
+    def list_providers(self, request: HttpRequest) -> list[Provider]:
         from allauth.socialaccount.providers import registry
 
         ret = []
@@ -234,7 +239,9 @@ class DefaultSocialAccountAdapter(BaseAdapter):
         else:
             raise ImproperlyConfigured(f"unknown provider: {provider}")
 
-    def list_apps(self, request: HttpRequest, provider=None, client_id=None):
+    def list_apps(
+        self, request: HttpRequest, provider=None, client_id=None
+    ) -> list[SocialApp]:
         """SocialApp's can be setup in the database, or, via
         `settings.SOCIALACCOUNT_PROVIDERS`.  This methods returns a uniform list
         of all known apps matching the specified criteria, and blends both
@@ -325,7 +332,7 @@ class DefaultSocialAccountAdapter(BaseAdapter):
         )
         return session
 
-    def is_email_verified(self, provider, email):
+    def is_email_verified(self, provider, email) -> bool:
         """
         Returns ``True`` iff the given email encountered during a social
         login for the given provider is to be assumed verified.
@@ -351,7 +358,7 @@ class DefaultSocialAccountAdapter(BaseAdapter):
             raise ImproperlyConfigured("verified_email wrongly configured")
         return verified_email
 
-    def can_authenticate_by_email(self, login, email):
+    def can_authenticate_by_email(self, login, email) -> bool:
         """
         Returns ``True`` if  authentication by email is active for this login/email.
 

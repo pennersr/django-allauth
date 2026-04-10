@@ -19,7 +19,7 @@ from allauth.idp.oidc.internal.oauthlib.request_validator import (
 )
 
 
-def generate_opaque_token(request):
+def generate_opaque_token(request) -> str:
     # 160 bit token is recommended, oauthlib uses less.
     # oauch.io -- at oautlib's default, we get:
     #    Out of 11 valid authorization responses, the
@@ -92,9 +92,9 @@ class DeviceOAuthLibServer(DeviceApplicationServer):
         self._expires_in = app_settings.DEVICE_CODE_EXPIRES_IN
 
 
-def get_server(**kwargs):
+def get_server(**kwargs) -> OAuthLibServer:
     return OAuthLibServer(**kwargs)
 
 
-def get_device_server():
+def get_device_server() -> DeviceOAuthLibServer:
     return DeviceOAuthLibServer()

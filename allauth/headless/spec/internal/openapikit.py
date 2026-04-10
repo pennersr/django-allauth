@@ -39,7 +39,7 @@ def spec_for_field(field: forms.Field) -> dict[str, Any]:
     return field_spec
 
 
-def unwrap_optional_type(typ):
+def unwrap_optional_type(typ) -> tuple:
     if get_origin(typ) is not Union:
         return typ, True
     args = get_args(typ)

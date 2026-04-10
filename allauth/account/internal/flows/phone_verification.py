@@ -86,6 +86,7 @@ class PhoneVerificationProcess(AbstractCodeVerificationProcess):
     def finish(self) -> None:
         phone = self.state["phone"]
         adapter = get_adapter()
+        assert self.user  # nosec
         adapter.set_phone_verified(self.user, phone)
         adapter.add_message(
             context.request,
@@ -107,7 +108,7 @@ class PhoneVerificationStageProcess(PhoneVerificationProcess):
         stash_login(self.stage.request, self.stage.login)
 
     @classmethod
-    def initiate(cls, *, stage, phone: str):
+    def initiate(cls, *, stage, phone: str) -> PhoneVerificationStageProcess:
         stage.state.update(cls.initial_state(user=stage.login.user, phone=phone))
         process = PhoneVerificationStageProcess(stage=stage)
         process.state["signup"] = stage.login.signup
@@ -127,6 +128,7 @@ class PhoneVerificationStageProcess(PhoneVerificationProcess):
         self.record_change(phone=phone)
         adapter = get_adapter()
         if not account_already_exists:
+            assert self.user  # nosec
             adapter.set_phone(self.user, phone, False)
         self.send(skip_enumeration_sms=False)
         self.persist()
@@ -174,7 +176,9 @@ class ChangePhoneVerificationProcess(PhoneVerificationProcess):
         self.request.session.pop(PHONE_VERIFICATION_SESSION_KEY, None)
 
     @classmethod
-    def initiate(cls, request: HttpRequest, phone: str):
+    def initiate(
+        cls, request: HttpRequest, phone: str
+    ) -> ChangePhoneVerificationProcess:
         if app_settings.REAUTHENTICATION_REQUIRED:
             raise_if_reauthentication_required(request)
 

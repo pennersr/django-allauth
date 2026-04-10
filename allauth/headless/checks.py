@@ -4,7 +4,7 @@ from django.core.checks import Critical, register
 
 
 @register()
-def settings_check(app_configs, **kwargs):
+def settings_check(app_configs, **kwargs) -> list:
     from allauth.headless import app_settings
 
     ret = []

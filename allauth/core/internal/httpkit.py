@@ -22,7 +22,7 @@ from allauth import app_settings as allauth_settings
 HTTP_USER_AGENT_MAX_LENGTH = 200
 
 
-def serialize_request(request: HttpRequest):
+def serialize_request(request: HttpRequest) -> str:
     return json.dumps(
         {
             "path": request.path,
@@ -36,7 +36,7 @@ def serialize_request(request: HttpRequest):
     )
 
 
-def deserialize_request(s, request: HttpRequest):
+def deserialize_request(s, request: HttpRequest) -> HttpRequest:
     data = json.loads(s)
     request.GET = QueryDict(data["GET"])
     request.POST = QueryDict(data["POST"])
@@ -48,7 +48,7 @@ def deserialize_request(s, request: HttpRequest):
     return request
 
 
-def redirect(to):
+def redirect(to) -> HttpResponseRedirect:
     try:
         return shortcuts.redirect(to)
     except NoReverseMatch:
@@ -92,7 +92,7 @@ def add_query_params(url: str, params: dict) -> str:
     return new_url
 
 
-def render_url(request: HttpRequest, url_template, **kwargs):
+def render_url(request: HttpRequest, url_template, **kwargs) -> str:
     url = url_template
     for k, v in kwargs.items():
         qi = url.find("?")
@@ -111,7 +111,7 @@ def render_url(request: HttpRequest, url_template, **kwargs):
     return url
 
 
-def default_get_frontend_url(request: HttpRequest, urlname, **kwargs):
+def default_get_frontend_url(request: HttpRequest, urlname, **kwargs) -> str | None:
     from allauth import app_settings as allauth_settings
 
     if allauth_settings.HEADLESS_ENABLED:
@@ -125,7 +125,7 @@ def default_get_frontend_url(request: HttpRequest, urlname, **kwargs):
     return None
 
 
-def get_frontend_url(request: HttpRequest, urlname, **kwargs):
+def get_frontend_url(request: HttpRequest, urlname, **kwargs) -> str | None:
     from allauth import app_settings as allauth_settings
 
     if allauth_settings.HEADLESS_ENABLED:
@@ -135,7 +135,9 @@ def get_frontend_url(request: HttpRequest, urlname, **kwargs):
     return default_get_frontend_url(request, urlname, **kwargs)
 
 
-def headed_redirect_response(viewname, query=None):
+def headed_redirect_response(
+    viewname, query=None
+) -> HttpResponseRedirect | HttpResponseServerError:
     """
     In some cases, we're redirecting to a non-headless view. In case of
     headless-only mode, that view clearly does not exist.

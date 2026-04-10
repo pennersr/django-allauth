@@ -24,7 +24,7 @@ class AbstractCodeVerificationProcess(abc.ABC):
         self.state = state
 
     @property
-    def user(self):
+    def user(self) -> AbstractBaseUser | None:
         if self._user:
             return self._user
         user_id = self.state.get("user_id")
@@ -35,7 +35,7 @@ class AbstractCodeVerificationProcess(abc.ABC):
         return self._user
 
     @property
-    def code(self):
+    def code(self) -> str:
         return self.state.get("code", "")
 
     @classmethod
@@ -44,7 +44,7 @@ class AbstractCodeVerificationProcess(abc.ABC):
         user: AbstractBaseUser | None,
         email: str | None = None,
         phone: str | None = None,
-    ):
+    ) -> dict[str, Any]:
         state: dict[str, Any] = {
             "at": time.time(),
             "failed_attempts": 0,
@@ -77,13 +77,13 @@ class AbstractCodeVerificationProcess(abc.ABC):
         return time.time() - self.state["at"] <= self.timeout
 
     @abc.abstractmethod
-    def persist(self): ...  # noqa: E704
+    def persist(self) -> None: ...  # noqa: E704
 
     @abc.abstractmethod
-    def send(self): ...  # noqa: E704
+    def send(self) -> None: ...  # noqa: E704
 
     @abc.abstractmethod
-    def abort(self): ...  # noqa: E704
+    def abort(self) -> None: ...  # noqa: E704
 
     def is_resend_quota_reached(self, quota: int) -> bool:
         return self.state["resend_count"] >= quota

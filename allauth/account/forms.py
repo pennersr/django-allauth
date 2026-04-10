@@ -39,7 +39,7 @@ from .utils import (
 
 
 class EmailAwarePasswordResetTokenGenerator(PasswordResetTokenGenerator):
-    def _make_hash_value(self, user: AbstractBaseUser, timestamp):
+    def _make_hash_value(self, user: AbstractBaseUser, timestamp) -> str:
         ret = super()._make_hash_value(user, timestamp)  # type:ignore[arg-type]
         sync_user_email_address(user)
         email = user_email(user)
@@ -104,7 +104,7 @@ class LoginForm(forms.Form):
             del self.fields["remember"]
         self._setup_password_field()
 
-    def _get_login_field_placeholder(self):
+    def _get_login_field_placeholder(self) -> str:
         methods = app_settings.LOGIN_METHODS
         assert len(methods) > 1  # nosec
         assert methods.issubset(
@@ -124,7 +124,7 @@ class LoginForm(forms.Form):
             placeholder = _("Email or phone")
         else:
             raise ValueError(methods)
-        return placeholder
+        return str(placeholder)
 
     def _setup_password_field(self) -> None:
         password_field = app_settings.SIGNUP_FIELDS.get("password1")
@@ -333,7 +333,7 @@ class BaseSignupForm(base_signup_form_class()):  # type: ignore[misc]
             self, getattr(self, "field_order", None) or default_field_order
         )
 
-    def _get_signup_fields(self, kwargs):
+    def _get_signup_fields(self, kwargs) -> dict:
         signup_fields = app_settings.SIGNUP_FIELDS
         if "email_required" in kwargs:
             email = signup_fields.get("email")

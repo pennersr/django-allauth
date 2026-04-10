@@ -18,7 +18,7 @@ class AuthenticateStage(LoginStage):
     key = LoginStageKey.MFA_AUTHENTICATE.value
     urlname = "mfa_authenticate"
 
-    def handle(self):
+    def handle(self) -> tuple:
         response, cont = None, True
         if self._should_handle(self.request):
             self.state["authentication_required"] = True
@@ -43,7 +43,7 @@ class TrustStage(LoginStage):
     key = LoginStageKey.MFA_TRUST.value
     urlname = "mfa_trust"
 
-    def handle(self):
+    def handle(self) -> tuple:
         lbc_stage = self.controller.get_stage(AccountLoginStageKey.LOGIN_BY_CODE)
         auth_stage = self.controller.get_stage(AuthenticateStage.key)
 

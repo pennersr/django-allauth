@@ -25,11 +25,11 @@ from allauth.core.internal.cryptokit import compare_user_code
 from allauth.idp.oidc.models import Client
 
 
-def cache_user_code_key(user_code: str):
+def cache_user_code_key(user_code: str) -> str:
     return f"allauth.idp.oidc.user_code[{user_code.lower()}]"
 
 
-def cache_device_code_key(device_code: str):
+def cache_device_code_key(device_code: str) -> str:
     return f"allauth.idp.oidc.device_code[{device_code}]"
 
 

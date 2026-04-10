@@ -23,14 +23,16 @@ from allauth.idp.oidc.models import Client, Token
 
 class OAuthLibRequestValidator(RequestValidator):
 
-    def validate_client_id(self, client_id: str, request):
+    def validate_client_id(self, client_id: str, request) -> bool:
         client = self._lookup_client(request, client_id)
         if not client:
             return False
         self._use_client(request, client)
         return True
 
-    def validate_redirect_uri(self, client_id, redirect_uri, request, *args, **kwargs):
+    def validate_redirect_uri(
+        self, client_id, redirect_uri, request, *args, **kwargs
+    ) -> bool:
         return is_redirect_uri_allowed(
             redirect_uri,
             request.client.get_redirect_uris(),
@@ -39,13 +41,15 @@ class OAuthLibRequestValidator(RequestValidator):
 
     def validate_response_type(
         self, client_id, response_type, client, request, *args, **kwargs
-    ):
+    ) -> bool:
         return response_type in request.client.get_response_types()
 
-    def validate_scopes(self, client_id, scopes, client, request, *args, **kwargs):
+    def validate_scopes(
+        self, client_id, scopes, client, request, *args, **kwargs
+    ) -> bool:
         return set(scopes).issubset(request.client.get_scopes())
 
-    def get_default_scopes(self, client_id, request, *args, **kwargs):
+    def get_default_scopes(self, client_id, request, *args, **kwargs) -> list[str]:
         return request.client.get_default_scopes()
 
     def save_authorization_code(
@@ -88,10 +92,10 @@ class OAuthLibRequestValidator(RequestValidator):
 
     def validate_grant_type(
         self, client_id, grant_type, client, request, *args, **kwargs
-    ):
+    ) -> bool:
         return grant_type in client.get_grant_types()
 
-    def validate_code(self, client_id, code, client, request, *args, **kwargs):
+    def validate_code(self, client_id, code, client, request, *args, **kwargs) -> bool:
         return authorization_codes.validate(client_id, code, request)
 
     def confirm_redirect_uri(
@@ -207,24 +211,32 @@ class OAuthLibRequestValidator(RequestValidator):
             return []
         return authorization_code["scopes"]
 
-    def get_authorization_code_nonce(self, client_id, code, redirect_uri, request):
+    def get_authorization_code_nonce(
+        self, client_id, code, redirect_uri, request
+    ) -> str | None:
         authorization_code = self._lookup_authorization_code(request, client_id, code)
+        if authorization_code is None:
+            return None
         return authorization_code["code"].get("nonce")
 
-    def get_code_challenge(self, code, request):
+    def get_code_challenge(self, code, request) -> str | None:
         ret = None
         authorization_code = self._lookup_authorization_code(
             request, request.client_id, code
         )
+        if authorization_code is None:
+            return None
         if pkce := authorization_code.get("pkce"):
             ret = pkce["code_challenge"]
         return ret
 
-    def get_code_challenge_method(self, code, request):
+    def get_code_challenge_method(self, code, request) -> str | None:
         ret = None
         authorization_code = self._lookup_authorization_code(
             request, request.client_id, code
         )
+        if authorization_code is None:
+            return None
         if pkce := authorization_code.get("pkce"):
             ret = pkce["code_challenge_method"]
         return ret
@@ -233,7 +245,9 @@ class OAuthLibRequestValidator(RequestValidator):
         client = self._lookup_client(request, client_id)
         return bool(client and client.type == Client.Type.PUBLIC)
 
-    def finalize_id_token(self, id_token: dict, token: dict, token_handler, request):
+    def finalize_id_token(
+        self, id_token: dict, token: dict, token_handler, request
+    ) -> str:
         """
         https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims
         """
@@ -271,6 +285,8 @@ class OAuthLibRequestValidator(RequestValidator):
         if not set(scopes).issubset(set(granted_scopes)):
             return False
         request.user = instance.user
+        if not instance.client:
+            return False
         self._use_client(request, instance.client)
         request.scopes = granted_scopes
         request.access_token = instance
@@ -285,19 +301,21 @@ class OAuthLibRequestValidator(RequestValidator):
             types = [Token.Type.ACCESS_TOKEN, Token.Type.REFRESH_TOKEN]
         Token.objects.by_value(token).filter(type__in=types).delete()
 
-    def get_userinfo_claims(self, request):
+    def get_userinfo_claims(self, request) -> dict:
         email = request.access_token.get_scope_email()
         return get_adapter().get_claims(
             "userinfo", request.user, request.client, request.scopes, email=email
         )
 
-    def get_default_redirect_uri(self, client_id, request, *args, **kwargs):
+    def get_default_redirect_uri(self, client_id, request, *args, **kwargs) -> None:
         # https://openid.net/specs/openid-financial-api-part-1-1_0.html#section-5.2.2
         # 9. shall require the redirect_uri in the authorization request;
         # So, don't support a default.
         return None
 
-    def validate_user(self, username, password, client, request, *args, **kwargs):
+    def validate_user(
+        self, username, password, client, request, *args, **kwargs
+    ) -> bool:
         """
         Note that this bypasses MFA, which is why the password grant is not
         recommended and hence disabled. This could work:
@@ -316,7 +334,9 @@ class OAuthLibRequestValidator(RequestValidator):
         """
         return False
 
-    def validate_refresh_token(self, refresh_token, client, request, *args, **kwargs):
+    def validate_refresh_token(
+        self, refresh_token, client, request, *args, **kwargs
+    ) -> bool:
         token = Token.objects.filter(client=client).lookup(
             Token.Type.REFRESH_TOKEN, refresh_token
         )
@@ -328,7 +348,7 @@ class OAuthLibRequestValidator(RequestValidator):
         request.refresh_token_instance = token
         return True
 
-    def get_original_scopes(self, refresh_token, request, *args, **kwargs):
+    def get_original_scopes(self, refresh_token, request, *args, **kwargs) -> list[str]:
         return request.refresh_token_instance.get_scopes()
 
     def client_authentication_required(self, request, *args, **kwargs) -> bool:
@@ -385,7 +405,7 @@ class OAuthLibRequestValidator(RequestValidator):
             )
         )
 
-    def rotate_refresh_token(self, request):
+    def rotate_refresh_token(self, request) -> bool:
         return app_settings.ROTATE_REFRESH_TOKEN
 
     def validate_silent_login(self, request) -> bool:
@@ -404,7 +424,7 @@ class OAuthLibRequestValidator(RequestValidator):
             granted_scopes.update(token.get_scopes())
         return set(request.scopes).issubset(granted_scopes)
 
-    def validate_jwt_bearer_token(self, token, scopes, request):
+    def validate_jwt_bearer_token(self, token, scopes, request) -> bool:
         if scopes:
             # We don't have scope for the ID token
             return False

@@ -35,6 +35,7 @@ class LoginCodeVerificationProcess(AbstractCodeVerificationProcess):
         email = self.state.get("email")
         phone = self.state.get("phone")
         user = self.user
+        assert user  # nosec
         record_authentication(
             self.request, user, method="code", email=email, phone=phone
         )
@@ -78,6 +79,7 @@ class LoginCodeVerificationProcess(AbstractCodeVerificationProcess):
         if email:
             code = adapter.generate_login_code()
         elif phone:
+            assert self.user  # nosec
             code = adapter._generate_phone_verification_code_compat(
                 user=self.user, phone=phone
             )
@@ -131,7 +133,7 @@ class LoginCodeVerificationProcess(AbstractCodeVerificationProcess):
         email: str | None = None,
         phone: str | None = None,
         stage=None,
-    ):
+    ) -> LoginCodeVerificationProcess:
         initial_state = cls.initial_state(user=user, email=email, phone=phone)
         initial_state["initiated_by_user"] = stage is None
         if not stage:

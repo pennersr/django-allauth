@@ -20,6 +20,7 @@ from allauth.account import app_settings as account_settings
 from allauth.account.internal.decorators import login_stage_required
 from allauth.account.internal.templatekit import get_entrance_context_data
 from allauth.account.views import BaseReauthenticateView
+from allauth.core.internal.httpkit import authenticated_user
 from allauth.mfa import app_settings
 from allauth.mfa.base.forms import AuthenticateForm, ReauthenticateForm
 from allauth.mfa.internal.flows import trust as trust_
@@ -151,10 +152,11 @@ reauthenticate = ReauthenticateView.as_view()
 class IndexView(TemplateView):
     template_name = f"mfa/index.{account_settings.TEMPLATE_EXTENSION}"
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict:
         ret = super().get_context_data(**kwargs)
-        authenticators = {}
-        for auth in Authenticator.objects.filter(user=self.request.user):
+        authenticators: dict = {}
+        user = authenticated_user(self.request)
+        for auth in Authenticator.objects.filter(user_id=user.pk):
             if auth.type == Authenticator.Type.WEBAUTHN:
                 auths = authenticators.setdefault(auth.type, [])
                 auths.append(auth.wrap())
@@ -163,7 +165,7 @@ class IndexView(TemplateView):
         ret["authenticators"] = authenticators
         ret["MFA_SUPPORTED_TYPES"] = app_settings.SUPPORTED_TYPES
         ret["MFA_RECOVERY_CODES_SHOW_ONCE"] = app_settings.RECOVERY_CODES_SHOW_ONCE
-        ret["is_mfa_enabled"] = is_mfa_enabled(self.request.user)
+        ret["is_mfa_enabled"] = is_mfa_enabled(authenticated_user(self.request))
         return ret
 
 
@@ -178,9 +180,9 @@ class TrustView(FormView):
     form_class = Form
     template_name = f"mfa/trust.{account_settings.TEMPLATE_EXTENSION}"
 
-    def form_valid(self, form):
+    def form_valid(self, form) -> HttpResponse:
         do_trust = self.request.POST.get("action") == "trust"
-        stage = self.request._login_stage
+        stage = self.request._login_stage  # type:ignore[attr-defined]
         response = stage.exit()
         if do_trust:
             trust_.trust_browser(self.request, stage.login.user, response)

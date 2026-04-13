@@ -6,6 +6,7 @@ Multi-Factor Authentication
    introduction
    configuration
    forms
+   signals
    adapter
    webauthn
    django-allauth-2fa

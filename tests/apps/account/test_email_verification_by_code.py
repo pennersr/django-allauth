@@ -52,6 +52,19 @@ def test_signup(
     assert resp["location"] == reverse("account_email_verification_sent")
     resp = client.get(reverse("account_email_verification_sent"))
     assert resp.status_code == HTTPStatus.OK
+    # Test wrong code
+    with patch(
+        "allauth.account.signals.email_verification_code_rejected"
+    ) as code_rejected_signal:
+        resp = client.post(
+            reverse("account_email_verification_sent"), data={"code": "WRONG"}
+        )
+        assert resp.status_code == HTTPStatus.OK
+        assert code_rejected_signal.send.called
+        signal_kwargs = code_rejected_signal.send.call_args[1]
+        assert signal_kwargs["user"].username == "johndoe"
+        assert signal_kwargs["last_attempt"] is False
+    # Test proper code
     resp = client.post(reverse("account_email_verification_sent"), data={"code": code})
     assert resp.status_code == HTTPStatus.FOUND
     assert resp["location"] == expected_url

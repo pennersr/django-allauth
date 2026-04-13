@@ -44,3 +44,16 @@ hook to them for your own needs.
 
 - ``allauth.account.signals.email_removed(request, user, email_address)``
     Sent when an email address has been deleted.
+
+- ``allauth.account.signals.login_code_rejected(request, user, last_attempt)``
+    Sent when an incorrect login code was entered. The ``last_attempt`` boolean
+    indicates whether the maximum number of attempts has been reached.
+
+- ``allauth.account.signals.password_reset_code_rejected(request, user, last_attempt)``
+    Sent when an incorrect password reset code was entered. The ``last_attempt``
+    boolean indicates whether the maximum number of attempts has been reached.
+
+- ``allauth.account.signals.email_verification_code_rejected(request, user, last_attempt)``
+    Sent when an incorrect email verification code was entered. The
+    ``last_attempt`` boolean indicates whether the maximum number of attempts has
+    been reached.

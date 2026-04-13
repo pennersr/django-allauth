@@ -3,7 +3,7 @@ from __future__ import annotations
 from django.contrib import messages
 from django.http import HttpRequest
 
-from allauth.account import app_settings
+from allauth.account import app_settings, signals
 from allauth.account.adapter import get_adapter
 from allauth.account.internal.flows.code_verification import (
     AbstractCodeVerificationProcess,
@@ -55,6 +55,17 @@ class LoginCodeVerificationProcess(AbstractCodeVerificationProcess):
             return perform_login(self.request, login)
         else:
             return self.stage.exit()
+
+    def record_invalid_attempt(self) -> bool:
+        has_attempts_left = super().record_invalid_attempt()
+        if self.user:
+            signals.login_code_rejected.send(
+                sender=LoginCodeVerificationProcess,
+                request=self.request,
+                user=self.user,
+                last_attempt=not has_attempts_left,
+            )
+        return has_attempts_left
 
     def abort(self) -> None:
         clear_login(self.request)

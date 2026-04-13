@@ -5,7 +5,7 @@ from typing import Optional
 from django.http import HttpRequest
 from django.utils.functional import cached_property
 
-from allauth.account import app_settings
+from allauth.account import app_settings, signals
 from allauth.account.adapter import get_adapter
 from allauth.account.internal.flows.code_verification import (
     AbstractCodeVerificationProcess,
@@ -32,6 +32,17 @@ class EmailVerificationProcess(AbstractCodeVerificationProcess):
     @property
     def email(self) -> str:
         return self.state["email"]
+
+    def record_invalid_attempt(self) -> bool:
+        has_attempts_left = super().record_invalid_attempt()
+        if self.user:
+            signals.email_verification_code_rejected.send(
+                sender=EmailVerificationProcess,
+                request=self.request,
+                user=self.user,
+                last_attempt=not has_attempts_left,
+            )
+        return has_attempts_left
 
     def persist(self) -> None:
         self.request.session[EMAIL_VERIFICATION_CODE_SESSION_KEY] = self.state

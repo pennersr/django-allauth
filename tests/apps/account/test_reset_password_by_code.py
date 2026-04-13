@@ -1,4 +1,5 @@
 from http import HTTPStatus
+from unittest.mock import patch
 
 from django.urls import reverse
 
@@ -29,6 +30,22 @@ def test_flow(
     resp = client.post(reverse("account_reset_password"), {"email": user.email})
     assert resp.status_code == HTTPStatus.FOUND
     assert resp["location"] == reverse("account_confirm_password_reset_code")
+
+    # Test wrong code
+    with patch(
+        "allauth.account.signals.password_reset_code_rejected"
+    ) as code_rejected_signal:
+        resp = client.post(
+            reverse("account_confirm_password_reset_code"),
+            {"code": "WRONG"},
+        )
+        assert resp.status_code == HTTPStatus.OK
+        assert code_rejected_signal.send.called
+        signal_kwargs = code_rejected_signal.send.call_args[1]
+        assert signal_kwargs["user"] == user
+        assert signal_kwargs["last_attempt"] is False
+
+    # Test right code
     resp = client.post(
         reverse("account_confirm_password_reset_code"),
         {"code": get_last_password_reset_code(client, mailoutbox)},

@@ -14,6 +14,11 @@ Note worthy changes
 - MFA: You can now configure recovery codes to be only shown once
   (``MFA_RECOVERY_CODES_SHOW_ONCE = True``).
 
+- New signals for audit trail purposes: ``login_code_rejected``,
+  ``password_reset_code_rejected``, ``email_verification_code_rejected`` (in
+  ``allauth.account.signals``) and ``authentication_failed`` (in
+  ``allauth.mfa.signals``).
+
 
 65.15.1 (2026-04-02)
 ********************

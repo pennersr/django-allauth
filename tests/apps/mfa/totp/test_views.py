@@ -142,12 +142,19 @@ def test_totp_login_rate_limit(
     assert resp["location"] == reverse("mfa_authenticate")
     for i in range(5):
         is_locked = i >= 3
-        resp = client.post(
-            reverse("mfa_authenticate"),
-            {
-                "code": "wrong",
-            },
-        )
+        with patch("allauth.mfa.signals.authentication_failed") as auth_failed_signal:
+            resp = client.post(
+                reverse("mfa_authenticate"),
+                {
+                    "code": "wrong",
+                },
+            )
+            signal_called = not is_locked
+            assert auth_failed_signal.send.called == signal_called
+            if signal_called:
+                signal_kwargs = auth_failed_signal.send.call_args[1]
+                assert signal_kwargs["user"] == user_with_totp
+                assert signal_kwargs["reauthentication"] is False
         assert resp.context["form"].errors == {
             "code": [
                 (

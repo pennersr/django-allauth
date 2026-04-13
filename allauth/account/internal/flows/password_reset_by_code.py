@@ -5,7 +5,7 @@ from typing import Optional
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.http import HttpRequest, HttpResponse
 
-from allauth.account import app_settings
+from allauth.account import app_settings, signals
 from allauth.account.adapter import get_adapter
 from allauth.account.internal.flows import password_reset
 from allauth.account.internal.flows.code_verification import (
@@ -31,6 +31,17 @@ class PasswordResetVerificationProcess(AbstractCodeVerificationProcess):
             max_attempts=app_settings.PASSWORD_RESET_BY_CODE_MAX_ATTEMPTS,
             user=user,
         )
+
+    def record_invalid_attempt(self) -> bool:
+        has_attempts_left = super().record_invalid_attempt()
+        if self.user:
+            signals.password_reset_code_rejected.send(
+                sender=PasswordResetVerificationProcess,
+                request=self.request,
+                user=self.user,
+                last_attempt=not has_attempts_left,
+            )
+        return has_attempts_left
 
     def abort(self) -> None:
         self.request.session.pop(PASSWORD_RESET_VERIFICATION_SESSION_KEY, None)

@@ -50,6 +50,14 @@ def post_authentication(
     if passwordless:
         extra_data["passwordless"] = True
     record_authentication(request, authenticator.user, "mfa", **extra_data)
+    signals.authenticator_used.send(
+        sender=Authenticator,
+        request=request,
+        user=authenticator.user,
+        authenticator=authenticator,
+        reauthenticated=reauthenticated,
+        passwordless=passwordless,
+    )
 
 
 def check_rate_limit(user: AbstractBaseUser) -> Callable[[], None]:

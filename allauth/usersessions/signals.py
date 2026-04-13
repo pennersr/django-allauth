@@ -5,7 +5,11 @@ from allauth.account import app_settings
 from .models import UserSession
 
 
-# Provides the arguments "request", "from_session", "to_session"
+# Emitted when the client (e.g. browser) of a session changes.
+# Arguments:
+# - request: HttpRequest
+# - from_session: UserSession
+# - to_session: UserSession
 session_client_changed = Signal()
 
 

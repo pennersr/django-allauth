@@ -10,16 +10,42 @@ from allauth.mfa.utils import is_mfa_enabled
 
 
 # Emitted when an authenticator is added.
-# Arguments: request, user, authenticator
+# Arguments:
+# - request: HttpRequest
+# - user: User
+# - authenticator: Authenticator
 authenticator_added = Signal()
 
 # Emitted when an authenticator is removed.
-# Arguments: request, user, authenticator
+# Arguments:
+# - request: HttpRequest
+# - user: User
+# - authenticator: Authenticator
 authenticator_removed = Signal()
 
 # Emitted when an authenticator is reset (e.g. recovery codes regenerated).
-# Arguments: request, user, authenticator
+# Arguments:
+# - request: HttpRequest
+# - user: User
+# - authenticator: Authenticator
 authenticator_reset = Signal()
+
+# Emitted when an authenticator is successfully used (e.g. for login or reauthentication purposes).
+# Arguments:
+# - request: HttpRequest
+# - user: User
+# - authenticator: Authenticator
+# - reauthenticated:bool
+# - passwordless: bool
+authenticator_used = Signal()
+
+# Emitted when authentication via MFA failed, e.g. when an incorrect code was entered.
+# Arguments:
+# - request: HttpRequest
+# - user: User
+# - authenticator: Authenticator
+# - reauthentication: bool (optional)
+authentication_failed = Signal()
 
 
 def on_add_email(sender, email, user: AbstractBaseUser, **kwargs) -> None:

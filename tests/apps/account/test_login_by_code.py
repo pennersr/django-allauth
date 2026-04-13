@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from unittest.mock import ANY
+from unittest.mock import ANY, patch
 
 from django.urls import reverse
 
@@ -105,17 +105,27 @@ def test_login_by_code_max_attempts(client, user, request_login_by_code, setting
     settings.ACCOUNT_LOGIN_BY_CODE_MAX_ATTEMPTS = 2
     request_login_by_code(client, user.email)
     for i in range(3):
-        resp = client.post(
-            reverse("account_confirm_login_code"), data={"code": "wrong"}
-        )
-        if i >= 1:
-            assert resp.status_code == HTTPStatus.FOUND
-            assert resp["location"] == reverse("account_request_login_code")
-            assert LOGIN_SESSION_KEY not in client.session
-        else:
-            assert resp.status_code == HTTPStatus.OK
-            assert LOGIN_SESSION_KEY in client.session
-            assert resp.context["form"].errors == {"code": ["Incorrect code."]}
+        with patch(
+            "allauth.account.signals.login_code_rejected"
+        ) as code_rejected_signal:
+            resp = client.post(
+                reverse("account_confirm_login_code"), data={"code": "wrong"}
+            )
+            if i >= 1:
+                assert resp.status_code == HTTPStatus.FOUND
+                assert resp["location"] == reverse("account_request_login_code")
+                assert LOGIN_SESSION_KEY not in client.session
+            else:
+                assert resp.status_code == HTTPStatus.OK
+                assert LOGIN_SESSION_KEY in client.session
+                assert resp.context["form"].errors == {"code": ["Incorrect code."]}
+
+            signal_called = i <= 1
+            assert code_rejected_signal.send.called == signal_called
+            if signal_called:
+                signal_kwargs = code_rejected_signal.send.call_args[1]
+                assert signal_kwargs["user"] == user
+                assert signal_kwargs["last_attempt"] == (i == 1)
 
 
 def test_login_by_code_unknown_user(mailoutbox, client, db):

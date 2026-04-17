@@ -14,7 +14,6 @@ class QuestradeOAuth2Adapter(OAuth2Adapter):
     provider_id = "questrade"
     access_token_url = "https://login.questrade.com/oauth2/token"  # nosec
     authorize_url = "https://login.questrade.com/oauth2/authorize"
-    supports_state = False
 
     def complete_login(self, request: HttpRequest, app, token, **kwargs):
         api_server = kwargs.get("response", {}).get(

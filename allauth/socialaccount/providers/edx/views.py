@@ -22,7 +22,6 @@ class EdxOAuth2Adapter(OAuth2Adapter):
     authorize_url = f"{provider_base_url}/oauth2/authorize/"
     profile_url = f"{provider_base_url}/api/user/v1/me"
     account_url = "{0}/api/user/v1/accounts/{1}"
-    supports_state = False
     redirect_uri_protocol = "https"
 
     def complete_login(self, request: HttpRequest, app, token, **kwargs):

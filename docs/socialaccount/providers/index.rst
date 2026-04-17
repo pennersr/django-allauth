@@ -47,7 +47,6 @@ Provider Specifics
    agave
    amazon_cognito
    amazon
-   angellist
    apple
    atlassian
    auth0

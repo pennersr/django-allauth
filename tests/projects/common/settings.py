@@ -6,7 +6,6 @@ INSTALLED_SOCIALACCOUNT_APPS: tuple[str, ...] = (
     "allauth.socialaccount.providers.agave",
     "allauth.socialaccount.providers.amazon",
     "allauth.socialaccount.providers.amazon_cognito",
-    "allauth.socialaccount.providers.angellist",
     "allauth.socialaccount.providers.apple",
     "allauth.socialaccount.providers.asana",
     "allauth.socialaccount.providers.atlassian",

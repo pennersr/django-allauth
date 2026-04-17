@@ -8,10 +8,15 @@
     https://allauth.org/sponsors/. Your support helps keep this project thriving!
 
 
-Fixes
------
+Security notice
+---------------
 
-- ...
+- The ``state`` parameter is a critical part of the OAuth2 handshake, used to
+  prevent CSRF attacks. The Edx, AngelList and Questrade providers were
+  originally added without ``state`` support, as these providers did not support
+  it at the time. Edx and Questrade have since added support, so their
+  configuration has been updated accordingly. AngelList is no longer operational
+  and has been removed.
 
 
 65.16.0 (2026-04-13)

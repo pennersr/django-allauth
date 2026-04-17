@@ -16,7 +16,7 @@ Security notice
   originally added without ``state`` support, as these providers did not support
   it at the time. Edx and Questrade have since added support, so their
   configuration has been updated accordingly. AngelList is no longer operational
-  and has been removed.
+  and has been removed. Thanks to Adil Ahmadzada for reporting.
 
 
 65.16.0 (2026-04-13)

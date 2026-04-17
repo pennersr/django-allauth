@@ -22,13 +22,6 @@ Security notice
 65.16.0 (2026-04-13)
 ********************
 
-.. note::
-
-    💙 **Is django-allauth's authentication the entrance to your business?**
-    Please consider supporting its continued development by becoming a sponsor at
-    https://allauth.org/sponsors/. Your support helps keep this project thriving!
-
-
 Note worthy changes
 -------------------
 

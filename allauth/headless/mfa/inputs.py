@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from allauth.account.forms import BaseSignupForm
 from allauth.headless.internal.restkit import inputs
-from allauth.mfa.base.forms import AuthenticateForm
+from allauth.mfa.base.forms import AuthenticateForm, ReauthenticateForm
 from allauth.mfa.models import Authenticator
 from allauth.mfa.recovery_codes.forms import GenerateRecoveryCodesForm
 from allauth.mfa.totp.forms import ActivateTOTPForm
@@ -16,6 +16,10 @@ from allauth.mfa.webauthn.forms import (
 
 
 class AuthenticateInput(AuthenticateForm, inputs.Input):
+    pass
+
+
+class ReauthenticateInput(ReauthenticateForm, inputs.Input):
     pass
 
 

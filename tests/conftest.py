@@ -136,7 +136,7 @@ def reauthentication_bypass():
     @contextmanager
     def f():
         with patch(
-            "allauth.account.internal.flows.reauthentication.did_recently_authenticate"
+            "allauth.account.internal.flows.reauthentication.did_recently_reauthenticate"
         ) as m:
             m.return_value = True
             yield

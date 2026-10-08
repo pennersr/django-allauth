@@ -66,11 +66,11 @@ def resume_request(request: HttpRequest) -> HttpResponseRedirect | None:
 
 
 def raise_if_reauthentication_required(request: HttpRequest) -> None:
-    if not did_recently_authenticate(request):
+    if not did_recently_reauthenticate(request):
         raise ReauthenticationRequired()
 
 
-def did_recently_authenticate(request: HttpRequest) -> bool:
+def did_recently_reauthenticate(request: HttpRequest) -> bool:
     if request.user.is_anonymous:
         return False
     if not get_reauthentication_flows(request.user):
@@ -82,6 +82,7 @@ def did_recently_authenticate(request: HttpRequest) -> bool:
         # provider like Google typically use MFA over there anyway.
         return True
     methods = get_authentication_records(request)
+    methods = [m for m in methods if m.get("reauthenticated")]
     if not methods:
         return False
     authenticated_at = methods[-1]["at"]

@@ -75,7 +75,7 @@ def reauthentication_required(
             if ena and not pass_method:
                 if (
                     request.user.is_anonymous
-                    or not reauthentication.did_recently_authenticate(request)
+                    or not reauthentication.did_recently_reauthenticate(request)
                 ):
                     raise ReauthenticationRequired()
             return view_func(request, *args, **kwargs)

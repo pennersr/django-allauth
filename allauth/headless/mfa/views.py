@@ -27,6 +27,7 @@ from allauth.headless.mfa.inputs import (
     DeleteWebAuthnInput,
     GenerateRecoveryCodesInput,
     LoginWebAuthnInput,
+    ReauthenticateInput,
     ReauthenticateWebAuthnInput,
     SignupWebAuthnInput,
     TrustInput,
@@ -66,8 +67,8 @@ class AuthenticateView(AuthenticationStageAPIView):
 
 
 class ReauthenticateView(AuthenticatedAPIView):
-    input_class = AuthenticateInput
-    input: AuthenticateInput
+    input_class = ReauthenticateInput
+    input: ReauthenticateInput
 
     def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         self.input.save()

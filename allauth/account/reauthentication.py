@@ -1,7 +1,7 @@
 import warnings
 
 from allauth.account.internal.flows.reauthentication import (
-    did_recently_authenticate,
+    did_recently_reauthenticate as did_recently_authenticate,
     raise_if_reauthentication_required,
 )
 

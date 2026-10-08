@@ -11,7 +11,8 @@
 Note worthy changes
 -------------------
 
-- ...
+- A recent login no longer counts for views that require reauthentication. Users
+  must now explicitly reauthenticate.
 
 
 65.19.7 (2026-10-01)

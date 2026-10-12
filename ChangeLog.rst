@@ -14,6 +14,9 @@ Note worthy changes
 - A recent login no longer counts for views that require reauthentication. Users
   must now explicitly reauthenticate.
 
+- OpenID Connect providers can now override values from the server's discovery
+  document using ``openid_configuration_overrides``.
+
 
 Fixes
 -----

@@ -12,6 +12,19 @@ from tests.apps.socialaccount.base import OpenIDConnectTests
 class OpenIDConnectFetchUserInfoTests(OpenIDConnectTests, TestCase):
     provider_id = "oidc-server"
 
+    def test_openid_configuration_overrides(self):
+        self.app.settings["openid_configuration_overrides"] = {
+            "token_endpoint": "/custom/token"
+        }
+        self.app.save(update_fields=["settings"])
+        adapter = self.provider.get_oauth2_adapter(self.request)
+        with self.mocked_response():
+            config = adapter.openid_config
+        assert config == {
+            **self.oidc_info_content,
+            "token_endpoint": "/custom/token",
+        }
+
 
 class OpenIDConnectUseIDTokenTests(OpenIDConnectTests, TestCase):
     provider_id = "other-oidc-server"

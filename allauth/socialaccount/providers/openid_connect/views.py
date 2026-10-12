@@ -23,11 +23,15 @@ class OpenIDConnectOAuth2Adapter(OAuth2Adapter):
     @property
     def openid_config(self):
         if not hasattr(self, "_openid_config"):
-            server_url = self.get_provider().server_url
+            provider = self.get_provider()
+            server_url = provider.server_url
             with get_adapter().get_requests_session() as sess:
                 resp = sess.get(server_url)
                 resp.raise_for_status()
-                self._openid_config = resp.json()
+                config = resp.json()
+            overrides = provider.app.settings.get("openid_configuration_overrides", {})
+            config.update(overrides)
+            self._openid_config = config
         return self._openid_config
 
     @property

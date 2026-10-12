@@ -70,7 +70,9 @@ def test_acs(
 
     state_id = None
     if not idp_initiated:
-        state_id = sociallogin_setup_state(client, **state_kwargs)
+        state_id = sociallogin_setup_state(
+            "urn:dev-123.us.auth0.com", client, **state_kwargs
+        )
 
     data = {"SAMLResponse": acs_saml_response_factory(in_response_to=state_id)}
     if relay_state is not None:

@@ -10,13 +10,13 @@ from django.utils.decorators import method_decorator
 from django.views.generic import View
 
 from allauth.account.internal.decorators import login_not_required
+from allauth.account.utils import get_next_redirect_url
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.helpers import (
     complete_social_login,
     render_authentication_error,
 )
-from allauth.socialaccount.models import SocialLogin
 from allauth.socialaccount.providers.facebook import flows
 from allauth.socialaccount.providers.facebook.constants import (
     GRAPH_API_URL,
@@ -28,6 +28,7 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2CallbackView,
     OAuth2LoginView,
 )
+from allauth.utils import get_request_param
 
 from .forms import FacebookConnectForm
 
@@ -90,7 +91,12 @@ class LoginByTokenView(View):
         login = flows.verify_token(
             request, provider, access_token, auth_type, auth_nonce
         )
-        login.state = SocialLogin.state_from_request(request)
+        state = {}
+        next_url = get_next_redirect_url(request)
+        if next_url:
+            state["next"] = next_url
+        state["process"] = get_request_param(request, "process", "login")
+        login.state = state
         ret = complete_social_login(request, login)
         return ret
 

@@ -38,7 +38,9 @@ def on_authentication_error(
         if state is None:
             state_id = extra_context.get("state_id")
             if state_id:
-                state = statekit.unstash_state(request, state_id)
+                state = statekit.unstash_state(
+                    request, provider_id=provider.sub_id, state_id=state_id
+                )
     params = {"error": error}
     if state is not None:
         headless = state.get("headless")

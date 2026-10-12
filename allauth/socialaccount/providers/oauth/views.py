@@ -11,7 +11,8 @@ from allauth.socialaccount.helpers import (
     complete_social_login,
     render_authentication_error,
 )
-from allauth.socialaccount.models import SocialLogin, SocialToken
+from allauth.socialaccount.internal import statekit
+from allauth.socialaccount.models import SocialToken
 from allauth.socialaccount.providers.base.constants import AuthError
 from allauth.socialaccount.providers.base.views import BaseLoginView
 from allauth.socialaccount.providers.oauth.client import OAuthClient, OAuthError
@@ -118,7 +119,9 @@ class OAuthCallbackView(OAuthView):
                 request, app, token, response=access_token
             )
             login.token = token
-            login.state = SocialLogin.unstash_state(request)
+            login.state = statekit.unstash_last_state(
+                request, provider_id=provider.sub_id, raises=True
+            )
             return complete_social_login(request, login)
         except OAuthError as e:
             return render_authentication_error(request, provider, exception=e)

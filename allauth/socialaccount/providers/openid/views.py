@@ -27,7 +27,7 @@ from allauth.socialaccount.helpers import (
     complete_social_login,
     render_authentication_error,
 )
-from allauth.socialaccount.models import SocialLogin
+from allauth.socialaccount.internal import statekit
 from allauth.socialaccount.providers.openid.provider import OpenIDProvider
 
 from ..base import AuthError
@@ -125,11 +125,13 @@ class OpenIDLoginView(View):
                 ax.add(AttrInfo(name, required=required))
             auth_request.addExtension(ax)
 
-        SocialLogin.stash_state(request)
+        redirect_kwargs = provider.get_redirect_from_request_kwargs(request)
+        provider.stash_redirect_state(request, **redirect_kwargs)
 
         # Fix for issues 1523 and 2072 (github django-allauth)
-        if "next" in form.cleaned_data and form.cleaned_data["next"]:
-            auth_request.return_to_args["next"] = form.cleaned_data["next"]
+        next_url = redirect_kwargs.get("next_url")
+        if next_url:
+            auth_request.return_to_args["next"] = next_url
         redirect_url = auth_request.redirectURL(
             realm, request.build_absolute_uri(self.get_callback_url())
         )
@@ -154,7 +156,9 @@ class OpenIDCallbackView(View):
 
         if response.status == consumer.SUCCESS:
             login = provider.sociallogin_from_response(request, response)
-            login.state = SocialLogin.unstash_state(request)
+            login.state = statekit.unstash_last_state(
+                request, provider_id=provider.sub_id, raises=True
+            )
             return self.complete_login(login)
         else:
             if response.status == consumer.CANCEL:

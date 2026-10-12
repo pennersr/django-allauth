@@ -2,11 +2,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from django.core.exceptions import (
-    ImproperlyConfigured,
-    PermissionDenied,
-    ValidationError,
-)
+from django.core.exceptions import ImproperlyConfigured, ValidationError
 from django.http import HttpRequest, HttpResponse
 
 from allauth.account.adapter import get_adapter as get_account_adapter
@@ -263,13 +259,17 @@ class Provider:
         state = {"process": process, "data": data, **kwargs}
         if next_url:
             state["next"] = next_url
-        return statekit.stash_state(request, state, state_id=state_id)
+        return statekit.stash_state(
+            request,
+            provider_id=self.sub_id,
+            state=state,
+            state_id=state_id,
+        )
 
     def unstash_redirect_state(self, request: HttpRequest, state_id):
-        state = statekit.unstash_state(request, state_id)
-        if state is None:
-            raise PermissionDenied()
-        return state
+        return statekit.unstash_state(
+            request, provider_id=self.sub_id, state_id=state_id, raises=True
+        )
 
     @property
     def sub_id(self) -> str:

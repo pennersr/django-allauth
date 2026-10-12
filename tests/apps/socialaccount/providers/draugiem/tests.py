@@ -11,7 +11,10 @@ from allauth import app_settings
 from allauth.socialaccount.internal import statekit
 from allauth.socialaccount.models import SocialAccount, SocialApp, SocialToken
 from allauth.socialaccount.providers.draugiem import views
-from allauth.socialaccount.providers.draugiem.provider import DraugiemProvider
+from allauth.socialaccount.providers.draugiem.provider import (
+    AUTHORIZE_URL,
+    DraugiemProvider,
+)
 
 
 class DraugiemTests(TestCase):
@@ -85,12 +88,16 @@ class DraugiemTests(TestCase):
         """
         session = self.client.session
         session[statekit.STATES_SESSION_KEY] = {
-            "12345": ({"process": "login", "scope": "", "auth_params": ""}, time.time())
+            "12345": (
+                {"process": "login", "scope": "", "auth_params": ""},
+                time.time(),
+                "draugiem",
+            )
         }
         session.save()
 
     def test_login_redirect(self):
-        response = self.client.get(reverse(views.login))
+        response = self.client.post(reverse(views.login))
         redirect_url = reverse(views.callback)
         full_redirect_url = f"http://testserver{redirect_url}"
         secret = self.app.secret + full_redirect_url
@@ -102,7 +109,7 @@ class DraugiemTests(TestCase):
         }
         self.assertRedirects(
             response,
-            f"{views.AUTHORIZE_URL}?{urlencode(params)}",
+            f"{AUTHORIZE_URL}?{urlencode(params)}",
             fetch_redirect_response=False,
         )
 

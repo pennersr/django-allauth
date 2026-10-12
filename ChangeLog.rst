@@ -15,6 +15,22 @@ Note worthy changes
   must now explicitly reauthenticate.
 
 
+Security notice
+---------------
+
+- Authorization state is now bound to the provider that initiated the flow,
+  preventing it from being used at another provider's callback.
+
+
+Backwards incompatible changes
+------------------------------
+
+- Custom provider implementations using the ``SocialLogin.stash_state()`` or
+  ``SocialLogin.unstash_state()`` methods must switch to
+  ``Provider.stash_redirect_state()`` and ``Provider.unstash_redirect_state()``,
+  respectively. The ``SocialLogin`` methods have been removed.
+
+
 65.19.7 (2026-10-01)
 ********************
 

@@ -15,7 +15,6 @@ from allauth.socialaccount.helpers import (
     complete_social_login,
     render_authentication_error,
 )
-from allauth.socialaccount.models import SocialLogin
 from allauth.socialaccount.providers.base.constants import AuthError
 from allauth.socialaccount.providers.base.views import BaseLoginView
 from allauth.socialaccount.providers.dummy.forms import AuthenticateForm
@@ -55,7 +54,7 @@ class AuthenticateView(FormView):
 
     def form_valid(self, form) -> HttpResponse:
         login = self.provider.sociallogin_from_response(self.request, form.cleaned_data)
-        login.state = SocialLogin.unstash_state(self.request)
+        login.state = self.provider.unstash_redirect_state(self.request, self.state_id)
         return complete_social_login(self.request, login)
 
     def get_context_data(self, **kwargs) -> dict:

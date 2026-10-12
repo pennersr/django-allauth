@@ -6,7 +6,7 @@ from django.conf import settings
 from django.contrib.auth import authenticate, get_user_model
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.sites.shortcuts import get_current_site
-from django.core.exceptions import ImproperlyConfigured, PermissionDenied
+from django.core.exceptions import ImproperlyConfigured
 from django.db import models
 from django.http import HttpRequest
 from django.utils.translation import gettext_lazy as _
@@ -15,12 +15,10 @@ import allauth.app_settings
 from allauth import app_settings as allauth_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.models import EmailAddress
-from allauth.account.utils import get_next_redirect_url, setup_user_email
+from allauth.account.utils import setup_user_email
 from allauth.core import context
 from allauth.socialaccount import app_settings, providers, signals
 from allauth.socialaccount.adapter import get_adapter
-from allauth.socialaccount.internal import statekit
-from allauth.utils import get_request_param
 
 
 if not allauth_settings.SOCIALACCOUNT_ENABLED:
@@ -403,33 +401,3 @@ class SocialLogin:
     def get_redirect_url(self, request: HttpRequest) -> str | None:
         url = self.state.get("next")
         return url
-
-    @classmethod
-    def state_from_request(cls, request: HttpRequest) -> dict[str, Any]:
-        """
-        TODO: Deprecated! To be integrated with provider.redirect()
-        """
-        state = {}
-        next_url = get_next_redirect_url(request)
-        if next_url:
-            state["next"] = next_url
-        state["process"] = get_request_param(request, "process", "login")
-        state["scope"] = get_request_param(request, "scope", "")
-        state["auth_params"] = get_request_param(request, "auth_params", "")
-        return state
-
-    @classmethod
-    def stash_state(
-        cls, request: HttpRequest, state: dict[str, Any] | None = None
-    ) -> str:
-        if state is None:
-            # Only for providers that don't support redirect() yet.
-            state = cls.state_from_request(request)
-        return statekit.stash_state(request, state)
-
-    @classmethod
-    def unstash_state(cls, request: HttpRequest) -> dict[str, Any] | None:
-        state = statekit.unstash_last_state(request)
-        if state is None:
-            raise PermissionDenied()
-        return state

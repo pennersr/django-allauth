@@ -38,7 +38,7 @@ def test_callback_get(client, db, telegram_app):
 
 
 def test_callback(client, db, telegram_app, sociallogin_setup_state):
-    state = sociallogin_setup_state(client)
+    state = sociallogin_setup_state("telegram", client)
     auth_result = (
         base64.b64encode(
             json.dumps(

@@ -211,7 +211,7 @@ def test_auth_error_headless_request(
     """Authentication errors redirect to the next URL with ?error params for
     headless requests.
     """
-    state = sociallogin_setup_state(client, headless=True, next="/foo")
+    state = sociallogin_setup_state("google", client, headless=True, next="/foo")
     resp = client.get(f"{reverse('google_callback')}?state={state}")
     assert resp["location"] == "/foo?error=unknown&error_process=login"
 
@@ -237,7 +237,7 @@ def test_auth_error_headless_state_request_headless_only(
     """Authentication errors redirect to a fallback error URL for headless-only,
     in case no next can be recovered from the state.
     """
-    state = sociallogin_setup_state(client, headless=True, next="/foo")
+    state = sociallogin_setup_state("google", client, headless=True, next="/foo")
     settings.HEADLESS_ONLY = True
     settings.HEADLESS_FRONTEND_URLS = {"socialaccount_login_error": "/3rdparty/failure"}
     resp = client.get(f"{reverse('google_callback')}?state={state}")
@@ -367,7 +367,7 @@ def test_signup_closed(client, headless_reverse, db, settings):
 
 def test_connect(user, auth_client, sociallogin_setup_state, headless_reverse, db):
     state = sociallogin_setup_state(
-        auth_client, process="connect", next="/foo", headless=True
+        "dummy", auth_client, process="connect", next="/foo", headless=True
     )
     resp = auth_client.post(
         f"{reverse('dummy_authenticate')}?state={state}",
@@ -386,7 +386,7 @@ def test_connect_reauthentication_required(
     settings.ACCOUNT_REAUTHENTICATION_REQUIRED = True
 
     state = sociallogin_setup_state(
-        auth_client, process="connect", next="/foo", headless=True
+        "dummy", auth_client, process="connect", next="/foo", headless=True
     )
     resp = auth_client.post(
         f"{reverse('dummy_authenticate')}?state={state}",
@@ -408,7 +408,11 @@ def test_connect_already_connected(
     SocialAccount.objects.create(user=other_user, uid="123", provider="dummy")
     # Then, this user tries to connect...
     state = sociallogin_setup_state(
-        auth_client, process=AuthProcess.CONNECT, next="/foo", headless=True
+        "dummy",
+        auth_client,
+        process=AuthProcess.CONNECT,
+        next="/foo",
+        headless=True,
     )
     resp = auth_client.post(
         f"{reverse('dummy_authenticate')}?state={state}",

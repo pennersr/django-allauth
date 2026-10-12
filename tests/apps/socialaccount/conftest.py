@@ -90,7 +90,11 @@ def provider_callback_response():
         ):
             session = client.session
             session[statekit.STATES_SESSION_KEY] = {
-                "state456": [{"process": process}, time.time()]
+                "state456": [
+                    {"process": process},
+                    time.time(),
+                    "unittest-server",
+                ]
             }
             session.save()
 

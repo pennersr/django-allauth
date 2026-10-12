@@ -199,9 +199,11 @@ class OAuth2CallbackView(OAuth2View):
         state_id = get_request_param(request, "state")
         if self.adapter.supports_state:
             if state_id:
-                state = statekit.unstash_state(request, state_id)
+                state = statekit.unstash_state(
+                    request, provider_id=provider.sub_id, state_id=state_id
+                )
         else:
-            state = statekit.unstash_last_state(request)
+            state = statekit.unstash_last_state(request, provider_id=provider.sub_id)
         if state is None:
             resp = self._redirect_strict_samesite(request, provider)
             if resp:

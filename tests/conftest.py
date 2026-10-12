@@ -323,14 +323,14 @@ def user_with_passkey(user, passkey):
 
 @pytest.fixture
 def sociallogin_setup_state():
-    def setup(client, process=None, next_url=None, **kwargs):
+    def setup(provider_id, client, process=None, next_url=None, **kwargs):
         state_id = "id321"
         session = client.session
         state = {"process": process or AuthProcess.LOGIN, **kwargs}
         if next_url:
             state["next"] = next_url
         states = {}
-        states[state_id] = [state, time.time()]
+        states[state_id] = [state, time.time(), provider_id]
         session[statekit.STATES_SESSION_KEY] = states
         session.save()
         return state_id

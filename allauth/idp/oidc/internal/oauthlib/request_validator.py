@@ -371,6 +371,8 @@ class OAuthLibRequestValidator(RequestValidator):
     def get_authorization_code_scopes(
         self, client_id, code, redirect_uri, request
     ) -> list[str]:
+        if not client_id:
+            client_id, _ = httpkit.extract_basic_auth(request.headers)
         authorization_code = self._lookup_authorization_code(request, client_id, code)
         if not authorization_code:
             return []

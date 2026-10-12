@@ -1,3 +1,4 @@
+import base64
 from datetime import timedelta
 from http import HTTPStatus
 from unittest.mock import ANY
@@ -200,8 +201,16 @@ def test_authorization_code_flow(
         assert "preferred_username" not in decoded
 
 
+@pytest.mark.parametrize(
+    "token_endpoint_auth_method", ["client_secret_post", "client_secret_basic"]
+)
 def test_authorization_code_flow_skip_consent(
-    auth_client, user, oidc_client, oidc_client_secret, enable_cache
+    auth_client,
+    user,
+    oidc_client,
+    oidc_client_secret,
+    enable_cache,
+    token_endpoint_auth_method,
 ):
     oidc_client.skip_consent = True
     oidc_client.save()
@@ -226,16 +235,25 @@ def test_authorization_code_flow_skip_consent(
     parts = urlparse(redirected_uri)
     params = parse_qs(parts.query)
     code = params["code"][0]
-    resp = auth_client.post(
-        reverse("idp:oidc:token"),
-        {
-            "code": code,
-            "grant_type": "authorization_code",
-            "client_id": oidc_client.id,
-            "client_secret": oidc_client_secret,
-            "redirect_uri": redirect_uri,
-        },
-    )
+    token_data = {
+        "code": code,
+        "grant_type": "authorization_code",
+        "redirect_uri": redirect_uri,
+    }
+    token_kwargs = {}
+    if token_endpoint_auth_method == "client_secret_basic":
+        credentials = base64.b64encode(
+            f"{oidc_client.id}:{oidc_client_secret}".encode()
+        ).decode()
+        token_kwargs["HTTP_AUTHORIZATION"] = f"Basic {credentials}"
+    else:
+        token_data.update(
+            {
+                "client_id": oidc_client.id,
+                "client_secret": oidc_client_secret,
+            }
+        )
+    resp = auth_client.post(reverse("idp:oidc:token"), token_data, **token_kwargs)
     assert resp.status_code == HTTPStatus.OK
     data = resp.json()
     assert set(data.keys()) == {

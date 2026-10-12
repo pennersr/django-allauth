@@ -15,6 +15,13 @@ Note worthy changes
   must now explicitly reauthenticate.
 
 
+Fixes
+-----
+
+- IdP: Fixed authorization code exchanges using ``client_secret_basic`` not
+  returning an ID token.
+
+
 Security notice
 ---------------
 

@@ -35,6 +35,8 @@ Security notice
 Backwards incompatible changes
 ------------------------------
 
+- Dropped support for Python 3.10.
+
 - Custom provider implementations using the ``SocialLogin.stash_state()`` or
   ``SocialLogin.unstash_state()`` methods must switch to
   ``Provider.stash_redirect_state()`` and ``Provider.unstash_redirect_state()``,

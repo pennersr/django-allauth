@@ -49,16 +49,16 @@ def djlint(session):
 
 
 DJANGO_PYTHON_REQ = {
-    "4.2.20": ("3.10", "3.11", "3.12"),
-    "5.1": ("3.10", "3.11", "3.12", "3.13"),
-    "5.2": ("3.10", "3.11", "3.12", "3.13", "3.14"),
+    "4.2.20": ("3.11", "3.12"),
+    "5.1": ("3.11", "3.12", "3.13"),
+    "5.2": ("3.11", "3.12", "3.13", "3.14"),
     "6.0": ("3.12", "3.13", "3.14"),
     "6.1": ("3.12", "3.13", "3.14"),
 }
 DJANGO_LTS = "5.2"
 
 
-@nox.session(python=["3.10", "3.11", "3.12", "3.13", "3.14"])
+@nox.session(python=["3.11", "3.12", "3.13", "3.14"])
 @nox.parametrize("django", list(DJANGO_PYTHON_REQ.keys()))
 @nox.parametrize(
     "project", ["regular", "headless_only", "account_only", "login_required_mw"]

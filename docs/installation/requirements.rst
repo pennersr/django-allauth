@@ -3,7 +3,7 @@ Requirements
 
 This package has the following external dependencies:
 
-- Python 3.10, 3.11, 3.12, 3.13 or 3.14.
+- Python 3.11, 3.12, 3.13 or 3.14.
 
 - Django (4.2+)
 

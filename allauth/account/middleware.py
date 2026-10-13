@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-import os
+import posixpath
 from http import HTTPStatus
 from types import SimpleNamespace
 
@@ -74,8 +74,8 @@ def _should_redirect_accounts(request: HttpRequest, response) -> bool:
     except NoReverseMatch:
         # Project might have deviated URLs, let's keep out of the way.
         return False
-    prefix = os.path.commonprefix([login_path, email_path])
-    if len(prefix) <= 1 or prefix != request.path:
+    prefix = posixpath.commonpath([login_path, email_path])
+    if prefix == "/" or f"{prefix}/" != request.path:
         return False
     # If we have a prefix that is not just '/', and that is what our request is
     # pointing to, redirect.

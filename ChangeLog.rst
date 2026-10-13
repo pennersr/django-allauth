@@ -24,6 +24,9 @@ Fixes
 - IdP: Fixed authorization code exchanges using ``client_secret_basic`` not
   returning an ID token.
 
+- Account: On Python 3.15, every 404 response no longer emits a deprecation
+  warning for ``os.path.commonprefix()``.
+
 
 Security notice
 ---------------

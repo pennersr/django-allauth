@@ -44,9 +44,9 @@ class PatreonOAuth2Adapter(OAuth2Adapter):
                     memberships = extra_data["relationships"]["memberships"]
                     member_id = memberships["data"][0]["id"]
                     member_url = (
-                        "{}/members/{}?include="
+                        f"{API_URL}/members/{member_id}?include="
                         "currently_entitled_tiers&fields%5Btier%5D=title"
-                    ).format(API_URL, member_id)
+                    )
                     resp_member = sess.get(member_url, headers=headers)
                     resp_data = resp_member.json()
                     pledge_title = resp_data["included"][0]["attributes"]["title"]

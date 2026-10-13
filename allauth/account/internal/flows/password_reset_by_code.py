@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from typing import Optional
-
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.http import HttpRequest, HttpResponse
 
@@ -89,9 +87,7 @@ class PasswordResetVerificationProcess(AbstractCodeVerificationProcess):
         return process
 
     @classmethod
-    def resume(
-        cls, request: HttpRequest
-    ) -> Optional["PasswordResetVerificationProcess"]:
+    def resume(cls, request: HttpRequest) -> PasswordResetVerificationProcess | None:
         state = request.session.get(PASSWORD_RESET_VERIFICATION_SESSION_KEY)
         if not state:
             return None

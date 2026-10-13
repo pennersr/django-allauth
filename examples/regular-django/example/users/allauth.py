@@ -1,5 +1,3 @@
-import typing
-
 from django.contrib import messages
 
 from example.users.models import User
@@ -8,13 +6,12 @@ from allauth.account.adapter import DefaultAccountAdapter
 
 
 class AccountAdapter(DefaultAccountAdapter):
-
     def set_phone(self, user, phone: str, verified: bool):
         user.phone = phone
         user.phone_verified = verified
         user.save(update_fields=["phone", "phone_verified"])
 
-    def get_phone(self, user) -> typing.Optional[typing.Tuple[str, bool]]:
+    def get_phone(self, user) -> tuple[str, bool] | None:
         if user.phone:
             return user.phone, user.phone_verified
         return None

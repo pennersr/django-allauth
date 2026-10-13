@@ -65,7 +65,6 @@ class OAuth1(AuthBase):
         force_include_body=False,
         **kwargs,
     ) -> None:
-
         try:
             signature_type = signature_type.upper()
         except AttributeError:

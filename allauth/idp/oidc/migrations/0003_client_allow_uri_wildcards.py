@@ -2,7 +2,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("allauth_idp_oidc", "0002_client_default_scopes"),
     ]

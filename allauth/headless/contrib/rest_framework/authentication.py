@@ -31,7 +31,6 @@ class XSessionTokenAuthentication(authentication.BaseAuthentication):
 
 
 class JWTTokenAuthentication(authentication.TokenAuthentication):
-
     @property
     def keyword(self) -> str:
         """

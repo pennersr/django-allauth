@@ -284,7 +284,7 @@ class Provider:
         return ret
 
     @classmethod
-    def deserialize(cls, data: Any) -> "Provider":
+    def deserialize(cls, data: Any) -> Provider:
         if not isinstance(data, dict):
             raise ValueError()
         provider = data.get("id")

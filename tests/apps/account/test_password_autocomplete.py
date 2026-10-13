@@ -27,7 +27,6 @@ def test_both_password_fields_have_new_password_autocomplete(form_class):
     form = form_class()
     for field_name in ("password1", "password2"):
         rendered = str(form[field_name])
-        assert 'autocomplete="new-password"' in rendered, (
-            f"{form_class.__name__}.{field_name} is missing "
-            f'autocomplete="new-password"'
-        )
+        assert (
+            'autocomplete="new-password"' in rendered
+        ), f'{form_class.__name__}.{field_name} is missing autocomplete="new-password"'

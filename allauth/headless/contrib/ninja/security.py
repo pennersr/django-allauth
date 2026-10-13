@@ -39,7 +39,6 @@ x_session_token_auth = XSessionTokenAuth()
 
 
 class JWTTokenAuth(AuthBase):
-
     openapi_type: str = "apiKey"
 
     def __call__(self, request: HttpRequest):

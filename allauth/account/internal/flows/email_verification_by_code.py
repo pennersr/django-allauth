@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from typing import Optional
-
 from django.http import HttpRequest
 from django.utils.functional import cached_property
 
@@ -98,7 +96,7 @@ class EmailVerificationProcess(AbstractCodeVerificationProcess):
     @classmethod
     def initiate(
         cls, *, request: HttpRequest, user, email: str
-    ) -> "EmailVerificationProcess":
+    ) -> EmailVerificationProcess:
         state = cls.initial_state(user, email)
         process = EmailVerificationProcess(request=request, user=user, state=state)
         process.generate_code()
@@ -107,7 +105,7 @@ class EmailVerificationProcess(AbstractCodeVerificationProcess):
         return process
 
     @classmethod
-    def resume(cls, request: HttpRequest) -> Optional["EmailVerificationProcess"]:
+    def resume(cls, request: HttpRequest) -> EmailVerificationProcess | None:
         if not app_settings.EMAIL_VERIFICATION_BY_CODE_ENABLED:
             return None
         state = request.session.get(EMAIL_VERIFICATION_CODE_SESSION_KEY)

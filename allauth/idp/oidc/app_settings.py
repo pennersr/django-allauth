@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime, timezone as dt_timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING, Any, TypeVar
 
 from django.core.exceptions import ImproperlyConfigured
@@ -231,8 +231,8 @@ class AppSettings:
                 f"IDP_OIDC_PRIVATE_KEYS: {field!r} is not a valid datetime: {value!r}"
             )
         if dt.tzinfo is None:
-            return dt.replace(tzinfo=dt_timezone.utc)
-        return dt.astimezone(dt_timezone.utc)
+            return dt.replace(tzinfo=UTC)
+        return dt.astimezone(UTC)
 
 
 _app_settings = AppSettings("IDP_OIDC_")

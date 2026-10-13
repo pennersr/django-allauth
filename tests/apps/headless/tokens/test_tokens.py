@@ -12,7 +12,6 @@ class DummyAccessTokenStrategy(SessionTokenStrategy):
 
 
 def external_auth_middleware(get_response):
-
     def middleware(request):
         user_pk = request.headers.get("x-external-user")
         if user_pk:

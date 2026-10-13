@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from typing import Optional
-
 from django.contrib import messages
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.http import HttpRequest
@@ -116,7 +114,7 @@ class PhoneVerificationStageProcess(PhoneVerificationProcess):
         return process
 
     @classmethod
-    def resume(cls, stage) -> Optional["PhoneVerificationStageProcess"]:
+    def resume(cls, stage) -> PhoneVerificationStageProcess | None:
         state = stage.state
         if not state:
             return None
@@ -188,7 +186,7 @@ class ChangePhoneVerificationProcess(PhoneVerificationProcess):
         return process
 
     @classmethod
-    def resume(cls, request: HttpRequest) -> Optional["ChangePhoneVerificationProcess"]:
+    def resume(cls, request: HttpRequest) -> ChangePhoneVerificationProcess | None:
         state = request.session.get(PHONE_VERIFICATION_SESSION_KEY)
         if not state:
             return None

@@ -18,7 +18,7 @@ class RecoveryCodes:
         self.instance = instance
 
     @classmethod
-    def activate(cls, user: AbstractBaseUser) -> "RecoveryCodes":
+    def activate(cls, user: AbstractBaseUser) -> RecoveryCodes:
         instance = Authenticator.objects.filter(
             user_id=user.pk, type=Authenticator.Type.RECOVERY_CODES
         ).first()

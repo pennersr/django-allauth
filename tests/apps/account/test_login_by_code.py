@@ -196,7 +196,6 @@ def test_trust_flow(
     with settings_impacting_urls(
         ACCOUNT_LOGIN_BY_CODE_TRUST_ENABLED=True, ACCOUNT_LOGIN_BY_CODE_REQUIRED=True
     ):
-
         # Login
         resp = client.post(
             reverse("account_login"),

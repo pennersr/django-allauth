@@ -269,7 +269,7 @@ class SocialLogin:
         return ret
 
     @classmethod
-    def deserialize(cls, data: dict[str, Any]) -> "SocialLogin":
+    def deserialize(cls, data: dict[str, Any]) -> SocialLogin:
         from allauth.socialaccount.providers.base.provider import Provider
 
         if not isinstance(data, dict):

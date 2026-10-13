@@ -185,7 +185,7 @@ class WebAuthn:
         self.instance = instance
 
     @classmethod
-    def add(cls, user: AbstractBaseUser, name: str, credential: dict) -> "WebAuthn":
+    def add(cls, user: AbstractBaseUser, name: str, credential: dict) -> WebAuthn:
         instance = Authenticator(
             user=user,  # type:ignore[misc]
             type=Authenticator.Type.WEBAUTHN,

@@ -405,7 +405,6 @@ device_authorization = DeviceAuthorizationView.as_view()
 @method_decorator(csrf_exempt, name="dispatch")
 @method_decorator(login_not_required, name="dispatch")
 class TokenView(View):
-
     @transaction.atomic
     def post(self, request: HttpRequest) -> HttpResponse:
         try:
@@ -640,7 +639,6 @@ logout = LogoutView.as_view()
 @method_decorator(csrf_exempt, name="dispatch")
 @method_decorator(login_not_required, name="dispatch")
 class ClientRegistrationView(View):
-
     def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         bearer_token, token, resp = self._authorize()
         if resp:

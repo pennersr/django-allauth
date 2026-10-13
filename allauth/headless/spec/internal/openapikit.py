@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import dataclasses
 import datetime
-from typing import Any, Iterable, Union, cast, get_args, get_origin
+from collections.abc import Iterable
+from types import UnionType
+from typing import Any, Union, cast, get_args, get_origin
 
 from django import forms
 
@@ -64,7 +66,7 @@ def spec_for_field(field: forms.Field) -> dict[str, Any]:
 
 
 def unwrap_optional_type(typ) -> tuple:
-    if get_origin(typ) is not Union:
+    if get_origin(typ) not in (Union, UnionType):
         return typ, True
     args = get_args(typ)
     if len(args) != 2 or type(None) not in args:

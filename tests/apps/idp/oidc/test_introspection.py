@@ -16,7 +16,7 @@ from allauth.idp.oidc.models import Token
 
 
 def _basic_auth(client_id: str, secret: str) -> str:
-    raw = f"{client_id}:{secret}".encode("utf-8")
+    raw = f"{client_id}:{secret}".encode()
     return "Basic " + base64.b64encode(raw).decode("ascii")
 
 

@@ -24,7 +24,7 @@ if not allauth_settings.USERSESSIONS_ENABLED:
 
 
 class UserSessionManager(models.Manager):
-    def purge_and_list(self, user: AbstractBaseUser) -> list["UserSession"]:
+    def purge_and_list(self, user: AbstractBaseUser) -> list[UserSession]:
         ret = []
         sessions = UserSession.objects.filter(user_id=user.pk)
         for session in sessions.iterator():

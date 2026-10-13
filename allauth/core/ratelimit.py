@@ -54,7 +54,8 @@ def consume(
 
 def respond_429(request: HttpRequest) -> HttpResponse:
     if app_settings.HEADLESS_ENABLED and hasattr(
-        request.allauth, "headless"  # type:ignore[attr-defined]
+        request.allauth,  # type:ignore[attr-defined]
+        "headless",
     ):
         from allauth.headless.base.response import RateLimitResponse
 

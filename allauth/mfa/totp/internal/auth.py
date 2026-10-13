@@ -88,7 +88,7 @@ class TOTP:
         self.instance = instance
 
     @classmethod
-    def activate(cls, user: AbstractBaseUser, secret: str) -> "TOTP":
+    def activate(cls, user: AbstractBaseUser, secret: str) -> TOTP:
         instance = Authenticator(
             user=user,  # type:ignore[misc]
             type=Authenticator.Type.TOTP,

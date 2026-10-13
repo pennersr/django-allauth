@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import time
+
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.http import HttpRequest, HttpResponse
 
@@ -48,6 +50,7 @@ class PasswordResetVerificationProcess(AbstractCodeVerificationProcess):
         if self.state.get("code_confirmed"):
             return
         self.state["code_confirmed"] = True
+        self.state["at"] = time.time()
         self.persist()
         assert self.user  # nosec
         verify_email_indirectly(self.request, self.user, self.state["email"])

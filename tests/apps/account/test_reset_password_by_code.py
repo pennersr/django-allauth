@@ -66,6 +66,53 @@ def test_flow(
     assert user.check_password(new_password)
 
 
+@pytest.mark.parametrize(
+    "reset_at,password_reset",
+    [
+        (1011, True),
+        (1020, False),
+    ],
+)
+def test_timeout_restarts_after_code_confirmation(
+    user,
+    client,
+    mailoutbox,
+    get_last_password_reset_code,
+    password_factory,
+    settings,
+    reset_at,
+    password_reset,
+):
+    settings.ACCOUNT_PASSWORD_RESET_BY_CODE_TIMEOUT = 10
+    new_password = password_factory()
+    time_path = "allauth.account.internal.flows.code_verification.time.time"
+    with patch(time_path) as now:
+        now.return_value = 1000
+        client.post(reverse("account_reset_password"), {"email": user.email})
+
+        now.return_value = 1009
+        client.post(
+            reverse("account_confirm_password_reset_code"),
+            {"code": get_last_password_reset_code(client, mailoutbox)},
+        )
+
+        now.return_value = reset_at
+        resp = client.post(
+            reverse("account_complete_password_reset"),
+            {"password1": new_password, "password2": new_password},
+        )
+
+    assert resp.status_code == HTTPStatus.FOUND
+    expected_url = (
+        "account_password_reset_completed"
+        if password_reset
+        else "account_reset_password"
+    )
+    assert resp["location"] == reverse(expected_url)
+    user.refresh_from_db()
+    assert user.check_password(new_password) is password_reset
+
+
 def test_prevent_enumeration(db, client, mailoutbox):
     resp = client.post(
         reverse("account_reset_password"), {"email": "unknown@account.org"}

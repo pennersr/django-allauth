@@ -8,7 +8,7 @@ from allauth.account.adapter import get_adapter
 from allauth.account.internal.flows.code_verification import (
     AbstractCodeVerificationProcess,
 )
-from allauth.account.internal.stagekit import clear_login
+from allauth.account.internal.stagekit import clear_login, pop_login
 from allauth.account.internal.userkit import did_user_login, user_email
 from allauth.account.models import EmailAddress
 from allauth.core import context
@@ -47,7 +47,10 @@ class EmailVerificationProcess(AbstractCodeVerificationProcess):
 
     def abort(self) -> None:
         self.request.session.pop(EMAIL_VERIFICATION_CODE_SESSION_KEY, None)
-        clear_login(self.request)
+        if self.request.user.is_authenticated:
+            pop_login(self.request)
+        else:
+            clear_login(self.request)
 
     def send(self, skip_enumeration_mails: bool = False) -> None:
         from allauth.account.internal.flows.email_verification import (

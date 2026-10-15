@@ -6,6 +6,7 @@ from django.http import HttpRequest, HttpResponseRedirect
 from django.urls import reverse
 
 from allauth.account import app_settings
+from allauth.account.internal.flows.login import AUTHENTICATION_METHODS_SESSION_KEY
 from allauth.account.models import Login
 from allauth.account.stages import LoginStage, LoginStageController
 
@@ -32,8 +33,13 @@ def redirect_to_pending_stage(
     return HttpResponseRedirect(reverse("account_login"))
 
 
-def clear_login(request: HttpRequest) -> None:
+def pop_login(request: HttpRequest) -> None:
     request.session.pop(LOGIN_SESSION_KEY, None)
+
+
+def clear_login(request: HttpRequest) -> None:
+    pop_login(request)
+    request.session.pop(AUTHENTICATION_METHODS_SESSION_KEY, None)
 
 
 def unstash_login(request: HttpRequest, peek: bool = False) -> Login | None:

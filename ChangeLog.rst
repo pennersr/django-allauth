@@ -40,6 +40,11 @@ Fixes
 Security notice
 ---------------
 
+- Account: Cancelling a multi-stage login did not discard authentication records
+  already collected. When another account was subsequently logged in using the
+  same session, records from both accounts were mingled. Aborted login flows now
+  discard their authentication records.
+
 - Authorization state is now bound to the provider that initiated the flow,
   preventing it from being used at another provider's callback.
 

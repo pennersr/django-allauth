@@ -191,6 +191,35 @@ def test_totp_login(client, user_with_totp, user_password, totp_validation_bypas
     ]
 
 
+def test_cancel_mfa_login_clears_authentication_records(
+    client, user_with_totp, user_factory, user_password
+):
+    resp = client.post(
+        reverse("account_login"),
+        {"login": user_with_totp.username, "password": user_password},
+    )
+    assert resp.status_code == HTTPStatus.FOUND
+    assert resp["location"] == reverse("mfa_authenticate")
+
+    resp = client.post(
+        reverse("account_logout"),
+        {"next": reverse("account_login")},
+    )
+    assert resp.status_code == HTTPStatus.FOUND
+    assert resp["location"] == reverse("account_login")
+
+    other_user = user_factory()
+    resp = client.post(
+        reverse("account_login"),
+        {"login": other_user.username, "password": user_password},
+    )
+    assert resp.status_code == HTTPStatus.FOUND
+    assert resp["location"] == settings.LOGIN_REDIRECT_URL
+    assert client.session[AUTHENTICATION_METHODS_SESSION_KEY] == [
+        {"method": "password", "at": ANY, "username": other_user.username}
+    ]
+
+
 def test_totp_login_rate_limit(
     settings, enable_cache, user_with_totp, user_password, client
 ):

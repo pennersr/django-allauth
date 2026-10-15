@@ -115,7 +115,11 @@ class LoginStageController:
         return stages
 
     def handle(self):
-        from allauth.account.internal.stagekit import clear_login, stash_login
+        from allauth.account.internal.stagekit import (
+            clear_login,
+            pop_login,
+            stash_login,
+        )
 
         stages = self.get_stages()
         for stage in stages:
@@ -134,9 +138,10 @@ class LoginStageController:
                     # So, on our stages is aborting without actually giving
                     # a response.
                     logger.error("Login stage aborted, redirecting to login")
+                    clear_login(self.request)
                     return headed_redirect_response("account_login")
                 self.set_handled(stage.key)
-        clear_login(self.request)
+        pop_login(self.request)
 
 
 class EmailVerificationStage(LoginStage):

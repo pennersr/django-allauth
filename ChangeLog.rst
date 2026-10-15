@@ -17,6 +17,8 @@ Note worthy changes
 - OpenID Connect providers can now override values from the server's discovery
   document using ``openid_configuration_overrides``.
 
+- Account: Visiting signup now cancels pending login flows.
+
 
 Fixes
 -----

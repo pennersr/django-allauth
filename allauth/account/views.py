@@ -49,6 +49,7 @@ from allauth.account.internal.decorators import login_not_required, login_stage_
 from allauth.account.internal.flows.email_verification import (
     send_verification_email_to_address,
 )
+from allauth.account.internal.stagekit import clear_login
 from allauth.account.internal.templatekit import get_entrance_context_data
 from allauth.account.mixins import (
     AjaxCapableProcessFormViewMixin,
@@ -66,6 +67,7 @@ from allauth.account.models import (
 from allauth.account.stages import (
     EmailVerificationStage,
     LoginByCodeStage,
+    LoginStage,
     LoginStageController,
     PhoneVerificationStage,
 )
@@ -149,6 +151,22 @@ class SignupView(
         self, request: HttpRequest, *args: Any, **kwargs: Any
     ) -> HttpResponseBase:
         return super().dispatch(request, *args, **kwargs)
+
+    def _redirect_to_pending_stage(
+        self, request: HttpRequest, stage: LoginStage
+    ) -> HttpResponseRedirect | None:
+        """
+        In case you use login-by-code, and try and login using an unknown
+        email address. Then, account enumeration kicks in. The code confirmation
+        page shows up, and you'll get an email informing you no account exists,
+        providing a link to the signup page. Yet, clicking that link redirects
+        to the pending stage. Here, we are stopping that from happening, but
+        only for true logins.
+        """
+        if not stage.login.signup:
+            clear_login(request)
+            return None
+        return super()._redirect_to_pending_stage(request, stage)
 
     def get_form_class(self):
         return get_form_class(app_settings.FORMS, "signup", self.form_class)

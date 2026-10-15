@@ -4,7 +4,12 @@ from typing import TYPE_CHECKING, Any
 
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.core.exceptions import ImproperlyConfigured
-from django.http import HttpRequest, HttpResponsePermanentRedirect, HttpResponseRedirect
+from django.http import (
+    HttpRequest,
+    HttpResponseBase,
+    HttpResponsePermanentRedirect,
+    HttpResponseRedirect,
+)
 from django.utils.decorators import method_decorator
 from django.utils.html import format_html
 from django.views.decorators.cache import never_cache
@@ -26,6 +31,10 @@ from allauth.core.exceptions import ImmediateHttpResponse
 from allauth.utils import get_request_param
 
 
+if TYPE_CHECKING:
+    from allauth.account.stages import LoginStage
+
+
 def _ajax_response(request: HttpRequest, response, form=None, data=None):
     adapter = get_adapter()
     if adapter.is_ajax(request):
@@ -44,7 +53,9 @@ def _ajax_response(request: HttpRequest, response, form=None, data=None):
 class RedirectAuthenticatedUserMixin:
     @method_decorator(login_not_required)
     @method_decorator(never_cache)
-    def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any):
+    def dispatch(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponseBase:
         if app_settings.AUTHENTICATED_LOGIN_REDIRECTS:
             if request.user.is_authenticated:
                 redirect_to = self.get_authenticated_redirect_url()
@@ -53,9 +64,16 @@ class RedirectAuthenticatedUserMixin:
             else:
                 stage = get_pending_stage(request)
                 if stage and stage.is_resumable(request):
-                    return redirect_to_pending_stage(request, stage)
+                    pending_response = self._redirect_to_pending_stage(request, stage)
+                    if pending_response is not None:
+                        return pending_response
         response = super().dispatch(request, *args, **kwargs)  # type:ignore[misc]
         return response
+
+    def _redirect_to_pending_stage(
+        self, request: HttpRequest, stage: LoginStage
+    ) -> HttpResponseRedirect | None:
+        return redirect_to_pending_stage(request, stage)
 
     def get_authenticated_redirect_url(self):
         redirect_field_name = getattr(self, "redirect_field_name", REDIRECT_FIELD_NAME)

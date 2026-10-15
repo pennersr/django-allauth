@@ -4,7 +4,12 @@ from http import HTTPStatus
 from typing import Any
 
 from django.contrib.auth.decorators import login_required
-from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
+from django.http import (
+    HttpRequest,
+    HttpResponse,
+    HttpResponseBase,
+    HttpResponseRedirect,
+)
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic.base import TemplateView
@@ -42,7 +47,9 @@ class SignupView(
         return get_form_class(app_settings.FORMS, "signup", self.form_class)
 
     @method_decorator(login_not_required)
-    def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+    def dispatch(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponseBase:
         sociallogin = flows.signup.get_pending_signup(request)
         if not sociallogin:
             return HttpResponseRedirect(reverse("account_login"))

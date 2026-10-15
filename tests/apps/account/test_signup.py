@@ -17,7 +17,9 @@ from pytest_django.asserts import assertTemplateUsed
 from allauth.account import app_settings
 from allauth.account.adapter import get_adapter
 from allauth.account.forms import BaseSignupForm, SignupForm
-from allauth.account.models import EmailAddress
+from allauth.account.internal.stagekit import LOGIN_SESSION_KEY
+from allauth.account.models import EmailAddress, Login
+from allauth.account.stages import LoginByCodeStage
 from allauth.core import context
 from allauth.utils import get_username_max_length
 
@@ -135,6 +137,40 @@ def test_signup_email_verification(settings, db):
     data["email2"] = "anotheruser@example.com"
     form = BaseSignupForm(data, email_required=True)
     assert not form.is_valid()
+
+
+@pytest.mark.parametrize("existing_user", [False, True])
+def test_signup_clears_pending_login_by_code(client, user, existing_user):
+    session = client.session
+    session["unrelated"] = "data"
+    session.save()
+    email = user.email if existing_user else "unknown@email.org"
+    resp = client.post(
+        reverse("account_request_login_code"),
+        data={"email": email},
+    )
+    assert resp.status_code == HTTPStatus.FOUND
+    assert LOGIN_SESSION_KEY in client.session
+
+    resp = client.get(reverse("account_signup"))
+
+    assert resp.status_code == HTTPStatus.OK
+    assert LOGIN_SESSION_KEY not in client.session
+    assert client.session["unrelated"] == "data"
+
+
+def test_signup_preserves_pending_signup(client, user):
+    login = Login(user=user, signup=True)
+    login.state["stages"] = {"current": LoginByCodeStage.key}
+    session = client.session
+    session[LOGIN_SESSION_KEY] = login.serialize()
+    session.save()
+
+    resp = client.get(reverse("account_signup"))
+
+    assert resp.status_code == HTTPStatus.FOUND
+    assert resp["location"] == reverse("account_confirm_login_code")
+    assert LOGIN_SESSION_KEY in client.session
 
 
 @override_settings(

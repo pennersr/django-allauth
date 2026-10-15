@@ -26,3 +26,10 @@ def test_totp_code_is_claimed_atomically(user_with_totp, cache_add_result):
         "y",
         timeout=mfa_app_settings.TOTP_PERIOD,
     )
+
+
+def test_validate_non_ascii_code(user_with_totp):
+    totp = Authenticator.objects.get(
+        user=user_with_totp, type=Authenticator.Type.TOTP
+    ).wrap()
+    assert not totp.validate_code("€#")

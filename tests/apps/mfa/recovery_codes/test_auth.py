@@ -43,3 +43,8 @@ def test_validate_code_on_stale_instance(user):
     stale_rc = Authenticator.objects.get(pk=rc.instance.pk).wrap()
     assert rc.validate_code(code)
     assert not stale_rc.validate_code(code)
+
+
+def test_validate_non_ascii_code(user):
+    rc = RecoveryCodes.activate(user)
+    assert not rc.validate_code("€#")

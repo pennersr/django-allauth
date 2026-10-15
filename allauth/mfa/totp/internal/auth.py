@@ -13,6 +13,7 @@ from django.core.cache import cache
 from django.http import HttpRequest
 
 from allauth.core import context
+from allauth.core.internal.cryptokit import compare_user_code
 from allauth.mfa import app_settings
 from allauth.mfa.models import Authenticator
 from allauth.mfa.utils import decrypt, encrypt
@@ -78,7 +79,7 @@ def validate_totp_code(secret: str, code: str) -> bool:
     counters = yield_hotp_counters_from_time()
     for counter in counters:
         value = hotp_value(secret, counter)
-        if secrets.compare_digest(code, format_hotp_value(value)):
+        if compare_user_code(actual=code, expected=format_hotp_value(value)):
             return True
     return False
 

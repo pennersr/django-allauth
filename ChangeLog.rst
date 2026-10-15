@@ -21,6 +21,8 @@ Note worthy changes
 Fixes
 -----
 
+- MFA: Non-ASCII authentication codes no longer cause a server error.
+
 - IdP: Fixed authorization code exchanges using ``client_secret_basic`` not
   returning an ID token.
 

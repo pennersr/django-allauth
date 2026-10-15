@@ -52,4 +52,9 @@ def _strip_punctuation(code: str) -> str:
 def compare_user_code(*, actual: str, expected: str) -> bool:
     actual = _strip_punctuation(actual).lower()
     expected = _strip_punctuation(expected).lower()
-    return bool(expected) and secrets.compare_digest(actual, expected)
+    try:
+        return bool(expected) and secrets.compare_digest(actual, expected)
+    except TypeError:
+        # secrets.compare_digest can throw:
+        # TypeError: comparing strings with non-ASCII characters is not supported
+        return False

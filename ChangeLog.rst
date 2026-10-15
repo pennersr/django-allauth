@@ -21,6 +21,8 @@ Note worthy changes
 Fixes
 -----
 
+- Headless: Cached JWT signing configuration to avoid repeatedly parsing RSA keys.
+
 - MFA: Non-ASCII authentication codes no longer cause a server error.
 
 - IdP: Fixed authorization code exchanges using ``client_secret_basic`` not

@@ -1,4 +1,5 @@
 from http import HTTPStatus
+from unittest.mock import MagicMock, patch
 
 from django.contrib.auth import HASH_SESSION_KEY
 from django.test.client import Client
@@ -7,7 +8,7 @@ from django.urls import reverse, reverse_lazy
 import jwt
 import pytest
 
-from allauth.headless.tokens.strategies.jwt import JWTTokenStrategy
+from allauth.headless.tokens.strategies.jwt import JWTTokenStrategy, internal
 from allauth.headless.tokens.strategies.jwt.internal import (
     create_access_token,
     decode_token,
@@ -18,6 +19,25 @@ from allauth.headless.tokens.strategies.jwt.internal import (
 class CustomJWTTokenStrategy(JWTTokenStrategy):
     def get_claims(self, user):
         return {"email": user.email}
+
+
+def test_jwt_config_is_cached(settings):
+    settings.HEADLESS_JWT_ALGORITHM = "RS256"
+    settings.HEADLESS_JWT_PRIVATE_KEY = "key-1"
+    signing_key = MagicMock()
+    internal._get_jwt_config_cached.cache_clear()
+    with patch.object(
+        internal.jwkkit,
+        "load_jwk_from_pem",
+        return_value=({}, signing_key),
+    ) as load_jwk:
+        internal._get_jwt_config()
+        internal._get_jwt_config()
+        load_jwk.assert_called_once_with("key-1")
+
+        settings.HEADLESS_JWT_PRIVATE_KEY = "key-2"
+        internal._get_jwt_config()
+        assert load_jwk.call_count == 2
 
 
 @pytest.fixture

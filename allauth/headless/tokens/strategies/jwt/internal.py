@@ -7,6 +7,7 @@ import secrets
 import time
 import uuid
 from dataclasses import dataclass
+from functools import cache
 from typing import Any
 
 from django.conf import settings
@@ -142,13 +143,22 @@ def get_token_session(payload: dict[str, Any]) -> SessionBase | None:
 
 def _get_jwt_config() -> JWTConfig:
     algorithm = app_settings.JWT_ALGORITHM
+    key = app_settings.JWT_PRIVATE_KEY
+    if algorithm.startswith("HS") and not key:
+        key = settings.SECRET_KEY
+    return _get_jwt_config_cached(algorithm, key)
+
+
+@cache
+def _get_jwt_config_cached(algorithm: str, key: str) -> JWTConfig:
     jwk_dict = None
+    signing_key: Any
+    verifying_key: Any
     if algorithm.startswith("HS"):
-        key = app_settings.JWT_PRIVATE_KEY or settings.SECRET_KEY
         signing_key = key
         verifying_key = key
     elif algorithm.startswith("RS"):
-        jwk_dict, signing_key = jwkkit.load_jwk_from_pem(app_settings.JWT_PRIVATE_KEY)
+        jwk_dict, signing_key = jwkkit.load_jwk_from_pem(key)
         verifying_key = signing_key.public_key()
     else:
         raise ValueError(f"Unsupported JWT algorithm: {algorithm}")

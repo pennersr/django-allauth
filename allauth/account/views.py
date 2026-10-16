@@ -835,6 +835,7 @@ class ConfirmPasswordResetCodeView(NextRedirectMixin, FormView):
 confirm_password_reset_code = ConfirmPasswordResetCodeView.as_view()
 
 
+@method_decorator(login_not_required, name="dispatch")
 class LogoutView(NextRedirectMixin, LogoutFunctionalityMixin, TemplateView):
     template_name = f"account/logout.{app_settings.TEMPLATE_EXTENSION}"
 

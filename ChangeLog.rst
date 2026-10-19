@@ -15,6 +15,10 @@ Security notice
   WebAuthn login attempts could consume the per-user rate limit and lock a
   targeted account out of TOTP authentication.
 
+- MFA: Fixed a vulnerability (introduced in 65.20.0) that allowed a TOTP code to
+  be reused within its validity window by submitting it in an alternative
+  representation.
+
 
 65.20.0 (2026-10-16)
 ********************

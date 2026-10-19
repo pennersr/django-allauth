@@ -320,6 +320,56 @@ def test_totp_code_reuse(
             }
 
 
+@pytest.mark.parametrize("code", ["123-456", "1 23456"])
+def test_totp_code_reuse_with_alternate_representation(
+    user_with_totp,
+    user_password,
+    totp_validation_bypass,
+    enable_cache,
+    code,
+):
+    for submitted_code, expect_success in [("123456", True), (code, False)]:
+        client = Client()
+        resp = client.post(
+            reverse("account_login"),
+            {"login": user_with_totp.username, "password": user_password},
+        )
+        assert resp.status_code == HTTPStatus.FOUND
+        assert resp["location"] == reverse("mfa_authenticate")
+        with totp_validation_bypass():
+            resp = client.post(
+                reverse("mfa_authenticate"),
+                {"code": submitted_code},
+            )
+
+        if expect_success:
+            assert resp.status_code == HTTPStatus.FOUND
+            assert resp["location"] == settings.LOGIN_REDIRECT_URL
+        else:
+            assert resp.status_code == HTTPStatus.OK
+            assert resp.context["form"].errors == {
+                "code": [get_adapter().error_messages["incorrect_code"]]
+            }
+
+
+@pytest.mark.parametrize("code", ["123-456", "1 23456"])
+def test_activate_totp_normalizes_code(
+    auth_client,
+    user,
+    reauthentication_bypass,
+    code,
+):
+    with reauthentication_bypass():
+        auth_client.get(reverse("mfa_activate_totp"))
+        with patch("allauth.mfa.totp.internal.auth.hotp_value", return_value=123456):
+            resp = auth_client.post(reverse("mfa_activate_totp"), {"code": code})
+
+    assert resp.status_code == HTTPStatus.FOUND
+    assert Authenticator.objects.filter(
+        user=user, type=Authenticator.Type.TOTP
+    ).exists()
+
+
 def test_totp_stage_expires(client, user_with_totp, user_password):
     resp = client.post(
         reverse("account_login"),

@@ -39,19 +39,21 @@ def generate_user_code(
     return code
 
 
-def _strip_punctuation(code: str) -> str:
+def normalize_user_code(code: str) -> str:
     """https://datatracker.ietf.org/doc/html/rfc8628#section-6.1
 
     When processing the inputted user code, the server should strip dashes and
     other punctuation that it added for readability (making the inclusion of
     such punctuation by the user optional).
     """
-    return code.translate(str.maketrans("", "", string.punctuation + string.whitespace))
+    return code.translate(
+        str.maketrans("", "", string.punctuation + string.whitespace)
+    ).lower()
 
 
 def compare_user_code(*, actual: str, expected: str) -> bool:
-    actual = _strip_punctuation(actual).lower()
-    expected = _strip_punctuation(expected).lower()
+    actual = normalize_user_code(actual)
+    expected = normalize_user_code(expected)
     try:
         return bool(expected) and secrets.compare_digest(actual, expected)
     except TypeError:

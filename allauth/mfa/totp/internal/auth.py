@@ -13,7 +13,7 @@ from django.core.cache import cache
 from django.http import HttpRequest
 
 from allauth.core import context
-from allauth.core.internal.cryptokit import compare_user_code
+from allauth.core.internal.cryptokit import compare_user_code, normalize_user_code
 from allauth.mfa import app_settings
 from allauth.mfa.models import Authenticator
 from allauth.mfa.utils import decrypt, encrypt
@@ -109,7 +109,7 @@ class TOTP:
         return self._mark_code_used(code)
 
     def _get_used_cache_key(self, code: str) -> str:
-        return f"allauth.mfa.totp.used?user={self.instance.user_id}&code={code}"
+        return f"allauth.mfa.totp.used?user={self.instance.user_id}&code={normalize_user_code(code)}"
 
     def _mark_code_used(self, code: str) -> bool:
         return cache.add(

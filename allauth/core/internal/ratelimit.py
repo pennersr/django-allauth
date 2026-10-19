@@ -323,7 +323,7 @@ def respond_429(request: HttpRequest) -> HttpResponse:
 
     try:
         h429 = import_callable(f"{settings.ROOT_URLCONF}.handler429")
-        h429 = import_callable(handler429)
+        h429 = import_callable(h429)
     except (ImportError, AttributeError):
         h429 = handler429
     return h429(request)

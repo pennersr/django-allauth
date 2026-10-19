@@ -2,10 +2,26 @@ from concurrent.futures import ThreadPoolExecutor
 from threading import Barrier, BrokenBarrierError
 
 from django.core.cache import caches
+from django.http import HttpResponse
 
 import pytest
 
 from allauth.core.internal import ratelimit
+
+
+def handler429(request):
+    return HttpResponse("custom", status=429)
+
+
+def test_respond_429_custom_handler(rf, settings):
+    settings.ROOT_URLCONF = __name__
+    request = rf.get("/")
+    request.allauth = object()
+
+    response = ratelimit.respond_429(request)
+
+    assert response.status_code == 429
+    assert response.content == b"custom"
 
 
 def test_rollback_consume(rf, enable_cache):

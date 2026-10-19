@@ -8,10 +8,12 @@
     https://allauth.org/sponsors/. Your support helps keep this project thriving!
 
 
-Fixes
------
+Security notice
+---------------
 
-- ...
+- MFA: Fixed a denial-of-service vulnerability where unauthenticated passwordless
+  WebAuthn login attempts could consume the per-user rate limit and lock a
+  targeted account out of TOTP authentication.
 
 
 65.20.0 (2026-10-16)

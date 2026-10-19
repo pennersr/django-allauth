@@ -38,6 +38,13 @@ Available settings:
   require mandatory email verification and have
   ``ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED`` set to ``True``.
 
+``MFA_RATE_LIMITS`` (default: ``{...}``)
+  Rate limit configuration, defaulting to::
+
+      {
+       "webauthn_login": "10/m/ip",
+      }
+
 ``MFA_RECOVERY_CODE_COUNT`` (default: ``10``)
   The number of recovery codes.
 

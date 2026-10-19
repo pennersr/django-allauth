@@ -82,6 +82,19 @@ def test_invalid_passkey_login(client, passkey):
     assert resp["location"] == reverse("account_login")
 
 
+def test_passkey_login_rate_limit_applies_before_parsing(
+    client, settings, enable_cache
+):
+    settings.MFA_RATE_LIMITS = {"webauthn_login": "1/m/ip"}
+    url = reverse("mfa_login_webauthn")
+
+    resp = client.post(url, data={"credential": "{}"})
+    assert resp["location"] == reverse("account_login")
+
+    resp = client.post(url, data={"credential": "{}"})
+    assert resp.status_code == HTTPStatus.TOO_MANY_REQUESTS
+
+
 def test_rename_key(auth_client, passkey, reauthentication_bypass):
     resp = auth_client.get(reverse("mfa_edit_webauthn", kwargs={"pk": passkey.pk}))
     assert resp["location"].startswith(reverse("account_reauthenticate"))

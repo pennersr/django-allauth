@@ -18,6 +18,7 @@ from allauth.account.internal.templatekit import get_entrance_context_data
 from allauth.account.mixins import NextRedirectMixin, RedirectAuthenticatedUserMixin
 from allauth.account.models import Login
 from allauth.account.views import BaseReauthenticateView
+from allauth.core.internal import ratelimit
 from allauth.mfa import app_settings
 from allauth.mfa.internal.flows.add import redirect_if_add_not_allowed
 from allauth.mfa.models import Authenticator
@@ -112,6 +113,10 @@ class RemoveWebAuthnView(NextRedirectMixin, DeleteView):
 remove_webauthn = RemoveWebAuthnView.as_view()
 
 
+@method_decorator(
+    ratelimit.decorator(app="allauth.mfa", action="webauthn_login"),
+    name="dispatch",
+)
 class LoginWebAuthnView(RedirectAuthenticatedUserMixin, FormView):
     form_class = LoginWebAuthnForm
 

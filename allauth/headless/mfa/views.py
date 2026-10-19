@@ -5,9 +5,11 @@ from typing import Any
 
 from django.core.exceptions import ValidationError
 from django.http import HttpRequest, HttpResponse, HttpResponseBase
+from django.utils.decorators import method_decorator
 
 from allauth.account.internal.stagekit import get_pending_stage
 from allauth.account.models import Login
+from allauth.core.internal import ratelimit
 from allauth.core.internal.httpkit import authenticated_user
 from allauth.headless.account.views import SignupView
 from allauth.headless.base.response import AuthenticationResponse, ConflictResponse
@@ -233,6 +235,9 @@ class AuthenticateWebAuthnView(AuthenticationStageAPIView):
         return self.respond_next_stage()
 
 
+@method_decorator(
+    ratelimit.decorator(app="allauth.mfa", action="webauthn_login"), name="dispatch"
+)
 class LoginWebAuthnView(APIView):
     input_class = {
         "POST": LoginWebAuthnInput,

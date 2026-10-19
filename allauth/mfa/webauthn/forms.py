@@ -85,9 +85,15 @@ class AuthenticateWebAuthnForm(forms.Form):
         user = self.user
         if user is None:
             user = auth.extract_user_from_response(credential)
-        clear_rl = check_rate_limit(user)
+            # Here, `user` is derived from an attacker controller payload.  If
+            # we were to use rate limits here, and attacker could lock out
+            # another user.
+            clear_rl = None
+        else:
+            clear_rl = check_rate_limit(user)
         authenticator = auth.complete_authentication(user, credential)
-        clear_rl()
+        if clear_rl:
+            clear_rl()
         return authenticator
 
     def save(self) -> None:

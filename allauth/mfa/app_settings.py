@@ -29,6 +29,19 @@ class AppSettings:
         return self._setting("FORMS", {})
 
     @property
+    def RATE_LIMITS(self) -> dict:
+        rls: dict = self._setting("RATE_LIMITS", {})
+        if rls is False:
+            return {}
+        ret = {
+            # Passwordless WebAuthn logins. Unlike password-based logins, there
+            # is no secret that can be guessed on a per-account basis.
+            "webauthn_login": "10/m/ip",
+        }
+        ret.update(rls)
+        return ret
+
+    @property
     def RECOVERY_CODE_COUNT(self) -> int:
         """
         The number of recovery codes.

@@ -778,7 +778,7 @@ class DefaultAccountAdapter(BaseAdapter):
         # on itself (e.g. sending of email etc.).
         ratelimit.clear(
             request,
-            config=app_settings.RATE_LIMITS,
+            app="allauth.account",
             action="login_failed",
             key=cache_key,
         )
@@ -792,7 +792,7 @@ class DefaultAccountAdapter(BaseAdapter):
         cache_key = self._get_login_attempts_cache_key(request, **credentials)
         self._login_failed_rl_usage = ratelimit.consume(
             request,
-            config=app_settings.RATE_LIMITS,
+            app="allauth.account",
             action="login_failed",
             key=cache_key,
         )

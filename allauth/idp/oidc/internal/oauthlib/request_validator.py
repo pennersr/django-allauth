@@ -159,7 +159,7 @@ class OAuthLibRequestValidator(RequestValidator):
         """
         ratelimit.consume(
             request=context.request,
-            config=app_settings.RATE_LIMITS,
+            app="allauth.idp.oidc",
             action="introspect_client",
             key=request.client.id,
             raise_exception=True,

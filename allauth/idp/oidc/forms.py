@@ -11,7 +11,6 @@ from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.models import EmailAddress
 from allauth.core import context
 from allauth.core.internal import ratelimit
-from allauth.idp.oidc import app_settings
 from allauth.idp.oidc.adapter import get_adapter
 from allauth.idp.oidc.internal.clientkit import (
     clean_post_logout_redirect_uri,
@@ -70,7 +69,7 @@ class ConfirmCodeForm(forms.Form):
         if not ratelimit.consume(
             context.request,
             action="device_user_code",
-            config=app_settings.RATE_LIMITS,
+            app="allauth.idp.oidc",
             limit_get=True,
         ):
             raise get_account_adapter().validation_error("rate_limited")

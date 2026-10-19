@@ -61,7 +61,7 @@ def fetch_metadata_safely(client_id: str) -> Any:
     if not ratelimit.consume(
         context.request,
         action="cimd_fetch",
-        config=app_settings.RATE_LIMITS,
+        app="allauth.idp.oidc",
         limit_get=True,
     ):
         raise ValidationError("CIMD fetch rate limited.")

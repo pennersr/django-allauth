@@ -532,7 +532,7 @@ class IntrospectView(View):
             # well. The per-client limit is consumed later, post-authentication.
             ratelimit.consume(
                 request=request,
-                config=app_settings.RATE_LIMITS,
+                app="allauth.idp.oidc",
                 action="introspect_ip",
                 raise_exception=True,
             )
@@ -753,7 +753,7 @@ class ClientRegistrationView(View):
     def _ratelimit(self) -> tuple[ratelimit.RateLimitUsage | None, JsonResponse | None]:
         usage = ratelimit.consume(
             request=self.request,
-            config=app_settings.RATE_LIMITS,
+            app="allauth.idp.oidc",
             action="client_registration",
             raise_exception=False,
         )

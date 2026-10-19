@@ -12,7 +12,7 @@ def test_rollback_consume(rf, enable_cache):
     def consume():
         request = rf.post("/")
         config = {"foo": "2/m/ip"}
-        return ratelimit.consume(request, config=config, action="foo")
+        return ratelimit.consume(request, config=config, app="app", action="foo")
 
     usage1 = consume()
     assert len(usage1.usage) > 0
@@ -31,7 +31,9 @@ def test_concurrent_consume(rf, enable_cache, monkeypatch):
     key = "subject"
     config = {action: "2/m/key"}
     rate = ratelimit.parse_rates(config[action])[0]
-    cache_key = ratelimit.get_cache_key(request, action=action, rate=rate, key=key)
+    cache_key = ratelimit.get_cache_key(
+        request, app="app", action=action, rate=rate, key=key
+    )
 
     cache_backend_class = type(caches["default"])
     original_get = cache_backend_class.get
@@ -54,7 +56,9 @@ def test_concurrent_consume(rf, enable_cache, monkeypatch):
 
     def consume(_):
         start_barrier.wait()
-        return ratelimit.consume(request, action=action, config=config, key=key)
+        return ratelimit.consume(
+            request, app="app", action=action, config=config, key=key
+        )
 
     with ThreadPoolExecutor(max_workers=workers) as executor:
         usages = list(executor.map(consume, range(workers)))
@@ -70,11 +74,15 @@ def test_lock_contention_fails_closed(rf, enable_cache, monkeypatch):
     monkeypatch.setattr(cache_backend_class, "add", lambda *args, **kwargs: False)
 
     assert (
-        ratelimit.consume(request, action="foo", config=config, key="subject") is None
+        ratelimit.consume(
+            request, app="app", action="foo", config=config, key="subject"
+        )
+        is None
     )
     with pytest.raises(ratelimit.RateLimited):
         ratelimit.consume(
             request,
+            app="app",
             action="foo",
             config=config,
             key="subject",

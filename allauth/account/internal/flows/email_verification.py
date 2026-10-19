@@ -156,7 +156,7 @@ def consume_email_verification_rate_limit(
     return bool(
         ratelimit.consume(
             request,
-            config=app_settings.RATE_LIMITS,
+            app="allauth.account",
             action="confirm_email",
             key=email.lower(),
             dry_run=dry_run,

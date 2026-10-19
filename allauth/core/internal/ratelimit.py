@@ -12,15 +12,20 @@ from collections import namedtuple
 from collections.abc import Iterator
 from contextlib import contextmanager
 from dataclasses import dataclass
+from functools import wraps
 from http import HTTPStatus
 
+from django.conf import settings
 from django.core.cache import cache
 from django.core.exceptions import ImproperlyConfigured
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.template.exceptions import TemplateDoesNotExist
+from django.utils.module_loading import import_string
 
+from allauth import app_settings
 from allauth.core.exceptions import RateLimited
+from allauth.utils import import_callable
 
 
 Rate = namedtuple("Rate", "amount duration per")
@@ -143,7 +148,7 @@ def get_ip(request: HttpRequest) -> str:
 
 
 def get_cache_key(
-    request: HttpRequest, *, action: str, rate: Rate, key=None, user=None
+    request: HttpRequest, *, app: str, action: str, rate: Rate, key=None, user=None
 ) -> str:
     source: tuple[str, ...]
     if rate.per == "ip":
@@ -165,7 +170,7 @@ def get_cache_key(
         source = (key_hash,)
     else:
         raise ValueError(rate.per)
-    keys = ["allauth", "rl", action, *source]
+    keys = ["allauth", "rl", app, action, *source]
     return ":".join(keys)
 
 
@@ -187,6 +192,7 @@ def apply_rate(
 def _consume_single_rate(
     request: HttpRequest,
     *,
+    app: str,
     action: str,
     rate: Rate,
     key=None,
@@ -194,7 +200,9 @@ def _consume_single_rate(
     dry_run: bool = False,
     raise_exception: bool = False,
 ) -> SingleRateLimitUsage | None:
-    cache_key = get_cache_key(request, action=action, rate=rate, key=key, user=user)
+    cache_key = get_cache_key(
+        request, app=app, action=action, rate=rate, key=key, user=user
+    )
     with cache_lock(cache_key) as locked:
         if not locked:
             if raise_exception:
@@ -216,11 +224,20 @@ def _consume_single_rate(
         return usage
 
 
+def get_rates(
+    *, app: str, action: str, config: dict[str, str] | None = None
+) -> list[Rate]:
+    if config is None:
+        config = import_string(f"{app}.app_settings.RATE_LIMITS")
+    return parse_rates(config.get(action))
+
+
 def consume(
     request: HttpRequest,
     *,
+    app: str,
     action: str,
-    config: dict[str, str],
+    config: dict[str, str] | None = None,
     key=None,
     user=None,
     dry_run: bool = False,
@@ -230,13 +247,14 @@ def consume(
     usage = RateLimitUsage(usage=[])
     if (not limit_get) and request.method == "GET":
         return usage
-    rates = parse_rates(config.get(action))
+    rates = get_rates(app=app, action=action, config=config)
     if not rates:
         return usage
     allowed = True
     for rate in rates:
         single_usage = _consume_single_rate(
             request,
+            app=app,
             action=action,
             rate=rate,
             key=key,
@@ -276,11 +294,56 @@ def handler429(request: HttpRequest) -> HttpResponse:
 
 
 def clear(
-    request: HttpRequest, *, config: dict, action: str, key=None, user=None
+    request: HttpRequest,
+    *,
+    app: str,
+    action: str,
+    config: dict[str, str] | None = None,
+    key=None,
+    user=None,
 ) -> None:
-    rates = parse_rates(config.get(action))
+    rates = get_rates(app=app, action=action, config=config)
     for rate in rates:
-        cache_key = get_cache_key(request, action=action, rate=rate, key=key, user=user)
+        cache_key = get_cache_key(
+            request, app=app, action=action, rate=rate, key=key, user=user
+        )
         with cache_lock(cache_key) as locked:
             if locked:
                 cache.delete(cache_key)
+
+
+def respond_429(request: HttpRequest) -> HttpResponse:
+    if app_settings.HEADLESS_ENABLED and hasattr(
+        request.allauth,  # type:ignore[attr-defined]
+        "headless",
+    ):
+        from allauth.headless.base.response import RateLimitResponse
+
+        return RateLimitResponse(request)
+
+    try:
+        h429 = import_callable(f"{settings.ROOT_URLCONF}.handler429")
+        h429 = import_callable(handler429)
+    except (ImportError, AttributeError):
+        h429 = handler429
+    return h429(request)
+
+
+def consume_or_429(request: HttpRequest, *args, **kwargs) -> HttpResponse | None:
+    if not consume(request, *args, **kwargs):
+        return respond_429(request)
+    return None
+
+
+def decorator(**rl_kwargs):
+    def f(function):
+        @wraps(function)
+        def wrap(request: HttpRequest, *args, **kwargs):
+            resp = consume_or_429(request, **rl_kwargs)
+            if not resp:
+                resp = function(request, *args, **kwargs)
+            return resp
+
+        return wrap
+
+    return f

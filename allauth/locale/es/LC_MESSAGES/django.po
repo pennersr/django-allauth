@@ -15,7 +15,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
+"1 : 2;\n"
 "X-Generator: Weblate 5.15-dev\n"
 
 #: account/adapter.py:60
@@ -1577,6 +1578,7 @@ msgid "You have added %(count)s security key."
 msgid_plural "You have added %(count)s security keys."
 msgstr[0] "Has añadido %(count)s clave."
 msgstr[1] "Has añadido %(count)s claves."
+msgstr[2] "Has añadido %(count)s claves."
 
 #: templates/mfa/index.html:54
 #: templates/mfa/webauthn/authenticator_list.html:12
@@ -1607,6 +1609,8 @@ msgid_plural ""
 msgstr[0] ""
 "Hay %(unused_count)s de %(total_count)s código de recuperación disponibles."
 msgstr[1] ""
+"Hay %(unused_count)s de %(total_count)s códigos de recuperación disponibles."
+msgstr[2] ""
 "Hay %(unused_count)s de %(total_count)s códigos de recuperación disponibles."
 
 #: templates/mfa/index.html:86

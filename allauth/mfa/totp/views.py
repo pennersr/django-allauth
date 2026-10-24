@@ -29,7 +29,10 @@ from allauth.utils import get_form_class
 
 
 @method_decorator(redirect_if_add_not_allowed, name="dispatch")
-@method_decorator(reauthentication_required, name="dispatch")
+@method_decorator(
+    reauthentication_required(app="allauth.mfa"),
+    name="dispatch",
+)
 class ActivateTOTPView(FormView):
     form_class = ActivateTOTPForm
     template_name = f"mfa/totp/activate_form.{account_settings.TEMPLATE_EXTENSION}"
@@ -103,7 +106,7 @@ class DeactivateTOTPView(FormView):
             return HttpResponseRedirect(reverse("mfa_activate_totp"))
         return self._dispatch(request, *args, **kwargs)
 
-    @method_decorator(reauthentication_required)
+    @method_decorator(reauthentication_required(app="allauth.mfa"))
     def _dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any):
         """There's no point to reauthenticate when MFA is not enabled, so the
         `is_mfa_enabled` check needs to go first, which is why we cannot slap a

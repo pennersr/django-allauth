@@ -24,7 +24,7 @@ def begin_registration(
     request: HttpRequest, user, passwordless: bool, signup: bool = False
 ) -> dict:
     if not signup:
-        raise_if_reauthentication_required(request)
+        raise_if_reauthentication_required(request, app="allauth.mfa")
     creation_options = auth.begin_registration(user, passwordless)
     return creation_options
 
@@ -41,7 +41,7 @@ def signup_authenticator(
 def add_authenticator(
     request: HttpRequest, name: str, credential: dict
 ) -> tuple[Authenticator, Authenticator | None]:
-    raise_if_reauthentication_required(request)
+    raise_if_reauthentication_required(request, app="allauth.mfa")
     return _signup_or_add_authenticator(
         request,
         user=request.user,
@@ -82,13 +82,19 @@ def _signup_or_add_authenticator(
 def remove_authenticators(
     request: HttpRequest, authenticators: Iterable[Authenticator]
 ) -> None:
-    raise_if_reauthentication_required(request)
+    raise_if_reauthentication_required(request, app="allauth.mfa")
     for authenticator in authenticators:
-        remove_authenticator(request, authenticator)
+        _remove_authenticator_without_reauthentication(request, authenticator)
 
 
 def remove_authenticator(request: HttpRequest, authenticator: Authenticator) -> None:
-    raise_if_reauthentication_required(request)
+    raise_if_reauthentication_required(request, app="allauth.mfa")
+    _remove_authenticator_without_reauthentication(request, authenticator)
+
+
+def _remove_authenticator_without_reauthentication(
+    request: HttpRequest, authenticator: Authenticator
+) -> None:
     delete_and_cleanup(request, authenticator)
     adapter = get_account_adapter(request)
     adapter.add_message(request, messages.SUCCESS, "mfa/messages/webauthn_removed.txt")
@@ -120,7 +126,7 @@ def reauthenticate(request: HttpRequest, authenticator: Authenticator) -> None:
 def rename_authenticator(
     request: HttpRequest, authenticator: Authenticator, name: str
 ) -> None:
-    raise_if_reauthentication_required(request)
+    raise_if_reauthentication_required(request, app="allauth.mfa")
     wrapper = authenticator.wrap()
     wrapper.name = name
     authenticator.save()

@@ -64,6 +64,8 @@ def reauthentication_required(
     redirect_field_name=REDIRECT_FIELD_NAME,
     allow_get=False,
     enabled=None,
+    *,
+    app: str = "",
 ):
     def decorator(view_func):
         @wraps(view_func)
@@ -75,7 +77,7 @@ def reauthentication_required(
             if ena and not pass_method:
                 if (
                     request.user.is_anonymous
-                    or not reauthentication.did_recently_reauthenticate(request)
+                    or reauthentication.is_reauthentication_required(request, app=app)
                 ):
                     raise ReauthenticationRequired()
             return view_func(request, *args, **kwargs)

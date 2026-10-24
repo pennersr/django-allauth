@@ -11,7 +11,10 @@
 Note worthy changes
 -------------------
 
-- ...
+- To give more granular control over when reauthentication is required, two new
+  settings are introduced: ``MFA_REAUTHENTICATION_REQUIRED`` and
+  ``SOCIALACCOUNT_REAUTHENTICATION_REQUIRED``. Additionally, you can provide
+  custom logic via the new adapter method ``is_reauthentication_required()``.
 
 
 65.20.1 (2026-10-20)

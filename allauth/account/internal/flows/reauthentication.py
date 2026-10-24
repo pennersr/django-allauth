@@ -10,6 +10,7 @@ from django.utils.http import urlencode
 
 from allauth import app_settings as allauth_settings
 from allauth.account import app_settings
+from allauth.account.adapter import get_adapter
 from allauth.account.authentication import get_authentication_records
 from allauth.account.internal.flows.login import record_authentication
 from allauth.core.exceptions import ReauthenticationRequired
@@ -65,8 +66,19 @@ def resume_request(request: HttpRequest) -> HttpResponseRedirect | None:
     return HttpResponseRedirect(url)
 
 
-def raise_if_reauthentication_required(request: HttpRequest) -> None:
-    if not did_recently_reauthenticate(request):
+def is_reauthentication_required(request: HttpRequest, *, app: str) -> bool:
+    if not request.user.is_authenticated:
+        return True
+    if not get_adapter().is_reauthentication_required(app=app):
+        return False
+    return not did_recently_reauthenticate(request)
+
+
+def raise_if_reauthentication_required(request: HttpRequest, *, app: str) -> None:
+    if is_reauthentication_required(
+        request,
+        app=app,
+    ):
         raise ReauthenticationRequired()
 
 

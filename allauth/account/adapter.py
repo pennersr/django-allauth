@@ -1080,6 +1080,18 @@ class DefaultAccountAdapter(BaseAdapter):
         """
         raise NotImplementedError
 
+    def is_reauthentication_required(self, *, app: str, **kwargs) -> bool:
+        """
+        Returns ``True`` if reauthentication is required in order for
+        application ``app`` to perform an account sensitive operation.
+        """
+        try:
+            if not app:
+                return True
+            return import_string(f"{app}.app_settings.REAUTHENTICATION_REQUIRED")
+        except ImportError:
+            return True
+
 
 def get_adapter(request: HttpRequest | None = None) -> DefaultAccountAdapter:
     return import_string(app_settings.ADAPTER)(request)

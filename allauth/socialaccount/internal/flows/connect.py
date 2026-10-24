@@ -42,8 +42,9 @@ def validate_disconnect(request: HttpRequest, account) -> None:
 
 
 def disconnect(request: HttpRequest, account) -> None:
-    if account_settings.REAUTHENTICATION_REQUIRED:
-        flows.reauthentication.raise_if_reauthentication_required(request)
+    flows.reauthentication.raise_if_reauthentication_required(
+        request, app="allauth.socialaccount"
+    )
 
     get_account_adapter().add_message(
         request,
@@ -107,8 +108,9 @@ def connect(request: HttpRequest, sociallogin: SocialLogin):
 def do_connect(request: HttpRequest, sociallogin: SocialLogin):
     if request.user.is_anonymous:
         raise PermissionDenied()
-    if account_settings.REAUTHENTICATION_REQUIRED:
-        flows.reauthentication.raise_if_reauthentication_required(request)
+    flows.reauthentication.raise_if_reauthentication_required(
+        request, app="allauth.socialaccount"
+    )
     message = "socialaccount/messages/account_connected.txt"
     action = None
     ok = True

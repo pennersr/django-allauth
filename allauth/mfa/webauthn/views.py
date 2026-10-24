@@ -35,7 +35,10 @@ from allauth.utils import get_form_class
 
 
 @method_decorator(redirect_if_add_not_allowed, name="dispatch")
-@method_decorator(reauthentication_required, name="dispatch")
+@method_decorator(
+    reauthentication_required(app="allauth.mfa"),
+    name="dispatch",
+)
 class AddWebAuthnView(FormView):
     form_class = AddWebAuthnForm
     template_name = f"mfa/webauthn/add_form.{account_settings.TEMPLATE_EXTENSION}"
@@ -90,7 +93,10 @@ class ListWebAuthnView(ListView):
 list_webauthn = ListWebAuthnView.as_view()
 
 
-@method_decorator(reauthentication_required, name="dispatch")
+@method_decorator(
+    reauthentication_required(app="allauth.mfa"),
+    name="dispatch",
+)
 class RemoveWebAuthnView(NextRedirectMixin, DeleteView):
     object: Authenticator  # https://github.com/typeddjango/django-stubs/issues/1227
     template_name = (
@@ -191,7 +197,10 @@ class ReauthenticateWebAuthnView(BaseReauthenticateView):
 reauthenticate_webauthn = ReauthenticateWebAuthnView.as_view()
 
 
-@method_decorator(reauthentication_required, name="dispatch")
+@method_decorator(
+    reauthentication_required(app="allauth.mfa"),
+    name="dispatch",
+)
 class EditWebAuthnView(NextRedirectMixin, UpdateView):
     form_class = EditWebAuthnForm
     template_name = f"mfa/webauthn/edit_form.{account_settings.TEMPLATE_EXTENSION}"

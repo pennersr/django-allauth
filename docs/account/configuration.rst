@@ -274,7 +274,7 @@ Reauthentication
 
 ``ACCOUNT_REAUTHENTICATION_REQUIRED`` (default: ``False``)
   Specifies whether or not reauthentication is required before the user can
-  alter his account.
+  alter their account.
 
 
 Routing

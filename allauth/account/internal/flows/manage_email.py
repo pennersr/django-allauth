@@ -20,8 +20,7 @@ def can_delete_email(email_address: EmailAddress) -> bool:
 
 
 def delete_email(request: HttpRequest, email_address: EmailAddress) -> bool:
-    if app_settings.REAUTHENTICATION_REQUIRED:
-        raise_if_reauthentication_required(request)
+    raise_if_reauthentication_required(request, app="allauth.account")
 
     success = False
     adapter = get_adapter()
@@ -57,8 +56,7 @@ def delete_email(request: HttpRequest, email_address: EmailAddress) -> bool:
 
 
 def add_email(request: HttpRequest, form) -> None:
-    if app_settings.REAUTHENTICATION_REQUIRED:
-        raise_if_reauthentication_required(request)
+    raise_if_reauthentication_required(request, app="allauth.account")
 
     email_address = form.save(request)
     if email_address.pk:
@@ -82,8 +80,7 @@ def can_mark_as_primary(email_address: EmailAddress) -> bool:
 
 
 def mark_as_primary(request: HttpRequest, email_address: EmailAddress) -> bool:
-    if app_settings.REAUTHENTICATION_REQUIRED:
-        raise_if_reauthentication_required(request)
+    raise_if_reauthentication_required(request, app="allauth.account")
 
     # Not primary=True -- Slightly different variation, don't
     # require verified unless moving from a verified

@@ -20,7 +20,7 @@ from allauth.mfa.totp.internal.auth import TOTP, clear_totp_secret
 def activate_totp(
     request: HttpRequest, form
 ) -> tuple[Authenticator, Authenticator | None]:
-    raise_if_reauthentication_required(request)
+    raise_if_reauthentication_required(request, app="allauth.mfa")
     user = authenticated_user(request)
     totp_auth = TOTP.activate(user, form.secret).instance
     adapter = get_account_adapter(request)
@@ -44,7 +44,7 @@ def activate_totp(
 
 
 def deactivate_totp(request: HttpRequest, authenticator: Authenticator) -> None:
-    raise_if_reauthentication_required(request)
+    raise_if_reauthentication_required(request, app="allauth.mfa")
     delete_and_cleanup(request, authenticator)
     adapter = get_account_adapter(request)
     adapter.add_message(request, messages.SUCCESS, "mfa/messages/totp_deactivated.txt")

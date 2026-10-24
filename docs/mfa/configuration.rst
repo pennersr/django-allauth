@@ -45,6 +45,10 @@ Available settings:
        "webauthn_login": "10/m/ip",
       }
 
+``MFA_REAUTHENTICATION_REQUIRED`` (default: ``True``)
+  Specifies whether or not reauthentication is required before the user can
+  alter their MFA related settings.
+
 ``MFA_RECOVERY_CODE_COUNT`` (default: ``10``)
   The number of recovery codes.
 

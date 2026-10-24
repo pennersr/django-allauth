@@ -70,6 +70,10 @@ Available settings:
 ``SOCIALACCOUNT_PROVIDERS`` (default: ``{}``)
   Dictionary containing `provider specific settings <provider_configuration.html>`__.
 
+``SOCIALACCOUNT_REAUTHENTICATION_REQUIRED`` (default: ``ACCOUNT_REAUTHENTICATION_REQUIRED``)
+  Specifies whether or not reauthentication is required before the user can
+  alter the connected third-party providers to their account.
+
 ``SOCIALACCOUNT_REQUESTS_TIMEOUT`` (default: ``5``)
   The timeout applied when performing upstream requests.
 

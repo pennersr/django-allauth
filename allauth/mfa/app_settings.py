@@ -42,6 +42,10 @@ class AppSettings:
         return ret
 
     @property
+    def REAUTHENTICATION_REQUIRED(self) -> bool:
+        return self._setting("REAUTHENTICATION_REQUIRED", True)
+
+    @property
     def RECOVERY_CODE_COUNT(self) -> int:
         """
         The number of recovery codes.

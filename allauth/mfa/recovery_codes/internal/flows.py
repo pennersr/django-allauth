@@ -25,7 +25,10 @@ def can_generate_recovery_codes(user: AbstractBaseUser) -> bool:
 
 @transaction.atomic
 def generate_recovery_codes(request: HttpRequest) -> Authenticator:
-    raise_if_reauthentication_required(request)
+    raise_if_reauthentication_required(
+        request,
+        app="allauth.mfa",
+    )
     user = authenticated_user(request)
 
     # NOTE: We need a lock to prevent a race on creating recovery codes. However, the
@@ -64,7 +67,10 @@ def view_recovery_codes(request: HttpRequest) -> tuple[RecoveryCodes | None, boo
     ).first()
     if not authenticator:
         return None, False
-    raise_if_reauthentication_required(request)
+    raise_if_reauthentication_required(
+        request,
+        app="allauth.mfa",
+    )
     wrapper = authenticator.wrap()
     did_view = wrapper.did_view
     if not did_view:

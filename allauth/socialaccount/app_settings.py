@@ -143,6 +143,14 @@ class AppSettings:
         return self._setting("LOGIN_ON_GET", False)
 
     @property
+    def REAUTHENTICATION_REQUIRED(self) -> bool:
+        from allauth.account import app_settings as account_settings
+
+        return self._setting(
+            "REAUTHENTICATION_REQUIRED", account_settings.REAUTHENTICATION_REQUIRED
+        )
+
+    @property
     def STORE_TOKENS(self) -> bool:
         return self._setting("STORE_TOKENS", False)
 

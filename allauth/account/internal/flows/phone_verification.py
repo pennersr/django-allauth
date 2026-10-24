@@ -177,8 +177,7 @@ class ChangePhoneVerificationProcess(PhoneVerificationProcess):
     def initiate(
         cls, request: HttpRequest, phone: str
     ) -> ChangePhoneVerificationProcess:
-        if app_settings.REAUTHENTICATION_REQUIRED:
-            raise_if_reauthentication_required(request)
+        raise_if_reauthentication_required(request, app="allauth.account")
 
         state = cls.initial_state(user=authenticated_user(request), phone=phone)
         process = ChangePhoneVerificationProcess(request, state=state)

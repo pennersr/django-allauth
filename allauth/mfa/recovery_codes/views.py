@@ -21,7 +21,10 @@ from allauth.mfa.recovery_codes.internal import flows
 from allauth.utils import get_form_class
 
 
-@method_decorator(reauthentication_required, name="dispatch")
+@method_decorator(
+    reauthentication_required(app="allauth.mfa"),
+    name="dispatch",
+)
 class GenerateRecoveryCodesView(FormView):
     form_class = GenerateRecoveryCodesForm
     template_name = f"mfa/recovery_codes/generate.{account_settings.TEMPLATE_EXTENSION}"

@@ -4,7 +4,9 @@ from django.contrib.auth import get_user_model
 
 import pytest
 
+from allauth.account import app_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
+from allauth.account.internal.stagekit import LOGIN_SESSION_KEY
 
 
 def test_change_phone_to_same(
@@ -187,6 +189,61 @@ def test_signup(
             content_type="application/json",
         )
         assert resp.json()["status"] == HTTPStatus.OK
+
+
+def test_signup_verification_max_attempts(
+    db,
+    client,
+    settings_impacting_urls,
+    phone,
+    headless_reverse,
+    password_factory,
+    sms_outbox,
+):
+    with settings_impacting_urls(
+        ACCOUNT_SIGNUP_FIELDS=["phone*", "password1*"],
+        ACCOUNT_LOGIN_METHODS=("phone",),
+        ACCOUNT_PHONE_VERIFICATION_MAX_ATTEMPTS=3,
+    ):
+        resp = client.post(
+            headless_reverse("headless:account:signup"),
+            data={"phone": phone, "password": password_factory()},
+            content_type="application/json",
+        )
+        assert resp.status_code == HTTPStatus.UNAUTHORIZED
+        code = sms_outbox[-1]["code"]
+        incorrect_code = "WRONG"
+
+        for _ in range(app_settings.PHONE_VERIFICATION_MAX_ATTEMPTS):
+            resp = client.post(
+                headless_reverse("headless:account:verify_phone"),
+                data={"code": incorrect_code},
+                content_type="application/json",
+            )
+            assert resp.status_code == HTTPStatus.BAD_REQUEST
+            assert resp.json() == {
+                "status": HTTPStatus.BAD_REQUEST,
+                "errors": [
+                    {
+                        "message": "Incorrect code.",
+                        "code": "incorrect_code",
+                        "param": "code",
+                    }
+                ],
+            }
+
+        pending_login_exists = LOGIN_SESSION_KEY in client.headless_session()
+        resp = client.post(
+            headless_reverse("headless:account:verify_phone"),
+            data={"code": code},
+            content_type="application/json",
+        )
+        user = get_account_adapter().get_user_by_phone(phone)
+        user.refresh_from_db()
+
+        assert not pending_login_exists
+        assert resp.status_code == HTTPStatus.CONFLICT
+        assert user.last_login is None
 
 
 def test_reauthentication(

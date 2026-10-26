@@ -12,7 +12,7 @@ from allauth.account.internal.flows.code_verification import (
 from allauth.account.internal.flows.reauthentication import (
     raise_if_reauthentication_required,
 )
-from allauth.account.internal.stagekit import stash_login
+from allauth.account.internal.stagekit import clear_login, stash_login
 from allauth.account.internal.userkit import did_user_login
 from allauth.core import context, ratelimit
 from allauth.core.internal.httpkit import authenticated_user
@@ -100,7 +100,7 @@ class PhoneVerificationStageProcess(PhoneVerificationProcess):
         super().__init__(user=stage.login.user, state=stage.state)
 
     def abort(self) -> None:
-        pass
+        clear_login(self.stage.request)
 
     def persist(self) -> None:
         stash_login(self.stage.request, self.stage.login)

@@ -17,6 +17,14 @@ Note worthy changes
   custom logic via the new adapter method ``is_reauthentication_required()``.
 
 
+Security notice
+---------------
+
+- Headless: Reaching the phone verification attempt limit did not abort pending
+  login/signup flows. Note that code expiry and SMS sending rate limits remained
+  in effect.
+
+
 65.20.1 (2026-10-20)
 ********************
 

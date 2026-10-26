@@ -6,7 +6,7 @@ from django.urls import reverse
 import pytest
 from pytest_django.asserts import assertTemplateUsed
 
-from allauth.account.authentication import AUTHENTICATION_METHODS_SESSION_KEY
+from allauth.account.authentication import get_authentication_records
 from allauth.mfa.models import Authenticator
 
 
@@ -25,7 +25,7 @@ def test_reauthentication(auth_client, user_with_recovery_codes):
     resp = auth_client.get(reverse("mfa_view_recovery_codes"))
     assert resp.status_code == HTTPStatus.OK
     assertTemplateUsed(resp, "mfa/recovery_codes/index.html")
-    methods = auth_client.session[AUTHENTICATION_METHODS_SESSION_KEY]
+    methods = get_authentication_records(resp.wsgi_request, user_with_recovery_codes)
     assert methods[-1] == {
         "method": "mfa",
         "type": "recovery_codes",

@@ -7,7 +7,6 @@ import pytest
 from fido2.utils import websafe_encode
 
 from allauth.account import app_settings
-from allauth.account.authentication import AUTHENTICATION_METHODS_SESSION_KEY
 from allauth.headless.constants import Flow
 from allauth.mfa.adapter import get_adapter
 from allauth.mfa.models import Authenticator
@@ -278,9 +277,18 @@ def test_2fa_login(
     data = resp.json()
     assert resp.status_code == HTTPStatus.OK
     assert data["data"]["user"]["id"] == passkey.user_id
-    assert client.headless_session()[AUTHENTICATION_METHODS_SESSION_KEY] == [
-        {"method": "password", "at": ANY, "username": passkey.user.username},
-        {"method": "mfa", "at": ANY, "id": ANY, "type": Authenticator.Type.WEBAUTHN},
+    assert data["data"]["methods"] == [
+        {
+            "method": "password",
+            "at": ANY,
+            "username": passkey.user.username,
+        },
+        {
+            "method": "mfa",
+            "at": ANY,
+            "id": ANY,
+            "type": Authenticator.Type.WEBAUTHN,
+        },
     ]
 
 

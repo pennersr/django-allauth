@@ -11,7 +11,7 @@ import pytest
 from pytest_django.asserts import assertTemplateUsed
 
 from allauth.account import app_settings
-from allauth.account.authentication import AUTHENTICATION_METHODS_SESSION_KEY
+from allauth.account.authentication import get_authentication_records
 from allauth.mfa.adapter import get_adapter
 from allauth.mfa.models import Authenticator
 from allauth.mfa.totp.internal.auth import SECRET_SESSION_KEY
@@ -185,9 +185,18 @@ def test_totp_login(client, user_with_totp, user_password, totp_validation_bypas
         )
     assert resp.status_code == HTTPStatus.FOUND
     assert resp["location"] == settings.LOGIN_REDIRECT_URL
-    assert client.session[AUTHENTICATION_METHODS_SESSION_KEY] == [
-        {"method": "password", "at": ANY, "username": user_with_totp.username},
-        {"method": "mfa", "at": ANY, "id": ANY, "type": Authenticator.Type.TOTP},
+    assert get_authentication_records(resp.wsgi_request, user_with_totp) == [
+        {
+            "method": "password",
+            "at": ANY,
+            "username": user_with_totp.username,
+        },
+        {
+            "method": "mfa",
+            "at": ANY,
+            "id": ANY,
+            "type": Authenticator.Type.TOTP,
+        },
     ]
 
 
@@ -215,8 +224,12 @@ def test_cancel_mfa_login_clears_authentication_records(
     )
     assert resp.status_code == HTTPStatus.FOUND
     assert resp["location"] == settings.LOGIN_REDIRECT_URL
-    assert client.session[AUTHENTICATION_METHODS_SESSION_KEY] == [
-        {"method": "password", "at": ANY, "username": other_user.username}
+    assert get_authentication_records(resp.wsgi_request, other_user) == [
+        {
+            "method": "password",
+            "at": ANY,
+            "username": other_user.username,
+        }
     ]
 
 

@@ -6,7 +6,7 @@ from django.urls import reverse
 import pytest
 
 from allauth import app_settings as allauth_settings
-from allauth.account.authentication import AUTHENTICATION_METHODS_SESSION_KEY
+from allauth.account.authentication import get_authentication_records
 from allauth.account.internal.stagekit import LOGIN_SESSION_KEY
 from allauth.account.models import EmailAddress
 from allauth.account.stages import LoginByCodeStage
@@ -54,7 +54,7 @@ def test_login_by_code(client, user, request_login_by_code):
     assert resp.status_code == HTTPStatus.FOUND
     assert LOGIN_SESSION_KEY not in client.session
     assert resp["location"] == "/foo"
-    assert client.session[AUTHENTICATION_METHODS_SESSION_KEY][-1] == {
+    assert get_authentication_records(resp.wsgi_request, user)[-1] == {
         "method": "code",
         "email": user.email,
         "at": ANY,

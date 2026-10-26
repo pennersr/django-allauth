@@ -12,7 +12,7 @@ from django.urls import NoReverseMatch, reverse
 from pytest_django.asserts import assertRedirects, assertTemplateUsed
 
 from allauth.account import app_settings
-from allauth.account.authentication import AUTHENTICATION_METHODS_SESSION_KEY
+from allauth.account.authentication import get_authentication_records
 from allauth.account.forms import LoginForm
 from allauth.account.models import EmailAddress
 
@@ -53,7 +53,7 @@ class LoginTests(TestCase):
             resp, settings.LOGIN_REDIRECT_URL, fetch_redirect_response=False
         )
         self.assertEqual(
-            self.client.session[AUTHENTICATION_METHODS_SESSION_KEY],
+            get_authentication_records(resp.wsgi_request, user),
             [
                 {
                     "at": ANY,

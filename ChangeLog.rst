@@ -24,6 +24,10 @@ Security notice
   login/signup flows. Note that code expiry and SMS sending rate limits remained
   in effect.
 
+- MFA: Fixed an issue where authentication records from an *inactive* user's
+  passwordless WebAuthn login could carry over to a subsequent login in the same
+  browser session, causing MFA to be skipped for the subsequent user.
+
 
 65.20.1 (2026-10-20)
 ********************

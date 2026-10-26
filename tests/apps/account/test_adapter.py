@@ -10,6 +10,7 @@ from django.urls import reverse
 import pytest
 
 from allauth.account.adapter import DefaultAccountAdapter
+from allauth.account.authentication import get_authentication_records
 from allauth.core.exceptions import ImmediateHttpResponse
 
 
@@ -38,6 +39,8 @@ def test_adapter_pre_login(settings, user, user_password, client):
     )
     assert resp.status_code == HTTPStatus.FOUND
     assert resp["location"] == "/foo"
+    records = get_authentication_records(resp.wsgi_request, user)
+    assert [record["method"] for record in records] == ["password"]
 
 
 @pytest.mark.parametrize(

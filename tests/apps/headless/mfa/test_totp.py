@@ -3,7 +3,7 @@ from unittest.mock import patch
 
 import pytest
 
-from allauth.account.internal.flows.login import AUTHENTICATION_METHODS_SESSION_KEY
+from allauth.account.internal.flows.login import record_authentication
 from allauth.mfa.models import Authenticator
 
 
@@ -23,11 +23,15 @@ def test_reauthenticate_totp_code_reuse_with_alternate_representation(
     headless_reverse,
     totp_validation_bypass,
     enable_cache,
+    request_factory,
     code,
 ):
-    session = auth_client.headless_session()
-    session[AUTHENTICATION_METHODS_SESSION_KEY] = [{"at": 0}]
-    session.save()
+    request = request_factory.get("/")
+    request.session = auth_client.headless_session()
+    record_authentication(
+        request, user_with_totp, method="mfa", at=0, reauthenticated=True
+    )
+    request.session.save()
 
     with totp_validation_bypass():
         resp = auth_client.post(
@@ -132,11 +136,15 @@ def test_deactivate_totp_with_reauthenticate(
     user_with_totp,
     headless_reverse,
     totp_validation_bypass,
+    request_factory,
 ):
-    # Let's ensure the session require reauthentication by having an old `at`.
-    session = auth_client.headless_session()
-    session[AUTHENTICATION_METHODS_SESSION_KEY] = [{"at": 0}]
-    session.save()
+    # Let's ensure the session requires reauthentication by having an old `at`.
+    request = request_factory.get("/")
+    request.session = auth_client.headless_session()
+    record_authentication(
+        request, user_with_totp, method="mfa", at=0, reauthenticated=True
+    )
+    request.session.save()
 
     # Attempt to deactivate, should not be allowed.
     resp = auth_client.delete(headless_reverse("headless:mfa:manage_totp"))

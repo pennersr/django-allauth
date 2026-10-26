@@ -3,11 +3,12 @@ from __future__ import annotations
 from collections.abc import Iterable
 
 from django.contrib import messages
+from django.contrib.auth.base_user import AbstractBaseUser
 from django.http import HttpRequest, HttpResponse
 
 from allauth.account.adapter import get_adapter as get_account_adapter
-from allauth.account.authentication import get_authentication_records
 from allauth.account.internal import flows
+from allauth.account.internal.flows.login import get_authentication_records
 from allauth.account.internal.flows.reauthentication import (
     raise_if_reauthentication_required,
 )
@@ -110,8 +111,8 @@ def perform_passwordless_login(
     return flows.login.perform_login(request, login)
 
 
-def did_use_passwordless_login(request: HttpRequest) -> bool:
-    records = get_authentication_records(request)
+def did_use_passwordless_login(request: HttpRequest, user: AbstractBaseUser) -> bool:
+    records = get_authentication_records(request, user)
     return any(
         (record.get("method"), record.get("type"), record.get("passwordless"))
         == ("mfa", "webauthn", True)

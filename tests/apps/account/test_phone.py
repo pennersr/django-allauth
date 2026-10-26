@@ -9,7 +9,7 @@ import pytest
 from pytest_django.asserts import assertTemplateUsed
 
 from allauth.account.adapter import get_adapter
-from allauth.account.authentication import AUTHENTICATION_METHODS_SESSION_KEY
+from allauth.account.authentication import get_authentication_records
 
 
 @pytest.fixture
@@ -191,8 +191,12 @@ def test_reauthentication(
         )
         assert resp.status_code == HTTPStatus.FOUND
 
-        methods = auth_client.session[AUTHENTICATION_METHODS_SESSION_KEY]
-        assert methods[-1] == {"method": "password", "at": ANY, "reauthenticated": True}
+        methods = get_authentication_records(resp.wsgi_request, user_with_phone)
+        assert methods[-1] == {
+            "method": "password",
+            "at": ANY,
+            "reauthenticated": True,
+        }
 
         resp = auth_client.post(
             reverse("account_change_phone"),

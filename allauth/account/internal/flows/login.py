@@ -3,6 +3,7 @@ from __future__ import annotations
 import time
 from typing import Any
 
+from django.contrib.auth.base_user import AbstractBaseUser
 from django.core import exceptions, validators
 from django.http import HttpRequest, HttpResponse
 
@@ -10,24 +11,43 @@ from allauth import app_settings as allauth_settings
 from allauth.account import app_settings
 from allauth.account.adapter import get_adapter
 from allauth.account.app_settings import LoginMethod
+from allauth.account.internal.userkit import user_id_to_str
 from allauth.account.models import Login
 from allauth.account.signals import authentication_step_completed
 from allauth.core.exceptions import ImmediateHttpResponse
 
 
 AUTHENTICATION_METHODS_SESSION_KEY = "account_authentication_methods"
+_AUTHENTICATION_METHODS_USER_SESSION_KEY = "account_authentication_methods_user"
+
+
+def get_authentication_records(
+    request: HttpRequest, user: AbstractBaseUser | None = None
+) -> list[dict]:
+    if user is None or user.pk is None:
+        return []
+    stored_user_id = request.session.get(_AUTHENTICATION_METHODS_USER_SESSION_KEY)
+    user_id = user_id_to_str(user)
+    if user_id != stored_user_id:
+        return []
+    records = request.session.get(AUTHENTICATION_METHODS_SESSION_KEY)
+    if not isinstance(records, list):
+        return []
+    return records
 
 
 def record_authentication(
-    request: HttpRequest, user, method: str, **extra_data
+    request: HttpRequest,
+    user: AbstractBaseUser | None,
+    method: str,
+    **extra_data,
 ) -> None:
     """Here we keep a log of all authentication methods used within the current
     session.  Important to note is that having entries here does not imply that
     a user is fully signed in. For example, consider a case where a user
-    authenticates using a password, but fails to complete the 2FA challenge.
-    Or, a user successfully signs in into an inactive account or one that still
-    needs verification. In such cases, ``request.user`` is still anonymous, yet,
-    we do have an entry here.
+    authenticates using a password, but fails to complete the 2FA challenge. In
+    that case, ``request.user`` is still anonymous, yet, we do have an entry
+    here.
 
     Example data::
 
@@ -46,7 +66,8 @@ def record_authentication(
          'type': 'totp'}
 
     """
-    methods = request.session.get(AUTHENTICATION_METHODS_SESSION_KEY, [])
+    if user is None or not user.is_authenticated or user.pk is None:
+        return
     data = {
         "method": method,
         "at": time.time(),
@@ -54,11 +75,18 @@ def record_authentication(
     for k, v in extra_data.items():
         if v is not None:
             data[k] = v
-    methods.append(data)
-    request.session[AUTHENTICATION_METHODS_SESSION_KEY] = methods
+    records = [*get_authentication_records(request, user)]
+    records.append(data)
+    request.session[AUTHENTICATION_METHODS_SESSION_KEY] = records
+    request.session[_AUTHENTICATION_METHODS_USER_SESSION_KEY] = user_id_to_str(user)
     authentication_step_completed.send(
         sender=user.__class__, request=request, method=method, user=user, **extra_data
     )
+
+
+def clear_authentication_records(request: HttpRequest) -> None:
+    request.session.pop(AUTHENTICATION_METHODS_SESSION_KEY, None)
+    request.session.pop(_AUTHENTICATION_METHODS_USER_SESSION_KEY, None)
 
 
 def _get_login_hook_kwargs(login: Login) -> dict[str, Any]:

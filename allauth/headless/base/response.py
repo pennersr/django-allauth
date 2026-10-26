@@ -8,8 +8,8 @@ from allauth import app_settings as allauth_settings
 from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.app_settings import LoginMethod
-from allauth.account.authentication import get_authentication_records
 from allauth.account.internal import flows
+from allauth.account.internal.flows.login import get_authentication_records
 from allauth.account.internal.stagekit import LOGIN_SESSION_KEY
 from allauth.headless.adapter import get_adapter
 from allauth.headless.constants import Flow
@@ -24,7 +24,7 @@ class BaseAuthenticationResponse(APIResponse):
         if user and user.is_authenticated:
             adapter = get_adapter()
             data["user"] = adapter.serialize_user(user)
-            data["methods"] = get_authentication_records(request)
+            data["methods"] = get_authentication_records(request, user)
             status = status or HTTPStatus.OK
         else:
             status = status or HTTPStatus.UNAUTHORIZED

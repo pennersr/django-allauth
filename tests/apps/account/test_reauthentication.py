@@ -8,7 +8,7 @@ from pytest_django.asserts import assertTemplateUsed
 
 from allauth import app_settings as allauth_settings
 from allauth.account.adapter import DefaultAccountAdapter, get_adapter
-from allauth.account.authentication import AUTHENTICATION_METHODS_SESSION_KEY
+from allauth.account.authentication import get_authentication_records
 from allauth.account.decorators import reauthentication_required
 from allauth.account.models import EmailAddress
 from allauth.core.exceptions import ReauthenticationRequired
@@ -49,7 +49,7 @@ def test_user_with_mfa_only(
             assert "next=%2Ffoo" in resp["location"]
 
 
-def test_reauthentication(settings, auth_client, user_password):
+def test_reauthentication(settings, auth_client, user, user_password):
     settings.ACCOUNT_REAUTHENTICATION_REQUIRED = True
     resp = auth_client.post(
         reverse("account_email"),
@@ -67,8 +67,12 @@ def test_reauthentication(settings, auth_client, user_password):
         {"action_add": "", "email": "john3@example.org"},
     )
     assert resp["location"].startswith(reverse("account_email"))
-    methods = auth_client.session[AUTHENTICATION_METHODS_SESSION_KEY]
-    assert methods[-1] == {"method": "password", "at": ANY, "reauthenticated": True}
+    methods = get_authentication_records(resp.wsgi_request, user)
+    assert methods[-1] == {
+        "method": "password",
+        "at": ANY,
+        "reauthenticated": True,
+    }
 
 
 def test_reauthentication_required_decorator_is_enabled_by_default(settings, rf, user):

@@ -4,7 +4,7 @@ from unittest.mock import ANY
 import pytest
 
 from allauth.account import app_settings
-from allauth.account.internal.flows.login import AUTHENTICATION_METHODS_SESSION_KEY
+from allauth.account.authentication import get_authentication_records
 from allauth.account.models import EmailAddress
 
 
@@ -134,11 +134,15 @@ def test_password_reset_flow(
         else HTTPStatus.UNAUTHORIZED
     )
     if login_on_password_reset:
-        assert client.headless_session()[AUTHENTICATION_METHODS_SESSION_KEY] == [
-            {"method": "password_reset", "at": ANY, "email": user.email}
+        assert resp.json()["data"]["methods"] == [
+            {
+                "method": "password_reset",
+                "at": ANY,
+                "email": user.email,
+            }
         ]
     else:
-        assert AUTHENTICATION_METHODS_SESSION_KEY not in client.headless_session()
+        assert get_authentication_records(resp.wsgi_request, user) == []
 
     user.refresh_from_db()
     assert user.check_password(password)

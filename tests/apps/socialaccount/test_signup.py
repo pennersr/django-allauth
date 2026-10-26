@@ -10,7 +10,7 @@ import pytest
 from pytest_django.asserts import assertFormError, assertRedirects
 
 from allauth.account import app_settings as account_settings
-from allauth.account.authentication import AUTHENTICATION_METHODS_SESSION_KEY
+from allauth.account.authentication import get_authentication_records
 from allauth.account.models import EmailAddress
 from allauth.account.utils import user_email, user_username
 from allauth.core import context
@@ -461,7 +461,8 @@ def test_authentication_records(client, db):
     )
     assert resp.status_code == HTTPStatus.FOUND
     assert resp["location"] == settings.LOGIN_REDIRECT_URL
-    assert client.session[AUTHENTICATION_METHODS_SESSION_KEY] == [
+    user = get_user_model().objects.get()
+    assert get_authentication_records(resp.wsgi_request, user) == [
         {
             "at": ANY,
             "method": "socialaccount",

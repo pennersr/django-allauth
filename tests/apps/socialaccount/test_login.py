@@ -9,7 +9,7 @@ from django.urls import reverse
 import pytest
 from pytest_django.asserts import assertTemplateUsed
 
-from allauth.account.authentication import AUTHENTICATION_METHODS_SESSION_KEY
+from allauth.account.authentication import get_authentication_records
 from allauth.core import context
 from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount.models import SocialAccount, SocialToken
@@ -134,7 +134,7 @@ def test_record_authentication(
     with context.request_context(request):
         complete_social_login(request, sociallogin)
     if did_record:
-        assert request.session[AUTHENTICATION_METHODS_SESSION_KEY] == [
+        assert get_authentication_records(request, user) == [
             {
                 "at": ANY,
                 "provider": sociallogin.account.provider,
@@ -143,7 +143,7 @@ def test_record_authentication(
             }
         ]
     else:
-        assert AUTHENTICATION_METHODS_SESSION_KEY not in request.session
+        assert get_authentication_records(request, user) == []
     assert (
         SocialToken.objects.filter(
             account__uid="123", token="123", token_secret="456"

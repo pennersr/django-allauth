@@ -8,7 +8,7 @@ from django.urls import reverse
 import pytest
 from pytest_django.asserts import assertTemplateUsed
 
-from allauth.account.authentication import AUTHENTICATION_METHODS_SESSION_KEY
+from allauth.account.authentication import get_authentication_records
 from allauth.mfa.models import Authenticator
 
 
@@ -22,7 +22,7 @@ def test_passkey_login(client, passkey, webauthn_authentication_bypass):
             reverse("mfa_login_webauthn"), data={"credential": credential}
         )
     assert resp["location"] == settings.LOGIN_REDIRECT_URL
-    assert client.session[AUTHENTICATION_METHODS_SESSION_KEY] == [
+    assert get_authentication_records(resp.wsgi_request, passkey.user) == [
         {
             "at": ANY,
             "id": ANY,
@@ -31,6 +31,44 @@ def test_passkey_login(client, passkey, webauthn_authentication_bypass):
             "type": "webauthn",
         }
     ]
+
+
+def test_inactive_passkey_login_does_not_bypass_mfa_for_next_user(
+    client,
+    user_with_passkey,
+    user_factory,
+    user_password,
+    webauthn_authentication_bypass,
+):
+    inactive_user = user_factory(is_active=False)
+    inactive_passkey = Authenticator.objects.create(
+        user=inactive_user,
+        type=Authenticator.Type.WEBAUTHN,
+        data={
+            "name": "Inactive user's passkey",
+            "passwordless": True,
+            "credential": {},
+        },
+    )
+
+    with webauthn_authentication_bypass(inactive_passkey) as credential:
+        resp = client.get(
+            reverse("mfa_login_webauthn"), HTTP_X_REQUESTED_WITH="XMLHttpRequest"
+        )
+        assert resp.status_code == HTTPStatus.OK
+        resp = client.post(
+            reverse("mfa_login_webauthn"), data={"credential": credential}
+        )
+
+    assert resp["location"] == reverse("account_inactive")
+    assert get_authentication_records(resp.wsgi_request, inactive_user) == []
+
+    resp = client.post(
+        reverse("account_login"),
+        {"login": user_with_passkey.username, "password": user_password},
+    )
+
+    assert resp["location"] == reverse("mfa_authenticate")
 
 
 def test_reauthenticate(
@@ -229,7 +267,16 @@ def test_webauthn_login(
         resp = client.post(reverse("mfa_authenticate"), {"credential": credential})
     assert resp.status_code == HTTPStatus.FOUND
     assert resp["location"] == settings.LOGIN_REDIRECT_URL
-    assert client.session[AUTHENTICATION_METHODS_SESSION_KEY] == [
-        {"method": "password", "at": ANY, "username": user_with_passkey.username},
-        {"method": "mfa", "at": ANY, "id": ANY, "type": Authenticator.Type.WEBAUTHN},
+    assert get_authentication_records(resp.wsgi_request, user_with_passkey) == [
+        {
+            "method": "password",
+            "at": ANY,
+            "username": user_with_passkey.username,
+        },
+        {
+            "method": "mfa",
+            "at": ANY,
+            "id": ANY,
+            "type": Authenticator.Type.WEBAUTHN,
+        },
     ]

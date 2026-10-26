@@ -69,6 +69,7 @@ def user_factory(email_factory, db, user_password, email_verified):
         email=None,
         username=None,
         commit=True,
+        is_active=True,
         with_email=True,
         email_verified=email_verified,
         password=None,
@@ -87,6 +88,7 @@ def user_factory(email_factory, db, user_password, email_verified):
 
         User = get_user_model()
         user = User()
+        user.is_active = is_active
         if password == "!":  # nosec
             user.password = password
         else:

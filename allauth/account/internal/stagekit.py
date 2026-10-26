@@ -6,7 +6,7 @@ from django.http import HttpRequest, HttpResponseRedirect
 from django.urls import reverse
 
 from allauth.account import app_settings
-from allauth.account.internal.flows.login import AUTHENTICATION_METHODS_SESSION_KEY
+from allauth.account.internal.flows.login import clear_authentication_records
 from allauth.account.models import Login
 from allauth.account.stages import LoginStage, LoginStageController
 
@@ -39,7 +39,7 @@ def pop_login(request: HttpRequest) -> None:
 
 def clear_login(request: HttpRequest) -> None:
     pop_login(request)
-    request.session.pop(AUTHENTICATION_METHODS_SESSION_KEY, None)
+    clear_authentication_records(request)
 
 
 def unstash_login(request: HttpRequest, peek: bool = False) -> Login | None:

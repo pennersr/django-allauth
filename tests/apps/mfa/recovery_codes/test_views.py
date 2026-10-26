@@ -6,7 +6,7 @@ from django.urls import reverse
 
 import pytest
 
-from allauth.account.authentication import AUTHENTICATION_METHODS_SESSION_KEY
+from allauth.account.authentication import get_authentication_records
 from allauth.mfa import app_settings
 from allauth.mfa.adapter import get_adapter
 from allauth.mfa.models import Authenticator
@@ -119,8 +119,12 @@ def test_recovery_codes_login(
     )
     assert resp.status_code == HTTPStatus.FOUND
     assert resp["location"] == settings.LOGIN_REDIRECT_URL
-    assert client.session[AUTHENTICATION_METHODS_SESSION_KEY] == [
-        {"method": "password", "at": ANY, "username": user_with_totp.username},
+    assert get_authentication_records(resp.wsgi_request, user_with_totp) == [
+        {
+            "method": "password",
+            "at": ANY,
+            "username": user_with_totp.username,
+        },
         {
             "method": "mfa",
             "at": ANY,

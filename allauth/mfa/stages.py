@@ -32,7 +32,7 @@ class AuthenticateStage(LoginStage):
             self.login.user, [Authenticator.Type.TOTP, Authenticator.Type.WEBAUTHN]
         ):
             return False
-        if did_use_passwordless_login(request):
+        if did_use_passwordless_login(request, self.login.user):
             return False
         if trust.is_trusted_browser(request, self.login.user):
             return False

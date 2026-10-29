@@ -73,6 +73,11 @@ def parse_registration_response(response: Any) -> RegistrationResponse:
 def begin_registration(user: AbstractBaseUser, passwordless: bool) -> dict:
     server = get_server()
     credentials = get_credentials(user)
+    user_verification = (
+        UserVerificationRequirement.REQUIRED
+        if passwordless
+        else UserVerificationRequirement(app_settings.WEBAUTHN_USER_VERIFICATION)
+    )
     registration_data, state = server.register_begin(
         user=build_user_payload(user),
         credentials=credentials,
@@ -81,11 +86,7 @@ def begin_registration(user: AbstractBaseUser, passwordless: bool) -> dict:
             if passwordless
             else ResidentKeyRequirement.DISCOURAGED
         ),
-        user_verification=(
-            UserVerificationRequirement.REQUIRED
-            if passwordless
-            else UserVerificationRequirement.DISCOURAGED
-        ),
+        user_verification=user_verification,
         extensions=EXTENSIONS,
     )
     set_state(state)
@@ -142,9 +143,14 @@ def parse_authentication_response(response: Any) -> AuthenticationResponse:
 
 def begin_authentication(user: AbstractBaseUser | None = None) -> dict:
     server = get_server()
+    user_verification = (
+        UserVerificationRequirement(app_settings.WEBAUTHN_USER_VERIFICATION)
+        if user is not None
+        else UserVerificationRequirement.REQUIRED
+    )
     request_options, state = server.authenticate_begin(
-        credentials=get_credentials(user) if user else [],
-        user_verification=UserVerificationRequirement.PREFERRED,
+        credentials=get_credentials(user) if user is not None else [],
+        user_verification=user_verification,
     )
     set_state(state)
     return dict(request_options)

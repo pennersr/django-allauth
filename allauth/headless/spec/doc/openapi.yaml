@@ -722,7 +722,9 @@ paths:
         - $ref: "#/components/parameters/SessionToken"
       description: |
         Returns the WebAuthn credential request options, that can be
-        processed using `parseRequestOptionsFromJSON()` on the frontend.
+        processed using `parseRequestOptionsFromJSON()` on the frontend. The
+        user verification requirement is controlled by
+        `MFA_WEBAUTHN_USER_VERIFICATION`.
       responses:
         "200":
           $ref: "#/components/responses/WebAuthnRequestOptionsResponse"
@@ -756,7 +758,9 @@ paths:
         - $ref: "#/components/parameters/SessionToken"
       description: |
         Returns the WebAuthn credential request options, that can be
-        processed using `parseRequestOptionsFromJSON()` on the frontend.
+        processed using `parseRequestOptionsFromJSON()` on the frontend. The
+        user verification requirement is controlled by
+        `MFA_WEBAUTHN_USER_VERIFICATION`.
       responses:
         "200":
           $ref: "#/components/responses/WebAuthnRequestOptionsResponse"
@@ -791,6 +795,7 @@ paths:
       description: |
         Returns the WebAuthn credential request options, that can be
         processed using `parseRequestOptionsFromJSON()` on the frontend.
+        Passkey login always requires user verification.
       responses:
         "200":
           $ref: "#/components/responses/WebAuthnRequestOptionsResponse"
@@ -3216,7 +3221,7 @@ components:
       allowEmptyValue: true
       description: |
         When present (regardless of its value), enables passwordless sign-in via a WebAuthn credential (Passkey),
-        but may enforce additional multi-factor authentication (MFA) requirements. Omit the parameter to disable.
+        which requires PIN, biometric, or equivalent user verification. Omit the parameter to disable.
   ######################################################################
   # Components: Responses
   ######################################################################

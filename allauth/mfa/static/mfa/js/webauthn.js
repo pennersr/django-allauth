@@ -16,7 +16,9 @@
     if (passwordless != null) {
       sel.residentKey = passwordless ? 'required' : 'discouraged'
       sel.requireResidentKey = passwordless
-      sel.userVerification = passwordless ? 'required' : 'discouraged'
+      if (passwordless) {
+        sel.userVerification = 'required'
+      }
     }
     return await webauthnJSON.create(credentials)
   }

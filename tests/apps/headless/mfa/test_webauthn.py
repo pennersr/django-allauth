@@ -106,9 +106,15 @@ def test_passkey_login_rate_limit_applies_before_parsing(
     assert resp.status_code == HTTPStatus.TOO_MANY_REQUESTS
 
 
-def test_passkey_login_get_options(client, headless_client, headless_reverse, db):
+def test_passkey_login_get_options(
+    client, headless_client, headless_reverse, db, settings
+):
+    settings.MFA_WEBAUTHN_USER_VERIFICATION = "discouraged"
     resp = client.get(headless_reverse("headless:mfa:login_webauthn"))
     data = resp.json()
+    assert (
+        data["data"]["request_options"]["publicKey"]["userVerification"] == "required"
+    )
     meta = {}
     if headless_client == "app":
         meta = {
@@ -121,13 +127,17 @@ def test_passkey_login_get_options(client, headless_client, headless_reverse, db
     }
 
 
+@pytest.mark.parametrize("user_verification", ["preferred", "required"])
 def test_reauthenticate(
     auth_client,
     passkey,
     user_with_recovery_codes,
     webauthn_authentication_bypass,
     headless_reverse,
+    settings,
+    user_verification,
 ):
+    settings.MFA_WEBAUTHN_USER_VERIFICATION = user_verification
     # View recovery codes, confirm webauthn reauthentication is an option
     resp = auth_client.get(headless_reverse("headless:mfa:manage_recovery_codes"))
     assert resp.status_code == HTTPStatus.UNAUTHORIZED
@@ -140,7 +150,10 @@ def test_reauthenticate(
         resp = auth_client.get(headless_reverse("headless:mfa:reauthenticate_webauthn"))
         data = resp.json()
         assert data["status"] == HTTPStatus.OK
-        assert data["data"]["request_options"] == ANY
+        assert (
+            data["data"]["request_options"]["publicKey"]["userVerification"]
+            == user_verification
+        )
 
     # Reauthenticate
     with webauthn_authentication_bypass(passkey) as credential:

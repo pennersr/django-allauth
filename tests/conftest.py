@@ -159,7 +159,18 @@ def webauthn_authentication_bypass():
             new_callable=PropertyMock,
         ) as ad_m:
             with patch("fido2.server.Fido2Server.authenticate_begin") as ab_m:
-                ab_m.return_value = ({}, {"state": "dummy"})
+
+                def authenticate_begin(*, user_verification, **kwargs):
+                    return (
+                        {
+                            "publicKey": {
+                                "userVerification": user_verification.value,
+                            }
+                        },
+                        {"state": "dummy"},
+                    )
+
+                ab_m.side_effect = authenticate_begin
                 with patch("fido2.server.Fido2Server.authenticate_complete") as ac_m:
                     with patch(
                         "allauth.mfa.webauthn.internal.auth.parse_authentication_response"
@@ -188,7 +199,9 @@ def webauthn_authentication_bypass():
 @pytest.fixture
 def webauthn_registration_bypass():
     @contextmanager
-    def f(user, passwordless):
+    def f(user, passwordless, user_verified=None):
+        if user_verified is None:
+            user_verified = passwordless
         with patch("fido2.server.Fido2Server.register_complete") as rc_m:
             with patch(
                 "allauth.mfa.webauthn.internal.auth.parse_registration_response"
@@ -197,7 +210,7 @@ def webauthn_registration_bypass():
 
                 class FakeAuthenticatorData(bytes):
                     def is_user_verified(self):
-                        return passwordless
+                        return user_verified
 
                 binding = FakeAuthenticatorData(b"binding")
                 rc_m.return_value = binding

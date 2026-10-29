@@ -48,7 +48,11 @@ class _BaseAddWebAuthnForm(forms.Form):
             # crashes with some random TypeError and we don't want to do
             # Pokemon-style exception handling.
             auth.parse_registration_response(credential)
-            auth.complete_registration(credential)
+            binding = auth.complete_registration(credential)
+            if cleaned_data.get("passwordless") and not binding.is_user_verified():
+                # Normally we should not end up here, so the fact that
+                # "incorrect_code" is not the best error message isn't too bad.
+                raise get_adapter().validation_error("incorrect_code")
         return cleaned_data
 
 

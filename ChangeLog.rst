@@ -25,6 +25,12 @@ Security notice
   entry, which could bypass longer windows and overcount requests in shorter
   windows. Thanks to Daniel Denson for reporting.
 
+- MFA: Passwordless WebAuthn registration and login did not consistently enforce
+  user verification. Passkey flows now always require a PIN, biometric, or
+  equivalent user verification. User verification for WebAuthn MFA and
+  reauthentication can now be controlled using
+  ``MFA_WEBAUTHN_USER_VERIFICATION``.
+
 
 65.21.0 (2026-10-26)
 ********************

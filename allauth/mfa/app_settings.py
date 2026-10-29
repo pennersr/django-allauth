@@ -116,6 +116,18 @@ class AppSettings:
         return self._setting("WEBAUTHN_ALLOW_INSECURE_ORIGIN", False)
 
     @property
+    def WEBAUTHN_USER_VERIFICATION(self) -> str:
+        from django.core.exceptions import ImproperlyConfigured
+
+        value = self._setting("WEBAUTHN_USER_VERIFICATION", "preferred")
+        if value not in ("discouraged", "preferred", "required"):
+            raise ImproperlyConfigured(
+                "MFA_WEBAUTHN_USER_VERIFICATION must be one of: "
+                "'discouraged', 'preferred', 'required'"
+            )
+        return value
+
+    @property
     def PASSKEY_LOGIN_ENABLED(self) -> bool:
         return "webauthn" in self.SUPPORTED_TYPES and self._setting(
             "PASSKEY_LOGIN_ENABLED", False

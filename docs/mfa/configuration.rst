@@ -82,6 +82,12 @@ Available settings:
   Only use this for development, never on production. See commit ``8b979313``
   over at ``fido2``.
 
+``MFA_WEBAUTHN_USER_VERIFICATION`` (default: ``"preferred"``)
+  Controls whether user verification is requested when registering or using
+  WebAuthn as an MFA or reauthentication method. Accepted values are
+  ``"discouraged"``, ``"preferred"``, and ``"required"``. Passkey registration
+  and login always require user verification, regardless of this setting.
+
 ``MFA_TRUST_ENABLED`` (default: ``False``)
   Enables the "Trust this browser?" functionality, which presents users with MFA
   enabled the choice to trust their browser allowing them to skip authenticating

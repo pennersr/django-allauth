@@ -33,11 +33,12 @@ Security notice
 
 - Headless: Reaching the phone verification attempt limit did not abort pending
   login/signup flows. Note that code expiry and SMS sending rate limits remained
-  in effect.
+  in effect. Thanks to Wenhao Wu (@d3do-23) for reporting.
 
 - MFA: Fixed an issue where authentication records from an *inactive* user's
   passwordless WebAuthn login could carry over to a subsequent login in the same
-  browser session, causing MFA to be skipped for the subsequent user.
+  browser session, causing MFA to be skipped for the subsequent user. Thanks to
+  Wenhao Wu (@d3do-23) for reporting.
 
 
 65.20.1 (2026-10-20)

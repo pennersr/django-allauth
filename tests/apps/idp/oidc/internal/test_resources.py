@@ -45,6 +45,8 @@ def test_is_resources_subset(requested, granted, expected):
     [
         # Valid absolute URI.
         "https://api.example.com/a",
+        # A trailing slash is valid for an RFC 8707 resource URI.
+        "https://api.example.com/a/",
         # Valid with no path.
         "https://api.example.com",
     ],

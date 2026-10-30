@@ -28,8 +28,12 @@ def validate_resources(resources: list[str]) -> None:
             raise ValidationError("Resource must be an absolute URI.")
         if parsed.fragment:
             raise ValidationError("Resource must not include a fragment component.")
-        if parsed.path and posixpath.normpath(parsed.path) != parsed.path:
-            raise ValidationError("Resource path is not normalized.")
+        if parsed.path:
+            normalized_path = posixpath.normpath(parsed.path)
+            if parsed.path.endswith("/") and not normalized_path.endswith("/"):
+                normalized_path += "/"
+            if normalized_path != parsed.path:
+                raise ValidationError("Resource path is not normalized.")
         if "//" in parsed.path:
             raise ValidationError("Resource path is not normalized.")
     adapter = get_adapter()

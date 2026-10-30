@@ -10,6 +10,9 @@
 Fixes
 -----
 
+- IdP: Allow resource indicators passed in an authorization request's
+  ``resource`` parameter to use URIs with a trailing slash.
+
 - socialaccount: Reduced login failures when multiple authentication flows are
   running in parallel browser tabs. Pending provider states are now persisted
   eagerly and preserved when the same user logs in again.

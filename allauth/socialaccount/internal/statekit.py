@@ -61,6 +61,17 @@ def get_states(request: HttpRequest) -> dict[str, StashedState]:
     return states
 
 
+def _save_session(request: HttpRequest) -> None:
+    """Persist state changes and reload the session lazily."""
+    request.session.save()
+    session_key = request.session.session_key
+    if session_key is not None:
+        request.session = request.session.__class__(session_key)
+        # Ensure that cookie based sessions write the state back, and that
+        # SessionMiddleware saves the latest state at the end of the request.
+        request.session.modified = True
+
+
 def stash_state(
     request: HttpRequest,
     *,
@@ -74,6 +85,7 @@ def stash_state(
         state_id = get_adapter().generate_state_param(state)
     states[state_id] = (state, time.time(), provider_id)
     request.session[STATES_SESSION_KEY] = states
+    _save_session(request)
     return state_id
 
 
@@ -93,6 +105,10 @@ def unstash_state(
             state = None
         del states[state_id]
         request.session[STATES_SESSION_KEY] = states
+        # OAuth callbacks can take a while. Persist the consumed state now and
+        # reload the session lazily so changes made by parallel tabs while the
+        # callback is running are not overwritten at the end of this request.
+        _save_session(request)
     if state is None and raises:
         raise PermissionDenied()
     return state

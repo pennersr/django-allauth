@@ -7,6 +7,13 @@
     Please consider supporting its continued development by becoming a sponsor at
     https://allauth.org/sponsors/. Your support helps keep this project thriving!
 
+Fixes
+-----
+
+- socialaccount: Reduced login failures when multiple authentication flows are
+  running in parallel browser tabs. Pending provider states are now persisted
+  eagerly and preserved when the same user logs in again.
+
 
 Security notice
 ---------------

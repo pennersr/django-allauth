@@ -9,6 +9,7 @@ from allauth.account.utils import perform_login
 from allauth.core.exceptions import ImmediateHttpResponse, SignupClosedException
 from allauth.socialaccount import app_settings, signals
 from allauth.socialaccount.adapter import get_adapter
+from allauth.socialaccount.internal import statekit
 from allauth.socialaccount.internal.flows.connect import connect, do_connect
 from allauth.socialaccount.internal.flows.signup import (
     clear_pending_signup,
@@ -74,7 +75,12 @@ def _redirect(request: HttpRequest, sociallogin: SocialLogin):
 
 def _authenticate(request: HttpRequest, sociallogin: SocialLogin):
     if request.user.is_authenticated:
+        pending_states = None
+        if request.user == sociallogin.user:
+            pending_states = statekit.get_states(request).copy()
         get_account_adapter(request).logout(request)
+        if pending_states:
+            request.session[statekit.STATES_SESSION_KEY] = pending_states
     if sociallogin.is_existing:
         # Login existing user
         ret = _login(request, sociallogin)

@@ -8,7 +8,6 @@ from __future__ import annotations
 import hashlib
 import ipaddress
 import time
-from collections import namedtuple
 from collections.abc import Iterator
 from contextlib import contextmanager
 from dataclasses import dataclass
@@ -28,7 +27,15 @@ from allauth.core.exceptions import RateLimited
 from allauth.utils import import_callable
 
 
-Rate = namedtuple("Rate", "amount duration per")
+@dataclass(frozen=True)
+class Rate:
+    amount: int
+    duration: float | int
+    per: str
+
+    def __str__(self) -> str:
+        return f"{self.amount}/{self.duration}/{self.per}"
+
 
 CACHE_LOCK_TIMEOUT = 10
 CACHE_LOCK_WAIT_TIMEOUT = 1
@@ -170,7 +177,7 @@ def get_cache_key(
         source = (key_hash,)
     else:
         raise ValueError(rate.per)
-    keys = ["allauth", "rl", app, action, *source]
+    keys = ["allauth", "rl", app, action, str(rate), *source]
     return ":".join(keys)
 
 
@@ -229,7 +236,7 @@ def get_rates(
 ) -> list[Rate]:
     if config is None:
         config = import_string(f"{app}.app_settings.RATE_LIMITS")
-    return parse_rates(config.get(action))
+    return list(dict.fromkeys(parse_rates(config.get(action))))
 
 
 def consume(

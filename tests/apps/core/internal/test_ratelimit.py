@@ -1,5 +1,7 @@
+import time
 from concurrent.futures import ThreadPoolExecutor
 from threading import Barrier, BrokenBarrierError
+from types import SimpleNamespace
 
 from django.core.cache import caches
 from django.http import HttpResponse
@@ -7,6 +9,21 @@ from django.http import HttpResponse
 import pytest
 
 from allauth.core.internal import ratelimit
+
+
+@pytest.fixture
+def mocked_time(monkeypatch):
+    clock = SimpleNamespace(now=1_800_000_000.0)
+    monkeypatch.setattr(
+        ratelimit,
+        "time",
+        SimpleNamespace(
+            time=lambda: clock.now,
+            monotonic=time.monotonic,
+            sleep=time.sleep,
+        ),
+    )
+    return clock
 
 
 def handler429(request):
@@ -82,6 +99,61 @@ def test_concurrent_consume(rf, enable_cache, monkeypatch):
     assert sum(usage is not None for usage in usages) == 2
 
 
+def test_two_rates_same_scope_short_window(rf, enable_cache):
+    config = {"signup": "3/m/ip,10/h/ip"}
+
+    results = [
+        ratelimit.consume(
+            rf.post("/", REMOTE_ADDR="127.0.0.1"),
+            app="allauth.account",
+            action="signup",
+            config=config,
+        )
+        is not None
+        for _ in range(4)
+    ]
+
+    assert results == [True, True, True, False]
+
+
+def test_two_rates_same_scope_long_window(rf, enable_cache, mocked_time):
+    config = {"signup": "3/m/ip,10/h/ip"}
+
+    admitted = 0
+    for minute in range(10):
+        for second in (0, 20):
+            mocked_time.now = 1_800_000_000.0 + minute * 61 + second
+            request = rf.post("/", REMOTE_ADDR="127.0.0.1")
+            admitted += (
+                ratelimit.consume(
+                    request,
+                    app="allauth.account",
+                    action="signup",
+                    config=config,
+                )
+                is not None
+            )
+
+    assert admitted == 10
+
+
+def test_duplicate_rates_are_idempotent(rf, enable_cache):
+    config = {"signup": "1/h/ip,1/h/ip"}
+
+    results = [
+        ratelimit.consume(
+            rf.post("/", REMOTE_ADDR="127.0.0.1"),
+            app="allauth.account",
+            action="signup",
+            config=config,
+        )
+        is not None
+        for _ in range(2)
+    ]
+
+    assert results == [True, False]
+
+
 def test_lock_contention_fails_closed(rf, enable_cache, monkeypatch):
     request = rf.post("/")
     config = {"foo": "2/m/key"}
@@ -154,6 +226,10 @@ def test_parse(rate, values):
         assert rate.amount == values[i][0]
         assert rate.duration == values[i][1]
         assert rate.per == values[i][2]
+
+
+def test_rate_str():
+    assert str(ratelimit.Rate(amount=3, duration=60, per="ip")) == "3/60/ip"
 
 
 @pytest.mark.parametrize(

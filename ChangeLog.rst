@@ -8,10 +8,12 @@
     https://allauth.org/sponsors/. Your support helps keep this project thriving!
 
 
-Note worthy changes
--------------------
+Security notice
+---------------
 
-- ...
+- Fixed rate limits with multiple windows for the same scope sharing a cache
+  entry, which could bypass longer windows and overcount requests in shorter
+  windows. Thanks to Daniel Denson for reporting.
 
 
 65.21.0 (2026-10-26)

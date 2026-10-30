@@ -1414,7 +1414,7 @@ msgstr "Conexiones de Cuenta"
 #: templates/allauth/layouts/base.html:49 templates/mfa/authenticate.html:10
 #: templates/mfa/index.html:5 templates/mfa/index.html:9
 msgid "Two-Factor Authentication"
-msgstr "Autenticació de doble factor"
+msgstr "Autenticación de doble factor"
 
 #: templates/allauth/layouts/base.html:55
 #: templates/usersessions/usersession_list.html:6

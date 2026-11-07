@@ -38,6 +38,9 @@ Note worthy changes
 Security notice
 ---------------
 
+- IdP: Silent authorization now only considers consent granted to the
+  requesting client.
+
 - IdP: Token revocation is now restricted to tokens issued to the authenticated
   client. Revoking a refresh token also revokes access tokens issued from the
   same authorization grant.

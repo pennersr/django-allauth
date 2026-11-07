@@ -661,6 +661,7 @@ class OAuthLibRequestValidator(RequestValidator):
         granted_scopes = set()
         tokens = Token.objects.valid().filter(
             user=context.request.user,
+            client=request.client,
             type__in=[Token.Type.REFRESH_TOKEN, Token.Type.ACCESS_TOKEN],
         )
         for token in tokens.iterator():

@@ -685,6 +685,35 @@ def test_prompt_none(
         assert resp["location"].startswith("https://rp.client/callback?code=")
 
 
+def test_prompt_none_requires_consent_for_client(
+    auth_client,
+    oidc_client,
+    oidc_client_factory,
+    user,
+    access_token_factory,
+):
+    other_client = oidc_client_factory()
+    access_token_factory(other_client, user, scopes=["openid"])
+    redirect_uri = oidc_client.get_redirect_uris()[0]
+
+    resp = auth_client.get(
+        reverse("idp:oidc:authorization")
+        + "?"
+        + urlencode(
+            {
+                "client_id": oidc_client.id,
+                "response_type": "code",
+                "scope": "openid",
+                "redirect_uri": redirect_uri,
+                "prompt": "none",
+            }
+        )
+    )
+
+    assert resp.status_code == HTTPStatus.FOUND
+    assert resp["location"] == f"{redirect_uri}?error=consent_required"
+
+
 def test_authorization_code_invalid_with_resource(
     auth_client,
     user,

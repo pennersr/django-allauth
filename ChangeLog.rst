@@ -38,6 +38,11 @@ Note worthy changes
 Security notice
 ---------------
 
+- IdP: Authorization codes are now redeemed atomically. As per `RFC 6749,
+  Section 10.5 <https://datatracker.ietf.org/doc/html/rfc6749#section-10.5>`_,
+  reusing a code also revokes access and refresh tokens issued from the same
+  authorization grant.
+
 - IdP: Silent authorization now only considers consent granted to the
   requesting client.
 

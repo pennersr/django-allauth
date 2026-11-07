@@ -17,6 +17,7 @@ from allauth.core.internal import jwkkit
 from allauth.core.internal.deferred import jwt
 from allauth.idp.oidc import app_settings
 from allauth.idp.oidc.adapter import get_adapter
+from allauth.idp.oidc.internal.oauthlib import authorization_codes
 from allauth.idp.oidc.internal.oauthlib.request_validator import (
     OAuthLibRequestValidator,
 )
@@ -80,6 +81,11 @@ def validate_code_challenge_method(request: Request) -> dict:
     return {}
 
 
+def claim_authorization_code(request: Request) -> None:
+    if not authorization_codes.claim(request.client_id, request.code, request):
+        raise errors.InvalidGrantError(request=request)
+
+
 class OAuthLibServer(Server):
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(
@@ -95,6 +101,8 @@ class OAuthLibServer(Server):
             self.openid_connect_hybrid,
         ):
             grant.custom_validators.pre_auth.append(validate_code_challenge_method)
+        for grant in (self.auth_grant, self.openid_connect_auth):
+            grant.custom_validators.post_token.append(claim_authorization_code)
 
 
 class DeviceOAuthLibServer(DeviceApplicationServer):

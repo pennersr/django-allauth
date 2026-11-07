@@ -9,6 +9,7 @@ from oauthlib.common import Request
 
 from allauth.core.context import request_context
 from allauth.idp.oidc.adapter import get_adapter
+from allauth.idp.oidc.internal.oauthlib import authorization_codes
 from allauth.idp.oidc.internal.oauthlib.request_validator import (
     OAuthLibRequestValidator,
 )
@@ -39,6 +40,33 @@ def oidc_client_factory(db, oidc_client_secret):
 @pytest.fixture
 def oidc_client(oidc_client_secret, oidc_client_factory):
     return oidc_client_factory(secret=oidc_client_secret)
+
+
+@pytest.fixture
+def authorization_code_factory():
+    def f(*, oidc_client, user, code, pkce=None):
+        request = Request("https://server.example/authorize")
+        request.redirect_uri = oidc_client.get_redirect_uris()[0]
+        request.user = user
+        request.scopes = ["openid"]
+        request.claims = None
+        if pkce:
+            code_challenge = pkce["code_challenge"]
+            request.code_challenge = (
+                code_challenge.decode()
+                if isinstance(code_challenge, bytes)
+                else code_challenge
+            )
+            request.code_challenge_method = pkce["code_challenge_method"]
+        authorization_codes.create(
+            oidc_client,
+            {"code": code},
+            request,
+            resources=None,
+            email=None,
+        )
+
+    return f
 
 
 @pytest.fixture

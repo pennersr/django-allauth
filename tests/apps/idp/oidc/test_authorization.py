@@ -1,9 +1,13 @@
 import base64
+import uuid
+from concurrent.futures import ThreadPoolExecutor
 from datetime import timedelta
 from http import HTTPStatus
+from threading import Barrier, Lock
 from unittest.mock import ANY
 from urllib.parse import parse_qs, urlparse
 
+from django.core.cache import cache
 from django.test import Client
 from django.urls import reverse
 from django.utils import timezone
@@ -11,9 +15,12 @@ from django.utils.http import urlencode
 
 import jwt
 import pytest
+from oauthlib.common import Request
 from pytest_django.asserts import assertTemplateUsed
 
 from allauth.account.models import EmailAddress
+from allauth.core.context import request_context
+from allauth.idp.oidc.internal.oauthlib import authorization_codes
 from allauth.idp.oidc.models import Token
 from allauth.socialaccount.providers.oauth2.utils import generate_code_challenge
 
@@ -203,6 +210,222 @@ def test_authorization_code_flow(
         assert decoded["preferred_username"] == user.username
     else:
         assert "preferred_username" not in decoded
+
+
+@pytest.mark.django_db(transaction=True)
+def test_authorization_code_concurrent_redemption(
+    user,
+    oidc_client,
+    oidc_client_secret,
+    enable_cache,
+    monkeypatch,
+    authorization_code_factory,
+):
+    code = uuid.uuid4().hex
+    pkce = generate_code_challenge()
+    authorization_code_factory(oidc_client=oidc_client, user=user, code=code, pkce=pkce)
+
+    workers = 8
+    lookup_barrier = Barrier(workers)
+    original_lookup = authorization_codes.lookup
+
+    def synchronized_lookup(client_id, candidate):
+        authorization_code = original_lookup(client_id, candidate)
+        if candidate == code:
+            lookup_barrier.wait()
+        return authorization_code
+
+    monkeypatch.setattr(authorization_codes, "lookup", synchronized_lookup)
+    # SQLite cannot perform the revocation deletes concurrently. Record the
+    # post-commit calls and execute the real query after all workers finish.
+    original_revoke_tokens = authorization_codes._revoke_tokens
+    revocations = []
+    revocations_lock = Lock()
+
+    def record_revocation(client_id, user_id, grant_id):
+        with revocations_lock:
+            revocations.append((client_id, user_id, grant_id))
+
+    monkeypatch.setattr(authorization_codes, "_revoke_tokens", record_revocation)
+    redirect_uri = oidc_client.get_redirect_uris()[0]
+
+    def redeem(_):
+        client = Client()
+        return client.post(
+            reverse("idp:oidc:token"),
+            {
+                "code": code,
+                "code_verifier": pkce["code_verifier"],
+                "grant_type": "authorization_code",
+                "client_id": oidc_client.id,
+                "client_secret": oidc_client_secret,
+                "redirect_uri": redirect_uri,
+            },
+        )
+
+    with ThreadPoolExecutor(max_workers=workers) as executor:
+        responses = list(executor.map(redeem, range(workers)))
+
+    assert [response.status_code for response in responses].count(HTTPStatus.OK) == 1
+    errors = [
+        response.json()
+        for response in responses
+        if response.status_code == HTTPStatus.BAD_REQUEST
+    ]
+    assert errors == [{"error": "invalid_grant"}] * (workers - 1)
+    issued_tokens = next(
+        response.json()
+        for response in responses
+        if response.status_code == HTTPStatus.OK
+    )
+    issued_access_token = Token.objects.lookup(
+        Token.Type.ACCESS_TOKEN, issued_tokens["access_token"]
+    )
+    issued_refresh_token = Token.objects.lookup(
+        Token.Type.REFRESH_TOKEN, issued_tokens["refresh_token"]
+    )
+    assert issued_access_token
+    assert issued_refresh_token
+    grant_id = issued_access_token.get_grant_id()
+    assert grant_id
+    assert revocations
+    assert {
+        (client_id, user_id, grant_id) for client_id, user_id, grant_id in revocations
+    } == {(oidc_client.id, user.pk, grant_id)}
+    original_revoke_tokens(*revocations[0])
+    assert not Token.objects.lookup(
+        Token.Type.ACCESS_TOKEN, issued_tokens["access_token"]
+    )
+    assert not Token.objects.lookup(
+        Token.Type.REFRESH_TOKEN, issued_tokens["refresh_token"]
+    )
+
+
+def test_invalid_authorization_code_is_not_claimed(
+    oidc_client,
+    oidc_client_secret,
+    enable_cache,
+    client,
+):
+    code = uuid.uuid4().hex
+    response = client.post(
+        reverse("idp:oidc:token"),
+        {
+            "code": code,
+            "grant_type": "authorization_code",
+            "client_id": oidc_client.id,
+            "client_secret": oidc_client_secret,
+            "redirect_uri": oidc_client.get_redirect_uris()[0],
+        },
+    )
+
+    assert response.status_code == HTTPStatus.BAD_REQUEST
+    assert response.json() == {"error": "invalid_grant"}
+    assert cache.get(authorization_codes._claim_cache_key(oidc_client.id, code)) is None
+
+
+def test_claim_requires_validation(rf):
+    with request_context(rf.get("/")):
+        with pytest.raises(RuntimeError, match="was not validated"):
+            authorization_codes.claim("client", "code", Request("/"))
+
+
+@pytest.mark.parametrize("invalid_parameter", ["code_verifier", "redirect_uri"])
+def test_authorization_code_claimed_after_validation(
+    user,
+    oidc_client,
+    oidc_client_secret,
+    enable_cache,
+    client,
+    authorization_code_factory,
+    invalid_parameter,
+):
+    code = uuid.uuid4().hex
+    pkce = generate_code_challenge()
+    authorization_code_factory(oidc_client=oidc_client, user=user, code=code, pkce=pkce)
+    token_data = {
+        "code": code,
+        "code_verifier": pkce["code_verifier"],
+        "grant_type": "authorization_code",
+        "client_id": oidc_client.id,
+        "client_secret": oidc_client_secret,
+        "redirect_uri": oidc_client.get_redirect_uris()[0],
+    }
+    invalid_token_data = dict(token_data)
+    if invalid_parameter == "code_verifier":
+        invalid_token_data[invalid_parameter] = generate_code_challenge()[
+            "code_verifier"
+        ]
+    else:
+        invalid_token_data[invalid_parameter] = "https://attacker.example/callback"
+
+    response = client.post(reverse("idp:oidc:token"), invalid_token_data)
+
+    assert response.status_code == HTTPStatus.BAD_REQUEST
+    assert cache.get(authorization_codes._claim_cache_key(oidc_client.id, code)) is None
+
+    response = client.post(reverse("idp:oidc:token"), token_data)
+
+    assert response.status_code == HTTPStatus.OK
+
+
+@pytest.mark.parametrize("original_code_expired", [False, True])
+def test_authorization_code_reuse_revokes_tokens(
+    user,
+    user_factory,
+    oidc_client,
+    oidc_client_secret,
+    enable_cache,
+    client,
+    django_capture_on_commit_callbacks,
+    authorization_code_factory,
+    original_code_expired,
+):
+    code = uuid.uuid4().hex
+    authorization_code_factory(oidc_client=oidc_client, user=user, code=code)
+    token_data = {
+        "code": code,
+        "grant_type": "authorization_code",
+        "client_id": oidc_client.id,
+        "client_secret": oidc_client_secret,
+        "redirect_uri": oidc_client.get_redirect_uris()[0],
+    }
+
+    response = client.post(reverse("idp:oidc:token"), token_data)
+    assert response.status_code == HTTPStatus.OK
+    issued_tokens = response.json()
+    access_token = Token.objects.lookup(
+        Token.Type.ACCESS_TOKEN, issued_tokens["access_token"]
+    )
+    assert access_token
+    assert Token.objects.lookup(
+        Token.Type.REFRESH_TOKEN, issued_tokens["refresh_token"]
+    )
+    grant_id = access_token.get_grant_id()
+    assert grant_id
+    unrelated_token = Token.objects.create(
+        client=oidc_client,
+        user=user_factory(),
+        type=Token.Type.ACCESS_TOKEN,
+        hash=uuid.uuid4().hex,
+    )
+    unrelated_token.set_grant_id(grant_id)
+    unrelated_token.save(update_fields=["data"])
+    if original_code_expired:
+        cache.delete(authorization_codes._cache_key(oidc_client.id, code))
+
+    with django_capture_on_commit_callbacks(execute=True):
+        response = client.post(reverse("idp:oidc:token"), token_data)
+
+    assert response.status_code == HTTPStatus.BAD_REQUEST
+    assert response.json() == {"error": "invalid_grant"}
+    assert not Token.objects.lookup(
+        Token.Type.ACCESS_TOKEN, issued_tokens["access_token"]
+    )
+    assert not Token.objects.lookup(
+        Token.Type.REFRESH_TOKEN, issued_tokens["refresh_token"]
+    )
+    assert Token.objects.filter(pk=unrelated_token.pk).exists()
 
 
 def test_hybrid_flow_uses_one_grant_id(

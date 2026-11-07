@@ -370,7 +370,9 @@ class OAuthLibRequestValidator(RequestValidator):
     def invalidate_authorization_code(
         self, client_id, code, request: Request, *args, **kwargs
     ) -> None:
-        authorization_codes.invalidate(client_id, code)
+        grant_id = get_validator_context().grant_id
+        assert grant_id is not None  # nosec[assert_used]
+        authorization_codes.invalidate(client_id, code, request.user.pk, grant_id)
 
     def validate_user_match(
         self, id_token_hint, scopes, claims, request: Request

@@ -83,7 +83,24 @@ class OAuthLibRequestValidator(RequestValidator):
         if nonce:
             code = dict(**code, nonce=nonce)
         # (end WORKAROUND)
-        authorization_codes.create(request.client, code, request)
+        ctx = get_validator_context()
+        ctx.grant_id = authorization_codes.create(
+            request.client,
+            code,
+            request,
+            resources=ctx.requested_resources,
+            email=ctx.email,
+        )
+        if ctx.issued_access_token:
+            access_token = ctx.issued_access_token
+            access_token.set_grant_id(ctx.grant_id)
+            # Not just access_token.save() -- as `bulk_create` is not guaranteed
+            # to set `pk`.
+            Token.objects.filter(
+                client=request.client,
+                type=Token.Type.ACCESS_TOKEN,
+                hash=access_token.hash,
+            ).update(data=access_token.data)
 
     def authenticate_client_id(
         self, client_id, request: Request, *args, **kwargs
@@ -275,6 +292,7 @@ class OAuthLibRequestValidator(RequestValidator):
             if ctx.email:
                 t.set_scope_email(ctx.email)
         Token.objects.bulk_create(tokens)
+        ctx.issued_access_token = access_token
 
     def _prep_access_token(
         self, ctx: ValidatorContext, token: dict, request: Request
@@ -287,6 +305,8 @@ class OAuthLibRequestValidator(RequestValidator):
             hash=adapter.hash_token(token["access_token"]),
             expires_at=timezone.now() + timedelta(seconds=token["expires_in"]),
         )
+        if ctx.grant_id is not None:
+            access_token.set_grant_id(ctx.grant_id)
         if resources := ctx.requested_resources:
             if not is_resources_subset(resources, ctx.granted_resources):
                 raise InvalidTargetError
@@ -302,7 +322,10 @@ class OAuthLibRequestValidator(RequestValidator):
         adapter = get_adapter()
         refresh_token_hash = adapter.hash_token(refresh_token)
         rt: Token | None = ctx.refresh_token
+        grant_id = ctx.grant_id
         if rt:
+            grant_id = rt.get_grant_id()
+            ctx.grant_id = grant_id
             ctx.granted_resources = rt.get_resources()
             if not ctx.email and "email" in request.scopes:
                 ctx.email = rt.get_scope_email()
@@ -339,6 +362,8 @@ class OAuthLibRequestValidator(RequestValidator):
         )
         if resources:
             new_rt.set_resources(resources)
+        if grant_id is not None:
+            new_rt.set_grant_id(grant_id)
         rt = new_rt
         return rt
 
@@ -483,7 +508,23 @@ class OAuthLibRequestValidator(RequestValidator):
             types = [Token.Type.REFRESH_TOKEN]
         else:
             types = [Token.Type.ACCESS_TOKEN, Token.Type.REFRESH_TOKEN]
-        Token.objects.by_value(token).filter(type__in=types).delete()
+        tokens_to_delete = Token.objects.by_value(token).filter(
+            client=request.client,
+            type__in=types,
+        )
+        for instance in tokens_to_delete:
+            if (
+                instance.type == Token.Type.REFRESH_TOKEN
+                and instance.user_id is not None
+                and (grant_id := instance.get_grant_id())
+            ):
+                Token.objects.filter(
+                    client=request.client,
+                    user_id=instance.user_id,
+                    type=Token.Type.ACCESS_TOKEN,
+                    data__grant_id=grant_id,
+                ).delete()
+            instance.delete()
 
     def get_userinfo_claims(self, request: Request) -> dict:
         access_token = get_validator_context().access_token

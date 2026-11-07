@@ -38,6 +38,38 @@ def test_revoke_access_token(
     assert Token.objects.filter(pk=instance_to_keep.pk).exists()
 
 
+@pytest.mark.parametrize("token_type", ["access", "refresh"])
+def test_revoke_token_is_bound_to_client(
+    client,
+    oidc_client,
+    oidc_client_secret,
+    oidc_client_factory,
+    user,
+    access_token_factory,
+    refresh_token_factory,
+    token_type,
+):
+    if token_type == "access":
+        token_value, token_instance = access_token_factory(oidc_client, user)
+    else:
+        token_value, token_instance = refresh_token_factory(
+            user=user, client=oidc_client
+        )
+    other_client = oidc_client_factory()
+
+    resp = client.post(
+        reverse("idp:oidc:revoke"),
+        data={
+            "client_id": other_client.id,
+            "client_secret": oidc_client_secret,
+            "token": token_value,
+        },
+    )
+
+    assert resp.status_code == HTTPStatus.OK
+    assert Token.objects.filter(pk=token_instance.pk).exists()
+
+
 @pytest.mark.parametrize(
     "resources",
     [
@@ -216,6 +248,64 @@ def test_revoke_refresh_token(
     assert resp.status_code == HTTPStatus.OK
     assert resp.content == b""
     assert not Token.objects.filter(pk=token_instance.pk).exists()
+
+
+@pytest.mark.parametrize("rotate_refresh_token", [False, True])
+def test_revoke_refresh_token_revokes_access_tokens_from_same_grant(
+    client,
+    oidc_client,
+    oidc_client_secret,
+    user,
+    access_token_factory,
+    refresh_token_factory,
+    settings,
+    rotate_refresh_token,
+):
+    settings.IDP_OIDC_ROTATE_REFRESH_TOKEN = rotate_refresh_token
+    refresh_token, _ = refresh_token_factory(user=user, client=oidc_client)
+    _, unrelated_access_instance = access_token_factory(oidc_client, user)
+    resp = client.post(
+        reverse("idp:oidc:token"),
+        {
+            "refresh_token": refresh_token,
+            "grant_type": "refresh_token",
+            "client_id": oidc_client.id,
+            "client_secret": oidc_client_secret,
+        },
+    )
+    assert resp.status_code == HTTPStatus.OK
+    token_data = resp.json()
+    access_token = token_data["access_token"]
+    access_instance = Token.objects.lookup(Token.Type.ACCESS_TOKEN, access_token)
+    assert access_instance is not None
+    refresh_token = token_data["refresh_token"]
+    refresh_instance = Token.objects.lookup(Token.Type.REFRESH_TOKEN, refresh_token)
+    assert refresh_instance is not None
+    assert access_instance.get_grant_id() == refresh_instance.get_grant_id()
+    resp = client.get(
+        reverse("idp:oidc:userinfo"),
+        HTTP_AUTHORIZATION=f"Bearer {access_token}",
+    )
+    assert resp.status_code == HTTPStatus.OK
+
+    resp = client.post(
+        reverse("idp:oidc:revoke"),
+        {
+            "token": refresh_token,
+            "client_id": oidc_client.id,
+            "client_secret": oidc_client_secret,
+        },
+    )
+
+    assert resp.status_code == HTTPStatus.OK
+    assert not Token.objects.filter(pk=refresh_instance.pk).exists()
+    assert not Token.objects.filter(pk=access_instance.pk).exists()
+    assert Token.objects.filter(pk=unrelated_access_instance.pk).exists()
+    resp = client.get(
+        reverse("idp:oidc:userinfo"),
+        HTTP_AUTHORIZATION=f"Bearer {access_token}",
+    )
+    assert resp.status_code == HTTPStatus.UNAUTHORIZED
 
 
 def test_revoke_refresh_token_with_wrong_type_hint(

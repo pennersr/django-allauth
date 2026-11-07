@@ -8,6 +8,7 @@ from typing import Any
 from django.urls import reverse
 
 from oauthlib.common import Request
+from oauthlib.oauth2.rfc6749 import errors
 from oauthlib.oauth2.rfc8628.endpoints import DeviceApplicationServer
 from oauthlib.openid import Server
 
@@ -73,6 +74,12 @@ def generate_refresh_token(request: Request) -> str:
     return generate_opaque_token(request)
 
 
+def validate_code_challenge_method(request: Request) -> dict:
+    if request.code_challenge is not None and request.code_challenge_method != "S256":
+        raise errors.UnsupportedCodeChallengeMethodError(request=request)
+    return {}
+
+
 class OAuthLibServer(Server):
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(
@@ -82,6 +89,12 @@ class OAuthLibServer(Server):
             token_expires_in=app_settings.ACCESS_TOKEN_EXPIRES_IN,
             **kwargs,
         )
+        for grant in (
+            self.auth_grant,
+            self.openid_connect_auth,
+            self.openid_connect_hybrid,
+        ):
+            grant.custom_validators.pre_auth.append(validate_code_challenge_method)
 
 
 class DeviceOAuthLibServer(DeviceApplicationServer):

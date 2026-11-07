@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import uuid
 from typing import Any
 
 from django.core.cache import cache
@@ -17,9 +18,16 @@ def cache_key(client_id: str, code: str) -> str:
     return f"allauth.idp.oidc.authorization_code[{client_id}:{code}]"
 
 
-def create(client: Client, code: dict[str, Any], request: Request) -> None:
+def create(
+    client: Client,
+    code: dict[str, Any],
+    request: Request,
+    *,
+    resources: list[str] | None,
+    email: str | None,
+) -> str:
     adapter = get_adapter()
-    ctx = get_validator_context()
+    grant_id = uuid.uuid4().hex
     authorization_code = {
         "code": code,
         "client_id": client.id,
@@ -27,9 +35,10 @@ def create(client: Client, code: dict[str, Any], request: Request) -> None:
         "sub": adapter.get_user_sub(client, request.user),
         "scopes": request.scopes,
         "claims": request.claims,
-        "resources": ctx.requested_resources,
+        "resources": resources,
+        "grant_id": grant_id,
     }
-    if email := ctx.email:
+    if email:
         # Don't trouble ourselves with keeping track a specific email in case
         # the primary was chosen.
         if EmailAddress.objects.get_primary_email(request.user) != email.lower():
@@ -45,6 +54,7 @@ def create(client: Client, code: dict[str, Any], request: Request) -> None:
         authorization_code,
         timeout=app_settings.AUTHORIZATION_CODE_EXPIRES_IN,
     )
+    return grant_id
 
 
 def lookup(client_id: str, code: str) -> dict[str, Any] | None:
@@ -65,6 +75,7 @@ def validate(client_id: str, code: str, request: Request) -> bool:
         return False
     request.scopes = authorization_code["scopes"]
     ctx.granted_resources = authorization_code["resources"]
+    ctx.grant_id = authorization_code.get("grant_id")
     request.user = user
     pkce = authorization_code.get("pkce")
     if pkce:

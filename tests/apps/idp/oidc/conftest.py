@@ -119,6 +119,7 @@ def refresh_token_factory():
         if scopes is None:
             scopes = ["openid", "profile"]
         rt.set_scopes(scopes)
+        rt.set_grant_id(uuid.uuid4().hex)
         rt.save()
         return value, rt
 

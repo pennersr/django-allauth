@@ -322,14 +322,15 @@ class DeviceCodeView(View):
     def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         orequest = extract_params(request)
         try:
-            get_validator_context().requested_resources = get_resources(request)
+            resources = get_resources(request)
+            get_validator_context().requested_resources = resources
             headers, data, status = (
                 get_device_server().create_device_authorization_response(*orequest)
             )
             if status == HTTPStatus.OK:
                 client_id = request.POST["client_id"]
                 scope = data.get("scope", "").split()
-                device_codes.create(client_id, scope, data)
+                device_codes.create(client_id, scope, data, resources=resources)
         except OAuth2Error as e:
             return HttpResponse(
                 e.json, content_type="application/json", status=e.status_code

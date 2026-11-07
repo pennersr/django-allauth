@@ -164,6 +164,10 @@ def test_authorization_code_flow(
     }
 
     access_token = Token.objects.lookup(Token.Type.ACCESS_TOKEN, data["access_token"])
+    refresh_token = Token.objects.lookup(
+        Token.Type.REFRESH_TOKEN, data["refresh_token"]
+    )
+    assert access_token.get_grant_id() == refresh_token.get_grant_id()
     assert set(access_token.get_resources()) == set(resources)
     assert bool(access_token.get_scope_email()) == bool(
         "email" in scopes and has_secondary_email and choose_secondary_email
@@ -199,6 +203,63 @@ def test_authorization_code_flow(
         assert decoded["preferred_username"] == user.username
     else:
         assert "preferred_username" not in decoded
+
+
+def test_hybrid_flow_uses_one_grant_id(
+    auth_client,
+    oidc_client,
+    oidc_client_secret,
+    enable_cache,
+):
+    oidc_client.set_response_types(["code token"])
+    oidc_client.skip_consent = True
+    oidc_client.save()
+    redirect_uri = oidc_client.get_redirect_uris()[0]
+    resp = auth_client.get(
+        reverse("idp:oidc:authorization")
+        + "?"
+        + urlencode(
+            {
+                "client_id": oidc_client.id,
+                "redirect_uri": redirect_uri,
+                "response_type": "code token",
+                "scope": "openid",
+                "nonce": "some-nonce",
+            }
+        )
+    )
+    assert resp.status_code == HTTPStatus.FOUND
+    authorization_data = parse_qs(urlparse(resp["location"]).fragment)
+    hybrid_access_token = Token.objects.lookup(
+        Token.Type.ACCESS_TOKEN, authorization_data["access_token"][0]
+    )
+
+    resp = auth_client.post(
+        reverse("idp:oidc:token"),
+        {
+            "code": authorization_data["code"][0],
+            "grant_type": "authorization_code",
+            "client_id": oidc_client.id,
+            "client_secret": oidc_client_secret,
+            "redirect_uri": redirect_uri,
+        },
+    )
+
+    assert resp.status_code == HTTPStatus.OK
+    token_data = resp.json()
+    access_token = Token.objects.lookup(
+        Token.Type.ACCESS_TOKEN, token_data["access_token"]
+    )
+    refresh_token = Token.objects.lookup(
+        Token.Type.REFRESH_TOKEN, token_data["refresh_token"]
+    )
+    grant_ids = {
+        hybrid_access_token.get_grant_id(),
+        access_token.get_grant_id(),
+        refresh_token.get_grant_id(),
+    }
+    assert None not in grant_ids
+    assert len(grant_ids) == 1
 
 
 @pytest.mark.parametrize(
@@ -493,6 +554,36 @@ def test_authorization_code_flow_with_pkce(
         "scope",
         "refresh_token",
     }
+
+
+@pytest.mark.parametrize("code_challenge_method", [None, "plain"])
+@pytest.mark.parametrize("scope", ["openid", "profile"])
+def test_authorization_code_flow_pkce_requires_s256(
+    auth_client,
+    oidc_client,
+    code_challenge_method,
+    scope,
+):
+    oidc_client.type = oidc_client.Type.PUBLIC
+    oidc_client.save()
+    redirect_uri = oidc_client.get_redirect_uris()[0]
+    pkce = generate_code_challenge()
+    params = {
+        "client_id": oidc_client.id,
+        "redirect_uri": redirect_uri,
+        "response_type": "code",
+        "scope": scope,
+        "code_challenge": pkce["code_challenge"],
+    }
+    if code_challenge_method is not None:
+        params["code_challenge_method"] = code_challenge_method
+
+    resp = auth_client.get(reverse("idp:oidc:authorization") + "?" + urlencode(params))
+
+    assert resp.status_code == HTTPStatus.FOUND
+    error_params = parse_qs(urlparse(resp["location"]).query)
+    assert error_params["error"] == ["invalid_request"]
+    assert error_params["error_description"] == ["Transform algorithm not supported."]
 
 
 @pytest.mark.parametrize("client_fixture", ["auth_client", "client"])

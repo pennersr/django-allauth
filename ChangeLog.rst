@@ -38,6 +38,12 @@ Note worthy changes
 Security notice
 ---------------
 
+- IdP: Token revocation is now restricted to tokens issued to the authenticated
+  client. Revoking a refresh token also revokes access tokens issued from the
+  same authorization grant.
+
+- IdP: PKCE now only accepts the advertised ``S256`` challenge method.
+
 - Previously, reauthentication checks were skipped when no reauthentication
   method was available, for example for social-only accounts without a
   password. Access is now denied instead.

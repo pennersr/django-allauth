@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import time
+import uuid
 from typing import Any
 
 from django.contrib.auth import get_user_model
@@ -36,8 +37,13 @@ def cache_device_code_key(device_code: str) -> str:
     return f"allauth.idp.oidc.device_code[{device_code}]"
 
 
-def create(client_id: str, scope: list[str] | None, data: dict[str, Any]) -> None:
-    ctx = get_validator_context()
+def create(
+    client_id: str,
+    scope: list[str] | None,
+    data: dict[str, Any],
+    *,
+    resources: list[str] | None,
+) -> None:
     cache.set(
         cache_user_code_key(data["user_code"]),
         data["device_code"],
@@ -52,7 +58,8 @@ def create(client_id: str, scope: list[str] | None, data: dict[str, Any]) -> Non
             "client_id": client_id,
             "scope": scope,
             "device": data,
-            "resources": ctx.requested_resources,
+            "resources": resources,
+            "grant_id": uuid.uuid4().hex,
         },
         timeout=data["expires_in"],
     )
@@ -129,4 +136,5 @@ def poll_device_code(
     ctx = get_validator_context()
     ctx.authorized_device_code = (client_id, device_code)
     ctx.granted_resources = data["resources"]
+    ctx.grant_id = data.get("grant_id")
     return user, data

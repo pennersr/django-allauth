@@ -308,9 +308,7 @@ class Token(models.Model):
         In case a specific email was chosen to be exposed to the client,
         store that using this method.
         """
-        if self.data is None:
-            self.data = {}
-        self.data["email"] = email
+        self._data_set("email", email)
 
     def get_scope_email(self) -> str | None:
         """
@@ -318,14 +316,17 @@ class Token(models.Model):
         granted.  Note that this may e outdated, as the user can change email
         addresses at any time.
         """
-        if not isinstance(self.data, dict):
-            return None
-        return self.data.get("email")
+        return self._data_get("email")
+
+    def get_grant_id(self) -> str | None:
+        grant_id = self._data_get("grant_id")
+        return grant_id if isinstance(grant_id, str) else None
+
+    def set_grant_id(self, grant_id: str) -> None:
+        self._data_set("grant_id", grant_id)
 
     def get_resources(self) -> list[str]:
-        if not isinstance(self.data, dict):
-            return []
-        resources = self.data.get("resources")
+        resources = self._data_get("resources", [])
         if not isinstance(resources, list) or not all(
             isinstance(res, str) for res in resources
         ):
@@ -333,11 +334,19 @@ class Token(models.Model):
         return resources
 
     def set_resources(self, resources: Iterable[str]) -> None:
+        self._data_set("resources", list(resources))
+
+    def _data_get(self, key: str, dflt: Any = None) -> Any:
+        if not isinstance(self.data, dict):
+            return dflt
+        return self.data.get(key, dflt)
+
+    def _data_set(self, key: str, value: Any) -> None:
         if self.data is None:
             self.data = {}
         if not isinstance(self.data, dict):
             raise ValueError
-        self.data["resources"] = list(resources)
+        self.data[key] = value
 
 
 @dataclass(frozen=True, kw_only=True)

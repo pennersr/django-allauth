@@ -19,6 +19,25 @@ from allauth.usersessions.internal import usersessionkit
 
 
 class JWTTokenStrategy(AbstractTokenStrategy):
+    @classmethod
+    def openapi_spec(cls) -> dict[str, Any]:
+        scheme = app_settings.JWT_AUTHORIZATION_HEADER_SCHEME
+        spec = super().openapi_spec()
+        description = (
+            f"JWT access token, using the `{scheme}` authorization scheme. "
+            "Only needed when `client` is equal to `app`."
+        )
+        jwt_security_scheme = {
+            "type": "http",
+            "scheme": scheme.lower(),
+            "description": description,
+        }
+        if scheme.lower() == "bearer":
+            jwt_security_scheme["bearerFormat"] = "JWT"
+        spec["securitySchemes"]["JWT"] = jwt_security_scheme
+        spec["security"].insert(-1, {"JWT": []})
+        return spec
+
     def get_session_token(self, request: HttpRequest) -> str | None:
         ret = super().get_session_token(request)
         if ret:

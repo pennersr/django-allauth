@@ -65,3 +65,21 @@ class AbstractTokenStrategy(abc.ABC):
         access token and refresh token pair.
         """
         return None
+
+    @classmethod
+    def openapi_spec(cls) -> dict[str, Any]:
+        """Return the OpenAPI security definition for this strategy."""
+        # For backwards compatibility, we put the X-Session-Token spec here.
+        return {
+            "securitySchemes": {
+                "SessionToken": {
+                    "type": "apiKey",
+                    "in": "header",
+                    "name": "X-Session-Token",
+                    "description": (
+                        "Session token. Only needed when `client` is equal to `app`."
+                    ),
+                }
+            },
+            "security": [{"SessionToken": []}, {}],
+        }

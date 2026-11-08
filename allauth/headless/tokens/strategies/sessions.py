@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Any
+
 from django.contrib.sessions.backends.base import SessionBase
 from django.http import HttpRequest
 
@@ -8,6 +10,10 @@ from allauth.headless.tokens.strategies.base import AbstractTokenStrategy
 
 
 class SessionTokenStrategy(AbstractTokenStrategy):
+    @classmethod
+    def openapi_spec(cls) -> dict[str, Any]:
+        return super().openapi_spec()
+
     def create_session_token(self, request: HttpRequest) -> str:
         if not request.session.session_key:
             request.session.save()

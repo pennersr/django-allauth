@@ -35,6 +35,9 @@ Note worthy changes
 - Headless: Custom response metadata can now be added using the new
   ``populate_response_meta()`` adapter method.
 
+- Headless: The OpenAPI specification now reflects the authentication schemes
+  of the configured token strategy.
+
 
 
 Security notice

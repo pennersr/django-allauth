@@ -240,7 +240,9 @@ paths:
         `False`, a 401 is returned when verifying as part of login/signup.
       parameters:
         - $ref: "#/components/parameters/Client"
-        - $ref: "#/components/parameters/SessionToken"
+      security:
+        - SessionToken: []
+        - {}
       requestBody:
         $ref: "#/components/requestBodies/VerifyEmail"
       responses:
@@ -275,7 +277,9 @@ paths:
         Requires `ACCOUNT_EMAIL_VERIFICATION_SUPPORTS_RESEND = True`.
       parameters:
         - $ref: "#/components/parameters/Client"
-        - $ref: "#/components/parameters/SessionToken"
+      security:
+        - SessionToken: []
+        - {}
       responses:
         "200":
           $ref: "#/components/responses/StatusOK"
@@ -299,7 +303,9 @@ paths:
         verification was successful, yet, the user is still not signed in.
       parameters:
         - $ref: "#/components/parameters/Client"
-        - $ref: "#/components/parameters/SessionToken"
+      security:
+        - SessionToken: []
+        - {}
       requestBody:
         $ref: "#/components/requestBodies/VerifyPhone"
       responses:
@@ -331,7 +337,9 @@ paths:
         Requires `ACCOUNT_PHONE_VERIFICATION_SUPPORTS_RESEND = True`.
       parameters:
         - $ref: "#/components/parameters/Client"
-        - $ref: "#/components/parameters/SessionToken"
+      security:
+        - SessionToken: []
+        - {}
       responses:
         "200":
           $ref: "#/components/responses/StatusOK"
@@ -358,7 +366,9 @@ paths:
         password. This is the endpoint related towards that flow.
       parameters:
         - $ref: "#/components/parameters/Client"
-        - $ref: "#/components/parameters/SessionToken"
+      security:
+        - SessionToken: []
+        - {}
       requestBody:
         $ref: "#/components/requestBodies/Reauthenticate"
       responses:
@@ -385,7 +395,9 @@ paths:
         the verified phone number listed on the `reauthenticate_by_code` flow.
       parameters:
         - $ref: "#/components/parameters/Client"
-        - $ref: "#/components/parameters/SessionToken"
+      security:
+        - SessionToken: []
+        - {}
       requestBody:
         $ref: "#/components/requestBodies/RequestReauthenticationCode"
       responses:
@@ -413,7 +425,9 @@ paths:
         to the selected email address or phone number.
       parameters:
         - $ref: "#/components/parameters/Client"
-        - $ref: "#/components/parameters/SessionToken"
+      security:
+        - SessionToken: []
+        - {}
       requestBody:
         $ref: "#/components/requestBodies/ConfirmLoginCode"
       responses:
@@ -446,7 +460,9 @@ paths:
         Requires `ACCOUNT_LOGIN_BY_CODE_SUPPORTS_RESEND` to be enabled.
       parameters:
         - $ref: "#/components/parameters/Client"
-        - $ref: "#/components/parameters/SessionToken"
+      security:
+        - SessionToken: []
+        - {}
       responses:
         "200":
           $ref: "#/components/responses/StatusOK"
@@ -611,7 +627,9 @@ paths:
         via this endpoint to authenticate on the server.
       parameters:
         - $ref: "#/components/parameters/Client"
-        - $ref: "#/components/parameters/SessionToken"
+      security:
+        - SessionToken: []
+        - {}
       requestBody:
         $ref: "#/components/requestBodies/ProviderToken"
       responses:
@@ -730,7 +748,9 @@ paths:
         be completed.
       parameters:
         - $ref: "#/components/parameters/Client"
-        - $ref: "#/components/parameters/SessionToken"
+      security:
+        - SessionToken: []
+        - {}
       requestBody:
         $ref: "#/components/requestBodies/MFAAuthenticate"
       responses:
@@ -762,7 +782,9 @@ paths:
         related towards that flow.
       parameters:
         - $ref: "#/components/parameters/Client"
-        - $ref: "#/components/parameters/SessionToken"
+      security:
+        - SessionToken: []
+        - {}
       requestBody:
         $ref: '#/components/requestBodies/MFAAuthenticate'
       responses:
@@ -789,8 +811,9 @@ paths:
         `mfa_trust` flow activates after the user completes the MFA
         authentication flow, offering to skip MFA for this particular
         browser. This endpoint is used to complete the `mfa_trust` flow.
-      parameters:
-        - $ref: "#/components/parameters/SessionToken"
+      security:
+        - SessionToken: []
+        - {}
       requestBody:
         $ref: "#/components/requestBodies/MFATrust"
       responses:
@@ -812,7 +835,9 @@ paths:
       summary: Get WebAuthn credential request options for 2FA
       parameters:
         - $ref: "#/components/parameters/Client"
-        - $ref: "#/components/parameters/SessionToken"
+      security:
+        - SessionToken: []
+        - {}
       description: |
         Returns the WebAuthn credential request options, that can be
         processed using `parseRequestOptionsFromJSON()` on the frontend. The
@@ -827,7 +852,9 @@ paths:
       summary: Perform 2FA using WebAuthn
       parameters:
         - $ref: "#/components/parameters/Client"
-        - $ref: "#/components/parameters/SessionToken"
+      security:
+        - SessionToken: []
+        - {}
       description: |
         Perform Two-Factor Authentication using a WebAuthn credential.
       requestBody:
@@ -848,7 +875,9 @@ paths:
       summary: Get WebAuthn credential request options for reauthentication
       parameters:
         - $ref: "#/components/parameters/Client"
-        - $ref: "#/components/parameters/SessionToken"
+      security:
+        - SessionToken: []
+        - {}
       description: |
         Returns the WebAuthn credential request options, that can be
         processed using `parseRequestOptionsFromJSON()` on the frontend. The
@@ -865,7 +894,9 @@ paths:
       summary: Reauthenticate using WebAuthn
       parameters:
         - $ref: "#/components/parameters/Client"
-        - $ref: "#/components/parameters/SessionToken"
+      security:
+        - SessionToken: []
+        - {}
       description: |
         Reauthenticate the user using a WebAuthn credential.
       requestBody:
@@ -888,7 +919,9 @@ paths:
       summary: Get WebAuthn credential request options for login
       parameters:
         - $ref: "#/components/parameters/Client"
-        - $ref: "#/components/parameters/SessionToken"
+      security:
+        - SessionToken: []
+        - {}
       description: |
         Returns the WebAuthn credential request options, that can be
         processed using `parseRequestOptionsFromJSON()` on the frontend.
@@ -902,7 +935,9 @@ paths:
       summary: Login using WebAuthn
       parameters:
         - $ref: "#/components/parameters/Client"
-        - $ref: "#/components/parameters/SessionToken"
+      security:
+        - SessionToken: []
+        - {}
       description: |
         Login using a WebAuthn credential (Passkey). Both 200 and 401 can be
         expected after a successful request.  The 401 can, for example, occur
@@ -936,7 +971,9 @@ paths:
       summary: Initiate the passkey signup flow
       parameters:
         - $ref: "#/components/parameters/Client"
-        - $ref: "#/components/parameters/SessionToken"
+      security:
+        - SessionToken: []
+        - {}
       description: |
         You initiate the passkey signup flow by inputting (`POST`) the required properties (e.g. email)
         similar to the regular account signup, except that the `password` is to be left out.
@@ -985,7 +1022,9 @@ paths:
       summary: Get passkey credential request options
       parameters:
         - $ref: "#/components/parameters/Client"
-        - $ref: "#/components/parameters/SessionToken"
+      security:
+        - SessionToken: []
+        - {}
       description: |
         Returns the WebAuthn credential request options, that can be
         processed using `parseRequestOptionsFromJSON()` on the frontend.
@@ -1005,7 +1044,9 @@ paths:
       summary: Complete the passkey signup flow
       parameters:
         - $ref: "#/components/parameters/Client"
-        - $ref: "#/components/parameters/SessionToken"
+      security:
+        - SessionToken: []
+        - {}
       description: |
         Complete the passkey signup flow by handing over the WebAuthn credential.
       requestBody:
@@ -1122,7 +1163,9 @@ paths:
         Requires `ACCOUNT_LOGIN_BY_CODE_SUPPORTS_RESEND = True`.
       parameters:
         - $ref: "#/components/parameters/Client"
-        - $ref: "#/components/parameters/SessionToken"
+      security:
+        - SessionToken: []
+        - {}
       responses:
         "200":
           $ref: "#/components/responses/StatusOK"
@@ -1146,7 +1189,9 @@ paths:
       summary: List the connected third-party provider accounts
       parameters:
         - $ref: "#/components/parameters/Client"
-        - $ref: "#/components/parameters/SessionToken"
+      security:
+        - SessionToken: []
+        - {}
       responses:
         "200":
           $ref: "#/components/responses/ProviderAccounts"
@@ -1162,7 +1207,9 @@ paths:
         set up yet.
       parameters:
         - $ref: "#/components/parameters/Client"
-        - $ref: "#/components/parameters/SessionToken"
+      security:
+        - SessionToken: []
+        - {}
       requestBody:
         $ref: "#/components/requestBodies/ProviderAccount"
       responses:
@@ -1191,7 +1238,9 @@ paths:
         Retrieves the list of email addresses of the account.
       parameters:
         - $ref: "#/components/parameters/Client"
-        - $ref: "#/components/parameters/SessionToken"
+      security:
+        - SessionToken: []
+        - {}
       responses:
         "200":
           $ref: "#/components/responses/EmailAddresses"
@@ -1212,7 +1261,9 @@ paths:
         In all cases, an email verification mail will be sent containing a link or code that needs to be verified.
       parameters:
         - $ref: "#/components/parameters/Client"
-        - $ref: "#/components/parameters/SessionToken"
+      security:
+        - SessionToken: []
+        - {}
       requestBody:
         $ref: "#/components/requestBodies/Email"
       responses:
@@ -1246,7 +1297,9 @@ paths:
         email will not be sent.
       parameters:
         - $ref: "#/components/parameters/Client"
-        - $ref: "#/components/parameters/SessionToken"
+      security:
+        - SessionToken: []
+        - {}
       requestBody:
         $ref: "#/components/requestBodies/Email"
       responses:
@@ -1277,7 +1330,9 @@ paths:
         can be marked as primary.
       parameters:
         - $ref: "#/components/parameters/Client"
-        - $ref: "#/components/parameters/SessionToken"
+      security:
+        - SessionToken: []
+        - {}
       requestBody:
         $ref: "#/components/requestBodies/MarkPrimaryEmail"
       responses:
@@ -1300,7 +1355,9 @@ paths:
         Used to remove an email address.
       parameters:
         - $ref: "#/components/parameters/Client"
-        - $ref: "#/components/parameters/SessionToken"
+      security:
+        - SessionToken: []
+        - {}
       requestBody:
         $ref: "#/components/requestBodies/Email"
       responses:
@@ -1328,7 +1385,9 @@ paths:
         endpoint returns a list of phone numbers, at most one entry is returned.
       parameters:
         - $ref: "#/components/parameters/Client"
-        - $ref: "#/components/parameters/SessionToken"
+      security:
+        - SessionToken: []
+        - {}
       responses:
         "200":
           $ref: "#/components/responses/PhoneNumbers"
@@ -1352,7 +1411,9 @@ paths:
         posting the verification code.
       parameters:
         - $ref: "#/components/parameters/Client"
-        - $ref: "#/components/parameters/SessionToken"
+      security:
+        - SessionToken: []
+        - {}
       requestBody:
         $ref: "#/components/requestBodies/Phone"
       responses:
@@ -1387,7 +1448,9 @@ paths:
       summary: List authenticators
       parameters:
         - $ref: "#/components/parameters/Client"
-        - $ref: "#/components/parameters/SessionToken"
+      security:
+        - SessionToken: []
+        - {}
       responses:
         "200":
           $ref: "#/components/responses/Authenticators"
@@ -1404,7 +1467,9 @@ paths:
         Retrieve the information about the current TOTP authenticator, if any.
       parameters:
         - $ref: "#/components/parameters/Client"
-        - $ref: "#/components/parameters/SessionToken"
+      security:
+        - SessionToken: []
+        - {}
       responses:
         "404":
           $ref: "#/components/responses/TOTPAuthenticatorNotFound"
@@ -1422,7 +1487,9 @@ paths:
         retrieved from the TOTP authenticator status endpoint.
       parameters:
         - $ref: "#/components/parameters/Client"
-        - $ref: "#/components/parameters/SessionToken"
+      security:
+        - SessionToken: []
+        - {}
       requestBody:
         $ref: "#/components/requestBodies/SetupTOTP"
       responses:
@@ -1450,7 +1517,9 @@ paths:
         sufficiently recent, a reauthentication flow (`401`) will is presented.
       parameters:
         - $ref: "#/components/parameters/Client"
-        - $ref: "#/components/parameters/SessionToken"
+      security:
+        - SessionToken: []
+        - {}
       responses:
         "200":
           $ref: "#/components/responses/StatusOK"
@@ -1465,7 +1534,9 @@ paths:
         List recovery codes.
       parameters:
         - $ref: "#/components/parameters/Client"
-        - $ref: "#/components/parameters/SessionToken"
+      security:
+        - SessionToken: []
+        - {}
       responses:
         "200":
           $ref: "#/components/responses/RecoveryCodes"
@@ -1479,7 +1550,9 @@ paths:
       summary: Regenerate recovery codes
       parameters:
         - $ref: "#/components/parameters/Client"
-        - $ref: "#/components/parameters/SessionToken"
+      security:
+        - SessionToken: []
+        - {}
       responses:
         "400":
           description: An input error occurred.
@@ -1503,8 +1576,10 @@ paths:
         Get WebAuthn credential creation options
       parameters:
         - $ref: "#/components/parameters/Client"
-        - $ref: "#/components/parameters/SessionToken"
         - $ref: "#/components/parameters/PasswordLess"
+      security:
+        - SessionToken: []
+        - {}
       description: |
         Returns the WebAuthn credential creation options, that can be
         processed using `parseCreationOptionsFromJSON()` on the frontend.
@@ -1526,7 +1601,9 @@ paths:
         the credentials via the "List authenticators" endpoint.
       parameters:
         - $ref: "#/components/parameters/Client"
-        - $ref: "#/components/parameters/SessionToken"
+      security:
+        - SessionToken: []
+        - {}
       requestBody:
         $ref: "#/components/requestBodies/UpdateWebAuthn"
       responses:
@@ -1541,7 +1618,9 @@ paths:
         Delete a WebAuthn credential
       parameters:
         - $ref: "#/components/parameters/Client"
-        - $ref: "#/components/parameters/SessionToken"
+      security:
+        - SessionToken: []
+        - {}
       requestBody:
         $ref: "#/components/requestBodies/DeleteWebAuthn"
       responses:
@@ -1556,7 +1635,9 @@ paths:
         Add a WebAuthn credential
       parameters:
         - $ref: "#/components/parameters/Client"
-        - $ref: "#/components/parameters/SessionToken"
+      security:
+        - SessionToken: []
+        - {}
       requestBody:
         $ref: "#/components/requestBodies/AddWebAuthnAuthenticator"
       responses:
@@ -1580,7 +1661,9 @@ paths:
         session.
       parameters:
         - $ref: "#/components/parameters/Client"
-        - $ref: "#/components/parameters/SessionToken"
+      security:
+        - SessionToken: []
+        - {}
       responses:
         "200":
           $ref: "#/components/responses/Authenticated"
@@ -1596,7 +1679,9 @@ paths:
         Logs out the user from the current session.
       parameters:
         - $ref: "#/components/parameters/Client"
-        - $ref: "#/components/parameters/SessionToken"
+      security:
+        - SessionToken: []
+        - {}
       responses:
         "401":
           $ref: "#/components/responses/Unauthenticated"
@@ -1638,7 +1723,9 @@ paths:
         that case, the current password is not required.
       parameters:
         - $ref: "#/components/parameters/Client"
-        - $ref: "#/components/parameters/SessionToken"
+      security:
+        - SessionToken: []
+        - {}
       requestBody:
         $ref: "#/components/requestBodies/ChangePassword"
       responses:
@@ -1656,7 +1743,9 @@ paths:
       summary: List sessions
       parameters:
         - $ref: "#/components/parameters/Client"
-        - $ref: "#/components/parameters/SessionToken"
+      security:
+        - SessionToken: []
+        - {}
       responses:
         "200":
           $ref: "#/components/responses/Sessions"
@@ -1666,7 +1755,9 @@ paths:
       summary: End one or more sessions
       parameters:
         - $ref: "#/components/parameters/Client"
-        - $ref: "#/components/parameters/SessionToken"
+      security:
+        - SessionToken: []
+        - {}
       requestBody:
         $ref: "#/components/requestBodies/EndSessions"
       responses:
@@ -3336,6 +3427,15 @@ components:
       type: object
       example: {"credential":{"type":"public-key","id":"-J4JNfPfnLyRSMK4R...","rawId":"-J4JNfPfnLyRSMK4R...","authenticatorAttachment":"cross-platform","response":{"clientDataJSON":"eyJjaGFsbGVuZ2UiOi...","authenticatorData":"SZYN5YgO...","signature":"MEUCIE-7sqILygPqGbrRZ4j2nqeqUU...","userHandle":"Mg..."},"clientExtensionResults":{}}}
   ######################################################################
+  # Components: Security schemes
+  ######################################################################
+  securitySchemes:
+    SessionToken:
+      type: apiKey
+      in: header
+      name: X-Session-Token
+      description: Session token. Only needed when `client` is equal to `app`.
+  ######################################################################
   # Components: Parameters
   ######################################################################
   parameters:
@@ -3363,14 +3463,6 @@ components:
         type: string
       required: true
       description: The password reset key
-    SessionToken:
-      in: header
-      name: X-Session-Token
-      required: false
-      description: |
-        Session token. Only needed when `client` is equal to `app`.
-      schema:
-        type: string
     PasswordLess:
       in: query
       name: passwordless

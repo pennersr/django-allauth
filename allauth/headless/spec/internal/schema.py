@@ -35,6 +35,7 @@ def get_schema() -> dict:
     drop_unused_tag_groups(spec, used_tags)
     specify_signup_fields(spec)
     specify_custom_signup_form(spec)
+    specify_auth(spec)
     return spec
 
 
@@ -176,6 +177,25 @@ def specify_custom_signup_form(spec: dict) -> None:
         if is_required:
             base_signup["required"].append(field_name)
         base_signup["properties"][field_name] = field_spec
+
+
+def specify_auth(spec: dict) -> None:
+    auth_spec = app_settings.TOKEN_STRATEGY.openapi_spec()
+    components = spec["components"]
+    security_schemes = components["securitySchemes"]
+    security_schemes.pop("SessionToken")
+    security_schemes.update(auth_spec["securitySchemes"])
+
+    for path_spec in spec["paths"].values():
+        for operation in path_spec.values():
+            if not isinstance(operation, dict):
+                continue
+            security = operation.get("security")
+            if not security:
+                continue
+            if not any("SessionToken" in requirement for requirement in security):
+                continue
+            operation["security"] = auth_spec["security"]
 
 
 def specify_user(spec: dict) -> None:

@@ -22,6 +22,8 @@ Note worthy changes
 
 - New provider: Recharge.
 
+- IdP: Authorization codes are now stored in the database instead of the cache.
+
 - Headless: Honor ``USERSESSIONS_TRACK_ACTIVITY`` for authenticated app requests,
   the Django REST framework and Django Ninja integrations, and JWT refreshes.
   Stateless JWT access token validation continues to skip activity tracking.

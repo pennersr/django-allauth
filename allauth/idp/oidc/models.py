@@ -325,6 +325,20 @@ class Token(models.Model):
     def set_grant_id(self, grant_id: str) -> None:
         self._data_set("grant_id", grant_id)
 
+    def get_redirect_uri(self) -> str | None:
+        redirect_uri = self._data_get("redirect_uri")
+        return redirect_uri if isinstance(redirect_uri, str) else None
+
+    def set_redirect_uri(self, redirect_uri: str) -> None:
+        self._data_set("redirect_uri", redirect_uri)
+
+    def get_nonce(self) -> str | None:
+        nonce = self._data_get("nonce")
+        return nonce if isinstance(nonce, str) else None
+
+    def set_nonce(self, nonce: str) -> None:
+        self._data_set("nonce", nonce)
+
     def get_resources(self) -> list[str]:
         resources = self._data_get("resources", [])
         if not isinstance(resources, list) or not all(

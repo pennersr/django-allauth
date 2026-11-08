@@ -105,7 +105,7 @@ class ValidatorContext:
         default_factory=lambda: app_settings.AUTH_METHODS
     )
     clients: dict[str, Client | None] = field(default_factory=dict)
-    codes: dict[tuple[str, str], dict[str, Any] | None] = field(default_factory=dict)
+    code_tokens: dict[tuple[str, str], Token | None] = field(default_factory=dict)
     requested_resources: list[str] | None = None
     granted_resources: list[str] | None = None
     grant_id: str | None = None

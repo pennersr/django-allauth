@@ -7,7 +7,7 @@ from threading import Barrier, Lock
 from unittest.mock import ANY
 from urllib.parse import parse_qs, urlparse
 
-from django.core.cache import cache
+from django.db import connection
 from django.test import Client
 from django.urls import reverse
 from django.utils import timezone
@@ -94,7 +94,6 @@ def test_authorization_code_flow(
     user,
     oidc_client,
     oidc_client_secret,
-    enable_cache,
     scopes,
     has_secondary_email,
     choose_secondary_email,
@@ -217,10 +216,11 @@ def test_authorization_code_concurrent_redemption(
     user,
     oidc_client,
     oidc_client_secret,
-    enable_cache,
     monkeypatch,
     authorization_code_factory,
 ):
+    if connection.vendor == "sqlite":
+        pytest.skip("SQLite serializes concurrent writes")
     code = uuid.uuid4().hex
     pkce = generate_code_challenge()
     authorization_code_factory(oidc_client=oidc_client, user=user, code=code, pkce=pkce)
@@ -230,10 +230,10 @@ def test_authorization_code_concurrent_redemption(
     original_lookup = authorization_codes.lookup
 
     def synchronized_lookup(client_id, candidate):
-        authorization_code = original_lookup(client_id, candidate)
+        code_token = original_lookup(client_id, candidate)
         if candidate == code:
             lookup_barrier.wait()
-        return authorization_code
+        return code_token
 
     monkeypatch.setattr(authorization_codes, "lookup", synchronized_lookup)
     # SQLite cannot perform the revocation deletes concurrently. Record the
@@ -304,7 +304,6 @@ def test_authorization_code_concurrent_redemption(
 def test_invalid_authorization_code_is_not_claimed(
     oidc_client,
     oidc_client_secret,
-    enable_cache,
     client,
 ):
     code = uuid.uuid4().hex
@@ -321,7 +320,11 @@ def test_invalid_authorization_code_is_not_claimed(
 
     assert response.status_code == HTTPStatus.BAD_REQUEST
     assert response.json() == {"error": "invalid_grant"}
-    assert cache.get(authorization_codes._claim_cache_key(oidc_client.id, code)) is None
+    assert (
+        not Token.objects.by_value(code)
+        .filter(client=oidc_client, type=Token.Type.AUTHORIZATION_CODE)
+        .exists()
+    )
 
 
 def test_claim_requires_validation(rf):
@@ -335,7 +338,6 @@ def test_authorization_code_claimed_after_validation(
     user,
     oidc_client,
     oidc_client_secret,
-    enable_cache,
     client,
     authorization_code_factory,
     invalid_parameter,
@@ -362,24 +364,24 @@ def test_authorization_code_claimed_after_validation(
     response = client.post(reverse("idp:oidc:token"), invalid_token_data)
 
     assert response.status_code == HTTPStatus.BAD_REQUEST
-    assert cache.get(authorization_codes._claim_cache_key(oidc_client.id, code)) is None
+    code_token = Token.objects.by_value(code).get(
+        client=oidc_client, type=Token.Type.AUTHORIZATION_CODE
+    )
+    assert code_token.data["claimed"] is False
 
     response = client.post(reverse("idp:oidc:token"), token_data)
 
     assert response.status_code == HTTPStatus.OK
 
 
-@pytest.mark.parametrize("original_code_expired", [False, True])
 def test_authorization_code_reuse_revokes_tokens(
     user,
     user_factory,
     oidc_client,
     oidc_client_secret,
-    enable_cache,
     client,
     django_capture_on_commit_callbacks,
     authorization_code_factory,
-    original_code_expired,
 ):
     code = uuid.uuid4().hex
     authorization_code_factory(oidc_client=oidc_client, user=user, code=code)
@@ -411,9 +413,6 @@ def test_authorization_code_reuse_revokes_tokens(
     )
     unrelated_token.set_grant_id(grant_id)
     unrelated_token.save(update_fields=["data"])
-    if original_code_expired:
-        cache.delete(authorization_codes._cache_key(oidc_client.id, code))
-
     with django_capture_on_commit_callbacks(execute=True):
         response = client.post(reverse("idp:oidc:token"), token_data)
 
@@ -432,7 +431,6 @@ def test_hybrid_flow_uses_one_grant_id(
     auth_client,
     oidc_client,
     oidc_client_secret,
-    enable_cache,
 ):
     oidc_client.set_response_types(["code token"])
     oidc_client.skip_consent = True
@@ -493,7 +491,6 @@ def test_authorization_code_flow_skip_consent(
     user,
     oidc_client,
     oidc_client_secret,
-    enable_cache,
     token_endpoint_auth_method,
 ):
     oidc_client.skip_consent = True
@@ -555,7 +552,6 @@ def test_authorization_code_flow_refresh_token_expiry(
     auth_client,
     oidc_client,
     oidc_client_secret,
-    enable_cache,
     settings,
     refresh_token_expires_in,
 ):
@@ -711,7 +707,6 @@ def test_authorization_code_flow_with_pkce(
     auth_client,
     user,
     oidc_client,
-    enable_cache,
     valid_code_verifier,
 ):
     oidc_client.type = oidc_client.Type.PUBLIC
@@ -942,7 +937,6 @@ def test_authorization_code_invalid_with_resource(
     user,
     oidc_client,
     oidc_client_secret,
-    enable_cache,
 ):
     redirect_uri = oidc_client.get_redirect_uris()[0]
     resp = auth_client.get(
@@ -984,7 +978,6 @@ def test_authorization_code_requested_granted_resources(
     user,
     oidc_client,
     oidc_client_secret,
-    enable_cache,
     granted_resources,
     requested_resources,
     success,
@@ -1063,7 +1056,6 @@ def test_authorization_code_app_redirect_uri(
     user,
     oidc_client,
     oidc_client_secret,
-    enable_cache,
     skip_consent,
     action,
 ):

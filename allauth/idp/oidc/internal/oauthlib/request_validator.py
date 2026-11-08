@@ -249,10 +249,10 @@ class OAuthLibRequestValidator(RequestValidator):
     def confirm_redirect_uri(
         self, client_id, code, redirect_uri, client, request: Request, *args, **kwargs
     ) -> bool:
-        authorization_code = self._lookup_authorization_code(request, client_id, code)
-        if not authorization_code:
+        code_token = self._lookup_authorization_code(request, client_id, code)
+        if not code_token:
             return False
-        return redirect_uri == authorization_code["redirect_uri"]
+        return redirect_uri == code_token.get_redirect_uri()
 
     def save_bearer_token(self, token: dict, request: Request, *args, **kwargs) -> None:
         """
@@ -409,38 +409,40 @@ class OAuthLibRequestValidator(RequestValidator):
     ) -> list[str]:
         if not client_id:
             client_id, _ = httpkit.extract_basic_auth(request.headers)
-        authorization_code = self._lookup_authorization_code(request, client_id, code)
-        if not authorization_code:
+        code_token = self._lookup_authorization_code(request, client_id, code)
+        if not code_token:
             return []
-        return authorization_code["scopes"]
+        return code_token.get_scopes()
 
     def get_authorization_code_nonce(
         self, client_id, code, redirect_uri, request
     ) -> str | None:
-        authorization_code = self._lookup_authorization_code(request, client_id, code)
-        if authorization_code is None:
+        code_token = self._lookup_authorization_code(request, client_id, code)
+        if code_token is None:
             return None
-        return authorization_code["code"].get("nonce")
+        return code_token.get_nonce()
 
     def get_code_challenge(self, code, request: Request) -> str | None:
         ret = None
-        authorization_code = self._lookup_authorization_code(
-            request, request.client_id, code
-        )
-        if authorization_code is None:
+        code_token = self._lookup_authorization_code(request, request.client_id, code)
+        if code_token is None:
             return None
-        if pkce := authorization_code.get("pkce"):
+        data = code_token.data
+        if not isinstance(data, dict):
+            return None
+        if pkce := data.get("pkce"):
             ret = pkce["code_challenge"]
         return ret
 
     def get_code_challenge_method(self, code, request: Request) -> str | None:
         ret = None
-        authorization_code = self._lookup_authorization_code(
-            request, request.client_id, code
-        )
-        if authorization_code is None:
+        code_token = self._lookup_authorization_code(request, request.client_id, code)
+        if code_token is None:
             return None
-        if pkce := authorization_code.get("pkce"):
+        data = code_token.data
+        if not isinstance(data, dict):
+            return None
+        if pkce := data.get("pkce"):
             ret = pkce["code_challenge_method"]
         return ret
 
@@ -629,15 +631,15 @@ class OAuthLibRequestValidator(RequestValidator):
 
     def _lookup_authorization_code(
         self, request: Request, client_id: str, code: str
-    ) -> dict | None:
-        cache = get_validator_context().codes
+    ) -> Token | None:
+        cache = get_validator_context().code_tokens
         key = (client_id, code)
         if key in cache:
-            authorization_code = cache[key]
+            code_token = cache[key]
         else:
-            authorization_code = authorization_codes.lookup(client_id, code)
-            cache[key] = authorization_code
-        return authorization_code
+            code_token = authorization_codes.lookup(client_id, code)
+            cache[key] = code_token
+        return code_token
 
     def is_origin_allowed(
         self, client_id: str, origin: str, request: Request, *args, **kwargs

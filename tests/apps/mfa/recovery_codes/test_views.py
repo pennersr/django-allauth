@@ -55,6 +55,9 @@ def test_view_recovery_codes(
     resp = auth_client.get(resp["location"])
     assert len(resp.context["unused_codes"]) == app_settings.RECOVERY_CODE_COUNT
     assert resp.context["can_view_codes"]
+    cache_control = {value.strip() for value in resp["Cache-Control"].split(",")}
+    assert {"no-cache", "no-store", "must-revalidate", "private"} <= cache_control
+    assert "Expires" in resp
 
     # View a 2nd time
     resp = auth_client.get(reverse("mfa_view_recovery_codes"))

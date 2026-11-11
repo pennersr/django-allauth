@@ -95,6 +95,7 @@ download_recovery_codes = DownloadRecoveryCodesView.as_view()
 
 
 @method_decorator(login_required, name="dispatch")
+@method_decorator(never_cache, name="dispatch")
 class ViewRecoveryCodesView(TemplateView):
     template_name = f"mfa/recovery_codes/index.{account_settings.TEMPLATE_EXTENSION}"
 

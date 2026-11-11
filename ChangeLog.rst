@@ -43,6 +43,8 @@ Note worthy changes
 Security notice
 ---------------
 
+- MFA: The recovery code view now prevents HTTP caching of recovery codes.
+
 - IdP: Authorization codes are now redeemed atomically. As per `RFC 6749,
   Section 10.5 <https://datatracker.ietf.org/doc/html/rfc6749#section-10.5>`_,
   reusing a code also revokes access and refresh tokens issued from the same

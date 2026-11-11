@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-08 13:31-0500\n"
+"POT-Creation-Date: 2026-11-11 13:35-0600\n"
 "PO-Revision-Date: 2025-10-22 13:02+0000\n"
 "Last-Translator: eddipa <eddipa@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Persian <https://hosted.weblate.org/projects/allauth/django-"
@@ -18,124 +18,129 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Generator: Weblate 5.14-dev\n"
 
-#: account/adapter.py:60
+#: account/adapter.py:77
 msgid "This account is currently inactive."
 msgstr "اکنون این حساب غیرفعال است."
 
-#: account/adapter.py:62
+#: account/adapter.py:79
 msgid "You cannot remove your primary email address."
 msgstr "امکان حذف نشانه ایمیل اصلی (%(email)s) مقدور نمی باشد."
 
-#: account/adapter.py:65
+#: account/adapter.py:82
 msgid "This email address is already associated with this account."
 msgstr "این نشانی ایمیل ازقبل به این حساب وصل شده."
 
-#: account/adapter.py:68
+#: account/adapter.py:85
 msgid "The email address and/or password you specified are not correct."
 msgstr "نشانی ایمیل یا گذرواژه نادرست است."
 
-#: account/adapter.py:71
+#: account/adapter.py:88
 msgid "The phone number and/or password you specified are not correct."
 msgstr "شماره تلفن و/یا گذرواژه وارد شده نادرست است."
 
-#: account/adapter.py:73
+#: account/adapter.py:90
 msgid "A user is already registered with this email address."
 msgstr "یک کاربر ازقبل با این نشانی ایمیل ثبت شده است."
 
-#: account/adapter.py:74
+#: account/adapter.py:91
 msgid "Please type your current password."
 msgstr "لطفا گذرواژه کنونی‌‌ات را وارد کن."
 
-#: account/adapter.py:75 mfa/adapter.py:38
+#: account/adapter.py:92 mfa/adapter.py:41
 msgid "Incorrect code."
 msgstr "کد اشتباه است."
 
-#: account/adapter.py:76
+#: account/adapter.py:93
 msgid "Incorrect password."
 msgstr "رمز عبور اشتباه است."
 
-#: account/adapter.py:77
+#: account/adapter.py:94
 msgid "Invalid or expired key."
 msgstr "کلید نامعتبر است یا منقضی شده است."
 
-#: account/adapter.py:78
+#: account/adapter.py:95
 msgid "Invalid login."
 msgstr "اطلاعات ورود نادرست است."
 
-#: account/adapter.py:79
+#: account/adapter.py:96
 msgid "The password reset token was invalid."
 msgstr "توکن بازنشانی گذرواژه نامعتبر است."
 
-#: account/adapter.py:80
+#: account/adapter.py:97
 #, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "نمی توانید بیش از %d تعداد آدرس ایمیل اضافه کنید."
 
-#: account/adapter.py:81
+#: account/adapter.py:98
 msgid "A user is already registered with this phone number."
 msgstr "یک کاربر ازقبل با این شماره تلفن ثبت شده است."
 
-#: account/adapter.py:83
+#: account/adapter.py:100
 msgid "Too many failed login attempts. Try again later."
 msgstr "تعداد تلاش های ناموفق بیش از حد مجاز شده است. لطفا بعدا تلاش کنید."
 
-#: account/adapter.py:85
+#: account/adapter.py:102
 msgid "The email address is not assigned to any user account."
 msgstr "این نشانی ایمیل به هیچ حساب کاربری‌ای متصل نشده است."
 
-#: account/adapter.py:86
+#: account/adapter.py:103
 msgid "The phone number is not assigned to any user account."
 msgstr "این شماره تلفن به هیچ حساب کاربری‌ای متصل نشده است."
 
-#: account/adapter.py:87
+#: account/adapter.py:104
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary email address must be verified."
 msgstr "نشانی ایمیل اصلی‌ شما باید تایید شده باشد."
 
-#: account/adapter.py:89
+#: account/adapter.py:106
 msgid "Username can not be used. Please use other username."
 msgstr "نام‌کاربری قابل استفاده نیست. لطفا از نام‌کاربری دیگری استفاده کنید."
 
-#: account/adapter.py:92
+#: account/adapter.py:109
 msgid "The username and/or password you specified are not correct."
 msgstr "نام‌کاربری یا گذرواژه وارد شده نادرست است."
 
-#: account/adapter.py:97
+#: account/adapter.py:114
 msgid "Please select only one."
 msgstr "لطفا یکی را انتخواب کنید"
 
-#: account/adapter.py:98
+#: account/adapter.py:115
 msgid "The new value must be different from the current one."
 msgstr "عبارت تازه بایستی با عبارت حاضر متفاوت باشد."
 
-#: account/adapter.py:99
+#: account/adapter.py:116
 msgid "Be patient, you are sending too many requests."
 msgstr "لطفا صبور باشید، تعداد درخواست های شما بیش از حد مجاز است."
 
-#: account/adapter.py:825
+#: account/adapter.py:906
 msgid "Use your password"
 msgstr "از گذرواژه خود استفاده کنید"
 
-#: account/adapter.py:834
+#: account/adapter.py:913 templates/account/login.html:47
+#: templates/account/request_login_code.html:9
+msgid "Send me a sign-in code"
+msgstr "ارسال کد ورود برای من"
+
+#: account/adapter.py:922
 msgid "Use authenticator app or code"
 msgstr "از برنامه تایید دومرحله ای یا کد استفاده کنید"
 
-#: account/adapter.py:841 templates/mfa/authenticate.html:41
+#: account/adapter.py:929 templates/mfa/authenticate.html:41
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use a security key"
 msgstr "از کلید امنیتی استفاده کنید"
 
-#: account/admin.py:30
+#: account/admin.py:33
 #, python-brace-format
 msgid "Marked {email} as verified."
 msgstr "ایمیل {email} به عنوان تایید شده نشانه گذاری شد."
 
-#: account/admin.py:36
+#: account/admin.py:39
 #, python-brace-format
 msgid "Failed to mark {email} as verified."
 msgstr "علامت‌گذاری {email} به عنوان تایید شده ناموفق بود."
 
-#: account/admin.py:42
+#: account/admin.py:45
 msgid "Mark selected email addresses as verified"
 msgstr "استفاده از ایمیل های انتخابی به عنوان آدرس های تایید شده"
 
@@ -143,210 +148,246 @@ msgstr "استفاده از ایمیل های انتخابی به عنوان آ�
 msgid "Accounts"
 msgstr "حساب‌ها"
 
-#: account/fields.py:12 account/forms.py:298 idp/oidc/forms.py:43
+#: account/fields.py:20 account/forms.py:280 idp/oidc/forms.py:48
 msgid "Email"
 msgstr "ایمیل"
 
-#: account/fields.py:19
+#: account/fields.py:27
 msgid "Email address"
 msgstr "نشانی ایمیل"
 
-#: account/fields.py:62
+#: account/fields.py:73
+msgid "Forgot your password?"
+msgstr "گذرواژه‌ات را فراموش کرده‌ای؟"
+
+#: account/fields.py:97
 msgid "Enter a phone number including country code (e.g. +1 for the US)."
 msgstr "یک شماره تلفن شامل کد کشور وارد کنید (مثلا +1 برای آمریکا)."
 
-#: account/fields.py:68 account/fields.py:72 account/forms.py:324
+#: account/fields.py:103 account/fields.py:107 account/forms.py:306
 msgid "Phone"
 msgstr "تلفن"
 
-#: account/forms.py:59 account/forms.py:523
+#: account/forms.py:54 account/forms.py:511
 msgid "You must type the same password each time."
 msgstr "هربار باید گذرواژه‌ی یکسانی را وارد کنی."
 
-#: account/forms.py:64 account/forms.py:450 account/forms.py:609
-#: account/forms.py:695
+#: account/forms.py:60 account/forms.py:438 account/forms.py:607
+#: account/forms.py:701
 msgid "Password"
 msgstr "گذرواژه"
 
-#: account/forms.py:65
+#: account/forms.py:62
 msgid "Remember Me"
 msgstr "مرا به خاطر بسپار"
 
-#: account/forms.py:78 account/forms.py:81 account/forms.py:264
-#: account/forms.py:267 account/forms.py:310
+#: account/forms.py:75 account/forms.py:78 account/forms.py:243
+#: account/forms.py:246 account/forms.py:292
 msgid "Username"
 msgstr "نام‌کاربری"
 
-#: account/forms.py:95
+#: account/forms.py:92
 msgctxt "field label"
 msgid "Login"
 msgstr "ورود"
 
-#: account/forms.py:114
+#: account/forms.py:111
 msgid "Username, email or phone"
 msgstr "نام‌کاربری، ایمیل یا تلفن"
 
-#: account/forms.py:116
+#: account/forms.py:113
 msgid "Username or email"
 msgstr "نام‌کاربری یا ایمیل"
 
-#: account/forms.py:118
+#: account/forms.py:115
 msgid "Username or phone"
 msgstr "نام‌کاربری یا تلفن"
 
-#: account/forms.py:120
+#: account/forms.py:117
 msgid "Email or phone"
 msgstr "ایمیل یا تلفن"
 
-#: account/forms.py:143
-msgid "Forgot your password?"
-msgstr "گذرواژه‌ات را فراموش کرده‌ای؟"
-
-#: account/forms.py:286
+#: account/forms.py:268
 msgid "Email (again)"
 msgstr "ایمیل (دوباره)"
 
-#: account/forms.py:291
+#: account/forms.py:273
 msgid "Email address confirmation"
 msgstr "تاییدیه‌ی نشانی ایمیل"
 
-#: account/forms.py:301
+#: account/forms.py:283
 msgid "Email (optional)"
 msgstr "ایمیل (اختیاری)"
 
-#: account/forms.py:313
+#: account/forms.py:295
 msgid "Username (optional)"
 msgstr "نام‌کاربری (اختیاری)"
 
-#: account/forms.py:387
+#: account/forms.py:369
 msgid "You must type the same email each time."
 msgstr "هربار باید ایمیل یکسانی را وارد کنید."
 
-#: account/forms.py:457 account/forms.py:610
+#: account/forms.py:445 account/forms.py:608
 msgid "Password (again)"
 msgstr "گذرواژه (دوباره)"
 
-#: account/forms.py:590
+#: account/forms.py:582
 msgid "Current Password"
 msgstr "گذرواژه کنونی"
 
-#: account/forms.py:592 account/forms.py:648
+#: account/forms.py:585 account/forms.py:650
 msgid "New Password"
 msgstr "گذرواژه جدید"
 
-#: account/forms.py:593 account/forms.py:649
+#: account/forms.py:587 account/forms.py:652
 msgid "New Password (again)"
 msgstr "گذرواژه جدید (دوباره)"
 
-#: account/forms.py:766 account/forms.py:768 idp/oidc/forms.py:51
-#: idp/oidc/forms.py:54 mfa/base/forms.py:12 mfa/base/forms.py:14
-#: mfa/totp/forms.py:13
+#: account/forms.py:775 account/forms.py:777 idp/oidc/forms.py:56
+#: idp/oidc/forms.py:59 idp/oidc/models.py:52 mfa/base/forms.py:15
+#: mfa/base/forms.py:17 mfa/totp/forms.py:18
 #: templates/idp/oidc/device_authorization_confirm_form.html:16
 msgid "Code"
 msgstr "کد"
 
-#: account/models.py:29
+#: account/models.py:30
 msgid "user"
 msgstr "کاربر"
 
-#: account/models.py:35 account/models.py:43 account/models.py:147
+#: account/models.py:36 account/models.py:44 account/models.py:150
 msgid "email address"
 msgstr "نشانی ایمیل"
 
-#: account/models.py:37
+#: account/models.py:38
 msgid "verified"
 msgstr "تاییدشده"
 
-#: account/models.py:38
+#: account/models.py:39
 msgid "primary"
 msgstr "اصلی"
 
-#: account/models.py:44
+#: account/models.py:45
 msgid "email addresses"
 msgstr "نشانی‌های ایمیل"
 
-#: account/models.py:150
+#: account/models.py:153
 msgid "created"
 msgstr "ایجاد‌شده"
 
-#: account/models.py:151
+#: account/models.py:154
 msgid "sent"
 msgstr "ارسال شد"
 
-#: account/models.py:152 socialaccount/models.py:70
+#: account/models.py:155 socialaccount/models.py:68
 msgid "key"
 msgstr "کلید"
 
-#: account/models.py:157
+#: account/models.py:160
 msgid "email confirmation"
 msgstr "تاییدیه‌ی ایمیل"
 
-#: account/models.py:158
+#: account/models.py:161
 msgid "email confirmations"
 msgstr "تاییدیه‌های ایمیل"
 
-#: headless/apps.py:7
+#: headless/apps.py:9
 msgid "Headless"
 msgstr "بدون رابط کاربری"
 
-#: idp/oidc/adapter.py:31
+#: idp/oidc/adapter.py:41
 msgid "View your user ID"
 msgstr "مشاهده شناسه کاربری شما"
 
-#: idp/oidc/adapter.py:32
+#: idp/oidc/adapter.py:42
 msgid "View your email address"
 msgstr "مشاهده آدرس ایمیل شما"
 
-#: idp/oidc/adapter.py:33
+#: idp/oidc/adapter.py:43
 msgid "View your basic profile information"
 msgstr "مشاهده اطلاعات اولیه نمایه شما"
 
-#: idp/oidc/forms.py:31
+#: idp/oidc/forms.py:36
 msgid "Grant permissions"
 msgstr "اعطای مجوزها"
 
-#: idp/oidc/internal/clientkit.py:22
+#: idp/oidc/internal/clientkit.py:27
 msgid "Wildcards are not allowed unless 'Allow URI wildcards' is enabled."
 msgstr ""
 "استفاده از نویسه‌های عام (*) مجاز نیست مگر اینکه 'اجازه نویسه‌های عام در URI' "
 "فعال باشد."
 
-#: idp/oidc/internal/clientkit.py:27
+#: idp/oidc/internal/clientkit.py:32
 msgid ""
 "URI '{}' contains more than one wildcard (*). Only one wildcard per URI is "
 "allowed."
 msgstr ""
 "URI '{}' بیش از یک نویسه عام (*) دارد. فقط یک نویسه عام در هر URI مجاز است."
 
-#: idp/oidc/internal/clientkit.py:39
+#: idp/oidc/internal/clientkit.py:44
 msgid "Wildcards are only allowed in the hostname portion of the URI."
 msgstr "نویسه‌های عام (*) فقط در بخش نام میزبان URI مجاز هستند."
 
-#: idp/oidc/models.py:35
+#: idp/oidc/models.py:46
 msgid "Authorization code"
 msgstr "کد مجوز"
 
-#: idp/oidc/models.py:36
+#: idp/oidc/models.py:47
 msgid "Device code"
 msgstr "کد دستگاه"
 
-#: idp/oidc/models.py:37
+#: idp/oidc/models.py:48
 msgid "Client credentials"
 msgstr "اعتبارنامه کلاینت"
 
-#: idp/oidc/models.py:38
+#: idp/oidc/models.py:49
 msgid "Refresh token"
 msgstr "توکن تازه‌سازی"
 
-#: idp/oidc/models.py:41
+#: idp/oidc/models.py:53
+msgid "Token"
+msgstr "توکن"
+
+#: idp/oidc/models.py:54
+msgid "ID token"
+msgstr "ID توکن"
+
+#: idp/oidc/models.py:55
+msgid "ID token token"
+msgstr "ID توکن توکن"
+
+#: idp/oidc/models.py:56
+msgid "Code token"
+msgstr "کد مجوز توکن"
+
+#: idp/oidc/models.py:57
+msgid "Code ID token"
+msgstr "کد مجوز ID توکن"
+
+#: idp/oidc/models.py:58
+msgid "Code ID token token"
+msgstr "کد مجوز ID توکن توکن"
+
+#: idp/oidc/models.py:59 idp/oidc/models.py:69
+msgid "None"
+msgstr "هیچ‌کدام"
+
+#: idp/oidc/models.py:62
 msgid "Confidential"
 msgstr "محرمانه"
 
-#: idp/oidc/models.py:42
+#: idp/oidc/models.py:63
 msgid "Public"
 msgstr "عمومی"
 
-#: idp/oidc/models.py:56
+#: idp/oidc/models.py:70
+msgid "Client secret basic"
+msgstr "رمز مشتری (basic)"
+
+#: idp/oidc/models.py:71
+msgid "Client secret post"
+msgstr "رمز مشتری (post)"
+
+#: idp/oidc/models.py:85
 msgid ""
 "The scope(s) the client is allowed to request. Provide one value per line, "
 "e.g.: openid(ENTER)profile(ENTER)email(ENTER)"
@@ -354,7 +395,7 @@ msgstr ""
 "محدوده‌(های) مجاز برای درخواست کلاینت. هر مقدار را در یک خط وارد کنید، مثلا: "
 "openid(ENTER)profile(ENTER)email(ENTER)"
 
-#: idp/oidc/models.py:62
+#: idp/oidc/models.py:91
 msgid ""
 "In case the client does not specify any scope, these default scopes are "
 "used. Provide one value per line, e.g.: "
@@ -364,7 +405,7 @@ msgstr ""
 "می‌شوند. هر مقدار را در یک خط وارد کنید، مثلا: "
 "openid(ENTER)profile(ENTER)email(ENTER)"
 
-#: idp/oidc/models.py:73
+#: idp/oidc/models.py:102
 msgid ""
 "A list of allowed grant types. Provide one value per line, e.g.: "
 "authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
@@ -372,11 +413,11 @@ msgstr ""
 "فهرست انواع مجوزهای مجاز. هر مقدار را در یک خط وارد کنید، مثلا: "
 "authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 
-#: idp/oidc/models.py:84
+#: idp/oidc/models.py:113
 msgid "A list of allowed origins for cross-origin requests, one per line."
 msgstr "فهرست مبداهای مجاز برای درخواست‌های بین‌دامنه‌ای، هر کدام در یک خط."
 
-#: idp/oidc/models.py:92
+#: idp/oidc/models.py:121
 msgid ""
 "Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
 "can contain a single asterisk to match subdomains."
@@ -384,7 +425,7 @@ msgstr ""
 "اجازه استفاده از نویسه‌های عام (*) در URIهای تغییرمسیر و مبداهای CORS. هنگام "
 "فعال بودن، URIها می‌توانند شامل یک ستاره برای تطبیق زیردامنه‌ها باشند."
 
-#: idp/oidc/models.py:100
+#: idp/oidc/models.py:129
 msgid ""
 "A list of allowed response types. Provide one value per line, e.g.: "
 "code(ENTER)id_token token(ENTER)"
@@ -392,15 +433,15 @@ msgstr ""
 "فهرست انواع پاسخ‌های مجاز. هر مقدار را در یک خط وارد کنید، مثلا: "
 "code(ENTER)id_token token(ENTER)"
 
-#: idp/oidc/models.py:113
+#: idp/oidc/models.py:142
 msgid "client"
 msgstr "کلاینت"
 
-#: idp/oidc/models.py:114
+#: idp/oidc/models.py:143
 msgid "clients"
 msgstr "کلاینت‌ها"
 
-#: mfa/adapter.py:30
+#: mfa/adapter.py:33
 msgid ""
 "You cannot add an email address to an account protected by two-factor "
 "authentication."
@@ -408,18 +449,18 @@ msgstr ""
 "امکان افزودن آدرس ایمیل به حسابی که توسط تایید دومرحله ای محافظت می شود وجود "
 "ندارد."
 
-#: mfa/adapter.py:33
+#: mfa/adapter.py:36
 msgid "You cannot deactivate two-factor authentication."
 msgstr "امکان غیرفعالسازی تایید دومرحله ای مقدور نمی باشد."
 
-#: mfa/adapter.py:36
+#: mfa/adapter.py:39
 msgid ""
 "You cannot generate recovery codes without having two-factor authentication "
 "enabled."
 msgstr ""
 "بدون فعال بودن احراز هویت دومرحله‌ای امکان تولید کدهای بازیابی وجود ندارد."
 
-#: mfa/adapter.py:40
+#: mfa/adapter.py:43
 msgid ""
 "You cannot activate two-factor authentication until you have verified your "
 "email address."
@@ -427,15 +468,15 @@ msgstr ""
 "تا زمانی که آدرس ایمیل خود را تایید نکرده‌اید، امکان فعال‌سازی احراز هویت "
 "دومرحله‌ای وجود ندارد."
 
-#: mfa/adapter.py:139
+#: mfa/adapter.py:144
 msgid "Master key"
 msgstr "کلید اصلی"
 
-#: mfa/adapter.py:141
+#: mfa/adapter.py:146
 msgid "Backup key"
 msgstr "کلید پشتیبان"
 
-#: mfa/adapter.py:142
+#: mfa/adapter.py:147
 #, python-brace-format
 msgid "Key nr. {number}"
 msgstr "کلید شماره {number}"
@@ -444,27 +485,27 @@ msgstr "کلید شماره {number}"
 msgid "MFA"
 msgstr "احراز هویت چندعاملی"
 
-#: mfa/models.py:24
+#: mfa/models.py:26
 msgid "Recovery codes"
 msgstr "کدهای بازیابی"
 
-#: mfa/models.py:25
+#: mfa/models.py:27
 msgid "TOTP Authenticator"
 msgstr "احراز هویت TOTP"
 
-#: mfa/models.py:26
+#: mfa/models.py:28
 msgid "WebAuthn"
 msgstr "WebAuthn"
 
-#: mfa/totp/forms.py:11
+#: mfa/totp/forms.py:16
 msgid "Authenticator code"
 msgstr "کد احراز هویت"
 
-#: mfa/webauthn/forms.py:56
+#: mfa/webauthn/forms.py:62
 msgid "Passwordless"
 msgstr "بدون گذرواژه"
 
-#: mfa/webauthn/forms.py:59
+#: mfa/webauthn/forms.py:65
 msgid ""
 "Enabling passwordless operation allows you to sign in using just this key, "
 "but imposes additional requirements such as biometrics or PIN protection."
@@ -472,7 +513,7 @@ msgstr ""
 "فعال کردن ورود بدون گذرواژه به شما امکان می‌دهد فقط با این کلید وارد شوید، "
 "اما نیازمندی‌های اضافی مانند بیومتریک یا محافظت با PIN را اعمال می‌کند."
 
-#: socialaccount/adapter.py:30
+#: socialaccount/adapter.py:85
 #, python-format
 msgid ""
 "An account already exists with this email address. Please sign in to that "
@@ -481,124 +522,124 @@ msgstr ""
 "یک حساب کاربری با این آدرس ایمیل از قبل وجود دارد. لطفا ابتدا وارد آن حساب "
 "شوید، سپس حساب %s خود را به آن متصل کنید."
 
-#: socialaccount/adapter.py:34
+#: socialaccount/adapter.py:89
 msgid "Invalid token."
 msgstr "توکن نامعتبر است."
 
-#: socialaccount/adapter.py:35
+#: socialaccount/adapter.py:90
 msgid "Your account has no password set up."
 msgstr "هیچ گذرواژه‌ای برای حساب‌ات نهاده نشده."
 
-#: socialaccount/adapter.py:36
+#: socialaccount/adapter.py:91
 msgid "Your account has no verified email address."
 msgstr "حساب‌ات هیچ رایانامه‌ي تایید‌شده‌ای ندارد."
 
-#: socialaccount/adapter.py:38
+#: socialaccount/adapter.py:93
 msgid "You cannot disconnect your last remaining third-party account."
 msgstr "امکان قطع اتصال آخرین حساب شخص ثالث شما وجود ندارد."
 
-#: socialaccount/adapter.py:41
+#: socialaccount/adapter.py:96
 #: templates/socialaccount/messages/account_connected_other.txt:2
 msgid "The third-party account is already connected to a different account."
 msgstr "حساب شخص ثالث از قبل به یک حساب دیگر متصل شده است."
 
-#: socialaccount/apps.py:9
+#: socialaccount/apps.py:11
 msgid "Social Accounts"
 msgstr "حساب‌های شخص ثالث"
 
-#: socialaccount/models.py:45 socialaccount/models.py:98
+#: socialaccount/models.py:43 socialaccount/models.py:96
 msgid "provider"
 msgstr "فراهم‌کننده"
 
-#: socialaccount/models.py:53
+#: socialaccount/models.py:51
 msgid "provider ID"
 msgstr "شناسه ارائه‌دهنده"
 
-#: socialaccount/models.py:57
+#: socialaccount/models.py:55
 msgid "name"
 msgstr "نام"
 
-#: socialaccount/models.py:59
+#: socialaccount/models.py:57
 msgid "client id"
 msgstr "شناسه مشتری"
 
-#: socialaccount/models.py:61
+#: socialaccount/models.py:59
 msgid "App ID, or consumer key"
 msgstr "شناسه اپ، یا کلید مصرف‌کننده"
 
-#: socialaccount/models.py:64
+#: socialaccount/models.py:62
 msgid "secret key"
 msgstr "کلید محرمانه"
 
-#: socialaccount/models.py:67
+#: socialaccount/models.py:65
 msgid "API secret, client secret, or consumer secret"
 msgstr "رمز رابک (رابط برنامه‌ی کاربردی API)، رمز مشتری، یا رمز مصرف‌کننده"
 
-#: socialaccount/models.py:70 templates/mfa/webauthn/authenticator_list.html:18
+#: socialaccount/models.py:68 templates/mfa/webauthn/authenticator_list.html:18
 msgid "Key"
 msgstr "کلید"
 
-#: socialaccount/models.py:82
+#: socialaccount/models.py:80
 msgid "social application"
 msgstr "اپلیکیشن اجتماعی"
 
-#: socialaccount/models.py:83
+#: socialaccount/models.py:81
 msgid "social applications"
 msgstr "اپلیکیشن‌های اجتماعی"
 
-#: socialaccount/models.py:118
+#: socialaccount/models.py:116
 msgid "uid"
 msgstr "شناسه‌کاربری"
 
-#: socialaccount/models.py:120
+#: socialaccount/models.py:118
 msgid "last login"
 msgstr "آخرین ورود"
 
-#: socialaccount/models.py:121
+#: socialaccount/models.py:119
 msgid "date joined"
 msgstr "تاریخ پیوست‌شده"
 
-#: socialaccount/models.py:122
+#: socialaccount/models.py:120
 msgid "extra data"
 msgstr "داده اضافی"
 
-#: socialaccount/models.py:126
+#: socialaccount/models.py:124
 msgid "social account"
 msgstr "حساب اجتماعی"
 
-#: socialaccount/models.py:127
+#: socialaccount/models.py:125
 msgid "social accounts"
 msgstr "حساب‌های اجتماعی"
 
-#: socialaccount/models.py:161
+#: socialaccount/models.py:159
 msgid "token"
 msgstr "توکن"
 
-#: socialaccount/models.py:162
+#: socialaccount/models.py:160
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr "\"oauth_token\" (OAuth1) یا توکن دسترسی (OAuth2)"
 
-#: socialaccount/models.py:166
+#: socialaccount/models.py:164
 msgid "token secret"
 msgstr "رمز توکن"
 
-#: socialaccount/models.py:167
+#: socialaccount/models.py:165
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr "\"oauth_token_secret\" (OAuth1) یا توکن تازه‌سازی (OAuth2)"
 
-#: socialaccount/models.py:170
+#: socialaccount/models.py:168
 msgid "expires at"
 msgstr "انقضا"
 
-#: socialaccount/models.py:175
+#: socialaccount/models.py:173
 msgid "social application token"
 msgstr "توکن اپلیکشن اجتماعی"
 
-#: socialaccount/models.py:176
+#: socialaccount/models.py:174
 msgid "social application tokens"
 msgstr "توکن‌های اپلیکیشن اجتماعی"
 
-#: socialaccount/providers/douban/views.py:35
+#: socialaccount/providers/douban/views.py:38
 msgid "Invalid profile data"
 msgstr "داده نامعتبر نمایه"
 
@@ -616,34 +657,34 @@ msgstr "ورود"
 msgid "Cancel"
 msgstr "انصراف"
 
-#: socialaccount/providers/oauth/client.py:86
+#: socialaccount/providers/oauth/client.py:88
 #, python-format
 msgid ""
 "Invalid response while obtaining request token from \"%s\". Response was: %s."
 msgstr "پاسخ نامعتبر هنگام دریافت توکن درخواست از \"%s\". پاسخ: %s."
 
-#: socialaccount/providers/oauth/client.py:121
-#: socialaccount/providers/pocket/client.py:81
+#: socialaccount/providers/oauth/client.py:123
+#: socialaccount/providers/pocket/client.py:83
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr "پاسخ نامعتبر هنگام دریافت توکن دسترسی از \"%s\""
 
-#: socialaccount/providers/oauth/client.py:142
+#: socialaccount/providers/oauth/client.py:144
 #, python-format
 msgid "No request token saved for \"%s\"."
 msgstr "توکن درخواست‌ْای برای \"%s\" ذخیره نشده."
 
-#: socialaccount/providers/oauth/client.py:193
+#: socialaccount/providers/oauth/client.py:197
 #, python-format
 msgid "No access token saved for \"%s\"."
 msgstr "توکن دسترسی‌ای برای \"%s\" ذخیره نشده."
 
-#: socialaccount/providers/oauth/client.py:219
+#: socialaccount/providers/oauth/client.py:223
 #, python-format
 msgid "No access to private resources at \"%s\"."
 msgstr "دسترسی به منابع خصوصی \"%s\" وجود ندارد."
 
-#: socialaccount/providers/pocket/client.py:39
+#: socialaccount/providers/pocket/client.py:41
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr "پاسخ نامعتبر هنگام دریافت توکن درخواست از \"%s\"."
@@ -680,6 +721,7 @@ msgstr "درخواست کد جدید"
 
 #: templates/account/base_reauthenticate.html:5
 #: templates/account/base_reauthenticate.html:9
+#: templates/account/confirm_reauthentication_code.html:5
 msgid "Confirm Access"
 msgstr "تایید دسترسی"
 
@@ -707,7 +749,7 @@ msgstr "استفاده از آدرس ایمیل دیگر"
 #: templates/account/confirm_login_code.html:5 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
 #: templates/account/request_login_code.html:5
-#: templates/allauth/layouts/base.html:68 templates/mfa/authenticate.html:6
+#: templates/allauth/layouts/base.html:69 templates/mfa/authenticate.html:6
 #: templates/mfa/authenticate.html:24 templates/openid/login.html:5
 #: templates/openid/login.html:9 templates/openid/login.html:20
 #: templates/socialaccount/login.html:5
@@ -716,6 +758,7 @@ msgid "Sign In"
 msgstr "ورود"
 
 #: templates/account/confirm_login_code.html:8
+#: templates/account/confirm_reauthentication_code.html:8
 msgid "Enter Sign-In Code"
 msgstr "کد ورود را وارد کنید"
 
@@ -1032,7 +1075,7 @@ msgid "Change to"
 msgstr "تغییر به"
 
 #: templates/account/email_change.html:55
-#: templates/allauth/layouts/base.html:31
+#: templates/allauth/layouts/base.html:32
 msgid "Change Email"
 msgstr "تغییر ایمیل"
 
@@ -1079,12 +1122,8 @@ msgstr "اگر هنوز یه حساب نساختی، پس لطفا نخست %(li
 msgid "Sign in with a passkey"
 msgstr "ورود با کلید عبور"
 
-#: templates/account/login.html:47 templates/account/request_login_code.html:9
-msgid "Send me a sign-in code"
-msgstr "ارسال کد ورود برای من"
-
 #: templates/account/logout.html:4 templates/account/logout.html:8
-#: templates/account/logout.html:21 templates/allauth/layouts/base.html:61
+#: templates/account/logout.html:21 templates/allauth/layouts/base.html:62
 #: templates/idp/oidc/logout.html:4 templates/idp/oidc/logout.html:8
 #: templates/idp/oidc/logout.html:21
 #: templates/usersessions/usersession_list.html:76
@@ -1159,13 +1198,9 @@ msgstr "نشانی رانامه اصلی نهاده شد."
 #: templates/account/password_reset_from_key.html:30
 #: templates/account/password_reset_from_key_done.html:5
 #: templates/account/password_reset_from_key_done.html:9
-#: templates/allauth/layouts/base.html:37
+#: templates/allauth/layouts/base.html:38
 msgid "Change Password"
 msgstr "تغییر گذرواژه"
-
-#: templates/account/password_change.html:22
-msgid "Forgot Password?"
-msgstr "گذرواژه‌ات را فراموش کرده‌ای؟"
 
 #: templates/account/password_reset.html:14
 msgid ""
@@ -1242,6 +1277,7 @@ msgid "You will receive a special code for a password-free sign-in."
 msgstr "شما یک کد ویژه برای ورود بدون گذرواژه دریافت خواهید کرد."
 
 #: templates/account/request_login_code.html:23
+#: templates/account/request_reauthentication_code.html:15
 msgid "Request Code"
 msgstr "درخواست کد"
 
@@ -1256,7 +1292,7 @@ msgstr "ثبت‌نام"
 
 #: templates/account/signup.html:8 templates/account/signup.html:30
 #: templates/account/signup_by_passkey.html:29
-#: templates/allauth/layouts/base.html:74 templates/socialaccount/signup.html:9
+#: templates/allauth/layouts/base.html:75 templates/socialaccount/signup.html:9
 #: templates/socialaccount/signup.html:25
 msgid "Sign Up"
 msgstr "ثبت نام"
@@ -1358,26 +1394,26 @@ msgstr ""
 "<strong>توجه:</strong> هنوز می‌توانید <a href=\"%(email_url)s\">آدرس ایمیل "
 "خود را تغییر دهید</a>."
 
-#: templates/allauth/layouts/base.html:18
+#: templates/allauth/layouts/base.html:19
 msgid "Messages:"
 msgstr "پیام‌ها:"
 
-#: templates/allauth/layouts/base.html:25
+#: templates/allauth/layouts/base.html:26
 msgid "Menu:"
 msgstr "منو:"
 
-#: templates/allauth/layouts/base.html:43
+#: templates/allauth/layouts/base.html:44
 #: templates/socialaccount/connections.html:5
 #: templates/socialaccount/connections.html:9
 msgid "Account Connections"
 msgstr "اتصال‌های حساب"
 
-#: templates/allauth/layouts/base.html:49 templates/mfa/authenticate.html:10
+#: templates/allauth/layouts/base.html:50 templates/mfa/authenticate.html:10
 #: templates/mfa/index.html:5 templates/mfa/index.html:9
 msgid "Two-Factor Authentication"
 msgstr "احراز هویت دومرحله‌ای"
 
-#: templates/allauth/layouts/base.html:55
+#: templates/allauth/layouts/base.html:56
 #: templates/usersessions/usersession_list.html:6
 #: templates/usersessions/usersession_list.html:10
 msgid "Sessions"
@@ -1901,9 +1937,12 @@ msgstr "خروج از سایر نشست‌ها"
 msgid "User Sessions"
 msgstr "نشست‌های کاربر"
 
-#: usersessions/models.py:93
+#: usersessions/models.py:109
 msgid "session key"
 msgstr "کلید نشست"
+
+#~ msgid "Forgot Password?"
+#~ msgstr "گذرواژه‌ات را فراموش کرده‌ای؟"
 
 #, fuzzy
 #~ msgid "Account Connection"

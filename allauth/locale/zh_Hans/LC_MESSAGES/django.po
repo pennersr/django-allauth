@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-08 13:31-0500\n"
+"POT-Creation-Date: 2026-11-11 13:35-0600\n"
 "PO-Revision-Date: 2025-09-15 15:01+0000\n"
 "Last-Translator: Cassian <prismarine@epicraft.top>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
@@ -19,124 +19,129 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 5.14-dev\n"
 
-#: account/adapter.py:60
+#: account/adapter.py:77
 msgid "This account is currently inactive."
 msgstr "此账号当前未激活。"
 
-#: account/adapter.py:62
+#: account/adapter.py:79
 msgid "You cannot remove your primary email address."
 msgstr "您不能删除您的主要电子邮件地址 (%(email)s)。"
 
-#: account/adapter.py:65
+#: account/adapter.py:82
 msgid "This email address is already associated with this account."
 msgstr "此电子邮件地址已关联到这个账号。"
 
-#: account/adapter.py:68
+#: account/adapter.py:85
 msgid "The email address and/or password you specified are not correct."
 msgstr "您提供的电子邮件地址和/或密码不正确。"
 
-#: account/adapter.py:71
+#: account/adapter.py:88
 msgid "The phone number and/or password you specified are not correct."
 msgstr "您输入的电话号码和/或密码不正确。"
 
-#: account/adapter.py:73
+#: account/adapter.py:90
 msgid "A user is already registered with this email address."
 msgstr "此电子邮件地址已被其他用户注册。"
 
-#: account/adapter.py:74
+#: account/adapter.py:91
 msgid "Please type your current password."
 msgstr "请输入您的当前密码。"
 
-#: account/adapter.py:75 mfa/adapter.py:38
+#: account/adapter.py:92 mfa/adapter.py:41
 msgid "Incorrect code."
 msgstr "错误代码。"
 
-#: account/adapter.py:76
+#: account/adapter.py:93
 msgid "Incorrect password."
 msgstr "无效密码。"
 
-#: account/adapter.py:77
+#: account/adapter.py:94
 msgid "Invalid or expired key."
 msgstr "令牌无效或过期。"
 
-#: account/adapter.py:78
+#: account/adapter.py:95
 msgid "Invalid login."
 msgstr "登录无效。"
 
-#: account/adapter.py:79
+#: account/adapter.py:96
 msgid "The password reset token was invalid."
 msgstr "您重置密码的token是无效的。"
 
-#: account/adapter.py:80
+#: account/adapter.py:97
 #, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "您不能添加超过%d个电子邮件地址。"
 
-#: account/adapter.py:81
+#: account/adapter.py:98
 msgid "A user is already registered with this phone number."
 msgstr "此电话号码已被其他用户注册。"
 
-#: account/adapter.py:83
+#: account/adapter.py:100
 msgid "Too many failed login attempts. Try again later."
 msgstr "登录失败次数过多，请稍后重试。"
 
-#: account/adapter.py:85
+#: account/adapter.py:102
 msgid "The email address is not assigned to any user account."
 msgstr "此电子邮件地址未分配给任何用户账号。"
 
-#: account/adapter.py:86
+#: account/adapter.py:103
 msgid "The phone number is not assigned to any user account."
 msgstr "此电话号码未分配给任何用户账号。"
 
-#: account/adapter.py:87
+#: account/adapter.py:104
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary email address must be verified."
 msgstr "您的主要电子邮件地址必须被验证。"
 
-#: account/adapter.py:89
+#: account/adapter.py:106
 msgid "Username can not be used. Please use other username."
 msgstr "此用户名不能使用，请改用其他用户名。"
 
-#: account/adapter.py:92
+#: account/adapter.py:109
 msgid "The username and/or password you specified are not correct."
 msgstr "您提供的用户名或密码不正确。"
 
-#: account/adapter.py:97
+#: account/adapter.py:114
 msgid "Please select only one."
 msgstr "请仅选择一项。"
 
-#: account/adapter.py:98
+#: account/adapter.py:115
 msgid "The new value must be different from the current one."
 msgstr "新的输入值必须不同于当前的内容。"
 
-#: account/adapter.py:99
+#: account/adapter.py:116
 msgid "Be patient, you are sending too many requests."
 msgstr "请稍等，您已经提交过多次请求。"
 
-#: account/adapter.py:825
+#: account/adapter.py:906
 msgid "Use your password"
 msgstr "使用您的密码"
 
-#: account/adapter.py:834
+#: account/adapter.py:913 templates/account/login.html:47
+#: templates/account/request_login_code.html:9
+msgid "Send me a sign-in code"
+msgstr "发送登录代码给我"
+
+#: account/adapter.py:922
 msgid "Use authenticator app or code"
 msgstr "请使用认证APP或代码"
 
-#: account/adapter.py:841 templates/mfa/authenticate.html:41
+#: account/adapter.py:929 templates/mfa/authenticate.html:41
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use a security key"
 msgstr "使用安全密钥"
 
-#: account/admin.py:30
+#: account/admin.py:33
 #, python-brace-format
 msgid "Marked {email} as verified."
 msgstr "已将 {email} 标记为已验证。"
 
-#: account/admin.py:36
+#: account/admin.py:39
 #, python-brace-format
 msgid "Failed to mark {email} as verified."
 msgstr "标记 {email} 为已验证失败。"
 
-#: account/admin.py:42
+#: account/admin.py:45
 msgid "Mark selected email addresses as verified"
 msgstr "将选中的电子邮件地址标记为已验证"
 
@@ -144,207 +149,243 @@ msgstr "将选中的电子邮件地址标记为已验证"
 msgid "Accounts"
 msgstr "账户"
 
-#: account/fields.py:12 account/forms.py:298 idp/oidc/forms.py:43
+#: account/fields.py:20 account/forms.py:280 idp/oidc/forms.py:48
 msgid "Email"
 msgstr "电子邮件"
 
-#: account/fields.py:19
+#: account/fields.py:27
 msgid "Email address"
 msgstr "电子邮件地址"
 
-#: account/fields.py:62
+#: account/fields.py:73
+msgid "Forgot your password?"
+msgstr "忘记密码？"
+
+#: account/fields.py:97
 msgid "Enter a phone number including country code (e.g. +1 for the US)."
 msgstr "请输入包含国家/地区代码的电话号码（例如，美国为 +1）。"
 
-#: account/fields.py:68 account/fields.py:72 account/forms.py:324
+#: account/fields.py:103 account/fields.py:107 account/forms.py:306
 msgid "Phone"
 msgstr "电话号码"
 
-#: account/forms.py:59 account/forms.py:523
+#: account/forms.py:54 account/forms.py:511
 msgid "You must type the same password each time."
 msgstr "每次输入的密码必须相同。"
 
-#: account/forms.py:64 account/forms.py:450 account/forms.py:609
-#: account/forms.py:695
+#: account/forms.py:60 account/forms.py:438 account/forms.py:607
+#: account/forms.py:701
 msgid "Password"
 msgstr "密码"
 
-#: account/forms.py:65
+#: account/forms.py:62
 msgid "Remember Me"
 msgstr "记住我"
 
-#: account/forms.py:78 account/forms.py:81 account/forms.py:264
-#: account/forms.py:267 account/forms.py:310
+#: account/forms.py:75 account/forms.py:78 account/forms.py:243
+#: account/forms.py:246 account/forms.py:292
 msgid "Username"
 msgstr "用户名"
 
-#: account/forms.py:95
+#: account/forms.py:92
 msgctxt "field label"
 msgid "Login"
 msgstr "登录"
 
-#: account/forms.py:114
+#: account/forms.py:111
 msgid "Username, email or phone"
 msgstr "用户名、电子邮件或电话号码"
 
-#: account/forms.py:116
+#: account/forms.py:113
 msgid "Username or email"
 msgstr "用户名或email"
 
-#: account/forms.py:118
+#: account/forms.py:115
 msgid "Username or phone"
 msgstr "用户名或电话号码"
 
-#: account/forms.py:120
+#: account/forms.py:117
 msgid "Email or phone"
 msgstr "电子邮件或电话号码"
 
-#: account/forms.py:143
-msgid "Forgot your password?"
-msgstr "忘记密码？"
-
-#: account/forms.py:286
+#: account/forms.py:268
 msgid "Email (again)"
 msgstr "电子邮件（再次输入）"
 
-#: account/forms.py:291
+#: account/forms.py:273
 msgid "Email address confirmation"
 msgstr "电子邮件地址确认"
 
-#: account/forms.py:301
+#: account/forms.py:283
 msgid "Email (optional)"
 msgstr "电子邮件 （选填项）"
 
-#: account/forms.py:313
+#: account/forms.py:295
 msgid "Username (optional)"
 msgstr "用户名（选填项）"
 
-#: account/forms.py:387
+#: account/forms.py:369
 msgid "You must type the same email each time."
 msgstr "每次输入的电子邮件必须相同。"
 
-#: account/forms.py:457 account/forms.py:610
+#: account/forms.py:445 account/forms.py:608
 msgid "Password (again)"
 msgstr "密码（重复）"
 
-#: account/forms.py:590
+#: account/forms.py:582
 msgid "Current Password"
 msgstr "当前密码"
 
-#: account/forms.py:592 account/forms.py:648
+#: account/forms.py:585 account/forms.py:650
 msgid "New Password"
 msgstr "新密码"
 
-#: account/forms.py:593 account/forms.py:649
+#: account/forms.py:587 account/forms.py:652
 msgid "New Password (again)"
 msgstr "新密码（重复）"
 
-#: account/forms.py:766 account/forms.py:768 idp/oidc/forms.py:51
-#: idp/oidc/forms.py:54 mfa/base/forms.py:12 mfa/base/forms.py:14
-#: mfa/totp/forms.py:13
+#: account/forms.py:775 account/forms.py:777 idp/oidc/forms.py:56
+#: idp/oidc/forms.py:59 idp/oidc/models.py:52 mfa/base/forms.py:15
+#: mfa/base/forms.py:17 mfa/totp/forms.py:18
 #: templates/idp/oidc/device_authorization_confirm_form.html:16
 msgid "Code"
 msgstr "代码"
 
-#: account/models.py:29
+#: account/models.py:30
 msgid "user"
 msgstr "用户"
 
-#: account/models.py:35 account/models.py:43 account/models.py:147
+#: account/models.py:36 account/models.py:44 account/models.py:150
 msgid "email address"
 msgstr "电子邮件地址"
 
-#: account/models.py:37
+#: account/models.py:38
 msgid "verified"
 msgstr "已验证"
 
-#: account/models.py:38
+#: account/models.py:39
 msgid "primary"
 msgstr "主要"
 
-#: account/models.py:44
+#: account/models.py:45
 msgid "email addresses"
 msgstr "电子邮件地址"
 
-#: account/models.py:150
+#: account/models.py:153
 msgid "created"
 msgstr "已建立"
 
-#: account/models.py:151
+#: account/models.py:154
 msgid "sent"
 msgstr "已发送"
 
-#: account/models.py:152 socialaccount/models.py:70
+#: account/models.py:155 socialaccount/models.py:68
 msgid "key"
 msgstr "密钥"
 
-#: account/models.py:157
+#: account/models.py:160
 msgid "email confirmation"
 msgstr "电子邮件确认"
 
-#: account/models.py:158
+#: account/models.py:161
 msgid "email confirmations"
 msgstr "电子邮件确认"
 
-#: headless/apps.py:7
+#: headless/apps.py:9
 msgid "Headless"
 msgstr "无头"
 
-#: idp/oidc/adapter.py:31
+#: idp/oidc/adapter.py:41
 msgid "View your user ID"
 msgstr "查看您的用户 ID"
 
-#: idp/oidc/adapter.py:32
+#: idp/oidc/adapter.py:42
 msgid "View your email address"
 msgstr "查看您的电子邮件地址"
 
-#: idp/oidc/adapter.py:33
+#: idp/oidc/adapter.py:43
 msgid "View your basic profile information"
 msgstr "查看您的基本个人资料信息"
 
-#: idp/oidc/forms.py:31
+#: idp/oidc/forms.py:36
 msgid "Grant permissions"
 msgstr "授予权限"
 
-#: idp/oidc/internal/clientkit.py:22
+#: idp/oidc/internal/clientkit.py:27
 msgid "Wildcards are not allowed unless 'Allow URI wildcards' is enabled."
 msgstr "除非启用“允许 URI 通配符”，否则不允许使用通配符。"
 
-#: idp/oidc/internal/clientkit.py:27
+#: idp/oidc/internal/clientkit.py:32
 msgid ""
 "URI '{}' contains more than one wildcard (*). Only one wildcard per URI is "
 "allowed."
 msgstr "URI“{}”包含多个通配符 (*)。每个 URI 只允许一个通配符。"
 
-#: idp/oidc/internal/clientkit.py:39
+#: idp/oidc/internal/clientkit.py:44
 msgid "Wildcards are only allowed in the hostname portion of the URI."
 msgstr "通配符只允许在 URI 的主机名部分使用。"
 
-#: idp/oidc/models.py:35
+#: idp/oidc/models.py:46
 msgid "Authorization code"
 msgstr "验证码"
 
-#: idp/oidc/models.py:36
+#: idp/oidc/models.py:47
 msgid "Device code"
 msgstr "设备代码"
 
-#: idp/oidc/models.py:37
+#: idp/oidc/models.py:48
 msgid "Client credentials"
 msgstr "客户端密钥"
 
-#: idp/oidc/models.py:38
+#: idp/oidc/models.py:49
 msgid "Refresh token"
 msgstr "刷新令牌"
 
-#: idp/oidc/models.py:41
+#: idp/oidc/models.py:53
+msgid "Token"
+msgstr "令牌"
+
+#: idp/oidc/models.py:54
+msgid "ID token"
+msgstr "ID令牌"
+
+#: idp/oidc/models.py:55
+msgid "ID token token"
+msgstr "ID令牌 令牌"
+
+#: idp/oidc/models.py:56
+msgid "Code token"
+msgstr "授权码 令牌"
+
+#: idp/oidc/models.py:57
+msgid "Code ID token"
+msgstr "授权码 ID令牌"
+
+#: idp/oidc/models.py:58
+msgid "Code ID token token"
+msgstr "授权码 ID令牌 令牌"
+
+#: idp/oidc/models.py:59 idp/oidc/models.py:69
+msgid "None"
+msgstr "无"
+
+#: idp/oidc/models.py:62
 msgid "Confidential"
 msgstr "机密"
 
-#: idp/oidc/models.py:42
+#: idp/oidc/models.py:63
 msgid "Public"
 msgstr "公共"
 
-#: idp/oidc/models.py:56
+#: idp/oidc/models.py:70
+msgid "Client secret basic"
+msgstr "客户端密钥 (basic)"
+
+#: idp/oidc/models.py:71
+msgid "Client secret post"
+msgstr "客户端密钥 (post)"
+
+#: idp/oidc/models.py:85
 msgid ""
 "The scope(s) the client is allowed to request. Provide one value per line, "
 "e.g.: openid(ENTER)profile(ENTER)email(ENTER)"
@@ -352,7 +393,7 @@ msgstr ""
 "客户端被允许请求的范围。每行提供一个值，例如：openid(回车)profile(回"
 "车)email(回车)"
 
-#: idp/oidc/models.py:62
+#: idp/oidc/models.py:91
 msgid ""
 "In case the client does not specify any scope, these default scopes are "
 "used. Provide one value per line, e.g.: "
@@ -361,7 +402,7 @@ msgstr ""
 "如果客户端没有指定任何范围，将使用这些默认范围。每行提供一个值，例如："
 "openid(回车)profile(回车)email(回车)"
 
-#: idp/oidc/models.py:73
+#: idp/oidc/models.py:102
 msgid ""
 "A list of allowed grant types. Provide one value per line, e.g.: "
 "authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
@@ -369,11 +410,11 @@ msgstr ""
 "允许的授权类型列表。每行提供一个值，例如：authorization_code(回"
 "车)client_credentials(回车)refresh_token(回车)"
 
-#: idp/oidc/models.py:84
+#: idp/oidc/models.py:113
 msgid "A list of allowed origins for cross-origin requests, one per line."
 msgstr "跨域请求允许的源列表，每行一个。"
 
-#: idp/oidc/models.py:92
+#: idp/oidc/models.py:121
 msgid ""
 "Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
 "can contain a single asterisk to match subdomains."
@@ -381,52 +422,52 @@ msgstr ""
 "允许在重定向 URI 和 CORS 来源中使用通配符 (*)。启用后，URI 可以包含一个星号来"
 "匹配子域名。"
 
-#: idp/oidc/models.py:100
+#: idp/oidc/models.py:129
 msgid ""
 "A list of allowed response types. Provide one value per line, e.g.: "
 "code(ENTER)id_token token(ENTER)"
 msgstr ""
 "允许的响应类型列表。每行提供一个值，例如：code(回车)id_token token(回车)"
 
-#: idp/oidc/models.py:113
+#: idp/oidc/models.py:142
 msgid "client"
 msgstr "客户端"
 
-#: idp/oidc/models.py:114
+#: idp/oidc/models.py:143
 msgid "clients"
 msgstr "客户端"
 
-#: mfa/adapter.py:30
+#: mfa/adapter.py:33
 msgid ""
 "You cannot add an email address to an account protected by two-factor "
 "authentication."
 msgstr "您不能在开启了两步验证的账户中添加电子邮件地址。"
 
-#: mfa/adapter.py:33
+#: mfa/adapter.py:36
 msgid "You cannot deactivate two-factor authentication."
 msgstr "您不能停用两步验证。"
 
-#: mfa/adapter.py:36
+#: mfa/adapter.py:39
 msgid ""
 "You cannot generate recovery codes without having two-factor authentication "
 "enabled."
 msgstr "未启用两步验证，您无法生成恢复代码。"
 
-#: mfa/adapter.py:40
+#: mfa/adapter.py:43
 msgid ""
 "You cannot activate two-factor authentication until you have verified your "
 "email address."
 msgstr "在验证您的Email地址之前，您不能激活两步验证。"
 
-#: mfa/adapter.py:139
+#: mfa/adapter.py:144
 msgid "Master key"
 msgstr "主密钥"
 
-#: mfa/adapter.py:141
+#: mfa/adapter.py:146
 msgid "Backup key"
 msgstr "备份密钥"
 
-#: mfa/adapter.py:142
+#: mfa/adapter.py:147
 #, python-brace-format
 msgid "Key nr. {number}"
 msgstr "密钥 {number}"
@@ -435,27 +476,27 @@ msgstr "密钥 {number}"
 msgid "MFA"
 msgstr "多因素认证"
 
-#: mfa/models.py:24
+#: mfa/models.py:26
 msgid "Recovery codes"
 msgstr "恢复代码"
 
-#: mfa/models.py:25
+#: mfa/models.py:27
 msgid "TOTP Authenticator"
 msgstr "TOTP 认证器"
 
-#: mfa/models.py:26
+#: mfa/models.py:28
 msgid "WebAuthn"
 msgstr "WebAuthn"
 
-#: mfa/totp/forms.py:11
+#: mfa/totp/forms.py:16
 msgid "Authenticator code"
 msgstr "认证器代码"
 
-#: mfa/webauthn/forms.py:56
+#: mfa/webauthn/forms.py:62
 msgid "Passwordless"
 msgstr "无密码"
 
-#: mfa/webauthn/forms.py:59
+#: mfa/webauthn/forms.py:65
 msgid ""
 "Enabling passwordless operation allows you to sign in using just this key, "
 "but imposes additional requirements such as biometrics or PIN protection."
@@ -463,131 +504,131 @@ msgstr ""
 "启用无密码操作允许您仅使用此密钥登录，但会提出其他要求，例如生物特征或PIN保"
 "护。"
 
-#: socialaccount/adapter.py:30
+#: socialaccount/adapter.py:85
 #, python-format
 msgid ""
 "An account already exists with this email address. Please sign in to that "
 "account first, then connect your %s account."
 msgstr "已有一个账号与此Email地址关联。请先登录该账号，然后连接您的 %s 账号。"
 
-#: socialaccount/adapter.py:34
+#: socialaccount/adapter.py:89
 msgid "Invalid token."
 msgstr "令牌无效。"
 
-#: socialaccount/adapter.py:35
+#: socialaccount/adapter.py:90
 msgid "Your account has no password set up."
 msgstr "您的账号未设置密码。"
 
-#: socialaccount/adapter.py:36
+#: socialaccount/adapter.py:91
 msgid "Your account has no verified email address."
 msgstr "您的账号下无任何验证过的email地址。"
 
-#: socialaccount/adapter.py:38
+#: socialaccount/adapter.py:93
 msgid "You cannot disconnect your last remaining third-party account."
 msgstr "您不能断开您剩下的唯一的第三方账号。"
 
-#: socialaccount/adapter.py:41
+#: socialaccount/adapter.py:96
 #: templates/socialaccount/messages/account_connected_other.txt:2
 msgid "The third-party account is already connected to a different account."
 msgstr "该第三方账号已连接到另一个账户。"
 
-#: socialaccount/apps.py:9
+#: socialaccount/apps.py:11
 msgid "Social Accounts"
 msgstr "社交账户"
 
-#: socialaccount/models.py:45 socialaccount/models.py:98
+#: socialaccount/models.py:43 socialaccount/models.py:96
 msgid "provider"
 msgstr "提供者"
 
-#: socialaccount/models.py:53
+#: socialaccount/models.py:51
 msgid "provider ID"
 msgstr "提供者ID"
 
-#: socialaccount/models.py:57
+#: socialaccount/models.py:55
 msgid "name"
 msgstr "名字"
 
-#: socialaccount/models.py:59
+#: socialaccount/models.py:57
 msgid "client id"
 msgstr "客户端ID"
 
-#: socialaccount/models.py:61
+#: socialaccount/models.py:59
 msgid "App ID, or consumer key"
 msgstr "应用ID或消费者密钥"
 
-#: socialaccount/models.py:64
+#: socialaccount/models.py:62
 msgid "secret key"
 msgstr "密钥"
 
-#: socialaccount/models.py:67
+#: socialaccount/models.py:65
 msgid "API secret, client secret, or consumer secret"
 msgstr "API密钥、客户端密钥或消费者密钥"
 
-#: socialaccount/models.py:70 templates/mfa/webauthn/authenticator_list.html:18
+#: socialaccount/models.py:68 templates/mfa/webauthn/authenticator_list.html:18
 msgid "Key"
 msgstr "密钥"
 
-#: socialaccount/models.py:82
+#: socialaccount/models.py:80
 msgid "social application"
 msgstr "社交应用"
 
-#: socialaccount/models.py:83
+#: socialaccount/models.py:81
 msgid "social applications"
 msgstr "社交应用程序"
 
-#: socialaccount/models.py:118
+#: socialaccount/models.py:116
 msgid "uid"
 msgstr "用户ID"
 
-#: socialaccount/models.py:120
+#: socialaccount/models.py:118
 msgid "last login"
 msgstr "最后一次登录"
 
-#: socialaccount/models.py:121
+#: socialaccount/models.py:119
 msgid "date joined"
 msgstr "加入日期"
 
-#: socialaccount/models.py:122
+#: socialaccount/models.py:120
 msgid "extra data"
 msgstr "额外数据"
 
-#: socialaccount/models.py:126
+#: socialaccount/models.py:124
 msgid "social account"
 msgstr "社交账户"
 
-#: socialaccount/models.py:127
+#: socialaccount/models.py:125
 msgid "social accounts"
 msgstr "社交账号"
 
-#: socialaccount/models.py:161
+#: socialaccount/models.py:159
 msgid "token"
 msgstr "令牌"
 
-#: socialaccount/models.py:162
+#: socialaccount/models.py:160
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr "\"oauth_token\" (OAuth1) 或访问令牌 (OAuth2)"
 
-#: socialaccount/models.py:166
+#: socialaccount/models.py:164
 msgid "token secret"
 msgstr "令牌密钥"
 
-#: socialaccount/models.py:167
+#: socialaccount/models.py:165
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr "\"oauth_token_secret\" (OAuth1) 或刷新令牌 (OAuth2)"
 
-#: socialaccount/models.py:170
+#: socialaccount/models.py:168
 msgid "expires at"
 msgstr "过期时间"
 
-#: socialaccount/models.py:175
+#: socialaccount/models.py:173
 msgid "social application token"
 msgstr "社交应用令牌"
 
-#: socialaccount/models.py:176
+#: socialaccount/models.py:174
 msgid "social application tokens"
 msgstr "社交应用令牌"
 
-#: socialaccount/providers/douban/views.py:35
+#: socialaccount/providers/douban/views.py:38
 msgid "Invalid profile data"
 msgstr "无效个人资料数据"
 
@@ -605,34 +646,34 @@ msgstr "登录"
 msgid "Cancel"
 msgstr "取消"
 
-#: socialaccount/providers/oauth/client.py:86
+#: socialaccount/providers/oauth/client.py:88
 #, python-format
 msgid ""
 "Invalid response while obtaining request token from \"%s\". Response was: %s."
 msgstr "在请求token时收到无效的响应\"%s\"。响应如下：%s。"
 
-#: socialaccount/providers/oauth/client.py:121
-#: socialaccount/providers/pocket/client.py:81
+#: socialaccount/providers/oauth/client.py:123
+#: socialaccount/providers/pocket/client.py:83
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr "从 \"%s\" 获取访问令牌时响应无效。"
 
-#: socialaccount/providers/oauth/client.py:142
+#: socialaccount/providers/oauth/client.py:144
 #, python-format
 msgid "No request token saved for \"%s\"."
 msgstr "未保存 \"%s\" 的请求令牌。"
 
-#: socialaccount/providers/oauth/client.py:193
+#: socialaccount/providers/oauth/client.py:197
 #, python-format
 msgid "No access token saved for \"%s\"."
 msgstr "未保存 \"%s\" 的访问令牌。"
 
-#: socialaccount/providers/oauth/client.py:219
+#: socialaccount/providers/oauth/client.py:223
 #, python-format
 msgid "No access to private resources at \"%s\"."
 msgstr "无权访问私有资源 \"%s\"。"
 
-#: socialaccount/providers/pocket/client.py:39
+#: socialaccount/providers/pocket/client.py:41
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr "从 \"%s\" 获取请求令牌时响应无效。"
@@ -667,6 +708,7 @@ msgstr "请求新代码"
 
 #: templates/account/base_reauthenticate.html:5
 #: templates/account/base_reauthenticate.html:9
+#: templates/account/confirm_reauthentication_code.html:5
 msgid "Confirm Access"
 msgstr "确认访问"
 
@@ -694,7 +736,7 @@ msgstr "使用不同的电子邮件地址"
 #: templates/account/confirm_login_code.html:5 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
 #: templates/account/request_login_code.html:5
-#: templates/allauth/layouts/base.html:68 templates/mfa/authenticate.html:6
+#: templates/allauth/layouts/base.html:69 templates/mfa/authenticate.html:6
 #: templates/mfa/authenticate.html:24 templates/openid/login.html:5
 #: templates/openid/login.html:9 templates/openid/login.html:20
 #: templates/socialaccount/login.html:5
@@ -703,6 +745,7 @@ msgid "Sign In"
 msgstr "登录"
 
 #: templates/account/confirm_login_code.html:8
+#: templates/account/confirm_reauthentication_code.html:8
 msgid "Enter Sign-In Code"
 msgstr "输入登录代码"
 
@@ -1006,7 +1049,7 @@ msgid "Change to"
 msgstr "改为"
 
 #: templates/account/email_change.html:55
-#: templates/allauth/layouts/base.html:31
+#: templates/allauth/layouts/base.html:32
 msgid "Change Email"
 msgstr "更改Email"
 
@@ -1052,12 +1095,8 @@ msgstr "如果您还没有创建账号，请先 %(link)s注册%(end_link)s 。"
 msgid "Sign in with a passkey"
 msgstr "使用 passkey 登录"
 
-#: templates/account/login.html:47 templates/account/request_login_code.html:9
-msgid "Send me a sign-in code"
-msgstr "发送登录代码给我"
-
 #: templates/account/logout.html:4 templates/account/logout.html:8
-#: templates/account/logout.html:21 templates/allauth/layouts/base.html:61
+#: templates/account/logout.html:21 templates/allauth/layouts/base.html:62
 #: templates/idp/oidc/logout.html:4 templates/idp/oidc/logout.html:8
 #: templates/idp/oidc/logout.html:21
 #: templates/usersessions/usersession_list.html:76
@@ -1132,13 +1171,9 @@ msgstr "主Email地址已设置。"
 #: templates/account/password_reset_from_key.html:30
 #: templates/account/password_reset_from_key_done.html:5
 #: templates/account/password_reset_from_key_done.html:9
-#: templates/allauth/layouts/base.html:37
+#: templates/allauth/layouts/base.html:38
 msgid "Change Password"
 msgstr "修改密码"
-
-#: templates/account/password_change.html:22
-msgid "Forgot Password?"
-msgstr "忘记密码？"
 
 #: templates/account/password_reset.html:14
 msgid ""
@@ -1213,6 +1248,7 @@ msgid "You will receive a special code for a password-free sign-in."
 msgstr "您将收到一个用于免密码登录的特殊代码。"
 
 #: templates/account/request_login_code.html:23
+#: templates/account/request_reauthentication_code.html:15
 msgid "Request Code"
 msgstr "请求码"
 
@@ -1227,7 +1263,7 @@ msgstr "注册"
 
 #: templates/account/signup.html:8 templates/account/signup.html:30
 #: templates/account/signup_by_passkey.html:29
-#: templates/allauth/layouts/base.html:74 templates/socialaccount/signup.html:9
+#: templates/allauth/layouts/base.html:75 templates/socialaccount/signup.html:9
 #: templates/socialaccount/signup.html:25
 msgid "Sign Up"
 msgstr "注册"
@@ -1327,26 +1363,26 @@ msgstr ""
 "<strong>注意：</strong>您仍然可以<a href=\"%(email_url)s\">更改您的电子邮件地"
 "址</a>。"
 
-#: templates/allauth/layouts/base.html:18
+#: templates/allauth/layouts/base.html:19
 msgid "Messages:"
 msgstr "消息："
 
-#: templates/allauth/layouts/base.html:25
+#: templates/allauth/layouts/base.html:26
 msgid "Menu:"
 msgstr "菜单："
 
-#: templates/allauth/layouts/base.html:43
+#: templates/allauth/layouts/base.html:44
 #: templates/socialaccount/connections.html:5
 #: templates/socialaccount/connections.html:9
 msgid "Account Connections"
 msgstr "账号连接"
 
-#: templates/allauth/layouts/base.html:49 templates/mfa/authenticate.html:10
+#: templates/allauth/layouts/base.html:50 templates/mfa/authenticate.html:10
 #: templates/mfa/index.html:5 templates/mfa/index.html:9
 msgid "Two-Factor Authentication"
 msgstr "双因素身份认证"
 
-#: templates/allauth/layouts/base.html:55
+#: templates/allauth/layouts/base.html:56
 #: templates/usersessions/usersession_list.html:6
 #: templates/usersessions/usersession_list.html:10
 msgid "Sessions"
@@ -1856,9 +1892,12 @@ msgstr "注销其他会话"
 msgid "User Sessions"
 msgstr "用户会话"
 
-#: usersessions/models.py:93
+#: usersessions/models.py:109
 msgid "session key"
 msgstr "会话密钥"
+
+#~ msgid "Forgot Password?"
+#~ msgstr "忘记密码？"
 
 #, fuzzy
 #~ msgid "Account Connection"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-08 13:31-0500\n"
+"POT-Creation-Date: 2026-11-11 13:35-0600\n"
 "PO-Revision-Date: 2025-09-17 16:01+0000\n"
 "Last-Translator: Hyunjoon <yi.hyunjoon@gmail.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/allauth/django-"
@@ -19,124 +19,129 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 5.14-dev\n"
 
-#: account/adapter.py:60
+#: account/adapter.py:77
 msgid "This account is currently inactive."
 msgstr "해당 계정은 현재 비활성화 상태입니다."
 
-#: account/adapter.py:62
+#: account/adapter.py:79
 msgid "You cannot remove your primary email address."
 msgstr "주 이메일은 제거할 수 없습니다."
 
-#: account/adapter.py:65
+#: account/adapter.py:82
 msgid "This email address is already associated with this account."
 msgstr "해당 이메일은 이미 이 계정에 등록되어 있습니다."
 
-#: account/adapter.py:68
+#: account/adapter.py:85
 msgid "The email address and/or password you specified are not correct."
 msgstr "이메일 또는 비밀번호가 올바르지 않습니다."
 
-#: account/adapter.py:71
+#: account/adapter.py:88
 msgid "The phone number and/or password you specified are not correct."
 msgstr "전화번호 또는 비밀번호가 올바르지 않습니다."
 
-#: account/adapter.py:73
+#: account/adapter.py:90
 msgid "A user is already registered with this email address."
 msgstr "해당 이메일은 이미 사용되고 있습니다."
 
-#: account/adapter.py:74
+#: account/adapter.py:91
 msgid "Please type your current password."
 msgstr "현재 비밀번호를 입력하세요."
 
-#: account/adapter.py:75 mfa/adapter.py:38
+#: account/adapter.py:92 mfa/adapter.py:41
 msgid "Incorrect code."
 msgstr "올바르지 않은 코드."
 
-#: account/adapter.py:76
+#: account/adapter.py:93
 msgid "Incorrect password."
 msgstr "올바르지 않은 비밀번호."
 
-#: account/adapter.py:77
+#: account/adapter.py:94
 msgid "Invalid or expired key."
 msgstr "올비르지 않거나 만료된 키."
 
-#: account/adapter.py:78
+#: account/adapter.py:95
 msgid "Invalid login."
 msgstr "유효하지 않은 로그인입니다."
 
-#: account/adapter.py:79
+#: account/adapter.py:96
 msgid "The password reset token was invalid."
 msgstr "비밀번호 초기화 토큰이 올바르지 않습니다."
 
-#: account/adapter.py:80
+#: account/adapter.py:97
 #, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "이메일 주소는 %d개 이상 추가할 수 없습니다."
 
-#: account/adapter.py:81
+#: account/adapter.py:98
 msgid "A user is already registered with this phone number."
 msgstr "해당 전화번호는 이미 사용되고 있습니다."
 
-#: account/adapter.py:83
+#: account/adapter.py:100
 msgid "Too many failed login attempts. Try again later."
 msgstr "너무 많은 로그인 실패가 감지되었습니다. 잠시 후에 다시 시도하세요."
 
-#: account/adapter.py:85
+#: account/adapter.py:102
 msgid "The email address is not assigned to any user account."
 msgstr "해당 이메일 주소와 연결된 사용자 계정이 없습니다."
 
-#: account/adapter.py:86
+#: account/adapter.py:103
 msgid "The phone number is not assigned to any user account."
 msgstr "해당 전화번호와 연결된 사용자 계정이 없습니다."
 
-#: account/adapter.py:87
+#: account/adapter.py:104
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary email address must be verified."
 msgstr "주 이메일은 인증이 필요합니다."
 
-#: account/adapter.py:89
+#: account/adapter.py:106
 msgid "Username can not be used. Please use other username."
 msgstr "해당 아이디는 이미 사용중입니다. 다른 사용자명을 이용해 주세요."
 
-#: account/adapter.py:92
+#: account/adapter.py:109
 msgid "The username and/or password you specified are not correct."
 msgstr "아이디 또는 비밀번호가 올바르지 않습니다."
 
-#: account/adapter.py:97
+#: account/adapter.py:114
 msgid "Please select only one."
 msgstr "하나만 선택해 주세요."
 
-#: account/adapter.py:98
+#: account/adapter.py:115
 msgid "The new value must be different from the current one."
 msgstr "새 값은 현재 값과 달라야 합니다."
 
-#: account/adapter.py:99
+#: account/adapter.py:116
 msgid "Be patient, you are sending too many requests."
 msgstr "잠시만 기다려 주세요. 요청을 너무 많이 보내고 있습니다."
 
-#: account/adapter.py:825
+#: account/adapter.py:906
 msgid "Use your password"
 msgstr "비밀번호를 사용하세요"
 
-#: account/adapter.py:834
+#: account/adapter.py:913 templates/account/login.html:47
+#: templates/account/request_login_code.html:9
+msgid "Send me a sign-in code"
+msgstr "로그인 코드 받기"
+
+#: account/adapter.py:922
 msgid "Use authenticator app or code"
 msgstr "인증 앱 또는 코드를 사용하세요"
 
-#: account/adapter.py:841 templates/mfa/authenticate.html:41
+#: account/adapter.py:929 templates/mfa/authenticate.html:41
 #: templates/mfa/webauthn/reauthenticate.html:15
 msgid "Use a security key"
 msgstr "보안키를 사용하세요"
 
-#: account/admin.py:30
+#: account/admin.py:33
 #, python-brace-format
 msgid "Marked {email} as verified."
 msgstr "{email}을(를) 인증됨으로 표시했습니다."
 
-#: account/admin.py:36
+#: account/admin.py:39
 #, python-brace-format
 msgid "Failed to mark {email} as verified."
 msgstr "{email}을(를) 인증 완료로 표시하지 못했습니다."
 
-#: account/admin.py:42
+#: account/admin.py:45
 msgid "Mark selected email addresses as verified"
 msgstr "선택된 이메일 주소를 인증됨으로 표시"
 
@@ -144,174 +149,174 @@ msgstr "선택된 이메일 주소를 인증됨으로 표시"
 msgid "Accounts"
 msgstr "계정"
 
-#: account/fields.py:12 account/forms.py:298 idp/oidc/forms.py:43
+#: account/fields.py:20 account/forms.py:280 idp/oidc/forms.py:48
 msgid "Email"
 msgstr "이메일"
 
-#: account/fields.py:19
+#: account/fields.py:27
 msgid "Email address"
 msgstr "이메일 주소"
 
-#: account/fields.py:62
+#: account/fields.py:73
+msgid "Forgot your password?"
+msgstr "비밀번호를 잊으셨나요?"
+
+#: account/fields.py:97
 msgid "Enter a phone number including country code (e.g. +1 for the US)."
 msgstr "국가 코드를 포함한 전화번호를 입력하세요 (예: 미국의 경우 +1)."
 
-#: account/fields.py:68 account/fields.py:72 account/forms.py:324
+#: account/fields.py:103 account/fields.py:107 account/forms.py:306
 msgid "Phone"
 msgstr "전화번호"
 
-#: account/forms.py:59 account/forms.py:523
+#: account/forms.py:54 account/forms.py:511
 msgid "You must type the same password each time."
 msgstr "동일한 비밀번호를 입력해야 합니다."
 
-#: account/forms.py:64 account/forms.py:450 account/forms.py:609
-#: account/forms.py:695
+#: account/forms.py:60 account/forms.py:438 account/forms.py:607
+#: account/forms.py:701
 msgid "Password"
 msgstr "비밀번호"
 
-#: account/forms.py:65
+#: account/forms.py:62
 msgid "Remember Me"
 msgstr "아이디 저장"
 
-#: account/forms.py:78 account/forms.py:81 account/forms.py:264
-#: account/forms.py:267 account/forms.py:310
+#: account/forms.py:75 account/forms.py:78 account/forms.py:243
+#: account/forms.py:246 account/forms.py:292
 msgid "Username"
 msgstr "아이디"
 
-#: account/forms.py:95
+#: account/forms.py:92
 msgctxt "field label"
 msgid "Login"
 msgstr "로그인"
 
-#: account/forms.py:114
+#: account/forms.py:111
 msgid "Username, email or phone"
 msgstr "아이디, 이메일 또는 전화번호"
 
-#: account/forms.py:116
+#: account/forms.py:113
 msgid "Username or email"
 msgstr "아이디 또는 이메일"
 
-#: account/forms.py:118
+#: account/forms.py:115
 msgid "Username or phone"
 msgstr "아이디 또는 전화번호"
 
-#: account/forms.py:120
+#: account/forms.py:117
 msgid "Email or phone"
 msgstr "이메일 또는 전화번호"
 
-#: account/forms.py:143
-msgid "Forgot your password?"
-msgstr "비밀번호를 잊으셨나요?"
-
-#: account/forms.py:286
+#: account/forms.py:268
 msgid "Email (again)"
 msgstr "이메일 (확인)"
 
-#: account/forms.py:291
+#: account/forms.py:273
 msgid "Email address confirmation"
 msgstr "이메일 주소 확인"
 
-#: account/forms.py:301
+#: account/forms.py:283
 msgid "Email (optional)"
 msgstr "이메일 (선택사항)"
 
-#: account/forms.py:313
+#: account/forms.py:295
 msgid "Username (optional)"
 msgstr "아이디 (선택사항)"
 
-#: account/forms.py:387
+#: account/forms.py:369
 msgid "You must type the same email each time."
 msgstr "동일한 이메일을 입력해야 합니다."
 
-#: account/forms.py:457 account/forms.py:610
+#: account/forms.py:445 account/forms.py:608
 msgid "Password (again)"
 msgstr "비밀번호 (확인)"
 
-#: account/forms.py:590
+#: account/forms.py:582
 msgid "Current Password"
 msgstr "현재 비밀번호"
 
-#: account/forms.py:592 account/forms.py:648
+#: account/forms.py:585 account/forms.py:650
 msgid "New Password"
 msgstr "새 비밀번호"
 
-#: account/forms.py:593 account/forms.py:649
+#: account/forms.py:587 account/forms.py:652
 msgid "New Password (again)"
 msgstr "새 비밀번호 (확인)"
 
-#: account/forms.py:766 account/forms.py:768 idp/oidc/forms.py:51
-#: idp/oidc/forms.py:54 mfa/base/forms.py:12 mfa/base/forms.py:14
-#: mfa/totp/forms.py:13
+#: account/forms.py:775 account/forms.py:777 idp/oidc/forms.py:56
+#: idp/oidc/forms.py:59 idp/oidc/models.py:52 mfa/base/forms.py:15
+#: mfa/base/forms.py:17 mfa/totp/forms.py:18
 #: templates/idp/oidc/device_authorization_confirm_form.html:16
 msgid "Code"
 msgstr "코드"
 
-#: account/models.py:29
+#: account/models.py:30
 msgid "user"
 msgstr "사용자"
 
-#: account/models.py:35 account/models.py:43 account/models.py:147
+#: account/models.py:36 account/models.py:44 account/models.py:150
 msgid "email address"
 msgstr "이메일 주소"
 
-#: account/models.py:37
+#: account/models.py:38
 msgid "verified"
 msgstr "인증완료"
 
-#: account/models.py:38
+#: account/models.py:39
 msgid "primary"
 msgstr "주"
 
-#: account/models.py:44
+#: account/models.py:45
 msgid "email addresses"
 msgstr "이메일 주소"
 
-#: account/models.py:150
+#: account/models.py:153
 msgid "created"
 msgstr "생성됨"
 
-#: account/models.py:151
+#: account/models.py:154
 msgid "sent"
 msgstr "전송됨"
 
-#: account/models.py:152 socialaccount/models.py:70
+#: account/models.py:155 socialaccount/models.py:68
 msgid "key"
 msgstr "키"
 
-#: account/models.py:157
+#: account/models.py:160
 msgid "email confirmation"
 msgstr "이메일 확인"
 
-#: account/models.py:158
+#: account/models.py:161
 msgid "email confirmations"
 msgstr "이메일 확인"
 
-#: headless/apps.py:7
+#: headless/apps.py:9
 msgid "Headless"
 msgstr "헤드리스"
 
-#: idp/oidc/adapter.py:31
+#: idp/oidc/adapter.py:41
 msgid "View your user ID"
 msgstr "사용자 ID 보기"
 
-#: idp/oidc/adapter.py:32
+#: idp/oidc/adapter.py:42
 msgid "View your email address"
 msgstr "이메일 주소 보기"
 
-#: idp/oidc/adapter.py:33
+#: idp/oidc/adapter.py:43
 msgid "View your basic profile information"
 msgstr "기본 프로필 정보 보기"
 
-#: idp/oidc/forms.py:31
+#: idp/oidc/forms.py:36
 msgid "Grant permissions"
 msgstr "권한 부여"
 
-#: idp/oidc/internal/clientkit.py:22
+#: idp/oidc/internal/clientkit.py:27
 msgid "Wildcards are not allowed unless 'Allow URI wildcards' is enabled."
 msgstr ""
 "'URI 와일드카드 허용'이 활성화되지 않은 경우 와일드카드를 사용할 수 없습니다."
 
-#: idp/oidc/internal/clientkit.py:27
+#: idp/oidc/internal/clientkit.py:32
 msgid ""
 "URI '{}' contains more than one wildcard (*). Only one wildcard per URI is "
 "allowed."
@@ -319,35 +324,71 @@ msgstr ""
 "URI '{}'에 와일드카드(*)가 두 개 이상 포함되어 있습니다. URI당 와일드카드는 "
 "하나만 허용됩니다."
 
-#: idp/oidc/internal/clientkit.py:39
+#: idp/oidc/internal/clientkit.py:44
 msgid "Wildcards are only allowed in the hostname portion of the URI."
 msgstr "와일드카드는 URI의 호스트명 부분에서만 허용됩니다."
 
-#: idp/oidc/models.py:35
+#: idp/oidc/models.py:46
 msgid "Authorization code"
 msgstr "인가 코드"
 
-#: idp/oidc/models.py:36
+#: idp/oidc/models.py:47
 msgid "Device code"
 msgstr "디바이스 코드"
 
-#: idp/oidc/models.py:37
+#: idp/oidc/models.py:48
 msgid "Client credentials"
 msgstr "클라이언트 자격 증명"
 
-#: idp/oidc/models.py:38
+#: idp/oidc/models.py:49
 msgid "Refresh token"
 msgstr "리프레시 토큰"
 
-#: idp/oidc/models.py:41
+#: idp/oidc/models.py:53
+msgid "Token"
+msgstr "토큰"
+
+#: idp/oidc/models.py:54
+msgid "ID token"
+msgstr "ID토큰"
+
+#: idp/oidc/models.py:55
+msgid "ID token token"
+msgstr "ID토큰 토큰"
+
+#: idp/oidc/models.py:56
+msgid "Code token"
+msgstr "인가 코드 토큰"
+
+#: idp/oidc/models.py:57
+msgid "Code ID token"
+msgstr "인가 코드 ID토큰"
+
+#: idp/oidc/models.py:58
+msgid "Code ID token token"
+msgstr "인가 코드 ID토큰 토큰"
+
+#: idp/oidc/models.py:59 idp/oidc/models.py:69
+msgid "None"
+msgstr "없음"
+
+#: idp/oidc/models.py:62
 msgid "Confidential"
 msgstr "기밀"
 
-#: idp/oidc/models.py:42
+#: idp/oidc/models.py:63
 msgid "Public"
 msgstr "공개"
 
-#: idp/oidc/models.py:56
+#: idp/oidc/models.py:70
+msgid "Client secret basic"
+msgstr "클라이언트 보안 비밀 (basic)"
+
+#: idp/oidc/models.py:71
+msgid "Client secret post"
+msgstr "클라이언트 보안 비밀 (post)"
+
+#: idp/oidc/models.py:85
 msgid ""
 "The scope(s) the client is allowed to request. Provide one value per line, "
 "e.g.: openid(ENTER)profile(ENTER)email(ENTER)"
@@ -355,7 +396,7 @@ msgstr ""
 "클라이언트가 요청할 수 있는 범위(scope)입니다. 한 줄에 하나씩 입력하세요. "
 "예: openid(ENTER)profile(ENTER)email(ENTER)"
 
-#: idp/oidc/models.py:62
+#: idp/oidc/models.py:91
 msgid ""
 "In case the client does not specify any scope, these default scopes are "
 "used. Provide one value per line, e.g.: "
@@ -364,7 +405,7 @@ msgstr ""
 "클라이언트가 범위를 지정하지 않은 경우 이 기본 범위가 사용됩니다. 한 줄에 하"
 "나씩 입력하세요. 예: openid(ENTER)profile(ENTER)email(ENTER)"
 
-#: idp/oidc/models.py:73
+#: idp/oidc/models.py:102
 msgid ""
 "A list of allowed grant types. Provide one value per line, e.g.: "
 "authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
@@ -372,11 +413,11 @@ msgstr ""
 "허용된 인가 유형 목록입니다. 한 줄에 하나씩 입력하세요. 예: "
 "authorization_code(ENTER)client_credentials(ENTER)refresh_token(ENTER)"
 
-#: idp/oidc/models.py:84
+#: idp/oidc/models.py:113
 msgid "A list of allowed origins for cross-origin requests, one per line."
 msgstr "교차 출처 요청에 허용된 출처 목록입니다. 한 줄에 하나씩 입력하세요."
 
-#: idp/oidc/models.py:92
+#: idp/oidc/models.py:121
 msgid ""
 "Allow wildcards (*) in redirect URIs and CORS origins. When enabled, URIs "
 "can contain a single asterisk to match subdomains."
@@ -384,7 +425,7 @@ msgstr ""
 "리디렉트 URI 및 CORS 출처에서 와일드카드(*)를 허용합니다. 활성화하면 URI에 단"
 "일 별표를 포함하여 하위 도메인을 매칭할 수 있습니다."
 
-#: idp/oidc/models.py:100
+#: idp/oidc/models.py:129
 msgid ""
 "A list of allowed response types. Provide one value per line, e.g.: "
 "code(ENTER)id_token token(ENTER)"
@@ -392,45 +433,45 @@ msgstr ""
 "허용된 응답 유형 목록입니다. 한 줄에 하나씩 입력하세요. 예: "
 "code(ENTER)id_token token(ENTER)"
 
-#: idp/oidc/models.py:113
+#: idp/oidc/models.py:142
 msgid "client"
 msgstr "클라이언트"
 
-#: idp/oidc/models.py:114
+#: idp/oidc/models.py:143
 msgid "clients"
 msgstr "클라이언트 목록"
 
-#: mfa/adapter.py:30
+#: mfa/adapter.py:33
 msgid ""
 "You cannot add an email address to an account protected by two-factor "
 "authentication."
 msgstr "2단계 인증으로 보호되는 계정에 이메일 주소를 추가할 수 없습니다."
 
-#: mfa/adapter.py:33
+#: mfa/adapter.py:36
 msgid "You cannot deactivate two-factor authentication."
 msgstr "2단계 인증을 비활성화 할 수 없습니다."
 
-#: mfa/adapter.py:36
+#: mfa/adapter.py:39
 msgid ""
 "You cannot generate recovery codes without having two-factor authentication "
 "enabled."
 msgstr "2단계 인증을 활성화하지 않으면 복구 코드를 생성할 수 없습니다."
 
-#: mfa/adapter.py:40
+#: mfa/adapter.py:43
 msgid ""
 "You cannot activate two-factor authentication until you have verified your "
 "email address."
 msgstr "이메일 주소를 인증하기 전까지는 2단계 인증을 활성화할 수 없습니다."
 
-#: mfa/adapter.py:139
+#: mfa/adapter.py:144
 msgid "Master key"
 msgstr "마스터 키"
 
-#: mfa/adapter.py:141
+#: mfa/adapter.py:146
 msgid "Backup key"
 msgstr "벡업 키"
 
-#: mfa/adapter.py:142
+#: mfa/adapter.py:147
 #, python-brace-format
 msgid "Key nr. {number}"
 msgstr "키 번호. {number}"
@@ -439,27 +480,27 @@ msgstr "키 번호. {number}"
 msgid "MFA"
 msgstr "MFA"
 
-#: mfa/models.py:24
+#: mfa/models.py:26
 msgid "Recovery codes"
 msgstr "복구 코드"
 
-#: mfa/models.py:25
+#: mfa/models.py:27
 msgid "TOTP Authenticator"
 msgstr "TOTP 인증"
 
-#: mfa/models.py:26
+#: mfa/models.py:28
 msgid "WebAuthn"
 msgstr "웹인증"
 
-#: mfa/totp/forms.py:11
+#: mfa/totp/forms.py:16
 msgid "Authenticator code"
 msgstr "인증 코드"
 
-#: mfa/webauthn/forms.py:56
+#: mfa/webauthn/forms.py:62
 msgid "Passwordless"
 msgstr "비밀번호 없음"
 
-#: mfa/webauthn/forms.py:59
+#: mfa/webauthn/forms.py:65
 msgid ""
 "Enabling passwordless operation allows you to sign in using just this key, "
 "but imposes additional requirements such as biometrics or PIN protection."
@@ -467,7 +508,7 @@ msgstr ""
 "비밀번호 없는 작업을 활성화하면 이 키만 사용하여 로그인할 수 있지만, 생체 인"
 "식이나 PIN 보호와 같은 추가 요구 사항이 적용됩니다."
 
-#: socialaccount/adapter.py:30
+#: socialaccount/adapter.py:85
 #, python-format
 msgid ""
 "An account already exists with this email address. Please sign in to that "
@@ -476,124 +517,124 @@ msgstr ""
 "해당 이메일을 사용중인 계정이 이미 존재합니다. 해당 계정으로 로그인 후에 %s "
 "계정으로 연결하세요."
 
-#: socialaccount/adapter.py:34
+#: socialaccount/adapter.py:89
 msgid "Invalid token."
 msgstr "유효하지 않은 토큰."
 
-#: socialaccount/adapter.py:35
+#: socialaccount/adapter.py:90
 msgid "Your account has no password set up."
 msgstr "당신의 계정에 비밀번호가 설정되어있지 않습니다."
 
-#: socialaccount/adapter.py:36
+#: socialaccount/adapter.py:91
 msgid "Your account has no verified email address."
 msgstr "당신의 계정에는 인증된 이메일이 없습니다."
 
-#: socialaccount/adapter.py:38
+#: socialaccount/adapter.py:93
 msgid "You cannot disconnect your last remaining third-party account."
 msgstr "마지막 남은 소셜 계정은 연결해제 할수 없습니다."
 
-#: socialaccount/adapter.py:41
+#: socialaccount/adapter.py:96
 #: templates/socialaccount/messages/account_connected_other.txt:2
 msgid "The third-party account is already connected to a different account."
 msgstr "해당 소셜 계정이 이미 다른 계정에 연결되어 있습니다."
 
-#: socialaccount/apps.py:9
+#: socialaccount/apps.py:11
 msgid "Social Accounts"
 msgstr "소셜 계정"
 
-#: socialaccount/models.py:45 socialaccount/models.py:98
+#: socialaccount/models.py:43 socialaccount/models.py:96
 msgid "provider"
 msgstr "제공자"
 
-#: socialaccount/models.py:53
+#: socialaccount/models.py:51
 msgid "provider ID"
 msgstr "제공자 ID"
 
-#: socialaccount/models.py:57
+#: socialaccount/models.py:55
 msgid "name"
 msgstr "이름"
 
-#: socialaccount/models.py:59
+#: socialaccount/models.py:57
 msgid "client id"
 msgstr "클라이언트 아이디"
 
-#: socialaccount/models.py:61
+#: socialaccount/models.py:59
 msgid "App ID, or consumer key"
 msgstr "앱 아이디 또는 컨슈머 아이디"
 
-#: socialaccount/models.py:64
+#: socialaccount/models.py:62
 msgid "secret key"
 msgstr "비밀 키"
 
-#: socialaccount/models.py:67
+#: socialaccount/models.py:65
 msgid "API secret, client secret, or consumer secret"
 msgstr "API 비밀 키, 클라이언트 비밀 키, 또는 컨슈머 비밀 키"
 
-#: socialaccount/models.py:70 templates/mfa/webauthn/authenticator_list.html:18
+#: socialaccount/models.py:68 templates/mfa/webauthn/authenticator_list.html:18
 msgid "Key"
 msgstr "키"
 
-#: socialaccount/models.py:82
+#: socialaccount/models.py:80
 msgid "social application"
 msgstr "소셜 애플리케이션"
 
-#: socialaccount/models.py:83
+#: socialaccount/models.py:81
 msgid "social applications"
 msgstr "소셜 애플리케이션"
 
-#: socialaccount/models.py:118
+#: socialaccount/models.py:116
 msgid "uid"
 msgstr "사용자 식별"
 
-#: socialaccount/models.py:120
+#: socialaccount/models.py:118
 msgid "last login"
 msgstr "최종 로그인"
 
-#: socialaccount/models.py:121
+#: socialaccount/models.py:119
 msgid "date joined"
 msgstr "가입 날짜"
 
-#: socialaccount/models.py:122
+#: socialaccount/models.py:120
 msgid "extra data"
 msgstr "추가 정보"
 
-#: socialaccount/models.py:126
+#: socialaccount/models.py:124
 msgid "social account"
 msgstr "소셜 계정"
 
-#: socialaccount/models.py:127
+#: socialaccount/models.py:125
 msgid "social accounts"
 msgstr "소셜 계정"
 
-#: socialaccount/models.py:161
+#: socialaccount/models.py:159
 msgid "token"
 msgstr "토큰"
 
-#: socialaccount/models.py:162
+#: socialaccount/models.py:160
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr "\"oauth_token\" (OAuth1) 또는 access token (OAuth2)"
 
-#: socialaccount/models.py:166
+#: socialaccount/models.py:164
 msgid "token secret"
 msgstr "시크릿 토큰"
 
-#: socialaccount/models.py:167
+#: socialaccount/models.py:165
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr "\"oauth_token_secret\" (OAuth1) 또는 refresh token (OAuth2)"
 
-#: socialaccount/models.py:170
+#: socialaccount/models.py:168
 msgid "expires at"
 msgstr "만료일"
 
-#: socialaccount/models.py:175
+#: socialaccount/models.py:173
 msgid "social application token"
 msgstr "소셜 애플리케이션 토큰"
 
-#: socialaccount/models.py:176
+#: socialaccount/models.py:174
 msgid "social application tokens"
 msgstr "소셜 애플리케이션 토큰"
 
-#: socialaccount/providers/douban/views.py:35
+#: socialaccount/providers/douban/views.py:38
 msgid "Invalid profile data"
 msgstr "올바르지 않은 프로필 데이터"
 
@@ -611,7 +652,7 @@ msgstr "로그인"
 msgid "Cancel"
 msgstr "취소"
 
-#: socialaccount/providers/oauth/client.py:86
+#: socialaccount/providers/oauth/client.py:88
 #, python-format
 msgid ""
 "Invalid response while obtaining request token from \"%s\". Response was: %s."
@@ -619,28 +660,28 @@ msgstr ""
 "\"%s\".로 부터 요청 토큰을 받는 도중 잘못된 응답을 받았습니다. 응답은 %s였습"
 "니다."
 
-#: socialaccount/providers/oauth/client.py:121
-#: socialaccount/providers/pocket/client.py:81
+#: socialaccount/providers/oauth/client.py:123
+#: socialaccount/providers/pocket/client.py:83
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr "\"%s\".로 부터 access 토큰을 받는 도중 잘못된 응답을 받았습니다."
 
-#: socialaccount/providers/oauth/client.py:142
+#: socialaccount/providers/oauth/client.py:144
 #, python-format
 msgid "No request token saved for \"%s\"."
 msgstr "\"%s\".을(를) 위한 request 토큰이 없습니다."
 
-#: socialaccount/providers/oauth/client.py:193
+#: socialaccount/providers/oauth/client.py:197
 #, python-format
 msgid "No access token saved for \"%s\"."
 msgstr "\"%s\".을(를) 위한 access 토큰이 없습니다."
 
-#: socialaccount/providers/oauth/client.py:219
+#: socialaccount/providers/oauth/client.py:223
 #, python-format
 msgid "No access to private resources at \"%s\"."
 msgstr "\"%s\".에 접근하기 위한 권한이 없습니다."
 
-#: socialaccount/providers/pocket/client.py:39
+#: socialaccount/providers/pocket/client.py:41
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr "\"%s\".로 부터 request 토큰을 받는 도중 잘못된 응답을 받았습니다."
@@ -676,6 +717,7 @@ msgstr "새 코드 요청"
 
 #: templates/account/base_reauthenticate.html:5
 #: templates/account/base_reauthenticate.html:9
+#: templates/account/confirm_reauthentication_code.html:5
 msgid "Confirm Access"
 msgstr "접근 확인"
 
@@ -703,7 +745,7 @@ msgstr "다른 이메일 주소 사용"
 #: templates/account/confirm_login_code.html:5 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
 #: templates/account/request_login_code.html:5
-#: templates/allauth/layouts/base.html:68 templates/mfa/authenticate.html:6
+#: templates/allauth/layouts/base.html:69 templates/mfa/authenticate.html:6
 #: templates/mfa/authenticate.html:24 templates/openid/login.html:5
 #: templates/openid/login.html:9 templates/openid/login.html:20
 #: templates/socialaccount/login.html:5
@@ -712,6 +754,7 @@ msgid "Sign In"
 msgstr "로그인"
 
 #: templates/account/confirm_login_code.html:8
+#: templates/account/confirm_reauthentication_code.html:8
 msgid "Enter Sign-In Code"
 msgstr "로그인 코드 입력"
 
@@ -1026,7 +1069,7 @@ msgid "Change to"
 msgstr "변경"
 
 #: templates/account/email_change.html:55
-#: templates/allauth/layouts/base.html:31
+#: templates/allauth/layouts/base.html:32
 msgid "Change Email"
 msgstr "이메일 변경"
 
@@ -1072,12 +1115,8 @@ msgstr "계정이 없다면 %(link)s회원가입%(end_link)s을 진행하세요.
 msgid "Sign in with a passkey"
 msgstr "패스키로 로그인"
 
-#: templates/account/login.html:47 templates/account/request_login_code.html:9
-msgid "Send me a sign-in code"
-msgstr "로그인 코드 받기"
-
 #: templates/account/logout.html:4 templates/account/logout.html:8
-#: templates/account/logout.html:21 templates/allauth/layouts/base.html:61
+#: templates/account/logout.html:21 templates/allauth/layouts/base.html:62
 #: templates/idp/oidc/logout.html:4 templates/idp/oidc/logout.html:8
 #: templates/idp/oidc/logout.html:21
 #: templates/usersessions/usersession_list.html:76
@@ -1152,13 +1191,9 @@ msgstr "주 이메일이 지정되었습니다."
 #: templates/account/password_reset_from_key.html:30
 #: templates/account/password_reset_from_key_done.html:5
 #: templates/account/password_reset_from_key_done.html:9
-#: templates/allauth/layouts/base.html:37
+#: templates/allauth/layouts/base.html:38
 msgid "Change Password"
 msgstr "비밀번호 변경"
-
-#: templates/account/password_change.html:22
-msgid "Forgot Password?"
-msgstr "비밀번호를 잊으셨나요?"
 
 #: templates/account/password_reset.html:14
 msgid ""
@@ -1233,6 +1268,7 @@ msgid "You will receive a special code for a password-free sign-in."
 msgstr "비밀번호 없이 로그인할 수 있는 특별 코드를 받게 됩니다."
 
 #: templates/account/request_login_code.html:23
+#: templates/account/request_reauthentication_code.html:15
 msgid "Request Code"
 msgstr "코드 요청"
 
@@ -1247,7 +1283,7 @@ msgstr "회원가입"
 
 #: templates/account/signup.html:8 templates/account/signup.html:30
 #: templates/account/signup_by_passkey.html:29
-#: templates/allauth/layouts/base.html:74 templates/socialaccount/signup.html:9
+#: templates/allauth/layouts/base.html:75 templates/socialaccount/signup.html:9
 #: templates/socialaccount/signup.html:25
 msgid "Sign Up"
 msgstr "회원가입"
@@ -1349,26 +1385,26 @@ msgstr ""
 "<strong>메모:</strong> <a href=\"%(email_url)s\">이메일 변경</a>이 가능합니"
 "다."
 
-#: templates/allauth/layouts/base.html:18
+#: templates/allauth/layouts/base.html:19
 msgid "Messages:"
 msgstr "메시지:"
 
-#: templates/allauth/layouts/base.html:25
+#: templates/allauth/layouts/base.html:26
 msgid "Menu:"
 msgstr "메뉴:"
 
-#: templates/allauth/layouts/base.html:43
+#: templates/allauth/layouts/base.html:44
 #: templates/socialaccount/connections.html:5
 #: templates/socialaccount/connections.html:9
 msgid "Account Connections"
 msgstr "계정 연결"
 
-#: templates/allauth/layouts/base.html:49 templates/mfa/authenticate.html:10
+#: templates/allauth/layouts/base.html:50 templates/mfa/authenticate.html:10
 #: templates/mfa/index.html:5 templates/mfa/index.html:9
 msgid "Two-Factor Authentication"
 msgstr "2단계 인증"
 
-#: templates/allauth/layouts/base.html:55
+#: templates/allauth/layouts/base.html:56
 #: templates/usersessions/usersession_list.html:6
 #: templates/usersessions/usersession_list.html:10
 msgid "Sessions"
@@ -1884,9 +1920,12 @@ msgstr "다른 세션에서 로그아웃"
 msgid "User Sessions"
 msgstr "사용자 세션"
 
-#: usersessions/models.py:93
+#: usersessions/models.py:109
 msgid "session key"
 msgstr "세션 키"
+
+#~ msgid "Forgot Password?"
+#~ msgstr "비밀번호를 잊으셨나요?"
 
 #~ msgid "Account Connection"
 #~ msgstr "계정 연결"

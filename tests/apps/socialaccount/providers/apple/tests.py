@@ -17,6 +17,7 @@ from allauth.socialaccount.providers.apple.apple_session import (
 )
 from allauth.socialaccount.providers.apple.client import jwt_encode
 from allauth.socialaccount.providers.apple.provider import AppleProvider
+from allauth.socialaccount.providers.apple.views import AppleOAuth2Adapter
 from tests.apps.socialaccount.base import OAuth2TestsMixin
 from tests.mocking import MockedResponse, mocked_response
 
@@ -145,6 +146,27 @@ class AppleTests(OAuth2TestsMixin, TestCase):
         with mocked_response(self.get_mocked_response()):
             sociallogin = self.provider.verify_token(None, {"id_token": id_token})
             assert sociallogin.user.email == "test@privaterelay.appleid.com"
+
+    def test_user_scope_data_only_contains_name(self):
+        request = type(
+            "Request",
+            (),
+            {
+                "apple_login_session": {
+                    "user": json.dumps(
+                        {
+                            "email": "victim@example.com",
+                            "email_verified": True,
+                            "name": {"firstName": "A", "lastName": "B"},
+                        }
+                    )
+                }
+            },
+        )()
+
+        data = AppleOAuth2Adapter(request).get_user_scope_data(request)
+
+        assert data == {"name": {"firstName": "A", "lastName": "B"}}
 
     def get_login_response_json(self, with_refresh_token=True):
         """

@@ -43,6 +43,10 @@ Note worthy changes
 Security notice
 ---------------
 
+- Apple: Identity data from the unsigned callback payload is no longer trusted,
+  preventing forged verified email addresses and account takeover. Thanks to
+  Irregular (@Tomer-PL) for reporting.
+
 - MFA: The recovery code view now prevents HTTP caching of recovery codes.
 
 - IdP: Authorization codes are now redeemed atomically. As per `RFC 6749,

@@ -53,12 +53,12 @@ DJANGO_PYTHON_REQ = {
     "5.1": ("3.11", "3.12", "3.13"),
     "5.2": ("3.11", "3.12", "3.13", "3.14"),
     "6.0": ("3.12", "3.13", "3.14"),
-    "6.1": ("3.12", "3.13", "3.14"),
+    "6.1": ("3.12", "3.13", "3.14", "3.15"),
 }
 DJANGO_LTS = "5.2"
 
 
-@nox.session(python=["3.11", "3.12", "3.13", "3.14"])
+@nox.session(python=["3.11", "3.12", "3.13", "3.14", "3.15"])
 @nox.parametrize("django", list(DJANGO_PYTHON_REQ.keys()))
 @nox.parametrize(
     "project", ["regular", "headless_only", "account_only", "login_required_mw"]

@@ -20,6 +20,8 @@ jobs:
             debian-version: trixie
           - python-version: "3.14"
             debian-version: trixie
+          - python-version: "3.15"
+            debian-version: trixie
     container:
       image: python:${{ matrix.python-version }}-${{ matrix.debian-version }}
     steps:

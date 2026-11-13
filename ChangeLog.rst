@@ -8,6 +8,12 @@
     https://allauth.org/sponsors/. Your support helps keep this project thriving!
 
 
+Note worthy changes
+-------------------
+
+- Python 3.15 is officially supported now.
+
+
 Security notice
 ---------------
 

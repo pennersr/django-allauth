@@ -133,6 +133,8 @@ class ConfigurationView(View):
             data["registration_endpoint"] = build_absolute_uri(
                 request, reverse("idp:oidc:client_registration")
             )
+        if app_settings.CIMD_ENABLED:
+            data["client_id_metadata_document_supported"] = True
 
         get_adapter().populate_server_metadata(data)
         response = JsonResponse(data)

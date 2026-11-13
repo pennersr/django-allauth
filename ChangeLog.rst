@@ -11,7 +11,8 @@
 Note worthy changes
 -------------------
 
-- ...
+- IdP: Server metadata now advertises Client ID Metadata Document (CIMD)
+  support when enabled.
 
 
 65.22.1 (2026-11-13)

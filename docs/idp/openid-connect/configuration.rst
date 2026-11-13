@@ -17,6 +17,10 @@ Available settings:
 ``IDP_OIDC_AUTHORIZATION_CODE_EXPIRES_IN`` (default: 60)
   The time (in seconds) after which authorization codes expire.
 
+``IDP_OIDC_DCR_DEFAULT_SCOPES`` (default: ``["openid", "profile", "email"]``)
+  The scopes assigned during dynamic client registration when the client
+  omits the ``scope`` metadata field.
+
 ``IDP_OIDC_DCR_ENABLED`` (default: ``False``)
   Controls whether Dynamic Client Registration is enabled. When enabled, clients
   can register themselves by POSTing to the registration endpoint.
@@ -25,6 +29,11 @@ Available settings:
   When enabled, the DCR endpoint requires an initial access token in the
   ``Authorization`` header (``Bearer <token>``). This limits registration to
   previously authorized parties.
+
+``IDP_OIDC_DEFAULT_SCOPES`` (default: ``["openid"]``)
+  The fallback scopes used during authorization when no ``scope`` parameter is
+  explicitly passed. A client's per-client ``default_scopes`` take precedence
+  when configured.
 
 ``IDP_OIDC_CIMD_CACHE_TIMEOUT`` (default: 3600)
   The time (in seconds) to cache fetched CIMD metadata before re-fetching.
@@ -156,6 +165,10 @@ Available settings:
   user is asked whether or not to logout of the OP as well. When this setting is
   ``True``, the end user is always asked. When ``False``, the user is only asked
   if needed according to the specification.
+
+``IDP_OIDC_SCOPE_CHOICES`` (default: ``["openid", "profile", "email"]``)
+  All scopes supported by the server. These are advertised in the discovery
+  metadata. Entries can be scope names or pairs of scope and display name.
 
 ``IDP_OIDC_USERINFO_ENDPOINT`` (default: ``None``)
   This setting can be used to point the ``userinfo_endpoint`` value as returned

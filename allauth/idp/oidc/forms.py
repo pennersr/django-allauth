@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Any
 
 from django import forms
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ImproperlyConfigured, ValidationError
 from django.forms import widgets
 from django.utils.translation import gettext as _
 
@@ -17,6 +17,7 @@ from allauth.idp.oidc.internal.clientkit import (
     lookup_client,
 )
 from allauth.idp.oidc.internal.oauthlib import device_codes
+from allauth.idp.oidc.internal.scope import get_supported_scopes
 from allauth.idp.oidc.internal.tokens import decode_jwt_token
 from allauth.idp.oidc.models import Client
 
@@ -29,7 +30,8 @@ class AuthorizationForm(forms.Form):
         requested_scopes = kwargs.pop("requested_scopes")
         super().__init__(*args, **kwargs)
         adapter = get_adapter()
-        choices = [(rs, adapter.scope_display.get(rs, rs)) for rs in requested_scopes]
+        scope_display = dict(adapter.get_scope_choices())
+        choices = [(rs, scope_display.get(rs, rs)) for rs in requested_scopes]
         choices = sorted(choices, key=lambda ch: ch[1])
         self.fields["scopes"] = forms.MultipleChoiceField(
             choices=choices,
@@ -247,7 +249,13 @@ class ClientRegistrationForm(forms.Form):
             scopes = [str(s).strip() for s in value]
         else:
             scopes = []
-        return scopes or ["openid"]
+        supported = get_supported_scopes()
+        unsupported = set(scopes) - set(supported)
+        if unsupported:
+            raise forms.ValidationError(
+                f"Unsupported scope(s): {', '.join(sorted(unsupported))}"
+            )
+        return scopes
 
     def clean_token_endpoint_auth_method(self) -> str:
         # If unspecified or omitted, the default is "client_secret_basic",
@@ -278,8 +286,16 @@ class ClientRegistrationForm(forms.Form):
         client = Client(**kwargs)
         client.set_grant_types(data["grant_types"])
         client.set_response_types(data["response_types"])
-        client.set_scopes(data["scope"])
         client.set_redirect_uris(data["redirect_uris"])
+        scopes = data["scope"]
+        if len(scopes) == 0:
+            adapter = get_adapter()
+            scopes = adapter.get_dcr_default_scopes(client=client)
+            if not scopes or not set(scopes).issubset(get_supported_scopes()):
+                raise ImproperlyConfigured(
+                    "The OIDC adapter returned invalid DCR default scopes"
+                )
+        client.set_scopes(scopes)
         if commit:
             client.save()
         return client

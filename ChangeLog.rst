@@ -14,6 +14,24 @@ Note worthy changes
 - IdP: Server metadata now advertises Client ID Metadata Document (CIMD)
   support when enabled.
 
+- IdP: Supported scopes, authorization defaults, and dynamic client
+  registration defaults can now be configured using
+  ``IDP_OIDC_SCOPE_CHOICES``, ``IDP_OIDC_DEFAULT_SCOPES``, and
+  ``IDP_OIDC_DCR_DEFAULT_SCOPES``.
+
+
+Backwards incompatible changes
+------------------------------
+
+- IdP: Previously, omitting the ``scope`` parameter during authorization for
+  clients without configured default scopes could result in tokens without any
+  scopes. This non-standard behavior has been fixed: ``IDP_OIDC_DEFAULT_SCOPES``
+  is now used.
+
+- IdP: Dynamic Client Registration now assigns all server supported scopes from when
+  the ``scope`` metadata field is omitted, rather than assigning only
+  ``openid`` (see ``IDP_OIDC_DCR_DEFAULT_SCOPES``).
+
 
 65.22.1 (2026-11-13)
 ********************

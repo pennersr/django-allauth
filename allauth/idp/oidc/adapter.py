@@ -2,14 +2,16 @@ from __future__ import annotations
 
 import hashlib
 import uuid
+import warnings
 from collections.abc import Iterable
-from typing import TYPE_CHECKING, Any, Literal
+from typing import TYPE_CHECKING, Any, ClassVar, Literal
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.core.exceptions import ImproperlyConfigured
 from django.core.management.utils import get_random_secret_key
 from django.utils import timezone
+from django.utils.functional import Promise
 from django.utils.module_loading import import_string
 from django.utils.translation import gettext_lazy as _
 
@@ -37,11 +39,22 @@ class DefaultOIDCAdapter(BaseAdapter):
     needs.
     """
 
-    scope_display = {
+    # Deprecated. Populate settings.IDP_OIDC_SCOPE_CHOICES instead.
+    scope_display: ClassVar[dict[str, str | Promise]] = {
         "openid": _("View your user ID"),
         "email": _("View your email address"),
         "profile": _("View your basic profile information"),
     }
+
+    def __init_subclass__(cls, **kwargs: Any) -> None:
+        super().__init_subclass__(**kwargs)
+        if "scope_display" in cls.__dict__:
+            warnings.warn(
+                "Overriding DefaultOIDCAdapter.scope_display is deprecated; use "
+                "IDP_OIDC_SCOPE_CHOICES or override get_scope_choices().",
+                DeprecationWarning,
+                stacklevel=2,
+            )
 
     def generate_client_id(self) -> str:
         """
@@ -293,6 +306,32 @@ class DefaultOIDCAdapter(BaseAdapter):
         ``caller_client``: The authenticated introspection caller client.
         """
         return True
+
+    def get_scope_choices(self) -> list[tuple[str, str | Promise]]:
+        """
+        Returns all supported scopes and their display labels
+        """
+        choices: list[tuple[str, str | Promise]] = []
+        for scope, display in app_settings.SCOPE_CHOICES:
+            if scope == display:
+                # For backwards compatibility only.
+                display = self.scope_display.get(scope, scope)
+            choices.append((scope, display))
+        return choices
+
+    def get_default_scopes(self, *, client: Client, **kwargs: Any) -> list[str]:
+        """
+        The scopes used during authorization when no ``scope`` parameter is
+        explicitly passed.
+        """
+        return app_settings.DEFAULT_SCOPES
+
+    def get_dcr_default_scopes(self, *, client: Client, **kwargs: Any) -> list[str]:
+        """
+        The scopes assigned during dynamic client registration when the client
+        omits the ``scope`` metadata field.
+        """
+        return app_settings.DCR_DEFAULT_SCOPES
 
 
 def get_adapter() -> DefaultOIDCAdapter:

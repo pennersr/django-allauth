@@ -345,6 +345,19 @@ def test_configuration_view_without_introspection(
         assert "introspection_endpoint_auth_methods_supported" not in data
 
 
+def test_configuration_view_with_custom_scopes(
+    client, settings, settings_impacting_urls
+):
+    settings.IDP_OIDC_SCOPE_CHOICES = [
+        "openid",
+        ("mcp", "Use the MCP server"),
+    ]
+    with settings_impacting_urls():
+        response = client.get(reverse("idp:oidc:configuration"))
+
+    assert response.json()["scopes_supported"] == ["openid", "mcp"]
+
+
 def test_post_userinfo(
     client,
     oidc_client,

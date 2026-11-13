@@ -1,3 +1,4 @@
+from allauth.idp.oidc.adapter import get_adapter
 from allauth.idp.oidc.models import Token
 
 
@@ -42,3 +43,7 @@ def is_scope_granted(
     granted_scope = token.get_scopes() if token else []
     assert scope is not None  # nosec
     return _is_scope_granted(scope, granted_scope)
+
+
+def get_supported_scopes() -> list[str]:
+    return [scope for scope, _display in get_adapter().get_scope_choices()]

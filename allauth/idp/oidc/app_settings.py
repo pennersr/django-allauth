@@ -4,6 +4,7 @@ from datetime import UTC, datetime
 from typing import TYPE_CHECKING, Any, TypeVar
 
 from django.core.exceptions import ImproperlyConfigured
+from django.utils.functional import Promise
 
 from allauth import app_settings as allauth_settings
 from allauth.core.internal.cryptokit import UserCodeFormat
@@ -233,6 +234,51 @@ class AppSettings:
         if dt.tzinfo is None:
             return dt.replace(tzinfo=UTC)
         return dt.astimezone(UTC)
+
+    @property
+    def SCOPE_CHOICES(self) -> list[tuple[str, str | Promise]]:
+        """
+        All scopes supported by this server, represented as a list of
+        choices.
+        """
+        choices: Any = self._setting("SCOPE_CHOICES", ["openid", "profile", "email"])
+        if not isinstance(choices, (list, tuple)):
+            raise ImproperlyConfigured(
+                "IDP_OIDC_SCOPE_CHOICES: must be a list or tuple"
+            )
+        ret: list[tuple[str, str | Promise]] = []
+        for choice in choices:
+            if isinstance(choice, str):
+                ret.append((choice, choice))
+            elif (
+                isinstance(choice, (list, tuple))
+                and len(choice) == 2
+                and isinstance(choice[0], str)
+                and isinstance(choice[1], (str, Promise))
+            ):
+                ret.append((choice[0], choice[1]))
+            else:
+                raise ImproperlyConfigured(
+                    "IDP_OIDC_SCOPE_CHOICES: entries must be scope names or"
+                    " (scope, display name) pairs"
+                )
+        return ret
+
+    @property
+    def DEFAULT_SCOPES(self) -> list[str]:
+        """
+        The scopes used during authorization when no ``scope`` parameter is
+        explicitly passed.
+        """
+        return self._setting("DEFAULT_SCOPES", ["openid"])
+
+    @property
+    def DCR_DEFAULT_SCOPES(self) -> list[str]:
+        """
+        The scopes assigned during dynamic client registration when the client
+        omits the ``scope`` metadata field.
+        """
+        return self._setting("DCR_DEFAULT_SCOPES", [ch[0] for ch in self.SCOPE_CHOICES])
 
 
 _app_settings = AppSettings("IDP_OIDC_")

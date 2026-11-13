@@ -165,7 +165,36 @@ def test_default_scopes(register_client):
         },
     )
     assert resp.status_code == HTTPStatus.CREATED
-    assert resp.json()["scope"] == "openid"
+    assert resp.json()["scope"] == "openid profile email"
+
+
+def test_configured_default_scopes(register_client, settings):
+    settings.IDP_OIDC_SCOPE_CHOICES = [
+        "openid",
+        ("mcp", "Use the MCP server"),
+    ]
+    settings.IDP_OIDC_DCR_DEFAULT_SCOPES = ["openid", "mcp"]
+    resp = register_client(
+        {
+            "redirect_uris": ["https://example.com/callback"],
+        },
+    )
+    assert resp.status_code == HTTPStatus.CREATED
+    assert resp.json()["scope"] == "openid mcp"
+
+
+def test_unsupported_scope(register_client):
+    resp = register_client(
+        {
+            "redirect_uris": ["https://example.com/callback"],
+            "scope": "openid unsupported",
+        },
+    )
+    assert resp.status_code == HTTPStatus.BAD_REQUEST
+    assert resp.json() == {
+        "error": "invalid_client_metadata",
+        "error_description": "'scope': Unsupported scope(s): unsupported",
+    }
 
 
 def test_default_auth_method(register_client):

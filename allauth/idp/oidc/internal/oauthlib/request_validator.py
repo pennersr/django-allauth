@@ -26,6 +26,7 @@ from allauth.idp.oidc.internal.oauthlib.utils import (
     get_validator_context,
 )
 from allauth.idp.oidc.internal.resources import InvalidTargetError, is_resources_subset
+from allauth.idp.oidc.internal.scope import get_supported_scopes
 from allauth.idp.oidc.internal.tokens import decode_jwt_token, determine_token_type
 from allauth.idp.oidc.models import Client, Token
 
@@ -65,12 +66,22 @@ class OAuthLibRequestValidator(RequestValidator):
     def validate_scopes(
         self, client_id, scopes, client, request: Request, *args, **kwargs
     ) -> bool:
-        return set(scopes).issubset(request.client.get_scopes())
+        return bool(scopes) and set(scopes).issubset(request.client.get_scopes())
 
     def get_default_scopes(
         self, client_id, request: Request, *args, **kwargs
     ) -> list[str]:
-        return request.client.get_default_scopes()
+        scopes = request.client.get_default_scopes()
+        if not scopes:
+            scopes = get_adapter().get_default_scopes(client=request.client)
+            allowed_scopes = set(request.client.get_scopes())
+            if (
+                not scopes
+                or not set(scopes).issubset(allowed_scopes)
+                or not set(scopes).issubset(get_supported_scopes())
+            ):
+                scopes = []
+        return scopes
 
     def save_authorization_code(
         self, client_id, code, request: Request, *args, **kwargs

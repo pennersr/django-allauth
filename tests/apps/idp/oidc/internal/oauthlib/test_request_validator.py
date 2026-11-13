@@ -28,3 +28,42 @@ def test_is_origin_allowed(origin, allowed_origins, is_allowed, oidc_client, rf)
             )
             == is_allowed
         )
+
+
+def test_default_scopes(settings, oidc_client, rf):
+    settings.IDP_OIDC_DEFAULT_SCOPES = ["openid", "email"]
+    orequest = Request("/")
+    orequest.client = oidc_client
+    with request_context(rf.get("/")):
+        validator = OAuthLibRequestValidator()
+        assert validator.get_default_scopes(oidc_client.id, orequest) == [
+            "openid",
+            "email",
+        ]
+
+        oidc_client.set_default_scopes(["profile"])
+        assert validator.get_default_scopes(oidc_client.id, orequest) == ["profile"]
+
+
+def test_validate_scopes_rejects_empty(oidc_client):
+    orequest = Request("/")
+    orequest.client = oidc_client
+    validator = OAuthLibRequestValidator()
+    assert not validator.validate_scopes(oidc_client.id, [], oidc_client, orequest)
+
+
+@pytest.mark.parametrize(
+    "default_scopes", [[], ["openid", "email"], ["openid", "unsupported"]]
+)
+def test_invalid_default_scopes(settings, oidc_client, rf, default_scopes):
+    settings.IDP_OIDC_DEFAULT_SCOPES = default_scopes
+    oidc_client.set_scopes(["openid"])
+    orequest = Request("/")
+    orequest.client = oidc_client
+
+    with request_context(rf.get("/")):
+        validator = OAuthLibRequestValidator()
+        scopes = validator.get_default_scopes(oidc_client.id, orequest)
+
+    assert scopes == []
+    assert not validator.validate_scopes(oidc_client.id, scopes, oidc_client, orequest)

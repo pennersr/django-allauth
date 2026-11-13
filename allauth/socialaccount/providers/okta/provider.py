@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from allauth.account.models import EmailAddress
+from allauth.core.internal.datakit import parse_bool_safely
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 from allauth.socialaccount.providers.okta.views import OktaOAuth2Adapter
@@ -29,7 +30,9 @@ class OktaProvider(OAuth2Provider):
     def extract_email_addresses(self, data):
         return [
             EmailAddress(
-                email=data["email"], verified=bool(data["email_verified"]), primary=True
+                email=data["email"],
+                verified=parse_bool_safely(data.get("email_verified")),
+                primary=True,
             )
         ]
 

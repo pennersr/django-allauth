@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from allauth.account.models import EmailAddress
+from allauth.core.internal.datakit import parse_bool_safely
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.eventbrite.views import EventbriteOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
@@ -61,7 +62,7 @@ class EventbriteProvider(OAuth2Provider):
             addresses.append(
                 EmailAddress(
                     email=email.get("email"),
-                    verified=email.get("verified"),
+                    verified=parse_bool_safely(email.get("verified")),
                 )
             )
 

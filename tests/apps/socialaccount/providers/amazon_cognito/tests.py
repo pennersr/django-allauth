@@ -6,12 +6,10 @@ from django.test import TestCase, override_settings
 import pytest
 
 from allauth.account.models import EmailAddress
+from allauth.core.internal.datakit import parse_bool_safely
 from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount.providers.amazon_cognito.provider import (
     AmazonCognitoProvider,
-)
-from allauth.socialaccount.providers.amazon_cognito.utils import (
-    convert_to_python_bool_if_value_is_json_string_bool,
 )
 from allauth.socialaccount.providers.amazon_cognito.views import (
     AmazonCognitoOAuth2Adapter,
@@ -80,13 +78,19 @@ class AmazonCognitoTestCase(OAuth2TestsMixin, TestCase):
 
 
 @pytest.mark.parametrize(
-    "input,output",
+    "value,result",
     [
         (True, True),
         ("true", True),
+        (" TRUE ", False),
         ("false", False),
+        ("False", False),
+        ("0", False),
+        ("1", False),
+        (1, False),
+        (None, False),
         (False, False),
     ],
 )
-def test_convert_bool(input, output):
-    assert convert_to_python_bool_if_value_is_json_string_bool(input) == output
+def test_convert_bool(value, result):
+    assert parse_bool_safely(value) == result

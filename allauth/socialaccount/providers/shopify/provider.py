@@ -6,6 +6,7 @@ from django.conf import settings
 from django.http import HttpRequest
 
 from allauth.account.models import EmailAddress
+from allauth.core.internal.datakit import parse_bool_safely
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 from allauth.socialaccount.providers.shopify.views import ShopifyOAuth2Adapter
@@ -68,7 +69,9 @@ class ShopifyProvider(OAuth2Provider):
         if self.is_per_user:
             if associated_user := data.get("associated_user"):
                 email = associated_user.get("email")
-                email_verified = associated_user.get("email_verified", False)
+                email_verified = parse_bool_safely(
+                    associated_user.get("email_verified")
+                )
         else:
             # The documentation of Shopify does not state anything about
             # verified email addresses.

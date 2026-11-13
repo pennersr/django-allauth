@@ -5,6 +5,7 @@ import requests
 from django.http import HttpRequest
 
 from allauth.account.models import EmailAddress
+from allauth.core.internal.datakit import parse_bool_safely
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.app_settings import QUERY_EMAIL
 from allauth.socialaccount.providers.base import AuthAction, ProviderAccount
@@ -90,7 +91,9 @@ class GoogleProvider(OAuth2Provider):
         ret = []
         email = data.get("email")
         if email:
-            verified = bool(data.get("email_verified") or data.get("verified_email"))
+            verified = parse_bool_safely(
+                data.get("email_verified", data.get("verified_email"))
+            )
             ret.append(EmailAddress(email=email, verified=verified, primary=True))
         return ret
 

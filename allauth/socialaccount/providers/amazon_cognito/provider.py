@@ -1,9 +1,7 @@
 from __future__ import annotations
 
 from allauth.account.models import EmailAddress
-from allauth.socialaccount.providers.amazon_cognito.utils import (
-    convert_to_python_bool_if_value_is_json_string_bool,
-)
+from allauth.core.internal.datakit import parse_bool_safely
 from allauth.socialaccount.providers.amazon_cognito.views import (
     AmazonCognitoOAuth2Adapter,
 )
@@ -40,9 +38,7 @@ class AmazonCognitoProvider(OAuth2Provider):
 
     def extract_email_addresses(self, data):
         email = data.get("email")
-        verified = convert_to_python_bool_if_value_is_json_string_bool(
-            data.get("email_verified", False)
-        )
+        verified = parse_bool_safely(data.get("email_verified"))
 
         return (
             [EmailAddress(email=email, verified=verified, primary=True)]
@@ -54,11 +50,7 @@ class AmazonCognitoProvider(OAuth2Provider):
         ret = dict(data)
         phone_number_verified = data.get("phone_number_verified")
         if phone_number_verified is not None:
-            ret["phone_number_verified"] = (
-                convert_to_python_bool_if_value_is_json_string_bool(
-                    "phone_number_verified"
-                )
-            )
+            ret["phone_number_verified"] = parse_bool_safely(phone_number_verified)
         return ret
 
     @classmethod

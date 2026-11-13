@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from allauth.account.models import EmailAddress
+from allauth.core.internal.datakit import parse_bool_safely
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 from allauth.socialaccount.providers.slack.views import SlackOAuth2Adapter
@@ -33,7 +34,7 @@ class SlackProvider(OAuth2Provider):
         ret = []
         email = data.get("email")
         if email:
-            verified = data.get("email_verified")
+            verified = parse_bool_safely(data.get("email_verified"))
             ret.append(EmailAddress(email=email, verified=verified, primary=True))
         return ret
 

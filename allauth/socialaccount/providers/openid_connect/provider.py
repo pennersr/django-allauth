@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.utils.http import urlencode
 
 from allauth.account.models import EmailAddress
+from allauth.core.internal.datakit import parse_bool_safely
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.internal import jwtkit
 from allauth.socialaccount.providers.base import ProviderAccount
@@ -99,7 +100,7 @@ class OpenIDConnectProvider(OAuth2Provider):
             addresses.append(
                 EmailAddress(
                     email=email,
-                    verified=data.get("email_verified", False),
+                    verified=parse_bool_safely(data.get("email_verified")),
                     primary=True,
                 )
             )

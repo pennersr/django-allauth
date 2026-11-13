@@ -3,6 +3,7 @@ from __future__ import annotations
 from django.http import HttpRequest
 
 from allauth.account.models import EmailAddress
+from allauth.core.internal.datakit import parse_bool_safely
 from allauth.socialaccount.app_settings import QUERY_EMAIL
 from allauth.socialaccount.providers.base import AuthAction, ProviderAccount
 from allauth.socialaccount.providers.cilogon.views import CILogonOAuth2Adapter
@@ -52,7 +53,7 @@ class CILogonProvider(OAuth2Provider):
     def extract_email_addresses(self, data):
         ret = []
         email = data.get("email")
-        if email and data.get("verified_email"):
+        if email and parse_bool_safely(data.get("verified_email")):
             ret.append(EmailAddress(email=email, verified=True, primary=True))
         return ret
 

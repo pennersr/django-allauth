@@ -9,6 +9,7 @@ from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.internal.emailkit import valid_email_or_none
 from allauth.account.utils import get_next_redirect_url, get_request_param
 from allauth.core import context
+from allauth.core.internal.datakit import parse_bool_safely
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.internal import statekit
@@ -131,7 +132,7 @@ class Provider:
         email = self.cleanup_email_addresses(
             common_fields.get("email"),
             email_addresses,
-            email_verified=bool(common_fields.get("email_verified")),
+            email_verified=parse_bool_safely(common_fields.get("email_verified")),
         )
         if email:
             common_fields["email"] = email
@@ -152,7 +153,7 @@ class Provider:
             account=socialaccount,
             email_addresses=email_addresses,
             phone=phone,
-            phone_verified=common_fields.get("phone_verified", False),
+            phone_verified=parse_bool_safely(common_fields.get("phone_verified")),
         )
         user = sociallogin.user = adapter.new_user(request, sociallogin)
         user.set_unusable_password()

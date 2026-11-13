@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from allauth.account.models import EmailAddress
+from allauth.core.internal.datakit import parse_bool_safely
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.github.views import GitHubOAuth2Adapter
@@ -50,7 +51,7 @@ class GitHubProvider(OAuth2Provider):
                 EmailAddress(
                     email=email["email"],
                     primary=email["primary"],
-                    verified=email["verified"],
+                    verified=parse_bool_safely(email.get("verified")),
                 )
             )
         return ret

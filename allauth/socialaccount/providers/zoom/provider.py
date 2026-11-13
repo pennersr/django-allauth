@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from allauth.account.models import EmailAddress
+from allauth.core.internal.datakit import parse_bool_safely
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 from allauth.socialaccount.providers.zoom.views import ZoomOAuth2Adapter
@@ -33,7 +34,7 @@ class ZoomProvider(OAuth2Provider):
     def extract_email_addresses(self, data):
         ret = []
         email = data.get("email")
-        if email and data.get("verified"):
+        if email and parse_bool_safely(data.get("verified")):
             ret.append(EmailAddress(email=email, verified=True, primary=True))
         return ret
 

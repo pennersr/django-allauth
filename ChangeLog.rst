@@ -17,7 +17,9 @@ Note worthy changes
 Security notice
 ---------------
 
-- ...
+- Email verification claims from providers returning non-standard string values
+  are now parsed strictly. Previously, ``"false"`` could enable account takeover
+  when the non-default ``SOCIALACCOUNT_EMAIL_AUTHENTICATION`` setting was enabled.
 
 
 65.22.0 (2026-11-11)

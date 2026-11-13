@@ -25,6 +25,27 @@ class OpenIDConnectFetchUserInfoTests(OpenIDConnectTests, TestCase):
             "token_endpoint": "/custom/token",
         }
 
+    def test_email_verified(self):
+        values = [
+            (True, True),
+            ("true", True),
+            ("false", False),
+            ("False", False),
+            ("foo", False),
+            (None, False),
+        ]
+        for value, verified in values:
+            with self.subTest(value=value):
+                addresses = self.provider.extract_email_addresses(
+                    {
+                        "userinfo": {
+                            "email": "user@example.com",
+                            "email_verified": value,
+                        }
+                    }
+                )
+                assert addresses[0].verified is verified
+
 
 class OpenIDConnectUseIDTokenTests(OpenIDConnectTests, TestCase):
     provider_id = "other-oidc-server"

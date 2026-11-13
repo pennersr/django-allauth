@@ -3,6 +3,7 @@ from __future__ import annotations
 from django.http import HttpRequest
 
 from allauth.account.models import EmailAddress
+from allauth.core.internal.datakit import parse_bool_safely
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import AuthAction, ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
@@ -49,7 +50,7 @@ class SalesforceProvider(OAuth2Provider):
         email = EmailAddress(
             email=data.get("email"),
             primary=True,
-            verified=data.get("email_verified"),
+            verified=parse_bool_safely(data.get("email_verified")),
         )
         return [email]
 

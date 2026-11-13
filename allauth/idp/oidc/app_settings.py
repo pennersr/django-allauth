@@ -273,6 +273,16 @@ class AppSettings:
         return self._setting("DEFAULT_SCOPES", ["openid"])
 
     @property
+    def CIMD_DEFAULT_SCOPES(self) -> list[str]:
+        """
+        The scopes assigned when a Client ID Metadata Document omits the
+        ``scope`` metadata field.
+        """
+        return self._setting(
+            "CIMD_DEFAULT_SCOPES", [ch[0] for ch in self.SCOPE_CHOICES]
+        )
+
+    @property
     def DCR_DEFAULT_SCOPES(self) -> list[str]:
         """
         The scopes assigned during dynamic client registration when the client

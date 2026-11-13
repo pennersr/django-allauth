@@ -8,12 +8,13 @@ from typing import Any
 from urllib.parse import ParseResult, urlparse
 
 from django.core.cache import cache
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ImproperlyConfigured, ValidationError
 
 from allauth.core import context
 from allauth.core.internal import ratelimit
 from allauth.idp.oidc import app_settings
 from allauth.idp.oidc.adapter import get_adapter
+from allauth.idp.oidc.internal.scope import get_supported_scopes
 from allauth.idp.oidc.models import Client
 
 
@@ -143,10 +144,9 @@ def validate_metadata(client_id: str, parsed: ParseResult, metadata: Any) -> Cli
     if metadata.get("client_id") != client_id:
         raise ValidationError("'client_id' in CIMD document does not match the URL.")
 
-    scope = metadata.get("scope", "openid")
-    if not isinstance(scope, str):
+    scope = metadata.get("scope")
+    if "scope" in metadata and not isinstance(scope, str):
         raise ValidationError("'scope' must be a string.")
-    scopes = scope.split()
 
     name = metadata.get("client_name", parsed.hostname)
     if not isinstance(name, str):
@@ -164,8 +164,26 @@ def validate_metadata(client_id: str, parsed: ParseResult, metadata: Any) -> Cli
     )
     client.set_grant_types(grant_types)
     client.set_redirect_uris(redirect_uris)
-    client.set_scopes(scopes)
     client.set_response_types(response_types)
+    adapter = get_adapter()
+    supported_scopes = set(get_supported_scopes())
+    if "scope" not in metadata:
+        scopes = adapter.get_cimd_default_scopes(
+            client=client, client_metadata=metadata
+        )
+        if not scopes or not set(scopes).issubset(supported_scopes):
+            raise ImproperlyConfigured(
+                "The OIDC adapter returned invalid CIMD default scopes"
+            )
+    else:
+        assert isinstance(scope, str)  # nosec
+        scopes = scope.split()
+        unsupported_scopes = set(scopes) - supported_scopes
+        if unsupported_scopes:
+            raise ValidationError(
+                f"Unsupported scope(s): {', '.join(sorted(unsupported_scopes))}"
+            )
+    client.set_scopes(scopes)
 
     client.data = {
         "cimd": True,

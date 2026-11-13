@@ -17,6 +17,10 @@ Available settings:
 ``IDP_OIDC_AUTHORIZATION_CODE_EXPIRES_IN`` (default: 60)
   The time (in seconds) after which authorization codes expire.
 
+``IDP_OIDC_CIMD_DEFAULT_SCOPES`` (default: ``["openid", "profile", "email"]``)
+  The scopes assigned when a Client ID Metadata Document omits the ``scope``
+  metadata field.
+
 ``IDP_OIDC_DCR_DEFAULT_SCOPES`` (default: ``["openid", "profile", "email"]``)
   The scopes assigned during dynamic client registration when the client
   omits the ``scope`` metadata field.

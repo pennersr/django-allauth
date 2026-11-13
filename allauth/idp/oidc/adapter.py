@@ -326,6 +326,22 @@ class DefaultOIDCAdapter(BaseAdapter):
         """
         return app_settings.DEFAULT_SCOPES
 
+    def get_cimd_default_scopes(
+        self,
+        *,
+        client: Client,
+        client_metadata: dict[str, Any],
+        **kwargs: Any,
+    ) -> list[str]:
+        """
+        The scopes assigned when a Client ID Metadata Document omits the
+        ``scope`` metadata field.
+
+        ``client`` is the client instance that is about to be created dynamically.
+        ``client_metadata`` contains the fetched Client ID Metadata Document.
+        """
+        return app_settings.CIMD_DEFAULT_SCOPES
+
     def get_dcr_default_scopes(self, *, client: Client, **kwargs: Any) -> list[str]:
         """
         The scopes assigned during dynamic client registration when the client

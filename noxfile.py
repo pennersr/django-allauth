@@ -6,6 +6,7 @@ import nox
 @nox.session
 def docs(session):
     session.install(
+        ".",
         "Django==5.2",
         "Sphinx>=7.4.7,<8",
         "sphinx_rtd_theme",
@@ -13,7 +14,7 @@ def docs(session):
         "django-ninja>=1.3.0,<2",
         "snowballstemmer<3",  # https://github.com/sphinx-doc/sphinx/issues/13533
     )
-    session.run("make", "docs")
+    session.run("make", "docs", external=True)
 
 
 @nox.session(tags=["lint"])

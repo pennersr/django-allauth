@@ -71,16 +71,14 @@ class OAuthLibRequestValidator(RequestValidator):
     def get_default_scopes(
         self, client_id, request: Request, *args, **kwargs
     ) -> list[str]:
-        scopes = request.client.get_default_scopes()
-        if not scopes:
-            scopes = get_adapter().get_default_scopes(client=request.client)
-            allowed_scopes = set(request.client.get_scopes())
-            if (
-                not scopes
-                or not set(scopes).issubset(allowed_scopes)
-                or not set(scopes).issubset(get_supported_scopes())
-            ):
-                scopes = []
+        scopes = get_adapter().get_default_scopes(client=request.client)
+        allowed_scopes = set(request.client.get_scopes())
+        if (
+            not scopes
+            or not set(scopes).issubset(allowed_scopes)
+            or not set(scopes).issubset(get_supported_scopes())
+        ):
+            scopes = []
         return scopes
 
     def save_authorization_code(

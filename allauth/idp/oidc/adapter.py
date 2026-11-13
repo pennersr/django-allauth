@@ -324,7 +324,7 @@ class DefaultOIDCAdapter(BaseAdapter):
         The scopes used during authorization when no ``scope`` parameter is
         explicitly passed.
         """
-        return app_settings.DEFAULT_SCOPES
+        return client.get_default_scopes() or app_settings.DEFAULT_SCOPES
 
     def get_cimd_default_scopes(
         self,

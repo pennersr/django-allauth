@@ -10,14 +10,14 @@ authors = [
 ]
 description = "Integrated set of Django applications addressing authentication, registration, account management as well as 3rd party (social) account authentication."
 readme = "README.rst"
-license = {text = "MIT"}
+license = "MIT"
+license-files = ["LICENSE"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Environment :: Web Environment",
     "Topic :: Internet",
-    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
@@ -116,9 +116,6 @@ exclude = [
 
 [tool.django-stubs]
 django_settings_module = "tests.projects.regular.settings"
-
-[tool.setuptools.dynamic]
-version = {attr = "allauth.__version__"}
 
 [tool.setuptools_scm]
 

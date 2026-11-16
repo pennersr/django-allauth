@@ -21,6 +21,14 @@ Note worthy changes
   ``IDP_OIDC_DCR_DEFAULT_SCOPES``.
 
 
+Security notice
+---------------
+
+- IdP: To mitigate SSRF risks, CIMD client metadata URLs are now restricted to
+  hostnames listed in ``IDP_OIDC_CIMD_ALLOWED_HOSTS``. The allowlist is empty by
+  default. Thanks to @b23r0 for reporting.
+
+
 Backwards incompatible changes
 ------------------------------
 
@@ -32,6 +40,9 @@ Backwards incompatible changes
 - IdP: DCR and CIMD now assign all server supported scopes when the ``scope``
   metadata field is omitted, rather than assigning only ``openid`` (see
   ``IDP_OIDC_DCR_DEFAULT_SCOPES`` and ``IDP_OIDC_CIMD_DEFAULT_SCOPES``).
+
+- IdP: See the security notice with respect to ``IDP_OIDC_CIMD_ALLOWED_HOSTS``
+  above.
 
 
 65.22.1 (2026-11-13)

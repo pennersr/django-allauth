@@ -17,6 +17,18 @@ Available settings:
 ``IDP_OIDC_AUTHORIZATION_CODE_EXPIRES_IN`` (default: 60)
   The time (in seconds) after which authorization codes expire.
 
+``IDP_OIDC_CIMD_ALLOWED_HOSTS`` (default: ``[]``)
+  The hostnames from which Client ID Metadata Documents may be fetched. Hostnames
+  are matched exactly. For example::
+
+      IDP_OIDC_CIMD_ALLOWED_HOSTS = [
+          "chatgpt.com",
+          "claude.ai",
+      ]
+
+  While you can use ``["*"]`` to allow any hostname, a specific allowlist is
+  strongly recommended to avoid server-side request forgery (SSRF) issues.
+
 ``IDP_OIDC_CIMD_DEFAULT_SCOPES`` (default: ``["openid", "profile", "email"]``)
   The scopes assigned when a Client ID Metadata Document omits the ``scope``
   metadata field.

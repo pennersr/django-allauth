@@ -199,6 +199,10 @@ class AppSettings:
         return self._setting("DCR_REQUIRES_INITIAL_ACCESS_TOKEN", True)
 
     @property
+    def CIMD_ALLOWED_HOSTS(self) -> list[str]:
+        return self._setting("CIMD_ALLOWED_HOSTS", [])
+
+    @property
     def CIMD_ENABLED(self) -> bool:
         """
         Whether or not CIMD is enabled.

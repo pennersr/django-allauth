@@ -5,6 +5,7 @@ import uuid
 import warnings
 from collections.abc import Iterable
 from typing import TYPE_CHECKING, Any, ClassVar, Literal
+from urllib.parse import urlsplit
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.base_user import AbstractBaseUser
@@ -224,13 +225,11 @@ class DefaultOIDCAdapter(BaseAdapter):
     def is_cimd_url_allowed(self, url: str) -> bool:
         """
         Determines whether the given CIMD (Client ID Metadata Document) URL is
-        accepted as a ``client_id``.
-
-        Override this method to restrict which clients can authenticate via CIMD,
-        for example by maintaining a domain allowlist.  The default implementation
-        accepts all URLs that pass structural validation.
+        accepted as a ``client_id``. The default implementation checks
+        the host name against ``IDP_OIDC_CIMD_ALLOWED_HOSTS``.
         """
-        return True
+        allowed_hosts = app_settings.CIMD_ALLOWED_HOSTS
+        return "*" in allowed_hosts or urlsplit(url).hostname in allowed_hosts
 
     def get_jwks_cache_control(self) -> int:
         """

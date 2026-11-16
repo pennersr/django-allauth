@@ -92,6 +92,21 @@ def test_is_cimd_url(client_id, expected):
 
 
 @pytest.mark.parametrize(
+    "allowed_hosts,expected",
+    [
+        ([], False),
+        (["app.example.com"], True),
+        (["other.example.com"], False),
+        (["*"], True),
+    ],
+)
+def test_is_cimd_url_allowed(settings, rf, allowed_hosts, expected):
+    settings.IDP_OIDC_CIMD_ALLOWED_HOSTS = allowed_hosts
+    adapter = DefaultOIDCAdapter(rf.get("/"))
+    assert adapter.is_cimd_url_allowed(CIMD_CLIENT_ID) is expected
+
+
+@pytest.mark.parametrize(
     "client_id,error_match",
     [
         (CIMD_CLIENT_ID, None),

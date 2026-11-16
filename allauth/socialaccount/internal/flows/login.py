@@ -47,14 +47,17 @@ def complete_login(request: HttpRequest, sociallogin: SocialLogin, raises=False)
         pre_social_login(request, sociallogin)
         process = sociallogin.state.get("process")
         if process == AuthProcess.REDIRECT:
-            return _redirect(request, sociallogin)
+            response = _redirect(request, sociallogin)
         elif process == AuthProcess.CONNECT:
             if raises:
                 do_connect(request, sociallogin)
+                response = None
             else:
-                return connect(request, sociallogin)
+                response = connect(request, sociallogin)
         else:
-            return _authenticate(request, sociallogin)
+            response = _authenticate(request, sociallogin)
+        sociallogin.provider._on_login_processed(request, sociallogin)
+        return response
     except SignupClosedException:
         if raises:
             raise

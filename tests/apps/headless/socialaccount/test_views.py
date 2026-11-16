@@ -10,6 +10,9 @@ from allauth.account.models import EmailAddress
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount.providers.base.constants import AuthProcess
+from allauth.socialaccount.providers.openid_connect._sessions import (
+    BACKCHANNEL_LOGOUT_SESSION_KEY,
+)
 
 
 def test_bad_redirect(client, headless_reverse, db, settings):
@@ -514,7 +517,7 @@ def test_valid_openid_connect_token(
         "allauth.socialaccount.providers.openid_connect.views.OpenIDConnectOAuth2Adapter.openid_config"
     ):
         with patch("allauth.socialaccount.internal.jwtkit.verify_and_decode") as vad:
-            vad.return_value = {"sub": "123"}
+            vad.return_value = {"sub": "123", "sid": "sid-123"}
             resp = client.post(
                 headless_reverse("headless:socialaccount:provider_token"),
                 data={
@@ -529,3 +532,6 @@ def test_valid_openid_connect_token(
             )
             assert resp.status_code == HTTPStatus.OK
             assert SocialAccount.objects.filter(uid="123").exists()
+            assert client.headless_session()[BACKCHANNEL_LOGOUT_SESSION_KEY] == {
+                openid_connect_provider_id: {"sub": "123", "sid": "sid-123"}
+            }

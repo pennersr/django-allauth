@@ -1,8 +1,16 @@
 from __future__ import annotations
 
-from django.http import Http404, HttpRequest
-from django.urls import reverse
+from http import HTTPStatus
 
+from django.http import Http404, HttpRequest, JsonResponse
+from django.http.response import HttpResponse
+from django.urls import reverse
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import never_cache
+from django.views.decorators.csrf import csrf_exempt
+from django.views.generic.edit import FormView
+
+from allauth import app_settings as allauth_settings
 from allauth.account.internal.decorators import login_not_required
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.internal import jwtkit
@@ -12,6 +20,8 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2CallbackView,
     OAuth2LoginView,
 )
+from allauth.socialaccount.providers.openid_connect import _sessions
+from allauth.socialaccount.providers.openid_connect.forms import BackchannelLogoutForm
 from allauth.utils import build_absolute_uri
 
 
@@ -118,3 +128,63 @@ def callback(request: HttpRequest, provider_id):
         return view(request)
     except SocialApp.DoesNotExist:
         raise Http404
+
+
+@method_decorator(csrf_exempt, name="dispatch")
+@method_decorator(login_not_required, name="dispatch")
+# The RP's response SHOULD include the Cache-Control HTTP response header field
+# with a no-store value, keeping the response from being cached to prevent
+# cached responses from interfering with future logout requests.
+@method_decorator(never_cache, name="dispatch")
+class BackchannelLogoutView(FormView):
+    form_class = BackchannelLogoutForm
+    http_method_names = ["post"]
+
+    def dispatch(self, request: HttpRequest, provider_id: str):
+        if not allauth_settings.USERSESSIONS_ENABLED:
+            return self._failure_response(
+                "Improperly configured: `allauth.usersessions` must be enabled."
+            )
+        self.adapter = OpenIDConnectOAuth2Adapter(request, provider_id)
+        self.provider = self.adapter.get_provider()
+        if self.provider.app.settings.get("uid_field", "sub") != "sub":
+            return self._failure_response(
+                "Improperly configured: `uid_field` must equal `sub`."
+            )
+        return super().dispatch(request, provider_id)
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update(adapter=self.adapter, provider=self.provider)
+        return kwargs
+
+    def form_valid(self, form):
+        _sessions.end_sessions(
+            self.request,
+            provider_id=self.kwargs["provider_id"],
+            logout_data=form.logout_data,
+        )
+        return HttpResponse()
+
+    def form_invalid(self, form):
+        description = next(iter(form.errors.values()))[0]
+        return self._failure_response(description)
+
+    def _failure_response(self, description: str) -> JsonResponse:
+        """
+        If the logout request was invalid or the logout failed, the RP MUST
+        respond with HTTP 400 Bad Request. The response MAY include an HTTP body
+        consisting of a JSON object with error and error_description parameters
+        conveying the nature of the error that occurred, which can assist with
+        debugging.
+        """
+        return JsonResponse(
+            {
+                "error": "invalid_request",
+                "error_description": description,
+            },
+            status=HTTPStatus.BAD_REQUEST,
+        )
+
+
+backchannel_logout = BackchannelLogoutView.as_view()

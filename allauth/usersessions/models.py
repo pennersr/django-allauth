@@ -108,6 +108,19 @@ class UserSession(models.Model):
     session_key = models.CharField(
         _("session key"), max_length=40, unique=True, editable=False
     )
+    # TODO: Currently, OIDC backchannel logout requires a `sub`
+    # because we have no efficient way of filtering on `sid`. We need to add:
+    #
+    # This is intentionally not unique: one upstream session can be associated
+    # with multiple local sessions.
+    # upstream_session_id = models.CharField(
+    #     max_length=255,
+    #     blank=True,
+    #     null=True,
+    #     default=None,
+    #     db_index=True,
+    #     editable=False,
+    # )
     user_agent = models.CharField(max_length=HTTP_USER_AGENT_MAX_LENGTH)
     data = models.JSONField(default=dict)
 

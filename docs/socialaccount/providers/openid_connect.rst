@@ -62,6 +62,31 @@ The OpenID Connect callback URL for each configured server is at
 ``/accounts/oidc/{id}/login/callback/`` where ``{id}`` is the configured app's
 ``provider_id`` value (``my-server`` or ``other-server`` in the above example).
 
+Back-Channel Logout
+^^^^^^^^^^^^^^^^^^^
+
+The OpenID Connect back-channel logout URL for each configured server is at
+``/accounts/oidc/{id}/logout/backchannel/``. Configure this URL as the
+``backchannel_logout_uri`` at the OpenID Provider.
+
+Back-channel logout requires ``allauth.usersessions`` to be installed so that
+the session identified by the logout token can be traced back to a Django
+session.
+
+.. note::
+
+    `Section 2.4 of OpenID Connect Back-Channel Logout 1.0
+    <https://openid.net/specs/openid-connect-backchannel-1_0.html#LogoutToken>`__
+    permits a Logout Token to identify a session using either ``sub`` or
+    ``sid``. As there is currently no efficient way of looking up a Django
+    session given a ``sid`` only, we always require the ``sub`` claim; ``sid``
+    remains optional.
+
+Tokens containing only a ``sub`` claim terminate all tracked sessions for the
+linked social account; tokens also containing a ``sid`` claim terminate the
+matching OpenID Connect session.
+
+
 Authentication Request's Optional Parameters
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

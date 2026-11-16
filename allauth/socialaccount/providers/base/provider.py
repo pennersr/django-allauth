@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from django.core.exceptions import ImproperlyConfigured, ValidationError
 from django.http import HttpRequest, HttpResponse
@@ -14,6 +14,10 @@ from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.internal import statekit
 from allauth.socialaccount.providers.base.constants import AuthProcess
+
+
+if TYPE_CHECKING:
+    from allauth.socialaccount.models import SocialLogin
 
 
 class ProviderException(Exception):
@@ -77,6 +81,11 @@ class Provider:
         Raises a `ValidationError` otherwise.
         """
         raise NotImplementedError()
+
+    def _on_login_processed(
+        self, request: HttpRequest, sociallogin: SocialLogin
+    ) -> None:
+        """Hook invoked after the social login input has been processed."""
 
     def media_js(self, request: HttpRequest) -> str:
         """

@@ -3,6 +3,9 @@ from django.test import TestCase
 import pytest
 
 from allauth.socialaccount.models import SocialAccount
+from allauth.socialaccount.providers.openid_connect._sessions import (
+    BACKCHANNEL_LOGOUT_SESSION_KEY,
+)
 from allauth.socialaccount.providers.openid_connect.provider import (
     OpenIDConnectProviderAccount,
 )
@@ -45,6 +48,14 @@ class OpenIDConnectFetchUserInfoTests(OpenIDConnectTests, TestCase):
                     }
                 )
                 assert addresses[0].verified is verified
+
+    def test_tracks_session(self):
+        self.id_token = {**self.id_token, "sid": "sid-123"}
+        with self.settings(SOCIALACCOUNT_AUTO_SIGNUP=True):
+            self.login()
+        assert self.client.session[BACKCHANNEL_LOGOUT_SESSION_KEY] == {
+            self.provider_id: {"sub": self.id_token["sub"], "sid": "sid-123"}
+        }
 
 
 class OpenIDConnectUseIDTokenTests(OpenIDConnectTests, TestCase):

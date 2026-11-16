@@ -11,7 +11,8 @@
 Note worthy changes
 -------------------
 
-- The OpenID Connect provider now supports back-channel logout.
+- The OpenID Connect provider now supports back-channel and RP-initiated
+  logout.
 
 - IdP: Server metadata now advertises CIMD support when enabled.
 

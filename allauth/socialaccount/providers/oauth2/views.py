@@ -161,7 +161,7 @@ class OAuth2CallbackView(OAuth2View):
                 request, app, token, response=access_token
             )
             login.token = token
-            login.state = state
+            login.state.update(state)
             return complete_social_login(request, login)
         except (
             PermissionDenied,

@@ -14,37 +14,17 @@ from allauth.socialaccount.providers.openid_connect.forms import (
     BACKCHANNEL_LOGOUT_EVENT,
 )
 from allauth.usersessions.models import UserSession
-from tests.apps.socialaccount.base import setup_app
 from tests.mocking import mocked_response
 
 
 pytestmark = pytest.mark.django_db
 
-PROVIDER_ID = "oidc-server"
-OIDC_INFO = {
-    "authorization_endpoint": "/login",
-    "userinfo_endpoint": "/userinfo",
-    "token_endpoint": "/token",
-    "jwks_uri": "/jwks",
-    "issuer": "https://issuer.example.com",
-}
-
 
 @pytest.fixture
-def app():
-    app = setup_app(PROVIDER_ID)
-    app.provider_id = PROVIDER_ID
-    app.provider = "openid_connect"
-    app.settings = {"server_url": "https://unittest.example.com"}
-    app.save()
-    return app
-
-
-@pytest.fixture
-def logout_token_factory(app):
+def logout_token_factory(app, oidc_info):
     def f(**kwargs):
         data = {
-            "iss": OIDC_INFO["issuer"],
+            "iss": oidc_info["issuer"],
             "aud": app.client_id,
             "iat": 123,
             "exp": 456,
@@ -60,18 +40,18 @@ def logout_token_factory(app):
 
 
 @pytest.fixture
-def oidc_user():
+def oidc_user(provider_id):
     user = get_user_model().objects.create_user(username="oidc-user")
-    SocialAccount.objects.create(user=user, provider=PROVIDER_ID, uid="sub-123")
+    SocialAccount.objects.create(user=user, provider=provider_id, uid="sub-123")
     return user
 
 
 @pytest.fixture
-def client_with_backchannel_logout(client, app, oidc_user):
+def client_with_backchannel_logout(client, app, oidc_user, provider_id):
     client.force_login(oidc_user)
     session = client.session
     session[BACKCHANNEL_LOGOUT_SESSION_KEY] = {
-        PROVIDER_ID: {"sid": "sid-123", "sub": "sub-123"}
+        provider_id: {"sid": "sid-123", "sub": "sub-123"}
     }
     session.save()
     UserSession.objects.create(
@@ -84,14 +64,14 @@ def client_with_backchannel_logout(client, app, oidc_user):
 
 
 @pytest.fixture
-def post_logout(client_with_backchannel_logout):
+def post_logout(client_with_backchannel_logout, oidc_info, provider_id):
     def post(token_data):
         url = reverse(
             "openid_connect_backchannel_logout",
-            kwargs={"provider_id": PROVIDER_ID},
+            kwargs={"provider_id": provider_id},
         )
         with (
-            mocked_response(OIDC_INFO),
+            mocked_response(oidc_info),
             patch(
                 "allauth.socialaccount.providers.openid_connect.forms.jwtkit.verify_and_decode",
                 return_value=token_data,

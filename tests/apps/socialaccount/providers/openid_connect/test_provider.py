@@ -1,5 +1,6 @@
 from django.test import TestCase
 
+import jwt
 import pytest
 
 from allauth.socialaccount.models import SocialAccount
@@ -54,7 +55,11 @@ class OpenIDConnectFetchUserInfoTests(OpenIDConnectTests, TestCase):
         with self.settings(SOCIALACCOUNT_AUTO_SIGNUP=True):
             self.login()
         assert self.client.session[BACKCHANNEL_LOGOUT_SESSION_KEY] == {
-            self.provider_id: {"sub": self.id_token["sub"], "sid": "sid-123"}
+            self.provider_id: {
+                "id_token": jwt.encode(self.id_token, "secret"),
+                "sub": self.id_token["sub"],
+                "sid": "sid-123",
+            }
         }
 
 

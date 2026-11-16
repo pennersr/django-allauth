@@ -9,15 +9,33 @@ from allauth.socialaccount.models import SocialAccount
 BACKCHANNEL_LOGOUT_SESSION_KEY = "socialaccount_openid_connect_sessions"
 
 
+def get_session_data(
+    request: HttpRequest, *, provider_id: str
+) -> dict[str, Any] | None:
+    sessions = request.session.get(BACKCHANNEL_LOGOUT_SESSION_KEY)
+    if not isinstance(sessions, dict):
+        return None
+    data = sessions.get(provider_id)
+    return data if isinstance(data, dict) else None
+
+
 def track_session(
-    request: HttpRequest, provider_id: str, id_token: dict[str, Any]
+    request: HttpRequest,
+    *,
+    provider_id: str,
+    id_token: str,
+    decoded_id_token: dict[str, Any],
 ) -> None:
-    if not allauth_settings.USERSESSIONS_ENABLED:
-        return
-    if (sid := id_token.get("sid")) and (sub := id_token.get("sub")):
-        sessions = dict(request.session.get(BACKCHANNEL_LOGOUT_SESSION_KEY, {}))
-        sessions[provider_id] = {"sid": sid, "sub": sub}
-        request.session[BACKCHANNEL_LOGOUT_SESSION_KEY] = sessions
+    sessions = dict(request.session.get(BACKCHANNEL_LOGOUT_SESSION_KEY, {}))
+    sid = decoded_id_token.get("sid")
+    sub = decoded_id_token.get("sub")
+    data = {"id_token": id_token}
+    if sub is not None:
+        data["sub"] = sub
+    if sid is not None:
+        data["sid"] = sid
+    sessions[provider_id] = data
+    request.session[BACKCHANNEL_LOGOUT_SESSION_KEY] = sessions
 
 
 def end_sessions(

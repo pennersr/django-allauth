@@ -119,9 +119,15 @@ class OpenIDConnectProvider(OAuth2Provider):
         self, request: HttpRequest, sociallogin: SocialLogin
     ) -> None:
         data = sociallogin.account.extra_data
-        id_token = data.get("id_token", data)
-        if isinstance(id_token, dict):
-            _sessions.track_session(request, self.app.provider_id, id_token)
+        id_token = sociallogin.state.get("id_token")
+        decoded_id_token = data.get("id_token")
+        if isinstance(decoded_id_token, dict) and isinstance(id_token, str):
+            _sessions.track_session(
+                request,
+                provider_id=self.app.provider_id,
+                id_token=id_token,
+                decoded_id_token=decoded_id_token,
+            )
 
     def verify_token(self, request: HttpRequest, token):
         id_token = token.get("id_token")
@@ -139,7 +145,8 @@ class OpenIDConnectProvider(OAuth2Provider):
             )
         except (OAuth2Error, requests.RequestException) as e:
             raise get_adapter().validation_error("invalid_token") from e
-        login = self.sociallogin_from_response(request, identity_data)
+        login = self.sociallogin_from_response(request, {"id_token": identity_data})
+        login.state["id_token"] = id_token
         return login
 
 

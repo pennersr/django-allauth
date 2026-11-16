@@ -1,19 +1,25 @@
 from __future__ import annotations
 
 from http import HTTPStatus
+from typing import TYPE_CHECKING
 
 from django.http import Http404, HttpRequest, JsonResponse
-from django.http.response import HttpResponse
+from django.http.response import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import View
 from django.views.generic.edit import FormView
 
 from allauth import app_settings as allauth_settings
+from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.internal.decorators import login_not_required
+from allauth.account.internal.flows.logout import logout as logout_locally
+from allauth.account.utils import get_next_redirect_url
+from allauth.core.internal.httpkit import add_query_params
 from allauth.socialaccount.adapter import get_adapter
-from allauth.socialaccount.internal import jwtkit
+from allauth.socialaccount.internal import jwtkit, statekit
 from allauth.socialaccount.models import SocialApp, SocialToken
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
@@ -23,6 +29,12 @@ from allauth.socialaccount.providers.oauth2.views import (
 from allauth.socialaccount.providers.openid_connect import _sessions
 from allauth.socialaccount.providers.openid_connect.forms import BackchannelLogoutForm
 from allauth.utils import build_absolute_uri
+
+
+if TYPE_CHECKING:
+    from allauth.socialaccount.providers.openid_connect.provider import (
+        OpenIDConnectProvider,
+    )
 
 
 class OpenIDConnectOAuth2Adapter(OAuth2Adapter):
@@ -73,7 +85,10 @@ class OpenIDConnectOAuth2Adapter(OAuth2Adapter):
             data["userinfo"] = self._fetch_user_info(token.token)
         if id_token_str:
             data["id_token"] = self._decode_id_token(app, id_token_str)
-        return self.get_provider().sociallogin_from_response(request, data)
+        login = self.get_provider().sociallogin_from_response(request, data)
+        if id_token_str:
+            login.state["id_token"] = id_token_str
+        return login
 
     def _fetch_user_info(self, access_token: str) -> dict:
         headers = {"Authorization": f"Bearer {access_token}"}
@@ -108,26 +123,90 @@ class OpenIDConnectOAuth2Adapter(OAuth2Adapter):
         return build_absolute_uri(request, callback_url, protocol)
 
 
-@login_not_required
-def login(request: HttpRequest, provider_id):
+def _get_provider_adapter_or_404(
+    request: HttpRequest, provider_id: str
+) -> tuple[OpenIDConnectProvider, OpenIDConnectOAuth2Adapter]:
     try:
-        view = OAuth2LoginView.adapter_view(
-            OpenIDConnectOAuth2Adapter(request, provider_id)
-        )
-        return view(request)
+        adapter = OpenIDConnectOAuth2Adapter(request, provider_id)
+        provider = adapter.get_provider()
     except SocialApp.DoesNotExist:
         raise Http404
+    return provider, adapter
+
+
+@login_not_required
+def login(request: HttpRequest, provider_id):
+    _, adapter = _get_provider_adapter_or_404(request, provider_id)
+    view = OAuth2LoginView.adapter_view(adapter)
+    return view(request)
 
 
 @login_not_required
 def callback(request: HttpRequest, provider_id):
-    try:
-        view = OAuth2CallbackView.adapter_view(
-            OpenIDConnectOAuth2Adapter(request, provider_id)
+    _, adapter = _get_provider_adapter_or_404(request, provider_id)
+    view = OAuth2CallbackView.adapter_view(adapter)
+    return view(request)
+
+
+@method_decorator(login_not_required, name="dispatch")
+class LogoutView(View):
+    http_method_names = ["post"]
+
+    def post(self, request: HttpRequest, provider_id: str) -> HttpResponse:
+        provider, adapter = _get_provider_adapter_or_404(request, provider_id)
+        end_session_endpoint = adapter.openid_config.get("end_session_endpoint")
+        next_url = get_next_redirect_url(request)
+        if not next_url:
+            next_url = get_account_adapter(request).get_logout_redirect_url(request)
+        session_data = _sessions.get_session_data(
+            request, provider_id=provider.app.provider_id
         )
-        return view(request)
-    except SocialApp.DoesNotExist:
-        raise Http404
+        id_token = session_data.get("id_token") if session_data else None
+
+        logout_locally(request, show_message=not end_session_endpoint)
+        if not end_session_endpoint:
+            return HttpResponseRedirect(next_url)
+
+        callback_url = build_absolute_uri(
+            request,
+            reverse(
+                "openid_connect_logout_callback",
+                kwargs={"provider_id": provider.app.provider_id},
+            ),
+        )
+        state = statekit.stash_state(
+            request,
+            provider_id=provider.app.provider_id,
+            state={"next": next_url},
+        )
+        params = {
+            "client_id": provider.app.client_id,
+            "post_logout_redirect_uri": callback_url,
+            "state": state,
+        }
+        if isinstance(id_token, str):
+            params["id_token_hint"] = id_token
+        return HttpResponseRedirect(add_query_params(end_session_endpoint, params))
+
+
+logout = LogoutView.as_view()
+
+
+@method_decorator(login_not_required, name="dispatch")
+class LogoutCallbackView(View):
+    def get(self, request: HttpRequest, provider_id: str) -> HttpResponse:
+        if not (
+            state := statekit.unstash_state(
+                request,
+                provider_id=provider_id,
+                state_id=request.GET.get("state", ""),
+            )
+        ) or not (redirect_url := state.get("next")):
+            redirect_url = get_account_adapter(request).get_logout_redirect_url(request)
+        return HttpResponseRedirect(redirect_url)
+
+
+logout_callback = LogoutCallbackView.as_view()
 
 
 @method_decorator(csrf_exempt, name="dispatch")
@@ -145,8 +224,7 @@ class BackchannelLogoutView(FormView):
             return self._failure_response(
                 "Improperly configured: `allauth.usersessions` must be enabled."
             )
-        self.adapter = OpenIDConnectOAuth2Adapter(request, provider_id)
-        self.provider = self.adapter.get_provider()
+        self.provider, self.adapter = _get_provider_adapter_or_404(request, provider_id)
         if self.provider.app.settings.get("uid_field", "sub") != "sub":
             return self._failure_response(
                 "Improperly configured: `uid_field` must equal `sub`."

@@ -533,5 +533,9 @@ def test_valid_openid_connect_token(
             assert resp.status_code == HTTPStatus.OK
             assert SocialAccount.objects.filter(uid="123").exists()
             assert client.headless_session()[BACKCHANNEL_LOGOUT_SESSION_KEY] == {
-                openid_connect_provider_id: {"sub": "123", "sid": "sid-123"}
+                openid_connect_provider_id: {
+                    "id_token": id_token,
+                    "sub": "123",
+                    "sid": "sid-123",
+                }
             }

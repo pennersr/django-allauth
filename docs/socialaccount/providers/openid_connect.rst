@@ -62,6 +62,20 @@ The OpenID Connect callback URL for each configured server is at
 ``/accounts/oidc/{id}/login/callback/`` where ``{id}`` is the configured app's
 ``provider_id`` value (``my-server`` or ``other-server`` in the above example).
 
+
+RP-Initiated Logout
+^^^^^^^^^^^^^^^^^^^
+
+If the OpenID Provider advertises an ``end_session_endpoint``, logout can be
+initiated by posting to ``/accounts/oidc/{id}/logout/``. The user is logged out
+locally and redirected to the OpenID Provider. The encoded ID token is passed as
+an ``id_token_hint`` when available.
+
+Register ``/accounts/oidc/{id}/logout/callback/`` as a post-logout redirect URI
+at the OpenID Provider. An optional local ``next`` URL can be included in the
+logout request. It is validated using the normal allauth redirect safety rules.
+
+
 Back-Channel Logout
 ^^^^^^^^^^^^^^^^^^^
 

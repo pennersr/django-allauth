@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import base64
+import functools
 import hashlib
 import json
 from typing import Any
@@ -45,6 +46,17 @@ def load_pem(pem: str) -> cryptography.hazmat.primitives.asymmetric.rsa.RSAPriva
 def load_jwk_from_pem(
     pem: str,
 ) -> tuple[dict[str, Any], cryptography.hazmat.primitives.asymmetric.rsa.RSAPrivateKey]:
+    jwk_dict, private_key = _load_jwk_from_pem(pem)
+    return dict(jwk_dict), private_key
+
+
+@functools.lru_cache(maxsize=16)
+def _load_jwk_from_pem(
+    pem: str,
+) -> tuple[dict[str, Any], cryptography.hazmat.primitives.asymmetric.rsa.RSAPrivateKey]:
+    # Loading a PEM validates the RSA key, which costs tens to hundreds of
+    # milliseconds depending on the key size. The IdP does this for every token
+    # it signs and for every JWKS request, so parse each PEM once per process.
     private_key = load_pem(pem)
     public_key = private_key.public_key()
     jwk_dict = json.loads(jwt.algorithms.RSAAlgorithm.to_jwk(public_key))

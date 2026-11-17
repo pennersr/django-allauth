@@ -21,6 +21,10 @@ Note worthy changes
   ``IDP_OIDC_DEFAULT_SCOPES``, ``IDP_OIDC_CIMD_DEFAULT_SCOPES``, and
   ``IDP_OIDC_DCR_DEFAULT_SCOPES``.
 
+- IdP: A private key's PEM is now parsed once per process instead of for every
+  token signed and every JWKS request. Parsing validates the RSA key, which is
+  computationally expensive.
+
 
 Security notice
 ---------------

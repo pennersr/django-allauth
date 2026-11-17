@@ -7,7 +7,6 @@ import secrets
 import time
 import uuid
 from dataclasses import dataclass
-from functools import cache
 from typing import Any, cast
 
 from django.conf import settings
@@ -156,11 +155,6 @@ def _get_jwt_config() -> JWTConfig:
     key = app_settings.JWT_PRIVATE_KEY
     if algorithm.startswith("HS") and not key:
         key = settings.SECRET_KEY
-    return _get_jwt_config_cached(algorithm, key)
-
-
-@cache
-def _get_jwt_config_cached(algorithm: str, key: str) -> JWTConfig:
     jwk_dict = None
     signing_key: Any
     verifying_key: Any

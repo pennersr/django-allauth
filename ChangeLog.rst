@@ -11,7 +11,10 @@
 Note worthy changes
 -------------------
 
-- The OpenID Connect provider now supports back-channel and RP-initiated
+- usersessions: Added a management command (``clear_usersessions``) for removing
+  expired user sessions.
+
+- socialaccount: The OpenID Connect provider now supports back-channel and RP-initiated
   logout.
 
 - IdP: Server metadata now advertises CIMD support when enabled.

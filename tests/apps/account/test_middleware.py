@@ -1,3 +1,4 @@
+from http import HTTPStatus
 from types import ModuleType
 
 import django
@@ -8,6 +9,7 @@ from django.urls import path, reverse, set_urlconf
 
 import pytest
 
+from allauth.account.decorators import reauthentication_required
 from allauth.account.internal.decorators import login_not_required
 from allauth.account.middleware import _should_redirect_accounts
 from allauth.core.exceptions import ImmediateHttpResponse
@@ -19,13 +21,41 @@ def raise_immediate_http_response(request):
     raise ImmediateHttpResponse(response=response)
 
 
-urlpatterns = [path("raise", raise_immediate_http_response)]
+@reauthentication_required
+def reauthentication_required_view(request):
+    return HttpResponse()
+
+
+urlpatterns = [
+    path("raise", raise_immediate_http_response),
+    path("reauthentication-required", reauthentication_required_view),
+]
 
 
 def test_immediate_http_response(settings, client):
     settings.ROOT_URLCONF = "tests.apps.account.test_middleware"
     resp = client.get("/raise")
     assert resp.content == b"raised-response"
+
+
+@pytest.mark.parametrize(
+    ("headless_only", "request_kwargs"),
+    [
+        pytest.param(True, {}),
+        pytest.param(False, {"content_type": "application/json"}),
+    ],
+)
+def test_reauthentication_required_for_api_request(
+    settings, auth_client, headless_only, request_kwargs
+):
+    settings.ROOT_URLCONF = "tests.apps.account.test_middleware"
+    settings.HEADLESS_ONLY = headless_only
+    settings.ACCOUNT_REAUTHENTICATION_REQUIRED = True
+
+    resp = auth_client.post("/reauthentication-required", **request_kwargs)
+
+    assert resp.status_code == HTTPStatus.UNAUTHORIZED
+    assert resp.json() == {}
 
 
 skip_django_lt_5 = pytest.mark.skipif(

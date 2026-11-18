@@ -5,16 +5,43 @@ from http import HTTPStatus
 from types import SimpleNamespace
 
 from django.core.exceptions import PermissionDenied
-from django.http import HttpRequest, HttpResponseRedirect
+from django.http import HttpRequest, HttpResponseRedirect, JsonResponse
 from django.urls import NoReverseMatch, reverse
 from django.utils.decorators import sync_and_async_middleware
 
 from asgiref.sync import iscoroutinefunction, sync_to_async
 
+from allauth import app_settings as allauth_settings
 from allauth.account.adapter import get_adapter
 from allauth.account.internal import flows
 from allauth.core import context
 from allauth.core.exceptions import ImmediateHttpResponse, ReauthenticationRequired
+from allauth.core.internal.httpkit import is_headless_request
+
+
+def _handle_reauthentication_required_on_api(request: HttpRequest):
+    if is_headless_request(request):
+        from allauth.headless.base.response import ReauthenticationResponse
+
+        return ReauthenticationResponse(request)
+    return JsonResponse(status=HTTPStatus.UNAUTHORIZED, data={})
+
+
+def _handle_reauthentication_required(request: HttpRequest):
+    if (
+        allauth_settings.HEADLESS_ONLY
+        or is_headless_request(request)
+        or get_adapter().is_ajax(request)
+    ):
+        return _handle_reauthentication_required_on_api(request)
+    if request.user.is_authenticated:
+        methods = get_adapter().get_reauthentication_methods(request.user)
+        if not methods:
+            raise PermissionDenied
+        redirect_url = methods[0]["url"]
+    else:
+        redirect_url = reverse("account_login")
+    return flows.reauthentication.suspend_request(request, redirect_url)
 
 
 @sync_and_async_middleware
@@ -46,14 +73,7 @@ def AccountMiddleware(get_response):
         if isinstance(exception, ImmediateHttpResponse):
             return exception.response
         elif isinstance(exception, ReauthenticationRequired):
-            if request.user.is_authenticated:
-                methods = get_adapter().get_reauthentication_methods(request.user)
-                if not methods:
-                    raise PermissionDenied
-                redirect_url = methods[0]["url"]
-            else:
-                redirect_url = reverse("account_login")
-            return flows.reauthentication.suspend_request(request, redirect_url)
+            return _handle_reauthentication_required(request)
 
     middleware.process_exception = process_exception
     return middleware

@@ -60,7 +60,7 @@ class RESTView(View):
             return
         try:
             data = json.loads(request.body.decode("utf8"))
-        except (UnicodeDecodeError, json.JSONDecodeError):
+        except (UnicodeDecodeError, json.JSONDecodeError, RecursionError):
             raise ImmediateHttpResponse(response=HttpResponseBadRequest())
         if not isinstance(data, dict):
             raise ImmediateHttpResponse(response=HttpResponseBadRequest())

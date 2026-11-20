@@ -29,6 +29,13 @@ Note worthy changes
   computationally expensive.
 
 
+Fixes
+-----
+
+- Headless: Sending a JSON payload nested more deeply than Python's recursion
+  limit to the headless endpoints resulted in a server error.
+
+
 Security notice
 ---------------
 

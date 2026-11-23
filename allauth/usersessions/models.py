@@ -28,7 +28,7 @@ if not allauth_settings.USERSESSIONS_ENABLED:
     )
 
 
-class UserSessionManager(models.Manager):
+class UserSessionManager(models.Manager["UserSession"]):
     def purge_and_list(self, user: AbstractBaseUser) -> list[UserSession]:
         ret = []
         sessions = UserSession.objects.filter(user_id=user.pk)
@@ -60,11 +60,23 @@ class UserSessionManager(models.Manager):
             user_agent=ua,
         )
 
+        # Fast path: 1 query -- normally, user-agent doesn't change, and IP
+        # should be relatively stable.
+        now = timezone.now()
+        updated = self.filter(
+            session_key=resolved_session.session_key,
+            user=defaults["user"],
+            ip=defaults["ip"],
+            user_agent=defaults["user_agent"],
+        ).update(last_seen_at=now)
+        if updated:
+            return
+
         from_session = None
         with transaction.atomic():
             from allauth.usersessions.signals import session_client_changed
 
-            user_session, created = UserSession.objects.get_or_create(
+            user_session, created = self.get_or_create(
                 session_key=resolved_session.session_key, defaults=defaults
             )
 
@@ -82,9 +94,11 @@ class UserSessionManager(models.Manager):
                 user_session.user = defaults["user"]
                 user_session.ip = defaults["ip"]
                 user_session.user_agent = defaults["user_agent"]
-                user_session.last_seen_at = timezone.now()
+                user_session.last_seen_at = now
 
-                user_session.save()
+                user_session.save(
+                    update_fields=("user", "ip", "user_agent", "last_seen_at")
+                )
 
         if from_session and (
             from_session.ip != user_session.ip

@@ -14,6 +14,8 @@ Note worthy changes
 - usersessions: Added a management command (``clear_usersessions``) for removing
   expired user sessions.
 
+- usersessions: Tracking session activity now requires fewer database queries.
+
 - socialaccount: The OpenID Connect provider now supports back-channel and RP-initiated
   logout.
 

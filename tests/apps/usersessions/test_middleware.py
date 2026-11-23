@@ -91,3 +91,19 @@ def test_mw_change_ip_and_useragent(rf, db, user):
 
     # Clean up signal connection
     session_client_changed.disconnect(signal_handler)
+
+
+@override_settings(USERSESSIONS_TRACK_ACTIVITY=True)
+def test_mw_unchanged_session_query_count(rf, db, user, django_assert_num_queries):
+    mw = UserSessionsMiddleware(lambda request: None)
+
+    def make_request():
+        request = rf.get("/", HTTP_USER_AGENT="User Agent", REMOTE_ADDR="1.1.1.1")
+        request.user = user
+        request.session = Mock(session_key="sess-123")
+        return request
+
+    mw(make_request())
+
+    with django_assert_num_queries(1):
+        mw(make_request())

@@ -97,7 +97,8 @@ class BaseConfirmAuthenticationCodeProcess(AbstractCodeVerificationProcess):
         )
 
     def resend(self) -> None:
-        self.generate_code()
-        self.send(skip_enumeration_mails=True)
+        with self.state_transaction():
+            self.generate_code()
+            self.send(skip_enumeration_mails=True)
         self.record_resend()
         self.persist()

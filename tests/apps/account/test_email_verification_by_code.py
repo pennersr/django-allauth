@@ -70,6 +70,54 @@ def test_signup(
     assert resp["location"] == expected_url
 
 
+@pytest.mark.parametrize(
+    "action_data",
+    [
+        {"action": "resend"},
+        {"action": "change", "email": "john2@example.com"},
+    ],
+    ids=["resend", "change"],
+)
+def test_rate_limited_action_preserves_verification_state(
+    client,
+    db,
+    settings,
+    password_factory,
+    get_last_email_verification_code,
+    mailoutbox,
+    enable_cache,
+    action_data,
+):
+    settings.ACCOUNT_EMAIL_VERIFICATION_SUPPORTS_RESEND = True
+    settings.ACCOUNT_EMAIL_VERIFICATION_SUPPORTS_CHANGE = True
+    settings.ACCOUNT_RATE_LIMITS = {"confirm_email": "1/m/ip"}
+    settings.SESSION_SAVE_EVERY_REQUEST = True
+    password = password_factory()
+    resp = client.post(
+        reverse("account_signup"),
+        {
+            "username": "johndoe",
+            "email": "john@example.com",
+            "password1": password,
+            "password2": password,
+        },
+    )
+    assert resp.status_code == HTTPStatus.FOUND
+    code = get_last_email_verification_code(client, mailoutbox)
+
+    resp = client.post(reverse("account_email_verification_sent"), action_data)
+    assert resp.status_code == HTTPStatus.TOO_MANY_REQUESTS
+    assert len(mailoutbox) == 1
+
+    resp = client.post(reverse("account_email_verification_sent"), {"code": code})
+    assert resp.status_code == HTTPStatus.FOUND
+    user = get_user_model().objects.get(username="johndoe")
+    assert user.email == "john@example.com"
+    assert EmailAddress.objects.filter(
+        user=user, email="john@example.com", verified=True
+    ).exists()
+
+
 def test_signup_prevent_enumeration(
     client, db, settings, password_factory, user, mailoutbox
 ):

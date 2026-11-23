@@ -122,18 +122,18 @@ class PhoneVerificationStageProcess(PhoneVerificationProcess):
         return process.abort_if_invalid()
 
     def change_to(self, phone: str, account_already_exists: bool) -> None:
-        self.state["account_already_exists"] = account_already_exists
-        self.record_change(phone=phone)
-        adapter = get_adapter()
+        with self.state_transaction():
+            self.state["account_already_exists"] = account_already_exists
+            self.record_change(phone=phone)
+            self.send(skip_enumeration_sms=False)
         if not account_already_exists:
             assert self.user  # nosec
-            adapter.set_phone(self.user, phone, False)
-        self.send(skip_enumeration_sms=False)
-        self.persist()
+            get_adapter().set_phone(self.user, phone, False)
 
     def resend(self) -> None:
-        self.record_resend()
-        self.send(skip_enumeration_sms=True)
+        with self.state_transaction():
+            self.record_resend()
+            self.send(skip_enumeration_sms=True)
 
     @property
     def can_resend(self) -> bool:

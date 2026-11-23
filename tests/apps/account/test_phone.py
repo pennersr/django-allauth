@@ -57,6 +57,31 @@ def test_signup_invalid_attempts(db, client, phone, sms_outbox, phone_only_setti
         assert resp.status_code == (HTTPStatus.OK if i < 2 else HTTPStatus.FOUND)
 
 
+def test_rate_limited_change_preserves_phone_verification_state(
+    db,
+    client,
+    phone,
+    phone_factory,
+    sms_outbox,
+    phone_only_settings,
+    settings,
+    enable_cache,
+):
+    settings.ACCOUNT_PHONE_VERIFICATION_SUPPORTS_CHANGE = True
+    settings.ACCOUNT_RATE_LIMITS = {"verify_phone": "1/m/ip"}
+    resp = client.post(reverse("account_signup"), data={"phone": phone})
+    assert resp.status_code == HTTPStatus.FOUND
+    user = get_adapter().get_user_by_phone(phone)
+
+    client.raise_request_exception = False
+    client.post(
+        reverse("account_verify_phone"),
+        data={"action": "change", "phone": phone_factory()},
+    )
+    assert len(sms_outbox) == 1
+    assert get_adapter().get_phone(user) == (phone, False)
+
+
 def test_login_sends_code(
     user_with_phone, client, phone_only_settings, phone, sms_outbox
 ):

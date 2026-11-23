@@ -2,12 +2,15 @@ from __future__ import annotations
 
 import abc
 import time
+from collections.abc import Iterator
+from contextlib import contextmanager
 from typing import Any
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.base_user import AbstractBaseUser
 
 from allauth.account.internal.userkit import str_to_user_id, user_id_to_str
+from allauth.core.exceptions import ImmediateHttpResponse, RateLimited
 
 
 class AbstractCodeVerificationProcess(abc.ABC):
@@ -75,6 +78,16 @@ class AbstractCodeVerificationProcess(abc.ABC):
 
     def is_valid(self) -> bool:
         return time.time() - self.state["at"] <= self.timeout
+
+    @contextmanager
+    def state_transaction(self) -> Iterator[None]:
+        prev_state = self.state.copy()
+        try:
+            yield
+        except (ImmediateHttpResponse, RateLimited):
+            self.state.clear()
+            self.state.update(prev_state)
+            raise
 
     @abc.abstractmethod
     def persist(self) -> None: ...  # noqa: E704

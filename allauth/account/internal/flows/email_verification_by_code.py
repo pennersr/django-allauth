@@ -131,17 +131,16 @@ class EmailVerificationProcess(AbstractCodeVerificationProcess):
         )
 
     def change_to(self, email: str, account_already_exists: bool) -> None:
-        self.state["account_already_exists"] = account_already_exists
-        self.generate_code()
-        if account_already_exists or not self.user:
-            pass
-        else:
+        with self.state_transaction():
+            self.state["account_already_exists"] = account_already_exists
+            self.generate_code()
+            self.record_change(email=email)
+            self.send()
+        if not account_already_exists and self.user:
             EmailAddress.objects.add_new_email(
                 context.request, self.user, email, send_verification=False
             )
             user_email(self.user, email, commit=True)
-        self.record_change(email=email)
-        self.send()
         self.persist()
 
     @property
@@ -151,8 +150,9 @@ class EmailVerificationProcess(AbstractCodeVerificationProcess):
         )
 
     def resend(self) -> None:
-        self.generate_code()
-        self.send(skip_enumeration_mails=True)
+        with self.state_transaction():
+            self.generate_code()
+            self.send(skip_enumeration_mails=True)
         self.record_resend()
         self.persist()
 

@@ -141,6 +141,8 @@ def truncate_ip(ip: str) -> str:
         return ip
 
     if isinstance(addr, ipaddress.IPv6Address):
+        if addr.ipv4_mapped:
+            return str(addr.ipv4_mapped)
         prefix = allauth_settings.RATE_LIMIT_IPV6_PREFIX
         network = ipaddress.IPv6Network(f"{addr}/{prefix}", strict=False)
         return str(network.network_address)

@@ -39,6 +39,10 @@ Fixes
 Security notice
 ---------------
 
+- Fixed rate limiting for IPv4-mapped IPv6 addresses, which could allow denial
+  of service in affected dual-stack deployments. Thanks to Nathan Cross for
+  reporting.
+
 - IdP: To mitigate SSRF risks, CIMD client metadata URLs are now restricted to
   hostnames listed in ``IDP_OIDC_CIMD_ALLOWED_HOSTS``. The allowlist is empty by
   default. Thanks to @b23r0 for reporting.

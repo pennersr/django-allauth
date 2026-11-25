@@ -260,16 +260,17 @@ def test_activity_signal_receives_original_request(
 
 @pytest.mark.parametrize("viewname", ACCESS_TOKEN_RESOURCE_VIEWNAMES)
 @pytest.mark.parametrize(
-    "track,stateful,queries",
+    "track,stateful,user_agent,queries",
     [
         # Stateful validation: session lookup + token user lookup.
-        (False, True, 2),
+        (False, True, "old-agent", 2),
         # Stateless validation: token user lookup; no session to track.
-        (True, False, 1),
-        # Stateful validation: session + token user lookups (2); activity
-        # tracking: savepoint + release (2), UserSession + related user
-        # lookups (2), and UserSession update (1).
-        (True, True, 7),
+        (True, False, "old-agent", 1),
+        # Stateful validation (2) and a single activity update (1).
+        (True, True, "old-agent", 3),
+        # A changed user agent adds session and user lookups (2), an
+        # update (1), and a savepoint and release (2) after the initial update.
+        (True, True, "new-agent", 8),
     ],
 )
 def test_authentication_query_counts(
@@ -279,12 +280,15 @@ def test_authentication_query_counts(
     viewname,
     track,
     stateful,
+    user_agent,
     queries,
 ):
     settings.USERSESSIONS_TRACK_ACTIVITY = track
     settings.HEADLESS_JWT_STATEFUL_VALIDATION_ENABLED = stateful
     with django_assert_num_queries(queries):
-        response = activity_request(viewname, "access-token", is_resource=True)
+        response = activity_request(
+            viewname, "access-token", is_resource=True, HTTP_USER_AGENT=user_agent
+        )
     assert response.status_code == HTTPStatus.OK
 
 
